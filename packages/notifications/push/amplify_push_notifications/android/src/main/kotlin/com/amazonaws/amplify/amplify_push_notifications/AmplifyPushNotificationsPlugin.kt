@@ -10,6 +10,8 @@ import android.content.SharedPreferences
 import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import com.amazonaws.amplify.AtomicResult
+import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsFlutterApi
+import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
 import com.google.firebase.messaging.FirebaseMessaging
@@ -27,8 +29,8 @@ import kotlinx.coroutines.*
 
 
 /** AmplifyPushNotificationsPlugin */
-open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
-    PluginRegistry.NewIntentListener {
+open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
+    PluginRegistry.NewIntentListener, PushNotificationsHostApi {
     private companion object {
         const val TAG = "AmplifyPushNotificationsPlugin"
 
@@ -59,32 +61,31 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
      */
     private lateinit var sharedPreferences: SharedPreferences
 
-    /**
-     * Method Channel for the plugin.
-     */
-    private lateinit var channel: MethodChannel
 
     /**
      * Main engine's binary messenger.
      */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
+    /**
+     * Flutter API interface.
+     */
+    private var flutterApi: PushNotificationsFlutterApi? = null
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
+        PushNotificationsHostApi.setup(mainBinaryMessenger, this)
+        flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
         applicationContext = flutterPluginBinding.applicationContext
         sharedPreferences =
             applicationContext.getSharedPreferences(
                 PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
                 Context.MODE_PRIVATE
             )
-        channel = MethodChannel(
-            flutterPluginBinding.binaryMessenger, PushNotificationPluginConstants.METHOD_CHANNEL
-        )
-        channel.setMethodCallHandler(this)
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
+        flutterApi = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -129,6 +130,9 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
             val payload = it.asPayload()
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
+                flutterApi?.onLaunchNotificationOpened(
+                    notificationHashMap as Map<Any, Any?>
+                ) { }
                 StreamHandlers.notificationOpened.send(
                     notificationHashMap
                 )
@@ -137,97 +141,105 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, MethodCallHandler, Ac
         return true
     }
 
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
-        val result = AtomicResult(_result, call.method)
-        try {
-            when (call.method) {
-                "initializeService" -> {
-                    val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(
-                        applicationContext,
-                        args,
-                        PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY
-                    )
-                    result.success(true)
-                }
-                "registerBgExternalCallback" -> {
-                    val args = call.arguments<ArrayList<*>>()
-                    registerCallbackToCache(
-                        applicationContext,
-                        args,
-                        PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY
-                    )
-                    result.success(true)
-                }
-                "getPermissionStatus" -> {
-                    val permission = PushNotificationPermission(applicationContext)
-                    // If permission has already been granted
-                    if (permission.hasRequiredPermission) {
-                        return result.success(PushNotificationPermissionStatus.granted.name)
-                    }
-                    // If the shouldShowRequestPermissionRationale flag is true, permission must have been
-                    // denied once (and only once) previously
-                    if (shouldShowRequestPermissionRationale()) {
-                        return result.success(PushNotificationPermissionStatus.shouldRequestWithRationale.name)
-                    }
-                    // If the shouldShowRequestPermissionRationale flag is false and the permission was
-                    // already previously denied then user has denied permissions twice
-                    if (sharedPreferences.getBoolean(
-                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
-                            false
-                        )
-                    ) {
-                        return result.success(PushNotificationPermissionStatus.denied.name)
-                    }
-                    // Otherwise it's never been requested (or user could have dismissed the request without
-                    // explicitly denying)
-                    result.success(PushNotificationPermissionStatus.notRequested.name)
-                }
-                "requestPermissions" -> {
-                    scope.launch {
-                        val res =
-                            PushNotificationPermission(applicationContext).requestPermission()
 
-                        if (res is PermissionRequestResult.Granted) {
-                            result.success(true)
-                        } else {
-                            // If permission was not granted and the shouldShowRequestPermissionRationale flag
-                            // is true then user must have denied for the first time. We will set the
-                            // wasPermissionPreviouslyDenied value to true only in this scenario since it's
-                            // possible to dismiss the permission request without explicitly denying as well.
-                            if (shouldShowRequestPermissionRationale()) {
-                                with(sharedPreferences.edit()) {
-                                    putBoolean(
-                                        PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
-                                        true
-                                    )
-                                    apply()
-                                }
-                            }
-                            result.success(false)
-                        }
+    override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
+        val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()
+        val permission = PushNotificationPermission(applicationContext)
+        // If permission has already been granted
+        if (permission.hasRequiredPermission) {
+            resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.GRANTED)
+            result.success(resultBuilder.build())
+        }
+        // If the shouldShowRequestPermissionRationale flag is true, permission must have been
+        // denied once (and only once) previously
+        if (shouldShowRequestPermissionRationale()) {
+            resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.SHOULD_REQUEST_WITH_RATIONALE)
+            result.success(resultBuilder.build())
+        }
+        // If the shouldShowRequestPermissionRationale flag is false and the permission was
+        // already previously denied then user has denied permissions twice
+        if (sharedPreferences.getBoolean(
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
+                false
+            )
+        ) {
+            resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.DENIED)
+            result.success(resultBuilder.build())
+        }
+        // Otherwise it's never been requested (or user could have dismissed the request without
+        // explicitly denying)
+        resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.NOT_REQUESTED)
+        result.success(resultBuilder.build())
+    }
+
+    override fun requestPermissions(
+        withPermissionOptions: PushNotificationsHostApiBindings.PermissionsOptions,
+        result: PushNotificationsHostApiBindings.Result<Boolean>
+    ) {
+        scope.launch {
+            val res =
+                PushNotificationPermission(applicationContext).requestPermission()
+
+            if (res is PermissionRequestResult.Granted) {
+                result.success(true)
+            } else {
+                // If permission was not granted and the shouldShowRequestPermissionRationale flag
+                // is true then user must have denied for the first time. We will set the
+                // wasPermissionPreviouslyDenied value to true only in this scenario since it's
+                // possible to dismiss the permission request without explicitly denying as well.
+                if (shouldShowRequestPermissionRationale()) {
+                    with(sharedPreferences.edit()) {
+                        putBoolean(
+                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
+                            true
+                        )
+                        apply()
                     }
                 }
+                result.success(false)
             }
-        } catch (exception: Exception) {
-            result.error("MethodChannelError", exception.message, exception.stackTrace)
         }
     }
 
+    override fun getBadgeCount(): Long {
+        throw NotImplementedError("Get badge count is not supported on Android")
+    }
+
+    override fun registerCallbackFunction(
+        callbackHandle: Long,
+        callbackType: PushNotificationsHostApiBindings.CallbackType
+    ) {
+        when(callbackType){
+            PushNotificationsHostApiBindings.CallbackType.DISPATCHER -> registerCallbackToCache(
+                applicationContext,
+                callbackHandle,
+                PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY
+            )
+            PushNotificationsHostApiBindings.CallbackType.EXTERNAL_FUNCTION -> registerCallbackToCache(
+                applicationContext,
+                callbackHandle,
+                PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY
+            )
+        }
+    }
+
+    override fun setBadgeCount(withBadgeCount: Long) {
+        throw NotImplementedError("Set badge count is not supported on Android")
+    }
+
+
     private fun registerCallbackToCache(
         context: Context,
-        args: ArrayList<*>?,
+        callbackHandle: Long,
         callbackKey: String,
     ) {
-        args?.let {
             Log.i(TAG, "Registering callback function with key $callbackKey")
-            val callbackHandle = it[0] as Long
             context.getSharedPreferences(
                 PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
                 Context.MODE_PRIVATE
             ).edit()
                 .putLong(callbackKey, callbackHandle).apply()
-        }
+
     }
 
     private fun refreshToken() {

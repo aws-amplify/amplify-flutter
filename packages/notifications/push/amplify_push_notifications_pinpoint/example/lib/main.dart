@@ -134,45 +134,45 @@ class _MyAppState extends State<MyApp> {
               const Divider(
                 height: 20,
               ),
-              FutureBuilder<int>(
-                future: getAndUpdateCallbackCounts(),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<int> snapshot,
-                ) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return ListTile(
-                      title: Text(
-                        'Background callback count: ${snapshot.data}',
-                      ),
-                    );
-                  } else {
-                    return const ListTile(
-                      title: Text(
-                        'Background callback count:0',
-                      ),
-                    );
-                  }
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: const Text('Refresh count'),
-              ),
-              headerText('Configuration APIs'),
-              ElevatedButton(
-                onPressed: () async {
-                  await _configureAmplify();
-                },
-                child: const Text('configure'),
-              ),
-              if (isConfigured)
-                const Text('Push notification plugin has been configured'),
-              const Divider(
-                height: 20,
-              ),
+              // FutureBuilder<int>(
+              //   future: getAndUpdateCallbackCounts(),
+              //   builder: (
+              //     BuildContext context,
+              //     AsyncSnapshot<int> snapshot,
+              //   ) {
+              //     if (snapshot.connectionState == ConnectionState.done) {
+              //       return ListTile(
+              //         title: Text(
+              //           'Background callback count: ${snapshot.data}',
+              //         ),
+              //       );
+              //     } else {
+              //       return const ListTile(
+              //         title: Text(
+              //           'Background callback count:0',
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     setState(() {});
+              //   },
+              //   child: const Text('Refresh count'),
+              // ),
+              // headerText('Configuration APIs'),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     await _configureAmplify();
+              //   },
+              //   child: const Text('configure'),
+              // ),
+              // if (isConfigured)
+              //   const Text('Push notification plugin has been configured'),
+              // const Divider(
+              //   height: 20,
+              // ),
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -206,22 +206,18 @@ class _MyAppState extends State<MyApp> {
               headerText('Notification Handling APIs'),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    final foregroundStream = Amplify
-                        .Notifications.Push.onNotificationReceivedInForeground;
-                    foregroundStream.listen((event) {
-                      setState(() {
-                        foregroundMessage = event;
-                      });
-                    });
+                  final foregroundStream = Amplify
+                      .Notifications.Push.onNotificationReceivedInForeground;
+                  foregroundStream.listen((event) {
                     setState(() {
-                      isForegroundListernerInitialized = true;
+                      foregroundMessage = event;
                     });
-                  } on Exception {
-                    // print(e.toString());
-                  }
+                  });
+                  setState(() {
+                    isForegroundListernerInitialized = true;
+                  });
                 },
-                child: const Text('onForegroundNotificationReceived'),
+                child: const Text('onNotificationReceivedInForeground'),
               ),
               if (isForegroundListernerInitialized)
                 const Text('Foreground event listener initialized!'),

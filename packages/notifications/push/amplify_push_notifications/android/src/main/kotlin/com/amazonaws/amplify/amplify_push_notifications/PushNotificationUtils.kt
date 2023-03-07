@@ -15,10 +15,6 @@ import com.google.firebase.messaging.RemoteMessage
 
 private const val TAG = "PushNotificationUtils"
 
-enum class PushNotificationPermissionStatus {
-    notRequested, shouldRequestWithRationale, granted, denied,
-}
-
 fun NotificationPayload.asChannelMap(): Map<String, Any?> {
     return mapOf(
         "title" to title,

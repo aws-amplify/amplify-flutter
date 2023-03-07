@@ -28,13 +28,7 @@ enum class NativeEvent {
 
 data class PushNotificationsEvent(
     val event: NativeEvent, val payload: Map<String, Any?>
-) {
-    fun toMap(): Map<String, Any> {
-        return mapOf(
-            "eventType" to event.eventName, "payload" to payload
-        )
-    }
-}
+)
 
 class PushNotificationEventsStreamHandler constructor(
     associatedNativeEvent: NativeEvent
@@ -70,7 +64,7 @@ class PushNotificationEventsStreamHandler constructor(
 
     fun send(payload: Map<String, Any?>) {
         val event = PushNotificationsEvent(_associatedNativeEvent, payload)
-        eventSink?.success(event.toMap()) ?: run {
+        eventSink?.success(payload) ?: run {
             eventQueue.add(event)
         }
     }
@@ -104,7 +98,7 @@ class PushNotificationEventsStreamHandler constructor(
                             exception["details"] as String?,
                         )
                     } else {
-                        it.success(eventFromQueue.toMap())
+                        it.success(eventFromQueue.payload)
                     }
                 }
             }
