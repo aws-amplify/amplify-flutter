@@ -108,9 +108,9 @@ class _AuthenticatorPhoneFieldState<FieldType>
 
   @override
   Iterable<String>? get autofillHints =>
-      autofillHints ??
+      widget.autofillHints ??
       const [
-        AutofillHints.telephoneNumber,
+        AutofillHints.username,
       ];
 
   @override
