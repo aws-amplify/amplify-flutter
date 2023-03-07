@@ -1,3 +1,12 @@
+## 1.0.0-next.6
+
+### Breaking Changes
+- chore(core)!: Chain stack traces for state machines
+- feat(api)!: custom primary key support for GraphQL model helpers ([#2606](https://github.com/aws-amplify/amplify-flutter/pull/2606))
+
+### Fixes
+- fix(auth): Await `signInUri` in Hosted UI platform ([#2706](https://github.com/aws-amplify/amplify-flutter/pull/2706))
+
 ## 1.0.0-next.5+1
 
 - Minor bug fixes and improvements

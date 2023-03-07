@@ -1,3 +1,8 @@
+## 1.0.0-next.6
+
+### Fixes
+- fix(auth): Await `signInUri` in Hosted UI platform ([#2706](https://github.com/aws-amplify/amplify-flutter/pull/2706))
+
 ## 1.0.0-next.5+1
 
 - Minor bug fixes and improvements

@@ -1,3 +1,11 @@
+## 0.7.0
+
+### Fixes
+- fix(auth): Transform session expired exceptions ([#2688](https://github.com/aws-amplify/amplify-flutter/pull/2688))
+
+### Breaking Changes
+- chore(auth)!: Chain stack traces in state machine
+
 ## 0.6.0+1
 
 - Minor bug fixes and improvements

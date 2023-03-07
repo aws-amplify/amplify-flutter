@@ -1,3 +1,21 @@
+## 1.0.0-next.6
+
+### Breaking Changes
+- chore(auth)!: Chain stack traces in state machine
+- chore(core)!: Chain stack traces for state machines
+- feat(api)!: custom primary key support for GraphQL model helpers ([#2606](https://github.com/aws-amplify/amplify-flutter/pull/2606))
+
+### Fixes
+- fix(api): early call of Amplify creates wrong instance of AmplifyClass
+- fix(api): write null values in ModelMutations.create() unless owner field ([#2679](https://github.com/aws-amplify/amplify-flutter/pull/2679))
+- fix(auth): Transform session expired exceptions ([#2688](https://github.com/aws-amplify/amplify-flutter/pull/2688))
+- fix(storage): GetUrl signing
+
+### Features
+- feat(api): GraphQL Subscription Where Filter ([#2650](https://github.com/aws-amplify/amplify-flutter/pull/2650))
+- feat(storage): optimize part size for multipart upload
+- feat(storage): web implementation of transfer database using local storage ([#2631](https://github.com/aws-amplify/amplify-flutter/pull/2631))
+
 ## 1.0.0-next.5+1
 
 ### Fixes

@@ -66,10 +66,10 @@ class $DriftQueuedItemsTable extends DriftQueuedItems
 }
 
 class DriftQueuedItem extends DataClass implements Insertable<DriftQueuedItem> {
-  /// Identifies object in the SQL database
+  /// Identifies object in the SQL database.
   final int id;
 
-  /// The string value stored for this object
+  /// The string value stored for this object.
   final String value;
   const DriftQueuedItem({required this.id, required this.value});
   @override
