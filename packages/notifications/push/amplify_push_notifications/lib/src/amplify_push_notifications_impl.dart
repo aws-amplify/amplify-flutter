@@ -268,10 +268,12 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
+    final notification = PushNotificationMessage.fromJson(payload);
+
     await Future.wait(
       _onNotificationReceivedInBackgroundCallbacks.map(
         (callback) async {
-          await callback(PushNotificationMessage.fromJson(payload));
+          await callback(notification);
         },
       ),
     );
@@ -279,8 +281,10 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
 
   @override
   void onLaunchNotificationOpened(Map<Object?, Object?> payload) {
+    final notification = PushNotificationMessage.fromJson(payload);
+
     for (final callback in _onLaunchNotificationOpenedCallbacks) {
-      callback(PushNotificationMessage.fromJson(payload));
+      callback(notification);
     }
 
     // these callbacks are called only once as onLaunchNotificationOpened can

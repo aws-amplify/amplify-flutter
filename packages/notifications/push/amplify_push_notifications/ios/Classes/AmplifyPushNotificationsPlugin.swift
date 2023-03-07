@@ -73,7 +73,7 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
                 completion(
                     nil,
                     FlutterError(
-                        code: "RequsetPermissionsError",
+                        code: "RequestPermissionsError",
                         message: "Error occurred requesting notitication center authorization.",
                         details: error.localizedDescription
                     )
