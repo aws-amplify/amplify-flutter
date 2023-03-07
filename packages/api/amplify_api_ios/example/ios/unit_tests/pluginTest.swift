@@ -13,7 +13,7 @@ class ApiPluginUnitTests: XCTestCase {
     func test_add_plugin_no_error() async throws {
         let pluginUnderTest = SwiftAmplifyApiPlugin()
         let result = await pluginUnderTest.addPluginAuthProvidersList([])
-        XCTAssertNil(result)
+        XCTAssertEqual(result, 1)
     }
 }
 
