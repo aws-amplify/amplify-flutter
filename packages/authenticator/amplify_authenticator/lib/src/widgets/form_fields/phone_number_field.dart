@@ -14,12 +14,14 @@ class AuthenticatorPhoneField<FieldType extends Enum>
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           requiredOverride: requiredOverride,
+          autofillHints: autofillHints,
         );
 
   final bool? enabled;
@@ -94,6 +96,13 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
       )(phoneNumber);
     };
   }
+
+  @override
+  Iterable<String>? get autofillHints =>
+      widget.autofillHints ??
+      const [
+        AutofillHints.username,
+      ];
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

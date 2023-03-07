@@ -226,6 +226,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
+        autofillHints: autofillHints,
       );
     }
     return TextFormField(
@@ -249,6 +250,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
       keyboardType: keyboardType,
       obscureText: false,
       onFieldSubmitted: onFieldSubmitted,
+      autofillHints: autofillHints,
     );
   }
 }

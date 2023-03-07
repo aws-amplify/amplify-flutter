@@ -45,6 +45,8 @@ mixin AuthenticatorTextField<FieldType extends Enum,
           keyboardType: keyboardType,
           obscureText: obscureText,
           onFieldSubmitted: onFieldSubmitted,
+          textAlignVertical: TextAlignVertical.center,
+          autofillHints: autofillHints,
         );
       },
     );

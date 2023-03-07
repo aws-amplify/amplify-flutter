@@ -119,6 +119,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                             _searchVal = searchVal;
                           });
                         },
+                        autofillHints: const [
+                          AutofillHints.countryName,
+                        ],
                       ),
                     ),
                     const SizedBox(height: 10),

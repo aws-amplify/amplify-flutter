@@ -20,6 +20,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -28,12 +29,14 @@ abstract class ConfirmSignUpFormField<FieldValue>
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   /// {@macro amplify_authenticator.username_form_field}
   static ConfirmSignUpFormField username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignUpUsernameField(
         key: key ?? keyUsernameConfirmSignUpFormField,
@@ -41,12 +44,14 @@ abstract class ConfirmSignUpFormField<FieldValue>
         hintTextKey: InputResolverKey.usernameHint,
         field: ConfirmSignUpField.username,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   /// Creates a verificationCode component.
   static ConfirmSignUpFormField verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignUpTextField(
         key: key ?? keyCodeConfirmSignUpFormField,
@@ -54,6 +59,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignUpField.code,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   @override
@@ -110,6 +116,21 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue>
         return null;
     }
   }
+
+  @override
+  Iterable<String>? get autofillHints {
+    if (widget.autofillHints != null) return widget.autofillHints;
+    switch (widget.field) {
+      case ConfirmSignUpField.username:
+        return const [
+          AutofillHints.newUsername,
+        ];
+      case ConfirmSignUpField.code:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+    }
+  }
 }
 
 class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
@@ -121,6 +142,7 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
     String? title,
     String? hintText,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -129,6 +151,7 @@ class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -198,6 +221,7 @@ class _ConfirmSignUpUsernameField
     String? title,
     String? hintText,
     FormFieldValidator<UsernameInput>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -206,6 +230,7 @@ class _ConfirmSignUpUsernameField
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   @override
