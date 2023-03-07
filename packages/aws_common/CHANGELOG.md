@@ -1,3 +1,8 @@
+## 0.4.2
+
+### Features
+- feat(aws_common): add openRead API for AWSFile
+
 ## 0.4.1+1
 
 - Minor bug fixes and improvements

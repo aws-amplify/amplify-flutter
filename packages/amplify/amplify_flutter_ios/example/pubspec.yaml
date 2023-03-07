@@ -8,19 +8,19 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_flutter_ios: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_flutter_ios: ">=1.0.0-next.6 <1.0.0-next.7"
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  amplify_analytics_pinpoint: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_api: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_auth_cognito: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_core: ">=1.0.0-next.5 <1.0.0-next.6"
-  amplify_datastore: ">=1.0.0-next.5 <1.0.0-next.6"
-  amplify_flutter: ">=1.0.0-next.5+1 <1.0.0-next.6"
+  amplify_analytics_pinpoint: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_api: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_auth_cognito: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_core: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_datastore: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_flutter: ">=1.0.0-next.6 <1.0.0-next.7"
   amplify_lints: ^2.0.0
-  amplify_storage_s3: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_storage_s3: ">=1.0.0-next.6 <1.0.0-next.7"
   amplify_test:
     path: ../../../amplify_test
   flutter_test:

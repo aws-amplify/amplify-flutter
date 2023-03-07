@@ -1,3 +1,12 @@
+## 1.0.0-next.6
+
+### Features
+- feat(storage): optimize part size for multipart upload
+- feat(storage): web implementation of transfer database using local storage ([#2631](https://github.com/aws-amplify/amplify-flutter/pull/2631))
+
+### Fixes
+- fix(storage): GetUrl signing
+
 ## 1.0.0-next.5
 
 - Minor bug fixes and improvements
