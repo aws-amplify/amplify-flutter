@@ -135,6 +135,10 @@ jobs:
         package: package,
         repoRelativePath: repoRelativePath,
       );
+      await generateIosUnitTestWorkflow(
+        package: package,
+        repoRelativePath: repoRelativePath,
+      );
     }
   }
 
@@ -306,5 +310,92 @@ jobs:
 ''';
 
     androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
+  }
+
+  /// If a package has iOS unit tests, generate a separate workflow for them.
+  Future<void> generateIosUnitTestWorkflow({
+    required PackageInfo package,
+    required String repoRelativePath,
+  }) async {
+    const iosWorkflow = 'flutter_ios.yaml';
+    final platformPackageName = '${package.name}_ios'; // federated _ios package
+    final platformPackagePath = '${package.path}_ios';
+    final appFacingIosTestDir =
+        Directory(p.join(package.path, 'example', 'ios', 'unit_tests'));
+    final platformIosPackageDir = Directory(platformPackagePath);
+    final platformIosPackageTestDir = Directory(
+      p.join(platformPackagePath, 'example', 'ios', 'unit_tests'),
+    ); // federated _ios package
+
+    final appFacingPackageIosTestsDirExists = appFacingIosTestDir.existsSync();
+    final platformPackageDirExists = platformIosPackageDir.existsSync();
+    final platformPackageIosTestDirExists =
+        platformIosPackageTestDir.existsSync();
+    final hasIosTests =
+        (appFacingPackageIosTestsDirExists || platformPackageIosTestDirExists);
+
+    if (package.flavor != PackageFlavor.flutter || !hasIosTests) {
+      return;
+    }
+
+    final iosWorkflowFilepath = p.join(
+      rootDir.path,
+      '.github',
+      'workflows',
+      '${package.name}_ios.yaml',
+    );
+
+    final iosPlatformPackagePaths = [
+      if (platformPackageDirExists) '${repoRelativePath}_ios/**/*'
+    ];
+    final iosWorkflowPaths = [
+      '.github/workflows/$iosWorkflow',
+      p.relative(iosWorkflowFilepath, from: rootDir.path)
+    ];
+    final iosPathString = (iosPlatformPackagePaths + iosWorkflowPaths)
+        .map((path) => "      - '$path'")
+        .join('\n');
+
+    // Some packages have their tests in the federated package, so the tests should
+    // run from there instead of app-facing package.
+    final packageNameToTest =
+        platformPackageIosTestDirExists ? platformPackageName : package.name;
+    final relativePathToTest = platformPackageIosTestDirExists
+        ? '${repoRelativePath}_ios'
+        : repoRelativePath;
+
+    final iosWorkflowFile = File(iosWorkflowFilepath);
+    final iosWorkflowContents = '''
+# Generated with aft. To update, run: `aft generate workflows`
+name: ${package.name} iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+      - chore/ios-unit # TEMP
+  pull_request:
+    paths:
+      - '$repoRelativePath/**/*.yaml'
+      - '$repoRelativePath/ios/**/*'
+      - '$repoRelativePath/example/ios/**/*'
+$iosPathString
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/$iosWorkflow
+    with:
+      working-directory: $relativePathToTest/example/ios
+      package-name: $packageNameToTest
+''';
+
+    iosWorkflowFile.writeAsStringSync(iosWorkflowContents);
   }
 }

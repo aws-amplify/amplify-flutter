@@ -1,0 +1,30 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_auth_cognito iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+      - chore/ios-unit # TEMP
+  pull_request:
+    paths:
+      - 'packages/auth/amplify_auth_cognito/**/*.yaml'
+      - 'packages/auth/amplify_auth_cognito/ios/**/*'
+      - 'packages/auth/amplify_auth_cognito/example/ios/**/*'
+      - 'packages/auth/amplify_auth_cognito_ios/**/*'
+      - '.github/workflows/flutter_ios.yaml'
+      - '.github/workflows/amplify_auth_cognito_ios.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_ios.yaml
+    with:
+      working-directory: packages/auth/amplify_auth_cognito/example/ios
+      package-name: amplify_auth_cognito
