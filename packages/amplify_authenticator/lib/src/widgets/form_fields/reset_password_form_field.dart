@@ -30,41 +30,49 @@ class ResetPasswordFormField extends AuthenticatorFormField<ResetPasswordField,
     InputResolverKey? titleKey,
     InputResolverKey? hintTextKey,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
           titleKey: titleKey,
           hintTextKey: hintTextKey,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   const ResetPasswordFormField.verificationCode({
     Key? key,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyVerificationCodeResetPasswordFormField,
           field: ResetPasswordField.verificationCode,
           titleKey: InputResolverKey.verificationCodeTitle,
           hintTextKey: InputResolverKey.verificationCodeHint,
+          autofillHints: autofillHints,
         );
 
   const ResetPasswordFormField.newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyPasswordResetPasswordFormField,
           field: ResetPasswordField.newPassword,
           titleKey: InputResolverKey.newPasswordTitle,
           hintTextKey: InputResolverKey.newPasswordHint,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   const ResetPasswordFormField.passwordConfirmation({
     Key? key,
+    Iterable<String>? autofillHints,
   }) : this._(
           key: key ?? keyPasswordConfirmationResetPasswordFormField,
           field: ResetPasswordField.passwordConfirmation,
           titleKey: InputResolverKey.passwordConfirmationTitle,
           hintTextKey: InputResolverKey.passwordConfirmationHint,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -166,6 +174,22 @@ class _ResetPasswordFormFieldState extends AuthenticatorFormFieldState<
           context: context,
           inputResolver: stringResolver.inputs,
         );
+    }
+  }
+
+  @override
+  Iterable<String>? get autofillHints {
+    if (widget.autofillHints != null) return widget.autofillHints;
+    switch (widget.field) {
+      case ResetPasswordField.verificationCode:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+      case ResetPasswordField.newPassword:
+      case ResetPasswordField.passwordConfirmation:
+        return const [
+          AutofillHints.newPassword,
+        ];
     }
   }
 }

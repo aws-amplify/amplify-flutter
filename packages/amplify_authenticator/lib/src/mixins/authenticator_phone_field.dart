@@ -129,6 +129,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                           _searchVal = searchVal;
                         });
                       },
+                      autofillHints: const [
+                        AutofillHints.countryName,
+                      ],
                     ),
                   ),
                   const SizedBox(height: 10),
