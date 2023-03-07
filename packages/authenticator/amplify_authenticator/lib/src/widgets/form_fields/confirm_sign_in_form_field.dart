@@ -22,6 +22,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     FormFieldValidator<FieldValue>? validator,
     CognitoUserAttributeKey? customAttributeKey,
     bool? required,
+    Iterable<String>? autofillHints,
   })  : _customAttributeKey = customAttributeKey,
         super._(
           key: key,
@@ -32,12 +33,14 @@ abstract class ConfirmSignInFormField<FieldValue>
           hintText: hintText,
           validator: validator,
           requiredOverride: required,
+          autofillHints: autofillHints,
         );
 
   /// Creates a new password component.
   static ConfirmSignInFormField newPassword({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyNewPasswordConfirmSignInFormField,
@@ -45,12 +48,14 @@ abstract class ConfirmSignInFormField<FieldValue>
         hintTextKey: InputResolverKey.newPasswordHint,
         field: ConfirmSignInField.newPassword,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   /// Creates a new password component.
   static ConfirmSignInFormField confirmNewPassword({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyConfirmNewPasswordConfirmSignInFormField,
@@ -58,6 +63,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         hintTextKey: InputResolverKey.passwordConfirmationHint,
         field: ConfirmSignInField.confirmNewPassword,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   /// Creates an auth answer component.
@@ -66,6 +72,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     String? title,
     String? hintText,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyCustomChallengeConfirmSignInFormField,
@@ -77,12 +84,14 @@ abstract class ConfirmSignInFormField<FieldValue>
             hintText == null ? InputResolverKey.customAuthChallengeHint : null,
         field: ConfirmSignInField.customChallenge,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   /// Creates a verification code component.
   static ConfirmSignInFormField verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyCodeConfirmSignInFormField,
@@ -90,6 +99,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: ConfirmSignInField.code,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   /// Creates an address component.
@@ -97,6 +107,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyAddressConfirmSignInFormField,
@@ -105,6 +116,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.address,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a birthdate component.
@@ -112,6 +124,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInDateField(
         key: key ?? keyBirthdateConfirmSignInFormField,
@@ -120,6 +133,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.birthdate,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates an email component.
@@ -127,6 +141,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyEmailConfirmSignInFormField,
@@ -135,6 +150,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.email,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a familyName component.
@@ -142,6 +158,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyFamilyNameConfirmSignInFormField,
@@ -150,6 +167,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.familyName,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a gender component.
@@ -157,6 +175,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyGenderConfirmSignInFormField,
@@ -165,6 +184,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.gender,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a givenName component.
@@ -172,6 +192,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyGivenNameConfirmSignInFormField,
@@ -180,6 +201,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.givenName,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a middleName component.
@@ -187,6 +209,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyMiddleNameConfirmSignInFormField,
@@ -195,6 +218,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.middleName,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a name component.
@@ -202,6 +226,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyNameConfirmSignInFormField,
@@ -210,6 +235,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.name,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a nickname component.
@@ -217,6 +243,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyNicknameConfirmSignInFormField,
@@ -225,6 +252,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.nickname,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a phoneNumber component.
@@ -232,6 +260,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInPhoneField(
         key: key ?? keyPhoneNumberConfirmSignInFormField,
@@ -240,6 +269,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.phoneNumber,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a preferredUsername component.
@@ -247,6 +277,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key ?? keyPreferredUsernameConfirmSignInFormField,
@@ -255,6 +286,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         field: ConfirmSignInField.preferredUsername,
         validator: validator,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Creates a custom attribute component.
@@ -265,6 +297,7 @@ abstract class ConfirmSignInFormField<FieldValue>
     String? hintText,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) =>
       _ConfirmSignInTextField(
         key: key,
@@ -274,6 +307,7 @@ abstract class ConfirmSignInFormField<FieldValue>
         validator: validator,
         attributeKey: attributeKey,
         required: required,
+        autofillHints: autofillHints,
       );
 
   /// Custom Cognito attribute key.
@@ -387,6 +421,69 @@ abstract class _ConfirmSignInFormFieldState<FieldValue>
   }
 
   @override
+  Iterable<String>? get autofillHints {
+    if (widget.autofillHints != null) return widget.autofillHints;
+    switch (widget.field) {
+      case ConfirmSignInField.code:
+        return const [
+          AutofillHints.oneTimeCode,
+        ];
+      case ConfirmSignInField.newPassword:
+      case ConfirmSignInField.confirmNewPassword:
+        return const [
+          AutofillHints.newPassword,
+        ];
+      case ConfirmSignInField.address:
+        return const [
+          AutofillHints.fullStreetAddress,
+        ];
+      case ConfirmSignInField.email:
+        return const [
+          AutofillHints.email,
+        ];
+      case ConfirmSignInField.name:
+        return const [
+          AutofillHints.name,
+        ];
+      case ConfirmSignInField.phoneNumber:
+        return const [
+          AutofillHints.telephoneNumber,
+        ];
+      case ConfirmSignInField.birthdate:
+        return const [
+          AutofillHints.newUsername,
+        ];
+      case ConfirmSignInField.familyName:
+        return const [
+          AutofillHints.familyName,
+        ];
+      case ConfirmSignInField.gender:
+        return const [
+          AutofillHints.gender,
+        ];
+      case ConfirmSignInField.givenName:
+        return const [
+          AutofillHints.givenName,
+        ];
+      case ConfirmSignInField.middleName:
+        return const [
+          AutofillHints.middleName,
+        ];
+      case ConfirmSignInField.nickname:
+        return const [
+          AutofillHints.nickname,
+        ];
+      case ConfirmSignInField.preferredUsername:
+        return const [
+          AutofillHints.newUsername,
+        ];
+      case ConfirmSignInField.custom:
+      case ConfirmSignInField.customChallenge:
+        return null;
+    }
+  }
+
+  @override
   int get errorMaxLines {
     switch (widget.field) {
       case ConfirmSignInField.newPassword:
@@ -409,6 +506,7 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -419,6 +517,7 @@ class _ConfirmSignInPhoneField extends ConfirmSignInFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -471,6 +570,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -481,6 +581,7 @@ class _ConfirmSignInTextField extends ConfirmSignInFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -670,6 +771,7 @@ class _ConfirmSignInDateField extends ConfirmSignInFormField<String> {
     CognitoUserAttributeKey? attributeKey,
     FormFieldValidator<String>? validator,
     bool? required,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -680,6 +782,7 @@ class _ConfirmSignInDateField extends ConfirmSignInFormField<String> {
           validator: validator,
           customAttributeKey: attributeKey,
           required: required,
+          autofillHints: autofillHints,
         );
 
   @override

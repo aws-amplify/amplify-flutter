@@ -73,6 +73,7 @@ mixin AuthenticatorDateField<FieldType extends Enum,
       keyboardType: TextInputType.datetime,
       controller: _controller,
       onFieldSubmitted: onFieldSubmitted,
+      autofillHints: autofillHints,
     );
   }
 }
