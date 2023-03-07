@@ -26,5 +26,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_ios.yaml
     with:
-      working-directory: packages/api/amplify_api/example/ios
-      package-name: amplify_api
+      working-directory: packages/api/amplify_api_ios/example/ios
+      package-name: amplify_api_ios
