@@ -11,7 +11,7 @@ on:
         required: true
         type: string
 
-# Cancels in-progress job when there is another push to same ref (e.g. a PR).
+# Cancels in-progress job when there is another push to same ref.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
