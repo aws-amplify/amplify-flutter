@@ -12,7 +12,7 @@ on:
       - 'packages/secure_storage/amplify_secure_storage/android/**/*'
       - 'packages/secure_storage/amplify_secure_storage/example/android/**/*'
       - '.github/workflows/flutter_android.yaml'
-      - '.github/workflows/amplify_secure_storage_android.yaml'
+      - '.github/workflows/amplify_secure_storage.android.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

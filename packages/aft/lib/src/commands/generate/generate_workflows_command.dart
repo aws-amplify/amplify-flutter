@@ -170,7 +170,7 @@ jobs:
       rootDir.path,
       '.github',
       'workflows',
-      '${package.name}_android.yaml',
+      '${package.name}.android.yaml',
     );
 
     final androidPlatformPackagePaths = [
