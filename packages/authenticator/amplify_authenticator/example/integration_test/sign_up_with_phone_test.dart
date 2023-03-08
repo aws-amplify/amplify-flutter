@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -14,6 +15,7 @@ import 'utils/test_utils.dart';
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-phone.feature
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -31,6 +33,16 @@ void main() {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
 
       // Then I see "Phone Number" as an input field
@@ -38,6 +50,8 @@ void main() {
 
       // And I don't see "Username" as an input field
       signUpPage.expectPlainUsernameNotPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
@@ -46,10 +60,22 @@ void main() {
       SignUpPage signUpPage = SignUpPage(tester: tester);
       SignInPage signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
 
       // Then I see "Email" as an "email" field
       signUpPage.expectEmailIsPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign up with valid phone number & password
@@ -59,6 +85,17 @@ void main() {
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
 
       //   // TODO: Clarify requirements
@@ -88,6 +125,8 @@ void main() {
       // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+      await tester.bloc.close();
     });
 
     testWidgets('Sign up with a non US number', (tester) async {
@@ -96,6 +135,17 @@ void main() {
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.signUp,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
+
       await signInPage.navigateToSignUp();
 
       final phoneNumber = generateFrenchPhoneNumber();
@@ -124,6 +174,8 @@ void main() {
       // Then I see "Confirmation Code"
       await confirmSignUpPage.expectConfirmSignUpIsPresent();
       confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Username field autocompletes username

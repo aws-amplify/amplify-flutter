@@ -279,7 +279,7 @@ class AuthenticatorState extends ChangeNotifier {
     notifyListeners();
   }
 
-  CognitoUserAttributeKey _attributeKeyToVerify = CognitoUserAttributeKey.email;
+  late CognitoUserAttributeKey _attributeKeyToVerify;
   CognitoUserAttributeKey get attributeKeyToVerify => _attributeKeyToVerify;
 
   set attributeKeyToVerify(CognitoUserAttributeKey attributeKey) {

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -13,6 +14,7 @@ import 'utils/test_utils.dart';
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-email-with-lambda-trigger.feature
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -34,6 +36,16 @@ void main() {
         'Login mechanism set to "email"',
         (WidgetTester tester) async {
           await loadAuthenticator(tester: tester);
+
+          expect(
+            tester.bloc.stream,
+            emitsInOrder([
+              UnauthenticatedState.signIn,
+              UnauthenticatedState.signUp,
+              emitsDone,
+            ]),
+          );
+
           await SignInPage(tester: tester).navigateToSignUp();
           final po = SignUpPage(tester: tester);
 
@@ -45,6 +57,8 @@ void main() {
 
           // And I don't see "Phone Number" as an input field
           po.expectUsername(label: 'Phone Number', isPresent: false);
+
+          await tester.bloc.close();
         },
       );
 
@@ -53,6 +67,17 @@ void main() {
         'Sign up with a new email & password with confirmed info',
         (WidgetTester tester) async {
           await loadAuthenticator(tester: tester);
+
+          expect(
+            tester.bloc.stream,
+            emitsInOrder([
+              UnauthenticatedState.signIn,
+              UnauthenticatedState.signUp,
+              isA<AuthenticatedState>(),
+              emitsDone,
+            ]),
+          );
+
           await SignInPage(tester: tester).navigateToSignUp();
           final po = SignUpPage(tester: tester);
 
@@ -85,6 +110,8 @@ void main() {
 
           // Then I see "Sign out"
           await po.expectAuthenticated();
+
+          await tester.bloc.close();
         },
       );
     },

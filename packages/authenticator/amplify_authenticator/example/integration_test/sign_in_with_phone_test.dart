@@ -16,6 +16,7 @@ import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -42,6 +43,15 @@ void main() {
     testWidgets('Sign in with unknown credentials', (tester) async {
       final phoneNumber = generateUSPhoneNumber();
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
 
       // When I select my country code
@@ -58,6 +68,8 @@ void main() {
 
       // Then I see "User does not exist"
       signInPage.expectUserNotFound();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with unconfirmed credentials
@@ -75,6 +87,16 @@ void main() {
         ),
       );
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.confirmSignUp,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
@@ -94,6 +116,8 @@ void main() {
 
       // Then I see "Confirmation Code"
       confirmSignUpPage.expectConfirmationCodeIsPresent();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with confirmed credentials then sign out
@@ -114,6 +138,17 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -134,6 +169,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername(label: 'Phone Number');
+
+      await tester.bloc.close();
     });
 
     // Scenario: Sign in with force change password credentials
@@ -152,6 +189,16 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.confirmSignInNewPassword,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
       ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername(label: 'Phone Number');
@@ -168,6 +215,8 @@ void main() {
       /// Then I see "Change Password"
       await confirmSignInPage.expectConfirmSignInNewPasswordIsPresent();
       confirmSignInPage.expectNewPasswordIsPresent();
+
+      await tester.bloc.close();
     });
   });
 }

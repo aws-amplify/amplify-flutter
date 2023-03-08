@@ -13,6 +13,7 @@ import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -39,6 +40,17 @@ void main() {
         final signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            UnauthenticatedState.confirmSignUp,
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
 
         final email = generateEmail();
         final phoneNumber = generateUSPhoneNumber();
@@ -77,6 +89,8 @@ void main() {
 
         // Then I see "Sign out"
         await signInPage.expectAuthenticated();
+
+        await tester.bloc.close();
       },
     );
 
@@ -88,6 +102,17 @@ void main() {
         final signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.signUp,
+            UnauthenticatedState.confirmSignUp,
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
 
         final email = generateEmail();
         final phoneNumber = generateUSPhoneNumber();
@@ -126,6 +151,8 @@ void main() {
 
         // Then I see "Sign out"
         await signInPage.expectAuthenticated();
+
+        await tester.bloc.close();
       },
     );
   });

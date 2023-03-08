@@ -191,6 +191,9 @@ class _VerifyAttributeFieldState
         )
     ];
     initialValue = selections.first.value;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      state.attributeKeyToVerify = initialValue;
+    });
   }
 
   @override

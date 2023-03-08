@@ -76,6 +76,11 @@ abstract class AuthenticatorPage {
     );
   }
 
+  /// Expects no error banner.
+  void expectNoError() {
+    expect(bannerFinder, findsNothing);
+  }
+
   // Then I am signed in
   Future<void> expectAuthenticated() async {
     await tester.pumpAndSettle();

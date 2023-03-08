@@ -17,6 +17,7 @@ import 'utils/test_utils.dart';
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-force-new-password.feature
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -62,6 +63,15 @@ void main() {
         final po = SignInPage(tester: tester);
         await loadAuthenticator(tester: tester);
 
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInNewPassword,
+            emitsDone,
+          ]),
+        );
+
         // When I select my country code with status "FORCE_CHANGE_PASSWORD"
         await po.selectCountryCode();
 
@@ -76,6 +86,8 @@ void main() {
 
         // Then I should see the Force Change Password step
         po.expectStep(AuthenticatorStep.confirmSignInNewPassword);
+
+        await tester.bloc.close();
       },
     );
 
@@ -87,6 +99,15 @@ void main() {
       (WidgetTester tester) async {
         final po = SignInPage(tester: tester);
         await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInNewPassword,
+            emitsDone,
+          ]),
+        );
 
         // When I select my country code with status "FORCE_CHANGE_PASSWORD"
         await po.selectCountryCode();
@@ -117,6 +138,8 @@ void main() {
           keyNewPasswordConfirmSignInFormField,
           'Password must include',
         );
+
+        await tester.bloc.close();
       },
     );
 
@@ -128,6 +151,16 @@ void main() {
       (WidgetTester tester) async {
         final po = SignInPage(tester: tester);
         await loadAuthenticator(tester: tester);
+
+        expect(
+          tester.bloc.stream,
+          emitsInOrder([
+            UnauthenticatedState.signIn,
+            UnauthenticatedState.confirmSignInNewPassword,
+            isA<AuthenticatedState>(),
+            emitsDone,
+          ]),
+        );
 
         // When I select my country code with status "FORCE_CHANGE_PASSWORD"
         await po.selectCountryCode();
@@ -156,6 +189,8 @@ void main() {
 
         // Then I should be authenticated
         await cpo.expectAuthenticated();
+
+        await tester.bloc.close();
       },
     );
   });

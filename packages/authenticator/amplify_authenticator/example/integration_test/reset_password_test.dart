@@ -4,6 +4,7 @@
 // This test follows the Amplify UI feature "reset-password"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/reset-password.feature
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -12,6 +13,7 @@ import 'config.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
   binding.deferFirstFrame();
@@ -38,6 +40,16 @@ void main() {
       );
       addTearDown(() => deleteUser(cognitoUsername));
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.resetPassword,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
@@ -51,12 +63,24 @@ void main() {
 
       // Then I will be redirected to the confirm forgot password page
       await forgotPasswordPage.expectForgotPassword();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Reset Password with invalid username
     testWidgets('Reset Password with invalid username', (tester) async {
       final username = generateUsername();
       await loadAuthenticator(tester: tester);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          UnauthenticatedState.resetPassword,
+          emitsDone,
+        ]),
+      );
+
       SignInPage signInPage = SignInPage(tester: tester);
       ForgotPasswordPage forgotPasswordPage =
           ForgotPasswordPage(tester: tester);
@@ -73,6 +97,8 @@ void main() {
 
       // Then I see "Username/client id combination not found."
       forgotPasswordPage.expectCombinationNotFound();
+
+      await tester.bloc.close();
     });
 
     // Scenario: Reset Password with valid placeholder
