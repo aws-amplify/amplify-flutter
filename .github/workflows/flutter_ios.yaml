@@ -7,9 +7,14 @@ on:
         required: true
         type: string
       package-name:
-        description: The name of the federated iOS package being tested
+        description: The name of the app-facing (or federated) iOS package being tested
         required: true
         type: string
+
+# Cancels in-progress job when there is another push to same ref (e.g. a PR).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
