@@ -12,9 +12,6 @@ import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:flutter/services.dart';
 
-const _methodChannel =
-    MethodChannel('com.amazonaws.amplify/push_notification/method');
-
 const _tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
@@ -288,9 +285,10 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
       <OnRemoteMessageCallback>[];
   final _onLaunchNotificationOpenedCallbacks = <OnRemoteMessageCallback>[];
 
-  Future<void> registerOnReceivedInBackgroundCallback(
+  @override
+  void registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
-  ) async {
+  ) {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
   }
 
@@ -304,10 +302,12 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
+    final notification = PushNotificationMessage.fromJson(payload);
+
     await Future.wait(
       _onNotificationReceivedInBackgroundCallbacks.map(
         (callback) async {
-          await callback(PushNotificationMessage.fromJson(payload));
+          await callback(notification);
         },
       ),
     );
@@ -315,8 +315,10 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
 
   @override
   void onLaunchNotificationOpened(Map<Object?, Object?> payload) {
+    final notification = PushNotificationMessage.fromJson(payload);
+
     for (final callback in _onLaunchNotificationOpenedCallbacks) {
-      callback(PushNotificationMessage.fromJson(payload));
+      callback(notification);
     }
 
     // these callbacks are called only once as onLaunchNotificationOpened can

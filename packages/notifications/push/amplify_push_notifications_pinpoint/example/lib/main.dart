@@ -134,33 +134,33 @@ class _MyAppState extends State<MyApp> {
               const Divider(
                 height: 20,
               ),
-              // FutureBuilder<int>(
-              //   future: getAndUpdateCallbackCounts(),
-              //   builder: (
-              //     BuildContext context,
-              //     AsyncSnapshot<int> snapshot,
-              //   ) {
-              //     if (snapshot.connectionState == ConnectionState.done) {
-              //       return ListTile(
-              //         title: Text(
-              //           'Background callback count: ${snapshot.data}',
-              //         ),
-              //       );
-              //     } else {
-              //       return const ListTile(
-              //         title: Text(
-              //           'Background callback count:0',
-              //         ),
-              //       );
-              //     }
-              //   },
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     setState(() {});
-              //   },
-              //   child: const Text('Refresh count'),
-              // ),
+              FutureBuilder<int>(
+                future: getAndUpdateCallbackCounts(),
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<int> snapshot,
+                ) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ListTile(
+                      title: Text(
+                        'Background callback count: ${snapshot.data}',
+                      ),
+                    );
+                  } else {
+                    return const ListTile(
+                      title: Text(
+                        'Background callback count:0',
+                      ),
+                    );
+                  }
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                child: const Text('Refresh count'),
+              ),
               // headerText('Configuration APIs'),
               // ElevatedButton(
               //   onPressed: () async {
