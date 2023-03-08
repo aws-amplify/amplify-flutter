@@ -6,7 +6,6 @@ on:
       - main
       - stable
       - next
-      - chore/ios-unit # TEMP
   pull_request:
     paths:
       - 'packages/auth/amplify_auth_cognito/**/*.yaml'
@@ -14,7 +13,7 @@ on:
       - 'packages/auth/amplify_auth_cognito/example/ios/**/*'
       - 'packages/auth/amplify_auth_cognito_ios/**/*'
       - '.github/workflows/flutter_ios.yaml'
-      - '.github/workflows/amplify_auth_cognito_ios.yaml'
+      - '.github/workflows/amplify_auth_cognito.ios.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

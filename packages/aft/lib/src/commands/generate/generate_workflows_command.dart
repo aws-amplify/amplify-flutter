@@ -174,94 +174,6 @@ jobs:
       rootDir.path,
       '.github',
       'workflows',
-      '${package.name}_android.yaml',
-    );
-
-    final androidPlatformPackagePaths = [
-      if (platformPackageAndroidTestDirExists)
-        '${repoRelativePath}_android/**/*'
-    ];
-    final androidWorkflowPaths = [
-      '.github/workflows/$androidWorkflow',
-      p.relative(androidWorkflowFilepath, from: rootDir.path)
-    ];
-    final androidPathString =
-        (androidPlatformPackagePaths + androidWorkflowPaths)
-            .map((path) => "      - '$path'")
-            .join('\n');
-
-    final androidWorkflowFile = File(androidWorkflowFilepath);
-    final androidWorkflowContents = '''
-# Generated with aft. To update, run: `aft generate workflows`
-name: ${package.name} Android
-on:
-  push:
-    branches:
-      - main
-      - stable
-      - next
-  pull_request:
-    paths:
-      - '$repoRelativePath/**/*.yaml'
-      - '$repoRelativePath/android/**/*'
-      - '$repoRelativePath/example/android/**/*'
-$androidPathString
-  schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
-defaults:
-  run:
-    shell: bash
-permissions: read-all
-
-jobs:
-  test:
-    uses: ./.github/workflows/$androidWorkflow
-    with:
-      working-directory: $repoRelativePath/example/android
-      package-name: ${package.name}
-''';
-
-      workflowFile.writeAsStringSync(workflowContents.toString());
-
-      await generateAndroidUnitTestWorkflow(
-        package: package,
-        repoRelativePath: repoRelativePath,
-      );
-    }
-  }
-
-  /// If a package has Android unit tests, generate a separate workflow for them.
-  Future<void> generateAndroidUnitTestWorkflow({
-    required PackageInfo package,
-    required String repoRelativePath,
-  }) async {
-    const androidWorkflow = 'flutter_android.yaml';
-
-    final appFacingAndroidTestDir =
-        Directory(p.join(package.path, 'android', 'src', 'test'));
-    final platformAndroidPackageTestDir = Directory(
-      p.join('${package.path}_android', 'android', 'src', 'test'),
-    ); // federated _android package
-    final androidExampleDir = Directory(
-      p.join(package.path, 'example', 'android'),
-    );
-    final appFacingPackageAndroidTestsDirExists =
-        appFacingAndroidTestDir.existsSync();
-    final platformPackageAndroidTestDirExists =
-        platformAndroidPackageTestDir.existsSync();
-    final androidExampleDirExists = androidExampleDir.existsSync();
-    final hasAndroidTests = androidExampleDirExists &&
-        (appFacingPackageAndroidTestsDirExists ||
-            platformPackageAndroidTestDirExists);
-
-    if (package.flavor != PackageFlavor.flutter || !hasAndroidTests) {
-      return;
-    }
-
-    final androidWorkflowFilepath = p.join(
-      rootDir.path,
-      '.github',
-      'workflows',
       '${package.name}.android.yaml',
     );
 
@@ -342,7 +254,7 @@ jobs:
       rootDir.path,
       '.github',
       'workflows',
-      '${package.name}_ios.yaml',
+      '${package.name}.ios.yaml',
     );
 
     final iosPlatformPackagePaths = [
@@ -374,7 +286,6 @@ on:
       - main
       - stable
       - next
-      - chore/ios-unit # TEMP
   pull_request:
     paths:
       - '$repoRelativePath/**/*.yaml'

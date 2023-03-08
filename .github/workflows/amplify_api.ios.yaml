@@ -6,7 +6,6 @@ on:
       - main
       - stable
       - next
-      - chore/ios-unit # TEMP
   pull_request:
     paths:
       - 'packages/api/amplify_api/**/*.yaml'
@@ -14,7 +13,7 @@ on:
       - 'packages/api/amplify_api/example/ios/**/*'
       - 'packages/api/amplify_api_ios/**/*'
       - '.github/workflows/flutter_ios.yaml'
-      - '.github/workflows/amplify_api_ios.yaml'
+      - '.github/workflows/amplify_api.ios.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
