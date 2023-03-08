@@ -10,25 +10,53 @@ part 'cognito_resend_sign_up_code_options.g.dart';
 /// platform-specific fields.
 /// {@endtemplate}
 @zAmplifySerializable
-class CognitoResendSignUpCodeOptions extends ResendSignUpCodeOptions
-    with AWSEquatable<CognitoResendSignUpCodeOptions>, AWSDebuggable {
+class CognitoResendSignUpCodeOptions extends ResendSignUpCodeOptions {
   /// {@macro amplify_auth_cognito.cognito_resend_sign_up_code_options}
-  const CognitoResendSignUpCodeOptions({this.clientMetadata});
+  const CognitoResendSignUpCodeOptions({
+    this.clientMetadata = const {},
+  }) : super.base();
 
-  /// {@macro amplify_auth_cognito.cognito_resend_sign_up_code_options}
-  factory CognitoResendSignUpCodeOptions.fromJson(Map<String, Object?> json) =>
-      _$CognitoResendSignUpCodeOptionsFromJson(json);
+  /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options.client_metadata}
+  final Map<String, String> clientMetadata;
 
+  @override
+  CognitoResendSignUpCodePluginOptions get pluginOptions =>
+      CognitoResendSignUpCodePluginOptions(clientMetadata: clientMetadata);
+
+  @override
+  String get runtimeTypeName => 'CognitoResendSignUpCodeOptions';
+}
+
+/// {@template amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options}
+/// Cognito options for `Amplify.Auth.resendSignUpCode`.
+/// {@endtemplate}
+@zAmplifySerializable
+class CognitoResendSignUpCodePluginOptions
+    extends ResendSignUpCodePluginOptions {
+  /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options}
+  const CognitoResendSignUpCodePluginOptions({
+    this.clientMetadata = const {},
+  });
+
+  /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options}
+  factory CognitoResendSignUpCodePluginOptions.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$CognitoResendSignUpCodePluginOptionsFromJson(json);
+
+  /// {@template amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options.client_metadata}
   /// Additional custom attributes to be sent to the service such as information
   /// about the client.
-  final Map<String, String>? clientMetadata;
+  /// {@endtemplate}
+  final Map<String, String> clientMetadata;
 
   @override
   List<Object?> get props => [clientMetadata];
 
   @override
-  String get runtimeTypeName => 'CognitoResendSignUpCodeOptions';
+  String get runtimeTypeName => 'CognitoResendSignUpCodePluginOptions';
 
   @override
-  Map<String, Object?> toJson() => _$CognitoResendSignUpCodeOptionsToJson(this);
+  Map<String, Object?> toJson() =>
+      _$CognitoResendSignUpCodePluginOptionsToJson(this);
 }

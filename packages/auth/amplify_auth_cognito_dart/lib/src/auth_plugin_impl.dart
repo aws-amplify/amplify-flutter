@@ -53,7 +53,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoDevice,
         CognitoSignUpResult,
         CognitoSignUpResult,
-        CognitoResendSignUpCodeOptions,
         CognitoResendSignUpCodeResult,
         CognitoSignInResult,
         CognitoConfirmSignInOptions,
@@ -97,7 +96,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoDevice,
       CognitoSignUpResult,
       CognitoSignUpResult,
-      CognitoResendSignUpCodeOptions,
       CognitoResendSignUpCodeResult,
       CognitoSignInResult,
       CognitoConfirmSignInOptions,
@@ -566,8 +564,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<CognitoResendSignUpCodeResult> resendSignUpCode({
     required String username,
-    CognitoResendSignUpCodeOptions? options,
+    ResendSignUpCodeOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoResendSignUpCodePluginOptions(),
+      requiredTypeName: 'CognitoResendSignUpCodePluginOptions',
+    );
     final result = await _cognitoIdp.resendConfirmationCode(
       cognito.ResendConfirmationCodeRequest.build((b) {
         b
@@ -583,7 +586,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           );
         }
 
-        final clientMetadata = options?.clientMetadata ?? const {};
+        final clientMetadata = pluginOptions.clientMetadata;
         b.clientMetadata.addAll(clientMetadata);
       }),
     ).result;
@@ -1136,7 +1139,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoDevice,
     CognitoSignUpResult,
     CognitoSignUpResult,
-    CognitoResendSignUpCodeOptions,
     CognitoResendSignUpCodeResult,
     CognitoSignInResult,
     CognitoConfirmSignInOptions,

@@ -16,7 +16,6 @@ abstract class AuthPluginInterface<
         PluginAuthDevice extends AuthDevice,
         PluginSignUpResult extends SignUpResult,
         PluginConfirmSignupResult extends SignUpResult,
-        PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginConfirmSignInOptions extends ConfirmSignInOptions,
@@ -68,7 +67,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.resend_sign_up_code}
   Future<PluginResendSignUpCodeResult> resendSignUpCode({
     required String username,
-    PluginResendSignUpCodeOptions? options,
+    ResendSignUpCodeOptions? options,
   }) {
     throw UnimplementedError('resendSignUpCode() has not been implemented');
   }

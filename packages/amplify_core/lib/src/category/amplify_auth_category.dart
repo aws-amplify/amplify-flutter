@@ -23,7 +23,6 @@ class AuthCategory<
     PluginAuthDevice extends AuthDevice,
     PluginSignUpResult extends SignUpResult,
     PluginConfirmSignUpResult extends SignUpResult,
-    PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
     PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
     PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginConfirmSignInOptions extends ConfirmSignInOptions,
@@ -56,7 +55,6 @@ class AuthCategory<
         PluginAuthDevice,
         PluginSignUpResult,
         PluginConfirmSignUpResult,
-        PluginResendSignUpCodeOptions,
         PluginResendSignUpCodeResult,
         PluginSignInResult,
         PluginConfirmSignInOptions,
@@ -108,7 +106,6 @@ class AuthCategory<
           GetPluginAuthDevice extends AuthDevice,
           GetPluginSignUpResult extends SignUpResult,
           GetPluginConfirmSignUpResult extends SignUpResult,
-          GetPluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
           GetPluginResendSignUpCodeResult extends ResendSignUpCodeResult,
           GetPluginSignInResult extends SignInResult<GetPluginUserAttributeKey>,
           GetPluginConfirmSignInOptions extends ConfirmSignInOptions,
@@ -143,7 +140,6 @@ class AuthCategory<
               GetPluginAuthDevice,
               GetPluginSignUpResult,
               GetPluginConfirmSignUpResult,
-              GetPluginResendSignUpCodeOptions,
               GetPluginResendSignUpCodeResult,
               GetPluginSignInResult,
               GetPluginConfirmSignInOptions,
@@ -176,7 +172,6 @@ class AuthCategory<
             GetPluginAuthDevice,
             GetPluginSignUpResult,
             GetPluginConfirmSignUpResult,
-            GetPluginResendSignUpCodeOptions,
             GetPluginResendSignUpCodeResult,
             GetPluginSignInResult,
             GetPluginConfirmSignInOptions,
@@ -251,7 +246,7 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginResendSignUpCodeResult> resendSignUpCode({
     required String username,
-    PluginResendSignUpCodeOptions? options,
+    ResendSignUpCodeOptions? options,
   }) =>
       defaultPlugin.resendSignUpCode(
         username: username,
