@@ -69,18 +69,19 @@ Future<S3DownloadFileResult> _downloadFromUrl({
     name: request.localFile.path,
   );
 
+  // download is based on the presigned url on Web, so we make a separate
+  // HeadObject call to include object metadata in the operation result to
+  // maintain the same behavior of download on VM.
   return S3DownloadFileResult(
-    downloadedItem: s3Options.getProperties
-        ? (await storageS3Service.getProperties(
-            key: request.key,
-            options: targetIdentityId == null
-                ? S3GetPropertiesOptions(
-                    accessLevel: s3Options.accessLevel,
-                  )
-                : S3GetPropertiesOptions.forIdentity(targetIdentityId),
-          ))
-            .storageItem
-        : S3Item(key: request.key),
+    downloadedItem: (await storageS3Service.getProperties(
+      key: request.key,
+      options: targetIdentityId == null
+          ? S3GetPropertiesOptions(
+              accessLevel: s3Options.accessLevel,
+            )
+          : S3GetPropertiesOptions.forIdentity(targetIdentityId),
+    ))
+        .storageItem,
     localFile: request.localFile,
   );
 }

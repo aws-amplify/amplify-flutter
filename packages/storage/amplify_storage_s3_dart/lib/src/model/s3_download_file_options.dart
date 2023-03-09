@@ -10,17 +10,14 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
   /// {@macro storage.amplify_storage_s3.download_file_options}
   const S3DownloadFileOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-    bool getProperties = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: accessLevel,
-          getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
   const S3DownloadFileOptions._({
     super.accessLevel = StorageAccessLevel.guest,
-    this.getProperties = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
@@ -32,12 +29,10 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
   /// user.
   const S3DownloadFileOptions.forIdentity(
     String targetIdentityId, {
-    bool getProperties = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: StorageAccessLevel.protected,
           targetIdentityId: targetIdentityId,
-          getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
@@ -45,10 +40,6 @@ class S3DownloadFileOptions extends StorageDownloadFileOptions {
   ///
   /// This can be set by using [S3DownloadFileOptions.forIdentity].
   final String? targetIdentityId;
-
-  /// Whether to retrieve properties for the downloaded object using the
-  /// `getProperties` API.
-  final bool getProperties;
 
   /// {@macro storage.amplify_storage_s3.transfer_acceleration}
   final bool useAccelerateEndpoint;

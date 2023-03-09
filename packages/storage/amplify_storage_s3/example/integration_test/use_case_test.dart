@@ -298,16 +298,22 @@ void main() {
         testWidgets(
             'download object as bytes data in memory with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
-          final result = await Amplify.Storage.downloadData(
-            key: testObjectKey3,
-            options: const S3DownloadDataOptions(
-              accessLevel: StorageAccessLevel.private,
-              getProperties: true,
-            ),
-          ).result;
+          final plugin = Amplify.Storage.getPlugin(AmplifyStorageS3.pluginKey);
+          final result = await plugin
+              .downloadData(
+                key: testObjectKey3,
+                options: const S3DownloadDataOptions(
+                  accessLevel: StorageAccessLevel.private,
+                ),
+              )
+              .result;
 
           expect(result.bytes, equals(testLargeFileBytes));
           expect(result.downloadedItem.eTag, object3Etag);
+          expect(
+            result.downloadedItem.metadata,
+            containsPair('filename', testObjectFileName3),
+          );
         });
 
         testWidgets(
@@ -315,17 +321,19 @@ void main() {
             ' for the currently signed in user', (WidgetTester tester) async {
           const start = 5 * 1024;
           const end = 5 * 1024 + 12;
-          final result = await Amplify.Storage.downloadData(
-            key: testObjectKey3,
-            options: S3DownloadDataOptions(
-              accessLevel: StorageAccessLevel.private,
-              getProperties: true,
-              bytesRange: S3DataBytesRange(
-                start: start,
-                end: end,
-              ),
-            ),
-          ).result;
+          final plugin = Amplify.Storage.getPlugin(AmplifyStorageS3.pluginKey);
+          final result = await plugin
+              .downloadData(
+                key: testObjectKey3,
+                options: S3DownloadDataOptions(
+                  accessLevel: StorageAccessLevel.private,
+                  bytesRange: S3DataBytesRange(
+                    start: start,
+                    end: end,
+                  ),
+                ),
+              )
+              .result;
 
           expect(
             result.bytes,
@@ -333,6 +341,10 @@ void main() {
             equals(testLargeFileBytes.sublist(start, end + 1)),
           );
           expect(result.downloadedItem.eTag, object3Etag);
+          expect(
+            result.downloadedItem.metadata,
+            containsPair('filename', testObjectFileName3),
+          );
         });
 
         testWidgets(
@@ -350,7 +362,6 @@ void main() {
                   localFile: localFile,
                   options: const S3DownloadFileOptions(
                     accessLevel: StorageAccessLevel.private,
-                    getProperties: true,
                   ),
                 )
                 .result;
@@ -560,7 +571,6 @@ void main() {
               key: testObjectKey2,
               options: S3DownloadDataOptions.forIdentity(
                 user1IdentityId,
-                getProperties: true,
               ),
             ).result;
 
@@ -575,7 +585,6 @@ void main() {
               key: testObjectKey3,
               options: const S3DownloadDataOptions(
                 accessLevel: StorageAccessLevel.private,
-                getProperties: true,
               ),
             );
 

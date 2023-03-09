@@ -49,8 +49,6 @@ class S3Item extends StorageItem {
 
   /// Creates a [S3Item] from [s3.HeadObjectOutput] provided by S3
   /// Client.
-  ///
-  /// This named constructor should be used internally only.
   @internal
   factory S3Item.fromHeadObjectOutput(
     s3.HeadObjectOutput headObjectOutput, {
@@ -67,9 +65,25 @@ class S3Item extends StorageItem {
     );
   }
 
-  /// Removes `prefixToDrop` from `key` string.
-  ///
-  /// This should only be used internally.
+  /// Creates a [S3Item] from [s3.GetObjectOutput] provided by S3
+  /// Client.
+  @internal
+  factory S3Item.fromGetObjectOutput(
+    s3.GetObjectOutput getObjectOutput, {
+    required String key,
+  }) {
+    return S3Item(
+      key: key,
+      lastModified: getObjectOutput.lastModified,
+      eTag: getObjectOutput.eTag,
+      metadata: getObjectOutput.metadata?.toMap() ?? const {},
+      versionId: getObjectOutput.versionId,
+      size: getObjectOutput.contentLength?.toInt(),
+      contentType: getObjectOutput.contentType,
+    );
+  }
+
+  /// Removes [prefixToDrop] from [key] string.
   @internal
   static String dropPrefixFromKey({
     required String prefixToDrop,

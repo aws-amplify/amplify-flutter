@@ -11,19 +11,16 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
   /// {@macro storage.amplify_storage_s3.download_data_options}
   const S3DownloadDataOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
-    bool getProperties = false,
     S3DataBytesRange? bytesRange,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: accessLevel,
           bytesRange: bytesRange,
-          getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
   const S3DownloadDataOptions._({
     super.accessLevel = StorageAccessLevel.guest,
-    this.getProperties = false,
     this.bytesRange,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
@@ -36,13 +33,11 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
   /// signed-in user.
   const S3DownloadDataOptions.forIdentity(
     String targetIdentityId, {
-    bool getProperties = false,
     S3DataBytesRange? bytesRange,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: StorageAccessLevel.protected,
           targetIdentityId: targetIdentityId,
-          getProperties: getProperties,
           bytesRange: bytesRange,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
@@ -54,10 +49,6 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
   ///
   /// This can be set by using [S3DownloadDataOptions.forIdentity].
   final String? targetIdentityId;
-
-  /// Whether to retrieve properties for the downloaded object using the
-  /// `getProperties` API.
-  final bool getProperties;
 
   /// {@template storage.amplify_storage_s3.transfer_acceleration}
   /// Whether to use [S3 Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html)

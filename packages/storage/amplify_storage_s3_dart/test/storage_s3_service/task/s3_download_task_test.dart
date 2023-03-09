@@ -641,6 +641,54 @@ void main() {
         await downloadTask.result;
         expect(finalState, S3TransferState.success);
       });
+
+      test('download result should include object metadata if it is available',
+          () async {
+        const testOptions = S3DownloadDataOptions();
+        const testBodyBytes = [101, 102];
+        const testMetadata = {
+          'filename': '1.jpg',
+          'group': 'GroupA',
+        };
+        final testGetObjectOutput = GetObjectOutput(
+          contentLength: Int64(testBodyBytes.length),
+          body: Stream.value(testBodyBytes),
+          metadata: testMetadata,
+        );
+        final smithOperation = MockSmithyOperation<GetObjectOutput>();
+        late S3TransferState finalState;
+
+        when(
+          () => smithOperation.result,
+        ).thenAnswer((_) async => testGetObjectOutput);
+
+        when(
+          () => s3Client.getObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenAnswer((_) => smithOperation);
+
+        final downloadTask = S3DownloadTask(
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testOptions,
+          logger: logger,
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
+        );
+
+        unawaited(downloadTask.start());
+
+        final result = await downloadTask.result;
+        expect(finalState, S3TransferState.success);
+        expect(result.metadata, testMetadata);
+      });
+
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
           () async {
@@ -688,75 +736,6 @@ void main() {
         await expectLater(downloadTask.result, throwsA(testOnDoneException));
         expect(onDoneHasBeenCalled, isTrue);
         expect(finalState, S3TransferState.failure);
-      });
-
-      test(
-          'should invoke S3Client.headObject to retrieve properties of object when getProperties is set to true in the options',
-          () async {
-        const testTargetIdentity = 'some-else-id';
-        const testOptions = S3DownloadDataOptions.forIdentity(
-          testTargetIdentity,
-          getProperties: true,
-        );
-        const testBodyBytes = [101, 102];
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(testBodyBytes.length),
-          body: Stream.value(testBodyBytes),
-        );
-        final getSmithyOperation = MockSmithyOperation<GetObjectOutput>();
-        const testETag = '123';
-        final testHeadObjectOutput = HeadObjectOutput(eTag: testETag);
-        final headSmithyOperation = MockSmithyOperation<HeadObjectOutput>();
-
-        when(
-          () => getSmithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => headSmithyOperation.result,
-        ).thenAnswer((_) async => testHeadObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => getSmithyOperation);
-
-        when(
-          () => s3Client.headObject(any()),
-        ).thenAnswer((_) => headSmithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
-          bucket: testBucket,
-          key: testKey,
-          options: testOptions,
-          logger: logger,
-        );
-
-        unawaited(downloadTask.start());
-
-        final result = await downloadTask.result;
-        expect(result.eTag, testETag);
-
-        final capturedRequest = verify(
-          () => s3Client.headObject(captureAny<HeadObjectRequest>()),
-        ).captured.last;
-
-        expect(
-          capturedRequest,
-          isA<HeadObjectRequest>().having(
-            (o) => o.key,
-            'key',
-            '${await testPrefixResolver.resolvePrefix(
-              accessLevel: testOptions.accessLevel,
-              identityId: testTargetIdentity,
-            )}$testKey',
-          ),
-        );
       });
     });
   });

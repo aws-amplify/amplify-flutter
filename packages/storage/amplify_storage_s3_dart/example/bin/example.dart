@@ -221,7 +221,6 @@ Future<void> downloadDataOperation() async {
     key: key,
     options: S3DownloadDataOptions(
       accessLevel: accessLevel,
-      getProperties: true,
     ),
     onProgress: onTransferProgress,
   );
@@ -263,7 +262,6 @@ Future<void> downloadFileOperation() async {
     key: key,
     localFile: localFile,
     options: S3DownloadFileOptions(
-      getProperties: true,
       accessLevel: accessLevel,
       useAccelerateEndpoint: useAccelerateEndpoint,
     ),

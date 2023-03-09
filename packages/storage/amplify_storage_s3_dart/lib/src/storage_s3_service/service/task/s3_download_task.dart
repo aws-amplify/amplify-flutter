@@ -102,6 +102,7 @@ class S3DownloadTask {
 
   late S3TransferState _state;
   late final String _resolvedKey;
+  late final S3Item _downloadedS3Item;
 
   // Total bytes that need to be downloaded, this field is set when the
   // **very first** (without bytes range specified) `S3Client.getObject`
@@ -155,6 +156,8 @@ class S3DownloadTask {
 
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
+      _downloadedS3Item =
+          S3Item.fromGetObjectOutput(getObjectOutput, key: _key);
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }
@@ -281,18 +284,7 @@ class S3DownloadTask {
           try {
             await _onDone?.call();
             _emitTransferProgress();
-            _downloadCompleter.complete(
-              _downloadDataOptions.getProperties
-                  ? S3Item.fromHeadObjectOutput(
-                      await StorageS3Service.headObject(
-                        s3client: _s3Client,
-                        bucket: _bucket,
-                        key: _resolvedKey,
-                      ),
-                      key: _key,
-                    )
-                  : S3Item(key: _key),
-            );
+            _downloadCompleter.complete(_downloadedS3Item);
           } on Exception catch (error, stackTrace) {
             await _completeDownloadWithError(error, stackTrace);
           }

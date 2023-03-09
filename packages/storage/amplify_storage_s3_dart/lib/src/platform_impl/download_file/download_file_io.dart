@@ -26,12 +26,10 @@ S3DownloadFileOperation downloadFile({
   final downloadDataOptions = targetIdentityId == null
       ? S3DownloadDataOptions(
           accessLevel: s3Options.accessLevel,
-          getProperties: s3Options.getProperties,
           useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
         )
       : S3DownloadDataOptions.forIdentity(
           targetIdentityId,
-          getProperties: s3Options.getProperties,
           useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
         );
 

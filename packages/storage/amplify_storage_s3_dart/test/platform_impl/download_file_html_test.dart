@@ -60,6 +60,9 @@ void main() {
 
       registerFallbackValue(const S3GetUrlOptions());
       registerFallbackValue(const S3GetPropertiesOptions());
+      registerFallbackValue(
+        const S3GetPropertiesResult(storageItem: S3Item(key: testKey)),
+      );
 
       when(
         () => storageS3Service.getUrl(
@@ -69,20 +72,29 @@ void main() {
       ).thenAnswer((_) async => testGetUrlResult);
     });
 
+    setUp(() {
+      when(
+        () => storageS3Service.getProperties(
+          key: testKey,
+          options: any(named: 'options'),
+        ),
+      ).thenAnswer((_) async => testGetPropertiesResult);
+    });
+
     test(
         'should invoke StorageS3Service.getUrl with S3GetUrlOptions with the default storage access level',
-        () {
+        () async {
       final testRequest = StorageDownloadFileRequest(
         key: testKey,
         localFile: AWSFile.fromPath('file_name.jpg'),
       );
 
-      downloadFile(
+      await downloadFile(
         request: testRequest,
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
-      );
+      ).result;
 
       final capturedOptions = verify(
         () => storageS3Service.getUrl(
@@ -103,7 +115,7 @@ void main() {
 
     test(
         'should invoke StorageS3Service.getUrl with converted S3DownloadFileOptions',
-        () {
+        () async {
       const testTargetIdentity = 'someone-else';
       final testRequest = StorageDownloadFileRequest(
         key: testKey,
@@ -113,12 +125,12 @@ void main() {
         ),
       );
 
-      downloadFile(
+      await downloadFile(
         request: testRequest,
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: const DummyPathProvider(),
-      );
+      ).result;
 
       final capturedOptions = verify(
         () => storageS3Service.getUrl(
@@ -147,25 +159,15 @@ void main() {
     });
 
     test(
-        'should invoke StorageS3Service.getProperties with expected parameters when getProperties is set as true in the options',
+        'should invoke StorageS3Service.getProperties with expected parameters',
         () async {
       final testRequest = StorageDownloadFileRequest(
         key: testKey,
         localFile: AWSFile.fromPath('download.jpg'),
         options: const S3DownloadFileOptions(
-          getProperties: true,
           accessLevel: StorageAccessLevel.private,
         ),
       );
-
-      when(
-        () => storageS3Service.getProperties(
-          key: testKey,
-          options: any(
-            named: 'options',
-          ),
-        ),
-      ).thenAnswer((_) async => testGetPropertiesResult);
 
       final result = await downloadFile(
         request: testRequest,

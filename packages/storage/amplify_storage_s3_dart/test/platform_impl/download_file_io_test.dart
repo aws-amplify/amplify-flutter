@@ -40,7 +40,6 @@ void main() {
       key: testKey,
       localFile: AWSFile.fromPath(testDestinationPath),
       options: const S3DownloadFileOptions(
-        getProperties: true,
         accessLevel: StorageAccessLevel.private,
       ),
     );
