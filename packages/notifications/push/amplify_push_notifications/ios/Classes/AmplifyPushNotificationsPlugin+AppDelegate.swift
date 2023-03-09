@@ -96,14 +96,14 @@ extension AmplifyPushNotificationsPlugin {
                     self.launchNotification = nil
                     sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
                 }
+
+                // Otherwise the last tapped notification is the same as the launch notification,
+                // it won't be sent as notificationOpened, but retrievable via getLaunchNotification.
             } else {
                 // When there is no launch notification recorded, he last tapped notification
                 // will be sent to Flutter via notificationOpened.
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
             }
-
-            // Otherwise the last tapped notification is the same as the launch notification,
-            // it won't be sent as notificationOpened, but retrievable via getLaunchNotification.
             completionHandler(.noData)
         case .active:
             sharedEventsStreamHandlers.foregroundMessageReceived.sendEvent(payload: userInfo)
