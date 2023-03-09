@@ -108,8 +108,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final analyticsConfig = config?.analytics?.awsPlugin;
-    if (analyticsConfig == null) {
+    final notificationsConfig = config?.notifications?.awsPlugin;
+    if (notificationsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
@@ -119,7 +119,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
-      config: config,
+      config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
 
