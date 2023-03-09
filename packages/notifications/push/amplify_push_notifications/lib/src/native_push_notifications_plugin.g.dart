@@ -12,8 +12,8 @@ import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
 enum PermissionStatus {
-  notRequested,
-  shouldRequestWithRationale,
+  shouldRequest,
+  shouldExplainThenRequest,
   granted,
   denied,
 }
@@ -110,8 +110,6 @@ abstract class PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
       Map<Object?, Object?> withPayload);
 
-  void onLaunchNotificationOpened(Map<Object?, Object?> withPayload);
-
   static void setup(PushNotificationsFlutterApi? api,
       {BinaryMessenger? binaryMessenger}) {
     {
@@ -131,27 +129,6 @@ abstract class PushNotificationsFlutterApi {
           assert(arg_withPayload != null,
               'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null, expected non-null Map<Object?, Object?>.');
           await api.onNotificationReceivedInBackground(arg_withPayload!);
-          return;
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened',
-          codec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        channel.setMessageHandler(null);
-      } else {
-        channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final Map<Object?, Object?>? arg_withPayload =
-              (args[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
-          assert(arg_withPayload != null,
-              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null, expected non-null Map<Object?, Object?>.');
-          api.onLaunchNotificationOpened(arg_withPayload!);
           return;
         });
       }
@@ -249,6 +226,28 @@ class PushNotificationsHostApi {
       );
     } else {
       return (replyList[0] as bool?)!;
+    }
+  }
+
+  Future<Map<Object?, Object?>?> getLaunchNotification() async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.PushNotificationsHostApi.getLaunchNotification',
+        codec,
+        binaryMessenger: _binaryMessenger);
+    final List<Object?>? replyList = await channel.send(null) as List<Object?>?;
+    if (replyList == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyList.length > 1) {
+      throw PlatformException(
+        code: replyList[0]! as String,
+        message: replyList[1] as String?,
+        details: replyList[2],
+      );
+    } else {
+      return (replyList[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
     }
   }
 

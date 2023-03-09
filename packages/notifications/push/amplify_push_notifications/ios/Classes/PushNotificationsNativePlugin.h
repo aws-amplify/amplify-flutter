@@ -14,8 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, PermissionStatus) {
-  PermissionStatusNotRequested = 0,
-  PermissionStatusShouldRequestWithRationale = 1,
+  PermissionStatusShouldRequest = 0,
+  PermissionStatusShouldExplainThenRequest = 1,
   PermissionStatusGranted = 2,
   PermissionStatusDenied = 3,
 };
@@ -52,7 +52,6 @@ NSObject<FlutterMessageCodec> *PushNotificationsFlutterApiGetCodec(void);
 @interface PushNotificationsFlutterApi : NSObject
 - (instancetype)initWithBinaryMessenger:(id<FlutterBinaryMessenger>)binaryMessenger;
 - (void)onNotificationReceivedInBackgroundWithPayload:(NSDictionary<id, id> *)withPayload completion:(void (^)(NSError *_Nullable))completion;
-- (void)onLaunchNotificationOpenedWithPayload:(NSDictionary<id, id> *)withPayload completion:(void (^)(NSError *_Nullable))completion;
 @end
 
 /// The codec used by PushNotificationsHostApi.
@@ -61,6 +60,7 @@ NSObject<FlutterMessageCodec> *PushNotificationsHostApiGetCodec(void);
 @protocol PushNotificationsHostApi
 - (void)getPermissionStatusWithCompletion:(void (^)(GetPermissionStatusResult *_Nullable, FlutterError *_Nullable))completion;
 - (void)requestPermissionsWithPermissionOptions:(PermissionsOptions *)withPermissionOptions completion:(void (^)(NSNumber *_Nullable, FlutterError *_Nullable))completion;
+- (nullable NSDictionary<id, id> *)getLaunchNotificationWithError:(FlutterError *_Nullable *_Nonnull)error;
 /// @return `nil` only when `error != nil`.
 - (nullable NSNumber *)getBadgeCountWithError:(FlutterError *_Nullable *_Nonnull)error;
 - (void)setBadgeCountWithBadgeCount:(NSNumber *)withBadgeCount error:(FlutterError *_Nullable *_Nonnull)error;

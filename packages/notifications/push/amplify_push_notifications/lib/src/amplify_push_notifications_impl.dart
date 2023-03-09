@@ -35,11 +35,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   })  : _serviceProviderClient = serviceProviderClient,
         _hostApi = PushNotificationsHostApi(),
         _flutterApi = _PushNotificationsFlutterApi() {
-    _flutterApi.registerOnLaunchNotificationOpenedCallback((remotePushMessage) {
-      _launchNotification = remotePushMessage;
-      _launchNotificationForAnalytics = remotePushMessage;
-    });
-
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -71,7 +66,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
-  PushNotificationMessage? _launchNotificationForAnalytics;
 
   @override
   PushNotificationMessage? get launchNotification {
@@ -125,7 +119,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
-    await _recordAnalyticsForLaunchNotification();
+
+    final rawLaunchNotification = await _hostApi.getLaunchNotification();
+    if (rawLaunchNotification != null) {
+      final launchNotification =
+          PushNotificationMessage.fromJson(rawLaunchNotification);
+      _launchNotification = launchNotification;
+      unawaited(_recordAnalyticsForLaunchNotification(launchNotification));
+    }
 
     // Register the callback dispatcher
     await _registerCallback(
@@ -160,11 +161,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         return PushNotificationPermissionRequestStatus.denied;
       case PermissionStatus.granted:
         return PushNotificationPermissionRequestStatus.granted;
-      case PermissionStatus.shouldRequestWithRationale:
-        return PushNotificationPermissionRequestStatus
-            .shouldRequestWithRationale;
-      case PermissionStatus.notRequested:
-        return PushNotificationPermissionRequestStatus.notRequested;
+      case PermissionStatus.shouldExplainThenRequest:
+        return PushNotificationPermissionRequestStatus.shouldExplainThenRequest;
+      case PermissionStatus.shouldRequest:
+        return PushNotificationPermissionRequestStatus.shouldRequest;
     }
   }
 
@@ -238,8 +238,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         underlyingException: error,
       );
     }
-
-    await _registerDevice(deviceToken);
+    await _serviceProviderClient.registerDevice(deviceToken);
   }
 
   void _attachEventChannelListeners() {
@@ -265,14 +264,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
   }
 
-  Future<void> _recordAnalyticsForLaunchNotification() async {
-    if (_launchNotificationForAnalytics == null) {
-      return;
-    }
-
+  Future<void> _recordAnalyticsForLaunchNotification(
+    PushNotificationMessage launchNotification,
+  ) async {
     // TODO(Samaritan1011001): integrate analytic recodEvent
-
-    _launchNotificationForAnalytics = null;
   }
 }
 
@@ -283,19 +278,12 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
 
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
-  final _onLaunchNotificationOpenedCallbacks = <OnRemoteMessageCallback>[];
 
   @override
   void registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
   ) {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
-  }
-
-  void registerOnLaunchNotificationOpenedCallback(
-    OnRemoteMessageCallback callback,
-  ) {
-    _onLaunchNotificationOpenedCallbacks.add(callback);
   }
 
   @override
@@ -311,18 +299,5 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
         },
       ),
     );
-  }
-
-  @override
-  void onLaunchNotificationOpened(Map<Object?, Object?> payload) {
-    final notification = PushNotificationMessage.fromJson(payload);
-
-    for (final callback in _onLaunchNotificationOpenedCallbacks) {
-      callback(notification);
-    }
-
-    // these callbacks are called only once as onLaunchNotificationOpened can
-    // only happen once
-    _onLaunchNotificationOpenedCallbacks.clear();
   }
 }

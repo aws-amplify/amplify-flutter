@@ -28,23 +28,34 @@ extension AmplifyPushNotificationsPlugin {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [AnyHashable : Any] = [:]
     ) -> Bool {
-        // when the App launch is caused by a notification
+        // 1. The host App launch is caused by a notification
         if let remoteNotification = launchOptions[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
-            // This happens when:
-            //   1. remote notifications background mode is enabled on the host App AND
-            //   2. the arrived remote notification has `content-available: 1` AND
-            //   3. the host App was at the terminated state when the remote notification arrives
-            // In this case we record that the host App was awaken in the background but has not
-            // launched from the last time when it was terminated
-            if application.applicationState == .background {
-                awokeInBackgroundButHasNotLaunched = true
+            // 2. The host App is launched from terminated state to the foreground
+            //    (including transitioning to foregound), i.e. .active .inactive.
+            //    This happens under one of below conditions:
+            //      a. Remote notifications are not capable to launch the host App (without `content-avaialble: 1`)
+            //      b. Remote notifications background mode has not enabled on the host App
+            //      c. The end user disabled background refresh of the host App
+            // 3. This notification must be tapped by an end user which is recorded as the launch notification
+            if application.applicationState != .background {
+                launchNotification = remoteNotification
+
+                // NOTE: the notification payload will also be passed into didReceiveRemoteNotification below after
+                // this delegate method, didFinishLaunchingWithOptions completes.
+                // As this notification is recorded as the luanch notification, it should not be sent via
+                // sharedEventsStreamHandlers.notificationOpened, this check is handled in didReceiveRemoteNotification.
             }
-            // This happens when end user tapped on a notification to open the host App and the host App
-            // was not capable or not able to wake up in the background
-            // We record this notification as the launch notification and send to Flutter
-            else {
-                flutterApi.onLaunchNotificationOpened(withPayload: remoteNotification) { _ in }
-            }
+
+            // Otherwise the host App is launched in the background, this notification will be sent to Flutter
+            // via flutterApi.onNotificationReceivedInBackground in didReceiveRemoteNotification below.
+
+            // After the host App launched in the background, didFinishLaunchingWithOptions will no longer
+            // be fired when an end user taps a notification.
+
+            // After the host App launched in the background, it runs developers' Flutter code as well including
+            // Amplify.addPlugin and Amplify.confogure, and the listeners of notification events should be
+            // attached. When an end user taps a notification from this point, the tapped notification will be
+            // sent via sharedEventsStreamHandlers.notificationOpened in didReceiveRemoteNotification below.
         }
 
         return true
@@ -70,17 +81,27 @@ extension AmplifyPushNotificationsPlugin {
         switch UIApplication.shared.applicationState {
         case .background:
             flutterApi.onNotificationReceivedInBackground(withPayload: userInfo) { _ in
-                // wait for Flutter side to complete calling registered callbacks
+                // Wait for Flutter side to complete calling registered callbacks
                 // then notifiy the system that the background task is completed
                 completionHandler(.noData)
             }
         case .inactive:
-            // If the App was awaken but has not been launched, we record the tapped notification
-            // as the launch notification and send to Flutter
-            if awokeInBackgroundButHasNotLaunched {
-                awokeInBackgroundButHasNotLaunched = false
-                flutterApi.onLaunchNotificationOpened(withPayload: userInfo) { _ in }
+
+            if let launchNotification = launchNotification {
+                if !NSDictionary(dictionary: launchNotification).isEqual(to: userInfo) {
+                    // When a launch notification is recorded in didFinishLaunchingWithOptions above,
+                    // but the last tapped notification is not the recorded launch notification, the last
+                    // tapped notification will be sent to Flutter via notificationOpened.
+                    // This may happen when an end user rapidly tapped on multiple notifications.
+                    self.launchNotification = nil
+                    sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
+                }
+
+                // Otherwise the last tapped notification is the same as the launch notification,
+                // it won't be sent as notificationOpened, but retrievable via getLaunchNotification.
             } else {
+                // When there is no launch notification recorded, he last tapped notification
+                // will be sent to Flutter via notificationOpened.
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
             }
             completionHandler(.noData)
