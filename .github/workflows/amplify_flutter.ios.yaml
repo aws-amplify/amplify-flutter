@@ -10,7 +10,7 @@ on:
     paths:
       - 'packages/amplify/amplify_flutter/**/*.yaml'
       - 'packages/amplify/amplify_flutter/ios/**/*'
-      - 'packages/amplify/amplify_flutter/example/ios/**/*'
+      - 'packages/amplify/amplify_flutter/example/ios/unit_tests/**/*'
       - 'packages/amplify/amplify_flutter_ios/**/*'
       - '.github/workflows/flutter_ios.yaml'
       - '.github/workflows/amplify_flutter.ios.yaml'

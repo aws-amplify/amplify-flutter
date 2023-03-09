@@ -62,7 +62,5 @@ jobs:
           xcodebuild test \
               -workspace Runner.xcworkspace \
               -scheme Runner \
-              -destination "$XCODEBUILD_DESTINATION" | xcpretty \
-              -r "junit" \
-              -o "test-results/${{ inputs.package-name }}-xcodebuild-test.xml"
+              -destination "$XCODEBUILD_DESTINATION" | xcpretty
         working-directory: ${{ inputs.working-directory }}

@@ -10,7 +10,7 @@ on:
     paths:
       - 'packages/auth/amplify_auth_cognito/**/*.yaml'
       - 'packages/auth/amplify_auth_cognito/ios/**/*'
-      - 'packages/auth/amplify_auth_cognito/example/ios/**/*'
+      - 'packages/auth/amplify_auth_cognito/example/ios/unit_tests/**/*'
       - 'packages/auth/amplify_auth_cognito_ios/**/*'
       - '.github/workflows/flutter_ios.yaml'
       - '.github/workflows/amplify_auth_cognito.ios.yaml'

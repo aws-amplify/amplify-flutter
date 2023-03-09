@@ -232,19 +232,18 @@ jobs:
     const iosWorkflow = 'flutter_ios.yaml';
     final platformPackageName = '${package.name}_ios'; // federated _ios package
     final platformPackagePath = '${package.path}_ios';
-    final appFacingIosTestDir =
+    final appFacingTestDir =
         Directory(p.join(package.path, 'example', 'ios', 'unit_tests'));
-    final platformIosPackageDir = Directory(platformPackagePath);
-    final platformIosPackageTestDir = Directory(
+    final platformPackageDir = Directory(platformPackagePath);
+    final platformPackageTestDir = Directory(
       p.join(platformPackagePath, 'example', 'ios', 'unit_tests'),
     ); // federated _ios package
 
-    final appFacingPackageIosTestsDirExists = appFacingIosTestDir.existsSync();
-    final platformPackageDirExists = platformIosPackageDir.existsSync();
-    final platformPackageIosTestDirExists =
-        platformIosPackageTestDir.existsSync();
+    final appFacingPackageTestsDirExists = appFacingTestDir.existsSync();
+    final platformPackageDirExists = platformPackageDir.existsSync();
+    final platformPackageTestDirExists = platformPackageTestDir.existsSync();
     final hasIosTests =
-        (appFacingPackageIosTestsDirExists || platformPackageIosTestDirExists);
+        appFacingPackageTestsDirExists || platformPackageTestDirExists;
 
     if (package.flavor != PackageFlavor.flutter || !hasIosTests) {
       return;
@@ -271,8 +270,8 @@ jobs:
     // Some packages have their tests in the federated package, so the tests should
     // run from there instead of app-facing package.
     final packageNameToTest =
-        platformPackageIosTestDirExists ? platformPackageName : package.name;
-    final relativePathToTest = platformPackageIosTestDirExists
+        platformPackageTestDirExists ? platformPackageName : package.name;
+    final relativePathToTest = platformPackageTestDirExists
         ? '${repoRelativePath}_ios'
         : repoRelativePath;
 
@@ -290,7 +289,7 @@ on:
     paths:
       - '$repoRelativePath/**/*.yaml'
       - '$repoRelativePath/ios/**/*'
-      - '$repoRelativePath/example/ios/**/*'
+      - '$repoRelativePath/example/ios/unit_tests/**/*'
 $iosPathString
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00

@@ -10,7 +10,7 @@ on:
     paths:
       - 'packages/amplify_datastore/**/*.yaml'
       - 'packages/amplify_datastore/ios/**/*'
-      - 'packages/amplify_datastore/example/ios/**/*'
+      - 'packages/amplify_datastore/example/ios/unit_tests/**/*'
       - '.github/workflows/flutter_ios.yaml'
       - '.github/workflows/amplify_datastore.ios.yaml'
   schedule:
