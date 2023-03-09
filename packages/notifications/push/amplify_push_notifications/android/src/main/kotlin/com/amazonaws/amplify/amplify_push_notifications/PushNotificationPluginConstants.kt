@@ -10,8 +10,8 @@ class PushNotificationPluginConstants {
         const val BG_EXTERNAL_CALLBACK_HANDLE_KEY = "bg_external_callback_handle"
         const val PREF_PREVIOUSLY_DENIED = "wasPermissionPreviouslyDenied"
         const val PERMISSION = "android.permission.POST_NOTIFICATIONS"
-        const val METHOD_CHANNEL = "com.amazonaws.amplify/push_notification/method"
-        const val BACKGROUND_METHOD_CHANNEL = "plugins.flutter.io/amplify_push_notification_plugin_background"
+        const val BACKGROUND_METHOD_CHANNEL =
+            "plugins.flutter.io/amplify_push_notification_plugin_background"
         const val CHANNEL_NAME_PREFIX = "com.amazonaws.amplify/push_notification"
         const val ACTION_NEW_TOKEN = "com.google.firebase.messaging.NEW_TOKEN"
         const val PAYLOAD_KEY = "payload"

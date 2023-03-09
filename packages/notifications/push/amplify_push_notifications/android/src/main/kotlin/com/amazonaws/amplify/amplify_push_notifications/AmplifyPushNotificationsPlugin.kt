@@ -7,9 +7,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
-import com.amazonaws.amplify.AtomicResult
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsFlutterApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
@@ -20,10 +18,6 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
 
@@ -72,19 +66,19 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var flutterApi: PushNotificationsFlutterApi? = null
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
         applicationContext = flutterPluginBinding.applicationContext
-        sharedPreferences =
-            applicationContext.getSharedPreferences(
-                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
-                Context.MODE_PRIVATE
-            )
+        sharedPreferences = applicationContext.getSharedPreferences(
+            PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+        )
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        mainBinaryMessenger = null
+        PushNotificationsHostApi.setup(binding.binaryMessenger, null)
         flutterApi = null
     }
 
@@ -100,27 +94,19 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         refreshToken()
     }
 
-    override fun onDetachedFromActivityForConfigChanges() {
-        activityBinding?.removeOnNewIntentListener(this)
-        activityBinding = null
-        mainActivity = null
-    }
-
-    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        mainActivity = binding.activity
-        activityBinding = binding
-        mainBinaryMessenger?.let {
-            StreamHandlers.initStreamHandlers()
-            StreamHandlers.initEventChannels(it)
-        }
-        binding.addOnNewIntentListener(this)
-    }
-
-
     override fun onDetachedFromActivity() {
         activityBinding?.removeOnNewIntentListener(this)
         mainActivity = null
         activityBinding = null
+        StreamHandlers.deInit()
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        onAttachedToActivity(binding)
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        onDetachedFromActivity()
     }
 
     // TODO(Samaritan1011001): 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
@@ -130,10 +116,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             val payload = it.asPayload()
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
+
+                // TODO(Samaritan1011001): Why send via flutterAPI and stream handler?
                 flutterApi?.onLaunchNotificationOpened(
-                    notificationHashMap as Map<Any, Any?>
-                ) { }
-                StreamHandlers.notificationOpened.send(
+                    notificationHashMap
+                ) {}
+                StreamHandlers.notificationOpened?.send(
                     notificationHashMap
                 )
             }
@@ -149,27 +137,30 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         if (permission.hasRequiredPermission) {
             resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.GRANTED)
             result.success(resultBuilder.build())
+            return
         }
         // If the shouldShowRequestPermissionRationale flag is true, permission must have been
         // denied once (and only once) previously
         if (shouldShowRequestPermissionRationale()) {
             resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.SHOULD_REQUEST_WITH_RATIONALE)
             result.success(resultBuilder.build())
+            return
         }
         // If the shouldShowRequestPermissionRationale flag is false and the permission was
         // already previously denied then user has denied permissions twice
         if (sharedPreferences.getBoolean(
-                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
-                false
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, false
             )
         ) {
             resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.DENIED)
             result.success(resultBuilder.build())
+            return
         }
         // Otherwise it's never been requested (or user could have dismissed the request without
         // explicitly denying)
         resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.NOT_REQUESTED)
         result.success(resultBuilder.build())
+        return
     }
 
     override fun requestPermissions(
@@ -177,8 +168,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         result: PushNotificationsHostApiBindings.Result<Boolean>
     ) {
         scope.launch {
-            val res =
-                PushNotificationPermission(applicationContext).requestPermission()
+            val res = PushNotificationPermission(applicationContext).requestPermission()
 
             if (res is PermissionRequestResult.Granted) {
                 result.success(true)
@@ -190,8 +180,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                 if (shouldShowRequestPermissionRationale()) {
                     with(sharedPreferences.edit()) {
                         putBoolean(
-                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED,
-                            true
+                            PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, true
                         )
                         apply()
                     }
@@ -207,18 +196,14 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
     override fun registerCallbackFunction(
         callbackHandle: Long,
-        callbackType: PushNotificationsHostApiBindings.CallbackType
+        callbackType: PushNotificationsHostApiBindings.CallbackType,
     ) {
-        when(callbackType){
+        when (callbackType) {
             PushNotificationsHostApiBindings.CallbackType.DISPATCHER -> registerCallbackToCache(
-                applicationContext,
-                callbackHandle,
-                PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY
+                callbackHandle, PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY,
             )
             PushNotificationsHostApiBindings.CallbackType.EXTERNAL_FUNCTION -> registerCallbackToCache(
-                applicationContext,
-                callbackHandle,
-                PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY
+                callbackHandle, PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY,
             )
         }
     }
@@ -229,27 +214,26 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
 
     private fun registerCallbackToCache(
-        context: Context,
         callbackHandle: Long,
         callbackKey: String,
     ) {
-            Log.i(TAG, "Registering callback function with key $callbackKey")
-            context.getSharedPreferences(
-                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
-                Context.MODE_PRIVATE
-            ).edit()
-                .putLong(callbackKey, callbackHandle).apply()
+        Log.i(TAG, "Registering callback function with key $callbackKey")
+        sharedPreferences.edit().putLong(callbackKey, callbackHandle).apply()
 
     }
 
     private fun refreshToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
-                task.exception?.let { StreamHandlers.tokenReceived.sendError(it) }
+                if (task.exception == null) {
+                    Log.e(TAG, "UnknownError: fetching device token.")
+                }else{
+                    StreamHandlers.tokenReceived?.sendError(task.exception!!)
+                }
                 return@addOnCompleteListener
             }
             Log.i(TAG, task.result)
-            StreamHandlers.tokenReceived.send(
+            StreamHandlers.tokenReceived?.send(
                 mapOf(
                     "token" to task.result
                 )

@@ -38,7 +38,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         Log.d(TAG, "Received new token in onNewToken")
         StreamHandlers.initStreamHandlers()
-        StreamHandlers.tokenReceived.send(mapOf("token" to token))
+        StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
 
     override fun handleIntent(intent: Intent) {
@@ -66,7 +66,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
                 val notificationHashMap = payload.asChannelMap()
-                StreamHandlers.foregroundMessageReceived.send(notificationHashMap)
+                StreamHandlers.foregroundMessageReceived?.send(notificationHashMap)
             } else {
                 try {
                     utils.showNotification(
@@ -79,8 +79,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     FlutterMain.startInitialization(baseContext)
                     FlutterMain.ensureInitializationComplete(baseContext, null)
                     PushNotificationBackgroundService.enqueueWork(
-                        baseContext,
-                        remoteMessage.toIntent()
+                        baseContext, remoteMessage.toIntent()
                     )
                 } catch (exception: Exception) {
                     Log.e(

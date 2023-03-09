@@ -41,10 +41,8 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
         private const val TAG = "PushBackgroundService"
 
-        @JvmStatic
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
 
-        @JvmStatic
         fun enqueueWork(context: Context, work: Intent) {
             enqueueWork(context, PushNotificationBackgroundService::class.java, JOB_ID, work)
         }
@@ -65,7 +63,10 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
                     PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
                 )
                 if (callbackHandle == 0L) {
-                    Log.w(TAG, "Warning: Background service could not start. Callback dispatcher not found.")
+                    Log.w(
+                        TAG,
+                        "Warning: Background service could not start. Callback dispatcher not found."
+                    )
                     return
                 }
                 val callbackInfo =

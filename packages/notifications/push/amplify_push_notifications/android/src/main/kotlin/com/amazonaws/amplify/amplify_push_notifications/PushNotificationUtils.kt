@@ -4,18 +4,16 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
-import com.google.firebase.messaging.RemoteMessage
 
 
 private const val TAG = "PushNotificationUtils"
 
-fun NotificationPayload.asChannelMap(): Map<String, Any?> {
+fun NotificationPayload.asChannelMap(): Map<Any, Any?> {
     return mapOf(
         "title" to title,
         "body" to body,

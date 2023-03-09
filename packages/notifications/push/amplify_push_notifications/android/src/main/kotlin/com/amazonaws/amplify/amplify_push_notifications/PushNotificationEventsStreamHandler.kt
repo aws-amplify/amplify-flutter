@@ -27,27 +27,29 @@ enum class NativeEvent {
 }
 
 data class PushNotificationsEvent(
-    val event: NativeEvent, val payload: Map<String, Any?>
+    val event: NativeEvent, val payload: Map<Any, Any?>
 )
 
 class PushNotificationEventsStreamHandler constructor(
-    associatedNativeEvent: NativeEvent
+    private val associatedNativeEvent: NativeEvent
 ) : EventChannel.StreamHandler {
 
-    private lateinit var eventChannel: EventChannel
-    private val _associatedNativeEvent = associatedNativeEvent
+    private var eventChannel: EventChannel? = null
     private var eventSink: EventSink? = null
 
-    private companion object{
+    private companion object {
         const val TAG = "PushNotificationEventsStreamHandler"
     }
 
     fun initEventChannel(binaryMessenger: BinaryMessenger) {
         eventChannel = EventChannel(
-            binaryMessenger, _associatedNativeEvent.eventChannelName
+            binaryMessenger, associatedNativeEvent.eventChannelName
         )
+        eventChannel?.setStreamHandler(this)
+    }
 
-        eventChannel.setStreamHandler(this)
+    fun deInitEventChannel() {
+        eventChannel = null
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
@@ -62,22 +64,22 @@ class PushNotificationEventsStreamHandler constructor(
 
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
-    fun send(payload: Map<String, Any?>) {
-        val event = PushNotificationsEvent(_associatedNativeEvent, payload)
+    fun send(payload: Map<Any, Any?>) {
+        val event = PushNotificationsEvent(associatedNativeEvent, payload)
         eventSink?.success(payload) ?: run {
             eventQueue.add(event)
         }
     }
 
     fun sendError(exception: Exception) {
-        val exceptionMap = mapOf(
-            "associatedNativeEventName" to _associatedNativeEvent.eventName,
+        val exceptionMap = mapOf<Any, Any?>(
+            "associatedNativeEventName" to associatedNativeEvent.eventName,
             "message" to exception.message,
             "details" to null
         )
         eventSink?.error(
-            exceptionMap["associatedNativeEventName"],
-            exceptionMap["message"],
+            exceptionMap["associatedNativeEventName"] as String,
+            exceptionMap["message"] as String,
             exceptionMap["details"]
         ) ?: run {
             eventQueue.add(PushNotificationsEvent(NativeEvent.ERROR, exceptionMap))
@@ -110,16 +112,13 @@ class PushNotificationEventsStreamHandler constructor(
 
 class StreamHandlers {
     companion object {
-        @JvmStatic
-        lateinit var tokenReceived: PushNotificationEventsStreamHandler
 
-        @JvmStatic
-        lateinit var notificationOpened: PushNotificationEventsStreamHandler
+        var tokenReceived: PushNotificationEventsStreamHandler? = null
 
-        @JvmStatic
-        lateinit var foregroundMessageReceived: PushNotificationEventsStreamHandler
+        var notificationOpened: PushNotificationEventsStreamHandler? = null
 
-        @JvmStatic
+        var foregroundMessageReceived: PushNotificationEventsStreamHandler? = null
+
         var isInitStreamHandlers: Boolean = false
 
         /**
@@ -148,12 +147,26 @@ class StreamHandlers {
         /**
          * Method to initialize the event channels when the binary messenger is available
          */
-        @JvmStatic
         fun initEventChannels(binaryMessenger: BinaryMessenger) {
             if (isInitStreamHandlers) {
-                tokenReceived.initEventChannel(binaryMessenger)
-                notificationOpened.initEventChannel(binaryMessenger)
-                foregroundMessageReceived.initEventChannel(binaryMessenger)
+                tokenReceived?.initEventChannel(binaryMessenger)
+                notificationOpened?.initEventChannel(binaryMessenger)
+                foregroundMessageReceived?.initEventChannel(binaryMessenger)
+            }
+        }
+
+        /**
+         * Method to de-initialize the event channels
+         */
+        fun deInit() {
+            if (isInitStreamHandlers) {
+                tokenReceived?.deInitEventChannel()
+                notificationOpened?.deInitEventChannel()
+                foregroundMessageReceived?.deInitEventChannel()
+                tokenReceived = null
+                notificationOpened = null
+                foregroundMessageReceived = null
+                isInitStreamHandlers = false
             }
         }
     }
