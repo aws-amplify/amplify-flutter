@@ -49,20 +49,20 @@ class PinpointProvider implements ServiceProviderClient {
             'No AWSIamAmplifyAuthProvider available. Is Auth category added and configured?',
           );
         }
-        final region = config.region;
-        final appId = config.appId;
 
         // TODO(Samaritan1011001): Enable use of FlutterAnalyticsClient after merging to feature branch
+        // final region = config.region;
+        // final appId = config.appId;
         // _analyticsClient = FlutterAnalyticsClient(
         //   endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
         //     storageScope: EndpointStorageScope.pushNotifications,
         //   ),
         // );
-        await _analyticsClient.init(
-          pinpointAppId: appId,
-          region: region,
-          authProvider: authProvider,
-        );
+        // await _analyticsClient.init(
+        //   pinpointAppId: appId,
+        //   region: region,
+        //   authProvider: authProvider,
+        // );
 
         _isInitialized = true;
       }
@@ -83,10 +83,11 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      await _analyticsClient.endpointClient.setUser(
-        userId,
-        userProfile,
-      );
+      // TODO(Samaritan1011001): Enable use after merging to feature branch
+      // await _analyticsClient.endpointClient.setUser(
+      //   userId,
+      //   userProfile,
+      // );
     } on Exception catch (e) {
       _logger.error('Unable to register user details: $e');
     }
@@ -111,11 +112,12 @@ class PinpointProvider implements ServiceProviderClient {
         return;
       }
 
-      final eventInfo = _constructEventInfo(notification: notification);
-      await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.first as String}.${eventType.name}',
-        properties: eventInfo.last as AnalyticsProperties,
-      );
+      // TODO(Samaritan1011001): Enable use after merging to feature branch
+      // final eventInfo = _constructEventInfo(notification: notification);
+      // await _analyticsClient.eventClient.recordEvent(
+      //   eventType: '${eventInfo.first as String}.${eventType.name}',
+      //   properties: eventInfo.last as AnalyticsProperties,
+      // );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
     }
@@ -130,15 +132,14 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      _analyticsClient.endpointClient.address = deviceToken;
 
       // TODO(Samaritan1011001): Enable use of channelType after merging to feature branch
-
+      // _analyticsClient.endpointClient.address = deviceToken;
       // final channelType = _getChannelType();
-      const channelType = '';
-      _analyticsClient.endpointClient.channelType = channelType;
-      _analyticsClient.endpointClient.optOut = 'NONE';
-      await _analyticsClient.endpointClient.updateEndpoint();
+      // const channelType = '';
+      // _analyticsClient.endpointClient.channelType = channelType;
+      // _analyticsClient.endpointClient.optOut = 'NONE';
+      // await _analyticsClient.endpointClient.updateEndpoint();
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }

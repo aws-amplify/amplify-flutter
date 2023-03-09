@@ -15,5 +15,6 @@ class PushNotificationPluginConstants {
         const val CHANNEL_NAME_PREFIX = "com.amazonaws.amplify/push_notification"
         const val ACTION_NEW_TOKEN = "com.google.firebase.messaging.NEW_TOKEN"
         const val PAYLOAD_KEY = "payload"
+        const val IS_LAUNCH_NOTIFICATION = "isLaunchNotification"
     }
 }

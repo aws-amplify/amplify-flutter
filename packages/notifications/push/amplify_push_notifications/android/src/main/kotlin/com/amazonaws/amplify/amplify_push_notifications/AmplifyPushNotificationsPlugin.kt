@@ -66,6 +66,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var flutterApi: PushNotificationsFlutterApi? = null
 
+    /**
+     * Launch notification has the notification map when app was launched by tapping on the notification
+     * when the app is in killed state and null otherwise.
+     */
+    private var launchNotification: MutableMap<Any, Any?>? = null
+
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
@@ -90,6 +96,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             StreamHandlers.initEventChannels(it)
         }
         binding.addOnNewIntentListener(this)
+        binding.activity.intent.putExtra(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true)
         onNewIntent(binding.activity.intent)
         refreshToken()
     }
@@ -113,14 +120,13 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
         intent.extras?.let {
-            val payload = it.asPayload()
-            if (payload != null) {
-                val notificationHashMap = payload.asChannelMap()
 
-                // TODO(Samaritan1011001): Why send via flutterAPI and stream handler?
-                flutterApi?.onLaunchNotificationOpened(
-                    notificationHashMap
-                ) {}
+            val payload = it.asPayload()
+            if (payload != null && it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)) {
+                val notificationHashMap = payload.asChannelMap()
+                if(it.getBoolean(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)){
+                    launchNotification = notificationHashMap.toMutableMap()
+                }
                 StreamHandlers.notificationOpened?.send(
                     notificationHashMap
                 )
@@ -142,7 +148,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         // If the shouldShowRequestPermissionRationale flag is true, permission must have been
         // denied once (and only once) previously
         if (shouldShowRequestPermissionRationale()) {
-            resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.SHOULD_REQUEST_WITH_RATIONALE)
+            resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.SHOULD_EXPLAIN_THEN_REQUEST)
             result.success(resultBuilder.build())
             return
         }
@@ -158,7 +164,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         }
         // Otherwise it's never been requested (or user could have dismissed the request without
         // explicitly denying)
-        resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.NOT_REQUESTED)
+        resultBuilder.setStatus(PushNotificationsHostApiBindings.PermissionStatus.SHOULD_REQUEST)
         result.success(resultBuilder.build())
         return
     }
@@ -188,6 +194,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                 result.success(false)
             }
         }
+    }
+
+    override fun getLaunchNotification(): MutableMap<Any, Any?>? {
+        val result = launchNotification
+        launchNotification = null
+        return result
     }
 
     override fun getBadgeCount(): Long {
