@@ -53,8 +53,6 @@ enum PermissionStatus {
 abstract class PushNotificationsFlutterApi {
   @async
   void onNotificationReceivedInBackground(Map<Object?, Object?> withPayload);
-
-  void onLaunchNotificationOpened(Map<Object?, Object?> withPayload);
 }
 
 @HostApi()
@@ -64,6 +62,8 @@ abstract class PushNotificationsHostApi {
 
   @async
   bool requestPermissions(PermissionsOptions withPermissionOptions);
+
+  Map<Object?, Object?>? getLaunchNotification();
 
   int getBadgeCount();
 

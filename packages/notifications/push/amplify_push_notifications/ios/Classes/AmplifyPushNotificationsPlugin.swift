@@ -7,8 +7,10 @@ import AmplifyUtilsNotifications
 
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
     var remoteNotificationCompletionHandlers: [String: (UIBackgroundFetchResult) -> Void] = [:]
-    // Set to true if the App was awaken in the background by a remote notification from the terminated state
-    var awokeInBackgroundButHasNotLaunched = false
+
+    // The notification that has been tapped by an end user to launch the App from terminated state
+    // to the foregound.
+    var launchNotification: [AnyHashable: Any]?
 
     let sharedEventsStreamHandlers: EventsStreamHandlers
     let flutterApi: PushNotificationsFlutterApi
@@ -80,6 +82,12 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
                 )
             }
         }
+    }
+
+    public func getLaunchNotificationWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> [AnyHashable : Any]? {
+        let launchNotification = launchNotification
+        self.launchNotification = nil
+        return launchNotification
     }
 
     public func getBadgeCountWithError(_ error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> NSNumber? {

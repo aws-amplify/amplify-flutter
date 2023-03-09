@@ -254,14 +254,6 @@ public class PushNotificationsHostApiBindings {
           new ArrayList<Object>(Collections.singletonList(withPayloadArg)),
           channelReply -> callback.reply(null));
     }
-    public void onLaunchNotificationOpened(@NonNull Map<Object, Object> withPayloadArg, Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened", getCodec());
-      channel.send(
-          new ArrayList<Object>(Collections.singletonList(withPayloadArg)),
-          channelReply -> callback.reply(null));
-    }
   }
 
   private static class PushNotificationsHostApiCodec extends StandardMessageCodec {
@@ -301,6 +293,9 @@ public class PushNotificationsHostApiBindings {
     void getPermissionStatus(Result<GetPermissionStatusResult> result);
 
     void requestPermissions(@NonNull PermissionsOptions withPermissionOptions, Result<Boolean> result);
+
+    @Nullable 
+    Map<Object, Object> getLaunchNotification();
 
     @NonNull 
     Long getBadgeCount();
@@ -378,6 +373,27 @@ public class PushNotificationsHostApiBindings {
                   ArrayList<Object> wrappedError = wrapError(exception);
                   reply.reply(wrappedError);
                 }
+              });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel =
+            new BasicMessageChannel<>(
+                binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.getLaunchNotification", getCodec());
+        if (api != null) {
+          channel.setMessageHandler(
+              (message, reply) -> {
+                ArrayList<Object> wrapped = new ArrayList<Object>();
+                try {
+                  Map<Object, Object> output = api.getLaunchNotification();
+                  wrapped.add(0, output);
+                } catch (Error | RuntimeException exception) {
+                  ArrayList<Object> wrappedError = wrapError(exception);
+                  wrapped = wrappedError;
+                }
+                reply.reply(wrapped);
               });
         } else {
           channel.setMessageHandler(null);
