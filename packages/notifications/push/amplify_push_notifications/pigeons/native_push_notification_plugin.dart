@@ -43,8 +43,8 @@ class GetPermissionStatusResult {
 }
 
 enum PermissionStatus {
-  notRequested,
-  shouldRequestWithRationale,
+  shouldRequest,
+  shouldExplainThenRequest,
   granted,
   denied,
 }

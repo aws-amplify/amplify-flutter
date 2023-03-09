@@ -36,8 +36,8 @@ public class PushNotificationsHostApiBindings {
   }
 
   public enum PermissionStatus {
-    NOT_REQUESTED(0),
-    SHOULD_REQUEST_WITH_RATIONALE(1),
+    SHOULD_REQUEST(0),
+    SHOULD_EXPLAIN_THEN_REQUEST(1),
     GRANTED(2),
     DENIED(3);
 

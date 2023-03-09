@@ -39,7 +39,7 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         Task {
             switch await AUNotificationPermissions.status {
             case .notDetermined:
-                completion(.make(with: .shouldRequestWithRationale), nil)
+                completion(.make(with: .shouldExplainThenRequest), nil)
             case .denied:
                 completion(.make(with: .denied), nil)
             case .authorized:

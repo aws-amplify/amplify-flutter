@@ -147,10 +147,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         return PushNotificationPermissionRequestStatus.denied;
       case PermissionStatus.granted:
         return PushNotificationPermissionRequestStatus.granted;
-      case PermissionStatus.shouldRequestWithRationale:
-        return PushNotificationPermissionRequestStatus.shouldShowWithRationale;
-      case PermissionStatus.notRequested:
-        return PushNotificationPermissionRequestStatus.notRequested;
+      case PermissionStatus.shouldExplainThenRequest:
+        return PushNotificationPermissionRequestStatus.shouldExplainThenRequest;
+      case PermissionStatus.shouldRequest:
+        return PushNotificationPermissionRequestStatus.shouldRequest;
     }
   }
 

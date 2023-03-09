@@ -12,8 +12,8 @@ import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
 enum PermissionStatus {
-  notRequested,
-  shouldRequestWithRationale,
+  shouldRequest,
+  shouldExplainThenRequest,
   granted,
   denied,
 }

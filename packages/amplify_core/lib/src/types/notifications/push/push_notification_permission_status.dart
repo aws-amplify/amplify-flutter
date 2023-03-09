@@ -5,8 +5,8 @@
 /// Enum to indicate the state of the current push notificaiton permissions
 /// {@endtemplate}
 enum PushNotificationPermissionRequestStatus {
-  notRequested,
-  shouldShowWithRationale,
+  shouldRequest,
+  shouldExplainThenRequest,
   granted,
   denied,
 }
