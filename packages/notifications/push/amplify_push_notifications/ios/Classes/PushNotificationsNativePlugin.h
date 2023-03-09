@@ -14,8 +14,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, PermissionStatus) {
-  PermissionStatusNotRequested = 0,
-  PermissionStatusShouldRequestWithRationale = 1,
+  PermissionStatusShouldRequest = 0,
+  PermissionStatusShouldExplainThenRequest = 1,
   PermissionStatusGranted = 2,
   PermissionStatusDenied = 3,
 };
