@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:convert';
+import 'dart:io' show Platform;
 
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
@@ -23,11 +25,11 @@ class PinpointProvider implements ServiceProviderClient {
     _androidCampaignTreatmentIdKey += _treatmentIdKey;
   }
 
-  // TODO(Samaritan1011001): Enable use of FlutterAnalyticsClient after merging to feature branch
-  late dynamic _analyticsClient;
-  final _campaginIdKey = 'campaign_id';
-  final _campaignActivityIdKey = 'campaign_activity_id';
-  final _treatmentIdKey = 'treatment_id';
+  late FlutterAnalyticsClient _analyticsClient;
+
+  static const _campaginIdKey = 'campaign_id';
+  static const _campaignActivityIdKey = 'campaign_activity_id';
+  static const _treatmentIdKey = 'treatment_id';
   String _androidCampaignIdKey = 'pinpoint.campaign.';
   String _androidCampaignActivityIdKey =
       'pinpoint.campaign.campaign_activity_id';
@@ -49,20 +51,19 @@ class PinpointProvider implements ServiceProviderClient {
             'No AWSIamAmplifyAuthProvider available. Is Auth category added and configured?',
           );
         }
+        final region = config.region;
+        final appId = config.appId;
 
-        // TODO(Samaritan1011001): Enable use of FlutterAnalyticsClient after merging to feature branch
-        // final region = config.region;
-        // final appId = config.appId;
-        // _analyticsClient = FlutterAnalyticsClient(
-        //   endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
-        //     storageScope: EndpointStorageScope.pushNotifications,
-        //   ),
-        // );
-        // await _analyticsClient.init(
-        //   pinpointAppId: appId,
-        //   region: region,
-        //   authProvider: authProvider,
-        // );
+        _analyticsClient = FlutterAnalyticsClient(
+          endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
+            storageScope: EndpointStorageScope.pushNotifications,
+          ),
+        );
+        await _analyticsClient.init(
+          pinpointAppId: appId,
+          region: region,
+          authProvider: authProvider,
+        );
 
         _isInitialized = true;
       }
@@ -83,11 +84,10 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      // TODO(Samaritan1011001): Enable use after merging to feature branch
-      // await _analyticsClient.endpointClient.setUser(
-      //   userId,
-      //   userProfile,
-      // );
+      await _analyticsClient.endpointClient.setUser(
+        userId,
+        userProfile,
+      );
     } on Exception catch (e) {
       _logger.error('Unable to register user details: $e');
     }
@@ -112,12 +112,11 @@ class PinpointProvider implements ServiceProviderClient {
         return;
       }
 
-      // TODO(Samaritan1011001): Enable use after merging to feature branch
-      // final eventInfo = _constructEventInfo(notification: notification);
-      // await _analyticsClient.eventClient.recordEvent(
-      //   eventType: '${eventInfo.first as String}.${eventType.name}',
-      //   properties: eventInfo.last as AnalyticsProperties,
-      // );
+      final eventInfo = _constructEventInfo(notification: notification);
+      await _analyticsClient.eventClient.recordEvent(
+        eventType: '${eventInfo.first as String}.${eventType.name}',
+        properties: eventInfo.last as AnalyticsProperties,
+      );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
     }
@@ -132,14 +131,13 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-
-      // TODO(Samaritan1011001): Enable use of channelType after merging to feature branch
-      // _analyticsClient.endpointClient.address = deviceToken;
-      // final channelType = _getChannelType();
-      // const channelType = '';
-      // _analyticsClient.endpointClient.channelType = channelType;
-      // _analyticsClient.endpointClient.optOut = 'NONE';
-      // await _analyticsClient.endpointClient.updateEndpoint();
+      _analyticsClient.endpointClient.address = deviceToken;
+      final channelType = _getChannelType();
+      if (channelType != null) {
+        _analyticsClient.endpointClient.channelType = channelType;
+      }
+      _analyticsClient.endpointClient.optOut = 'NONE';
+      await _analyticsClient.endpointClient.updateEndpoint();
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }
@@ -202,20 +200,22 @@ class PinpointProvider implements ServiceProviderClient {
     if (journey.isNotEmpty) {
       journey.forEach(analyticsProperties.addStringProperty);
     }
-
+    analyticsProperties.addBoolProperty(
+      'isTestEvent',
+      true,
+    );
     return {source, analyticsProperties};
   }
 
-  // TODO(Samaritan1011001): Enable use of ChannelType after merging to feature branch
-  // ChannelType? _getChannelType() {
-  //   if (Platform.isAndroid) {
-  //     return ChannelType.gcm;
-  //   } else if (Platform.isIOS) {
-  //     if (zDebugMode) {
-  //       return ChannelType.apnsSandbox;
-  //     }
-  //     return ChannelType.apns;
-  //   }
-  //   return null;
-  // }
+  ChannelType? _getChannelType() {
+    if (Platform.isAndroid) {
+      return ChannelType.gcm;
+    } else if (Platform.isIOS) {
+      if (zDebugMode) {
+        return ChannelType.apnsSandbox;
+      }
+      return ChannelType.apns;
+    }
+    return null;
+  }
 }

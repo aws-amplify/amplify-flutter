@@ -30,7 +30,6 @@ class PushNotificationMessage
   Map<Object?, Object?> data = {};
 
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    print('data from ios: $json');
     data = (json['data'] as Map<Object?, Object?>?) ?? {};
 
     final aps = json['aps'] as Map<Object?, Object?>?;

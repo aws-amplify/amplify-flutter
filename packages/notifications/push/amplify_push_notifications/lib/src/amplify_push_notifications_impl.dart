@@ -93,6 +93,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         CallbackType.externalFunction,
       );
     } else if (Platform.isIOS) {
+      // TODO(Samaritan1011001): For iOS decide where to record BG event
       _flutterApi.registerOnReceivedInBackgroundCallback(callback);
     }
   }
@@ -125,7 +126,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       final launchNotification =
           PushNotificationMessage.fromJson(rawLaunchNotification);
       _launchNotification = launchNotification;
-      unawaited(_recordAnalyticsForLaunchNotification(launchNotification));
+      _recordAnalyticsForLaunchNotification(launchNotification);
     }
 
     // Register the callback dispatcher
@@ -181,13 +182,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    // TODO(Samaritan1011001): Record Analytics
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: AWSPinpointMessageEvent.foregroundMessageReceived,
+      notification: pushNotificationMessage,
+    );
   }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    // TODO(Samaritan1011001): Record Analytics
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: AWSPinpointMessageEvent.notificationOpened,
+      notification: pushNotificationMessage,
+    );
   }
 
   void _tokenReceivedListener(String deviceToken) {
@@ -264,10 +271,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
   }
 
-  Future<void> _recordAnalyticsForLaunchNotification(
+  void _recordAnalyticsForLaunchNotification(
     PushNotificationMessage launchNotification,
-  ) async {
-    // TODO(Samaritan1011001): integrate analytic recodEvent
+  ) {
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: AWSPinpointMessageEvent.notificationOpened,
+      notification: launchNotification,
+    );
   }
 }
 
