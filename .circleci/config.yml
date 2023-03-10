@@ -36,7 +36,7 @@ commands:
       - run:
           name: Install and set up melos
           command: |
-            flutter pub global activate melos
+            flutter pub global activate melos 2.9.0
   install_aft:
     steps:
       - run:
