@@ -45,10 +45,7 @@ class PushNotificationMessage
           deeplinkUrl = pinpointData['deeplink'] as String?;
           goToUrl = deeplinkUrl;
         }
-        // TODO(Samaritan1011001): Find where the subtitle is in the dictionary
-        // apnsOptions: ApnsPlatformOptions(
-        //   subtitle: cast<String>(json['aps']['content-available'])
-        // ),
+        apnsOptions = ApnsPlatformOptions(subtitle: aps['subtitle'] as String);
       }
     } else {
       final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;

@@ -85,6 +85,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationOpened =>
       _onNotificationOpened;
 
+  // TODO(Samaritan1011001): Add implementation for identifyUser
+
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     if (Platform.isAndroid) {
