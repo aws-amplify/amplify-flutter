@@ -38,19 +38,19 @@ class PushNotificationMessage
     data = json['data'] as Map<Object?, Object?>;
 
     // TODO: standardize iOS json with Android, apnsOption can be the only difference
-    final aps = json['aps'] as Map?;
+    final aps = json['aps'] as Map<Object?, Object?>?;
     if (aps != null) {
-      final alert = aps['alert'] as Map<String, dynamic>?;
+      final alert = aps['alert'] as Map<Object?, Object?>?;
       if (alert != null) {
         title = alert['title'] as String?;
         body = alert['body'] as String?;
         imageUrl = data['media-url'] as String?;
-        deeplinkUrl = data['pinpoint'] != null
-            ? (data['pinpoint'] as Map)['deeplink'] as String?
-            : null;
-        goToUrl = data['pinpoint'] != null
-            ? (data['pinpoint'] as Map)['deeplink'] as String?
-            : null;
+
+        if (data['pinpoint'] != null) {
+          final pinpointData = data['pinpoint'] as Map<Object?, Object?>;
+          deeplinkUrl = pinpointData['deeplink'] as String?;
+          goToUrl = deeplinkUrl;
+        }
         // TODO(Samaritan1011001): Find where the subtitle is in the dictionary
         // apnsOptions: ApnsPlatformOptions(
         //   subtitle: cast<String>(json['aps']['content-available'])

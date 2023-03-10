@@ -12,7 +12,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   Category get category => Category.pushNotifications;
 
   /// {@macro amplify_core.amplify_notifications_category.get_permission_status}
-  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() {
+  Future<PushNotificationPermissionStatus> getPermissionStatus() {
     throw UnimplementedError('getPermissionStatus() has not been implemented');
   }
 
