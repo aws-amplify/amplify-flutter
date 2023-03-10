@@ -6,8 +6,6 @@ import amplify_flutter_ios
 import AmplifyUtilsNotifications
 
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
-    var remoteNotificationCompletionHandlers: [String: (UIBackgroundFetchResult) -> Void] = [:]
-
     // The notification that has been tapped by an end user to launch the App from terminated state
     // to the foregound.
     var launchNotification: [AnyHashable: Any]?

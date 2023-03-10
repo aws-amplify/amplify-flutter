@@ -82,7 +82,7 @@ class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
 
     private func flushEvents() {
         if let eventSink = eventSink {
-            while(!eventQueue.isEmpty) {
+            while !eventQueue.isEmpty {
                 switch eventQueue.removeFirst() {
                 case .payload(let payload):
                     eventSink(payload)
