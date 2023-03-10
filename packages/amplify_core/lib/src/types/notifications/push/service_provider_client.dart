@@ -19,7 +19,7 @@ abstract class ServiceProviderClient {
   });
   Future<void> registerDevice(String deviceToken);
   Future<void> recordNotificationEvent({
-    required AWSPinpointMessageEvent eventType,
+    required PinpointEventType eventType,
     required PushNotificationMessage notification,
   });
 

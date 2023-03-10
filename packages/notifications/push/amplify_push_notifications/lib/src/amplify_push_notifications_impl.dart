@@ -185,7 +185,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage pushNotificationMessage,
   ) {
     _serviceProviderClient.recordNotificationEvent(
-      eventType: AWSPinpointMessageEvent.foregroundMessageReceived,
+      eventType: PinpointEventType.foregroundMessageReceived,
       notification: pushNotificationMessage,
     );
   }
@@ -194,7 +194,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage pushNotificationMessage,
   ) {
     _serviceProviderClient.recordNotificationEvent(
-      eventType: AWSPinpointMessageEvent.notificationOpened,
+      eventType: PinpointEventType.notificationOpened,
       notification: pushNotificationMessage,
     );
   }
@@ -277,7 +277,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     PushNotificationMessage launchNotification,
   ) {
     _serviceProviderClient.recordNotificationEvent(
-      eventType: AWSPinpointMessageEvent.notificationOpened,
+      eventType: PinpointEventType.notificationOpened,
       notification: launchNotification,
     );
   }

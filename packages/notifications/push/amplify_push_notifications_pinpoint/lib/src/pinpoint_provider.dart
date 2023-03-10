@@ -19,21 +19,14 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 /// {@endtemplate}
 class PinpointProvider implements ServiceProviderClient {
   /// {@macro amplify_push_notifications_pinpoint.pinpoint_provider}
-  PinpointProvider() {
-    _androidCampaignIdKey += _campaginIdKey;
-    _androidCampaignActivityIdKey += _campaignActivityIdKey;
-    _androidCampaignTreatmentIdKey += _treatmentIdKey;
-  }
 
   late FlutterAnalyticsClient _analyticsClient;
 
-  static const _campaginIdKey = 'campaign_id';
-  static const _campaignActivityIdKey = 'campaign_activity_id';
-  static const _treatmentIdKey = 'treatment_id';
-  String _androidCampaignIdKey = 'pinpoint.campaign.';
-  String _androidCampaignActivityIdKey =
+  static const _androidCampaignIdKey = 'pinpoint.campaign.campaign_id';
+  static const _androidCampaignActivityIdKey =
       'pinpoint.campaign.campaign_activity_id';
-  String _androidCampaignTreatmentIdKey = 'pinpoint.campaign.treatment_id';
+  static const _androidCampaignTreatmentIdKey =
+      'pinpoint.campaign.treatment_id';
   bool _isInitialized = false;
 
   @override
@@ -95,7 +88,7 @@ class PinpointProvider implements ServiceProviderClient {
 
   @override
   Future<void> recordNotificationEvent({
-    required AWSPinpointMessageEvent eventType,
+    required PinpointEventType eventType,
     required PushNotificationMessage notification,
   }) async {
     try {
@@ -148,21 +141,21 @@ class PinpointProvider implements ServiceProviderClient {
   }) {
     final data = notification.data;
     final analyticsProperties = AnalyticsProperties();
-    var source = AWSPinpointMessageEventSource.campaign.name;
+    var source = PinpointEventSource.campaign.name;
     var campaign = <String, String>{};
     var journey = <String, String>{};
     var pinpointData = <Object?, Object?>{};
 
     // Android payload contain pinpoint.campaign.* format
     if (data.containsKey(_androidCampaignIdKey)) {
-      source = AWSPinpointMessageEventSource.campaign.name;
-      campaign[_campaginIdKey] = data[_androidCampaignIdKey] as String;
+      source = PinpointEventSource.campaign.name;
+      campaign['campaign_id'] = data[_androidCampaignIdKey] as String;
       if (data.containsKey(_androidCampaignActivityIdKey)) {
-        campaign[_campaignActivityIdKey] =
+        campaign['campaign_activity_id'] =
             data[_androidCampaignActivityIdKey] as String;
       }
       if (data.containsKey(_androidCampaignTreatmentIdKey)) {
-        campaign[_treatmentIdKey] =
+        campaign['treatment_id'] =
             data[_androidCampaignTreatmentIdKey] as String;
       }
     }
@@ -178,7 +171,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // iOS payload conatin a nested map of pinpoint, campaign, * format
       if (pinpointData.containsKey('campaign')) {
-        source = AWSPinpointMessageEventSource.campaign.name;
+        source = PinpointEventSource.campaign.name;
         campaign = Map<String, String>.from(
           pinpointData['campaign'] as Map<Object?, Object?>,
         );
@@ -186,7 +179,7 @@ class PinpointProvider implements ServiceProviderClient {
 
       // Common way of represting journeys both on Android and iOS payloads
       if (pinpointData.containsKey('journey')) {
-        source = AWSPinpointMessageEventSource.journey.name;
+        source = PinpointEventSource.journey.name;
         journey = Map<String, String>.from(
           pinpointData['journey'] as Map<Object?, Object?>,
         );
@@ -200,10 +193,6 @@ class PinpointProvider implements ServiceProviderClient {
     if (journey.isNotEmpty) {
       journey.forEach(analyticsProperties.addStringProperty);
     }
-    analyticsProperties.addBoolProperty(
-      'isTestEvent',
-      true,
-    );
     return {source, analyticsProperties};
   }
 
