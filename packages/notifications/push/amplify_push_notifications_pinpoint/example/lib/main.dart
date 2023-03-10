@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
   PushNotificationMessage? foregroundMessage;
   PushNotificationMessage? notificaitonOpenedMessage;
-  PushNotificationPermissionRequestStatus? getPermissionStatus;
+  PushNotificationPermissionStatus? getPermissionStatus;
   bool? requestPermissionsResult;
   PushNotificationMessage? launchNotificaitonAvailable;
 

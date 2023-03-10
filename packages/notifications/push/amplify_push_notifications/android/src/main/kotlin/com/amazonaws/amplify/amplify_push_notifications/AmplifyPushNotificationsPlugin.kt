@@ -122,9 +122,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     override fun onNewIntent(intent: Intent): Boolean {
         intent.extras?.let {
             val payload = it.asPayload()
-            if (payload != null && it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)) {
+            if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
-                if (it.getBoolean(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)) {
+                if (it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION) && it.getBoolean(
+                        PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION
+                    )
+                ) {
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
