@@ -88,34 +88,22 @@ class _$CreateDomainNameRequest extends CreateDomainNameRequest {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        0,
-                                                        certificateArn
-                                                            .hashCode),
-                                                    certificateBody.hashCode),
-                                                certificateChain.hashCode),
-                                            certificateName.hashCode),
-                                        certificatePrivateKey.hashCode),
-                                    domainName.hashCode),
-                                endpointConfiguration.hashCode),
-                            mutualTlsAuthentication.hashCode),
-                        ownershipVerificationCertificateArn.hashCode),
-                    regionalCertificateArn.hashCode),
-                regionalCertificateName.hashCode),
-            securityPolicy.hashCode),
-        tags.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, certificateArn.hashCode);
+    _$hash = $jc(_$hash, certificateBody.hashCode);
+    _$hash = $jc(_$hash, certificateChain.hashCode);
+    _$hash = $jc(_$hash, certificateName.hashCode);
+    _$hash = $jc(_$hash, certificatePrivateKey.hashCode);
+    _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, endpointConfiguration.hashCode);
+    _$hash = $jc(_$hash, mutualTlsAuthentication.hashCode);
+    _$hash = $jc(_$hash, ownershipVerificationCertificateArn.hashCode);
+    _$hash = $jc(_$hash, regionalCertificateArn.hashCode);
+    _$hash = $jc(_$hash, regionalCertificateName.hashCode);
+    _$hash = $jc(_$hash, securityPolicy.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -277,4 +265,4 @@ class CreateDomainNameRequestBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

@@ -89,37 +89,23 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            0,
-                                                            booleanList
-                                                                .hashCode),
-                                                        enumList.hashCode),
-                                                    flattenedList.hashCode),
-                                                flattenedList2.hashCode),
-                                            flattenedListWithMemberNamespace
-                                                .hashCode),
-                                        flattenedListWithNamespace.hashCode),
-                                    flattenedStructureList.hashCode),
-                                integerList.hashCode),
-                            nestedStringList.hashCode),
-                        renamedListMembers.hashCode),
-                    stringList.hashCode),
-                stringSet.hashCode),
-            structureList.hashCode),
-        timestampList.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, booleanList.hashCode);
+    _$hash = $jc(_$hash, enumList.hashCode);
+    _$hash = $jc(_$hash, flattenedList.hashCode);
+    _$hash = $jc(_$hash, flattenedList2.hashCode);
+    _$hash = $jc(_$hash, flattenedListWithMemberNamespace.hashCode);
+    _$hash = $jc(_$hash, flattenedListWithNamespace.hashCode);
+    _$hash = $jc(_$hash, flattenedStructureList.hashCode);
+    _$hash = $jc(_$hash, integerList.hashCode);
+    _$hash = $jc(_$hash, nestedStringList.hashCode);
+    _$hash = $jc(_$hash, renamedListMembers.hashCode);
+    _$hash = $jc(_$hash, stringList.hashCode);
+    _$hash = $jc(_$hash, stringSet.hashCode);
+    _$hash = $jc(_$hash, structureList.hashCode);
+    _$hash = $jc(_$hash, timestampList.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -321,4 +307,4 @@ class XmlListsInputOutputBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

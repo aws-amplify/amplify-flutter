@@ -45,6 +45,7 @@ abstract class FetchAuthSessionState
   /// {@macro amplify_auth_cognito.fetch_auth_session_failure}
   const factory FetchAuthSessionState.failure(
     Exception exception,
+    StackTrace stackTrace,
   ) = FetchAuthSessionFailure;
 
   @override
@@ -115,15 +116,18 @@ class FetchAuthSessionSuccess extends FetchAuthSessionState with SuccessState {
 /// {@endtemplate}
 class FetchAuthSessionFailure extends FetchAuthSessionState with ErrorState {
   /// {@macro amplify_auth_cognito.fetch_auth_session_failure}
-  const FetchAuthSessionFailure(this.exception) : super._();
+  const FetchAuthSessionFailure(this.exception, this.stackTrace) : super._();
 
   /// The exception thrown fetching credentials.
   @override
   final Exception exception;
 
   @override
+  final StackTrace stackTrace;
+
+  @override
   FetchAuthSessionStateType get type => FetchAuthSessionStateType.failure;
 
   @override
-  List<Object?> get props => [type, exception];
+  List<Object?> get props => [type, exception, stackTrace];
 }

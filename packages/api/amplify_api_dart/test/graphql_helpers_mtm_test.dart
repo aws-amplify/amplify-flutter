@@ -28,9 +28,9 @@ void main() {
     });
 
     const manyToManyPrimarySelectionSet =
-        'manyToManyPrimary { id name createdAt updatedAt }';
+        'manyToManyPrimary { id name createdAt updatedAt } manyToManyPrimaryId';
     const manyToManySecondarySelectionSet =
-        'manyToManySecondary { id name createdAt updatedAt }';
+        'manyToManySecondary { id name createdAt updatedAt } manyToManySecondaryId';
 
     const mtmRelationSelectionSet = 'id createdAt updatedAt '
         '$manyToManyPrimarySelectionSet '
@@ -40,12 +40,19 @@ void main() {
         'ModelMutations.get() on firstMtmRelationModel should get both relationships',
         () {
       final id = UUID.getUUID();
+      final firstMtmRelation = FirstMtmRelation(
+        id: id,
+        manyToManyPrimary: ManyToManyPrimary(name: 'a'),
+        manyToManySecondary: ManyToManySecondary(name: 'b'),
+      );
       const expectedDoc = r'query getFirstMtmRelation($id: ID!) { '
           r'getFirstMtmRelation(id: $id) { '
           '$mtmRelationSelectionSet } }';
 
-      final req =
-          ModelQueries.get<FirstMtmRelation>(FirstMtmRelation.classType, id);
+      final req = ModelQueries.get<FirstMtmRelation>(
+        FirstMtmRelation.classType,
+        firstMtmRelation.modelIdentifier,
+      );
 
       expect(req.document, expectedDoc);
       expect(_deepEquals(req.variables, {'id': id}), isTrue);

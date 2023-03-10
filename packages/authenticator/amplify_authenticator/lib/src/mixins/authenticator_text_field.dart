@@ -6,7 +6,7 @@ import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-mixin AuthenticatorTextField<FieldType,
+mixin AuthenticatorTextField<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T> {
   @override
@@ -45,6 +45,8 @@ mixin AuthenticatorTextField<FieldType,
           keyboardType: keyboardType,
           obscureText: obscureText,
           onFieldSubmitted: onFieldSubmitted,
+          textAlignVertical: TextAlignVertical.center,
+          autofillHints: autofillHints,
         );
       },
     );

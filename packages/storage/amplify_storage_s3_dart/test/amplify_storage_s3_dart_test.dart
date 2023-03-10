@@ -351,23 +351,21 @@ void main() {
         expect(result.downloadedItem, testItem);
       });
 
-      // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
-      // can cancel underlying http request.
-      // test(
-      //     'S3DownloadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
-      //     () async {
-      //   when(testS3DownloadTask.pause).thenAnswer((_) async {});
-      //   when(testS3DownloadTask.resume).thenAnswer((_) async {});
-      //   when(testS3DownloadTask.cancel).thenAnswer((_) async {});
+      test(
+          'S3DownloadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
+          () async {
+        when(testS3DownloadTask.pause).thenAnswer((_) async {});
+        when(testS3DownloadTask.resume).thenAnswer((_) async {});
+        when(testS3DownloadTask.cancel).thenAnswer((_) async {});
 
-      //   await downloadDataOperation.pause();
-      //   await downloadDataOperation.resume();
-      //   await downloadDataOperation.cancel();
+        await downloadDataOperation.pause();
+        await downloadDataOperation.resume();
+        await downloadDataOperation.cancel();
 
-      //   verify(testS3DownloadTask.pause).called(1);
-      //   verify(testS3DownloadTask.resume).called(1);
-      //   verify(testS3DownloadTask.cancel).called(1);
-      // });
+        verify(testS3DownloadTask.pause).called(1);
+        verify(testS3DownloadTask.resume).called(1);
+        verify(testS3DownloadTask.cancel).called(1);
+      });
     });
 
     group('uploadData() API', () {
@@ -442,21 +440,15 @@ void main() {
         expect(result.uploadedItem, testItem);
       });
 
-      // test(
-      //     'S3UploadDataOperation pause resume and cancel APIs should interact with S3DownloadTask',
-      //     () async {
-      //   when(testS3UploadTask.pause).thenAnswer((_) async {});
-      //   when(testS3UploadTask.resume).thenAnswer((_) async {});
-      //   when(testS3UploadTask.cancel).thenAnswer((_) async {});
+      test(
+          'S3UploadDataOperation cancel APIs should interact with S3DownloadTask',
+          () async {
+        when(testS3UploadTask.cancel).thenAnswer((_) async {});
 
-      //   await uploadDataOperation.pause();
-      //   await uploadDataOperation.resume();
-      //   await uploadDataOperation.cancel();
+        await uploadDataOperation.cancel();
 
-      //   verify(testS3UploadTask.pause).called(1);
-      //   verify(testS3UploadTask.resume).called(1);
-      //   verify(testS3UploadTask.cancel).called(1);
-      // });
+        verify(testS3UploadTask.cancel).called(1);
+      });
     });
 
     group('uploadFile() API', () {
@@ -533,23 +525,21 @@ void main() {
         expect(result.uploadedItem, testItem);
       });
 
-      // TODO(HuiSF): enable this test when upload opeartion regain the control
-      //  APIs.
-      // test(
-      //     'S3DownloadUploadOperation pause resume and cancel APIs should interact with S3DownloadTask',
-      //     () async {
-      //   when(testS3UploadTask.pause).thenAnswer((_) async {});
-      //   when(testS3UploadTask.resume).thenAnswer((_) async {});
-      //   when(testS3UploadTask.cancel).thenAnswer((_) async {});
+      test(
+          'S3DownloadUploadOperation pause resume and cancel APIs should interact with S3DownloadTask',
+          () async {
+        when(testS3UploadTask.pause).thenAnswer((_) async {});
+        when(testS3UploadTask.resume).thenAnswer((_) async {});
+        when(testS3UploadTask.cancel).thenAnswer((_) async {});
 
-      //   await uploadFileOperation.pause();
-      //   await uploadFileOperation.resume();
-      //   await uploadFileOperation.cancel();
+        await uploadFileOperation.pause();
+        await uploadFileOperation.resume();
+        await uploadFileOperation.cancel();
 
-      //   verify(testS3UploadTask.pause).called(1);
-      //   verify(testS3UploadTask.resume).called(1);
-      //   verify(testS3UploadTask.cancel).called(1);
-      // });
+        verify(testS3UploadTask.pause).called(1);
+        verify(testS3UploadTask.resume).called(1);
+        verify(testS3UploadTask.cancel).called(1);
+      });
     });
 
     group('copy() API', () {

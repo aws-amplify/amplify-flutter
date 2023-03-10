@@ -66,7 +66,7 @@ name: $packageName
 version: $version
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 ''',
       );
       if (dependencies != null && dependencies.isNotEmpty) {
@@ -128,8 +128,8 @@ Initial version.
         gitDir,
         repo: Repository.init(path: gitDir.path),
         logger: logger,
-        aftConfig: const AftConfig(
-          components: [
+        aftConfig: AftConfig(
+          components: const [
             AftComponent(
               name: 'Amplify Flutter',
               packages: [
@@ -138,6 +138,13 @@ Initial version.
               ],
             ),
           ],
+          environment: Environment(
+            sdk: VersionConstraint.compatibleWith(Version(2, 17, 0)),
+            flutter: VersionConstraint.compatibleWith(Version(3, 0, 0)),
+            android: const AndroidEnvironment(minSdkVersion: '24'),
+            ios: const IosEnvironment(minOSVersion: '13.0'),
+            macOS: const MacOSEnvironment(minOSVersion: '13.0'),
+          ),
         ),
       );
       await runGit(
@@ -410,14 +417,14 @@ name: aws_common
 version: 0.1.0+1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 ''',
           'amplify_core': '''
 name: amplify_core
 version: 1.0.0-next.0+1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 
 dependencies:
   aws_common: "^0.1.0"
@@ -427,7 +434,7 @@ name: amplify_auth_cognito_dart
 version: 0.1.1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 
 dependencies:
   amplify_core: ">=1.0.0-next.0+1 <1.0.0-next.1"
@@ -438,7 +445,7 @@ name: amplify_auth_cognito
 version: 1.0.0-next.1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 
 dependencies:
   amplify_auth_cognito_ios: ">=1.0.0-next.1 <1.0.0-next.2"
@@ -451,7 +458,7 @@ name: amplify_auth_cognito_ios
 version: 1.0.0-next.1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 ''',
         };
 

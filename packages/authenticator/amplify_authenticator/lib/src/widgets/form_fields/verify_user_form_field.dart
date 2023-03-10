@@ -18,6 +18,7 @@ abstract class VerifyUserFormField<FieldValue>
     String? title,
     String? hintText,
     FormFieldValidator<FieldValue>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -26,6 +27,7 @@ abstract class VerifyUserFormField<FieldValue>
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   static VerifyUserFormField verifyAttribute({
@@ -42,6 +44,7 @@ abstract class VerifyUserFormField<FieldValue>
   static VerifyUserFormField confirmVerifyAttribute({
     Key? key,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) =>
       _VerifyUserTextField(
         key: keyVerifyUserConfirmationCode,
@@ -49,6 +52,7 @@ abstract class VerifyUserFormField<FieldValue>
         hintTextKey: InputResolverKey.verificationCodeHint,
         field: VerifyAttributeField.confirmVerify,
         validator: validator,
+        autofillHints: autofillHints,
       );
 
   @override
@@ -73,6 +77,7 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
     String? title,
     String? hintText,
     FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
@@ -81,6 +86,7 @@ class _VerifyUserTextField extends VerifyUserFormField<String> {
           title: title,
           hintText: hintText,
           validator: validator,
+          autofillHints: autofillHints,
         );
 
   @override
@@ -108,6 +114,13 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
   ValueChanged<String> get onChanged {
     return (v) => state.confirmationCode = v;
   }
+
+  @override
+  Iterable<String>? get autofillHints =>
+      widget.autofillHints ??
+      [
+        AutofillHints.oneTimeCode,
+      ];
 
   @override
   FormFieldValidator<String> get validator {
@@ -178,6 +191,9 @@ class _VerifyAttributeFieldState
         )
     ];
     initialValue = selections.first.value;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      state.attributeKeyToVerify = initialValue;
+    });
   }
 
   @override

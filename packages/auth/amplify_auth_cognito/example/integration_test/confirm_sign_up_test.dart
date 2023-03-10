@@ -8,7 +8,6 @@ import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
@@ -53,7 +52,7 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final otpResult = await getOtpCode(username);
+        final otpResult = await getOtpCode(UserAttribute.username(username));
         await signUpWithoutConfirming(username, password);
 
         // Confirm sign up and complete sign in
@@ -69,7 +68,7 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        final otpResult = await getOtpCode(username);
+        final otpResult = await getOtpCode(UserAttribute.username(username));
 
         await signUpWithoutConfirming(username, password);
 
@@ -99,12 +98,12 @@ void main() {
         final password = generatePassword();
 
         // Sign up, but do not confirm, user
-        var otpResult = await getOtpCode(username);
+        var otpResult = await getOtpCode(UserAttribute.username(username));
         await signUpWithoutConfirming(username, password);
 
         // Throw away code and get next one
         await otpResult.code;
-        otpResult = await getOtpCode(username);
+        otpResult = await getOtpCode(UserAttribute.username(username));
 
         final resendResult = await Amplify.Auth.resendSignUpCode(
           username: username,

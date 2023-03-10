@@ -1,3 +1,22 @@
+## 1.0.0-next.6
+
+### Fixes
+- fix(auth): Await `signInUri` in Hosted UI platform ([#2706](https://github.com/aws-amplify/amplify-flutter/pull/2706))
+
+## 1.0.0-next.5+1
+
+- Minor bug fixes and improvements
+
+## 1.0.0-next.5
+
+### Breaking Changes
+- refactor(auth)!: Make attribute update step an enum
+- refactor(auth)!: Make reset password step an enum
+- refactor(auth)!: Make sign-in step an enum
+- refactor(auth)!: Make sign-up step an enum
+- refactor(auth)!: Remove category->plugin indirection for `getPlugin`
+- refactor(auth)!: State machine facade ([#2482](https://github.com/aws-amplify/amplify-flutter/pull/2482))
+
 ## 1.0.0-next.4
 
 ### Breaking Changes

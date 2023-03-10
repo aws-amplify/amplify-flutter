@@ -82,7 +82,7 @@ void main({bool useExistingTestUser = false}) {
           (WidgetTester tester) async {
         const name = 'Integration Test Blog to fetch';
         final blog = await addBlog(name);
-        final req = ModelQueries.get(Blog.classType, blog.id);
+        final req = ModelQueries.get(Blog.classType, blog.modelIdentifier);
         final res = await Amplify.API.query(request: req).response;
         final data = res.data;
         expect(res, hasNoGraphQLErrors);
@@ -226,7 +226,93 @@ void main({bool useExistingTestUser = false}) {
             await Amplify.API.query(request: reqThatShouldWork).response;
         expect(res, hasNoGraphQLErrors);
         expect(res.data?.name, testName);
-        await deleteBlog(res.data!.id);
+        await deleteBlog(res.data!);
+      });
+
+      testWidgets(
+          'should GET a model with custom primary key and complex identifier using model helpers',
+          (WidgetTester tester) async {
+        const name = 'Integration Test CpkParent to fetch';
+        final cpkParent = await addCpkParent(name);
+        final req = ModelQueries.get(
+          CpkOneToOneBidirectionalParentCD.classType,
+          cpkParent.modelIdentifier,
+        );
+        final res = await Amplify.API.query(request: req).response;
+        final data = res.data;
+        expect(res, hasNoGraphQLErrors);
+        expect(data, equals(cpkParent));
+      });
+
+      /// parent: { customId, name } // complex identifier
+      /// child: { belongsToParent } // references parent by complex identifier
+      /// get(child) -> child populated with parent that has customId and name
+      testWidgets(
+          'should GET a child and include parent with complex identifier and custom primary key',
+          (WidgetTester tester) async {
+        const name = 'Integration Test CpkParent to fetch w child';
+        const explicitChildName = 'Explicit child name fetch test';
+        const implicitChildName = 'Implicit child name fetch test';
+        // Create test parent, explicit child and implicit child
+        final cpkParent = await addCpkParent(name);
+        final createExplicitChildReq = ModelMutations.create(
+          CpkOneToOneBidirectionalChildExplicitCD(
+            name: explicitChildName,
+            belongsToParent: cpkParent,
+          ),
+        );
+        final createImplicitChildReq = ModelMutations.create(
+          CpkOneToOneBidirectionalChildImplicitCD(
+            name: implicitChildName,
+            belongsToParent: cpkParent,
+          ),
+        );
+        final explicitChildCreateRes =
+            await Amplify.API.mutate(request: createExplicitChildReq).response;
+        expect(explicitChildCreateRes, hasNoGraphQLErrors);
+        final createdExplicitChild = explicitChildCreateRes.data!;
+        cpkExplicitChildCache.add(createdExplicitChild);
+        final implicitChildCreateRes =
+            await Amplify.API.mutate(request: createImplicitChildReq).response;
+        expect(implicitChildCreateRes, hasNoGraphQLErrors);
+        final createdImplicitChild = implicitChildCreateRes.data!;
+        cpkImplicitChildCache.add(createdImplicitChild);
+
+        // Fetch the created children and check responses.
+        final fetchExplicitChildReq =
+            ModelQueries.get<CpkOneToOneBidirectionalChildExplicitCD>(
+          CpkOneToOneBidirectionalChildExplicitCD.classType,
+          createdExplicitChild.modelIdentifier,
+        );
+        final fetchExplicitChildRes =
+            await Amplify.API.query(request: fetchExplicitChildReq).response;
+        final fetchedExplicitChild = fetchExplicitChildRes.data;
+        expect(fetchExplicitChildRes, hasNoGraphQLErrors);
+        // Convert to JSON because `_belongsToParent` is private on the model
+        // but present in the converted JSON.
+        final explicitChildJson = fetchedExplicitChild?.toJson();
+        final explicitParentJson =
+            explicitChildJson?['belongsToParent'] as Map<String, dynamic>;
+        expect(
+          explicitParentJson['customId'],
+          equals(cpkParent.customId),
+        );
+        final fetchImplicitChildReq =
+            ModelQueries.get<CpkOneToOneBidirectionalChildImplicitCD>(
+          CpkOneToOneBidirectionalChildImplicitCD.classType,
+          createdImplicitChild.modelIdentifier,
+        );
+        final fetchImplicitChildRes =
+            await Amplify.API.query(request: fetchImplicitChildReq).response;
+        final fetchedImplicitChild = fetchImplicitChildRes.data;
+        expect(fetchImplicitChildRes, hasNoGraphQLErrors);
+        final implicitChildJson = fetchedImplicitChild?.toJson();
+        final implicitParentJson =
+            implicitChildJson?['belongsToParent'] as Map<String, dynamic>;
+        expect(
+          implicitParentJson['customId'],
+          equals(cpkParent.customId),
+        );
       });
     });
 
@@ -314,7 +400,7 @@ void main({bool useExistingTestUser = false}) {
               ModelSubscriptions.onDelete(Blog.classType);
           final eventResponse = await establishSubscriptionAndMutate<Blog>(
             subscriptionRequest,
-            () => deleteBlog(blogToDelete.id),
+            () => deleteBlog(blogToDelete),
             eventFilter: (response) => response.data?.id == blogToDelete.id,
           );
           final blogFromEvent = eventResponse.data;
@@ -336,7 +422,7 @@ void main({bool useExistingTestUser = false}) {
           await subscription.cancel();
 
           // delete the blog, wait for update
-          await deleteBlog(blogToDelete.id);
+          await deleteBlog(blogToDelete);
           await Future<dynamic>.delayed(const Duration(seconds: 5));
         });
 
@@ -355,6 +441,43 @@ void main({bool useExistingTestUser = false}) {
           final postFromEvent = eventResponse.data;
 
           expect(postFromEvent?.title, equals(title));
+        });
+
+        testWidgets('should support where clause when using Model helpers',
+            (WidgetTester tester) async {
+          final blog1 = await addBlog(
+            'Integration Test Blog - subscription filter ${uuid()}',
+          );
+          final blog2 = await addBlog(
+            'Integration Test Blog - subscription filter ${uuid()}',
+          );
+
+          final postTitle1 =
+              'Integration Test Post - subscription filter ${uuid()}';
+          final postTitle2 =
+              'Integration Test Post - subscription filter ${uuid()}';
+
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            Post.classType,
+            where: Post.BLOG.eq(blog2.id),
+          );
+
+          final stream = Amplify.API.subscribe(
+            subscriptionRequest,
+            onEstablished: () {
+              addPost(postTitle1, 3, blog1);
+              addPost(postTitle2, 3, blog2);
+            },
+          );
+
+          stream.listen(
+            expectAsync1((event) {
+              final postFromEvent = event.data;
+
+              expect(postFromEvent?.title, equals(postTitle2));
+            }),
+            onError: (Object e) => fail('Error in subscription stream: $e'),
+          );
         });
 
         testWidgets(

@@ -57,10 +57,13 @@ class _$CognitoUserPoolTokens extends CognitoUserPoolTokens {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, signInMethod.hashCode), accessToken.hashCode),
-            refreshToken.hashCode),
-        idToken.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, signInMethod.hashCode);
+    _$hash = $jc(_$hash, accessToken.hashCode);
+    _$hash = $jc(_$hash, refreshToken.hashCode);
+    _$hash = $jc(_$hash, idToken.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -131,7 +134,7 @@ class CognitoUserPoolTokensBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint
 
 // **************************************************************************
 // JsonSerializableGenerator

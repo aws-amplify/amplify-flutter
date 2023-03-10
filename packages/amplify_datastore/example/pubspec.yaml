@@ -6,25 +6,22 @@ description: Demonstrates how to use the amplify_datastore plugin.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  amplify_datastore: ">=1.0.0-next.4 <1.0.0-next.5"
-  # Uncomment the below lines to enable online sync
-  # amplify_api:
-  #   path: ../../api/amplify_api
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_api: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_datastore: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_flutter: ">=1.0.0-next.6 <1.0.0-next.7"
   flutter_driver:
     sdk: flutter
   integration_test:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
+dependency_overrides:
+  async: ^2.10.0
 
 dev_dependencies:
   amplify_test:

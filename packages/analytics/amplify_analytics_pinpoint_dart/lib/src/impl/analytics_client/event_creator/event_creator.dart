@@ -16,22 +16,21 @@ import 'package:amplify_core/amplify_core.dart';
 class EventCreator {
   /// {@macro amplify_analytics_pinpoint_dart.event_creator}
   EventCreator({
-    required EventGlobalFieldsManager globalFieldsManager,
     DeviceContextInfo? deviceContextInfo,
-  })  : _globalFieldsManager = globalFieldsManager,
-        _deviceContextInfo = deviceContextInfo;
+  }) : _deviceContextInfo = deviceContextInfo;
 
   static const int _maxEventTypeLength = 50;
 
-  final EventGlobalFieldsManager _globalFieldsManager;
+  final EventGlobalFieldsManager _globalFieldsManager =
+      EventGlobalFieldsManager();
   final DeviceContextInfo? _deviceContextInfo;
 
-  /// Create a Pinpoint [Event] from a [AnalyticsEvent] received from the public API
-  /// Also, auto fill fields of [Event]
+  /// Create a Pinpoint [Event] from a [AnalyticsEvent] received from the public API.
+  /// Also, auto fill fields of [Event].
   Event createPinpointEvent(
     String eventType,
     Session? session, [
-    AnalyticsEvent? analyticsEvent,
+    AnalyticsProperties? analyticsProperties,
   ]) {
     if (eventType.length > _maxEventTypeLength) {
       throw const AnalyticsException(
@@ -53,22 +52,22 @@ class EventCreator {
       ..attributes.addAll(_globalFieldsManager.globalAttributes)
       ..metrics.addAll(_globalFieldsManager.globalMetrics);
 
-    /// Read attributes and metrics from [analyticsEvent]
-    if (analyticsEvent != null) {
-      eventBuilder.attributes.addAll(analyticsEvent.properties.attributes);
-      eventBuilder.metrics.addAll(analyticsEvent.properties.metrics);
+    /// Read attributes and metrics from [analyticsEvent].
+    if (analyticsProperties != null) {
+      eventBuilder.attributes.addAll(analyticsProperties.attributes);
+      eventBuilder.metrics.addAll(analyticsProperties.metrics);
     }
 
     return eventBuilder.build();
   }
 
-  /// Register new global properties that will be added to all newly created events
+  /// Register new global properties that will be added to all newly created events.
   void registerGlobalProperties(
     AnalyticsProperties globalProperties,
   ) =>
       _globalFieldsManager.addGlobalProperties(globalProperties);
 
-  /// Unregister global properties that will no longer be added to all newly created events
+  /// Unregister global properties that will no longer be added to all newly created events.
   void unregisterGlobalProperties(List<String> propertyNames) =>
       _globalFieldsManager.removeGlobalProperties(propertyNames);
 }

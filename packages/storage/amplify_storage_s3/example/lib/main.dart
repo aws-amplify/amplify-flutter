@@ -113,7 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Amplify Storage Example'),
       ),
+      // TODO(dnys1): Remove for Dart 3.0
+      // ignore: prefer_const_constructors
       body: Center(
+        // ignore: prefer_const_constructors
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[

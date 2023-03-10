@@ -159,7 +159,7 @@ void main({bool useExistingTestUser = false}) {
 
             await expectLater(dataCompleter.future, completes);
 
-            await deleteBlog(blog.id);
+            await deleteBlog(blog);
 
             await expectLater(dataCompleter2.future, completes);
           });

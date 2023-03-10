@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.amazonaws.amplify.amplify_storage_s3_example">
    <application
-        android:label="example"
+        android:label="amplify_storage_s3_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

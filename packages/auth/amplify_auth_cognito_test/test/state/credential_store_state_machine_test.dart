@@ -4,15 +4,15 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_legacy_credential_provider.dart';
+import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
-
-import '../common/mock_config.dart';
-import '../common/mock_legacy_credential_provider.dart';
-import '../common/mock_secure_storage.dart';
 
 void main() {
   test('CognitoKeys', () {
@@ -36,17 +36,19 @@ void main() {
 
     // Load an empty credential store.
     test('loadCredentialStore (empty)', () async {
-      stateMachine.dispatch(
-        const CredentialStoreEvent.migrateLegacyCredentialStore(),
-      );
+      stateMachine
+          .dispatch(
+            const CredentialStoreEvent.loadCredentialStore(),
+          )
+          .ignore();
 
       final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
       await expectLater(
         sm.stream.startWith(sm.currentState),
         emitsInOrder(<Matcher>[
           isA<CredentialStoreNotConfigured>(),
-          isA<CredentialStoreMigratingLegacyStore>(),
           isA<CredentialStoreLoadingStoredCredentials>(),
+          isA<CredentialStoreMigratingLegacyStore>(),
           isA<CredentialStoreSuccess>(),
         ]),
       );
@@ -62,16 +64,17 @@ void main() {
         identityPoolKeys: identityPoolKeys,
         version: CredentialStoreVersion.v1,
       );
-      stateMachine.dispatch(
-        const CredentialStoreEvent.migrateLegacyCredentialStore(),
-      );
+      stateMachine
+          .dispatch(
+            const CredentialStoreEvent.loadCredentialStore(),
+          )
+          .ignore();
 
       final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
       await expectLater(
         sm.stream.startWith(sm.currentState),
         emitsInOrder(<Matcher>[
           isA<CredentialStoreNotConfigured>(),
-          isA<CredentialStoreMigratingLegacyStore>(),
           isA<CredentialStoreLoadingStoredCredentials>(),
           isA<CredentialStoreSuccess>(),
         ]),
@@ -94,17 +97,19 @@ void main() {
 
     group('storeCredentials', () {
       test('all', () async {
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
@@ -125,7 +130,7 @@ void main() {
             ),
           ),
         );
-        stateMachine.dispatch(storeCredentialsEvent);
+        stateMachine.dispatch(storeCredentialsEvent).ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
@@ -158,28 +163,31 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.storeCredentials(
-            CredentialStoreData(
-              identityId: identityId,
-            ),
-          ),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.storeCredentials(
+                CredentialStoreData(
+                  identityId: identityId,
+                ),
+              ),
+            )
+            .ignore();
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
@@ -211,16 +219,17 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
             isA<CredentialStoreSuccess>(),
           ]),
@@ -232,13 +241,15 @@ void main() {
           newAccessKeyId,
           newSecretAccessKey,
         );
-        stateMachine.dispatch(
-          const CredentialStoreEvent.storeCredentials(
-            CredentialStoreData(
-              awsCredentials: newCredentials,
-            ),
-          ),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.storeCredentials(
+                CredentialStoreData(
+                  awsCredentials: newCredentials,
+                ),
+              ),
+            )
+            .ignore();
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
@@ -257,6 +268,64 @@ void main() {
 
         await stateMachine.close();
       });
+
+      test('federation', () async {
+        seedStorage(secureStorage, identityPoolKeys: identityPoolKeys);
+        await stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .completed;
+        final result = await stateMachine.loadCredentials();
+
+        expect(result.awsCredentials, isNotNull);
+        expect(result.awsCredentials?.accessKeyId, accessKeyId);
+        expect(result.awsCredentials?.secretAccessKey, secretAccessKey);
+        expect(result.awsCredentials?.sessionToken, sessionToken);
+        expect(result.awsCredentials?.expiration, expiration);
+        expect(result.signInDetails, isNull);
+
+        const provider = AuthProvider.custom('custom');
+        const providerToken = '12345';
+        await stateMachine.storeCredentials(
+          CredentialStoreData(
+            awsCredentials: AWSCredentials(
+              accessKeyId,
+              secretAccessKey,
+              sessionToken,
+              expiration,
+            ),
+            identityId: identityId,
+            signInDetails: const CognitoSignInDetailsFederated(
+              provider: provider,
+              token: providerToken,
+            ),
+          ),
+        );
+
+        final newResult = await stateMachine.loadCredentials();
+        expect(newResult.awsCredentials, isNotNull);
+        expect(newResult.awsCredentials?.accessKeyId, accessKeyId);
+        expect(newResult.awsCredentials?.secretAccessKey, secretAccessKey);
+        expect(newResult.awsCredentials?.sessionToken, sessionToken);
+        expect(newResult.awsCredentials?.expiration, expiration);
+        expect(
+          newResult.signInDetails,
+          isA<CognitoSignInDetailsFederated>()
+              .having(
+                (details) => details.provider,
+                'provider',
+                provider,
+              )
+              .having(
+                (details) => details.token,
+                'token',
+                providerToken,
+              ),
+        );
+
+        await stateMachine.close();
+      });
     });
 
     group('clearCredentials', () {
@@ -267,24 +336,27 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.clearCredentials(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.clearCredentials(),
+            )
+            .ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
@@ -310,26 +382,29 @@ void main() {
           identityPoolKeys: identityPoolKeys,
           version: CredentialStoreVersion.v1,
         );
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
 
-        stateMachine.dispatch(
-          CredentialStoreEvent.clearCredentials(
-            identityPoolKeys,
-          ),
-        );
+        stateMachine
+            .dispatch(
+              CredentialStoreEvent.clearCredentials(
+                identityPoolKeys,
+              ),
+            )
+            .ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
@@ -356,16 +431,18 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
@@ -393,16 +470,18 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
@@ -442,16 +521,18 @@ void main() {
         // verify credential store is not migrated.
         expect(await sm.getVersion(), CredentialStoreVersion.none);
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
+            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreSuccess>(),
           ]),
         );
@@ -490,16 +571,17 @@ void main() {
         // seed version to v1.
         seedStorage(secureStorage, version: CredentialStoreVersion.v1);
 
-        stateMachine.dispatch(
-          const CredentialStoreEvent.migrateLegacyCredentialStore(),
-        );
+        stateMachine
+            .dispatch(
+              const CredentialStoreEvent.loadCredentialStore(),
+            )
+            .ignore();
 
         final sm = stateMachine.getOrCreate(CredentialStoreStateMachine.type);
         await expectLater(
           sm.stream.startWith(sm.currentState),
           emitsInOrder(<Matcher>[
             isA<CredentialStoreNotConfigured>(),
-            isA<CredentialStoreMigratingLegacyStore>(),
             isA<CredentialStoreLoadingStoredCredentials>(),
             isA<CredentialStoreSuccess>(),
           ]),

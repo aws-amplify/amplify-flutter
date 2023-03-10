@@ -18,13 +18,13 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_authenticator: ">=1.0.0-next.3 <1.0.0-next.4"
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_auth_cognito: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_authenticator: ">=1.0.0-next.4+2 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.6 <1.0.0-next.7"
 
   flutter:
     sdk: flutter
@@ -36,8 +36,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+dependency_overrides:
+  async: ^2.10.0
+
 dev_dependencies:
-  amplify_api: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_api: ">=1.0.0-next.6 <1.0.0-next.7"
   amplify_authenticator_test:
     path: ../../amplify_authenticator_test
   amplify_lints:

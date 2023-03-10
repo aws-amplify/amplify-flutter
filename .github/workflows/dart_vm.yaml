@@ -18,8 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          # TODO(dnys1): Remove when repo bump to 2.19 happens
-          # - 2.19.0
+          - '2.18.0'
           - stable
           - beta
     steps:
@@ -53,6 +52,11 @@ jobs:
           ( cd packages/aft/external/libgit2dart; git apply ../libgit2dart.patch )
           dart pub global activate -spath packages/aft
           ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
+
+      - name: Update constraints
+        if: matrix.sdk == 'beta'
+        shell: bash
+        run: aft --config=aft.beta.yaml constraints apply
 
       - name: Bootstrap
         id: bootstrap
@@ -90,7 +94,13 @@ jobs:
         run: dart analyze --fatal-infos --fatal-warnings .
         working-directory: ${{ inputs.working-directory }}
 
-      - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
+      - name: Run Tests (stable)
+        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk == 'stable'"
         run: dart test
+        working-directory: ${{ inputs.working-directory }}
+
+        # Non-stable test runs do not need to verify `build` tags since the generated code in the repo is updated using `build_runner` on `stable`.
+      - name: Run Tests (non-stable)
+        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.sdk != 'stable'"
+        run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}

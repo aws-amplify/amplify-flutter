@@ -4,6 +4,7 @@
 import 'dart:html';
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:cognito_example/common.dart';
 import 'package:example_common/example_common.dart';
 
@@ -14,6 +15,8 @@ class UserComponent extends StatefulComponent {
     required this.navigateTo,
   });
 
+  static final logger = AWSLogger().createChild('UserComponent');
+
   final void Function(AuthState) navigateTo;
 
   List<List<String>> rows = [];
@@ -21,7 +24,12 @@ class UserComponent extends StatefulComponent {
 
   Future<void> _fetchAuthSession() async {
     final session = await fetchAuthSession();
-    final devices = await fetchDevices();
+    final devices = <AuthDevice>[];
+    try {
+      devices.addAll(await fetchDevices());
+    } on InvalidUserPoolConfigurationException {
+      // device tracking may not be enabled.
+    }
     setState(() {
       _showSession = true;
       rows = [
@@ -87,10 +95,17 @@ class UserComponent extends StatefulComponent {
           onClick: () => navigateTo(AuthState.changePassword),
         ),
         ButtonComponent(
+          id: 'signOut',
           innerHtml: 'Sign Out',
           onClick: () async {
             try {
-              await signOut(globalSignOut: false);
+              final result = await signOut(globalSignOut: false);
+              logger.debug('Sign out result: $result');
+            } on AuthException catch (e, st) {
+              logger.error('Error signing out', e, st);
+            } on Object catch (e, st) {
+              logger.error('Error signing out', e, st);
+              rethrow;
             } finally {
               navigateTo(AuthState.login);
             }

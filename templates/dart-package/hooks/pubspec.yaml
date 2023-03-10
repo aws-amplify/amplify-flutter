@@ -1,0 +1,8 @@
+name: dart_package_hooks
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+
+dependencies:
+  mason: ">=0.1.0-dev.40 <0.1.0"

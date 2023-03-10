@@ -6,16 +6,30 @@
 # Application of these values can be verified/updated with the `aft` 
 # tool.
 dependencies:
-  async: ^2.8.0
+  async: ^2.10.0
   built_value: ">=8.4.0 <8.5.0"
-  built_value_generator: 8.4.2
-  code_builder: 4.3.0
-  drift: ">=2.3.0 <2.4.0"
-  json_annotation: ^4.7.0
-  json_serializable: 6.5.4
+  built_value_generator: 8.4.3
+  code_builder: 4.4.0
+  drift: ">=2.4.0 <2.6.0"
+  json_annotation: ">=4.8.0 <4.9.0"
+  json_serializable: 6.6.1
+  intl: ">=0.17.0 <1.0.0"
   mime: ^1.0.0
+  pigeon: ^7.1.5
+  stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
   xml: ">=6.1.0 <=6.2.2"
+
+# The current constraints for SDKs and OSs.
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+  flutter: '>=3.3.0'
+  android:
+    minSdkVersion: '24'
+  ios:
+    minOSVersion: '13.0'
+  macOS:
+    minOSVersion: '10.15'
 
 # Packages to ignore in all repo operations.
 ignore:

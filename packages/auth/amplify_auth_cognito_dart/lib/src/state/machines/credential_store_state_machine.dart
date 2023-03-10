@@ -9,18 +9,19 @@ import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/secure_storage_extension.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
-/// {@template amplify_auth_cognito.auth_store_state_machine}
+/// {@template amplify_auth_cognito.credential_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
-class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
-    CredentialStoreState, AuthEvent, AuthState, CognitoAuthStateMachine> {
-  /// {@macro amplify_auth_cognito.auth_store_state_machine}
+class CredentialStoreStateMachine
+    extends AuthStateMachine<CredentialStoreEvent, CredentialStoreState> {
+  /// {@macro amplify_auth_cognito.credential_store_state_machine}
   CredentialStoreStateMachine(CognitoAuthStateMachine manager)
       : super(manager, type);
 
@@ -50,11 +51,6 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
         emit(const CredentialStoreState.loadingStoredCredentials());
         await onLoadCredentialStore(event);
         return;
-      case CredentialStoreEventType.migrateLegacyCredentialStore:
-        event as CredentialStoreMigrateLegacyCredentialStore;
-        emit(const CredentialStoreState.migratingLegacyStore());
-        await onMigrateLegacyCredentialStore(event);
-        return;
       case CredentialStoreEventType.storeCredentials:
         event as CredentialStoreStoreCredentials;
         emit(const CredentialStoreState.storingCredentials());
@@ -69,17 +65,13 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
         event as CredentialStoreSucceeded;
         emit(CredentialStoreState.success(event.data));
         return;
-      case CredentialStoreEventType.failed:
-        event as CredentialStoreFailed;
-        emit(CredentialStoreState.failure(event.exception));
-        return;
     }
   }
 
   @override
-  CredentialStoreState? resolveError(Object error, [StackTrace? st]) {
+  CredentialStoreState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return CredentialStoreFailure(error);
+      return CredentialStoreFailure(error, st);
     }
     return null;
   }
@@ -208,6 +200,20 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
           expiration,
         );
       }
+      final providerJson = await _secureStorage.read(
+        key: keys[CognitoIdentityPoolKey.provider],
+      );
+      final token = await _secureStorage.read(
+        key: keys[CognitoIdentityPoolKey.idToken],
+      );
+      if (providerJson != null && token != null) {
+        signInDetails = CognitoSignInDetailsFederated(
+          provider: AuthProvider.fromJson(
+            jsonDecode(providerJson) as Map<String, Object?>,
+          ),
+          token: token,
+        );
+      }
     }
 
     return CredentialStoreData(
@@ -292,55 +298,63 @@ class CredentialStoreStateMachine extends StateMachine<CredentialStoreEvent,
           deletions.add(keys[CognitoIdentityPoolKey.expiration]);
         }
       }
+      if (signInDetails is CognitoSignInDetailsFederated) {
+        items[keys[CognitoIdentityPoolKey.provider]] =
+            jsonEncode(signInDetails.provider.toJson());
+        items[keys[CognitoIdentityPoolKey.idToken]] = signInDetails.token;
+      } else {
+        deletions
+          ..add(keys[CognitoIdentityPoolKey.provider])
+          ..add(keys[CognitoIdentityPoolKey.idToken]);
+      }
     }
     await _secureStorage.writeMany(items);
     await _secureStorage.deleteMany(deletions);
   }
 
-  /// State machine callback for the
-  /// [CredentialStoreMigrateLegacyCredentialStore] event.
-  Future<void> onMigrateLegacyCredentialStore(
-    CredentialStoreMigrateLegacyCredentialStore event,
-  ) async {
+  Future<void> _migrateLegacyCredentialStore() async {
     final version = await getVersion();
-    if (version == CredentialStoreVersion.none) {
-      final legacyCredentialProvider = get<LegacyCredentialProvider>();
-      if (legacyCredentialProvider != null) {
-        final authConfig = expect<AuthConfiguration>();
+    if (version != CredentialStoreVersion.none) {
+      return;
+    }
+
+    emit(const CredentialStoreState.migratingLegacyStore());
+    final legacyCredentialProvider = get<LegacyCredentialProvider>();
+    if (legacyCredentialProvider != null) {
+      final authConfig = expect<AuthConfiguration>();
+      try {
+        final legacyData =
+            await legacyCredentialProvider.fetchLegacyCredentials(
+          userPoolConfig: authConfig.userPoolConfig,
+          identityPoolConfig: authConfig.identityPoolConfig,
+          hostedUiConfig: authConfig.hostedUiConfig,
+        );
+        if (legacyData != null) {
+          await _storeCredentials(legacyData);
+        }
+      } on Object catch (e, s) {
+        logger.error('Error migrating legacy credentials', e, s);
+      } finally {
         try {
-          final legacyData =
-              await legacyCredentialProvider.fetchLegacyCredentials(
+          await legacyCredentialProvider.deleteLegacyCredentials(
             userPoolConfig: authConfig.userPoolConfig,
             identityPoolConfig: authConfig.identityPoolConfig,
             hostedUiConfig: authConfig.hostedUiConfig,
           );
-          if (legacyData != null) {
-            await _storeCredentials(legacyData);
-          }
         } on Object catch (e, s) {
-          logger.error('Error migrating legacy credentials', e, s);
-        } finally {
-          try {
-            await legacyCredentialProvider.deleteLegacyCredentials(
-              userPoolConfig: authConfig.userPoolConfig,
-              identityPoolConfig: authConfig.identityPoolConfig,
-              hostedUiConfig: authConfig.hostedUiConfig,
-            );
-          } on Object catch (e, s) {
-            logger.error('Error clearing legacy credentials', e, s);
-          }
+          logger.error('Error clearing legacy credentials', e, s);
         }
       }
-
-      await _updateVersion(CredentialStoreVersion.v1);
     }
-    return resolve(const CredentialStoreEvent.loadCredentialStore());
+
+    await _updateVersion(CredentialStoreVersion.v1);
   }
 
   /// State machine callback for the [CredentialStoreLoadCredentialStore] event.
   Future<void> onLoadCredentialStore(
     CredentialStoreLoadCredentialStore event,
   ) async {
+    await _migrateLegacyCredentialStore();
     final data = await _loadCredentialStore();
     emit(CredentialStoreState.success(data));
   }

@@ -1,3 +1,20 @@
+## 0.4.2
+
+### Features
+- feat(aws_common): add openRead API for AWSFile
+
+## 0.4.1+1
+
+- Minor bug fixes and improvements
+
+## 0.4.1
+
+### Fixes
+- fix(http): Cancel streamed responses ([#2545](https://github.com/aws-amplify/amplify-flutter/pull/2545))
+
+### Features
+- feat(analytics): Use indexedDB on Web ([#2600](https://github.com/aws-amplify/amplify-flutter/pull/2600))
+
 ## 0.4.0
 
 ### Fixes

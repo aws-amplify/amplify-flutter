@@ -68,6 +68,12 @@ enum CognitoIdentityPoolKey {
 
   /// AWS Identity ID.
   identityId,
+
+  /// Third-party [AuthProvider] (only used in federation).
+  provider,
+
+  /// Third-party OIDC token (only used in federation).
+  idToken,
 }
 
 /// Discrete keys stored for Hosted UI operations in secure storage.

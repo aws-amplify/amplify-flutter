@@ -299,7 +299,10 @@ class _$CustomType extends CustomType {
 
   @override
   int get hashCode {
-    return $jf($jc(0, customField.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, customField.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -465,45 +468,26 @@ class _$E2EMessage extends E2EMessage {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        0,
-                                                                        bigInt
-                                                                            .hashCode),
-                                                                    bool_
-                                                                        .hashCode),
-                                                                builtList
-                                                                    .hashCode),
-                                                            builtListMultimap
-                                                                .hashCode),
-                                                        builtMap.hashCode),
-                                                    builtSet.hashCode),
-                                                builtSetMultimap.hashCode),
-                                            dateTime.hashCode),
-                                        double_.hashCode),
-                                    duration.hashCode),
-                                int_.hashCode),
-                            int64.hashCode),
-                        jsonObject.hashCode),
-                    num_.hashCode),
-                regExp.hashCode),
-            string.hashCode),
-        uri.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, bigInt.hashCode);
+    _$hash = $jc(_$hash, bool_.hashCode);
+    _$hash = $jc(_$hash, builtList.hashCode);
+    _$hash = $jc(_$hash, builtListMultimap.hashCode);
+    _$hash = $jc(_$hash, builtMap.hashCode);
+    _$hash = $jc(_$hash, builtSet.hashCode);
+    _$hash = $jc(_$hash, builtSetMultimap.hashCode);
+    _$hash = $jc(_$hash, dateTime.hashCode);
+    _$hash = $jc(_$hash, double_.hashCode);
+    _$hash = $jc(_$hash, duration.hashCode);
+    _$hash = $jc(_$hash, int_.hashCode);
+    _$hash = $jc(_$hash, int64.hashCode);
+    _$hash = $jc(_$hash, jsonObject.hashCode);
+    _$hash = $jc(_$hash, num_.hashCode);
+    _$hash = $jc(_$hash, regExp.hashCode);
+    _$hash = $jc(_$hash, string.hashCode);
+    _$hash = $jc(_$hash, uri.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -734,7 +718,10 @@ class _$E2EResult extends E2EResult {
 
   @override
   int get hashCode {
-    return $jf($jc(0, message.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -796,4 +783,4 @@ class E2EResultBuilder implements Builder<E2EResult, E2EResultBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

@@ -6,9 +6,6 @@ import amplify_flutter_ios
 import AmplifyUtilsNotifications
 
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {
-    
-    var remoteNotificationCompletionHandlers: [String: (UIBackgroundFetchResult) -> Void] = [:]
-
     // The notification that has been tapped by an end user to launch the App from terminated state
     // to the foregound.
     var launchNotification: [AnyHashable: Any]?
@@ -40,7 +37,7 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         Task {
             switch await AUNotificationPermissions.status {
             case .notDetermined:
-                completion(.make(with: .shouldRequestWithRationale), nil)
+                completion(.make(with: .shouldExplainThenRequest), nil)
             case .denied:
                 completion(.make(with: .denied), nil)
             case .authorized:
@@ -97,9 +94,5 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
 
     public func setBadgeCountWithBadgeCount(_ withBadgeCount: NSNumber, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
         UIApplication.shared.applicationIconBadgeNumber = withBadgeCount.intValue
-    }
-    
-    public func registerCallbackFunctionCallbackHandle(_ callbackHandle: NSNumber, callbackType: CallbackType, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        // noop on iOS since this method is used to register callbacks on Android
     }
 }

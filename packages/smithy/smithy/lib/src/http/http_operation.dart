@@ -226,7 +226,14 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           (response) => deserializeOutput(
             protocol: protocol,
             response: response,
-          ),
+            // Prevents errors thrown from registering as "Uncaught Exceptions"
+            // in the Dart debugger.
+            //
+            // This is a false positive because we do catch errors in the
+            // retryer which wraps this. Likely this is due to the use of
+            // completers in `CancelableOperation` or some other Zone-related
+            // nonsense.
+          ).catchError(Error.throwWithStackTrace),
         );
       },
       onCancel: () {

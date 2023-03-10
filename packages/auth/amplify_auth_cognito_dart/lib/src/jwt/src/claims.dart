@@ -115,7 +115,7 @@ class JsonWebClaims with AWSEquatable<JsonWebClaims>, AWSSerializable {
   final String? jwtId;
 
   /// Non-standard token claims.
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final Map<String, Object?> customClaims;
 
   @override

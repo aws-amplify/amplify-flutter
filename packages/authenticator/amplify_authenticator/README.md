@@ -93,3 +93,34 @@ class LoggedInScreen extends StatelessWidget {
   }
 }
 ```
+
+## Setting up & Troubleshooting AutoFill
+
+`Authenticator` provides built-in `AutoFill` features for the generated `Forms`. Some additional configurations could be necessary to provide the best user experience and ensure your app fully supports password autofill.
+
+Please refer to the [official documentation](https://api.flutter.dev/flutter/material/TextField/autofillHints.html) for the configuration steps and how to troubleshoot this feature.
+
+### AutoFillHints Platform Support
+
+The following `AutoFillHints` have been implemented for the `Authenticator` package. 
+
+| AutoFillHint | iOS | Android | Web |
+| ------------ | :-: | :-----: | :-: |
+| birthday | ❌ |	✅ |	✅ |
+| countryName | ✅ |	✅ |	✅ |
+| email | ✅ |	✅ |	✅ |
+| familyName | ✅ |	✅ |	✅ |
+| fullStreetAddress | ✅ |	✅ |	✅ |
+| gender | ❌ |	✅ |	✅ |
+| givenName | ✅ |	✅ |	✅ |
+| middleName | ✅ |	✅ |	✅ |
+| name | ✅ |	✅ |	✅ |
+| newPassword | ✅ |	✅ |	✅ |
+| newUsername | ❌ |	✅ |	❌ |
+| nickname | ✅ |	❌ |	✅ |
+| oneTimeCode | ✅ |	✅ |	✅ |
+| password | ✅ |	✅ |	✅ |
+| telephoneNumber | ✅ |	✅ |	✅ |
+| username | ✅ |	✅ |	✅ |
+
+Supported Hints are automatically translated to their platform-specific equivalent. Otherwise, the hint string will be used as-is.

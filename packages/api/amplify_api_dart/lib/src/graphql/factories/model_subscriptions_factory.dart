@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 // ignore_for_file: public_member_api_docs
 
-class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
+class ModelSubscriptionsFactory {
   // Singleton methods/properties
   // usage: ModelSubscriptionsFactory.instance;
   ModelSubscriptionsFactory._();
@@ -16,16 +16,21 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
 
   static ModelSubscriptionsFactory get instance => _instance;
 
-  @override
   GraphQLRequest<T> onCreate<T extends Model>(
     ModelType<T> modelType, {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onCreate,
       apiName: apiName,
@@ -34,16 +39,21 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
     );
   }
 
-  @override
   GraphQLRequest<T> onUpdate<T extends Model>(
     ModelType<T> modelType, {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onUpdate,
       apiName: apiName,
@@ -52,16 +62,21 @@ class ModelSubscriptionsFactory extends ModelSubscriptionsInterface {
     );
   }
 
-  @override
   GraphQLRequest<T> onDelete<T extends Model>(
     ModelType<T> modelType, {
     String? apiName,
     APIAuthorizationType? authorizationMode,
     Map<String, String>? headers,
+    QueryPredicate? where,
   }) {
+    final variables =
+        GraphQLRequestFactory.instance.buildVariablesForSubscriptionRequest(
+      modelType: modelType,
+      where: where,
+    );
     return GraphQLRequestFactory.instance.buildRequest<T>(
       modelType: modelType,
-      variables: <String, dynamic>{},
+      variables: variables,
       requestType: GraphQLRequestType.subscription,
       requestOperation: GraphQLRequestOperation.onDelete,
       apiName: apiName,

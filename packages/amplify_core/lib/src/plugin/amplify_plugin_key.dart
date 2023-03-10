@@ -94,7 +94,6 @@ abstract class AuthPluginKey<
   const AuthPluginKey();
 }
 
-// TODO(HuiSF): Define generic parameters for all API types
 abstract class StoragePluginKey<
     PluginStorageListOperation extends StorageListOperation,
     PluginStorageListOptions extends StorageListOptions,

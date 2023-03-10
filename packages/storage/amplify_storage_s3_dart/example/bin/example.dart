@@ -227,15 +227,14 @@ Future<void> downloadDataOperation() async {
   );
 
   stdout.writeln('Downloading...');
-  // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
-  // can cancel underlying http request.
-  // await Future<void>.delayed(const Duration(seconds: 1));
-  // await downloadDataOperation.pause();
-
-  // await Future<void>.delayed(const Duration(seconds: 4));
-  // await downloadDataOperation.resume();
 
   try {
+    await Future<void>.delayed(const Duration(seconds: 1));
+    await downloadDataOperation.pause();
+
+    await Future<void>.delayed(const Duration(seconds: 4));
+    await downloadDataOperation.resume();
+
     final result = await downloadDataOperation.result;
     stdout.writeln('\nDownload completed!');
     stdout.writeln('Download bytes size: ${result.bytes.length}');
@@ -272,15 +271,14 @@ Future<void> downloadFileOperation() async {
   );
 
   stdout.writeln('Downloading...');
-  // TODO(HuiSF): re-enable controllable APIs when SmithyOperation.cancel
-  // can cancel underlying http request.
-  // await Future<void>.delayed(const Duration(seconds: 1));
-  // await downloadFileOperation.pause();
-
-  // await Future<void>.delayed(const Duration(seconds: 4));
-  // await downloadFileOperation.resume();
 
   try {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    await downloadFileOperation.pause();
+
+    await Future<void>.delayed(const Duration(seconds: 30));
+    await downloadFileOperation.resume();
+
     final result = await downloadFileOperation.result;
     stdout.writeln('\nDownload completed!');
     stdout.writeln('Download file eTag: ${result.downloadedItem.eTag}');
@@ -358,13 +356,14 @@ Future<void> uploadFileOperation() async {
   );
 
   stdout.writeln('Uploading...');
-  await Future<void>.delayed(const Duration(seconds: 3));
-  await uploadFileOperation.pause();
-
-  await Future<void>.delayed(const Duration(seconds: 4));
-  await uploadFileOperation.resume();
 
   try {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    await uploadFileOperation.pause();
+
+    await Future<void>.delayed(const Duration(seconds: 4));
+    await uploadFileOperation.resume();
+
     final result = await uploadFileOperation.result;
     stdout.writeln('\nUpload completed!');
     stdout.writeln('Upload file eTag: ${result.uploadedItem.eTag}');

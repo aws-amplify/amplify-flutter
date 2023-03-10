@@ -9,7 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously, implicit_dynamic_parameter, implicit_dynamic_map_literal, implicit_dynamic_type
+// ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
 
@@ -19,10 +19,8 @@ class Blog extends Model {
   static const classType = _BlogModelType();
   final String id;
   final String? _name;
-  final TemporalDateTime? _createdAt;
-  final S3Object? _file;
-  final List<S3Object>? _files;
   final List<Post>? _posts;
+  final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
   @override
@@ -50,20 +48,12 @@ class Blog extends Model {
     }
   }
 
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
-
-  S3Object? get file {
-    return _file;
-  }
-
-  List<S3Object>? get files {
-    return _files;
-  }
-
   List<Post>? get posts {
     return _posts;
+  }
+
+  TemporalDateTime? get createdAt {
+    return _createdAt;
   }
 
   TemporalDateTime? get updatedAt {
@@ -71,33 +61,16 @@ class Blog extends Model {
   }
 
   const Blog._internal(
-      {required this.id,
-      required name,
-      createdAt,
-      file,
-      files,
-      posts,
-      updatedAt})
+      {required this.id, required name, posts, createdAt, updatedAt})
       : _name = name,
-        _createdAt = createdAt,
-        _file = file,
-        _files = files,
         _posts = posts,
+        _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Blog(
-      {String? id,
-      required String name,
-      TemporalDateTime? createdAt,
-      S3Object? file,
-      List<S3Object>? files,
-      List<Post>? posts}) {
+  factory Blog({String? id, required String name, List<Post>? posts}) {
     return Blog._internal(
         id: id == null ? UUID.getUUID() : id,
         name: name,
-        createdAt: createdAt,
-        file: file,
-        files: files != null ? List<S3Object>.unmodifiable(files) : files,
         posts: posts != null ? List<Post>.unmodifiable(posts) : posts);
   }
 
@@ -111,9 +84,6 @@ class Blog extends Model {
     return other is Blog &&
         id == other.id &&
         _name == other._name &&
-        _createdAt == other._createdAt &&
-        _file == other._file &&
-        DeepCollectionEquality().equals(_files, other._files) &&
         DeepCollectionEquality().equals(_posts, other._posts);
   }
 
@@ -130,9 +100,6 @@ class Blog extends Model {
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
-    buffer.write("file=" + (_file != null ? _file!.toString() : "null") + ", ");
-    buffer.write(
-        "files=" + (_files != null ? _files!.toString() : "null") + ", ");
     buffer.write(
         "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -140,44 +107,23 @@ class Blog extends Model {
     return buffer.toString();
   }
 
-  Blog copyWith(
-      {String? name,
-      TemporalDateTime? createdAt,
-      S3Object? file,
-      List<S3Object>? files,
-      List<Post>? posts}) {
+  Blog copyWith({String? name, List<Post>? posts}) {
     return Blog._internal(
-        id: id,
-        name: name ?? this.name,
-        createdAt: createdAt ?? this.createdAt,
-        file: file ?? this.file,
-        files: files ?? this.files,
-        posts: posts ?? this.posts);
+        id: id, name: name ?? this.name, posts: posts ?? this.posts);
   }
 
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _file = json['file']?['serializedData'] != null
-            ? S3Object.fromJson(
-                Map<String, dynamic>.from(json['file']['serializedData']))
-            : null,
-        _files = json['files'] is List
-            ? (json['files'] as List)
-                .where((e) => e != null)
-                .map((e) => S3Object.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
-                .toList()
-            : null,
         _posts = json['posts'] is List
             ? (json['posts'] as List)
                 .where((e) => e?['serializedData'] != null)
                 .map((e) => Post.fromJson(
                     Map<String, dynamic>.from(e['serializedData'])))
                 .toList()
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
             : null,
         _updatedAt = json['updatedAt'] != null
             ? TemporalDateTime.fromString(json['updatedAt'])
@@ -186,30 +132,23 @@ class Blog extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': _name,
-        'createdAt': _createdAt?.format(),
-        'file': _file?.toJson(),
-        'files': _files?.map((S3Object? e) => e?.toJson()).toList(),
         'posts': _posts?.map((Post? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
-  static final QueryModelIdentifier MODEL_IDENTIFIER = QueryModelIdentifier();
-  static final QueryField ID = QueryField(fieldName: "blog.id");
+  static final QueryModelIdentifier<BlogModelIdentifier> MODEL_IDENTIFIER =
+      QueryModelIdentifier<BlogModelIdentifier>();
+  static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
-  static final QueryField FILE = QueryField(fieldName: "file");
-  static final QueryField FILES = QueryField(fieldName: "files");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (Post).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
     modelSchemaDefinition.pluralName = "Blogs";
-
-    modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["id"], name: null)
-    ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
@@ -218,29 +157,17 @@ class Blog extends Model {
         isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Blog.CREATEDAT,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-        fieldName: 'file',
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.embedded,
-            ofCustomTypeName: 'S3Object')));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-        fieldName: 'files',
-        isRequired: false,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection,
-            ofCustomTypeName: 'S3Object')));
-
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Blog.POSTS,
         isRequired: false,
-        ofModelName: 'Post',
+        ofModelName: (Post).toString(),
         associatedKey: Post.BLOG));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'updatedAt',
@@ -256,11 +183,6 @@ class _BlogModelType extends ModelType<Blog> {
   @override
   Blog fromJson(Map<String, dynamic> jsonData) {
     return Blog.fromJson(jsonData);
-  }
-
-  @override
-  String modelName() {
-    return 'Blog';
   }
 }
 

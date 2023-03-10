@@ -21,7 +21,7 @@ abstract class AmplifySecureStorageInterface extends SecureStorageInterface
   /// {@template amplify_secure_storage_dart.amplify_secure_storage_interface.remove_all}
   /// Removes all key-value pairs for the current scope.
   ///
-  /// Only available on Linux. Will throw [UnimplementedError]
+  /// Only available on iOS, macOs, and Linux. Will throw [UnimplementedError]
   /// on other platforms.
   /// {@endtemplate}
   @internal

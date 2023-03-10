@@ -4,10 +4,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_test/amplify_test.dart';
 import 'package:stream_transform/stream_transform.dart';
-
-import 'types/create_mfa_code_response.dart';
 
 final _logger =
     AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
@@ -131,9 +130,9 @@ Future<String> adminCreateUser(
     'email': attributes
         .firstWhere(
             (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
-            orElse: () => const AuthUserAttribute(
+            orElse: () => AuthUserAttribute(
                 userAttributeKey: CognitoUserAttributeKey.email,
-                value: 'example@example.com'))
+                value: generateEmail()))
         .value,
     'enableMFA': enableMfa,
     'givenName': attributes
@@ -152,9 +151,9 @@ Future<String> adminCreateUser(
     'phoneNumber': attributes
         .firstWhere(
             (el) => el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
-            orElse: () => const AuthUserAttribute(
+            orElse: () => AuthUserAttribute(
                 userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                value: '+15555555'))
+                value: generatePhoneNumber()))
         .value,
     'username': username,
     'verifyAttributes': verifyAttributes,
@@ -188,65 +187,68 @@ Future<String> adminCreateUser(
 }
 
 class OtpResult {
-  OtpResult({required this.code});
-  Future<String> code;
+  const OtpResult(this.code);
+
+  final Future<String> code;
+}
+
+enum UserAttributeType { username, email, phone }
+
+class UserAttribute {
+  const UserAttribute.username(String username)
+      : value = username,
+        type = UserAttributeType.username;
+  const UserAttribute.email(String email)
+      : value = email,
+        type = UserAttributeType.email;
+  const UserAttribute.phone(String phoneNumber)
+      : value = phoneNumber,
+        type = UserAttributeType.phone;
+
+  final UserAttributeType type;
+  final String value;
 }
 
 /// Returns the OTP code for [username]. Must be called before the network call
 /// generating the OTP code.
-Future<OtpResult> getOtpCode(String username) async {
-  const subscriptionDocument = r'''
-    subscription OnCreateMFACode($username: String!) {
-      onCreateMFACode(username: $username) {
-        username
-        code
-      }
-    }''';
-
+Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
   final establishedCompleter = Completer<void>();
-  final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
-    GraphQLRequest<String>(
-      document: subscriptionDocument,
-      variables: {
-        'username': username,
-      },
-    ),
-    onEstablished: () {
-      establishedCompleter.complete();
-      _logger.debug('Established connection');
-    },
+  final otpCodes = getOtpCodes(
+    onEstablished: establishedCompleter.complete,
   );
 
   // Collect code delivered via Lambda
-  final code = operation
-      .tap(
-        (event) => _logger.debug(
-          'Got event: ${event.data}, errors: ${event.errors}',
-        ),
-      )
-      .map((event) {
-        if (event.hasErrors) {
-          throw Exception(event.errors);
+  final code = otpCodes
+      .tap((event) => _logger.debug('Got OTP Code: $event'))
+      .where((event) {
+        switch (userAttribute.type) {
+          case UserAttributeType.username:
+            return event.username == userAttribute.value;
+          case UserAttributeType.email:
+            return event.userAttributes[CognitoUserAttributeKey.email] ==
+                userAttribute.value;
+          case UserAttributeType.phone:
+            return event.userAttributes[CognitoUserAttributeKey.phoneNumber] ==
+                userAttribute.value;
         }
-        final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
-        return CreateMFACodeResponse.fromJson(json.cast());
       })
       .map((event) => event.code)
       .first;
 
   await establishedCompleter.future;
-  return OtpResult(code: code);
+  return OtpResult(code);
 }
 
 /// Returns the stream of all OTP codes broadcast by Cognito.
 ///
 /// This is useful with aliases when the username is not known ahead of time.
-Stream<String> getOtpCodes({void Function()? onEstablished}) {
+Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
   const subscriptionDocument = r'''
     subscription OnCreateMFACode {
       onCreateMFACode {
         username
         code
+        userAttributes
       }
     }''';
 
@@ -273,5 +275,5 @@ Stream<String> getOtpCodes({void Function()? onEstablished}) {
     }
     final json = jsonDecode(event.data!)['onCreateMFACode'] as Map;
     return CreateMFACodeResponse.fromJson(json.cast());
-  }).map((event) => event.code);
+  });
 }

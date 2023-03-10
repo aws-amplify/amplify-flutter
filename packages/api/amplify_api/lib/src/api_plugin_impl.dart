@@ -49,8 +49,8 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
           _authProviders.keys.map((key) => key.rawValue).toList();
       await nativeBridge.addPlugin(authProvidersList);
     } on PlatformException catch (e) {
-      if (e.code == 'AmplifyAlreadyConfiguredException' ||
-          e.code == 'AlreadyConfiguredException') {
+      if (e.code.contains('AmplifyAlreadyConfiguredException') ||
+          e.code.contains('AlreadyConfiguredException')) {
         throw const AmplifyAlreadyConfiguredException(
           AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
           recoverySuggestion:

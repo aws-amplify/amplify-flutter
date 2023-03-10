@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as cdk from "aws-cdk-lib";
-import { Duration, Expiration, RemovalPolicy } from "aws-cdk-lib";
+import { Duration, Expiration, Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
@@ -16,7 +16,7 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
 } from "../common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
@@ -55,6 +55,27 @@ export interface AuthFullEnvironmentProps {
    * Aliases allowed for sign in.
    */
   signInAliases?: cognito.SignInAliases;
+
+  /**
+   * Standard attributes to collect on sign up.
+   *
+   * @default ["email", "phone_number"]
+   */
+  standardAttributes?: cognito.StandardAttributes;
+
+  /**
+   * Whether Hosted UI is enabled.
+   *
+   * @default false
+   */
+  enableHostedUI?: boolean;
+
+  /**
+   * Whether to auto-confirm users.
+   *
+   * @default false
+   */
+  autoConfirm?: boolean;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -121,7 +142,21 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
   ) {
     super(scope, baseName, props);
 
-    const { associateWithWaf } = props;
+    const {
+      associateWithWaf,
+      enableHostedUI = false,
+      signInAliases,
+      standardAttributes = {
+        email: {
+          mutable: true,
+          required: true,
+        },
+        phoneNumber: {
+          mutable: true,
+          required: true,
+        },
+      },
+    } = props;
 
     // Create the GraphQL API for admin actions
 
@@ -185,9 +220,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       {
         runtime: lambda.Runtime.NODEJS_18_X,
         bundling: {
-          nodeModules: [
-            "@aws-crypto/client-node"
-          ],
+          nodeModules: ["@aws-crypto/client-node"],
         },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
@@ -205,9 +238,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       {
         runtime: lambda.Runtime.NODEJS_18_X,
         bundling: {
-          nodeModules: [
-            "@aws-crypto/client-node"
-          ],
+          nodeModules: ["@aws-crypto/client-node"],
         },
         environment: {
           GRAPHQL_API_ENDPOINT: graphQLApi.graphqlUrl,
@@ -219,46 +250,104 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     graphQLApi.grantMutation(customEmailSender);
     customSenderKmsKey.grantDecrypt(customEmailSender);
 
+    const additionalTriggers: Omit<
+      cognito.UserPoolTriggers,
+      | "createAuthChallenge"
+      | "defineAuthChallenge"
+      | "verifyAuthChallengeResponse"
+      | "customSmsSender"
+      | "customEmailSender"
+    > = {};
+    if (props.autoConfirm) {
+      additionalTriggers.preSignUp = new lambda_nodejs.NodejsFunction(
+        this,
+        "pre-sign-up",
+        {
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+    }
+
     // Create the Cognito User Pool
 
+    const mfa = standardAttributes.phoneNumber?.required
+      ? cognito.Mfa.OPTIONAL
+      : cognito.Mfa.OFF;
+    const accountRecovery = standardAttributes.phoneNumber?.required
+      ? cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA
+      : cognito.AccountRecovery.EMAIL_ONLY;
+    const verificationMechanisms: string[] = ["EMAIL"];
+    if (standardAttributes.phoneNumber?.required) {
+      verificationMechanisms.push("PHONE_NUMBER");
+    }
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
-      accountRecovery: cognito.AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA,
+      accountRecovery,
       autoVerify: {
         email: true,
         phone: true,
       },
-      mfa: cognito.Mfa.OPTIONAL,
-      signInAliases: props.signInAliases,
-      standardAttributes: {
-        email: {
-          mutable: true,
-          required: true,
-        },
-        phoneNumber: {
-          mutable: true,
-          required: true,
-        },
-      },
+      mfa,
+      signInAliases,
+      standardAttributes,
       lambdaTriggers: {
         createAuthChallenge,
         defineAuthChallenge,
         verifyAuthChallengeResponse,
         customSmsSender,
         customEmailSender,
+        ...additionalTriggers,
       },
       customSenderKmsKey,
       deviceTracking: props.deviceTracking,
     });
 
+    let oAuth: cognito.OAuthSettings | undefined;
+    let webDomain: cognito.UserPoolDomain | undefined;
+    const signInRedirectUris = ["authtest:/", "http://localhost:3000/"];
+    const signOutRedirectUris = ["authtest:/", "http://localhost:3000/"];
+    const scopes = [
+      cognito.OAuthScope.PHONE,
+      cognito.OAuthScope.EMAIL,
+      cognito.OAuthScope.OPENID,
+      cognito.OAuthScope.PROFILE,
+      cognito.OAuthScope.COGNITO_ADMIN,
+    ];
+    if (enableHostedUI) {
+      oAuth = {
+        flows: {
+          authorizationCodeGrant: true,
+          implicitCodeGrant: false,
+          clientCredentials: false,
+        },
+        callbackUrls: signInRedirectUris,
+        logoutUrls: signOutRedirectUris,
+        scopes,
+      };
+      webDomain = userPool.addDomain("Domain", {
+        cognitoDomain: {
+          // Construct a unique domain prefix so that it does not conflict with other projects.
+          domainPrefix: Fn.join("-", [
+            this.environmentName,
+            // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
+            Fn.select(
+              0,
+              Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))
+            ),
+          ]),
+        },
+      });
+    }
+    const disableOAuth = !enableHostedUI;
     const userPoolClient = userPool.addClient("UserPoolClient", {
       authFlows: {
         userSrp: true,
         custom: true,
       },
-      disableOAuth: true,
+      disableOAuth,
+      oAuth,
     });
 
     // Create the Cognito Identity Pool
@@ -465,11 +554,24 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
           userPoolClientId: userPoolClient.userPoolClientId,
+          standardAttributes,
+          signInAliases,
+          mfa,
+          verificationMechanisms,
         },
         identityPoolConfig: {
           identityPoolId: identityPool.ref,
         },
       },
     };
+
+    if (webDomain) {
+      this.config.authConfig!.hostedUiConfig = {
+        webDomain: webDomain.baseUrl(),
+        signInRedirectUris,
+        signOutRedirectUris,
+        scopes: scopes.map((scope) => scope.scopeName),
+      };
+    }
   }
 }

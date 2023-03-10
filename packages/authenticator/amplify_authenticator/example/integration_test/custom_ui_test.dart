@@ -3,13 +3,13 @@
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
-import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 void main() {
@@ -46,6 +46,7 @@ void main() {
     child: MaterialApp(
       builder: Authenticator.builder(),
       home: const Scaffold(
+        key: authenticatedAppKey,
         body: Center(
           child: SignOutButton(),
         ),
@@ -57,7 +58,7 @@ void main() {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
     setUpAll(() async {
       await loadConfiguration(
-        'ui/components/authenticator/sign-in-with-email',
+        environmentName: 'sign-in-with-email',
       );
     });
 
@@ -67,13 +68,32 @@ void main() {
     testWidgets('Sign in then sign out', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      await adminCreateUser(
+      final cognitoUsername = await adminCreateUser(
         username,
         password,
         autoConfirm: true,
         verifyAttributes: true,
+        attributes: [
+          AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: username,
+          ),
+        ],
       );
+      addTearDown(() => deleteUser(cognitoUsername));
+
       await loadAuthenticator(tester: tester, authenticator: authenticator);
+
+      expect(
+        tester.bloc.stream,
+        emitsInOrder([
+          UnauthenticatedState.signIn,
+          isA<AuthenticatedState>(),
+          UnauthenticatedState.signIn,
+          emitsDone,
+        ]),
+      );
+
       final SignInPage signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
@@ -94,6 +114,8 @@ void main() {
 
       // Then I see "Sign in"
       signInPage.expectUsername(label: 'Email');
+
+      await tester.bloc.close();
     });
   });
 }

@@ -44,7 +44,7 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [ConfirmSignUpFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType, FieldValue>
+abstract class AuthenticatorFormField<FieldType extends Enum, FieldValue>
     extends AuthenticatorComponent<
         AuthenticatorFormField<FieldType, FieldValue>> {
   /// {@macro amplify_authenticator.authenticator_form_field}
@@ -57,6 +57,7 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
     this.hintText,
     FormFieldValidator<FieldValue>? validator,
     this.requiredOverride,
+    this.autofillHints,
   })  : validatorOverride = validator,
         super(key: key);
 
@@ -85,6 +86,9 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
   /// User override of default [required] value.
   final bool? requiredOverride;
 
+  /// Autocomplete hints to override the default value
+  final Iterable<String>? autofillHints;
+
   /// Whether the field is required in the form.
   ///
   /// Defaults to `false`.
@@ -99,8 +103,8 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(EnumProperty('field', field));
-    properties.add(EnumProperty('titleKey', titleKey));
-    properties.add(EnumProperty('hintTextKey', hintTextKey));
+    properties.add(DiagnosticsProperty('titleKey', titleKey));
+    properties.add(DiagnosticsProperty('hintTextKey', hintTextKey));
     properties.add(StringProperty('title', title));
     properties.add(StringProperty('hintText', hintText));
     properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
@@ -110,10 +114,11 @@ abstract class AuthenticatorFormField<FieldType, FieldValue>
     properties
         .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));
     properties.add(EnumProperty<UsernameType?>('usernameType', usernameType));
+    properties.add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }
 
-abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
+abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
         T extends AuthenticatorFormField<FieldType, FieldValue>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
@@ -236,6 +241,9 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     }
   }
 
+  // Autocomplete hints
+  Iterable<String>? get autofillHints => widget.autofillHints;
+
   @nonVirtual
   @override
   Widget build(BuildContext context) {
@@ -280,5 +288,6 @@ abstract class AuthenticatorFormFieldState<FieldType, FieldValue,
     properties.add(StringProperty('labelText', labelText));
     properties.add(DiagnosticsProperty<double?>('marginBottom', marginBottom));
     properties.add(DoubleProperty('labelGap', labelGap));
+    properties.add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }

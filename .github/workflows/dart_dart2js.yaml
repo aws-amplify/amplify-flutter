@@ -18,8 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          # TODO(dnys1): Remove when repo bump to 2.19 happens
-          # - 2.19.0
+          - '2.18.0'
           - stable
           - beta
         browser:
@@ -62,6 +61,11 @@ jobs:
         uses: ./.github/composite_actions/setup_firefox
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update constraints
+        if: matrix.sdk == 'beta'
+        shell: bash
+        run: aft --config=aft.beta.yaml constraints apply
 
       - name: Bootstrap
         id: bootstrap

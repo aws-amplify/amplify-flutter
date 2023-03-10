@@ -153,18 +153,18 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() async {
+  Future<PushNotificationPermissionStatus> getPermissionStatus() async {
     final result = await _hostApi.getPermissionStatus();
 
     switch (result.status) {
       case PermissionStatus.denied:
-        return PushNotificationPermissionRequestStatus.denied;
+        return PushNotificationPermissionStatus.denied;
       case PermissionStatus.granted:
-        return PushNotificationPermissionRequestStatus.granted;
+        return PushNotificationPermissionStatus.granted;
       case PermissionStatus.shouldExplainThenRequest:
-        return PushNotificationPermissionRequestStatus.shouldExplainThenRequest;
+        return PushNotificationPermissionStatus.shouldExplainThenRequest;
       case PermissionStatus.shouldRequest:
-        return PushNotificationPermissionRequestStatus.shouldRequest;
+        return PushNotificationPermissionStatus.shouldRequest;
     }
   }
 
@@ -279,7 +279,6 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
 
-  @override
   void registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
   ) {

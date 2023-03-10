@@ -13,6 +13,9 @@ category_dir=$(echo $plugin | cut -d'_' -f 2)
 if [[ "$plugin" =~ "amplify_flutter" ]]; then
     category_dir="amplify" 
 fi
+if [[ "$plugin" =~ "amplify_secure_storage" ]]; then
+    category_dir="secure_storage" 
+fi
 
 set +e
 set -o pipefail
@@ -84,7 +87,7 @@ case $test_suite in
         
         # Navigate into the iOS plugin for federated plugin structures
         if [ -d "example/ios/unit_tests" ]; then
-            XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 13,OS=latest"
+            XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
             if [ ! -f $dummy_file_path ]; then
                 cp ${project_root_dir}/.circleci/dummy_amplifyconfiguration.dart $dummy_file_path
             fi

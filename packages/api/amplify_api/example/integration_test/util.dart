@@ -18,6 +18,9 @@ TestUser? testUser;
 // Keep track of what is created here so it can be deleted.
 final blogCache = <Blog>[];
 final postCache = <Post>[];
+final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
+final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
+final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
 
 class TestUser {
   TestUser({
@@ -135,6 +138,35 @@ Future<Blog> addBlog(String name) async {
   return blog;
 }
 
+// declare utility which creates post with title and blog as parameter
+Future<Post> addPost(String name, int rating, Blog blog) async {
+  final request = ModelMutations.create(
+    Post(
+      title: name,
+      blog: blog,
+      rating: rating,
+    ),
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final post = response.data!;
+  postCache.add(post);
+  return post;
+}
+
+Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
+  final request = ModelMutations.create(
+    CpkOneToOneBidirectionalParentCD(customId: uuid(), name: name),
+  );
+
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final cpkParent = response.data!;
+  cpkParentCache.add(cpkParent);
+  return cpkParent;
+}
+
 /// Run a mutation on [Blog] with a partial selection set.
 ///
 /// This is used to trigger an error on subscriptions listening for the
@@ -169,53 +201,83 @@ Future<Post> addPostAndBlog(
 ) async {
   const name = 'Integration Test Blog with a post - create';
   final createdBlog = await addBlog(name);
-
-  final post = Post(title: title, rating: rating, blog: createdBlog);
-  final createPostReq = ModelMutations.create(
-    post,
-    authorizationMode: APIAuthorizationType.userPools,
-  );
-  final createPostRes =
-      await Amplify.API.mutate(request: createPostReq).response;
-  expect(createPostRes, hasNoGraphQLErrors);
-  final data = createPostRes.data;
-  if (data == null) {
-    throw Exception(
-      'Null response while creating post. Response errors: ${createPostRes.errors}',
-    );
-  }
-  postCache.add(data);
-
-  return data;
+  return addPost(title, rating, createdBlog);
 }
 
-Future<Blog?> deleteBlog(String id) async {
+Future<Blog?> deleteBlog(Blog blog) async {
   final request = ModelMutations.deleteById(
     Blog.classType,
-    id,
+    blog.modelIdentifier,
     authorizationMode: APIAuthorizationType.userPools,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
-  blogCache.removeWhere((blog) => blog.id == id);
+  blogCache.removeWhere((blogFromCache) => blogFromCache.id == blog.id);
   return res.data;
 }
 
-Future<Post?> deletePost(String id) async {
+Future<Post?> deletePost(Post post) async {
   final request = ModelMutations.deleteById(
     Post.classType,
-    id,
+    post.modelIdentifier,
     authorizationMode: APIAuthorizationType.userPools,
   );
   final res = await Amplify.API.mutate(request: request).response;
   expect(res, hasNoGraphQLErrors);
-  postCache.removeWhere((post) => post.id == id);
+  postCache.removeWhere((postFromCache) => postFromCache.id == post.id);
+  return res.data;
+}
+
+Future<CpkOneToOneBidirectionalParentCD?> deleteCpkParent(
+  CpkOneToOneBidirectionalParentCD cpkParent,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalParentCD.classType,
+    cpkParent.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkParentCache.removeWhere(
+    (cpkParentFromCache) => cpkParentFromCache.customId == cpkParent.customId,
+  );
+  return res.data;
+}
+
+Future<CpkOneToOneBidirectionalChildExplicitCD?> deleteCpkExplicitChild(
+  CpkOneToOneBidirectionalChildExplicitCD cpkExplicitChild,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalChildExplicitCD.classType,
+    cpkExplicitChild.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkExplicitChildCache.removeWhere(
+    (childFromCache) => childFromCache.id == cpkExplicitChild.id,
+  );
+  return res.data;
+}
+
+Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
+  CpkOneToOneBidirectionalChildImplicitCD cpkImplicitChild,
+) async {
+  final request = ModelMutations.deleteById(
+    CpkOneToOneBidirectionalChildImplicitCD.classType,
+    cpkImplicitChild.modelIdentifier,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  cpkImplicitChildCache.removeWhere(
+    (childFromCache) => childFromCache.id == cpkImplicitChild.id,
+  );
   return res.data;
 }
 
 Future<void> deleteTestModels() async {
-  await Future.wait(blogCache.map((blog) => deleteBlog(blog.id)));
-  await Future.wait(postCache.map((post) => deletePost(post.id)));
+  await Future.wait(blogCache.map(deleteBlog));
+  await Future.wait(postCache.map(deletePost));
+  await Future.wait(cpkExplicitChildCache.map(deleteCpkExplicitChild));
+  await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
 }
 
 /// Wait for subscription established for given request.

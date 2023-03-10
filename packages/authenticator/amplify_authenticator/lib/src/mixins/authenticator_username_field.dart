@@ -12,7 +12,7 @@ import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorUsernameField<FieldType,
+mixin AuthenticatorUsernameField<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, UsernameInput>>
     on AuthenticatorFormFieldState<FieldType, UsernameInput, T> {
   @override
@@ -226,6 +226,7 @@ mixin AuthenticatorUsernameField<FieldType,
         enabled: enabled,
         errorMaxLines: errorMaxLines,
         initialValue: state.username,
+        autofillHints: autofillHints,
       );
     }
     return TextFormField(
@@ -249,6 +250,7 @@ mixin AuthenticatorUsernameField<FieldType,
       keyboardType: keyboardType,
       obscureText: false,
       onFieldSubmitted: onFieldSubmitted,
+      autofillHints: autofillHints,
     );
   }
 }

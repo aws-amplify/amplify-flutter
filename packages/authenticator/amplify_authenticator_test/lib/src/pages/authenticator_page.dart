@@ -2,9 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+// ignore: implementation_imports
 import 'package:amplify_authenticator/src/keys.dart';
+// ignore: implementation_imports
 import 'package:amplify_authenticator/src/screens/authenticator_screen.dart';
+// ignore: implementation_imports
 import 'package:amplify_authenticator/src/state/auth_state.dart';
+// ignore: implementation_imports
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
 import 'package:amplify_authenticator_test/src/finders/authenticated_app_finder.dart';
 import 'package:amplify_authenticator_test/src/test_utils.dart';
@@ -61,8 +65,7 @@ abstract class AuthenticatorPage {
   }
 
   /// Expects an error banner containing [errorText].
-  Future<void> expectError(String errorText) async {
-    await tester.pumpAndSettle();
+  void expectError(String errorText) {
     expect(bannerFinder, findsOneWidget);
     expect(
       find.descendant(
@@ -71,6 +74,11 @@ abstract class AuthenticatorPage {
       ),
       findsOneWidget,
     );
+  }
+
+  /// Expects no error banner.
+  void expectNoError() {
+    expect(bannerFinder, findsNothing);
   }
 
   // Then I am signed in
@@ -89,7 +97,7 @@ abstract class AuthenticatorPage {
   }
 
   /// Then I see User not found banner
-  Future<void> expectUserNotFound() async => expectError('User does not exist');
+  void expectUserNotFound() => expectError('User does not exist');
 
   /// Then I see Invalid code
   Future<void> expectInvalidCode() async =>
@@ -106,8 +114,8 @@ abstract class AuthenticatorPage {
   }
 
   /// Then I see Invalid verification code
-  Future<void> expectInvalidVerificationCode() async {
-    await expectError('Invalid verification code provided, please try again.');
+  void expectInvalidVerificationCode() {
+    expectError('Invalid verification code provided, please try again.');
   }
 
   Future<void> selectCountryCode({
@@ -131,7 +139,11 @@ abstract class AuthenticatorPage {
 
   /// When I click "Sign out"
   Future<void> submitSignOut() async {
+    final signOutEvent = nextBlocEvent(
+      tester,
+      where: (state) => state is UnauthenticatedState,
+    );
     await tester.tap(signOutButton);
-    await tester.pumpAndSettle();
+    await signOutEvent;
   }
 }

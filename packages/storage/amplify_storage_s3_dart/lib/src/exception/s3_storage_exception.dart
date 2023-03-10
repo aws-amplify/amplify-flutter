@@ -101,7 +101,7 @@ class S3Exception extends StorageException {
     return const S3Exception(
       'Upload source is too large to initiate multipart upload.',
       recoverySuggestion:
-          'Make sure the size of the uploaded file is less than 50GB.',
+          'Make sure the size of the uploaded file is less than 5TiB.',
     );
   }
 

@@ -157,44 +157,39 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, acl.hashCode), bucket.hashCode), bucketKeyEnabled.hashCode), cacheControl.hashCode), checksumAlgorithm.hashCode), contentDisposition.hashCode), contentEncoding.hashCode), contentLanguage.hashCode), contentType.hashCode), expectedBucketOwner.hashCode), expires.hashCode),
-                                                                                grantFullControl.hashCode),
-                                                                            grantRead.hashCode),
-                                                                        grantReadAcp.hashCode),
-                                                                    grantWriteAcp.hashCode),
-                                                                key.hashCode),
-                                                            metadata.hashCode),
-                                                        objectLockLegalHoldStatus.hashCode),
-                                                    objectLockMode.hashCode),
-                                                objectLockRetainUntilDate.hashCode),
-                                            requestPayer.hashCode),
-                                        serverSideEncryption.hashCode),
-                                    sseCustomerAlgorithm.hashCode),
-                                sseCustomerKey.hashCode),
-                            sseCustomerKeyMd5.hashCode),
-                        ssekmsEncryptionContext.hashCode),
-                    ssekmsKeyId.hashCode),
-                storageClass.hashCode),
-            tagging.hashCode),
-        websiteRedirectLocation.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, acl.hashCode);
+    _$hash = $jc(_$hash, bucket.hashCode);
+    _$hash = $jc(_$hash, bucketKeyEnabled.hashCode);
+    _$hash = $jc(_$hash, cacheControl.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
+    _$hash = $jc(_$hash, contentDisposition.hashCode);
+    _$hash = $jc(_$hash, contentEncoding.hashCode);
+    _$hash = $jc(_$hash, contentLanguage.hashCode);
+    _$hash = $jc(_$hash, contentType.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, expires.hashCode);
+    _$hash = $jc(_$hash, grantFullControl.hashCode);
+    _$hash = $jc(_$hash, grantRead.hashCode);
+    _$hash = $jc(_$hash, grantReadAcp.hashCode);
+    _$hash = $jc(_$hash, grantWriteAcp.hashCode);
+    _$hash = $jc(_$hash, key.hashCode);
+    _$hash = $jc(_$hash, metadata.hashCode);
+    _$hash = $jc(_$hash, objectLockLegalHoldStatus.hashCode);
+    _$hash = $jc(_$hash, objectLockMode.hashCode);
+    _$hash = $jc(_$hash, objectLockRetainUntilDate.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, serverSideEncryption.hashCode);
+    _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
+    _$hash = $jc(_$hash, sseCustomerKey.hashCode);
+    _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
+    _$hash = $jc(_$hash, ssekmsEncryptionContext.hashCode);
+    _$hash = $jc(_$hash, ssekmsKeyId.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, tagging.hashCode);
+    _$hash = $jc(_$hash, websiteRedirectLocation.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -520,4 +515,4 @@ class CreateMultipartUploadRequestPayloadBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

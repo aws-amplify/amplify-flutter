@@ -6,7 +6,6 @@
 @ConfigurePigeon(
   PigeonOptions(
     copyrightHeader: '../../../tool/license.txt',
-    dartOptions: DartOptions(),
     dartOut: 'lib/src/native_auth_plugin.g.dart',
     javaOptions: JavaOptions(
       className: 'NativeAuthPluginBindingsPigeon',
@@ -15,7 +14,7 @@
     javaOut:
         '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.java',
     objcOptions: ObjcOptions(
-      header: 'NativeAuthPlugin.h',
+      headerIncludePath: 'NativeAuthPlugin.h',
     ),
     objcHeaderOut:
         '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.h',

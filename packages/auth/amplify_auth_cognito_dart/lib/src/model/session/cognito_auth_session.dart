@@ -11,8 +11,7 @@ import 'package:amplify_core/amplify_core.dart';
 class CognitoAuthSession extends AuthSession
     with
         AWSEquatable<CognitoAuthSession>,
-        AWSSerializable<Map<String, Object?>>,
-        AWSDebuggable {
+        AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_auth_cognito.model.cognito_auth_session}
   const CognitoAuthSession({
     required super.isSignedIn,
@@ -59,9 +58,6 @@ class CognitoAuthSession extends AuthSession
       ];
 
   @override
-  String get runtimeTypeName => 'CognitoAuthSession';
-
-  @override
   Map<String, Object?> toJson() => <String, dynamic>{
         'isSignedIn': isSignedIn,
         'userSub': userSubResult.valueOrNull,
@@ -69,4 +65,13 @@ class CognitoAuthSession extends AuthSession
         'credentials': credentialsResult.valueOrNull,
         'identityId': identityIdResult.valueOrNull,
       };
+
+  @override
+  String toString() => prettyPrintJson({
+        'isSignedIn': isSignedIn,
+        'userSub': userSubResult.toString(),
+        'userPoolTokens': userPoolTokensResult.toString(),
+        'credentials': credentialsResult.toString(),
+        'identityId': identityIdResult.toString(),
+      });
 }

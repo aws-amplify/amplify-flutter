@@ -1,12 +1,12 @@
 name: amplify_lints
 description: The lint rules used in developing Amplify Flutter packages and plugins.
-version: 2.0.1
+version: 2.0.2
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify_lints
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
   flutter_lints: ^2.0.0

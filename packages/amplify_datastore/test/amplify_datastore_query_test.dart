@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
@@ -129,31 +128,5 @@ void main() {
                 'recoverySuggestion', 'some insightful suggestion')
             .having((exception) => exception.underlyingException,
                 'underlyingException', 'Act of God')));
-  });
-
-  test('method channel returns results something that cannot be parsed',
-      () async {
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == "query") {
-        return "fake";
-      }
-    });
-    expect(
-        () => dataStore.query(Post.classType),
-        throwsA(isA<DataStoreException>()
-            .having(
-              (exception) => exception.message,
-              'message',
-              "An unrecognized exception has happened while Serialization/de-serialization." +
-                  " Please see underlyingException for more details.",
-            )
-            .having(
-                (exception) => exception.recoverySuggestion,
-                'recoverySuggestion',
-                AmplifyExceptionMessages.missingRecoverySuggestion)
-            .having(
-                (exception) => exception.underlyingException,
-                'underlyingException',
-                'type \'String\' is not a subtype of type \'List<dynamic>?\' in type cast')));
   });
 }

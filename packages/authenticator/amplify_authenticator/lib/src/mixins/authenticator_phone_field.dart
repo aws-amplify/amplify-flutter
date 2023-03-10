@@ -8,7 +8,7 @@ import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dar
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
-mixin AuthenticatorPhoneFieldMixin<FieldType,
+mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
         T extends AuthenticatorFormField<FieldType, String>>
     on AuthenticatorFormFieldState<FieldType, String, T>
     implements SelectableConfig<CountryResolverKey, Country> {
@@ -119,6 +119,9 @@ mixin AuthenticatorPhoneFieldMixin<FieldType,
                             _searchVal = searchVal;
                           });
                         },
+                        autofillHints: const [
+                          AutofillHints.countryName,
+                        ],
                       ),
                     ),
                     const SizedBox(height: 10),

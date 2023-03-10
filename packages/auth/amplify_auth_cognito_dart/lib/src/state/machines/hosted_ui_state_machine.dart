@@ -14,8 +14,8 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// {@template amplify_auth_cognito.hosted_ui_state_machine}
 /// Manages the Hosted UI lifecycle and OIDC flow.
 /// {@endtemplate}
-class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
-    AuthEvent, AuthState, CognitoAuthStateMachine> {
+class HostedUiStateMachine
+    extends AuthStateMachine<HostedUiEvent, HostedUiState> {
   /// {@macro amplify_auth_cognito.hosted_ui_state_machine}
   HostedUiStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
@@ -70,18 +70,13 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
         event as HostedUiSucceeded;
         await onSucceeded(event);
         break;
-      case HostedUiEventType.failed:
-        event as HostedUiFailed;
-        emit(HostedUiState.failure(event.exception));
-        await onFailed(event);
-        break;
     }
   }
 
   @override
-  HostedUiState? resolveError(Object error, [StackTrace? st]) {
+  HostedUiState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return HostedUiFailure(error);
+      return HostedUiFailure(error, st);
     }
     return null;
   }
@@ -101,13 +96,12 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
       key: _keys[HostedUiKey.codeVerifier],
     );
     if (state != null && codeVerifier != null) {
-      dispatch(
+      return resolve(
         HostedUiEvent.foundState(
           state: state,
           codeVerifier: codeVerifier,
         ),
       );
-      return;
     }
 
     emit(const HostedUiState.signedOut());
@@ -116,87 +110,70 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
   /// State machine callback for the [HostedUiFoundState] event.
   Future<void> onFoundState(HostedUiFoundState event) async {
     try {
-      await _platform.onFoundState(
+      final parameters = await _platform.onFoundState(
         state: event.state,
         codeVerifier: event.codeVerifier,
+      );
+      return resolve(
+        HostedUiEvent.exchange(parameters),
       );
     } on SignedOutException {
       emit(const HostedUiState.signedOut());
     }
   }
 
-  Future<void> _handleSignIn(HostedUiSignIn event) async {
-    try {
-      _secureStorage.write(
-        key: _keys[HostedUiKey.options],
-        value: jsonEncode(event.options),
-      );
-      final provider = event.provider;
-      if (provider != null) {
-        _secureStorage.write(
-          key: _keys[HostedUiKey.provider],
-          value: jsonEncode(provider),
-        );
-      } else {
-        _secureStorage.delete(key: _keys[HostedUiKey.provider]);
-      }
-      await _platform.signIn(
-        options: event.options,
-        provider: provider,
-      );
-    } on Exception catch (e) {
-      emit(HostedUiState.failure(e));
-    }
-  }
-
   /// State machine callback for the [HostedUiSignIn] event.
   Future<void> onSignIn(HostedUiSignIn event) async {
-    unawaited(_handleSignIn(event));
+    await _secureStorage.write(
+      key: _keys[HostedUiKey.options],
+      value: jsonEncode(event.options),
+    );
+    final provider = event.provider;
+    if (provider != null) {
+      await _secureStorage.write(
+        key: _keys[HostedUiKey.provider],
+        value: jsonEncode(provider),
+      );
+    } else {
+      await _secureStorage.delete(key: _keys[HostedUiKey.provider]);
+    }
+    await _platform.signIn(
+      options: event.options,
+      provider: provider,
+    );
   }
 
   /// State machine callback for the [HostedUiCancelSignIn] event.
   Future<void> onCancelSignIn(HostedUiCancelSignIn event) async {
     await _platform.cancelSignIn();
     await manager.clearCredentials(_keys);
-    emit(
-      const HostedUiState.failure(
-        UserCancelledException('The user cancelled the sign-in flow'),
-      ),
-    );
+    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   /// State machine callback for the [HostedUiExchange] event.
   Future<void> onExchange(HostedUiExchange event) async {
-    try {
-      final tokens = await _platform.exchange(event.parameters);
-      return resolve(HostedUiEvent.succeeded(tokens));
-    } on Exception catch (e) {
-      emit(HostedUiState.failure(e));
-    }
+    final tokens = await _platform.exchange(event.parameters);
+    return resolve(HostedUiEvent.succeeded(tokens));
   }
 
   /// State machine callback for the [HostedUiSignOut] event.
   Future<void> onSignOut(HostedUiSignOut event) async {
-    try {
-      final optionsJson = await _secureStorage.read(
-        key: _keys[HostedUiKey.options],
-      );
-      var options = const CognitoSignOutWithWebUIOptions();
-      var isPreferPrivateSession = false;
-      if (optionsJson != null) {
-        final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
-        options = CognitoSignOutWithWebUIOptions.fromJson(optionsMap);
-        isPreferPrivateSession =
-            optionsMap['isPreferPrivateSession'] as bool? ?? false;
-      }
-      await _platform.signOut(
-        options: options,
-        isPreferPrivateSession: isPreferPrivateSession,
-      );
-      emit(const HostedUiState.signedOut());
-    } on Exception catch (e) {
-      emit(HostedUiState.failure(e));
+    final optionsJson = await _secureStorage.read(
+      key: _keys[HostedUiKey.options],
+    );
+    var options = const CognitoSignOutWithWebUIOptions();
+    var isPreferPrivateSession = false;
+    if (optionsJson != null) {
+      final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
+      options = CognitoSignOutWithWebUIOptions.fromJson(optionsMap);
+      isPreferPrivateSession =
+          optionsMap['isPreferPrivateSession'] as bool? ?? false;
     }
+    await _platform.signOut(
+      options: options,
+      isPreferPrivateSession: isPreferPrivateSession,
+    );
+    emit(const HostedUiState.signedOut());
   }
 
   /// State machine callback for the [HostedUiSucceeded] event.
@@ -231,9 +208,6 @@ class HostedUiStateMachine extends StateMachine<HostedUiEvent, HostedUiState,
       ),
     );
   }
-
-  /// State machine callback for the [HostedUiFailed] event.
-  Future<void> onFailed(HostedUiFailed event) async {}
 
   @override
   Future<void> close() async {

@@ -30,7 +30,7 @@ class NeedsDependencyManagerAndDispatcher {
   final Dispatcher dispatcher;
 }
 
-class MyDispatcher implements Dispatcher {
+class MyDispatcher with Dispatcher {
   @override
   EventCompleter<StateMachineEvent, StateMachineState> dispatch(
     StateMachineEvent event,

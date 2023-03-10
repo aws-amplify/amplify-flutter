@@ -73,26 +73,20 @@ class _$Method extends Method {
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc(
-                                        $jc($jc(0, apiKeyRequired.hashCode),
-                                            authorizationScopes.hashCode),
-                                        authorizationType.hashCode),
-                                    authorizerId.hashCode),
-                                httpMethod.hashCode),
-                            methodIntegration.hashCode),
-                        methodResponses.hashCode),
-                    operationName.hashCode),
-                requestModels.hashCode),
-            requestParameters.hashCode),
-        requestValidatorId.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, apiKeyRequired.hashCode);
+    _$hash = $jc(_$hash, authorizationScopes.hashCode);
+    _$hash = $jc(_$hash, authorizationType.hashCode);
+    _$hash = $jc(_$hash, authorizerId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, methodIntegration.hashCode);
+    _$hash = $jc(_$hash, methodResponses.hashCode);
+    _$hash = $jc(_$hash, operationName.hashCode);
+    _$hash = $jc(_$hash, requestModels.hashCode);
+    _$hash = $jc(_$hash, requestParameters.hashCode);
+    _$hash = $jc(_$hash, requestValidatorId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 }
 
@@ -238,4 +232,4 @@ class MethodBuilder implements Builder<Method, MethodBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -28,10 +29,8 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         ForgotPasswordRequest,
         GetUserAttributeVerificationCodeRequest,
         GetUserRequest,
-        GlobalSignOutRequest,
         ListDevicesRequest,
         ResendConfirmationCodeRequest,
-        RevokeTokenRequest,
         UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
         VerifyUserAttributeRequest;
@@ -226,12 +225,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         }
         if (state is FetchAuthSessionSuccess) {
           final exception = state.session.userPoolTokensResult.exception;
-          // TODO(Jordan-Nelson): Update list of exceptions once FetchAuthSession
-          /// is updated to only throw SessionExpiredException for expired
-          /// sessions.
-          if (exception is UnauthorizedException ||
-              exception is AuthNotAuthorizedException ||
-              exception is SessionExpiredException) {
+          if (exception is SessionExpiredException) {
             hubEvent = AuthHubEvent.sessionExpired();
           }
         }
@@ -332,7 +326,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthSession> fetchAuthSession({
     CognitoSessionOptions? options,
   }) async {
-    return _stateMachine.loadSession(FetchAuthSessionEvent.fetch(options));
+    final sessionState =
+        await _stateMachine.acceptAndComplete<FetchAuthSessionSuccess>(
+      FetchAuthSessionEvent.fetch(options),
+    );
+    return sessionState.session;
   }
 
   /// {@template amplify_auth_cognito_dart.impl.federate_to_identity_pool}
@@ -357,9 +355,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       provider: provider,
       options: options,
     );
-    final session = await _stateMachine.loadSession(
+    final sessionState =
+        await _stateMachine.acceptAndComplete<FetchAuthSessionSuccess>(
       FetchAuthSessionEvent.federate(request),
     );
+    final session = sessionState.session;
     return FederateToIdentityPoolResult(
       identityId: session.identityIdResult.value,
       credentials: session.credentialsResult.value,
@@ -376,10 +376,11 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     if (identityPoolConfig == null) {
       throw const InvalidAccountTypeException.noIdentityPool();
     }
-    await _stateMachine.clearCredentials(
-      CognitoIdentityPoolKeys(identityPoolConfig),
+    await stateMachine.acceptAndComplete(
+      CredentialStoreEvent.clearCredentials(
+        CognitoIdentityPoolKeys(identityPoolConfig),
+      ),
     );
-    await _stateMachine.loadCredentials();
   }
 
   @override
@@ -701,7 +702,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<List<AuthUserAttribute<CognitoUserAttributeKey>>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
   }) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     final resp = await _cognitoIdp
         .getUser(
           cognito.GetUserRequest(
@@ -741,7 +742,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required List<AuthUserAttribute<AuthUserAttributeKey>> attributes,
     CognitoUpdateUserAttributesOptions? options,
   }) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     final response = await _cognitoIdp
         .updateUserAttributes(
           cognito.UpdateUserAttributesRequest.build(
@@ -787,7 +788,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
   }) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     await _cognitoIdp
         .verifyUserAttribute(
           cognito.VerifyUserAttributeRequest(
@@ -806,7 +807,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required CognitoUserAttributeKey userAttributeKey,
     CognitoResendUserAttributeConfirmationCodeOptions? options,
   }) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     final result = await _cognitoIdp
         .getUserAttributeVerificationCode(
           cognito.GetUserAttributeVerificationCodeRequest(
@@ -830,10 +831,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<UpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
-    // TODO(dnys1): Where does clientMetadata go?
     CognitoUpdatePasswordOptions? options,
   }) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     await _cognitoIdp
         .changePassword(
           cognito.ChangePasswordRequest(
@@ -926,9 +926,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<CognitoAuthUser> getCurrentUser({
     AuthUserOptions? options,
   }) async {
-    final credentials = await stateMachine.loadCredentials();
-    final tokens = credentials.userPoolTokens;
+    final credentialsState =
+        await stateMachine.acceptAndComplete<CredentialStoreSuccess>(
+      const CredentialStoreEvent.loadCredentialStore(),
+    );
+    final credentials = credentialsState.data;
     final signInDetails = credentials.signInDetails;
+    // Per the `federateToIdentityPool` design, users cannot access user pool
+    // methods while federated. They must first clear federation to the
+    // identity pool and then sign into the user pool normally.
+    if (signInDetails is CognitoSignInDetailsFederated) {
+      throw const InvalidStateException.federatedToIdentityPool();
+    }
+    final tokens = credentials.userPoolTokens;
     if (tokens == null || signInDetails == null) {
       throw const SignedOutException('No user is currently signed in');
     }
@@ -943,7 +953,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> rememberDevice() async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = deviceSecrets?.deviceKey;
@@ -975,7 +985,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<void> forgetDevice([CognitoDevice? device]) async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
     final deviceKey = device?.id ?? deviceSecrets?.deviceKey;
@@ -999,7 +1009,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
     String? paginationToken;
     do {
-      final tokens = await getUserPoolTokens();
+      final tokens = await stateMachine.getUserPoolTokens();
       const devicePageLimit = 60;
       final resp = await _cognitoIdp
           .listDevices(
@@ -1037,138 +1047,39 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     return allDevices;
   }
 
-  // TODO(dnys1): Move to SignOutStateMachine
   @override
   Future<CognitoSignOutResult> signOut({
     SignOutOptions? options,
   }) async {
     options ??= const SignOutOptions();
 
-    // Try to retrieve tokens and return successfully if already logged out.
-    // Do not clear other storage items (e.g. AWS credentials) in this case,
-    // since an unauthenticated user may still be cached.
-    final CognitoUserPoolTokens tokens;
-    try {
-      tokens = await getUserPoolTokens();
-    } on AuthException {
+    final resultState = await stateMachine.acceptAndComplete(
+      SignOutEvent.initiate(options),
+    );
+
+    final CognitoSignOutResult signOutResult;
+    if (resultState is SignOutSuccess) {
+      signOutResult = const CognitoSignOutResult.complete();
+    } else if (resultState is SignOutPartialFailure) {
+      signOutResult = CognitoSignOutResult.partial(
+        hostedUiException: resultState.hostedUiException,
+        globalSignOutException: resultState.globalSignOutException,
+        revokeTokenException: resultState.revokeTokenException,
+      );
+    } else {
+      resultState as SignOutFailure;
+      final exception = AuthException.fromException(resultState.exception);
+      signOutResult = CognitoSignOutResult.failed(exception);
+    }
+    if (signOutResult is! CognitoFailedSignOut) {
       _hubEventController.add(AuthHubEvent.signedOut());
-      return const CognitoSignOutResult.complete();
     }
-
-    // Capture results of individual steps to determine overall success.
-    HostedUiException? hostedUiException;
-    GlobalSignOutException? globalSignOutException;
-    RevokeTokenException? revokeTokenException;
-
-    // Sign out via Hosted UI, if configured.
-    Future<CognitoSignOutResult?> signOutHostedUi() async {
-      if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
-        final hostedUiResult = await _stateMachine.signOutHostedUI();
-        if (hostedUiResult is HostedUiFailure) {
-          final exception = hostedUiResult.exception;
-          if (exception is UserCancelledException) {
-            return CognitoSignOutResult.failed(exception);
-          }
-          hostedUiException = HostedUiException(
-            underlyingException: hostedUiResult.exception,
-          );
-        }
-      }
-      return null;
-    }
-
-    // On native platforms, Hosted UI should be logged out first. This gives
-    // users the opportunity to cancel the sign out flow if they wish before
-    // credentials are revoked and cleared.
-    //
-    // On Web, this should be the very last thing to happen. Since we redirect
-    // as a result of signing out Hosted UI, credentials should be revoked and
-    // cleared before this happens.
-    if (!zIsWeb) {
-      final hostedUiResult = await signOutHostedUi();
-      if (hostedUiResult != null) {
-        return hostedUiResult;
-      }
-    }
-
-    // Do not try to send Cognito requests for plugin configs without an
-    // Identity Pool, since the requests will fail.
-    if (_identityPoolConfig != null) {
-      if (options.globalSignOut) {
-        // Revokes the refresh token
-        try {
-          await _cognitoIdp
-              .globalSignOut(
-                cognito.GlobalSignOutRequest(
-                  accessToken: tokens.accessToken.raw,
-                ),
-              )
-              .result;
-        } on Exception catch (e) {
-          globalSignOutException = GlobalSignOutException(
-            accessToken: tokens.accessToken.raw,
-            underlyingException: e,
-          );
-        }
-      }
-      // Revokes the access token
-      if (globalSignOutException != null) {
-        revokeTokenException = RevokeTokenException(
-          refreshToken: tokens.refreshToken,
-          underlyingException: Exception(
-            'RevokeToken not attempted because GlobalSignOut failed.',
-          ),
-        );
-      } else {
-        try {
-          await _cognitoIdp
-              .revokeToken(
-                cognito.RevokeTokenRequest(
-                  clientId: _userPoolConfig.appClientId,
-                  clientSecret: _userPoolConfig.appClientSecret,
-                  token: tokens.refreshToken,
-                ),
-              )
-              .result;
-        } on Exception catch (e) {
-          revokeTokenException = RevokeTokenException(
-            refreshToken: tokens.refreshToken,
-            underlyingException: e,
-          );
-        }
-      }
-    }
-
-    // Credentials are cleared for all partial sign out cases.
-    await _stateMachine.clearCredentials();
-    _hubEventController.add(AuthHubEvent.signedOut());
-
-    if (globalSignOutException != null || revokeTokenException != null) {
-      return CognitoSignOutResult.partial(
-        hostedUiException: hostedUiException,
-        globalSignOutException: globalSignOutException,
-        revokeTokenException: revokeTokenException,
-      );
-    }
-
-    if (zIsWeb) {
-      await signOutHostedUi();
-    }
-
-    if (hostedUiException != null) {
-      return CognitoSignOutResult.partial(
-        hostedUiException: hostedUiException,
-        globalSignOutException: globalSignOutException,
-        revokeTokenException: revokeTokenException,
-      );
-    }
-
-    return const CognitoSignOutResult.complete();
+    return signOutResult;
   }
 
   @override
   Future<void> deleteUser() async {
-    final tokens = await getUserPoolTokens();
+    final tokens = await stateMachine.getUserPoolTokens();
     await _cognitoIdp
         .deleteUser(
           cognito.DeleteUserRequest(
@@ -1176,20 +1087,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           ),
         )
         .result;
-    await _stateMachine.clearCredentials();
+    await stateMachine.acceptAndComplete(
+      const CredentialStoreEvent.clearCredentials(),
+    );
     await _deviceRepo.remove(tokens.username);
     _hubEventController
       ..add(AuthHubEvent.signedOut())
       ..add(AuthHubEvent.userDeleted());
-  }
-
-  /// Gets the current user pool tokens.
-  ///
-  /// Throws [SignedOutException] if tokens are not present.
-  @visibleForTesting
-  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
-    final authSession = await fetchAuthSession();
-    return authSession.userPoolTokensResult.value;
   }
 
   @override

@@ -41,8 +41,13 @@ class ButtonComponent extends Component {
   /// wether or not the button is in a loading state.
   final bool loading;
 
-  late final _buttonElement = ButtonElement()
-    ..innerHtml = loading ? 'Loading ...' : innerHtml;
+  late final _buttonElement = () {
+    final el = ButtonElement()..innerHtml = loading ? 'Loading ...' : innerHtml;
+    if (id != null) {
+      el.id = id!;
+    }
+    return el;
+  }();
 
   @override
   Component render() {

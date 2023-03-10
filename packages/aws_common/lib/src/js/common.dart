@@ -35,14 +35,83 @@ mixin JSEnum on Enum {
 @JS()
 external GlobalScope get self;
 
-/// The window object of the current context.
-@JS()
-external Window? get window;
+/// Whether the current script is running in a web worker.
+final bool zIsWebWorker = js_util.getProperty<Window?>(self, 'window') == null;
 
+/// The [Window] object of the current context.
+///
+/// Throws a [StateError] if unavailable in this context. Use [zIsWebWorker]
+/// to check whether this will throw or not.
+Window get window {
+  final window = js_util.getProperty<Window?>(self, 'window');
+  if (window == null) {
+    throw StateError('window is not available in this context');
+  }
+  return window;
+}
+
+/// The [Document] object of the current context.
+///
+/// Throws a [StateError] if unavailable. Use [zIsWebWorker] to check whether
+/// this will throw or not.
+Document get document {
+  final document = js_util.getProperty<Document?>(self, 'document');
+  if (document == null) {
+    throw StateError('document is not available in this context');
+  }
+  return document;
+}
+
+/// {@template aws_common.js.window}
 /// The Window interface represents a window containing a DOM document.
+/// {@endtemplate}
 @JS()
 @staticInterop
 abstract class Window implements GlobalScope {}
+
+/// {@macro aws_common.js.window}
+extension PropsWindow on Window {
+  /// Loads a specified resource into a new or existing browsing context
+  /// (that is, a tab, a window, or an iframe) under a specified name.
+  external void open([String? url, String? target]);
+}
+
+/// {@template aws_common.js.document}
+/// The Document interface represents any web page loaded in the browser and
+/// serves as an entry point into the web page's content, which is the DOM tree.
+/// {@endtemplate}
+@JS()
+@staticInterop
+abstract class Document {}
+
+/// {@macro aws_common.js.document}
+extension PropsDocument on Document {
+  /// Returns the first [Element] within the document that matches the
+  /// specified selector, or group of selectors.
+  ///
+  /// If no matches are found, `null` is returned.
+  external Element? querySelector(String selectors);
+}
+
+/// {@template aws_common.js.element}
+/// The most general base class from which all element objects (i.e. objects
+/// that represent elements) in a [Document] inherit.
+///
+/// It only has methods and properties common to all kinds of elements. More
+/// specific classes inherit from Element.
+/// {@endtemplate}
+@JS()
+@staticInterop
+abstract class Element {}
+
+/// {@macro aws_common.js.element}
+extension PropsElement on Element {
+  /// Returns the value of a specified attribute on the element.
+  ///
+  /// If the given attribute does not exist, the value returned will either be
+  /// `null` or `""` (the empty string);
+  external String? getAttribute(String name);
+}
 
 /// A function which handles DOM events.
 typedef EventHandler<T extends Event> = void Function(T event);
@@ -211,6 +280,10 @@ abstract class Location {}
 extension PropsLocation on Location {
   /// The entire URL.
   external String get href;
+
+  /// Returns a string containing the canonical form of the origin of the
+  /// specific location.
+  external String get origin;
 }
 
 /// {@template worker_bee.js.interop.worker_init}
@@ -302,6 +375,7 @@ extension PropsMessageChannel on MessageChannel {
 
 /// Browser-based JSON utilities.
 @JS()
+@staticInterop
 class JSON {
   /// Stringifies a JSON-like object.
   external static String stringify(Object? object);

@@ -15,6 +15,15 @@ class InvalidStateException extends AuthException {
     super.underlyingException,
   });
 
+  /// Thrown when trying to access user pool methods while federated to an
+  /// identity pool.
+  const InvalidStateException.federatedToIdentityPool()
+      : this(
+          'Users federated to Identity Pools do not have User Pool access.',
+          recoverySuggestion: 'Call `clearFederationToIdentityPool`, '
+              'then sign in normally to access User Pool data.',
+        );
+
   @override
   String get runtimeTypeName => 'InvalidStateException';
 }

@@ -127,12 +127,13 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
       }
     );
 
+    const mfa = cognito.Mfa.OFF;
     const userPool = new cognito.UserPool(this, "UserPool", {
       userPoolName: this.name,
       removalPolicy: RemovalPolicy.DESTROY,
       selfSignUpEnabled: true,
       accountRecovery: cognito.AccountRecovery.NONE,
-      mfa: cognito.Mfa.OFF,
+      mfa,
       lambdaTriggers: {
         preSignUp: autoConfirmTrigger,
       },
@@ -306,6 +307,7 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
         userPoolConfig: {
           userPoolId: userPool.userPoolId,
           userPoolClientId: userPoolClient.userPoolClientId,
+          mfa,
         },
         identityPoolConfig: {
           identityPoolId: identityPool.ref,

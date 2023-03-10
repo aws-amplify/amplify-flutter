@@ -104,7 +104,7 @@ class JsonWebKey with AWSEquatable<JsonWebKey>, AWSSerializable {
   }
 
   /// Whether the key has private key data.
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   late final bool isPrivate;
 
   /// The `kty` (key type) parameter identifies the cryptographic algorithm

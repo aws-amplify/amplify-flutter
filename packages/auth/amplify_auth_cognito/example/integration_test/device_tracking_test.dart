@@ -11,7 +11,6 @@ import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'utils/mock_data.dart';
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
@@ -97,7 +96,9 @@ void main() {
       }
 
       if (enableMfa) {
-        final otpResult = await getOtpCode(cognitoUsername);
+        final otpResult = await getOtpCode(
+          UserAttribute.username(cognitoUsername),
+        );
         final signInRes = await Amplify.Auth.signIn(
           username: username!,
           password: password,

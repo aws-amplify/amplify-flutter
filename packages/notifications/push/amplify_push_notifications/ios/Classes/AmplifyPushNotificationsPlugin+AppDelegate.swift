@@ -4,8 +4,6 @@
 import Foundation
 import Flutter
 
-private let completionHandlerIdKey = "completionHandlerId"
-
 extension AmplifyPushNotificationsPlugin {
     public func application(
         _ application: UIApplication,
@@ -100,7 +98,7 @@ extension AmplifyPushNotificationsPlugin {
                 // Otherwise the last tapped notification is the same as the launch notification,
                 // it won't be sent as notificationOpened, but retrievable via getLaunchNotification.
             } else {
-                // When there is no launch notification recorded, he last tapped notification
+                // When there is no launch notification recorded, the last tapped notification
                 // will be sent to Flutter via notificationOpened.
                 sharedEventsStreamHandlers.notificationOpened.sendEvent(payload: userInfo)
             }

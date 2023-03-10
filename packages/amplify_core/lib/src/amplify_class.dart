@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/version.dart';
 import 'package:meta/meta.dart';
 
 import 'amplify_class_impl.dart';
@@ -136,7 +137,7 @@ abstract class AmplifyClass {
   static AmplifyClass? instance;
 
   /// The library version.
-  String get version => '1.0.0-next.2';
+  String get version => packageVersion.split('+').first;
 
   /// Resets the Amplify implementation, removing all traces of Amplify from
   /// the device.

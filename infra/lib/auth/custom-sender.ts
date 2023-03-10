@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as encryptionSdk from "@aws-crypto/client-node";
+import { StringMap } from "aws-lambda/trigger/cognito-user-pool-trigger/_common";
 import fetch from "node-fetch";
 
 // Code adapted from:
@@ -32,7 +33,8 @@ const decryptCode = async (code: string): Promise<string> => {
  */
 export const decryptAndBroadcastCode = async (
   username: string,
-  code: string
+  code: string,
+  userAttributes: StringMap
 ): Promise<void> => {
   const plaintextCode = await decryptCode(code!);
   console.log(`Got MFA code for username ${username}: ${plaintextCode}`);
@@ -45,19 +47,22 @@ export const decryptAndBroadcastCode = async (
       },
       body: JSON.stringify({
         query: `
-                mutation CreateMFACode($username: String!, $code: String!) {
+                mutation CreateMFACode($username: String!, $code: String!, $userAttributes: AWSJSON!) {
                     createMFACode(input: {
                         username: $username
                         code: $code
+                        userAttributes: $userAttributes
                     }) {
                         username
                         code
+                        userAttributes
                     }
                 }
             `,
         variables: {
           username,
           code: plaintextCode,
+          userAttributes: JSON.stringify(userAttributes),
         },
       }),
     });

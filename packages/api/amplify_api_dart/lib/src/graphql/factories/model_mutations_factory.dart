@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 // ignore_for_file: public_member_api_docs
 
-class ModelMutationsFactory extends ModelMutationsInterface {
+class ModelMutationsFactory {
   // Singleton methods/properties
   // usage: ModelQueriesFactory.instance;
   ModelMutationsFactory._();
@@ -15,7 +15,6 @@ class ModelMutationsFactory extends ModelMutationsInterface {
 
   static ModelMutationsFactory get instance => _instance;
 
-  @override
   GraphQLRequest<T> create<T extends Model>(
     T model, {
     String? apiName,
@@ -41,7 +40,6 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     );
   }
 
-  @override
   GraphQLRequest<T> delete<T extends Model>(
     T model, {
     QueryPredicate? where,
@@ -51,8 +49,7 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   }) {
     return deleteById(
       model.getInstanceType() as ModelType<T>,
-      // ignore: deprecated_member_use
-      model.getId(),
+      model.modelIdentifier as ModelIdentifier<T>,
       where: where,
       apiName: apiName,
       authorizationMode: authorizationMode,
@@ -60,10 +57,9 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     );
   }
 
-  @override
   GraphQLRequest<T> deleteById<T extends Model>(
     ModelType<T> modelType,
-    String id, {
+    ModelIdentifier<T> modelIdentifier, {
     QueryPredicate? where,
     String? apiName,
     APIAuthorizationType? authorizationMode,
@@ -71,9 +67,8 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, modelType);
-    final input = {
-      idFieldName: id
-    }; // Simpler input than other mutations so don't use helper.
+    final input = modelIdentifier
+        .serializeAsMap(); // Simpler input than other mutations so don't use helper.
     final variables = GraphQLRequestFactory.instance
         .buildVariablesForMutationRequest(input: input, condition: condition);
 
@@ -88,7 +83,6 @@ class ModelMutationsFactory extends ModelMutationsInterface {
     );
   }
 
-  @override
   GraphQLRequest<T> update<T extends Model>(
     T model, {
     QueryPredicate? where,

@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'dart:html';
-
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
+// ignore: implementation_imports
+import 'package:aws_common/src/js/common.dart';
 import 'package:path/path.dart' show url;
 
 /// {@macro amplify_auth_cognito.hosted_ui_platform}
@@ -13,13 +13,17 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
   HostedUiPlatformImpl(super.dependencyManager) : super.protected();
 
   /// The base URL
-  String get baseUrl => url.join(window.location.origin, '/');
+  String get _baseUrl {
+    final baseElement = document.querySelector('base');
+    final basePath = baseElement?.getAttribute('href') ?? '/';
+    return url.join(window.location.origin, basePath);
+  }
 
   Never _noSuitableRedirect({required bool signIn}) {
     final inOut = signIn ? 'in' : 'out';
     throw InvalidUserPoolConfigurationException(
-      'No sign $inOut redirect URLs registered for base URL: $baseUrl. '
-      'Add a sign $inOut redirect URL on that starts with "$baseUrl". See '
+      'No sign $inOut redirect URLs registered for base URL: $_baseUrl. '
+      'Add a sign $inOut redirect URL on that starts with "$_baseUrl". See '
       'the docs for more info: '
       'https://docs.amplify.aws/lib/auth/signin_web_ui/q/platform/flutter/',
     );
@@ -27,13 +31,13 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(baseUrl),
+        (uri) => uri.toString().startsWith(_baseUrl),
         orElse: () => _noSuitableRedirect(signIn: true),
       );
 
   @override
   Uri get signOutRedirectUri => config.signOutRedirectUris.firstWhere(
-        (uri) => uri.toString().startsWith(baseUrl),
+        (uri) => uri.toString().startsWith(_baseUrl),
         orElse: () => _noSuitableRedirect(signIn: false),
       );
 
@@ -47,7 +51,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
     required CognitoSignInWithWebUIOptions options,
     AuthProvider? provider,
   }) async {
-    final signInUrl = getSignInUri(provider: provider).toString();
+    final signInUrl = (await getSignInUri(provider: provider)).toString();
     await launchUrl(signInUrl);
   }
 

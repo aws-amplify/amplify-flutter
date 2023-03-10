@@ -4,12 +4,12 @@ version: 0.1.1
 publish_to: none
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.18.0 <4.0.0'
 
 dependencies: 
   args: ^2.3.0
-  async: ^2.8.0
-  aws_common: ">=0.4.0 <0.5.0"
+  async: ^2.10.0
+  aws_common: ">=0.4.0+1 <0.5.0"
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
   checked_yaml: ^2.0.0
@@ -19,10 +19,11 @@ dependencies:
   glob: ^2.1.0
   graphs: ^2.1.0
   http: ^0.13.0
-  json_annotation: ^4.7.0
+  json_annotation: ">=4.8.0 <4.9.0"
   libgit2dart:
     path: external/libgit2dart
   markdown: ^5.0.0
+  mason: ^0.1.0-dev.40
   meta: ^1.7.0
   path: any
   pub:
@@ -31,7 +32,7 @@ dependencies:
       ref: 6cbbec2abbf6a54074ae1005c06a26dfb14a86c8
   pub_semver: ^2.1.1
   pubspec_parse: ^1.2.0
-  smithy: ">=0.4.0+1 <0.5.0"
+  smithy: ">=0.4.0+2 <0.5.0"
   smithy_codegen:
     path: ../smithy/smithy_codegen
   stream_transform: ^2.0.0
@@ -39,6 +40,8 @@ dependencies:
   yaml_edit: ^2.0.3
 
 dependency_overrides:
+  amplify_lints:
+    path: ../amplify_lints
   aws_common:
     path: ../aws_common
   aws_signature_v4:
@@ -51,11 +54,10 @@ dependency_overrides:
     path: ../smithy/smithy_codegen
 
 dev_dependencies:
-  amplify_lints:
-    path: ../amplify_lints
+  amplify_lints: ">=2.0.2 <2.1.0"
   build_runner: ^2.2.1
-  built_value_generator: 8.4.2
-  json_serializable: 6.5.4
+  built_value_generator: 8.4.3
+  json_serializable: 6.6.1
   test: ^1.16.0
 
 executables:

@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:http/http.dart' as http;
@@ -18,8 +19,9 @@ final stateMachineBuilders = <StateMachineToken, Function>{
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
   HostedUiStateMachine.type: HostedUiStateMachine.new,
-  SignUpStateMachine.type: SignUpStateMachine.new,
   SignInStateMachine.type: SignInStateMachine.new,
+  SignOutStateMachine.type: SignOutStateMachine.new,
+  SignUpStateMachine.type: SignUpStateMachine.new,
 };
 
 AWSHttpClient _makeAwsHttpClient() =>
@@ -58,68 +60,70 @@ class CognitoAuthStateMachine
       return FetchAuthSessionStateMachine.type;
     } else if (event is HostedUiEvent) {
       return HostedUiStateMachine.type;
-    } else if (event is SignUpEvent) {
-      return SignUpStateMachine.type;
     } else if (event is SignInEvent) {
       return SignInStateMachine.type;
+    } else if (event is SignOutEvent) {
+      return SignOutStateMachine.type;
+    } else if (event is SignUpEvent) {
+      return SignUpStateMachine.type;
     }
     throw StateError('Unhandled event: $event');
   }
 
   /// Loads credentials from the credential store (which may be
   /// outdated or expired).
-  Future<CredentialStoreData> loadCredentials([
-    CredentialStoreEvent event =
-        const CredentialStoreEvent.loadCredentialStore(),
-  ]) async {
-    final credentialsState = await dispatch(event).completed;
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
-    }
-    return (credentialsState as CredentialStoreSuccess).data;
+  Future<CredentialStoreData> loadCredentials() async {
+    final credentialsState = await dispatchAndComplete<CredentialStoreSuccess>(
+      const CredentialStoreEvent.loadCredentialStore(),
+    );
+    return credentialsState.data;
   }
 
   /// Stores [credentials] in the credential store.
   Future<void> storeCredentials(CredentialStoreData credentials) async {
-    final credentialsState = await dispatch(
+    await dispatchAndComplete(
       CredentialStoreEvent.storeCredentials(credentials),
-    ).completed;
-    if (credentialsState is CredentialStoreFailure) {
-      throw credentialsState.exception;
-    }
+    );
   }
 
   /// Clears [keys] from the credential store, or all keys if unspecified.
   Future<void> clearCredentials([Iterable<String> keys = const []]) async {
-    await loadCredentials(
-      CredentialStoreEvent.clearCredentials(keys),
-    );
+    await dispatchAndComplete(CredentialStoreEvent.clearCredentials(keys));
   }
 
   /// Loads the user's current session.
-  Future<CognitoAuthSession> loadSession([
-    FetchAuthSessionEvent event = const FetchAuthSessionEvent.fetch(),
-  ]) async {
-    final sessionState = await dispatch(event).completed;
-    if (sessionState is FetchAuthSessionFailure) {
-      throw sessionState.exception;
-    }
-    return (sessionState as FetchAuthSessionSuccess).session;
+  Future<CognitoAuthSession> loadSession() async {
+    final sessionState = await dispatchAndComplete<FetchAuthSessionSuccess>(
+      const FetchAuthSessionEvent.fetch(),
+    );
+    return sessionState.session;
   }
 
   /// Configures the Hosted UI state machine.
   Future<void> configureHostedUI() async {
-    final configuredState = await dispatch(
-      const HostedUiEvent.configure(),
-    ).completed;
-    if (configuredState is HostedUiFailure) {
-      throw configuredState.exception;
-    }
+    await dispatchAndComplete(const HostedUiEvent.configure());
   }
 
   /// Signs out using the Hosted UI state machine.
   Future<HostedUiState> signOutHostedUI() async {
     return await dispatch(const HostedUiEvent.signOut()).completed
         as HostedUiState;
+  }
+
+  /// Gets the current user pool tokens.
+  ///
+  /// Throws [SignedOutException] if tokens are not present or
+  /// [InvalidStateException] if the user is currently federated to an identity
+  /// pool.
+  ///
+  /// Throws [AuthException] for all other exceptions encountered fetching the
+  /// user pool tokens.
+  Future<CognitoUserPoolTokens> getUserPoolTokens() async {
+    final credentialState = await loadCredentials();
+    if (credentialState.signInDetails is CognitoSignInDetailsFederated) {
+      throw const InvalidStateException.federatedToIdentityPool();
+    }
+    final authSession = await loadSession();
+    return authSession.userPoolTokensResult.value;
   }
 }

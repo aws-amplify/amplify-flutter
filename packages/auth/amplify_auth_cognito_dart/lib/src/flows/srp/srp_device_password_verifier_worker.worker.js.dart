@@ -29,18 +29,18 @@ class SrpDevicePasswordVerifierWorkerImpl
         .takeWhile((segment) => segment != 'test')
         .map(Uri.encodeComponent)
         .join('/');
-    final testDir = Uri(
-      scheme: baseUri.scheme,
-      host: baseUri.host,
-      port: baseUri.port,
-      path: '$basePath/test',
-    );
     const relativePath = zDebugMode
         ? 'packages/amplify_auth_cognito_dart/src/workers/workers.debug.dart.js'
         : 'packages/amplify_auth_cognito_dart/src/workers/workers.release.dart.js';
+    final testRelativePath = Uri(
+      scheme: baseUri.scheme,
+      host: baseUri.host,
+      port: baseUri.port,
+      path: '$basePath/test/$relativePath',
+    ).toString();
     return [
       relativePath,
-      testDir.resolve(relativePath).toString(),
+      testRelativePath,
     ];
   }
 }

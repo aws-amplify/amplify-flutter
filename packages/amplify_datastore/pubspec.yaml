@@ -1,23 +1,23 @@
 name: amplify_datastore
 description: The Amplify Flutter DataStore category plugin, providing a queryable, on-device data store.
-version: 1.0.0-next.4
+version: 1.0.0-next.6
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify_datastore
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  amplify_datastore_plugin_interface: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_datastore_plugin_interface: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_core: ">=1.0.0-next.6 <1.0.0-next.7"
   plugin_platform_interface: ^2.0.0
   meta: ^1.7.0
   collection: ^1.14.13
-  async: ^2.8.0
+  async: ^2.10.0
 
 dev_dependencies:
   amplify_test:

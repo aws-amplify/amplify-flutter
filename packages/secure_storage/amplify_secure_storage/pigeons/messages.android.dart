@@ -11,7 +11,7 @@ import 'package:pigeon/pigeon.dart';
     javaOut:
         'android/src/main/java/com/amazonaws/amplify/amplify_secure_storage/amplify_secure_storage/Messages.java',
     javaOptions: JavaOptions(
-      className: "Messages",
+      className: 'Messages',
       package:
           'com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage',
     ),

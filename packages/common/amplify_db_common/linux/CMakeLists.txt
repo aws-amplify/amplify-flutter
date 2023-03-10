@@ -21,32 +21,20 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
   # We can't really ask users to use a cmake that recent, so there's this if here.
   FetchContent_Declare(
     sqlite3
-    URL https://sqlite.org/2022/sqlite-autoconf-3390300.tar.gz
+    URL https://sqlite.org/2022/sqlite-autoconf-3400000.tar.gz
     DOWNLOAD_EXTRACT_TIMESTAMP NEW
   )
 else()
   FetchContent_Declare(
     sqlite3
-    URL https://sqlite.org/2022/sqlite-autoconf-3390300.tar.gz
+    URL https://sqlite.org/2022/sqlite-autoconf-3400000.tar.gz
   )
 endif()
 FetchContent_MakeAvailable(sqlite3)
 
-FetchContent_Declare(
-  spellfix1
-  URL https://raw.githubusercontent.com/sqlite/sqlite/branch-3.39/ext/misc/spellfix.c
-  DOWNLOAD_NO_EXTRACT TRUE
-)
-FetchContent_MakeAvailable(spellfix1)
-
-# Define the plugin library target. Its name must not be changed (see comment
-# on PLUGIN_NAME above).
-#
-# Any new source files that you add to the plugin should be added here.
 add_library(${PLUGIN_NAME} SHARED
   "amplify_db_common_plugin.cc"
   "${sqlite3_SOURCE_DIR}/sqlite3.c"
-  "${spellfix1_SOURCE_DIR}/spellfix.c"
 )
 
 # Not applying the standard settings because we compile sqlite3
@@ -61,6 +49,7 @@ target_include_directories(${PLUGIN_NAME} INTERFACE
   "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PLUGIN_NAME} PRIVATE flutter)
 
+# Note: Keep in sync with https://github.com/simolus3/sqlite-native-libraries/blob/master/sqlite3-native-library/cpp/CMakeLists.txt
 target_compile_definitions(${PLUGIN_NAME} PRIVATE
   SQLITE_ENABLE_FTS5
   SQLITE_ENABLE_RTREE

@@ -3,7 +3,7 @@
 
 part of '../form_field.dart';
 
-class AuthenticatorPhoneField<FieldType>
+class AuthenticatorPhoneField<FieldType extends Enum>
     extends AuthenticatorFormField<FieldType, String> {
   const AuthenticatorPhoneField({
     Key? key,
@@ -14,12 +14,14 @@ class AuthenticatorPhoneField<FieldType>
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
+    Iterable<String>? autofillHints,
   }) : super._(
           key: key,
           field: field,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
           requiredOverride: requiredOverride,
+          autofillHints: autofillHints,
         );
 
   final bool? enabled;
@@ -45,7 +47,7 @@ class AuthenticatorPhoneField<FieldType>
   }
 }
 
-class _AuthenticatorPhoneFieldState<FieldType>
+class _AuthenticatorPhoneFieldState<FieldType extends Enum>
     extends AuthenticatorFormFieldState<FieldType, String,
         AuthenticatorPhoneField<FieldType>>
     with
@@ -94,6 +96,13 @@ class _AuthenticatorPhoneFieldState<FieldType>
       )(phoneNumber);
     };
   }
+
+  @override
+  Iterable<String>? get autofillHints =>
+      widget.autofillHints ??
+      const [
+        AutofillHints.username,
+      ];
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

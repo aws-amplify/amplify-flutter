@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:aft/aft.dart';
 import 'package:async/async.dart';
+// ignore: implementation_imports
 import 'package:pub/src/http.dart' as pub_http;
 
 extension PubAction on AmplifyCommand {

@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+// ignore: implementation_imports
 import 'package:aws_common/src/js/common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
@@ -12,9 +13,7 @@ import 'package:worker_bee/src/serializers/serializers.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@macro worker_bee.is_web_worker}
-bool get isWebWorker {
-  return window == null;
-}
+bool get isWebWorker => zIsWebWorker;
 
 /// {@macro worker_bee.current_uri}
 Uri get currentUri {

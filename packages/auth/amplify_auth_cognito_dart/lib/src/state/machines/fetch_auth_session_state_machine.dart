@@ -8,6 +8,7 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
+import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
@@ -19,8 +20,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// Fetches the user's auth session from the credential store and, optionally,
 /// a Cognito Identity Pool.
 /// {@endtemplate}
-class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
-    FetchAuthSessionState, AuthEvent, AuthState, CognitoAuthStateMachine> {
+class FetchAuthSessionStateMachine
+    extends AuthStateMachine<FetchAuthSessionEvent, FetchAuthSessionState> {
   /// {@macro amplify_auth_cognito.fetch_auth_session_state_machine}
   FetchAuthSessionStateMachine(CognitoAuthStateMachine manager)
       : super(manager, type);
@@ -74,17 +75,13 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         event as FetchAuthSessionSucceeded;
         emit(FetchAuthSessionState.success(event.session));
         break;
-      case FetchAuthSessionEventType.failed:
-        event as FetchAuthSessionFailed;
-        emit(FetchAuthSessionState.failure(event.exception));
-        break;
     }
   }
 
   @override
-  FetchAuthSessionState? resolveError(Object error, [StackTrace? st]) {
+  FetchAuthSessionState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return FetchAuthSessionFailure(error);
+      return FetchAuthSessionFailure(error, st);
     }
     return null;
   }
@@ -245,12 +242,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     final AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
     final AuthResult<String> userSubResult;
     if (userPoolTokens == null) {
-      userPoolTokensResult = const AuthResult.error(
-        SignedOutException('No user is currently signed in'),
-      );
-      userSubResult = const AuthResult.error(
-        SignedOutException('No user is currently signed in'),
-      );
+      userPoolTokensResult = result.signedOut();
+      userSubResult = result.signedOut();
     } else {
       userPoolTokensResult = AuthResult.success(
         userPoolTokens,
@@ -263,7 +256,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     emit(
       FetchAuthSessionState.success(
         CognitoAuthSession(
-          isSignedIn: userPoolTokens != null,
+          isSignedIn: userPoolTokens != null ||
+              result.signInDetails is CognitoSignInDetailsFederated,
           userPoolTokensResult: userPoolTokensResult,
           userSubResult: userSubResult,
           credentialsResult: credentialsResult,
@@ -284,16 +278,31 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
             'Amplify.Auth.federateToIdentityPool.',
       );
     }
+    if (_identityPoolConfig == null) {
+      throw const InvalidAccountTypeException.noIdentityPool();
+    }
 
     AuthResult<AWSCredentials> credentialsResult;
     AuthResult<String> identityIdResult;
 
     try {
+      var existingIdentityId =
+          event.request.options?.developerProvidedIdentityId;
+      final signInDetails = result.signInDetails;
+      final isRefresh = signInDetails is CognitoSignInDetailsFederated &&
+          signInDetails.provider == event.request.provider &&
+          existingIdentityId == null;
+      // Only retain the current identity when calling `federateToIdentityPool`
+      // while federated with the same provider. This acts as a force refresh.
+      // If not federated, or if federating with a new provider, replace the
+      // existing identity with the federated one.
+      if (isRefresh) {
+        emit(const FetchAuthSessionState.refreshing());
+        existingIdentityId = result.identityId;
+      }
       final res = await _retrieveAwsCredentials(
-        existingIdentityId:
-            event.request.options?.developerProvidedIdentityId ??
-                result.identityId,
-        federatedIdentity: _FederatedIdentity(
+        existingIdentityId: existingIdentityId,
+        federatedIdentity: _FederatedIdentity.federated(
           event.request.provider,
           event.request.token,
         ),
@@ -309,12 +318,14 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     emit(
       FetchAuthSessionState.success(
         CognitoAuthSession(
-          isSignedIn: userPoolTokens != null,
+          // Per `federateToIdentityPool` design, a federated user is considered
+          // signed in for the `fetchAuthSession` API.
+          isSignedIn: true,
           userPoolTokensResult: const AuthResult.error(
-            SignedOutException('No user is currently signed in'),
+            InvalidStateException.federatedToIdentityPool(),
           ),
           userSubResult: const AuthResult.error(
-            SignedOutException('No user is currently signed in'),
+            InvalidStateException.federatedToIdentityPool(),
           ),
           identityIdResult: identityIdResult,
           credentialsResult: credentialsResult,
@@ -335,12 +346,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
     var userPoolTokens = result.userPoolTokens;
     if (event.refreshUserPoolTokens) {
       if (userPoolTokens == null) {
-        return emit(
-          const FetchAuthSessionState.failure(
-            UnknownException(
-              'No user pool tokens available for refresh',
-            ),
-          ),
+        throw const UnknownException(
+          'No user pool tokens available for refresh',
         );
       }
       try {
@@ -357,12 +364,8 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         userPoolTokensResult = AuthResult.success(userPoolTokens);
         userSubResult = AuthResult.success(userPoolTokens.userId);
       } else {
-        userPoolTokensResult = const AuthResult.error(
-          SignedOutException('No user is currently signed in'),
-        );
-        userSubResult = const AuthResult.error(
-          SignedOutException('No user is currently signed in'),
-        );
+        userPoolTokensResult = result.signedOut();
+        userSubResult = result.signedOut();
       }
     }
 
@@ -379,12 +382,23 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         InvalidAccountTypeException.noIdentityPool(),
       );
     } else if (event.refreshAwsCredentials) {
+      _FederatedIdentity? federatedIdentity;
+      final signInDetails = result.signInDetails;
+      if (signInDetails is CognitoSignInDetailsFederated) {
+        federatedIdentity = _FederatedIdentity.federated(
+          signInDetails.provider,
+          signInDetails.token,
+        );
+      }
       final idToken = userPoolTokens?.idToken.raw;
+      if (idToken != null) {
+        assert(federatedIdentity == null, 'Cannot federate while logged in');
+        federatedIdentity = _FederatedIdentity.cognito(idToken);
+      }
       try {
         final awsCredentialsResult = await _retrieveAwsCredentials(
           existingIdentityId: existingIdentityId,
-          federatedIdentity:
-              idToken == null ? null : _FederatedIdentity.cognito(idToken),
+          federatedIdentity: federatedIdentity,
         );
         final identityId = awsCredentialsResult.identityId;
         final awsCredentials = awsCredentialsResult.awsCredentials;
@@ -437,11 +451,18 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
         CredentialStoreData(
           awsCredentials: awsCredentials,
           identityId: identityId,
+          signInDetails:
+              federatedIdentity != null && federatedIdentity.isFederatedSignIn
+                  ? CognitoSignInDetailsFederated(
+                      provider: federatedIdentity.provider,
+                      token: federatedIdentity.token,
+                    )
+                  : null,
         ),
       );
 
       return _AwsCredentialsResult(awsCredentials, identityId);
-    } on AuthNotAuthorizedException {
+    } on AuthNotAuthorizedException catch (e, st) {
       // If expired credentials were cached and trying to refresh them throws
       // a NotAuthorizedException, clear any AWS credentials which were being
       // refreshed, since they may have been from an authenticated user whose
@@ -450,7 +471,10 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       await manager.clearCredentials(
         CognitoIdentityPoolKeys(identityPoolConfig),
       );
-      rethrow;
+      Error.throwWithStackTrace(
+        e.toSessionExpired('The AWS credentials could not be retrieved'),
+        st,
+      );
     }
   }
 
@@ -500,7 +524,7 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
       );
 
       return newTokens;
-    } on AuthNotAuthorizedException {
+    } on AuthNotAuthorizedException catch (e, st) {
       late Iterable<String> keys;
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
@@ -517,18 +541,50 @@ class FetchAuthSessionStateMachine extends StateMachine<FetchAuthSessionEvent,
           // Clear associated AWS credentials
           ...CognitoIdentityPoolKeys(identityPoolConfig),
       ]);
-      rethrow;
+      Error.throwWithStackTrace(
+        e.toSessionExpired('The tokens could not be refreshed'),
+        st,
+      );
     }
   }
 }
 
+extension on CredentialStoreData {
+  /// Returns the appropriate signed out result depending on how the user
+  /// signed in.
+  AuthResult<T> signedOut<T>() {
+    return AuthResult.error(
+      signInDetails is CognitoSignInDetailsFederated
+          ? const InvalidStateException.federatedToIdentityPool()
+          : const SignedOutException('No user is currently signed in'),
+    );
+  }
+}
+
+extension on AuthNotAuthorizedException {
+  /// In the fetch auth session state machine, all [AuthNotAuthorizedException]s
+  /// are mapped to [SessionExpiredException]s, since the only time they would
+  /// be thrown is due to expired/revoked credentials being used.
+  SessionExpiredException toSessionExpired(String message) {
+    return SessionExpiredException(
+      message,
+      recoverySuggestion:
+          'Invoke Amplify.Auth.signIn to re-authenticate the user',
+      underlyingException: underlyingException,
+    );
+  }
+}
+
 class _FederatedIdentity {
-  const _FederatedIdentity(this.provider, this.token);
+  const _FederatedIdentity.federated(this.provider, this.token)
+      : isFederatedSignIn = true;
 
   const _FederatedIdentity.cognito(String idToken)
       : provider = AuthProvider.cognito,
-        token = idToken;
+        token = idToken,
+        isFederatedSignIn = false;
 
+  final bool isFederatedSignIn;
   final AuthProvider provider;
   final String token;
 }

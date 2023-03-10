@@ -9,14 +9,14 @@ import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/state/machines/sign_in_state_machine.dart';
+import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
+import 'package:amplify_auth_cognito_test/common/mock_config.dart';
+import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/test.dart';
 
-import '../common/mock_clients.dart';
-import '../common/mock_config.dart';
-import '../common/mock_secure_storage.dart';
 import '../flows/srp/srp_helper_test.dart';
 
 void main() {
@@ -57,9 +57,11 @@ void main() {
           },
         ),
       );
-      stateMachine.dispatch(
-        const ConfigurationEvent.configure(config),
-      );
+      stateMachine
+          .dispatch(
+            const ConfigurationEvent.configure(config),
+          )
+          .ignore();
       await expectLater(
         stateMachine.stream.whereType<ConfigurationState>().firstWhere(
               (event) => event is Configured || event is ConfigureFailure,
@@ -85,7 +87,7 @@ void main() {
                 ..password = 'password',
             ),
           ),
-        );
+        ).ignore();
 
       final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
       await signInStateMachine.stream.whereType<SignInChallenge>().first;
@@ -96,9 +98,11 @@ void main() {
     });
 
     test('smoke test', () async {
-      stateMachine.dispatch(
-        ConfigurationEvent.configure(userPoolOnlyConfig),
-      );
+      stateMachine
+          .dispatch(
+            ConfigurationEvent.configure(userPoolOnlyConfig),
+          )
+          .ignore();
       await expectLater(
         stateMachine.stream.whereType<ConfigurationState>().firstWhere(
               (event) => event is Configured || event is ConfigureFailure,
@@ -128,7 +132,7 @@ void main() {
                 ..password = 'password',
             ),
           ),
-        );
+        ).ignore();
 
       final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
       expect(
@@ -146,9 +150,11 @@ void main() {
 
     group('custom auth', () {
       test('customAuthWithSrp requires password', () async {
-        stateMachine.dispatch(
-          ConfigurationEvent.configure(userPoolOnlyConfig),
-        );
+        stateMachine
+            .dispatch(
+              ConfigurationEvent.configure(userPoolOnlyConfig),
+            )
+            .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -156,14 +162,16 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.dispatch(
-          SignInEvent.initiate(
-            authFlowType: AuthenticationFlowType.customAuthWithSrp,
-            parameters: SignInParameters(
-              (p) => p..username = 'username',
-            ),
-          ),
-        );
+        stateMachine
+            .dispatch(
+              SignInEvent.initiate(
+                authFlowType: AuthenticationFlowType.customAuthWithSrp,
+                parameters: SignInParameters(
+                  (p) => p..username = 'username',
+                ),
+              ),
+            )
+            .ignore();
         final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
         expect(
           signInStateMachine.stream,
@@ -179,9 +187,11 @@ void main() {
       });
 
       test('customAuthWithoutSrp forbids password', () async {
-        stateMachine.dispatch(
-          ConfigurationEvent.configure(userPoolOnlyConfig),
-        );
+        stateMachine
+            .dispatch(
+              ConfigurationEvent.configure(userPoolOnlyConfig),
+            )
+            .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -189,16 +199,18 @@ void main() {
           completion(isA<Configured>()),
         );
 
-        stateMachine.dispatch(
-          SignInEvent.initiate(
-            authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
-            parameters: SignInParameters(
-              (p) => p
-                ..username = 'username'
-                ..password = 'password',
-            ),
-          ),
-        );
+        stateMachine
+            .dispatch(
+              SignInEvent.initiate(
+                authFlowType: AuthenticationFlowType.customAuthWithoutSrp,
+                parameters: SignInParameters(
+                  (p) => p
+                    ..username = 'username'
+                    ..password = 'password',
+                ),
+              ),
+            )
+            .ignore();
         final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
         expect(
           signInStateMachine.stream,
@@ -214,9 +226,11 @@ void main() {
       });
 
       test('customAuth uses old behavior', () async {
-        stateMachine.dispatch(
-          ConfigurationEvent.configure(userPoolOnlyConfig),
-        );
+        stateMachine
+            .dispatch(
+              ConfigurationEvent.configure(userPoolOnlyConfig),
+            )
+            .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,
@@ -247,7 +261,7 @@ void main() {
                   ..password = 'password',
               ),
             ),
-          );
+          ).ignore();
 
         final signInStateMachine = stateMachine.expect(SignInStateMachine.type);
         expect(
@@ -264,9 +278,11 @@ void main() {
       late DeviceMetadataRepository deviceRepo;
 
       setUp(() async {
-        stateMachine.dispatch(
-          ConfigurationEvent.configure(mockConfig),
-        );
+        stateMachine
+            .dispatch(
+              ConfigurationEvent.configure(mockConfig),
+            )
+            .ignore();
         await expectLater(
           stateMachine.stream.whereType<ConfigurationState>().firstWhere(
                 (event) => event is Configured || event is ConfigureFailure,

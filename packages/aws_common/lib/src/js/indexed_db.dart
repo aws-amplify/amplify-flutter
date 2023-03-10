@@ -151,8 +151,25 @@ extension PropsIDBDatabase on IDBDatabase {
   ///
   /// Throws an `InvalidStateError` DOMException if not called within an upgrade
   /// transaction.
-  IDBObjectStore createObjectStore(String name) =>
-      js_util.callMethod(this, 'createObjectStore', [name]);
+  IDBObjectStore createObjectStore(
+    String name, {
+    String? keyPath,
+    bool? autoIncrement,
+  }) {
+    final params = <Object, Object>{};
+    if (keyPath != null) {
+      params['keyPath'] = keyPath;
+    }
+    if (autoIncrement != null) {
+      params['autoIncrement'] = autoIncrement;
+    }
+
+    return js_util.callMethod(
+      this,
+      'createObjectStore',
+      [name, js_util.jsify(params)],
+    );
+  }
 }
 
 /// {@template amplify_secure_storage_dart.idb_object_store}
@@ -184,6 +201,14 @@ extension PropsIDBObjectStore on IDBObjectStore {
   IDBRequest<void> add(String value, String key) =>
       js_util.callMethod(this, 'add', [value, key]);
 
+  /// Returns an [IDBRequest] object, and, in a separate thread, creates a
+  /// structured clone of the value, and stores the cloned value in the object
+  /// store.
+  ///
+  /// This is for adding new records to an object store created with keyPath set and autoincrement = true
+  IDBRequest<void> push(Map<Object, Object> item) =>
+      js_util.callMethod(this, 'add', [js_util.jsify(item)]);
+
   /// Returns an [IDBRequest] object, and, in a separate thread, deletes the
   /// store object selected by the specified key.
   ///
@@ -191,12 +216,32 @@ extension PropsIDBObjectStore on IDBObjectStore {
   IDBRequest<void> delete(String query) =>
       js_util.callMethod(this, 'delete', [query]);
 
+  /// Returns an [IDBRequest] object, and, in a separate thread, deletes the
+  /// store objects within the provided [IDBKeyRange].
+  ///
+  /// This is for deleting ranges of records out of an object store.
+  IDBRequest<void> deleteByKeyRange(IDBKeyRange range) =>
+      js_util.callMethod(this, 'delete', [range]);
+
+  /// Returns an [IDBRequest] object, and, in a separate thread, deletes all
+  /// store objects.
+  ///
+  /// This is for deleting all records in an object store.
+  IDBRequest<void> clear() => js_util.callMethod(this, 'clear', []);
+
   /// Returns an [IDBRequest] object, and, in a separate thread, returns the
   /// store object store selected by the specified key.
   ///
   /// This is for retrieving specific records from an object store.
   IDBRequest<String?> getObject(String query) =>
       js_util.callMethod(this, 'get', [query]);
+
+  /// Returns an [IDBRequest] object, and, in a separate thread, returns
+  /// [count] records from the object store.
+  ///
+  /// This is for retrieving a specific [count] of records from the object store.
+  IDBRequest<List<dynamic>> getAll(String? query, int? count) =>
+      js_util.callMethod(this, 'getAll', [query, count]);
 }
 
 /// {@template amplify_secure_storage_dart.idb_transaction}
@@ -235,4 +280,13 @@ enum IDBTransactionMode {
   ///
   /// Transactions in this mode are known as "upgrade transactions."
   versionchange,
+}
+
+// ignore: avoid_classes_with_only_static_members
+/// Represents an interval of some data type that is used for keys
+@JS()
+@staticInterop
+abstract class IDBKeyRange {
+  /// Create key range with specified lower and upper bounds (inclusive)
+  external static IDBKeyRange bound(int lower, int upper);
 }
