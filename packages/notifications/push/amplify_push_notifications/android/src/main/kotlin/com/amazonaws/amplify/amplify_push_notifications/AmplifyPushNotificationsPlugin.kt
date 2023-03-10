@@ -21,13 +21,12 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
 
+private const val TAG = "AmplifyPushNotificationsPlugin"
 
 /** AmplifyPushNotificationsPlugin */
 open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     PluginRegistry.NewIntentListener, PushNotificationsHostApi {
     private companion object {
-        const val TAG = "AmplifyPushNotificationsPlugin"
-
         /**
          * The scope in which to spawn tasks which should not be awaited from the main thread.
          */
@@ -96,7 +95,9 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             StreamHandlers.initEventChannels(it)
         }
         binding.addOnNewIntentListener(this)
-        binding.activity.intent.putExtra(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true)
+        binding.activity.intent.putExtra(
+            PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
+        )
         onNewIntent(binding.activity.intent)
         refreshToken()
     }
@@ -120,11 +121,11 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
         intent.extras?.let {
-
             val payload = it.asPayload()
             if (payload != null && it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)) {
                 val notificationHashMap = payload.asChannelMap()
-                if(it.getBoolean(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)){
+                if (it.getBoolean(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION)) {
+                    // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
                 StreamHandlers.notificationOpened?.send(
@@ -192,6 +193,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     }
                 }
                 result.success(false)
+                return@launch
             }
         }
     }
@@ -218,6 +220,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                 callbackHandle, PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY,
             )
         }
+        return
     }
 
     override fun setBadgeCount(withBadgeCount: Long) {
@@ -231,7 +234,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     ) {
         Log.i(TAG, "Registering callback function with key $callbackKey")
         sharedPreferences.edit().putLong(callbackKey, callbackHandle).apply()
-
+        return
     }
 
     private fun refreshToken() {
@@ -239,7 +242,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             if (!task.isSuccessful) {
                 if (task.exception == null) {
                     Log.e(TAG, "UnknownError: fetching device token.")
-                }else{
+                } else {
                     StreamHandlers.tokenReceived?.sendError(task.exception!!)
                 }
                 return@addOnCompleteListener
@@ -250,6 +253,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     "token" to task.result
                 )
             )
+            return@addOnCompleteListener
         }
     }
 

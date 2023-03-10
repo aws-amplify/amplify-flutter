@@ -30,7 +30,8 @@ fun NotificationPayload.asChannelMap(): Map<Any, Any?> {
     )
 }
 
-
+// Check whether the Bundle contains the custom payload key used to identify it's coming from the
+// shared android utils package and convert to NotificationsPayload
 fun Bundle.asPayload(): NotificationPayload? {
     return getBundle(PushNotificationPluginConstants.PAYLOAD_KEY)?.toNotificationsPayload()
 }
@@ -50,6 +51,7 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
+// Check if the notification's data payload is supported by us
 val Bundle.isSupported: Boolean
     get() = keySet().any { it.contains(PushNotificationsConstants.PINPOINT_PREFIX) }
 

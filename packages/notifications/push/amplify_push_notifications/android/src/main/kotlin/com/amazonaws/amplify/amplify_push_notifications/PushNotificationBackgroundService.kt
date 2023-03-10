@@ -20,6 +20,7 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.collections.ArrayDeque
 
+private const val TAG = "PushBackgroundService"
 
 class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIntentService() {
 
@@ -33,16 +34,18 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
      */
     private lateinit var backgroundChannel: MethodChannel
 
+    /**
+     * The Background Flutter engine that initializes the callback dispatcher
+     */
     private var backgroundFlutterEngine: FlutterEngine? = null
 
+    /**
+     * Indicates starting of the background Flutter engine
+     */
     private val serviceStarted = AtomicBoolean(false)
 
     companion object {
-
-        private const val TAG = "PushBackgroundService"
-
         private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
-
         fun enqueueWork(context: Context, work: Intent) {
             enqueueWork(context, PushNotificationBackgroundService::class.java, JOB_ID, work)
         }
@@ -55,38 +58,38 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
 
     private fun startPushNotificationService(context: Context) {
         synchronized(serviceStarted) {
-            if (backgroundFlutterEngine == null) {
-
-                val callbackHandle = context.getSharedPreferences(
-                    PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
-                ).getLong(
-                    PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
-                )
-                if (callbackHandle == 0L) {
-                    Log.w(
-                        TAG,
-                        "Warning: Background service could not start. Callback dispatcher not found."
-                    )
-                    return
-                }
-                val callbackInfo =
-                    FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
-                if (callbackInfo == null) {
-                    Log.e(TAG, "Error: failed to find callback")
-                    return
-                }
-                Log.i(TAG, "Starting PushNotificationBackgroundService")
-
-                // Create a background Flutter Engine
-                backgroundFlutterEngine = FlutterEngine(context)
-
-                val args = DartExecutor.DartCallback(
-                    context.assets, FlutterMain.findAppBundlePath(), callbackInfo
-                )
-
-                // DartCallback must only be executed after the engine has been created
-                backgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
+            if (backgroundFlutterEngine != null) {
+                return
             }
+            val callbackHandle = context.getSharedPreferences(
+                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+            ).getLong(
+                PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+            )
+            if (callbackHandle == 0L) {
+                Log.w(
+                    TAG,
+                    "Warning: Background service could not start. Callback dispatcher not found."
+                )
+                return
+            }
+            val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
+            if (callbackInfo == null) {
+                Log.e(TAG, "Error: failed to find callback")
+                return
+            }
+            Log.i(TAG, "Starting PushNotificationBackgroundService")
+
+            // Create a background Flutter Engine
+            backgroundFlutterEngine = FlutterEngine(context)
+
+            val args = DartExecutor.DartCallback(
+                context.assets, FlutterMain.findAppBundlePath(), callbackInfo
+            )
+
+            // DartCallback must only be executed after the engine has been created
+            backgroundFlutterEngine!!.dartExecutor.executeDartCallback(args)
+
         }
         backgroundChannel = MethodChannel(
             backgroundFlutterEngine!!.dartExecutor.binaryMessenger,
@@ -122,7 +125,7 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, MODE_PRIVATE
         ).getLong(PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY, 0)
 
-        // Check and assign the handle
+        // Check if the external handle is present and send it to the callback dispatcher
         val callbackInfo: Map<String, Any> = if (externalCallbackHandle == 0L) {
             Log.i(TAG, "no external callback registered")
             mapOf(
@@ -134,7 +137,6 @@ class PushNotificationBackgroundService : MethodChannel.MethodCallHandler, JobIn
             )
         }
 
-        Log.d(TAG, "callback info: $callbackInfo")
         synchronized(serviceStarted) {
             if (!serviceStarted.get()) {
                 // Queue up notification events while background isolate is starting

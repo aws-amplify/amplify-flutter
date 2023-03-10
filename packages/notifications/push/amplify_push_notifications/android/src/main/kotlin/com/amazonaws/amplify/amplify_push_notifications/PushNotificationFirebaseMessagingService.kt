@@ -13,12 +13,8 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.view.FlutterMain
 
-
+private const val TAG = "PushNotificationFirebaseMessagingService"
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
-
-    private companion object {
-        const val TAG = "PushNotificationFirebaseMessagingService"
-    }
 
     /**
      * Shared utilities from Amplify Android
@@ -36,7 +32,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Received new token in onNewToken")
         StreamHandlers.initStreamHandlers()
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
