@@ -5,17 +5,20 @@
 Pod::Spec.new do |s|
   s.name             = 'amplify_push_notifications'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.summary          = 'The iOS native module for amplify_push_notifications.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+The iOS native module for amplify_push_notifications.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/aws-amplify/amplify-flutter'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
-  s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.author           = { 'Amazon Web Services' => 'amazonwebservices' }
+  s.source           = { :git => 'https://github.com/aws-amplify/amplify-flutter.git' }
+  s.source_files     = 'Classes/**/*'
+  s.platform         = :ios, '13.0'
+
   s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.dependency 'amplify_flutter_ios'
+  s.dependency 'AmplifyUtilsNotifications'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

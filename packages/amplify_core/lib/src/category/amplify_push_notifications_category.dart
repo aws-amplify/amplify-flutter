@@ -18,7 +18,7 @@ class PushNotificationsCategory
   /// 3. granted - end user has granted the request for the app to send push notifications
   /// 4. denied - end user has denied the request for the app to send push notifications
   /// {@endtemplate}
-  Future<PushNotificationPermissionRequestStatus> getPermissionStatus() =>
+  Future<PushNotificationPermissionStatus> getPermissionStatus() =>
       defaultPlugin.getPermissionStatus();
 
   /// {@template amplify_core.amplify_push_notifications_category.request_permissions}
