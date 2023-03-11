@@ -14,6 +14,7 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.Permiss
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
 import com.google.firebase.messaging.FirebaseMessaging
 import io.flutter.Log
+import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -26,12 +27,17 @@ private const val TAG = "AmplifyPushNotificationsPlugin"
 /** AmplifyPushNotificationsPlugin */
 open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     PluginRegistry.NewIntentListener, PushNotificationsHostApi {
-    private companion object {
+    companion object {
         /**
          * The scope in which to spawn tasks which should not be awaited from the main thread.
          */
         val scope =
             CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.PushNotifications")
+
+        /**
+         * Flutter API interface.
+         */
+        var flutterApi: PushNotificationsFlutterApi? = null
     }
 
     /**
@@ -60,10 +66,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
-    /**
-     * Flutter API interface.
-     */
-    private var flutterApi: PushNotificationsFlutterApi? = null
 
     /**
      * Launch notification has the notification map when app was launched by tapping on the notification
@@ -71,29 +73,33 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var launchNotification: MutableMap<Any, Any?>? = null
 
+
+
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        Log.d(TAG, "onAttachedToEngine ")
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
+        FlutterEngineCache.getInstance().put("mainEngine",flutterPluginBinding.flutterEngine)
+        StreamHandlers.initStreamHandlers()
+        StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
         applicationContext = flutterPluginBinding.applicationContext
         sharedPreferences = applicationContext.getSharedPreferences(
             PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
         )
+        refreshToken()
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = null
         PushNotificationsHostApi.setup(binding.binaryMessenger, null)
         flutterApi = null
+        StreamHandlers.deInit()
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         mainActivity = binding.activity
         activityBinding = binding
-        mainBinaryMessenger?.let {
-            StreamHandlers.initStreamHandlers()
-            StreamHandlers.initEventChannels(it)
-        }
         binding.addOnNewIntentListener(this)
         binding.activity.intent.putExtra(
             PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
@@ -106,7 +112,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         activityBinding?.removeOnNewIntentListener(this)
         mainActivity = null
         activityBinding = null
-        StreamHandlers.deInit()
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {

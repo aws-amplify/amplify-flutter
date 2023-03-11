@@ -11,19 +11,24 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessag
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.FlutterEngineGroup
 import io.flutter.view.FlutterMain
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
+
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     /**
      * Shared utilities from Amplify Android
      */
     private lateinit var utils: PushNotificationsUtils
-
+    private lateinit var engineGroup:FlutterEngineGroup
     override fun onCreate() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
+        engineGroup = FlutterEngineGroup(baseContext)
+
     }
 
     /**
@@ -71,11 +76,15 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    FlutterMain.startInitialization(baseContext)
-                    FlutterMain.ensureInitializationComplete(baseContext, null)
-                    PushNotificationBackgroundService.enqueueWork(
-                        baseContext, remoteMessage.toIntent()
-                    )
+                    val mainEngine = FlutterEngineCache.getInstance().get("mainEngine")
+                    Log.d(TAG, "Main Engine in firebase service: $mainEngine")
+                    if (mainEngine == null) {
+                        engineGroup.createAndRunDefaultEngine(baseContext)
+                    }
+                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+                        payload.asChannelMap()
+                    ) {}
+
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"

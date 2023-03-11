@@ -14,26 +14,26 @@ import 'amplifyconfiguration.dart';
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
 // TODO: Drawback: app needs to be restarted for a new version of this function to be registered
-@pragma('vm:entry-point')
-void bgHandler(PushNotificationMessage pushNotificationMessage) async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    print('BG handler invoked');
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-    var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-    globalBgCallbackCount =
-        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-    await prefs.setInt(
-      globalBgCallbackKey,
-      globalBgCallbackCount,
-    );
-    print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
-  } on Exception catch (e) {
-    print(' error in handler: $e');
-  }
-  return;
-}
+// @pragma('vm:entry-point')
+// void bgHandler(PushNotificationMessage pushNotificationMessage) async {
+//   try {
+//     WidgetsFlutterBinding.ensureInitialized();
+//     print('BG handler invoked');
+//     final prefs = await SharedPreferences.getInstance();
+//     await prefs.reload();
+//     var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+//     globalBgCallbackCount =
+//         globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+//     await prefs.setInt(
+//       globalBgCallbackKey,
+//       globalBgCallbackCount,
+//     );
+//     print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
+//   } on Exception catch (e) {
+//     print(' error in handler: $e');
+//   }
+//   return;
+// }
 
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
@@ -55,6 +55,8 @@ class _MyAppState extends State<MyApp> {
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
+  PushNotificationMessage? backgroundMessage;
+
   PushNotificationMessage? notificaitonOpenedMessage;
   PushNotificationPermissionStatus? getPermissionStatus;
   bool? requestPermissionsResult;
@@ -84,6 +86,29 @@ class _MyAppState extends State<MyApp> {
       launchNotificaitonAvailable =
           Amplify.Notifications.Push.launchNotification;
     });
+  }
+
+  void bgHandler(PushNotificationMessage pushNotificationMessage) async {
+    setState(() {
+      backgroundMessage = pushNotificationMessage;
+    });
+    // try {
+    //   WidgetsFlutterBinding.ensureInitialized();
+    //   print('BG handler invoked');
+    //   final prefs = await SharedPreferences.getInstance();
+    //   await prefs.reload();
+    //   var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+    //   globalBgCallbackCount =
+    //       globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+    //   await prefs.setInt(
+    //     globalBgCallbackKey,
+    //     globalBgCallbackCount,
+    //   );
+    //   print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
+    // } on Exception catch (e) {
+    //   print(' error in handler: $e');
+    // }
+    // return;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -230,23 +255,24 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    Amplify.Notifications.Push
-                        .onNotificationReceivedInBackground(
-                      bgHandler,
-                    );
-
-                    setState(() {
-                      isBackgroundListernerInitialized = true;
-                    });
-                  } on Exception {
-                    // print(e.toString());
-                  }
+                  Amplify.Notifications.Push.onNotificationReceivedInBackground(
+                    bgHandler,
+                  );
+                  setState(() {
+                    isBackgroundListernerInitialized = true;
+                  });
                 },
                 child: const Text('onNotificationReceivedInBackground'),
               ),
               if (isBackgroundListernerInitialized)
                 const Text('Background event listener initialized!'),
+              ListTile(
+                title: Text(
+                  backgroundMessage == null
+                      ? 'No foreground message yet'
+                      : "Title: ${backgroundMessage!.title?.toString() ?? ""}",
+                ),
+              ),
               ElevatedButton(
                 onPressed: () async {
                   final notificaitonOpenedStream =
@@ -262,6 +288,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('onNotificationOpened'),
               ),
+
               if (notificationOpenedListernerInitialized)
                 const Text('OnNotificationOpened event listener initialized!'),
               ListTile(

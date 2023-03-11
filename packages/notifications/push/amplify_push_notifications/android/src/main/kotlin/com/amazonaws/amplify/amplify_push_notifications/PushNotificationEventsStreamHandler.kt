@@ -62,8 +62,11 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
     fun send(payload: Map<Any, Any?>) {
+        Log.d(TAG, "sending event: $payload and sink: $eventSink")
         val event = PushNotificationsEvent(associatedNativeEvent, payload)
         eventSink?.success(payload) ?: run {
+            Log.d(TAG, "Queuing event in send function ${eventQueue.count()}")
+
             eventQueue.add(event)
         }
     }
@@ -115,6 +118,7 @@ class StreamHandlers {
         var notificationOpened: PushNotificationEventsStreamHandler? = null
 
         var foregroundMessageReceived: PushNotificationEventsStreamHandler? = null
+        var backgroundMessageReceived: PushNotificationEventsStreamHandler? = null
 
         var isInitStreamHandlers: Boolean = false
 
@@ -137,6 +141,9 @@ class StreamHandlers {
                 foregroundMessageReceived = PushNotificationEventsStreamHandler(
                     NativeEvent.FOREGROUND_MESSAGE_RECEIVED
                 )
+                backgroundMessageReceived = PushNotificationEventsStreamHandler(
+                    NativeEvent.BACKGROUND_MESSAGE_RECEIVED
+                )
                 isInitStreamHandlers = true
             }
         }
@@ -149,6 +156,8 @@ class StreamHandlers {
                 tokenReceived?.initEventChannel(binaryMessenger)
                 notificationOpened?.initEventChannel(binaryMessenger)
                 foregroundMessageReceived?.initEventChannel(binaryMessenger)
+                backgroundMessageReceived?.initEventChannel(binaryMessenger)
+
             }
         }
 
@@ -163,6 +172,8 @@ class StreamHandlers {
                 tokenReceived = null
                 notificationOpened = null
                 foregroundMessageReceived = null
+                backgroundMessageReceived = null
+
                 isInitStreamHandlers = false
             }
         }
