@@ -98,6 +98,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        refreshToken()
         mainActivity = binding.activity
         activityBinding = binding
         binding.addOnNewIntentListener(this)
@@ -105,7 +106,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
         )
         onNewIntent(binding.activity.intent)
-        refreshToken()
     }
 
     override fun onDetachedFromActivity() {
@@ -125,14 +125,18 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     // TODO(Samaritan1011001): 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
     //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
+        Log.d(TAG, "onNewIntent")
         intent.extras?.let {
             val payload = it.asPayload()
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
+
                 if (it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION) && it.getBoolean(
                         PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION
                     )
                 ) {
+                    Log.d(TAG, "launchNotification present")
+
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
@@ -207,6 +211,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun getLaunchNotification(): MutableMap<Any, Any?>? {
+        Log.d(TAG, "getLaunchNotification: $launchNotification")
+
         val result = launchNotification
         launchNotification = null
         return result

@@ -114,10 +114,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
-    // _flutterApi = _PushNotificationsFlutterApi();
-    await _registerDeviceWhenConfigure();
-    _attachEventChannelListeners();
-    onNotificationReceivedInBackground(_backgroundNotificationListener);
 
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
@@ -126,6 +122,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _launchNotification = launchNotification;
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
+
+    // TODO(Samaritan1011001): This gets called twice in killed state and suspends when token.first is not available
+    await _registerDeviceWhenConfigure();
+    _attachEventChannelListeners();
+    onNotificationReceivedInBackground(_backgroundNotificationListener);
 
     // Register the callback dispatcher
     await _registerCallback(
