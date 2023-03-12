@@ -32,6 +32,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
   })  : _serviceProviderClient = serviceProviderClient,
+        _flutterApi = _PushNotificationsFlutterApi(),
         _hostApi = PushNotificationsHostApi() {
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
@@ -113,10 +114,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
-
+    // _flutterApi = _PushNotificationsFlutterApi();
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
-    _flutterApi = _PushNotificationsFlutterApi(_backgroundNotificationListener);
+    onNotificationReceivedInBackground(_backgroundNotificationListener);
+
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
       final launchNotification =
@@ -186,11 +188,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   void _backgroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
-  ) =>
-      _serviceProviderClient.recordNotificationEvent(
-        eventType: PinpointEventType.backgroundMessageReceived,
-        notification: pushNotificationMessage,
-      );
+  ) {
+    print('_backgroundNotificationListener');
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.backgroundMessageReceived,
+      notification: pushNotificationMessage,
+    );
+  }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
@@ -287,19 +291,21 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 }
 
 class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
-  _PushNotificationsFlutterApi(OnRemoteMessageCallback internalBGCallback) {
+  _PushNotificationsFlutterApi() {
     print('_PushNotificationsFlutterApi oconstructor');
     PushNotificationsFlutterApi.setup(this);
-    registerOnReceivedInBackgroundCallback(internalBGCallback);
+    // registerOnReceivedInBackgroundCallback(internalBGCallback);
   }
+  final _eventQueue = <Map<Object?, Object?>>[];
 
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
 
-  void registerOnReceivedInBackgroundCallback(
+  Future<void> registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
-  ) {
+  ) async {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
+    await _flushEvents();
   }
 
   @override
@@ -307,17 +313,28 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     Map<Object?, Object?> payload,
   ) async {
     print('onNotificationReceivedInBackground flutterAPI called');
-    final notification = PushNotificationMessage.fromJson(payload);
+    // final notification = PushNotificationMessage.fromJson(payload);
     print(
       '_onNotificationReceivedInBackgroundCallbacks flutterAPI called: $_onNotificationReceivedInBackgroundCallbacks',
     );
+    if (_onNotificationReceivedInBackgroundCallbacks.isNotEmpty) {
+      await _flushEvents(withItem: payload);
+    } else {
+      _eventQueue.add(payload);
+    }
+  }
 
-    await Future.wait(
-      _onNotificationReceivedInBackgroundCallbacks.map(
-        (callback) async {
-          await callback(notification);
-        },
-      ),
-    );
+  Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
+    for (final element in [..._eventQueue, withItem]) {
+      if (element != null) {
+        await Future.wait(
+          _onNotificationReceivedInBackgroundCallbacks.map(
+            (callback) async {
+              await callback(PushNotificationMessage.fromJson(element));
+            },
+          ),
+        );
+      }
+    }
   }
 }

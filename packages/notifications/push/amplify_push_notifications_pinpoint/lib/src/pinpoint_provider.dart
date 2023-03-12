@@ -35,7 +35,7 @@ class PinpointProvider implements ServiceProviderClient {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     try {
-      print('PinpointProvider innit');
+      // print('PinpointProvider innit');
 
       if (!_isInitialized) {
         final authProvider = authProviderRepo
@@ -60,7 +60,7 @@ class PinpointProvider implements ServiceProviderClient {
         //   authProvider: authProvider,
         // );
 
-        print('PinpointProvider init DONE');
+        // print('PinpointProvider init DONE');
 
         _isInitialized = true;
       }

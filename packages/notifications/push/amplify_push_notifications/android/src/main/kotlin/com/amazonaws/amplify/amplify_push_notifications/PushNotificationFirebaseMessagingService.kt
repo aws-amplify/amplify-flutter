@@ -81,6 +81,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     if (mainEngine == null) {
                         engineGroup.createAndRunDefaultEngine(baseContext)
                     }
+                    Log.d(TAG, "AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground called")
+
                     AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                         payload.asChannelMap()
                     ) {}
