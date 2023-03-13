@@ -38,7 +38,6 @@ class AuthCategory<
     PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
     PluginAuthSessionOptions extends AuthSessionOptions,
     PluginAuthSession extends AuthSession,
-    PluginSignInWithWebUIOptions extends SignInWithWebUIOptions,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
     PluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
     PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
@@ -69,7 +68,6 @@ class AuthCategory<
         PluginFetchUserAttributeOptions,
         PluginAuthSessionOptions,
         PluginAuthSession,
-        PluginSignInWithWebUIOptions,
         PluginSignInWithWebUIResult,
         PluginUpdateUserAttributeOptions,
         PluginUpdateUserAttributeResult,
@@ -120,7 +118,6 @@ class AuthCategory<
           GetPluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
           GetPluginAuthSessionOptions extends AuthSessionOptions,
           GetPluginAuthSession extends AuthSession,
-          GetPluginSignInWithWebUIOptions extends SignInWithWebUIOptions,
           GetPluginSignInWithWebUIResult extends SignInResult<
               GetPluginUserAttributeKey>,
           GetPluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
@@ -152,7 +149,6 @@ class AuthCategory<
               GetPluginFetchUserAttributeOptions,
               GetPluginAuthSessionOptions,
               GetPluginAuthSession,
-              GetPluginSignInWithWebUIOptions,
               GetPluginSignInWithWebUIResult,
               GetPluginUpdateUserAttributeOptions,
               GetPluginUpdateUserAttributeResult,
@@ -183,7 +179,6 @@ class AuthCategory<
             GetPluginFetchUserAttributeOptions,
             GetPluginAuthSessionOptions,
             GetPluginAuthSession,
-            GetPluginSignInWithWebUIOptions,
             GetPluginSignInWithWebUIResult,
             GetPluginUpdateUserAttributeOptions,
             GetPluginUpdateUserAttributeResult,
@@ -379,7 +374,7 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginSignInWithWebUIResult> signInWithWebUI({
     AuthProvider? provider,
-    PluginSignInWithWebUIOptions? options,
+    SignInWithWebUIOptions? options,
   }) =>
       defaultPlugin.signInWithWebUI(
         provider: provider,

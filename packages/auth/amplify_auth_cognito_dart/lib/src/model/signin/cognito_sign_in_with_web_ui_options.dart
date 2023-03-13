@@ -9,20 +9,53 @@ part 'cognito_sign_in_with_web_ui_options.g.dart';
 /// Cognito options for `Amplify.Auth.signInWithWebUI`.
 /// {@endtemplate}
 @zAmplifySerializable
-class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions
-    with
-        AWSEquatable<CognitoSignInWithWebUIOptions>,
-        AWSSerializable<Map<String, Object?>>,
-        AWSDebuggable {
+class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
   const CognitoSignInWithWebUIOptions({
     this.isPreferPrivateSession = false,
     this.browserPackageName,
-  });
+  }) : super.base();
 
-  /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
   factory CognitoSignInWithWebUIOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignInWithWebUIOptionsFromJson(json);
+
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
+  final bool isPreferPrivateSession;
+
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.browser_package_name}
+  final String? browserPackageName;
+
+  @override
+  CognitoSignInWithWebUIPluginOptions get pluginOptions =>
+      CognitoSignInWithWebUIPluginOptions(
+        isPreferPrivateSession: isPreferPrivateSession,
+        browserPackageName: browserPackageName,
+      );
+
+  @override
+  String get runtimeTypeName => 'CognitoSignInWithWebUIOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$CognitoSignInWithWebUIOptionsToJson(this);
+}
+
+/// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_plugin_options}
+/// Cognito options for `Amplify.Auth.signIn`.
+/// {@endtemplate}
+@zAmplifySerializable
+class CognitoSignInWithWebUIPluginOptions extends SignInWithWebUIPluginOptions {
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_plugin_options}
+  const CognitoSignInWithWebUIPluginOptions({
+    this.isPreferPrivateSession = false,
+    this.browserPackageName,
+  });
+
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_plugin_options}
+  factory CognitoSignInWithWebUIPluginOptions.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$CognitoSignInWithWebUIPluginOptionsFromJson(json);
 
   /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options.private_session}
   /// iOS-only: Starts the webUI signin in a private browser session, if supported by the current browser.
@@ -45,8 +78,9 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions
   List<Object?> get props => [isPreferPrivateSession, browserPackageName];
 
   @override
-  Map<String, Object?> toJson() => _$CognitoSignInWithWebUIOptionsToJson(this);
+  String get runtimeTypeName => 'CognitoSignInWithWebUIPluginOptions';
 
   @override
-  String get runtimeTypeName => 'CognitoSignInWithWebUIOptions';
+  Map<String, Object?> toJson() =>
+      _$CognitoSignInWithWebUIPluginOptionsToJson(this);
 }

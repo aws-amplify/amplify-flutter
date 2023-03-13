@@ -31,7 +31,6 @@ abstract class AuthPluginInterface<
         PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
         PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
-        PluginSignInWithWebUIOptions extends SignInWithWebUIOptions,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
         PluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
@@ -148,7 +147,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.sign_in_with_web_ui}
   Future<PluginSignInWithWebUIResult> signInWithWebUI({
     AuthProvider? provider,
-    PluginSignInWithWebUIOptions? options,
+    SignInWithWebUIOptions? options,
   }) {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }

@@ -68,7 +68,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         FetchUserAttributesOptions,
         CognitoSessionOptions,
         CognitoAuthSession,
-        CognitoSignInWithWebUIOptions,
         CognitoSignInResult,
         CognitoUpdateUserAttributeOptions,
         UpdateUserAttributeResult,
@@ -110,7 +109,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       FetchUserAttributesOptions,
       CognitoSessionOptions,
       CognitoAuthSession,
-      CognitoSignInWithWebUIOptions,
       CognitoSignInResult,
       CognitoUpdateUserAttributeOptions,
       UpdateUserAttributeResult,
@@ -395,9 +393,17 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<CognitoSignInResult> signInWithWebUI({
     AuthProvider? provider,
-    CognitoSignInWithWebUIOptions? options,
+    SignInWithWebUIOptions? options,
   }) async {
-    options ??= const CognitoSignInWithWebUIOptions();
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoSignInWithWebUIPluginOptions(),
+      requiredTypeName: 'CognitoSignInWithWebUIPluginOptions',
+    );
+    final cognitoOptions = CognitoSignInWithWebUIOptions(
+      isPreferPrivateSession: pluginOptions.isPreferPrivateSession,
+      browserPackageName: pluginOptions.browserPackageName,
+    );
 
     // Create a new state machine which will close the previous one and cancel
     // any pending sign-ins.
@@ -405,7 +411,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     await _stateMachine
         .accept(
           HostedUiEvent.signIn(
-            options: options,
+            options: cognitoOptions,
             provider: provider,
           ),
         )
@@ -1156,7 +1162,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     FetchUserAttributesOptions,
     CognitoSessionOptions,
     CognitoAuthSession,
-    CognitoSignInWithWebUIOptions,
     CognitoSignInResult,
     CognitoUpdateUserAttributeOptions,
     UpdateUserAttributeResult,
