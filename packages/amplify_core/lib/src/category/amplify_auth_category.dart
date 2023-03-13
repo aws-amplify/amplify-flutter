@@ -28,7 +28,6 @@ class AuthCategory<
     PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginSignOutResult extends SignOutResult,
     PluginUpdatePasswordResult extends UpdatePasswordResult,
-    PluginResetPasswordOptions extends ResetPasswordOptions,
     PluginResetPasswordResult extends ResetPasswordResult,
     PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
     PluginConfirmResetPasswordResult extends ResetPasswordResult,
@@ -51,7 +50,6 @@ class AuthCategory<
         PluginConfirmSignInResult,
         PluginSignOutResult,
         PluginUpdatePasswordResult,
-        PluginResetPasswordOptions,
         PluginResetPasswordResult,
         PluginConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult,
@@ -94,7 +92,6 @@ class AuthCategory<
               GetPluginUserAttributeKey>,
           GetPluginSignOutResult extends SignOutResult,
           GetPluginUpdatePasswordResult extends UpdatePasswordResult,
-          GetPluginResetPasswordOptions extends ResetPasswordOptions,
           GetPluginResetPasswordResult extends ResetPasswordResult,
           GetPluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
           GetPluginConfirmResetPasswordResult extends ResetPasswordResult,
@@ -118,7 +115,6 @@ class AuthCategory<
               GetPluginConfirmSignInResult,
               GetPluginSignOutResult,
               GetPluginUpdatePasswordResult,
-              GetPluginResetPasswordOptions,
               GetPluginResetPasswordResult,
               GetPluginConfirmResetPasswordOptions,
               GetPluginConfirmResetPasswordResult,
@@ -141,7 +137,6 @@ class AuthCategory<
             GetPluginConfirmSignInResult,
             GetPluginSignOutResult,
             GetPluginUpdatePasswordResult,
-            GetPluginResetPasswordOptions,
             GetPluginResetPasswordResult,
             GetPluginConfirmResetPasswordOptions,
             GetPluginConfirmResetPasswordResult,
@@ -277,7 +272,7 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginResetPasswordResult> resetPassword({
     required String username,
-    PluginResetPasswordOptions? options,
+    ResetPasswordOptions? options,
   }) =>
       defaultPlugin.resetPassword(
         username: username,

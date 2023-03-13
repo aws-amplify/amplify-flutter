@@ -58,7 +58,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignInResult,
         CognitoSignOutResult,
         UpdatePasswordResult,
-        CognitoResetPasswordOptions,
         CognitoResetPasswordResult,
         CognitoConfirmResetPasswordOptions,
         CognitoResetPasswordResult,
@@ -92,7 +91,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSignInResult,
       SignOutResult,
       UpdatePasswordResult,
-      CognitoResetPasswordOptions,
       CognitoResetPasswordResult,
       CognitoConfirmResetPasswordOptions,
       CognitoResetPasswordResult,
@@ -892,8 +890,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<CognitoResetPasswordResult> resetPassword({
     required String username,
-    CognitoResetPasswordOptions? options,
+    ResetPasswordOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoResetPasswordPluginOptions(),
+      requiredTypeName: 'CognitoResetPasswordPluginOptions',
+    );
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
@@ -909,8 +912,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           );
         }
 
-        final clientMetadata = options?.clientMetadata ?? const {};
-        b.clientMetadata.addAll(clientMetadata);
+        b.clientMetadata.addAll(pluginOptions.clientMetadata);
       }),
     ).result;
 
@@ -1155,7 +1157,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSignInResult,
     SignOutResult,
     UpdatePasswordResult,
-    CognitoResetPasswordOptions,
     CognitoResetPasswordResult,
     CognitoConfirmResetPasswordOptions,
     CognitoResetPasswordResult,

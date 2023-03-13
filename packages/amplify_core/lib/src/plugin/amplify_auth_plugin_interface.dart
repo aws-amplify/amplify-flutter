@@ -21,7 +21,6 @@ abstract class AuthPluginInterface<
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginSignOutResult extends SignOutResult,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
-        PluginResetPasswordOptions extends ResetPasswordOptions,
         PluginResetPasswordResult extends ResetPasswordResult,
         PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
@@ -99,7 +98,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.reset_password}
   Future<PluginResetPasswordResult> resetPassword({
     required String username,
-    PluginResetPasswordOptions? options,
+    ResetPasswordOptions? options,
   }) {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
