@@ -25,7 +25,6 @@ class AuthCategory<
     PluginConfirmSignUpResult extends SignUpResult,
     PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
     PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
-    PluginConfirmSignInOptions extends ConfirmSignInOptions,
     PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginSignOutOptions extends SignOutOptions,
     PluginSignOutResult extends SignOutResult,
@@ -57,7 +56,6 @@ class AuthCategory<
         PluginConfirmSignUpResult,
         PluginResendSignUpCodeResult,
         PluginSignInResult,
-        PluginConfirmSignInOptions,
         PluginConfirmSignInResult,
         PluginSignOutOptions,
         PluginSignOutResult,
@@ -108,7 +106,6 @@ class AuthCategory<
           GetPluginConfirmSignUpResult extends SignUpResult,
           GetPluginResendSignUpCodeResult extends ResendSignUpCodeResult,
           GetPluginSignInResult extends SignInResult<GetPluginUserAttributeKey>,
-          GetPluginConfirmSignInOptions extends ConfirmSignInOptions,
           GetPluginConfirmSignInResult extends SignInResult<
               GetPluginUserAttributeKey>,
           GetPluginSignOutOptions extends SignOutOptions,
@@ -142,7 +139,6 @@ class AuthCategory<
               GetPluginConfirmSignUpResult,
               GetPluginResendSignUpCodeResult,
               GetPluginSignInResult,
-              GetPluginConfirmSignInOptions,
               GetPluginConfirmSignInResult,
               GetPluginSignOutOptions,
               GetPluginSignOutResult,
@@ -174,7 +170,6 @@ class AuthCategory<
             GetPluginConfirmSignUpResult,
             GetPluginResendSignUpCodeResult,
             GetPluginSignInResult,
-            GetPluginConfirmSignInOptions,
             GetPluginConfirmSignInResult,
             GetPluginSignOutOptions,
             GetPluginSignOutResult,
@@ -276,7 +271,7 @@ class AuthCategory<
   /// {@endtemplate}
   Future<PluginConfirmSignInResult> confirmSignIn({
     required String confirmationValue,
-    PluginConfirmSignInOptions? options,
+    ConfirmSignInOptions? options,
   }) =>
       defaultPlugin.confirmSignIn(
         confirmationValue: confirmationValue,

@@ -55,7 +55,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignUpResult,
         CognitoResendSignUpCodeResult,
         CognitoSignInResult,
-        CognitoConfirmSignInOptions,
         CognitoSignInResult,
         SignOutOptions,
         CognitoSignOutResult,
@@ -98,7 +97,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSignUpResult,
       CognitoResendSignUpCodeResult,
       CognitoSignInResult,
-      CognitoConfirmSignInOptions,
       CognitoSignInResult,
       SignOutOptions,
       SignOutResult,
@@ -681,15 +679,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<CognitoSignInResult> confirmSignIn({
     required String confirmationValue,
-    CognitoConfirmSignInOptions? options,
+    ConfirmSignInOptions? options,
   }) async {
-    options ??= const CognitoConfirmSignInOptions();
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoConfirmSignInPluginOptions(),
+      requiredTypeName: 'CognitoConfirmSignInPluginOptions',
+    );
     await _stateMachine
         .accept(
           SignInEvent.respondToChallenge(
             answer: confirmationValue,
-            clientMetadata: options.clientMetadata,
-            userAttributes: options.userAttributes,
+            clientMetadata: pluginOptions.clientMetadata,
+            userAttributes: pluginOptions.userAttributes,
           ),
         )
         .accepted;
@@ -1141,7 +1143,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSignUpResult,
     CognitoResendSignUpCodeResult,
     CognitoSignInResult,
-    CognitoConfirmSignInOptions,
     CognitoSignInResult,
     SignOutOptions,
     SignOutResult,

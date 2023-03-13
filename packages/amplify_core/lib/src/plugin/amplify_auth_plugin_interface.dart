@@ -18,7 +18,6 @@ abstract class AuthPluginInterface<
         PluginConfirmSignupResult extends SignUpResult,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
-        PluginConfirmSignInOptions extends ConfirmSignInOptions,
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginSignOutOptions extends SignOutOptions,
         PluginSignOutResult extends SignOutResult,
@@ -84,7 +83,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_in}
   Future<PluginConfirmSignInResult> confirmSignIn({
     required String confirmationValue,
-    PluginConfirmSignInOptions? options,
+    ConfirmSignInOptions? options,
   }) {
     throw UnimplementedError('confirmSignIn() has not been implemented');
   }

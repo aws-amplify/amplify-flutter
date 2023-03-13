@@ -6,27 +6,27 @@ part of 'cognito_confirm_sign_in_options.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CognitoConfirmSignInOptions _$CognitoConfirmSignInOptionsFromJson(
+CognitoConfirmSignInPluginOptions _$CognitoConfirmSignInPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoConfirmSignInOptions(
+    CognitoConfirmSignInPluginOptions(
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
-      userAttributes: _userAttributesFromJson(json['userAttributes']),
+      userAttributes: _$JsonConverterFromJson<Map<String, String>,
+              Map<CognitoUserAttributeKey, String>>(json['userAttributes'],
+          const CognitoUserAttributeMapConverter().fromJson),
     );
 
-Map<String, dynamic> _$CognitoConfirmSignInOptionsToJson(
-    CognitoConfirmSignInOptions instance) {
-  final val = <String, dynamic>{};
+Map<String, dynamic> _$CognitoConfirmSignInPluginOptionsToJson(
+        CognitoConfirmSignInPluginOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+      'userAttributes': const CognitoUserAttributeMapConverter()
+          .toJson(instance.userAttributes),
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  writeNotNull(
-      'userAttributes', _userAttributesToJson(instance.userAttributes));
-  return val;
-}
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
