@@ -27,7 +27,6 @@ class AuthCategory<
     PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginSignOutResult extends SignOutResult,
-    PluginUpdatePasswordOptions extends UpdatePasswordOptions,
     PluginUpdatePasswordResult extends UpdatePasswordResult,
     PluginResetPasswordOptions extends ResetPasswordOptions,
     PluginResetPasswordResult extends ResetPasswordResult,
@@ -51,7 +50,6 @@ class AuthCategory<
         PluginSignInResult,
         PluginConfirmSignInResult,
         PluginSignOutResult,
-        PluginUpdatePasswordOptions,
         PluginUpdatePasswordResult,
         PluginResetPasswordOptions,
         PluginResetPasswordResult,
@@ -95,7 +93,6 @@ class AuthCategory<
           GetPluginConfirmSignInResult extends SignInResult<
               GetPluginUserAttributeKey>,
           GetPluginSignOutResult extends SignOutResult,
-          GetPluginUpdatePasswordOptions extends UpdatePasswordOptions,
           GetPluginUpdatePasswordResult extends UpdatePasswordResult,
           GetPluginResetPasswordOptions extends ResetPasswordOptions,
           GetPluginResetPasswordResult extends ResetPasswordResult,
@@ -120,7 +117,6 @@ class AuthCategory<
               GetPluginSignInResult,
               GetPluginConfirmSignInResult,
               GetPluginSignOutResult,
-              GetPluginUpdatePasswordOptions,
               GetPluginUpdatePasswordResult,
               GetPluginResetPasswordOptions,
               GetPluginResetPasswordResult,
@@ -144,7 +140,6 @@ class AuthCategory<
             GetPluginSignInResult,
             GetPluginConfirmSignInResult,
             GetPluginSignOutResult,
-            GetPluginUpdatePasswordOptions,
             GetPluginUpdatePasswordResult,
             GetPluginResetPasswordOptions,
             GetPluginResetPasswordResult,
@@ -264,7 +259,7 @@ class AuthCategory<
   Future<PluginUpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
-    PluginUpdatePasswordOptions? options,
+    UpdatePasswordOptions? options,
   }) =>
       defaultPlugin.updatePassword(
         oldPassword: oldPassword,

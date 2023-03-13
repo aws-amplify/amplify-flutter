@@ -20,7 +20,6 @@ abstract class AuthPluginInterface<
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginSignOutResult extends SignOutResult,
-        PluginUpdatePasswordOptions extends UpdatePasswordOptions,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
         PluginResetPasswordOptions extends ResetPasswordOptions,
         PluginResetPasswordResult extends ResetPasswordResult,
@@ -92,7 +91,7 @@ abstract class AuthPluginInterface<
   Future<PluginUpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
-    PluginUpdatePasswordOptions? options,
+    UpdatePasswordOptions? options,
   }) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }

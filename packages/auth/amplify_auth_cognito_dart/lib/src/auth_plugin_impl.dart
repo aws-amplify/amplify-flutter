@@ -57,7 +57,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignInResult,
         CognitoSignInResult,
         CognitoSignOutResult,
-        CognitoUpdatePasswordOptions,
         UpdatePasswordResult,
         CognitoResetPasswordOptions,
         CognitoResetPasswordResult,
@@ -92,7 +91,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSignInResult,
       CognitoSignInResult,
       SignOutResult,
-      CognitoUpdatePasswordOptions,
       UpdatePasswordResult,
       CognitoResetPasswordOptions,
       CognitoResetPasswordResult,
@@ -876,7 +874,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<UpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
-    CognitoUpdatePasswordOptions? options,
+    UpdatePasswordOptions? options,
   }) async {
     final tokens = await stateMachine.getUserPoolTokens();
     await _cognitoIdp
@@ -1156,7 +1154,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSignInResult,
     CognitoSignInResult,
     SignOutResult,
-    CognitoUpdatePasswordOptions,
     UpdatePasswordResult,
     CognitoResetPasswordOptions,
     CognitoResetPasswordResult,
