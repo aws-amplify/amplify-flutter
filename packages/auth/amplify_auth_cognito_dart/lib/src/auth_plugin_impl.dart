@@ -67,7 +67,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSessionOptions,
         CognitoAuthSession,
         CognitoSignInResult,
-        CognitoUpdateUserAttributeOptions,
         UpdateUserAttributeResult,
         CognitoUpdateUserAttributesOptions,
         ConfirmUserAttributeOptions,
@@ -106,7 +105,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSessionOptions,
       CognitoAuthSession,
       CognitoSignInResult,
-      CognitoUpdateUserAttributeOptions,
       UpdateUserAttributeResult,
       CognitoUpdateUserAttributesOptions,
       ConfirmUserAttributeOptions,
@@ -756,8 +754,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<UpdateUserAttributeResult> updateUserAttribute({
     required CognitoUserAttributeKey userAttributeKey,
     required String value,
-    CognitoUpdateUserAttributeOptions? options,
+    UpdateUserAttributeOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoUpdateUserAttributePluginOptions(),
+      requiredTypeName: 'CognitoUpdateUserAttributePluginOptions',
+    );
     final results = await updateUserAttributes(
       attributes: [
         AuthUserAttribute(
@@ -766,7 +769,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         ),
       ],
       options: CognitoUpdateUserAttributesOptions(
-        clientMetadata: options?.clientMetadata,
+        clientMetadata: pluginOptions.clientMetadata,
       ),
     );
     return results.values.single;
@@ -1157,7 +1160,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSessionOptions,
     CognitoAuthSession,
     CognitoSignInResult,
-    CognitoUpdateUserAttributeOptions,
     UpdateUserAttributeResult,
     CognitoUpdateUserAttributesOptions,
     ConfirmUserAttributeOptions,

@@ -30,7 +30,6 @@ abstract class AuthPluginInterface<
         PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
-        PluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
         PluginUpdateUserAttributesOptions extends UpdateUserAttributesOptions,
         PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
@@ -154,7 +153,7 @@ abstract class AuthPluginInterface<
   Future<PluginUpdateUserAttributeResult> updateUserAttribute({
     required PluginUserAttributeKey userAttributeKey,
     required String value,
-    PluginUpdateUserAttributeOptions? options,
+    UpdateUserAttributeOptions? options,
   }) {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
