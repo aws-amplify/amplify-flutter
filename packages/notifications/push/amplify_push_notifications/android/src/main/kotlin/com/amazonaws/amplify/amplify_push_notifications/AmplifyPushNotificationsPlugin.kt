@@ -209,8 +209,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun getLaunchNotification(): MutableMap<Any, Any?>? {
-        Log.d(TAG, "getLaunchNotification: $launchNotification")
-
         val result = launchNotification
         launchNotification = null
         return result

@@ -13,7 +13,6 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
-import io.flutter.view.FlutterMain
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
 
@@ -23,7 +22,12 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * Shared utilities from Amplify Android
      */
     private lateinit var utils: PushNotificationsUtils
-    private lateinit var engineGroup:FlutterEngineGroup
+
+    /**
+     * Flutter Engine group that holds main and background engines
+     */
+    private lateinit var engineGroup: FlutterEngineGroup
+
     override fun onCreate() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
@@ -72,11 +76,11 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     utils.showNotification(
                         payload, baseContext.getLaunchActivityClass()
                     )
-
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    val mainEngine = FlutterEngineCache.getInstance().get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+                    val mainEngine = FlutterEngineCache.getInstance()
+                        .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
                     if (mainEngine == null) {
                         engineGroup.createAndRunDefaultEngine(baseContext)
                     }

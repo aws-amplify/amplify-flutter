@@ -5,9 +5,7 @@ package com.amazonaws.amplify.amplify_push_notifications
 
 class PushNotificationPluginConstants {
     companion object {
-        const val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
         const val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
-        const val BG_EXTERNAL_CALLBACK_HANDLE_KEY = "bg_external_callback_handle"
         const val PREF_PREVIOUSLY_DENIED = "wasPermissionPreviouslyDenied"
         const val PERMISSION = "android.permission.POST_NOTIFICATIONS"
         const val CHANNEL_NAME_PREFIX = "com.amazonaws.amplify/push_notification"
