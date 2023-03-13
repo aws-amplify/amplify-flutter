@@ -62,11 +62,8 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
     fun send(payload: Map<Any, Any?>) {
-        Log.d(TAG, "sending event: $payload and sink: $eventSink")
         val event = PushNotificationsEvent(associatedNativeEvent, payload)
         eventSink?.success(payload) ?: run {
-            Log.d(TAG, "Queuing event in send function ${eventQueue.count()}")
-
             eventQueue.add(event)
         }
     }
@@ -173,7 +170,6 @@ class StreamHandlers {
                 notificationOpened = null
                 foregroundMessageReceived = null
                 backgroundMessageReceived = null
-
                 isInitStreamHandlers = false
             }
         }

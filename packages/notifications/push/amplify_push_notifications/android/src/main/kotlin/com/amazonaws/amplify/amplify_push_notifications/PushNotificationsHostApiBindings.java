@@ -313,8 +313,6 @@ public class PushNotificationsHostApiBindings {
 
     void setBadgeCount(@NonNull Long withBadgeCount);
 
-    void registerCallbackFunction(@NonNull Long callbackHandle, @NonNull CallbackType callbackType);
-
     /** The codec used by PushNotificationsHostApi. */
     static MessageCodec<Object> getCodec() {
       return PushNotificationsHostApiCodec.INSTANCE;
@@ -449,37 +447,6 @@ public class PushNotificationsHostApiBindings {
                     throw new NullPointerException("withBadgeCountArg unexpectedly null.");
                   }
                   api.setBadgeCount((withBadgeCountArg == null) ? null : withBadgeCountArg.longValue());
-                  wrapped.add(0, null);
-                } catch (Error | RuntimeException exception) {
-                  ArrayList<Object> wrappedError = wrapError(exception);
-                  wrapped = wrappedError;
-                }
-                reply.reply(wrapped);
-              });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction", getCodec());
-        if (api != null) {
-          channel.setMessageHandler(
-              (message, reply) -> {
-                ArrayList<Object> wrapped = new ArrayList<Object>();
-                try {
-                  ArrayList<Object> args = (ArrayList<Object>) message;
-                  assert args != null;
-                  Number callbackHandleArg = (Number) args.get(0);
-                  if (callbackHandleArg == null) {
-                    throw new NullPointerException("callbackHandleArg unexpectedly null.");
-                  }
-                  CallbackType callbackTypeArg = args.get(1) == null ? null : CallbackType.values()[(int) args.get(1)];
-                  if (callbackTypeArg == null) {
-                    throw new NullPointerException("callbackTypeArg unexpectedly null.");
-                  }
-                  api.registerCallbackFunction((callbackHandleArg == null) ? null : callbackHandleArg.longValue(), callbackTypeArg);
                   wrapped.add(0, null);
                 } catch (Error | RuntimeException exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);

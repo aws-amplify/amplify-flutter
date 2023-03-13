@@ -74,11 +74,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     private var launchNotification: MutableMap<Any, Any?>? = null
 
 
-
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        Log.d(TAG, "onAttachedToEngine ")
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
-        FlutterEngineCache.getInstance().put("mainEngine",flutterPluginBinding.flutterEngine)
+        FlutterEngineCache.getInstance().put(
+            PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
+            flutterPluginBinding.flutterEngine
+        )
         StreamHandlers.initStreamHandlers()
         StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
@@ -92,9 +93,10 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = null
+        FlutterEngineCache.getInstance().remove(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+        StreamHandlers.deInit()
         PushNotificationsHostApi.setup(binding.binaryMessenger, null)
         flutterApi = null
-        StreamHandlers.deInit()
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -109,8 +111,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onDetachedFromActivity() {
-        activityBinding?.removeOnNewIntentListener(this)
         mainActivity = null
+        activityBinding?.removeOnNewIntentListener(this)
         activityBinding = null
     }
 
@@ -125,18 +127,14 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     // TODO(Samaritan1011001): 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
     //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
-        Log.d(TAG, "onNewIntent")
         intent.extras?.let {
             val payload = it.asPayload()
             if (payload != null) {
                 val notificationHashMap = payload.asChannelMap()
-
                 if (it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION) && it.getBoolean(
                         PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION
                     )
                 ) {
-                    Log.d(TAG, "launchNotification present")
-
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
@@ -222,33 +220,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         throw NotImplementedError("Get badge count is not supported on Android")
     }
 
-    override fun registerCallbackFunction(
-        callbackHandle: Long,
-        callbackType: PushNotificationsHostApiBindings.CallbackType,
-    ) {
-        when (callbackType) {
-            PushNotificationsHostApiBindings.CallbackType.DISPATCHER -> registerCallbackToCache(
-                callbackHandle, PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY,
-            )
-            PushNotificationsHostApiBindings.CallbackType.EXTERNAL_FUNCTION -> registerCallbackToCache(
-                callbackHandle, PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY,
-            )
-        }
-        return
-    }
-
     override fun setBadgeCount(withBadgeCount: Long) {
         throw NotImplementedError("Set badge count is not supported on Android")
-    }
-
-
-    private fun registerCallbackToCache(
-        callbackHandle: Long,
-        callbackKey: String,
-    ) {
-        Log.i(TAG, "Registering callback function with key $callbackKey")
-        sharedPreferences.edit().putLong(callbackKey, callbackHandle).apply()
-        return
     }
 
     private fun refreshToken() {

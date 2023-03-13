@@ -4,10 +4,8 @@
 library amplify_push_notifications;
 
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:flutter/services.dart';
 
@@ -89,8 +87,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
-    print('onNotificationReceivedInBackground override called');
-    // TODO(Samaritan1011001): For iOS decide where to record BG event
     _flutterApi.registerOnReceivedInBackgroundCallback(callback);
   }
 
@@ -99,7 +95,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    print('configuring: $_isConfigured');
     final notificationsConfig = config?.notifications?.awsPlugin;
     if (notificationsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
@@ -128,13 +123,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _attachEventChannelListeners();
     onNotificationReceivedInBackground(_backgroundNotificationListener);
 
-    // Register the callback dispatcher
-    await _registerCallback(
-      callbackDispatcher,
-      CallbackType.dispatcher,
-    );
-    print('configured');
-
     _isConfigured = true;
   }
 
@@ -156,7 +144,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Future<PushNotificationPermissionStatus> getPermissionStatus() async {
     final result = await _hostApi.getPermissionStatus();
-
     switch (result.status) {
       case PermissionStatus.denied:
         return PushNotificationPermissionStatus.denied;
@@ -190,7 +177,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _backgroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    print('_backgroundNotificationListener');
     _serviceProviderClient.recordNotificationEvent(
       eventType: PinpointEventType.backgroundMessageReceived,
       notification: pushNotificationMessage,
@@ -220,29 +206,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  Future<void> _registerCallback(
-    Function callback,
-    CallbackType callbackType,
-  ) async {
-    final callbackHandle = PluginUtilities.getCallbackHandle(callback);
-    if (callbackHandle == null) {
-      _logger.error(
-        'Callback is not a global or static function',
-      );
-      return;
-    }
-    await _hostApi.registerCallbackFunction(
-      callbackHandle.toRawHandle(),
-      callbackType,
-    );
-    _logger.info('Successfully registered callback');
-  }
-
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
 
     try {
-      print('Geting device token');
       deviceToken = await onTokenReceived.first;
       print('Device Token: $deviceToken');
     } on Exception catch (error) {
@@ -258,7 +225,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   void _attachEventChannelListeners() {
-    print('Registering event listeners');
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
       _logger.error(
@@ -293,9 +259,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
 class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   _PushNotificationsFlutterApi() {
-    print('_PushNotificationsFlutterApi oconstructor');
     PushNotificationsFlutterApi.setup(this);
-    // registerOnReceivedInBackgroundCallback(internalBGCallback);
   }
   final _eventQueue = <Map<Object?, Object?>>[];
 
@@ -313,11 +277,6 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
-    print('onNotificationReceivedInBackground flutterAPI called');
-    // final notification = PushNotificationMessage.fromJson(payload);
-    print(
-      '_onNotificationReceivedInBackgroundCallbacks flutterAPI called: $_onNotificationReceivedInBackgroundCallbacks',
-    );
     if (_onNotificationReceivedInBackgroundCallbacks.isNotEmpty) {
       await _flushEvents(withItem: payload);
     } else {

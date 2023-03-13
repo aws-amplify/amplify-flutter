@@ -76,17 +76,13 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    val mainEngine = FlutterEngineCache.getInstance().get("mainEngine")
-                    Log.d(TAG, "Main Engine in firebase service: $mainEngine")
+                    val mainEngine = FlutterEngineCache.getInstance().get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
                     if (mainEngine == null) {
                         engineGroup.createAndRunDefaultEngine(baseContext)
                     }
-                    Log.d(TAG, "AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground called")
-
                     AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                         payload.asChannelMap()
                     ) {}
-
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"
