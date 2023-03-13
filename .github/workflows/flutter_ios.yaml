@@ -1,0 +1,66 @@
+name: Flutter iOS
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: The working directory relative to the repo root
+        required: true
+        type: string
+      package-name:
+        description: The name of the app-facing (or federated) iOS package being tested
+        required: true
+        type: string
+
+# Cancels in-progress job when there is another push to same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+    timeout-minutes: 60
+    strategy:
+      # Allows other matrix items to run if one fails
+      fail-fast: false
+      matrix:
+        sdk:
+          - stable
+          - beta
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+
+      - name: Git Submodules
+        run: git submodule update --init
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
+        with:
+          cache: true
+          channel: ${{ matrix.sdk }}
+
+      - name: Setup aft
+        run: flutter pub global activate -spath packages/aft
+
+      - name: Update constraints
+        if: matrix.sdk == 'beta'
+        shell: bash
+        run: aft --config=aft.beta.yaml constraints apply
+
+      - name: Bootstrap
+        id: bootstrap
+        timeout-minutes: 20 # macOS needs extra time
+        run: aft bootstrap
+
+      - name: Run iOS unit tests
+        run: |
+          set -o pipefail
+          flutter build ios --simulator
+          XCODEBUILD_DESTINATION="platform=iOS Simulator,name=iPhone 14 Pro Max,OS=latest"
+          xcodebuild test \
+              -workspace Runner.xcworkspace \
+              -scheme Runner \
+              -destination "$XCODEBUILD_DESTINATION" | xcpretty
+        working-directory: ${{ inputs.working-directory }}

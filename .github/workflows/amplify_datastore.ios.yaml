@@ -1,0 +1,28 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_datastore iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/amplify_datastore/**/*.yaml'
+      - 'packages/amplify_datastore/ios/**/*'
+      - 'packages/amplify_datastore/example/ios/unit_tests/**/*'
+      - '.github/workflows/flutter_ios.yaml'
+      - '.github/workflows/amplify_datastore.ios.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_ios.yaml
+    with:
+      working-directory: packages/amplify_datastore/example/ios
+      package-name: amplify_datastore
