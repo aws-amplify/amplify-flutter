@@ -117,7 +117,7 @@ class StreamHandlers {
         var foregroundMessageReceived: PushNotificationEventsStreamHandler? = null
         var backgroundMessageReceived: PushNotificationEventsStreamHandler? = null
 
-        var isInitStreamHandlers: Boolean = false
+        private var isInitStreamHandlers: Boolean = false
 
         /**
          * Method to initialize only the stream handlers so events can be queued up.

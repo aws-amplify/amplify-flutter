@@ -91,6 +91,17 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
+  Future<void> identifyUser({
+    required String userId,
+    required AnalyticsUserProfile userProfile,
+  }) async {
+    await _serviceProviderClient.identifyUser(
+      userId: userId,
+      userProfile: userProfile,
+    );
+  }
+
+  @override
   Future<void> configure({
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,

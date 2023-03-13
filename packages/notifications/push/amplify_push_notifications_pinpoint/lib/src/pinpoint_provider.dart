@@ -81,6 +81,7 @@ class PinpointProvider implements ServiceProviderClient {
         userId,
         userProfile,
       );
+      _logger.error('Successfully identified user details');
     } on Exception catch (e) {
       _logger.error('Unable to register user details: $e');
     }

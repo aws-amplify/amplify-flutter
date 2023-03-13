@@ -83,6 +83,20 @@ class PushNotificationsCategory
   PushNotificationMessage? get launchNotification =>
       defaultPlugin.launchNotification;
 
+  /// {@template amplify_core.amplify_push_notifications_category.identify_user}
+  /// Associate the given user information with the current device.
+  ///
+  /// Useful for targeting user centric push notification campaigns.
+  /// {@endtemplate}
+  Future<void> identifyUser({
+    required String userId,
+    required AnalyticsUserProfile userProfile,
+  }) =>
+      defaultPlugin.identifyUser(
+        userId: userId,
+        userProfile: userProfile,
+      );
+
   /// {@template amplify_core.amplify_push_notifications_category.get_badge_count}
   /// Returns the current number displayed in the app icon badge.
   ///

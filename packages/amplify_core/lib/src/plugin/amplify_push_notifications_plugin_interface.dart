@@ -52,6 +52,14 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('launchNotification has not been implemented');
   }
 
+  /// {@macro amplify_core.amplify_notifications_category.identify_user}
+  Future<void> identifyUser({
+    required String userId,
+    required AnalyticsUserProfile userProfile,
+  }) {
+    throw UnimplementedError('identifyUser() has not been implemented');
+  }
+
   /// {@macro amplify_core.amplify_notifications_category.get_badge_count}
   Future<int> getBadgeCount() {
     throw UnimplementedError('getBadgeCount() has not been implemented');
