@@ -35,8 +35,6 @@ class PinpointProvider implements ServiceProviderClient {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
     try {
-      // print('PinpointProvider innit');
-
       if (!_isInitialized) {
         final authProvider = authProviderRepo
             .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
@@ -54,13 +52,11 @@ class PinpointProvider implements ServiceProviderClient {
             storageScope: EndpointStorageScope.pushNotifications,
           ),
         );
-        // await _analyticsClient.init(
-        //   pinpointAppId: appId,
-        //   region: region,
-        //   authProvider: authProvider,
-        // );
-
-        // print('PinpointProvider init DONE');
+        await _analyticsClient.init(
+          pinpointAppId: appId,
+          region: region,
+          authProvider: authProvider,
+        );
 
         _isInitialized = true;
       }
@@ -81,10 +77,10 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      // await _analyticsClient.endpointClient.setUser(
-      //   userId,
-      //   userProfile,
-      // );
+      await _analyticsClient.endpointClient.setUser(
+        userId,
+        userProfile,
+      );
     } on Exception catch (e) {
       _logger.error('Unable to register user details: $e');
     }
@@ -110,10 +106,10 @@ class PinpointProvider implements ServiceProviderClient {
       }
 
       final eventInfo = _constructEventInfo(notification: notification);
-      // await _analyticsClient.eventClient.recordEvent(
-      //   eventType: '${eventInfo.first as String}.${eventType.name}',
-      //   properties: eventInfo.last as AnalyticsProperties,
-      // );
+      await _analyticsClient.eventClient.recordEvent(
+        eventType: '${eventInfo.first as String}.${eventType.name}',
+        properties: eventInfo.last as AnalyticsProperties,
+      );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
     }
@@ -128,13 +124,13 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      // _analyticsClient.endpointClient.address = deviceToken;
-      // final channelType = _getChannelType();
-      // if (channelType != null) {
-      //   _analyticsClient.endpointClient.channelType = channelType;
-      // }
-      // _analyticsClient.endpointClient.optOut = 'NONE';
-      // await _analyticsClient.endpointClient.updateEndpoint();
+      _analyticsClient.endpointClient.address = deviceToken;
+      final channelType = _getChannelType();
+      if (channelType != null) {
+        _analyticsClient.endpointClient.channelType = channelType;
+      }
+      _analyticsClient.endpointClient.optOut = 'NONE';
+      await _analyticsClient.endpointClient.updateEndpoint();
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }
