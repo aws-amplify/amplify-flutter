@@ -32,7 +32,6 @@ abstract class AuthPluginInterface<
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
         PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
     extends AmplifyPluginInterface {
   @override
@@ -182,7 +181,7 @@ abstract class AuthPluginInterface<
   Future<PluginResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
     required PluginUserAttributeKey userAttributeKey,
-    PluginResendUserAttributeConfirmationCodeOptions? options,
+    ResendUserAttributeConfirmationCodeOptions? options,
   }) {
     throw UnimplementedError(
       'resendUserAttributeConfirmationCode() has not been implemented.',

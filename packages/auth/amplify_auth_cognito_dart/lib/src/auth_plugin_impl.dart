@@ -69,7 +69,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignInResult,
         UpdateUserAttributeResult,
         ConfirmUserAttributeResult,
-        CognitoResendUserAttributeConfirmationCodeOptions,
         ResendUserAttributeConfirmationCodeResult>
     with AWSDebuggable, AmplifyLoggerMixin
     implements Closeable {
@@ -105,7 +104,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoSignInResult,
       UpdateUserAttributeResult,
       ConfirmUserAttributeResult,
-      CognitoResendUserAttributeConfirmationCodeOptions,
       ResendUserAttributeConfirmationCodeResult,
       AmplifyAuthCognitoDart> pluginKey = _AmplifyAuthCognitoDartPluginKey();
 
@@ -845,15 +843,22 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
     required CognitoUserAttributeKey userAttributeKey,
-    CognitoResendUserAttributeConfirmationCodeOptions? options,
+    ResendUserAttributeConfirmationCodeOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions:
+          const CognitoResendUserAttributeConfirmationCodePluginOptions(),
+      requiredTypeName:
+          'CognitoResendUserAttributeConfirmationCodePluginOptions',
+    );
     final tokens = await stateMachine.getUserPoolTokens();
     final result = await _cognitoIdp
         .getUserAttributeVerificationCode(
           cognito.GetUserAttributeVerificationCodeRequest(
             accessToken: tokens.accessToken.raw,
             attributeName: userAttributeKey.key,
-            clientMetadata: options?.clientMetadata,
+            clientMetadata: pluginOptions.clientMetadata,
           ),
         )
         .result;
@@ -1163,7 +1168,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoSignInResult,
     UpdateUserAttributeResult,
     ConfirmUserAttributeResult,
-    CognitoResendUserAttributeConfirmationCodeOptions,
     ResendUserAttributeConfirmationCodeResult,
     AmplifyAuthCognitoDart> {
   const _AmplifyAuthCognitoDartPluginKey();

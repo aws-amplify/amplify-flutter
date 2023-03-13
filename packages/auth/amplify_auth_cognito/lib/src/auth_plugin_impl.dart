@@ -67,7 +67,6 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       CognitoSignInResult,
       UpdateUserAttributeResult,
       ConfirmUserAttributeResult,
-      CognitoResendUserAttributeConfirmationCodeOptions,
       ResendUserAttributeConfirmationCodeResult,
       AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
 
@@ -269,7 +268,6 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
     CognitoSignInResult,
     UpdateUserAttributeResult,
     ConfirmUserAttributeResult,
-    CognitoResendUserAttributeConfirmationCodeOptions,
     ResendUserAttributeConfirmationCodeResult,
     AmplifyAuthCognito> {
   const _AmplifyAuthCognitoPluginKey();

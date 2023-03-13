@@ -40,7 +40,6 @@ abstract class AuthPluginKey<
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
     PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
     PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
-    PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
     PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult,
     P extends AuthPluginInterface<
         PluginAuthUser,
@@ -65,7 +64,6 @@ abstract class AuthPluginKey<
         PluginSignInWithWebUIResult,
         PluginUpdateUserAttributeResult,
         PluginConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult>> extends AmplifyPluginKey<
     P> {
   /// {@macro amplify_core.plugin.auth_plugin_key}
