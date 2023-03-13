@@ -15,15 +15,23 @@ CognitoUpdateUserAttributesOptions _$CognitoUpdateUserAttributesOptionsFromJson(
     );
 
 Map<String, dynamic> _$CognitoUpdateUserAttributesOptionsToJson(
-    CognitoUpdateUserAttributesOptions instance) {
-  final val = <String, dynamic>{};
+        CognitoUpdateUserAttributesOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+CognitoUpdateUserAttributesPluginOptions
+    _$CognitoUpdateUserAttributesPluginOptionsFromJson(
+            Map<String, dynamic> json) =>
+        CognitoUpdateUserAttributesPluginOptions(
+          clientMetadata:
+              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        );
 
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+Map<String, dynamic> _$CognitoUpdateUserAttributesPluginOptionsToJson(
+        CognitoUpdateUserAttributesPluginOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

@@ -68,7 +68,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoAuthSession,
         CognitoSignInResult,
         UpdateUserAttributeResult,
-        CognitoUpdateUserAttributesOptions,
         ConfirmUserAttributeOptions,
         ConfirmUserAttributeResult,
         CognitoResendUserAttributeConfirmationCodeOptions,
@@ -106,7 +105,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoAuthSession,
       CognitoSignInResult,
       UpdateUserAttributeResult,
-      CognitoUpdateUserAttributesOptions,
       ConfirmUserAttributeOptions,
       ConfirmUserAttributeResult,
       CognitoResendUserAttributeConfirmationCodeOptions,
@@ -779,15 +777,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   Future<Map<CognitoUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
     required List<AuthUserAttribute<AuthUserAttributeKey>> attributes,
-    CognitoUpdateUserAttributesOptions? options,
+    UpdateUserAttributesOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoUpdateUserAttributesPluginOptions(),
+      requiredTypeName: 'CognitoUpdateUserAttributesPluginOptions',
+    );
     final tokens = await stateMachine.getUserPoolTokens();
     final response = await _cognitoIdp
         .updateUserAttributes(
           cognito.UpdateUserAttributesRequest.build(
             (b) => b
               ..accessToken = tokens.accessToken.raw
-              ..clientMetadata.addAll(options?.clientMetadata ?? const {})
+              ..clientMetadata.addAll(pluginOptions.clientMetadata)
               ..userAttributes.addAll({
                 for (final attr in attributes) attr.asAttributeType,
               }),
@@ -1161,7 +1164,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoAuthSession,
     CognitoSignInResult,
     UpdateUserAttributeResult,
-    CognitoUpdateUserAttributesOptions,
     ConfirmUserAttributeOptions,
     ConfirmUserAttributeResult,
     CognitoResendUserAttributeConfirmationCodeOptions,
