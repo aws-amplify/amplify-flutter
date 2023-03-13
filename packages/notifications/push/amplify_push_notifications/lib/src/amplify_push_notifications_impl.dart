@@ -237,7 +237,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     try {
       deviceToken = await onTokenReceived.first;
-      _logger.info('Device Token: $deviceToken');
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token

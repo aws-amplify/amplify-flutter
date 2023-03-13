@@ -5,20 +5,11 @@
 /// Enum that indicates the different types recorded with Pinpoint
 /// {@endtemplate}
 enum PinpointEventType {
-  notificationOpened,
-  backgroundMessageReceived,
-  foregroundMessageReceived,
-}
+  notificationOpened('opened_notification'),
+  backgroundMessageReceived('received_background'),
+  foregroundMessageReceived('received_foreground');
 
-extension PinpointEventTypeExtension on PinpointEventType {
-  String get name {
-    switch (this) {
-      case PinpointEventType.notificationOpened:
-        return 'opened_notification';
-      case PinpointEventType.backgroundMessageReceived:
-        return 'received_background';
-      case PinpointEventType.foregroundMessageReceived:
-        return 'received_foreground';
-    }
-  }
+  const PinpointEventType(this.name);
+
+  final String name;
 }

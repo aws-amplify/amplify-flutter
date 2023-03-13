@@ -6,15 +6,11 @@
 ///
 /// Pinpoint offers two ways of sending push notificaitons to users campaigns and journeys.
 /// {@endtemplate}
-enum PinpointEventSource { campaign, journey }
+enum PinpointEventSource {
+  campaign('campaign'),
+  journey('journey');
 
-extension PinpointEventSourceExtension on PinpointEventSource {
-  String get name {
-    switch (this) {
-      case PinpointEventSource.campaign:
-        return '_campaign';
-      case PinpointEventSource.journey:
-        return '_journey';
-    }
-  }
+  const PinpointEventSource(this.name);
+
+  final String name;
 }
