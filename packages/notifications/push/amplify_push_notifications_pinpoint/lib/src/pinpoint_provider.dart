@@ -94,7 +94,7 @@ class PinpointProvider implements ServiceProviderClient {
     try {
       if (!_isInitialized) {
         _logger.error(
-          'recordNotificationEvent Pinpoint provider not configured, re-run Amplify.configure',
+          'Pinpoint provider not configured, re-run Amplify.configure',
         );
         return;
       }
@@ -120,7 +120,7 @@ class PinpointProvider implements ServiceProviderClient {
     try {
       if (!_isInitialized) {
         _logger.error(
-          'registerDevice Pinpoint provider not configured, re-run Amplify.configure',
+          'Pinpoint provider not configured, re-run Amplify.configure',
         );
         return;
       }
