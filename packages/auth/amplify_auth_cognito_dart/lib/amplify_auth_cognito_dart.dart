@@ -26,7 +26,7 @@ export 'src/model/password/cognito_reset_password_options.dart';
 export 'src/model/password/cognito_reset_password_result.dart';
 export 'src/model/session/cognito_auth_session.dart';
 export 'src/model/session/cognito_auth_user.dart';
-export 'src/model/session/cognito_session_options.dart';
+export 'src/model/session/cognito_fetch_auth_session_options.dart';
 export 'src/model/session/cognito_sign_in_details.dart'
     hide CognitoSignInDetailsFederated;
 export 'src/model/session/cognito_user_pool_tokens.dart';

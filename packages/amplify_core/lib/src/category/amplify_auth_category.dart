@@ -30,7 +30,6 @@ class AuthCategory<
     PluginUpdatePasswordResult extends UpdatePasswordResult,
     PluginResetPasswordResult extends ResetPasswordResult,
     PluginConfirmResetPasswordResult extends ResetPasswordResult,
-    PluginAuthSessionOptions extends AuthSessionOptions,
     PluginAuthSession extends AuthSession,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
     PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
@@ -50,7 +49,6 @@ class AuthCategory<
         PluginUpdatePasswordResult,
         PluginResetPasswordResult,
         PluginConfirmResetPasswordResult,
-        PluginAuthSessionOptions,
         PluginAuthSession,
         PluginSignInWithWebUIResult,
         PluginUpdateUserAttributeResult,
@@ -90,7 +88,7 @@ class AuthCategory<
           GetPluginUpdatePasswordResult extends UpdatePasswordResult,
           GetPluginResetPasswordResult extends ResetPasswordResult,
           GetPluginConfirmResetPasswordResult extends ResetPasswordResult,
-          GetPluginAuthSessionOptions extends AuthSessionOptions,
+          GetPluginAuthSessionOptions extends FetchAuthSessionOptions,
           GetPluginAuthSession extends AuthSession,
           GetPluginSignInWithWebUIResult extends SignInResult<
               GetPluginUserAttributeKey>,
@@ -111,7 +109,6 @@ class AuthCategory<
               GetPluginUpdatePasswordResult,
               GetPluginResetPasswordResult,
               GetPluginConfirmResetPasswordResult,
-              GetPluginAuthSessionOptions,
               GetPluginAuthSession,
               GetPluginSignInWithWebUIResult,
               GetPluginUpdateUserAttributeResult,
@@ -131,7 +128,6 @@ class AuthCategory<
             GetPluginUpdatePasswordResult,
             GetPluginResetPasswordResult,
             GetPluginConfirmResetPasswordResult,
-            GetPluginAuthSessionOptions,
             GetPluginAuthSession,
             GetPluginSignInWithWebUIResult,
             GetPluginUpdateUserAttributeResult,
@@ -315,7 +311,7 @@ class AuthCategory<
   /// for [options].
   /// {@endtemplate}
   Future<PluginAuthSession> fetchAuthSession({
-    PluginAuthSessionOptions? options,
+    FetchAuthSessionOptions? options,
   }) =>
       defaultPlugin.fetchAuthSession(options: options);
 

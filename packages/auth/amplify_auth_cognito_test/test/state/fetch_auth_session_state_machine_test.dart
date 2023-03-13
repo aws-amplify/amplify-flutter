@@ -69,7 +69,7 @@ void main() {
       final sessionState =
           await stateMachine.dispatchAndComplete<FetchAuthSessionSuccess>(
         FetchAuthSessionEvent.fetch(
-          CognitoSessionOptions(forceRefresh: forceRefresh),
+          CognitoFetchAuthSessionOptions(forceRefresh: forceRefresh),
         ),
       );
       return sessionState.session;

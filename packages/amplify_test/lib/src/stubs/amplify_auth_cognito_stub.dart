@@ -215,7 +215,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 
   @override
   Future<AuthSession> fetchAuthSession({
-    AuthSessionOptions? options,
+    FetchAuthSessionOptions? options,
   }) async {
     if (_currentUser == null) {
       return const CognitoAuthSession(

@@ -27,7 +27,7 @@ abstract class FetchAuthSessionEvent
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_fetch}
   const factory FetchAuthSessionEvent.fetch([
-    CognitoSessionOptions? options,
+    FetchAuthSessionOptions? options,
   ]) = FetchAuthSessionFetch;
 
   /// {@macro amplify_auth_cognito.fetch_auth_session_federate}
@@ -58,7 +58,7 @@ class FetchAuthSessionFetch extends FetchAuthSessionEvent {
   const FetchAuthSessionFetch([this.options]) : super._();
 
   /// Options for the fetch.
-  final CognitoSessionOptions? options;
+  final FetchAuthSessionOptions? options;
 
   @override
   FetchAuthSessionEventType get type => FetchAuthSessionEventType.fetch;

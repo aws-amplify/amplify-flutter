@@ -46,8 +46,8 @@ export 'password/update_password_result.dart';
 
 /// Session
 export 'session/auth_session.dart';
-export 'session/auth_session_options.dart';
 export 'session/auth_user.dart';
+export 'session/fetch_auth_session_options.dart';
 export 'session/get_current_user_options.dart';
 export 'session/sign_in_details.dart';
 

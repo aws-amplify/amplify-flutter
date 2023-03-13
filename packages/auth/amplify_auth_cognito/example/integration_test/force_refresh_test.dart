@@ -17,7 +17,7 @@ void main() {
     bool forceRefresh = false,
   }) async {
     final session = await Amplify.Auth.fetchAuthSession(
-      options: CognitoSessionOptions(forceRefresh: forceRefresh),
+      options: CognitoFetchAuthSessionOptions(forceRefresh: forceRefresh),
     ) as CognitoAuthSession;
     final idToken = session.userPoolTokensResult.value.idToken;
     return idToken.claims.customClaims;

@@ -23,7 +23,6 @@ abstract class AuthPluginInterface<
         PluginUpdatePasswordResult extends UpdatePasswordResult,
         PluginResetPasswordResult extends ResetPasswordResult,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
-        PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
@@ -129,7 +128,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.fetch_auth_session}
   Future<PluginAuthSession> fetchAuthSession({
-    PluginAuthSessionOptions? options,
+    FetchAuthSessionOptions? options,
   }) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
