@@ -4,8 +4,11 @@
 library amplify_push_notifications;
 
 import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_push_notifications/callback_dispatcher.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:flutter/services.dart';
 
@@ -82,9 +85,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationOpened =>
       _onNotificationOpened;
 
+  // TODO(Samaritan1011001): Add implementation for identifyUser
+
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
-    _flutterApi.registerOnReceivedInBackgroundCallback(callback);
+    if (Platform.isAndroid) {
+      _registerCallback(
+        callback,
+        CallbackType.externalFunction,
+      );
+    } else if (Platform.isIOS) {
+      // TODO(Samaritan1011001): For iOS decide where to record BG event
+      _flutterApi.registerOnReceivedInBackgroundCallback(callback);
+    }
   }
 
   @override
@@ -92,8 +105,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final analyticsConfig = config?.analytics?.awsPlugin;
-    if (analyticsConfig == null) {
+    final notificationsConfig = config?.notifications?.awsPlugin;
+    if (notificationsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
@@ -103,7 +116,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
-      config: config,
+      config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
 
@@ -115,10 +128,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       final launchNotification =
           PushNotificationMessage.fromJson(rawLaunchNotification);
       _launchNotification = launchNotification;
-      unawaited(_recordAnalyticsForLaunchNotification(launchNotification));
+      _recordAnalyticsForLaunchNotification(launchNotification);
     }
 
-    // TODO(Samaritan1011001): Register the callback dispatcher for Android
+    // Register the callback dispatcher
+    await _registerCallback(
+      callbackDispatcher,
+      CallbackType.dispatcher,
+    );
 
     _isConfigured = true;
   }
@@ -167,13 +184,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    // TODO(Samaritan1011001): Record Analytics
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.foregroundMessageReceived,
+      notification: pushNotificationMessage,
+    );
   }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    // TODO(Samaritan1011001): Record Analytics
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.notificationOpened,
+      notification: pushNotificationMessage,
+    );
   }
 
   void _tokenReceivedListener(String deviceToken) {
@@ -184,12 +207,29 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the service provider');
-      // return true;
     } on Exception {
       throw const PushNotificationException(
         'Error when registering device with the service provider: ',
       );
     }
+  }
+
+  Future<void> _registerCallback(
+    Function callback,
+    CallbackType callbackType,
+  ) async {
+    final callbackHandle = PluginUtilities.getCallbackHandle(callback);
+    if (callbackHandle == null) {
+      _logger.error(
+        'Callback is not a global or static function',
+      );
+      return;
+    }
+    await _hostApi.registerCallbackFunction(
+      callbackHandle.toRawHandle(),
+      callbackType,
+    );
+    _logger.info('Successfully registered callback');
   }
 
   Future<void> _registerDeviceWhenConfigure() async {
@@ -232,10 +272,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
   }
 
-  Future<void> _recordAnalyticsForLaunchNotification(
+  void _recordAnalyticsForLaunchNotification(
     PushNotificationMessage launchNotification,
-  ) async {
-    // TODO(Samaritan1011001): integrate analytic recodEvent
+  ) {
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.notificationOpened,
+      notification: launchNotification,
+    );
   }
 }
 

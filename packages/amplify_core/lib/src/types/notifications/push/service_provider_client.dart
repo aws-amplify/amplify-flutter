@@ -14,12 +14,18 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 abstract class ServiceProviderClient {
   Future<void> init({
-    AmplifyConfig? config,
+    required NotificationsPinpointPluginConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
   });
   Future<void> registerDevice(String deviceToken);
   Future<void> recordNotificationEvent({
-    // TODO: Should this be a push notification specific type?
-    required AnalyticsEvent event,
+    required PinpointEventType eventType,
+    required PushNotificationMessage notification,
+  });
+
+  Future<void> identifyUser({
+    required String userId,
+    // TODO: Update this with the generic UserProfile
+    required AnalyticsUserProfile userProfile,
   });
 }

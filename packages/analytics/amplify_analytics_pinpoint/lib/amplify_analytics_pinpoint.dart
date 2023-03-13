@@ -11,6 +11,7 @@ export 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.
         AWSPinpointUserProfile,
 
         /// For Push Notifications.
+        EndpointStorageScope,
         // TODO(kylecheng): export via SecureStorage instead.
         EndpointInfoStoreManager,
 

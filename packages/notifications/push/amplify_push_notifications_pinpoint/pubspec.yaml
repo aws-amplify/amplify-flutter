@@ -11,6 +11,7 @@ environment:
 dependencies:
   amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_push_notifications: ">=1.0.0-next.0 <1.0.0-next.1"
+  amplify_analytics_pinpoint: ">=1.0.0-next.0 <1.0.0-next.1"
   flutter:
     sdk: flutter
 

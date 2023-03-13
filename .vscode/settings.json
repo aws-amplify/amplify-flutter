@@ -1,8 +1,6 @@
 {
   "dart.runPubGetOnPubspecChanges": "always",
-  "dart.analysisExcludedFolders": [
-    "templates"
-  ],
+  "dart.analysisExcludedFolders": ["templates"],
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
