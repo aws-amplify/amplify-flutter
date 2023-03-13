@@ -107,7 +107,7 @@ class EventClient implements Closeable {
     return completer.future;
   }
 
-  final _numFailuresByEvent = <String, int>{};
+  final _failureCountByEvent = <String, int>{};
 
   Future<void> _flushEvents() async {
     final storedEvents = await _eventStorage.retrieveEvents();
@@ -200,21 +200,19 @@ class EventClient implements Closeable {
       if (e.statusCode != null && _isRetryable(e.statusCode!)) {
         eventsToDelete.removeWhere((eventId, _) => _shouldRetryEvent(eventId));
         _logRecoverableException(e);
+      } else {
+        // TODO(kylecheng): convert to AnalyticsException and rethrow
+        // Convert status codes based on pinpoint api reference:
+        // https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
+        // Follow logic structure of:
+        // https://github.com/aws-amplify/amplify-flutter/blob/next/packages/storage/amplify_storage_s3_dart/lib/src/exception/s3_storage_exception.dart#L166
+        rethrow;
       }
-      // TODO(kylecheng): convert to AnalyticsException and log warning
-      // Convert status codes based on pinpoint api reference:
-      // https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
-      // Follow logic structure of:
-      // https://github.com/aws-amplify/amplify-flutter/blob/next/packages/storage/amplify_storage_s3_dart/lib/src/exception/s3_storage_exception.dart#L166
-      else {
-        _logger.warn('Unrecoverable HttpException Encountered', e);
-      }
-    } on AWSHttpException catch (e) {
+    } on AWSHttpException {
       // AWSHttpException indicates request did not complete
       // Due to no internet or unable to reach server.
       // These exceptions are always retryable.
       eventsToDelete.clear();
-      _logRecoverableException(e);
     } on Exception catch (e) {
       _logger
         ..warn('putEvents - exception encountered: ', e)
@@ -224,6 +222,11 @@ class EventClient implements Closeable {
       // Unless a retryable exception has been received (see above)
       if (eventsToDelete.isNotEmpty) {
         await _eventStorage.deleteEvents(eventsToDelete.values);
+
+        // Update _numFailuresByEvent to avoid memory leak
+        for (final eventId in eventsToDelete.keys) {
+          _failureCountByEvent.remove(eventId);
+        }
       }
     }
   }
@@ -241,13 +244,13 @@ class EventClient implements Closeable {
   }
 
   bool _shouldRetryEvent(String eventId) {
-    final timesFailed = _numFailuresByEvent[eventId] ?? 0;
+    final timesFailed = _failureCountByEvent[eventId] ?? 1;
     if (timesFailed >= 3) {
       _logger.warn('Retry limit exceeded, deleting event: $eventId');
-      _numFailuresByEvent.remove(eventId);
+      _failureCountByEvent.remove(eventId);
       return false;
     }
-    _numFailuresByEvent[eventId] = timesFailed + 1;
+    _failureCountByEvent[eventId] = timesFailed + 1;
     return true;
   }
 

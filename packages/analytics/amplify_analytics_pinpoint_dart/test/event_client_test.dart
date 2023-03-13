@@ -404,9 +404,12 @@ void main() {
       when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
           .thenReturn(mockOperation);
 
+      var items = eventStore.getCount(100);
+      expect(items.length, 1);
+
       await eventClient.flushEvents();
 
-      final items = eventStore.getCount(100);
+      items = eventStore.getCount(100);
       expect(items.length, 0);
     });
 
@@ -432,7 +435,7 @@ void main() {
       expect(items.length, 1);
     });
 
-    test('flushEvents deletes events that fail >3 times', () async {
+    test('flushEvents deletes events that fail 3 times', () async {
       await eventClient.recordEvent(
         eventType: failEventType,
       );
@@ -446,7 +449,6 @@ void main() {
       when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
           .thenReturn(mockOperation);
 
-      await eventClient.flushEvents();
       await eventClient.flushEvents();
       await eventClient.flushEvents();
 
