@@ -59,7 +59,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoSignOutResult,
         UpdatePasswordResult,
         CognitoResetPasswordResult,
-        CognitoConfirmResetPasswordOptions,
         CognitoResetPasswordResult,
         AuthUserOptions,
         CognitoSessionOptions,
@@ -92,7 +91,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       SignOutResult,
       UpdatePasswordResult,
       CognitoResetPasswordResult,
-      CognitoConfirmResetPasswordOptions,
       CognitoResetPasswordResult,
       AuthUserOptions,
       CognitoSessionOptions,
@@ -937,15 +935,21 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     required String username,
     required String newPassword,
     required String confirmationCode,
-    CognitoConfirmResetPasswordOptions? options,
+    ConfirmResetPasswordOptions? options,
   }) async {
+    final pluginOptions = validatePluginOptions(
+      options?.pluginOptions,
+      defaultOptions: const CognitoConfirmResetPasswordPluginOptions(),
+      requiredTypeName: 'CognitoConfirmResetPasswordPluginOptions',
+    );
     await _cognitoIdp.confirmForgotPassword(
       cognito.ConfirmForgotPasswordRequest.build((b) {
         b
           ..username = username
           ..password = newPassword
           ..confirmationCode = confirmationCode
-          ..clientId = _userPoolConfig.appClientId;
+          ..clientId = _userPoolConfig.appClientId
+          ..clientMetadata.addAll(pluginOptions.clientMetadata);
 
         final clientSecret = _userPoolConfig.appClientSecret;
         if (clientSecret != null) {
@@ -955,9 +959,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             clientSecret,
           );
         }
-
-        final clientMetadata = options?.clientMetadata ?? const {};
-        b.clientMetadata.addAll(clientMetadata);
       }),
     ).result;
 
@@ -1158,7 +1159,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     SignOutResult,
     UpdatePasswordResult,
     CognitoResetPasswordResult,
-    CognitoConfirmResetPasswordOptions,
     CognitoResetPasswordResult,
     AuthUserOptions,
     CognitoSessionOptions,

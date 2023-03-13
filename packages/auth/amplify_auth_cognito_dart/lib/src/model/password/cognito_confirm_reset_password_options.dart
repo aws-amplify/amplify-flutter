@@ -12,10 +12,12 @@ part 'cognito_confirm_reset_password_options.g.dart';
 /// Can be used to add [clientMetadata] to the operation.
 /// {@endtemplate}
 @zAmplifySerializable
-class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions
-    with AWSEquatable<CognitoConfirmResetPasswordOptions>, AWSDebuggable {
+class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions {
   /// {@macro amplify_auth_cognito.cognito_confirm_reset_password_options}
-  const CognitoConfirmResetPasswordOptions({this.clientMetadata});
+  const CognitoConfirmResetPasswordOptions({
+    Map<String, String>? clientMetadata,
+  })  : clientMetadata = clientMetadata ?? const {},
+        super.base();
 
   /// {@macro amplify_auth_cognito.cognito_confirm_reset_password_options}
   factory CognitoConfirmResetPasswordOptions.fromJson(
@@ -25,10 +27,11 @@ class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions
 
   /// Additional custom attributes to be sent to the service such as information
   /// about the client.
-  final Map<String, String>? clientMetadata;
+  final Map<String, String> clientMetadata;
 
   @override
-  List<Object?> get props => [clientMetadata];
+  CognitoConfirmResetPasswordPluginOptions get pluginOptions =>
+      CognitoConfirmResetPasswordPluginOptions(clientMetadata: clientMetadata);
 
   @override
   String get runtimeTypeName => 'CognitoConfirmResetPasswordOptions';
@@ -36,4 +39,36 @@ class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions
   @override
   Map<String, Object?> toJson() =>
       _$CognitoConfirmResetPasswordOptionsToJson(this);
+}
+
+/// {@template amplify_auth_cognito.model.cognito_confirm_reset_password_plugin_options}
+/// Cognito options for `Amplify.Auth.confirmResetPassword`.
+/// {@endtemplate}
+@zAmplifySerializable
+class CognitoConfirmResetPasswordPluginOptions
+    extends ConfirmResetPasswordPluginOptions {
+  /// {@macro amplify_auth_cognito.model.cognito_confirm_reset_password_plugin_options}
+  const CognitoConfirmResetPasswordPluginOptions({
+    Map<String, String>? clientMetadata,
+  }) : clientMetadata = clientMetadata ?? const {};
+
+  /// {@macro amplify_auth_cognito.model.cognito_confirm_reset_password_plugin_options}
+  factory CognitoConfirmResetPasswordPluginOptions.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$CognitoConfirmResetPasswordPluginOptionsFromJson(json);
+
+  /// Additional custom attributes to be sent to the service such as information
+  /// about the client.
+  final Map<String, String> clientMetadata;
+
+  @override
+  List<Object?> get props => [clientMetadata];
+
+  @override
+  String get runtimeTypeName => 'CognitoConfirmResetPasswordPluginOptions';
+
+  @override
+  Map<String, Object?> toJson() =>
+      _$CognitoConfirmResetPasswordPluginOptionsToJson(this);
 }

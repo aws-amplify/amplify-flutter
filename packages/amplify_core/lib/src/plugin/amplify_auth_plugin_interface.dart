@@ -22,7 +22,6 @@ abstract class AuthPluginInterface<
         PluginSignOutResult extends SignOutResult,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
         PluginResetPasswordResult extends ResetPasswordResult,
-        PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
         PluginAuthUserOptions extends AuthUserOptions,
         PluginAuthSessionOptions extends AuthSessionOptions,
@@ -108,7 +107,7 @@ abstract class AuthPluginInterface<
     required String username,
     required String newPassword,
     required String confirmationCode,
-    PluginConfirmResetPasswordOptions? options,
+    ConfirmResetPasswordOptions? options,
   }) {
     throw UnimplementedError(
       'confirmResetPassword() has not been implemented.',
