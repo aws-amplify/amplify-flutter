@@ -68,7 +68,8 @@ void main() {
       });
 
       test('signOutWithUrl', () async {
-        const options = CognitoSignOutWithWebUIOptions(
+        const options = CognitoSignInWithWebUIOptions(
+          isPreferPrivateSession: true,
           browserPackageName: browserPackage,
         );
         dependencyManager
@@ -92,7 +93,6 @@ void main() {
           );
         await platform.signOut(
           options: options,
-          isPreferPrivateSession: true,
         );
       });
     },

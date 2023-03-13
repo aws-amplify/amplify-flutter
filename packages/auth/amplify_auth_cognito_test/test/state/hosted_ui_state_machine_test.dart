@@ -33,8 +33,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIOptions options,
   }) async {}
 
   @override
@@ -57,8 +56,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIOptions options,
   }) {
     throw Exception();
   }
@@ -533,12 +531,11 @@ void main() {
                     await platform.getSignInUri(provider: provider);
                 _launchUrl.complete(signInUrl);
               },
-              signOut: expectAsync3((
+              signOut: expectAsync2((
                 platform,
                 options,
-                isPreferPrivateSession,
               ) async {
-                expect(isPreferPrivateSession, isTrue);
+                expect(options.isPreferPrivateSession, isTrue);
               }),
             ),
             HostedUiPlatform.token,

@@ -75,7 +75,7 @@ void main() {
 
       Future<void> signOut({required bool globalSignOut}) async {
         final result = await plugin.signOut(
-          options: CognitoSignOutWithWebUIOptions(
+          options: SignOutOptions(
             globalSignOut: globalSignOut,
           ),
         );
@@ -188,8 +188,7 @@ loginButton.click();
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIOptions options,
   }) async {
     final signOutUrl = getSignOutUri();
     final controller = await _controller.future;

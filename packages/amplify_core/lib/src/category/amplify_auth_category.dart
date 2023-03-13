@@ -26,7 +26,6 @@ class AuthCategory<
     PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
     PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
     PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
-    PluginSignOutOptions extends SignOutOptions,
     PluginSignOutResult extends SignOutResult,
     PluginUpdatePasswordOptions extends UpdatePasswordOptions,
     PluginUpdatePasswordResult extends UpdatePasswordResult,
@@ -56,7 +55,6 @@ class AuthCategory<
         PluginResendSignUpCodeResult,
         PluginSignInResult,
         PluginConfirmSignInResult,
-        PluginSignOutOptions,
         PluginSignOutResult,
         PluginUpdatePasswordOptions,
         PluginUpdatePasswordResult,
@@ -106,7 +104,6 @@ class AuthCategory<
           GetPluginSignInResult extends SignInResult<GetPluginUserAttributeKey>,
           GetPluginConfirmSignInResult extends SignInResult<
               GetPluginUserAttributeKey>,
-          GetPluginSignOutOptions extends SignOutOptions,
           GetPluginSignOutResult extends SignOutResult,
           GetPluginUpdatePasswordOptions extends UpdatePasswordOptions,
           GetPluginUpdatePasswordResult extends UpdatePasswordResult,
@@ -137,7 +134,6 @@ class AuthCategory<
               GetPluginResendSignUpCodeResult,
               GetPluginSignInResult,
               GetPluginConfirmSignInResult,
-              GetPluginSignOutOptions,
               GetPluginSignOutResult,
               GetPluginUpdatePasswordOptions,
               GetPluginUpdatePasswordResult,
@@ -167,7 +163,6 @@ class AuthCategory<
             GetPluginResendSignUpCodeResult,
             GetPluginSignInResult,
             GetPluginConfirmSignInResult,
-            GetPluginSignOutOptions,
             GetPluginSignOutResult,
             GetPluginUpdatePasswordOptions,
             GetPluginUpdatePasswordResult,
@@ -280,7 +275,7 @@ class AuthCategory<
   /// global sign out as well as other plugin-specific options.
   /// {@endtemplate}
   Future<PluginSignOutResult> signOut({
-    PluginSignOutOptions? options,
+    SignOutOptions? options,
   }) =>
       defaultPlugin.signOut(options: options);
 

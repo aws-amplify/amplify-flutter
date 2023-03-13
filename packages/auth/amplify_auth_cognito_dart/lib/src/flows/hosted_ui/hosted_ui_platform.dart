@@ -290,8 +290,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// Sign out the current user.
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIOptions options,
   });
 
   @override

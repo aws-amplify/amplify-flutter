@@ -161,17 +161,13 @@ class HostedUiStateMachine
     final optionsJson = await _secureStorage.read(
       key: _keys[HostedUiKey.options],
     );
-    var options = const CognitoSignOutWithWebUIOptions();
-    var isPreferPrivateSession = false;
+    var options = const CognitoSignInWithWebUIOptions();
     if (optionsJson != null) {
       final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
-      options = CognitoSignOutWithWebUIOptions.fromJson(optionsMap);
-      isPreferPrivateSession =
-          optionsMap['isPreferPrivateSession'] as bool? ?? false;
+      options = CognitoSignInWithWebUIOptions.fromJson(optionsMap);
     }
     await _platform.signOut(
       options: options,
-      isPreferPrivateSession: isPreferPrivateSession,
     );
     emit(const HostedUiState.signedOut());
   }

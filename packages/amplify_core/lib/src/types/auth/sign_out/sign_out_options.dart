@@ -3,19 +3,24 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-part 'sign_out_options.g.dart';
-
 /// {@template amplify_core.sign_out_options}
 /// The shared sign out options among all Auth plugins.
 /// {@endtemplate}
-@zAmplifySerializable
-class SignOutOptions with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+abstract class SignOutOptions
+    with
+        AWSEquatable<SignOutOptions>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.sign_out_options}
-  const SignOutOptions({this.globalSignOut = false});
+  const factory SignOutOptions({
+    bool globalSignOut,
+    SignOutPluginOptions? pluginOptions,
+  }) = _SignOutOptions;
 
-  /// {@macro amplify_core.sign_out_options}
-  factory SignOutOptions.fromJson(Map<String, Object?> json) =>
-      _$SignOutOptionsFromJson(json);
+  /// Base constructor for subclassing.
+  const SignOutOptions.base({
+    this.globalSignOut = false,
+  });
 
   /// Sign the current user out from all devices
   ///
@@ -23,12 +28,43 @@ class SignOutOptions with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// tasks that requires a valid token after a global signout is called.
   final bool globalSignOut;
 
+  /// {@macro amplify_core.auth.sign_out_plugin_options}
+  SignOutPluginOptions? get pluginOptions;
+
+  @override
+  List<Object?> get props => [globalSignOut, pluginOptions];
+
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
   @override
-  String get runtimeTypeName => 'SignOutOptions';
+  Map<String, Object?> toJson() => {
+        'globalSignOut': globalSignOut,
+        'pluginOptions': pluginOptions?.toJson(),
+      };
+}
+
+class _SignOutOptions extends SignOutOptions {
+  const _SignOutOptions({
+    super.globalSignOut = false,
+    this.pluginOptions,
+  }) : super.base();
 
   @override
-  Map<String, Object?> toJson() => _$SignOutOptionsToJson(this);
+  final SignOutPluginOptions? pluginOptions;
+
+  @override
+  String get runtimeTypeName => 'SignOutOptions';
+}
+
+/// {@template amplify_core.auth.sign_out_plugin_options}
+/// Plugin-specific options for `Amplify.Auth.signOut`.
+/// {@endtemplate}
+abstract class SignOutPluginOptions
+    with
+        AWSEquatable<SignOutPluginOptions>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.auth.sign_out_plugin_options}
+  const SignOutPluginOptions();
 }

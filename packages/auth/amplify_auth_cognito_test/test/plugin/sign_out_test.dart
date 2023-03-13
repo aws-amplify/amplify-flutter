@@ -57,8 +57,7 @@ void main() {
             ) async {},
             signOut: (
               HostedUiPlatform platform,
-              CognitoSignOutWithWebUIOptions options,
-              bool isPreferPrivateSession,
+              CognitoSignInWithWebUIOptions options,
             ) async {},
           ),
           HostedUiPlatform.token,
@@ -380,8 +379,7 @@ void main() {
               ) async {},
               signOut: (
                 HostedUiPlatform platform,
-                CognitoSignOutWithWebUIOptions options,
-                bool isPreferPrivateSession,
+                CognitoSignInWithWebUIOptions options,
               ) async =>
                   throw _HostedUiException(),
             ),
@@ -436,8 +434,7 @@ void main() {
                 ) async {},
                 signOut: (
                   HostedUiPlatform platform,
-                  CognitoSignOutWithWebUIOptions options,
-                  bool isPreferPrivateSession,
+                  CognitoSignInWithWebUIOptions options,
                 ) async =>
                     throw const UserCancelledException(''),
               ),

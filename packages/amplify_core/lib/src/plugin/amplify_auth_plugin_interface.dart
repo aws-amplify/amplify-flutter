@@ -19,7 +19,6 @@ abstract class AuthPluginInterface<
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
-        PluginSignOutOptions extends SignOutOptions,
         PluginSignOutResult extends SignOutResult,
         PluginUpdatePasswordOptions extends UpdatePasswordOptions,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
@@ -89,7 +88,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.sign_out}
   Future<PluginSignOutResult> signOut({
-    PluginSignOutOptions? options,
+    SignOutOptions? options,
   }) {
     throw UnimplementedError('signOut() has not been implemented');
   }
