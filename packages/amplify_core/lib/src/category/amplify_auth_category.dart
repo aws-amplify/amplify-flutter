@@ -34,7 +34,6 @@ class AuthCategory<
     PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
     PluginConfirmResetPasswordResult extends ResetPasswordResult,
     PluginAuthUserOptions extends AuthUserOptions,
-    PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
     PluginAuthSessionOptions extends AuthSessionOptions,
     PluginAuthSession extends AuthSession,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
@@ -63,7 +62,6 @@ class AuthCategory<
         PluginConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult,
         PluginAuthUserOptions,
-        PluginFetchUserAttributeOptions,
         PluginAuthSessionOptions,
         PluginAuthSession,
         PluginSignInWithWebUIResult,
@@ -112,7 +110,6 @@ class AuthCategory<
           GetPluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
           GetPluginConfirmResetPasswordResult extends ResetPasswordResult,
           GetPluginAuthUserOptions extends AuthUserOptions,
-          GetPluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
           GetPluginAuthSessionOptions extends AuthSessionOptions,
           GetPluginAuthSession extends AuthSession,
           GetPluginSignInWithWebUIResult extends SignInResult<
@@ -142,7 +139,6 @@ class AuthCategory<
               GetPluginConfirmResetPasswordOptions,
               GetPluginConfirmResetPasswordResult,
               GetPluginAuthUserOptions,
-              GetPluginFetchUserAttributeOptions,
               GetPluginAuthSessionOptions,
               GetPluginAuthSession,
               GetPluginSignInWithWebUIResult,
@@ -171,7 +167,6 @@ class AuthCategory<
             GetPluginConfirmResetPasswordOptions,
             GetPluginConfirmResetPasswordResult,
             GetPluginAuthUserOptions,
-            GetPluginFetchUserAttributeOptions,
             GetPluginAuthSessionOptions,
             GetPluginAuthSession,
             GetPluginSignInWithWebUIResult,
@@ -348,7 +343,7 @@ class AuthCategory<
   /// Fetch all user attributes associated with the current user.
   /// {@endtemplate}
   Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
-    PluginFetchUserAttributeOptions? options,
+    FetchUserAttributesOptions? options,
   }) =>
       defaultPlugin.fetchUserAttributes(options: options);
 

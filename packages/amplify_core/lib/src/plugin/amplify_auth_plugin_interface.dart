@@ -27,7 +27,6 @@ abstract class AuthPluginInterface<
         PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
         PluginAuthUserOptions extends AuthUserOptions,
-        PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
         PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
@@ -131,7 +130,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.fetch_user_attributes}
   Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
-    PluginFetchUserAttributeOptions? options,
+    FetchUserAttributesOptions? options,
   }) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
