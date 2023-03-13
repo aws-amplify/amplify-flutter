@@ -68,7 +68,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoAuthSession,
         CognitoSignInResult,
         UpdateUserAttributeResult,
-        ConfirmUserAttributeOptions,
         ConfirmUserAttributeResult,
         CognitoResendUserAttributeConfirmationCodeOptions,
         ResendUserAttributeConfirmationCodeResult>
@@ -105,7 +104,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       CognitoAuthSession,
       CognitoSignInResult,
       UpdateUserAttributeResult,
-      ConfirmUserAttributeOptions,
       ConfirmUserAttributeResult,
       CognitoResendUserAttributeConfirmationCodeOptions,
       ResendUserAttributeConfirmationCodeResult,
@@ -1164,7 +1162,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoAuthSession,
     CognitoSignInResult,
     UpdateUserAttributeResult,
-    ConfirmUserAttributeOptions,
     ConfirmUserAttributeResult,
     CognitoResendUserAttributeConfirmationCodeOptions,
     ResendUserAttributeConfirmationCodeResult,

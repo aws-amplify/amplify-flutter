@@ -38,7 +38,6 @@ class AuthCategory<
     PluginAuthSession extends AuthSession,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
     PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-    PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
     PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
     PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
     PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult,
@@ -64,7 +63,6 @@ class AuthCategory<
         PluginAuthSession,
         PluginSignInWithWebUIResult,
         PluginUpdateUserAttributeResult,
-        PluginConfirmUserAttributeOptions,
         PluginConfirmUserAttributeResult,
         PluginResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult>> extends AmplifyCategory<
@@ -111,7 +109,6 @@ class AuthCategory<
           GetPluginSignInWithWebUIResult extends SignInResult<
               GetPluginUserAttributeKey>,
           GetPluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-          GetPluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
           GetPluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
           GetPluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
           GetPluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult,
@@ -137,7 +134,6 @@ class AuthCategory<
               GetPluginAuthSession,
               GetPluginSignInWithWebUIResult,
               GetPluginUpdateUserAttributeResult,
-              GetPluginConfirmUserAttributeOptions,
               GetPluginConfirmUserAttributeResult,
               GetPluginResendUserAttributeConfirmationCodeOptions,
               GetPluginResendUserAttributeConfirmationCodeResult>>(
@@ -163,7 +159,6 @@ class AuthCategory<
             GetPluginAuthSession,
             GetPluginSignInWithWebUIResult,
             GetPluginUpdateUserAttributeResult,
-            GetPluginConfirmUserAttributeOptions,
             GetPluginConfirmUserAttributeResult,
             GetPluginResendUserAttributeConfirmationCodeOptions,
             GetPluginResendUserAttributeConfirmationCodeResult,
@@ -400,7 +395,7 @@ class AuthCategory<
   Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
     required PluginUserAttributeKey userAttributeKey,
     required String confirmationCode,
-    PluginConfirmUserAttributeOptions? options,
+    ConfirmUserAttributeOptions? options,
   }) =>
       defaultPlugin.confirmUserAttribute(
         userAttributeKey: userAttributeKey,

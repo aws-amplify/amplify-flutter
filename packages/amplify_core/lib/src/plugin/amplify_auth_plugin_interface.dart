@@ -31,7 +31,6 @@ abstract class AuthPluginInterface<
         PluginAuthSession extends AuthSession,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-        PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
         PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
         PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
@@ -172,7 +171,7 @@ abstract class AuthPluginInterface<
   Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
     required PluginUserAttributeKey userAttributeKey,
     required String confirmationCode,
-    PluginConfirmUserAttributeOptions? options,
+    ConfirmUserAttributeOptions? options,
   }) {
     throw UnimplementedError(
       'confirmUserAttribute() has not been implemented.',

@@ -39,7 +39,6 @@ abstract class AuthPluginKey<
     PluginAuthSession extends AuthSession,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
     PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-    PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
     PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
     PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
     PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult,
@@ -65,7 +64,6 @@ abstract class AuthPluginKey<
         PluginAuthSession,
         PluginSignInWithWebUIResult,
         PluginUpdateUserAttributeResult,
-        PluginConfirmUserAttributeOptions,
         PluginConfirmUserAttributeResult,
         PluginResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult>> extends AmplifyPluginKey<
