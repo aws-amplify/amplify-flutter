@@ -60,7 +60,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
         UpdatePasswordResult,
         CognitoResetPasswordResult,
         CognitoResetPasswordResult,
-        AuthUserOptions,
         CognitoSessionOptions,
         CognitoAuthSession,
         CognitoSignInResult,
@@ -92,7 +91,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       UpdatePasswordResult,
       CognitoResetPasswordResult,
       CognitoResetPasswordResult,
-      AuthUserOptions,
       CognitoSessionOptions,
       CognitoAuthSession,
       CognitoSignInResult,
@@ -970,7 +968,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<CognitoAuthUser> getCurrentUser({
-    AuthUserOptions? options,
+    GetCurrentUserOptions? options,
   }) async {
     final credentialsState =
         await stateMachine.acceptAndComplete<CredentialStoreSuccess>(
@@ -1160,7 +1158,6 @@ class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     UpdatePasswordResult,
     CognitoResetPasswordResult,
     CognitoResetPasswordResult,
-    AuthUserOptions,
     CognitoSessionOptions,
     CognitoAuthSession,
     CognitoSignInResult,

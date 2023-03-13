@@ -30,7 +30,6 @@ class AuthCategory<
     PluginUpdatePasswordResult extends UpdatePasswordResult,
     PluginResetPasswordResult extends ResetPasswordResult,
     PluginConfirmResetPasswordResult extends ResetPasswordResult,
-    PluginAuthUserOptions extends AuthUserOptions,
     PluginAuthSessionOptions extends AuthSessionOptions,
     PluginAuthSession extends AuthSession,
     PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
@@ -51,7 +50,6 @@ class AuthCategory<
         PluginUpdatePasswordResult,
         PluginResetPasswordResult,
         PluginConfirmResetPasswordResult,
-        PluginAuthUserOptions,
         PluginAuthSessionOptions,
         PluginAuthSession,
         PluginSignInWithWebUIResult,
@@ -92,7 +90,6 @@ class AuthCategory<
           GetPluginUpdatePasswordResult extends UpdatePasswordResult,
           GetPluginResetPasswordResult extends ResetPasswordResult,
           GetPluginConfirmResetPasswordResult extends ResetPasswordResult,
-          GetPluginAuthUserOptions extends AuthUserOptions,
           GetPluginAuthSessionOptions extends AuthSessionOptions,
           GetPluginAuthSession extends AuthSession,
           GetPluginSignInWithWebUIResult extends SignInResult<
@@ -114,7 +111,6 @@ class AuthCategory<
               GetPluginUpdatePasswordResult,
               GetPluginResetPasswordResult,
               GetPluginConfirmResetPasswordResult,
-              GetPluginAuthUserOptions,
               GetPluginAuthSessionOptions,
               GetPluginAuthSession,
               GetPluginSignInWithWebUIResult,
@@ -135,7 +131,6 @@ class AuthCategory<
             GetPluginUpdatePasswordResult,
             GetPluginResetPasswordResult,
             GetPluginConfirmResetPasswordResult,
-            GetPluginAuthUserOptions,
             GetPluginAuthSessionOptions,
             GetPluginAuthSession,
             GetPluginSignInWithWebUIResult,
@@ -300,7 +295,7 @@ class AuthCategory<
   /// Retrieve the current active user.
   /// {@endtemplate}
   Future<PluginAuthUser> getCurrentUser({
-    PluginAuthUserOptions? options,
+    GetCurrentUserOptions? options,
   }) =>
       defaultPlugin.getCurrentUser(options: options);
 

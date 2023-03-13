@@ -23,7 +23,6 @@ abstract class AuthPluginInterface<
         PluginUpdatePasswordResult extends UpdatePasswordResult,
         PluginResetPasswordResult extends ResetPasswordResult,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
-        PluginAuthUserOptions extends AuthUserOptions,
         PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
@@ -116,7 +115,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.get_current_user}
   Future<PluginAuthUser> getCurrentUser({
-    PluginAuthUserOptions? options,
+    GetCurrentUserOptions? options,
   }) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
