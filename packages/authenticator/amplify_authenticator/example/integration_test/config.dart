@@ -13,7 +13,15 @@ Future<void> loadConfiguration({
   List<AmplifyPluginInterface> additionalConfigs = const [],
 }) async {
   final envConfig = amplifyEnvironments[environmentName]!;
-  await Amplify.addPlugin(AmplifyAuthCognito());
+  final authPlugin = AmplifyAuthCognito(
+    credentialStorage: AmplifySecureStorage(
+      config: AmplifySecureStorageConfig(
+        scope: 'authenticator-test',
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+      ),
+    ),
+  );
+  await Amplify.addPlugin(authPlugin);
   if (additionalConfigs.isNotEmpty) {
     await Amplify.addPlugins(additionalConfigs);
   }
