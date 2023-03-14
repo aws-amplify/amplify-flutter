@@ -3,18 +3,19 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template amplify_core.storage.unknown_exception}
+/// {@template amplify_core.unknown_exception}
 /// Exception thrown when an unknown error from an underlying SDK or service is
 /// encountered.
 /// {@endtemplate}
-class StorageUnknownException extends StorageException {
-  /// {@macro amplify_core.storage.unknown_exception}
-  const StorageUnknownException(
+class UnknownException extends AmplifyException
+    implements AuthException, StorageException, AnalyticsException {
+  /// {@macro amplify_core.unknown_exception}
+  const UnknownException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
   });
 
   @override
-  String get runtimeTypeName => 'StorageUnknownException';
+  String get runtimeTypeName => 'UnknownException';
 }

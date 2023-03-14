@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/exception/pinpoint_analytics_exception.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_storage_adapter.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
@@ -175,15 +176,17 @@ class EventClient implements Closeable {
         );
       }
       eventsItemResponse?.forEach((eventId, eventItemResponse) {
+        final eventType = eventsToDelete[eventId]?.event.eventType ?? eventId;
+
         if (!_equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
           _logger.warn(
-            'putEvents - issue with eventId: $eventId \n $eventItemResponse',
+            'putEvents - issue with event: $eventType \n $eventItemResponse',
           );
 
           if (_isRetryable(eventItemResponse.statusCode) &&
-              _shouldRetryEvent(eventId)) {
+              _shouldRetryEvent(eventId, eventType)) {
             _logger.warn(
-              'putEvents - recoverable issue, will attempt to resend: $eventId in next FlushEvents',
+              'putEvents - recoverable issue, will attempt to resend: $eventType in next FlushEvents',
             );
             eventsToDelete.remove(eventId);
           }
@@ -191,32 +194,34 @@ class EventClient implements Closeable {
       });
     } on PayloadTooLargeException catch (e) {
       _logger
-        ..warn('putEvents - exception encountered: ', e)
+        ..warn('putEvents - payloadTooLarge exception: ', e)
         ..warn(
             'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
             'Reduce your event size or change number of events in a batch')
         ..warn('Unrecoverable issue, deleting cache for local event batch');
-    } on SmithyHttpException catch (e) {
-      if (e.statusCode != null && _isRetryable(e.statusCode!)) {
-        eventsToDelete.removeWhere((eventId, _) => _shouldRetryEvent(eventId));
-        _logRecoverableException(e);
-      } else {
-        // TODO(kylecheng): convert to AnalyticsException and rethrow
-        // Convert status codes based on pinpoint api reference:
-        // https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-events.html
-        // Follow logic structure of:
-        // https://github.com/aws-amplify/amplify-flutter/blob/next/packages/storage/amplify_storage_s3_dart/lib/src/exception/s3_storage_exception.dart#L166
-        rethrow;
-      }
     } on AWSHttpException {
       // AWSHttpException indicates request did not complete
       // Due to no internet or unable to reach server.
       // These exceptions are always retryable.
       eventsToDelete.clear();
+    } on SmithyHttpException catch (e) {
+      if (e.statusCode != null && _isRetryable(e.statusCode!)) {
+        eventsToDelete.removeWhere((eventId, _) {
+          final eventType = eventsToDelete[eventId]?.event.eventType ?? eventId;
+          return _shouldRetryEvent(eventId, eventType);
+        });
+        _logRecoverableException(e);
+      } else {
+        _logger
+          ..error('putEvents - exception encountered: ', e)
+          ..error('Unrecoverable issue, deleting cache for local event batch');
+        throw PinpointException.fromException(e);
+      }
     } on Exception catch (e) {
       _logger
-        ..warn('putEvents - exception encountered: ', e)
-        ..warn('Unrecoverable issue, deleting cache for local event batch');
+        ..error('putEvents - exception encountered: ', e)
+        ..error('Unrecoverable issue, deleting cache for local event batch');
+      throw PinpointException.fromException(e);
     } finally {
       // Always delete local store of events
       // Unless a retryable exception has been received (see above)
@@ -234,8 +239,8 @@ class EventClient implements Closeable {
   // If exception is recoverable, do not delete eventIds from local cache
   void _logRecoverableException(Exception e) {
     _logger
-      ..warn('putEvents - exception encountered: ', e)
-      ..warn('Recoverable issue, will attempt to resend event batch');
+      ..warn('putEvents - recoverable exception: ', e)
+      ..warn('Will attempt to resend event batch');
   }
 
   bool _isRetryable(int statusCode) {
@@ -243,10 +248,10 @@ class EventClient implements Closeable {
     return statusCode >= 500 && statusCode < 600;
   }
 
-  bool _shouldRetryEvent(String eventId) {
+  bool _shouldRetryEvent(String eventId, String eventType) {
     final timesFailed = _failureCountByEvent[eventId] ?? 1;
     if (timesFailed >= 3) {
-      _logger.warn('Retry limit exceeded, deleting event: $eventId');
+      _logger.warn('Retry limit exceeded, deleting event: $eventType');
       _failureCountByEvent.remove(eventId);
       return false;
     }

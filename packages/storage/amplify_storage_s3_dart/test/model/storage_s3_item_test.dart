@@ -51,7 +51,7 @@ void main() {
         );
         fail("Expected exception wasn't thrown.");
       } on StorageException catch (error) {
-        expect(error, isA<StorageUnknownException>());
+        expect(error, isA<UnknownException>());
       }
     });
   });

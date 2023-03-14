@@ -194,19 +194,19 @@ class S3Exception extends StorageException {
       }
     }
 
-    return StorageUnknownException(
+    return UnknownException(
       'Unknown service error.',
       recoverySuggestion: _fileIssueMessage,
       underlyingException: exception,
     );
   }
 
-  /// Creates a [StorageUnknownException] for a [s3.S3Object] that is missing
+  /// Creates a [UnknownException] for a [s3.S3Object] that is missing
   /// a valid `key`, this exception should not happen normally.
-  static StorageUnknownException getS3ObjectMissingKeyException(
+  static UnknownException getS3ObjectMissingKeyException(
     s3.S3Object object,
   ) =>
-      StorageUnknownException(
+      UnknownException(
         'Missing key in a S3Object: $object',
         recoverySuggestion: _fileIssueMessage,
       );

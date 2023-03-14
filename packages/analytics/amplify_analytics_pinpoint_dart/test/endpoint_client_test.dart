@@ -4,7 +4,7 @@
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:test/test.dart';
@@ -259,6 +259,18 @@ void main() {
 
       // userAttributes cannot be set using category API (must use Pinpoint specific)
       expect(endpoint.user!.userAttributes, isNull);
+    });
+
+    test('updateEndpoint throws PinpointException from unrecognized exceptions',
+        () async {
+      when(() => pinpointClient.updateEndpoint(any())).thenThrow(Exception());
+
+      expect(
+        endpointClient.updateEndpoint(),
+        throwsA(
+          const TypeMatcher<AnalyticsException>(),
+        ),
+      );
     });
   });
 }
