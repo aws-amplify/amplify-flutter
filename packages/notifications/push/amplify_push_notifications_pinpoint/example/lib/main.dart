@@ -45,7 +45,6 @@ class _MyAppState extends State<MyApp> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
       globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
-      // print('globalBgCallbackCount -> $globalBgCallbackCount');
       return globalBgCallbackCount;
     } on Exception catch (e) {
       print('Error when get call $e');
@@ -71,21 +70,21 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       backgroundMessage = pushNotificationMessage;
     });
-    // try {
-    //   WidgetsFlutterBinding.ensureInitialized();
-    //   final prefs = await SharedPreferences.getInstance();
-    //   await prefs.reload();
-    //   var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-    //   globalBgCallbackCount =
-    //       globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-    //   await prefs.setInt(
-    //     globalBgCallbackKey,
-    //     globalBgCallbackCount,
-    //   );
-    // } on Exception catch (e) {
-    //   print(' error in handler: $e');
-    // }
-    // return;
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+      globalBgCallbackCount =
+          globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+      await prefs.setInt(
+        globalBgCallbackKey,
+        globalBgCallbackCount,
+      );
+    } on Exception catch (e) {
+      print(' error in handler: $e');
+    }
+    return;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -102,10 +101,6 @@ class _MyAppState extends State<MyApp> {
         print('Configuring Amplify.configure');
         await Amplify.addPlugins([authPlugin, notificationsPlugin]);
         await Amplify.configure(amplifyconfig);
-
-        // Amplify.Notifications.Push.onNotificationReceivedInBackground(
-        //   bgHandler,
-        // );
         setState(() {
           isConfigured = true;
         });
