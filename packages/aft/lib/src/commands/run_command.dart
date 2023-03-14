@@ -9,7 +9,7 @@ import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:collection/collection.dart';
 
-/// Command to list all Dart/Flutter packages in the repo.
+/// Command to run a predefined script in the repo.
 class RunCommand extends AmplifyCommand with GlobOptions, FailFastOption {
   @override
   String get description => 'Runs a pre-defined script from the configuration';
@@ -76,7 +76,7 @@ ${commandPaths.map((path) => '- $path').join('\n')}
           'package': package?.toJson(),
         }).trim();
         final fullScript = '''
-#/bin/sh
+#/bin/bash
 set -euo pipefail
 
 $renderedScript
@@ -94,16 +94,19 @@ $fullScript
           ..writeAsStringSync(fullScript);
         logger.info('Running `$scriptName` script in: $commandPath');
         final result = await execCommand(
-          ['sh', tempFile.path, ...arguments],
+          ['bash', tempFile.path, ...arguments],
           workingDirectory: commandPath,
         );
-        if (result.exitCode != 0 && failFast) {
-          throw ProcessException(
-            'sh ${tempFile.path}',
-            arguments,
-            '`$scriptName` failed for package: $commandPath',
-            result.exitCode,
-          );
+        if (result.exitCode != 0) {
+          exitCode = result.exitCode;
+          if (failFast) {
+            throw ProcessException(
+              'bash ${tempFile.path}',
+              arguments,
+              '`$scriptName` failed for package: $commandPath',
+              result.exitCode,
+            );
+          }
         }
       }
     } finally {

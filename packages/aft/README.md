@@ -48,14 +48,14 @@ A full list of available commands and options can be found by running `aft --hel
 - `run`: defines the script which will run
 
 ### Package Selectors
-The `from` option specifies as package selector which is a way to describe which packages (or more specifically, package paths) a script will run from. 
+The `from` option specifies a package selector which is a way to describe which packages (or more specifically, package paths) a script will run from. 
 
 Selectors can be:
 - A built-in selector:
   - `all`: All packages in the repo
-  - `dev`: All development packages (those which are neither examples nor tests)
   - `example`: Example apps
   - `test`: Packages used exclusively for testing
+  - `dev`: All development packages (those which are neither examples nor tests)
   - `root`: Selects the root repo directory
   - `current`: Selects the current directory
   - `dart`: All Dart packages
