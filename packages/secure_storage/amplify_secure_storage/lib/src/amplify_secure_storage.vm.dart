@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:amplify_secure_storage/src/amplify_secure_storage.android.dart';
 import 'package:amplify_secure_storage/src/messages.cupertino.g.dart';
+import 'package:amplify_secure_storage/src/path_provider_local.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
@@ -43,7 +44,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
             config: config.copyWith(
               windowsOptions: config.windowsOptions.copyWith(
                 storagePath: config.windowsOptions.storagePath ??
-                    (await getApplicationSupportDirectory()).path,
+                    (await getApplicationLocalSupportDirectory()).path,
               ),
             ),
           );
