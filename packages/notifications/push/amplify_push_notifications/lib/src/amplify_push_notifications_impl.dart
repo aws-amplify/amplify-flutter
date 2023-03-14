@@ -55,7 +55,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
   final PushNotificationsHostApi _hostApi;
-  late final _PushNotificationsFlutterApi _flutterApi;
+  final _PushNotificationsFlutterApi _flutterApi;
 
   late final Stream<String> _onTokenReceived;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
@@ -119,6 +119,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       authProviderRepo: authProviderRepo,
     );
 
+    await _registerDeviceWhenConfigure();
+    _attachEventChannelListeners();
+    onNotificationReceivedInBackground(_backgroundNotificationListener);
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
       final launchNotification =
@@ -126,10 +129,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _launchNotification = launchNotification;
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
-
-    _attachEventChannelListeners();
-    onNotificationReceivedInBackground(_backgroundNotificationListener);
-
     _isConfigured = true;
   }
 
@@ -171,6 +170,23 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Future<void> setBadgeCount(int badgeCount) async {
     await _hostApi.setBadgeCount(badgeCount);
+  }
+
+  Future<void> _registerDeviceWhenConfigure() async {
+    late String deviceToken;
+
+    try {
+      deviceToken = await onTokenReceived.first;
+      await _registerDevice(deviceToken);
+    } on Exception catch (error) {
+      // the error mostly like is the App doesn't have corresponding
+      // capability to request a push notification device token
+      throw PushNotificationException(
+        'Error occurred awaiting for device token to register device with Pinpoint',
+        recoverySuggestion: 'Please review the underlying exception',
+        underlyingException: error,
+      );
+    }
   }
 
   void _foregroundNotificationListener(
@@ -257,7 +273,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   final _eventQueue = <Map<Object?, Object?>>[];
 
   final _onNotificationReceivedInBackgroundCallbacks =
-      <OnRemoteMessageCallback>[];
+      <OnRemoteMessageCallback>{};
 
   Future<void> registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
@@ -280,14 +296,16 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
     for (final element in [..._eventQueue, withItem]) {
       if (element != null) {
+        final notification = PushNotificationMessage.fromJson(element);
         await Future.wait(
           _onNotificationReceivedInBackgroundCallbacks.map(
             (callback) async {
-              await callback(PushNotificationMessage.fromJson(element));
+              await callback(notification);
             },
           ),
         );
       }
     }
+    _eventQueue.clear();
   }
 }

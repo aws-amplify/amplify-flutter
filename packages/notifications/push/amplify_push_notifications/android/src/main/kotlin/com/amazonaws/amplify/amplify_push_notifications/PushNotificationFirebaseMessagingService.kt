@@ -41,7 +41,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        StreamHandlers.initStreamHandlers()
+        // Should initialize normally as it's initialized for the firs time.
+        StreamHandlers.initStreamHandlers(false)
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
 
@@ -54,7 +55,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         val extras = intent.extras ?: Bundle()
         // If we can't handle the message type coming in, just forward the intent to Firebase SDK
         if (!extras.isSupported) {
-            Log.d(TAG, "Message payload is not supported")
+            Log.i(TAG, "Message payload is not supported by Amplify")
             super.handleIntent(intent)
             return
         }
@@ -79,11 +80,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    val mainEngine = FlutterEngineCache.getInstance()
-                        .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
-                    if (mainEngine == null) {
-                        engineGroup.createAndRunDefaultEngine(baseContext)
-                    }
+                    runAppFromKilledState()
                     AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                         payload.asChannelMap()
                     ) {}
@@ -93,6 +90,18 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     )
                 }
             }
+        }
+    }
+
+    private fun runAppFromKilledState(){
+        // Check if there is already a main Flutter Engine running
+        val mainEngine = FlutterEngineCache.getInstance()
+            .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+        if (mainEngine == null) {
+            StreamHandlers.deInit()
+            // Create and run the default Flutter engine only when the main one is not running
+            // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
+            engineGroup.createAndRunDefaultEngine(baseContext)
         }
     }
 }

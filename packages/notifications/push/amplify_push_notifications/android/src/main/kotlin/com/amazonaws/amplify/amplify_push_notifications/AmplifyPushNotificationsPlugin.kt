@@ -73,14 +73,19 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var launchNotification: MutableMap<Any, Any?>? = null
 
+    /**
+     * Flutter cache that holds the created Flutter Engines.
+     */
+    private val _flutterEngineCache = FlutterEngineCache.getInstance()
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
-        FlutterEngineCache.getInstance().put(
+        _flutterEngineCache.put(
             PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
             flutterPluginBinding.flutterEngine
         )
-        StreamHandlers.initStreamHandlers()
+        // Force init stream handlers when the app is opened from killed state so old handlers are removed.
+        StreamHandlers.initStreamHandlers(true)
         StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
@@ -93,7 +98,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = null
-        FlutterEngineCache.getInstance().remove(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+        _flutterEngineCache.clear()
         StreamHandlers.deInit()
         PushNotificationsHostApi.setup(binding.binaryMessenger, null)
         flutterApi = null
@@ -241,6 +246,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             return@addOnCompleteListener
         }
     }
+
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
         return ActivityCompat.shouldShowRequestPermissionRationale(
