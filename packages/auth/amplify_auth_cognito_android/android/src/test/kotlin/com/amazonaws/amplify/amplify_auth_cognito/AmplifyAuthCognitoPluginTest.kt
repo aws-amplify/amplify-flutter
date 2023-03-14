@@ -520,7 +520,7 @@ class AmplifyAuthCognitoPluginTest {
         var attributeList = mutableListOf<AuthUserAttribute>(AuthUserAttribute(AuthUserAttributeKey.custom("email"), "test@test.test"))
         var expectedOptions = AWSCognitoAuthConfirmSignInOptions.builder().metadata(metadata).userAttributes(attributeList).build()
         verify(mockResult, times(1)).success(ArgumentMatchers.any<LinkedTreeMap<String, Any>>())
-        verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCode"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
+        verify(mockAuth).confirmSignIn(ArgumentMatchers.eq("confirmationCodeNOT"), ArgumentMatchers.eq(expectedOptions), ArgumentMatchers.any<Consumer<AuthSignInResult>>(), ArgumentMatchers.any<Consumer<AuthException>>())
     }
 
     @Test
