@@ -97,8 +97,7 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     
-    func test_signUpSuccessPhone() {
-        
+    func test_signUpSuccessPhone() {        
         class SignUpMock: AuthCognitoBridge {
             override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
                 let signUpRes = Result<AuthSignUpResult,AuthError>.success(
@@ -159,7 +158,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
-                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP_NOT", res.signUpStep)
+                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
                 let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
                 XCTAssertEqual(_phoneNumber, codeDeliveryJson["destination"]!)
 
