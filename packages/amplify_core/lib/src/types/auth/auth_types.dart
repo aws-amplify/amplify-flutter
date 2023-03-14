@@ -10,7 +10,6 @@ export '../exception/auth/session_expired_exception.dart';
 export '../exception/auth/signed_out_exception.dart';
 export '../exception/auth/user_cancelled_exception.dart';
 export '../exception/auth/validation_exception.dart';
-export '../exception/unknown_exception.dart';
 
 /// Attributes
 export 'attribute/auth_next_update_attribute_step.dart';
