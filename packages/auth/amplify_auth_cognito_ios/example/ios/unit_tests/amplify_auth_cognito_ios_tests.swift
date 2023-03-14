@@ -97,7 +97,8 @@ class amplify_auth_cognito_tests: XCTestCase {
     }
     
     
-    func test_signUpSuccessPhone() {        
+    func test_signUpSuccessPhone() {
+        
         class SignUpMock: AuthCognitoBridge {
             override func onSignUp(flutterResult: @escaping FlutterResult, request: FlutterSignUpRequest){
                 let signUpRes = Result<AuthSignUpResult,AuthError>.success(

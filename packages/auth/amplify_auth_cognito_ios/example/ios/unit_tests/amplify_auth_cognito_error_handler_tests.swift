@@ -29,7 +29,7 @@ class  amplify_auth_cognito_error_handler_tests: XCTestCase {
         errorHandler.handleAuthError(authError: authError, flutterResult: {(result)->Void in
             if let res = result as? FlutterError {
                let details = res.details as? Dictionary<String, String>
-               XCTAssertEqual( "NOTAliasExistsException", res.code )
+               XCTAssertEqual( "AliasExistsException", res.code )
                XCTAssert( ((details?["underlyingException"])! as String).contains(MockErrorTemplate))
                XCTAssertEqual( MockErrorConstants.aliasExistsError, details?["recoverySuggestion"])
                XCTAssertEqual( "Could not deliver code", details?["message"])
