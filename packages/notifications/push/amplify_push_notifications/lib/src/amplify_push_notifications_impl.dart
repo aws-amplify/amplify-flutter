@@ -129,7 +129,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _launchNotification = launchNotification;
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
-    print('Configured');
     _isConfigured = true;
   }
 
@@ -201,7 +200,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _backgroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    print('_backgroundNotificationListener');
     _serviceProviderClient.recordNotificationEvent(
       eventType: PinpointEventType.backgroundMessageReceived,
       notification: pushNotificationMessage,
