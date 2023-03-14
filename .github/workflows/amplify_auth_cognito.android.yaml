@@ -23,5 +23,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/auth/amplify_auth_cognito/example/android
+      working-directory: packages/auth/amplify_auth_cognito_android/example/android
       package-name: amplify_auth_cognito

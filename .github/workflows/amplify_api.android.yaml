@@ -23,5 +23,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/api/amplify_api/example/android
+      working-directory: packages/api/amplify_api_android/example/android
       package-name: amplify_api

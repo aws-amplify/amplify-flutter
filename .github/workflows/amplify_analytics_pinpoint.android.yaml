@@ -24,5 +24,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_android.yaml
     with:
-      working-directory: packages/analytics/amplify_analytics_pinpoint/example/android
+      working-directory: packages/analytics/amplify_analytics_pinpoint_android/example/android
       package-name: amplify_analytics_pinpoint
