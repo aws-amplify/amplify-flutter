@@ -214,8 +214,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         notification: pushNotificationMessage,
       );
 
-  Future<void> _tokenReceivedListener(String deviceToken) async {
-    await _registerDevice(deviceToken);
+  void _tokenReceivedListener(String deviceToken) {
+    unawaited(_registerDevice(deviceToken));
   }
 
   Future<void> _registerDevice(String address) async {
@@ -279,7 +279,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     OnRemoteMessageCallback callback,
   ) async {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
-    await _flushEvents();
+    unawaited(_flushEvents());
   }
 
   @override

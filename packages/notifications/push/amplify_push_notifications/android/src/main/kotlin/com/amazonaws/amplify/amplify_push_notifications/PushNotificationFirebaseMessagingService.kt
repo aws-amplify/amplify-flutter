@@ -98,7 +98,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
-            StreamHandlers.deInit()
             // Create and run the default Flutter engine only when the main one is not running
             // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
             engineGroup.createAndRunDefaultEngine(baseContext)

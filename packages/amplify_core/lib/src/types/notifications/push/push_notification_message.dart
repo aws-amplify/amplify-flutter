@@ -45,7 +45,7 @@ class PushNotificationMessage
           deeplinkUrl = pinpointData['deeplink'] as String?;
           goToUrl = deeplinkUrl;
         }
-        apnsOptions = ApnsPlatformOptions(subtitle: aps['subtitle'] as String);
+        apnsOptions = ApnsPlatformOptions(subtitle: aps['subtitle'] as String?);
       }
     } else {
       final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;

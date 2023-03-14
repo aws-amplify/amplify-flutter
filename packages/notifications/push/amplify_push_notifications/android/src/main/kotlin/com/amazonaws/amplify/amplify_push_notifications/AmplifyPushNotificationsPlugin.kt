@@ -80,6 +80,9 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
+
+        // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, can possible
+        //  just store a flag in shred preference to indicate main engine is already running.
         _flutterEngineCache.put(
             PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
             flutterPluginBinding.flutterEngine
