@@ -70,6 +70,6 @@ def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 
 dependencies {
     api amplifyFlutter
-    api "com.google.firebase:firebase-messaging:23.1.0"
+    api "com.google.firebase:firebase-messaging:23.1.2"
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-utils:2.1.0'
 }

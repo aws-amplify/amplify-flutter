@@ -237,7 +237,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                 }
                 return@addOnCompleteListener
             }
-            Log.i(TAG, task.result)
             StreamHandlers.tokenReceived?.send(
                 mapOf(
                     "token" to task.result
