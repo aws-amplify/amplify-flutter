@@ -83,8 +83,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationOpened =>
       _onNotificationOpened;
 
-  // TODO(Samaritan1011001): Add implementation for identifyUser
-
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     _flutterApi.registerOnReceivedInBackgroundCallback(callback);
@@ -129,8 +127,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
 
-    // TODO(Samaritan1011001): This gets called twice in killed state and suspends when token.first is not available
-    await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
     onNotificationReceivedInBackground(_backgroundNotificationListener);
 
@@ -202,26 +198,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         notification: pushNotificationMessage,
       );
 
-  void _tokenReceivedListener(String deviceToken) {
-    unawaited(_registerDevice(deviceToken));
+  Future<void> _tokenReceivedListener(String deviceToken) async {
+    await _registerDevice(deviceToken);
   }
 
   Future<void> _registerDevice(String address) async {
     try {
       await _serviceProviderClient.registerDevice(address);
       _logger.info('Successfully registered device with the service provider');
-    } on Exception {
-      throw const PushNotificationException(
-        'Error when registering device with the service provider: ',
-      );
-    }
-  }
-
-  Future<void> _registerDeviceWhenConfigure() async {
-    late String deviceToken;
-
-    try {
-      deviceToken = await onTokenReceived.first;
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -231,7 +215,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         underlyingException: error,
       );
     }
-    await _serviceProviderClient.registerDevice(deviceToken);
   }
 
   void _attachEventChannelListeners() {

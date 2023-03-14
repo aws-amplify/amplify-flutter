@@ -100,7 +100,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-        refreshToken()
         mainActivity = binding.activity
         activityBinding = binding
         binding.addOnNewIntentListener(this)
@@ -108,6 +107,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
         )
         onNewIntent(binding.activity.intent)
+        refreshToken()
     }
 
     override fun onDetachedFromActivity() {

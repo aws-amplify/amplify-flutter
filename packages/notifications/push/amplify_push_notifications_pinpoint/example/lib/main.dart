@@ -13,8 +13,6 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-// TODO: Drawback: app needs to be restarted for a new version of this function to be registered
-
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
@@ -73,23 +71,21 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       backgroundMessage = pushNotificationMessage;
     });
-    // try {
-    //   WidgetsFlutterBinding.ensureInitialized();
-    //   print('BG handler invoked');
-    //   final prefs = await SharedPreferences.getInstance();
-    //   await prefs.reload();
-    //   var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-    //   globalBgCallbackCount =
-    //       globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-    //   await prefs.setInt(
-    //     globalBgCallbackKey,
-    //     globalBgCallbackCount,
-    //   );
-    //   print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
-    // } on Exception catch (e) {
-    //   print(' error in handler: $e');
-    // }
-    // return;
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+      globalBgCallbackCount =
+          globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+      await prefs.setInt(
+        globalBgCallbackKey,
+        globalBgCallbackCount,
+      );
+    } on Exception catch (e) {
+      print(' error in handler: $e');
+    }
+    return;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -106,6 +102,9 @@ class _MyAppState extends State<MyApp> {
         await Amplify.addPlugins([authPlugin, notificationsPlugin]);
         await Amplify.configure(amplifyconfig);
 
+        Amplify.Notifications.Push.onNotificationReceivedInBackground(
+          bgHandler,
+        );
         setState(() {
           isConfigured = true;
         });
@@ -168,18 +167,6 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('Refresh count'),
               ),
-              // headerText('Configuration APIs'),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     await _configureAmplify();
-              //   },
-              //   child: const Text('configure'),
-              // ),
-              // if (isConfigured)
-              //   const Text('Push notification plugin has been configured'),
-              // const Divider(
-              //   height: 20,
-              // ),
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -207,7 +194,6 @@ class _MyAppState extends State<MyApp> {
                 Text(
                   'Requesting Perimission result: $requestPermissionsResult',
                 ),
-
               const Divider(
                 height: 20,
               ),
@@ -284,7 +270,6 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('onNotificationOpened'),
               ),
-
               if (notificationOpenedListernerInitialized)
                 const Text('OnNotificationOpened event listener initialized!'),
               ListTile(
