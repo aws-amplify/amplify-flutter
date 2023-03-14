@@ -40,14 +40,16 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
         if (Platform.isAndroid) {
           _instance = AmplifySecureStorageAndroid(config: config);
         } else {
-          _instance = AmplifySecureStorageWorker(
-            config: config.copyWith(
+          var config = this.config;
+          if (Platform.isWindows) {
+            config = config.copyWith(
               windowsOptions: config.windowsOptions.copyWith(
                 storagePath: config.windowsOptions.storagePath ??
                     (await getApplicationLocalSupportDirectory()).path,
               ),
-            ),
-          );
+            );
+          }
+          _instance = AmplifySecureStorageWorker(config: config);
         }
         if (Platform.isIOS || Platform.isMacOS || Platform.isLinux) {
           final accessGroup = Platform.isLinux
