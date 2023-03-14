@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-class AnalyticsUserProfileLocation {
+class UserProfileLocation {
   double? latitude;
   double? longitude;
   String? postalCode;
@@ -9,7 +9,7 @@ class AnalyticsUserProfileLocation {
   String? region;
   String? country;
 
-  AnalyticsUserProfileLocation({
+  UserProfileLocation({
     this.latitude,
     this.longitude,
     this.postalCode,

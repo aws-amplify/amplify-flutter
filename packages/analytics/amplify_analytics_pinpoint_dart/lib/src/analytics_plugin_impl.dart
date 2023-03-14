@@ -200,13 +200,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     await _eventClient.recordEvent(
       eventType: event.name,
       session: _sessionManager.session,
-      properties: event.properties,
+      properties: event.customProperties,
     );
   }
 
   @override
   Future<void> registerGlobalProperties({
-    required AnalyticsProperties globalProperties,
+    required CustomProperties globalProperties,
   }) async {
     _ensureConfigured();
     _eventClient.registerGlobalProperties(globalProperties);
@@ -223,7 +223,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     _ensureConfigured();
     await _endpointClient.setUser(userId, userProfile);

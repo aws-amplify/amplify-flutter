@@ -76,7 +76,7 @@ class EventClient implements Closeable {
   Future<void> recordEvent({
     required String eventType,
     Session? session,
-    AnalyticsProperties? properties,
+    CustomProperties? properties,
   }) async {
     final pinpointEvent = _eventCreator.createPinpointEvent(
       eventType,
@@ -86,14 +86,14 @@ class EventClient implements Closeable {
     await _eventStorage.saveEvent(pinpointEvent);
   }
 
-  /// Register [AnalyticsProperties] to be sent with all future events.
+  /// Register [CustomProperties] to be sent with all future events.
   void registerGlobalProperties(
-    AnalyticsProperties globalProperties,
+    CustomProperties globalProperties,
   ) {
     return _eventCreator.registerGlobalProperties(globalProperties);
   }
 
-  /// Unregister [AnalyticsProperties] to not be sent with all future events.
+  /// Unregister [CustomProperties] to not be sent with all future events.
   void unregisterGlobalProperties(
     List<String> propertyNames,
   ) {

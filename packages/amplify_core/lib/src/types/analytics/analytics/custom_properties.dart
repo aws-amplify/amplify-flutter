@@ -3,8 +3,8 @@
 
 import 'dart:collection';
 
-class AnalyticsProperties {
-  AnalyticsProperties();
+class CustomProperties {
+  CustomProperties();
 
   final Map<String, Object> _properties = {};
   final Map<String, String> _propertiesTypes = {};
