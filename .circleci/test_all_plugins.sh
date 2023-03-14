@@ -4,7 +4,7 @@ set -uo pipefail
 
 KIND=$1
 PLUGIN=$2
-EXAMPLE_DIR=$3
+EXAMPLE_DIR=${3:-example}
 
 case $KIND in
     flutter)
@@ -16,6 +16,9 @@ case $KIND in
         fi
 
         mkdir -p test-results
+        if ! command -v tojunit >/dev/null; then
+            dart pub global activate junitreport
+        fi
         if flutter test --machine --coverage | tojunit --output "test-results/$PLUGIN-flutter-test.xml"; then
             echo "PASSED: Flutter unit tests for $PLUGIN passed."
         else

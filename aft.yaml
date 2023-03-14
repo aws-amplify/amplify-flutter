@@ -1,9 +1,9 @@
 # Global dependency versions for third-party dependencies of
 # Amplify Flutter projects. These represent the values which
-# have been vetted by manual review and should be used consistently 
+# have been vetted by manual review and should be used consistently
 # across all packages.
 #
-# Application of these values can be verified/updated with the `aft` 
+# Application of these values can be verified/updated with the `aft`
 # tool.
 dependencies:
   async: ^2.10.0
@@ -22,80 +22,80 @@ dependencies:
 
 # The current constraints for SDKs and OSs.
 environment:
-  sdk: '>=2.18.0 <4.0.0'
-  flutter: '>=3.3.0'
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
   android:
-    minSdkVersion: '24'
+    minSdkVersion: "24"
   ios:
-    minOSVersion: '13.0'
+    minOSVersion: "13.0"
   macOS:
-    minOSVersion: '10.15'
+    minOSVersion: "10.15"
 
 # Packages to ignore in all repo operations.
 ignore:
   - synthetic_package
   - libgit2dart
 
-# Strongly connected components which should have version bumps happen 
+# Strongly connected components which should have version bumps happen
 # in unison, i.e. a version bump to one package cascades to all.
 #
 # By default, this happens only for minor version bumps. However, this
-# can be modified on a per-component basis using the `propagate` flag. 
+# can be modified on a per-component basis using the `propagate` flag.
 components:
   - name: Amplify Flutter
     summary: amplify_flutter
     packages:
-    - amplify_flutter
-    - amplify_flutter_ios
-    - amplify_flutter_android
-    - amplify_core
-    - amplify_datastore
-    - amplify_datastore_plugin_interface
-    - amplify_analytics_pinpoint
-    - amplify_api
-    - amplify_api_android
-    - amplify_api_ios
-    - amplify_auth_cognito
-    - amplify_auth_cognito_android
-    - amplify_auth_cognito_ios
-    - amplify_storage_s3
+      - amplify_flutter
+      - amplify_flutter_ios
+      - amplify_flutter_android
+      - amplify_core
+      - amplify_datastore
+      - amplify_datastore_plugin_interface
+      - amplify_analytics_pinpoint
+      - amplify_api
+      - amplify_api_android
+      - amplify_api_ios
+      - amplify_auth_cognito
+      - amplify_auth_cognito_android
+      - amplify_auth_cognito_ios
+      - amplify_storage_s3
   - name: Amplify Dart
     summary: amplify_core
     propagate: none
     packages:
-    - amplify_analytics_pinpoint_dart
-    - amplify_api_dart
-    - amplify_auth_cognito_dart
-    - amplify_storage_s3_dart
+      - amplify_analytics_pinpoint_dart
+      - amplify_api_dart
+      - amplify_auth_cognito_dart
+      - amplify_storage_s3_dart
   - name: Amplify UI
     packages:
-    - amplify_authenticator
+      - amplify_authenticator
   - name: DB Common
     summary: amplify_db_common
     packages:
-    - amplify_db_common
-    - amplify_db_common_dart
+      - amplify_db_common
+      - amplify_db_common_dart
   - name: Secure Storage
     summary: amplify_secure_storage
     packages:
-    - amplify_secure_storage
-    - amplify_secure_storage_dart
+      - amplify_secure_storage
+      - amplify_secure_storage_dart
   - name: AWS Common
     summary: aws_common
     propagate: none
     packages:
-    - aws_common
-    - aws_signature_v4
+      - aws_common
+      - aws_signature_v4
   - name: Smithy
     summary: smithy
     packages:
-    - smithy
-    - smithy_aws
+      - smithy
+      - smithy_aws
   - name: Worker Bee
     summary: worker_bee
     packages:
-    - worker_bee
-    - worker_bee_builder
+      - worker_bee
+      - worker_bee_builder
 
 scripts:
   license:
@@ -107,7 +107,7 @@ scripts:
     from: all
     run: aft format --set-exit-if-changed .
   analyze:
-    description: Runs Dart analysis in all packages 
+    description: Runs Dart analysis in all packages
     from: all
     run: aft analyze $@
   test:unit:flutter:
