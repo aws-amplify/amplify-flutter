@@ -159,7 +159,7 @@ class amplify_auth_cognito_tests: XCTestCase {
         plugin.handle(call, result: {(result)->Void in
             if let res = result as? FlutterSignUpResult {
                 XCTAssertEqual( false, res.isSignUpComplete )
-                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP", res.signUpStep)
+                XCTAssertEqual( "CONFIRM_SIGN_UP_STEP_NOT", res.signUpStep)
                 let codeDeliveryJson = ((res.toJSON()["nextStep"] as! [String: Any])["codeDeliveryDetails"] as! [String: String])
                 XCTAssertEqual(_phoneNumber, codeDeliveryJson["destination"]!)
 
