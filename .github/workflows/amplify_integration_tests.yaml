@@ -4,7 +4,7 @@ on:
     branches: [main, next, stable, feat/**]
   schedule:
     # 6am pacific time daily, only runs on default branch
-    - cron:  '0 13 * * *'
+    - cron: "0 13 * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,6 +23,7 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
@@ -35,9 +36,9 @@ jobs:
       # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
         with:
-          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
-          java-version: '11'
-      
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -70,6 +71,7 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
@@ -78,7 +80,7 @@ jobs:
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -111,6 +113,8 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          # TODO(dnys1): Web UI tests are not currently able to be run in CI
+          # - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -118,7 +122,7 @@ jobs:
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -147,9 +151,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          # TODO(dnys1): macOS tests are failing for some reason
+          # - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -157,11 +163,11 @@ jobs:
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
-          flutter-version: '3.3.0'
+          flutter-version: "3.3.0"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -189,6 +195,7 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -196,7 +203,7 @@ jobs:
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -226,6 +233,7 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
     steps:
@@ -236,7 +244,7 @@ jobs:
 
       - name: Change path restrictions
         run: git config --global core.longpaths true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
