@@ -51,6 +51,9 @@ abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
   const factory SignInEvent.succeeded(CognitoUser user) = SignInSucceeded;
 
+  /// Client metadata for the sign in flow.
+  Map<String, String> get clientMetadata => const {};
+
   @override
   PreconditionException? checkPrecondition(SignInState currentState) => null;
 
@@ -77,6 +80,7 @@ class SignInInitiate extends SignInEvent {
   final SignInParameters parameters;
 
   /// The optional client metadata.
+  @override
   final Map<String, String> clientMetadata;
 
   @override
@@ -113,6 +117,7 @@ class SignInRespondToChallenge extends SignInEvent {
   final String answer;
 
   /// The optional client metadata.
+  @override
   final Map<String, String> clientMetadata;
 
   /// Required user attributes which were not previously provided.
