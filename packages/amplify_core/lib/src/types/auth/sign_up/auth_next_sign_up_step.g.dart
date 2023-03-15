@@ -19,9 +19,7 @@ Map<String, dynamic> _$AuthNextSignUpStepToJson(AuthNextSignUpStep instance) {
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['hashCode'] = instance.hashCode;
   val['signUpStep'] = _$AuthSignUpStepEnumMap[instance.signUpStep]!;
-  val['props'] = instance.props;
   val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }

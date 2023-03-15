@@ -11,8 +11,6 @@ part of 'resend_user_attribute_confirmation_code_result.dart';
 Map<String, dynamic> _$ResendUserAttributeConfirmationCodeResultToJson(
         ResendUserAttributeConfirmationCodeResult instance) =>
     <String, dynamic>{
-      'hashCode': instance.hashCode,
       'codeDeliveryDetails': instance.codeDeliveryDetails.toJson(),
-      'props': instance.props,
       'runtimeTypeName': instance.runtimeTypeName,
     };

@@ -28,6 +28,9 @@ class SignInResult<Key extends AuthUserAttributeKey>
   final AuthNextSignInStep<Key> nextStep;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [isSignedIn, nextStep];
 
   @override

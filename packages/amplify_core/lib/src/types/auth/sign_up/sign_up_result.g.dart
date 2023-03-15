@@ -10,7 +10,6 @@ part of 'sign_up_result.dart';
 
 Map<String, dynamic> _$SignUpResultToJson(SignUpResult instance) {
   final val = <String, dynamic>{
-    'hashCode': instance.hashCode,
     'isSignUpComplete': instance.isSignUpComplete,
     'nextStep': instance.nextStep.toJson(),
   };
@@ -22,7 +21,6 @@ Map<String, dynamic> _$SignUpResultToJson(SignUpResult instance) {
   }
 
   writeNotNull('userId', instance.userId);
-  val['props'] = instance.props;
   val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }

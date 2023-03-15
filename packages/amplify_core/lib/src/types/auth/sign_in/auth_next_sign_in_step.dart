@@ -35,6 +35,9 @@ class AuthNextSignInStep<Key extends AuthUserAttributeKey> extends AuthNextStep
   final List<Key> missingAttributes;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [
         signInStep,
         missingAttributes,
