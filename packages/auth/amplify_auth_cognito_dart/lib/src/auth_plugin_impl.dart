@@ -99,21 +99,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   /// Validates [pluginOptions] is an instance of [T]
   @protected
-  static T validatePluginOptions<T>(
+  static T validatePluginOptions<T extends AWSDebuggable>(
     Object? pluginOptions, {
     required T defaultOptions,
-    required String requiredTypeName,
   }) {
     if (pluginOptions == null) {
       return defaultOptions;
     }
     if (pluginOptions is! T) {
       throw ArgumentError(
-        'Expected pluginOptions with type "$requiredTypeName" but got: '
-        '$pluginOptions',
+        'Expected pluginOptions with type "${defaultOptions.runtimeTypeName}" '
+        'but got: $pluginOptions',
       );
     }
-    return pluginOptions as T;
+    return pluginOptions;
   }
 
   /// Capture the initial parameters on instantiation of this class.
@@ -376,7 +375,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoSignInWithWebUIPluginOptions(),
-      requiredTypeName: 'CognitoSignInWithWebUIPluginOptions',
     );
 
     // Create a new state machine which will close the previous one and cancel
@@ -428,7 +426,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options.pluginOptions,
       defaultOptions: const CognitoSignUpPluginOptions(),
-      requiredTypeName: 'CognitoSignUpPluginOptions',
     );
     await _stateMachine
         .accept(
@@ -491,7 +488,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options.pluginOptions,
       defaultOptions: const CognitoConfirmSignUpPluginOptions(),
-      requiredTypeName: 'CognitoConfirmSignUpPluginOptions',
     );
     await _stateMachine
         .accept(
@@ -547,7 +543,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoResendSignUpCodePluginOptions(),
-      requiredTypeName: 'CognitoResendSignUpCodePluginOptions',
     );
     final result = await _cognitoIdp.resendConfirmationCode(
       cognito.ResendConfirmationCodeRequest.build((b) {
@@ -586,7 +581,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoSignInPluginOptions(),
-      requiredTypeName: 'CognitoSignInPluginOptions',
     );
 
     // Create a new state machine for every call since it caches values
@@ -664,7 +658,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoConfirmSignInPluginOptions(),
-      requiredTypeName: 'CognitoConfirmSignInPluginOptions',
     );
     await _stateMachine
         .accept(
@@ -739,7 +732,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoUpdateUserAttributePluginOptions(),
-      requiredTypeName: 'CognitoUpdateUserAttributePluginOptions',
     );
     final results = await updateUserAttributes(
       attributes: [
@@ -766,7 +758,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoUpdateUserAttributesPluginOptions(),
-      requiredTypeName: 'CognitoUpdateUserAttributesPluginOptions',
     );
     final tokens = await stateMachine.getUserPoolTokens();
     final response = await _cognitoIdp
@@ -837,8 +828,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       options?.pluginOptions,
       defaultOptions:
           const CognitoResendUserAttributeConfirmationCodePluginOptions(),
-      requiredTypeName:
-          'CognitoResendUserAttributeConfirmationCodePluginOptions',
     );
     final tokens = await stateMachine.getUserPoolTokens();
     final result = await _cognitoIdp
@@ -887,7 +876,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoResetPasswordPluginOptions(),
-      requiredTypeName: 'CognitoResetPasswordPluginOptions',
     );
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
@@ -934,7 +922,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     final pluginOptions = validatePluginOptions(
       options?.pluginOptions,
       defaultOptions: const CognitoConfirmResetPasswordPluginOptions(),
-      requiredTypeName: 'CognitoConfirmResetPasswordPluginOptions',
     );
     await _cognitoIdp.confirmForgotPassword(
       cognito.ConfirmForgotPasswordRequest.build((b) {
