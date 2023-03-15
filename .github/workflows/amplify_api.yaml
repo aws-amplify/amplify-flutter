@@ -1,0 +1,26 @@
+name: amplify_api
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - 'packages/api/amplify_api/**/*.dart'
+      - 'packages/api/amplify_api/**/*.yaml'
+      - 'packages/api/amplify_api/lib/**/*'
+      - 'packages/api/amplify_api/test/**/*'
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_api.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_vm.yaml
+    with:
+      working-directory: packages/api/amplify_api
