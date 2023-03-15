@@ -6,6 +6,7 @@ import type * as lambda from "aws-lambda";
 export const handler: lambda.VerifyAuthChallengeResponseTriggerHandler = async (
   event: lambda.VerifyAuthChallengeResponseTriggerEvent
 ): Promise<lambda.VerifyAuthChallengeResponseTriggerEvent> => {
+  console.log(`Got request: ${JSON.stringify(event.request, null, 2)}`);
   if (
     event.request.privateChallengeParameters.answer ===
     event.request.challengeAnswer
