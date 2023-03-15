@@ -19,9 +19,7 @@ Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['hashCode'] = instance.hashCode;
   val['updateStep'] = _$AuthResetPasswordStepEnumMap[instance.updateStep]!;
-  val['props'] = instance.props;
   val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }
