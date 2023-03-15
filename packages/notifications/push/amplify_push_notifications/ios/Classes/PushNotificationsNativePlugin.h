@@ -64,7 +64,6 @@ NSObject<FlutterMessageCodec> *PushNotificationsHostApiGetCodec(void);
 /// @return `nil` only when `error != nil`.
 - (nullable NSNumber *)getBadgeCountWithError:(FlutterError *_Nullable *_Nonnull)error;
 - (void)setBadgeCountWithBadgeCount:(NSNumber *)withBadgeCount error:(FlutterError *_Nullable *_Nonnull)error;
-- (void)registerCallbackFunctionCallbackHandle:(NSNumber *)callbackHandle callbackType:(CallbackType)callbackType error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void PushNotificationsHostApiSetup(id<FlutterBinaryMessenger> binaryMessenger, NSObject<PushNotificationsHostApi> *_Nullable api);

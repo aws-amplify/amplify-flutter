@@ -94,8 +94,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationOpened =>
       _onNotificationOpened;
 
-  // TODO(Samaritan1011001): Add implementation for identifyUser
-
   @override
   void onNotificationReceivedInBackground(OnRemoteMessageCallback callback) {
     if (Platform.isAndroid) {
@@ -104,7 +102,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         CallbackType.externalFunction,
       );
     } else if (Platform.isIOS) {
-      // TODO(Samaritan1011001): For iOS decide where to record BG event
       _flutterApi.registerOnReceivedInBackgroundCallback(callback);
     }
   }
@@ -114,8 +111,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final notificationsConfig = config?.notifications?.awsPlugin;
-    if (notificationsConfig == null) {
+    final analyticsConfig = config?.analytics?.awsPlugin;
+    if (analyticsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
     }
 
@@ -125,20 +122,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
-      config: notificationsConfig,
+      config: config,
       authProviderRepo: authProviderRepo,
     );
 
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
-
-    final rawLaunchNotification = await _hostApi.getLaunchNotification();
-    if (rawLaunchNotification != null) {
-      final launchNotification =
-          PushNotificationMessage.fromJson(rawLaunchNotification);
-      _launchNotification = launchNotification;
-      _recordAnalyticsForLaunchNotification(launchNotification);
-    }
+    await _recordAnalyticsForLaunchNotification();
 
     // Register the callback dispatcher
     await _registerCallback(
@@ -193,19 +183,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    _serviceProviderClient.recordNotificationEvent(
-      eventType: PinpointEventType.foregroundMessageReceived,
-      notification: pushNotificationMessage,
-    );
+    // TODO(Samaritan1011001): Record Analytics
   }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
   ) {
-    _serviceProviderClient.recordNotificationEvent(
-      eventType: PinpointEventType.notificationOpened,
-      notification: pushNotificationMessage,
-    );
+    // TODO(Samaritan1011001): Record Analytics
   }
 
   void _tokenReceivedListener(String deviceToken) {
@@ -246,6 +230,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     try {
       deviceToken = await onTokenReceived.first;
+      _logger.info('Device Token: $deviceToken');
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -282,13 +267,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     });
   }
 
-  void _recordAnalyticsForLaunchNotification(
-    PushNotificationMessage launchNotification,
-  ) {
-    _serviceProviderClient.recordNotificationEvent(
-      eventType: PinpointEventType.notificationOpened,
-      notification: launchNotification,
-    );
+  Future<void> _recordAnalyticsForLaunchNotification() async {
+    if (_launchNotificationForAnalytics == null) {
+      return;
+    }
+
+    // TODO(Samaritan1011001): integrate analytic recodEvent
+
+    _launchNotificationForAnalytics = null;
   }
 }
 
@@ -297,20 +283,20 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     PushNotificationsFlutterApi.setup(this);
   }
 
-  final onNotificationReceivedInBackgroundCallbacks =
+  final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
-  final onLaunchNotificationOpenedCallbacks = <OnRemoteMessageCallback>[];
+  final _onLaunchNotificationOpenedCallbacks = <OnRemoteMessageCallback>[];
 
   Future<void> registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
   ) async {
-    onNotificationReceivedInBackgroundCallbacks.add(callback);
+    _onNotificationReceivedInBackgroundCallbacks.add(callback);
   }
 
   void registerOnLaunchNotificationOpenedCallback(
     OnRemoteMessageCallback callback,
   ) {
-    onLaunchNotificationOpenedCallbacks.add(callback);
+    _onLaunchNotificationOpenedCallbacks.add(callback);
   }
 
   @override
@@ -318,7 +304,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     Map<Object?, Object?> payload,
   ) async {
     await Future.wait(
-      onNotificationReceivedInBackgroundCallbacks.map(
+      _onNotificationReceivedInBackgroundCallbacks.map(
         (callback) async {
           await callback(PushNotificationMessage.fromJson(payload));
         },
@@ -328,12 +314,12 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
 
   @override
   void onLaunchNotificationOpened(Map<Object?, Object?> payload) {
-    for (final callback in onLaunchNotificationOpenedCallbacks) {
+    for (final callback in _onLaunchNotificationOpenedCallbacks) {
       callback(PushNotificationMessage.fromJson(payload));
     }
 
     // these callbacks are called only once as onLaunchNotificationOpened can
     // only happen once
-    onLaunchNotificationOpenedCallbacks.clear();
+    _onLaunchNotificationOpenedCallbacks.clear();
   }
 }

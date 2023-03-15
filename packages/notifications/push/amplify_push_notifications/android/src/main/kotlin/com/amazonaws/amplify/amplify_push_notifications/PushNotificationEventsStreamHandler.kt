@@ -124,8 +124,10 @@ class StreamHandlers {
          * Separating the initialization methods allows for stream handler initialization that is useful
          * for queuing work when binary messenger is not ready e.g FirebaseService's onNewToken
          */
-        @JvmStatic
         fun initStreamHandlers() {
+            // We deInit first to make sure the handlers are refreshed, especially needed when calling from
+            // onAttachedToEngine when the app is opened from the killed state.
+            deInit()
             // Should only be initialized once
             if (!isInitStreamHandlers) {
                 tokenReceived = PushNotificationEventsStreamHandler(
@@ -156,15 +158,13 @@ class StreamHandlers {
          * Method to de-initialize the event channels
          */
         fun deInit() {
-            if (isInitStreamHandlers) {
-                tokenReceived?.deInitEventChannel()
-                notificationOpened?.deInitEventChannel()
-                foregroundMessageReceived?.deInitEventChannel()
-                tokenReceived = null
-                notificationOpened = null
-                foregroundMessageReceived = null
-                isInitStreamHandlers = false
-            }
+            tokenReceived?.deInitEventChannel()
+            notificationOpened?.deInitEventChannel()
+            foregroundMessageReceived?.deInitEventChannel()
+            tokenReceived = null
+            notificationOpened = null
+            foregroundMessageReceived = null
+            isInitStreamHandlers = false
         }
     }
 }

@@ -7,30 +7,37 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsFlutterApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
-import com.google.firebase.messaging.FirebaseMessaging
-import io.flutter.Log
+import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
+import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 
 private const val TAG = "AmplifyPushNotificationsPlugin"
 
 /** AmplifyPushNotificationsPlugin */
 open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     PluginRegistry.NewIntentListener, PushNotificationsHostApi {
-    private companion object {
+    companion object {
         /**
          * The scope in which to spawn tasks which should not be awaited from the main thread.
          */
         val scope =
             CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.PushNotifications")
+
+        /**
+         * Flutter API interface.
+         */
+        var flutterApi: PushNotificationsFlutterApi? = null
     }
 
     /**
@@ -59,10 +66,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
-    /**
-     * Flutter API interface.
-     */
-    private var flutterApi: PushNotificationsFlutterApi? = null
 
     /**
      * Launch notification has the notification map when app was launched by tapping on the notification
@@ -70,42 +73,68 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var launchNotification: MutableMap<Any, Any?>? = null
 
+    /**
+     * Flutter cache that holds the created Flutter Engines.
+     */
+    private val _flutterEngineCache = FlutterEngineCache.getInstance()
+
+    /**
+     * Android app activity Lifecycle provider
+     */
+    private var _lifecycle: Lifecycle? = null
+
+    /**
+     * Plugin's lifecycle observer used to implement onCreate and onResume methods to refresh token
+     */
+    private val _lifecycleObserver: LifecycleObserver = AmplifyLifecycleObserver()
+
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
+
+        // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, is possible to
+        //  just store a flag in shred preference to indicate main engine is already running.
+        _flutterEngineCache.put(
+            PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
+            flutterPluginBinding.flutterEngine
+        )
+        // Force init stream handlers when the app is opened from killed state so old handlers are removed.
+        StreamHandlers.initStreamHandlers()
+        StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
         applicationContext = flutterPluginBinding.applicationContext
         sharedPreferences = applicationContext.getSharedPreferences(
             PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
         )
+        refreshToken()
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = null
+        _flutterEngineCache.clear()
+        StreamHandlers.deInit()
         PushNotificationsHostApi.setup(binding.binaryMessenger, null)
         flutterApi = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        _lifecycle = FlutterLifecycleAdapter.getActivityLifecycle(binding)
+        _lifecycle?.addObserver(_lifecycleObserver)
         mainActivity = binding.activity
         activityBinding = binding
-        mainBinaryMessenger?.let {
-            StreamHandlers.initStreamHandlers()
-            StreamHandlers.initEventChannels(it)
-        }
         binding.addOnNewIntentListener(this)
         binding.activity.intent.putExtra(
             PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
         )
         onNewIntent(binding.activity.intent)
-        refreshToken()
     }
 
     override fun onDetachedFromActivity() {
-        activityBinding?.removeOnNewIntentListener(this)
+        _lifecycle?.removeObserver(_lifecycleObserver)
+        _lifecycle = null
         mainActivity = null
+        activityBinding?.removeOnNewIntentListener(this)
         activityBinding = null
-        StreamHandlers.deInit()
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -210,53 +239,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         throw NotImplementedError("Get badge count is not supported on Android")
     }
 
-    override fun registerCallbackFunction(
-        callbackHandle: Long,
-        callbackType: PushNotificationsHostApiBindings.CallbackType,
-    ) {
-        when (callbackType) {
-            PushNotificationsHostApiBindings.CallbackType.DISPATCHER -> registerCallbackToCache(
-                callbackHandle, PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY,
-            )
-            PushNotificationsHostApiBindings.CallbackType.EXTERNAL_FUNCTION -> registerCallbackToCache(
-                callbackHandle, PushNotificationPluginConstants.BG_EXTERNAL_CALLBACK_HANDLE_KEY,
-            )
-        }
-        return
-    }
-
     override fun setBadgeCount(withBadgeCount: Long) {
         throw NotImplementedError("Set badge count is not supported on Android")
-    }
-
-
-    private fun registerCallbackToCache(
-        callbackHandle: Long,
-        callbackKey: String,
-    ) {
-        Log.i(TAG, "Registering callback function with key $callbackKey")
-        sharedPreferences.edit().putLong(callbackKey, callbackHandle).apply()
-        return
-    }
-
-    private fun refreshToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                if (task.exception == null) {
-                    Log.e(TAG, "UnknownError: fetching device token.")
-                } else {
-                    StreamHandlers.tokenReceived?.sendError(task.exception!!)
-                }
-                return@addOnCompleteListener
-            }
-            Log.i(TAG, task.result)
-            StreamHandlers.tokenReceived?.send(
-                mapOf(
-                    "token" to task.result
-                )
-            )
-            return@addOnCompleteListener
-        }
     }
 
     private fun shouldShowRequestPermissionRationale(): Boolean {

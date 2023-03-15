@@ -9,6 +9,7 @@ import android.util.Log
 import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsConstants
 import com.amplifyframework.pushnotifications.pinpoint.utils.toNotificationsPayload
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 private const val TAG = "PushNotificationUtils"
@@ -55,3 +56,21 @@ fun Context.getLaunchActivityClass(): Class<*>? {
 val Bundle.isSupported: Boolean
     get() = keySet().any { it.contains(PushNotificationsConstants.PINPOINT_PREFIX) }
 
+fun refreshToken() {
+    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+        if (!task.isSuccessful) {
+            if (task.exception == null) {
+                io.flutter.Log.e(TAG, "UnknownError: fetching device token.")
+            } else {
+                StreamHandlers.tokenReceived?.sendError(task.exception!!)
+            }
+            return@addOnCompleteListener
+        }
+        StreamHandlers.tokenReceived?.send(
+            mapOf(
+                "token" to task.result
+            )
+        )
+        return@addOnCompleteListener
+    }
+}

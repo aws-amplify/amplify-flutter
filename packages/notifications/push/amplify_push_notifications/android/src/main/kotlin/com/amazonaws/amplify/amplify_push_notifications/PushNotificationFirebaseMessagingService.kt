@@ -11,9 +11,11 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessag
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
-import io.flutter.view.FlutterMain
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.FlutterEngineGroup
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
+
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     /**
@@ -21,9 +23,16 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      */
     private lateinit var utils: PushNotificationsUtils
 
+    /**
+     * Flutter Engine group that holds main and background engines
+     */
+    private lateinit var engineGroup: FlutterEngineGroup
+
     override fun onCreate() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
+        engineGroup = FlutterEngineGroup(baseContext)
+
     }
 
     /**
@@ -32,6 +41,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
+        // Should initialize normally as it's initialized for the first time.
         StreamHandlers.initStreamHandlers()
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
@@ -45,7 +55,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         val extras = intent.extras ?: Bundle()
         // If we can't handle the message type coming in, just forward the intent to Firebase SDK
         if (!extras.isSupported) {
-            Log.d(TAG, "Message payload is not supported")
+            Log.i(TAG, "Message payload is not supported by Amplify")
             super.handleIntent(intent)
             return
         }
@@ -67,21 +77,30 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     utils.showNotification(
                         payload, baseContext.getLaunchActivityClass()
                     )
-
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    FlutterMain.startInitialization(baseContext)
-                    FlutterMain.ensureInitializationComplete(baseContext, null)
-                    PushNotificationBackgroundService.enqueueWork(
-                        baseContext, remoteMessage.toIntent()
-                    )
+                    runAppFromKilledState()
+                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+                        payload.asChannelMap()
+                    ) {}
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"
                     )
                 }
             }
+        }
+    }
+
+    private fun runAppFromKilledState(){
+        // Check if there is already a main Flutter Engine running
+        val mainEngine = FlutterEngineCache.getInstance()
+            .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
+        if (mainEngine == null) {
+            // Create and run the default Flutter engine only when the main one is not running
+            // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
+            engineGroup.createAndRunDefaultEngine(baseContext)
         }
     }
 }
