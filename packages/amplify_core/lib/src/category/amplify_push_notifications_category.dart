@@ -86,7 +86,7 @@ class PushNotificationsCategory
   /// {@template amplify_core.amplify_push_notifications_category.identify_user}
   /// Associate the given user information with the current device.
   ///
-  /// Useful for targeting user centric push notification campaigns.
+  /// Useful for targeting user-centric push notification campaigns.
   /// {@endtemplate}
   Future<void> identifyUser({
     required String userId,

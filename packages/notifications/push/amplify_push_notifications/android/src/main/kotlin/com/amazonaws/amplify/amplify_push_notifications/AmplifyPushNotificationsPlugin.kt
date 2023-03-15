@@ -92,14 +92,14 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
 
-        // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, can possible
+        // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, is possible to
         //  just store a flag in shred preference to indicate main engine is already running.
         _flutterEngineCache.put(
             PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
             flutterPluginBinding.flutterEngine
         )
         // Force init stream handlers when the app is opened from killed state so old handlers are removed.
-        StreamHandlers.initStreamHandlers(true)
+        StreamHandlers.initStreamHandlers()
         StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)

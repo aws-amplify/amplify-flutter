@@ -174,10 +174,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
-
     try {
       deviceToken = await onTokenReceived.first;
-      await _registerDevice(deviceToken);
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -187,6 +185,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         underlyingException: error,
       );
     }
+    await _registerDevice(deviceToken);
   }
 
   void _foregroundNotificationListener(
@@ -294,17 +293,16 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   }
 
   Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
-    for (final element in [..._eventQueue, withItem]) {
-      if (element != null) {
-        final notification = PushNotificationMessage.fromJson(element);
-        await Future.wait(
-          _onNotificationReceivedInBackgroundCallbacks.map(
-            (callback) async {
-              await callback(notification);
-            },
-          ),
-        );
-      }
+    for (final element
+        in [..._eventQueue, withItem].whereType<Map<Object?, Object?>>()) {
+      final notification = PushNotificationMessage.fromJson(element);
+      await Future.wait(
+        _onNotificationReceivedInBackgroundCallbacks.map(
+          (callback) async {
+            await callback(notification);
+          },
+        ),
+      );
     }
     _eventQueue.clear();
   }

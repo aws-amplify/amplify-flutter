@@ -41,8 +41,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        // Should initialize normally as it's initialized for the firs time.
-        StreamHandlers.initStreamHandlers(false)
+        // Should initialize normally as it's initialized for the first time.
+        StreamHandlers.initStreamHandlers()
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
 
