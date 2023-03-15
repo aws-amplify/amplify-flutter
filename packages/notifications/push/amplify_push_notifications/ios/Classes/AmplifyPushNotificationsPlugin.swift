@@ -96,7 +96,4 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
         UIApplication.shared.applicationIconBadgeNumber = withBadgeCount.intValue
     }
     
-    public func registerCallbackFunctionCallbackHandle(_ callbackHandle: NSNumber, callbackType: CallbackType, error: AutoreleasingUnsafeMutablePointer<FlutterError?>) {
-        // noop on iOS since this method is used to register callbacks on Android
-    }
 }
