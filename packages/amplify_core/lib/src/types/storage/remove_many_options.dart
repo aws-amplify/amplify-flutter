@@ -4,11 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.remove_many_options}
-/// Configurable options to initiate a [StorageRemoveManyRequest].
+/// Configurable options for `Amplify.Storage.removeMany`.
 /// {@endtemplate}
-class StorageRemoveManyOptions extends StorageOperationOptions {
+class StorageRemoveManyOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.remove_many_options}
   const StorageRemoveManyOptions({
     required super.accessLevel,
+    this.pluginOptions,
   });
+
+  /// plugin specific options for `Amplify.Storage.removeMany`.
+  final PluginOptions? pluginOptions;
 }

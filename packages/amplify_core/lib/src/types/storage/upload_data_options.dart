@@ -4,11 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.upload_data_options}
-/// Configurable options to initiate a [StorageUploadDataRequest].
+/// Configurable options for `Amplify.Storage.uploadData`.
 /// {@endtemplate}
-class StorageUploadDataOptions extends StorageOperationOptions {
+class StorageUploadDataOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.upload_data_options}
   const StorageUploadDataOptions({
     required super.accessLevel,
+    this.pluginOptions,
   });
+
+  /// plugin specific options for `Amplify.Storage.uploadData`.
+  final PluginOptions? pluginOptions;
 }

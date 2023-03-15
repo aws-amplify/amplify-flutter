@@ -1,36 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
-/// {@template storage.amplify_storage_s3.download_data_options}
-/// The configurable parameters invoking theStorage S3 plugin `downloadData` API.
+/// {@template storage.amplify_storage_s3.download_data_plugin_options}
+/// The configurable parameters invoking the Storage S3 plugin `downloadData` API.
 /// {@endtemplate}
-@Deprecated(
-  'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
-)
-class S3DownloadDataOptions extends StorageDownloadDataOptions {
+class S3DownloadDataPluginOptions {
   /// {@macro storage.amplify_storage_s3.download_data_options}
-  @Deprecated(
-    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
-  )
-  const S3DownloadDataOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
+  const S3DownloadDataPluginOptions({
     bool getProperties = false,
     S3DataBytesRange? bytesRange,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: accessLevel,
           bytesRange: bytesRange,
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
-  @Deprecated(
-    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
-  )
-  const S3DownloadDataOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
+
+  const S3DownloadDataPluginOptions._({
     this.getProperties = false,
     this.bytesRange,
     this.targetIdentityId,
@@ -42,16 +30,12 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
   /// Use this when calling `downloadData` on an object that belongs to another
   /// user (identified by [targetIdentityId]) rather than the currently
   /// signed-in user.
-  @Deprecated(
-    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
-  )
-  const S3DownloadDataOptions.forIdentity(
+  const S3DownloadDataPluginOptions.forIdentity(
     String targetIdentityId, {
     bool getProperties = false,
     S3DataBytesRange? bytesRange,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: StorageAccessLevel.protected,
           targetIdentityId: targetIdentityId,
           getProperties: getProperties,
           bytesRange: bytesRange,
@@ -63,7 +47,7 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
 
   /// The identity ID of another user who uploaded the object.
   ///
-  /// This can be set by using [S3DownloadDataOptions.forIdentity].
+  /// This can be set by using [S3DownloadDataPluginOptions.forIdentity].
   final String? targetIdentityId;
 
   /// Whether to retrieve properties for the downloaded object using the

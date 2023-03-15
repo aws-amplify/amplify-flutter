@@ -1,56 +1,39 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
-
-/// {@template storage.amplify_storage_s3.get_url_options}
+/// {@template storage.amplify_storage_s3.get_url_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `getUrl`
 /// API.
 /// {@endtemplate}
-@Deprecated(
-  'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
-)
-class S3GetUrlOptions extends StorageGetUrlOptions {
-  /// {@macro storage.amplify_storage_s3.get_url_options}
-  @Deprecated(
-    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
-  )
-  const S3GetUrlOptions({
-    StorageAccessLevel accessLevel = StorageAccessLevel.guest,
+class S3GetUrlPluginOptions {
+  /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
+  const S3GetUrlPluginOptions({
     Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: accessLevel,
           expiresIn: expiresIn,
           checkObjectExistence: checkObjectExistence,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
-  @Deprecated(
-    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
-  )
-  const S3GetUrlOptions._({
-    super.accessLevel = StorageAccessLevel.guest,
+
+  const S3GetUrlPluginOptions._({
     this.expiresIn = const Duration(days: 1),
     this.checkObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
 
-  /// {@macro storage.amplify_storage_s3.get_url_options}
+  /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
   ///
   /// Use this when calling `getUrl` on an object that belongs to other user
   /// (identified by [targetIdentityId]) rather than the currently signed user.
-  @Deprecated(
-    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions.forIdentity(...)) instead.',
-  )
-  const S3GetUrlOptions.forIdentity(
+  const S3GetUrlPluginOptions.forIdentity(
     String targetIdentityId, {
     Duration expiresIn = const Duration(days: 1),
     bool checkObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
-          accessLevel: StorageAccessLevel.protected,
           expiresIn: expiresIn,
           checkObjectExistence: checkObjectExistence,
           targetIdentityId: targetIdentityId,
@@ -66,7 +49,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
 
   /// The identity ID of another user who uploaded the object.
   ///
-  /// This can be set by using [S3GetUrlOptions.forIdentity].
+  /// This can be set by using [S3GetUrlPluginOptions.forIdentity].
   final String? targetIdentityId;
 
   /// {@macro storage.amplify_storage_s3.transfer_acceleration}

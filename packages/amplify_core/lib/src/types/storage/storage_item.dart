@@ -13,12 +13,14 @@ class StorageItem {
     this.size,
     this.lastModified,
     this.eTag,
+    this.metadata = const <String, String>{},
   });
 
   final String key;
   final int? size;
   final DateTime? lastModified;
   final String? eTag;
+  final Map<String, String> metadata;
 }
 
 /// {@template amplify_core.storage.storage_item_access_level}

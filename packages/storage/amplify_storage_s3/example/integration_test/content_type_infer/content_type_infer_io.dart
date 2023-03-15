@@ -35,7 +35,7 @@ void testContentTypeInferTest({
     tearDownAll(() async {
       await Amplify.Storage.removeMany(
         keys: testUploadKeys,
-        options: const S3RemoveManyOptions(
+        options: const StorageRemoveManyOptions(
           accessLevel: StorageAccessLevel.private,
         ),
       ).result;
@@ -52,9 +52,11 @@ void testContentTypeInferTest({
               .uploadFile(
                 localFile: file,
                 key: testUploadKeys[index],
-                options: const S3UploadFileOptions(
+                options: const StorageUploadFileOptions(
                   accessLevel: StorageAccessLevel.private,
-                  getProperties: true,
+                  pluginOptions: S3UploadFilePluginOptions(
+                    getProperties: true,
+                  ),
                 ),
               )
               .result;

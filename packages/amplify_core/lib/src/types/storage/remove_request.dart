@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.remove_request}
 /// Presents a storage copy request.
 /// {@endtemplate}
-class StorageRemoveRequest<Options extends StorageRemoveOptions> {
+class StorageRemoveRequest {
   /// {@macro amplify_core.storage.remove_request}
   const StorageRemoveRequest({
     required this.key,
@@ -17,5 +17,5 @@ class StorageRemoveRequest<Options extends StorageRemoveOptions> {
   final String key;
 
   /// Configurable options of the [StorageRemoveRequest].
-  final Options? options;
+  final StorageRemoveOptions? options;
 }

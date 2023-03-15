@@ -1,22 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
-
-/// {@template storage.amplify_storage_s3.upload_file_options}
+/// {@template storage.amplify_storage_s3.upload_file_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `uploadFile`
 /// API.
 /// {@endtemplate}
-@Deprecated(
-  'use StorageUploadFileOptions(pluginOptions: S3UploadFilePluginOptions(...)) instead.',
-)
-class S3UploadFileOptions extends StorageUploadFileOptions {
-  /// {@macro storage.amplify_storage_s3.upload_file_options}
-  @Deprecated(
-    'use StorageUploadFileOptions(pluginOptions: S3UploadFilePluginOptions(...)) instead.',
-  )
-  const S3UploadFileOptions({
-    super.accessLevel = StorageAccessLevel.guest,
+class S3UploadFilePluginOptions {
+  /// {@macro storage.amplify_storage_s3.upload_file_plugin_options}
+  const S3UploadFilePluginOptions({
     this.getProperties = false,
     this.metadata,
     this.useAccelerateEndpoint = false,

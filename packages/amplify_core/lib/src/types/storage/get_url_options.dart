@@ -4,11 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.get_url_options}
-/// Configurable options to initiate a [StorageGetUrlRequest].
+/// Configurable options for `Amplify.Storage.getUrl`.
 /// {@endtemplate}
-class StorageGetUrlOptions extends StorageOperationOptions {
+class StorageGetUrlOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.get_url_options}
   const StorageGetUrlOptions({
     required super.accessLevel,
+    this.pluginOptions,
   });
+
+  /// plugin specific options for `Amplify.Storage.getUrl`.
+  final PluginOptions? pluginOptions;
 }

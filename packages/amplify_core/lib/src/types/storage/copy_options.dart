@@ -2,9 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// {@template amplify_core.storage.copy_options}
-/// Configurable options to initiate a [StorageCopyRequest].
+/// Configurable options for `Amplify.Storage.copy`.
 /// {@endtemplate}
-abstract class StorageCopyOptions {
+class StorageCopyOptions<PluginOptions extends Object?> {
   /// {@macro amplify_core.storage.copy_options}
-  const StorageCopyOptions();
+  const StorageCopyOptions({this.pluginOptions});
+
+  /// plugin specific options for `Amplify.Storage.copy`.
+  final PluginOptions? pluginOptions;
 }

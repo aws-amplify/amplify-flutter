@@ -4,11 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.get_properties_options}
-/// Configurable options to initiate a [StorageGetPropertiesRequest].
+/// Configurable options for `Amplify.Storage.getProperties`.
 /// {@endtemplate}
-class StorageGetPropertiesOptions extends StorageOperationOptions {
+class StorageGetPropertiesOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.get_properties_options}
   const StorageGetPropertiesOptions({
     required super.accessLevel,
+    this.pluginOptions,
   });
+
+  /// plugin specific options for `Amplify.Storage.getProperties`.
+  final PluginOptions? pluginOptions;
 }

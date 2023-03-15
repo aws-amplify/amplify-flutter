@@ -4,14 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.list_options}
-/// Configurable options to initiate a [StorageListRequest].
+/// Configurable options for `Amplify.Storage.list`.
 /// {@endtemplate}
-class StorageListOptions extends StorageOperationOptions {
+class StorageListOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.list_options}
   const StorageListOptions({
     required super.accessLevel,
-    required this.pageSize,
+    this.pageSize = 1000,
     this.nextToken,
+    this.pluginOptions,
   });
 
   /// The number of object to be listed in each page.
@@ -19,4 +21,7 @@ class StorageListOptions extends StorageOperationOptions {
 
   /// Token used to list the next page.
   final String? nextToken;
+
+  /// plugin specific options for `Amplify.Storage.list`.
+  final PluginOptions? pluginOptions;
 }

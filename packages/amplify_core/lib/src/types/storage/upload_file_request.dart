@@ -3,12 +3,10 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-import 'base/storage_operation_options.dart';
-
 /// {@template amplify_core.storage.upload_file_request}
 /// Presents a storage upload data request.
 /// {@endtemplate}
-class StorageUploadFileRequest<Options extends StorageOperationOptions> {
+class StorageUploadFileRequest {
   /// {@macro amplify_core.storage.upload_file_request}
   const StorageUploadFileRequest({
     required this.localFile,
@@ -23,5 +21,5 @@ class StorageUploadFileRequest<Options extends StorageOperationOptions> {
   final AWSFile localFile;
 
   /// The configurable options of the [StorageUploadFileRequest].
-  final Options? options;
+  final StorageUploadFileOptions? options;
 }

@@ -28,6 +28,10 @@ void main() {
     const testBucket = 'fake-bucket';
     const defaultS3ClientConfig = smithy_aws.S3ClientConfig();
     final testPrefixResolver = TestCustomPrefixResolver();
+    const testUploadDataOptions =
+        StorageUploadDataOptions<S3UploadDataPluginOptions>(
+      accessLevel: StorageAccessLevel.private,
+    );
 
     setUpAll(() {
       s3Client = MockS3Client();
@@ -90,9 +94,6 @@ void main() {
 
       test('should invoke S3Client.putObject API with expected parameters',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
         final testPutObjectOutput = s3.PutObjectOutput();
         final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -149,9 +150,12 @@ void main() {
       test(
           'should invoke S3Client.putObject API with correct useAcceleration parameters',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
+        const testUploadDataOptions =
+            StorageUploadDataOptions<S3UploadDataPluginOptions>(
           accessLevel: StorageAccessLevel.private,
-          useAccelerateEndpoint: true,
+          pluginOptions: S3UploadDataPluginOptions(
+            useAccelerateEndpoint: true,
+          ),
         );
         final testPutObjectOutput = s3.PutObjectOutput();
         final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
@@ -204,9 +208,6 @@ void main() {
         'should use fallback contentType header when contentType of the data'
         ' payload is not determinable',
         () async {
-          const testUploadDataOptions = S3UploadDataOptions(
-            accessLevel: StorageAccessLevel.private,
-          );
           final testPutObjectOutput = s3.PutObjectOutput();
           final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -259,9 +260,12 @@ void main() {
       test(
           'should invoke S3Client.headObject API with correct parameters when getProperties is set to true in the options',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
+        const testUploadDataOptions =
+            StorageUploadDataOptions<S3UploadDataPluginOptions>(
           accessLevel: StorageAccessLevel.private,
-          getProperties: true,
+          pluginOptions: S3UploadDataPluginOptions(
+            getProperties: true,
+          ),
         );
         final testPutObjectOutput = s3.PutObjectOutput();
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
@@ -321,9 +325,6 @@ void main() {
       });
 
       test('should throw S3Exception when prefix resolving fails', () {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
         final prefixResolverThrowsException =
             TestCustomPrefixResolverThrowsException();
 
@@ -346,9 +347,6 @@ void main() {
       test(
           'should throw StorageAccessDeniedException when S3Client.putObject'
           ' returned UnknownSmithyHttpException with status code 403', () {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
         const testException = smithy.UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied!',
@@ -384,10 +382,6 @@ void main() {
       test(
           'cancel() should cancel underlying put object request and throw a S3Exception',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-          getProperties: true,
-        );
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
         final completer = Completer<void>();
@@ -443,9 +437,6 @@ void main() {
 
       test('should invoke S3Client.putObject with expected parameters',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
         final testPutObjectOutput = s3.PutObjectOutput();
         final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -503,9 +494,12 @@ void main() {
       test(
           'should invoke S3Client.putObject with correct useAcceleration parameter',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
+        const testUploadDataOptions =
+            StorageUploadDataOptions<S3UploadDataPluginOptions>(
           accessLevel: StorageAccessLevel.private,
-          useAccelerateEndpoint: true,
+          pluginOptions: S3UploadDataPluginOptions(
+            useAccelerateEndpoint: true,
+          ),
         );
         final testPutObjectOutput = s3.PutObjectOutput();
         final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
@@ -557,10 +551,6 @@ void main() {
       test(
           'cancel() should cancel underlying put object request and throw a S3Exception',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-          getProperties: true,
-        );
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
         final completer = Completer<void>();
@@ -607,11 +597,6 @@ void main() {
       test('Emitting transferred bytes for uploading progress', () async {
         const mockEmittedBytes = [1, 2, 3];
         final completer = Completer<void>();
-
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.private,
-        );
-
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
         final testPutObjectOutput = s3.PutObjectOutput();
         when(
@@ -682,10 +667,13 @@ void main() {
           receivedState.add(progress.state);
         }
 
-        const testUploadDataOptions = S3UploadDataOptions(
+        const testUploadDataOptions =
+            StorageUploadDataOptions<S3UploadDataPluginOptions>(
           accessLevel: StorageAccessLevel.protected,
-          getProperties: true,
-          metadata: {'filename': 'png.png'},
+          pluginOptions: S3UploadDataPluginOptions(
+            getProperties: true,
+            metadata: {'filename': 'png.png'},
+          ),
         );
         const testMultipartUploadId = 'awesome-upload';
 
@@ -819,7 +807,7 @@ void main() {
         );
         expect(
           capturedCreateMultipartUploadRequest.metadata?['filename'],
-          testUploadDataOptions.metadata?['filename'],
+          testUploadDataOptions.pluginOptions!.metadata?['filename'],
         );
         final capturedTransferDBInsertParam = verify(
           () => transferDatabase.insertTransferRecord(
@@ -908,9 +896,12 @@ void main() {
       test(
           'should invoke S3Client uploadPart API with correct useAcceleration parameter',
           () async {
-        const testUploadDataOptions = S3UploadDataOptions(
+        const testUploadDataOptions =
+            StorageUploadDataOptions<S3UploadDataPluginOptions>(
           accessLevel: StorageAccessLevel.protected,
-          useAccelerateEndpoint: true,
+          pluginOptions: S3UploadDataPluginOptions(
+            useAccelerateEndpoint: true,
+          ),
         );
 
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
@@ -1003,9 +994,6 @@ void main() {
           'should use fallback contentType header when contentType of the data'
           ' payload is not determinable', () async {
         final testLocalFileWithoutContentType = AWSFile.fromData(testBytes);
-        const testUploadDataOptions = S3UploadDataOptions(
-          accessLevel: StorageAccessLevel.protected,
-        );
         const testMultipartUploadId = 'awesome-upload';
 
         final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
@@ -1166,7 +1154,7 @@ void main() {
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
-            options: const S3UploadDataOptions(),
+            options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
           );
@@ -1203,7 +1191,7 @@ void main() {
               prefixResolver: testPrefixResolver,
               bucket: testBucket,
               key: testKey,
-              options: const S3UploadDataOptions(),
+              options: testUploadDataOptions,
               logger: logger,
               transferDatabase: transferDatabase,
             );
@@ -1235,7 +1223,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1264,7 +1252,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1308,7 +1296,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1351,7 +1339,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1432,7 +1420,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1524,7 +1512,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1594,7 +1582,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: const S3UploadDataOptions(),
+          options: testUploadDataOptions,
           logger: logger,
           transferDatabase: transferDatabase,
           onProgress: (progress) {
@@ -1754,7 +1742,7 @@ void main() {
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
-            options: const S3UploadDataOptions(),
+            options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
             onProgress: (progress) {
@@ -1812,7 +1800,7 @@ void main() {
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
             key: testKey,
-            options: const S3UploadDataOptions(),
+            options: testUploadDataOptions,
             logger: logger,
             transferDatabase: transferDatabase,
             onProgress: (progress) {

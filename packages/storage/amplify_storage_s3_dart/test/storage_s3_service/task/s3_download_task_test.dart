@@ -19,6 +19,10 @@ void main() {
   group('S3DownloadTask', () {
     const testBucket = 'bucket1';
     const testKey = 'some-object';
+    const defaultTestOptions =
+        StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+      accessLevel: StorageAccessLevel.guest,
+    );
     final testPrefixResolver = TestPrefixResolver();
     const defaultS3ClientConfig = S3ClientConfig();
     late S3Client s3Client;
@@ -49,7 +53,6 @@ void main() {
       test(
           'it should ripple exception thrown from `preStart` to the result Future',
           () {
-        const testOptions = S3DownloadDataOptions();
         final testException = S3Exception.unknownException();
         Future<void> testPreStart() async {
           throw testException;
@@ -61,7 +64,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           preStart: testPreStart,
         );
@@ -73,7 +76,6 @@ void main() {
 
       test('it should invoke S3Client.getObject API with correct parameters',
           () async {
-        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -99,7 +101,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             finalState = progress.state;
@@ -122,7 +124,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testOptions.accessLevel,
+            accessLevel: defaultTestOptions.accessLevel,
           )}$testKey',
         );
         expect(request.checksumMode, ChecksumMode.enabled);
@@ -134,7 +136,13 @@ void main() {
       test(
           'it should invoke S3Client.getObject API with correct useAcceleration parameter',
           () async {
-        const testOptions = S3DownloadDataOptions(useAccelerateEndpoint: true);
+        const testOptions =
+            StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+          accessLevel: StorageAccessLevel.guest,
+          pluginOptions: S3DownloadDataPluginOptions(
+            useAccelerateEndpoint: true,
+          ),
+        );
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -177,7 +185,7 @@ void main() {
           isA<S3ClientConfig>().having(
             (o) => o.useAcceleration,
             'useAcceleration',
-            testOptions.useAccelerateEndpoint,
+            testOptions.pluginOptions!.useAccelerateEndpoint,
           ),
         );
       });
@@ -185,7 +193,6 @@ void main() {
       test(
           'it should throw S3Exception when getObject response doesn\'t include a value contentLength header',
           () async {
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           body: Stream.value([101]),
         );
@@ -209,7 +216,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onError: () {
             onErrorHasBeenCalled = true;
@@ -229,7 +236,6 @@ void main() {
     group('pause API()', () {
       test('it should pause the task', () async {
         var bodyStreamHasBeenCanceled = false;
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -260,7 +266,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
@@ -279,7 +285,6 @@ void main() {
 
     group('resume API()', () {
       test('it should resume the task from paused state', () async {
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput1 = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -307,7 +312,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
@@ -344,7 +349,6 @@ void main() {
 
       test('should throw exception when attempt to resume a canceled task',
           () async {
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -372,7 +376,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
@@ -390,7 +394,6 @@ void main() {
     group('cancel API()', () {
       test('it should cancel the task', () async {
         var bodyStreamHasBeenCanceled = false;
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(1024),
           body: Stream<List<int>>.periodic(
@@ -422,7 +425,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             receivedState.add(progress.state);
@@ -439,7 +442,6 @@ void main() {
 
     group('error handling around S3Client.getObject', () {
       test('should forward S3Exception when getObject returns no body', () {
-        const testOptions = S3DownloadDataOptions();
         final testGetObjectOutput = GetObjectOutput(contentLength: Int64(1024));
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
 
@@ -460,7 +462,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
         );
 
@@ -485,8 +487,6 @@ void main() {
           test(
               'it should complete with an exception on $exceptionType of getObject on start',
               () async {
-            const testOptions = S3DownloadDataOptions();
-
             when(
               () => s3Client.getObject(
                 any(),
@@ -500,7 +500,7 @@ void main() {
               prefixResolver: testPrefixResolver,
               bucket: testBucket,
               key: testKey,
-              options: testOptions,
+              options: defaultTestOptions,
               logger: logger,
             );
 
@@ -530,7 +530,6 @@ void main() {
           test(
               'it should complete with an exception on $exceptionType of getObject on resume',
               () async {
-            const testOptions = S3DownloadDataOptions();
             final testGetObjectOutput1 = GetObjectOutput(
               contentLength: Int64(1024),
               body: Stream<List<int>>.periodic(
@@ -558,7 +557,7 @@ void main() {
               prefixResolver: testPrefixResolver,
               bucket: testBucket,
               key: testKey,
-              options: testOptions,
+              options: defaultTestOptions,
               logger: logger,
               onProgress: (progress) {
                 receivedState.add(progress.state);
@@ -603,7 +602,6 @@ void main() {
 
     group('download completion', () {
       test('download should complete', () async {
-        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -629,7 +627,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onProgress: (progress) {
             finalState = progress.state;
@@ -644,7 +642,6 @@ void main() {
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
           () async {
-        const testOptions = S3DownloadDataOptions();
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),
@@ -672,7 +669,7 @@ void main() {
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
           key: testKey,
-          options: testOptions,
+          options: defaultTestOptions,
           logger: logger,
           onDone: () async {
             onDoneHasBeenCalled = true;
@@ -694,10 +691,15 @@ void main() {
           'should invoke S3Client.headObject to retrieve properties of object when getProperties is set to true in the options',
           () async {
         const testTargetIdentity = 'some-else-id';
-        const testOptions = S3DownloadDataOptions.forIdentity(
-          testTargetIdentity,
-          getProperties: true,
+        const testOptions =
+            StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+          accessLevel: StorageAccessLevel.guest,
+          pluginOptions: S3DownloadDataPluginOptions.forIdentity(
+            testTargetIdentity,
+            getProperties: true,
+          ),
         );
+
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
           contentLength: Int64(testBodyBytes.length),

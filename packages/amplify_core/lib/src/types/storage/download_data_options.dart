@@ -4,11 +4,16 @@
 import 'base/storage_operation_options.dart';
 
 /// {@template amplify_core.storage.download_data_options}
-/// Configurable options to initiate a [StorageDownloadDataRequest].
+/// Configurable options for `Amplify.Storage.downloadData`.
 /// {@endtemplate}
-class StorageDownloadDataOptions extends StorageOperationOptions {
+class StorageDownloadDataOptions<PluginOptions extends Object?>
+    extends StorageOperationOptions {
   /// {@macro amplify_core.storage.download_data_options}
   const StorageDownloadDataOptions({
     required super.accessLevel,
+    this.pluginOptions,
   });
+
+  /// plugin specific options for `Amplify.Storage.downloadData`.
+  final PluginOptions? pluginOptions;
 }
