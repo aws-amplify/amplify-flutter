@@ -72,4 +72,5 @@ dependencies {
     api amplifyFlutter
     api "com.google.firebase:firebase-messaging:23.1.0"
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-utils:2.1.0'
+    implementation project(path: ':flutter_plugin_android_lifecycle')
 }

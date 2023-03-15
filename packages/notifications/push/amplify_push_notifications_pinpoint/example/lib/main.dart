@@ -13,28 +13,6 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-// TODO: Drawback: app needs to be restarted for a new version of this function to be registered
-@pragma('vm:entry-point')
-void bgHandler(PushNotificationMessage pushNotificationMessage) async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    print('BG handler invoked');
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-    var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-    globalBgCallbackCount =
-        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-    await prefs.setInt(
-      globalBgCallbackKey,
-      globalBgCallbackCount,
-    );
-    print('globalBgCallbackCount in handler -> $globalBgCallbackCount');
-  } on Exception catch (e) {
-    print(' error in handler: $e');
-  }
-  return;
-}
-
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
@@ -55,6 +33,8 @@ class _MyAppState extends State<MyApp> {
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
+  PushNotificationMessage? backgroundMessage;
+
   PushNotificationMessage? notificaitonOpenedMessage;
   PushNotificationPermissionStatus? getPermissionStatus;
   bool? requestPermissionsResult;
@@ -65,7 +45,6 @@ class _MyAppState extends State<MyApp> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
       globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
-      // print('globalBgCallbackCount -> $globalBgCallbackCount');
       return globalBgCallbackCount;
     } on Exception catch (e) {
       print('Error when get call $e');
@@ -86,6 +65,28 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void bgHandler(PushNotificationMessage pushNotificationMessage) async {
+    print('bgHandler called');
+    setState(() {
+      backgroundMessage = pushNotificationMessage;
+    });
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+      globalBgCallbackCount =
+          globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+      await prefs.setInt(
+        globalBgCallbackKey,
+        globalBgCallbackCount,
+      );
+    } on Exception catch (e) {
+      print(' error in handler: $e');
+    }
+    return;
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> _configureAmplify() async {
     // If the widget was removed from the tree while the asynchronous platform
@@ -97,6 +98,7 @@ class _MyAppState extends State<MyApp> {
       final authPlugin = AmplifyAuthCognito();
 
       if (!Amplify.isConfigured) {
+        print('Configuring Amplify.configure');
         await Amplify.addPlugins([authPlugin, notificationsPlugin]);
         await Amplify.configure(amplifyconfig);
         setState(() {
@@ -161,18 +163,6 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('Refresh count'),
               ),
-              // headerText('Configuration APIs'),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     await _configureAmplify();
-              //   },
-              //   child: const Text('configure'),
-              // ),
-              // if (isConfigured)
-              //   const Text('Push notification plugin has been configured'),
-              // const Divider(
-              //   height: 20,
-              // ),
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -203,6 +193,19 @@ class _MyAppState extends State<MyApp> {
               const Divider(
                 height: 20,
               ),
+              headerText('Analytics APIs'),
+              ElevatedButton(
+                onPressed: () async {
+                  await Amplify.Notifications.Push.identifyUser(
+                    userId: 'test-user-101',
+                    userProfile: AnalyticsUserProfile(name: 'test-name-101'),
+                  );
+                },
+                child: const Text('identifyUser'),
+              ),
+              const Divider(
+                height: 20,
+              ),
               headerText('Notification Handling APIs'),
               ElevatedButton(
                 onPressed: () async {
@@ -230,23 +233,24 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    Amplify.Notifications.Push
-                        .onNotificationReceivedInBackground(
-                      bgHandler,
-                    );
-
-                    setState(() {
-                      isBackgroundListernerInitialized = true;
-                    });
-                  } on Exception {
-                    // print(e.toString());
-                  }
+                  Amplify.Notifications.Push.onNotificationReceivedInBackground(
+                    bgHandler,
+                  );
+                  setState(() {
+                    isBackgroundListernerInitialized = true;
+                  });
                 },
                 child: const Text('onNotificationReceivedInBackground'),
               ),
               if (isBackgroundListernerInitialized)
                 const Text('Background event listener initialized!'),
+              ListTile(
+                title: Text(
+                  backgroundMessage == null
+                      ? 'No foreground message yet'
+                      : "Title: ${backgroundMessage!.title?.toString() ?? ""}",
+                ),
+              ),
               ElevatedButton(
                 onPressed: () async {
                   final notificaitonOpenedStream =
