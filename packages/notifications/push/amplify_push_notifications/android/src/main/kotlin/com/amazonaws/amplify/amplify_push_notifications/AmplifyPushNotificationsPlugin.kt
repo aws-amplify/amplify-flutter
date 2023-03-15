@@ -8,12 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsFlutterApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
-import com.google.firebase.messaging.FirebaseMessaging
-import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -21,6 +21,7 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
+import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 
 private const val TAG = "AmplifyPushNotificationsPlugin"
 
@@ -78,6 +79,16 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private val _flutterEngineCache = FlutterEngineCache.getInstance()
 
+    /**
+     * Android app activity Lifecycle provider
+     */
+    private var _lifecycle: Lifecycle? = null
+
+    /**
+     * Plugin's lifecycle observer used to implement onCreate and onResume methods to refresh token
+     */
+    private val _lifecycleObserver: LifecycleObserver = AmplifyLifecycleObserver()
+
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
 
@@ -108,6 +119,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        _lifecycle = FlutterLifecycleAdapter.getActivityLifecycle(binding)
+        _lifecycle?.addObserver(_lifecycleObserver)
         mainActivity = binding.activity
         activityBinding = binding
         binding.addOnNewIntentListener(this)
@@ -115,10 +128,11 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
         )
         onNewIntent(binding.activity.intent)
-        refreshToken()
     }
 
     override fun onDetachedFromActivity() {
+        _lifecycle?.removeObserver(_lifecycleObserver)
+        _lifecycle = null
         mainActivity = null
         activityBinding?.removeOnNewIntentListener(this)
         activityBinding = null
@@ -229,26 +243,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     override fun setBadgeCount(withBadgeCount: Long) {
         throw NotImplementedError("Set badge count is not supported on Android")
     }
-
-    private fun refreshToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                if (task.exception == null) {
-                    Log.e(TAG, "UnknownError: fetching device token.")
-                } else {
-                    StreamHandlers.tokenReceived?.sendError(task.exception!!)
-                }
-                return@addOnCompleteListener
-            }
-            StreamHandlers.tokenReceived?.send(
-                mapOf(
-                    "token" to task.result
-                )
-            )
-            return@addOnCompleteListener
-        }
-    }
-
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
         return ActivityCompat.shouldShowRequestPermissionRationale(
