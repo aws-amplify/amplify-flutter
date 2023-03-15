@@ -18,7 +18,7 @@ mixin AWSDebuggable on Object {
   @override
   String toString() {
     if (this is AWSSerializable) {
-      return '$runtimeTypeName ${prettyPrintJson(this)}';
+      return '$runtimeTypeName ${prettyPrintJson((this as AWSSerializable).toJson())}';
     }
     if (this is AWSEquatable) {
       return '$runtimeTypeName ${(this as AWSEquatable).props}';
