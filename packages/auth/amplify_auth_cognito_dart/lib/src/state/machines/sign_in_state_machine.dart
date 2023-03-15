@@ -195,11 +195,12 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   ///
   /// Subclasses should return `null` if they cannot handle [challengeName].
   Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
+    SignInEvent event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters, [
-    SignInRespondToChallenge? event,
-  ]) async {
-    if (authFlowType == AuthFlowType.customAuth && event != null) {
+    BuiltMap<String, String> challengeParameters,
+  ) async {
+    if (authFlowType == AuthFlowType.customAuth &&
+        event is SignInRespondToChallenge) {
       return RespondToAuthChallengeRequest.build(
         (b) => b
           ..challengeName = ChallengeNameType.customChallenge
@@ -207,10 +208,11 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
             CognitoConstants.challengeParamUsername: parameters.username,
             CognitoConstants.challengeParamAnswer: event.answer,
           })
-          ..clientId = config.appClientId,
+          ..clientId = config.appClientId
+          ..clientMetadata.addAll(event.clientMetadata),
       );
     }
-    return respondToSrpChallenge(challengeName, challengeParameters, event);
+    return respondToSrpChallenge(event, challengeName, challengeParameters);
   }
 
   /// Creates the password verifier request in a worker instance.
@@ -534,10 +536,10 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// Responds to an SRP flow challenge.
   @protected
   Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
+    SignInEvent event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters, [
-    SignInRespondToChallenge? event,
-  ]) async {
+    BuiltMap<String, String> challengeParameters,
+  ) async {
     switch (challengeName) {
       case ChallengeNameType.passwordVerifier:
         return createPasswordVerifierRequest(challengeParameters);
@@ -546,12 +548,12 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
       case ChallengeNameType.devicePasswordVerifier:
         return createDevicePasswordVerifierRequest(challengeParameters);
       case ChallengeNameType.smsMfa:
-        if (event != null) {
+        if (event is SignInRespondToChallenge) {
           return createSmsMfaRequest(event);
         }
         break;
       case ChallengeNameType.newPasswordRequired:
-        if (event != null) {
+        if (event is SignInRespondToChallenge) {
           return createNewPasswordRequest(event);
         }
         break;
@@ -648,7 +650,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     _challengeParameters = initResponse.challengeParameters ?? BuiltMap();
     _session = initResponse.session;
 
-    final stopState = await _processChallenge();
+    final stopState = await _processChallenge(event);
     emit(stopState);
   }
 
@@ -721,9 +723,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// 2. Querying the state machine implementation for how to respond.
   /// 3. Yielding control if the state machine cannot respond automatically and
   ///    user input is needed.
-  Future<SignInState> _processChallenge([
-    SignInRespondToChallenge? event,
-  ]) async {
+  Future<SignInState> _processChallenge(SignInEvent event) async {
     // There can be an indefinite amount of challenges which need responses.
     // Only when authenticationResult is set is the flow considered complete.
     final authenticationResult = _authenticationResult;
@@ -751,7 +751,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
       await _updateAttributes(
         accessToken: accessToken,
-        clientMetadata: event?.clientMetadata ?? const {},
+        clientMetadata: event.clientMetadata,
       );
 
       return SignInState.success(user.build());
@@ -762,9 +762,9 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     // Query the state machine for a response given potential user input in
     // `event`.
     final respondRequest = await respondToAuthChallenge(
+      event,
       _challengeName!,
       _challengeParameters,
-      event,
     );
 
     // If we can't internally respond to the challenge, we may need user
@@ -795,20 +795,20 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     }
 
     // Respond to Cognito and evaluate the returned response.
-    return _respondToChallenge(respondRequest, event?.clientMetadata);
+    return _respondToChallenge(event, respondRequest);
   }
 
   /// Inner handle to send the request returned from [respondToAuthChallenge]
   /// and process its response.
   Future<SignInState> _respondToChallenge(
+    SignInEvent event,
     RespondToAuthChallengeRequest respondRequest,
-    Map<String, String>? clientMetadata,
   ) async {
     // Include session if not already included.
     respondRequest = respondRequest.rebuild(
       (b) => b
         ..session ??= _session
-        ..clientMetadata.replace(clientMetadata ?? const <String, String>{}),
+        ..clientMetadata.replace(event.clientMetadata),
     );
 
     try {
@@ -822,7 +822,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
       _challengeParameters = challengeResp.challengeParameters ?? BuiltMap();
       _session = challengeResp.session;
 
-      return _processChallenge();
+      return _processChallenge(event);
     } on ResourceNotFoundException {
       // For device flows, retry with normal SRP sign-in when the device is not
       // found. This protects against the case where a device has been removed
@@ -834,10 +834,11 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
             .remove(user.username!);
 
         final respondRequest = await respondToAuthChallenge(
+          event,
           _challengeName!,
           _challengeParameters,
         );
-        return _respondToChallenge(respondRequest!, clientMetadata);
+        return _respondToChallenge(event, respondRequest!);
       }
       rethrow;
     }
