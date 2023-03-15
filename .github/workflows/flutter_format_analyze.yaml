@@ -1,0 +1,45 @@
+name: Flutter Format and Analyze
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - 'packages/**/*.dart'
+      - 'packages/**/*.yaml'
+      - '.github/workflows/flutter_format_analyze.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  flutter_format_analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
+        with:
+          cache: true
+
+      - name: Install Melos and Bootstrap
+        id: bootstrap
+        timeout-minutes: 10
+        run: |
+          flutter pub global activate melos 1.3.0
+          melos bootstrap
+
+      - name: Flutter Format
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: melos run format
+
+      - name: Flutter Analyze
+        if: "always() && steps.bootstrap.conclusion == 'success'"
+        run: melos run analyze --no-select
