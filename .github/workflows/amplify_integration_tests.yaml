@@ -26,6 +26,7 @@ jobs:
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -73,6 +74,7 @@ jobs:
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -113,6 +115,7 @@ jobs:
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -152,6 +155,7 @@ jobs:
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -191,6 +195,7 @@ jobs:
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -228,6 +233,7 @@ jobs:
           - "amplify_api_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
