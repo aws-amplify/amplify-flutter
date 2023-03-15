@@ -40,7 +40,7 @@ void main() {
       tearDown(Amplify.reset);
 
       test('signInWithUrl', () async {
-        const options = CognitoSignInWithWebUIOptions(
+        const options = CognitoSignInWithWebUIPluginOptions(
           isPreferPrivateSession: true,
           browserPackageName: browserPackage,
         );
@@ -68,7 +68,7 @@ void main() {
       });
 
       test('signOutWithUrl', () async {
-        const options = CognitoSignInWithWebUIOptions(
+        const options = CognitoSignInWithWebUIPluginOptions(
           isPreferPrivateSession: true,
           browserPackageName: browserPackage,
         );

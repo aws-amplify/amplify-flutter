@@ -5,13 +5,27 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_resend_sign_up_code_options.g.dart';
 
+const _deprecatedMessage = '''
+Use ResendSignUpCodeOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+ResendSignUpCodeOptions(
+  pluginOptions: CognitoResendSignUpCodePluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.cognito_resend_sign_up_code_options}
 /// Cognito extension of [ResendSignUpCodeOptions] to add the
 /// platform-specific fields.
 /// {@endtemplate}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoResendSignUpCodeOptions extends ResendSignUpCodeOptions {
   /// {@macro amplify_auth_cognito.cognito_resend_sign_up_code_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoResendSignUpCodeOptions({
     this.clientMetadata = const {},
   }) : super.base();

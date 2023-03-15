@@ -96,7 +96,7 @@ enum HostedUiKey {
   /// The OIDC nonce value.
   nonce,
 
-  /// The [CognitoSignInWithWebUIOptions] passed to `signInWithWebUI`.
+  /// The [CognitoSignInWithWebUIPluginOptions] passed to `signInWithWebUI`.
   options,
 
   /// The [AuthProvider] passed to `signInWithWebUI`.

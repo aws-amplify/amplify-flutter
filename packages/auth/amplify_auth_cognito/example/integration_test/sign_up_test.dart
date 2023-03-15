@@ -28,7 +28,7 @@ void main() {
       final res = await Amplify.Auth.signUp(
         username: username,
         password: password,
-        options: CognitoSignUpOptions(
+        options: SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
             CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
@@ -61,7 +61,7 @@ void main() {
       (_) async {
         final username = generateUsername();
         const invalidPassword = '123';
-        final options = CognitoSignUpOptions(
+        final options = SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
             CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
@@ -87,7 +87,7 @@ void main() {
 
         // sign up first user
         final userOnePassword = generatePassword();
-        final userOneOptions = CognitoSignUpOptions(
+        final userOneOptions = SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
             CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
@@ -101,7 +101,7 @@ void main() {
 
         // attempt to sign up second user with the same username
         final userTwoPassword = generatePassword();
-        final userTwoOptions = CognitoSignUpOptions(
+        final userTwoOptions = SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: generateEmail(),
             CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),

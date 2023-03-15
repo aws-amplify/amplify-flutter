@@ -5,6 +5,18 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_confirm_reset_password_options.g.dart';
 
+const _deprecatedMessage = '''
+Use ConfirmResetPasswordOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+ConfirmResetPasswordOptions(
+  pluginOptions: CognitoConfirmResetPasswordPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.cognito_confirm_reset_password_options}
 /// Cognito extension of [ConfirmResetPasswordOptions] to add the
 /// platform-specific fields.
@@ -12,14 +24,17 @@ part 'cognito_confirm_reset_password_options.g.dart';
 /// Can be used to add [clientMetadata] to the operation.
 /// {@endtemplate}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions {
   /// {@macro amplify_auth_cognito.cognito_confirm_reset_password_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoConfirmResetPasswordOptions({
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super.base();
 
   /// {@macro amplify_auth_cognito.cognito_confirm_reset_password_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoConfirmResetPasswordOptions.fromJson(
     Map<String, Object?> json,
   ) =>

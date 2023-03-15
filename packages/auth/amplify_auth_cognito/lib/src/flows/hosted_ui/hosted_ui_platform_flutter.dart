@@ -60,7 +60,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     if (!_isMobile) {
@@ -112,7 +112,7 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     if (!_isMobile) {
       return super.signOut(options: options);

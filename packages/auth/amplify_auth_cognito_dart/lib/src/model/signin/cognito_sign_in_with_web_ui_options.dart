@@ -5,18 +5,31 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_sign_in_with_web_ui_options.g.dart';
 
+const _deprecatedMessage = '''
+Use SignInWithWebUIOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+SignInWithWebUIOptions(
+  pluginOptions: CognitoSignInWithWebUIPluginOptions(
+    isPreferPrivateSession: true,
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
 /// Cognito options for `Amplify.Auth.signInWithWebUI`.
 /// {@endtemplate}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoSignInWithWebUIOptions({
     this.isPreferPrivateSession = false,
     this.browserPackageName,
   }) : super.base();
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoSignInWithWebUIOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignInWithWebUIOptionsFromJson(json);
 

@@ -45,7 +45,7 @@ abstract class HostedUiEvent
 
   /// {@macro amplify_auth_cognito.hosted_ui_sign_in}
   const factory HostedUiEvent.signIn({
-    CognitoSignInWithWebUIOptions options,
+    CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
     Uri? redirectUri,
   }) = HostedUiSignIn;
@@ -112,13 +112,13 @@ class HostedUiFoundState extends HostedUiEvent {
 class HostedUiSignIn extends HostedUiEvent {
   /// {@macro amplify_auth_cognito.hosted_ui_sign_in}
   const HostedUiSignIn({
-    this.options = const CognitoSignInWithWebUIOptions(),
+    this.options = const CognitoSignInWithWebUIPluginOptions(),
     this.provider,
     this.redirectUri,
   }) : super._();
 
   /// The plugin options.
-  final CognitoSignInWithWebUIOptions options;
+  final CognitoSignInWithWebUIPluginOptions options;
 
   /// The provider used for sign-in.
   ///

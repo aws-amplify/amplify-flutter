@@ -23,10 +23,12 @@ abstract class ConfirmAttributeComponent extends StatefulComponent {
   void _resendCode() {
     resendUserAttributeConfirmationCode(
       key: key,
-      options: const CognitoResendUserAttributeConfirmationCodeOptions(
-        clientMetadata: {
-          'method': 'resendUserAttributeConfirmationCode',
-        },
+      options: const ResendUserAttributeConfirmationCodeOptions(
+        pluginOptions: CognitoResendUserAttributeConfirmationCodePluginOptions(
+          clientMetadata: {
+            'method': 'resendUserAttributeConfirmationCode',
+          },
+        ),
       ),
     );
   }

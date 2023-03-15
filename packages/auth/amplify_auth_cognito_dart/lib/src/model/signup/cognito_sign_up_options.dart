@@ -5,10 +5,27 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_sign_up_options.g.dart';
 
+const _deprecatedMessage = '''
+Use SignUpOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+SignUpOptions(
+  userAttributes: {
+    CognitoUserAttributeKey.email: 'test@example.com',
+  },
+  pluginOptions: CognitoSignUpPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@macro amplify_auth_cognito.model.cognito_sign_up_plugin_options}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoSignUpOptions extends SignUpOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_up_plugin_options}
+  @Deprecated(_deprecatedMessage)
   CognitoSignUpOptions({
     Map<CognitoUserAttributeKey, String> userAttributes = const {},
     Map<String, String>? validationData,
@@ -20,6 +37,7 @@ class CognitoSignUpOptions extends SignUpOptions {
         super.base();
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_up_plugin_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoSignUpOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignUpOptionsFromJson(json);
 

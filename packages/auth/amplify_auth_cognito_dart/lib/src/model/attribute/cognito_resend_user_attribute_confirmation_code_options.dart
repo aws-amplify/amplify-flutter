@@ -5,19 +5,34 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_resend_user_attribute_confirmation_code_options.g.dart';
 
+const _deprecatedMessage = '''
+Use ResendUserAttributeConfirmationCodeOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+ResendUserAttributeConfirmationCodeOptions(
+  pluginOptions: CognitoResendUserAttributeConfirmationCodePluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.cognito_resend_user_attribute_confirmation_code_options}
 /// Cognito options for `Amplify.Auth.resendUserAttributeConfirmationCode`.
 /// {@endtemplate}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoResendUserAttributeConfirmationCodeOptions
     extends ResendUserAttributeConfirmationCodeOptions {
   /// {@macro amplify_auth_cognito.cognito_resend_user_attribute_confirmation_code_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoResendUserAttributeConfirmationCodeOptions({
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super.base();
 
   /// {@macro amplify_auth_cognito.cognito_resend_user_attribute_confirmation_code_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoResendUserAttributeConfirmationCodeOptions.fromJson(
     Map<String, Object?> json,
   ) =>

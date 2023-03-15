@@ -281,7 +281,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// Sign in a user via the OAuth flow.
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   });
 
@@ -290,7 +290,7 @@ abstract class HostedUiPlatform implements Closeable {
 
   /// Sign out the current user.
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   });
 
   @override

@@ -76,7 +76,7 @@ void main() {
         );
         addTearDown(() => server.close(force: true));
         await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIOptions(),
+          options: const CognitoSignInWithWebUIPluginOptions(),
         );
       });
 
@@ -95,13 +95,13 @@ void main() {
 
         await expectLater(
           platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
           completes,
         );
         await expectLater(
           platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
           completes,
         );
@@ -126,7 +126,7 @@ void main() {
           addTearDown(() => server.close(force: true));
         }
         await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIOptions(),
+          options: const CognitoSignInWithWebUIPluginOptions(),
         );
       });
     });
@@ -155,7 +155,7 @@ void main() {
 
         unawaited(
           hostedUiPlatform.signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
         );
 

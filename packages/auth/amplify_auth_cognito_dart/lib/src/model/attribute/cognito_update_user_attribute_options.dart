@@ -5,18 +5,33 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_update_user_attribute_options.g.dart';
 
+const _deprecatedMessage = '''
+Use UpdateUserAttributeOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+UpdateUserAttributeOptions(
+  pluginOptions: CognitoUpdateUserAttributePluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.cognito_update_user_attribute_options}
 /// Cognito options for `Amplify.Auth.updateUserAttribute`.
 /// {@endtemplate}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoUpdateUserAttributeOptions extends UpdateUserAttributeOptions {
   /// {@macro amplify_auth_cognito.cognito_update_user_attribute_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoUpdateUserAttributeOptions({
     Map<String, String>? clientMetadata,
   })  : clientMetadata = clientMetadata ?? const {},
         super.base();
 
   /// {@macro amplify_auth_cognito.cognito_update_user_attribute_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoUpdateUserAttributeOptions.fromJson(
     Map<String, Object?> json,
   ) =>

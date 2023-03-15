@@ -5,11 +5,25 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_confirm_sign_in_options.g.dart';
 
+const _deprecatedMessage = '''
+Use ConfirmSignInOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+ConfirmSignInOptions(
+  pluginOptions: CognitoConfirmSignInPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@template amplify_auth_cognito.model.cognito_confirm_sign_in_options}
 /// Cognito options for `Amplify.Auth.confirmSignIn`.
 /// {@endtemplate}
+@Deprecated(_deprecatedMessage)
 class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   /// {@macro amplify_auth_cognito.model.cognito_confirm_sign_in_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoConfirmSignInOptions({
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,

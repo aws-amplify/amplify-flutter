@@ -161,10 +161,10 @@ class HostedUiStateMachine
     final optionsJson = await _secureStorage.read(
       key: _keys[HostedUiKey.options],
     );
-    var options = const CognitoSignInWithWebUIOptions();
+    var options = const CognitoSignInWithWebUIPluginOptions();
     if (optionsJson != null) {
       final optionsMap = jsonDecode(optionsJson) as Map<String, Object?>;
-      options = CognitoSignInWithWebUIOptions.fromJson(optionsMap);
+      options = CognitoSignInWithWebUIPluginOptions.fromJson(optionsMap);
     }
     await _platform.signOut(
       options: options,

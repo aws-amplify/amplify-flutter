@@ -5,16 +5,31 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_sign_in_options.g.dart';
 
+const _deprecatedMessage = '''
+Use SignInOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+SignInOptions(
+  pluginOptions: CognitoSignInPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
 /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
 @zAmplifySerializable
+@Deprecated(_deprecatedMessage)
 class CognitoSignInOptions extends SignInOptions {
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoSignInOptions({
     this.authFlowType,
     this.clientMetadata = const {},
   }) : super.base();
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoSignInOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignInOptionsFromJson(json);
 

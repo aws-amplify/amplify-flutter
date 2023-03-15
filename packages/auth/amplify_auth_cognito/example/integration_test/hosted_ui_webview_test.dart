@@ -139,7 +139,7 @@ class HostedUiTestPlatform extends HostedUiPlatformImpl {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUri = await getSignInUri(provider: provider);
@@ -188,7 +188,7 @@ loginButton.click();
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     final signOutUrl = getSignOutUri();
     final controller = await _controller.future;

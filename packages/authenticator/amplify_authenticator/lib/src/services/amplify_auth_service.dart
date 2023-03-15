@@ -82,8 +82,10 @@ class AmplifyAuthService implements AuthService {
   }) {
     return Amplify.Auth.signInWithWebUI(
       provider: provider,
-      options: CognitoSignInWithWebUIOptions(
-        isPreferPrivateSession: preferPrivateSession,
+      options: SignInWithWebUIOptions(
+        pluginOptions: CognitoSignInWithWebUIPluginOptions(
+          isPreferPrivateSession: preferPrivateSession,
+        ),
       ),
     );
   }
@@ -102,7 +104,7 @@ class AmplifyAuthService implements AuthService {
     return Amplify.Auth.signUp(
       username: username,
       password: password,
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: attributes,
       ),
     );
@@ -123,7 +125,11 @@ class AmplifyAuthService implements AuthService {
   }) {
     return Amplify.Auth.confirmSignIn(
       confirmationValue: confirmationValue,
-      options: CognitoConfirmSignInOptions(userAttributes: attributes),
+      options: ConfirmSignInOptions(
+        pluginOptions: CognitoConfirmSignInPluginOptions(
+          userAttributes: attributes,
+        ),
+      ),
     );
   }
 

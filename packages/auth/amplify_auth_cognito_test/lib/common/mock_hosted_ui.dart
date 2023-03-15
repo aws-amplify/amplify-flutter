@@ -9,13 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 
 typedef SignInFn = Future<void> Function(
   HostedUiPlatform platform,
-  CognitoSignInWithWebUIOptions options,
+  CognitoSignInWithWebUIPluginOptions options,
   AuthProvider? provider,
 );
 
 typedef SignOutFn = Future<void> Function(
   HostedUiPlatform platform,
-  CognitoSignInWithWebUIOptions options,
+  CognitoSignInWithWebUIPluginOptions options,
 );
 
 HostedUiPlatformFactory createHostedUiFactory({
@@ -44,14 +44,14 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) =>
       _signIn(this, options, provider);
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) =>
       _signOut(this, options);
 

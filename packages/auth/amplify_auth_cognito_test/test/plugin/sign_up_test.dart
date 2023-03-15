@@ -51,7 +51,7 @@ void main() {
           plugin.signUp(
             username: username,
             password: 'password',
-            options: CognitoSignUpOptions(
+            options: SignUpOptions(
               userAttributes: {
                 CognitoUserAttributeKey.email: 'user@domain.com',
               },
@@ -100,7 +100,7 @@ void main() {
           plugin.signUp(
             username: username,
             password: 'password',
-            options: CognitoSignUpOptions(
+            options: SignUpOptions(
               userAttributes: {
                 CognitoUserAttributeKey.email: 'user@domain.com',
               },

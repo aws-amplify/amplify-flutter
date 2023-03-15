@@ -24,7 +24,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUrl = await getSignInUri(provider: provider);
@@ -33,7 +33,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {}
 
   @override
@@ -48,7 +48,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     throw Exception();
@@ -56,7 +56,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) {
     throw Exception();
   }
@@ -524,7 +524,7 @@ void main() {
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
-                CognitoSignInWithWebUIOptions options,
+                CognitoSignInWithWebUIPluginOptions options,
                 AuthProvider? provider,
               ) async {
                 final signInUrl =
@@ -553,7 +553,7 @@ void main() {
         stateMachine
             .dispatch(
               const HostedUiEvent.signIn(
-                options: CognitoSignInWithWebUIOptions(
+                options: CognitoSignInWithWebUIPluginOptions(
                   isPreferPrivateSession: true,
                 ),
               ),

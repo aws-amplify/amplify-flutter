@@ -378,10 +378,6 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       defaultOptions: const CognitoSignInWithWebUIPluginOptions(),
       requiredTypeName: 'CognitoSignInWithWebUIPluginOptions',
     );
-    final cognitoOptions = CognitoSignInWithWebUIOptions(
-      isPreferPrivateSession: pluginOptions.isPreferPrivateSession,
-      browserPackageName: pluginOptions.browserPackageName,
-    );
 
     // Create a new state machine which will close the previous one and cancel
     // any pending sign-ins.
@@ -389,7 +385,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     await _stateMachine
         .accept(
           HostedUiEvent.signIn(
-            options: cognitoOptions,
+            options: pluginOptions,
             provider: provider,
           ),
         )
@@ -752,8 +748,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           value: value,
         ),
       ],
-      options: CognitoUpdateUserAttributesOptions(
-        clientMetadata: pluginOptions.clientMetadata,
+      options: UpdateUserAttributesOptions(
+        pluginOptions: CognitoUpdateUserAttributesPluginOptions(
+          clientMetadata: pluginOptions.clientMetadata,
+        ),
       ),
     );
     return results.values.single;
