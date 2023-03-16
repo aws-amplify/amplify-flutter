@@ -1,0 +1,26 @@
+name: amplify_flutter iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - 'packages/amplify/amplify_flutter/**/*.yaml'
+      - 'packages/amplify/amplify_flutter/ios/**/*'
+      - 'packages/amplify/amplify_flutter/example/ios/unit_tests/**/*'
+      - 'packages/amplify/amplify_flutter_ios/**/*'
+      - '.github/workflows/flutter_ios.yaml'
+      - '.github/workflows/amplify_flutter.ios.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_ios.yaml
+    with:
+      working-directory: packages/amplify/amplify_flutter_ios/example/ios
