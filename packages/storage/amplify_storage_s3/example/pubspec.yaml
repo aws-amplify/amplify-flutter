@@ -39,7 +39,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   path: any
-  stack_trace: any
+  stack_trace: ^1.10.0
   test: any
 
 flutter:
