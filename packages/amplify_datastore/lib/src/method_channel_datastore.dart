@@ -3,9 +3,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_datastore/src/types/observe_query_executor.dart';
 import 'package:flutter/services.dart';
-
-import 'types/observe_query_executor.dart';
 
 const MethodChannel _channel = MethodChannel('com.amazonaws.amplify/datastore');
 

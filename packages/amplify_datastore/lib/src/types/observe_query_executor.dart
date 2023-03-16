@@ -1,10 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+@internal
+library amplify_datastore.observe_query_executor;
+
+import 'package:amplify_datastore/src/stream_utils/throttle.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:async/async.dart';
-
-import '../stream_utils/throttle.dart';
+import 'package:meta/meta.dart';
 
 typedef Query<T extends Model> = Future<List<T>> Function(
   ModelType<T> modelType, {

@@ -4,10 +4,9 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
+import 'package:amplify_datastore/src/method_channel_datastore.dart';
 import 'package:meta/meta.dart';
-
-import 'amplify_datastore_stream_controller.dart';
-import 'method_channel_datastore.dart';
 
 export 'package:amplify_core/src/types/datastore/datastore_types.dart'
     hide DateTimeParse;
