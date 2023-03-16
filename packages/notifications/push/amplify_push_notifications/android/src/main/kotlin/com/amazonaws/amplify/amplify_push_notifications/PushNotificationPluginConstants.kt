@@ -13,5 +13,7 @@ class PushNotificationPluginConstants {
         const val PAYLOAD_KEY = "payload"
         const val IS_LAUNCH_NOTIFICATION = "isLaunchNotification"
         const val FLUTTER_ENGINE_ID = "main_flutter_engine"
+        const val AMPLIFY_BG_FUNCTION_NAME = "amplifyBackgroundProcessing"
+
     }
 }

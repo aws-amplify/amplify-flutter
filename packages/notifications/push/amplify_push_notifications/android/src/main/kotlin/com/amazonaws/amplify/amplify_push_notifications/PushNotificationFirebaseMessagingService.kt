@@ -6,6 +6,7 @@ package com.amazonaws.amplify.amplify_push_notifications
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -13,6 +14,9 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
+import io.flutter.embedding.engine.dart.DartExecutor
+import io.flutter.embedding.engine.loader.FlutterLoader
+
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
 
@@ -80,10 +84,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    runAppFromKilledState()
-                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
-                        payload.asChannelMap()
-                    ) {}
+                    runAppFromKilledState(payload)
+
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"
@@ -93,14 +95,41 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun runAppFromKilledState(){
+    private fun runAppFromKilledState(payload: NotificationPayload) {
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
-            // Create and run the default Flutter engine only when the main one is not running
-            // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
-            engineGroup.createAndRunDefaultEngine(baseContext)
+            val mainHandler = Handler(baseContext.mainLooper)
+            mainHandler.post {
+                val loader = FlutterLoader()
+                loader.startInitialization(baseContext);
+                loader.ensureInitializationCompleteAsync(
+                    baseContext,
+                    null,
+                    mainHandler,
+                ) {
+                    // Create and run the background Flutter engine with entry point as the customer defined
+                    // strictly named function.
+                    engineGroup.createAndRunEngine(
+                        baseContext,
+                        DartExecutor.DartEntrypoint(
+                            loader.findAppBundlePath(),
+                            PushNotificationPluginConstants.AMPLIFY_BG_FUNCTION_NAME,
+                        ),
+                    )
+                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+                        payload.asChannelMap()
+                    ) {}
+
+                }
+            }
+            // Runtime error is thrown when [PushNotificationPluginConstants.AMPLIFY_BG_FUNCTION_NAME]
+            // does not match the name of the entry point function provided in the Flutter app.
+        }else{
+            AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+                payload.asChannelMap()
+            ) {}
         }
     }
 }

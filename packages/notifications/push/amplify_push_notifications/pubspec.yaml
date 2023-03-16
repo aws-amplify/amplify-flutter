@@ -13,6 +13,7 @@ dependencies:
   amplify_secure_storage: ^0.1.0
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   amplify_lints: ^2.0.0
