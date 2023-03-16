@@ -11,6 +11,7 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
+<<<<<<< HEAD
 @pragma('vm:entry-point')
 void amplifyBackgroundProcessing() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +43,8 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   return;
 }
 
+=======
+>>>>>>> feat/push-notification
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
@@ -92,6 +95,28 @@ class _MyAppState extends State<MyApp> {
       launchNotificaitonAvailable =
           Amplify.Notifications.Push.launchNotification;
     });
+  }
+
+  void bgHandler(PushNotificationMessage pushNotificationMessage) async {
+    print('bgHandler called');
+    setState(() {
+      backgroundMessage = pushNotificationMessage;
+    });
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.reload();
+      var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+      globalBgCallbackCount =
+          globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+      await prefs.setInt(
+        globalBgCallbackKey,
+        globalBgCallbackCount,
+      );
+    } on Exception catch (e) {
+      print(' error in handler: $e');
+    }
+    return;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
