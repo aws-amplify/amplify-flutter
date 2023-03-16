@@ -11,7 +11,6 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-<<<<<<< HEAD
 @pragma('vm:entry-point')
 void amplifyBackgroundProcessing() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +42,6 @@ void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   return;
 }
 
-=======
->>>>>>> feat/push-notification
 void main() {
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());

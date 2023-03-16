@@ -14,12 +14,9 @@ import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
-<<<<<<< HEAD
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.embedding.engine.loader.FlutterLoader
 
-=======
->>>>>>> feat/push-notification
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
 
@@ -87,15 +84,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-<<<<<<< HEAD
                     runAppFromKilledState(payload)
 
-=======
-                    runAppFromKilledState()
-                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
-                        payload.asChannelMap()
-                    ) {}
->>>>>>> feat/push-notification
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"
@@ -105,16 +95,11 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-<<<<<<< HEAD
     private fun runAppFromKilledState(payload: NotificationPayload) {
-=======
-    private fun runAppFromKilledState(){
->>>>>>> feat/push-notification
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
-<<<<<<< HEAD
             val mainHandler = Handler(baseContext.mainLooper)
             mainHandler.post {
                 val loader = FlutterLoader()
@@ -145,11 +130,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                 payload.asChannelMap()
             ) {}
-=======
-            // Create and run the default Flutter engine only when the main one is not running
-            // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
-            engineGroup.createAndRunDefaultEngine(baseContext)
->>>>>>> feat/push-notification
         }
     }
 }
