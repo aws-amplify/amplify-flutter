@@ -4,6 +4,8 @@
 library amplify_push_notifications;
 
 import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
@@ -285,8 +287,6 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   final _eventQueue = <Map<Object?, Object?>>[];
 
   ServiceProviderClient? _serviceProviderClient;
-
-  final _eventQueue = <Map<Object?, Object?>>[];
 
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
