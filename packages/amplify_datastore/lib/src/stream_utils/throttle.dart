@@ -3,7 +3,10 @@
 
 import 'dart:async';
 
+import 'package:meta/meta.dart';
+
 /// Throttle related stream extensions
+@internal
 extension Throttle<T> on Stream<T> {
   /// Emits the first event from the source, and then
   /// emits one event every time the [throttleCount] is reached

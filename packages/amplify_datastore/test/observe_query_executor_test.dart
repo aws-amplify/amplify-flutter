@@ -3,12 +3,11 @@
 
 import 'dart:async';
 
+import 'package:amplify_datastore/src/types/observe_query_executor.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../lib/types/observe_query_executor.dart';
 
 var syncQueriesStartedEvent = DataStoreHubEvent(
   'syncQueriesStarted',
