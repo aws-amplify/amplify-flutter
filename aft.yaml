@@ -128,11 +128,17 @@ scripts:
       and:
         - flutter
         - example
-    run: flutter build ios --simulator
+    run: |
+      if [ -d ios ]; then
+        flutter build ios --simulator
+      fi
   build:example:android:
     description: Builds all example apps for Android
     from:
       and:
         - flutter
         - example
-    run: flutter build apk --debug
+    run: |
+      if [ -d android ]; then
+        flutter build apk --debug
+      fi
