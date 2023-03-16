@@ -1,0 +1,26 @@
+name: amplify_analytics_pinpoint iOS
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - 'packages/analytics/amplify_analytics_pinpoint/**/*.yaml'
+      - 'packages/analytics/amplify_analytics_pinpoint/ios/**/*'
+      - 'packages/analytics/amplify_analytics_pinpoint/example/ios/unit_tests/**/*'
+      - 'packages/analytics/amplify_analytics_pinpoint_ios/**/*'
+      - '.github/workflows/flutter_ios.yaml'
+      - '.github/workflows/amplify_analytics_pinpoint.ios.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_ios.yaml
+    with:
+      working-directory: packages/analytics/amplify_analytics_pinpoint_ios/example/ios
