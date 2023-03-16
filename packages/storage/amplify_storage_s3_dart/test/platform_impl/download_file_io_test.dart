@@ -53,7 +53,7 @@ void main() {
       storageS3Service = MockStorageS3Service();
       downloadTask = MockS3DownloadTask();
       registerFallbackValue(
-        const StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+        const StorageDownloadDataOptions(
           accessLevel: StorageAccessLevel.guest,
         ),
       );
@@ -90,8 +90,7 @@ void main() {
       final captureParams = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<
-              StorageDownloadDataOptions<S3DownloadDataPluginOptions>>(
+          options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
           preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
@@ -106,14 +105,15 @@ void main() {
 
       expect(
         captureParams[0],
-        isA<StorageDownloadDataOptions<S3DownloadDataPluginOptions>>()
+        isA<StorageDownloadDataOptions>()
             .having(
               (o) => o.accessLevel,
               'accessLevel',
               testDownloadFileRequest.options?.accessLevel,
             )
             .having(
-              (o) => o.pluginOptions!.getProperties,
+              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+                  .getProperties,
               'getProperties',
               isTrue,
             ),
@@ -176,8 +176,7 @@ void main() {
       final capturedOptions = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<
-              StorageDownloadDataOptions<S3DownloadDataPluginOptions>>(
+          options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
           preStart: any(named: 'preStart'),
@@ -225,8 +224,7 @@ void main() {
       final capturedOptions = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<
-              StorageDownloadDataOptions<S3DownloadDataPluginOptions>>(
+          options: captureAny<StorageDownloadDataOptions>(
             named: 'options',
           ),
           preStart: any(named: 'preStart'),
@@ -239,14 +237,15 @@ void main() {
 
       expect(
         capturedOptions,
-        isA<StorageDownloadDataOptions<S3DownloadDataPluginOptions>>()
+        isA<StorageDownloadDataOptions>()
             .having(
               (o) => o.accessLevel,
               'accessLevel',
               testAcessLevel,
             )
             .having(
-              (o) => o.pluginOptions!.targetIdentityId,
+              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+                  .targetIdentityId,
               'targetIdentityId',
               testTargetIdentity,
             ),
@@ -254,8 +253,9 @@ void main() {
 
       expect(
         capturedOptions,
-        isA<StorageDownloadDataOptions<S3DownloadDataPluginOptions>>().having(
-          (o) => o.pluginOptions!.targetIdentityId,
+        isA<StorageDownloadDataOptions>().having(
+          (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+              .targetIdentityId,
           'targetIdentityId',
           testTargetIdentity,
         ),

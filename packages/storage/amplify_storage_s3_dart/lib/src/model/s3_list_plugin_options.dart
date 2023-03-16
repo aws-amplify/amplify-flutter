@@ -1,10 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_core.dart';
+
+part 's3_list_plugin_options.g.dart';
+
 /// {@template storage.amplify_storage_s3.list_plugin_options}
 /// The configurable parameters for the Storage S3 plugin `list` API.
 /// {@endtemplate}
-class S3ListPluginOptions {
+@zAmplifySerializable
+class S3ListPluginOptions extends StorageListPluginOptions {
   /// {@macro storage.amplify_storage_s3.list_plugin_options}
   const S3ListPluginOptions({
     bool excludeSubPaths = false,
@@ -70,4 +75,17 @@ class S3ListPluginOptions {
   ///
   /// Use with caution if numerous objects are under the given path.
   final bool listAll;
+
+  @override
+  List<Object?> get props => [
+        excludeSubPaths,
+        listAll,
+        targetIdentityId,
+      ];
+
+  @override
+  String get runtimeTypeName => 'S3ListPluginOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$S3ListPluginOptionsToJson(this);
 }

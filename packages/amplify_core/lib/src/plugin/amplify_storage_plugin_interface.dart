@@ -101,10 +101,11 @@ abstract class StoragePluginInterface<
   }
 
   /// {@macro amplify_core.amplify_storage_category.move}
-  PluginStorageMoveOperation move(
-      {required StorageItemWithAccessLevel<PluginStorageItem> source,
-      required StorageItemWithAccessLevel<PluginStorageItem> destination,
-      StorageMoveOptions? options}) {
+  PluginStorageMoveOperation move({
+    required StorageItemWithAccessLevel<PluginStorageItem> source,
+    required StorageItemWithAccessLevel<PluginStorageItem> destination,
+    StorageMoveOptions? options,
+  }) {
     throw UnimplementedError('move() has not been implemented.');
   }
 

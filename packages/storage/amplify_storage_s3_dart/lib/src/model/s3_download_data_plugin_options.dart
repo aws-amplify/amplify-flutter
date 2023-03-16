@@ -1,12 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+
+part 's3_download_data_plugin_options.g.dart';
 
 /// {@template storage.amplify_storage_s3.download_data_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `downloadData` API.
 /// {@endtemplate}
-class S3DownloadDataPluginOptions {
+@zAmplifySerializable
+class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
   /// {@macro storage.amplify_storage_s3.download_data_options}
   const S3DownloadDataPluginOptions({
     bool getProperties = false,
@@ -59,4 +63,18 @@ class S3DownloadDataPluginOptions {
   /// enabled endpoint for the operation.
   /// {@endtemplate}
   final bool useAccelerateEndpoint;
+
+  @override
+  List<Object?> get props => [
+        getProperties,
+        useAccelerateEndpoint,
+        bytesRange,
+        targetIdentityId,
+      ];
+
+  @override
+  String get runtimeTypeName => 'S3DownloadDataPluginOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$S3DownloadDataPluginOptionsToJson(this);
 }

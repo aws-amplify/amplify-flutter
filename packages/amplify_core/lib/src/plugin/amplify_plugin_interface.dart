@@ -29,4 +29,23 @@ abstract class AmplifyPluginInterface {
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting
   Future<void> reset() async {}
+
+  /// validate [pluginOptions] is an instance of [T].
+  /// if [pluginOptions] is `null` returns the [defaultPluginOptions].
+  /// throws [ArgumentError] if none of the above.
+  static T reifyPluginOptions<T>({
+    Object? pluginOptions,
+    required T defaultPluginOptions,
+  }) {
+    if (pluginOptions == null) {
+      return defaultPluginOptions;
+    }
+    if (pluginOptions is! T) {
+      throw ArgumentError(
+        'Expected pluginOptions with type: ${defaultPluginOptions.runtimeType.toString()}. '
+        'but got: ${pluginOptions.runtimeType.toString()}.',
+      );
+    }
+    return pluginOptions as T;
+  }
 }

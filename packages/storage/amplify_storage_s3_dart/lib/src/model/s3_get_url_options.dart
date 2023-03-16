@@ -31,7 +31,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   )
   const S3GetUrlOptions._({
     super.accessLevel = StorageAccessLevel.guest,
-    this.expiresIn = const Duration(days: 1),
+    this.expiresIn = const Duration(minutes: 15),
     this.checkObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
@@ -46,7 +46,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   )
   const S3GetUrlOptions.forIdentity(
     String targetIdentityId, {
-    Duration expiresIn = const Duration(days: 1),
+    Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(

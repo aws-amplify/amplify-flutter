@@ -1,11 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/amplify_core.dart';
+
+part 's3_get_url_plugin_options.g.dart';
+
 /// {@template storage.amplify_storage_s3.get_url_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `getUrl`
 /// API.
 /// {@endtemplate}
-class S3GetUrlPluginOptions {
+@zAmplifySerializable
+class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
   const S3GetUrlPluginOptions({
     Duration expiresIn = const Duration(minutes: 15),
@@ -18,7 +23,7 @@ class S3GetUrlPluginOptions {
         );
 
   const S3GetUrlPluginOptions._({
-    this.expiresIn = const Duration(days: 1),
+    this.expiresIn = const Duration(minutes: 15),
     this.checkObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
@@ -30,7 +35,7 @@ class S3GetUrlPluginOptions {
   /// (identified by [targetIdentityId]) rather than the currently signed user.
   const S3GetUrlPluginOptions.forIdentity(
     String targetIdentityId, {
-    Duration expiresIn = const Duration(days: 1),
+    Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
@@ -54,4 +59,18 @@ class S3GetUrlPluginOptions {
 
   /// {@macro storage.amplify_storage_s3.transfer_acceleration}
   final bool useAccelerateEndpoint;
+
+  @override
+  List<Object?> get props => [
+        expiresIn,
+        checkObjectExistence,
+        useAccelerateEndpoint,
+        targetIdentityId,
+      ];
+
+  @override
+  String get runtimeTypeName => 'S3GetUrlPluginOptions';
+
+  @override
+  Map<String, Object?> toJson() => _$S3GetUrlPluginOptionsToJson(this);
 }

@@ -64,7 +64,7 @@ void main() {
       test(
           'should throw a S3Exception if supplied prefix resolver throws an exception',
           () async {
-        const testOptions = StorageListOptions<S3ListPluginOptions>(
+        const testOptions = StorageListOptions(
           accessLevel: StorageAccessLevel.guest,
           pageSize: 1000,
           pluginOptions:
@@ -238,7 +238,7 @@ void main() {
       test(
           'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
           ' with status code 403 returned from service', () async {
-        const testOptions = StorageListOptions<S3ListPluginOptions>(
+        const testOptions = StorageListOptions(
           accessLevel: StorageAccessLevel.guest,
           pageSize: 100,
         );
@@ -451,8 +451,7 @@ void main() {
       test(
           'should throw StorageKeyNotFoundException when UnknownSmithyHttpException'
           ' with status code 404 returned from service', () async {
-        const testOptions =
-            StorageGetPropertiesOptions<S3GetPropertiesPluginOptions>(
+        const testOptions = StorageGetPropertiesOptions(
           accessLevel: StorageAccessLevel.guest,
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -508,7 +507,7 @@ void main() {
         runZoned(
           () async {
             const testTargetIdentityId = 'someone-else-id';
-            const testOptions = StorageGetUrlOptions<S3GetUrlPluginOptions>(
+            const testOptions = StorageGetUrlOptions(
               accessLevel: StorageAccessLevel.guest,
               pluginOptions: S3GetUrlPluginOptions.forIdentity(
                 testTargetIdentityId,
@@ -741,7 +740,7 @@ void main() {
 
       test('should invoke S3Client.copyObject with expected parameters',
           () async {
-        const testOptions = StorageCopyOptions<S3CopyPluginOptions>();
+        const testOptions = StorageCopyOptions();
         final testCopyObjectOutput = CopyObjectOutput();
         final smithyOperation = MockSmithyOperation<CopyObjectOutput>();
 
@@ -782,7 +781,7 @@ void main() {
       test(
           'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
           ' with status code 403 returned from service', () async {
-        const testOptions = StorageCopyOptions<S3CopyPluginOptions>();
+        const testOptions = StorageCopyOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -807,7 +806,7 @@ void main() {
       test(
           'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
           () async {
-        const testOptions = StorageCopyOptions<S3CopyPluginOptions>(
+        const testOptions = StorageCopyOptions(
           pluginOptions: S3CopyPluginOptions(
             getProperties: true,
           ),
@@ -889,7 +888,7 @@ void main() {
       test(
           'should invoke S3Client.copyObject and S3Client.deleteObject with expected parameters',
           () async {
-        const testOptions = StorageMoveOptions<S3MovePluginOptions>();
+        const testOptions = StorageMoveOptions();
         final testCopyObjectOutput = CopyObjectOutput();
         final testDeleteObjectOutput = DeleteObjectOutput();
         final copySmithyOperation = MockSmithyOperation<CopyObjectOutput>();
@@ -955,7 +954,7 @@ void main() {
           'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
           ' with status code 403 returned from service while copying the source',
           () async {
-        const testOptions = StorageMoveOptions<S3MovePluginOptions>();
+        const testOptions = StorageMoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 403,
           body: 'Access denied.',
@@ -981,7 +980,7 @@ void main() {
           'should throw StorageHttpStatusException when UnknownSmithyHttpException'
           ' with status code 500 returned from service while deleting the source',
           () async {
-        const testOptions = StorageMoveOptions<S3MovePluginOptions>();
+        const testOptions = StorageMoveOptions();
         const testUnknownException = UnknownSmithyHttpException(
           statusCode: 500,
           body: 'Internal error',
@@ -1088,7 +1087,7 @@ void main() {
 
       test('should invoke S3Client.deleteObject with expected parameters',
           () async {
-        const testOptions = StorageRemoveOptions<S3RemovePluginOptions>(
+        const testOptions = StorageRemoveOptions(
           accessLevel: StorageAccessLevel.private,
         );
         final testDeleteObjectOutput = DeleteObjectOutput();
@@ -1131,7 +1130,7 @@ void main() {
       test(
           'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
           ' with status code 403 returned from service', () async {
-        const testOptions = StorageRemoveOptions<S3RemovePluginOptions>(
+        const testOptions = StorageRemoveOptions(
           accessLevel: StorageAccessLevel.guest,
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -1173,7 +1172,7 @@ void main() {
 
       test('should invoke S3Client.deleteObjects with expected parameters',
           () async {
-        const testOptions = StorageRemoveManyOptions<S3RemoveManyPluginOptions>(
+        const testOptions = StorageRemoveManyOptions(
           accessLevel: StorageAccessLevel.protected,
         );
         final testPrefix =
@@ -1292,7 +1291,7 @@ void main() {
       test(
           'should throw StorageAccessDeniedException when UnknownSmithyHttpException'
           ' with status code 403 returned from service', () async {
-        const testOptions = StorageRemoveManyOptions<S3RemoveManyPluginOptions>(
+        const testOptions = StorageRemoveManyOptions(
           accessLevel: StorageAccessLevel.guest,
         );
         const testUnknownException = UnknownSmithyHttpException(

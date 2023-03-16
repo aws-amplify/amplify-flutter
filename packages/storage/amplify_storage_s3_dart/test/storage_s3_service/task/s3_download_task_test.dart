@@ -19,8 +19,7 @@ void main() {
   group('S3DownloadTask', () {
     const testBucket = 'bucket1';
     const testKey = 'some-object';
-    const defaultTestOptions =
-        StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+    const defaultTestOptions = StorageDownloadDataOptions(
       accessLevel: StorageAccessLevel.guest,
     );
     final testPrefixResolver = TestPrefixResolver();
@@ -136,11 +135,11 @@ void main() {
       test(
           'it should invoke S3Client.getObject API with correct useAcceleration parameter',
           () async {
-        const testOptions =
-            StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+        const testUseAccelerateEndpoint = true;
+        const testOptions = StorageDownloadDataOptions(
           accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3DownloadDataPluginOptions(
-            useAccelerateEndpoint: true,
+            useAccelerateEndpoint: testUseAccelerateEndpoint,
           ),
         );
         const testBodyBytes = [101, 102];
@@ -185,7 +184,7 @@ void main() {
           isA<S3ClientConfig>().having(
             (o) => o.useAcceleration,
             'useAcceleration',
-            testOptions.pluginOptions!.useAccelerateEndpoint,
+            testUseAccelerateEndpoint,
           ),
         );
       });
@@ -691,8 +690,7 @@ void main() {
           'should invoke S3Client.headObject to retrieve properties of object when getProperties is set to true in the options',
           () async {
         const testTargetIdentity = 'some-else-id';
-        const testOptions =
-            StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+        const testOptions = StorageDownloadDataOptions(
           accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3DownloadDataPluginOptions.forIdentity(
             testTargetIdentity,

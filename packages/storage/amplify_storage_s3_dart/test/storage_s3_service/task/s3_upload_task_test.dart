@@ -28,8 +28,7 @@ void main() {
     const testBucket = 'fake-bucket';
     const defaultS3ClientConfig = smithy_aws.S3ClientConfig();
     final testPrefixResolver = TestCustomPrefixResolver();
-    const testUploadDataOptions =
-        StorageUploadDataOptions<S3UploadDataPluginOptions>(
+    const testUploadDataOptions = StorageUploadDataOptions(
       accessLevel: StorageAccessLevel.private,
     );
 
@@ -150,8 +149,7 @@ void main() {
       test(
           'should invoke S3Client.putObject API with correct useAcceleration parameters',
           () async {
-        const testUploadDataOptions =
-            StorageUploadDataOptions<S3UploadDataPluginOptions>(
+        const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,
@@ -260,8 +258,7 @@ void main() {
       test(
           'should invoke S3Client.headObject API with correct parameters when getProperties is set to true in the options',
           () async {
-        const testUploadDataOptions =
-            StorageUploadDataOptions<S3UploadDataPluginOptions>(
+        const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
@@ -494,8 +491,7 @@ void main() {
       test(
           'should invoke S3Client.putObject with correct useAcceleration parameter',
           () async {
-        const testUploadDataOptions =
-            StorageUploadDataOptions<S3UploadDataPluginOptions>(
+        const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.private,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,
@@ -667,8 +663,7 @@ void main() {
           receivedState.add(progress.state);
         }
 
-        const testUploadDataOptions =
-            StorageUploadDataOptions<S3UploadDataPluginOptions>(
+        const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.protected,
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
@@ -807,7 +802,8 @@ void main() {
         );
         expect(
           capturedCreateMultipartUploadRequest.metadata?['filename'],
-          testUploadDataOptions.pluginOptions!.metadata?['filename'],
+          (testUploadDataOptions.pluginOptions! as S3UploadDataPluginOptions)
+              .metadata?['filename'],
         );
         final capturedTransferDBInsertParam = verify(
           () => transferDatabase.insertTransferRecord(
@@ -896,8 +892,7 @@ void main() {
       test(
           'should invoke S3Client uploadPart API with correct useAcceleration parameter',
           () async {
-        const testUploadDataOptions =
-            StorageUploadDataOptions<S3UploadDataPluginOptions>(
+        const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.protected,
           pluginOptions: S3UploadDataPluginOptions(
             useAccelerateEndpoint: true,

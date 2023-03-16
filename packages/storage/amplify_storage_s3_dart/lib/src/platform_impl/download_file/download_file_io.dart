@@ -18,11 +18,11 @@ S3DownloadFileOperation downloadFile({
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
 }) {
-  final s3PluginOptions = AmplifyStorageS3Dart.tryCastOrDefaultIfNull(
+  final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
     pluginOptions: request.options?.pluginOptions,
     defaultPluginOptions: const S3DownloadFilePluginOptions(),
   );
-  final s3Options = StorageDownloadFileOptions<S3DownloadFilePluginOptions>(
+  final s3Options = StorageDownloadFileOptions(
     accessLevel:
         request.options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
     pluginOptions: s3PluginOptions,
@@ -33,8 +33,7 @@ S3DownloadFileOperation downloadFile({
   late final File tempFile;
 
   final targetIdentityId = s3PluginOptions.targetIdentityId;
-  final downloadDataOptions =
-      StorageDownloadDataOptions<S3DownloadDataPluginOptions>(
+  final downloadDataOptions = StorageDownloadDataOptions(
     accessLevel: s3Options.accessLevel,
     pluginOptions: targetIdentityId == null
         ? S3DownloadDataPluginOptions(

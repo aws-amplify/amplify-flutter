@@ -51,7 +51,7 @@ class S3DownloadTask {
     required S3PrefixResolver prefixResolver,
     required String bucket,
     required String key,
-    required StorageDownloadDataOptions<S3DownloadDataPluginOptions> options,
+    required StorageDownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
     void Function(List<int>)? onData,
@@ -71,7 +71,11 @@ class S3DownloadTask {
         _onDone = onDone,
         _onError = onError,
         _logger = logger,
-        _downloadedBytesSize = 0;
+        _downloadedBytesSize = 0,
+        _s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+          pluginOptions: options.pluginOptions,
+          defaultPluginOptions: const S3DownloadDataPluginOptions(),
+        );
 
   // the Completer to complete the final `result` Future.
   final Completer<S3Item> _downloadCompleter;
@@ -81,14 +85,14 @@ class S3DownloadTask {
   final S3PrefixResolver _prefixResolver;
   final String _bucket;
   final String _key;
-  final StorageDownloadDataOptions<S3DownloadDataPluginOptions>
-      _downloadDataOptions;
+  final StorageDownloadDataOptions _downloadDataOptions;
   final FutureOr<void> Function()? _preStart;
   final void Function(S3TransferProgress)? _onProgress;
   final void Function(List<int> bytes)? _onData;
   final FutureOr<void> Function()? _onDone;
   final FutureOr<void> Function()? _onError;
   final AWSLogger _logger;
+  final S3DownloadDataPluginOptions _s3PluginOptions;
 
   int _downloadedBytesSize;
 
@@ -134,7 +138,7 @@ class S3DownloadTask {
       prefixResolver: _prefixResolver,
       logger: _logger,
       accessLevel: _downloadDataOptions.accessLevel,
-      identityId: _downloadDataOptions.pluginOptions?.targetIdentityId,
+      identityId: _s3PluginOptions.targetIdentityId,
     );
 
     _resolvedKey = '$resolvedPrefix$_key';
@@ -143,7 +147,7 @@ class S3DownloadTask {
       final getObjectOutput = await _getObject(
         bucket: _bucket,
         key: _resolvedKey,
-        bytesRange: _downloadDataOptions.pluginOptions?.bytesRange,
+        bytesRange: _s3PluginOptions.bytesRange,
       );
 
       final remoteSize = getObjectOutput.contentLength?.toInt();
@@ -283,8 +287,7 @@ class S3DownloadTask {
             await _onDone?.call();
             _emitTransferProgress();
             _downloadCompleter.complete(
-              (_downloadDataOptions.pluginOptions != null &&
-                      _downloadDataOptions.pluginOptions!.getProperties)
+              (_s3PluginOptions.getProperties)
                   ? S3Item.fromHeadObjectOutput(
                       await StorageS3Service.headObject(
                         s3client: _s3Client,
@@ -339,8 +342,7 @@ class S3DownloadTask {
           .getObject(
             request,
             s3ClientConfig: _defaultS3ClientConfig.copyWith(
-              useAcceleration:
-                  _downloadDataOptions.pluginOptions?.useAccelerateEndpoint,
+              useAcceleration: _s3PluginOptions.useAccelerateEndpoint,
             ),
           )
           .result;

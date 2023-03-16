@@ -35,11 +35,11 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
-  final s3PluginOptions = AmplifyStorageS3Dart.tryCastOrDefaultIfNull(
+  final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
     pluginOptions: request.options?.pluginOptions,
     defaultPluginOptions: const S3DownloadFilePluginOptions(),
   );
-  final s3Options = StorageDownloadFileOptions<S3DownloadFilePluginOptions>(
+  final s3Options = StorageDownloadFileOptions(
     accessLevel:
         request.options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
     pluginOptions: s3PluginOptions,
@@ -50,14 +50,14 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   final url = (await storageS3Service.getUrl(
     key: request.key,
     options: targetIdentityId == null
-        ? StorageGetUrlOptions<S3GetUrlPluginOptions>(
+        ? StorageGetUrlOptions(
             accessLevel: s3Options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions(
               checkObjectExistence: true,
               useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
             ),
           )
-        : StorageGetUrlOptions<S3GetUrlPluginOptions>(
+        : StorageGetUrlOptions(
             accessLevel: s3Options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions.forIdentity(
               targetIdentityId,
@@ -81,10 +81,10 @@ Future<S3DownloadFileResult> _downloadFromUrl({
         ? (await storageS3Service.getProperties(
             key: request.key,
             options: targetIdentityId == null
-                ? StorageGetPropertiesOptions<S3GetPropertiesPluginOptions>(
+                ? StorageGetPropertiesOptions(
                     accessLevel: s3Options.accessLevel,
                   )
-                : StorageGetPropertiesOptions<S3GetPropertiesPluginOptions>(
+                : StorageGetPropertiesOptions(
                     accessLevel: s3Options.accessLevel,
                     pluginOptions: S3GetPropertiesPluginOptions.forIdentity(
                       targetIdentityId,
