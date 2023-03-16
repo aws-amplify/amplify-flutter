@@ -17,6 +17,8 @@ dependencies:
     sdk: flutter
   go_router: ^3.0.0
 
+# Needed to support both Flutter 3.3 + 3.7 in CI.
+# TODO(dnys1): Remove when Flutter 3.3 is no longer supported
 dependency_overrides:
   async: ^2.10.0
   meta: ^1.9.0
