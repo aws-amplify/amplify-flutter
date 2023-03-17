@@ -10,20 +10,15 @@ typedef AuthSessionOptions = FetchAuthSessionOptions;
 /// {@template amplify_core.auth.fetch_auth_session_options}
 /// Options for `Amplify.Auth.fetchAuthSession`.
 /// {@endtemplate}
-abstract class FetchAuthSessionOptions
+class FetchAuthSessionOptions
     with
         AWSEquatable<FetchAuthSessionOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.fetch_auth_session_options}
-  const factory FetchAuthSessionOptions({
-    bool forceRefresh,
-    FetchAuthSessionPluginOptions? pluginOptions,
-  }) = _FetchAuthSessionOptions;
-
-  /// {@macro amplify_core.auth.fetch_auth_session_options}
-  const FetchAuthSessionOptions.base({
+  const FetchAuthSessionOptions({
     this.forceRefresh = false,
+    this.pluginOptions,
   });
 
   /// Whether to force a refresh of the cached credentials.
@@ -33,10 +28,13 @@ abstract class FetchAuthSessionOptions
   final bool forceRefresh;
 
   /// {@macro amplify_core.auth.fetch_auth_session_plugin_options}
-  FetchAuthSessionPluginOptions? get pluginOptions;
+  final FetchAuthSessionPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [forceRefresh, pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'FetchAuthSessionOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -46,19 +44,6 @@ abstract class FetchAuthSessionOptions
         'forceRefresh': forceRefresh,
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _FetchAuthSessionOptions extends FetchAuthSessionOptions {
-  const _FetchAuthSessionOptions({
-    super.forceRefresh = false,
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final FetchAuthSessionPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'FetchAuthSessionOptions';
 }
 
 /// {@template amplify_core.auth.fetch_auth_session_plugin_options}

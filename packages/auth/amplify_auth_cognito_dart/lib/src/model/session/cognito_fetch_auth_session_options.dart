@@ -28,7 +28,7 @@ class CognitoFetchAuthSessionOptions extends FetchAuthSessionOptions {
     // ignore: avoid_unused_constructor_parameters
     @Deprecated(_getAWSCredentialsDeprecation) bool? getAWSCredentials = false,
     super.forceRefresh = false,
-  }) : super.base();
+  });
 
   /// {@macro amplify_auth_cognito.model.cognito_fetch_auth_session_options}
   @Deprecated(_deprecatedMessage)

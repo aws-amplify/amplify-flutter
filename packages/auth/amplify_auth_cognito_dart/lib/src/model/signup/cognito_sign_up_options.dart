@@ -33,8 +33,7 @@ class CognitoSignUpOptions extends SignUpOptions {
   })  : validationData = validationData ?? const {},
         clientMetadata = clientMetadata ?? const {},
         userAttributes = Map.of(userAttributes)
-          ..removeWhere((key, value) => key.readOnly),
-        super.base();
+          ..removeWhere((key, value) => key.readOnly);
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_up_plugin_options}
   @Deprecated(_deprecatedMessage)
@@ -42,6 +41,7 @@ class CognitoSignUpOptions extends SignUpOptions {
       _$CognitoSignUpOptionsFromJson(json);
 
   @override
+  // ignore: overridden_fields
   final Map<CognitoUserAttributeKey, String> userAttributes;
 
   /// {@macro amplify_auth_cognito_dart.cognito_sign_up_options.validation_data}

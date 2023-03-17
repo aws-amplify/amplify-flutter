@@ -28,8 +28,7 @@ class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
     Map<String, String>? clientMetadata,
     Map<CognitoUserAttributeKey, String>? userAttributes,
   })  : clientMetadata = clientMetadata ?? const {},
-        userAttributes = userAttributes ?? const {},
-        super.base();
+        userAttributes = userAttributes ?? const {};
 
   /// A map of custom key-value pairs that you can provide as input for certain
   /// custom workflows that this action triggers.

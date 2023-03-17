@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.auth.resend_sign_up_code_options}
 /// The shared resend sign up code options among all Auth plugins.
 /// {@endtemplate}
-abstract class ResendSignUpCodeOptions
+class ResendSignUpCodeOptions
     with
         AWSEquatable<ResendSignUpCodeOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.resend_sign_up_code_options}
-  const factory ResendSignUpCodeOptions({
-    ResendSignUpCodePluginOptions? pluginOptions,
-  }) = _ResendSignUpCodeOptions;
-
-  /// {@macro amplify_core.auth.resend_sign_up_code_options}
-  const ResendSignUpCodeOptions.base();
+  const ResendSignUpCodeOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.sign_up_plugin_options}
-  ResendSignUpCodePluginOptions? get pluginOptions;
+  final ResendSignUpCodePluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'ResendSignUpCodeOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class ResendSignUpCodeOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _ResendSignUpCodeOptions extends ResendSignUpCodeOptions {
-  const _ResendSignUpCodeOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final ResendSignUpCodePluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'ResendSignUpCodeOptions';
 }
 
 /// {@template amplify_core.auth.sign_up_plugin_options}

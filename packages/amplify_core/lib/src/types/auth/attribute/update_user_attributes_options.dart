@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.update_user_attributes_options}
 /// The shared update user attributes options among all Auth plugins.
 /// {@endtemplate}
-abstract class UpdateUserAttributesOptions
+class UpdateUserAttributesOptions
     with
         AWSEquatable<UpdateUserAttributesOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.update_user_attributes_options}
-  const factory UpdateUserAttributesOptions({
-    UpdateUserAttributesPluginOptions? pluginOptions,
-  }) = _UpdateUserAttributesOptions;
-
-  /// Base constructor for subclassing.
-  const UpdateUserAttributesOptions.base();
+  const UpdateUserAttributesOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.update_user_attributes_plugin_options}
-  UpdateUserAttributesPluginOptions? get pluginOptions;
+  final UpdateUserAttributesPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'UpdateUserAttributesOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class UpdateUserAttributesOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _UpdateUserAttributesOptions extends UpdateUserAttributesOptions {
-  const _UpdateUserAttributesOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final UpdateUserAttributesPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'UpdateUserAttributesOptions';
 }
 
 /// {@template amplify_core.auth.update_user_attributes_plugin_options}

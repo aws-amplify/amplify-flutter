@@ -7,24 +7,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// The shared resend user attribute confirmation code options among all Auth
 /// plugins.
 /// {@endtemplate}
-abstract class ResendUserAttributeConfirmationCodeOptions
+class ResendUserAttributeConfirmationCodeOptions
     with
         AWSEquatable<ResendUserAttributeConfirmationCodeOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.resend_user_attribute_confirmation_code_options}
-  const factory ResendUserAttributeConfirmationCodeOptions({
-    ResendUserAttributeConfirmationCodePluginOptions? pluginOptions,
-  }) = _ResendUserAttributeConfirmationCodeOptions;
-
-  /// Base constructor for subclassing.
-  const ResendUserAttributeConfirmationCodeOptions.base();
+  const ResendUserAttributeConfirmationCodeOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.resend_user_attribute_confirmation_code_plugin_options}
-  ResendUserAttributeConfirmationCodePluginOptions? get pluginOptions;
+  final ResendUserAttributeConfirmationCodePluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'ResendUserAttributeConfirmationCodeOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -33,19 +33,6 @@ abstract class ResendUserAttributeConfirmationCodeOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _ResendUserAttributeConfirmationCodeOptions
-    extends ResendUserAttributeConfirmationCodeOptions {
-  const _ResendUserAttributeConfirmationCodeOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final ResendUserAttributeConfirmationCodePluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'ResendUserAttributeConfirmationCodeOptions';
 }
 
 /// {@template amplify_core.auth.resend_user_attribute_confirmation_code_plugin_options}

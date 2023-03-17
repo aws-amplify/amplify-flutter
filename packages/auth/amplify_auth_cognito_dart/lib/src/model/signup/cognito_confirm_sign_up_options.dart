@@ -27,7 +27,7 @@ class CognitoConfirmSignUpOptions extends ConfirmSignUpOptions {
   @Deprecated(_deprecatedMessage)
   const CognitoConfirmSignUpOptions({
     this.clientMetadata = const {},
-  }) : super.base();
+  });
 
   /// {@macro amplify_auth_cognito_dart.cognito_confirm_sign_up_options}
   @Deprecated(_deprecatedMessage)

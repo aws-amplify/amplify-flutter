@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.auth.sign_up_options}
 /// Options for `Amplify.Auth.signUp`.
 /// {@endtemplate}
-abstract class SignUpOptions
+class SignUpOptions
     with
         AWSEquatable<SignUpOptions>,
         AWSSerializable<Map<String, Object?>>,
@@ -24,21 +24,21 @@ abstract class SignUpOptions
   /// };
   /// final options = SignUpOptions(userAttributes: userAttributes);
   /// ```
-  const factory SignUpOptions({
-    Map<AuthUserAttributeKey, String> userAttributes,
-    SignUpPluginOptions? pluginOptions,
-  }) = _SignUpOptions;
+  const SignUpOptions({
+    Map<AuthUserAttributeKey, String>? userAttributes,
+    this.pluginOptions,
+  }) : userAttributes = userAttributes ?? const {};
 
-  /// Base constructor for subclassing.
-  const SignUpOptions.base();
-
-  Map<AuthUserAttributeKey, String> get userAttributes;
+  final Map<AuthUserAttributeKey, String> userAttributes;
 
   /// {@macro amplify_core.auth.sign_up_plugin_options}
-  SignUpPluginOptions? get pluginOptions;
+  final SignUpPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [userAttributes, pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'SignUpOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -48,22 +48,6 @@ abstract class SignUpOptions
         'userAttributes': userAttributes,
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _SignUpOptions extends SignUpOptions {
-  const _SignUpOptions({
-    this.userAttributes = const {},
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final Map<AuthUserAttributeKey, String> userAttributes;
-
-  @override
-  final SignUpPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'SignUpOptions';
 }
 
 /// {@template amplify_core.auth.sign_up_plugin_options}

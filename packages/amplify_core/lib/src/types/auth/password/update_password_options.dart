@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.update_password_options}
 /// The shared update password options among all Auth plugins.
 /// {@endtemplate}
-abstract class UpdatePasswordOptions
+class UpdatePasswordOptions
     with
         AWSEquatable<UpdatePasswordOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.update_password_options}
-  const factory UpdatePasswordOptions({
-    UpdatePasswordPluginOptions? pluginOptions,
-  }) = _UpdatePasswordOptions;
-
-  /// Base constructor for subclassing.
-  const UpdatePasswordOptions.base();
+  const UpdatePasswordOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.update_password_plugin_options}
-  UpdatePasswordPluginOptions? get pluginOptions;
+  final UpdatePasswordPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'UpdatePasswordOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class UpdatePasswordOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _UpdatePasswordOptions extends UpdatePasswordOptions {
-  const _UpdatePasswordOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final UpdatePasswordPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'UpdatePasswordOptions';
 }
 
 /// {@template amplify_core.auth.update_password_plugin_options}

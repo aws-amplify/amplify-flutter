@@ -28,8 +28,7 @@ class CognitoResendUserAttributeConfirmationCodeOptions
   @Deprecated(_deprecatedMessage)
   const CognitoResendUserAttributeConfirmationCodeOptions({
     Map<String, String>? clientMetadata,
-  })  : clientMetadata = clientMetadata ?? const {},
-        super.base();
+  }) : clientMetadata = clientMetadata ?? const {};
 
   /// {@macro amplify_auth_cognito.cognito_resend_user_attribute_confirmation_code_options}
   @Deprecated(_deprecatedMessage)

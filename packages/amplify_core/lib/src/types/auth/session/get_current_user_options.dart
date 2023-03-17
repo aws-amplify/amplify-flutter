@@ -9,24 +9,24 @@ typedef AuthUserOptions = GetCurrentUserOptions;
 /// {@template amplify_core.auth.get_current_user_options}
 /// Options for `Amplify.Auth.getCurrentUser`.
 /// {@endtemplate}
-abstract class GetCurrentUserOptions
+class GetCurrentUserOptions
     with
         AWSEquatable<GetCurrentUserOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.get_current_user_options}
-  const factory GetCurrentUserOptions({
-    GetCurrentUserPluginOptions? pluginOptions,
-  }) = _GetCurrentUserOptions;
-
-  /// Base constructor for subclassing.
-  const GetCurrentUserOptions.base();
+  const GetCurrentUserOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.get_current_user_plugin_options}
-  GetCurrentUserPluginOptions? get pluginOptions;
+  final GetCurrentUserPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'GetCurrentUserOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -35,18 +35,6 @@ abstract class GetCurrentUserOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _GetCurrentUserOptions extends GetCurrentUserOptions {
-  const _GetCurrentUserOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final GetCurrentUserPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => throw UnimplementedError();
 }
 
 /// {@template amplify_core.auth.get_current_user_plugin_options}

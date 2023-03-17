@@ -26,7 +26,7 @@ class CognitoSignInOptions extends SignInOptions {
   const CognitoSignInOptions({
     this.authFlowType,
     this.clientMetadata = const {},
-  }) : super.base();
+  });
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
   @Deprecated(_deprecatedMessage)

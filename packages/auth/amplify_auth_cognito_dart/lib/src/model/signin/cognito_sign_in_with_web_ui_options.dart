@@ -26,7 +26,7 @@ class CognitoSignInWithWebUIOptions extends SignInWithWebUIOptions {
   const CognitoSignInWithWebUIOptions({
     this.isPreferPrivateSession = false,
     this.browserPackageName,
-  }) : super.base();
+  });
 
   /// {@macro amplify_auth_cognito.model.cognito_sign_in_with_web_ui_options}
   @Deprecated(_deprecatedMessage)

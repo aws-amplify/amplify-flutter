@@ -28,7 +28,7 @@ class CognitoResendSignUpCodeOptions extends ResendSignUpCodeOptions {
   @Deprecated(_deprecatedMessage)
   const CognitoResendSignUpCodeOptions({
     this.clientMetadata = const {},
-  }) : super.base();
+  });
 
   /// {@macro amplify_auth_cognito_dart.model.cognito_resend_sign_up_code_plugin_options.client_metadata}
   final Map<String, String> clientMetadata;

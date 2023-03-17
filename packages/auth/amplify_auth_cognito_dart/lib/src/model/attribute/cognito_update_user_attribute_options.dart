@@ -27,8 +27,7 @@ class CognitoUpdateUserAttributeOptions extends UpdateUserAttributeOptions {
   @Deprecated(_deprecatedMessage)
   const CognitoUpdateUserAttributeOptions({
     Map<String, String>? clientMetadata,
-  })  : clientMetadata = clientMetadata ?? const {},
-        super.base();
+  }) : clientMetadata = clientMetadata ?? const {};
 
   /// {@macro amplify_auth_cognito.cognito_update_user_attribute_options}
   @Deprecated(_deprecatedMessage)

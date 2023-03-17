@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.auth.confirm_sign_in_options}
 /// Options for `Amplify.Auth.confirmSignIn`.
 /// {@endtemplate}
-abstract class ConfirmSignInOptions
+class ConfirmSignInOptions
     with
         AWSEquatable<ConfirmSignInOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.confirm_sign_in_options}
-  const factory ConfirmSignInOptions({
-    ConfirmSignInPluginOptions? pluginOptions,
-  }) = _ConfirmSignInOptions;
-
-  /// Base constructor for subclassing.
-  const ConfirmSignInOptions.base();
+  const ConfirmSignInOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.confirm_sign_in_plugin_options}
-  ConfirmSignInPluginOptions? get pluginOptions;
+  final ConfirmSignInPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'ConfirmSignInOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class ConfirmSignInOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _ConfirmSignInOptions extends ConfirmSignInOptions {
-  const _ConfirmSignInOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final ConfirmSignInPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'ConfirmSignInOptions';
 }
 
 /// {@template amplify_core.auth.confirm_sign_in_plugin_options}

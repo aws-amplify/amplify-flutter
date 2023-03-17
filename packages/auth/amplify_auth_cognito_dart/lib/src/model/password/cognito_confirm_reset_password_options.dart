@@ -30,8 +30,7 @@ class CognitoConfirmResetPasswordOptions extends ConfirmResetPasswordOptions {
   @Deprecated(_deprecatedMessage)
   const CognitoConfirmResetPasswordOptions({
     Map<String, String>? clientMetadata,
-  })  : clientMetadata = clientMetadata ?? const {},
-        super.base();
+  }) : clientMetadata = clientMetadata ?? const {};
 
   /// {@macro amplify_auth_cognito.cognito_confirm_reset_password_options}
   @Deprecated(_deprecatedMessage)

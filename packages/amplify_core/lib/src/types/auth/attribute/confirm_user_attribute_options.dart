@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.types.auth.confirm_user_attribute_options}
 /// Options passed to `Amplify.Auth.confirmUserAttribute`
 /// {@endtemplate}
-abstract class ConfirmUserAttributeOptions
+class ConfirmUserAttributeOptions
     with
         AWSEquatable<ConfirmUserAttributeOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.types.auth.confirm_user_attribute_options}
-  const factory ConfirmUserAttributeOptions({
-    ConfirmUserAttributePluginOptions? pluginOptions,
-  }) = _ConfirmUserAttributeOptions;
-
-  /// Base constructor for subclassing.
-  const ConfirmUserAttributeOptions.base();
+  const ConfirmUserAttributeOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.confirm_user_attribute_plugin_options}
-  ConfirmUserAttributePluginOptions? get pluginOptions;
+  final ConfirmUserAttributePluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'ConfirmUserAttributeOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class ConfirmUserAttributeOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _ConfirmUserAttributeOptions extends ConfirmUserAttributeOptions {
-  const _ConfirmUserAttributeOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final ConfirmUserAttributePluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'ConfirmUserAttributeOptions';
 }
 
 /// {@template amplify_core.auth.confirm_user_attribute_plugin_options}

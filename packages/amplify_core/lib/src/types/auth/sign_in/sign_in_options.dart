@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.auth.sign_in_options}
 /// Options for `Amplify.Auth.signIn`.
 /// {@endtemplate}
-abstract class SignInOptions
+class SignInOptions
     with
         AWSSerializable<Map<String, Object?>>,
         AWSEquatable<SignInOptions>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.sign_in_options}
-  const factory SignInOptions({
-    SignInPluginOptions? pluginOptions,
-  }) = _SignInOptions;
-
-  /// Base constructor for subclassing.
-  const SignInOptions.base();
+  const SignInOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.sign_in_plugin_options}
-  SignInPluginOptions? get pluginOptions;
+  final SignInPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'SignInOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class SignInOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _SignInOptions extends SignInOptions {
-  const _SignInOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final SignInPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'SignInOptions';
 }
 
 /// {@template amplify_core.auth.sign_in_plugin_options}

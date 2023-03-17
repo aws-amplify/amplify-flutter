@@ -6,24 +6,24 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.confirm_reset_password_options}
 /// The shared confirm reset password options among all Auth plugins.
 /// {@endtemplate}
-abstract class ConfirmResetPasswordOptions
+class ConfirmResetPasswordOptions
     with
         AWSEquatable<ConfirmResetPasswordOptions>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.confirm_reset_password_options}
-  const factory ConfirmResetPasswordOptions({
-    ConfirmResetPasswordPluginOptions? pluginOptions,
-  }) = _ConfirmResetPasswordOptions;
-
-  /// Base constructor for subclassing.
-  const ConfirmResetPasswordOptions.base();
+  const ConfirmResetPasswordOptions({
+    this.pluginOptions,
+  });
 
   /// {@macro amplify_core.auth.confirm_reset_password_plugin_options}
-  ConfirmResetPasswordPluginOptions? get pluginOptions;
+  final ConfirmResetPasswordPluginOptions? pluginOptions;
 
   @override
   List<Object?> get props => [pluginOptions];
+
+  @override
+  String get runtimeTypeName => 'ConfirmResetPasswordOptions';
 
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
@@ -32,18 +32,6 @@ abstract class ConfirmResetPasswordOptions
   Map<String, Object?> toJson() => {
         'pluginOptions': pluginOptions?.toJson(),
       };
-}
-
-class _ConfirmResetPasswordOptions extends ConfirmResetPasswordOptions {
-  const _ConfirmResetPasswordOptions({
-    this.pluginOptions,
-  }) : super.base();
-
-  @override
-  final ConfirmResetPasswordPluginOptions? pluginOptions;
-
-  @override
-  String get runtimeTypeName => 'ConfirmResetPasswordOptions';
 }
 
 /// {@template amplify_core.auth.confirm_reset_password_plugin_options}
