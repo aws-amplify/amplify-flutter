@@ -22,6 +22,7 @@ abstract class JsonListsInputOutput
   factory JsonListsInputOutput({
     List<bool>? booleanList,
     List<_i3.FooEnum>? enumList,
+    List<int>? intEnumList,
     List<int>? integerList,
     List<List<String>>? nestedStringList,
     List<String?>? sparseStringList,
@@ -33,6 +34,7 @@ abstract class JsonListsInputOutput
     return _$JsonListsInputOutput._(
       booleanList: booleanList == null ? null : _i5.BuiltList(booleanList),
       enumList: enumList == null ? null : _i5.BuiltList(enumList),
+      intEnumList: intEnumList == null ? null : _i5.BuiltList(intEnumList),
       integerList: integerList == null ? null : _i5.BuiltList(integerList),
       nestedStringList: nestedStringList == null
           ? null
@@ -76,6 +78,7 @@ abstract class JsonListsInputOutput
   static void _init(JsonListsInputOutputBuilder b) {}
   _i5.BuiltList<bool>? get booleanList;
   _i5.BuiltList<_i3.FooEnum>? get enumList;
+  _i5.BuiltList<int>? get intEnumList;
   _i5.BuiltList<int>? get integerList;
 
   /// A list of lists of strings.
@@ -91,6 +94,7 @@ abstract class JsonListsInputOutput
   List<Object?> get props => [
         booleanList,
         enumList,
+        intEnumList,
         integerList,
         nestedStringList,
         sparseStringList,
@@ -109,6 +113,10 @@ abstract class JsonListsInputOutput
     helper.add(
       'enumList',
       enumList,
+    );
+    helper.add(
+      'intEnumList',
+      intEnumList,
     );
     helper.add(
       'integerList',
@@ -192,6 +200,17 @@ class JsonListsInputOutputRestJson1Serializer
                 [FullType(_i3.FooEnum)],
               ),
             ) as _i5.BuiltList<_i3.FooEnum>));
+          }
+          break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i5.BuiltList<int>));
           }
           break;
         case 'integerList':
@@ -309,6 +328,17 @@ class JsonListsInputOutputRestJson1Serializer
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.FooEnum)],
+          ),
+        ));
+    }
+    if (payload.intEnumList != null) {
+      result
+        ..add('intEnumList')
+        ..add(serializers.serialize(
+          payload.intEnumList!,
+          specifiedType: const FullType(
+            _i5.BuiltList,
+            [FullType(int)],
           ),
         ));
     }

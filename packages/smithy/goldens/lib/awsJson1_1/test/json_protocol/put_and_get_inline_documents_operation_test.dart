@@ -43,7 +43,10 @@ void main() {
           },
           vendorParamsShape: null,
           vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'JsonProtocol.PutAndGetInlineDocuments',
+          },
           forbidHeaders: [],
           requireHeaders: ['Content-Length'],
           tags: [],

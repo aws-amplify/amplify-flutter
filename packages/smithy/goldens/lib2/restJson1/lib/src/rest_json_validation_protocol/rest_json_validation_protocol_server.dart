@@ -25,13 +25,15 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_
     as _i12;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_required_input.dart'
     as _i13;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_structures_input.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_unique_items_input.dart'
     as _i14;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/sensitive_validation_input.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_structures_input.dart'
     as _i15;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/sensitive_validation_input.dart'
+    as _i16;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/validation_exception.dart'
-    as _i17;
-import 'package:shelf/shelf.dart' as _i16;
+    as _i18;
+import 'package:shelf/shelf.dart' as _i17;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
@@ -93,6 +95,11 @@ abstract class RestJsonValidationProtocolServerBase extends _i1.HttpServerBase {
     );
     router.add(
       'POST',
+      r'/MalformedUniqueItems',
+      service.malformedUniqueItems,
+    );
+    router.add(
+      'POST',
       r'/RecursiveStructures',
       service.recursiveStructures,
     );
@@ -140,15 +147,19 @@ abstract class RestJsonValidationProtocolServerBase extends _i1.HttpServerBase {
     _i13.MalformedRequiredInput input,
     _i1.Context context,
   );
+  _i4.Future<_i1.Unit> malformedUniqueItems(
+    _i14.MalformedUniqueItemsInput input,
+    _i1.Context context,
+  );
   _i4.Future<_i1.Unit> recursiveStructures(
-    _i14.RecursiveStructuresInput input,
+    _i15.RecursiveStructuresInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> sensitiveValidation(
-    _i15.SensitiveValidationInput input,
+    _i16.SensitiveValidationInput input,
     _i1.Context context,
   );
-  _i4.Future<_i16.Response> call(_i16.Request request) => _router(request);
+  _i4.Future<_i17.Response> call(_i17.Request request) => _router(request);
 }
 
 class _RestJsonValidationProtocolServer
@@ -237,8 +248,17 @@ class _RestJsonValidationProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i14.RecursiveStructuresInput,
-      _i14.RecursiveStructuresInput,
+      _i14.MalformedUniqueItemsInput,
+      _i14.MalformedUniqueItemsInput,
+      _i1.Unit,
+      _i1.Unit> _malformedUniqueItemsProtocol = _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+      _i15.RecursiveStructuresInput,
+      _i15.RecursiveStructuresInput,
       _i1.Unit,
       _i1.Unit> _recursiveStructuresProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -246,15 +266,15 @@ class _RestJsonValidationProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i15.SensitiveValidationInput,
-      _i15.SensitiveValidationInput,
+      _i16.SensitiveValidationInput,
+      _i16.SensitiveValidationInput,
       _i1.Unit,
       _i1.Unit> _sensitiveValidationProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  _i4.Future<_i16.Response> malformedEnum(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedEnum(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -281,22 +301,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedEnumProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -309,7 +329,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedLength(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedLength(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -336,22 +356,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedLengthProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -364,8 +384,8 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedLengthOverride(
-      _i16.Request request) async {
+  _i4.Future<_i17.Response> malformedLengthOverride(
+      _i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -392,22 +412,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedLengthOverrideProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -420,8 +440,8 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedLengthQueryString(
-      _i16.Request request) async {
+  _i4.Future<_i17.Response> malformedLengthQueryString(
+      _i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -449,22 +469,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedLengthQueryStringProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -477,7 +497,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedPattern(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedPattern(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -504,22 +524,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedPatternProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -532,8 +552,8 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedPatternOverride(
-      _i16.Request request) async {
+  _i4.Future<_i17.Response> malformedPatternOverride(
+      _i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -560,22 +580,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedPatternOverrideProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -588,7 +608,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedRange(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedRange(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -615,22 +635,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedRangeProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -643,7 +663,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedRangeOverride(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedRangeOverride(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -670,22 +690,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedRangeOverrideProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -698,7 +718,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> malformedRequired(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedRequired(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -725,22 +745,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _malformedRequiredProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -753,7 +773,62 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> recursiveStructures(_i16.Request request) async {
+  _i4.Future<_i17.Response> malformedUniqueItems(_i17.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _malformedUniqueItemsProtocol.contentType;
+    try {
+      final payload = (await _malformedUniqueItemsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(_i14.MalformedUniqueItemsInput),
+      ) as _i14.MalformedUniqueItemsInput);
+      final input = _i14.MalformedUniqueItemsInput.fromRequest(
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.malformedUniqueItems(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _malformedUniqueItemsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i1.Unit,
+          [FullType(_i1.Unit)],
+        ),
+      );
+      return _i17.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on _i18.ValidationException catch (e) {
+      context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
+      final body = _malformedUniqueItemsProtocol.serialize(
+        e,
+        specifiedType: const FullType(
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
+        ),
+      );
+      const statusCode = 400;
+      return _i17.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i17.Response> recursiveStructures(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -761,9 +836,9 @@ class _RestJsonValidationProtocolServer
     try {
       final payload = (await _recursiveStructuresProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i14.RecursiveStructuresInput),
-      ) as _i14.RecursiveStructuresInput);
-      final input = _i14.RecursiveStructuresInput.fromRequest(
+        specifiedType: const FullType(_i15.RecursiveStructuresInput),
+      ) as _i15.RecursiveStructuresInput);
+      final input = _i15.RecursiveStructuresInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -780,22 +855,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _recursiveStructuresProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -808,7 +883,7 @@ class _RestJsonValidationProtocolServer
     }
   }
 
-  _i4.Future<_i16.Response> sensitiveValidation(_i16.Request request) async {
+  _i4.Future<_i17.Response> sensitiveValidation(_i17.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -816,9 +891,9 @@ class _RestJsonValidationProtocolServer
     try {
       final payload = (await _sensitiveValidationProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i15.SensitiveValidationInput),
-      ) as _i15.SensitiveValidationInput);
-      final input = _i15.SensitiveValidationInput.fromRequest(
+        specifiedType: const FullType(_i16.SensitiveValidationInput),
+      ) as _i16.SensitiveValidationInput);
+      final input = _i16.SensitiveValidationInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -835,22 +910,22 @@ class _RestJsonValidationProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i17.ValidationException catch (e) {
+    } on _i18.ValidationException catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ValidationException';
       final body = _sensitiveValidationProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i17.ValidationException,
-          [FullType(_i17.ValidationException)],
+          _i18.ValidationException,
+          [FullType(_i18.ValidationException)],
         ),
       );
       const statusCode = 400;
-      return _i16.Response(
+      return _i17.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),

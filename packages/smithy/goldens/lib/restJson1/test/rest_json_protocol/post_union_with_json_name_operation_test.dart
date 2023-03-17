@@ -281,10 +281,12 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'value':
-          result.value = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i6.UnionWithJsonName),
-          ) as _i6.UnionWithJsonName);
+          if (value != null) {
+            result.value = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.UnionWithJsonName),
+            ) as _i6.UnionWithJsonName);
+          }
           break;
       }
     }

@@ -42,7 +42,7 @@ final dependencyVersions = {
   'build_runner': const Dependency.dev('^2.0.0'),
   'build_web_compilers': const Dependency.dev('^3.2.0'),
   'build_test': const Dependency.dev('^2.1.5'),
-  'built_value_generator': const Dependency.dev('8.4.2'),
+  'built_value_generator': const Dependency.dev('8.4.4'),
   'lints': const Dependency.dev('^2.0.0'),
   'test': const Dependency.dev('^1.16.0'),
 };

@@ -21,10 +21,12 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_
     as _i17;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_required_input.dart'
     as _i19;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_structures_input.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/malformed_unique_items_input.dart'
     as _i21;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/sensitive_validation_input.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/recursive_structures_input.dart'
     as _i23;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/sensitive_validation_input.dart'
+    as _i25;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/malformed_enum_operation.dart'
     as _i4;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/malformed_length_operation.dart'
@@ -43,10 +45,12 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/malfor
     as _i18;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/malformed_required_operation.dart'
     as _i20;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/recursive_structures_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/malformed_unique_items_operation.dart'
     as _i22;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/sensitive_validation_operation.dart'
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/recursive_structures_operation.dart'
     as _i24;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/operation/sensitive_validation_operation.dart'
+    as _i26;
 import 'package:smithy/smithy.dart' as _i2;
 
 /// A REST JSON service that sends JSON requests and responses with validation applied
@@ -209,11 +213,26 @@ class RestJsonValidationProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<void> recursiveStructures(
-    _i21.RecursiveStructuresInput input, {
+  _i2.SmithyOperation<void> malformedUniqueItems(
+    _i21.MalformedUniqueItemsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i22.RecursiveStructuresOperation(
+    return _i22.MalformedUniqueItemsOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i2.SmithyOperation<void> recursiveStructures(
+    _i23.RecursiveStructuresInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i24.RecursiveStructuresOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -225,10 +244,10 @@ class RestJsonValidationProtocolClient {
   }
 
   _i2.SmithyOperation<void> sensitiveValidation(
-    _i23.SensitiveValidationInput input, {
+    _i25.SensitiveValidationInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i24.SensitiveValidationOperation(
+    return _i26.SensitiveValidationOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,

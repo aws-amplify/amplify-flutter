@@ -32,6 +32,8 @@ abstract class AllQueryStringTypesInput
     List<_i3.FooEnum>? queryEnumList,
     double? queryFloat,
     int? queryInteger,
+    int? queryIntegerEnum,
+    List<int>? queryIntegerEnumList,
     List<int>? queryIntegerList,
     Set<int>? queryIntegerSet,
     _i4.Int64? queryLong,
@@ -56,6 +58,10 @@ abstract class AllQueryStringTypesInput
           queryEnumList == null ? null : _i5.BuiltList(queryEnumList),
       queryFloat: queryFloat,
       queryInteger: queryInteger,
+      queryIntegerEnum: queryIntegerEnum,
+      queryIntegerEnumList: queryIntegerEnumList == null
+          ? null
+          : _i5.BuiltList(queryIntegerEnumList),
       queryIntegerList:
           queryIntegerList == null ? null : _i5.BuiltList(queryIntegerList),
       queryIntegerSet:
@@ -168,6 +174,15 @@ abstract class AllQueryStringTypesInput
               .parseHeader(request.queryParameters['EnumList']!)
               .map((el) => _i3.FooEnum.values.byValue(el.trim())));
         }
+        if (request.queryParameters['IntegerEnum'] != null) {
+          b.queryIntegerEnum =
+              int.parse(request.queryParameters['IntegerEnum']!);
+        }
+        if (request.queryParameters['IntegerEnumList'] != null) {
+          b.queryIntegerEnumList.addAll(_i1
+              .parseHeader(request.queryParameters['IntegerEnumList']!)
+              .map((el) => int.parse(el.trim())));
+        }
       });
 
   static const List<_i1.SmithySerializer> serializers = [
@@ -185,6 +200,8 @@ abstract class AllQueryStringTypesInput
   _i5.BuiltList<_i3.FooEnum>? get queryEnumList;
   double? get queryFloat;
   int? get queryInteger;
+  int? get queryIntegerEnum;
+  _i5.BuiltList<int>? get queryIntegerEnumList;
   _i5.BuiltList<int>? get queryIntegerList;
   _i5.BuiltSet<int>? get queryIntegerSet;
   _i4.Int64? get queryLong;
@@ -209,6 +226,8 @@ abstract class AllQueryStringTypesInput
         queryEnumList,
         queryFloat,
         queryInteger,
+        queryIntegerEnum,
+        queryIntegerEnumList,
         queryIntegerList,
         queryIntegerSet,
         queryLong,
@@ -258,6 +277,14 @@ abstract class AllQueryStringTypesInput
     helper.add(
       'queryInteger',
       queryInteger,
+    );
+    helper.add(
+      'queryIntegerEnum',
+      queryIntegerEnum,
+    );
+    helper.add(
+      'queryIntegerEnumList',
+      queryIntegerEnumList,
     );
     helper.add(
       'queryIntegerList',

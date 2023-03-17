@@ -41,7 +41,10 @@ void main() {
           params: {'label': 'bar'},
           vendorParamsShape: null,
           vendorParams: {},
-          headers: {},
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'JsonProtocol.EndpointWithHostLabelOperation',
+          },
           forbidHeaders: [],
           requireHeaders: [],
           tags: [],
