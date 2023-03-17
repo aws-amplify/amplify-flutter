@@ -14,15 +14,14 @@ import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
-import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
-import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 
 private const val TAG = "AmplifyPushNotificationsPlugin"
 
@@ -91,7 +90,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     private val _lifecycleObserver: LifecycleObserver = AmplifyLifecycleObserver()
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        Log.d(TAG,"onAttachedToEngine: ${flutterPluginBinding.flutterEngine}")
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
 
         // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, is possible to
@@ -126,10 +124,17 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         mainActivity = binding.activity
         activityBinding = binding
         binding.addOnNewIntentListener(this)
-        binding.activity.intent.putExtra(
-            PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
-        )
-        onNewIntent(binding.activity.intent)
+
+        // Check for supported extras and not add the flag for other intents such as app opening via icon tap
+        binding.activity.intent.extras?.let {
+            val payload = it.asPayload()
+            if (payload != null) {
+                binding.activity.intent.putExtra(
+                    PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
+                )
+                onNewIntent(binding.activity.intent)
+            }
+        }
     }
 
     override fun onDetachedFromActivity() {
@@ -172,9 +177,10 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
     override fun registerCallbackFunction(
         callbackHandle: Long,
-        callbackType: PushNotificationsHostApiBindings.CallbackType,
     ) {
-        sharedPreferences.edit().putLong(PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle).apply()
+        sharedPreferences.edit()
+            .putLong(PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, callbackHandle)
+            .apply()
         return
     }
 

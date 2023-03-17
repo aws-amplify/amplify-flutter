@@ -48,17 +48,6 @@ public class PushNotificationsHostApiBindings {
     }
   }
 
-  public enum CallbackType {
-    DISPATCHER(0),
-    EXTERNAL_FUNCTION(1);
-
-    private final int index;
-
-    private CallbackType(final int index) {
-      this.index = index;
-    }
-  }
-
   /** Generated class from Pigeon that represents data sent in messages. */
   public static final class PermissionsOptions {
     private @NonNull Boolean alert;
@@ -313,7 +302,7 @@ public class PushNotificationsHostApiBindings {
 
     void setBadgeCount(@NonNull Long withBadgeCount);
 
-    void registerCallbackFunction(@NonNull Long callbackHandle, @NonNull CallbackType callbackType);
+    void registerCallbackFunction(@NonNull Long callbackHandle);
 
     /** The codec used by PushNotificationsHostApi. */
     static MessageCodec<Object> getCodec() {
@@ -475,11 +464,7 @@ public class PushNotificationsHostApiBindings {
                   if (callbackHandleArg == null) {
                     throw new NullPointerException("callbackHandleArg unexpectedly null.");
                   }
-                  CallbackType callbackTypeArg = args.get(1) == null ? null : CallbackType.values()[(int) args.get(1)];
-                  if (callbackTypeArg == null) {
-                    throw new NullPointerException("callbackTypeArg unexpectedly null.");
-                  }
-                  api.registerCallbackFunction((callbackHandleArg == null) ? null : callbackHandleArg.longValue(), callbackTypeArg);
+                  api.registerCallbackFunction((callbackHandleArg == null) ? null : callbackHandleArg.longValue());
                   wrapped.add(0, null);
                 } catch (Error | RuntimeException exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);

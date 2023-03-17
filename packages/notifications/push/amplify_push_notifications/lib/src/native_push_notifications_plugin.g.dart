@@ -18,11 +18,6 @@ enum PermissionStatus {
   denied,
 }
 
-enum CallbackType {
-  dispatcher,
-  externalFunction,
-}
-
 class PermissionsOptions {
   PermissionsOptions({
     required this.alert,
@@ -294,12 +289,12 @@ class PushNotificationsHostApi {
     }
   }
 
-  Future<void> registerCallbackFunction(int arg_callbackHandle, CallbackType arg_callbackType) async {
+  Future<void> registerCallbackFunction(int arg_callbackHandle) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
-        await channel.send(<Object?>[arg_callbackHandle, arg_callbackType.index]) as List<Object?>?;
+        await channel.send(<Object?>[arg_callbackHandle]) as List<Object?>?;
     if (replyList == null) {
       throw PlatformException(
         code: 'channel-error',

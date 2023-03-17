@@ -6,6 +6,12 @@ import 'package:flutter/widgets.dart';
 const _notificationsConfigSecureStorageKey =
     'notificationsConfigSecureStorageKey';
 
+/// {@template amplify_push_notifications_pinpoint.amplify_background_processor}
+/// Dart entry point function that facilitates recording of notificaiton event when the app is killed.
+///
+/// Securely stored config is used to configure Amplify with Pinpoint push notifications plugin that
+/// can record the notificaiton received event when the app is in a killed state.
+/// {@endtemplate}
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,5 +31,4 @@ Future<void> amplifyBackgroundProcessing() async {
       await Amplify.configure(amplifyconfigStr);
     }
   }
-  print('amplifyBackgroundProcessing done');
 }

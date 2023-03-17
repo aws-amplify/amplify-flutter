@@ -39,7 +39,7 @@ class PushNotificationBackgroundService : JobIntentService() {
         val callbackHandle = context.getSharedPreferences(
             PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
         ).getLong(
-            PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+            PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, 0
         )
         if (callbackHandle == 0L) {
             Log.w(

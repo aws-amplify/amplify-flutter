@@ -315,13 +315,12 @@ void PushNotificationsHostApiSetup(id<FlutterBinaryMessenger> binaryMessenger, N
         binaryMessenger:binaryMessenger
         codec:PushNotificationsHostApiGetCodec()];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(registerCallbackFunctionCallbackHandle:callbackType:error:)], @"PushNotificationsHostApi api (%@) doesn't respond to @selector(registerCallbackFunctionCallbackHandle:callbackType:error:)", api);
+      NSCAssert([api respondsToSelector:@selector(registerCallbackFunctionCallbackHandle:error:)], @"PushNotificationsHostApi api (%@) doesn't respond to @selector(registerCallbackFunctionCallbackHandle:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSNumber *arg_callbackHandle = GetNullableObjectAtIndex(args, 0);
-        CallbackType arg_callbackType = [GetNullableObjectAtIndex(args, 1) integerValue];
         FlutterError *error;
-        [api registerCallbackFunctionCallbackHandle:arg_callbackHandle callbackType:arg_callbackType error:&error];
+        [api registerCallbackFunctionCallbackHandle:arg_callbackHandle error:&error];
         callback(wrapResult(nil, error));
       }];
     } else {
