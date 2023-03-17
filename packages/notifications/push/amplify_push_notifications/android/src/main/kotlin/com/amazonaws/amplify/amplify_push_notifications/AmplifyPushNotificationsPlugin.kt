@@ -101,7 +101,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             flutterPluginBinding.flutterEngine
         )
         // Force init stream handlers when the app is opened from killed state so old handlers are removed.
-        StreamHandlers.initStreamHandlers()
+        StreamHandlers.initStreamHandlers(true)
         StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)

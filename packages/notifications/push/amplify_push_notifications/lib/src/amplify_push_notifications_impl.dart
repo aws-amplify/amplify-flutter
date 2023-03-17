@@ -56,10 +56,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       return payload['token'] as String;
     }).distinct();
 
+    print('_foregroundNotificationEventChannel initiliazed');
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
-        .map(PushNotificationMessage.fromJson);
+        .map((json) {
+      print('_onForegroundNotificationReceived');
+      return PushNotificationMessage.fromJson(json);
+    });
 
     _onNotificationOpened = _notificationOpenedEventChannel
         .receiveBroadcastStream()
@@ -149,11 +153,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
     print('HERE 2');
 
-    await _amplifySecureStorage.write(
-      key: _notificationsConfigSecureStorageKey,
-      value: jsonEncode(config),
-    );
-
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
       config: notificationsConfig,
@@ -181,7 +180,10 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _backgroundProcessor,
       CallbackType.dispatcher,
     );
-
+    await _amplifySecureStorage.write(
+      key: _notificationsConfigSecureStorageKey,
+      value: jsonEncode(config),
+    );
     print('Configured');
     _isConfigured = true;
   }
@@ -263,11 +265,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   void _foregroundNotificationListener(
     PushNotificationMessage pushNotificationMessage,
-  ) =>
-      _serviceProviderClient.recordNotificationEvent(
-        eventType: PinpointEventType.foregroundMessageReceived,
-        notification: pushNotificationMessage,
-      );
+  ) {
+    print('_foregroundNotificationListener');
+    _serviceProviderClient.recordNotificationEvent(
+      eventType: PinpointEventType.foregroundMessageReceived,
+      notification: pushNotificationMessage,
+    );
+  }
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
@@ -303,6 +307,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         'Unexpected error $error received from onTokenReceived event channel.',
       );
     });
+    print('Adding foregorund listener');
     onNotificationReceivedInForeground
         .listen(_foregroundNotificationListener)
         .onError((Object error) {
@@ -393,6 +398,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
+    print('onNotificationReceivedInBackground in flutter api');
     // Flush only if ServiceProvider is available
     if (_serviceProviderClient != null) {
       await _flushEvents(withItem: payload);

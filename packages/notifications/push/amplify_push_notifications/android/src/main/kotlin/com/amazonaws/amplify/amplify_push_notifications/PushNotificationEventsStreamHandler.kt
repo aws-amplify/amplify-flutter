@@ -50,11 +50,15 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
+        Log.d(TAG, "listening: ${associatedNativeEvent}")
+
         eventSink = sink
         flushEvents()
     }
 
     override fun onCancel(arguments: Any?) {
+        Log.d(TAG, "onCancel: ${associatedNativeEvent}")
+
         eventSink = null
         eventQueue.clear()
     }
@@ -62,6 +66,7 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
     fun send(payload: Map<Any, Any?>) {
+        Log.d(TAG, "eventSink: $eventSink & associatedNativeEvent: ${associatedNativeEvent}")
         val event = PushNotificationsEvent(associatedNativeEvent, payload)
         eventSink?.success(payload) ?: run {
             eventQueue.add(event)
@@ -84,6 +89,8 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     private fun flushEvents() {
+        Log.d(TAG, "flushEvents: ${eventQueue.count()}")
+
         try {
             eventSink?.let {
                 while (eventQueue.isNotEmpty()) {
@@ -124,10 +131,13 @@ class StreamHandlers {
          * Separating the initialization methods allows for stream handler initialization that is useful
          * for queuing work when binary messenger is not ready e.g FirebaseService's onNewToken
          */
-        fun initStreamHandlers() {
-            // We deInit first to make sure the handlers are refreshed, especially needed when calling from
-            // onAttachedToEngine when the app is opened from the killed state.
-            deInit()
+        fun initStreamHandlers(refresh: Boolean) {
+            // InitStreamHandlers can be called from multiple places but we only need to refresh it
+            // when called from onAttachedToEngine. Sometimes, Firebase's onNewToken gets fired before
+            // or after onAttachedToEngine. When it happens after, it's important we don't deInit.
+            if(refresh) {
+                deInit()
+            }
             // Should only be initialized once
             if (!isInitStreamHandlers) {
                 tokenReceived = PushNotificationEventsStreamHandler(

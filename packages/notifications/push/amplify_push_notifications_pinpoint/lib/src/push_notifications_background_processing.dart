@@ -11,7 +11,7 @@ Future<void> amplifyBackgroundProcessing() async {
   WidgetsFlutterBinding.ensureInitialized();
   final amplifySecureStorage = AmplifySecureStorage(
     config: AmplifySecureStorageConfig(
-      scope: 'amplifyPushNotificationsPinpointPlugin',
+      scope: 'amplifyPushNotifications',
     ),
   );
   final amplifyconfigStr = await amplifySecureStorage.read(
@@ -25,4 +25,5 @@ Future<void> amplifyBackgroundProcessing() async {
       await Amplify.configure(amplifyconfigStr);
     }
   }
+  print('amplifyBackgroundProcessing done');
 }

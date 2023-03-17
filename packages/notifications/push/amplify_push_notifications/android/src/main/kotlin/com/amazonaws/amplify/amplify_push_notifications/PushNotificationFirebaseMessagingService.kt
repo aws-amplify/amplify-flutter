@@ -3,22 +3,16 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
 import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
-import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
-import io.flutter.embedding.engine.dart.DartExecutor
-import io.flutter.embedding.engine.loader.FlutterLoader
-import io.flutter.view.FlutterCallbackInformation
 
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
@@ -48,8 +42,9 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
+        Log.d(TAG, "onNewToken")
         // Should initialize normally as it's initialized for the first time.
-        StreamHandlers.initStreamHandlers()
+        StreamHandlers.initStreamHandlers(false)
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
     }
 
@@ -77,6 +72,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         Handler(baseContext.mainLooper).post {
             val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
+                Log.d(TAG, "Foreground message: ${StreamHandlers.foregroundMessageReceived}")
                 val notificationHashMap = payload.asChannelMap()
                 StreamHandlers.foregroundMessageReceived?.send(notificationHashMap)
             } else {
@@ -87,7 +83,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    runAppFromKilledState(payload)
+                    runAppFromKilledState(remoteMessage)
 
                 } catch (exception: Exception) {
                     Log.e(
@@ -98,56 +94,18 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun runAppFromKilledState(payload: NotificationPayload) {
+    private fun runAppFromKilledState(remoteMessage: RemoteMessage) {
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
-            val callbackHandle = baseContext.getSharedPreferences(
-                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
-            ).getLong(
-                PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+            PushNotificationBackgroundService.enqueueWork(
+                baseContext, remoteMessage.toIntent()
             )
-            if (callbackHandle == 0L) {
-                Log.w(
-                    TAG,
-                    "Warning: Background service could not start. Callback dispatcher not found."
-                )
-                return
-            }
-            val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
-            if (callbackInfo == null) {
-                Log.e(TAG, "Error: failed to find callback")
-                return
-            }
-            Log.i(TAG, "Starting Background Flutter Engine")
-
-            val mainHandler = Handler(baseContext.mainLooper)
-            mainHandler.post {
-                val loader = FlutterLoader()
-                loader.startInitialization(baseContext);
-                loader.ensureInitializationCompleteAsync(
-                    baseContext,
-                    null,
-                    mainHandler,
-                ) {
-                    // Create a background Flutter Engine
-                    val backgroundFlutterEngine = FlutterEngine(baseContext)
-                    backgroundFlutterEngine.dartExecutor.executeDartCallback(
-                        DartExecutor.DartCallback(
-                            baseContext.assets, loader.findAppBundlePath(), callbackInfo
-                        ),
-                    )
-                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
-                        payload.asChannelMap()
-                    ) {}
-                }
-            }
-            // Runtime error is thrown when [PushNotificationPluginConstants.AMPLIFY_BG_FUNCTION_NAME]
-            // does not match the name of the entry point function provided in the Flutter app.
         }else{
+            val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
             AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
-                payload.asChannelMap()
+                notificationPayload
             ) {}
         }
     }
