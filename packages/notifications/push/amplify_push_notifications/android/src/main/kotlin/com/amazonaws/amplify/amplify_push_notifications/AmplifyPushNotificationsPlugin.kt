@@ -14,6 +14,7 @@ import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
+import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -90,6 +91,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     private val _lifecycleObserver: LifecycleObserver = AmplifyLifecycleObserver()
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        Log.d(TAG,"onAttachedToEngine: ${flutterPluginBinding.flutterEngine}")
         mainBinaryMessenger = flutterPluginBinding.binaryMessenger
 
         // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, is possible to
@@ -168,6 +170,13 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return true
     }
 
+    override fun registerCallbackFunction(
+        callbackHandle: Long,
+        callbackType: PushNotificationsHostApiBindings.CallbackType,
+    ) {
+        sharedPreferences.edit().putLong(PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle).apply()
+        return
+    }
 
     override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
         val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()

@@ -5,6 +5,7 @@ package com.amazonaws.amplify.amplify_push_notifications
 
 class PushNotificationPluginConstants {
     companion object {
+        const val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
         const val SHARED_PREFERENCES_KEY = "amplify_push_notification_plugin_cache"
         const val PREF_PREVIOUSLY_DENIED = "wasPermissionPreviouslyDenied"
         const val PERMISSION = "android.permission.POST_NOTIFICATIONS"
@@ -14,6 +15,5 @@ class PushNotificationPluginConstants {
         const val IS_LAUNCH_NOTIFICATION = "isLaunchNotification"
         const val FLUTTER_ENGINE_ID = "main_flutter_engine"
         const val AMPLIFY_BG_FUNCTION_NAME = "amplifyBackgroundProcessing"
-
     }
 }

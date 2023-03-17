@@ -73,4 +73,6 @@ abstract class PushNotificationsHostApi {
   int getBadgeCount();
 
   void setBadgeCount(int withBadgeCount);
+
+  void registerCallbackFunction(int callbackHandle, CallbackType callbackType);
 }

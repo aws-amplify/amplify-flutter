@@ -4,11 +4,13 @@
 library amplify_push_notifications;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +24,10 @@ const _foregroundNotificationEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
 );
 
-const _externalHandleKey = '_externalHandleKey';
+const _externalHandleKey = 'externalHandleKey';
+
+const _notificationsConfigSecureStorageKey =
+    'notificationsConfigSecureStorageKey';
 
 /// {@template amplify_push_notifications.amplify_push_notifications}
 /// Implementation of the Amplify Push Notifications category.
@@ -34,9 +39,16 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   /// {@macro amplify_push_notifications.amplify_push_notifications}
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
+    required Future<void> Function() backgroundProcessor,
   })  : _serviceProviderClient = serviceProviderClient,
+        _backgroundProcessor = backgroundProcessor,
         _flutterApi = _PushNotificationsFlutterApi(),
-        _hostApi = PushNotificationsHostApi() {
+        _hostApi = PushNotificationsHostApi(),
+        _amplifySecureStorage = AmplifySecureStorage(
+          config: AmplifySecureStorageConfig(
+            scope: 'amplifyPushNotifications',
+          ),
+        ) {
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -61,6 +73,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   final ServiceProviderClient _serviceProviderClient;
   final PushNotificationsHostApi _hostApi;
   final _PushNotificationsFlutterApi _flutterApi;
+  final AmplifySecureStorage _amplifySecureStorage;
 
   late final Stream<String> _onTokenReceived;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
@@ -69,7 +82,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
-
+  final Future<void> Function() _backgroundProcessor;
   @override
   PushNotificationMessage? get launchNotification {
     final result = _launchNotification;
@@ -125,6 +138,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    print('HERE 1');
     final notificationsConfig = config?.notifications?.awsPlugin;
     if (notificationsConfig == null) {
       throw const AnalyticsException('No Pinpoint plugin config available');
@@ -133,12 +147,20 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     if (_isConfigured) {
       return;
     }
+    print('HERE 2');
+
+    await _amplifySecureStorage.write(
+      key: _notificationsConfigSecureStorageKey,
+      value: jsonEncode(config),
+    );
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
       config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
+
+    print('HERE 3');
 
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
@@ -153,6 +175,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _launchNotification = launchNotification;
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
+
+    // Register the callback dispatcher
+    await _registerCallback(
+      _backgroundProcessor,
+      CallbackType.dispatcher,
+    );
+
+    print('Configured');
     _isConfigured = true;
   }
 
@@ -196,10 +226,29 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _hostApi.setBadgeCount(badgeCount);
   }
 
+  Future<void> _registerCallback(
+    Future<void> Function() callback,
+    CallbackType callbackType,
+  ) async {
+    final callbackHandle = PluginUtilities.getCallbackHandle(callback);
+    if (callbackHandle == null) {
+      _logger.error(
+        'Callback is not a global or static function',
+      );
+      return;
+    }
+    await _hostApi.registerCallbackFunction(
+      callbackHandle.toRawHandle(),
+      callbackType,
+    );
+    _logger.info('Successfully registered callback');
+  }
+
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
       deviceToken = await onTokenReceived.first;
+      print(deviceToken);
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -305,10 +354,12 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   }
 
   void recordPushEvent(PushNotificationMessage pushNotificationMessage) {
-    _serviceProviderClient?.recordNotificationEvent(
-      eventType: PinpointEventType.backgroundMessageReceived,
-      notification: pushNotificationMessage,
-    );
+    print('recordPushEvent');
+
+    // _serviceProviderClient?.recordNotificationEvent(
+    //   eventType: PinpointEventType.backgroundMessageReceived,
+    //   notification: pushNotificationMessage,
+    // );
   }
 
   Future<void> dispatchToExternalHandle(

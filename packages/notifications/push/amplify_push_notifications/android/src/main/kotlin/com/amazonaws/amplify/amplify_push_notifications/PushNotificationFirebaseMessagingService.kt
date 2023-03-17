@@ -3,6 +3,7 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -12,10 +13,12 @@ import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessag
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
+import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.embedding.engine.loader.FlutterLoader
+import io.flutter.view.FlutterCallbackInformation
 
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
@@ -100,6 +103,25 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
+            val callbackHandle = baseContext.getSharedPreferences(
+                PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
+            ).getLong(
+                PushNotificationPluginConstants.CALLBACK_DISPATCHER_HANDLE_KEY, 0
+            )
+            if (callbackHandle == 0L) {
+                Log.w(
+                    TAG,
+                    "Warning: Background service could not start. Callback dispatcher not found."
+                )
+                return
+            }
+            val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
+            if (callbackInfo == null) {
+                Log.e(TAG, "Error: failed to find callback")
+                return
+            }
+            Log.i(TAG, "Starting Background Flutter Engine")
+
             val mainHandler = Handler(baseContext.mainLooper)
             mainHandler.post {
                 val loader = FlutterLoader()
@@ -109,19 +131,16 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     null,
                     mainHandler,
                 ) {
-                    // Create and run the background Flutter engine with entry point as the customer defined
-                    // strictly named function.
-                    engineGroup.createAndRunEngine(
-                        baseContext,
-                        DartExecutor.DartEntrypoint(
-                            loader.findAppBundlePath(),
-                            PushNotificationPluginConstants.AMPLIFY_BG_FUNCTION_NAME,
+                    // Create a background Flutter Engine
+                    val backgroundFlutterEngine = FlutterEngine(baseContext)
+                    backgroundFlutterEngine.dartExecutor.executeDartCallback(
+                        DartExecutor.DartCallback(
+                            baseContext.assets, loader.findAppBundlePath(), callbackInfo
                         ),
                     )
                     AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                         payload.asChannelMap()
                     ) {}
-
                 }
             }
             // Runtime error is thrown when [PushNotificationPluginConstants.AMPLIFY_BG_FUNCTION_NAME]
