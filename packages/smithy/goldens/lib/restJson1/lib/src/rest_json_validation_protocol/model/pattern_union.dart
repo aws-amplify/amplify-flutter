@@ -52,7 +52,8 @@ abstract class PatternUnion extends _i1.SmithyUnion<PatternUnion> {
     T Function(
       String,
       Object,
-    )? sdkUnknown,
+    )?
+        sdkUnknown,
   }) {
     if (this is PatternUnionFirst) {
       return first?.call((this as PatternUnionFirst).first);
