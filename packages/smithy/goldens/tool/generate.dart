@@ -13,10 +13,7 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 
-final modelsPath = {
-  SmithyVersion.v1: path.join(Directory.current.path, 'models'),
-  SmithyVersion.v2: path.join(Directory.current.path, 'models2'),
-};
+final modelsPath = path.join(Directory.current.path, 'models');
 const skipProtocols = [
   'shared',
 ];
@@ -41,17 +38,35 @@ Future<void> main(List<String> args) async {
     await updateModels();
   }
   final glob = Glob(parsedArgs.rest.length == 1 ? parsedArgs.rest.single : '*');
-  final futures = <Future>[];
-  for (final version in SmithyVersion.values) {
-    final entites = glob.listFileSystemSync(
-      const LocalFileSystem(),
-      root: modelsPath[version],
-    );
-    for (final modelEnt in entites.whereType<Directory>()) {
-      futures.add(_generateFor(version, modelEnt, update: update));
+  final futures = <Future<void> Function()>[];
+  final entites = glob.listFileSystemSync(
+    const LocalFileSystem(),
+    root: modelsPath,
+  );
+  final tempOutputs = Directory.systemTemp.createTempSync('smithy_goldens_');
+  for (final modelEnt in entites.whereType<Directory>()) {
+    final modelPath = path.relative(modelEnt.path, from: modelsPath);
+    final protocolName = path.basename(modelPath);
+    if (skipProtocols.contains(protocolName)) {
+      continue;
+    }
+    for (final version in SmithyVersion.values) {
+      final ast = await _transform(
+        version,
+        modelPath,
+        protocolName: protocolName,
+        tempOutputs: tempOutputs,
+      );
+      futures.add(
+        () => _generateFor(
+          ast: ast,
+          version: version,
+          protocolName: protocolName,
+        ),
+      );
     }
   }
-  await Future.wait<void>(futures);
+  await Future.wait<void>(futures.map((fut) => fut()));
 }
 
 String _replaceDirectory(String path, {bool create = false}) {
@@ -113,14 +128,14 @@ Future<void> updateModels() async {
       protocol,
     );
     final dest = _replaceDirectory(
-      path.join(modelsPath[SmithyVersion.v2]!, protocol),
+      path.join(modelsPath, protocol),
     );
     await _copy(src, dest);
   }
 
   // Copy shared types
   final sharedPath = _replaceDirectory(
-    path.join(modelsPath[SmithyVersion.v2]!, 'shared'),
+    path.join(modelsPath, 'shared'),
     create: true,
   );
   const sharedModels = [
@@ -138,24 +153,51 @@ Future<void> updateModels() async {
   }
 
   // Replace `coral` references
-  for (final file in Directory(modelsPath[SmithyVersion.v2]!)
-      .listSync(recursive: true)
-      .whereType<File>()) {
+  final allModelFiles =
+      Directory(modelsPath).listSync(recursive: true).whereType<File>();
+  for (final file in allModelFiles) {
     final content = file.readAsStringSync();
     file.writeAsStringSync(content.replaceAll('coral', 'example'));
   }
 }
 
-Future<void> _generateFor(
+Future<SmithyAst> _transform(
   SmithyVersion version,
-  FileSystemEntity modelEnt, {
-  required bool update,
+  String modelPath, {
+  required String protocolName,
+  required Directory tempOutputs,
 }) async {
-  final modelPath = path.relative(modelEnt.path, from: modelsPath[version]);
-  final protocolName = path.basename(modelPath);
-  if (skipProtocols.contains(protocolName)) {
-    return;
+  stdout.writeln('Generating AST for $modelPath');
+
+  final tempModel = File(
+    path.join(tempOutputs.path, '${modelPath}_${version.name}.json'),
+  );
+  final result = await Process.run(
+    Platform.script.resolve('../gradlew').toFilePath(),
+    [
+      'run',
+      '--args="$modelsPath" "${tempModel.path}" "$protocolName" "${version.name.toUpperCase()}"',
+    ],
+    stdoutEncoding: utf8,
+    stderrEncoding: utf8,
+  );
+  if (result.exitCode != 0) {
+    stderr.write('Could not generate model for $modelPath: ');
+    stderr.writeln(result.stdout);
+    stderr.writeln(result.stderr);
+    exit(result.exitCode);
   }
+
+  final astJson = tempModel.readAsStringSync();
+  return parseAstJson(astJson);
+}
+
+Future<void> _generateFor({
+  required SmithyAst ast,
+  required SmithyVersion version,
+  required String protocolName,
+}) async {
+  stdout.writeln('Generating Dart client for $protocolName (${version.name})');
   final outputPath = path.join(
     version == SmithyVersion.v1 ? 'lib' : 'lib2',
     protocolName,
@@ -165,31 +207,7 @@ Future<void> _generateFor(
     dir.deleteSync(recursive: true);
   }
 
-  stdout.writeln('Generating AST for $modelPath');
-
-  final preCompiled = File('${modelEnt.path}.json');
-  if (!preCompiled.existsSync() || (update && version == SmithyVersion.v2)) {
-    final result = await Process.run(
-      Platform.script.resolve('../gradlew').toFilePath(),
-      [
-        'run',
-        '--args=${modelsPath[version]} $protocolName',
-      ],
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-    );
-    if (result.exitCode != 0) {
-      stderr.write('Could not generate model for $modelPath: ');
-      stderr.writeln(result.stdout);
-      stderr.writeln(result.stderr);
-      exit(result.exitCode);
-    }
-  }
-
-  final astJson = preCompiled.readAsStringSync();
   final packageName = '${protocolName.snakeCase}_${version.name}';
-  final ast = parseAstJson(astJson);
-
   final outputs = generateForAst(
     ast,
     packageName: packageName,

@@ -1,15 +1,17 @@
 import software.amazon.smithy.model.Model
 import software.amazon.smithy.model.node.Node
 import software.amazon.smithy.model.shapes.ModelSerializer
+import software.amazon.smithy.model.transform.ModelTransformer
 import java.io.File
 import java.io.IOException
 
 fun main(args: Array<String>) {
-    val modelPath = args[0]
-    val protocols = args[1].split(",")
+    val modelsPath = args[0]
+    val outputPath = args[1]
+    val protocols = args[2].split(",")
+    val version = SmithyVersion.valueOf(args[3])
     for (protocol in protocols) {
-        val converter = ModelConverter(modelPath, protocol)
-        val outputPath = "$modelPath/$protocol.json"
+        val converter = ModelConverter(modelsPath, version, protocol)
         write(outputPath, converter.toJson())
     }
 }
@@ -25,14 +27,31 @@ fun write(path: String, contents: String) {
     file.writeText(contents)
 }
 
-class ModelConverter(private val modelPath: String, private val protocol: String) {
+enum class SmithyVersion {
+    V1, V2
+}
+
+class ModelConverter(private val modelsPath: String, private val version: SmithyVersion, private val protocol: String) {
     fun toJson(): String {
-        val model = Model.assembler()
+        var model = Model.assembler()
             .discoverModels(ModelConverter::class.java.classLoader)
-            .addImport("$modelPath/shared")
-            .addImport("$modelPath/$protocol")
+            .addImport("$modelsPath/shared")
+            .addImport("$modelsPath/$protocol")
             .assemble()
             .unwrap()
+
+        val transformer = ModelTransformer.create()
+        transformer.apply {
+            model = changeStringEnumsToEnumShapes(model)
+            model = flattenAndRemoveMixins(model)
+            model.serviceShapes.forEach { serviceShape ->
+                model = copyServiceErrorsToOperations(model, serviceShape)
+            }
+            when (version) {
+                SmithyVersion.V1 -> model = downgradeToV1(model)
+                SmithyVersion.V2 -> {}
+            }
+        }
 
         val serializer = ModelSerializer.builder()
             .includePrelude(false)
