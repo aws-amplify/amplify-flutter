@@ -33,7 +33,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
         engineGroup = FlutterEngineGroup(baseContext)
-
     }
 
     /**
@@ -102,7 +101,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             PushNotificationBackgroundService.enqueueWork(
                 baseContext, remoteMessage.toIntent()
             )
-        }else{
+        } else {
             val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
             AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
                 notificationPayload

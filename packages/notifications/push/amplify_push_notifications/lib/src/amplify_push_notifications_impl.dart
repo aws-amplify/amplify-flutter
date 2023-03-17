@@ -169,7 +169,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // Register the callback dispatcher
     await _registerCallback(
       _backgroundProcessor,
-      CallbackType.dispatcher,
     );
 
     // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
@@ -177,6 +176,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       key: _notificationsConfigSecureStorageKey,
       value: jsonEncode(config),
     );
+
+    print('Configured');
 
     _isConfigured = true;
   }
@@ -223,7 +224,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   Future<void> _registerCallback(
     Future<void> Function() callback,
-    CallbackType callbackType,
   ) async {
     final callbackHandle = PluginUtilities.getCallbackHandle(callback);
     if (callbackHandle == null) {
@@ -234,7 +234,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
     await _hostApi.registerCallbackFunction(
       callbackHandle.toRawHandle(),
-      callbackType,
     );
     _logger.info('Successfully registered callback');
   }
@@ -243,6 +242,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     late String deviceToken;
     try {
       deviceToken = await onTokenReceived.first;
+      print(deviceToken);
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -327,7 +327,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   _PushNotificationsFlutterApi() {
     PushNotificationsFlutterApi.setup(this);
   }
-  final _eventQueue = <Map<Object?, Object?>>[];
+  final _recordEventQueue = <Map<Object?, Object?>>[];
 
   ServiceProviderClient? _serviceProviderClient;
 
@@ -338,20 +338,22 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     OnRemoteMessageCallback callback,
   ) async {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
-    unawaited(_flushEvents());
+    // unawaited(_flushRecordEvents());
   }
 
   void setProvider(ServiceProviderClient serviceProviderClient) {
     // Flush only when the SericeProvider becomes available in config
     _serviceProviderClient = serviceProviderClient;
-    unawaited(_flushEvents());
+    unawaited(_flushRecordEvents());
   }
 
-  void recordPushEvent(PushNotificationMessage pushNotificationMessage) =>
-      _serviceProviderClient?.recordNotificationEvent(
-        eventType: PinpointEventType.backgroundMessageReceived,
-        notification: pushNotificationMessage,
-      );
+  void recordPushEvent(PushNotificationMessage pushNotificationMessage) {
+    print('Record bg event');
+    _serviceProviderClient?.recordNotificationEvent(
+      eventType: PinpointEventType.backgroundMessageReceived,
+      notification: pushNotificationMessage,
+    );
+  }
 
   Future<void> dispatchToExternalHandle(
     PushNotificationMessage pushNotificationMessage,
@@ -384,28 +386,29 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
+    final notification = PushNotificationMessage.fromJson(payload);
+    await dispatchToExternalHandle(notification);
+    await Future.wait(
+      _onNotificationReceivedInBackgroundCallbacks.map(
+        (callback) async {
+          await callback(notification);
+        },
+      ),
+    );
     // Flush only if ServiceProvider is available
     if (_serviceProviderClient != null) {
-      await _flushEvents(withItem: payload);
+      await _flushRecordEvents(withItem: payload);
     } else {
-      _eventQueue.add(payload);
+      _recordEventQueue.add(payload);
     }
   }
 
-  Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
-    for (final element
-        in [..._eventQueue, withItem].whereType<Map<Object?, Object?>>()) {
+  Future<void> _flushRecordEvents({Map<Object?, Object?>? withItem}) async {
+    for (final element in [..._recordEventQueue, withItem]
+        .whereType<Map<Object?, Object?>>()) {
       final notification = PushNotificationMessage.fromJson(element);
       recordPushEvent(notification);
-      await dispatchToExternalHandle(notification);
-      await Future.wait(
-        _onNotificationReceivedInBackgroundCallbacks.map(
-          (callback) async {
-            await callback(notification);
-          },
-        ),
-      );
     }
-    _eventQueue.clear();
+    _recordEventQueue.clear();
   }
 }

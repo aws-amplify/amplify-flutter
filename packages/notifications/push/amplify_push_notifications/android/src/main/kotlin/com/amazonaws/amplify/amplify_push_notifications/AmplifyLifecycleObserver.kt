@@ -5,8 +5,6 @@ package com.amazonaws.amplify.amplify_push_notifications
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import io.flutter.Log
-
 
 private const val TAG = "AmplifyLifecycleObserver"
 

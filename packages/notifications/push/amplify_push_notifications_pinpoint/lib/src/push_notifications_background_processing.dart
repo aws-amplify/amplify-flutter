@@ -1,10 +1,15 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 const _notificationsConfigSecureStorageKey =
     'notificationsConfigSecureStorageKey';
+
+const _backgroundChannel = MethodChannel(
+  'plugins.flutter.io/amplify_push_notification_plugin_background',
+);
 
 /// {@template amplify_push_notifications_pinpoint.amplify_background_processor}
 /// Dart entry point function that facilitates recording of notificaiton event when the app is killed.
@@ -23,12 +28,22 @@ Future<void> amplifyBackgroundProcessing() async {
   final amplifyconfigStr = await amplifySecureStorage.read(
     key: _notificationsConfigSecureStorageKey,
   );
-  if (amplifyconfigStr != null) {
-    final notificationsPlugin = AmplifyPushNotificationsPinpoint();
-    final authPlugin = AmplifyAuthCognito();
-    if (!Amplify.isConfigured) {
-      await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-      await Amplify.configure(amplifyconfigStr);
-    }
+  if (amplifyconfigStr == null) {
+    throw const PushNotificationException(
+      'Cached config was not found.',
+      recoverySuggestion:
+          'Make sure a valid config was given to Amplify.configure',
+    );
+  }
+  final notificationsPlugin = AmplifyPushNotificationsPinpoint();
+  final authPlugin = AmplifyAuthCognito();
+  if (!Amplify.isConfigured) {
+    await Amplify.addPlugins([authPlugin, notificationsPlugin]);
+    await Amplify.configure(amplifyconfigStr);
+
+    // Signal that this method finished running so queued up natove to dart events if any can be flushed.
+    await _backgroundChannel.invokeMethod(
+      'amplifyBackgroundProcessorFinished',
+    );
   }
 }
