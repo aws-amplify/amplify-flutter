@@ -12,8 +12,9 @@ CognitoSignInOptions _$CognitoSignInOptionsFromJson(
       authFlowType: $enumDecodeNullable(
           _$AuthenticationFlowTypeEnumMap, json['authFlowType']),
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$CognitoSignInOptionsToJson(
@@ -28,7 +29,7 @@ Map<String, dynamic> _$CognitoSignInOptionsToJson(
 
   writeNotNull(
       'authFlowType', _$AuthenticationFlowTypeEnumMap[instance.authFlowType]);
-  writeNotNull('clientMetadata', instance.clientMetadata);
+  val['clientMetadata'] = instance.clientMetadata;
   return val;
 }
 
@@ -39,3 +40,30 @@ const _$AuthenticationFlowTypeEnumMap = {
   AuthenticationFlowType.customAuthWithSrp: 'CUSTOM_AUTH_WITH_SRP',
   AuthenticationFlowType.customAuthWithoutSrp: 'CUSTOM_AUTH_WITHOUT_SRP',
 };
+
+CognitoSignInPluginOptions _$CognitoSignInPluginOptionsFromJson(
+        Map<String, dynamic> json) =>
+    CognitoSignInPluginOptions(
+      authFlowType: $enumDecodeNullable(
+          _$AuthenticationFlowTypeEnumMap, json['authFlowType']),
+      clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
+    );
+
+Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
+    CognitoSignInPluginOptions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'authFlowType', _$AuthenticationFlowTypeEnumMap[instance.authFlowType]);
+  val['clientMetadata'] = instance.clientMetadata;
+  return val;
+}

@@ -16,9 +16,11 @@ void main() {
   group('signIn (custom)', () {
     // Arbitrary challenge answer defined in Lambda
     const confirmationValue = '123';
-    const options = CognitoSignInOptions(
-      // ignore: deprecated_member_use
-      authFlowType: AuthenticationFlowType.customAuth,
+    const options = SignInOptions(
+      pluginOptions: CognitoSignInPluginOptions(
+        // ignore: deprecated_member_use
+        authFlowType: AuthenticationFlowType.customAuth,
+      ),
     );
 
     final username = generateUsername();

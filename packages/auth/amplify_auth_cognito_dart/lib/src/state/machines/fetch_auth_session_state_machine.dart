@@ -191,7 +191,7 @@ class FetchAuthSessionStateMachine
   Future<void> onFetchAuthSession(
     FetchAuthSessionFetch event,
   ) async {
-    final options = event.options ?? const CognitoSessionOptions();
+    final options = event.options ?? const FetchAuthSessionOptions();
     final result = await manager.loadCredentials();
 
     final userPoolTokens = result.userPoolTokens;

@@ -67,8 +67,7 @@ void main() {
             addTearDown(() => boundServer.server.close(force: true));
             expect(boundServer.uri, equals(uris[1]));
           }),
-          signOut: (platform, options, isPreferPrivateSession) =>
-              throw UnimplementedError(),
+          signOut: (platform, options) => throw UnimplementedError(),
         );
 
         final server = await HttpServer.bind(
@@ -77,7 +76,7 @@ void main() {
         );
         addTearDown(() => server.close(force: true));
         await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIOptions(),
+          options: const CognitoSignInWithWebUIPluginOptions(),
         );
       });
 
@@ -91,19 +90,18 @@ void main() {
               addTearDown(() => boundServer.server.close(force: true));
             },
           ),
-          signOut: (platform, options, isPreferPrivateSession) =>
-              throw UnimplementedError(),
+          signOut: (platform, options) => throw UnimplementedError(),
         );
 
         await expectLater(
           platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
           completes,
         );
         await expectLater(
           platform(dependencyManager).signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
           completes,
         );
@@ -117,8 +115,7 @@ void main() {
               throwsA(isA<UrlLauncherException>()),
             );
           }),
-          signOut: (platform, options, isPreferPrivateSession) =>
-              throw UnimplementedError(),
+          signOut: (platform, options) => throw UnimplementedError(),
         );
 
         for (final uri in uris) {
@@ -129,7 +126,7 @@ void main() {
           addTearDown(() => server.close(force: true));
         }
         await platform(dependencyManager).signIn(
-          options: const CognitoSignInWithWebUIOptions(),
+          options: const CognitoSignInWithWebUIPluginOptions(),
         );
       });
     });
@@ -158,7 +155,7 @@ void main() {
 
         unawaited(
           hostedUiPlatform.signIn(
-            options: const CognitoSignInWithWebUIOptions(),
+            options: const CognitoSignInWithWebUIPluginOptions(),
           ),
         );
 

@@ -4,7 +4,6 @@
 // This test follows the Amplify UI feature "sign-in-with-username"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-username.feature
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -80,7 +79,7 @@ void main() {
       await Amplify.Auth.signUp(
         username: phoneNumber.toE164(),
         password: password,
-        options: CognitoSignUpOptions(
+        options: SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: email,
           },

@@ -75,7 +75,7 @@ void main() {
 
       Future<void> signOut({required bool globalSignOut}) async {
         final result = await plugin.signOut(
-          options: CognitoSignOutWithWebUIOptions(
+          options: SignOutOptions(
             globalSignOut: globalSignOut,
           ),
         );
@@ -139,7 +139,7 @@ class HostedUiTestPlatform extends HostedUiPlatformImpl {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUri = await getSignInUri(provider: provider);
@@ -188,8 +188,7 @@ loginButton.click();
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     final signOutUrl = getSignOutUri();
     final controller = await _controller.future;

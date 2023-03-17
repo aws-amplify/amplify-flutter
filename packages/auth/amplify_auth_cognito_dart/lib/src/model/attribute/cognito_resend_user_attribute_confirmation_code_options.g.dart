@@ -17,15 +17,24 @@ CognitoResendUserAttributeConfirmationCodeOptions
         );
 
 Map<String, dynamic> _$CognitoResendUserAttributeConfirmationCodeOptionsToJson(
-    CognitoResendUserAttributeConfirmationCodeOptions instance) {
-  final val = <String, dynamic>{};
+        CognitoResendUserAttributeConfirmationCodeOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+CognitoResendUserAttributeConfirmationCodePluginOptions
+    _$CognitoResendUserAttributeConfirmationCodePluginOptionsFromJson(
+            Map<String, dynamic> json) =>
+        CognitoResendUserAttributeConfirmationCodePluginOptions(
+          clientMetadata:
+              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        );
 
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+Map<String, dynamic>
+    _$CognitoResendUserAttributeConfirmationCodePluginOptionsToJson(
+            CognitoResendUserAttributeConfirmationCodePluginOptions instance) =>
+        <String, dynamic>{
+          'clientMetadata': instance.clientMetadata,
+        };

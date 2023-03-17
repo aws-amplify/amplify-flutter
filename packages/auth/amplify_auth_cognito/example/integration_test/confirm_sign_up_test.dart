@@ -32,7 +32,7 @@ void main() {
         final signUpResult = await Amplify.Auth.signUp(
           username: username,
           password: password,
-          options: CognitoSignUpOptions(
+          options: SignUpOptions(
             userAttributes: {
               CognitoUserAttributeKey.email: generateEmail(),
               CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),

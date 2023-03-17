@@ -9,15 +9,13 @@ import 'package:amplify_core/amplify_core.dart';
 
 typedef SignInFn = Future<void> Function(
   HostedUiPlatform platform,
-  CognitoSignInWithWebUIOptions options,
+  CognitoSignInWithWebUIPluginOptions options,
   AuthProvider? provider,
 );
 
 typedef SignOutFn = Future<void> Function(
   HostedUiPlatform platform,
-  CognitoSignOutWithWebUIOptions options,
-  // ignore: avoid_positional_boolean_parameters
-  bool isPreferPrivateSession,
+  CognitoSignInWithWebUIPluginOptions options,
 );
 
 HostedUiPlatformFactory createHostedUiFactory({
@@ -46,17 +44,16 @@ class MockHostedUiPlatform extends HostedUiPlatformImpl {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) =>
       _signIn(this, options, provider);
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) =>
-      _signOut(this, options, isPreferPrivateSession);
+      _signOut(this, options);
 
   @override
   Uri get signInRedirectUri => config.signInRedirectUris.first;

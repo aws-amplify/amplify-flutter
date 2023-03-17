@@ -38,7 +38,7 @@ class TestUser {
     final result = await Amplify.Auth.signUp(
       username: _username,
       password: _password,
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {CognitoUserAttributeKey.email: testEmail},
       ),
     );

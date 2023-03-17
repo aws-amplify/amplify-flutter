@@ -52,13 +52,12 @@ void main() {
           createHostedUiFactory(
             signIn: (
               HostedUiPlatform platform,
-              CognitoSignInWithWebUIOptions options,
+              CognitoSignInWithWebUIPluginOptions options,
               AuthProvider? provider,
             ) async {},
             signOut: (
               HostedUiPlatform platform,
-              CognitoSignOutWithWebUIOptions options,
-              bool isPreferPrivateSession,
+              CognitoSignInWithWebUIPluginOptions options,
             ) async {},
           ),
           HostedUiPlatform.token,
@@ -375,13 +374,12 @@ void main() {
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
-                CognitoSignInWithWebUIOptions options,
+                CognitoSignInWithWebUIPluginOptions options,
                 AuthProvider? provider,
               ) async {},
               signOut: (
                 HostedUiPlatform platform,
-                CognitoSignOutWithWebUIOptions options,
-                bool isPreferPrivateSession,
+                CognitoSignInWithWebUIPluginOptions options,
               ) async =>
                   throw _HostedUiException(),
             ),
@@ -431,13 +429,12 @@ void main() {
               createHostedUiFactory(
                 signIn: (
                   HostedUiPlatform platform,
-                  CognitoSignInWithWebUIOptions options,
+                  CognitoSignInWithWebUIPluginOptions options,
                   AuthProvider? provider,
                 ) async {},
                 signOut: (
                   HostedUiPlatform platform,
-                  CognitoSignOutWithWebUIOptions options,
-                  bool isPreferPrivateSession,
+                  CognitoSignInWithWebUIPluginOptions options,
                 ) async =>
                     throw const UserCancelledException(''),
               ),

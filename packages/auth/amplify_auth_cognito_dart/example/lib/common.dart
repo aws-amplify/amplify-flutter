@@ -62,8 +62,10 @@ Future<SignInResult> confirmSignIn(
 }) {
   return Amplify.Auth.confirmSignIn(
     confirmationValue: confirmationValue,
-    options: CognitoConfirmSignInOptions(
-      userAttributes: userAttributes,
+    options: ConfirmSignInOptions(
+      pluginOptions: CognitoConfirmSignInPluginOptions(
+        userAttributes: userAttributes,
+      ),
     ),
   );
 }
@@ -120,7 +122,7 @@ Future<void> forgetDevice() async {
 Future<UpdateUserAttributeResult> updateUserAttribute({
   required AuthUserAttributeKey key,
   required String value,
-  CognitoUpdateUserAttributeOptions? options,
+  UpdateUserAttributeOptions? options,
 }) async {
   return Amplify.Auth.updateUserAttribute(
     userAttributeKey: key,
@@ -132,7 +134,7 @@ Future<UpdateUserAttributeResult> updateUserAttribute({
 Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
     updateUserAttributes({
   required List<AuthUserAttribute> attributes,
-  CognitoUpdateUserAttributesOptions? options,
+  UpdateUserAttributesOptions? options,
 }) async {
   return Amplify.Auth.updateUserAttributes(
     attributes: attributes,
@@ -153,7 +155,7 @@ Future<ConfirmUserAttributeResult> confirmUserAttribute({
 Future<ResendUserAttributeConfirmationCodeResult>
     resendUserAttributeConfirmationCode({
   required AuthUserAttributeKey key,
-  CognitoResendUserAttributeConfirmationCodeOptions? options,
+  ResendUserAttributeConfirmationCodeOptions? options,
 }) async {
   return Amplify.Auth.resendUserAttributeConfirmationCode(
     userAttributeKey: key,

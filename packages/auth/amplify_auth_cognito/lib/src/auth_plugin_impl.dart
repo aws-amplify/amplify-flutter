@@ -49,36 +49,19 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       CognitoUserAttributeKey,
       AuthUserAttribute<CognitoUserAttributeKey>,
       CognitoDevice,
-      CognitoSignUpOptions,
       CognitoSignUpResult,
-      CognitoConfirmSignUpOptions,
       CognitoSignUpResult,
-      CognitoResendSignUpCodeOptions,
       CognitoResendSignUpCodeResult,
-      CognitoSignInOptions,
       CognitoSignInResult,
-      CognitoConfirmSignInOptions,
       CognitoSignInResult,
-      SignOutOptions,
       SignOutResult,
-      CognitoUpdatePasswordOptions,
       UpdatePasswordResult,
-      CognitoResetPasswordOptions,
       CognitoResetPasswordResult,
-      CognitoConfirmResetPasswordOptions,
       CognitoResetPasswordResult,
-      AuthUserOptions,
-      FetchUserAttributesOptions,
-      CognitoSessionOptions,
       CognitoAuthSession,
-      CognitoSignInWithWebUIOptions,
       CognitoSignInResult,
-      CognitoUpdateUserAttributeOptions,
       UpdateUserAttributeResult,
-      CognitoUpdateUserAttributesOptions,
-      ConfirmUserAttributeOptions,
       ConfirmUserAttributeResult,
-      CognitoResendUserAttributeConfirmationCodeOptions,
       ResendUserAttributeConfirmationCodeResult,
       AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
 
@@ -161,20 +144,28 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   Future<CognitoSignUpResult> signUp({
     required String username,
     required String password,
-    CognitoSignUpOptions? options,
+    SignUpOptions? options,
   }) async {
+    options ??= const SignUpOptions();
+    final pluginOptions = AmplifyAuthCognitoDart.validatePluginOptions(
+      options.pluginOptions,
+      defaultOptions: const CognitoSignUpPluginOptions(),
+    );
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       final nativeValidationData =
           await stateMachine.expect<NativeAuthBridge>().getValidationData();
       validationData = nativeValidationData.cast();
     }
-    options ??= CognitoSignUpOptions();
-    options = options.copyWith(
-      validationData: {
-        ...?validationData,
-        ...?options.validationData,
-      },
+    options = SignUpOptions(
+      userAttributes: options.userAttributes,
+      pluginOptions: CognitoSignUpPluginOptions(
+        clientMetadata: pluginOptions.clientMetadata,
+        validationData: {
+          ...pluginOptions.validationData,
+          ...?validationData,
+        },
+      ),
     );
     return super.signUp(
       username: username,
@@ -253,36 +244,19 @@ class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
     CognitoUserAttributeKey,
     AuthUserAttribute<CognitoUserAttributeKey>,
     CognitoDevice,
-    CognitoSignUpOptions,
     CognitoSignUpResult,
-    CognitoConfirmSignUpOptions,
     CognitoSignUpResult,
-    CognitoResendSignUpCodeOptions,
     CognitoResendSignUpCodeResult,
-    CognitoSignInOptions,
     CognitoSignInResult,
-    CognitoConfirmSignInOptions,
     CognitoSignInResult,
-    SignOutOptions,
     SignOutResult,
-    CognitoUpdatePasswordOptions,
     UpdatePasswordResult,
-    CognitoResetPasswordOptions,
     CognitoResetPasswordResult,
-    CognitoConfirmResetPasswordOptions,
     CognitoResetPasswordResult,
-    AuthUserOptions,
-    FetchUserAttributesOptions,
-    CognitoSessionOptions,
     CognitoAuthSession,
-    CognitoSignInWithWebUIOptions,
     CognitoSignInResult,
-    CognitoUpdateUserAttributeOptions,
     UpdateUserAttributeResult,
-    CognitoUpdateUserAttributesOptions,
-    ConfirmUserAttributeOptions,
     ConfirmUserAttributeResult,
-    CognitoResendUserAttributeConfirmationCodeOptions,
     ResendUserAttributeConfirmationCodeResult,
     AmplifyAuthCognito> {
   const _AmplifyAuthCognitoPluginKey();

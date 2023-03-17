@@ -15,15 +15,21 @@ CognitoResetPasswordOptions _$CognitoResetPasswordOptionsFromJson(
     );
 
 Map<String, dynamic> _$CognitoResetPasswordOptionsToJson(
-    CognitoResetPasswordOptions instance) {
-  final val = <String, dynamic>{};
+        CognitoResetPasswordOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+CognitoResetPasswordPluginOptions _$CognitoResetPasswordPluginOptionsFromJson(
+        Map<String, dynamic> json) =>
+    CognitoResetPasswordPluginOptions(
+      clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+    );
 
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+Map<String, dynamic> _$CognitoResetPasswordPluginOptionsToJson(
+        CognitoResetPasswordPluginOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

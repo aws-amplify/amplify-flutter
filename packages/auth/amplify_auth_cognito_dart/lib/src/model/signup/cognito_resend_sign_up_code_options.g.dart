@@ -10,20 +10,29 @@ CognitoResendSignUpCodeOptions _$CognitoResendSignUpCodeOptionsFromJson(
         Map<String, dynamic> json) =>
     CognitoResendSignUpCodeOptions(
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$CognitoResendSignUpCodeOptionsToJson(
-    CognitoResendSignUpCodeOptions instance) {
-  final val = <String, dynamic>{};
+        CognitoResendSignUpCodeOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };
 
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
+CognitoResendSignUpCodePluginOptions
+    _$CognitoResendSignUpCodePluginOptionsFromJson(Map<String, dynamic> json) =>
+        CognitoResendSignUpCodePluginOptions(
+          clientMetadata:
+              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
+                    (k, e) => MapEntry(k, e as String),
+                  ) ??
+                  const {},
+        );
 
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+Map<String, dynamic> _$CognitoResendSignUpCodePluginOptionsToJson(
+        CognitoResendSignUpCodePluginOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

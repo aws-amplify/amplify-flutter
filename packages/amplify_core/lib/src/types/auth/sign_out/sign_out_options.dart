@@ -3,19 +3,19 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-part 'sign_out_options.g.dart';
-
 /// {@template amplify_core.sign_out_options}
 /// The shared sign out options among all Auth plugins.
 /// {@endtemplate}
-@zAmplifySerializable
-class SignOutOptions with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+class SignOutOptions
+    with
+        AWSEquatable<SignOutOptions>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro amplify_core.sign_out_options}
-  const SignOutOptions({this.globalSignOut = false});
-
-  /// {@macro amplify_core.sign_out_options}
-  factory SignOutOptions.fromJson(Map<String, Object?> json) =>
-      _$SignOutOptionsFromJson(json);
+  const SignOutOptions({
+    this.globalSignOut = false,
+    this.pluginOptions,
+  });
 
   /// Sign the current user out from all devices
   ///
@@ -23,12 +23,33 @@ class SignOutOptions with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   /// tasks that requires a valid token after a global signout is called.
   final bool globalSignOut;
 
-  @Deprecated('Use toJson instead')
-  Map<String, Object?> serializeAsMap() => toJson();
+  /// {@macro amplify_core.auth.sign_out_plugin_options}
+  final SignOutPluginOptions? pluginOptions;
+
+  @override
+  List<Object?> get props => [globalSignOut, pluginOptions];
 
   @override
   String get runtimeTypeName => 'SignOutOptions';
 
+  @Deprecated('Use toJson instead')
+  Map<String, Object?> serializeAsMap() => toJson();
+
   @override
-  Map<String, Object?> toJson() => _$SignOutOptionsToJson(this);
+  Map<String, Object?> toJson() => {
+        'globalSignOut': globalSignOut,
+        'pluginOptions': pluginOptions?.toJson(),
+      };
+}
+
+/// {@template amplify_core.auth.sign_out_plugin_options}
+/// Plugin-specific options for `Amplify.Auth.signOut`.
+/// {@endtemplate}
+abstract class SignOutPluginOptions
+    with
+        AWSEquatable<SignOutPluginOptions>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
+  /// {@macro amplify_core.auth.sign_out_plugin_options}
+  const SignOutPluginOptions();
 }

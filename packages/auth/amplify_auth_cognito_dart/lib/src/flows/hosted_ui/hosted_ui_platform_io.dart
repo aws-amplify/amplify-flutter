@@ -197,7 +197,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUris = config.signInRedirectUris.where(
@@ -274,8 +274,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     final signOutUris = config.signOutRedirectUris.where(
       (uri) =>

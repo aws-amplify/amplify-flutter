@@ -24,7 +24,7 @@ AWSHttpRequest _generateTestRequest() {
 class TestAmplifyAuthUserPoolOnly extends AmplifyAuthCognitoDart {
   @override
   Future<CognitoAuthSession> fetchAuthSession({
-    CognitoSessionOptions? options,
+    FetchAuthSessionOptions? options,
   }) async {
     return CognitoAuthSession(
       isSignedIn: true,
