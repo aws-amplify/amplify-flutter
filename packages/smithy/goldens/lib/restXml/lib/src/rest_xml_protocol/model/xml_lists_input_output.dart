@@ -26,6 +26,7 @@ abstract class XmlListsInputOutput
     List<String>? flattenedListWithMemberNamespace,
     List<String>? flattenedListWithNamespace,
     List<_i4.StructureListMember>? flattenedStructureList,
+    List<int>? intEnumList,
     List<int>? integerList,
     List<List<String>>? nestedStringList,
     List<String>? renamedListMembers,
@@ -50,6 +51,7 @@ abstract class XmlListsInputOutput
       flattenedStructureList: flattenedStructureList == null
           ? null
           : _i5.BuiltList(flattenedStructureList),
+      intEnumList: intEnumList == null ? null : _i5.BuiltList(intEnumList),
       integerList: integerList == null ? null : _i5.BuiltList(integerList),
       nestedStringList: nestedStringList == null
           ? null
@@ -98,6 +100,7 @@ abstract class XmlListsInputOutput
   _i5.BuiltList<String>? get flattenedListWithMemberNamespace;
   _i5.BuiltList<String>? get flattenedListWithNamespace;
   _i5.BuiltList<_i4.StructureListMember>? get flattenedStructureList;
+  _i5.BuiltList<int>? get intEnumList;
   _i5.BuiltList<int>? get integerList;
 
   /// A list of lists of strings.
@@ -118,6 +121,7 @@ abstract class XmlListsInputOutput
         flattenedListWithMemberNamespace,
         flattenedListWithNamespace,
         flattenedStructureList,
+        intEnumList,
         integerList,
         nestedStringList,
         renamedListMembers,
@@ -156,6 +160,10 @@ abstract class XmlListsInputOutput
     helper.add(
       'flattenedStructureList',
       flattenedStructureList,
+    );
+    helper.add(
+      'intEnumList',
+      intEnumList,
     );
     helper.add(
       'integerList',
@@ -283,6 +291,19 @@ class XmlListsInputOutputRestXmlSerializer
               value,
               specifiedType: const FullType(_i4.StructureListMember),
             ) as _i4.StructureListMember));
+          }
+          break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList
+                .replace((const _i1.XmlBuiltListSerializer().deserialize(
+              serializers,
+              (value as Iterable<Object?>),
+              specifiedType: const FullType(
+                _i5.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i5.BuiltList<int>));
           }
           break;
         case 'integerList':
@@ -480,6 +501,18 @@ class XmlListsInputOutputRestXmlSerializer
           [FullType(_i4.StructureListMember)],
         ),
       ));
+    }
+    if (payload.intEnumList != null) {
+      result
+        ..add(const _i1.XmlElementName('intEnumList'))
+        ..add(const _i1.XmlBuiltListSerializer().serialize(
+          serializers,
+          payload.intEnumList!,
+          specifiedType: const FullType.nullable(
+            _i5.BuiltList,
+            [FullType(int)],
+          ),
+        ));
     }
     if (payload.integerList != null) {
       result

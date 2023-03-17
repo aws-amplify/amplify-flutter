@@ -15,6 +15,7 @@ export 'package:rest_xml_v1/src/rest_xml_protocol/model/constant_and_variable_qu
     hide ConstantAndVariableQueryStringInputPayload;
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/constant_query_string_input.dart'
     hide ConstantQueryStringInputPayload;
+export 'package:rest_xml_v1/src/rest_xml_protocol/model/datetime_offsets_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_input.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/empty_input_and_empty_output_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/environment_config.dart';
@@ -23,6 +24,7 @@ export 'package:rest_xml_v1/src/rest_xml_protocol/model/flattened_xml_map_input_
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/flattened_xml_map_with_xml_name_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/flattened_xml_map_with_xml_namespace_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart';
+export 'package:rest_xml_v1/src/rest_xml_protocol/model/fractional_seconds_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_struct.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_with_errors_output.dart'
     hide GreetingWithErrorsOutputPayload;
@@ -87,6 +89,7 @@ export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_attributes_on_payloa
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_blobs_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_enums_input_output.dart';
+export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_int_enums_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_lists_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_maps_input_output.dart';
 export 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart';

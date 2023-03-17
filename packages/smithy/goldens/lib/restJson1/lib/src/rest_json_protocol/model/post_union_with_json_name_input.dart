@@ -17,7 +17,7 @@ abstract class PostUnionWithJsonNameInput
         _i2.AWSEquatable<PostUnionWithJsonNameInput>
     implements
         Built<PostUnionWithJsonNameInput, PostUnionWithJsonNameInputBuilder> {
-  factory PostUnionWithJsonNameInput({required _i3.UnionWithJsonName value}) {
+  factory PostUnionWithJsonNameInput({_i3.UnionWithJsonName? value}) {
     return _$PostUnionWithJsonNameInput._(value: value);
   }
 
@@ -40,7 +40,7 @@ abstract class PostUnionWithJsonNameInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PostUnionWithJsonNameInputBuilder b) {}
-  _i3.UnionWithJsonName get value;
+  _i3.UnionWithJsonName? get value;
   @override
   PostUnionWithJsonNameInput getPayload() => this;
   @override
@@ -87,10 +87,12 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'value':
-          result.value = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.UnionWithJsonName),
-          ) as _i3.UnionWithJsonName);
+          if (value != null) {
+            result.value = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.UnionWithJsonName),
+            ) as _i3.UnionWithJsonName);
+          }
           break;
       }
     }
@@ -105,13 +107,15 @@ class PostUnionWithJsonNameInputRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as PostUnionWithJsonNameInput);
-    final result = <Object?>[
-      'value',
-      serializers.serialize(
-        payload.value,
-        specifiedType: const FullType(_i3.UnionWithJsonName),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.value != null) {
+      result
+        ..add('value')
+        ..add(serializers.serialize(
+          payload.value!,
+          specifiedType: const FullType(_i3.UnionWithJsonName),
+        ));
+    }
     return result;
   }
 }

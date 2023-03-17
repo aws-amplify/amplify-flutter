@@ -36,6 +36,10 @@ service JsonProtocol {
 
         // custom endpoints with paths
         HostWithPathOperation,
+
+        // client-only timestamp parsing tests
+        DatetimeOffsets,
+        FractionalSeconds
     ],
 }
 

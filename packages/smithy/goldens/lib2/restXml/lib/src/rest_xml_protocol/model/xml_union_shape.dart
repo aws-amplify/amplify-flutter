@@ -129,8 +129,7 @@ abstract class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is XmlUnionShapeBooleanValue) {
       return booleanValue

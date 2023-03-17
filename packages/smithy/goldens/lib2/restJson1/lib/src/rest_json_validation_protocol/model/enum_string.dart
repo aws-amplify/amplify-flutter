@@ -29,10 +29,24 @@ class EnumString extends _i1.SmithyEnum<EnumString> {
     'def',
   );
 
+  static const ghi = EnumString._(
+    2,
+    'GHI',
+    'ghi',
+  );
+
+  static const jkl = EnumString._(
+    3,
+    'JKL',
+    'jkl',
+  );
+
   /// All values of [EnumString].
   static const values = <EnumString>[
     EnumString.abc,
     EnumString.def,
+    EnumString.ghi,
+    EnumString.jkl,
   ];
 
   static const List<_i1.SmithySerializer<EnumString>> serializers = [

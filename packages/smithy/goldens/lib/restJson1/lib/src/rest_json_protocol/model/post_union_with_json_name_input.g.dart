@@ -8,16 +8,13 @@ part of rest_json1_v1.rest_json_protocol.model.post_union_with_json_name_input;
 
 class _$PostUnionWithJsonNameInput extends PostUnionWithJsonNameInput {
   @override
-  final _i3.UnionWithJsonName value;
+  final _i3.UnionWithJsonName? value;
 
   factory _$PostUnionWithJsonNameInput(
           [void Function(PostUnionWithJsonNameInputBuilder)? updates]) =>
       (new PostUnionWithJsonNameInputBuilder()..update(updates))._build();
 
-  _$PostUnionWithJsonNameInput._({required this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        value, r'PostUnionWithJsonNameInput', 'value');
-  }
+  _$PostUnionWithJsonNameInput._({this.value}) : super._();
 
   @override
   PostUnionWithJsonNameInput rebuild(
@@ -80,10 +77,7 @@ class PostUnionWithJsonNameInputBuilder
   PostUnionWithJsonNameInput build() => _build();
 
   _$PostUnionWithJsonNameInput _build() {
-    final _$result = _$v ??
-        new _$PostUnionWithJsonNameInput._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'PostUnionWithJsonNameInput', 'value'));
+    final _$result = _$v ?? new _$PostUnionWithJsonNameInput._(value: value);
     replace(_$result);
     return _$result;
   }

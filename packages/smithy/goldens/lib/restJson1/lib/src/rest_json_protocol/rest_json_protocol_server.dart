@@ -3,199 +3,209 @@
 library rest_json1_v1.rest_json_protocol.rest_json_protocol_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i4;
-import 'dart:typed_data' as _i95;
+import 'dart:typed_data' as _i100;
 
-import 'package:built_value/json_object.dart' as _i93;
+import 'package:built_value/json_object.dart' as _i98;
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
     as _i3;
 import 'package:rest_json1_v1/src/rest_json_protocol/model/all_query_string_types_input.dart'
     as _i5;
 import 'package:rest_json1_v1/src/rest_json_protocol/model/complex_error.dart'
-    as _i98;
+    as _i103;
 import 'package:rest_json1_v1/src/rest_json_protocol/model/constant_and_variable_query_string_input.dart'
     as _i6;
 import 'package:rest_json1_v1/src/rest_json_protocol/model/constant_query_string_input.dart'
     as _i7;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/document_type_as_payload_input_output.dart'
-    as _i9;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/document_type_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/datetime_offsets_output.dart'
     as _i8;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/empty_input_and_empty_output_input.dart'
-    as _i11;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/empty_input_and_empty_output_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/document_type_as_payload_input_output.dart'
     as _i10;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/enum_payload_input.dart'
-    as _i15;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_error.dart'
-    as _i99;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
-    as _i38;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_with_errors_output.dart'
-    as _i13;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/host_label_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/document_type_input_output.dart'
+    as _i9;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/empty_input_and_empty_output_input.dart'
     as _i12;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_checksum_required_input_output.dart'
-    as _i14;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_traits_input_output.dart'
-    as _i16;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_traits_with_media_type_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/empty_input_and_empty_output_output.dart'
+    as _i11;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/enum_payload_input.dart'
     as _i17;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_with_structure_input_output.dart'
-    as _i18;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_in_response_input.dart'
-    as _i22;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_in_response_output.dart'
-    as _i21;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_input.dart'
-    as _i20;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_output.dart'
-    as _i19;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_float_labels_input.dart'
-    as _i23;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_greedy_label_in_path_input.dart'
-    as _i24;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_labels_and_timestamp_format_input.dart'
-    as _i26;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_labels_input.dart'
-    as _i25;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_regex_literal_input.dart'
-    as _i27;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_response_code_output.dart'
-    as _i28;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/ignore_query_params_in_response_output.dart'
-    as _i30;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
-    as _i31;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/invalid_greeting.dart'
-    as _i100;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_blobs_input_output.dart'
-    as _i32;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_enums_input_output.dart'
-    as _i33;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_lists_input_output.dart'
-    as _i34;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_maps_input_output.dart'
-    as _i35;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/json_timestamps_input_output.dart'
-    as _i36;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_generic_string_input.dart'
-    as _i39;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_payload_output.dart'
-    as _i40;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_blob_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_error.dart'
+    as _i104;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/fractional_seconds_output.dart'
+    as _i14;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
     as _i41;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_boolean_input.dart'
-    as _i42;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_byte_input.dart'
-    as _i43;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_type_with_generic_string_input.dart'
-    as _i44;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_type_with_payload_input.dart'
-    as _i45;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_double_input.dart'
-    as _i46;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_float_input.dart'
-    as _i47;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_integer_input.dart'
-    as _i48;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_list_input.dart'
-    as _i49;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_long_input.dart'
-    as _i50;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_map_input.dart'
-    as _i51;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_request_body_input.dart'
-    as _i52;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_short_input.dart'
-    as _i53;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_string_input.dart'
-    as _i54;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_date_time_input.dart'
-    as _i55;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_default_input.dart'
-    as _i56;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_http_date_input.dart'
-    as _i57;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_date_time_input.dart'
-    as _i58;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_default_input.dart'
-    as _i59;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_epoch_input.dart'
-    as _i60;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_default_input.dart'
-    as _i61;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_epoch_input.dart'
-    as _i62;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_http_date_input.dart'
-    as _i63;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_default_input.dart'
-    as _i64;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_epoch_input.dart'
-    as _i65;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_http_date_input.dart'
-    as _i66;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_union_input.dart'
-    as _i67;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/media_type_header_input.dart'
-    as _i69;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/media_type_header_output.dart'
-    as _i68;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/nested_payload.dart'
-    as _i96;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/no_input_and_output_output.dart'
-    as _i70;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
-    as _i71;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/omits_null_serializes_empty_string_input.dart'
-    as _i72;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/payload_config.dart'
-    as _i97;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_input.dart'
-    as _i74;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_output.dart'
-    as _i73;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_input.dart'
-    as _i76;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_output.dart'
-    as _i75;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
-    as _i77;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
-    as _i78;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/query_precedence_input.dart'
-    as _i79;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
-    as _i80;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
-    as _i81;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_required_output.dart'
-    as _i82;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
-    as _i83;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_input_output.dart'
-    as _i84;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
-    as _i85;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
-    as _i86;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/string_enum.dart'
-    as _i94;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/string_payload_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_with_errors_output.dart'
+    as _i15;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/host_label_input.dart'
+    as _i13;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_checksum_required_input_output.dart'
+    as _i16;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_traits_input_output.dart'
+    as _i18;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_traits_with_media_type_input_output.dart'
+    as _i19;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_with_structure_input_output.dart'
+    as _i20;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_in_response_input.dart'
+    as _i24;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_in_response_output.dart'
+    as _i23;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_input.dart'
+    as _i22;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_prefix_headers_output.dart'
+    as _i21;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_float_labels_input.dart'
+    as _i25;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_greedy_label_in_path_input.dart'
+    as _i26;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_labels_and_timestamp_format_input.dart'
+    as _i28;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_labels_input.dart'
+    as _i27;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_regex_literal_input.dart'
     as _i29;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/test_body_structure_input_output.dart'
-    as _i87;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/test_no_payload_input_output.dart'
-    as _i88;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
-    as _i89;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
-    as _i90;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/timestamp_format_headers_io.dart'
-    as _i91;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/union_input_output.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_response_code_output.dart'
+    as _i30;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/ignore_query_params_in_response_output.dart'
+    as _i32;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
+    as _i33;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/invalid_greeting.dart'
+    as _i105;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_blobs_input_output.dart'
+    as _i34;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_enums_input_output.dart'
+    as _i35;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_int_enums_input_output.dart'
+    as _i36;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_lists_input_output.dart'
     as _i37;
-import 'package:shelf/shelf.dart' as _i92;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_maps_input_output.dart'
+    as _i38;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/json_timestamps_input_output.dart'
+    as _i39;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_generic_string_output.dart'
+    as _i42;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_payload_output.dart'
+    as _i43;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_blob_input.dart'
+    as _i44;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_boolean_input.dart'
+    as _i45;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_byte_input.dart'
+    as _i46;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_type_with_generic_string_input.dart'
+    as _i47;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_type_with_payload_input.dart'
+    as _i48;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_content_type_without_body_empty_input_input.dart'
+    as _i49;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_double_input.dart'
+    as _i50;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_float_input.dart'
+    as _i51;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_integer_input.dart'
+    as _i52;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_list_input.dart'
+    as _i53;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_long_input.dart'
+    as _i54;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_map_input.dart'
+    as _i55;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_request_body_input.dart'
+    as _i56;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_short_input.dart'
+    as _i57;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_string_input.dart'
+    as _i58;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_date_time_input.dart'
+    as _i59;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_default_input.dart'
+    as _i60;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_body_http_date_input.dart'
+    as _i61;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_date_time_input.dart'
+    as _i62;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_default_input.dart'
+    as _i63;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_header_epoch_input.dart'
+    as _i64;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_default_input.dart'
+    as _i65;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_epoch_input.dart'
+    as _i66;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_path_http_date_input.dart'
+    as _i67;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_default_input.dart'
+    as _i68;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_epoch_input.dart'
+    as _i69;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_timestamp_query_http_date_input.dart'
+    as _i70;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_union_input.dart'
+    as _i71;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/media_type_header_input.dart'
+    as _i73;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/media_type_header_output.dart'
+    as _i72;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/nested_payload.dart'
+    as _i101;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/no_input_and_output_output.dart'
+    as _i74;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
+    as _i75;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/omits_null_serializes_empty_string_input.dart'
+    as _i76;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/omits_serializing_empty_lists_input.dart'
+    as _i77;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/payload_config.dart'
+    as _i102;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_input.dart'
+    as _i79;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_player_action_output.dart'
+    as _i78;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_input.dart'
+    as _i81;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/post_union_with_json_name_output.dart'
+    as _i80;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
+    as _i82;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
+    as _i83;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/query_precedence_input.dart'
+    as _i84;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
+    as _i85;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
+    as _i86;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_required_output.dart'
+    as _i87;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
+    as _i88;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_input_output.dart'
+    as _i89;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
+    as _i90;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
+    as _i91;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/string_enum.dart'
+    as _i99;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/string_payload_input.dart'
+    as _i31;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/test_body_structure_input_output.dart'
+    as _i92;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/test_no_payload_input_output.dart'
+    as _i93;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
+    as _i94;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
+    as _i95;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/timestamp_format_headers_io.dart'
+    as _i96;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/union_input_output.dart'
+    as _i40;
+import 'package:shelf/shelf.dart' as _i97;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
@@ -226,6 +236,11 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
       service.constantQueryString,
     );
     router.add(
+      'POST',
+      r'/DatetimeOffsets',
+      service.datetimeOffsets,
+    );
+    router.add(
       'PUT',
       r'/DocumentType',
       service.documentType,
@@ -249,6 +264,11 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
       'POST',
       r'/EndpointWithHostLabelOperation',
       service.endpointWithHostLabelOperation,
+    );
+    router.add(
+      'POST',
+      r'/FractionalSeconds',
+      service.fractionalSeconds,
     );
     router.add(
       'PUT',
@@ -352,6 +372,11 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
     );
     router.add(
       'PUT',
+      r'/JsonIntEnums',
+      service.jsonIntEnums,
+    );
+    router.add(
+      'PUT',
       r'/JsonLists',
       service.jsonLists,
     );
@@ -419,6 +444,11 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
       'POST',
       r'/MalformedContentTypeWithoutBody',
       service.malformedContentTypeWithoutBody,
+    );
+    router.add(
+      'POST',
+      r'/MalformedContentTypeWithoutBodyEmptyInput',
+      service.malformedContentTypeWithoutBodyEmptyInput,
     );
     router.add(
       'POST',
@@ -562,6 +592,11 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
     );
     router.add(
       'POST',
+      r'/OmitsSerializingEmptyLists',
+      service.omitsSerializingEmptyLists,
+    );
+    router.add(
+      'POST',
       r'/PostPlayerAction',
       service.postPlayerAction,
     );
@@ -665,16 +700,20 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
     _i7.ConstantQueryStringInput input,
     _i1.Context context,
   );
-  _i4.Future<_i8.DocumentTypeInputOutput> documentType(
-    _i8.DocumentTypeInputOutput input,
+  _i4.Future<_i8.DatetimeOffsetsOutput> datetimeOffsets(
+    _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i9.DocumentTypeAsPayloadInputOutput> documentTypeAsPayload(
-    _i9.DocumentTypeAsPayloadInputOutput input,
+  _i4.Future<_i9.DocumentTypeInputOutput> documentType(
+    _i9.DocumentTypeInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i10.EmptyInputAndEmptyOutputOutput> emptyInputAndEmptyOutput(
-    _i11.EmptyInputAndEmptyOutputInput input,
+  _i4.Future<_i10.DocumentTypeAsPayloadInputOutput> documentTypeAsPayload(
+    _i10.DocumentTypeAsPayloadInputOutput input,
+    _i1.Context context,
+  );
+  _i4.Future<_i11.EmptyInputAndEmptyOutputOutput> emptyInputAndEmptyOutput(
+    _i12.EmptyInputAndEmptyOutputInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> endpointOperation(
@@ -682,10 +721,14 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> endpointWithHostLabelOperation(
-    _i12.HostLabelInput input,
+    _i13.HostLabelInput input,
     _i1.Context context,
   );
-  _i4.Future<_i13.GreetingWithErrorsOutput> greetingWithErrors(
+  _i4.Future<_i14.FractionalSecondsOutput> fractionalSeconds(
+    _i1.Unit input,
+    _i1.Context context,
+  );
+  _i4.Future<_i15.GreetingWithErrorsOutput> greetingWithErrors(
     _i1.Unit input,
     _i1.Context context,
   );
@@ -693,323 +736,336 @@ abstract class RestJsonProtocolServerBase extends _i1.HttpServerBase {
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i14.HttpChecksumRequiredInputOutput> httpChecksumRequired(
-    _i14.HttpChecksumRequiredInputOutput input,
+  _i4.Future<_i16.HttpChecksumRequiredInputOutput> httpChecksumRequired(
+    _i16.HttpChecksumRequiredInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i15.EnumPayloadInput> httpEnumPayload(
-    _i15.EnumPayloadInput input,
+  _i4.Future<_i17.EnumPayloadInput> httpEnumPayload(
+    _i17.EnumPayloadInput input,
     _i1.Context context,
   );
-  _i4.Future<_i16.HttpPayloadTraitsInputOutput> httpPayloadTraits(
-    _i16.HttpPayloadTraitsInputOutput input,
+  _i4.Future<_i18.HttpPayloadTraitsInputOutput> httpPayloadTraits(
+    _i18.HttpPayloadTraitsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i17.HttpPayloadTraitsWithMediaTypeInputOutput>
+  _i4.Future<_i19.HttpPayloadTraitsWithMediaTypeInputOutput>
       httpPayloadTraitsWithMediaType(
-    _i17.HttpPayloadTraitsWithMediaTypeInputOutput input,
+    _i19.HttpPayloadTraitsWithMediaTypeInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i18.HttpPayloadWithStructureInputOutput> httpPayloadWithStructure(
-    _i18.HttpPayloadWithStructureInputOutput input,
+  _i4.Future<_i20.HttpPayloadWithStructureInputOutput> httpPayloadWithStructure(
+    _i20.HttpPayloadWithStructureInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i19.HttpPrefixHeadersOutput> httpPrefixHeaders(
-    _i20.HttpPrefixHeadersInput input,
+  _i4.Future<_i21.HttpPrefixHeadersOutput> httpPrefixHeaders(
+    _i22.HttpPrefixHeadersInput input,
     _i1.Context context,
   );
-  _i4.Future<_i21.HttpPrefixHeadersInResponseOutput>
+  _i4.Future<_i23.HttpPrefixHeadersInResponseOutput>
       httpPrefixHeadersInResponse(
-    _i22.HttpPrefixHeadersInResponseInput input,
+    _i24.HttpPrefixHeadersInResponseInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> httpRequestWithFloatLabels(
-    _i23.HttpRequestWithFloatLabelsInput input,
+    _i25.HttpRequestWithFloatLabelsInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> httpRequestWithGreedyLabelInPath(
-    _i24.HttpRequestWithGreedyLabelInPathInput input,
+    _i26.HttpRequestWithGreedyLabelInPathInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> httpRequestWithLabels(
-    _i25.HttpRequestWithLabelsInput input,
+    _i27.HttpRequestWithLabelsInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> httpRequestWithLabelsAndTimestampFormat(
-    _i26.HttpRequestWithLabelsAndTimestampFormatInput input,
+    _i28.HttpRequestWithLabelsAndTimestampFormatInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> httpRequestWithRegexLiteral(
-    _i27.HttpRequestWithRegexLiteralInput input,
+    _i29.HttpRequestWithRegexLiteralInput input,
     _i1.Context context,
   );
-  _i4.Future<_i28.HttpResponseCodeOutput> httpResponseCode(
+  _i4.Future<_i30.HttpResponseCodeOutput> httpResponseCode(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i29.StringPayloadInput> httpStringPayload(
-    _i29.StringPayloadInput input,
+  _i4.Future<_i31.StringPayloadInput> httpStringPayload(
+    _i31.StringPayloadInput input,
     _i1.Context context,
   );
-  _i4.Future<_i30.IgnoreQueryParamsInResponseOutput>
+  _i4.Future<_i32.IgnoreQueryParamsInResponseOutput>
       ignoreQueryParamsInResponse(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i31.InputAndOutputWithHeadersIo> inputAndOutputWithHeaders(
-    _i31.InputAndOutputWithHeadersIo input,
+  _i4.Future<_i33.InputAndOutputWithHeadersIo> inputAndOutputWithHeaders(
+    _i33.InputAndOutputWithHeadersIo input,
     _i1.Context context,
   );
-  _i4.Future<_i32.JsonBlobsInputOutput> jsonBlobs(
-    _i32.JsonBlobsInputOutput input,
+  _i4.Future<_i34.JsonBlobsInputOutput> jsonBlobs(
+    _i34.JsonBlobsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i33.JsonEnumsInputOutput> jsonEnums(
-    _i33.JsonEnumsInputOutput input,
+  _i4.Future<_i35.JsonEnumsInputOutput> jsonEnums(
+    _i35.JsonEnumsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i34.JsonListsInputOutput> jsonLists(
-    _i34.JsonListsInputOutput input,
+  _i4.Future<_i36.JsonIntEnumsInputOutput> jsonIntEnums(
+    _i36.JsonIntEnumsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i35.JsonMapsInputOutput> jsonMaps(
-    _i35.JsonMapsInputOutput input,
+  _i4.Future<_i37.JsonListsInputOutput> jsonLists(
+    _i37.JsonListsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i36.JsonTimestampsInputOutput> jsonTimestamps(
-    _i36.JsonTimestampsInputOutput input,
+  _i4.Future<_i38.JsonMapsInputOutput> jsonMaps(
+    _i38.JsonMapsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i37.UnionInputOutput> jsonUnions(
-    _i37.UnionInputOutput input,
+  _i4.Future<_i39.JsonTimestampsInputOutput> jsonTimestamps(
+    _i39.JsonTimestampsInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i38.GreetingStruct> malformedAcceptWithBody(
+  _i4.Future<_i40.UnionInputOutput> jsonUnions(
+    _i40.UnionInputOutput input,
+    _i1.Context context,
+  );
+  _i4.Future<_i41.GreetingStruct> malformedAcceptWithBody(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i1.Unit> malformedAcceptWithGenericString(
-    _i39.MalformedAcceptWithGenericStringInput input,
+  _i4.Future<_i42.MalformedAcceptWithGenericStringOutput>
+      malformedAcceptWithGenericString(
+    _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i40.MalformedAcceptWithPayloadOutput> malformedAcceptWithPayload(
+  _i4.Future<_i43.MalformedAcceptWithPayloadOutput> malformedAcceptWithPayload(
     _i1.Unit input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedBlob(
-    _i41.MalformedBlobInput input,
+    _i44.MalformedBlobInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedBoolean(
-    _i42.MalformedBooleanInput input,
+    _i45.MalformedBooleanInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedByte(
-    _i43.MalformedByteInput input,
+    _i46.MalformedByteInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedContentTypeWithBody(
-    _i38.GreetingStruct input,
+    _i41.GreetingStruct input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedContentTypeWithGenericString(
-    _i44.MalformedContentTypeWithGenericStringInput input,
+    _i47.MalformedContentTypeWithGenericStringInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedContentTypeWithPayload(
-    _i45.MalformedContentTypeWithPayloadInput input,
+    _i48.MalformedContentTypeWithPayloadInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedContentTypeWithoutBody(
     _i1.Unit input,
     _i1.Context context,
   );
+  _i4.Future<_i1.Unit> malformedContentTypeWithoutBodyEmptyInput(
+    _i49.MalformedContentTypeWithoutBodyEmptyInputInput input,
+    _i1.Context context,
+  );
   _i4.Future<_i1.Unit> malformedDouble(
-    _i46.MalformedDoubleInput input,
+    _i50.MalformedDoubleInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedFloat(
-    _i47.MalformedFloatInput input,
+    _i51.MalformedFloatInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedInteger(
-    _i48.MalformedIntegerInput input,
+    _i52.MalformedIntegerInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedList(
-    _i49.MalformedListInput input,
+    _i53.MalformedListInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedLong(
-    _i50.MalformedLongInput input,
+    _i54.MalformedLongInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedMap(
-    _i51.MalformedMapInput input,
+    _i55.MalformedMapInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedRequestBody(
-    _i52.MalformedRequestBodyInput input,
+    _i56.MalformedRequestBodyInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedShort(
-    _i53.MalformedShortInput input,
+    _i57.MalformedShortInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedString(
-    _i54.MalformedStringInput input,
+    _i58.MalformedStringInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampBodyDateTime(
-    _i55.MalformedTimestampBodyDateTimeInput input,
+    _i59.MalformedTimestampBodyDateTimeInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampBodyDefault(
-    _i56.MalformedTimestampBodyDefaultInput input,
+    _i60.MalformedTimestampBodyDefaultInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampBodyHttpDate(
-    _i57.MalformedTimestampBodyHttpDateInput input,
+    _i61.MalformedTimestampBodyHttpDateInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampHeaderDateTime(
-    _i58.MalformedTimestampHeaderDateTimeInput input,
+    _i62.MalformedTimestampHeaderDateTimeInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampHeaderDefault(
-    _i59.MalformedTimestampHeaderDefaultInput input,
+    _i63.MalformedTimestampHeaderDefaultInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampHeaderEpoch(
-    _i60.MalformedTimestampHeaderEpochInput input,
+    _i64.MalformedTimestampHeaderEpochInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampPathDefault(
-    _i61.MalformedTimestampPathDefaultInput input,
+    _i65.MalformedTimestampPathDefaultInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampPathEpoch(
-    _i62.MalformedTimestampPathEpochInput input,
+    _i66.MalformedTimestampPathEpochInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampPathHttpDate(
-    _i63.MalformedTimestampPathHttpDateInput input,
+    _i67.MalformedTimestampPathHttpDateInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampQueryDefault(
-    _i64.MalformedTimestampQueryDefaultInput input,
+    _i68.MalformedTimestampQueryDefaultInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampQueryEpoch(
-    _i65.MalformedTimestampQueryEpochInput input,
+    _i69.MalformedTimestampQueryEpochInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedTimestampQueryHttpDate(
-    _i66.MalformedTimestampQueryHttpDateInput input,
+    _i70.MalformedTimestampQueryHttpDateInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> malformedUnion(
-    _i67.MalformedUnionInput input,
+    _i71.MalformedUnionInput input,
     _i1.Context context,
   );
-  _i4.Future<_i68.MediaTypeHeaderOutput> mediaTypeHeader(
-    _i69.MediaTypeHeaderInput input,
+  _i4.Future<_i72.MediaTypeHeaderOutput> mediaTypeHeader(
+    _i73.MediaTypeHeaderInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> noInputAndNoOutput(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i70.NoInputAndOutputOutput> noInputAndOutput(
+  _i4.Future<_i74.NoInputAndOutputOutput> noInputAndOutput(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i71.NullAndEmptyHeadersIo> nullAndEmptyHeadersClient(
-    _i71.NullAndEmptyHeadersIo input,
+  _i4.Future<_i75.NullAndEmptyHeadersIo> nullAndEmptyHeadersClient(
+    _i75.NullAndEmptyHeadersIo input,
     _i1.Context context,
   );
-  _i4.Future<_i71.NullAndEmptyHeadersIo> nullAndEmptyHeadersServer(
-    _i71.NullAndEmptyHeadersIo input,
+  _i4.Future<_i75.NullAndEmptyHeadersIo> nullAndEmptyHeadersServer(
+    _i75.NullAndEmptyHeadersIo input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> omitsNullSerializesEmptyString(
-    _i72.OmitsNullSerializesEmptyStringInput input,
+    _i76.OmitsNullSerializesEmptyStringInput input,
     _i1.Context context,
   );
-  _i4.Future<_i73.PostPlayerActionOutput> postPlayerAction(
-    _i74.PostPlayerActionInput input,
+  _i4.Future<_i1.Unit> omitsSerializingEmptyLists(
+    _i77.OmitsSerializingEmptyListsInput input,
     _i1.Context context,
   );
-  _i4.Future<_i75.PostUnionWithJsonNameOutput> postUnionWithJsonName(
-    _i76.PostUnionWithJsonNameInput input,
+  _i4.Future<_i78.PostPlayerActionOutput> postPlayerAction(
+    _i79.PostPlayerActionInput input,
+    _i1.Context context,
+  );
+  _i4.Future<_i80.PostUnionWithJsonNameOutput> postUnionWithJsonName(
+    _i81.PostUnionWithJsonNameInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> queryIdempotencyTokenAutoFill(
-    _i77.QueryIdempotencyTokenAutoFillInput input,
+    _i82.QueryIdempotencyTokenAutoFillInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> queryParamsAsStringListMap(
-    _i78.QueryParamsAsStringListMapInput input,
+    _i83.QueryParamsAsStringListMapInput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> queryPrecedence(
-    _i79.QueryPrecedenceInput input,
+    _i84.QueryPrecedenceInput input,
     _i1.Context context,
   );
-  _i4.Future<_i80.RecursiveShapesInputOutput> recursiveShapes(
-    _i80.RecursiveShapesInputOutput input,
+  _i4.Future<_i85.RecursiveShapesInputOutput> recursiveShapes(
+    _i85.RecursiveShapesInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i81.ResponseCodeHttpFallbackInputOutput> responseCodeHttpFallback(
-    _i81.ResponseCodeHttpFallbackInputOutput input,
+  _i4.Future<_i86.ResponseCodeHttpFallbackInputOutput> responseCodeHttpFallback(
+    _i86.ResponseCodeHttpFallbackInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i82.ResponseCodeRequiredOutput> responseCodeRequired(
+  _i4.Future<_i87.ResponseCodeRequiredOutput> responseCodeRequired(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i83.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
-    _i83.SimpleScalarPropertiesInputOutput input,
+  _i4.Future<_i88.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
+    _i88.SimpleScalarPropertiesInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i84.StreamingTraitsInputOutput> streamingTraits(
-    _i84.StreamingTraitsInputOutput input,
+  _i4.Future<_i89.StreamingTraitsInputOutput> streamingTraits(
+    _i89.StreamingTraitsInputOutput input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> streamingTraitsRequireLength(
-    _i85.StreamingTraitsRequireLengthInput input,
+    _i90.StreamingTraitsRequireLengthInput input,
     _i1.Context context,
   );
-  _i4.Future<_i86.StreamingTraitsWithMediaTypeInputOutput>
+  _i4.Future<_i91.StreamingTraitsWithMediaTypeInputOutput>
       streamingTraitsWithMediaType(
-    _i86.StreamingTraitsWithMediaTypeInputOutput input,
+    _i91.StreamingTraitsWithMediaTypeInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i87.TestBodyStructureInputOutput> testBodyStructure(
-    _i87.TestBodyStructureInputOutput input,
+  _i4.Future<_i92.TestBodyStructureInputOutput> testBodyStructure(
+    _i92.TestBodyStructureInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i88.TestNoPayloadInputOutput> testNoPayload(
-    _i88.TestNoPayloadInputOutput input,
+  _i4.Future<_i93.TestNoPayloadInputOutput> testNoPayload(
+    _i93.TestNoPayloadInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i89.TestPayloadBlobInputOutput> testPayloadBlob(
-    _i89.TestPayloadBlobInputOutput input,
+  _i4.Future<_i94.TestPayloadBlobInputOutput> testPayloadBlob(
+    _i94.TestPayloadBlobInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i90.TestPayloadStructureInputOutput> testPayloadStructure(
-    _i90.TestPayloadStructureInputOutput input,
+  _i4.Future<_i95.TestPayloadStructureInputOutput> testPayloadStructure(
+    _i95.TestPayloadStructureInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i91.TimestampFormatHeadersIo> timestampFormatHeaders(
-    _i91.TimestampFormatHeadersIo input,
+  _i4.Future<_i96.TimestampFormatHeadersIo> timestampFormatHeaders(
+    _i96.TimestampFormatHeadersIo input,
     _i1.Context context,
   );
   _i4.Future<_i1.Unit> unitInputAndOutput(
     _i1.Unit input,
     _i1.Context context,
   );
-  _i4.Future<_i92.Response> call(_i92.Request request) => _router(request);
+  _i4.Future<_i97.Response> call(_i97.Request request) => _router(request);
 }
 
 class _RestJsonProtocolServer
@@ -1046,31 +1102,38 @@ class _RestJsonProtocolServer
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<
-          _i8.DocumentTypeInputOutput,
-          _i8.DocumentTypeInputOutput,
-          _i8.DocumentTypeInputOutput,
-          _i8.DocumentTypeInputOutput> _documentTypeProtocol =
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i8.DatetimeOffsetsOutput,
+          _i8.DatetimeOffsetsOutput> _datetimeOffsetsProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i93.JsonObject,
-          _i9.DocumentTypeAsPayloadInputOutput,
-          _i93.JsonObject,
-          _i9.DocumentTypeAsPayloadInputOutput> _documentTypeAsPayloadProtocol =
+          _i9.DocumentTypeInputOutput,
+          _i9.DocumentTypeInputOutput,
+          _i9.DocumentTypeInputOutput,
+          _i9.DocumentTypeInputOutput> _documentTypeProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i11.EmptyInputAndEmptyOutputInput,
-          _i11.EmptyInputAndEmptyOutputInput,
-          _i10.EmptyInputAndEmptyOutputOutput,
-          _i10.EmptyInputAndEmptyOutputOutput>
+          _i98.JsonObject,
+          _i10.DocumentTypeAsPayloadInputOutput,
+          _i98.JsonObject,
+          _i10.DocumentTypeAsPayloadInputOutput>
+      _documentTypeAsPayloadProtocol = _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+          _i12.EmptyInputAndEmptyOutputInput,
+          _i12.EmptyInputAndEmptyOutputInput,
+          _i11.EmptyInputAndEmptyOutputOutput,
+          _i11.EmptyInputAndEmptyOutputOutput>
       _emptyInputAndEmptyOutputProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1083,16 +1146,23 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i12.HostLabelInput,
-      _i12.HostLabelInput,
+      _i13.HostLabelInput,
+      _i13.HostLabelInput,
       _i1.Unit,
       _i1.Unit> _endpointWithHostLabelOperationProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i14.FractionalSecondsOutput,
+          _i14.FractionalSecondsOutput> _fractionalSecondsProtocol =
+      _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit,
-          _i13.GreetingWithErrorsOutputPayload, _i13.GreetingWithErrorsOutput>
+          _i15.GreetingWithErrorsOutputPayload, _i15.GreetingWithErrorsOutput>
       _greetingWithErrorsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1105,36 +1175,39 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i14.HttpChecksumRequiredInputOutput,
-          _i14.HttpChecksumRequiredInputOutput,
-          _i14.HttpChecksumRequiredInputOutput,
-          _i14.HttpChecksumRequiredInputOutput> _httpChecksumRequiredProtocol =
+          _i16.HttpChecksumRequiredInputOutput,
+          _i16.HttpChecksumRequiredInputOutput,
+          _i16.HttpChecksumRequiredInputOutput,
+          _i16.HttpChecksumRequiredInputOutput> _httpChecksumRequiredProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i94.StringEnum,
-      _i15.EnumPayloadInput,
-      _i94.StringEnum,
-      _i15.EnumPayloadInput> _httpEnumPayloadProtocol = _i2.RestJson1Protocol(
-    serializers: _i3.serializers,
-    builderFactories: _i3.builderFactories,
-  );
-
-  late final _i1.HttpProtocol<_i95.Uint8List, _i16.HttpPayloadTraitsInputOutput,
-          _i95.Uint8List, _i16.HttpPayloadTraitsInputOutput>
-      _httpPayloadTraitsProtocol = _i2.RestJson1Protocol(
+      _i99.StringEnum,
+      _i17.EnumPayloadInput,
+      _i99.StringEnum,
+      _i17.EnumPayloadInput> _httpEnumPayloadProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i95.Uint8List,
-          _i17.HttpPayloadTraitsWithMediaTypeInputOutput,
-          _i95.Uint8List,
-          _i17.HttpPayloadTraitsWithMediaTypeInputOutput>
+          _i100.Uint8List,
+          _i18.HttpPayloadTraitsInputOutput,
+          _i100.Uint8List,
+          _i18.HttpPayloadTraitsInputOutput> _httpPayloadTraitsProtocol =
+      _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+          _i100.Uint8List,
+          _i19.HttpPayloadTraitsWithMediaTypeInputOutput,
+          _i100.Uint8List,
+          _i19.HttpPayloadTraitsWithMediaTypeInputOutput>
       _httpPayloadTraitsWithMediaTypeProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1142,54 +1215,54 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i96.NestedPayload,
-          _i18.HttpPayloadWithStructureInputOutput,
-          _i96.NestedPayload,
-          _i18.HttpPayloadWithStructureInputOutput>
+          _i101.NestedPayload,
+          _i20.HttpPayloadWithStructureInputOutput,
+          _i101.NestedPayload,
+          _i20.HttpPayloadWithStructureInputOutput>
       _httpPayloadWithStructureProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i20.HttpPrefixHeadersInputPayload,
-          _i20.HttpPrefixHeadersInput,
-          _i19.HttpPrefixHeadersOutputPayload,
-          _i19.HttpPrefixHeadersOutput> _httpPrefixHeadersProtocol =
+          _i22.HttpPrefixHeadersInputPayload,
+          _i22.HttpPrefixHeadersInput,
+          _i21.HttpPrefixHeadersOutputPayload,
+          _i21.HttpPrefixHeadersOutput> _httpPrefixHeadersProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i22.HttpPrefixHeadersInResponseInput,
-          _i22.HttpPrefixHeadersInResponseInput,
-          _i21.HttpPrefixHeadersInResponseOutputPayload,
-          _i21.HttpPrefixHeadersInResponseOutput>
+          _i24.HttpPrefixHeadersInResponseInput,
+          _i24.HttpPrefixHeadersInResponseInput,
+          _i23.HttpPrefixHeadersInResponseOutputPayload,
+          _i23.HttpPrefixHeadersInResponseOutput>
       _httpPrefixHeadersInResponseProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i23.HttpRequestWithFloatLabelsInputPayload,
-      _i23.HttpRequestWithFloatLabelsInput,
+      _i25.HttpRequestWithFloatLabelsInputPayload,
+      _i25.HttpRequestWithFloatLabelsInput,
       _i1.Unit,
       _i1.Unit> _httpRequestWithFloatLabelsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i24.HttpRequestWithGreedyLabelInPathInputPayload,
-          _i24.HttpRequestWithGreedyLabelInPathInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<_i26.HttpRequestWithGreedyLabelInPathInputPayload,
+          _i26.HttpRequestWithGreedyLabelInPathInput, _i1.Unit, _i1.Unit>
       _httpRequestWithGreedyLabelInPathProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i25.HttpRequestWithLabelsInputPayload,
-      _i25.HttpRequestWithLabelsInput,
+      _i27.HttpRequestWithLabelsInputPayload,
+      _i27.HttpRequestWithLabelsInput,
       _i1.Unit,
       _i1.Unit> _httpRequestWithLabelsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1197,8 +1270,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i26.HttpRequestWithLabelsAndTimestampFormatInputPayload,
-          _i26.HttpRequestWithLabelsAndTimestampFormatInput,
+          _i28.HttpRequestWithLabelsAndTimestampFormatInputPayload,
+          _i28.HttpRequestWithLabelsAndTimestampFormatInput,
           _i1.Unit,
           _i1.Unit> _httpRequestWithLabelsAndTimestampFormatProtocol =
       _i2.RestJson1Protocol(
@@ -1207,8 +1280,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i27.HttpRequestWithRegexLiteralInputPayload,
-      _i27.HttpRequestWithRegexLiteralInput,
+      _i29.HttpRequestWithRegexLiteralInputPayload,
+      _i29.HttpRequestWithRegexLiteralInput,
       _i1.Unit,
       _i1.Unit> _httpRequestWithRegexLiteralProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1216,14 +1289,14 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<_i1.Unit, _i1.Unit,
-          _i28.HttpResponseCodeOutputPayload, _i28.HttpResponseCodeOutput>
+          _i30.HttpResponseCodeOutputPayload, _i30.HttpResponseCodeOutput>
       _httpResponseCodeProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<String, _i29.StringPayloadInput, String,
-          _i29.StringPayloadInput> _httpStringPayloadProtocol =
+  late final _i1.HttpProtocol<String, _i31.StringPayloadInput, String,
+          _i31.StringPayloadInput> _httpStringPayloadProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1232,108 +1305,118 @@ class _RestJsonProtocolServer
   late final _i1.HttpProtocol<
           _i1.Unit,
           _i1.Unit,
-          _i30.IgnoreQueryParamsInResponseOutput,
-          _i30.IgnoreQueryParamsInResponseOutput>
+          _i32.IgnoreQueryParamsInResponseOutput,
+          _i32.IgnoreQueryParamsInResponseOutput>
       _ignoreQueryParamsInResponseProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i31.InputAndOutputWithHeadersIoPayload,
-          _i31.InputAndOutputWithHeadersIo,
-          _i31.InputAndOutputWithHeadersIoPayload,
-          _i31.InputAndOutputWithHeadersIo> _inputAndOutputWithHeadersProtocol =
+          _i33.InputAndOutputWithHeadersIoPayload,
+          _i33.InputAndOutputWithHeadersIo,
+          _i33.InputAndOutputWithHeadersIoPayload,
+          _i33.InputAndOutputWithHeadersIo> _inputAndOutputWithHeadersProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i32.JsonBlobsInputOutput,
-      _i32.JsonBlobsInputOutput,
-      _i32.JsonBlobsInputOutput,
-      _i32.JsonBlobsInputOutput> _jsonBlobsProtocol = _i2.RestJson1Protocol(
+      _i34.JsonBlobsInputOutput,
+      _i34.JsonBlobsInputOutput,
+      _i34.JsonBlobsInputOutput,
+      _i34.JsonBlobsInputOutput> _jsonBlobsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i33.JsonEnumsInputOutput,
-      _i33.JsonEnumsInputOutput,
-      _i33.JsonEnumsInputOutput,
-      _i33.JsonEnumsInputOutput> _jsonEnumsProtocol = _i2.RestJson1Protocol(
+      _i35.JsonEnumsInputOutput,
+      _i35.JsonEnumsInputOutput,
+      _i35.JsonEnumsInputOutput,
+      _i35.JsonEnumsInputOutput> _jsonEnumsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i34.JsonListsInputOutput,
-      _i34.JsonListsInputOutput,
-      _i34.JsonListsInputOutput,
-      _i34.JsonListsInputOutput> _jsonListsProtocol = _i2.RestJson1Protocol(
-    serializers: _i3.serializers,
-    builderFactories: _i3.builderFactories,
-  );
-
-  late final _i1.HttpProtocol<
-      _i35.JsonMapsInputOutput,
-      _i35.JsonMapsInputOutput,
-      _i35.JsonMapsInputOutput,
-      _i35.JsonMapsInputOutput> _jsonMapsProtocol = _i2.RestJson1Protocol(
-    serializers: _i3.serializers,
-    builderFactories: _i3.builderFactories,
-  );
-
-  late final _i1.HttpProtocol<
-          _i36.JsonTimestampsInputOutput,
-          _i36.JsonTimestampsInputOutput,
-          _i36.JsonTimestampsInputOutput,
-          _i36.JsonTimestampsInputOutput> _jsonTimestampsProtocol =
+          _i36.JsonIntEnumsInputOutput,
+          _i36.JsonIntEnumsInputOutput,
+          _i36.JsonIntEnumsInputOutput,
+          _i36.JsonIntEnumsInputOutput> _jsonIntEnumsProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i37.UnionInputOutput,
-      _i37.UnionInputOutput,
-      _i37.UnionInputOutput,
-      _i37.UnionInputOutput> _jsonUnionsProtocol = _i2.RestJson1Protocol(
+      _i37.JsonListsInputOutput,
+      _i37.JsonListsInputOutput,
+      _i37.JsonListsInputOutput,
+      _i37.JsonListsInputOutput> _jsonListsProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i38.GreetingStruct,
-          _i38.GreetingStruct> _malformedAcceptWithBodyProtocol =
+  late final _i1.HttpProtocol<
+      _i38.JsonMapsInputOutput,
+      _i38.JsonMapsInputOutput,
+      _i38.JsonMapsInputOutput,
+      _i38.JsonMapsInputOutput> _jsonMapsProtocol = _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+          _i39.JsonTimestampsInputOutput,
+          _i39.JsonTimestampsInputOutput,
+          _i39.JsonTimestampsInputOutput,
+          _i39.JsonTimestampsInputOutput> _jsonTimestampsProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<String,
-          _i39.MalformedAcceptWithGenericStringInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<
+      _i40.UnionInputOutput,
+      _i40.UnionInputOutput,
+      _i40.UnionInputOutput,
+      _i40.UnionInputOutput> _jsonUnionsProtocol = _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i41.GreetingStruct,
+          _i41.GreetingStruct> _malformedAcceptWithBodyProtocol =
+      _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, String,
+          _i42.MalformedAcceptWithGenericStringOutput>
       _malformedAcceptWithGenericStringProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i95.Uint8List,
-          _i40.MalformedAcceptWithPayloadOutput>
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i100.Uint8List,
+          _i43.MalformedAcceptWithPayloadOutput>
       _malformedAcceptWithPayloadProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i41.MalformedBlobInput, _i41.MalformedBlobInput,
+  late final _i1.HttpProtocol<_i44.MalformedBlobInput, _i44.MalformedBlobInput,
       _i1.Unit, _i1.Unit> _malformedBlobProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i42.MalformedBooleanInputPayload,
-      _i42.MalformedBooleanInput,
+      _i45.MalformedBooleanInputPayload,
+      _i45.MalformedBooleanInput,
       _i1.Unit,
       _i1.Unit> _malformedBooleanProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1341,8 +1424,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i43.MalformedByteInputPayload,
-      _i43.MalformedByteInput,
+      _i46.MalformedByteInputPayload,
+      _i46.MalformedByteInput,
       _i1.Unit,
       _i1.Unit> _malformedByteProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1350,8 +1433,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i38.GreetingStruct,
-      _i38.GreetingStruct,
+      _i41.GreetingStruct,
+      _i41.GreetingStruct,
       _i1.Unit,
       _i1.Unit> _malformedContentTypeWithBodyProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1359,14 +1442,14 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<String,
-          _i44.MalformedContentTypeWithGenericStringInput, _i1.Unit, _i1.Unit>
+          _i47.MalformedContentTypeWithGenericStringInput, _i1.Unit, _i1.Unit>
       _malformedContentTypeWithGenericStringProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i95.Uint8List,
-          _i45.MalformedContentTypeWithPayloadInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<_i100.Uint8List,
+          _i48.MalformedContentTypeWithPayloadInput, _i1.Unit, _i1.Unit>
       _malformedContentTypeWithPayloadProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1380,8 +1463,18 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i46.MalformedDoubleInputPayload,
-      _i46.MalformedDoubleInput,
+          _i49.MalformedContentTypeWithoutBodyEmptyInputInputPayload,
+          _i49.MalformedContentTypeWithoutBodyEmptyInputInput,
+          _i1.Unit,
+          _i1.Unit> _malformedContentTypeWithoutBodyEmptyInputProtocol =
+      _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+      _i50.MalformedDoubleInputPayload,
+      _i50.MalformedDoubleInput,
       _i1.Unit,
       _i1.Unit> _malformedDoubleProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1389,8 +1482,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i47.MalformedFloatInputPayload,
-      _i47.MalformedFloatInput,
+      _i51.MalformedFloatInputPayload,
+      _i51.MalformedFloatInput,
       _i1.Unit,
       _i1.Unit> _malformedFloatProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1398,38 +1491,38 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i48.MalformedIntegerInputPayload,
-      _i48.MalformedIntegerInput,
+      _i52.MalformedIntegerInputPayload,
+      _i52.MalformedIntegerInput,
       _i1.Unit,
       _i1.Unit> _malformedIntegerProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i49.MalformedListInput, _i49.MalformedListInput,
+  late final _i1.HttpProtocol<_i53.MalformedListInput, _i53.MalformedListInput,
       _i1.Unit, _i1.Unit> _malformedListProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i50.MalformedLongInputPayload,
-      _i50.MalformedLongInput,
+      _i54.MalformedLongInputPayload,
+      _i54.MalformedLongInput,
       _i1.Unit,
       _i1.Unit> _malformedLongProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i51.MalformedMapInput, _i51.MalformedMapInput,
+  late final _i1.HttpProtocol<_i55.MalformedMapInput, _i55.MalformedMapInput,
       _i1.Unit, _i1.Unit> _malformedMapProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i52.MalformedRequestBodyInput,
-      _i52.MalformedRequestBodyInput,
+      _i56.MalformedRequestBodyInput,
+      _i56.MalformedRequestBodyInput,
       _i1.Unit,
       _i1.Unit> _malformedRequestBodyProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1437,8 +1530,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i53.MalformedShortInputPayload,
-      _i53.MalformedShortInput,
+      _i57.MalformedShortInputPayload,
+      _i57.MalformedShortInput,
       _i1.Unit,
       _i1.Unit> _malformedShortProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1446,8 +1539,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i54.MalformedStringInputPayload,
-      _i54.MalformedStringInput,
+      _i58.MalformedStringInputPayload,
+      _i58.MalformedStringInput,
       _i1.Unit,
       _i1.Unit> _malformedStringProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1455,8 +1548,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i55.MalformedTimestampBodyDateTimeInput,
-      _i55.MalformedTimestampBodyDateTimeInput,
+      _i59.MalformedTimestampBodyDateTimeInput,
+      _i59.MalformedTimestampBodyDateTimeInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampBodyDateTimeProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1464,8 +1557,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i56.MalformedTimestampBodyDefaultInput,
-      _i56.MalformedTimestampBodyDefaultInput,
+      _i60.MalformedTimestampBodyDefaultInput,
+      _i60.MalformedTimestampBodyDefaultInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampBodyDefaultProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1473,31 +1566,31 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i57.MalformedTimestampBodyHttpDateInput,
-      _i57.MalformedTimestampBodyHttpDateInput,
+      _i61.MalformedTimestampBodyHttpDateInput,
+      _i61.MalformedTimestampBodyHttpDateInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampBodyHttpDateProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i58.MalformedTimestampHeaderDateTimeInputPayload,
-          _i58.MalformedTimestampHeaderDateTimeInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<_i62.MalformedTimestampHeaderDateTimeInputPayload,
+          _i62.MalformedTimestampHeaderDateTimeInput, _i1.Unit, _i1.Unit>
       _malformedTimestampHeaderDateTimeProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i59.MalformedTimestampHeaderDefaultInputPayload,
-          _i59.MalformedTimestampHeaderDefaultInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<_i63.MalformedTimestampHeaderDefaultInputPayload,
+          _i63.MalformedTimestampHeaderDefaultInput, _i1.Unit, _i1.Unit>
       _malformedTimestampHeaderDefaultProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i60.MalformedTimestampHeaderEpochInputPayload,
-      _i60.MalformedTimestampHeaderEpochInput,
+      _i64.MalformedTimestampHeaderEpochInputPayload,
+      _i64.MalformedTimestampHeaderEpochInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampHeaderEpochProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1505,8 +1598,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i61.MalformedTimestampPathDefaultInputPayload,
-      _i61.MalformedTimestampPathDefaultInput,
+      _i65.MalformedTimestampPathDefaultInputPayload,
+      _i65.MalformedTimestampPathDefaultInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampPathDefaultProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1514,8 +1607,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i62.MalformedTimestampPathEpochInputPayload,
-      _i62.MalformedTimestampPathEpochInput,
+      _i66.MalformedTimestampPathEpochInputPayload,
+      _i66.MalformedTimestampPathEpochInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampPathEpochProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1523,8 +1616,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i63.MalformedTimestampPathHttpDateInputPayload,
-      _i63.MalformedTimestampPathHttpDateInput,
+      _i67.MalformedTimestampPathHttpDateInputPayload,
+      _i67.MalformedTimestampPathHttpDateInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampPathHttpDateProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1532,8 +1625,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i64.MalformedTimestampQueryDefaultInputPayload,
-      _i64.MalformedTimestampQueryDefaultInput,
+      _i68.MalformedTimestampQueryDefaultInputPayload,
+      _i68.MalformedTimestampQueryDefaultInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampQueryDefaultProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1541,24 +1634,24 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i65.MalformedTimestampQueryEpochInputPayload,
-      _i65.MalformedTimestampQueryEpochInput,
+      _i69.MalformedTimestampQueryEpochInputPayload,
+      _i69.MalformedTimestampQueryEpochInput,
       _i1.Unit,
       _i1.Unit> _malformedTimestampQueryEpochProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i66.MalformedTimestampQueryHttpDateInputPayload,
-          _i66.MalformedTimestampQueryHttpDateInput, _i1.Unit, _i1.Unit>
+  late final _i1.HttpProtocol<_i70.MalformedTimestampQueryHttpDateInputPayload,
+          _i70.MalformedTimestampQueryHttpDateInput, _i1.Unit, _i1.Unit>
       _malformedTimestampQueryHttpDateProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i67.MalformedUnionInput,
-      _i67.MalformedUnionInput,
+      _i71.MalformedUnionInput,
+      _i71.MalformedUnionInput,
       _i1.Unit,
       _i1.Unit> _malformedUnionProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1566,10 +1659,10 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i69.MediaTypeHeaderInputPayload,
-          _i69.MediaTypeHeaderInput,
-          _i68.MediaTypeHeaderOutputPayload,
-          _i68.MediaTypeHeaderOutput> _mediaTypeHeaderProtocol =
+          _i73.MediaTypeHeaderInputPayload,
+          _i73.MediaTypeHeaderInput,
+          _i72.MediaTypeHeaderOutputPayload,
+          _i72.MediaTypeHeaderOutput> _mediaTypeHeaderProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1581,36 +1674,36 @@ class _RestJsonProtocolServer
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i70.NoInputAndOutputOutput,
-          _i70.NoInputAndOutputOutput> _noInputAndOutputProtocol =
+  late final _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i74.NoInputAndOutputOutput,
+          _i74.NoInputAndOutputOutput> _noInputAndOutputProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i71.NullAndEmptyHeadersIoPayload,
-          _i71.NullAndEmptyHeadersIo,
-          _i71.NullAndEmptyHeadersIoPayload,
-          _i71.NullAndEmptyHeadersIo> _nullAndEmptyHeadersClientProtocol =
+          _i75.NullAndEmptyHeadersIoPayload,
+          _i75.NullAndEmptyHeadersIo,
+          _i75.NullAndEmptyHeadersIoPayload,
+          _i75.NullAndEmptyHeadersIo> _nullAndEmptyHeadersClientProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i71.NullAndEmptyHeadersIoPayload,
-          _i71.NullAndEmptyHeadersIo,
-          _i71.NullAndEmptyHeadersIoPayload,
-          _i71.NullAndEmptyHeadersIo> _nullAndEmptyHeadersServerProtocol =
+          _i75.NullAndEmptyHeadersIoPayload,
+          _i75.NullAndEmptyHeadersIo,
+          _i75.NullAndEmptyHeadersIoPayload,
+          _i75.NullAndEmptyHeadersIo> _nullAndEmptyHeadersServerProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i72.OmitsNullSerializesEmptyStringInputPayload,
-      _i72.OmitsNullSerializesEmptyStringInput,
+      _i76.OmitsNullSerializesEmptyStringInputPayload,
+      _i76.OmitsNullSerializesEmptyStringInput,
       _i1.Unit,
       _i1.Unit> _omitsNullSerializesEmptyStringProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1618,28 +1711,37 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i74.PostPlayerActionInput,
-          _i74.PostPlayerActionInput,
-          _i73.PostPlayerActionOutput,
-          _i73.PostPlayerActionOutput> _postPlayerActionProtocol =
+      _i77.OmitsSerializingEmptyListsInputPayload,
+      _i77.OmitsSerializingEmptyListsInput,
+      _i1.Unit,
+      _i1.Unit> _omitsSerializingEmptyListsProtocol = _i2.RestJson1Protocol(
+    serializers: _i3.serializers,
+    builderFactories: _i3.builderFactories,
+  );
+
+  late final _i1.HttpProtocol<
+          _i79.PostPlayerActionInput,
+          _i79.PostPlayerActionInput,
+          _i78.PostPlayerActionOutput,
+          _i78.PostPlayerActionOutput> _postPlayerActionProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i76.PostUnionWithJsonNameInput,
-          _i76.PostUnionWithJsonNameInput,
-          _i75.PostUnionWithJsonNameOutput,
-          _i75.PostUnionWithJsonNameOutput> _postUnionWithJsonNameProtocol =
+          _i81.PostUnionWithJsonNameInput,
+          _i81.PostUnionWithJsonNameInput,
+          _i80.PostUnionWithJsonNameOutput,
+          _i80.PostUnionWithJsonNameOutput> _postUnionWithJsonNameProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-      _i77.QueryIdempotencyTokenAutoFillInputPayload,
-      _i77.QueryIdempotencyTokenAutoFillInput,
+      _i82.QueryIdempotencyTokenAutoFillInputPayload,
+      _i82.QueryIdempotencyTokenAutoFillInput,
       _i1.Unit,
       _i1.Unit> _queryIdempotencyTokenAutoFillProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1647,8 +1749,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i78.QueryParamsAsStringListMapInputPayload,
-      _i78.QueryParamsAsStringListMapInput,
+      _i83.QueryParamsAsStringListMapInputPayload,
+      _i83.QueryParamsAsStringListMapInput,
       _i1.Unit,
       _i1.Unit> _queryParamsAsStringListMapProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1656,8 +1758,8 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-      _i79.QueryPrecedenceInputPayload,
-      _i79.QueryPrecedenceInput,
+      _i84.QueryPrecedenceInputPayload,
+      _i84.QueryPrecedenceInput,
       _i1.Unit,
       _i1.Unit> _queryPrecedenceProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1665,20 +1767,20 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i80.RecursiveShapesInputOutput,
-          _i80.RecursiveShapesInputOutput,
-          _i80.RecursiveShapesInputOutput,
-          _i80.RecursiveShapesInputOutput> _recursiveShapesProtocol =
+          _i85.RecursiveShapesInputOutput,
+          _i85.RecursiveShapesInputOutput,
+          _i85.RecursiveShapesInputOutput,
+          _i85.RecursiveShapesInputOutput> _recursiveShapesProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i81.ResponseCodeHttpFallbackInputOutput,
-          _i81.ResponseCodeHttpFallbackInputOutput,
-          _i81.ResponseCodeHttpFallbackInputOutput,
-          _i81.ResponseCodeHttpFallbackInputOutput>
+          _i86.ResponseCodeHttpFallbackInputOutput,
+          _i86.ResponseCodeHttpFallbackInputOutput,
+          _i86.ResponseCodeHttpFallbackInputOutput,
+          _i86.ResponseCodeHttpFallbackInputOutput>
       _responseCodeHttpFallbackProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1687,18 +1789,18 @@ class _RestJsonProtocolServer
   late final _i1.HttpProtocol<
           _i1.Unit,
           _i1.Unit,
-          _i82.ResponseCodeRequiredOutputPayload,
-          _i82.ResponseCodeRequiredOutput> _responseCodeRequiredProtocol =
+          _i87.ResponseCodeRequiredOutputPayload,
+          _i87.ResponseCodeRequiredOutput> _responseCodeRequiredProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i83.SimpleScalarPropertiesInputOutputPayload,
-          _i83.SimpleScalarPropertiesInputOutput,
-          _i83.SimpleScalarPropertiesInputOutputPayload,
-          _i83.SimpleScalarPropertiesInputOutput>
+          _i88.SimpleScalarPropertiesInputOutputPayload,
+          _i88.SimpleScalarPropertiesInputOutput,
+          _i88.SimpleScalarPropertiesInputOutputPayload,
+          _i88.SimpleScalarPropertiesInputOutput>
       _simpleScalarPropertiesProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1706,9 +1808,9 @@ class _RestJsonProtocolServer
 
   late final _i1.HttpProtocol<
           _i4.Stream<List<int>>,
-          _i84.StreamingTraitsInputOutput,
+          _i89.StreamingTraitsInputOutput,
           _i4.Stream<List<int>>,
-          _i84.StreamingTraitsInputOutput> _streamingTraitsProtocol =
+          _i89.StreamingTraitsInputOutput> _streamingTraitsProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1716,7 +1818,7 @@ class _RestJsonProtocolServer
 
   late final _i1.HttpProtocol<
       _i4.Stream<List<int>>,
-      _i85.StreamingTraitsRequireLengthInput,
+      _i90.StreamingTraitsRequireLengthInput,
       _i1.Unit,
       _i1.Unit> _streamingTraitsRequireLengthProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
@@ -1725,9 +1827,9 @@ class _RestJsonProtocolServer
 
   late final _i1.HttpProtocol<
           _i4.Stream<List<int>>,
-          _i86.StreamingTraitsWithMediaTypeInputOutput,
+          _i91.StreamingTraitsWithMediaTypeInputOutput,
           _i4.Stream<List<int>>,
-          _i86.StreamingTraitsWithMediaTypeInputOutput>
+          _i91.StreamingTraitsWithMediaTypeInputOutput>
       _streamingTraitsWithMediaTypeProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1735,47 +1837,47 @@ class _RestJsonProtocolServer
   );
 
   late final _i1.HttpProtocol<
-          _i87.TestBodyStructureInputOutputPayload,
-          _i87.TestBodyStructureInputOutput,
-          _i87.TestBodyStructureInputOutputPayload,
-          _i87.TestBodyStructureInputOutput> _testBodyStructureProtocol =
+          _i92.TestBodyStructureInputOutputPayload,
+          _i92.TestBodyStructureInputOutput,
+          _i92.TestBodyStructureInputOutputPayload,
+          _i92.TestBodyStructureInputOutput> _testBodyStructureProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i88.TestNoPayloadInputOutputPayload,
-          _i88.TestNoPayloadInputOutput,
-          _i88.TestNoPayloadInputOutputPayload,
-          _i88.TestNoPayloadInputOutput> _testNoPayloadProtocol =
+          _i93.TestNoPayloadInputOutputPayload,
+          _i93.TestNoPayloadInputOutput,
+          _i93.TestNoPayloadInputOutputPayload,
+          _i93.TestNoPayloadInputOutput> _testNoPayloadProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
-  late final _i1.HttpProtocol<_i95.Uint8List, _i89.TestPayloadBlobInputOutput,
-          _i95.Uint8List, _i89.TestPayloadBlobInputOutput>
+  late final _i1.HttpProtocol<_i100.Uint8List, _i94.TestPayloadBlobInputOutput,
+          _i100.Uint8List, _i94.TestPayloadBlobInputOutput>
       _testPayloadBlobProtocol = _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i97.PayloadConfig,
-          _i90.TestPayloadStructureInputOutput,
-          _i97.PayloadConfig,
-          _i90.TestPayloadStructureInputOutput> _testPayloadStructureProtocol =
+          _i102.PayloadConfig,
+          _i95.TestPayloadStructureInputOutput,
+          _i102.PayloadConfig,
+          _i95.TestPayloadStructureInputOutput> _testPayloadStructureProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
   );
 
   late final _i1.HttpProtocol<
-          _i91.TimestampFormatHeadersIoPayload,
-          _i91.TimestampFormatHeadersIo,
-          _i91.TimestampFormatHeadersIoPayload,
-          _i91.TimestampFormatHeadersIo> _timestampFormatHeadersProtocol =
+          _i96.TimestampFormatHeadersIoPayload,
+          _i96.TimestampFormatHeadersIo,
+          _i96.TimestampFormatHeadersIoPayload,
+          _i96.TimestampFormatHeadersIo> _timestampFormatHeadersProtocol =
       _i2.RestJson1Protocol(
     serializers: _i3.serializers,
     builderFactories: _i3.builderFactories,
@@ -1787,7 +1889,7 @@ class _RestJsonProtocolServer
     builderFactories: _i3.builderFactories,
   );
 
-  _i4.Future<_i92.Response> allQueryStringTypes(_i92.Request request) async {
+  _i4.Future<_i97.Response> allQueryStringTypes(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1814,7 +1916,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1827,8 +1929,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> constantAndVariableQueryString(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> constantAndVariableQueryString(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1857,7 +1959,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1870,8 +1972,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> constantQueryString(
-    _i92.Request request,
+  _i4.Future<_i97.Response> constantQueryString(
+    _i97.Request request,
     String hello,
   ) async {
     final awsRequest = request.awsRequest;
@@ -1900,7 +2002,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1913,7 +2015,43 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> documentType(_i92.Request request) async {
+  _i4.Future<_i97.Response> datetimeOffsets(_i97.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _datetimeOffsetsProtocol.contentType;
+    try {
+      final payload = (await _datetimeOffsetsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(_i1.Unit),
+      ) as _i1.Unit);
+      final input = payload;
+      final output = await service.datetimeOffsets(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _datetimeOffsetsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i8.DatetimeOffsetsOutput,
+          [FullType(_i8.DatetimeOffsetsOutput)],
+        ),
+      );
+      return _i97.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i97.Response> documentType(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1921,9 +2059,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _documentTypeProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i8.DocumentTypeInputOutput),
-      ) as _i8.DocumentTypeInputOutput);
-      final input = _i8.DocumentTypeInputOutput.fromRequest(
+        specifiedType: const FullType(_i9.DocumentTypeInputOutput),
+      ) as _i9.DocumentTypeInputOutput);
+      final input = _i9.DocumentTypeInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -1936,11 +2074,11 @@ class _RestJsonProtocolServer
       final body = _documentTypeProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i8.DocumentTypeInputOutput,
-          [FullType(_i8.DocumentTypeInputOutput)],
+          _i9.DocumentTypeInputOutput,
+          [FullType(_i9.DocumentTypeInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1953,7 +2091,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> documentTypeAsPayload(_i92.Request request) async {
+  _i4.Future<_i97.Response> documentTypeAsPayload(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -1961,9 +2099,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _documentTypeAsPayloadProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i93.JsonObject),
-      ) as _i93.JsonObject?);
-      final input = _i9.DocumentTypeAsPayloadInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i98.JsonObject),
+      ) as _i98.JsonObject?);
+      final input = _i10.DocumentTypeAsPayloadInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -1976,11 +2114,11 @@ class _RestJsonProtocolServer
       final body = _documentTypeAsPayloadProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i9.DocumentTypeAsPayloadInputOutput,
-          [FullType.nullable(_i93.JsonObject)],
+          _i10.DocumentTypeAsPayloadInputOutput,
+          [FullType.nullable(_i98.JsonObject)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -1993,8 +2131,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> emptyInputAndEmptyOutput(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> emptyInputAndEmptyOutput(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2002,9 +2140,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _emptyInputAndEmptyOutputProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i11.EmptyInputAndEmptyOutputInput),
-      ) as _i11.EmptyInputAndEmptyOutputInput);
-      final input = _i11.EmptyInputAndEmptyOutputInput.fromRequest(
+        specifiedType: const FullType(_i12.EmptyInputAndEmptyOutputInput),
+      ) as _i12.EmptyInputAndEmptyOutputInput);
+      final input = _i12.EmptyInputAndEmptyOutputInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2017,11 +2155,11 @@ class _RestJsonProtocolServer
       final body = _emptyInputAndEmptyOutputProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i10.EmptyInputAndEmptyOutputOutput,
-          [FullType(_i10.EmptyInputAndEmptyOutputOutput)],
+          _i11.EmptyInputAndEmptyOutputOutput,
+          [FullType(_i11.EmptyInputAndEmptyOutputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2034,7 +2172,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> endpointOperation(_i92.Request request) async {
+  _i4.Future<_i97.Response> endpointOperation(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2057,7 +2195,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2070,8 +2208,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> endpointWithHostLabelOperation(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> endpointWithHostLabelOperation(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2080,9 +2218,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _endpointWithHostLabelOperationProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i12.HostLabelInput),
-      ) as _i12.HostLabelInput);
-      final input = _i12.HostLabelInput.fromRequest(
+        specifiedType: const FullType(_i13.HostLabelInput),
+      ) as _i13.HostLabelInput);
+      final input = _i13.HostLabelInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2099,7 +2237,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2112,7 +2250,43 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> greetingWithErrors(_i92.Request request) async {
+  _i4.Future<_i97.Response> fractionalSeconds(_i97.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _fractionalSecondsProtocol.contentType;
+    try {
+      final payload = (await _fractionalSecondsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(_i1.Unit),
+      ) as _i1.Unit);
+      final input = payload;
+      final output = await service.fractionalSeconds(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _fractionalSecondsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i14.FractionalSecondsOutput,
+          [FullType(_i14.FractionalSecondsOutput)],
+        ),
+      );
+      return _i97.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i97.Response> greetingWithErrors(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2131,56 +2305,56 @@ class _RestJsonProtocolServer
       final body = _greetingWithErrorsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i13.GreetingWithErrorsOutput,
-          [FullType(_i13.GreetingWithErrorsOutputPayload)],
+          _i15.GreetingWithErrorsOutput,
+          [FullType(_i15.GreetingWithErrorsOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i98.ComplexError catch (e) {
+    } on _i103.ComplexError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'ComplexError';
       final body = _greetingWithErrorsProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i98.ComplexError,
-          [FullType(_i98.ComplexErrorPayload)],
+          _i103.ComplexError,
+          [FullType(_i103.ComplexErrorPayload)],
         ),
       );
       const statusCode = 403;
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i99.FooError catch (e) {
+    } on _i104.FooError catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'FooError';
       final body = _greetingWithErrorsProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i99.FooError,
-          [FullType(_i99.FooError)],
+          _i104.FooError,
+          [FullType(_i104.FooError)],
         ),
       );
       const statusCode = 500;
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
       );
-    } on _i100.InvalidGreeting catch (e) {
+    } on _i105.InvalidGreeting catch (e) {
       context.response.headers['X-Amzn-Errortype'] = 'InvalidGreeting';
       final body = _greetingWithErrorsProtocol.serialize(
         e,
         specifiedType: const FullType(
-          _i100.InvalidGreeting,
-          [FullType(_i100.InvalidGreeting)],
+          _i105.InvalidGreeting,
+          [FullType(_i105.InvalidGreeting)],
         ),
       );
       const statusCode = 400;
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2193,7 +2367,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> hostWithPathOperation(_i92.Request request) async {
+  _i4.Future<_i97.Response> hostWithPathOperation(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2216,7 +2390,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2229,7 +2403,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpChecksumRequired(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpChecksumRequired(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2237,9 +2411,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpChecksumRequiredProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i14.HttpChecksumRequiredInputOutput),
-      ) as _i14.HttpChecksumRequiredInputOutput);
-      final input = _i14.HttpChecksumRequiredInputOutput.fromRequest(
+        specifiedType: const FullType(_i16.HttpChecksumRequiredInputOutput),
+      ) as _i16.HttpChecksumRequiredInputOutput);
+      final input = _i16.HttpChecksumRequiredInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2252,11 +2426,11 @@ class _RestJsonProtocolServer
       final body = _httpChecksumRequiredProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i14.HttpChecksumRequiredInputOutput,
-          [FullType(_i14.HttpChecksumRequiredInputOutput)],
+          _i16.HttpChecksumRequiredInputOutput,
+          [FullType(_i16.HttpChecksumRequiredInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2269,7 +2443,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpEnumPayload(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpEnumPayload(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2277,9 +2451,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpEnumPayloadProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i94.StringEnum),
-      ) as _i94.StringEnum?);
-      final input = _i15.EnumPayloadInput.fromRequest(
+        specifiedType: const FullType.nullable(_i99.StringEnum),
+      ) as _i99.StringEnum?);
+      final input = _i17.EnumPayloadInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2292,11 +2466,11 @@ class _RestJsonProtocolServer
       final body = _httpEnumPayloadProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i15.EnumPayloadInput,
-          [FullType.nullable(_i94.StringEnum)],
+          _i17.EnumPayloadInput,
+          [FullType.nullable(_i99.StringEnum)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2309,7 +2483,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpPayloadTraits(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpPayloadTraits(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2317,9 +2491,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpPayloadTraitsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i95.Uint8List),
-      ) as _i95.Uint8List?);
-      final input = _i16.HttpPayloadTraitsInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i100.Uint8List),
+      ) as _i100.Uint8List?);
+      final input = _i18.HttpPayloadTraitsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2335,11 +2509,11 @@ class _RestJsonProtocolServer
       final body = _httpPayloadTraitsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i16.HttpPayloadTraitsInputOutput,
-          [FullType.nullable(_i95.Uint8List)],
+          _i18.HttpPayloadTraitsInputOutput,
+          [FullType.nullable(_i100.Uint8List)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2352,8 +2526,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpPayloadTraitsWithMediaType(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> httpPayloadTraitsWithMediaType(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2362,9 +2536,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _httpPayloadTraitsWithMediaTypeProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i95.Uint8List),
-      ) as _i95.Uint8List?);
-      final input = _i17.HttpPayloadTraitsWithMediaTypeInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i100.Uint8List),
+      ) as _i100.Uint8List?);
+      final input = _i19.HttpPayloadTraitsWithMediaTypeInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2380,11 +2554,11 @@ class _RestJsonProtocolServer
       final body = _httpPayloadTraitsWithMediaTypeProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i17.HttpPayloadTraitsWithMediaTypeInputOutput,
-          [FullType.nullable(_i95.Uint8List)],
+          _i19.HttpPayloadTraitsWithMediaTypeInputOutput,
+          [FullType.nullable(_i100.Uint8List)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2397,8 +2571,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpPayloadWithStructure(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> httpPayloadWithStructure(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2406,9 +2580,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpPayloadWithStructureProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i96.NestedPayload),
-      ) as _i96.NestedPayload?);
-      final input = _i18.HttpPayloadWithStructureInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i101.NestedPayload),
+      ) as _i101.NestedPayload?);
+      final input = _i20.HttpPayloadWithStructureInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2421,11 +2595,11 @@ class _RestJsonProtocolServer
       final body = _httpPayloadWithStructureProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i18.HttpPayloadWithStructureInputOutput,
-          [FullType.nullable(_i96.NestedPayload)],
+          _i20.HttpPayloadWithStructureInputOutput,
+          [FullType.nullable(_i101.NestedPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2438,7 +2612,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpPrefixHeaders(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpPrefixHeaders(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2446,9 +2620,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpPrefixHeadersProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i20.HttpPrefixHeadersInputPayload),
-      ) as _i20.HttpPrefixHeadersInputPayload);
-      final input = _i20.HttpPrefixHeadersInput.fromRequest(
+        specifiedType: const FullType(_i22.HttpPrefixHeadersInputPayload),
+      ) as _i22.HttpPrefixHeadersInputPayload);
+      final input = _i22.HttpPrefixHeadersInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2461,11 +2635,11 @@ class _RestJsonProtocolServer
       final body = _httpPrefixHeadersProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i19.HttpPrefixHeadersOutput,
-          [FullType(_i19.HttpPrefixHeadersOutputPayload)],
+          _i21.HttpPrefixHeadersOutput,
+          [FullType(_i21.HttpPrefixHeadersOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2478,8 +2652,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpPrefixHeadersInResponse(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> httpPrefixHeadersInResponse(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2487,9 +2661,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpPrefixHeadersInResponseProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i22.HttpPrefixHeadersInResponseInput),
-      ) as _i22.HttpPrefixHeadersInResponseInput);
-      final input = _i22.HttpPrefixHeadersInResponseInput.fromRequest(
+        specifiedType: const FullType(_i24.HttpPrefixHeadersInResponseInput),
+      ) as _i24.HttpPrefixHeadersInResponseInput);
+      final input = _i24.HttpPrefixHeadersInResponseInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2502,11 +2676,11 @@ class _RestJsonProtocolServer
       final body = _httpPrefixHeadersInResponseProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i21.HttpPrefixHeadersInResponseOutput,
-          [FullType(_i21.HttpPrefixHeadersInResponseOutputPayload)],
+          _i23.HttpPrefixHeadersInResponseOutput,
+          [FullType(_i23.HttpPrefixHeadersInResponseOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2519,8 +2693,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpRequestWithFloatLabels(
-    _i92.Request request,
+  _i4.Future<_i97.Response> httpRequestWithFloatLabels(
+    _i97.Request request,
     String float,
     String double,
   ) async {
@@ -2532,9 +2706,9 @@ class _RestJsonProtocolServer
       final payload = (await _httpRequestWithFloatLabelsProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i23.HttpRequestWithFloatLabelsInputPayload),
-      ) as _i23.HttpRequestWithFloatLabelsInputPayload);
-      final input = _i23.HttpRequestWithFloatLabelsInput.fromRequest(
+            const FullType(_i25.HttpRequestWithFloatLabelsInputPayload),
+      ) as _i25.HttpRequestWithFloatLabelsInputPayload);
+      final input = _i25.HttpRequestWithFloatLabelsInput.fromRequest(
         payload,
         awsRequest,
         labels: {
@@ -2554,7 +2728,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2567,8 +2741,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpRequestWithGreedyLabelInPath(
-    _i92.Request request,
+  _i4.Future<_i97.Response> httpRequestWithGreedyLabelInPath(
+    _i97.Request request,
     String foo,
     String baz,
   ) async {
@@ -2581,9 +2755,9 @@ class _RestJsonProtocolServer
           (await _httpRequestWithGreedyLabelInPathProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i24.HttpRequestWithGreedyLabelInPathInputPayload),
-      ) as _i24.HttpRequestWithGreedyLabelInPathInputPayload);
-      final input = _i24.HttpRequestWithGreedyLabelInPathInput.fromRequest(
+            const FullType(_i26.HttpRequestWithGreedyLabelInPathInputPayload),
+      ) as _i26.HttpRequestWithGreedyLabelInPathInputPayload);
+      final input = _i26.HttpRequestWithGreedyLabelInPathInput.fromRequest(
         payload,
         awsRequest,
         labels: {
@@ -2603,7 +2777,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2616,8 +2790,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpRequestWithLabels(
-    _i92.Request request,
+  _i4.Future<_i97.Response> httpRequestWithLabels(
+    _i97.Request request,
     String string,
     String short,
     String integer,
@@ -2634,9 +2808,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _httpRequestWithLabelsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i25.HttpRequestWithLabelsInputPayload),
-      ) as _i25.HttpRequestWithLabelsInputPayload);
-      final input = _i25.HttpRequestWithLabelsInput.fromRequest(
+        specifiedType: const FullType(_i27.HttpRequestWithLabelsInputPayload),
+      ) as _i27.HttpRequestWithLabelsInputPayload);
+      final input = _i27.HttpRequestWithLabelsInput.fromRequest(
         payload,
         awsRequest,
         labels: {
@@ -2662,7 +2836,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2675,8 +2849,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpRequestWithLabelsAndTimestampFormat(
-    _i92.Request request,
+  _i4.Future<_i97.Response> httpRequestWithLabelsAndTimestampFormat(
+    _i97.Request request,
     String memberEpochSeconds,
     String memberHttpDate,
     String memberDateTime,
@@ -2694,10 +2868,10 @@ class _RestJsonProtocolServer
           (await _httpRequestWithLabelsAndTimestampFormatProtocol.deserialize(
         awsRequest.split(),
         specifiedType: const FullType(
-            _i26.HttpRequestWithLabelsAndTimestampFormatInputPayload),
-      ) as _i26.HttpRequestWithLabelsAndTimestampFormatInputPayload);
+            _i28.HttpRequestWithLabelsAndTimestampFormatInputPayload),
+      ) as _i28.HttpRequestWithLabelsAndTimestampFormatInputPayload);
       final input =
-          _i26.HttpRequestWithLabelsAndTimestampFormatInput.fromRequest(
+          _i28.HttpRequestWithLabelsAndTimestampFormatInput.fromRequest(
         payload,
         awsRequest,
         labels: {
@@ -2722,7 +2896,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2735,8 +2909,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpRequestWithRegexLiteral(
-    _i92.Request request,
+  _i4.Future<_i97.Response> httpRequestWithRegexLiteral(
+    _i97.Request request,
     String str,
   ) async {
     final awsRequest = request.awsRequest;
@@ -2747,9 +2921,9 @@ class _RestJsonProtocolServer
       final payload = (await _httpRequestWithRegexLiteralProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i27.HttpRequestWithRegexLiteralInputPayload),
-      ) as _i27.HttpRequestWithRegexLiteralInputPayload);
-      final input = _i27.HttpRequestWithRegexLiteralInput.fromRequest(
+            const FullType(_i29.HttpRequestWithRegexLiteralInputPayload),
+      ) as _i29.HttpRequestWithRegexLiteralInputPayload);
+      final input = _i29.HttpRequestWithRegexLiteralInput.fromRequest(
         payload,
         awsRequest,
         labels: {'str': str},
@@ -2766,7 +2940,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2779,7 +2953,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpResponseCode(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpResponseCode(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2798,11 +2972,11 @@ class _RestJsonProtocolServer
       final body = _httpResponseCodeProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i28.HttpResponseCodeOutput,
-          [FullType(_i28.HttpResponseCodeOutputPayload)],
+          _i30.HttpResponseCodeOutput,
+          [FullType(_i30.HttpResponseCodeOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2815,7 +2989,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> httpStringPayload(_i92.Request request) async {
+  _i4.Future<_i97.Response> httpStringPayload(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2825,7 +2999,7 @@ class _RestJsonProtocolServer
         awsRequest.split(),
         specifiedType: const FullType.nullable(String),
       ) as String?);
-      final input = _i29.StringPayloadInput.fromRequest(
+      final input = _i31.StringPayloadInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2838,11 +3012,11 @@ class _RestJsonProtocolServer
       final body = _httpStringPayloadProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i29.StringPayloadInput,
+          _i31.StringPayloadInput,
           [FullType.nullable(String)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2855,8 +3029,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> ignoreQueryParamsInResponse(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> ignoreQueryParamsInResponse(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2875,11 +3049,11 @@ class _RestJsonProtocolServer
       final body = _ignoreQueryParamsInResponseProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i30.IgnoreQueryParamsInResponseOutput,
-          [FullType(_i30.IgnoreQueryParamsInResponseOutput)],
+          _i32.IgnoreQueryParamsInResponseOutput,
+          [FullType(_i32.IgnoreQueryParamsInResponseOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -2892,8 +3066,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> inputAndOutputWithHeaders(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> inputAndOutputWithHeaders(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -2901,9 +3075,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _inputAndOutputWithHeadersProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i31.InputAndOutputWithHeadersIoPayload),
-      ) as _i31.InputAndOutputWithHeadersIoPayload);
-      final input = _i31.InputAndOutputWithHeadersIo.fromRequest(
+        specifiedType: const FullType(_i33.InputAndOutputWithHeadersIoPayload),
+      ) as _i33.InputAndOutputWithHeadersIoPayload);
+      final input = _i33.InputAndOutputWithHeadersIo.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -2985,15 +3159,26 @@ class _RestJsonProtocolServer
             .map((el) => _i1.sanitizeHeader(el))
             .join(', ');
       }
+      if (output.headerIntegerEnum != null) {
+        context.response.headers['X-IntegerEnum'] =
+            output.headerIntegerEnum!.toString();
+      }
+      if (output.headerIntegerEnumList != null) {
+        context.response.headers['X-IntegerEnumList'] = output
+            .headerIntegerEnumList!
+            .map((el) => el.toString())
+            .map((el) => _i1.sanitizeHeader(el))
+            .join(', ');
+      }
       const statusCode = 200;
       final body = _inputAndOutputWithHeadersProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i31.InputAndOutputWithHeadersIo,
-          [FullType(_i31.InputAndOutputWithHeadersIoPayload)],
+          _i33.InputAndOutputWithHeadersIo,
+          [FullType(_i33.InputAndOutputWithHeadersIoPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3006,16 +3191,16 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonBlobs(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonBlobs(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonBlobsProtocol.contentType;
     try {
       final payload = (await _jsonBlobsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i32.JsonBlobsInputOutput),
-      ) as _i32.JsonBlobsInputOutput);
-      final input = _i32.JsonBlobsInputOutput.fromRequest(
+        specifiedType: const FullType(_i34.JsonBlobsInputOutput),
+      ) as _i34.JsonBlobsInputOutput);
+      final input = _i34.JsonBlobsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3028,11 +3213,11 @@ class _RestJsonProtocolServer
       final body = _jsonBlobsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i32.JsonBlobsInputOutput,
-          [FullType(_i32.JsonBlobsInputOutput)],
+          _i34.JsonBlobsInputOutput,
+          [FullType(_i34.JsonBlobsInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3045,16 +3230,16 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonEnums(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonEnums(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonEnumsProtocol.contentType;
     try {
       final payload = (await _jsonEnumsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i33.JsonEnumsInputOutput),
-      ) as _i33.JsonEnumsInputOutput);
-      final input = _i33.JsonEnumsInputOutput.fromRequest(
+        specifiedType: const FullType(_i35.JsonEnumsInputOutput),
+      ) as _i35.JsonEnumsInputOutput);
+      final input = _i35.JsonEnumsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3067,11 +3252,11 @@ class _RestJsonProtocolServer
       final body = _jsonEnumsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i33.JsonEnumsInputOutput,
-          [FullType(_i33.JsonEnumsInputOutput)],
+          _i35.JsonEnumsInputOutput,
+          [FullType(_i35.JsonEnumsInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3084,16 +3269,56 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonLists(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonIntEnums(_i97.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _jsonIntEnumsProtocol.contentType;
+    try {
+      final payload = (await _jsonIntEnumsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(_i36.JsonIntEnumsInputOutput),
+      ) as _i36.JsonIntEnumsInputOutput);
+      final input = _i36.JsonIntEnumsInputOutput.fromRequest(
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.jsonIntEnums(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _jsonIntEnumsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i36.JsonIntEnumsInputOutput,
+          [FullType(_i36.JsonIntEnumsInputOutput)],
+        ),
+      );
+      return _i97.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i97.Response> jsonLists(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonListsProtocol.contentType;
     try {
       final payload = (await _jsonListsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i34.JsonListsInputOutput),
-      ) as _i34.JsonListsInputOutput);
-      final input = _i34.JsonListsInputOutput.fromRequest(
+        specifiedType: const FullType(_i37.JsonListsInputOutput),
+      ) as _i37.JsonListsInputOutput);
+      final input = _i37.JsonListsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3106,11 +3331,11 @@ class _RestJsonProtocolServer
       final body = _jsonListsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i34.JsonListsInputOutput,
-          [FullType(_i34.JsonListsInputOutput)],
+          _i37.JsonListsInputOutput,
+          [FullType(_i37.JsonListsInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3123,16 +3348,16 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonMaps(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonMaps(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonMapsProtocol.contentType;
     try {
       final payload = (await _jsonMapsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i35.JsonMapsInputOutput),
-      ) as _i35.JsonMapsInputOutput);
-      final input = _i35.JsonMapsInputOutput.fromRequest(
+        specifiedType: const FullType(_i38.JsonMapsInputOutput),
+      ) as _i38.JsonMapsInputOutput);
+      final input = _i38.JsonMapsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3145,11 +3370,11 @@ class _RestJsonProtocolServer
       final body = _jsonMapsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i35.JsonMapsInputOutput,
-          [FullType(_i35.JsonMapsInputOutput)],
+          _i38.JsonMapsInputOutput,
+          [FullType(_i38.JsonMapsInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3162,7 +3387,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonTimestamps(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonTimestamps(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3170,9 +3395,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _jsonTimestampsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i36.JsonTimestampsInputOutput),
-      ) as _i36.JsonTimestampsInputOutput);
-      final input = _i36.JsonTimestampsInputOutput.fromRequest(
+        specifiedType: const FullType(_i39.JsonTimestampsInputOutput),
+      ) as _i39.JsonTimestampsInputOutput);
+      final input = _i39.JsonTimestampsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3185,11 +3410,11 @@ class _RestJsonProtocolServer
       final body = _jsonTimestampsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i36.JsonTimestampsInputOutput,
-          [FullType(_i36.JsonTimestampsInputOutput)],
+          _i39.JsonTimestampsInputOutput,
+          [FullType(_i39.JsonTimestampsInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3202,16 +3427,16 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> jsonUnions(_i92.Request request) async {
+  _i4.Future<_i97.Response> jsonUnions(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] = _jsonUnionsProtocol.contentType;
     try {
       final payload = (await _jsonUnionsProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i37.UnionInputOutput),
-      ) as _i37.UnionInputOutput);
-      final input = _i37.UnionInputOutput.fromRequest(
+        specifiedType: const FullType(_i40.UnionInputOutput),
+      ) as _i40.UnionInputOutput);
+      final input = _i40.UnionInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3224,11 +3449,11 @@ class _RestJsonProtocolServer
       final body = _jsonUnionsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i37.UnionInputOutput,
-          [FullType(_i37.UnionInputOutput)],
+          _i40.UnionInputOutput,
+          [FullType(_i40.UnionInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3241,8 +3466,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedAcceptWithBody(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedAcceptWithBody(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3261,11 +3486,11 @@ class _RestJsonProtocolServer
       final body = _malformedAcceptWithBodyProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i38.GreetingStruct,
-          [FullType(_i38.GreetingStruct)],
+          _i41.GreetingStruct,
+          [FullType(_i41.GreetingStruct)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3278,8 +3503,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedAcceptWithGenericString(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedAcceptWithGenericString(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3288,13 +3513,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _malformedAcceptWithGenericStringProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(String),
-      ) as String?);
-      final input = _i39.MalformedAcceptWithGenericStringInput.fromRequest(
-        payload,
-        awsRequest,
-        labels: {},
-      );
+        specifiedType: const FullType(_i1.Unit),
+      ) as _i1.Unit);
+      final input = payload;
       final output = await service.malformedAcceptWithGenericString(
         input,
         context,
@@ -3303,11 +3524,11 @@ class _RestJsonProtocolServer
       final body = _malformedAcceptWithGenericStringProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i1.Unit,
-          [FullType(_i1.Unit)],
+          _i42.MalformedAcceptWithGenericStringOutput,
+          [FullType.nullable(String)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3320,8 +3541,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedAcceptWithPayload(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedAcceptWithPayload(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3340,11 +3561,11 @@ class _RestJsonProtocolServer
       final body = _malformedAcceptWithPayloadProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i40.MalformedAcceptWithPayloadOutput,
-          [FullType.nullable(_i95.Uint8List)],
+          _i43.MalformedAcceptWithPayloadOutput,
+          [FullType.nullable(_i100.Uint8List)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3357,7 +3578,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedBlob(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedBlob(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3365,9 +3586,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedBlobProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i41.MalformedBlobInput),
-      ) as _i41.MalformedBlobInput);
-      final input = _i41.MalformedBlobInput.fromRequest(
+        specifiedType: const FullType(_i44.MalformedBlobInput),
+      ) as _i44.MalformedBlobInput);
+      final input = _i44.MalformedBlobInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3384,7 +3605,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3397,8 +3618,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedBoolean(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedBoolean(
+    _i97.Request request,
     String booleanInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3408,9 +3629,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedBooleanProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i42.MalformedBooleanInputPayload),
-      ) as _i42.MalformedBooleanInputPayload);
-      final input = _i42.MalformedBooleanInput.fromRequest(
+        specifiedType: const FullType(_i45.MalformedBooleanInputPayload),
+      ) as _i45.MalformedBooleanInputPayload);
+      final input = _i45.MalformedBooleanInput.fromRequest(
         payload,
         awsRequest,
         labels: {'booleanInPath': booleanInPath},
@@ -3427,7 +3648,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3440,8 +3661,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedByte(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedByte(
+    _i97.Request request,
     String byteInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3451,9 +3672,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedByteProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i43.MalformedByteInputPayload),
-      ) as _i43.MalformedByteInputPayload);
-      final input = _i43.MalformedByteInput.fromRequest(
+        specifiedType: const FullType(_i46.MalformedByteInputPayload),
+      ) as _i46.MalformedByteInputPayload);
+      final input = _i46.MalformedByteInput.fromRequest(
         payload,
         awsRequest,
         labels: {'byteInPath': byteInPath},
@@ -3470,7 +3691,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3483,8 +3704,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedContentTypeWithBody(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedContentTypeWithBody(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3492,9 +3713,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedContentTypeWithBodyProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i38.GreetingStruct),
-      ) as _i38.GreetingStruct);
-      final input = _i38.GreetingStruct.fromRequest(
+        specifiedType: const FullType(_i41.GreetingStruct),
+      ) as _i41.GreetingStruct);
+      final input = _i41.GreetingStruct.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3511,7 +3732,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3524,8 +3745,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedContentTypeWithGenericString(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedContentTypeWithGenericString(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3536,7 +3757,7 @@ class _RestJsonProtocolServer
         awsRequest.split(),
         specifiedType: const FullType.nullable(String),
       ) as String?);
-      final input = _i44.MalformedContentTypeWithGenericStringInput.fromRequest(
+      final input = _i47.MalformedContentTypeWithGenericStringInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3553,7 +3774,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3566,8 +3787,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedContentTypeWithPayload(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedContentTypeWithPayload(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3576,9 +3797,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _malformedContentTypeWithPayloadProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i95.Uint8List),
-      ) as _i95.Uint8List?);
-      final input = _i45.MalformedContentTypeWithPayloadInput.fromRequest(
+        specifiedType: const FullType.nullable(_i100.Uint8List),
+      ) as _i100.Uint8List?);
+      final input = _i48.MalformedContentTypeWithPayloadInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3595,7 +3816,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3608,8 +3829,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedContentTypeWithoutBody(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedContentTypeWithoutBody(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3633,7 +3854,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3646,8 +3867,52 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedDouble(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedContentTypeWithoutBodyEmptyInput(
+      _i97.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _malformedContentTypeWithoutBodyEmptyInputProtocol.contentType;
+    try {
+      final payload =
+          (await _malformedContentTypeWithoutBodyEmptyInputProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType: const FullType(
+            _i49.MalformedContentTypeWithoutBodyEmptyInputInputPayload),
+      ) as _i49.MalformedContentTypeWithoutBodyEmptyInputInputPayload);
+      final input =
+          _i49.MalformedContentTypeWithoutBodyEmptyInputInput.fromRequest(
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.malformedContentTypeWithoutBodyEmptyInput(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _malformedContentTypeWithoutBodyEmptyInputProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i1.Unit,
+          [FullType(_i1.Unit)],
+        ),
+      );
+      return _i97.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i97.Response> malformedDouble(
+    _i97.Request request,
     String doubleInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3657,9 +3922,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedDoubleProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i46.MalformedDoubleInputPayload),
-      ) as _i46.MalformedDoubleInputPayload);
-      final input = _i46.MalformedDoubleInput.fromRequest(
+        specifiedType: const FullType(_i50.MalformedDoubleInputPayload),
+      ) as _i50.MalformedDoubleInputPayload);
+      final input = _i50.MalformedDoubleInput.fromRequest(
         payload,
         awsRequest,
         labels: {'doubleInPath': doubleInPath},
@@ -3676,7 +3941,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3689,8 +3954,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedFloat(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedFloat(
+    _i97.Request request,
     String floatInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3700,9 +3965,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedFloatProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i47.MalformedFloatInputPayload),
-      ) as _i47.MalformedFloatInputPayload);
-      final input = _i47.MalformedFloatInput.fromRequest(
+        specifiedType: const FullType(_i51.MalformedFloatInputPayload),
+      ) as _i51.MalformedFloatInputPayload);
+      final input = _i51.MalformedFloatInput.fromRequest(
         payload,
         awsRequest,
         labels: {'floatInPath': floatInPath},
@@ -3719,7 +3984,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3732,8 +3997,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedInteger(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedInteger(
+    _i97.Request request,
     String integerInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3743,9 +4008,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedIntegerProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i48.MalformedIntegerInputPayload),
-      ) as _i48.MalformedIntegerInputPayload);
-      final input = _i48.MalformedIntegerInput.fromRequest(
+        specifiedType: const FullType(_i52.MalformedIntegerInputPayload),
+      ) as _i52.MalformedIntegerInputPayload);
+      final input = _i52.MalformedIntegerInput.fromRequest(
         payload,
         awsRequest,
         labels: {'integerInPath': integerInPath},
@@ -3762,7 +4027,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3775,7 +4040,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedList(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedList(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3783,9 +4048,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedListProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i49.MalformedListInput),
-      ) as _i49.MalformedListInput);
-      final input = _i49.MalformedListInput.fromRequest(
+        specifiedType: const FullType(_i53.MalformedListInput),
+      ) as _i53.MalformedListInput);
+      final input = _i53.MalformedListInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3802,7 +4067,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3815,8 +4080,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedLong(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedLong(
+    _i97.Request request,
     String longInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3826,9 +4091,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedLongProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i50.MalformedLongInputPayload),
-      ) as _i50.MalformedLongInputPayload);
-      final input = _i50.MalformedLongInput.fromRequest(
+        specifiedType: const FullType(_i54.MalformedLongInputPayload),
+      ) as _i54.MalformedLongInputPayload);
+      final input = _i54.MalformedLongInput.fromRequest(
         payload,
         awsRequest,
         labels: {'longInPath': longInPath},
@@ -3845,7 +4110,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3858,7 +4123,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedMap(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedMap(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3866,9 +4131,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedMapProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i51.MalformedMapInput),
-      ) as _i51.MalformedMapInput);
-      final input = _i51.MalformedMapInput.fromRequest(
+        specifiedType: const FullType(_i55.MalformedMapInput),
+      ) as _i55.MalformedMapInput);
+      final input = _i55.MalformedMapInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3885,7 +4150,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3898,7 +4163,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedRequestBody(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedRequestBody(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3906,9 +4171,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedRequestBodyProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i52.MalformedRequestBodyInput),
-      ) as _i52.MalformedRequestBodyInput);
-      final input = _i52.MalformedRequestBodyInput.fromRequest(
+        specifiedType: const FullType(_i56.MalformedRequestBodyInput),
+      ) as _i56.MalformedRequestBodyInput);
+      final input = _i56.MalformedRequestBodyInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -3925,7 +4190,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3938,8 +4203,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedShort(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedShort(
+    _i97.Request request,
     String shortInPath,
   ) async {
     final awsRequest = request.awsRequest;
@@ -3949,9 +4214,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedShortProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i53.MalformedShortInputPayload),
-      ) as _i53.MalformedShortInputPayload);
-      final input = _i53.MalformedShortInput.fromRequest(
+        specifiedType: const FullType(_i57.MalformedShortInputPayload),
+      ) as _i57.MalformedShortInputPayload);
+      final input = _i57.MalformedShortInput.fromRequest(
         payload,
         awsRequest,
         labels: {'shortInPath': shortInPath},
@@ -3968,7 +4233,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -3981,7 +4246,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedString(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedString(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -3989,9 +4254,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedStringProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i54.MalformedStringInputPayload),
-      ) as _i54.MalformedStringInputPayload);
-      final input = _i54.MalformedStringInput.fromRequest(
+        specifiedType: const FullType(_i58.MalformedStringInputPayload),
+      ) as _i58.MalformedStringInputPayload);
+      final input = _i58.MalformedStringInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4008,7 +4273,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4021,8 +4286,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampBodyDateTime(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampBodyDateTime(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4031,9 +4296,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _malformedTimestampBodyDateTimeProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i55.MalformedTimestampBodyDateTimeInput),
-      ) as _i55.MalformedTimestampBodyDateTimeInput);
-      final input = _i55.MalformedTimestampBodyDateTimeInput.fromRequest(
+        specifiedType: const FullType(_i59.MalformedTimestampBodyDateTimeInput),
+      ) as _i59.MalformedTimestampBodyDateTimeInput);
+      final input = _i59.MalformedTimestampBodyDateTimeInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4050,7 +4315,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4063,8 +4328,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampBodyDefault(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampBodyDefault(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4072,9 +4337,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedTimestampBodyDefaultProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i56.MalformedTimestampBodyDefaultInput),
-      ) as _i56.MalformedTimestampBodyDefaultInput);
-      final input = _i56.MalformedTimestampBodyDefaultInput.fromRequest(
+        specifiedType: const FullType(_i60.MalformedTimestampBodyDefaultInput),
+      ) as _i60.MalformedTimestampBodyDefaultInput);
+      final input = _i60.MalformedTimestampBodyDefaultInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4091,7 +4356,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4104,8 +4369,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampBodyHttpDate(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampBodyHttpDate(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4114,9 +4379,9 @@ class _RestJsonProtocolServer
       final payload =
           (await _malformedTimestampBodyHttpDateProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i57.MalformedTimestampBodyHttpDateInput),
-      ) as _i57.MalformedTimestampBodyHttpDateInput);
-      final input = _i57.MalformedTimestampBodyHttpDateInput.fromRequest(
+        specifiedType: const FullType(_i61.MalformedTimestampBodyHttpDateInput),
+      ) as _i61.MalformedTimestampBodyHttpDateInput);
+      final input = _i61.MalformedTimestampBodyHttpDateInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4133,7 +4398,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4146,8 +4411,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampHeaderDateTime(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampHeaderDateTime(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4157,9 +4422,9 @@ class _RestJsonProtocolServer
           (await _malformedTimestampHeaderDateTimeProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i58.MalformedTimestampHeaderDateTimeInputPayload),
-      ) as _i58.MalformedTimestampHeaderDateTimeInputPayload);
-      final input = _i58.MalformedTimestampHeaderDateTimeInput.fromRequest(
+            const FullType(_i62.MalformedTimestampHeaderDateTimeInputPayload),
+      ) as _i62.MalformedTimestampHeaderDateTimeInputPayload);
+      final input = _i62.MalformedTimestampHeaderDateTimeInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4176,7 +4441,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4189,8 +4454,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampHeaderDefault(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampHeaderDefault(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4200,9 +4465,9 @@ class _RestJsonProtocolServer
           (await _malformedTimestampHeaderDefaultProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i59.MalformedTimestampHeaderDefaultInputPayload),
-      ) as _i59.MalformedTimestampHeaderDefaultInputPayload);
-      final input = _i59.MalformedTimestampHeaderDefaultInput.fromRequest(
+            const FullType(_i63.MalformedTimestampHeaderDefaultInputPayload),
+      ) as _i63.MalformedTimestampHeaderDefaultInputPayload);
+      final input = _i63.MalformedTimestampHeaderDefaultInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4219,7 +4484,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4232,8 +4497,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampHeaderEpoch(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampHeaderEpoch(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4242,9 +4507,9 @@ class _RestJsonProtocolServer
       final payload = (await _malformedTimestampHeaderEpochProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i60.MalformedTimestampHeaderEpochInputPayload),
-      ) as _i60.MalformedTimestampHeaderEpochInputPayload);
-      final input = _i60.MalformedTimestampHeaderEpochInput.fromRequest(
+            const FullType(_i64.MalformedTimestampHeaderEpochInputPayload),
+      ) as _i64.MalformedTimestampHeaderEpochInputPayload);
+      final input = _i64.MalformedTimestampHeaderEpochInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4261,7 +4526,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4274,8 +4539,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampPathDefault(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedTimestampPathDefault(
+    _i97.Request request,
     String timestamp,
   ) async {
     final awsRequest = request.awsRequest;
@@ -4286,9 +4551,9 @@ class _RestJsonProtocolServer
       final payload = (await _malformedTimestampPathDefaultProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i61.MalformedTimestampPathDefaultInputPayload),
-      ) as _i61.MalformedTimestampPathDefaultInputPayload);
-      final input = _i61.MalformedTimestampPathDefaultInput.fromRequest(
+            const FullType(_i65.MalformedTimestampPathDefaultInputPayload),
+      ) as _i65.MalformedTimestampPathDefaultInputPayload);
+      final input = _i65.MalformedTimestampPathDefaultInput.fromRequest(
         payload,
         awsRequest,
         labels: {'timestamp': timestamp},
@@ -4305,7 +4570,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4318,8 +4583,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampPathEpoch(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedTimestampPathEpoch(
+    _i97.Request request,
     String timestamp,
   ) async {
     final awsRequest = request.awsRequest;
@@ -4330,9 +4595,9 @@ class _RestJsonProtocolServer
       final payload = (await _malformedTimestampPathEpochProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i62.MalformedTimestampPathEpochInputPayload),
-      ) as _i62.MalformedTimestampPathEpochInputPayload);
-      final input = _i62.MalformedTimestampPathEpochInput.fromRequest(
+            const FullType(_i66.MalformedTimestampPathEpochInputPayload),
+      ) as _i66.MalformedTimestampPathEpochInputPayload);
+      final input = _i66.MalformedTimestampPathEpochInput.fromRequest(
         payload,
         awsRequest,
         labels: {'timestamp': timestamp},
@@ -4349,7 +4614,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4362,8 +4627,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampPathHttpDate(
-    _i92.Request request,
+  _i4.Future<_i97.Response> malformedTimestampPathHttpDate(
+    _i97.Request request,
     String timestamp,
   ) async {
     final awsRequest = request.awsRequest;
@@ -4375,9 +4640,9 @@ class _RestJsonProtocolServer
           (await _malformedTimestampPathHttpDateProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i63.MalformedTimestampPathHttpDateInputPayload),
-      ) as _i63.MalformedTimestampPathHttpDateInputPayload);
-      final input = _i63.MalformedTimestampPathHttpDateInput.fromRequest(
+            const FullType(_i67.MalformedTimestampPathHttpDateInputPayload),
+      ) as _i67.MalformedTimestampPathHttpDateInputPayload);
+      final input = _i67.MalformedTimestampPathHttpDateInput.fromRequest(
         payload,
         awsRequest,
         labels: {'timestamp': timestamp},
@@ -4394,7 +4659,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4407,8 +4672,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampQueryDefault(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampQueryDefault(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4418,9 +4683,9 @@ class _RestJsonProtocolServer
           (await _malformedTimestampQueryDefaultProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i64.MalformedTimestampQueryDefaultInputPayload),
-      ) as _i64.MalformedTimestampQueryDefaultInputPayload);
-      final input = _i64.MalformedTimestampQueryDefaultInput.fromRequest(
+            const FullType(_i68.MalformedTimestampQueryDefaultInputPayload),
+      ) as _i68.MalformedTimestampQueryDefaultInputPayload);
+      final input = _i68.MalformedTimestampQueryDefaultInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4437,7 +4702,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4450,8 +4715,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampQueryEpoch(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampQueryEpoch(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4460,9 +4725,9 @@ class _RestJsonProtocolServer
       final payload = (await _malformedTimestampQueryEpochProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i65.MalformedTimestampQueryEpochInputPayload),
-      ) as _i65.MalformedTimestampQueryEpochInputPayload);
-      final input = _i65.MalformedTimestampQueryEpochInput.fromRequest(
+            const FullType(_i69.MalformedTimestampQueryEpochInputPayload),
+      ) as _i69.MalformedTimestampQueryEpochInputPayload);
+      final input = _i69.MalformedTimestampQueryEpochInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4479,7 +4744,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4492,8 +4757,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedTimestampQueryHttpDate(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> malformedTimestampQueryHttpDate(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4503,9 +4768,9 @@ class _RestJsonProtocolServer
           (await _malformedTimestampQueryHttpDateProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i66.MalformedTimestampQueryHttpDateInputPayload),
-      ) as _i66.MalformedTimestampQueryHttpDateInputPayload);
-      final input = _i66.MalformedTimestampQueryHttpDateInput.fromRequest(
+            const FullType(_i70.MalformedTimestampQueryHttpDateInputPayload),
+      ) as _i70.MalformedTimestampQueryHttpDateInputPayload);
+      final input = _i70.MalformedTimestampQueryHttpDateInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4522,7 +4787,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4535,7 +4800,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> malformedUnion(_i92.Request request) async {
+  _i4.Future<_i97.Response> malformedUnion(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4543,9 +4808,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _malformedUnionProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i67.MalformedUnionInput),
-      ) as _i67.MalformedUnionInput);
-      final input = _i67.MalformedUnionInput.fromRequest(
+        specifiedType: const FullType(_i71.MalformedUnionInput),
+      ) as _i71.MalformedUnionInput);
+      final input = _i71.MalformedUnionInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4562,7 +4827,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4575,7 +4840,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> mediaTypeHeader(_i92.Request request) async {
+  _i4.Future<_i97.Response> mediaTypeHeader(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4583,9 +4848,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _mediaTypeHeaderProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i69.MediaTypeHeaderInputPayload),
-      ) as _i69.MediaTypeHeaderInputPayload);
-      final input = _i69.MediaTypeHeaderInput.fromRequest(
+        specifiedType: const FullType(_i73.MediaTypeHeaderInputPayload),
+      ) as _i73.MediaTypeHeaderInputPayload);
+      final input = _i73.MediaTypeHeaderInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4598,11 +4863,11 @@ class _RestJsonProtocolServer
       final body = _mediaTypeHeaderProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i68.MediaTypeHeaderOutput,
-          [FullType(_i68.MediaTypeHeaderOutputPayload)],
+          _i72.MediaTypeHeaderOutput,
+          [FullType(_i72.MediaTypeHeaderOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4615,7 +4880,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> noInputAndNoOutput(_i92.Request request) async {
+  _i4.Future<_i97.Response> noInputAndNoOutput(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4638,7 +4903,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4651,7 +4916,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> noInputAndOutput(_i92.Request request) async {
+  _i4.Future<_i97.Response> noInputAndOutput(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4670,11 +4935,11 @@ class _RestJsonProtocolServer
       final body = _noInputAndOutputProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i70.NoInputAndOutputOutput,
-          [FullType(_i70.NoInputAndOutputOutput)],
+          _i74.NoInputAndOutputOutput,
+          [FullType(_i74.NoInputAndOutputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4687,8 +4952,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> nullAndEmptyHeadersClient(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> nullAndEmptyHeadersClient(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4696,9 +4961,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _nullAndEmptyHeadersClientProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i71.NullAndEmptyHeadersIoPayload),
-      ) as _i71.NullAndEmptyHeadersIoPayload);
-      final input = _i71.NullAndEmptyHeadersIo.fromRequest(
+        specifiedType: const FullType(_i75.NullAndEmptyHeadersIoPayload),
+      ) as _i75.NullAndEmptyHeadersIoPayload);
+      final input = _i75.NullAndEmptyHeadersIo.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4721,11 +4986,11 @@ class _RestJsonProtocolServer
       final body = _nullAndEmptyHeadersClientProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i71.NullAndEmptyHeadersIo,
-          [FullType(_i71.NullAndEmptyHeadersIoPayload)],
+          _i75.NullAndEmptyHeadersIo,
+          [FullType(_i75.NullAndEmptyHeadersIoPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4738,8 +5003,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> nullAndEmptyHeadersServer(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> nullAndEmptyHeadersServer(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4747,9 +5012,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _nullAndEmptyHeadersServerProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i71.NullAndEmptyHeadersIoPayload),
-      ) as _i71.NullAndEmptyHeadersIoPayload);
-      final input = _i71.NullAndEmptyHeadersIo.fromRequest(
+        specifiedType: const FullType(_i75.NullAndEmptyHeadersIoPayload),
+      ) as _i75.NullAndEmptyHeadersIoPayload);
+      final input = _i75.NullAndEmptyHeadersIo.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4772,11 +5037,11 @@ class _RestJsonProtocolServer
       final body = _nullAndEmptyHeadersServerProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i71.NullAndEmptyHeadersIo,
-          [FullType(_i71.NullAndEmptyHeadersIoPayload)],
+          _i75.NullAndEmptyHeadersIo,
+          [FullType(_i75.NullAndEmptyHeadersIoPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4789,8 +5054,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> omitsNullSerializesEmptyString(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> omitsNullSerializesEmptyString(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4800,9 +5065,9 @@ class _RestJsonProtocolServer
           (await _omitsNullSerializesEmptyStringProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i72.OmitsNullSerializesEmptyStringInputPayload),
-      ) as _i72.OmitsNullSerializesEmptyStringInputPayload);
-      final input = _i72.OmitsNullSerializesEmptyStringInput.fromRequest(
+            const FullType(_i76.OmitsNullSerializesEmptyStringInputPayload),
+      ) as _i76.OmitsNullSerializesEmptyStringInputPayload);
+      final input = _i76.OmitsNullSerializesEmptyStringInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4819,7 +5084,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4832,7 +5097,49 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> postPlayerAction(_i92.Request request) async {
+  _i4.Future<_i97.Response> omitsSerializingEmptyLists(
+      _i97.Request request) async {
+    final awsRequest = request.awsRequest;
+    final context = _i1.Context(awsRequest);
+    context.response.headers['Content-Type'] =
+        _omitsSerializingEmptyListsProtocol.contentType;
+    try {
+      final payload = (await _omitsSerializingEmptyListsProtocol.deserialize(
+        awsRequest.split(),
+        specifiedType:
+            const FullType(_i77.OmitsSerializingEmptyListsInputPayload),
+      ) as _i77.OmitsSerializingEmptyListsInputPayload);
+      final input = _i77.OmitsSerializingEmptyListsInput.fromRequest(
+        payload,
+        awsRequest,
+        labels: {},
+      );
+      final output = await service.omitsSerializingEmptyLists(
+        input,
+        context,
+      );
+      const statusCode = 200;
+      final body = _omitsSerializingEmptyListsProtocol.serialize(
+        output,
+        specifiedType: const FullType(
+          _i1.Unit,
+          [FullType(_i1.Unit)],
+        ),
+      );
+      return _i97.Response(
+        statusCode,
+        body: body,
+        headers: context.response.build().headers.toMap(),
+      );
+    } on Object catch (e, st) {
+      return service.handleUncaughtError(
+        e,
+        st,
+      );
+    }
+  }
+
+  _i4.Future<_i97.Response> postPlayerAction(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4840,9 +5147,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _postPlayerActionProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i74.PostPlayerActionInput),
-      ) as _i74.PostPlayerActionInput);
-      final input = _i74.PostPlayerActionInput.fromRequest(
+        specifiedType: const FullType(_i79.PostPlayerActionInput),
+      ) as _i79.PostPlayerActionInput);
+      final input = _i79.PostPlayerActionInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4855,11 +5162,11 @@ class _RestJsonProtocolServer
       final body = _postPlayerActionProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i73.PostPlayerActionOutput,
-          [FullType(_i73.PostPlayerActionOutput)],
+          _i78.PostPlayerActionOutput,
+          [FullType(_i78.PostPlayerActionOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4872,7 +5179,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> postUnionWithJsonName(_i92.Request request) async {
+  _i4.Future<_i97.Response> postUnionWithJsonName(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4880,9 +5187,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _postUnionWithJsonNameProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i76.PostUnionWithJsonNameInput),
-      ) as _i76.PostUnionWithJsonNameInput);
-      final input = _i76.PostUnionWithJsonNameInput.fromRequest(
+        specifiedType: const FullType(_i81.PostUnionWithJsonNameInput),
+      ) as _i81.PostUnionWithJsonNameInput);
+      final input = _i81.PostUnionWithJsonNameInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4895,11 +5202,11 @@ class _RestJsonProtocolServer
       final body = _postUnionWithJsonNameProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i75.PostUnionWithJsonNameOutput,
-          [FullType(_i75.PostUnionWithJsonNameOutput)],
+          _i80.PostUnionWithJsonNameOutput,
+          [FullType(_i80.PostUnionWithJsonNameOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4912,8 +5219,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> queryIdempotencyTokenAutoFill(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> queryIdempotencyTokenAutoFill(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4922,9 +5229,9 @@ class _RestJsonProtocolServer
       final payload = (await _queryIdempotencyTokenAutoFillProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i77.QueryIdempotencyTokenAutoFillInputPayload),
-      ) as _i77.QueryIdempotencyTokenAutoFillInputPayload);
-      final input = _i77.QueryIdempotencyTokenAutoFillInput.fromRequest(
+            const FullType(_i82.QueryIdempotencyTokenAutoFillInputPayload),
+      ) as _i82.QueryIdempotencyTokenAutoFillInputPayload);
+      final input = _i82.QueryIdempotencyTokenAutoFillInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4941,7 +5248,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4954,8 +5261,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> queryParamsAsStringListMap(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> queryParamsAsStringListMap(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -4964,9 +5271,9 @@ class _RestJsonProtocolServer
       final payload = (await _queryParamsAsStringListMapProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i78.QueryParamsAsStringListMapInputPayload),
-      ) as _i78.QueryParamsAsStringListMapInputPayload);
-      final input = _i78.QueryParamsAsStringListMapInput.fromRequest(
+            const FullType(_i83.QueryParamsAsStringListMapInputPayload),
+      ) as _i83.QueryParamsAsStringListMapInputPayload);
+      final input = _i83.QueryParamsAsStringListMapInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -4983,7 +5290,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -4996,7 +5303,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> queryPrecedence(_i92.Request request) async {
+  _i4.Future<_i97.Response> queryPrecedence(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5004,9 +5311,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _queryPrecedenceProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i79.QueryPrecedenceInputPayload),
-      ) as _i79.QueryPrecedenceInputPayload);
-      final input = _i79.QueryPrecedenceInput.fromRequest(
+        specifiedType: const FullType(_i84.QueryPrecedenceInputPayload),
+      ) as _i84.QueryPrecedenceInputPayload);
+      final input = _i84.QueryPrecedenceInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5023,7 +5330,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5036,7 +5343,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> recursiveShapes(_i92.Request request) async {
+  _i4.Future<_i97.Response> recursiveShapes(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5044,9 +5351,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _recursiveShapesProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i80.RecursiveShapesInputOutput),
-      ) as _i80.RecursiveShapesInputOutput);
-      final input = _i80.RecursiveShapesInputOutput.fromRequest(
+        specifiedType: const FullType(_i85.RecursiveShapesInputOutput),
+      ) as _i85.RecursiveShapesInputOutput);
+      final input = _i85.RecursiveShapesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5059,11 +5366,11 @@ class _RestJsonProtocolServer
       final body = _recursiveShapesProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i80.RecursiveShapesInputOutput,
-          [FullType(_i80.RecursiveShapesInputOutput)],
+          _i85.RecursiveShapesInputOutput,
+          [FullType(_i85.RecursiveShapesInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5076,8 +5383,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> responseCodeHttpFallback(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> responseCodeHttpFallback(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5085,9 +5392,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _responseCodeHttpFallbackProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i81.ResponseCodeHttpFallbackInputOutput),
-      ) as _i81.ResponseCodeHttpFallbackInputOutput);
-      final input = _i81.ResponseCodeHttpFallbackInputOutput.fromRequest(
+        specifiedType: const FullType(_i86.ResponseCodeHttpFallbackInputOutput),
+      ) as _i86.ResponseCodeHttpFallbackInputOutput);
+      final input = _i86.ResponseCodeHttpFallbackInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5100,11 +5407,11 @@ class _RestJsonProtocolServer
       final body = _responseCodeHttpFallbackProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i81.ResponseCodeHttpFallbackInputOutput,
-          [FullType(_i81.ResponseCodeHttpFallbackInputOutput)],
+          _i86.ResponseCodeHttpFallbackInputOutput,
+          [FullType(_i86.ResponseCodeHttpFallbackInputOutput)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5117,7 +5424,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> responseCodeRequired(_i92.Request request) async {
+  _i4.Future<_i97.Response> responseCodeRequired(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5136,11 +5443,11 @@ class _RestJsonProtocolServer
       final body = _responseCodeRequiredProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i82.ResponseCodeRequiredOutput,
-          [FullType(_i82.ResponseCodeRequiredOutputPayload)],
+          _i87.ResponseCodeRequiredOutput,
+          [FullType(_i87.ResponseCodeRequiredOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5153,7 +5460,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> simpleScalarProperties(_i92.Request request) async {
+  _i4.Future<_i97.Response> simpleScalarProperties(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5162,9 +5469,9 @@ class _RestJsonProtocolServer
       final payload = (await _simpleScalarPropertiesProtocol.deserialize(
         awsRequest.split(),
         specifiedType:
-            const FullType(_i83.SimpleScalarPropertiesInputOutputPayload),
-      ) as _i83.SimpleScalarPropertiesInputOutputPayload);
-      final input = _i83.SimpleScalarPropertiesInputOutput.fromRequest(
+            const FullType(_i88.SimpleScalarPropertiesInputOutputPayload),
+      ) as _i88.SimpleScalarPropertiesInputOutputPayload);
+      final input = _i88.SimpleScalarPropertiesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5180,11 +5487,11 @@ class _RestJsonProtocolServer
       final body = _simpleScalarPropertiesProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i83.SimpleScalarPropertiesInputOutput,
-          [FullType(_i83.SimpleScalarPropertiesInputOutputPayload)],
+          _i88.SimpleScalarPropertiesInputOutput,
+          [FullType(_i88.SimpleScalarPropertiesInputOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5197,7 +5504,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> streamingTraits(_i92.Request request) async {
+  _i4.Future<_i97.Response> streamingTraits(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5215,7 +5522,7 @@ class _RestJsonProtocolServer
           ],
         ),
       ) as _i4.Stream<List<int>>?);
-      final input = _i84.StreamingTraitsInputOutput.fromRequest(
+      final input = _i89.StreamingTraitsInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5231,7 +5538,7 @@ class _RestJsonProtocolServer
       final body = _streamingTraitsProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i84.StreamingTraitsInputOutput,
+          _i89.StreamingTraitsInputOutput,
           [
             FullType.nullable(
               _i4.Stream,
@@ -5245,7 +5552,7 @@ class _RestJsonProtocolServer
           ],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5258,8 +5565,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> streamingTraitsRequireLength(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> streamingTraitsRequireLength(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5277,7 +5584,7 @@ class _RestJsonProtocolServer
           ],
         ),
       ) as _i4.Stream<List<int>>?);
-      final input = _i85.StreamingTraitsRequireLengthInput.fromRequest(
+      final input = _i90.StreamingTraitsRequireLengthInput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5294,7 +5601,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5307,8 +5614,8 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> streamingTraitsWithMediaType(
-      _i92.Request request) async {
+  _i4.Future<_i97.Response> streamingTraitsWithMediaType(
+      _i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5326,7 +5633,7 @@ class _RestJsonProtocolServer
           ],
         ),
       ) as _i4.Stream<List<int>>?);
-      final input = _i86.StreamingTraitsWithMediaTypeInputOutput.fromRequest(
+      final input = _i91.StreamingTraitsWithMediaTypeInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5342,7 +5649,7 @@ class _RestJsonProtocolServer
       final body = _streamingTraitsWithMediaTypeProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i86.StreamingTraitsWithMediaTypeInputOutput,
+          _i91.StreamingTraitsWithMediaTypeInputOutput,
           [
             FullType.nullable(
               _i4.Stream,
@@ -5356,7 +5663,7 @@ class _RestJsonProtocolServer
           ],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5369,7 +5676,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> testBodyStructure(_i92.Request request) async {
+  _i4.Future<_i97.Response> testBodyStructure(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5377,9 +5684,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _testBodyStructureProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i87.TestBodyStructureInputOutputPayload),
-      ) as _i87.TestBodyStructureInputOutputPayload);
-      final input = _i87.TestBodyStructureInputOutput.fromRequest(
+        specifiedType: const FullType(_i92.TestBodyStructureInputOutputPayload),
+      ) as _i92.TestBodyStructureInputOutputPayload);
+      final input = _i92.TestBodyStructureInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5395,11 +5702,11 @@ class _RestJsonProtocolServer
       final body = _testBodyStructureProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i87.TestBodyStructureInputOutput,
-          [FullType(_i87.TestBodyStructureInputOutputPayload)],
+          _i92.TestBodyStructureInputOutput,
+          [FullType(_i92.TestBodyStructureInputOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5412,7 +5719,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> testNoPayload(_i92.Request request) async {
+  _i4.Future<_i97.Response> testNoPayload(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5420,9 +5727,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _testNoPayloadProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i88.TestNoPayloadInputOutputPayload),
-      ) as _i88.TestNoPayloadInputOutputPayload);
-      final input = _i88.TestNoPayloadInputOutput.fromRequest(
+        specifiedType: const FullType(_i93.TestNoPayloadInputOutputPayload),
+      ) as _i93.TestNoPayloadInputOutputPayload);
+      final input = _i93.TestNoPayloadInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5438,11 +5745,11 @@ class _RestJsonProtocolServer
       final body = _testNoPayloadProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i88.TestNoPayloadInputOutput,
-          [FullType(_i88.TestNoPayloadInputOutputPayload)],
+          _i93.TestNoPayloadInputOutput,
+          [FullType(_i93.TestNoPayloadInputOutputPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5455,7 +5762,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> testPayloadBlob(_i92.Request request) async {
+  _i4.Future<_i97.Response> testPayloadBlob(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5463,9 +5770,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _testPayloadBlobProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i95.Uint8List),
-      ) as _i95.Uint8List?);
-      final input = _i89.TestPayloadBlobInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i100.Uint8List),
+      ) as _i100.Uint8List?);
+      final input = _i94.TestPayloadBlobInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5481,11 +5788,11 @@ class _RestJsonProtocolServer
       final body = _testPayloadBlobProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i89.TestPayloadBlobInputOutput,
-          [FullType.nullable(_i95.Uint8List)],
+          _i94.TestPayloadBlobInputOutput,
+          [FullType.nullable(_i100.Uint8List)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5498,7 +5805,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> testPayloadStructure(_i92.Request request) async {
+  _i4.Future<_i97.Response> testPayloadStructure(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5506,9 +5813,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _testPayloadStructureProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType.nullable(_i97.PayloadConfig),
-      ) as _i97.PayloadConfig?);
-      final input = _i90.TestPayloadStructureInputOutput.fromRequest(
+        specifiedType: const FullType.nullable(_i102.PayloadConfig),
+      ) as _i102.PayloadConfig?);
+      final input = _i95.TestPayloadStructureInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5524,11 +5831,11 @@ class _RestJsonProtocolServer
       final body = _testPayloadStructureProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i90.TestPayloadStructureInputOutput,
-          [FullType.nullable(_i97.PayloadConfig)],
+          _i95.TestPayloadStructureInputOutput,
+          [FullType.nullable(_i102.PayloadConfig)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5541,7 +5848,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> timestampFormatHeaders(_i92.Request request) async {
+  _i4.Future<_i97.Response> timestampFormatHeaders(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5549,9 +5856,9 @@ class _RestJsonProtocolServer
     try {
       final payload = (await _timestampFormatHeadersProtocol.deserialize(
         awsRequest.split(),
-        specifiedType: const FullType(_i91.TimestampFormatHeadersIoPayload),
-      ) as _i91.TimestampFormatHeadersIoPayload);
-      final input = _i91.TimestampFormatHeadersIo.fromRequest(
+        specifiedType: const FullType(_i96.TimestampFormatHeadersIoPayload),
+      ) as _i96.TimestampFormatHeadersIoPayload);
+      final input = _i96.TimestampFormatHeadersIo.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -5606,11 +5913,11 @@ class _RestJsonProtocolServer
       final body = _timestampFormatHeadersProtocol.serialize(
         output,
         specifiedType: const FullType(
-          _i91.TimestampFormatHeadersIo,
-          [FullType(_i91.TimestampFormatHeadersIoPayload)],
+          _i96.TimestampFormatHeadersIo,
+          [FullType(_i96.TimestampFormatHeadersIoPayload)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),
@@ -5623,7 +5930,7 @@ class _RestJsonProtocolServer
     }
   }
 
-  _i4.Future<_i92.Response> unitInputAndOutput(_i92.Request request) async {
+  _i4.Future<_i97.Response> unitInputAndOutput(_i97.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -5646,7 +5953,7 @@ class _RestJsonProtocolServer
           [FullType(_i1.Unit)],
         ),
       );
-      return _i92.Response(
+      return _i97.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),

@@ -331,6 +331,56 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonInputAndOutputWithIntEnumHeaders (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.InputAndOutputWithHeadersOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestJsonInputAndOutputWithIntEnumHeaders',
+          documentation: 'Tests requests with intEnum header bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {
+            'headerIntegerEnum': 1,
+            'headerIntegerEnumList': [
+              1,
+              2,
+              3,
+            ],
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-IntegerEnum': '1',
+            'X-IntegerEnumList': '1, 2, 3',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'POST',
+          uri: '/InputAndOutputWithHeaders',
+          host: null,
+          resolvedHost: null,
+          queryParams: [],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [
+          InputAndOutputWithHeadersIoRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonSupportsNaNFloatHeaderInputs (request)',
     () async {
       await _i2.httpRequestTest(
@@ -746,6 +796,50 @@ void main() {
     },
   );
   _i1.test(
+    'RestJsonInputAndOutputWithIntEnumHeaders (response)',
+    () async {
+      await _i2.httpResponseTest(
+        operation: _i3.InputAndOutputWithHeadersOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpResponseTestCase(
+          id: 'RestJsonInputAndOutputWithIntEnumHeaders',
+          documentation: 'Tests responses with intEnum header bindings',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restJson1',
+          ),
+          authScheme: null,
+          body: null,
+          bodyMediaType: null,
+          params: {
+            'headerIntegerEnum': 1,
+            'headerIntegerEnumList': [
+              1,
+              2,
+              3,
+            ],
+          },
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {
+            'X-IntegerEnum': '1',
+            'X-IntegerEnumList': '1, 2, 3',
+          },
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          code: 200,
+        ),
+        outputSerializers: const [
+          InputAndOutputWithHeadersIoRestJson1Serializer()
+        ],
+      );
+    },
+  );
+  _i1.test(
     'RestJsonSupportsNaNFloatHeaderOutputs (response)',
     () async {
       await _i2.httpResponseTest(
@@ -962,6 +1056,25 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
               value,
               specifiedType: const FullType(int),
             ) as int);
+          }
+          break;
+        case 'headerIntegerEnum':
+          if (value != null) {
+            result.headerIntegerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
+          break;
+        case 'headerIntegerEnumList':
+          if (value != null) {
+            result.headerIntegerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i6.BuiltList<int>));
           }
           break;
         case 'headerIntegerList':

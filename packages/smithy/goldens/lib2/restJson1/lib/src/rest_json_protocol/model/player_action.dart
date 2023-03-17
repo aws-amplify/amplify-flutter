@@ -46,8 +46,7 @@ abstract class PlayerAction extends _i1.SmithyUnion<PlayerAction> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is PlayerActionQuit) {
       return quit?.call((this as PlayerActionQuit).quit);

@@ -312,8 +312,7 @@ apply HttpChecksumReallyNotRequired @httpRequestTests([
         body: "hello, world",
         bodyMediaType: "application/octet-stream",
         headers: {
-            "Content-Type": "application/octet-stream",
-            "Content-MD5": "5NfxtO0uQtFYmPSyewGdpA=="
+            "Content-Type": "application/octet-stream"
         },
         forbidHeaders: [
             "x-amz-request-algorithm"

@@ -43,6 +43,7 @@ service RestJson {
         ConstantAndVariableQueryString,
         IgnoreQueryParamsInResponse,
         OmitsNullSerializesEmptyString,
+        OmitsSerializingEmptyLists,
         QueryIdempotencyTokenAutoFill,
         QueryPrecedence,
         QueryParamsAsStringListMap,
@@ -137,5 +138,9 @@ service RestJson {
         TestPayloadStructure,
         TestPayloadBlob,
         TestNoPayload,
+
+        // client-only timestamp parsing tests
+        DatetimeOffsets,
+        FractionalSeconds,
     ]
 }
