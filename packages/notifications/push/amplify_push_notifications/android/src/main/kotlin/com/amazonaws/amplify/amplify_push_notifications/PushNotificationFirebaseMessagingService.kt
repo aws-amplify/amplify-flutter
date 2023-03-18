@@ -41,7 +41,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "onNewToken")
         // Should initialize normally as it's initialized for the first time.
         StreamHandlers.initStreamHandlers(false)
         StreamHandlers.tokenReceived?.send(mapOf("token" to token))
@@ -71,7 +70,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         Handler(baseContext.mainLooper).post {
             val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
-                Log.d(TAG, "Foreground message: ${StreamHandlers.foregroundMessageReceived}")
                 val notificationHashMap = payload.asChannelMap()
                 StreamHandlers.foregroundMessageReceived?.send(notificationHashMap)
             } else {

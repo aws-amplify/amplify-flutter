@@ -8,10 +8,10 @@ import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
-import com.amplifyframework.pushnotifications.pinpoint.utils.NotificationPayload
 import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
 import com.google.firebase.messaging.RemoteMessage
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.embedding.engine.loader.FlutterLoader
 import io.flutter.plugin.common.MethodCall
@@ -89,8 +89,18 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
                     null,
                     mainHandler,
                 ) {
-                    // Create a background Flutter Engine
-                    backgroundFlutterEngine = FlutterEngine(context)
+                    backgroundFlutterEngine = FlutterEngineCache.getInstance()
+                        .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
+
+                    if (backgroundFlutterEngine == null) {
+                        // Create a background Flutter Engine
+                        backgroundFlutterEngine = FlutterEngine(context)
+                        FlutterEngineCache.getInstance().put(
+                            PushNotificationPluginConstants.BACKGROUND_ENGINE_ID,
+                            backgroundFlutterEngine,
+                        )
+                    }
+
                     backgroundFlutterEngine!!.dartExecutor.executeDartCallback(
                         DartExecutor.DartCallback(
                             context.assets, loader.findAppBundlePath(), callbackInfo
@@ -107,7 +117,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         }
     }
 
-    private fun sendToDart(intent: Intent){
+    private fun sendToDart(intent: Intent) {
         val remoteMessage = RemoteMessage(intent.extras)
         val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
 

@@ -176,9 +176,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       key: _notificationsConfigSecureStorageKey,
       value: jsonEncode(config),
     );
-
-    print('Configured');
-
     _isConfigured = true;
   }
 
@@ -242,7 +239,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     late String deviceToken;
     try {
       deviceToken = await onTokenReceived.first;
-      print(deviceToken);
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -348,7 +344,6 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   }
 
   void recordPushEvent(PushNotificationMessage pushNotificationMessage) {
-    print('Record bg event');
     _serviceProviderClient?.recordNotificationEvent(
       eventType: PinpointEventType.backgroundMessageReceived,
       notification: pushNotificationMessage,

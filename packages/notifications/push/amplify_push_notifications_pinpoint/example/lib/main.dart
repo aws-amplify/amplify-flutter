@@ -13,21 +13,21 @@ String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
 void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   print('bgHandler');
-  // try {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.reload();
-  //   var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-  //   globalBgCallbackCount =
-  //       globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-  //   await prefs.setInt(
-  //     globalBgCallbackKey,
-  //     globalBgCallbackCount,
-  //   );
-  // } on Exception catch (e) {
-  //   print(' error in handler: $e');
-  // }
-  // return;
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
+    globalBgCallbackCount =
+        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
+    await prefs.setInt(
+      globalBgCallbackKey,
+      globalBgCallbackCount,
+    );
+  } on Exception catch (e) {
+    print(' error in handler: $e');
+  }
+  return;
 }
 
 void main() {
@@ -93,7 +93,6 @@ class _MyAppState extends State<MyApp> {
       final authPlugin = AmplifyAuthCognito();
 
       if (!Amplify.isConfigured) {
-        print('Configuring Amplify.configure');
         await Amplify.addPlugins([authPlugin, notificationsPlugin]);
         await Amplify.configure(amplifyconfig);
         Amplify.Notifications.Push.onNotificationReceivedInBackground(

@@ -13,7 +13,8 @@ class PushNotificationPluginConstants {
         const val ACTION_NEW_TOKEN = "com.google.firebase.messaging.NEW_TOKEN"
         const val PAYLOAD_KEY = "payload"
         const val IS_LAUNCH_NOTIFICATION = "isLaunchNotification"
-        const val FLUTTER_ENGINE_ID = "main_flutter_engine"
+        const val FLUTTER_ENGINE_ID = "running_flutter_engine"
+        const val BACKGROUND_ENGINE_ID = "background_flutter_engine"
         const val BACKGROUND_METHOD_CHANNEL =
             "plugins.flutter.io/amplify_push_notification_plugin_background"
     }

@@ -50,15 +50,11 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
-        Log.d(TAG, "listening: ${associatedNativeEvent}")
-
         eventSink = sink
         flushEvents()
     }
 
     override fun onCancel(arguments: Any?) {
-        Log.d(TAG, "onCancel: ${associatedNativeEvent}")
-
         eventSink = null
         eventQueue.clear()
     }
@@ -66,7 +62,6 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
     fun send(payload: Map<Any, Any?>) {
-        Log.d(TAG, "eventSink: $eventSink & associatedNativeEvent: ${associatedNativeEvent}")
         val event = PushNotificationsEvent(associatedNativeEvent, payload)
         eventSink?.success(payload) ?: run {
             eventQueue.add(event)
@@ -89,8 +84,6 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     private fun flushEvents() {
-        Log.d(TAG, "flushEvents: ${eventQueue.count()}")
-
         try {
             eventSink?.let {
                 while (eventQueue.isNotEmpty()) {
