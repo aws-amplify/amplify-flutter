@@ -87,7 +87,9 @@ jobs:
           arch: ${{ matrix.arch }}
           # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
+          script: |
+            adb shell settings put system screen_off_timeout 3600000 # set timeout to 1 hour
+            melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
     runs-on: macos-latest
