@@ -87,7 +87,7 @@ T _validateAuthProvider<T extends AmplifyAuthProvider>(
   if (authProvider == null) {
     throw ApiException(
       'No auth provider found for auth mode ${authType.name}.',
-      recoverySuggestion: 'Ensure auth plugin correctly configured.',
+      recoverySuggestion: 'Ensure API plugin correctly configured.',
     );
   }
   return authProvider;
