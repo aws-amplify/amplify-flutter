@@ -99,6 +99,13 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
           new targets.ApiGateway(apiGateway)
         ),
       });
+      new route53.AaaaRecord(this, "CustomDomainAaaaRecord", {
+        zone: domainProperties.hostedZone,
+        recordName: domainProperties.domainName,
+        target: route53.RecordTarget.fromAlias(
+          new targets.ApiGateway(apiGateway)
+        ),
+      })
     }
 
     // Create the Cognito Identity Pool with permissions to invoke the API.
@@ -148,7 +155,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
 
     let domainName = apiGateway.url;
     if (apiGateway.domainName?.domainName) {
-      domainName = `https://${apiGateway.domainName?.domainName}`;
+      domainName = `https://${apiGateway.domainName?.domainName}/prod/`;
     }
 
     this.config = {
@@ -157,7 +164,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
           [apiGateway.restApiName]: {
             endpointType: "REST",
             endpoint: domainName,
-            authorizationType: "AMAZON_COGNITO_USER_POOLS",
+            authorizationType: "AWS_IAM",
           },
         },
       },
