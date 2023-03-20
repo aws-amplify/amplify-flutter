@@ -161,7 +161,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
         authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),
-    )..supportedProtocols = SupportedProtocols.http1;
+    );
   }
 
   WebSocketBloc _webSocketBloc({String? apiName}) {
