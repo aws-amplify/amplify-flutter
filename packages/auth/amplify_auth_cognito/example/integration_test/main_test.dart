@@ -7,7 +7,7 @@ import 'package:integration_test/integration_test.dart';
 import 'confirm_sign_in_test.dart' as confirm_sign_in_tests;
 import 'confirm_sign_up_test.dart' as confirm_sign_up_tests;
 import 'custom_auth_test.dart' as custom_auth_tests;
-// import 'custom_authorizer_test.dart' as custom_authorizer_tests;
+import 'custom_authorizer_test.dart' as custom_authorizer_tests;
 import 'delete_user_test.dart' as delete_user_tests;
 import 'device_tracking_test.dart' as device_tracking_tests;
 import 'federated_sign_in_test.dart' as federated_sign_in_tests;
@@ -33,8 +33,7 @@ void main() async {
     confirm_sign_in_tests.main();
     confirm_sign_up_tests.main();
     custom_auth_tests.main();
-    // TODO(dnys1): Re-enable when custom authorizer backends are deployed
-    // custom_authorizer_tests.main();
+    custom_authorizer_tests.main();
     delete_user_tests.main();
     device_tracking_tests.main();
     federated_sign_in_tests.main();

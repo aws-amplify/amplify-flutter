@@ -201,11 +201,12 @@ void main() {
           backend,
           skip: shouldSkip(backend),
           () {
-            final configJson = amplifyEnvironments[backend]!;
+            final configJson = amplifyEnvironments[backend];
+            if (configJson == null) return;
+
             final config = AmplifyConfig.fromJson(
               jsonDecode(configJson) as Map<String, Object?>,
             );
-
             for (final supportedProtocols in SupportedProtocols.values) {
               group(supportedProtocols.name, () {
                 late AWSHttpClient client;
