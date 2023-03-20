@@ -18,6 +18,12 @@ export const handler: lambda.APIGatewayProxyHandler = async (
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
+      ...Object.fromEntries(Object.entries(event.headers).filter(([key]) => {
+        return key.toLowerCase().startsWith('x');
+      })),
+      ...Object.fromEntries(Object.entries(event.queryStringParameters ?? {}).map(([key, value]) => {
+        return [`x-query-${key}`, value ?? ''];
+      })),
     },
   };
 };

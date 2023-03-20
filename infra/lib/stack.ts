@@ -9,12 +9,12 @@ import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps,
+  AuthIntegrationTestStackEnvironmentProps
 } from "./auth/stack";
 import { IntegrationTestStack } from "./common";
 import {
   StorageAccessLevel,
-  StorageIntegrationTestStack,
+  StorageIntegrationTestStack
 } from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {

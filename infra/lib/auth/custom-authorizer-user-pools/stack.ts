@@ -85,7 +85,10 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
           [apiGateway.restApiName]: {
             endpointType: "REST",
             endpoint: apiGateway.url,
-            authorizationType: "AMAZON_COGNITO_USER_POOLS",
+            // We use OIDC instead of AMAZON_COGNITO_USER_POOLS so that we can use
+            // the ID token by default instead of the access token:
+            // https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
+            authorizationType: "OPENID_CONNECT",
           },
         },
       },
