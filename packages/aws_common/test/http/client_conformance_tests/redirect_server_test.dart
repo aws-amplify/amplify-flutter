@@ -30,36 +30,29 @@ void main() {
       expect(response.statusCode, 200);
     });
 
-    test(
-      'allow redirect, 0 maxRedirects, ',
-      () async {
-        final request = AWSHttpRequest.get(
-          createUri('/1'),
-          followRedirects: true,
-          maxRedirects: 0,
-        );
-        expect(
-          client().send(request).response,
-          throwsA(
-            isA<AWSHttpException>().having(
-              (e) => e.toString(),
-              'message',
-              contains(
-                zIsWeb
-                    ?
-                    // Only cross-browser similarity
-                    'Error'
-                    : 'Redirect limit exceeded',
-              ),
+    test('allow redirect, 0 maxRedirects, ', () async {
+      final request = AWSHttpRequest.get(
+        createUri('/1'),
+        followRedirects: true,
+        maxRedirects: 0,
+      );
+      expect(
+        client().send(request).response,
+        throwsA(
+          isA<AWSHttpException>().having(
+            (e) => e.toString(),
+            'message',
+            contains(
+              zIsWeb
+                  ?
+                  // Only cross-browser similarity
+                  'Error'
+                  : 'Redirect limit exceeded',
             ),
           ),
-        );
-      },
-      skip: !zIsWeb
-          ? 'Re-enable after https://github.com/dart-lang/sdk/issues/49012 '
-              'is fixed'
-          : null,
-    );
+        ),
+      );
+    });
 
     test(
       'exactly the right number of allowed redirects',
