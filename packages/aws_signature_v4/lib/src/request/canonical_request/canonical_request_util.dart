@@ -3,11 +3,16 @@
 
 part of 'canonical_request.dart';
 
+final RegExp _encodedComponent = RegExp('%[A-F0-9]{2}');
+
 /// Encodes a query parameter while preventing double-encoding.
 String _safeEncode(String queryComponent) {
-  return queryComponent.contains('%')
+  return queryComponent.contains(_encodedComponent)
       ? queryComponent
-      : Uri.encodeComponent(queryComponent);
+      // encodeQueryComponent percent-encodes all the characters we care about
+      // except spaces, which it encodes as `+`. However, Sigv4 expects percent
+      // encoding even for spaces.
+      : Uri.encodeQueryComponent(queryComponent).replaceAll('+', '%20');
 }
 
 /// The SHA-256/Hex-encoded hash for empty requests.
