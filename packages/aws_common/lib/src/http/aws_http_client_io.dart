@@ -212,7 +212,12 @@ class AWSHttpClientImpl extends AWSHttpClient {
         for (final entry in request.headers.entries)
           if (redirects.isEmpty ||
               _shouldCopyHeaderOnRedirect(entry.key, request.uri, uri))
-            Header(utf8.encode(entry.key), utf8.encode(entry.value)),
+            Header(
+              // Lower-case headers due to:
+              // https://github.com/dart-lang/http2/issues/49
+              utf8.encode(entry.key.toLowerCase()),
+              utf8.encode(entry.value),
+            ),
       ];
 
   /// Sends an HTTP/2 request using `package:http2`.
