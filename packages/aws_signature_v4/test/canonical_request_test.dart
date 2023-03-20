@@ -61,4 +61,42 @@ void main() {
       expect(canonicalPath, '/');
     });
   });
+
+  group('CanonicalQueryParameters', () {
+    const queryParameters = {
+      'test-key': 'test-value',
+      'special-key': r'!@#$%^&*()_-+={}[]\/;',
+      'already-encoded': 'hello%21',
+    };
+    const encodedQueryParameters = {
+      'test-key': 'test-value',
+      'special-key':
+          '%21%40%23%24%25%5E%26%2A%28%29_-%2B%3D%7B%7D%5B%5D%5C%2F%3B',
+      'already-encoded': 'hello%21',
+    };
+
+    test('handles special characters', () {
+      final uri = Uri.parse('https://example.com').replace(
+        queryParameters: queryParameters,
+      );
+      final request = AWSHttpRequest.get(uri);
+      expect(
+        CanonicalQueryParameters(request.queryParameters),
+        equals(encodedQueryParameters),
+      );
+    });
+
+    test('handles special characters (raw)', () {
+      final request = AWSHttpRequest.raw(
+        method: AWSHttpMethod.get,
+        host: 'example.com',
+        path: '/',
+        queryParameters: queryParameters,
+      );
+      expect(
+        CanonicalQueryParameters(request.queryParameters),
+        equals(encodedQueryParameters),
+      );
+    });
+  });
 }
