@@ -12,6 +12,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _tokenReceivedEventChannel = EventChannel(
@@ -40,15 +41,18 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
     required Future<void> Function() backgroundProcessor,
+    AmplifySecureStorage? amplifySecureStorage,
+    PushNotificationsHostApi? hostedApi,
   })  : _serviceProviderClient = serviceProviderClient,
         _backgroundProcessor = backgroundProcessor,
         _flutterApi = _PushNotificationsFlutterApi(),
-        _hostApi = PushNotificationsHostApi(),
-        _amplifySecureStorage = AmplifySecureStorage(
-          config: AmplifySecureStorageConfig(
-            scope: 'amplifyPushNotifications',
-          ),
-        ) {
+        _hostApi = hostedApi ?? PushNotificationsHostApi(),
+        _amplifySecureStorage = amplifySecureStorage ??
+            AmplifySecureStorage(
+              config: AmplifySecureStorageConfig(
+                scope: 'amplifyPushNotifications',
+              ),
+            ) {
     _onTokenReceived = _tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -73,15 +77,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   final PushNotificationsHostApi _hostApi;
   final _PushNotificationsFlutterApi _flutterApi;
   final AmplifySecureStorage _amplifySecureStorage;
-
   late final Stream<String> _onTokenReceived;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
-
   late final Stream<PushNotificationMessage> _onNotificationOpened;
-
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
   final Future<void> Function() _backgroundProcessor;
+
   @override
   PushNotificationMessage? get launchNotification {
     final result = _launchNotification;
@@ -139,7 +141,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }) async {
     final notificationsConfig = config?.notifications?.awsPlugin;
     if (notificationsConfig == null) {
-      throw const AnalyticsException('No Pinpoint plugin config available');
+      throw const PushNotificationException(
+        'No Pinpoint plugin config available',
+      );
     }
 
     if (_isConfigured) {
@@ -152,24 +156,15 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       authProviderRepo: authProviderRepo,
     );
 
-    await _registerDeviceWhenConfigure();
-    _attachEventChannelListeners();
+    await registerDeviceWhenConfigure();
+    attachEventChannelListeners();
+
+    await initializeBackgroundMethods();
 
     // Explicitly set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
     _flutterApi.setProvider(_serviceProviderClient);
 
-    final rawLaunchNotification = await _hostApi.getLaunchNotification();
-    if (rawLaunchNotification != null) {
-      final launchNotification =
-          PushNotificationMessage.fromJson(rawLaunchNotification);
-      _launchNotification = launchNotification;
-      _recordAnalyticsForLaunchNotification(launchNotification);
-    }
-
-    // Register the callback dispatcher
-    await _registerCallback(
-      _backgroundProcessor,
-    );
+    await chekcAndRecordlaunchNotification();
 
     // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
     await _amplifySecureStorage.write(
@@ -219,7 +214,25 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _hostApi.setBadgeCount(badgeCount);
   }
 
-  Future<void> _registerCallback(
+  @visibleForTesting
+  Future<void> initializeBackgroundMethods() async {
+    if (Platform.isAndroid) {
+      // Register the background processor callback
+      await registerCallback(
+        _backgroundProcessor,
+      );
+    } else if (Platform.isIOS) {
+      await onNotificationReceivedInBackground(
+        (remotePushMessage) => _serviceProviderClient.recordNotificationEvent(
+          eventType: PinpointEventType.backgroundMessageReceived,
+          notification: remotePushMessage,
+        ),
+      );
+    }
+  }
+
+  @visibleForTesting
+  Future<void> registerCallback(
     Future<void> Function() callback,
   ) async {
     final callbackHandle = PluginUtilities.getCallbackHandle(callback);
@@ -235,7 +248,19 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _logger.info('Successfully registered callback');
   }
 
-  Future<void> _registerDeviceWhenConfigure() async {
+  @visibleForTesting
+  Future<void> chekcAndRecordlaunchNotification() async {
+    final rawLaunchNotification = await _hostApi.getLaunchNotification();
+    if (rawLaunchNotification != null) {
+      final launchNotification =
+          PushNotificationMessage.fromJson(rawLaunchNotification);
+      _launchNotification = launchNotification;
+      _recordAnalyticsForLaunchNotification(launchNotification);
+    }
+  }
+
+  @visibleForTesting
+  Future<void> registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
       deviceToken = await onTokenReceived.first;
@@ -286,7 +311,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  void _attachEventChannelListeners() {
+  @visibleForTesting
+  void attachEventChannelListeners() {
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
       _logger.error(
