@@ -16,7 +16,7 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps,
+  IntegrationTestStackEnvironmentProps
 } from "../common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
