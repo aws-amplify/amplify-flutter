@@ -239,6 +239,7 @@ abstract class StateMachine<
       completer.accept();
       try {
         final event = completer.event;
+        logger.verbose('Accepted event: $event');
         _currentCompleter = completer;
         _currentEvent = event as Event;
         if (!_checkPrecondition(event)) {
@@ -250,6 +251,10 @@ abstract class StateMachine<
       } on Object catch (error, st) {
         _emitError(error, st);
       } finally {
+        logger.verbose(
+          'Completed event (${_currentEvent.runtimeTypeName}) '
+          'with state: $_currentState',
+        );
         completer.complete(_currentState);
       }
     }

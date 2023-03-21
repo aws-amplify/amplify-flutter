@@ -28,6 +28,7 @@ final AWSLogger _logger = AWSLogger().createChild('HostedUI');
 // Android using an embedded WebView.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  AWSLogger().logLevel = LogLevel.verbose;
 
   group(
     'Hosted UI',
@@ -46,11 +47,14 @@ void main() {
 
         username = generateUsername();
         password = generatePassword();
-        await adminCreateUser(
+        final cognitoUsername = await adminCreateUser(
           username,
           password,
           autoConfirm: true,
         );
+        addTearDown(() => deleteUser(cognitoUsername));
+
+        _logger.debug('Created user with username: $cognitoUsername');
       });
 
       tearDown(() async {
@@ -67,9 +71,11 @@ void main() {
           ),
           HostedUiPlatform.token,
         );
+        _logger.debug('Signing in with Web UI');
         final result = await plugin.signInWithWebUI(
           provider: AuthProvider.cognito,
         );
+        _logger.debug('Signed in with Web UI');
         expect(result.isSignedIn, isTrue);
       }
 
