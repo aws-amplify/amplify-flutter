@@ -11,6 +11,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
 import { Construct } from "constructs";
 import { IntegrationTestStackEnvironment } from "../../common";
+import { CUSTOM_HEADERS } from "../common";
 import {
   AuthBaseEnvironmentProps,
   AuthCustomAuthorizerEnvironmentProps
@@ -83,7 +84,13 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
       handler: apiHandler,
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
-        allowHeaders: [...apigw.Cors.DEFAULT_HEADERS, "x-amz-content-sha256"],
+        allowHeaders: [
+          ...apigw.Cors.DEFAULT_HEADERS,
+          ...CUSTOM_HEADERS
+        ],
+        exposeHeaders: CUSTOM_HEADERS,
+        allowCredentials: true,
+        disableCache: true,
       },
       defaultMethodOptions: {
         authorizationType: apigw.AuthorizationType.IAM,
