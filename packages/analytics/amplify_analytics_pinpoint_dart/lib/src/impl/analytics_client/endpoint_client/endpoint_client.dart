@@ -171,7 +171,7 @@ class EndpointClient {
           )
           .result;
     } on Exception catch (e) {
-      throw PinpointException.fromException(e);
+      throw fromPinpointException(e);
     }
   }
 

@@ -194,7 +194,7 @@ class EventClient implements Closeable {
       });
     } on PayloadTooLargeException catch (e) {
       _logger
-        ..warn('putEvents - payloadTooLarge exception: ', e)
+        ..warn('putEvents - PayloadTooLarge exception: ', e)
         ..warn(
             'Pinpoint event batch limits exceeded: 100 events / 4 mb total size / 1 mb max size per event \n '
             'Reduce your event size or change number of events in a batch')
@@ -215,13 +215,13 @@ class EventClient implements Closeable {
         _logger
           ..error('putEvents - exception encountered: ', e)
           ..error('Unrecoverable issue, deleting cache for local event batch');
-        throw PinpointException.fromException(e);
+        throw fromPinpointException(e);
       }
     } on Exception catch (e) {
       _logger
         ..error('putEvents - exception encountered: ', e)
         ..error('Unrecoverable issue, deleting cache for local event batch');
-      throw PinpointException.fromException(e);
+      throw fromPinpointException(e);
     } finally {
       // Always delete local store of events
       // Unless a retryable exception has been received (see above)

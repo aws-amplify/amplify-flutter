@@ -261,7 +261,8 @@ void main() {
       expect(endpoint.user!.userAttributes, isNull);
     });
 
-    test('updateEndpoint throws PinpointException from unrecognized exceptions',
+    test(
+        'updateEndpoint throws AnalyticsException from unrecognized exceptions',
         () async {
       when(() => pinpointClient.updateEndpoint(any())).thenThrow(Exception());
 
