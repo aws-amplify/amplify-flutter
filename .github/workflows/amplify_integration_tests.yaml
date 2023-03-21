@@ -29,12 +29,12 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
         api-level:
-          - 24
+          - 25
           - 33
         target:
           - google_apis
         include:
-          - api-level: 24
+          - api-level: 25
             arch: x86
           - api-level: 33
             arch: x86_64
