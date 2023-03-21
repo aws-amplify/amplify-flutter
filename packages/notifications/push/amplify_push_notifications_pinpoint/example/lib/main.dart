@@ -11,6 +11,7 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
+// TODO(Samaritan1011001): This callback function seems to not be called in iOS killed state.
 void bgHandler(PushNotificationMessage pushNotificationMessage) async {
   print('bgHandler');
   try {

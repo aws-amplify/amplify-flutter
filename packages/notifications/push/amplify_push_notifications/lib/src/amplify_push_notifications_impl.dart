@@ -29,6 +29,9 @@ const _externalHandleKey = 'externalHandleKey';
 const _notificationsConfigSecureStorageKey =
     'notificationsConfigSecureStorageKey';
 
+final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
+    .createChild('AmplifyPushNotification');
+
 /// {@template amplify_push_notifications.amplify_push_notifications}
 /// Implementation of the Amplify Push Notifications category.
 ///
@@ -66,9 +69,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map(PushNotificationMessage.fromJson);
   }
 
-  final AmplifyLogger _logger =
-      AmplifyLogger.category(Category.pushNotifications)
-          .createChild('AmplifyPushNotification');
   final ServiceProviderClient _serviceProviderClient;
   final PushNotificationsHostApi _hostApi;
   final _PushNotificationsFlutterApi _flutterApi;
@@ -107,12 +107,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     if (Platform.isAndroid) {
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       if (callbackHandle == null) {
-        _logger.error(
+        throw const PushNotificationException(
           'Callback is not a global or static function',
+          recoverySuggestion:
+              'Make the callback function given to the API a top-level or a static function.',
         );
-        return;
       }
-
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
       await prefs.setInt(_externalHandleKey, callbackHandle.toRawHandle());
@@ -152,11 +152,13 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       authProviderRepo: authProviderRepo,
     );
 
+    // register device, attach internal listeners and internal background callbacks
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
+    await _initializeBackgroundMethods();
 
     // Explicitly set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
-    _flutterApi.setProvider(_serviceProviderClient);
+    _flutterApi.serviceProviderClient = _serviceProviderClient;
 
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
@@ -165,11 +167,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _launchNotification = launchNotification;
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
-
-    // Register the callback dispatcher
-    await _registerCallback(
-      _backgroundProcessor,
-    );
 
     // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
     await _amplifySecureStorage.write(
@@ -219,20 +216,36 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _hostApi.setBadgeCount(badgeCount);
   }
 
+  Future<void> _initializeBackgroundMethods() async {
+    if (Platform.isAndroid) {
+      await _registerCallback(
+        _backgroundProcessor,
+      );
+    } else if (Platform.isIOS) {
+      await onNotificationReceivedInBackground(
+        (remotePushMessage) => _serviceProviderClient.recordNotificationEvent(
+          eventType: PinpointEventType.backgroundMessageReceived,
+          notification: remotePushMessage,
+        ),
+      );
+    }
+  }
+
   Future<void> _registerCallback(
     Future<void> Function() callback,
   ) async {
     final callbackHandle = PluginUtilities.getCallbackHandle(callback);
     if (callbackHandle == null) {
-      _logger.error(
+      throw const PushNotificationException(
         'Callback is not a global or static function',
+        recoverySuggestion:
+            'Make the callback function given to the API a top-level or a static function.',
       );
-      return;
     }
     await _hostApi.registerCallbackFunction(
       callbackHandle.toRawHandle(),
     );
-    _logger.info('Successfully registered callback');
+    _logger.debug('Successfully registered callback');
   }
 
   Future<void> _registerDeviceWhenConfigure() async {
@@ -274,7 +287,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Future<void> _registerDevice(String address) async {
     try {
       await _serviceProviderClient.registerDevice(address);
-      _logger.info('Successfully registered device with the service provider');
+      _logger.debug('Successfully registered device with the service provider');
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -323,7 +336,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   _PushNotificationsFlutterApi() {
     PushNotificationsFlutterApi.setup(this);
   }
-  final _recordEventQueue = <Map<Object?, Object?>>[];
+  final _eventQueue = <Map<Object?, Object?>>[];
 
   ServiceProviderClient? _serviceProviderClient;
 
@@ -334,13 +347,11 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     OnRemoteMessageCallback callback,
   ) async {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
-    // unawaited(_flushRecordEvents());
+    unawaited(_flushEvents());
   }
 
-  void setProvider(ServiceProviderClient serviceProviderClient) {
-    // Flush only when the SericeProvider becomes available in config
+  set serviceProviderClient(ServiceProviderClient serviceProviderClient) {
     _serviceProviderClient = serviceProviderClient;
-    unawaited(_flushRecordEvents());
   }
 
   void recordPushEvent(PushNotificationMessage pushNotificationMessage) {
@@ -354,8 +365,6 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
     PushNotificationMessage pushNotificationMessage,
   ) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-
     final externalHandle = prefs.getInt(_externalHandleKey);
     if (externalHandle == null) {
       return;
@@ -364,7 +373,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
       CallbackHandle.fromRawHandle(externalHandle),
     );
     if (externalCallback == null) {
-      safePrint(
+      _logger.debug(
         'Could not locate external callback for the stored external handle',
       );
       return;
@@ -374,6 +383,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
         'Invalid callback type: ${externalCallback.runtimeType}',
       );
     }
+    recordPushEvent(pushNotificationMessage);
     externalCallback(pushNotificationMessage);
   }
 
@@ -381,29 +391,28 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
-    final notification = PushNotificationMessage.fromJson(payload);
-    await dispatchToExternalHandle(notification);
-    await Future.wait(
-      _onNotificationReceivedInBackgroundCallbacks.map(
-        (callback) async {
-          await callback(notification);
-        },
-      ),
-    );
-    // Flush only if ServiceProvider is available
-    if (_serviceProviderClient != null) {
-      await _flushRecordEvents(withItem: payload);
+    // Always flush if it's Android becasue we don't maintain a list of callbacks like on iOS.
+    if (_onNotificationReceivedInBackgroundCallbacks.isNotEmpty ||
+        Platform.isAndroid) {
+      await _flushEvents(withItem: payload);
     } else {
-      _recordEventQueue.add(payload);
+      _eventQueue.add(payload);
     }
   }
 
-  Future<void> _flushRecordEvents({Map<Object?, Object?>? withItem}) async {
-    for (final element in [..._recordEventQueue, withItem]
-        .whereType<Map<Object?, Object?>>()) {
+  Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
+    for (final element
+        in [..._eventQueue, withItem].whereType<Map<Object?, Object?>>()) {
       final notification = PushNotificationMessage.fromJson(element);
-      recordPushEvent(notification);
+      await dispatchToExternalHandle(notification);
+      await Future.wait(
+        _onNotificationReceivedInBackgroundCallbacks.map(
+          (callback) async {
+            await callback(notification);
+          },
+        ),
+      );
     }
-    _recordEventQueue.clear();
+    _eventQueue.clear();
   }
 }
