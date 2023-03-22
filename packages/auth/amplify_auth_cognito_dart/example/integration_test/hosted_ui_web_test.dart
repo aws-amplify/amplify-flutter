@@ -12,7 +12,7 @@ import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:checks/checks.dart';
 import 'package:cli_script/cli_script.dart' hide check, fail;
 import 'package:io/io.dart';

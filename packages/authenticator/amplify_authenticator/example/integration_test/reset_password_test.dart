@@ -5,7 +5,7 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/reset-password.feature
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 

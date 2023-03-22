@@ -26,7 +26,7 @@ dependency_overrides:
   async: ^2.10.0
 
 dev_dependencies:
-  amplify_test: any
+  amplify_integration_test: any
   flutter_test:
     sdk: flutter
   tuple: ^2.0.0

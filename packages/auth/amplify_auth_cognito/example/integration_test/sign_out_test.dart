@@ -7,7 +7,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
     as cognito_idp;
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 

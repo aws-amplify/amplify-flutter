@@ -5,7 +5,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
