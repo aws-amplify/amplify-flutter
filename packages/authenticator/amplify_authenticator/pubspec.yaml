@@ -29,8 +29,7 @@ dev_dependencies:
   amplify_authenticator_test:
     path: ../amplify_authenticator_test
   amplify_lints: ">=2.0.2 <2.1.0"
-  amplify_test:
-    path: ../../amplify_test
+  amplify_test: any
   build_runner: ^2.3.3
   build_version: ^2.1.1
   flutter_test:

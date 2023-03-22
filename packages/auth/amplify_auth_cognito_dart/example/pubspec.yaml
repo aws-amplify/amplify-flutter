@@ -18,7 +18,7 @@ dev_dependencies:
   amplify_auth_cognito_test: any
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_test:
+  amplify_test: any
   browser_launcher: ^1.1.1
   build_runner: ^2.1.4
   build_web_compilers: ^3.2.1

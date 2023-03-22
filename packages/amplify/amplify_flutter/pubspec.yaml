@@ -38,8 +38,7 @@ dev_dependencies:
   amplify_datastore: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_lints: ">=2.0.2 <2.1.0"
   amplify_storage_s3: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_test:
-    path: ../../amplify_test
+  amplify_test: any
   build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
