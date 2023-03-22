@@ -1,3 +1,9 @@
+## 0.4.2+1
+
+### Fixes
+- fix(aws_common): Explicitly serialize values
+- fix(core): Refine `toJson` outputs when `createFactory = false`
+
 ## 0.4.2
 
 ### Features

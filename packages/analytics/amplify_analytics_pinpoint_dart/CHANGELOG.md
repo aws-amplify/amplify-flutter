@@ -1,3 +1,8 @@
+## 0.1.4+3
+
+### Fixes
+- fix(analytics): event retry logic & max fail tries ([#2713](https://github.com/aws-amplify/amplify-flutter/pull/2713))
+
 ## 0.1.4+2
 
 - Minor bug fixes and improvements

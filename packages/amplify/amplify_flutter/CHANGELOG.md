@@ -1,3 +1,15 @@
+## 1.0.0-next.7
+
+### Breaking Changes
+- chore(datastore)!: Reorganize + import cleanup ([#2760](https://github.com/aws-amplify/amplify-flutter/pull/2760))
+- refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
+
+### Fixes
+- fix(android): Bump Amplify Android to 2.4.1
+- fix(core): Refine `toJson` outputs when `createFactory = false`
+- fix(datastore): support use of java8 features in the example App
+- fix(ios): Bump Amplify iOS to 1.29.1
+
 ## 1.0.0-next.6
 
 ### Breaking Changes

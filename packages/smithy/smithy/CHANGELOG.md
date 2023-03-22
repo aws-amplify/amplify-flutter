@@ -1,3 +1,8 @@
+## 0.4.0+4
+
+### Fixes
+- fix(smithy): Handle uncaught exception ([#2720](https://github.com/aws-amplify/amplify-flutter/pull/2720))
+
 ## 0.4.0+3
 
 - Minor bug fixes and improvements
