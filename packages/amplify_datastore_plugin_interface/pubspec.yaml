@@ -17,7 +17,6 @@ dependencies:
   meta: ^1.7.0
 
 dev_dependencies:
-  amplify_test:
-    path: ../amplify_test
+  amplify_test: any
   flutter_test:
     sdk: flutter

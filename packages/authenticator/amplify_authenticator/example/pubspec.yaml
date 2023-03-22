@@ -47,8 +47,7 @@ dev_dependencies:
     path: ../../amplify_authenticator_test
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_test:
-    path: ../../../amplify_test
+  amplify_test: any
   aws_common: any
   flutter_driver:
     sdk: flutter
