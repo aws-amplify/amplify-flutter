@@ -39,30 +39,35 @@ void main() {
   late AmplifyPushNotifications plugin;
   late MockServiceProviderClient mockServiceProviderClient;
   late MockPushNotificationsHostApi mockPushNotificationsHostApi;
-  var shouldThrowError = false;
 
   Future<Map<String, dynamic>?>? handler(MethodCall methodCall) async {
     log.add(methodCall);
     if (methodCall.method == 'listen') {
-      if (shouldThrowError) {
-        await testWidgetsFlutterBinding.defaultBinaryMessenger
-            .handlePlatformMessage(
-          tokenReceivedEventChannel.name,
-          tokenReceivedEventChannel.codec.encodeErrorEnvelope(
-            code: 'test',
-            message: 'error',
-          ),
-          (_) {},
-        );
-      } else {
-        await testWidgetsFlutterBinding.defaultBinaryMessenger
-            .handlePlatformMessage(
-          tokenReceivedEventChannel.name,
-          tokenReceivedEventChannel.codec
-              .encodeSuccessEnvelope(<String, dynamic>{'token': '123'}),
-          (_) {},
-        );
-      }
+      await testWidgetsFlutterBinding.defaultBinaryMessenger
+          .handlePlatformMessage(
+        tokenReceivedEventChannel.name,
+        tokenReceivedEventChannel.codec
+            .encodeSuccessEnvelope(<String, dynamic>{'token': '123'}),
+        (_) {},
+      );
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>?>? throwErrorHandler(
+    MethodCall methodCall,
+  ) async {
+    log.add(methodCall);
+    if (methodCall.method == 'listen') {
+      await testWidgetsFlutterBinding.defaultBinaryMessenger
+          .handlePlatformMessage(
+        tokenReceivedEventChannel.name,
+        tokenReceivedEventChannel.codec.encodeErrorEnvelope(
+          code: 'test',
+          message: 'error',
+        ),
+        (_) {},
+      );
     }
     return null;
   }
@@ -72,7 +77,6 @@ void main() {
   );
 
   setUp(() {
-    log.clear();
     testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
 
     mockPushNotificationsHostApi = MockPushNotificationsHostApi();
@@ -90,26 +94,9 @@ void main() {
     );
   });
 
-  tearDown(() {
-    log.clear();
-    shouldThrowError = false;
-  });
+  tearDown(log.clear);
 
   group('Push Notifications config', () {
-    test('should throw exception when configuring if there is no appId present',
-        () async {
-      final config0 = AmplifyConfig.fromJson(
-        jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
-      );
-      expect(
-        () async => plugin.configure(
-          authProviderRepo: authProviderRepo,
-          config: config0,
-        ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
-      );
-    });
-
     test('should configure correctly', () async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
@@ -131,55 +118,36 @@ void main() {
         ),
       ).called(1);
     });
-  });
 
-  group('Class Method', () {
-    test(
-      'registerDeviceWhenConfigure',
-      () async {
-        await plugin.registerDeviceWhenConfigure();
-        expect(log, <Matcher>[
-          isMethodCall('listen', arguments: null),
-          isMethodCall('cancel', arguments: null),
-        ]);
-      },
-    );
-    test(
-      'registerDeviceWhenConfigure should throw error when device token was not fetched correctly',
-      () async {
-        shouldThrowError = true;
-        expect(
-          () async => plugin.registerDeviceWhenConfigure(),
-          throwsA(const TypeMatcher<PushNotificationException>()),
-        );
-        expect(log, <Matcher>[isMethodCall('listen', arguments: null)]);
-        shouldThrowError = false;
-      },
-    );
+    test('should throw exception when configuring if there is no appId present',
+        () async {
+      final config0 = AmplifyConfig.fromJson(
+        jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
+      );
+      expect(
+        () async => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config0,
+        ),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+    });
 
-    test(
-      'registerCallback succeeds',
-      () async {
-        await plugin.registerCallback(testGlobalCallbackFunction);
-      },
-    );
-
-    test(
-      'chekcAndRecordlaunchNotification suceeds',
-      () async {
-        log.clear();
-        when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-          (_) => Future(() => androidPushMessage),
-        );
-        await plugin.chekcAndRecordlaunchNotification();
-        verify(
-          mockServiceProviderClient.recordNotificationEvent(
-            eventType: anyNamed('eventType'),
-            notification: anyNamed('notification'),
-          ),
-        ).called(1);
-      },
-    );
+    test('should fail configure when registering device is unsuccessfull',
+        () async {
+      log.clear();
+      testWidgetsFlutterBinding.defaultBinaryMessenger.setMockMethodCallHandler(
+        MethodChannel(tokenReceivedEventChannel.name),
+        throwErrorHandler,
+      );
+      expect(
+        () async => plugin.configure(
+          authProviderRepo: authProviderRepo,
+          config: config,
+        ),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+    });
   });
 
   group('PushNotificationMessage', () {

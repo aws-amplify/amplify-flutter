@@ -12,7 +12,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _tokenReceivedEventChannel = EventChannel(
@@ -156,15 +155,20 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       authProviderRepo: authProviderRepo,
     );
 
-    await registerDeviceWhenConfigure();
-    attachEventChannelListeners();
+    await _registerDeviceWhenConfigure();
+    _attachEventChannelListeners();
 
-    await initializeBackgroundMethods();
+    if (Platform.isAndroid) {
+      // Register the background processor callback
+      await _registerCallback(
+        _backgroundProcessor,
+      );
+    }
 
     // Explicitly set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
     _flutterApi.setProvider(_serviceProviderClient);
 
-    await chekcAndRecordlaunchNotification();
+    await _chekcAndRecordlaunchNotification();
 
     // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
     await _amplifySecureStorage.write(
@@ -214,25 +218,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _hostApi.setBadgeCount(badgeCount);
   }
 
-  @visibleForTesting
-  Future<void> initializeBackgroundMethods() async {
-    if (Platform.isAndroid) {
-      // Register the background processor callback
-      await registerCallback(
-        _backgroundProcessor,
-      );
-    } else if (Platform.isIOS) {
-      await onNotificationReceivedInBackground(
-        (remotePushMessage) => _serviceProviderClient.recordNotificationEvent(
-          eventType: PinpointEventType.backgroundMessageReceived,
-          notification: remotePushMessage,
-        ),
-      );
-    }
-  }
-
-  @visibleForTesting
-  Future<void> registerCallback(
+  Future<void> _registerCallback(
     Future<void> Function() callback,
   ) async {
     final callbackHandle = PluginUtilities.getCallbackHandle(callback);
@@ -248,8 +234,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     _logger.info('Successfully registered callback');
   }
 
-  @visibleForTesting
-  Future<void> chekcAndRecordlaunchNotification() async {
+  Future<void> _chekcAndRecordlaunchNotification() async {
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
     if (rawLaunchNotification != null) {
       final launchNotification =
@@ -259,12 +244,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  @visibleForTesting
-  Future<void> registerDeviceWhenConfigure() async {
+  Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
       deviceToken = await onTokenReceived.first;
-    } on Exception catch (error) {
+    } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
       throw PushNotificationException(
@@ -311,8 +295,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     }
   }
 
-  @visibleForTesting
-  void attachEventChannelListeners() {
+  void _attachEventChannelListeners() {
     // Initialize listeners
     onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
       _logger.error(
