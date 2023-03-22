@@ -1,3 +1,15 @@
+## 1.0.0-next.5
+
+### Fixes
+- fix(authenticator): Hub event processing
+- fix(authenticator): Verify attribute state
+
+### Features
+- feat(authenticator): Add AutoFill Capabilities ([#2306](https://github.com/aws-amplify/amplify-flutter/pull/2306))
+
+### Breaking Changes
+- refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
+
 ## 1.0.0-next.4+2
 
 - Minor bug fixes and improvements

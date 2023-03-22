@@ -1,3 +1,8 @@
+## 1.0.0-next.7
+
+### Fixes
+- fix(android): Bump Amplify Android to 2.4.1
+
 ## 1.0.0-next.6
 
 - Minor bug fixes and improvements

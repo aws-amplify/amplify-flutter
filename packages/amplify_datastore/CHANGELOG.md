@@ -1,3 +1,13 @@
+## 1.0.0-next.7
+
+### Fixes
+- fix(android): Bump Amplify Android to 2.4.1
+- fix(datastore): support use of java8 features in the example App
+- fix(ios): Bump Amplify iOS to 1.29.1
+
+### Breaking Changes
+- chore(datastore)!: Reorganize + import cleanup ([#2760](https://github.com/aws-amplify/amplify-flutter/pull/2760))
+
 ## 1.0.0-next.6
 
 - Minor bug fixes and improvements
