@@ -105,6 +105,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     OnRemoteMessageCallback callback,
   ) async {
     if (Platform.isAndroid) {
+      final prefs = await SharedPreferences.getInstance();
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       if (callbackHandle == null) {
         throw const PushNotificationException(
@@ -113,11 +114,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
               'Make the callback function given to the API a top-level or a static function.',
         );
       }
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.reload();
       await prefs.setInt(_externalHandleKey, callbackHandle.toRawHandle());
     } else if (Platform.isIOS) {
-      await _flutterApi.registerOnReceivedInBackgroundCallback(callback);
+      _flutterApi.registerOnReceivedInBackgroundCallback(callback);
     }
   }
 
@@ -155,9 +154,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // register device, attach internal listeners and internal background callbacks
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
-    await _initializeBackgroundMethods();
+    if (Platform.isAndroid) {
+      await _registerBackgroundProcessorForAndroid();
+    }
 
-    // Explicitly set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
+    // Set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
     _flutterApi.serviceProviderClient = _serviceProviderClient;
 
     final rawLaunchNotification = await _hostApi.getLaunchNotification();
@@ -216,30 +217,14 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     await _hostApi.setBadgeCount(badgeCount);
   }
 
-  Future<void> _initializeBackgroundMethods() async {
-    if (Platform.isAndroid) {
-      await _registerCallback(
-        _backgroundProcessor,
-      );
-    } else if (Platform.isIOS) {
-      await onNotificationReceivedInBackground(
-        (remotePushMessage) => _serviceProviderClient.recordNotificationEvent(
-          eventType: PinpointEventType.backgroundMessageReceived,
-          notification: remotePushMessage,
-        ),
-      );
-    }
-  }
-
-  Future<void> _registerCallback(
-    Future<void> Function() callback,
-  ) async {
-    final callbackHandle = PluginUtilities.getCallbackHandle(callback);
+  Future<void> _registerBackgroundProcessorForAndroid() async {
+    final callbackHandle =
+        PluginUtilities.getCallbackHandle(_backgroundProcessor);
     if (callbackHandle == null) {
       throw const PushNotificationException(
         'Callback is not a global or static function',
         recoverySuggestion:
-            'Make the callback function given to the API a top-level or a static function.',
+            'Make the function a top-level or a static function.',
       );
     }
     await _hostApi.registerCallbackFunction(
@@ -336,29 +321,20 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   _PushNotificationsFlutterApi() {
     PushNotificationsFlutterApi.setup(this);
   }
-  final _eventQueue = <Map<Object?, Object?>>[];
+  final _eventQueue = <PushNotificationMessage>[];
 
   ServiceProviderClient? _serviceProviderClient;
-
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
 
-  Future<void> registerOnReceivedInBackgroundCallback(
+  void registerOnReceivedInBackgroundCallback(
     OnRemoteMessageCallback callback,
-  ) async {
+  ) {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
-    unawaited(_flushEvents());
   }
 
   set serviceProviderClient(ServiceProviderClient serviceProviderClient) {
     _serviceProviderClient = serviceProviderClient;
-  }
-
-  void recordPushEvent(PushNotificationMessage pushNotificationMessage) {
-    _serviceProviderClient?.recordNotificationEvent(
-      eventType: PinpointEventType.backgroundMessageReceived,
-      notification: pushNotificationMessage,
-    );
   }
 
   Future<void> dispatchToExternalHandle(
@@ -383,7 +359,7 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
         'Invalid callback type: ${externalCallback.runtimeType}',
       );
     }
-    recordPushEvent(pushNotificationMessage);
+
     externalCallback(pushNotificationMessage);
   }
 
@@ -391,26 +367,30 @@ class _PushNotificationsFlutterApi implements PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
     Map<Object?, Object?> payload,
   ) async {
-    // Always flush if it's Android becasue we don't maintain a list of callbacks like on iOS.
-    if (_onNotificationReceivedInBackgroundCallbacks.isNotEmpty ||
-        Platform.isAndroid) {
-      await _flushEvents(withItem: payload);
+    final notification = PushNotificationMessage.fromJson(payload);
+
+    if (_serviceProviderClient != null) {
+      await flushEvents(withItem: notification);
     } else {
-      _eventQueue.add(payload);
+      _eventQueue.add(notification);
     }
+
+    await dispatchToExternalHandle(notification);
+    await Future.wait(
+      _onNotificationReceivedInBackgroundCallbacks.map(
+        (callback) async {
+          await callback(notification);
+        },
+      ),
+    );
   }
 
-  Future<void> _flushEvents({Map<Object?, Object?>? withItem}) async {
+  Future<void> flushEvents({PushNotificationMessage? withItem}) async {
     for (final element
-        in [..._eventQueue, withItem].whereType<Map<Object?, Object?>>()) {
-      final notification = PushNotificationMessage.fromJson(element);
-      await dispatchToExternalHandle(notification);
-      await Future.wait(
-        _onNotificationReceivedInBackgroundCallbacks.map(
-          (callback) async {
-            await callback(notification);
-          },
-        ),
+        in [..._eventQueue, withItem].whereType<PushNotificationMessage>()) {
+      await _serviceProviderClient?.recordNotificationEvent(
+        eventType: PinpointEventType.backgroundMessageReceived,
+        notification: element,
       );
     }
     _eventQueue.clear();
