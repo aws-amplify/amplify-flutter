@@ -2,7 +2,7 @@ name: {{name}}
 description: A starting point for Amplify Dart packages.
 version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/next/{{path}}
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/{{{path}}}
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
