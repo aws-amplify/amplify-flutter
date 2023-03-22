@@ -1,3 +1,7 @@
+## 0.2.5 (2023-03-22)
+
+- feat(authenticator): Add AutoFill Capabilities ([#2306](https://github.com/aws-amplify/amplify-flutter/pull/2306)) 
+
 ## 0.2.4 (2022-11-09)
 
 - fix(authenticator): remove unnecessary assertion in PendingVerificationCheckState constructor ([#2324](https://github.com/aws-amplify/amplify-flutter/pull/2324))

@@ -1,3 +1,7 @@
+## 0.6.13 (2023-03-22)
+
+- chore: Bump Amplify Android to 1.38.2
+
 ## 0.6.12 (2023-01-24)
 
 - chore: Bump Android SDK to 1.37.12 ([#2596](https://github.com/aws-amplify/amplify-flutter/pull/2596))

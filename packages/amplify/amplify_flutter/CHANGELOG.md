@@ -1,3 +1,9 @@
+## 0.6.13 (2023-03-22)
+
+- feat(authenticator): Add AutoFill Capabilities ([#2306](https://github.com/aws-amplify/amplify-flutter/pull/2306))
+- chore: Bump Amplify Android to 1.38.2
+- chore: Bump Amplify iOS to 1.29.1
+
 ## 0.6.12 (2023-01-24)
 
 - chore: Bump Android SDK to 1.37.12 ([#2596](https://github.com/aws-amplify/amplify-flutter/pull/2596))
