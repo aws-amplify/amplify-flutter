@@ -422,7 +422,10 @@ class Repo {
 
   /// Updates the constraint for [package] in [dependent].
   void updateConstraint(PackageInfo package, PackageInfo dependent) {
-    final newVersion = versionChanges.proposedVersion(package.name)!;
+    final newVersion = versionChanges.proposedVersion(package.name);
+    if (newVersion == null) {
+      return;
+    }
     final hasDependency =
         dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name);
     final hasDevDependency =
