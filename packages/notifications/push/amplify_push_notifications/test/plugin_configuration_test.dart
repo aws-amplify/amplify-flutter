@@ -181,9 +181,17 @@ void main() {
       },
     );
   });
+
+  group('PushNotificationMessage', () {
+    test('fromJson should return the correct object', () {
+      final push = PushNotificationMessage.fromJson(androidPushMessage);
+      print([push.fcmOptions?.sentTime]);
+    });
+  });
 }
+
 
 // TODO: test PushNotification.fromJson
 // TODO: Test Pinpoint Provider, background processor
 // TODO: Test flutterAPI
-// TODO: Test overrriden API methods y stubbing native calls
+// TODO: Test overrriden API methods by stubbing native calls
