@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 final _logger =
@@ -104,31 +104,40 @@ Future<String> adminCreateUser(
     'autoConfirm': autoConfirm,
     'email': attributes
         .firstWhere(
-            (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
-            orElse: () => AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.email,
-                value: generateEmail()))
+          (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+          orElse: () => AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.email,
+            value: generateEmail(),
+          ),
+        )
         .value,
     'enableMFA': enableMfa,
     'givenName': attributes
         .firstWhere(
-            (el) => el.userAttributeKey == CognitoUserAttributeKey.givenName,
-            orElse: () => const AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.givenName,
-                value: 'default_given_name'))
+          (el) => el.userAttributeKey == CognitoUserAttributeKey.givenName,
+          orElse: () => const AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.givenName,
+            value: 'default_given_name',
+          ),
+        )
         .value,
     'name': attributes
-        .firstWhere((el) => el.userAttributeKey == CognitoUserAttributeKey.name,
-            orElse: () => const AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.name,
-                value: 'default_name'))
+        .firstWhere(
+          (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+          orElse: () => const AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.name,
+            value: 'default_name',
+          ),
+        )
         .value,
     'phoneNumber': attributes
         .firstWhere(
-            (el) => el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
-            orElse: () => AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
-                value: generatePhoneNumber()))
+          (el) => el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
+          orElse: () => AuthUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            value: generatePhoneNumber(),
+          ),
+        )
         .value,
     'username': username,
     'verifyAttributes': verifyAttributes,
@@ -185,8 +194,9 @@ class UserAttribute {
   final String value;
 }
 
-/// Returns the OTP code for [username]. Must be called before the network call
-/// generating the OTP code.
+/// Returns the OTP code for [userAttribute].
+///
+/// Must be called before the network call generating the OTP code.
 Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
   final establishedCompleter = Completer<void>();
   final otpCodes = getOtpCodes(
@@ -228,7 +238,7 @@ Stream<CreateMFACodeResponse> getOtpCodes({void Function()? onEstablished}) {
       }
     }''';
 
-  final Stream<GraphQLResponse<String>> operation = Amplify.API.subscribe(
+  final operation = Amplify.API.subscribe(
     GraphQLRequest<String>(
       document: subscriptionDocument,
     ),
