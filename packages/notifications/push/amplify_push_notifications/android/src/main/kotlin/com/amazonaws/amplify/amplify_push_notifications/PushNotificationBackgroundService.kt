@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "PushBackgroundService"
 
+//TODO(Samaritan1011001): Replace deprecated JobIntentService
 class PushNotificationBackgroundService : JobIntentService(), MethodChannel.MethodCallHandler {
 
     /**
@@ -83,18 +84,23 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
             val mainHandler = Handler(context.mainLooper)
             mainHandler.post {
                 val loader = FlutterLoader()
-                loader.startInitialization(context);
+                loader.startInitialization(context)
                 loader.ensureInitializationCompleteAsync(
                     context,
                     null,
                     mainHandler,
                 ) {
+
+                    // Get the background engine from FlutterEngineCache, returns null if not found
                     backgroundFlutterEngine = FlutterEngineCache.getInstance()
                         .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
 
+                    // If the Flutter engine is not found in cache, create and put into cache
                     if (backgroundFlutterEngine == null) {
                         // Create a background Flutter Engine
                         backgroundFlutterEngine = FlutterEngine(context)
+                        // Put it into cache so the next notification coming through in killed state
+                        // can use the same Flutter engine.
                         FlutterEngineCache.getInstance().put(
                             PushNotificationPluginConstants.BACKGROUND_ENGINE_ID,
                             backgroundFlutterEngine,
@@ -121,7 +127,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         val remoteMessage = RemoteMessage(intent.extras)
         val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
 
-        AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+        AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
             notificationPayload
         ) {}
     }

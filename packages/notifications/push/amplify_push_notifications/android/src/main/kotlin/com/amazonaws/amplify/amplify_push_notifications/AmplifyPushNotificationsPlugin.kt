@@ -167,7 +167,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
-                StreamHandlers.notificationOpened?.send(
+                StreamHandlers.notificationOpened!!.send(
                     notificationHashMap
                 )
             }

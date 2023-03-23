@@ -11,26 +11,47 @@ import 'amplifyconfiguration.dart';
 
 String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
-void bgHandler(PushNotificationMessage pushNotificationMessage) async {
-  print('bgHandler');
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.reload();
-    var globalBgCallbackCount = prefs.getInt(globalBgCallbackKey);
-    globalBgCallbackCount =
-        globalBgCallbackCount != null ? (globalBgCallbackCount + 1) : 1;
-    await prefs.setInt(
-      globalBgCallbackKey,
-      globalBgCallbackCount,
-    );
-  } on Exception catch (e) {
-    print(' error in handler: $e');
-  }
-  return;
+Future<void> myCallback(PushNotificationMessage notification) async {
+  print('🚀 onNotificationReceivedInBackground callback: $notification');
+  await Future<void>.delayed(const Duration(seconds: 5));
+  print(
+    '  🚀 onNotificationReceivedInBackground callback: delayed for 5 seconds to complete',
+  );
 }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    final authPlugin = AmplifyAuthCognito();
+    final notificationsPlugin = AmplifyPushNotificationsPinpoint();
+
+    // Needs to be given in the main function here so iOS can wire up the callback when the app wakes up from killed state
+    notificationsPlugin.onNotificationReceivedInBackground(myCallback);
+
+    if (!Amplify.isConfigured) {
+      await Amplify.addPlugins([authPlugin, notificationsPlugin]);
+      await Amplify.configure(amplifyconfig);
+
+      // Required to call this after Amplify.configure.
+      // Doesn't get called on app start as event is swallowed by library to register device.
+      Amplify.Notifications.Push.onTokenReceived.listen((event) {
+        print('🚀 onTokenReceived $event');
+      });
+
+      // Required to call this after Amplify.configure.
+      Amplify.Notifications.Push.onNotificationReceivedInForeground
+          .listen((event) {
+        print('🚀 onNotificationReceivedInForeground $event');
+      });
+
+      // Required to call this after Amplify.configure.
+      Amplify.Notifications.Push.onNotificationOpened.listen((event) {
+        print('🚀 onNotificationOpened $event');
+      });
+    }
+  } on Exception catch (e) {
+    safePrint(e.toString());
+  }
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
 }
@@ -69,42 +90,11 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _configureAmplify();
-  }
-
   void getLaunchNotif() {
     setState(() {
       launchNotificaitonAvailable =
           Amplify.Notifications.Push.launchNotification;
     });
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> _configureAmplify() async {
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-    try {
-      final notificationsPlugin = AmplifyPushNotificationsPinpoint();
-      final authPlugin = AmplifyAuthCognito();
-
-      if (!Amplify.isConfigured) {
-        await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-        await Amplify.configure(amplifyconfig);
-        Amplify.Notifications.Push.onNotificationReceivedInBackground(
-          bgHandler,
-        );
-        setState(() {
-          isConfigured = true;
-        });
-      }
-    } on Exception catch (e) {
-      safePrint(e.toString());
-    }
   }
 
   Widget headerText(String title) => Padding(
@@ -231,7 +221,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   Amplify.Notifications.Push.onNotificationReceivedInBackground(
-                    bgHandler,
+                    myCallback,
                   );
                   setState(() {
                     isBackgroundListernerInitialized = true;

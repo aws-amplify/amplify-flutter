@@ -43,7 +43,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         // Should initialize normally as it's initialized for the first time.
         StreamHandlers.initStreamHandlers(false)
-        StreamHandlers.tokenReceived?.send(mapOf("token" to token))
+        StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
     }
 
     override fun handleIntent(intent: Intent) {
@@ -71,7 +71,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
                 val notificationHashMap = payload.asChannelMap()
-                StreamHandlers.foregroundMessageReceived?.send(notificationHashMap)
+                StreamHandlers.foregroundMessageReceived!!.send(notificationHashMap)
             } else {
                 try {
                     utils.showNotification(
@@ -101,7 +101,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             )
         } else {
             val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
-            AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
+            AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
                 notificationPayload
             ) {}
         }
