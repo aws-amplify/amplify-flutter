@@ -62,11 +62,11 @@ fun refreshToken() {
             if (task.exception == null) {
                 io.flutter.Log.e(TAG, "UnknownError: fetching device token.")
             } else {
-                StreamHandlers.tokenReceived?.sendError(task.exception!!)
+                StreamHandlers.tokenReceived!!.sendError(task.exception!!)
             }
             return@addOnCompleteListener
         }
-        StreamHandlers.tokenReceived?.send(
+        StreamHandlers.tokenReceived!!.send(
             mapOf(
                 "token" to task.result
             )

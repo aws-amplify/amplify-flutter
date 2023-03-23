@@ -18,10 +18,10 @@ import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.PluginRegistry
 import kotlinx.coroutines.*
-import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 
 private const val TAG = "AmplifyPushNotificationsPlugin"
 
@@ -99,7 +99,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
             flutterPluginBinding.flutterEngine
         )
         // Force init stream handlers when the app is opened from killed state so old handlers are removed.
-        StreamHandlers.initStreamHandlers()
+        StreamHandlers.initStreamHandlers(true)
         StreamHandlers.initEventChannels(mainBinaryMessenger!!)
         PushNotificationsHostApi.setup(mainBinaryMessenger, this)
         flutterApi = PushNotificationsFlutterApi(mainBinaryMessenger)
@@ -124,10 +124,17 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         mainActivity = binding.activity
         activityBinding = binding
         binding.addOnNewIntentListener(this)
-        binding.activity.intent.putExtra(
-            PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
-        )
-        onNewIntent(binding.activity.intent)
+
+        // Check for supported extras and not add the flag for other intents such as app opening via icon tap
+        binding.activity.intent.extras?.let {
+            val payload = it.asPayload()
+            if (payload != null) {
+                binding.activity.intent.putExtra(
+                    PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
+                )
+                onNewIntent(binding.activity.intent)
+            }
+        }
     }
 
     override fun onDetachedFromActivity() {
@@ -160,7 +167,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
-                StreamHandlers.notificationOpened?.send(
+                StreamHandlers.notificationOpened!!.send(
                     notificationHashMap
                 )
             }
@@ -168,6 +175,14 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return true
     }
 
+    override fun registerCallbackFunction(
+        callbackHandle: Long,
+    ) {
+        sharedPreferences.edit()
+            .putLong(PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, callbackHandle)
+            .apply()
+        return
+    }
 
     override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
         val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()

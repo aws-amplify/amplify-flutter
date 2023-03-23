@@ -308,4 +308,23 @@ void PushNotificationsHostApiSetup(id<FlutterBinaryMessenger> binaryMessenger, N
       [channel setMessageHandler:nil];
     }
   }
+  {
+    FlutterBasicMessageChannel *channel =
+      [[FlutterBasicMessageChannel alloc]
+        initWithName:@"dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction"
+        binaryMessenger:binaryMessenger
+        codec:PushNotificationsHostApiGetCodec()];
+    if (api) {
+      NSCAssert([api respondsToSelector:@selector(registerCallbackFunctionCallbackHandle:error:)], @"PushNotificationsHostApi api (%@) doesn't respond to @selector(registerCallbackFunctionCallbackHandle:error:)", api);
+      [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
+        NSArray *args = message;
+        NSNumber *arg_callbackHandle = GetNullableObjectAtIndex(args, 0);
+        FlutterError *error;
+        [api registerCallbackFunctionCallbackHandle:arg_callbackHandle error:&error];
+        callback(wrapResult(nil, error));
+      }];
+    } else {
+      [channel setMessageHandler:nil];
+    }
+  }
 }
