@@ -49,11 +49,6 @@ enum PermissionStatus {
   denied,
 }
 
-enum CallbackType {
-  dispatcher,
-  externalFunction,
-}
-
 @FlutterApi()
 abstract class PushNotificationsFlutterApi {
   @async
@@ -73,4 +68,6 @@ abstract class PushNotificationsHostApi {
   int getBadgeCount();
 
   void setBadgeCount(int withBadgeCount);
+
+  void registerCallbackFunction(int callbackHandle);
 }
