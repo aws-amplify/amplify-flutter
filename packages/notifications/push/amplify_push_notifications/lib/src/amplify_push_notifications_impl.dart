@@ -31,6 +31,10 @@ const _foregroundNotificationEventChannel = EventChannel(
 
 const _externalHandleKey = 'externalHandleKey';
 
+const _needsConfigurationException = PushNotificationException(
+  'Configure Amplify with Notifications Plugin before using this method.',
+);
+
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
 
@@ -94,9 +98,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Stream<String> get onTokenReceived {
     if (!_isConfigured) {
-      throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
-      );
+      throw _needsConfigurationException;
     }
     return _onTokenReceived;
   }
@@ -104,9 +106,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Stream<PushNotificationMessage> get onNotificationReceivedInForeground {
     if (!_isConfigured) {
-      throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
-      );
+      throw _needsConfigurationException;
     }
     return _onForegroundNotificationReceived;
   }
@@ -114,9 +114,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Stream<PushNotificationMessage> get onNotificationOpened {
     if (!_isConfigured) {
-      throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
-      );
+      throw _needsConfigurationException;
     }
     return _onNotificationOpened;
   }
