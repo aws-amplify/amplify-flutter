@@ -5,7 +5,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'push_notifications_background_processing_test.mocks.dart';
-import 'test_data/fake_amplify_configuration.dart';
+
+// TODO(Samaritan1011001): Add happy path tests, needs dependency injection
 
 @GenerateMocks([AmplifySecureStorage])
 void main() {
@@ -15,19 +16,6 @@ void main() {
       final mockStorage = MockAmplifySecureStorage();
       when(mockStorage.read(key: anyNamed('key')))
           .thenAnswer((_) => Future(() => null));
-
-      expect(
-        () async => amplifyBackgroundProcessing(
-          amplifySecureStorage: mockStorage,
-        ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
-      );
-    });
-
-    test('should suceed', () {
-      final mockStorage = MockAmplifySecureStorage();
-      when(mockStorage.read(key: anyNamed('key')))
-          .thenAnswer((_) => Future(() => amplifyconfig));
 
       expect(
         () async => amplifyBackgroundProcessing(

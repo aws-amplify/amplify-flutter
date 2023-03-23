@@ -148,18 +148,19 @@ void main() {
         throwsA(const TypeMatcher<PushNotificationException>()),
       );
     });
-  });
 
-  group('PushNotificationMessage', () {
-    test('fromJson should return the correct object', () {
-      final push = PushNotificationMessage.fromJson(androidPushMessage);
-      print([push.fcmOptions?.sentTime]);
+    test(
+        'should throw Exception when token, foreground and notificaiton opened API are called before configuration',
+        () async {
+      expect(
+        () async => plugin.onTokenReceived,
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
     });
   });
 }
 
 
 // TODO: test PushNotification.fromJson
-// TODO: Test Pinpoint Provider, background processor
 // TODO: Test flutterAPI
 // TODO: Test overrriden API methods by stubbing native calls

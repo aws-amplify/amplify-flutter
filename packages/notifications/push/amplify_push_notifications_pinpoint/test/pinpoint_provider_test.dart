@@ -8,6 +8,8 @@ import 'package:mockito/mockito.dart';
 import 'pinpoint_provider_test.mocks.dart';
 import 'test_data/fake_notification_messges.dart';
 
+// TODO(Samaritan1011001): Add happy path tests, needs dependency injection
+
 @GenerateMocks(
   [
     AmplifyAuthProviderRepository,
