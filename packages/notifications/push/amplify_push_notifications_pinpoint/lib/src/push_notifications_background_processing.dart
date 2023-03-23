@@ -1,11 +1,12 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_push_notifications/amplify_push_notifications.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-
-const _notificationsConfigSecureStorageKey =
-    'notificationsConfigSecureStorageKey';
 
 const _backgroundChannel = MethodChannel(
   'plugins.flutter.io/amplify_push_notification_plugin_background',
@@ -26,7 +27,7 @@ Future<void> amplifyBackgroundProcessing() async {
     ),
   );
   final amplifyconfigStr = await amplifySecureStorage.read(
-    key: _notificationsConfigSecureStorageKey,
+    key: configSecureStorageKey,
   );
   if (amplifyconfigStr == null) {
     throw const PushNotificationException(

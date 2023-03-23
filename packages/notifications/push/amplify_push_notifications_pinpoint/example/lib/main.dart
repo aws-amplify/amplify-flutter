@@ -21,31 +21,37 @@ Future<void> myCallback(PushNotificationMessage notification) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   try {
     final authPlugin = AmplifyAuthCognito();
     final notificationsPlugin = AmplifyPushNotificationsPinpoint();
 
-    notificationsPlugin.onTokenReceived.listen((event) {
-      print('🚀 onTokenReceived $event');
-    });
-    notificationsPlugin.onNotificationOpened.listen((event) {
-      print('🚀 onNotificationOpened $event');
-    });
-    notificationsPlugin.onNotificationReceivedInForeground.listen((event) {
-      print('🚀 onNotificationReceivedInForeground $event');
-    });
-
-    await notificationsPlugin.onNotificationReceivedInBackground(myCallback);
+    // Needs to be given in the main function here so iOS can wire up the callback when the app wakes up from killed state
+    notificationsPlugin.onNotificationReceivedInBackground(myCallback);
 
     if (!Amplify.isConfigured) {
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
       await Amplify.configure(amplifyconfig);
+
+      // Required to call this after Amplify.configure.
+      // Doesn't get called on app start as event is swallowed by library to register device.
+      Amplify.Notifications.Push.onTokenReceived.listen((event) {
+        print('🚀 onTokenReceived $event');
+      });
+
+      // Required to call this after Amplify.configure.
+      Amplify.Notifications.Push.onNotificationReceivedInForeground
+          .listen((event) {
+        print('🚀 onNotificationReceivedInForeground $event');
+      });
+
+      // Required to call this after Amplify.configure.
+      Amplify.Notifications.Push.onNotificationOpened.listen((event) {
+        print('🚀 onNotificationOpened $event');
+      });
     }
   } on Exception catch (e) {
     safePrint(e.toString());
   }
-
   AmplifyLogger().logLevel = LogLevel.info;
   runApp(const MyApp());
 }

@@ -14,6 +14,11 @@ import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// {@template amplify_push_notifications.config_storage}
+/// Secure storage key that holds the config file needed to be configureed in the background processor function.
+/// {@endtemplate}
+const configSecureStorageKey = 'configSecureStorageKey';
+
 const _tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
@@ -25,9 +30,6 @@ const _foregroundNotificationEventChannel = EventChannel(
 );
 
 const _externalHandleKey = 'externalHandleKey';
-
-const _notificationsConfigSecureStorageKey =
-    'notificationsConfigSecureStorageKey';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
@@ -90,22 +92,40 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }
 
   @override
-  Stream<String> get onTokenReceived => _onTokenReceived;
+  Stream<String> get onTokenReceived {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before adding the listener.',
+      );
+    }
+    return _onTokenReceived;
+  }
 
   @override
-  Stream<PushNotificationMessage> get onNotificationReceivedInForeground =>
-      _onForegroundNotificationReceived;
+  Stream<PushNotificationMessage> get onNotificationReceivedInForeground {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before adding the listener.',
+      );
+    }
+    return _onForegroundNotificationReceived;
+  }
 
   @override
-  Stream<PushNotificationMessage> get onNotificationOpened =>
-      _onNotificationOpened;
+  Stream<PushNotificationMessage> get onNotificationOpened {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before adding the listener.',
+      );
+    }
+    return _onNotificationOpened;
+  }
 
   @override
-  Future<void> onNotificationReceivedInBackground(
+  void onNotificationReceivedInBackground(
     OnRemoteMessageCallback callback,
-  ) async {
+  ) {
     if (Platform.isAndroid) {
-      final prefs = await SharedPreferences.getInstance();
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       if (callbackHandle == null) {
         throw const PushNotificationException(
@@ -114,7 +134,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
               'Make the callback function given to the API a top-level or a static function.',
         );
       }
-      await prefs.setInt(_externalHandleKey, callbackHandle.toRawHandle());
+      unawaited(
+        Future(() async {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setInt(_externalHandleKey, callbackHandle.toRawHandle());
+        }),
+      );
     } else if (Platform.isIOS) {
       _flutterApi.registerOnReceivedInBackgroundCallback(callback);
     }
@@ -138,7 +163,9 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }) async {
     final notificationsConfig = config?.notifications?.awsPlugin;
     if (notificationsConfig == null) {
-      throw const AnalyticsException('No Pinpoint plugin config available');
+      throw const PushNotificationException(
+        'No Pinpoint plugin config available',
+      );
     }
 
     if (_isConfigured) {
@@ -171,7 +198,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
     // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
     await _amplifySecureStorage.write(
-      key: _notificationsConfigSecureStorageKey,
+      key: configSecureStorageKey,
       value: jsonEncode(config),
     );
     _isConfigured = true;
@@ -236,7 +263,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
-      deviceToken = await onTokenReceived.first;
+      deviceToken = await _onTokenReceived.first;
     } on Exception catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
@@ -286,12 +313,12 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   void _attachEventChannelListeners() {
     // Initialize listeners
-    onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
+    _onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
       _logger.error(
         'Unexpected error $error received from onTokenReceived event channel.',
       );
     });
-    onNotificationReceivedInForeground
+    _onForegroundNotificationReceived
         .listen(_foregroundNotificationListener)
         .onError((Object error) {
       _logger.error(
@@ -299,7 +326,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       );
     });
 
-    onNotificationOpened
+    _onNotificationOpened
         .listen(_notificationOpenedListener)
         .onError((Object error) {
       _logger.error(
