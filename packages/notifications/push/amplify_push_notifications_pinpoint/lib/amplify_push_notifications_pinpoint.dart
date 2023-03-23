@@ -5,6 +5,7 @@ library amplify_push_notifications_pinpoint;
 
 import 'package:amplify_push_notifications/amplify_push_notifications.dart';
 import 'package:amplify_push_notifications_pinpoint/src/pinpoint_provider.dart';
+import 'package:amplify_push_notifications_pinpoint/src/push_notifications_background_processing.dart';
 
 /// {@template amplify_push_notifications_pinpoint.amplify_push_notifications_pinpoint}
 /// The AWS Pinpoint implementation of the Amplify Push Notification category.
@@ -14,5 +15,6 @@ class AmplifyPushNotificationsPinpoint extends AmplifyPushNotifications {
   AmplifyPushNotificationsPinpoint()
       : super(
           serviceProviderClient: PinpointProvider(),
+          backgroundProcessor: amplifyBackgroundProcessing,
         );
 }

@@ -14,6 +14,7 @@ import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
 
+
 private const val TAG = "PushNotificationFirebaseMessagingService"
 
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
@@ -32,7 +33,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         super.onCreate()
         utils = PushNotificationsUtils(baseContext)
         engineGroup = FlutterEngineGroup(baseContext)
-
     }
 
     /**
@@ -42,8 +42,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onNewToken(token: String) {
         // Should initialize normally as it's initialized for the first time.
-        StreamHandlers.initStreamHandlers()
-        StreamHandlers.tokenReceived?.send(mapOf("token" to token))
+        StreamHandlers.initStreamHandlers(false)
+        StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
     }
 
     override fun handleIntent(intent: Intent) {
@@ -71,7 +71,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
                 val notificationHashMap = payload.asChannelMap()
-                StreamHandlers.foregroundMessageReceived?.send(notificationHashMap)
+                StreamHandlers.foregroundMessageReceived!!.send(notificationHashMap)
             } else {
                 try {
                     utils.showNotification(
@@ -80,10 +80,8 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                     Log.i(
                         TAG, "App is in background, start background service and enqueue work"
                     )
-                    runAppFromKilledState()
-                    AmplifyPushNotificationsPlugin.flutterApi?.onNotificationReceivedInBackground(
-                        payload.asChannelMap()
-                    ) {}
+                    runAppFromKilledState(remoteMessage)
+
                 } catch (exception: Exception) {
                     Log.e(
                         TAG, "Something went wrong while starting background engine $exception"
@@ -93,14 +91,19 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun runAppFromKilledState(){
+    private fun runAppFromKilledState(remoteMessage: RemoteMessage) {
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
-            // Create and run the default Flutter engine only when the main one is not running
-            // This calls creates the Flutter engine and runs the Flutter App's lib/main.dart
-            engineGroup.createAndRunDefaultEngine(baseContext)
+            PushNotificationBackgroundService.enqueueWork(
+                baseContext, remoteMessage.toIntent()
+            )
+        } else {
+            val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
+            AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
+                notificationPayload
+            ) {}
         }
     }
 }
