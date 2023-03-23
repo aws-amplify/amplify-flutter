@@ -62,7 +62,7 @@ void main() {
 
     group('_getResolvedPrefix()', () {
       test(
-          'should throw a S3Exception if supplied prefix resolver throws an exception',
+          'should throw a StorageException if supplied prefix resolver throws an exception',
           () async {
         const testOptions = StorageListOptions(
           accessLevel: StorageAccessLevel.guest,
@@ -74,7 +74,7 @@ void main() {
 
         await expectLater(
           storageS3Service.list(path: 'a path', options: testOptions),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
 
         verify(() => logger.error(any(), any(), any())).called(1);

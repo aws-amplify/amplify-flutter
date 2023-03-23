@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/s3_download_task.dart';
 import 'package:mocktail/mocktail.dart';
@@ -190,7 +191,7 @@ void main() {
       });
 
       test(
-          'it should throw S3Exception when getObject response doesn\'t include a value contentLength header',
+          'it should throw StorageException when getObject response doesn\'t include a value contentLength header',
           () async {
         final testGetObjectOutput = GetObjectOutput(
           body: Stream.value([101]),
@@ -226,7 +227,7 @@ void main() {
 
         await expectLater(
           downloadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
         expect(onErrorHasBeenCalled, isTrue);
       });
@@ -385,8 +386,8 @@ void main() {
         await downloadTask.start();
         await downloadTask.cancel();
 
-        expect(downloadTask.result, throwsA(isA<S3Exception>()));
-        expect(downloadTask.resume, throwsA(isA<S3Exception>()));
+        expect(downloadTask.result, throwsA(isA<StorageException>()));
+        expect(downloadTask.resume, throwsA(isA<StorageException>()));
       });
     });
 
@@ -434,13 +435,14 @@ void main() {
         await downloadTask.start();
         await downloadTask.cancel();
         expect(receivedState.last, S3TransferState.canceled);
-        expect(downloadTask.result, throwsA(isA<S3Exception>()));
+        expect(downloadTask.result, throwsA(isA<StorageException>()));
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
 
     group('error handling around S3Client.getObject', () {
-      test('should forward S3Exception when getObject returns no body', () {
+      test('should forward StorageException when getObject returns no body',
+          () {
         final testGetObjectOutput = GetObjectOutput(contentLength: Int64(1024));
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
 
@@ -467,7 +469,7 @@ void main() {
 
         unawaited(downloadTask.start());
 
-        expect(downloadTask.result, throwsA(isA<S3Exception>()));
+        expect(downloadTask.result, throwsA(isA<StorageException>()));
       });
 
       final _ = {

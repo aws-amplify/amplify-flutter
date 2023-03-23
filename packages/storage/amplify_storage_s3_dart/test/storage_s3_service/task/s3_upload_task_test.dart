@@ -321,7 +321,7 @@ void main() {
         );
       });
 
-      test('should throw S3Exception when prefix resolving fails', () {
+      test('should throw StorageException when prefix resolving fails', () {
         final prefixResolverThrowsException =
             TestCustomPrefixResolverThrowsException();
 
@@ -338,7 +338,7 @@ void main() {
         );
 
         unawaited(uploadDataTask.start());
-        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        expect(uploadDataTask.result, throwsA(isA<StorageException>()));
       });
 
       test(
@@ -377,7 +377,7 @@ void main() {
       });
 
       test(
-          'cancel() should cancel underlying put object request and throw a S3Exception',
+          'cancel() should cancel underlying put object request and throw a StorageException',
           () async {
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -418,7 +418,10 @@ void main() {
 
         completer.complete();
 
-        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        await expectLater(
+          uploadDataTask.result,
+          throwsA(isA<StorageException>()),
+        );
         verify(putSmithyOperation.cancel).called(1);
       });
     });
@@ -545,7 +548,7 @@ void main() {
       });
 
       test(
-          'cancel() should cancel underlying put object request and throw a S3Exception',
+          'cancel() should cancel underlying put object request and throw a StorageException',
           () async {
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -586,7 +589,10 @@ void main() {
 
         completer.complete();
 
-        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        await expectLater(
+          uploadDataTask.result,
+          throwsA(isA<StorageException>()),
+        );
         verify(putSmithyOperation.cancel).called(1);
       });
 
@@ -1230,7 +1236,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -1317,7 +1323,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -1467,7 +1473,7 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               isA<StorageAccessDeniedException>().having(
@@ -1560,7 +1566,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
 
         expect(finalState, S3TransferState.failure);
@@ -1625,10 +1631,10 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageException>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<S3Exception>().having(
+              isA<StorageException>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
@@ -1785,7 +1791,7 @@ void main() {
         });
 
         test(
-            'cancel() should terminate ongoing multipart upload and throw a S3Exception',
+            'cancel() should terminate ongoing multipart upload and throw a StorageException',
             () async {
           final receivedState = <S3TransferState>[];
           final uploadTask = S3UploadTask.fromAWSFile(
@@ -1839,7 +1845,7 @@ void main() {
 
           await expectLater(
             uploadTask.result,
-            throwsA(isA<S3Exception>()),
+            throwsA(isA<StorageException>()),
           );
 
           verify(uploadPartSmithyOperation1.cancel).called(1);
