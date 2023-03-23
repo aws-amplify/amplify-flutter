@@ -63,6 +63,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((payload) {
       return payload['token'] as String;
     }).distinct();
+
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -87,6 +88,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   PushNotificationMessage? get launchNotification {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     final result = _launchNotification;
     _launchNotification = null;
     return result;
@@ -96,7 +102,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<String> get onTokenReceived {
     if (!_isConfigured) {
       throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
+        'Configure Amplify with Notifications Plugin before using this method.',
       );
     }
     return _onTokenReceived;
@@ -106,7 +112,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationReceivedInForeground {
     if (!_isConfigured) {
       throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
+        'Configure Amplify with Notifications Plugin before using this method.',
       );
     }
     return _onForegroundNotificationReceived;
@@ -116,7 +122,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Stream<PushNotificationMessage> get onNotificationOpened {
     if (!_isConfigured) {
       throw const PushNotificationException(
-        'Configure Amplify with Notifications Plugin before adding the listener.',
+        'Configure Amplify with Notifications Plugin before using this method.',
       );
     }
     return _onNotificationOpened;
@@ -151,6 +157,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     required String userId,
     required AnalyticsUserProfile userProfile,
   }) async {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     await _serviceProviderClient.identifyUser(
       userId: userId,
       userProfile: userProfile,
@@ -211,6 +222,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     bool badge = true,
     bool sound = true,
   }) {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     return _hostApi.requestPermissions(
       PermissionsOptions(
         alert: alert,
@@ -222,6 +238,11 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<PushNotificationPermissionStatus> getPermissionStatus() async {
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     final result = await _hostApi.getPermissionStatus();
     switch (result.status) {
       case PermissionStatus.denied:
@@ -237,11 +258,27 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<int> getBadgeCount() {
+    if (!Platform.isIOS) {
+      _logger.error('Not supported on this platform');
+    }
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     return _hostApi.getBadgeCount();
   }
 
   @override
   Future<void> setBadgeCount(int badgeCount) async {
+    if (!Platform.isIOS) {
+      _logger.error('Not supported on this platform');
+    }
+    if (!_isConfigured) {
+      throw const PushNotificationException(
+        'Configure Amplify with Notifications Plugin before using this method.',
+      );
+    }
     await _hostApi.setBadgeCount(badgeCount);
   }
 
@@ -264,7 +301,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
-      deviceToken = await onTokenReceived.first;
+      deviceToken = await _onTokenReceived.first;
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token

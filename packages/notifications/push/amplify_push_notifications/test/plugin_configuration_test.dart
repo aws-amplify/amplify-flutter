@@ -149,12 +149,159 @@ void main() {
       );
     });
 
-    test(
-        'should throw Exception when token, foreground and notificaiton opened API are called before configuration',
-        () async {
+    test('should throw PushNotificationException if not configured', () async {
       expect(
         () async => plugin.onTokenReceived,
         throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.onNotificationReceivedInForeground,
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.onNotificationOpened,
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.launchNotification,
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.identifyUser(
+          userId: 'userId',
+          userProfile: AnalyticsUserProfile(),
+        ),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.requestPermissions(),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.getPermissionStatus(),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+
+      expect(
+        () async => plugin.setBadgeCount(42),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+      expect(
+        () async => plugin.getBadgeCount(),
+        throwsA(const TypeMatcher<PushNotificationException>()),
+      );
+    });
+  });
+
+  group('Permission APIs', () {
+    setUp(() async {
+      log.clear();
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) => Future(() => androidPushMessage),
+      );
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+    });
+    test('getPermissionStatus returns a permission status', () async {
+      when(mockPushNotificationsHostApi.getPermissionStatus()).thenAnswer(
+        (_) => Future(
+          () => GetPermissionStatusResult(status: PermissionStatus.granted),
+        ),
+      );
+      final res = await plugin.getPermissionStatus();
+      expect(
+        res,
+        PushNotificationPermissionStatus.granted,
+      );
+    });
+
+    test('requestPermissions returns a permission status', () async {
+      when(mockPushNotificationsHostApi.requestPermissions(any)).thenAnswer(
+        (_) => Future(
+          () => true,
+        ),
+      );
+      final res = await plugin.requestPermissions();
+      expect(
+        res,
+        true,
+      );
+    });
+  });
+
+  group('Badge count APIs', () {
+    setUp(() async {
+      log.clear();
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) => Future(() => androidPushMessage),
+      );
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+    });
+    test('getBadgeCount returns a badge count', () async {
+      when(mockPushNotificationsHostApi.getBadgeCount()).thenAnswer(
+        (_) => Future(
+          () => 42,
+        ),
+      );
+      final res = await plugin.getBadgeCount();
+      expect(
+        res,
+        42,
+      );
+    });
+
+    test('setBadgeCount calls the native layer to set', () async {
+      await plugin.setBadgeCount(42);
+      verify(
+        mockPushNotificationsHostApi.setBadgeCount(any),
+      ).called(1);
+    });
+  });
+
+  group('Analytics API', () {
+    setUp(() async {
+      log.clear();
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) => Future(() => androidPushMessage),
+      );
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+    });
+    test('identifyUser', () {
+      plugin.identifyUser(
+        userId: 'test-user-1',
+        userProfile: AnalyticsUserProfile(),
+      );
+      verify(
+        mockServiceProviderClient.identifyUser(
+          userId: anyNamed('userId'),
+          userProfile: anyNamed('userProfile'),
+        ),
+      ).called(1);
+    });
+  });
+
+  group('Notification handling APIs', () {
+    setUp(() async {
+      log.clear();
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) => Future(() => androidPushMessage),
+      );
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+    });
+    test('onNotificationReceivedInBackground', () {
+      plugin.onNotificationReceivedInBackground(
+        (_) {},
       );
     });
   });
