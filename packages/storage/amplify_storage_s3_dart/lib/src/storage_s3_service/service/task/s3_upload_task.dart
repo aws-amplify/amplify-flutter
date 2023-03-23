@@ -346,18 +346,19 @@ class S3UploadTask {
       );
 
       _state = S3TransferState.success;
-      _emitTransferProgress();
     } on CancellationException {
       _logger.debug('PutObject HTTP operation has been canceled.');
       _state = S3TransferState.canceled;
       _uploadCompleter
           .completeError(S3Exception.controllableOperationCanceled());
-      _emitTransferProgress();
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
         S3Exception.fromUnknownSmithyHttpException(error),
         stackTrace,
       );
+    } on AWSHttpException catch (error) {
+      _completeUploadWithError(S3Exception.fromAWSHttpException(error));
+    } finally {
       _emitTransferProgress();
     }
   }
@@ -486,6 +487,8 @@ class S3UploadTask {
       }
     } on smithy.UnknownSmithyHttpException catch (error) {
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -522,6 +525,8 @@ class S3UploadTask {
       // TODO(HuiSF): verify if s3Client sdk throws different exception type
       //  wrapping errors extracted from a 200 response.
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -659,6 +664,8 @@ class S3UploadTask {
       throw S3Exception.fromUnknownSmithyHttpException(error);
     } on s3.NoSuchUpload catch (error) {
       throw S3Exception.fromS3NoSuchUpload(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 

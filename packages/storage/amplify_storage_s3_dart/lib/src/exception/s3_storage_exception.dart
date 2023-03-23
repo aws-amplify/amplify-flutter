@@ -224,6 +224,16 @@ class S3Exception extends StorageException {
         recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       );
 
+  /// Creates a [NetworkException] over a [AWSHttpException] thrown from
+  /// [s3.S3Client] APIs.
+  static NetworkException fromAWSHttpException(AWSHttpException exception) {
+    return NetworkException(
+      'The request failed due to a network error.',
+      recoverySuggestion: 'Ensure that you have an active network connection',
+      underlyingException: exception,
+    );
+  }
+
   @override
   String get runtimeTypeName => 'S3Exception';
 }

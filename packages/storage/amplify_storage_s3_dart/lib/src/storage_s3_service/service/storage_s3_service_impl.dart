@@ -124,6 +124,8 @@ class StorageS3Service {
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
         throw S3Exception.fromUnknownSmithyHttpException(error);
+      } on AWSHttpException catch (error) {
+        throw S3Exception.fromAWSHttpException(error);
       }
     }
 
@@ -158,6 +160,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -425,6 +429,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
 
     return S3CopyResult(
@@ -595,6 +601,8 @@ class StorageS3Service {
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.deleteObjects may return 403
         throw S3Exception.fromUnknownSmithyHttpException(error);
+      } on AWSHttpException catch (error) {
+        throw S3Exception.fromAWSHttpException(error);
       } finally {
         objectIdentifiersToRemove.removeRange(0, numOfBatchedItems);
       }
@@ -625,6 +633,8 @@ class StorageS3Service {
       // S3Client.deleteObject may return 403, for deleting a non-existing
       // object, the API call returns a successful response
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -685,6 +695,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 

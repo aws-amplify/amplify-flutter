@@ -352,6 +352,8 @@ class S3DownloadTask {
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
       throw S3Exception.getKeyNotFoundException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 }
