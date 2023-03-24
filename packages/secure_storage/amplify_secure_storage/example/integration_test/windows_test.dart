@@ -23,12 +23,14 @@ void main() {
   group('Windows app uninstall & re-install', () {
     test('Previous keys are cleared after uninstalling the app', () async {
       // initialize storage and store a value
+      // ignore: invalid_use_of_internal_member
       final storage = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
       await storage.write(key: key1, value: value1);
 
       // assert value IS NOT cleared prior to an app uninstall
+      // ignore: invalid_use_of_internal_member
       final storage1 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
@@ -38,6 +40,7 @@ void main() {
       await uninstall();
 
       // assert value IS cleared after an app uninstall
+      // ignore: invalid_use_of_internal_member
       final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );

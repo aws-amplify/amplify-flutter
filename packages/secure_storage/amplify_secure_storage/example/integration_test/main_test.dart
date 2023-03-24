@@ -9,6 +9,7 @@ import 'package:integration_test/integration_test.dart';
 AmplifySecureStorage storageFactory({
   required AmplifySecureStorageConfig config,
 }) {
+  // ignore: invalid_use_of_internal_member
   return AmplifySecureStorage(config: config);
 }
 
