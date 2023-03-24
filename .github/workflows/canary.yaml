@@ -1,0 +1,79 @@
+name: Amplify Integration Tests
+on:
+  schedule:
+    # every 4 hours
+    - cron:  '* */4 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        flutter-channel:
+          - stable
+          - beta
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '11'
+      
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+        with:
+          channel: ${{ matrix.flutter-channel }}
+
+      - name: Build Canary App
+        run: |
+          cd canaries
+          . ../build-support/setup_canary_app.sh
+
+      - name: Run Android integration tests
+        uses: reactivecircus/android-emulator-runner@e790971012b979513b4e2fe70d4079bc0ca8a1ae # 2.24.0
+        timeout-minutes: 45
+        with:
+          # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
+          api-level: 29
+          working-directory: canaries/amplified_todo
+          script: flutter test --no-pub -d emulator-5554 integration_test/main_test.dart
+  ios:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        iphone-version:
+          - 'iPhone 13'
+          - 'iPhone 12'
+        flutter-channel:
+          - 'stable'
+          - 'beta'
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+        with:
+          persist-credentials: false
+      
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+        with:
+          channel: ${{ matrix.flutter-channel }}
+
+      - name: Boot iOS Simulator
+        run: |
+          xcrun simctl boot "${{ matrix.iphone-version}}"
+
+      - name: Build Canary App
+        run: |
+          cd canaries
+          . ../build-support/setup_canary_app.sh
+
+      - name: Run integration tests
+        run: |
+          cd canaries/amplified_todo
+          flutter test integration_test/main_test.dart -d iPhone
