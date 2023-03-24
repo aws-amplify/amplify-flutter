@@ -94,10 +94,8 @@ class StorageS3Service {
     String? path,
     required StorageListOptions options,
   }) async {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options.pluginOptions,
-      defaultPluginOptions: const S3ListPluginOptions(),
-    );
+    final s3PluginOptions = options.pluginOptions as S3ListPluginOptions? ??
+        const S3ListPluginOptions();
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
@@ -172,10 +170,9 @@ class StorageS3Service {
     required String key,
     required StorageGetPropertiesOptions options,
   }) async {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options.pluginOptions,
-      defaultPluginOptions: const S3GetPropertiesPluginOptions(),
-    );
+    final s3PluginOptions =
+        options.pluginOptions as S3GetPropertiesPluginOptions? ??
+            const S3GetPropertiesPluginOptions();
 
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
@@ -207,10 +204,8 @@ class StorageS3Service {
     required String key,
     required StorageGetUrlOptions options,
   }) async {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options.pluginOptions,
-      defaultPluginOptions: const S3GetUrlPluginOptions(),
-    );
+    final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
+        const S3GetUrlPluginOptions();
 
     if (s3PluginOptions.checkObjectExistence) {
       // make a HeadObject call for checking object existence
@@ -350,11 +345,9 @@ class StorageS3Service {
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options,
-      defaultPluginOptions: const S3UploadFilePluginOptions(),
-    );
-
+    final s3PluginOptions =
+        options.pluginOptions as S3UploadFilePluginOptions? ??
+            const S3UploadFilePluginOptions();
     final uploadDataOptions = StorageUploadDataOptions(
       accessLevel: options.accessLevel,
       pluginOptions: S3UploadDataPluginOptions(
@@ -397,10 +390,8 @@ class StorageS3Service {
     required S3ItemWithAccessLevel destination,
     required StorageCopyOptions options,
   }) async {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options.pluginOptions,
-      defaultPluginOptions: const S3CopyPluginOptions(),
-    );
+    final s3PluginOptions = options.pluginOptions as S3CopyPluginOptions? ??
+        const S3CopyPluginOptions();
 
     final resolvedPrefixes = await Future.wait([
       getResolvedPrefix(
@@ -467,10 +458,8 @@ class StorageS3Service {
     required S3ItemWithAccessLevel destination,
     required StorageMoveOptions options,
   }) async {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-      pluginOptions: options.pluginOptions,
-      defaultPluginOptions: const S3MovePluginOptions(),
-    );
+    final s3PluginOptions = options.pluginOptions as S3MovePluginOptions? ??
+        const S3MovePluginOptions();
 
     late S3CopyResult copyResult;
 

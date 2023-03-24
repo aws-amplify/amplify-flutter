@@ -72,10 +72,9 @@ class S3DownloadTask {
         _onError = onError,
         _logger = logger,
         _downloadedBytesSize = 0,
-        _s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-          pluginOptions: options.pluginOptions,
-          defaultPluginOptions: const S3DownloadDataPluginOptions(),
-        );
+        _s3PluginOptions =
+            options.pluginOptions as S3DownloadDataPluginOptions? ??
+                const S3DownloadDataPluginOptions();
 
   // the Completer to complete the final `result` Future.
   final Completer<S3Item> _downloadCompleter;

@@ -166,7 +166,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     String? path,
     StorageListOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3ListPluginOptions(),
     );
@@ -192,7 +192,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     required String key,
     StorageGetPropertiesOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3GetPropertiesPluginOptions(),
     );
@@ -219,7 +219,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     required String key,
     StorageGetUrlOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3GetUrlPluginOptions(),
     );
@@ -247,7 +247,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     StorageDownloadDataOptions? options,
     void Function(S3TransferProgress)? onProgress,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3DownloadDataPluginOptions(),
     );
@@ -289,13 +289,18 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     void Function(S3TransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
   }) {
-    final request = StorageDownloadFileRequest(
+    final s3PluginOptions = reifyPluginOptions(
+      pluginOptions: options?.pluginOptions,
+      defaultPluginOptions: const S3DownloadFilePluginOptions(),
+    );
+    options = StorageDownloadFileOptions(
+      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      pluginOptions: s3PluginOptions,
+    );
+    return download_file_impl.downloadFile(
       key: key,
       localFile: localFile,
       options: options,
-    );
-    return download_file_impl.downloadFile(
-      request: request,
       s3pluginConfig: s3pluginConfig,
       storageS3Service: storageS3Service,
       appPathProvider: _appPathProvider,
@@ -310,7 +315,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     void Function(S3TransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3UploadDataPluginOptions(),
     );
@@ -347,7 +352,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     void Function(S3TransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3UploadFilePluginOptions(),
     );
@@ -388,7 +393,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     final s3Source = S3ItemWithAccessLevel.from(source);
     final s3Destination = S3ItemWithAccessLevel.from(destination);
 
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3CopyPluginOptions(),
     );
@@ -417,7 +422,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     required StorageItemWithAccessLevel<StorageItem> destination,
     StorageMoveOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3MovePluginOptions(),
     );
@@ -448,7 +453,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     required String key,
     StorageRemoveOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3RemovePluginOptions(),
     );
@@ -475,7 +480,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     required List<String> keys,
     StorageRemoveManyOptions? options,
   }) {
-    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    final s3PluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const S3RemoveManyPluginOptions(),
     );

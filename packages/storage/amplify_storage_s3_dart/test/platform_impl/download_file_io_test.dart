@@ -36,16 +36,6 @@ void main() {
     const testFileContent = 'Hello world!';
     const testItem = S3Item(key: testKey);
     final testFileBytes = utf8.encode(testFileContent);
-    final testDownloadFileRequest = StorageDownloadFileRequest(
-      key: testKey,
-      localFile: AWSFile.fromPath(testDestinationPath),
-      options: const StorageDownloadFileOptions(
-        accessLevel: StorageAccessLevel.private,
-        pluginOptions: S3DownloadFilePluginOptions(
-          getProperties: true,
-        ),
-      ),
-    );
 
     late S3TransferProgress expectedProgress;
 
@@ -77,8 +67,16 @@ void main() {
 
     test('should invoke StorageS3Service.downloadData with expected parameters',
         () async {
+      const options = StorageDownloadFileOptions(
+        accessLevel: StorageAccessLevel.private,
+        pluginOptions: S3DownloadFilePluginOptions(
+          getProperties: true,
+        ),
+      );
       final downloadFileOperation = downloadFile(
-        request: testDownloadFileRequest,
+        key: testKey,
+        localFile: AWSFile.fromPath(testDestinationPath),
+        options: options,
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
@@ -109,7 +107,7 @@ void main() {
             .having(
               (o) => o.accessLevel,
               'accessLevel',
-              testDownloadFileRequest.options?.accessLevel,
+              options.accessLevel,
             )
             .having(
               (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
@@ -161,9 +159,11 @@ void main() {
         'should correctly create S3DownloadDataOptions with default storage access level',
         () {
       downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: StorageDownloadFileOptions(
+          accessLevel: testS3pluginConfig.defaultAccessLevel,
+          pluginOptions: const S3DownloadFilePluginOptions(),
         ),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
@@ -203,14 +203,12 @@ void main() {
       const testTargetIdentity = 'someone-else';
       const testAcessLevel = StorageAccessLevel.protected;
       downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
-          options: const StorageDownloadFileOptions(
-            accessLevel: testAcessLevel,
-            pluginOptions: S3DownloadFilePluginOptions.forIdentity(
-              testTargetIdentity,
-            ),
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: const StorageDownloadFileOptions(
+          accessLevel: testAcessLevel,
+          pluginOptions: S3DownloadFilePluginOptions.forIdentity(
+            testTargetIdentity,
           ),
         ),
         s3pluginConfig: testS3pluginConfig,
@@ -267,9 +265,11 @@ void main() {
           'when destination path is null is throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          request: StorageDownloadFileRequest(
-            key: testKey,
-            localFile: AWSFile.fromData([101]),
+          key: testKey,
+          localFile: AWSFile.fromData([101]),
+          options: StorageDownloadFileOptions(
+            accessLevel: testS3pluginConfig.defaultAccessLevel,
+            pluginOptions: const S3DownloadFilePluginOptions(),
           ),
           s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
@@ -298,9 +298,11 @@ void main() {
           'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          request: StorageDownloadFileRequest(
-            key: testKey,
-            localFile: AWSFile.fromPath(Directory.systemTemp.path),
+          key: testKey,
+          localFile: AWSFile.fromPath(Directory.systemTemp.path),
+          options: StorageDownloadFileOptions(
+            accessLevel: testS3pluginConfig.defaultAccessLevel,
+            pluginOptions: const S3DownloadFilePluginOptions(),
           ),
           s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
@@ -335,9 +337,11 @@ void main() {
       when(downloadTask.cancel).thenAnswer((_) async {});
 
       final downloadFileOperation = downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: StorageDownloadFileOptions(
+          accessLevel: testS3pluginConfig.defaultAccessLevel,
+          pluginOptions: const S3DownloadFilePluginOptions(),
         ),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
