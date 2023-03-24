@@ -16,14 +16,9 @@ Future<void> configure({
   }
   await Amplify.addPlugin(
     AmplifyAuthCognitoDart(
-      credentialStorage: AmplifySecureStorageWorker(
-        config: AmplifySecureStorageConfig.byNamespace(
-          namespace: 'dart-auth-test',
-        ).rebuild((config) {
-          // enabling useDataProtection requires adding the app to an
-          // app group, which requires setting a development team
-          config.macOSOptions.useDataProtection = false;
-        }),
+      secureStorageFactory: AmplifySecureStorageWorker.factoryFrom(
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
       ),
       hostedUiPlatformFactory: hostedUiPlatformFactory,
     ),

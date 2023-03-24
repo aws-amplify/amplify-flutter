@@ -9,6 +9,7 @@ import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -16,6 +17,7 @@ void main() {
 
   late CognitoAuthStateMachine stateMachine;
   late AmplifyAuthCognitoDart plugin;
+  late MockSecureStorage secureStorage;
 
   group('fetchAuthSession', () {
     group('when session is expired', () {
@@ -24,7 +26,8 @@ void main() {
           type: TokenType.id,
           expiration: Duration.zero,
         );
-        final secureStorage = MockSecureStorage();
+        secureStorage = MockSecureStorage();
+        SecureStorageInterface storageFactory(scope) => secureStorage;
         seedStorage(
           secureStorage,
           identityPoolKeys: identityPoolKeys,
@@ -35,7 +38,7 @@ void main() {
           value: expiredIdToken.raw,
         );
         stateMachine = CognitoAuthStateMachine();
-        plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+        plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
           ..stateMachine = stateMachine;
         await plugin.configure(
           config: mockConfig,

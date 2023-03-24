@@ -3,13 +3,16 @@
 
 import 'dart:async';
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
 class DataProviderIos implements LegacyNativeDataProvider {
   /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
   DataProviderIos()
+
+      // ignore: invalid_use_of_internal_member
       : _keyValueStore = AmplifySecureStorage(
           config: AmplifySecureStorageConfig.byNamespace(namespace: _context),
         );

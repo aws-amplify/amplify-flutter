@@ -81,7 +81,8 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
                   value: attr.value,
                 ),
               ),
-            );
+            )
+            ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
           final clientSecret = _userPoolConfig.appClientSecret;
           if (clientSecret != null) {
@@ -115,7 +116,8 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
           ..clientId = _userPoolConfig.appClientId
           ..username = event.username
           ..confirmationCode = event.confirmationCode
-          ..clientMetadata.addAll(event.clientMetadata);
+          ..clientMetadata.addAll(event.clientMetadata)
+          ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
         final clientSecret = _userPoolConfig.appClientSecret;
         if (clientSecret != null) {

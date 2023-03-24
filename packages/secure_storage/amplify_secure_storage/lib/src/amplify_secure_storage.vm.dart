@@ -11,17 +11,49 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 // ignore: implementation_imports
 import 'package:amplify_secure_storage_dart/src/utils/file_key_value_store.dart';
 import 'package:async/async.dart';
-import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// {@template amplify_secure_storage.amplify_secure_storage}
 /// The default Secure Storage implementation used in Amplify packages.
 /// {@endtemplate}
 class AmplifySecureStorage extends AmplifySecureStorageInterface {
-  /// {@macro amplify_secure_storage.amplify_secure_storage}
+  /// {@template amplify_secure_storage.amplify_secure_storage.from_config}
+  /// Generates a [AmplifySecureStorage] from a config.
+  ///
+  /// Should only be used within Amplify packages. See [factoryFrom] for
+  /// external use.
+  /// {@endtemplate}
+  @internal
   AmplifySecureStorage({
     required super.config,
   });
+
+  /// {@template amplify_secure_storage.amplify_secure_storage.factory_from}
+  /// Returns a factory for creating [AmplifySecureStorage] instances.
+  /// {@endtemplate}
+  static AmplifySecureStorage Function(
+    AmplifySecureStorageScope amplifyScope,
+  ) factoryFrom({
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return (AmplifySecureStorageScope scope) {
+      return AmplifySecureStorage(
+        config: AmplifySecureStorageConfig(
+          scope: scope.name,
+          webOptions: webOptions,
+          windowsOptions: windowsOptions,
+          linuxOptions: linuxOptions,
+          macOSOptions: macOSOptions,
+          iOSOptions: iOSOptions,
+        ),
+      );
+    };
+  }
 
   late final AmplifySecureStorageInterface _instance;
 
@@ -49,6 +81,7 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
               ),
             );
           }
+          // ignore: invalid_use_of_internal_member
           _instance = AmplifySecureStorageWorker(config: config);
         }
         if (Platform.isIOS || Platform.isMacOS || Platform.isLinux) {

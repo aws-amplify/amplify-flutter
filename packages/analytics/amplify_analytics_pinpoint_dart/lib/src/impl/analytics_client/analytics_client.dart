@@ -7,6 +7,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
@@ -17,18 +18,25 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 class AnalyticsClient {
   /// {@macro amplify_analytics_pinpoint_dart.analytics_client}
-  AnalyticsClient({
+  factory AnalyticsClient({
+    required SecureStorageInterface endpointStorage,
     DeviceContextInfoProvider? deviceContextInfoProvider,
-    EndpointInfoStoreManager? endpointInfoStoreManager,
-  })  : _deviceContextInfoProvider = deviceContextInfoProvider,
-        _endpointInfoStoreManager = endpointInfoStoreManager ??
-            EndpointInfoStoreManager(
-              store: AmplifySecureStorageWorker(
-                config: AmplifySecureStorageConfig(
-                  scope: EndpointStorageScope.analyticsPinpoint.name,
-                ),
-              ),
-            );
+    LegacyNativeDataProvider? legacyNativeDataProvider,
+  }) {
+    final endpointStoreManager = EndpointInfoStoreManager(
+      legacyNativeDataProvider: legacyNativeDataProvider,
+      store: endpointStorage,
+    );
+
+    return AnalyticsClient._(deviceContextInfoProvider, endpointStoreManager);
+  }
+
+  /// {@macro amplify_analytics_pinpoint_dart.analytics_client}
+  AnalyticsClient._(
+    DeviceContextInfoProvider? deviceContextInfoProvider,
+    EndpointInfoStoreManager endpointInfoStoreManager,
+  )   : _deviceContextInfoProvider = deviceContextInfoProvider,
+        _endpointInfoStoreManager = endpointInfoStoreManager;
 
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final EndpointInfoStoreManager _endpointInfoStoreManager;

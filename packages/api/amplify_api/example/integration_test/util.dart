@@ -78,11 +78,8 @@ Future<void> configureAmplify() async {
   if (!Amplify.isConfigured) {
     await Amplify.addPlugins([
       AmplifyAuthCognito(
-        credentialStorage: AmplifySecureStorage(
-          config: AmplifySecureStorageConfig(
-            scope: 'api',
-            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-          ),
+        secureStorageFactory: AmplifySecureStorage.factoryFrom(
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
         ),
       ),
       AmplifyAPI(modelProvider: ModelProvider.instance)

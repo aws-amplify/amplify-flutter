@@ -3,6 +3,8 @@
 
 import 'dart:async';
 
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/model/auth_configuration.dart';
@@ -112,6 +114,9 @@ class ConfigurationStateMachine
     waiters.add(manager.loadCredentials());
 
     await _waitForConfiguration(cognitoConfig, waiters);
+
+    // Setup AnalyticsMetadataType
+    await _registerAnalyticsMetadata(config);
   }
 
   Future<void> _waitForConfiguration(
@@ -124,4 +129,21 @@ class ConfigurationStateMachine
 
   /// State machine callback for the [ConfigureSucceeded] event.
   Future<void> onConfigureSucceeded(ConfigureSucceeded event) async {}
+
+  Future<void> _registerAnalyticsMetadata(AuthConfiguration config) async {
+    final analyticsConfig = config.pinpointConfig;
+    if (analyticsConfig == null) {
+      return;
+    }
+    final appId = analyticsConfig.appId;
+
+    final endpointStoreManager = getOrCreate<EndpointInfoStoreManager>();
+    await endpointStoreManager.init(pinpointAppId: appId);
+
+    addInstance<AnalyticsMetadataType>(
+      AnalyticsMetadataType(
+        analyticsEndpointId: endpointStoreManager.endpointId,
+      ),
+    );
+  }
 }

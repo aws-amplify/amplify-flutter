@@ -4,6 +4,11 @@
 import 'dart:async';
 import 'dart:io';
 
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
+
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_impl.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
@@ -24,21 +29,13 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   /// {@macro amplify_auth_cognito.amplify_auth_cognito}
   ///
   /// To change the default behavior of credential storage,
-  /// provide a [credentialStorage] value. If no value is provided,
-  /// [AmplifySecureStorage] will be used with a `scope` of "awsCognitoAuthPlugin".
-  ///
-  /// **NOTE**: Switching credential storage providers will likely result in
-  /// end-users needing to re-authenticate since no migrations are performed in
-  /// this case.
+  /// provide a [SecureStorageFactory] value. If no value is provided,
+  /// storage will be configured with default [AmplifySecureStorageConfig] values.
   AmplifyAuthCognito({
-    SecureStorageInterface? credentialStorage,
+    SecureStorageFactory? secureStorageFactory,
   }) : super(
-          credentialStorage: credentialStorage ??
-              AmplifySecureStorage(
-                config: AmplifySecureStorageConfig(
-                  scope: 'awsCognitoAuthPlugin',
-                ),
-              ),
+          secureStorageFactory:
+              secureStorageFactory ?? AmplifySecureStorage.factoryFrom(),
           hostedUiPlatformFactory: HostedUiPlatformImpl.new,
         );
 
@@ -109,6 +106,11 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
+    // Dependencies for AnalyticsMetadataType
+    stateMachine.addInstance<EndpointInfoStoreManager>(
+      FlutterEndpointInfoStoreManager(),
+    );
+
     await super.configure(
       config: config,
       authProviderRepo: authProviderRepo,

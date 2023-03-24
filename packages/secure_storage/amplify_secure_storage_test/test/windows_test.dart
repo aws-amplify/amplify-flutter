@@ -16,6 +16,7 @@ void main() {
     test(
       'keys should be shared when using the same storage path',
       () async {
+        // ignore: invalid_use_of_internal_member
         final storage1 = AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'default',
@@ -25,6 +26,7 @@ void main() {
           ),
         );
 
+        // ignore: invalid_use_of_internal_member
         final storage2 = AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'default',
@@ -44,6 +46,7 @@ void main() {
     test(
       'keys should not collide when using different storage paths',
       () async {
+        // ignore: invalid_use_of_internal_member
         final storage1 = AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'default',
@@ -53,6 +56,7 @@ void main() {
           ),
         );
 
+        // ignore: invalid_use_of_internal_member
         final storage2 = AmplifySecureStorageDart(
           config: AmplifySecureStorageConfig(
             scope: 'default',

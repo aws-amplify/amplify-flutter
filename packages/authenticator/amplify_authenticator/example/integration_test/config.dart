@@ -14,11 +14,8 @@ Future<void> loadConfiguration({
 }) async {
   final envConfig = amplifyEnvironments[environmentName]!;
   final authPlugin = AmplifyAuthCognito(
-    credentialStorage: AmplifySecureStorage(
-      config: AmplifySecureStorageConfig(
-        scope: 'authenticator-test',
-        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-      ),
+    secureStorageFactory: AmplifySecureStorage.factoryFrom(
+      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
     ),
   );
   await Amplify.addPlugin(authPlugin);

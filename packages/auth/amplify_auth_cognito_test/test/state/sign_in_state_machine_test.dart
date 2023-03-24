@@ -518,6 +518,78 @@ void main() {
 
         expect(await deviceRepo.get(username), isNotNull);
       });
+
+      test(
+          'analyticsMetadata sent with InitiateAuthRequest and RespondToAuthChallengeRequest.',
+          () async {
+        const analyticsEndpointId = 'analyticsEndpointId';
+
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: expectAsync1((request) async {
+            expect(
+              request.analyticsMetadata?.analyticsEndpointId,
+              analyticsEndpointId,
+            );
+            return cognito_idp.InitiateAuthResponse(
+              challengeName: cognito_idp.ChallengeNameType.passwordVerifier,
+              challengeParameters: {
+                CognitoConstants.challengeParamUsername: username,
+                CognitoConstants.challengeParamUserIdForSrp: username,
+                CognitoConstants.challengeParamSecretBlock: secretBlock,
+                CognitoConstants.challengeParamSalt: salt,
+                CognitoConstants.challengeParamSrpB: publicB,
+              },
+            );
+          }),
+          respondToAuthChallenge: expectAsync1(max: -1, (request) async {
+            expect(
+              request.analyticsMetadata?.analyticsEndpointId,
+              analyticsEndpointId,
+            );
+            return cognito_idp.RespondToAuthChallengeResponse(
+              authenticationResult: cognito_idp.AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+                newDeviceMetadata: cognito_idp.NewDeviceMetadataType(
+                  deviceKey: deviceKey,
+                  deviceGroupKey: deviceGroupKey,
+                ),
+              ),
+            );
+          }),
+          confirmDevice: expectAsync0(() async {
+            return cognito_idp.ConfirmDeviceResponse(
+              userConfirmationNecessary: false,
+            );
+          }),
+        );
+
+        stateMachine
+          ..addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient)
+          ..addInstance<cognito_idp.AnalyticsMetadataType>(
+            cognito_idp.AnalyticsMetadataType(
+              analyticsEndpointId: analyticsEndpointId,
+            ),
+          );
+
+        await expectLater(
+          stateMachine
+              .accept(
+                SignInEvent.initiate(
+                  parameters: SignInParameters(
+                    (b) => b
+                      ..username = username
+                      ..password = password,
+                  ),
+                ),
+              )
+              .completed,
+          completion(isA<SignInSuccess>()),
+        );
+
+        expect(await deviceRepo.get(username), isNotNull);
+      });
     });
   });
 }
