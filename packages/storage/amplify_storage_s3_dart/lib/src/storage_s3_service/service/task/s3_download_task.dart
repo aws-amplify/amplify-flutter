@@ -195,16 +195,8 @@ class S3DownloadTask {
     // stream listers were canceled.
     await _pausedCompleted;
 
-    if (_state == StorageTransferState.inProgress ||
-        _state == StorageTransferState.success ||
-        _state == StorageTransferState.failure) {
+    if (_state != StorageTransferState.paused) {
       return;
-    }
-
-    if (_state == StorageTransferState.canceled) {
-      // throws exception here as _downloadCompleter has completed by the
-      // cancel
-      throw S3Exception.resumeCanceledOperation();
     }
 
     _resetGetObjectCompleter();

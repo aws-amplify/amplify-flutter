@@ -77,15 +77,6 @@ class S3Exception extends StorageException {
     );
   }
 
-  /// An exception created when attempt to resume a canceled operation.
-  factory S3Exception.resumeCanceledOperation() {
-    return const S3Exception(
-      'The operation has been canceled and can\'t be resumed.',
-      recoverySuggestion:
-          'You can only resume an operation that is paused by calling `pause()`.',
-    );
-  }
-
   /// An exception thrown when the service doesn't return a valid uploadId on a
   /// successful `CreateMultipartUploadRequest`.
   factory S3Exception.unexpectedMultipartUploadId() {

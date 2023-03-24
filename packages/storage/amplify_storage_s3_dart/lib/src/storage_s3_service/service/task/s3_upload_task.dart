@@ -264,12 +264,9 @@ class S3UploadTask {
   /// For single putObject, resume doesn't take any effect.
   /// For multipart upload, resume reschedules remaining subtasks.
   Future<void> resume() async {
-    // can resume when upload is actually started
+    // can resume when upload is actually started and not canceled
     await _uploadModelDetermined;
-    if (!_isMultipartUpload ||
-        _state == StorageTransferState.inProgress ||
-        _state == StorageTransferState.failure ||
-        _state == StorageTransferState.success) {
+    if (!_isMultipartUpload || _state != StorageTransferState.paused) {
       return;
     }
     await _uploadPartBatchingCompleted;
