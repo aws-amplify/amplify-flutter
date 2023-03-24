@@ -149,9 +149,9 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     SignUpOptions? options,
   }) async {
     options ??= const SignUpOptions();
-    final pluginOptions = AmplifyAuthCognitoDart.validatePluginOptions(
-      options.pluginOptions,
-      defaultOptions: const CognitoSignUpPluginOptions(),
+    final pluginOptions = reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const CognitoSignUpPluginOptions(),
     );
     Map<String, String>? validationData;
     if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
