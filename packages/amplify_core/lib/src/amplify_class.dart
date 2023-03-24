@@ -48,6 +48,11 @@ abstract class AmplifyClass {
   /// The Amplify event hub.
   final AmplifyHub Hub = AmplifyHub();
 
+  /// Shared dependencies for use across categories.
+  @protected
+  @visibleForTesting
+  late final DependencyManager dependencies = AmplifyDependencyManager();
+
   var _configCompleter = Completer<AmplifyConfig>();
 
   /// Adds one plugin at a time. Note: this method can only
@@ -141,6 +146,7 @@ abstract class AmplifyClass {
   @mustCallSuper
   Future<void> reset() async {
     _configCompleter = Completer();
+    dependencies.close();
   }
 }
 

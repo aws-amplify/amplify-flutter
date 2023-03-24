@@ -4,15 +4,20 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
-/// Interface for all amplify plugins
-abstract class AmplifyPluginInterface {
-  const AmplifyPluginInterface();
-
+/// Base class for all Amplify plugins.
+abstract /* base */ class AmplifyPluginInterface {
   /// Casts a plugin to a category-specific implementation.
   P cast<P extends AmplifyPluginInterface>() => this as P;
 
   /// The category implemented by this plugin.
   Category get category;
+
+  /// Global dependencies scoped to this plugin.
+  @protected
+  @visibleForTesting
+  late final DependencyManager dependencies =
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+      DependencyManager.scoped(Amplify.dependencies);
 
   /// Called when the plugin is added to the category.
   @mustCallSuper
@@ -27,8 +32,12 @@ abstract class AmplifyPluginInterface {
   }) async {}
 
   /// Resets the plugin by removing all traces of it from the device.
+  @protected
+  @mustCallSuper
   @visibleForTesting
-  Future<void> reset() async {}
+  Future<void> reset() async {
+    dependencies.close();
+  }
 
   /// Reifies [pluginOptions] as an instance of [T].
   ///
