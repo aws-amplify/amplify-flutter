@@ -82,33 +82,35 @@ class _MyAppState extends State<MyApp> {
       if (!zIsWeb && (Platform.isAndroid || Platform.isIOS)) {
         await Amplify.addPlugin(AmplifyAPI());
       }
-      final secureStorage = AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: 'auth',
+      await Amplify.addPlugin(
+        AmplifyAuthCognito(
           // FIXME: In your app, make sure to remove this line and set up
           /// Keychain Sharing in Xcode as described in the docs:
           /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
-          // ignore: invalid_use_of_visible_for_testing_member
-          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
+          secureStorageFactory: AmplifySecureStorage.factoryFrom(
+            macOSOptions:
+                // ignore: invalid_use_of_visible_for_testing_member
+                MacOSSecureStorageOptions(useDataProtection: false),
+          ),
         ),
       );
-      await Amplify.addPlugin(
-        AmplifyAuthCognito(credentialStorage: secureStorage),
-      );
+
       // Uncomment this block, and comment out the one above to change how
       // credentials are persisted.
-      // await Amplify.addPlugin(
-      //   AmplifyAuthCognito(
-      //     credentialStorage: AmplifySecureStorage(
-      //       config: AmplifySecureStorageConfig(
-      //         scope: 'authtest',
-      //         webOptions: WebSecureStorageOptions(
-      //           persistenceOption: WebPersistenceOption.inMemory,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // );
+      /*
+      await Amplify.addPlugin(
+          AmplifyAuthCognito(
+             secureStorageFactory: (scope) => AmplifySecureStorage.fromConfig(
+               config: AmplifySecureStorageConfig(
+                 scope: scope.name,
+                 webOptions: WebSecureStorageOptions(
+                   persistenceOption: WebPersistenceOption.inMemory,
+                 ),
+               ),
+             ),
+           ),
+         );
+       */
       await Amplify.configure(amplifyconfig);
       _logger.debug('Successfully configured Amplify');
 

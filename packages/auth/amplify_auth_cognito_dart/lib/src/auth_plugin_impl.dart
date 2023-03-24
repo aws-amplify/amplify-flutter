@@ -3,6 +3,8 @@
 
 import 'dart:async';
 
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
@@ -35,6 +37,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         UpdateUserAttributesRequest,
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';
@@ -69,9 +72,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     implements Closeable {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
   AmplifyAuthCognitoDart({
-    SecureStorageInterface? credentialStorage,
+    SecureStorageFactory? secureStorageFactory,
     HostedUiPlatformFactory? hostedUiPlatformFactory,
-  })  : _credentialStorage = credentialStorage,
+  })  : _secureStorageFactory =
+            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom(),
         _hostedUiPlatformFactory = hostedUiPlatformFactory;
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
@@ -120,11 +124,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   /// {@macro amplify_auth_cognito.initial_parameters}
   final OAuthParameters? _initialParameters = initialParameters;
 
-  /// The on-device credential storage for the Auth category.
+  /// Factory for creating secure storage.
   ///
-  /// Defaults to an instance of [AmplifySecureStorageDart] with a scope of
-  /// "auth".
-  final SecureStorageInterface? _credentialStorage;
+  /// Creates an instance of [SecureStorageInterface] with scope input.
+  ///
+  /// Used to create on-device credential storage.
+  final SecureStorageFactory _secureStorageFactory;
 
   /// The Hosted UI platform factory, which creates an instance of
   /// [HostedUiPlatform], responsible for handling login and logout events
@@ -167,6 +172,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   DeviceMetadataRepository get _deviceRepo =>
       _stateMachine.getOrCreate(DeviceMetadataRepository.token);
 
+  /// Analytics Metadata Provider
+  AnalyticsMetadataType? get _analyticsMetadata => _stateMachine.get();
+
   final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
 
@@ -180,14 +188,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   Future<void> _init() async {
-    final credentialStorage = _credentialStorage ??
-        AmplifySecureStorageWorker(
-          config: AmplifySecureStorageConfig(
-            scope: 'awsCognitoAuthPlugin',
-          ),
-        );
     _stateMachine
-      ..addInstance<SecureStorageInterface>(credentialStorage)
+      ..addInstance<SecureStorageInterface>(
+        _secureStorageFactory(AmplifySecureStorageScope.awsCognitoAuthPlugin),
+      )
       ..addInstance<AmplifyLogger>(logger);
     if (_hostedUiPlatformFactory != null) {
       _stateMachine.addBuilder(
@@ -262,6 +266,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
             'Check if Amplify is already configured using Amplify.isConfigured.',
       );
     }
+
+    // Dependencies for AnalyticsMetadataType
+    _stateMachine
+        .addBuilder<EndpointInfoStoreManager>(EndpointInfoStoreManager.new);
 
     await _init();
     await _stateMachine.accept(ConfigurationEvent.configure(config)).accepted;
@@ -548,7 +556,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       cognito.ResendConfirmationCodeRequest.build((b) {
         b
           ..clientId = _userPoolConfig.appClientId
-          ..username = username;
+          ..username = username
+          ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
         final clientSecret = _userPoolConfig.appClientSecret;
         if (clientSecret != null) {
@@ -881,7 +890,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       cognito.ForgotPasswordRequest.build((b) {
         b
           ..clientId = _userPoolConfig.appClientId
-          ..username = username;
+          ..username = username
+          ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
         final clientSecret = _userPoolConfig.appClientSecret;
         if (clientSecret != null) {
@@ -930,7 +940,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
           ..password = newPassword
           ..confirmationCode = confirmationCode
           ..clientId = _userPoolConfig.appClientId
-          ..clientMetadata.addAll(pluginOptions.clientMetadata);
+          ..clientMetadata.addAll(pluginOptions.clientMetadata)
+          ..analyticsMetadata = _analyticsMetadata?.toBuilder();
 
         final clientSecret = _userPoolConfig.appClientSecret;
         if (clientSecret != null) {

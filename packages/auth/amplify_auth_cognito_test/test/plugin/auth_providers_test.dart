@@ -11,6 +11,7 @@ import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provi
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
 AWSHttpRequest _generateTestRequest() {
@@ -57,8 +58,9 @@ void main() {
   setUpAll(() async {
     testAuthRepo = AmplifyAuthProviderRepository();
     final secureStorage = MockSecureStorage();
+    SecureStorageInterface storageFactory(scope) => secureStorage;
     final stateMachine = CognitoAuthStateMachine()..addInstance(secureStorage);
-    plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+    plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
       ..stateMachine = stateMachine;
 
     seedStorage(

@@ -13,6 +13,7 @@ import 'package:amplify_auth_cognito_test/common/mock_clients.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_secure_storage.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:test/test.dart';
 
 String randomString(int len) => String.fromCharCodes(getRandomBytes(10));
@@ -201,6 +202,7 @@ void main() {
 
     test('refreshes token before calling Cognito', () async {
       final secureStorage = MockSecureStorage();
+      SecureStorageInterface storageFactory(scope) => secureStorage;
       seedStorage(
         secureStorage,
         userPoolKeys: userPoolKeys,
@@ -217,7 +219,7 @@ void main() {
         ).raw,
       );
 
-      plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
         ..stateMachine = stateMachine;
 
       await plugin.configure(

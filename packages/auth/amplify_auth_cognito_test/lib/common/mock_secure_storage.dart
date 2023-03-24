@@ -18,6 +18,10 @@ class MockSecureStorage implements SecureStorageInterface {
   @override
   void write({required String key, required String value}) =>
       _storage[key] = value;
+
+  void clear() {
+    _storage.clear();
+  }
 }
 
 void seedStorage(

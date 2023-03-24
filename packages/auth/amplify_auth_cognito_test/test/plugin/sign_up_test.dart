@@ -17,16 +17,17 @@ import 'package:test/test.dart';
 void main() {
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
-  late SecureStorageInterface secureStorage;
+  late MockSecureStorage secureStorage;
 
   final testAuthRepo = AmplifyAuthProviderRepository();
 
   group('AmplifyAuthCognitoDart', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
-      stateMachine = CognitoAuthStateMachine()..addInstance(secureStorage);
+      SecureStorageInterface storageFactory(scope) => secureStorage;
+      stateMachine = CognitoAuthStateMachine();
 
-      plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
         ..stateMachine = stateMachine;
     });
 

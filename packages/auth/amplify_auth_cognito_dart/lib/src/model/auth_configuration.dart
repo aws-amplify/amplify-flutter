@@ -15,6 +15,7 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
     this.userPoolConfig,
     this.identityPoolConfig,
     this.hostedUiConfig,
+    this.pinpointConfig,
   });
 
   /// Parses [config] into the appropriate [AuthConfiguration] type.
@@ -24,6 +25,7 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
     final userPoolConfig = config.cognitoUserPool?.default$;
     final identityPoolConfig = config.credentialsProvider?.default$;
     final hostedUiConfig = config.auth?.default$?.oAuth;
+    final pinpointConfig = config.pinpointAnalytics?.default$;
 
     if (userPoolConfig == null &&
         identityPoolConfig == null &&
@@ -37,6 +39,7 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
       userPoolConfig: userPoolConfig,
       identityPoolConfig: identityPoolConfig,
       hostedUiConfig: hostedUiConfig,
+      pinpointConfig: pinpointConfig,
     );
   }
 
@@ -49,10 +52,14 @@ class AuthConfiguration with AWSEquatable<AuthConfiguration> {
   /// The Hosted UI config, if available.
   final CognitoOAuthConfig? hostedUiConfig;
 
+  /// The Pinpoint config, if available.
+  final CognitoPinpointAnalyticsConfig? pinpointConfig;
+
   @override
   List<Object?> get props => [
         userPoolConfig,
         identityPoolConfig,
         hostedUiConfig,
+        pinpointConfig,
       ];
 }

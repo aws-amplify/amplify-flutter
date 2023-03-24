@@ -32,6 +32,7 @@ class AuthConfig extends AmplifyPluginConfigMap {
     MfaConfiguration? mfaConfiguration,
     List<MfaType>? mfaTypes,
     List<CognitoUserAttributeKey>? verificationMechanisms,
+    CognitoPinpointAnalyticsConfig? pinpointAnalyticsConfig,
   }) =>
       AuthConfig(
         plugins: {
@@ -61,6 +62,9 @@ class AuthConfig extends AmplifyPluginConfigMap {
                           AWSConfigMap.withDefault(identityPoolConfig),
                     }),
                   ),
+            pinpointAnalytics: pinpointAnalyticsConfig == null
+                ? null
+                : AWSConfigMap.withDefault(pinpointAnalyticsConfig),
           ),
         },
       );

@@ -28,7 +28,7 @@ void main() {
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
-  late SecureStorageInterface secureStorage;
+  late MockSecureStorage secureStorage;
 
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
@@ -46,8 +46,8 @@ void main() {
   group('AmplifyAuthCognitoDart', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
+      SecureStorageInterface storageFactory(scope) => secureStorage;
       stateMachine = CognitoAuthStateMachine()
-        ..addInstance(secureStorage)
         ..addBuilder(
           createHostedUiFactory(
             signIn: (
@@ -63,7 +63,7 @@ void main() {
           HostedUiPlatform.token,
         );
 
-      plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
         ..stateMachine = stateMachine;
 
       hubEventsController = StreamController();

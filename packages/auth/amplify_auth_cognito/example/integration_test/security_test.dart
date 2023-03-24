@@ -45,11 +45,8 @@ void main() {
 
     asyncTest('adds cache-control header', (_) async {
       final plugin = AmplifyAuthCognito(
-        credentialStorage: AmplifySecureStorage(
-          config: AmplifySecureStorageConfig(
-            scope: 'auth-test',
-            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-          ),
+        secureStorageFactory: AmplifySecureStorage.factoryFrom(
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
         ),
       );
       final client = InlineHttpClient(

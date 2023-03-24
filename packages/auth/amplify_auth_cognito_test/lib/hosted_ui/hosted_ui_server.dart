@@ -80,7 +80,8 @@ class HostedUiServer implements Closeable {
     final config = parameters['config'].asString;
     await Amplify.addPlugin(
       AmplifyAuthCognitoDart(
-        credentialStorage: AmplifySecureStorageWorker(
+        // ignore: invalid_use_of_visible_for_testing_member
+        secureStorageFactory: (scope) => AmplifySecureStorageWorker(
           config: AmplifySecureStorageConfig.byNamespace(
             namespace: webDatabaseName,
           ).rebuild((config) {

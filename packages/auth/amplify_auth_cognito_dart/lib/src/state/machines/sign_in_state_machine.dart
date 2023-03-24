@@ -209,7 +209,8 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
             CognitoConstants.challengeParamAnswer: event.answer,
           })
           ..clientId = config.appClientId
-          ..clientMetadata.addAll(event.clientMetadata),
+          ..clientMetadata.addAll(event.clientMetadata)
+          ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
       );
     }
     return respondToSrpChallenge(event, challengeName, challengeParameters);
@@ -640,7 +641,11 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     user.username = event.parameters.username;
     await _loadDeviceSecrets();
 
-    final initRequest = await initiate(event);
+    var initRequest = await initiate(event);
+    initRequest = initRequest.rebuild(
+      (b) => b..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
+    );
+
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
 
@@ -808,7 +813,8 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     respondRequest = respondRequest.rebuild(
       (b) => b
         ..session ??= _session
-        ..clientMetadata.replace(event.clientMetadata),
+        ..clientMetadata.replace(event.clientMetadata)
+        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
     );
 
     try {
@@ -844,7 +850,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     }
   }
 
-  /// Updates the CognitoUser from challege parameters.
+  /// Updates the CognitoUser from challenge parameters.
   Future<void> _updateUser(BuiltMap<String, String> challengeParameters) async {
     // If a Cognito response returned a different username than what was used
     // to login, refresh the device secrets so that they are included in future
