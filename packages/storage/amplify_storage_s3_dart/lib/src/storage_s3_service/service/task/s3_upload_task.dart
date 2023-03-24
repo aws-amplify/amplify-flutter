@@ -66,10 +66,9 @@ class S3UploadTask {
         _onProgress = onProgress,
         _logger = logger,
         _transferDatabase = transferDatabase,
-        _s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
-          pluginOptions: options.pluginOptions,
-          defaultPluginOptions: const S3UploadDataPluginOptions(),
-        );
+        _s3PluginOptions =
+            options.pluginOptions as S3UploadDataPluginOptions? ??
+                const S3UploadDataPluginOptions();
 
   /// Initiates an upload task for a [S3DataPayload].
   ///

@@ -7,7 +7,9 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 
 /// Interface of the platform implementation of the `downloadFile` API.
 S3DownloadFileOperation downloadFile({
-  required StorageDownloadFileRequest request,
+  required String key,
+  required AWSFile localFile,
+  required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
