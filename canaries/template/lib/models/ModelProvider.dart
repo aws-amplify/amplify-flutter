@@ -1,5 +1,5 @@
 /*
-* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+* Copyright 2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 *
 * Licensed under the Apache License, Version 2.0 (the "License").
 * You may not use this file except in compliance with the License.
@@ -25,14 +25,10 @@ class ModelProvider implements ModelProviderInterface {
   @override
   String version = "f80fece878bf91a76f44577fe599b120";
   @override
-  List<ModelSchema> modelSchemas = [
-
-  ];
+  List<ModelSchema> modelSchemas = [];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [
-
-  ];
+  List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
 
@@ -41,5 +37,4 @@ class ModelProvider implements ModelProviderInterface {
     // TODO: implement getModelTypeByModelName
     throw UnimplementedError();
   }
-
 }

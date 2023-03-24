@@ -26,6 +26,7 @@ temp/
 
 # amplify resources from example apps
 **/example/amplify/
+canaries/amplified_todo/
 
 dist/
 node_modules/
