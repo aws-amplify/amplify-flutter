@@ -5,7 +5,10 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final _builders = <StateMachineToken, Function>{
+final _builders = <
+    StateMachineToken,
+    StateMachineBuilder<StateMachineEvent, StateMachineState,
+        MyStateMachineManager>>{
   MyStateMachine.type: MyStateMachine.new,
   WorkerMachine.type: WorkerMachine.new,
 };
