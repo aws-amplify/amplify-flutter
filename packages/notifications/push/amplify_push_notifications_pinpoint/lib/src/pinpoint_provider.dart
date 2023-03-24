@@ -122,6 +122,7 @@ class PinpointProvider implements ServiceProviderClient {
         eventType: '${eventInfo.first as String}.${eventType.name}',
         properties: eventInfo.last as AnalyticsProperties,
       );
+      print('Recorded event');
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
     }

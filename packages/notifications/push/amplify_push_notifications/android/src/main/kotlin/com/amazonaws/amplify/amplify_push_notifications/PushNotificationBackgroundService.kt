@@ -8,8 +8,7 @@ import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import androidx.core.app.JobIntentService
-import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
-import com.google.firebase.messaging.RemoteMessage
+import com.amplifyframework.annotations.InternalAmplifyApi
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -23,6 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 private const val TAG = "PushBackgroundService"
 
 //TODO(Samaritan1011001): Replace deprecated JobIntentService
+@InternalAmplifyApi
 class PushNotificationBackgroundService : JobIntentService(), MethodChannel.MethodCallHandler {
 
     /**
@@ -124,12 +124,13 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
     }
 
     private fun sendToDart(intent: Intent) {
-        val remoteMessage = RemoteMessage(intent.extras)
-        val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
-
-        AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
-            notificationPayload
-        ) {}
+         intent.extras?.let { bundle ->
+             bundle.getNotificationPayload()?.let {
+                AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
+                    it.toWritableMap()
+                ) {}
+            }
+        }
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {

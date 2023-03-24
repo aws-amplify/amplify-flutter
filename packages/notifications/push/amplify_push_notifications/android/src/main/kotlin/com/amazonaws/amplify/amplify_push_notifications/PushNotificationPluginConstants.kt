@@ -3,6 +3,9 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import com.amplifyframework.annotations.InternalAmplifyApi
+
+@InternalAmplifyApi
 class PushNotificationPluginConstants {
     companion object {
         const val BACKGROUND_FUNCTION_KEY = "amplify_background_dart_entry_point"

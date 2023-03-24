@@ -6,10 +6,9 @@ package com.amazonaws.amplify.amplify_push_notifications
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import com.amplifyframework.pushnotifications.pinpoint.utils.PushNotificationsUtils
-import com.amplifyframework.pushnotifications.pinpoint.utils.processRemoteMessage
+import com.amplifyframework.annotations.InternalAmplifyApi
+import com.amplifyframework.notifications.pushnotifications.NotificationPayload
 import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.FlutterEngineGroup
@@ -17,12 +16,13 @@ import io.flutter.embedding.engine.FlutterEngineGroup
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
 
+@InternalAmplifyApi
 class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     /**
      * Shared utilities from Amplify Android
      */
-    private lateinit var utils: PushNotificationsUtils
+    private lateinit var utils: InternalPushNotificationUtils
 
     /**
      * Flutter Engine group that holds main and background engines
@@ -31,7 +31,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()
-        utils = PushNotificationsUtils(baseContext)
+        utils = InternalPushNotificationUtils(baseContext)
         engineGroup = FlutterEngineGroup(baseContext)
     }
 
@@ -41,6 +41,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
+        super.onNewToken(token)
         // Should initialize normally as it's initialized for the first time.
         StreamHandlers.initStreamHandlers(false)
         StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
@@ -53,34 +54,31 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
             return
         }
         val extras = intent.extras ?: Bundle()
-        // If we can't handle the message type coming in, just forward the intent to Firebase SDK
-        if (!extras.isSupported) {
-            Log.i(TAG, "Message payload is not supported by Amplify")
+        extras.getNotificationPayload()?.let {
+            // message contains push notification payload, show notification
+            // passing both intent and payload to refrain from doing the same conversions downstream
+            handleMessageReceived(intent, it)
+        } ?: run {
+            Log.d(TAG, "Ignore intents that don't contain push notification payload")
             super.handleIntent(intent)
-            return
         }
-        // Otherwise, try to handle the message
-        onMessageReceived(RemoteMessage(intent.extras))
     }
 
     /**
      * Method to handle and forward messages received in foreground & background using isolates and event channels
      */
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    private fun handleMessageReceived(intent: Intent, payload: NotificationPayload) {
         Handler(baseContext.mainLooper).post {
-            val payload = processRemoteMessage(remoteMessage)
             if (utils.isAppInForeground()) {
-                val notificationHashMap = payload.asChannelMap()
+                val notificationHashMap = payload.toWritableMap()
                 StreamHandlers.foregroundMessageReceived!!.send(notificationHashMap)
             } else {
                 try {
                     utils.showNotification(
-                        payload, baseContext.getLaunchActivityClass()
+                        payload
                     )
-                    Log.i(
-                        TAG, "App is in background, start background service and enqueue work"
-                    )
-                    runAppFromKilledState(remoteMessage)
+                    // passing both intent and payload to refrain from doing the same conversions downstream
+                    runAppFromKilledState(intent, payload)
 
                 } catch (exception: Exception) {
                     Log.e(
@@ -91,16 +89,16 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun runAppFromKilledState(remoteMessage: RemoteMessage) {
+    private fun runAppFromKilledState(intent: Intent, payload: NotificationPayload) {
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
         if (mainEngine == null) {
             PushNotificationBackgroundService.enqueueWork(
-                baseContext, remoteMessage.toIntent()
+                baseContext, intent
             )
         } else {
-            val notificationPayload = processRemoteMessage(remoteMessage).asChannelMap()
+            val notificationPayload = payload.toWritableMap()
             AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
                 notificationPayload
             ) {}
