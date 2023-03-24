@@ -42,8 +42,7 @@ void main() {
             authProviderRepo: testAuthProviderRepo,
           );
           final pathProvider =
-              // ignore: invalid_use_of_protected_member
-              s3Plugin.dependencyManager.getOrCreate<AppPathProvider>();
+              s3Plugin.dependencies.getOrCreate<AppPathProvider>();
           expect(pathProvider, isA<S3AppPathProvider>());
         },
         zoneValues: {

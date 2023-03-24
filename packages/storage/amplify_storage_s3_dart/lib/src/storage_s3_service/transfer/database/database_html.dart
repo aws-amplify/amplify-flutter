@@ -14,8 +14,9 @@ const _localStorageKeyPrefix = 'amplify_storage_transfer_data_';
 
 /// {@macro amplify_storage_s3_dart.transfer_database}
 class TransferDatabase implements stub.TransferDatabase {
-  /// {@macro amplify_storage_s3_dart.transfer_database_token}
-  static const token = Token<TransferDatabase>();
+  /// {@macro amplify_storage_s3_dart.transfer_database}
+  // ignore: avoid_unused_constructor_parameters
+  TransferDatabase(DependencyManager dependencies);
 
   Iterable<MapEntry<String, String>> get _entries => window.localStorage.entries
       .where((element) => element.key.startsWith(_localStorageKeyPrefix));

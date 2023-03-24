@@ -43,7 +43,7 @@ class StorageS3Service {
               region: s3PluginConfig.region,
               credentialsProvider: credentialsProvider,
               s3ClientConfig: _defaultS3ClientConfig,
-              client: AmplifyHttpClient()
+              client: AmplifyHttpClient(dependencyManager)
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
         _prefixResolver = prefixResolver,
@@ -77,7 +77,7 @@ class StorageS3Service {
       );
 
   transfer.TransferDatabase get _transferDatabase =>
-      _dependencyManager.getOrCreate(transfer.TransferDatabase.token);
+      _dependencyManager.getOrCreate();
 
   /// Takes in input from [AmplifyStorageS3Dart.list] API to compose a
   /// [s3.ListObjectsV2Request] and to S3 service, then returns a
