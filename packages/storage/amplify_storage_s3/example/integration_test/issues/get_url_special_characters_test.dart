@@ -12,11 +12,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('GetURL incorrect signing for special characters', () async {
     final authPlugin = AmplifyAuthCognito(
-      credentialStorage: AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: 'auth',
-          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-        ),
+      secureStorageFactory: AmplifySecureStorage.factoryFrom(
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
       ),
     );
     final storagePlugin = AmplifyStorageS3();
