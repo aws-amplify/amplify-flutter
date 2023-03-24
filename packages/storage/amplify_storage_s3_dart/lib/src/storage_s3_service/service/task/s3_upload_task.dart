@@ -154,7 +154,7 @@ class S3UploadTask {
   AWSFile? _localFile;
   bool _isMultipartUpload = false;
 
-  late S3TransferState _state;
+  late StorageTransferState _state;
   late final String _resolvedKey;
 
   // fields used to manage the single upload process
@@ -241,7 +241,7 @@ class S3UploadTask {
     }
   }
 
-  /// Pauses the [S3UploadTask] that is in a [S3TransferState.inProgress] state.
+  /// Pauses the [S3UploadTask] that is in a [StorageTransferState.inProgress] state.
   ///
   /// For single putObject, this doesn't take any effect.
   /// For multipart upload, this pauses scheduling next part upload
@@ -250,7 +250,7 @@ class S3UploadTask {
   Future<void> pause() async {
     // can pause when upload is actually started
     await _uploadModelDetermined;
-    if (!_isMultipartUpload || _state != S3TransferState.inProgress) {
+    if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
       return;
     }
 
@@ -259,7 +259,7 @@ class S3UploadTask {
     _subtasksStreamSubscription.pause();
   }
 
-  /// Resumes the [S3UploadTask] that is in a [S3TransferState.paused] state.
+  /// Resumes the [S3UploadTask] that is in a [StorageTransferState.paused] state.
   ///
   /// For single putObject, resume doesn't take any effect.
   /// For multipart upload, resume reschedules remaining subtasks.
@@ -267,9 +267,9 @@ class S3UploadTask {
     // can resume when upload is actually started
     await _uploadModelDetermined;
     if (!_isMultipartUpload ||
-        _state == S3TransferState.inProgress ||
-        _state == S3TransferState.failure ||
-        _state == S3TransferState.success) {
+        _state == StorageTransferState.inProgress ||
+        _state == StorageTransferState.failure ||
+        _state == StorageTransferState.success) {
       return;
     }
     await _uploadPartBatchingCompleted;
@@ -288,9 +288,9 @@ class S3UploadTask {
   Future<void> cancel() async {
     // can cancel when upload mode is determined
     await _uploadModelDetermined;
-    if (_state == S3TransferState.canceled ||
-        _state == S3TransferState.success ||
-        _state == S3TransferState.failure) {
+    if (_state == StorageTransferState.canceled ||
+        _state == StorageTransferState.success ||
+        _state == StorageTransferState.failure) {
       return;
     }
 
@@ -313,7 +313,7 @@ class S3UploadTask {
 
   Future<void> _startPutObject(S3DataPayload body) async {
     _determineUploadModeCompleter.complete();
-    _state = S3TransferState.inProgress;
+    _state = StorageTransferState.inProgress;
 
     final putObjectRequest = s3.PutObjectRequest.build((builder) {
       builder
@@ -352,10 +352,10 @@ class S3UploadTask {
             : S3Item(key: _key),
       );
 
-      _state = S3TransferState.success;
+      _state = StorageTransferState.success;
     } on CancellationException {
       _logger.debug('PutObject HTTP operation has been canceled.');
-      _state = S3TransferState.canceled;
+      _state = StorageTransferState.canceled;
       _uploadCompleter
           .completeError(S3Exception.controllableOperationCanceled());
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
@@ -393,25 +393,25 @@ class S3UploadTask {
     _subtasksStreamController = StreamController(
       onListen: () {
         // 3. start the multipart uploading
-        _state = S3TransferState.inProgress;
+        _state = StorageTransferState.inProgress;
         unawaited(_startNextUploadPartsBatch());
         _emitTransferProgress();
         _determineUploadModeCompleter.complete();
       },
       onPause: () async {
-        _state = S3TransferState.paused;
+        _state = StorageTransferState.paused;
         _cancelOngoingUploadPartOperations(cancelingOnPause: true);
         _emitTransferProgress();
       },
       onResume: () async {
         unawaited(_startNextUploadPartsBatch(resumingFromPause: true));
-        _state = S3TransferState.inProgress;
+        _state = StorageTransferState.inProgress;
         _emitTransferProgress();
       },
       onCancel: () async {
         // _streamController.close triggers this callback but we don't
         // need to emit canceled state as the upload has completed
-        if (_state == S3TransferState.canceled ||
+        if (_state == StorageTransferState.canceled ||
             _numOfCompletedSubtasks == _expectedNumOfSubtasks) {
           return;
         }
@@ -439,7 +439,7 @@ class S3UploadTask {
       }
 
       // start next part upload if there are more parts to upload
-      if (_state == S3TransferState.inProgress) {
+      if (_state == StorageTransferState.inProgress) {
         _startNextUploadPartsBatch();
       }
     })
@@ -458,7 +458,7 @@ class S3UploadTask {
                       )
                     : S3Item(key: _key),
               );
-              _state = S3TransferState.success;
+              _state = StorageTransferState.success;
               _emitTransferProgress();
             } on Exception catch (error, stackTrace) {
               _completeUploadWithError(error, stackTrace);
@@ -543,7 +543,7 @@ class S3UploadTask {
     // await for previous batching to complete (if any)
     await _uploadPartBatchingCompleted;
 
-    if (_state != S3TransferState.inProgress) {
+    if (_state != StorageTransferState.inProgress) {
       return;
     }
 
@@ -562,7 +562,7 @@ class S3UploadTask {
                     (_numOfCompletedSubtasks + _numOfOngoingSubtasks),
               );
 
-    _state = S3TransferState.inProgress;
+    _state = StorageTransferState.inProgress;
 
     if (resumingFromPause && _ongoingSubtasks.isNotEmpty) {
       // resume canceled subtask on pause if any
@@ -709,8 +709,8 @@ class S3UploadTask {
     // in parallel part upload failures will all invoke this function
     // use this to avoid invoking AbortMultipartUploadRequest multiple times
     await _abortMultipartUploadCompleted;
-    if (_state == S3TransferState.canceled ||
-        _state == S3TransferState.failure) {
+    if (_state == StorageTransferState.canceled ||
+        _state == StorageTransferState.failure) {
       return;
     }
 
@@ -740,7 +740,7 @@ class S3UploadTask {
     Object error, [
     StackTrace? stackTrace,
   ]) {
-    _state = S3TransferState.failure;
+    _state = StorageTransferState.failure;
     _emitTransferProgress();
     _uploadCompleter.completeError(error, stackTrace);
   }

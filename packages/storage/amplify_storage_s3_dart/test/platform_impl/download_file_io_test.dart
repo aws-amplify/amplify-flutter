@@ -140,7 +140,7 @@ void main() {
       const testProgress = S3TransferProgress(
         totalBytes: 1024,
         transferredBytes: 1024,
-        state: S3TransferState.inProgress,
+        state: StorageTransferState.inProgress,
       );
       onProgress(testProgress);
       expect(testProgress, expectedProgress);

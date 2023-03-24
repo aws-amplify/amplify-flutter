@@ -86,7 +86,7 @@ void main() {
           body: Stream.value(testBodyBytes),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithyOperation.result,
@@ -135,7 +135,7 @@ void main() {
         expect(request.checksumMode, ChecksumMode.enabled);
 
         await downloadTask.result;
-        expect(finalState, S3TransferState.success);
+        expect(finalState, StorageTransferState.success);
       });
 
       test(
@@ -255,7 +255,7 @@ void main() {
           ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation.result,
@@ -286,7 +286,7 @@ void main() {
         unawaited(downloadTask.start());
         await downloadTask.pause();
 
-        expect(receivedState.last, S3TransferState.paused);
+        expect(receivedState.last, StorageTransferState.paused);
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
@@ -301,7 +301,7 @@ void main() {
           ).take(1024),
         );
         final smithyOperation1 = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation1.result,
@@ -353,7 +353,7 @@ void main() {
 
         await downloadTask.resume();
 
-        expect(receivedState.last, S3TransferState.inProgress);
+        expect(receivedState.last, StorageTransferState.inProgress);
       });
 
       test('should throw exception when attempt to resume a canceled task',
@@ -366,7 +366,7 @@ void main() {
           ).take(1024),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation.result,
@@ -416,7 +416,7 @@ void main() {
           ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation.result,
@@ -445,7 +445,7 @@ void main() {
 
         await downloadTask.start();
         await downloadTask.cancel();
-        expect(receivedState.last, S3TransferState.canceled);
+        expect(receivedState.last, StorageTransferState.canceled);
         expect(downloadTask.result, throwsA(isA<StorageException>()));
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
@@ -613,7 +613,7 @@ void main() {
           body: Stream.value(testBodyBytes),
         );
         final smithOperation = MockSmithyOperation<GetObjectOutput>();
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithOperation.result,
@@ -643,7 +643,7 @@ void main() {
         unawaited(downloadTask.start());
 
         await downloadTask.result;
-        expect(finalState, S3TransferState.success);
+        expect(finalState, StorageTransferState.success);
       });
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
@@ -656,7 +656,7 @@ void main() {
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final testOnDoneException = Exception('some exception');
         var onDoneHasBeenCalled = false;
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithyOperation.result,
@@ -691,7 +691,7 @@ void main() {
 
         await expectLater(downloadTask.result, throwsA(testOnDoneException));
         expect(onDoneHasBeenCalled, isTrue);
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(

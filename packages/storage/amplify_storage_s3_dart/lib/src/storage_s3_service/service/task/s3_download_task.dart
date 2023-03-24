@@ -108,7 +108,7 @@ class S3DownloadTask {
   Completer<void>? _getObjectCompleter;
   Completer<void>? _pauseCompleter;
 
-  late S3TransferState _state;
+  late StorageTransferState _state;
   late final String _resolvedKey;
 
   // Total bytes that need to be downloaded, this field is set when the
@@ -128,7 +128,7 @@ class S3DownloadTask {
   Future<void> start() async {
     _resetGetObjectCompleter();
 
-    _state = S3TransferState.inProgress;
+    _state = StorageTransferState.inProgress;
 
     try {
       await _preStart?.call();
@@ -173,7 +173,7 @@ class S3DownloadTask {
     // ensure the task has actually started before pausing
     await _getObjectInitiated;
 
-    if (_state != S3TransferState.inProgress) {
+    if (_state != StorageTransferState.inProgress) {
       return;
     }
 
@@ -184,7 +184,7 @@ class S3DownloadTask {
     await _bytesSubscription?.cancel();
     _bytesSubscription = null;
 
-    _state = S3TransferState.paused;
+    _state = StorageTransferState.paused;
     _emitTransferProgress();
     _pauseCompleter?.complete();
   }
@@ -195,13 +195,13 @@ class S3DownloadTask {
     // stream listers were canceled.
     await _pausedCompleted;
 
-    if (_state == S3TransferState.inProgress ||
-        _state == S3TransferState.success ||
-        _state == S3TransferState.failure) {
+    if (_state == StorageTransferState.inProgress ||
+        _state == StorageTransferState.success ||
+        _state == StorageTransferState.failure) {
       return;
     }
 
-    if (_state == S3TransferState.canceled) {
+    if (_state == StorageTransferState.canceled) {
       // throws exception here as _downloadCompleter has completed by the
       // cancel
       throw S3Exception.resumeCanceledOperation();
@@ -209,7 +209,7 @@ class S3DownloadTask {
 
     _resetGetObjectCompleter();
 
-    _state = S3TransferState.inProgress;
+    _state = StorageTransferState.inProgress;
 
     _emitTransferProgress();
 
@@ -235,13 +235,13 @@ class S3DownloadTask {
   ///
   /// A canceled [S3DownloadTask] is not resumable.
   Future<void> cancel() async {
-    if (_state == S3TransferState.canceled ||
-        _state == S3TransferState.success ||
-        _state == S3TransferState.failure) {
+    if (_state == StorageTransferState.canceled ||
+        _state == StorageTransferState.success ||
+        _state == StorageTransferState.failure) {
       return;
     }
 
-    _state = S3TransferState.canceled;
+    _state = StorageTransferState.canceled;
 
     // Calling cancel of the SmithyOperation returned by getObject cannot
     // cancel the underlying HTTP request, cancel on the body stream instead.
@@ -285,7 +285,7 @@ class S3DownloadTask {
     })
       ..onDone(() async {
         if (_downloadedBytesSize == _totalBytes) {
-          _state = S3TransferState.success;
+          _state = StorageTransferState.success;
           try {
             await _onDone?.call();
             _emitTransferProgress();
@@ -321,7 +321,7 @@ class S3DownloadTask {
     Object error, [
     StackTrace? stackTrace,
   ]) async {
-    _state = S3TransferState.failure;
+    _state = StorageTransferState.failure;
     await _onError?.call();
     _emitTransferProgress();
     _downloadCompleter.completeError(error, stackTrace);
