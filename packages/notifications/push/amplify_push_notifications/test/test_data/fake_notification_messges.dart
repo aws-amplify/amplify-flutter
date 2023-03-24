@@ -1,22 +1,29 @@
-const androidPushMessage = {
-  'title': 'Journey Title 1',
-  'body': 'Body 1',
+const standardAndroidPushMessage = {
+  'title': 'TITTLE',
+  'body': 'BODY',
   'imageUrl': null,
-  'goToUrl': null,
-  'deeplinkUrl': null,
-  'fcmOptions': {
-    'senderId': '913827661714',
-    'messageId': '0',
-    'sentTime': 1678322060805,
-    'channelId': 'PINPOINT.NOTIFICATION'
-  },
-  'data': {
-    'pinpoint.notification.body': 'Body 1',
-    'data': {
-      'pinpoint': {'endpointId': '32cd8620-7914-4a33-857c-7d664711dc9c'}
-    },
-    'pinpoint.notification.silentPush': '0',
-    'pinpoint.notification.title': 'Journey Title 1',
+  'channelId': 'PINPOINT.NOTIFICATION',
+  'action': {'openApp': true, 'url': null, 'deeplink': null},
+  'rawData': {
     'pinpoint.openApp': true,
+    'pinpoint.notification.title': 'TITTLE',
+    'pinpoint.notification.body': 'BODY',
+    'pinpoint.campaign.campaign_id': '_DIRECT',
+    'pinpoint.notification.silentPush': 0
+  }
+};
+
+const urlsAndroidMessage = {
+  'title': 'TITTLE',
+  'body': 'BODY',
+  'imageUrl': null,
+  'channelId': 'PINPOINT.NOTIFICATION',
+  'action': {'openApp': null, 'url': 'URL', 'deeplink': 'DEEPLINK'},
+  'rawData': {
+    'pinpoint.url': 'URL',
+    'pinpoint.notification.title': 'TITTLE',
+    'pinpoint.notification.body': 'BODY',
+    'pinpoint.campaign.campaign_id': '_DIRECT',
+    'pinpoint.notification.silentPush': 0
   }
 };

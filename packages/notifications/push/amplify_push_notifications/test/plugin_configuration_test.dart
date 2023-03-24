@@ -100,7 +100,7 @@ void main() {
     test('should configure correctly', () async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => androidPushMessage),
+        (_) => Future(() => standardAndroidPushMessage),
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -197,7 +197,7 @@ void main() {
     setUp(() async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => androidPushMessage),
+        (_) => Future(() => standardAndroidPushMessage),
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -235,7 +235,7 @@ void main() {
     setUp(() async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => androidPushMessage),
+        (_) => Future(() => standardAndroidPushMessage),
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -267,7 +267,7 @@ void main() {
     setUp(() async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => androidPushMessage),
+        (_) => Future(() => standardAndroidPushMessage),
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -292,13 +292,15 @@ void main() {
     setUp(() async {
       log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => androidPushMessage),
+        (_) => Future(() => standardAndroidPushMessage),
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
         config: config,
       );
     });
+
+    // TODO: add tests for background
     test('onNotificationReceivedInBackground', () {
       plugin.onNotificationReceivedInBackground(
         (_) {},

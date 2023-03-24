@@ -155,9 +155,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     override fun onDetachedFromActivityForConfigChanges() {
         onDetachedFromActivity()
     }
-
-    // TODO(Samaritan1011001): 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
-    //      2. The intent here is the last notification device got rather than the one that was tapped
+    
     override fun onNewIntent(intent: Intent): Boolean {
         val payload = NotificationPayload.fromIntent(intent)
         if (payload != null) {
