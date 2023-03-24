@@ -84,7 +84,7 @@ void main() {
       stateMachine = CognitoAuthStateMachine()
         ..addInstance<http.Client>(server.httpClient)
         ..addInstance(secureStorage)
-        ..addBuilder(MockHostedUiPlatform.new, HostedUiPlatform.token);
+        ..addBuilder<HostedUiPlatform>(MockHostedUiPlatform.new);
     });
 
     test('getAuthorizationUrl', () async {
@@ -94,7 +94,7 @@ void main() {
         )
         ..addInstance<CognitoOAuthConfig>(hostedUiConfig);
 
-      final platform = stateMachine.create(HostedUiPlatform.token);
+      final platform = stateMachine.create<HostedUiPlatform>();
       final authorizationUri = await platform.getSignInUri();
 
       expect(authorizationUri.pathSegments.last, 'authorize');
@@ -230,10 +230,7 @@ void main() {
 
       test('fails', () async {
         stateMachine
-          ..addBuilder(
-            FailingHostedUiPlatform.new,
-            HostedUiPlatform.token,
-          )
+          ..addBuilder<HostedUiPlatform>(FailingHostedUiPlatform.new)
           ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
 
         final sm = stateMachine.getOrCreate(HostedUiStateMachine.type);
@@ -495,10 +492,7 @@ void main() {
       test('fails', () async {
         seedStorage(secureStorage, hostedUiKeys: keys);
         stateMachine
-          ..addBuilder(
-            FailingHostedUiPlatform.new,
-            HostedUiPlatform.token,
-          )
+          ..addBuilder<HostedUiPlatform>(FailingHostedUiPlatform.new)
           ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
         await expectLater(
           stateMachine.stream.whereType<HostedUiState>(),
@@ -520,7 +514,7 @@ void main() {
 
       test('preserves options', () async {
         stateMachine
-          ..addBuilder(
+          ..addBuilder<HostedUiPlatform>(
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
@@ -538,7 +532,6 @@ void main() {
                 expect(options.isPreferPrivateSession, isTrue);
               }),
             ),
-            HostedUiPlatform.token,
           )
           ..dispatch(ConfigurationEvent.configure(mockConfig)).ignore();
 

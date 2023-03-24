@@ -291,7 +291,7 @@ void main() {
           completion(isA<Configured>()),
         );
         deviceRepo = DeviceMetadataRepository(userPoolConfig, secureStorage);
-        stateMachine.addInstance(deviceRepo, DeviceMetadataRepository.token);
+        stateMachine.addInstance<DeviceMetadataRepository>(deviceRepo);
       });
 
       test('should fail when verification fails', () async {

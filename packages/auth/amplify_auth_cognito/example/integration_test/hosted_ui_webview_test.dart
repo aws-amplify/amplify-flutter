@@ -63,14 +63,13 @@ void main() {
       });
 
       Future<void> signIn(WidgetTester tester) async {
-        stateMachine.addInstance(
+        stateMachine.addInstance<HostedUiPlatform>(
           HostedUiTestPlatform(
             tester,
             stateMachine,
             username: username,
             password: password,
           ),
-          HostedUiPlatform.token,
         );
         _logger.debug('Signing in with Web UI');
         final result = await plugin.signInWithWebUI(

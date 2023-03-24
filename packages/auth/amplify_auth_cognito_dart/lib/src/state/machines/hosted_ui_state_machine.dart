@@ -34,7 +34,7 @@ class HostedUiStateMachine
   SecureStorageInterface get _secureStorage => getOrCreate();
 
   /// The platform-specific behavior.
-  late final HostedUiPlatform _platform = getOrCreate(HostedUiPlatform.token);
+  late final HostedUiPlatform _platform = getOrCreate();
 
   @override
   Future<void> resolve(HostedUiEvent event) async {
