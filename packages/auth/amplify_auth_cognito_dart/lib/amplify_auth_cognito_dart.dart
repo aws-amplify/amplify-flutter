@@ -15,6 +15,8 @@ export 'src/jwt/src/cognito.dart';
 export 'src/jwt/src/token.dart';
 
 /// Models
+export 'src/model/attribute/cognito_confirm_user_attribute_plugin_options.dart';
+export 'src/model/attribute/cognito_fetch_user_attributes_plugin_options.dart';
 export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_options.dart';
 export 'src/model/attribute/cognito_resend_user_attribute_confirmation_code_plugin_options.dart';
 export 'src/model/attribute/cognito_update_user_attribute_options.dart';
@@ -30,10 +32,12 @@ export 'src/model/password/cognito_confirm_reset_password_plugin_options.dart';
 export 'src/model/password/cognito_reset_password_options.dart';
 export 'src/model/password/cognito_reset_password_plugin_options.dart';
 export 'src/model/password/cognito_reset_password_result.dart';
+export 'src/model/password/cognito_update_password_plugin_options.dart';
 export 'src/model/session/cognito_auth_session.dart';
 export 'src/model/session/cognito_auth_user.dart';
 export 'src/model/session/cognito_fetch_auth_session_options.dart';
 export 'src/model/session/cognito_fetch_auth_session_plugin_options.dart';
+export 'src/model/session/cognito_get_current_user_plugin_options.dart';
 export 'src/model/session/cognito_sign_in_details.dart'
     hide CognitoSignInDetailsFederated;
 export 'src/model/session/cognito_user_pool_tokens.dart';
@@ -48,6 +52,7 @@ export 'src/model/signin/cognito_sign_in_result.dart';
 export 'src/model/signin/cognito_sign_in_step.dart';
 export 'src/model/signin/cognito_sign_in_with_web_ui_options.dart';
 export 'src/model/signin/cognito_sign_in_with_web_ui_plugin_options.dart';
+export 'src/model/signout/cognito_sign_out_plugin_options.dart';
 export 'src/model/signout/cognito_sign_out_result.dart';
 export 'src/model/signup/cognito_confirm_sign_up_options.dart';
 export 'src/model/signup/cognito_confirm_sign_up_plugin_options.dart';
