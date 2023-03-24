@@ -241,22 +241,24 @@ abstract class StateMachine<
   // blocking on the current event until it has finished processing.
   Future<void> _listenForEvents() async {
     await for (final completer in _eventStream) {
-      completer.accept();
-      try {
-        final event = completer.event;
-        _currentCompleter = completer;
-        _currentEvent = event as Event;
-        if (!_checkPrecondition(event)) {
-          continue;
+      await completer.run(() async {
+        completer.accept();
+        try {
+          final event = completer.event;
+          _currentCompleter = completer;
+          _currentEvent = event as Event;
+          if (!_checkPrecondition(event)) {
+            return;
+          }
+          // Resolve in the next event loop since `emit` is synchronous and may
+          // fire before listeners are registered.
+          await Future<void>.delayed(Duration.zero, () => resolve(event));
+        } on Object catch (error, st) {
+          _emitError(error, st);
+        } finally {
+          completer.complete(_currentState);
         }
-        // Resolve in the next event loop since `emit` is synchronous and may
-        // fire before listeners are registered.
-        await Future<void>.delayed(Duration.zero, () => resolve(event));
-      } on Object catch (error, st) {
-        _emitError(error, st);
-      } finally {
-        completer.complete(_currentState);
-      }
+      });
     }
   }
 

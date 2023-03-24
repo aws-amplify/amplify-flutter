@@ -53,6 +53,11 @@ class EventCompleter<Event extends StateMachineEvent,
   /// here and chain it with later stack traces.
   final StackTrace stackTrace;
 
+  /// The zone in which this event was created.
+  ///
+  /// Used in [run] to guarantee callbacks run in the same zone that this event
+  /// was created.
+  final Zone _zone = Zone.current;
   final Completer<void> _acceptedCompleter = Completer();
   final Completer<State> _completer = Completer();
 
@@ -87,6 +92,17 @@ class EventCompleter<Event extends StateMachineEvent,
       _completer.completeError(error, stackTrace);
     }
   }
+
+  /// Runs [body] in the [Zone] which this event was created.
+  ///
+  /// Due to how Zones work in Flutter, it cannot be guaranteed that the Zone
+  /// in which this event is accepted (which is the zone in which the state
+  /// machine was created) will be the same as the zone in which the _event_
+  /// was created.
+  ///
+  /// Since events are created in the same zone as the user's call, we should
+  /// default to using this zone for running state machine actions.
+  R run<R>(R Function() body) => _zone.run(body);
 
   /// Ignores the result of the event completer.
   ///
