@@ -31,6 +31,10 @@ const _foregroundNotificationEventChannel = EventChannel(
 
 const _externalHandleKey = 'externalHandleKey';
 
+const _needsConfigurationException = PushNotificationException(
+  'Configure Amplify with Notifications Plugin before using this method.',
+);
+
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
 
