@@ -8,7 +8,6 @@ export '../exception/auth/not_authorized_exception.dart';
 export '../exception/auth/service_exception.dart';
 export '../exception/auth/session_expired_exception.dart';
 export '../exception/auth/signed_out_exception.dart';
-export '../exception/auth/unknown_exception.dart';
 export '../exception/auth/user_cancelled_exception.dart';
 export '../exception/auth/validation_exception.dart';
 

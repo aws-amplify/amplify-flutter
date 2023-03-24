@@ -10,7 +10,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/common/serializers.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/version.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:built_value/serializer.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
@@ -485,6 +485,23 @@ void main() {
 
       final items = eventStore.getCount(100);
       expect(items.length, 1);
+    });
+
+    test('flushEvents throws PinpointException from unrecognized exceptions',
+        () async {
+      await eventClient.recordEvent(
+        eventType: failEventType,
+      );
+
+      when(() => pinpointClient.putEvents(any<PutEventsRequest>()))
+          .thenThrow(Exception());
+
+      expect(
+        eventClient.flushEvents(),
+        throwsA(
+          isA<AnalyticsException>(),
+        ),
+      );
     });
   });
 }

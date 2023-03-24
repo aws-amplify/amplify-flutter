@@ -5,8 +5,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:smithy/smithy.dart';
 
-const _fileIssueMessage =
-    'This exception is not expected. Please try again. If the exception persists, please file an issue at https://github.com/aws-amplify/amplify-flutter/issues';
 const _keyNotFoundRecoveryMessage =
     'Please ensure that correct object key is provided, and/or correct `StorageAccessLevel` and `targetIdentityId` are included in the options.';
 const _httpErrorRecoveryMessage =
@@ -37,7 +35,7 @@ class S3Exception extends StorageException {
   factory S3Exception.unknownException([String? extraMessage]) {
     return S3Exception(
       'Unknown exception occurred. $extraMessage',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -46,7 +44,7 @@ class S3Exception extends StorageException {
   factory S3Exception.incompleteDownload() {
     return const S3Exception(
       'Download has completed, but it has not received all bytes of content.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -55,7 +53,7 @@ class S3Exception extends StorageException {
   factory S3Exception.unexpectedContentLengthFromService() {
     return const S3Exception(
       'Service has not returned a valid content length for requested object.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -73,7 +71,7 @@ class S3Exception extends StorageException {
   factory S3Exception.unexpectedGetObjectBody() {
     return const S3Exception(
       'Unexpected null body from GetObject.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -91,7 +89,7 @@ class S3Exception extends StorageException {
   factory S3Exception.unexpectedMultipartUploadId() {
     return const S3Exception(
       'Create multipart upload request succeeded, but it did not return a valid uploadId.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -110,7 +108,7 @@ class S3Exception extends StorageException {
   factory S3Exception.fromS3NoSuchUpload(Object? exception) {
     return S3Exception(
       'Multipart upload is not found while initiating a part upload.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       underlyingException: exception,
     );
   }
@@ -119,7 +117,7 @@ class S3Exception extends StorageException {
   factory S3Exception.multipartUploadAborted(Object? exception) {
     return S3Exception(
       'An error occurred during multipart upload. The upload has been canceled.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       underlyingException: exception,
     );
   }
@@ -130,7 +128,7 @@ class S3Exception extends StorageException {
   factory S3Exception.unexpectedETagFromService() {
     return const S3Exception(
       'Service API call output doesn\'t contain a valid eTag.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     );
   }
 
@@ -194,21 +192,21 @@ class S3Exception extends StorageException {
       }
     }
 
-    return StorageUnknownException(
+    return UnknownException(
       'Unknown service error.',
-      recoverySuggestion: _fileIssueMessage,
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       underlyingException: exception,
     );
   }
 
-  /// Creates a [StorageUnknownException] for a [s3.S3Object] that is missing
+  /// Creates a [UnknownException] for a [s3.S3Object] that is missing
   /// a valid `key`, this exception should not happen normally.
-  static StorageUnknownException getS3ObjectMissingKeyException(
+  static UnknownException getS3ObjectMissingKeyException(
     s3.S3Object object,
   ) =>
-      StorageUnknownException(
+      UnknownException(
         'Missing key in a S3Object: $object',
-        recoverySuggestion: _fileIssueMessage,
+        recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       );
 
   @override

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_analytics_pinpoint_dart/src/exception/pinpoint_analytics_exception.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
@@ -159,15 +160,19 @@ class EndpointClient {
 
   /// Send local Endpoint instance to AWS Pinpoint.
   Future<void> updateEndpoint() async {
-    await _pinpointClient
-        .updateEndpoint(
-          UpdateEndpointRequest(
-            applicationId: _pinpointAppId,
-            endpointId: _fixedEndpointId,
-            endpointRequest: _endpointToRequest(getPublicEndpoint()),
-          ),
-        )
-        .result;
+    try {
+      await _pinpointClient
+          .updateEndpoint(
+            UpdateEndpointRequest(
+              applicationId: _pinpointAppId,
+              endpointId: _fixedEndpointId,
+              endpointRequest: _endpointToRequest(getPublicEndpoint()),
+            ),
+          )
+          .result;
+    } on Exception catch (e) {
+      throw fromPinpointException(e);
+    }
   }
 
   /// Create an EndpointRequest object from a local Endpoint instance.
