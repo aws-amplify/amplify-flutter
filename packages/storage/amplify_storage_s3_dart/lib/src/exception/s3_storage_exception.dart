@@ -132,6 +132,19 @@ class S3Exception extends StorageException {
     );
   }
 
+  /// An exception thrown when the Storage S3 API
+  /// does not support the provided plugin options.
+  factory S3Exception.invalidPluginOptions({
+    required String providedPluginOptionsType,
+    required String expectedPluginOptionsType,
+  }) {
+    return S3Exception(
+      'Storage S3 API does not support the $providedPluginOptionsType',
+      recoverySuggestion:
+          'Use $expectedPluginOptionsType instead of $providedPluginOptionsType.',
+    );
+  }
+
   /// A [StorageLocalFileNotFoundException] thrown when download destination file
   /// path points to a directory.
   static const StorageLocalFileNotFoundException

@@ -7,8 +7,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// The configurable parameters invoking the Storage S3 plugin `uploadFile`
 /// API.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageUploadFileOptions(pluginOptions: S3UploadFilePluginOptions(...)) instead.',
+)
 class S3UploadFileOptions extends StorageUploadFileOptions {
   /// {@macro storage.amplify_storage_s3.upload_file_options}
+  @Deprecated(
+    'use StorageUploadFileOptions(pluginOptions: S3UploadFilePluginOptions(...)) instead.',
+  )
   const S3UploadFileOptions({
     super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,

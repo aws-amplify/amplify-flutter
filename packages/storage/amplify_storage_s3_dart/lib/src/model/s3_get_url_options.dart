@@ -7,8 +7,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// The configurable parameters invoking the Storage S3 plugin `getUrl`
 /// API.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
+)
 class S3GetUrlOptions extends StorageGetUrlOptions {
   /// {@macro storage.amplify_storage_s3.get_url_options}
+  @Deprecated(
+    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
+  )
   const S3GetUrlOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     Duration expiresIn = const Duration(minutes: 15),
@@ -20,10 +26,12 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
           checkObjectExistence: checkObjectExistence,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
-
+  @Deprecated(
+    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions(...)) instead.',
+  )
   const S3GetUrlOptions._({
     super.accessLevel = StorageAccessLevel.guest,
-    this.expiresIn = const Duration(days: 1),
+    this.expiresIn = const Duration(minutes: 15),
     this.checkObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
@@ -33,9 +41,12 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   ///
   /// Use this when calling `getUrl` on an object that belongs to other user
   /// (identified by [targetIdentityId]) rather than the currently signed user.
+  @Deprecated(
+    'use StorageGetUrlOptions(pluginOptions: S3GetUrlPluginOptions.forIdentity(...)) instead.',
+  )
   const S3GetUrlOptions.forIdentity(
     String targetIdentityId, {
-    Duration expiresIn = const Duration(days: 1),
+    Duration expiresIn = const Duration(minutes: 15),
     bool checkObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(

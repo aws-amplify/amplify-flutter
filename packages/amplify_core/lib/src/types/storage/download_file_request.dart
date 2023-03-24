@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.download_file_request}
 /// A storage download file request.
 /// {@endtemplate}
-class StorageDownloadFileRequest<Options extends StorageDownloadFileOptions> {
+class StorageDownloadFileRequest {
   /// {@macro amplify_core.storage.download_file_request}
   const StorageDownloadFileRequest({
     required this.key,
@@ -20,6 +20,6 @@ class StorageDownloadFileRequest<Options extends StorageDownloadFileOptions> {
   /// Reference to the local file that download the object to.
   final AWSFile localFile;
 
-  /// Configurable options of the download request.
-  final Options? options;
+  /// Configurable options of the [StorageDownloadFileRequest].
+  final StorageDownloadFileOptions? options;
 }

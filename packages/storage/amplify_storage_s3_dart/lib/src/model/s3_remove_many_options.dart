@@ -7,8 +7,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// The configurable parameters invoking the Storage S3 plugin `removeMany`
 /// API.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageRemoveManyOptions(pluginOptions: S3RemoveManyPluginOptions(...)) instead.',
+)
 class S3RemoveManyOptions extends StorageRemoveManyOptions {
   /// {@macro storage.amplify_storage_s3.remove_many_options}
+  @Deprecated(
+    'use StorageRemoveManyOptions(pluginOptions: S3RemoveManyPluginOptions(...)) instead.',
+  )
   const S3RemoveManyOptions({
     super.accessLevel = StorageAccessLevel.guest,
   });

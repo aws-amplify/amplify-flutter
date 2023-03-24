@@ -18,26 +18,34 @@ S3DownloadFileOperation downloadFile({
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
 }) {
-  final s3Options = request.options as S3DownloadFileOptions? ??
-      S3DownloadFileOptions(
-        accessLevel: s3pluginConfig.defaultAccessLevel,
-      );
-  final targetIdentityId = s3Options.targetIdentityId;
-  final downloadDataOptions = targetIdentityId == null
-      ? S3DownloadDataOptions(
-          accessLevel: s3Options.accessLevel,
-          getProperties: s3Options.getProperties,
-          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
-        )
-      : S3DownloadDataOptions.forIdentity(
-          targetIdentityId,
-          getProperties: s3Options.getProperties,
-          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
-        );
+  final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+    pluginOptions: request.options?.pluginOptions,
+    defaultPluginOptions: const S3DownloadFilePluginOptions(),
+  );
+  final s3Options = StorageDownloadFileOptions(
+    accessLevel:
+        request.options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+    pluginOptions: s3PluginOptions,
+  );
 
   late final String destinationPath;
   late final IOSink sink;
   late final File tempFile;
+
+  final targetIdentityId = s3PluginOptions.targetIdentityId;
+  final downloadDataOptions = StorageDownloadDataOptions(
+    accessLevel: s3Options.accessLevel,
+    pluginOptions: targetIdentityId == null
+        ? S3DownloadDataPluginOptions(
+            getProperties: s3PluginOptions.getProperties,
+            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+          )
+        : S3DownloadDataPluginOptions.forIdentity(
+            targetIdentityId,
+            getProperties: s3PluginOptions.getProperties,
+            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+          ),
+  );
 
   final downloadDataTask = storageS3Service.downloadData(
     key: request.key,

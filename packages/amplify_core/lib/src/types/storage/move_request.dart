@@ -6,8 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.move_request}
 /// Presents a storage copy request.
 /// {@endtemplate}
-class StorageMoveRequest<Item extends StorageItem,
-    Options extends StorageMoveOptions> {
+class StorageMoveRequest<Item extends StorageItem> {
   /// {@macro amplify_core.storage.move_request}
   const StorageMoveRequest({
     required this.source,
@@ -22,5 +21,5 @@ class StorageMoveRequest<Item extends StorageItem,
   final StorageItemWithAccessLevel<Item> destination;
 
   /// Configurable options of the [StorageMoveRequest].
-  final Options? options;
+  final StorageMoveOptions? options;
 }

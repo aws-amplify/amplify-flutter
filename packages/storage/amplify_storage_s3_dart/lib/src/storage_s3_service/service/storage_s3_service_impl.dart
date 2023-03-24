@@ -92,25 +92,29 @@ class StorageS3Service {
   /// {@endtemplate}
   Future<S3ListResult> list({
     String? path,
-    required S3ListOptions options,
+    required StorageListOptions options,
   }) async {
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const S3ListPluginOptions(),
+    );
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
       accessLevel: options.accessLevel,
-      identityId: options.targetIdentityId,
+      identityId: s3PluginOptions.targetIdentityId,
     );
 
     final listTargetPrefix = '$resolvedPrefix${path ?? ''}';
 
-    if (!options.listAll) {
+    if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
           ..bucket = _defaultBucket
           ..prefix = listTargetPrefix
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
-          ..delimiter = options.excludeSubPaths ? _delimiter : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
 
       try {
@@ -132,7 +136,7 @@ class StorageS3Service {
         builder
           ..bucket = _defaultBucket
           ..prefix = listTargetPrefix
-          ..delimiter = options.excludeSubPaths ? _delimiter : null;
+          ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
 
       listResult = await _defaultS3Client.listObjectsV2(request).result;
@@ -166,13 +170,18 @@ class StorageS3Service {
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetPropertiesResult> getProperties({
     required String key,
-    required S3GetPropertiesOptions options,
+    required StorageGetPropertiesOptions options,
   }) async {
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const S3GetPropertiesPluginOptions(),
+    );
+
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
       accessLevel: options.accessLevel,
-      identityId: options.targetIdentityId,
+      identityId: s3PluginOptions.targetIdentityId,
     );
 
     final keyToGetProperties = '$resolvedPrefix$key';
@@ -196,18 +205,25 @@ class StorageS3Service {
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3GetUrlResult> getUrl({
     required String key,
-    required S3GetUrlOptions options,
+    required StorageGetUrlOptions options,
   }) async {
-    if (options.checkObjectExistence) {
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const S3GetUrlPluginOptions(),
+    );
+
+    if (s3PluginOptions.checkObjectExistence) {
       // make a HeadObject call for checking object existence
       // it may throw 404 if object doesn't exist in bucket
-      final targetIdentityId = options.targetIdentityId;
+      final targetIdentityId = s3PluginOptions.targetIdentityId;
       final getPropertiesOptions = targetIdentityId == null
-          ? S3GetPropertiesOptions(
+          ? StorageGetPropertiesOptions(
               accessLevel: options.accessLevel,
             )
-          : S3GetPropertiesOptions.forIdentity(
-              targetIdentityId,
+          : StorageGetPropertiesOptions(
+              accessLevel: options.accessLevel,
+              pluginOptions:
+                  S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
             );
       await getProperties(
         key: key,
@@ -219,7 +235,7 @@ class StorageS3Service {
       prefixResolver: _prefixResolver,
       logger: _logger,
       accessLevel: options.accessLevel,
-      identityId: options.targetIdentityId,
+      identityId: s3PluginOptions.targetIdentityId,
     );
     var keyToGetUrl = '$resolvedPrefix$key';
     if (!keyToGetUrl.startsWith('/')) {
@@ -228,7 +244,7 @@ class StorageS3Service {
 
     var host = '$_defaultBucket.${_getS3EndpointHost(region: _defaultRegion)}';
 
-    if (options.useAccelerateEndpoint) {
+    if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
           .replaceFirst(RegExp('$_defaultRegion\\.'), '')
@@ -245,12 +261,12 @@ class StorageS3Service {
       url: await _awsSigV4Signer.presign(
         urlRequest,
         credentialScope: _signerScope,
-        expiresIn: options.expiresIn,
+        expiresIn: s3PluginOptions.expiresIn,
         serviceConfiguration: _defaultS3SignerConfiguration,
       ),
       expiresAt:
           (Zone.current[testDateTimeNowOverride] as DateTime? ?? DateTime.now())
-              .add(options.expiresIn),
+              .add(s3PluginOptions.expiresIn),
     );
   }
 
@@ -267,7 +283,7 @@ class StorageS3Service {
   /// {@macro amplify_storage_s3_dart.download_task.on_done}
   S3DownloadTask downloadData({
     required String key,
-    required S3DownloadDataOptions options,
+    required StorageDownloadDataOptions options,
     FutureOr<void> Function()? preStart,
     void Function(S3TransferProgress)? onProgress,
     void Function(List<int>)? onData,
@@ -300,7 +316,7 @@ class StorageS3Service {
   S3UploadTask uploadData({
     required String key,
     required S3DataPayload dataPayload,
-    required S3UploadDataOptions options,
+    required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
@@ -329,15 +345,22 @@ class StorageS3Service {
   S3UploadTask uploadFile({
     required String key,
     required AWSFile localFile,
-    required S3UploadFileOptions options,
+    required StorageUploadFileOptions options,
     void Function(S3TransferProgress)? onProgress,
     FutureOr<void> Function()? onDone,
     FutureOr<void> Function()? onError,
   }) {
-    final uploadDataOptions = S3UploadDataOptions(
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options,
+      defaultPluginOptions: const S3UploadFilePluginOptions(),
+    );
+
+    final uploadDataOptions = StorageUploadDataOptions(
       accessLevel: options.accessLevel,
-      getProperties: options.getProperties,
-      metadata: options.metadata,
+      pluginOptions: S3UploadDataPluginOptions(
+        getProperties: s3PluginOptions.getProperties,
+        metadata: s3PluginOptions.metadata,
+      ),
     );
     final uploadDataTask = S3UploadTask.fromAWSFile(
       localFile,
@@ -362,7 +385,7 @@ class StorageS3Service {
   /// `destination`, then returns a [S3CopyResult] based on the `key` of
   /// `destination`.
   ///
-  /// When [S3CopyOptions.getProperties] is set to `true`, when the
+  /// When [S3CopyPluginOptions.getProperties] is set to `true`, when the
   /// [s3.CopyObjectRequest] succeeds, the API creates a [s3.HeadObjectRequest]
   /// with the `key` of the `destination`, and sends to S3 Service, then
   /// returns a [S3CopyResult] based on the [s3.HeadObjectOutput]
@@ -372,8 +395,13 @@ class StorageS3Service {
   Future<S3CopyResult> copy({
     required S3ItemWithAccessLevel source,
     required S3ItemWithAccessLevel destination,
-    required S3CopyOptions options,
+    required StorageCopyOptions options,
   }) async {
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const S3CopyPluginOptions(),
+    );
+
     final resolvedPrefixes = await Future.wait([
       getResolvedPrefix(
         prefixResolver: _prefixResolver,
@@ -408,7 +436,7 @@ class StorageS3Service {
     }
 
     return S3CopyResult(
-      copiedItem: options.getProperties
+      copiedItem: s3PluginOptions.getProperties
           ? S3Item.fromHeadObjectOutput(
               await headObject(
                 s3client: _defaultS3Client,
@@ -427,7 +455,7 @@ class StorageS3Service {
   /// `source`, then returns a [S3MoveResult] based on the `key` of
   /// `destination`.
   ///
-  /// When [S3CopyOptions.getProperties] is set to `true`, when both
+  /// When [S3CopyPluginOptions.getProperties] is set to `true`, when both
   /// [s3.CopyObjectRequest] and [s3.DeleteObjectRequest] succeed, the API
   /// creates a [s3.HeadObjectRequest] with the `key` of the `destination`,
   /// and sends to S3 Service, then returns a [S3CopyResult] based on
@@ -437,16 +465,25 @@ class StorageS3Service {
   Future<S3MoveResult> move({
     required S3ItemWithAccessLevel source,
     required S3ItemWithAccessLevel destination,
-    required S3MoveOptions options,
+    required StorageMoveOptions options,
   }) async {
+    final s3PluginOptions = AmplifyPluginInterface.reifyPluginOptions(
+      pluginOptions: options.pluginOptions,
+      defaultPluginOptions: const S3MovePluginOptions(),
+    );
+
     late S3CopyResult copyResult;
 
     try {
       copyResult = await copy(
         source: source,
         destination: destination,
-        options: S3CopyOptions(
-          getProperties: options.getProperties,
+        options: StorageCopyOptions(
+          pluginOptions: options.pluginOptions != null
+              ? S3CopyPluginOptions(
+                  getProperties: s3PluginOptions.getProperties,
+                )
+              : const S3CopyPluginOptions(),
         ),
       );
     } on S3Exception catch (error) {
@@ -490,7 +527,7 @@ class StorageS3Service {
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3RemoveResult> remove({
     required String key,
-    required S3RemoveOptions options,
+    required StorageRemoveOptions options,
   }) async {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
@@ -519,7 +556,7 @@ class StorageS3Service {
   /// {@macro storage.s3_service.throw_exception_unknown_smithy_exception}
   Future<S3RemoveManyResult> removeMany({
     required List<String> keys,
-    required S3RemoveManyOptions options,
+    required StorageRemoveManyOptions options,
   }) async {
     // Each request can contain up to 1000 objects to remove
     // https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html

@@ -6,8 +6,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template storage.amplify_storage_s3.list_options}
 /// The configurable parameters for the Storage S3 plugin `list` requests.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
+)
 class S3ListOptions extends StorageListOptions {
   /// {@macro storage.amplify_storage_s3.list_options}
+  @Deprecated(
+    'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
+  )
   const S3ListOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     int pageSize = 1000,
@@ -20,6 +26,9 @@ class S3ListOptions extends StorageListOptions {
           excludeSubPaths: excludeSubPaths,
         );
 
+  @Deprecated(
+    'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
+  )
   const S3ListOptions._({
     super.accessLevel = StorageAccessLevel.guest,
     super.pageSize = 1000,
@@ -33,6 +42,9 @@ class S3ListOptions extends StorageListOptions {
   ///
   /// Use this to list objects that belongs to other user (identified by
   /// [targetIdentityId]) rather than the currently signed in user.
+  @Deprecated(
+    'use StorageListOptions(pluginOptions: S3ListPluginOptions.forIdentity(...)) instead.',
+  )
   const S3ListOptions.forIdentity(
     String targetIdentityId, {
     int pageSize = 1000,
@@ -49,6 +61,9 @@ class S3ListOptions extends StorageListOptions {
   /// {@macro storage.amplify_storage_s3.list_options}
   ///
   /// Use this to list all objects without pagination.
+  @Deprecated(
+    'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
+  )
   const S3ListOptions.listAll({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     bool excludeSubPaths = false,
@@ -63,6 +78,9 @@ class S3ListOptions extends StorageListOptions {
   /// Use this to list all objects without pagination when the objects belong
   /// to other user (identified by [targetIdentityId]) rather than the currently
   /// signed in user.
+  @Deprecated(
+    'use StorageListOptions(pluginOptions: S3ListPluginOptions(...)) instead.',
+  )
   const S3ListOptions.listAllForIdentity(
     String targetIdentityId, {
     bool excludeSubPaths = false,

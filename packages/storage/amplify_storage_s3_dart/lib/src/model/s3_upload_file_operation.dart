@@ -8,7 +8,7 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// An operation created by calling the Storage S3 plugin `uploadFile` API.
 /// {@endtemplate}
 class S3UploadFileOperation extends StorageUploadFileOperation<
-    StorageUploadFileRequest<S3UploadFileOptions>, S3UploadFileResult> {
+    StorageUploadFileRequest, S3UploadFileResult> {
   /// {@macro storage.amplify_storage_s3.upload_file_operation}
   S3UploadFileOperation({
     required super.request,

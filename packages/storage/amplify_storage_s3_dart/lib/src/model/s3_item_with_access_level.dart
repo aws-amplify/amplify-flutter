@@ -17,6 +17,18 @@ class S3ItemWithAccessLevel extends StorageItemWithAccessLevel<S3Item> {
           accessLevel: accessLevel,
         );
 
+  /// Creates [S3ItemWithAccessLevel] from [StorageItemWithAccessLevel].
+  factory S3ItemWithAccessLevel.from(
+    StorageItemWithAccessLevel<StorageItem> storageItem,
+  ) {
+    return storageItem is S3ItemWithAccessLevel
+        ? storageItem
+        : S3ItemWithAccessLevel(
+            storageItem: S3Item.from(storageItem.storageItem),
+            accessLevel: storageItem.accessLevel,
+          );
+  }
+
   const S3ItemWithAccessLevel._({
     super.accessLevel = StorageAccessLevel.guest,
     required super.storageItem,
