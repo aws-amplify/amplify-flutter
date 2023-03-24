@@ -19,19 +19,3 @@ Map<String, dynamic> _$CognitoUpdateUserAttributesOptionsToJson(
     <String, dynamic>{
       'clientMetadata': instance.clientMetadata,
     };
-
-CognitoUpdateUserAttributesPluginOptions
-    _$CognitoUpdateUserAttributesPluginOptionsFromJson(
-            Map<String, dynamic> json) =>
-        CognitoUpdateUserAttributesPluginOptions(
-          clientMetadata:
-              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ),
-        );
-
-Map<String, dynamic> _$CognitoUpdateUserAttributesPluginOptionsToJson(
-        CognitoUpdateUserAttributesPluginOptions instance) =>
-    <String, dynamic>{
-      'clientMetadata': instance.clientMetadata,
-    };

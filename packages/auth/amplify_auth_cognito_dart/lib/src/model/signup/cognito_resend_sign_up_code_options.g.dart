@@ -20,19 +20,3 @@ Map<String, dynamic> _$CognitoResendSignUpCodeOptionsToJson(
     <String, dynamic>{
       'clientMetadata': instance.clientMetadata,
     };
-
-CognitoResendSignUpCodePluginOptions
-    _$CognitoResendSignUpCodePluginOptionsFromJson(Map<String, dynamic> json) =>
-        CognitoResendSignUpCodePluginOptions(
-          clientMetadata:
-              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-                    (k, e) => MapEntry(k, e as String),
-                  ) ??
-                  const {},
-        );
-
-Map<String, dynamic> _$CognitoResendSignUpCodePluginOptionsToJson(
-        CognitoResendSignUpCodePluginOptions instance) =>
-    <String, dynamic>{
-      'clientMetadata': instance.clientMetadata,
-    };
