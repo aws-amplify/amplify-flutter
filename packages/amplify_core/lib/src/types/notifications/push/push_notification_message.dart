@@ -51,7 +51,6 @@ class PushNotificationMessage
         }
       } else {
         final action = json['action'] as Map<Object?, Object?>?;
-        final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
         title = json['title'] as String?;
         body = json['body'] as String?;
         imageUrl = json['imageUrl'] as String?;
@@ -59,6 +58,7 @@ class PushNotificationMessage
           deeplinkUrl = action['deeplink'] as String?;
           goToUrl = action['url'] as String?;
         }
+        final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
         if (fcmOptionsMap != null) {
           final sentTimeInt = fcmOptionsMap['sentTime'] as int?;
           final sentTime = sentTimeInt == null

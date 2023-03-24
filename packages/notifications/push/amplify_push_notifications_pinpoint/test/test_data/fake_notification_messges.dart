@@ -1,56 +1,83 @@
 const androidJourneyMessage = {
-  'title': 'Journey Title 1',
-  'body': 'Body 1',
+  'title': 'TITTLE',
+  'body': 'BODY',
   'imageUrl': null,
-  'goToUrl': null,
-  'deeplinkUrl': null,
   'fcmOptions': {
-    'senderId': '913827661714',
-    'messageId': '0',
-    'sentTime': 1678322060805,
-    'channelId': 'PINPOINT.NOTIFICATION'
+    'channelId': 'PINPOINT.NOTIFICATION',
   },
+  'action': {'openApp': true, 'url': null, 'deeplink': null},
   'data': {
-    'pinpoint.notification.body': 'Body 1',
-    'data': {
-      'pinpoint': {'endpointId': '32cd8620-7914-4a33-857c-7d664711dc9c'}
-    },
-    'pinpoint.notification.silentPush': '0',
-    'pinpoint.notification.title': 'Journey Title 1',
     'pinpoint.openApp': true,
+    'pinpoint.notification.title': 'TITTLE',
     'pinpoint': {
       'journey': {
-        'journey_activity_id': 'W6b7jTtUzu',
-        'journey_run_id': 'c36f73b4a4ef4b2bb09f39bdf024df34',
-        'journey_id': 'f45db26ac21a40749160c70e74c55748'
+        'journey_activity_id': 'JOURNEY_ACTIVITY_ID',
+        'journey_run_id': 'JOURNEY_RUN_ID',
+        'journey_id': 'JOURNEY_ID'
+      }
+    },
+    'pinpoint.notification.body': 'BODY',
+    'data': {
+      'pinpoint': {'endpointId': 'ENDPOINTID'}
+    },
+    'pinpoint.notification.silentPush': 0
+  }
+};
+
+const androidCampaignMessage = {
+  'title': 'TITTLE',
+  'body': 'BODY',
+  'imageUrl': null,
+  'fcmOptions': {
+    'channelId': 'PINPOINT.NOTIFICATION',
+  },
+  'action': {'openApp': true, 'url': null, 'deeplink': null},
+  'data': {
+    'pinpoint.openApp': true,
+    'pinpoint.campaign.treatment_id': 0,
+    'pinpoint.notification.title': 'TITTLE',
+    'pinpoint.notification.body': 'BODY',
+    'data': {
+      'pinpoint': {'endpointId': 'ENDPOINTID'}
+    },
+    'pinpoint.campaign.campaign_id': 'CAMPAIGN_ID',
+    'pinpoint.notification.silentPush': 0,
+    'pinpoint.campaign.campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID'
+  }
+};
+
+const iosCampaignMessage = {
+  'aps': {
+    'alert': {'title': 'TITTLE', 'body': 'BODY'},
+    'mutable-content': 0,
+    'content-available': 1
+  },
+  'data': {
+    'pinpoint': {
+      'endpointId': 'ENDPOINT_ID',
+      'campaign': {
+        'treatment_id': 0,
+        'campaign_id': 'CAMPAIGN_ID',
+        'campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID'
       }
     }
   }
 };
 
-const androidCampaignMessage = {
-  'title': 'Campaign Title 1',
-  'body': 'body 1',
-  'imageUrl': null,
-  'goToUrl': null,
-  'deeplinkUrl': null,
-  'fcmOptions': {
-    'senderId': '913827661714',
-    'messageId': '01678322932332564%7330a8aef9fd7ecd',
-    'sentTime': 1678322932313,
-    'channelId': 'PINPOINT.NOTIFICATION'
-  },
+const iosJourneyMessage = {
   'data': {
-    'pinpoint.notification.body': 'body 1',
-    'data': {
-      'pinpoint': {'endpointId': '32cd8620-7914-4a33-857c-7d664711dc9c'}
-    },
-    'pinpoint.campaign.campaign_activity_id':
-        'd174175a78f9449d8881baefe9b52fed',
-    'pinpoint.notification.silentPush': 0,
-    'pinpoint.notification.title': 'Campaign Title 1',
-    'pinpoint.openApp': true,
-    'pinpoint.campaign.campaign_id': 'a0cf560a7dde45ba9e3ad2477aa66b37',
-    'pinpoint.campaign.treatment_id': 0
+    'pinpoint': {
+      'journey': {
+        'journey_run_id': 'JOURNEY_RUN_ID',
+        'journey_activity_id': 'JOURNEY_ACTIVITY_ID',
+        'journey_id': 'JOURNEY_ID'
+      },
+      'endpointId': 'ENDPOINT_ID'
+    }
+  },
+  'aps': {
+    'alert': {'title': 'TITTLE', 'body': 'BODY'},
+    'mutable-content': 0,
+    'content-available': 1
   }
 };

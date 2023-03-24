@@ -155,7 +155,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     override fun onDetachedFromActivityForConfigChanges() {
         onDetachedFromActivity()
     }
-    
+
     override fun onNewIntent(intent: Intent): Boolean {
         val payload = NotificationPayload.fromIntent(intent)
         if (payload != null) {

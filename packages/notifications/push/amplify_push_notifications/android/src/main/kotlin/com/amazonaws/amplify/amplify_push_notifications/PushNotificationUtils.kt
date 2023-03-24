@@ -151,13 +151,11 @@ fun NotificationPayload?.getProcessedIntent(
 fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
     val payload = PinpointNotificationPayload.fromNotificationPayload(this)
 
-    Log.d(TAG, "deeplink: ${payload?.action?.get(PushNotificationsConstants.DEEPLINK)}")
     // Build and return final map
     return mapOf(
         "title" to payload?.title,
         "body" to payload?.body,
         "imageUrl" to payload?.imageUrl,
-        "channelId" to payload?.channelId,
         "action" to mapOf(
             PushNotificationsConstants.OPENAPP to payload?.action?.get(PushNotificationsConstants.OPENAPP),
             PushNotificationsConstants.URL to payload?.action?.get(PushNotificationsConstants.URL),
@@ -169,7 +167,7 @@ fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
             // "senderId" to senderId,
             // "messageId" to messageId,
             // "sentTime" to sendTime,
-            "channelId" to channelId,
+            "channelId" to payload?.channelId,
         ),
 
     )

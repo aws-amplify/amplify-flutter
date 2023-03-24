@@ -289,18 +289,7 @@ void main() {
   });
 
   group('Notification handling APIs', () {
-    setUp(() async {
-      log.clear();
-      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => standardAndroidPushMessage),
-      );
-      await plugin.configure(
-        authProviderRepo: authProviderRepo,
-        config: config,
-      );
-    });
-
-    // TODO: add tests for background
+    // TODO(Samaritan1011001): add tests for background API, needs ablitiy to test platform branching
     test('onNotificationReceivedInBackground', () {
       plugin.onNotificationReceivedInBackground(
         (_) {},
@@ -308,8 +297,3 @@ void main() {
     });
   });
 }
-
-
-// TODO: test PushNotification.fromJson
-// TODO: Test flutterAPI
-// TODO: Test overrriden API methods by stubbing native calls
