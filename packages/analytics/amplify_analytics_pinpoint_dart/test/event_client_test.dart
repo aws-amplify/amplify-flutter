@@ -499,7 +499,7 @@ void main() {
       expect(
         eventClient.flushEvents(),
         throwsA(
-          const TypeMatcher<AnalyticsException>(),
+          isA<AnalyticsException>(),
         ),
       );
     });

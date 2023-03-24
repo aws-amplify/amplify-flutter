@@ -269,7 +269,7 @@ void main() {
       expect(
         endpointClient.updateEndpoint(),
         throwsA(
-          const TypeMatcher<AnalyticsException>(),
+          isA<AnalyticsException>(),
         ),
       );
     });

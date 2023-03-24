@@ -176,7 +176,7 @@ class EventClient implements Closeable {
         );
       }
       eventsItemResponse?.forEach((eventId, eventItemResponse) {
-        final eventType = eventsToDelete[eventId]?.event.eventType ?? eventId;
+        final eventType = eventsToSend[eventId]!.eventType;
 
         if (!_equalsIgnoreCase(eventItemResponse.message ?? '', 'Accepted')) {
           _logger.warn(
