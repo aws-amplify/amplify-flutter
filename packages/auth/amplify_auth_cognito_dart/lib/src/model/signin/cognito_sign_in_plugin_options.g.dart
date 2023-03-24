@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cognito_sign_in_options.dart';
+part of 'cognito_sign_in_plugin_options.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CognitoSignInOptions _$CognitoSignInOptionsFromJson(
+CognitoSignInPluginOptions _$CognitoSignInPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoSignInOptions(
+    CognitoSignInPluginOptions(
       authFlowType: $enumDecodeNullable(
           _$AuthenticationFlowTypeEnumMap, json['authFlowType']),
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
@@ -17,8 +17,8 @@ CognitoSignInOptions _$CognitoSignInOptionsFromJson(
           const {},
     );
 
-Map<String, dynamic> _$CognitoSignInOptionsToJson(
-    CognitoSignInOptions instance) {
+Map<String, dynamic> _$CognitoSignInPluginOptionsToJson(
+    CognitoSignInPluginOptions instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

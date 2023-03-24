@@ -19,19 +19,3 @@ Map<String, dynamic> _$CognitoConfirmResetPasswordOptionsToJson(
     <String, dynamic>{
       'clientMetadata': instance.clientMetadata,
     };
-
-CognitoConfirmResetPasswordPluginOptions
-    _$CognitoConfirmResetPasswordPluginOptionsFromJson(
-            Map<String, dynamic> json) =>
-        CognitoConfirmResetPasswordPluginOptions(
-          clientMetadata:
-              (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ),
-        );
-
-Map<String, dynamic> _$CognitoConfirmResetPasswordPluginOptionsToJson(
-        CognitoConfirmResetPasswordPluginOptions instance) =>
-    <String, dynamic>{
-      'clientMetadata': instance.clientMetadata,
-    };

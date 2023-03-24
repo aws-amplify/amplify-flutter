@@ -1,23 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cognito_resend_user_attribute_confirmation_code_options.dart';
+part of 'cognito_update_user_attribute_plugin_options.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CognitoResendUserAttributeConfirmationCodeOptions
-    _$CognitoResendUserAttributeConfirmationCodeOptionsFromJson(
+CognitoUpdateUserAttributePluginOptions
+    _$CognitoUpdateUserAttributePluginOptionsFromJson(
             Map<String, dynamic> json) =>
-        CognitoResendUserAttributeConfirmationCodeOptions(
+        CognitoUpdateUserAttributePluginOptions(
           clientMetadata:
               (json['clientMetadata'] as Map<String, dynamic>?)?.map(
             (k, e) => MapEntry(k, e as String),
           ),
         );
 
-Map<String, dynamic> _$CognitoResendUserAttributeConfirmationCodeOptionsToJson(
-        CognitoResendUserAttributeConfirmationCodeOptions instance) =>
+Map<String, dynamic> _$CognitoUpdateUserAttributePluginOptionsToJson(
+        CognitoUpdateUserAttributePluginOptions instance) =>
     <String, dynamic>{
       'clientMetadata': instance.clientMetadata,
     };

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cognito_confirm_sign_in_options.dart';
+part of 'cognito_confirm_sign_in_plugin_options.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

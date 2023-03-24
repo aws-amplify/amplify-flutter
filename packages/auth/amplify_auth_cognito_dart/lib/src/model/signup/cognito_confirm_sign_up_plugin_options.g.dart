@@ -1,21 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cognito_update_user_attribute_options.dart';
+part of 'cognito_confirm_sign_up_plugin_options.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CognitoUpdateUserAttributeOptions _$CognitoUpdateUserAttributeOptionsFromJson(
+CognitoConfirmSignUpPluginOptions _$CognitoConfirmSignUpPluginOptionsFromJson(
         Map<String, dynamic> json) =>
-    CognitoUpdateUserAttributeOptions(
+    CognitoConfirmSignUpPluginOptions(
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
     );
 
-Map<String, dynamic> _$CognitoUpdateUserAttributeOptionsToJson(
-        CognitoUpdateUserAttributeOptions instance) =>
+Map<String, dynamic> _$CognitoConfirmSignUpPluginOptionsToJson(
+        CognitoConfirmSignUpPluginOptions instance) =>
     <String, dynamic>{
       'clientMetadata': instance.clientMetadata,
     };
