@@ -67,7 +67,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
         .map((payload) {
       return payload['token'] as String;
     }).distinct();
-
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -89,7 +88,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
   final Future<void> Function() _backgroundProcessor;
-
   @override
   PushNotificationMessage? get launchNotification {
     if (!_isConfigured) {
