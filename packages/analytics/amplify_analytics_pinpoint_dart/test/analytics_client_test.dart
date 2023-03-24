@@ -1,8 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
 import 'package:test/test.dart';
 
@@ -30,9 +31,7 @@ void main() {
       analyticsEventStore = InMemoryQueuedItemStore();
 
       analyticsClient = AnalyticsClient(
-        endpointInfoStoreManager: EndpointInfoStoreManager(
-          store: store,
-        ),
+        endpointStorage: store,
       );
       await analyticsClient.initWithClient(
         pinpointAppId: analyticsPinpointAppId,
@@ -44,9 +43,7 @@ void main() {
       notificationsEventStore = InMemoryQueuedItemStore();
 
       notificationsClient = AnalyticsClient(
-        endpointInfoStoreManager: EndpointInfoStoreManager(
-          store: store,
-        ),
+        endpointStorage: store,
       );
       await notificationsClient.initWithClient(
         pinpointAppId: notificationsPinpointAppId,

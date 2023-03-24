@@ -1,8 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_store_keys.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';

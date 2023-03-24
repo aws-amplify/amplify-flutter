@@ -3,13 +3,18 @@
 
 import 'dart:async';
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
 /// The Analytics Pinpoint session start event type.
@@ -30,11 +35,16 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
     CachedEventsPathProvider? pathProvider,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
+    DeviceContextInfoProvider? deviceContextInfoProvider,
     AppLifecycleProvider? appLifecycleProvider,
-    AnalyticsClient? analyticsClient,
-  })  : _appLifecycleProvider = appLifecycleProvider,
-        _pathProvider = pathProvider,
-        _analyticsClient = analyticsClient ?? AnalyticsClient();
+    SecureStorageFactory? secureStorageFactory,
+  })  : _pathProvider = pathProvider,
+        _legacyNativeDataProvider = legacyNativeDataProvider,
+        _deviceContextInfoProvider = deviceContextInfoProvider,
+        _appLifecycleProvider = appLifecycleProvider,
+        _secureStorageFactory =
+            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom();
 
   void _ensureConfigured() {
     if (!_isConfigured) {
@@ -56,8 +66,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
-  final AnalyticsClient _analyticsClient;
   final CachedEventsPathProvider? _pathProvider;
+  final SecureStorageFactory _secureStorageFactory;
+  final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final LegacyNativeDataProvider? _legacyNativeDataProvider;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -90,15 +102,25 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
     final eventStore = DartQueuedItemStore(eventStoragePath);
 
-    await _analyticsClient.init(
+    final endpointStorage = _secureStorageFactory(
+      AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+    );
+
+    final analyticsClient = AnalyticsClient(
+      endpointStorage: endpointStorage,
+      deviceContextInfoProvider: _deviceContextInfoProvider,
+      legacyNativeDataProvider: _legacyNativeDataProvider,
+    );
+
+    await analyticsClient.init(
       pinpointAppId: pinpointAppId,
       region: region,
       authProvider: authProvider,
       eventStore: eventStore,
     );
 
-    _endpointClient = _analyticsClient.endpointClient;
-    _eventClient = _analyticsClient.eventClient;
+    _endpointClient = analyticsClient.endpointClient;
+    _eventClient = analyticsClient.eventClient;
 
     unawaited(
       Amplify.asyncConfig.then((_) {

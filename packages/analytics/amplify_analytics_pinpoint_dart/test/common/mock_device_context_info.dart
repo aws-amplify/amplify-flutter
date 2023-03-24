@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 
 final mockDeviceContextInfo = DeviceContextInfo(
   countryCode: 'countryCode',

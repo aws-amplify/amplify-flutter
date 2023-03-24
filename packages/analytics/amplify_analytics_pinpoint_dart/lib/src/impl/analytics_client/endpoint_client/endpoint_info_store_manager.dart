@@ -9,16 +9,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interf
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
-/// Storage scope for [EndpointInfoStoreManager].
-/// Used to determine where Endpoint info is stored.
-enum EndpointStorageScope {
-  ///
-  analyticsPinpoint,
-
-  ///
-  pushNotifications,
-}
-
 /// {@template amplify_analytics_pinpoint_dart.endpoint_info_store_manager}
 /// Manages and provides Pinpoint Endpoint id and global fields.
 /// {@endtemplate}
