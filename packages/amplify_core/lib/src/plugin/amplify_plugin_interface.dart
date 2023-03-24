@@ -30,10 +30,13 @@ abstract class AmplifyPluginInterface {
   @visibleForTesting
   Future<void> reset() async {}
 
-  /// validate [pluginOptions] is an instance of [T].
-  /// if [pluginOptions] is `null` returns the [defaultPluginOptions].
-  /// throws [ArgumentError] if none of the above.
-  static T reifyPluginOptions<T>({
+  /// Reifies [pluginOptions] as an instance of [T].
+  ///
+  /// If [pluginOptions] is `null` returns the [defaultPluginOptions].
+  /// Otherwise, throws an [ArgumentError] if [pluginOptions] does not conform
+  /// to [T].
+  @protected
+  T reifyPluginOptions<T extends AWSDebuggable>({
     Object? pluginOptions,
     required T defaultPluginOptions,
   }) {
@@ -42,10 +45,10 @@ abstract class AmplifyPluginInterface {
     }
     if (pluginOptions is! T) {
       throw ArgumentError(
-        'Expected pluginOptions with type: ${defaultPluginOptions.runtimeType.toString()}. '
-        'but got: ${pluginOptions.runtimeType.toString()}.',
+        'Expected pluginOptions with type "${defaultPluginOptions.runtimeTypeName}" '
+        'but got: $pluginOptions',
       );
     }
-    return pluginOptions as T;
+    return pluginOptions;
   }
 }
