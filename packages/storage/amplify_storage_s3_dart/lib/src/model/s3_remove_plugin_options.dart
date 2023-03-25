@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 's3_remove_plugin_options.g.dart';
 
-/// {@template storage.amplify_storage_s3.remove_options}
+/// {@template storage.amplify_storage_s3.remove_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin options `remove`
 /// API.
 /// {@endtemplate}
@@ -13,6 +13,10 @@ part 's3_remove_plugin_options.g.dart';
 class S3RemovePluginOptions extends StorageRemovePluginOptions {
   /// {@macro storage.amplify_storage_s3.remove_plugin_options}
   const S3RemovePluginOptions();
+
+  /// {@macro storage.amplify_storage_s3.remove_plugin_options}
+  factory S3RemovePluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3RemovePluginOptionsFromJson(json);
 
   @override
   List<Object?> get props => [];

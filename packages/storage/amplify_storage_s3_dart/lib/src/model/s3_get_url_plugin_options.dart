@@ -45,6 +45,10 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
+  /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
+  factory S3GetUrlPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3GetUrlPluginOptionsFromJson(json);
+
   /// Specifies the period of time that the generated url expires in.
   final Duration expiresIn;
 

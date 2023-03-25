@@ -11,7 +11,7 @@ part 's3_download_data_plugin_options.g.dart';
 /// {@endtemplate}
 @zAmplifySerializable
 class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
-  /// {@macro storage.amplify_storage_s3.download_data_options}
+  /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
   const S3DownloadDataPluginOptions({
     bool getProperties = false,
     S3DataBytesRange? bytesRange,
@@ -29,7 +29,7 @@ class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
     this.useAccelerateEndpoint = false,
   });
 
-  /// {@macro storage.amplify_storage_s3.download_data_options}
+  /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
   ///
   /// Use this when calling `downloadData` on an object that belongs to another
   /// user (identified by [targetIdentityId]) rather than the currently
@@ -45,6 +45,10 @@ class S3DownloadDataPluginOptions extends StorageDownloadDataPluginOptions {
           bytesRange: bytesRange,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
+
+  /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
+  factory S3DownloadDataPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3DownloadDataPluginOptionsFromJson(json);
 
   /// The byte range to download from the object.
   final S3DataBytesRange? bytesRange;

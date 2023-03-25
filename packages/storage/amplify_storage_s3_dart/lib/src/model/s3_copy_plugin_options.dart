@@ -15,6 +15,10 @@ class S3CopyPluginOptions extends StorageCopyPluginOptions {
     this.getProperties = false,
   });
 
+  /// {@macro storage.amplify_storage_s3.copy_plugin_options}
+  factory S3CopyPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3CopyPluginOptionsFromJson(json);
+
   /// Whether to retrieve properties for the copied object using the
   /// `getProperties` API.
   final bool getProperties;

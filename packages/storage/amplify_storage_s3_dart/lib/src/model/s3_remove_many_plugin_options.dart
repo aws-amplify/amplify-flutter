@@ -14,6 +14,10 @@ class S3RemoveManyPluginOptions extends StorageRemoveManyPluginOptions {
   /// {@macro storage.amplify_storage_s3.remove_many_plugin_options}
   const S3RemoveManyPluginOptions();
 
+  /// {@macro storage.amplify_storage_s3.remove_many_plugin_options}
+  factory S3RemoveManyPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3RemoveManyPluginOptionsFromJson(json);
+
   @override
   List<Object?> get props => [];
 

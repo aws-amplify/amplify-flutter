@@ -58,6 +58,10 @@ class S3ListPluginOptions extends StorageListPluginOptions {
           excludeSubPaths: excludeSubPaths,
         );
 
+  /// {@macro storage.amplify_storage_s3.list_plugin_options}
+  factory S3ListPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3ListPluginOptionsFromJson(json);
+
   /// The identity ID of another user who uploaded the objects.
   ///
   /// This can be set by using [S3ListPluginOptions.forIdentity].

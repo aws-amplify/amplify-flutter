@@ -28,6 +28,10 @@ class S3GetPropertiesPluginOptions extends StorageGetPropertiesPluginOptions {
           targetIdentityId: targetIdentityId,
         );
 
+  /// {@macro storage.amplify_storage_s3.get_properties_plugin_options}
+  factory S3GetPropertiesPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3GetPropertiesPluginOptionsFromJson(json);
+
   /// The identity ID of another user who uploaded the object.
   ///
   /// This can be set by using [S3GetPropertiesPluginOptions.forIdentity].
