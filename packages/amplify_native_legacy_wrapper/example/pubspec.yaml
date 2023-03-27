@@ -1,0 +1,23 @@
+name: amplify_native_legacy_wrapper_example
+description: Demonstrates how to use the amplify_native_legacy_wrapper plugin.
+version: 0.1.0
+publish_to: "none"
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
+
+dependencies:
+  amplify_native_legacy_wrapper: ^0.1.0
+  aws_common: ">=0.4.0+1 <0.5.0"
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints:
+    path: ../../amplify_lints
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
