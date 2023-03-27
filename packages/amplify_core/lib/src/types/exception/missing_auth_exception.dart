@@ -6,7 +6,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.missing_auth_exception}
 /// Exception thrown when auth is missing.
 /// {@endtemplate}
-class MissingAuthException extends StorageException {
+class MissingAuthException extends AmplifyException
+    implements StorageException, AnalyticsException {
   /// {@macro amplify_core.missing_auth_exception}
   const MissingAuthException(
     super.message, {
