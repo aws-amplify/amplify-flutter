@@ -18,6 +18,7 @@ const falsePositiveExamples = [
   'smoke_test',
   'amplify_auth_cognito_test',
   'amplify_secure_storage_test',
+  'amplify_native_legacy_wrapper',
 
   // Smithy Golden packages
   'aws_json1_0_v1',
