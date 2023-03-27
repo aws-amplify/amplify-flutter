@@ -4,7 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// Base Class for Analytics Exceptions.
-class AnalyticsException extends AmplifyException {
+abstract class AnalyticsException extends AmplifyException {
   const AnalyticsException(
     super.message, {
     super.recoverySuggestion,
