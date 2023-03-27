@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export '../exception/storage/access_denied_exception.dart';
-export '../exception/storage/auth_exception.dart';
 export '../exception/storage/http_status_exception.dart';
 export '../exception/storage/key_not_found_exception.dart';
 export '../exception/storage/local_file_not_found_exception.dart';
