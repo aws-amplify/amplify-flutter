@@ -14,11 +14,11 @@ scripts:
   setup_tuneup: >
     flutter pub global activate tuneup
   copy_dummy_config: >
-    melos exec --scope="*example*,sample_app" -- \
+    melos exec --scope="*example*" -- \
       cp -n "\$MELOS_ROOT_PATH"/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart | true
 
   build:examples:ios: >
-    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_android*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*" --ignore="*_android*" --fail-fast -- \
       flutter build ios --simulator
 
   build:examples:release:ios: >
@@ -26,7 +26,7 @@ scripts:
       flutter build ios --no-codesign
 
   build:examples:android: >
-    melos exec -c 1 --scope="*example*,sample_app" --ignore="*_ios*" --fail-fast -- \
+    melos exec -c 1 --scope="*example*" --ignore="*_ios*" --fail-fast -- \
       flutter build apk --debug --verbose
 
   build:examples:release:android: >
@@ -217,7 +217,7 @@ scripts:
       flutter analyze --no-fatal-infos --no-fatal-warnings &>/dev/null || true
 
   pod:repo-update:
-    run: melos exec -c 8 --scope="*example*,sample_app"  --ignore="*_android_example" "(cd ios && pod repo update)"
+    run: melos exec -c 8 --scope="*example*"  --ignore="*_android_example" "(cd ios && pod repo update)"
     description: runs "pod repo update" in all example apps
 
   pod:update-amplify:
