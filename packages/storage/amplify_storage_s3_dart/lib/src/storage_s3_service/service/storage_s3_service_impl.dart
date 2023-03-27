@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
+    as s3_exception;
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
     as endpoint_resolver;
@@ -85,7 +86,7 @@ class StorageS3Service {
   /// [s3.S3Client.listObjectsV2] API.
   ///
   /// {@template storage.s3_service.throw_exception_unknown_smithy_exception}
-  /// May throw [S3Exception] based on
+  /// May throw exception based on
   /// service returned [smithy.UnknownSmithyHttpException] if any.
   /// {@endtemplate}
   Future<S3ListResult> list({
@@ -120,9 +121,9 @@ class StorageS3Service {
         );
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
-        throw S3Exception.fromUnknownSmithyHttpException(error);
+        throw error.toStorageException();
       } on AWSHttpException catch (error) {
-        throw S3Exception.fromAWSHttpException(error);
+        throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
       }
     }
 
@@ -156,9 +157,9 @@ class StorageS3Service {
       return recursiveResult;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 error
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 
@@ -429,9 +430,9 @@ class StorageS3Service {
       await _defaultS3Client.copyObject(copyRequest).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
 
     return S3CopyResult(
@@ -483,11 +484,13 @@ class StorageS3Service {
               : const S3CopyPluginOptions(),
         ),
       );
-    } on S3Exception catch (error) {
-      throw S3Exception(
-        'Copy the source object failed while moving it due to: ${error.message}',
-        recoverySuggestion: error.recoverySuggestion!,
-        underlyingException: error.underlyingException,
+    } on StorageException catch (error) {
+      // Normally copy should not fail during moving, if it fails it's a
+      // "unknown" failure wrapping the underlying exception.
+      throw UnknownException(
+        'Copying the source object failed during the move operation.',
+        recoverySuggestion: 'Review the underlying exception.',
+        underlyingException: error,
       );
     }
 
@@ -506,11 +509,13 @@ class StorageS3Service {
         bucket: _s3PluginConfig.bucket,
         key: keyToRemove,
       );
-    } on S3Exception catch (error) {
-      throw S3Exception(
-        'Delete the source object failed while moving it due to: ${error.message}',
-        recoverySuggestion: error.recoverySuggestion!,
-        underlyingException: error.underlyingException,
+    } on StorageException catch (error) {
+      // Normally delete should not fail during moving, if it fails it's a
+      // "unknown" failure wrapping the underlying exception.
+      throw UnknownException(
+        'Deleting the source object failed during the move operation.',
+        recoverySuggestion: 'Review the underlying exception.',
+        underlyingException: error,
       );
     }
 
@@ -601,9 +606,9 @@ class StorageS3Service {
         removedErrors.addAll(output.errors?.toList() ?? []);
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.deleteObjects may return 403
-        throw S3Exception.fromUnknownSmithyHttpException(error);
+        throw error.toStorageException();
       } on AWSHttpException catch (error) {
-        throw S3Exception.fromAWSHttpException(error);
+        throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
       } finally {
         objectIdentifiersToRemove.removeRange(0, numOfBatchedItems);
       }
@@ -633,9 +638,9 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.deleteObject may return 403, for deleting a non-existing
       // object, the API call returns a successful response
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 
@@ -666,10 +671,10 @@ class StorageS3Service {
       );
     } on Exception catch (error, st) {
       logger.error('Error happened while resolving prefix', error, st);
-      throw S3Exception(
-        'Error happened while resolving prefix.',
+      throw UnknownException(
+        'An error occurred while resolving the prefix.',
         recoverySuggestion:
-            'If you are providing a custom prefix resolver, please review the underlying exception to determine the cause.',
+            'If you are providing a custom prefix resolver, review the underlying exception to determine the cause.',
         underlyingException: error,
       );
     }
@@ -695,9 +700,9 @@ class StorageS3Service {
       return await s3client.headObject(request).result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 

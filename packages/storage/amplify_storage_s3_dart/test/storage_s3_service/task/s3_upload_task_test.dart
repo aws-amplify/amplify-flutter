@@ -1833,14 +1833,10 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<StorageException>().having(
+            isA<UnknownException>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<StorageException>().having(
-                (o) => o.underlyingException,
-                'underlyingException',
-                testException,
-              ),
+              testException,
             ),
           ),
         );

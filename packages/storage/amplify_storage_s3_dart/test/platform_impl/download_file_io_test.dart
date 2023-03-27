@@ -291,7 +291,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
+        expect(preStart(), throwsA(isA<UnknownException>()));
       });
 
       test(
@@ -324,7 +324,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
+        expect(preStart(), throwsA(isA<UnknownException>()));
       });
     });
 

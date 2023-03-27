@@ -5,7 +5,8 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
+    as s3_exception;
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
@@ -156,7 +157,11 @@ class S3DownloadTask {
       final remoteSize = getObjectOutput.contentLength?.toInt();
       if (remoteSize == null) {
         await _completeDownloadWithError(
-          S3Exception.unexpectedContentLengthFromService(),
+          const UnknownException(
+            '`contentLength` property is null in GetObjectOutput.',
+            recoverySuggestion:
+                AmplifyExceptionMessages.missingExceptionMessage,
+          ),
         );
         return;
       }
@@ -222,8 +227,8 @@ class S3DownloadTask {
     }
   }
 
-  /// Cancels the [S3DownloadTask], and throws a [S3Exception] to
-  /// terminate.
+  /// Cancels the [S3DownloadTask], and throws a
+  /// [StorageOperationCanceledException] to terminate.
   ///
   /// A canceled [S3DownloadTask] is not resumable.
   Future<void> cancel() async {
@@ -242,7 +247,7 @@ class S3DownloadTask {
 
     _emitTransferProgress();
     _downloadCompleter.completeError(
-      s3ControllableOperationCanceledException,
+      s3_exception.s3ControllableOperationCanceledException,
     );
   }
 
@@ -266,7 +271,12 @@ class S3DownloadTask {
 
   void _listenToBytesSteam(Stream<List<int>>? bytesStream) {
     if (bytesStream == null) {
-      _completeDownloadWithError(S3Exception.unexpectedGetObjectBody());
+      _completeDownloadWithError(
+        const UnknownException(
+          '`body` is null in GetObjectOutput.',
+          recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+        ),
+      );
       return;
     }
 
@@ -298,7 +308,11 @@ class S3DownloadTask {
           }
         } else {
           await _completeDownloadWithError(
-            S3Exception.incompleteDownload(),
+            const UnknownException(
+              'The download operation was completed, but only a portion of the data was downloaded.',
+              recoverySuggestion:
+                  AmplifyExceptionMessages.missingExceptionMessage,
+            ),
           );
         }
       })
@@ -343,12 +357,12 @@ class S3DownloadTask {
           .result;
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.getObject may return 403 error
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on s3.NoSuchKey catch (error) {
       // 404 error is wrapped by s3.NoSuchKey for getObject :/
-      throw S3Exception.getKeyNotFoundException(error);
+      throw error.toStorageKeyNotFoundException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 }

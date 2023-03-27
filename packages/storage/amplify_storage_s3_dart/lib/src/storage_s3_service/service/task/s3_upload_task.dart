@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart'
+    as s3_exception;
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/part_size_util.dart'
     as part_size_util;
@@ -179,7 +180,7 @@ class S3UploadTask {
   Completer<void>? _uploadPartBatchingCompleter;
   Completer<void>? _abortMultipartUploadCompleter;
 
-  FutureOr<void> get _uploadModelDetermined =>
+  FutureOr<void> get _uploadModeDetermined =>
       _determineUploadModeCompleter.future;
   FutureOr<void> get _uploadPartBatchingCompleted =>
       _uploadPartBatchingCompleter?.future;
@@ -221,7 +222,13 @@ class S3UploadTask {
       }
 
       if (_fileSize > part_size_util.maxSingleObjectSize) {
-        _completeUploadWithError(S3Exception.uploadSourceIsTooLarge());
+        _completeUploadWithError(
+          const UnknownException(
+            'Upload source is too large to initiate multipart upload.',
+            recoverySuggestion:
+                'Make sure the size of the uploaded file is less than 5TiB.',
+          ),
+        );
         return;
       }
 
@@ -249,7 +256,7 @@ class S3UploadTask {
   /// currently not returned from S3Client APIs).
   Future<void> pause() async {
     // can pause when upload is actually started
-    await _uploadModelDetermined;
+    await _uploadModeDetermined;
     if (!_isMultipartUpload || _state != StorageTransferState.inProgress) {
       return;
     }
@@ -264,8 +271,8 @@ class S3UploadTask {
   /// For single putObject, resume doesn't take any effect.
   /// For multipart upload, resume reschedules remaining subtasks.
   Future<void> resume() async {
-    // can resume when upload is actually started and not canceled
-    await _uploadModelDetermined;
+    // can resume when the upload is multipart upload and paused
+    await _uploadModeDetermined;
     if (!_isMultipartUpload || _state != StorageTransferState.paused) {
       return;
     }
@@ -284,7 +291,7 @@ class S3UploadTask {
   /// currently not returned from S3Client APIs
   Future<void> cancel() async {
     // can cancel when upload mode is determined
-    await _uploadModelDetermined;
+    await _uploadModeDetermined;
     if (_state == StorageTransferState.canceled ||
         _state == StorageTransferState.success ||
         _state == StorageTransferState.failure) {
@@ -353,14 +360,17 @@ class S3UploadTask {
     } on CancellationException {
       _logger.debug('PutObject HTTP operation has been canceled.');
       _state = StorageTransferState.canceled;
-      _uploadCompleter.completeError(s3ControllableOperationCanceledException);
+      _uploadCompleter
+          .completeError(s3_exception.s3ControllableOperationCanceledException);
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
-        S3Exception.fromUnknownSmithyHttpException(error),
+        error.toStorageException(),
         stackTrace,
       );
     } on AWSHttpException catch (error) {
-      _completeUploadWithError(S3Exception.fromAWSHttpException(error));
+      _completeUploadWithError(
+        s3_exception.createNetworkExceptionFromAWSHttpException(error),
+      );
     } finally {
       _emitTransferProgress();
     }
@@ -413,7 +423,7 @@ class S3UploadTask {
         }
         _cancelOngoingUploadPartOperations();
         await _terminateMultipartUploadOnError(
-          s3ControllableOperationCanceledException,
+          s3_exception.s3ControllableOperationCanceledException,
           isCancel: true,
         );
 
@@ -477,7 +487,10 @@ class S3UploadTask {
       final uploadId = output.uploadId;
 
       if (uploadId == null) {
-        throw S3Exception.unexpectedMultipartUploadId();
+        throw const UnknownException(
+          'CreateMultipartUpload returned an invalid upload ID.',
+          recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+        );
       } else {
         await _transferDatabase.insertTransferRecord(
           TransferRecord(
@@ -489,9 +502,9 @@ class S3UploadTask {
         _multipartUploadId = uploadId;
       }
     } on smithy.UnknownSmithyHttpException catch (error) {
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 
@@ -527,9 +540,9 @@ class S3UploadTask {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // TODO(HuiSF): verify if s3Client sdk throws different exception type
       //  wrapping errors extracted from a 200 response.
-      throw S3Exception.fromUnknownSmithyHttpException(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 
@@ -653,7 +666,10 @@ class S3UploadTask {
       final eTag = result.eTag;
 
       if (eTag == null) {
-        throw S3Exception.unexpectedETagFromService();
+        throw const UnknownException(
+          '`eTag`  is null in UploadPartOutput.',
+          recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+        );
       }
 
       return _CompletedSubtask(
@@ -664,11 +680,9 @@ class S3UploadTask {
         eTag: eTag,
       );
     } on smithy.UnknownSmithyHttpException catch (error) {
-      throw S3Exception.fromUnknownSmithyHttpException(error);
-    } on s3.NoSuchUpload catch (error) {
-      throw S3Exception.fromS3NoSuchUpload(error);
+      throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw S3Exception.fromAWSHttpException(error);
+      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
     }
   }
 
@@ -683,6 +697,10 @@ class S3UploadTask {
       _logger
           .debug('Part $partNumber upload HTTP operation has been canceled.');
     } on Exception catch (error) {
+      // May include:
+      //   - exceptions created from smithy.UnknownSmithyHttpException
+      //   - NetworkException
+      //   - s3.NoSuchUpload
       unawaited(_terminateMultipartUploadOnError(error, isCancel: false));
     }
   }
@@ -725,7 +743,11 @@ class S3UploadTask {
       _uploadCompleter.completeError(error);
     } else {
       _completeUploadWithError(
-        S3Exception.multipartUploadAborted(error),
+        UnknownException(
+          'Multipart upload has been terminated due to an error.',
+          recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+          underlyingException: error,
+        ),
       );
     }
 
