@@ -42,9 +42,9 @@ class EventStorageAdapter implements Closeable {
     final jsonString = jsonEncode(_serializers.serialize(event));
 
     if (jsonString.length > _maxEventKbSize) {
-      throw const InvalidEventDataException(
+      throw const InvalidEventException(
         recoverySuggestion:
-            'Reduce the event size to be less than the max size of $_maxEventKbSize bytes',
+            'Reduce the event size to be less than the max size of $_maxEventKbSize bytes.',
       );
     }
 

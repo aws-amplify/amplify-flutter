@@ -48,7 +48,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   void _ensureConfigured() {
     if (!_isConfigured) {
-      throw const UnknownException(
+      throw ConfigurationError(
         'Analytics not configured',
         recoverySuggestion:
             'Please make sure to call: await Amplify.configure(amplifyconfig)',
@@ -82,7 +82,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     if (config == null ||
         config.analytics == null ||
         config.analytics?.awsPlugin == null) {
-      throw ConfigurationError('No Pinpoint plugin config available');
+      throw ConfigurationError('No Pinpoint plugin config available.');
     }
 
     final pinpointConfig = config.analytics!.awsPlugin!;
@@ -94,7 +94,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
     if (authProvider == null) {
-      throw const MissingAuthException(
+      throw ConfigurationError(
         'No credential provider found for Analytics.',
         recoverySuggestion:
             "If you haven't already, please add amplify_auth_cognito plugin to your App.",

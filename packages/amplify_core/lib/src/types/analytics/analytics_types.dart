@@ -3,7 +3,7 @@
 
 /// Exception Types.
 export '../exception/analytics/analytics_exception.dart';
-export '../exception/analytics/invalid_event_data_exception.dart';
+export '../exception/analytics/invalid_event_exception.dart';
 
 /// API Types.
 export 'analytics/analytics_event.dart';

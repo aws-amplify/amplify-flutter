@@ -33,7 +33,7 @@ class EventCreator {
     CustomProperties? analyticsProperties,
   ]) {
     if (eventType.length > _maxEventTypeLength) {
-      throw const InvalidEventDataException(
+      throw const InvalidEventException(
         recoverySuggestion:
             'Shorten event type to be less than the max length of {$_maxEventTypeLength} characters.',
       );
