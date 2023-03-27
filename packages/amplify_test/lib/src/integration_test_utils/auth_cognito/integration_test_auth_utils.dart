@@ -11,54 +11,23 @@ import 'package:stream_transform/stream_transform.dart';
 final _logger =
     AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
 
-/// A GraphQL document used by the [deleteUser] test utility method.
-const deleteDocument = r'''
-mutation DeleteUser($username: String!) {
-  deleteUser(username: $username) {
-    error
-    success
-  }
-}''';
-
-final _client = AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
-
 Future<Map<String, Object?>> _graphQL(
   String document, {
-  Map<String, Object?>? variables,
+  Map<String, Object?> variables = const {},
 }) async {
-  final config = await Amplify.asyncConfig;
-  final api = config.api!.awsPlugin!.default$!;
-  final response = await _client
-      .send(
-        AWSStreamedHttpRequest.post(
-          Uri.parse(api.endpoint).replace(path: '/graphql'),
-          headers: {
-            'x-api-key': api.apiKey!,
-          },
-          body: HttpPayload.json({
-            'query': document,
-            if (variables != null) 'variables': variables,
-          }),
+  final response = await Amplify.API
+      .query(
+        request: GraphQLRequest<String>(
+          document: document,
+          variables: variables,
         ),
       )
       .response;
-  if (response.statusCode != 200) {
-    throw Exception('${response.statusCode}: ${response.body}');
+  if (response.hasErrors) {
+    throw Exception(response.errors);
   }
-  final responseJson =
-      jsonDecode(await response.decodeBody()) as Map<String, Object?>;
-  final result = GraphQLResponse(
-    data: responseJson['data'] as Map<String, Object?>?,
-    errors: (responseJson['errors'] as List?)
-            ?.cast<Map<String, Object?>>()
-            .map(GraphQLResponseError.fromJson)
-            .toList() ??
-        const [],
-  );
-  if (result.errors.isNotEmpty) {
-    throw Exception(result.errors);
-  }
-  return result.data!;
+  final responseJson = jsonDecode(response.data!) as Map<String, Object?>;
+  return responseJson;
 }
 
 /// Deletes a Cognito user in backend infrastructure.
@@ -67,7 +36,13 @@ Future<Map<String, Object?>> _graphQL(
 /// an access token is not required.
 Future<void> deleteUser(String username) async {
   final result = await _graphQL(
-    deleteDocument,
+    r'''
+mutation DeleteUser($username: String!) {
+  deleteUser(username: $username) {
+    error
+    success
+  }
+}''',
     variables: <String, dynamic>{
       'username': username,
     },

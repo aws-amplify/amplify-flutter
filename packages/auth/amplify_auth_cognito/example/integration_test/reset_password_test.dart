@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,9 +36,7 @@ void main() {
     }
 
     setUp(() async {
-      await configureAuth(
-        additionalPlugins: [AmplifyAPI()],
-      );
+      await configureAuth();
 
       // create new user for each test
       username = generateUsername();

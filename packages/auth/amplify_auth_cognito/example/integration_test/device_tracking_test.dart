@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
@@ -180,7 +179,6 @@ void main() {
       () {
         setUpAll(() async {
           await configureAuth(
-            additionalPlugins: [AmplifyAPI()],
             config: amplifyEnvironments['device-tracking-opt-in'],
           );
         });
@@ -279,7 +277,6 @@ void main() {
     group('Always (MFA)', () {
       setUpAll(() async {
         await configureAuth(
-          additionalPlugins: [AmplifyAPI()],
           config: amplifyEnvironments['device-tracking-always'],
         );
       });
@@ -362,7 +359,6 @@ void main() {
     group('Always (Email Alias / MFA)', () {
       setUpAll(() async {
         await configureAuth(
-          additionalPlugins: [AmplifyAPI()],
           config: amplifyEnvironments['device-tracking-email-alias'],
         );
       });
