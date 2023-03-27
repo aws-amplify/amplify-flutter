@@ -249,8 +249,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     // Dependencies for AnalyticsMetadataType
-    _stateMachine
-        .addBuilder<EndpointInfoStoreManager>(EndpointInfoStoreManager.new);
+    _stateMachine.addBuilder<EndpointInfoStoreManager>(
+      (_) => EndpointInfoStoreManager(
+        store: AmplifySecureStorageWorker.factoryFrom()(
+          AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+        ),
+      ),
+    );
 
     await _init();
     await _stateMachine.accept(ConfigurationEvent.configure(config)).accepted;
