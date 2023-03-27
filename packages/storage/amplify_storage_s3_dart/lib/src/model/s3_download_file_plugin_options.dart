@@ -25,7 +25,7 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
     this.useAccelerateEndpoint = false,
   });
 
-  /// {@macro storage.amplify_storage_s3.download_data_plugin_options}
+  /// {@macro storage.amplify_storage_s3.download_file_plugin_options}
   ///
   /// Use this when calling `downloadFile` on an object that belongs to other
   /// user (identified by [targetIdentityId]) rather than the currently signed
@@ -39,6 +39,10 @@ class S3DownloadFilePluginOptions extends StorageDownloadFilePluginOptions {
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
+
+  /// {@macro storage.amplify_storage_s3.download_file_plugin_options}
+  factory S3DownloadFilePluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3DownloadFilePluginOptionsFromJson(json);
 
   /// The identity ID of the user who uploaded the object.
   ///

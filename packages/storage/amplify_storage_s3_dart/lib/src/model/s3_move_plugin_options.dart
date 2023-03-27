@@ -16,6 +16,10 @@ class S3MovePluginOptions extends StorageMovePluginOptions {
     this.getProperties = false,
   });
 
+  /// {@macro storage.amplify_storage_s3.move_plugin_options}
+  factory S3MovePluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3MovePluginOptionsFromJson(json);
+
   /// Whether to retrieve properties for the moved object using the
   /// `getProperties` API.
   final bool getProperties;

@@ -18,6 +18,10 @@ class S3UploadDataPluginOptions extends StorageUploadDataPluginOptions {
     this.useAccelerateEndpoint = false,
   });
 
+  /// {@macro storage.amplify_storage_s3.upload_data_plugin_options}
+  factory S3UploadDataPluginOptions.fromJson(Map<String, Object?> json) =>
+      _$S3UploadDataPluginOptionsFromJson(json);
+
   /// The metadata attached to the object to be uploaded.
   final Map<String, String>? metadata;
 
