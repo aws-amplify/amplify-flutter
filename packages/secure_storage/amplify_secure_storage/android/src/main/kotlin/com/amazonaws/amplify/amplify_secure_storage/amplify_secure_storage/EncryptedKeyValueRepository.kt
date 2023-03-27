@@ -79,6 +79,13 @@ open class EncryptedKeyValueRepository(
         }
     }
 
+    override fun removeAll() {
+        with(editor) {
+            clear()
+            apply()
+        }
+    }
+
     @VisibleForTesting
     open fun removeSharedPreferencesFile() {
         File("${context.filesDir.parent}/shared_prefs/$sharedPreferencesName.xml").delete()

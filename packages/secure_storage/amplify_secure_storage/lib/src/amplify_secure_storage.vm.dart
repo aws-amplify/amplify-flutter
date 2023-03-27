@@ -118,6 +118,13 @@ class AmplifySecureStorage extends AmplifySecureStorageInterface {
     return _instance.write(key: key, value: value);
   }
 
+  @override
+  Future<void> removeAll() async {
+    await _init();
+    // ignore: invalid_use_of_internal_member
+    return _instance.removeAll();
+  }
+
   /// Clears all keys for the given scope if this scope
   /// has not been initialized previously.
   ///
