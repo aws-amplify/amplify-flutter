@@ -8,7 +8,7 @@ import 'mock_values.dart';
 
 const userId = 'userId';
 
-final userLocation = UserProfileLocation(
+const userLocation = UserProfileLocation(
   latitude: 12.3,
   longitude: 32.1,
   postalCode: 'postalCode',

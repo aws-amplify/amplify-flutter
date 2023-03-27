@@ -15,9 +15,9 @@ class AWSPinpointUserProfile extends UserProfile {
     super.plan,
     super.location,
     super.customProperties,
-    required this.userAttributes,
+    this.userAttributes,
   });
 
   /// Analytics attributes for the Pinpoint User.
-  final Map<String, List<String>> userAttributes;
+  final Map<String, List<String>>? userAttributes;
 }

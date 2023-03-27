@@ -40,7 +40,7 @@ void main() {
         const region = 'region';
         const country = 'USA';
 
-        final location = UserProfileLocation(
+        const location = UserProfileLocation(
           latitude: latitude,
           longitude: longitude,
           postalCode: postalCode,

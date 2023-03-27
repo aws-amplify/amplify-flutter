@@ -4,18 +4,25 @@
 import 'package:amplify_core/src/types/analytics/analytics/custom_properties.dart';
 import 'package:amplify_core/src/types/analytics/analytics/user_profile_location.dart';
 
-class UserProfile {
-  String? name;
-  String? email;
-  String? plan;
-  UserProfileLocation? location;
-  CustomProperties? customProperties;
+@Deprecated('Use UserProfile instead')
+typedef AnalyticsUserProfile = UserProfile;
 
-  UserProfile({
+/// User specific data.
+class UserProfile {
+  const UserProfile({
     this.name,
     this.email,
     this.plan,
     this.location,
     this.customProperties,
   });
+
+  final String? name;
+  final String? email;
+  final String? plan;
+  final UserProfileLocation? location;
+  final CustomProperties? customProperties;
+
+  @Deprecated('Use customProperties instead')
+  CustomProperties? get properties => customProperties;
 }

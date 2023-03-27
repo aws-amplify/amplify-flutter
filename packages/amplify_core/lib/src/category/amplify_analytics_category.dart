@@ -68,8 +68,10 @@ class AnalyticsCategory extends AmplifyCategory<AnalyticsPluginInterface> {
   /// {@template amplify_core.amplify_analytics_category.identify_user}
   /// Store a [userId] with [userProfile] to be associated with current device
   /// {@endtemplate}
-  Future<void> identifyUser(
-      {required String userId, required UserProfile userProfile}) async {
+  Future<void> identifyUser({
+    required String userId,
+    required UserProfile userProfile,
+  }) async {
     return plugins.length == 1
         ? plugins[0].identifyUser(userId: userId, userProfile: userProfile)
         : throw _pluginNotAddedException('Analytics');
