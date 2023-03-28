@@ -195,14 +195,16 @@ class FetchAuthSessionStateMachine
     final options = event.options ?? const FetchAuthSessionOptions();
     final result = await manager.loadCredentials();
 
+    final hasUserPool = _userPoolConfig != null;
     final userPoolTokens = result.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
     final idTokenExpiration = userPoolTokens?.idToken.claims.expiration;
     final forceRefreshUserPoolTokens =
         userPoolTokens != null && options.forceRefresh;
-    final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
-        _isExpired(accessTokenExpiration) ||
-        _isExpired(idTokenExpiration);
+    final refreshUserPoolTokens = hasUserPool &&
+        (forceRefreshUserPoolTokens ||
+            _isExpired(accessTokenExpiration) ||
+            _isExpired(idTokenExpiration));
 
     final hasIdentityPool = _identityPoolConfig != null;
     final awsCredentials = result.awsCredentials;
@@ -242,7 +244,14 @@ class FetchAuthSessionStateMachine
 
     final AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
     final AuthResult<String> userSubResult;
-    if (userPoolTokens == null) {
+    if (!hasUserPool) {
+      userPoolTokensResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+      userSubResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+    } else if (userPoolTokens == null) {
       userPoolTokensResult = result.signedOut();
       userSubResult = result.signedOut();
     } else {
@@ -344,29 +353,39 @@ class FetchAuthSessionStateMachine
     AuthResult<AWSCredentials> credentialsResult;
     AuthResult<String> identityIdResult;
 
+    final hasUserPool = _userPoolConfig != null;
     var userPoolTokens = result.userPoolTokens;
-    if (event.refreshUserPoolTokens) {
-      if (userPoolTokens == null) {
-        throw const UnknownException(
-          'No user pool tokens available for refresh',
-        );
-      }
-      try {
-        userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
-        userPoolTokensResult = AuthResult.success(userPoolTokens);
-        userSubResult = AuthResult.success(userPoolTokens.userId);
-      } on Exception catch (e, s) {
-        final authException = AuthException.fromException(e);
-        userPoolTokensResult = AuthResult.error(authException, s);
-        userSubResult = AuthResult.error(authException, s);
-      }
+    if (!hasUserPool) {
+      userPoolTokensResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+      userSubResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
     } else {
-      if (userPoolTokens != null) {
-        userPoolTokensResult = AuthResult.success(userPoolTokens);
-        userSubResult = AuthResult.success(userPoolTokens.userId);
+      if (event.refreshUserPoolTokens) {
+        if (userPoolTokens == null) {
+          throw const UnknownException(
+            'No user pool tokens available for refresh',
+          );
+        }
+        try {
+          userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
+          userPoolTokensResult = AuthResult.success(userPoolTokens);
+          userSubResult = AuthResult.success(userPoolTokens.userId);
+        } on Exception catch (e, s) {
+          final authException = AuthException.fromException(e);
+          userPoolTokensResult = AuthResult.error(authException, s);
+          userSubResult = AuthResult.error(authException, s);
+        }
       } else {
-        userPoolTokensResult = result.signedOut();
-        userSubResult = result.signedOut();
+        if (userPoolTokens != null) {
+          userPoolTokensResult = AuthResult.success(userPoolTokens);
+          userSubResult = AuthResult.success(userPoolTokens.userId);
+        } else {
+          userPoolTokensResult = result.signedOut();
+          userSubResult = result.signedOut();
+        }
       }
     }
 

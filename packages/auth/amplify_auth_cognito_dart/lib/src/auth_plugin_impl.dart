@@ -143,11 +143,23 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   /// The Cognito Identity Provider client.
-  cognito.CognitoIdentityProviderClient get _cognitoIdp =>
-      _stateMachine.expect();
+  cognito.CognitoIdentityProviderClient get _cognitoIdp {
+    final cognitoIdp =
+        _stateMachine.get<cognito.CognitoIdentityProviderClient>();
+    if (cognitoIdp == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return cognitoIdp;
+  }
 
   /// The Cognito user pool configuration.
-  CognitoUserPoolConfig get _userPoolConfig => _stateMachine.expect();
+  CognitoUserPoolConfig get _userPoolConfig {
+    final userPoolConfig = _stateMachine.get<CognitoUserPoolConfig>();
+    if (userPoolConfig == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return userPoolConfig;
+  }
 
   /// The Cognito identity pool configuration.
   CognitoIdentityCredentialsProvider? get _identityPoolConfig =>
