@@ -123,7 +123,7 @@ class StorageS3Service {
         // S3Client.headObject may return 403 error
         throw error.toStorageException();
       } on AWSHttpException catch (error) {
-        throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+        throw error.toNetworkException();
       }
     }
 
@@ -159,7 +159,7 @@ class StorageS3Service {
       // S3Client.headObject may return 403 error
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 
@@ -432,7 +432,7 @@ class StorageS3Service {
       // S3Client.copyObject may return 403 or 404 error
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
 
     return S3CopyResult(
@@ -608,7 +608,7 @@ class StorageS3Service {
         // S3Client.deleteObjects may return 403
         throw error.toStorageException();
       } on AWSHttpException catch (error) {
-        throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+        throw error.toNetworkException();
       } finally {
         objectIdentifiersToRemove.removeRange(0, numOfBatchedItems);
       }
@@ -640,7 +640,7 @@ class StorageS3Service {
       // object, the API call returns a successful response
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 
@@ -702,7 +702,7 @@ class StorageS3Service {
       // S3Client.headObject may return 403 or 404 error
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 

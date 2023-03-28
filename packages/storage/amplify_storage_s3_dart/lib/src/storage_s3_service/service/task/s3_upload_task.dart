@@ -369,7 +369,7 @@ class S3UploadTask {
       );
     } on AWSHttpException catch (error) {
       _completeUploadWithError(
-        s3_exception.createNetworkExceptionFromAWSHttpException(error),
+        error.toNetworkException(),
       );
     } finally {
       _emitTransferProgress();
@@ -504,7 +504,7 @@ class S3UploadTask {
     } on smithy.UnknownSmithyHttpException catch (error) {
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 
@@ -542,7 +542,7 @@ class S3UploadTask {
       //  wrapping errors extracted from a 200 response.
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 
@@ -682,7 +682,7 @@ class S3UploadTask {
     } on smithy.UnknownSmithyHttpException catch (error) {
       throw error.toStorageException();
     } on AWSHttpException catch (error) {
-      throw s3_exception.createNetworkExceptionFromAWSHttpException(error);
+      throw error.toNetworkException();
     }
   }
 
