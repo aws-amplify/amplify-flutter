@@ -27,6 +27,8 @@ void main() {
       );
     });
 
+    tearDown(deleteTestUser);
+
     // Scenario: Login mechanism set to "email"
     testWidgets('Login mechanism set to "email"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);

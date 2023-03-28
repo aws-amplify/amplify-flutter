@@ -29,7 +29,7 @@ void main() {
       );
     });
 
-    tearDown(signOut);
+    tearDown(deleteTestUser);
 
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {

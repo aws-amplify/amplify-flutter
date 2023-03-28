@@ -60,6 +60,16 @@ Future<void> signOut() async {
   }
 }
 
+/// Deletes the user created in the running test.
+Future<void> deleteTestUser() async {
+  try {
+    await Amplify.Auth.deleteUser();
+  } on Object {
+    // OK
+  }
+  await signOut();
+}
+
 extension BlocAccess on WidgetTester {
   /// The [StateMachineBloc] of the running Authenticator.
   StateMachineBloc get bloc {
