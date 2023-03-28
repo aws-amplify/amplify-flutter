@@ -37,7 +37,7 @@ void main() {
       );
     });
 
-    tearDown(signOut);
+    tearDown(deleteTestUser);
 
     // Scenario: Sign in then sign out
     testWidgets('Sign in then sign out', (tester) async {

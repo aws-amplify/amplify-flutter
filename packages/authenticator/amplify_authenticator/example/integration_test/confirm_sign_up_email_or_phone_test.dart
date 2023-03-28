@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
-import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 void main() {
@@ -29,7 +28,7 @@ void main() {
 
     setUp(signOut);
 
-    tearDown(Amplify.Auth.deleteUser);
+    tearDown(deleteTestUser);
 
     // Scenario: Sign up & confirm account with email as username
     testWidgets(

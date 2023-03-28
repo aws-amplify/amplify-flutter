@@ -26,7 +26,7 @@ void main() {
       );
     });
 
-    tearDown(signOut);
+    tearDown(deleteTestUser);
 
     // Scenario: Reset Password with valid username
     testWidgets('Reset Password with valid username', (tester) async {

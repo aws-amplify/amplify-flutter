@@ -10,7 +10,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'config.dart';
-import 'utils/mock_data.dart';
 import 'utils/test_utils.dart';
 
 // This test follows the Amplify UI feature "sign-in-force-new-password"
@@ -51,8 +50,6 @@ void main() {
       );
       addTearDown(() => deleteUser(cognitoUsername));
     });
-
-    tearDown(signOut);
 
     // Scenario: Sign in using a valid phone number and password and user is in
     // a FORCE_CHANGE_PASSWORD state
