@@ -143,8 +143,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       ..addInstance<StorageS3Service>(
         StorageS3Service(
           credentialsProvider: credentialsProvider,
-          defaultBucket: s3pluginConfig.bucket,
-          defaultRegion: s3pluginConfig.region,
+          s3PluginConfig: s3PluginConfig,
           delimiter: _delimiter,
           prefixResolver: _prefixResolver!,
           logger: logger,

@@ -20,9 +20,10 @@ import '../storage_s3_service_test.dart';
 void main() {
   group('S3DownloadTask', () {
     const testBucket = 'bucket1';
+    const testDefaultAccessLevel = StorageAccessLevel.guest;
     const testKey = 'some-object';
     const defaultTestOptions = StorageDownloadDataOptions(
-      accessLevel: StorageAccessLevel.guest,
+      accessLevel: StorageAccessLevel.private,
     );
     final testPrefixResolver = TestPrefixResolver();
     const defaultS3ClientConfig = S3ClientConfig();
@@ -64,6 +65,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -75,7 +77,8 @@ void main() {
         expect(downloadTask.result, throwsA(testException));
       });
 
-      test('it should invoke S3Client.getObject API with correct parameters',
+      test(
+          'it should invoke S3Client.getObject API with correct parameters and default access level',
           () async {
         const testBodyBytes = [101, 102];
         final testGetObjectOutput = GetObjectOutput(
@@ -101,8 +104,9 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
-          options: defaultTestOptions,
+          options: const StorageDownloadDataOptions(),
           logger: logger,
           onProgress: (progress) {
             finalState = progress.state;
@@ -125,7 +129,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: defaultTestOptions.accessLevel,
+            accessLevel: testDefaultAccessLevel,
           )}$testKey',
         );
         expect(request.checksumMode, ChecksumMode.enabled);
@@ -167,6 +171,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testOptions,
           logger: logger,
@@ -216,6 +221,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -266,6 +272,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -312,6 +319,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -376,6 +384,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -425,6 +434,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -494,6 +504,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -512,6 +523,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: defaultTestOptions,
             logger: logger,
@@ -564,6 +576,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: defaultTestOptions,
             logger: logger,
@@ -618,6 +631,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -660,6 +674,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: defaultTestOptions,
           logger: logger,
@@ -725,6 +740,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testOptions,
           logger: logger,
@@ -745,7 +761,7 @@ void main() {
             (o) => o.key,
             'key',
             '${await testPrefixResolver.resolvePrefix(
-              accessLevel: testOptions.accessLevel,
+              accessLevel: testOptions.accessLevel!,
               identityId: testTargetIdentity,
             )}$testKey',
           ),
