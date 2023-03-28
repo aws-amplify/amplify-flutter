@@ -31,7 +31,6 @@ void main() {
         expect(
           nameSelector.allPaths(repoState),
           matchesPackagePaths([
-            'example',
             'packages/amplify/amplify_flutter/example',
             'packages/amplify/amplify_flutter_ios/example',
             'packages/amplify_datastore/example',
@@ -55,11 +54,11 @@ void main() {
       });
 
       test('matches package name (not in path)', () {
-        const nameSelector = PackageSelector.packageOrComponent('sample_app');
+        const nameSelector = PackageSelector.packageOrComponent('infra');
         expect(
           nameSelector.allPaths(repoState),
           matchesPackagePaths([
-            'example',
+            'infra',
           ]),
         );
       });
@@ -126,7 +125,6 @@ void main() {
       expect(
         selector.allPaths(repoState),
         matchesPackagePaths([
-          'example',
           'packages/amplify/amplify_flutter/example',
           'packages/amplify/amplify_flutter_ios/example',
           'packages/amplify_datastore/example',
