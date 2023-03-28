@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import { Mfa } from "aws-cdk-lib/aws-cognito";
 import {
   AmplifyConfig,
   AnalyticsConfig,
@@ -33,6 +34,7 @@ describe("createAmplifyConfig", () => {
       userPoolConfig: {
         userPoolId,
         userPoolClientId,
+        mfa: Mfa.OFF,
       },
     };
 
@@ -109,9 +111,9 @@ describe("createAmplifyConfig", () => {
                     "REQUIRES_SYMBOLS",
                   ],
                 },
-                mfaConfiguration: "OPTIONAL",
                 mfaTypes: ["SMS"],
-                verificationMechanisms: ["EMAIL", "PHONE_NUMBER"],
+                mfaConfiguration: "OFF",
+                verificationMechanisms: [],
               },
             },
           },

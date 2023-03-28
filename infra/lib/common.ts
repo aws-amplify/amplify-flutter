@@ -335,45 +335,50 @@ export type APIAuthorizationType =
   | "OPENID_CONNECT"
   | "AWS_LAMBDA";
 
-export type ApiConfig = {
+export type ApiEndpointConfig = {
   endpointType: "GraphQL" | "REST";
   endpoint: string;
   authorizationType: APIAuthorizationType;
   apiKey?: string;
 };
 
+export type UserPoolConfig = {
+  userPoolId: string;
+  userPoolClientId: string;
+  signInAliases?: cognito.SignInAliases;
+  standardAttributes?: cognito.StandardAttributes;
+  mfa: cognito.Mfa;
+  verificationMechanisms?: string[];
+};
+export type IdentityPoolConfig = {
+  identityPoolId: string;
+};
+export type HostedUIConfig = {
+  webDomain: string;
+  signInRedirectUris: string[];
+  signOutRedirectUris: string[];
+  scopes: string[];
+};
+
 export type AuthConfig = {
-  userPoolConfig?: {
-    userPoolId: string;
-    userPoolClientId: string;
-    signInAliases?: cognito.SignInAliases;
-    standardAttributes?: cognito.StandardAttributes;
-    mfa: cognito.Mfa;
-    verificationMechanisms?: string[];
-  };
-  hostedUiConfig?: {
-    webDomain: string;
-    signInRedirectUris: string[];
-    signOutRedirectUris: string[];
-    scopes: string[];
-  };
-  identityPoolConfig?: {
-    identityPoolId: string;
-  };
+  userPoolConfig?: UserPoolConfig;
+  hostedUiConfig?: HostedUIConfig;
+  identityPoolConfig?: IdentityPoolConfig;
 };
 
 export type AnalyticsConfig = {
   appId: string;
 };
+export type ApiConfig = {
+  apis: {
+    [apiName: string]: ApiEndpointConfig;
+  };
+};
 
 export type AmplifyConfig = {
   analyticsConfig?: AnalyticsConfig;
   authConfig?: AuthConfig;
-  apiConfig?: {
-    apis: {
-      [apiName: string]: ApiConfig;
-    };
-  };
+  apiConfig?: ApiConfig;
   storageConfig?: {
     bucket: string;
     defaultAccessLevel: StorageAccessLevel;
