@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito/src/flows/hosted_ui/hosted_ui_platform_flutter.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ void main() {
     },
     // Add remaining platforms as `webview_flutter` adds support.
     // TODO(dnys1): Investigate Android failures in CI on Android 33+
-    skip: zIsWeb || !Platform.isIOS,
+    skip: zIsWeb || !((Platform.isAndroid && !isCI) || Platform.isIOS),
   );
 }
 
