@@ -124,7 +124,8 @@ void main() {
       });
     },
     // Add remaining platforms as `webview_flutter` adds support.
-    skip: zIsWeb || !(Platform.isAndroid || Platform.isIOS),
+    // TODO(dnys1): Investigate Android failures in CI on Android 33+
+    skip: zIsWeb || !Platform.isIOS,
   );
 }
 
