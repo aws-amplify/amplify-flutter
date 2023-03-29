@@ -84,7 +84,7 @@ class EndpointClient {
   /// into a [EndpointUserBuilder] and [PublicEndpointBuilder].
   Future<void> setUser(
     String userId,
-    AnalyticsUserProfile userProfile,
+    UserProfile userProfile,
   ) async {
     final newUserBuilder = EndpointUserBuilder()..userId = userId;
 
@@ -126,18 +126,16 @@ class EndpointClient {
 
     // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes.
     // Instead of the [EndpointUserBuilder] object.
-    if (userProfile.properties != null) {
+    if (userProfile.customProperties != null) {
       await _globalFieldsManager
-          .addAttributes(userProfile.properties!.attributes);
-      await _globalFieldsManager.addMetrics(userProfile.properties!.metrics);
+          .addAttributes(userProfile.customProperties!.attributes);
+      await _globalFieldsManager
+          .addMetrics(userProfile.customProperties!.metrics);
     }
 
     if (userProfile is AWSPinpointUserProfile) {
-      final attributes = <String, List<String>>{};
-      userProfile.userAttributes.getAllProperties().forEach((key, value) {
-        attributes[key] = [value.toString()];
-      });
-      newUserBuilder.userAttributes = ListMultimapBuilder(attributes);
+      newUserBuilder.userAttributes =
+          ListMultimapBuilder(userProfile.userAttributes);
     }
 
     _endpointBuilder.user = newUserBuilder;

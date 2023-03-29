@@ -30,7 +30,7 @@ class EventCreator {
   Event createPinpointEvent(
     String eventType,
     Session? session, [
-    AnalyticsProperties? analyticsProperties,
+    CustomProperties? analyticsProperties,
   ]) {
     if (eventType.length > _maxEventTypeLength) {
       throw const AnalyticsException(
@@ -63,7 +63,7 @@ class EventCreator {
 
   /// Register new global properties that will be added to all newly created events.
   void registerGlobalProperties(
-    AnalyticsProperties globalProperties,
+    CustomProperties globalProperties,
   ) =>
       _globalFieldsManager.addGlobalProperties(globalProperties);
 

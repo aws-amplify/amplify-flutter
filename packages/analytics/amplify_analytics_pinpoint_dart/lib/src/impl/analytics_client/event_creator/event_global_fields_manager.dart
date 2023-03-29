@@ -35,8 +35,8 @@ class EventGlobalFieldsManager {
       UnmodifiableMapView(_globalMetrics);
 
   // Note: no max size for global properties
-  /// Add [AnalyticsProperties].  The object will be parsed and stored as Attributes and Metrics.
-  void addGlobalProperties(AnalyticsProperties globalProperties) {
+  /// Add [CustomProperties].  The object will be parsed and stored as Attributes and Metrics.
+  void addGlobalProperties(CustomProperties globalProperties) {
     _globalAttributes.addAll(globalProperties.attributes);
     _globalMetrics.addAll(globalProperties.metrics);
   }
