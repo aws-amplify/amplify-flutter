@@ -14,6 +14,7 @@ import 'utils/test_utils.dart';
 void main() {
   AWSLogger().logLevel = LogLevel.verbose;
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final logger = AWSLogger().createChild('CustomAuth');
 
   group('custom auth', () {
     // Arbitrary challenge answer defined in Lambda
@@ -103,10 +104,64 @@ void main() {
             res.nextStep.signInStep,
             AuthSignInStep.confirmSignInWithCustomChallenge,
           );
-          // '123' is the arbitrary challenge answer defined in lambda code
+          // Can retry 3 times
+          for (var retry = 1; retry <= 3; retry++) {
+            logger.debug('Retry attempt: $retry');
+            final confirmRes = await Amplify.Auth.confirmSignIn(
+              confirmationValue: 'wrong',
+            );
+            expect(
+              confirmRes.nextStep.signInStep,
+              AuthSignInStep.confirmSignInWithCustomChallenge,
+            );
+            expect(
+              confirmRes.nextStep.additionalInfo,
+              containsPair('errorCode', 'NotAuthorizedException'),
+            );
+          }
           await expectLater(
-            Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: 'wrong',
+            ),
             throwsA(isA<AuthNotAuthorizedException>()),
+            reason: 'After 3 tries, fail completely',
+          );
+        },
+      );
+
+      asyncTest(
+        'challenges can be re-attempted on failure',
+        (_) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            options: options,
+          );
+          expect(
+            res.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: 'wrong',
+          );
+          expect(
+            confirmRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          expect(
+            confirmRes.nextStep.additionalInfo,
+            containsPair('errorCode', 'NotAuthorizedException'),
+          );
+          await expectLater(
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: confirmationValue,
+            ),
+            completion(
+              isA<CognitoSignInResult>().having(
+                (res) => res.isSignedIn,
+                'isSignedIn',
+                isTrue,
+              ),
+            ),
           );
         },
       );
@@ -267,6 +322,25 @@ void main() {
             confirmationValue: confirmationValue,
           );
           expect(res.isSignedIn, true);
+        },
+      );
+
+      asyncTest(
+        'an incorrect challenge reply should throw a NotAuthorizedException',
+        (_) async {
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+            options: options,
+          );
+          expect(
+            res.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithCustomChallenge,
+          );
+          await expectLater(
+            Amplify.Auth.confirmSignIn(confirmationValue: 'wrong'),
+            throwsA(isA<AuthNotAuthorizedException>()),
+          );
         },
       );
 
