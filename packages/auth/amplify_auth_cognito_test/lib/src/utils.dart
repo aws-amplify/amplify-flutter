@@ -6,4 +6,5 @@ import 'dart:io';
 import 'package:aws_common/aws_common.dart';
 
 /// Whether a test is running in a CI environment.
-final bool isCI = !zIsWeb && Platform.environment.containsKey('CI');
+final bool isCI = const bool.fromEnvironment('CI') ||
+    (!zIsWeb && Platform.environment.containsKey('CI'));
