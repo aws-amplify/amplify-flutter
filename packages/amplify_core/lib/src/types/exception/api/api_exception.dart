@@ -3,10 +3,10 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template api_exception}
+/// {@template amplify_core.api.api_exception}
 /// Exception thrown from the API Category.
 /// {@endtemplate}
-class ApiException extends AmplifyException {
+abstract class ApiException extends AmplifyException {
   /// {@macro api_exception}
   const ApiException(
     super.message, {

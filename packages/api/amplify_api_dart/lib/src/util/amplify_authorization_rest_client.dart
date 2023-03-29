@@ -40,7 +40,9 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
   @override
   Future<AWSBaseHttpRequest> transformRequest(AWSBaseHttpRequest request) {
     if (request.scheme != 'https') {
-      throw const ApiException('Non-HTTPS requests not supported.');
+      throw const ApiInvalidURLApiException(
+        'Non-HTTPS requests not supported.',
+      );
     }
     return authorizeHttpRequest(
       request,
@@ -63,7 +65,7 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
       } else {
         responseForException = response as AWSHttpResponse;
       }
-      throw RestException(responseForException);
+      throw HttpStatusException(responseForException);
     }
     return response;
   }

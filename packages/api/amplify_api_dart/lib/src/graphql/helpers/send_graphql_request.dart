@@ -30,7 +30,7 @@ GraphQLOperation<T> sendGraphQLRequest<T>({
         final responseBody = json.decode(responseJson);
 
         if (responseBody is! Map<String, dynamic>) {
-          throw ApiException(
+          throw UnknownException(
             'unable to parse GraphQLResponse from server response which was '
             'not a JSON object: $responseJson',
           );
@@ -43,7 +43,7 @@ GraphQLOperation<T> sendGraphQLRequest<T>({
       },
       onError: (error, stackTrace) {
         Error.throwWithStackTrace(
-          ApiException(
+          UnknownException(
             'unable to send GraphQLRequest to client.',
             underlyingException: error,
           ),

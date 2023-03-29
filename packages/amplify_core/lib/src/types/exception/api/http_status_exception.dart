@@ -3,19 +3,19 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template rest_exception}
+/// {@template amplify_core.api.http_status_exception}
 /// An HTTP error encountered during a REST API call, i.e. for calls returning
 /// non-2xx status codes.
 /// {@endtemplate}
-class RestException extends ApiException {
+class HttpStatusException extends ApiException {
   /// The HTTP response from the server.
   final AWSHttpResponse response;
 
   /// {@macro rest_exception}
-  RestException(this.response) : super(response.decodeBody());
+  HttpStatusException(this.response) : super(response.decodeBody());
 
   @override
   String toString() {
-    return 'RestException{response=$response}';
+    return 'HttpStatusException{response=$response}';
   }
 }

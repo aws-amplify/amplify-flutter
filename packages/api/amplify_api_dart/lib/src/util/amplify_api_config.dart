@@ -57,7 +57,7 @@ extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
     if (apiName != null) {
       final config = typeConfigs.firstWhere(
         (config) => config.key == apiName,
-        orElse: () => throw ApiException(
+        orElse: () => throw ConfigurationError(
           'No API endpoint found matching apiName $apiName.',
         ),
       );
@@ -65,7 +65,7 @@ extension AWSApiPluginConfigHelpers on AWSApiPluginConfig {
     }
     final onlyConfig = typeConfigs.singleOrNull;
     if (onlyConfig == null) {
-      throw const ApiException(
+      throw ConfigurationError(
         'Multiple API endpoints defined. Pass apiName parameter to specify '
         'which one to use.',
       );

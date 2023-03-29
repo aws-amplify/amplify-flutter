@@ -8,7 +8,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// failure.
 /// {@endtemplate}
 class NetworkException extends AmplifyException
-    implements AuthException, StorageException, AnalyticsException {
+    implements
+        ApiException,
+        AuthException,
+        StorageException,
+        AnalyticsException {
   /// {@macro amplify_core.network_exception}
   const NetworkException(
     super.message, {
