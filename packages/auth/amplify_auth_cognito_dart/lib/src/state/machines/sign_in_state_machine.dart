@@ -195,7 +195,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   ///
   /// Subclasses should return `null` if they cannot handle [challengeName].
   Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
-    SignInEvent event,
+    SignInEvent? event,
     ChallengeNameType challengeName,
     BuiltMap<String, String> challengeParameters,
   ) async {
@@ -537,7 +537,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// Responds to an SRP flow challenge.
   @protected
   Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
-    SignInEvent event,
+    SignInEvent? event,
     ChallengeNameType challengeName,
     BuiltMap<String, String> challengeParameters,
   ) async {
@@ -696,7 +696,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// `RespondToAuthChallenge` call.
   Future<void> _updateAttributes({
     required String accessToken,
-    required Map<String, String> clientMetadata,
+    required Map<String, String>? clientMetadata,
   }) async {
     if (_attributesNeedingUpdate == null || _attributesNeedingUpdate!.isEmpty) {
       return;
@@ -707,7 +707,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
             UpdateUserAttributesRequest.build(
               (b) => b
                 ..accessToken = accessToken
-                ..clientMetadata.addAll(clientMetadata)
+                ..clientMetadata.addAll(clientMetadata ?? const {})
                 ..userAttributes.addAll([
                   for (final userAttribute in _attributesNeedingUpdate!.entries)
                     AttributeType(
@@ -728,7 +728,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// 2. Querying the state machine implementation for how to respond.
   /// 3. Yielding control if the state machine cannot respond automatically and
   ///    user input is needed.
-  Future<SignInState> _processChallenge(SignInEvent event) async {
+  Future<SignInState> _processChallenge([SignInEvent? event]) async {
     // There can be an indefinite amount of challenges which need responses.
     // Only when authenticationResult is set is the flow considered complete.
     final authenticationResult = _authenticationResult;
@@ -756,7 +756,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
       await _updateAttributes(
         accessToken: accessToken,
-        clientMetadata: event.clientMetadata,
+        clientMetadata: event?.clientMetadata,
       );
 
       return SignInState.success(user.build());
@@ -806,14 +806,14 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// Inner handle to send the request returned from [respondToAuthChallenge]
   /// and process its response.
   Future<SignInState> _respondToChallenge(
-    SignInEvent event,
+    SignInEvent? event,
     RespondToAuthChallengeRequest respondRequest,
   ) async {
     // Include session if not already included.
     respondRequest = respondRequest.rebuild(
       (b) => b
         ..session ??= _session
-        ..clientMetadata.replace(event.clientMetadata)
+        ..clientMetadata.replace(event?.clientMetadata ?? const {})
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
     );
 
@@ -828,7 +828,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
       _challengeParameters = challengeResp.challengeParameters ?? BuiltMap();
       _session = challengeResp.session;
 
-      return _processChallenge(event);
+      return _processChallenge();
     } on ResourceNotFoundException {
       // For device flows, retry with normal SRP sign-in when the device is not
       // found. This protects against the case where a device has been removed
