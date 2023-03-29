@@ -338,7 +338,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// First establishes there is a connection to AppSync
   /// Then clears web socket connection and restarts init workflow
-  /// Sends [ApiException] when unable to reach AppSync
+  /// Sends [NetworkException] when unable to reach AppSync
   Stream<WebSocketState> _reconnect() async* {
     assert(
       _currentState is ReconnectingState,

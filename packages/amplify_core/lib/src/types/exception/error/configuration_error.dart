@@ -11,7 +11,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// `Amplify.configure`. If that call succeeds, developers do not need to worry
 /// about future configuration errors.
 /// {@endtemplate}
-class ConfigurationError extends AmplifyError {
+class ConfigurationError extends AmplifyError implements ApiException {
   /// {@macro amplify_core.exceptions.configuration_error}
   ConfigurationError(
     super.message, {
@@ -21,4 +21,11 @@ class ConfigurationError extends AmplifyError {
 
   @override
   String get runtimeTypeName => 'ConfigurationError';
+
+  @override
+  List<Object?> get props => [
+        message,
+        recoverySuggestion,
+        underlyingException,
+      ];
 }
