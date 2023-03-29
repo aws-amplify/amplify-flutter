@@ -12,11 +12,12 @@ import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('confirmSignIn', () {
     late String username;
-    late String password;
+    late String tempPassword;
     late OtpResult otpResult;
 
     setUpAll(() async {
@@ -27,30 +28,40 @@ void main() {
 
     setUp(() async {
       username = generateUsername();
-      password = generatePassword();
+      tempPassword = generatePassword();
 
       otpResult = await getOtpCode(UserAttribute.username(username));
 
       await adminCreateUser(
         username,
-        password,
-        autoConfirm: true,
+        tempPassword,
         enableMfa: true,
         verifyAttributes: true,
       );
 
       final signInRes = await Amplify.Auth.signIn(
         username: username,
-        password: password,
+        password: tempPassword,
       );
       expect(signInRes.isSignedIn, isFalse);
       expect(
         signInRes.nextStep.signInStep,
-        AuthSignInStep.confirmSignInWithSmsMfaCode,
+        AuthSignInStep.confirmSignInWithNewPassword,
       );
     });
 
     asyncTest('confirming signs in user', (_) async {
+      final newPassword = generatePassword();
+
+      final confirmRes = await Amplify.Auth.confirmSignIn(
+        confirmationValue: newPassword,
+      );
+      expect(confirmRes.isSignedIn, isFalse);
+      expect(
+        confirmRes.nextStep.signInStep,
+        AuthSignInStep.confirmSignInWithSmsMfaCode,
+      );
+
       final otpCode = await otpResult.code;
 
       await expectLater(
@@ -68,6 +79,17 @@ void main() {
     });
 
     asyncTest('allows retrying on code mismatch', (_) async {
+      final newPassword = generatePassword();
+
+      final confirmRes = await Amplify.Auth.confirmSignIn(
+        confirmationValue: newPassword,
+      );
+      expect(confirmRes.isSignedIn, isFalse);
+      expect(
+        confirmRes.nextStep.signInStep,
+        AuthSignInStep.confirmSignInWithSmsMfaCode,
+      );
+
       final otpCode = await otpResult.code;
 
       await expectLater(
