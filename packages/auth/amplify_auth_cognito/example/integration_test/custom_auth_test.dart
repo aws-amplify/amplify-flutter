@@ -166,6 +166,13 @@ void main() {
           ),
           throwsA(isA<AuthNotAuthorizedException>()),
         );
+        await expectLater(
+          Amplify.Auth.confirmSignIn(
+            confirmationValue: confirmationValue,
+          ),
+          throwsA(isA<AuthNotAuthorizedException>()),
+          reason: 'Authorization failures are not retryable',
+        );
       });
 
       asyncTest('works with deprecated auth flow', (_) async {
@@ -336,6 +343,13 @@ void main() {
             ),
           ),
           throwsA(isA<AuthNotAuthorizedException>()),
+        );
+        await expectLater(
+          Amplify.Auth.confirmSignIn(
+            confirmationValue: confirmationValue,
+          ),
+          throwsA(isA<AuthNotAuthorizedException>()),
+          reason: 'Authorization failures are not retryable',
         );
       });
 
