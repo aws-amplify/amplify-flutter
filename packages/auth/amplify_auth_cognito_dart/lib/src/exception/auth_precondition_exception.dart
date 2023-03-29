@@ -12,7 +12,12 @@ import 'package:meta/meta.dart';
 class AuthPreconditionException extends AuthException
     implements PreconditionException {
   /// {@macro amplify_auth_cognito.exception.auth_precondition_exception}
-  const AuthPreconditionException(super.message, {this.shouldEmit = true});
+  const AuthPreconditionException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+    this.shouldEmit = true,
+  });
 
   @override
   String get precondition => message;

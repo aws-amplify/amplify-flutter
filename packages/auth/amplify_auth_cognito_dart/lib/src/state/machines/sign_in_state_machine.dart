@@ -890,7 +890,11 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   @override
   SignInState? resolveError(Object error, StackTrace st) {
     if (error is Exception) {
-      return SignInFailure(error, st);
+      return SignInFailure(
+        previousState: currentState,
+        exception: error,
+        stackTrace: st,
+      );
     }
     return null;
   }

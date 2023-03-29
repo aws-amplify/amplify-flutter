@@ -56,10 +56,11 @@ abstract class SignInState extends AuthState<SignInStateType> {
   const factory SignInState.cancelling() = SignInCancelling;
 
   /// {@macro amplify_auth_cognito_dart.sign_in_failure}
-  const factory SignInState.failure(
-    Exception exception,
-    StackTrace stackTrace,
-  ) = SignInFailure;
+  const factory SignInState.failure({
+    required SignInState previousState,
+    required Exception exception,
+    required StackTrace stackTrace,
+  }) = SignInFailure;
 
   @override
   String get runtimeTypeName => 'SignInState';
@@ -161,7 +162,14 @@ class SignInCancelling extends SignInState {
 /// {@endtemplate}
 class SignInFailure extends SignInState with ErrorState {
   /// {@macro amplify_auth_cognito_dart.sign_in_failure}
-  const SignInFailure(this.exception, this.stackTrace);
+  const SignInFailure({
+    required this.previousState,
+    required this.exception,
+    required this.stackTrace,
+  });
+
+  /// The state of the machine at the time [exception] was raised.
+  final SignInState previousState;
 
   /// The exception thrown during sign up.
   @override
@@ -174,5 +182,5 @@ class SignInFailure extends SignInState with ErrorState {
   SignInStateType get type => SignInStateType.failure;
 
   @override
-  List<Object?> get props => [type, exception, stackTrace];
+  List<Object?> get props => [type, previousState, exception, stackTrace];
 }

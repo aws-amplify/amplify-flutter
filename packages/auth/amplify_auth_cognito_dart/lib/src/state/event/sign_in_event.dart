@@ -136,8 +136,29 @@ class SignInRespondToChallenge extends SignInEvent {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {
-    if (currentState is SignInFailure &&
-        currentState.exception is CodeMismatchException) {
+    if (currentState is SignInFailure) {
+      // If the state machine did not reach a challenge state before the
+      // exception was thrown, then any attempts to confirm sign in should
+      // not be allowed and the entire flow must be restarted by the user.
+      if (currentState.previousState.type != SignInStateType.challenge) {
+        return AuthPreconditionException(
+          'Sign-in previously failed',
+          recoverySuggestion:
+              'Restart the sign-in flow by calling Amplify.Auth.signIn',
+          underlyingException: currentState.exception,
+        );
+      }
+      // However, if the state machine was in a respond to challenge state when
+      // the exception was raised, further attempts to confirm sign in should
+      // be allowed.
+      //
+      // Recoverable exceptions are expected at this stage, such as
+      // CodeMismatchException and InvalidPasswordException. These exceptions
+      // prompt the user to retry if they've provided an invalid code or weak
+      // password, for example. It is not feasible to determine which exception
+      // types are non-recoverable, though. For all others, it is better to
+      // allow confirm sign in attempts and have Cognito continue to throw the
+      // exception.
       return null;
     }
     if (currentState.type != SignInStateType.challenge) {
