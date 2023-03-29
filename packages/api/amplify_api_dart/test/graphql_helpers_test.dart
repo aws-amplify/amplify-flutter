@@ -402,7 +402,7 @@ void main() {
           model.modelIdentifier,
         );
         final expectedDocument =
-            'query getCpkIntIndexes { getCpkIntIndexes(name: "$name", fieldA: 1, fieldB: 2) { name fieldA fieldB createdAt updatedAt } }';
+            'query getCpkIntIndexes { getCpkIntIndexes(name: "$name", fieldA: 1, fieldB: 2) { name fieldA fieldB createdAt updatedAt owner } }';
 
         expect(req.document, expectedDocument);
       });
@@ -414,7 +414,7 @@ void main() {
           model.modelIdentifier,
         );
         const expectedDocument =
-            'query getCpkIntPrimaryKey { getCpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3) { intAsId fieldA fieldB createdAt updatedAt } }';
+            'query getCpkIntPrimaryKey { getCpkIntPrimaryKey(intAsId: 1, fieldA: 2, fieldB: 3) { intAsId fieldA fieldB createdAt updatedAt owner } }';
 
         expect(req.document, expectedDocument);
       });
