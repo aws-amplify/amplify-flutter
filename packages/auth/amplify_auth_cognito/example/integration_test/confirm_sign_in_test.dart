@@ -112,5 +112,25 @@ void main() {
         ),
       );
     });
+
+    asyncTest('allows retrying on weak password', (_) async {
+      const weakPassword = 'weak';
+      await expectLater(
+        Amplify.Auth.confirmSignIn(
+          confirmationValue: weakPassword,
+        ),
+        throwsA(isA<InvalidPasswordException>()),
+      );
+
+      final newPassword = generatePassword();
+      final confirmRes = await Amplify.Auth.confirmSignIn(
+        confirmationValue: newPassword,
+      );
+      expect(confirmRes.isSignedIn, isFalse);
+      expect(
+        confirmRes.nextStep.signInStep,
+        AuthSignInStep.confirmSignInWithSmsMfaCode,
+      );
+    });
   });
 }
