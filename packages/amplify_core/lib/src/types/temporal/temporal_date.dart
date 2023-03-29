@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/src/types/temporal/temporal.dart';
 import 'package:meta/meta.dart';
-
-import 'temporal.dart';
 
 /// Represents a valid extended ISO-8601 Date string, with an optional timezone offset.
 /// YYYY-MM-DD±hh:mm:ss  (ISO_OFFSET_DATE)
@@ -12,14 +11,6 @@ import 'temporal.dart';
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 @immutable
 class TemporalDate implements Comparable<TemporalDate> {
-  final DateTime _dateTime;
-  final Duration? _offset;
-
-  /// Constructs a new TemporalDate at the current date.
-  static TemporalDate now() {
-    return TemporalDate(DateTime.now());
-  }
-
   /// Constructs a new TemporalDate from a Dart DateTime
   /// The time fields (hour, minute, second, etc) are ignored
   factory TemporalDate(DateTime dateTime) {
@@ -58,14 +49,15 @@ class TemporalDate implements Comparable<TemporalDate> {
   ///     +hh:mm
   ///     +hh:mm:ss
   factory TemporalDate.fromString(String iso8601String) {
-    // TODO: enforce month 1-12
-    RegExp regExp = RegExp(
-        r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9])((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))?',
-        caseSensitive: false,
-        multiLine: false);
+    // TODO(fjnoyp): enforce month 1-12
+    final regExp = RegExp(
+      r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9])((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))?',
+      caseSensitive: false,
+      multiLine: false,
+    );
 
     // Validate
-    String? regexString = regExp.stringMatch(iso8601String);
+    var regexString = regExp.stringMatch(iso8601String);
     if (regexString == null || regexString != iso8601String) {
       throw const FormatException(
         'Invalid ISO8601 String Input\n\n'
@@ -79,10 +71,10 @@ class TemporalDate implements Comparable<TemporalDate> {
     regexString = iso8601String.replaceAll(RegExp(r'(z|Z)'), '');
 
     // Extract Date
-    var match = regExp.matchAsPrefix(regexString)!;
+    final match = regExp.matchAsPrefix(regexString)!;
 
     // Parse cannot take a YYYY-MM-DD as UTC!
-    DateTime dateTime = DateTime.parse(match.group(1)!);
+    var dateTime = DateTime.parse(match.group(1)!);
     dateTime = DateTime.utc(dateTime.year, dateTime.month, dateTime.day);
 
     // Extract Offset
@@ -90,13 +82,20 @@ class TemporalDate implements Comparable<TemporalDate> {
     if (match.group(2) != null && match.group(2)!.isNotEmpty) {
       offset = Temporal.offsetToDuration(match.group(2)!);
     } else if (iso8601String.toLowerCase().contains('z')) {
-      offset = const Duration();
+      offset = Duration.zero;
     }
 
     return TemporalDate._(dateTime, offset);
   }
 
   const TemporalDate._(this._dateTime, [this._offset]);
+  final DateTime _dateTime;
+  final Duration? _offset;
+
+  /// Constructs a new TemporalDate at the current date.
+  static TemporalDate now() {
+    return TemporalDate(DateTime.now());
+  }
 
   /// Return offset
   Duration? getOffset() {
@@ -110,10 +109,9 @@ class TemporalDate implements Comparable<TemporalDate> {
 
   /// Return ISO8601 String of format YYYY-MM-DD+hh:mm:ss
   String format() {
-    var buffer = StringBuffer();
-
-    // Extract date portion of DateTime.ISO8601String
-    buffer.write(_dateTime.toIso8601String().substring(0, 10));
+    final buffer = StringBuffer()
+      // Extract date portion of DateTime.ISO8601String
+      ..write(_dateTime.toIso8601String().substring(0, 10));
 
     // Duration.toString returns string of form -9:30:00.000000 / 9:30:00.000000
     // But we need -09:30 / +09:30

@@ -8,11 +8,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// non-2xx status codes.
 /// {@endtemplate}
 class RestException extends ApiException {
-  /// The HTTP response from the server.
-  final AWSHttpResponse response;
-
   /// {@macro rest_exception}
   RestException(this.response) : super(response.decodeBody());
+
+  /// The HTTP response from the server.
+  final AWSHttpResponse response;
 
   @override
   String toString() {

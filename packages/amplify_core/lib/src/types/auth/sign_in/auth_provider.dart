@@ -8,11 +8,6 @@ class AuthProvider
         AWSEquatable<AuthProvider>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
-  const AuthProvider._(this.name, [this._identityPoolProvider]);
-
-  final String name;
-  final String? _identityPoolProvider;
-
   factory AuthProvider.fromJson(Map<String, Object?> json) {
     return AuthProvider._(
       json['name'] as String,
@@ -51,6 +46,11 @@ class AuthProvider
   const AuthProvider.custom(String developerProvidedName)
       : name = developerProvidedName,
         _identityPoolProvider = null;
+
+  const AuthProvider._(this.name, [this._identityPoolProvider]);
+
+  final String name;
+  final String? _identityPoolProvider;
 
   static const google = AuthProvider._('google');
   static const facebook = AuthProvider._('facebook');

@@ -55,7 +55,7 @@ const zConfigMapSerializable = JsonSerializable(
 /// {@endtemplate}
 class SerializableMap<V> extends MapView<String, V> with AWSSerializable {
   /// {@macro amplify_flutter.serializable_map}
-  const SerializableMap(Map<String, V> map) : super(map);
+  const SerializableMap(super.map);
 
   @override
   Map<String, Object?> toJson() => this;

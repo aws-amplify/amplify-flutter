@@ -13,13 +13,13 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @internal
 class AmplifyClassImpl extends AmplifyClass {
+  /// {@macro amplify_flutter.amplify_class_impl}
+  AmplifyClassImpl() : super.protected();
+
   /// Share AmplifyAuthProviders with plugins.
   @protected
   final AmplifyAuthProviderRepository authProviderRepo =
       AmplifyAuthProviderRepository();
-
-  /// {@macro amplify_flutter.amplify_class_impl}
-  AmplifyClassImpl() : super.protected();
 
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) {

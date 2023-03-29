@@ -13,18 +13,6 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @immutable
 class GraphQLResponseError {
-  /// The description of the error.
-  final String message;
-
-  /// The locations of the error-causing fields in the request document.
-  final List<GraphQLResponseErrorLocation>? locations;
-
-  /// The key path of the error-causing field in the response's `data` object.
-  final List<dynamic>? path;
-
-  /// Additional context.
-  final Map<String, dynamic>? extensions;
-
   /// {@macro graphql_response_error}
   const GraphQLResponseError({
     required this.message,
@@ -37,15 +25,29 @@ class GraphQLResponseError {
     return GraphQLResponseError(
       message: json['message'] as String,
       locations: (json['locations'] as List?)
-          ?.cast<Map>()
-          .map((json) => GraphQLResponseErrorLocation.fromJson(
-                json.cast<String, dynamic>(),
-              ))
+          ?.cast<Map<Object?, Object?>>()
+          .map(
+            (json) => GraphQLResponseErrorLocation.fromJson(
+              json.cast<String, dynamic>(),
+            ),
+          )
           .toList(),
       path: json['path'] as List?,
       extensions: (json['extensions'] as Map?)?.cast<String, dynamic>(),
     );
   }
+
+  /// The description of the error.
+  final String message;
+
+  /// The locations of the error-causing fields in the request document.
+  final List<GraphQLResponseErrorLocation>? locations;
+
+  /// The key path of the error-causing field in the response's `data` object.
+  final List<dynamic>? path;
+
+  /// Additional context.
+  final Map<String, dynamic>? extensions;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'message': message,
@@ -90,14 +92,6 @@ class GraphQLResponseError {
 /// {@endtemplate}
 @immutable
 class GraphQLResponseErrorLocation {
-  /// The line in the GraphQL request document where the error-causing syntax
-  /// element starts.
-  final int line;
-
-  /// The column in the GraphQL request document where the error-causing syntax
-  /// element starts.
-  final int column;
-
   /// {@macro graphql_response_error_location}
   const GraphQLResponseErrorLocation(this.line, this.column);
 
@@ -107,6 +101,14 @@ class GraphQLResponseErrorLocation {
       json['column'] as int,
     );
   }
+
+  /// The line in the GraphQL request document where the error-causing syntax
+  /// element starts.
+  final int line;
+
+  /// The column in the GraphQL request document where the error-causing syntax
+  /// element starts.
+  final int column;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'line': line,

@@ -12,13 +12,15 @@ enum TestEnum { yes, no, maybe }
 
 void main() {
   test('DateTimeParse.toDateTimeIso8601String generated proper string', () {
-    DateTime dateTime = DateTime(2010, 10, 10, 10, 10, 10, 10);
+    final dateTime = DateTime(2010, 10, 10, 10, 10, 10, 10);
     expect(dateTime.toIso8601String(), '2010-10-10T10:10:10.010');
   });
 
   test('DateTimeParse.fromString generates proper DateTime', () {
-    expect(DateTimeParse.fromString('2010-10-10T10:10:10.010'),
-        DateTime(2010, 10, 10, 10, 10, 10, 10));
+    expect(
+      DateTimeParse.fromString('2010-10-10T10:10:10.010'),
+      DateTime(2010, 10, 10, 10, 10, 10, 10),
+    );
   });
 
   test('parsers.enumToString generates proper string', () {

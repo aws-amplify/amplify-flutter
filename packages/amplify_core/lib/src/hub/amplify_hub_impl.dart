@@ -20,17 +20,19 @@ class AmplifyHubImpl extends AmplifyHub {
 
   static final AmplifyLogger _logger = AmplifyLogger.category(Category.hub);
 
-  final Map<HubChannel, StreamGroup<HubEvent>> _availableStreams = {};
-  final Map<HubChannel, List<StreamSubscription>> _subscriptions = {};
+  final Map<HubChannel<Object?, HubEvent<Object?>>,
+      StreamGroup<HubEvent<Object?>>> _availableStreams = {};
+  final Map<HubChannel<Object?, HubEvent<Object?>>,
+      List<StreamSubscription<Object?>>> _subscriptions = {};
 
   @override
-  Map<HubChannel, Stream<HubEvent>> get availableStreams =>
-      UnmodifiableMapView({
-        for (final channel in HubChannel.values)
-          channel: _initChannel(channel).stream,
-      });
+  Map<HubChannel<Object?, HubEvent<Object?>>, Stream<HubEvent<Object?>>>
+      get availableStreams => UnmodifiableMapView({
+            for (final channel in HubChannel.values)
+              channel: _initChannel(channel).stream,
+          });
 
-  StreamGroup<HubEvent>
+  StreamGroup<HubEvent<Object?>>
       _initChannel<HubEventPayload, E extends HubEvent<HubEventPayload>>(
     HubChannel<HubEventPayload, E> channel,
   ) {

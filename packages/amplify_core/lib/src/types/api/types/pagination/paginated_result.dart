@@ -4,6 +4,15 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class PaginatedResult<T extends Model> extends Model {
+  const PaginatedResult(
+    this.items,
+    this.limit,
+    this.nextToken,
+    this.filter,
+    this.modelType,
+    this.requestForNextResult,
+  );
+
   /// Model instances for this set of results.
   ///
   /// An entry might be null if there are server-side errors inserting an instance
@@ -20,9 +29,6 @@ class PaginatedResult<T extends Model> extends Model {
   /// request for the next chunk of data, where `limit` will be the same as the
   /// original request. Returns `null` if no more data.
   final GraphQLRequest<PaginatedResult<T>>? requestForNextResult;
-
-  const PaginatedResult(this.items, this.limit, this.nextToken, this.filter,
-      this.modelType, this.requestForNextResult);
 
   @override
   String getId() {

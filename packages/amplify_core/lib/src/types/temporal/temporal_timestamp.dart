@@ -9,16 +9,9 @@ import 'package:meta/meta.dart';
 /// til 1970-01-01T00:00Z.
 @immutable
 class TemporalTimestamp implements Comparable<TemporalTimestamp> {
-  final int _secondsSinceEpoch;
-
-  /// Constructs a new TemporalTimestamp at the current date.
-  static TemporalTimestamp now() {
-    return TemporalTimestamp(DateTime.now());
-  }
-
   /// Constructs a new TemporalTimestamp from a Dart DateTime
   factory TemporalTimestamp(DateTime date) {
-    var ms = date.millisecondsSinceEpoch;
+    final ms = date.millisecondsSinceEpoch;
     return TemporalTimestamp._((ms / 1000).round());
   }
 
@@ -28,6 +21,13 @@ class TemporalTimestamp implements Comparable<TemporalTimestamp> {
   }
 
   const TemporalTimestamp._(this._secondsSinceEpoch);
+
+  /// Constructs a new TemporalTimestamp at the current date.
+  static TemporalTimestamp now() {
+    return TemporalTimestamp(DateTime.now());
+  }
+
+  final int _secondsSinceEpoch;
 
   /// Gets the number of seconds that have elapsed since the UNIX epoch.
   int toSeconds() {

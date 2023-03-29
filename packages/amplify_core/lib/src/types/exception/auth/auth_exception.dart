@@ -37,6 +37,7 @@ abstract class AuthException extends AmplifyException with AWSDebuggable {
     }
     String message;
     try {
+      // ignore: avoid_dynamic_calls
       message = (e as dynamic).message as String;
     } on Object {
       message = _unknownMessage;

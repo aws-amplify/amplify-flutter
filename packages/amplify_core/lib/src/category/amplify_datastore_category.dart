@@ -17,15 +17,15 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
     DataStorePluginInterface plugin, {
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    // TODO: Discuss and support multiple plugins
     if (plugins.isEmpty) {
       try {
         // Extra step to configure datastore specifically.
         // Note: The native datastore plugins are not added
         // in the `onAttachedToEngine` but rather in the `configure()
         await plugin.configureDataStore(
-            modelProvider: plugin.modelProvider!,
-            errorHandler: plugin.errorHandler);
+          modelProvider: plugin.modelProvider!,
+          errorHandler: plugin.errorHandler,
+        );
         _plugins.add(plugin);
       } on AmplifyAlreadyConfiguredException {
         _plugins.add(plugin);
@@ -33,7 +33,9 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
         try {
           throw AmplifyException.fromMap(
             Map<String, String>.from(
-                (e as dynamic /* PlatformException */).details as Map),
+              // ignore: avoid_dynamic_calls
+              (e as dynamic /* PlatformException */).details as Map,
+            ),
           );
         } on NoSuchMethodError {
           // fallthrough
@@ -49,7 +51,7 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   }
 
   /// Get [streamController]
-  StreamController get streamController {
+  StreamController<DataStoreHubEvent> get streamController {
     return plugins.length == 1
         ? plugins[0].streamController
         : throw _pluginNotAddedException('DataStore');
@@ -59,13 +61,19 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   /// query predicate [where].
   ///
   /// Returned items are paginated by [pagination] and sorted by [sortBy].
-  Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where,
-      QueryPagination? pagination,
-      List<QuerySortBy>? sortBy}) {
+  Future<List<T>> query<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    QueryPagination? pagination,
+    List<QuerySortBy>? sortBy,
+  }) {
     return plugins.length == 1
-        ? plugins[0].query(modelType,
-            where: where, pagination: pagination, sortBy: sortBy)
+        ? plugins[0].query(
+            modelType,
+            where: where,
+            pagination: pagination,
+            sortBy: sortBy,
+          )
         : throw _pluginNotAddedException('DataStore');
   }
 
@@ -84,8 +92,10 @@ class DataStoreCategory extends AmplifyCategory<DataStorePluginInterface> {
   }
 
   /// Observe changes on the specified [modelType].
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where}) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+  }) {
     return plugins.length == 1
         ? plugins[0].observe(modelType, where: where)
         : throw _pluginNotAddedException('DataStore');

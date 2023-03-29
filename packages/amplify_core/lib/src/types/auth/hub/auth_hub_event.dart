@@ -19,11 +19,11 @@ enum AuthHubEventType {
   /// {@macro amplify_common.hub.auth_hub_event_user_deleted}
   userDeleted('USER_DELETED');
 
-  /// The event name.
-  final String eventName;
-
   /// {@macro amplify_common.hub.auth_hub_event_type}
   const AuthHubEventType(this.eventName);
+
+  /// The event name.
+  final String eventName;
 }
 
 /// The base class for hub events of the Auth category.
@@ -31,14 +31,6 @@ enum AuthHubEventType {
 /// One of [AuthHubEventType.values].
 class AuthHubEvent extends HubEvent<AuthUser>
     with AWSEquatable<AuthHubEvent>, AWSDebuggable {
-  AuthHubEvent._(
-    this.type, {
-    AuthUser? payload,
-  }) : super(type.eventName, payload: payload);
-
-  /// {@macro amplify_common.hub.auth_hub_event_type}
-  final AuthHubEventType type;
-
   /// {@template amplify_common.hub.auth_hub_event_signed_in}
   /// Emitted when a user successfully signs in or when the app is started and
   /// a user was already signed in.
@@ -63,6 +55,13 @@ class AuthHubEvent extends HubEvent<AuthUser>
   /// Emitted when a user is deleted by calling `Amplify.Auth.deleteUser`.
   /// {@endtemplate}
   AuthHubEvent.userDeleted() : this._(AuthHubEventType.userDeleted);
+  AuthHubEvent._(
+    this.type, {
+    AuthUser? payload,
+  }) : super(type.eventName, payload: payload);
+
+  /// {@macro amplify_common.hub.auth_hub_event_type}
+  final AuthHubEventType type;
 
   @override
   List<Object?> get props => [type, payload];

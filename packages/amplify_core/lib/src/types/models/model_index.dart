@@ -1,13 +1,25 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.models.model_index}
 /// Describes an index that is created by `@primaryKey` or `@index` directive,
 /// and is listed in [ModelSchemaDefinition.indexes].
 /// {@endtemplate}
 class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
+  /// {@macro model_index}
+  const ModelIndex({
+    required this.fields,
+    this.name,
+  });
+
+  /// Create an instance of [ModelIndex] from a json object
+  factory ModelIndex.fromJson(Map<String, Object?> map) => ModelIndex(
+        fields: (map['fields'] as List<Object?>).cast(),
+        name: map['name'] as String?,
+      );
+
   /// Index name that is defined by the name parameter of `@index` directive in
   /// a model schema. This will always be null when the index is representing
   /// `@primaryKey` directive.
@@ -19,12 +31,6 @@ class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
   /// `@primaryKey` or `@index` directive.
   final List<String> fields;
 
-  /// {@macro model_index}
-  const ModelIndex({
-    required this.fields,
-    this.name,
-  });
-
   @override
   List<Object?> get props => [name, fields];
 
@@ -34,12 +40,6 @@ class ModelIndex with AWSEquatable<ModelIndex>, AWSSerializable {
     String? name,
   }) =>
       ModelIndex(fields: fields ?? this.fields, name: name ?? this.name);
-
-  /// Create an instance of [ModelIndex] from a json object
-  factory ModelIndex.fromJson(Map<String, Object?> map) => ModelIndex(
-        fields: (map['fields'] as List<Object?>).cast(),
-        name: map['name'] as String?,
-      );
 
   /// Generate a json object that represents [ModelIndex]
   @override

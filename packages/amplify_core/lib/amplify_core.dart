@@ -3,7 +3,7 @@
 
 library amplify_core;
 
-import 'src/amplify_class.dart';
+import 'package:amplify_core/src/amplify_class.dart';
 
 /// Common types
 export 'package:aws_common/aws_common.dart';

@@ -4,12 +4,11 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/hub/amplify_hub_impl.dart';
 import 'package:meta/meta.dart';
 
-import 'amplify_hub_impl.dart';
-
 /// A [HubEvent] listener, passed to [AmplifyHub.listen].
-typedef HubEventListener<E extends HubEvent> = void Function(E event);
+typedef HubEventListener<E extends HubEvent<Object?>> = void Function(E event);
 
 /// {@template amplify_core.hub.amplify_hub}
 /// Amplify Hub provides realtime notifications to events in the different
@@ -26,7 +25,8 @@ abstract class AmplifyHub implements Closeable {
   AmplifyHub.protected();
 
   /// The available streams for listening.
-  Map<HubChannel, Stream<HubEvent>> get availableStreams;
+  Map<HubChannel<Object?, HubEvent<Object?>>, Stream<HubEvent<Object?>>>
+      get availableStreams;
 
   /// Listens to the Hub [channel] for events produced from all plugins in the
   /// channel's categories.

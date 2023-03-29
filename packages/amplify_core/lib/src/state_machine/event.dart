@@ -10,7 +10,8 @@ import 'package:meta/meta.dart';
 /// Base class for discrete events of a state machine.
 /// {@endtemplate}
 @immutable
-abstract class StateMachineEvent<EventType, StateType>
+abstract class StateMachineEvent<EventType extends Object,
+        StateType extends Object>
     with AWSEquatable<StateMachineEvent<EventType, StateType>>, AWSDebuggable {
   /// {@macro amplify_core.event}
   const StateMachineEvent();

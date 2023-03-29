@@ -5,14 +5,17 @@ import 'package:meta/meta.dart';
 
 @immutable
 class ModelFieldType {
+  const ModelFieldType(
+    this.fieldType, {
+    this.ofModelName,
+    this.ofCustomTypeName,
+  });
+
   final ModelFieldTypeEnum fieldType;
 
   final String? ofModelName; //opt
 
   final String? ofCustomTypeName;
-
-  const ModelFieldType(this.fieldType,
-      {this.ofModelName, this.ofCustomTypeName});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

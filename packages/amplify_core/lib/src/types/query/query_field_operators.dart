@@ -24,16 +24,18 @@ extension QueryFieldOperatorTypeExtension on QueryFieldOperatorType {
 }
 
 abstract class QueryFieldOperator<T> {
-  final QueryFieldOperatorType type;
-
   const QueryFieldOperator(this.type);
+
+  final QueryFieldOperatorType type;
 
   bool evaluate(T? other);
 
   Map<String, dynamic> serializeAsMap();
 
   Map<String, dynamic> serializeAsMapWithOperator(
-      String operatorName, dynamic value) {
+    String operatorName,
+    dynamic value,
+  ) {
     return <String, dynamic>{
       'operatorName': operatorName,
       'value': serializeDynamicValue(value)
@@ -65,16 +67,16 @@ abstract class QueryFieldOperator<T> {
       return value.serializeAsList();
     }
 
-    // TODO sanitize other types appropriately
+    // TODO(HuiSF): sanitize other types appropriately
     return value;
   }
 }
 
 abstract class QueryFieldOperatorSingleValue<T> extends QueryFieldOperator<T> {
-  final T value;
-
   const QueryFieldOperatorSingleValue(this.value, QueryFieldOperatorType type)
       : super(type);
+
+  final T value;
 
   @override
   Map<String, dynamic> serializeAsMap() {
@@ -88,7 +90,7 @@ class EqualQueryOperator<T> extends QueryFieldOperatorSingleValue<T> {
 
   @override
   bool evaluate(T? other) {
-    dynamic serializedValue = serializeDynamicValue(value);
+    final serializedValue = serializeDynamicValue(value);
     return other == serializedValue;
   }
 }
@@ -135,7 +137,7 @@ class NotEqualModelIdentifierQueryOperator<T extends ModelIdentifier>
   }
 }
 
-class LessOrEqualQueryOperator<T extends Comparable>
+class LessOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessOrEqualQueryOperator(T value)
       : super(value, QueryFieldOperatorType.less_or_equal);
@@ -145,12 +147,12 @@ class LessOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
+    final serializedValue = serializeDynamicValue(value);
     return other.compareTo(serializedValue) <= 0;
   }
 }
 
-class LessThanQueryOperator<T extends Comparable>
+class LessThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const LessThanQueryOperator(T value)
       : super(value, QueryFieldOperatorType.less_than);
@@ -160,12 +162,12 @@ class LessThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
+    final serializedValue = serializeDynamicValue(value);
     return other.compareTo(serializedValue) < 0;
   }
 }
 
-class GreaterOrEqualQueryOperator<T extends Comparable>
+class GreaterOrEqualQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterOrEqualQueryOperator(T value)
       : super(value, QueryFieldOperatorType.greater_or_equal);
@@ -175,12 +177,12 @@ class GreaterOrEqualQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
+    final serializedValue = serializeDynamicValue(value);
     return other.compareTo(serializedValue) >= 0;
   }
 }
 
-class GreaterThanQueryOperator<T extends Comparable>
+class GreaterThanQueryOperator<T extends Comparable<Object?>>
     extends QueryFieldOperatorSingleValue<T> {
   const GreaterThanQueryOperator(T value)
       : super(value, QueryFieldOperatorType.greater_than);
@@ -190,7 +192,7 @@ class GreaterThanQueryOperator<T extends Comparable>
     if (other == null) {
       return false;
     }
-    dynamic serializedValue = serializeDynamicValue(value);
+    final serializedValue = serializeDynamicValue(value);
     return other.compareTo(serializedValue) > 0;
   }
 }
@@ -216,20 +218,21 @@ class ContainsQueryOperator extends QueryFieldOperatorSingleValue<String> {
   }
 }
 
-class BetweenQueryOperator<T extends Comparable> extends QueryFieldOperator<T> {
-  final T start;
-  final T end;
-
+class BetweenQueryOperator<T extends Comparable<Object?>>
+    extends QueryFieldOperator<T> {
   const BetweenQueryOperator(this.start, this.end)
       : super(QueryFieldOperatorType.between);
+
+  final T start;
+  final T end;
 
   @override
   bool evaluate(T? other) {
     if (other == null) {
       return false;
     }
-    dynamic serializedStart = serializeDynamicValue(start);
-    dynamic serializedEnd = serializeDynamicValue(end);
+    final serializedStart = serializeDynamicValue(start);
+    final serializedEnd = serializeDynamicValue(end);
     return other.compareTo(serializedStart) >= 0 &&
         other.compareTo(serializedEnd) <= 0;
   }

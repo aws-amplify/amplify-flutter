@@ -10,37 +10,57 @@ import 'package:test/test.dart';
 
 void main() {
   test('AWSTime from DateTime success', () async {
-    DateTime dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
+    var dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
 
-    TemporalTime time = TemporalTime(dateTime);
+    final time = TemporalTime(dateTime);
     dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), null);
     expect(
-        time.getDateTime(),
-        DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
-            dateTime.second, dateTime.millisecond, dateTime.microsecond));
+      time.getDateTime(),
+      DateTime.utc(
+        1970,
+        1,
+        1,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        dateTime.millisecond,
+        dateTime.microsecond,
+      ),
+    );
     expect(time.format(), '${dateTime.toIso8601String().substring(11, 26)}000');
   });
 
   test('AWSTime from DateTime with offset success', () async {
-    DateTime dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
-    Duration offset = const Duration(hours: 3, minutes: 30);
+    var dateTime = DateTime.parse('2021-11-09T18:53:12.183540Z');
+    const offset = Duration(hours: 3, minutes: 30);
 
-    TemporalTime time = TemporalTime.withOffset(dateTime, offset);
+    final time = TemporalTime.withOffset(dateTime, offset);
     dateTime = dateTime.toUtc();
 
     expect(time.getOffset(), offset);
     expect(
-        time.getDateTime(),
-        DateTime.utc(1970, 1, 1, dateTime.hour, dateTime.minute,
-            dateTime.second, dateTime.millisecond, dateTime.microsecond));
-    expect(time.format(),
-        '${dateTime.toIso8601String().substring(11, 26)}000+03:30');
+      time.getDateTime(),
+      DateTime.utc(
+        1970,
+        1,
+        1,
+        dateTime.hour,
+        dateTime.minute,
+        dateTime.second,
+        dateTime.millisecond,
+        dateTime.microsecond,
+      ),
+    );
+    expect(
+      time.format(),
+      '${dateTime.toIso8601String().substring(11, 26)}000+03:30',
+    );
   });
 
   test('AWSDate from string hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30');
+    final time = TemporalTime.fromString('05:30');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
@@ -48,15 +68,15 @@ void main() {
   });
 
   test('AWSDate from string hh:mmZ success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30Z');
+    final time = TemporalTime.fromString('05:30Z');
 
-    expect(time.getOffset(), const Duration());
+    expect(time.getOffset(), Duration.zero);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
     expect(time.format(), '05:30:00Z');
   });
 
   test('AWSDate from string hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30:25');
+    final time = TemporalTime.fromString('05:30:25');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
@@ -64,7 +84,7 @@ void main() {
   });
 
   test('AWSDate from string hh:mm:ss.sss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30:25.999999999');
+    final time = TemporalTime.fromString('05:30:25.999999999');
 
     expect(time.getOffset(), null);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
@@ -72,8 +92,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm+hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30+03:30');
-    Duration duration = const Duration(hours: 3, minutes: 30);
+    final time = TemporalTime.fromString('05:30+03:30');
+    const duration = Duration(hours: 3, minutes: 30);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
@@ -81,8 +101,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm-hh:mm success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30-03:30');
-    Duration duration = const Duration(hours: -3, minutes: -30);
+    final time = TemporalTime.fromString('05:30-03:30');
+    const duration = Duration(hours: -3, minutes: -30);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
@@ -90,8 +110,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30+03:30:45');
-    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
+    final time = TemporalTime.fromString('05:30+03:30:45');
+    const duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
@@ -99,8 +119,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm-hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30-03:30:45');
-    Duration duration = const Duration(hours: -3, minutes: -30, seconds: -45);
+    final time = TemporalTime.fromString('05:30-03:30:45');
+    const duration = Duration(hours: -3, minutes: -30, seconds: -45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30));
@@ -108,8 +128,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm:ss+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30:25+03:30:45');
-    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
+    final time = TemporalTime.fromString('05:30:25+03:30:45');
+    const duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25));
@@ -117,8 +137,8 @@ void main() {
   });
 
   test('AWSDate from string hh:mm:ss.sss+hh:mm:ss success', () async {
-    TemporalTime time = TemporalTime.fromString('05:30:25.999999999+03:30:45');
-    Duration duration = const Duration(hours: 3, minutes: 30, seconds: 45);
+    final time = TemporalTime.fromString('05:30:25.999999999+03:30:45');
+    const duration = Duration(hours: 3, minutes: 30, seconds: 45);
 
     expect(time.getOffset(), duration);
     expect(time.getDateTime(), DateTime.utc(1970, 1, 1, 5, 30, 25, 999, 999));
@@ -126,10 +146,10 @@ void main() {
   });
 
   test('compareTo compares two TemporalTime objects', () {
-    var value1 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
-    var value1Copy = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
-    var value2 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 05));
-    var value3 = TemporalTime(DateTime(2020, 01, 01, 11, 30, 00));
+    final value1 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
+    final value1Copy = TemporalTime(DateTime(2020, 01, 01, 10, 30, 00));
+    final value2 = TemporalTime(DateTime(2020, 01, 01, 10, 30, 05));
+    final value3 = TemporalTime(DateTime(2020, 01, 01, 11, 30, 00));
 
     expect(value1.compareTo(value1Copy), 0);
     expect(value1.compareTo(value2), -1);

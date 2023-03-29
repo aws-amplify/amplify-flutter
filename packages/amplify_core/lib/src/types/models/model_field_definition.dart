@@ -4,14 +4,6 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class ModelFieldDefinition {
-  final String name;
-  final ModelFieldType type;
-  final bool isRequired;
-  final bool isArray;
-  final bool isReadOnly;
-  final ModelAssociation? association;
-  final List<AuthRule>? authRules;
-
   const ModelFieldDefinition({
     required this.name,
     required this.type,
@@ -21,41 +13,52 @@ class ModelFieldDefinition {
     this.association,
     this.authRules,
   });
+  final String name;
+  final ModelFieldType type;
+  final bool isRequired;
+  final bool isArray;
+  final bool isReadOnly;
+  final ModelAssociation? association;
+  final List<AuthRule>? authRules;
 
-  static ModelFieldDefinition nonQueryField(
-      {required String fieldName,
-      bool isRequired = true,
-      bool isArray = false,
-      bool isReadOnly = false,
-      ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
-      ModelAssociation? association,
-      List<AuthRule>? authRules}) {
+  static ModelFieldDefinition nonQueryField({
+    required String fieldName,
+    bool isRequired = true,
+    bool isArray = false,
+    bool isReadOnly = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+    ModelAssociation? association,
+    List<AuthRule>? authRules,
+  }) {
     return ModelFieldDefinition(
-        name: fieldName,
-        type: ofType,
-        isRequired: isRequired,
-        isArray: isArray,
-        isReadOnly: isReadOnly,
-        association: association,
-        authRules: authRules);
+      name: fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+      isReadOnly: isReadOnly,
+      association: association,
+      authRules: authRules,
+    );
   }
 
-  static ModelFieldDefinition field(
-      {required QueryField key,
-      bool isRequired = true,
-      bool isArray = false,
-      bool isReadOnly = false,
-      ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
-      ModelAssociation? association,
-      List<AuthRule>? authRules}) {
+  static ModelFieldDefinition field({
+    required QueryField<Object?> key,
+    bool isRequired = true,
+    bool isArray = false,
+    bool isReadOnly = false,
+    ModelFieldType ofType = const ModelFieldType(ModelFieldTypeEnum.string),
+    ModelAssociation? association,
+    List<AuthRule>? authRules,
+  }) {
     return ModelFieldDefinition(
-        name: key.fieldName,
-        type: ofType,
-        isRequired: isRequired,
-        isArray: isArray,
-        isReadOnly: isReadOnly,
-        association: association,
-        authRules: authRules);
+      name: key.fieldName,
+      type: ofType,
+      isRequired: isRequired,
+      isArray: isArray,
+      isReadOnly: isReadOnly,
+      association: association,
+      authRules: authRules,
+    );
   }
 
   static ModelFieldDefinition embedded({
@@ -86,7 +89,7 @@ class ModelFieldDefinition {
     );
   }
 
-  static ModelFieldDefinition idKey(QueryField key) {
+  static ModelFieldDefinition idKey(QueryField<Object?> key) {
     return id(name: key.fieldName);
   }
 
@@ -99,48 +102,55 @@ class ModelFieldDefinition {
   }
 
   static ModelFieldDefinition hasMany({
-    required QueryField key,
+    required QueryField<Object?> key,
     bool isRequired = true,
     required String ofModelName,
-    required QueryField associatedKey,
+    required QueryField<Object?> associatedKey,
   }) {
     return field(
-        key: key,
-        isRequired: isRequired,
-        isArray: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationEnum.HasMany,
-            associatedName: associatedKey.fieldName,
-            associatedType: ofModelName));
+      key: key,
+      isRequired: isRequired,
+      isArray: true,
+      ofType: ModelFieldType(
+        ModelFieldTypeEnum.collection,
+        ofModelName: ofModelName,
+      ),
+      association: ModelAssociation(
+        associationType: ModelAssociationEnum.HasMany,
+        associatedName: associatedKey.fieldName,
+        associatedType: ofModelName,
+      ),
+    );
   }
 
   static ModelFieldDefinition hasOne({
-    required QueryField key,
+    required QueryField<Object?> key,
     bool isRequired = true,
     required String ofModelName,
-    required QueryField associatedKey,
+    required QueryField<Object?> associatedKey,
   }) {
     return field(
-        key: key,
-        isRequired: isRequired,
-        ofType:
-            ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationEnum.HasOne,
-            associatedName: associatedKey.fieldName,
-            associatedType: ofModelName));
+      key: key,
+      isRequired: isRequired,
+      ofType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      association: ModelAssociation(
+        associationType: ModelAssociationEnum.HasOne,
+        associatedName: associatedKey.fieldName,
+        associatedType: ofModelName,
+      ),
+    );
   }
 
-  static ModelFieldDefinition belongsTo(
-      {required QueryField key,
-      bool isRequired = true,
-      required String ofModelName,
-      QueryField? associatedKey,
-      @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
-          String? targetName,
-      List<String>? targetNames}) {
+  static ModelFieldDefinition belongsTo({
+    required QueryField<Object?> key,
+    bool isRequired = true,
+    required String ofModelName,
+    QueryField<Object?>? associatedKey,
+    @Deprecated('Please use the latest version of Amplify CLI to regenerate models')
+        String? targetName,
+    List<String>? targetNames,
+  }) {
     // Extra code needed due to lack of nullability support
     String? associatedName;
     String? associatedType;
@@ -149,29 +159,28 @@ class ModelFieldDefinition {
     associatedType = associatedKey?.fieldType?.ofModelName ?? ofModelName;
 
     return field(
-        key: key,
-        isRequired: isRequired,
-        ofType:
-            ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
-        association: ModelAssociation(
-            associationType: ModelAssociationEnum.BelongsTo,
-            // TODO(Jordan-Nelson): Remove `targetName` when API category has been
-            // updated to support CPK changes. This was added manually.
-            // ignore:, deprecated_member_use_from_same_package
-            targetName: targetName,
-            targetNames: targetNames,
-            associatedName: associatedName,
-            associatedType: associatedType));
+      key: key,
+      isRequired: isRequired,
+      ofType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: ofModelName),
+      association: ModelAssociation(
+        associationType: ModelAssociationEnum.BelongsTo,
+        targetNames: targetNames,
+        associatedName: associatedName,
+        associatedType: associatedType,
+      ),
+    );
   }
 
   ModelField build() {
     return ModelField(
-        name: name,
-        type: type,
-        isRequired: isRequired,
-        isArray: isArray,
-        isReadOnly: isReadOnly,
-        association: association,
-        authRules: authRules);
+      name: name,
+      type: type,
+      isRequired: isRequired,
+      isArray: isArray,
+      isReadOnly: isReadOnly,
+      association: association,
+      authRules: authRules,
+    );
   }
 }

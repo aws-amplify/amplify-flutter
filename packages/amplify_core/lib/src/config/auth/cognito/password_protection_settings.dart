@@ -15,6 +15,9 @@ class PasswordProtectionSettings
     this.passwordPolicyCharacters = const [],
   });
 
+  factory PasswordProtectionSettings.fromJson(Map<String, Object?> json) =>
+      _$PasswordProtectionSettingsFromJson(json);
+
   final int? passwordPolicyMinLength;
   final List<PasswordPolicyCharacters> passwordPolicyCharacters;
 
@@ -23,9 +26,6 @@ class PasswordProtectionSettings
         passwordPolicyMinLength,
         passwordPolicyCharacters,
       ];
-
-  factory PasswordProtectionSettings.fromJson(Map<String, Object?> json) =>
-      _$PasswordProtectionSettingsFromJson(json);
 
   PasswordProtectionSettings copyWith({
     int? passwordPolicyMinLength,

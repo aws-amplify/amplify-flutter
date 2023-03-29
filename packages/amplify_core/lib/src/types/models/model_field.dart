@@ -3,15 +3,24 @@
 
 import 'dart:convert';
 
+import 'package:amplify_core/src/types/models/auth_rule.dart';
+import 'package:amplify_core/src/types/models/model_association.dart';
+import 'package:amplify_core/src/types/models/model_field_type.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-import 'auth_rule.dart';
-import 'model_association.dart';
-import 'model_field_type.dart';
-
 @immutable
 class ModelField {
+  const ModelField({
+    required this.name,
+    required this.type,
+    required this.isRequired,
+    this.isArray = false,
+    this.isReadOnly = false,
+    this.association,
+    this.authRules,
+  });
+
   // Name of the field is the name of the instance variable
   // of the Model class.
   final String name;
@@ -31,15 +40,6 @@ class ModelField {
 
   // An array of rules for owner based authorization
   final List<AuthRule>? authRules;
-
-  const ModelField(
-      {required this.name,
-      required this.type,
-      required this.isRequired,
-      this.isArray = false,
-      this.isReadOnly = false,
-      this.association,
-      this.authRules});
 
   ModelField copyWith({
     String? name,

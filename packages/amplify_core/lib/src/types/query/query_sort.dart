@@ -14,16 +14,15 @@ extension QuerySortOrderExtension on QuerySortOrder {
 /// Represents a model field and an order to sort by (ascending or descending),
 /// used to specify the order of results from a query operation
 class QuerySortBy {
+  const QuerySortBy({required this.order, required this.field});
   final QuerySortOrder order;
   final String field;
 
-  const QuerySortBy({required this.order, required this.field});
-
   int compare<T extends Model>(T a, T b) {
-    String fieldName = getFieldName(field);
-    dynamic valueA = a.toJson()[fieldName];
-    dynamic valueB = b.toJson()[fieldName];
-    int orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
+    final fieldName = getFieldName(field);
+    final valueA = a.toJson()[fieldName];
+    final valueB = b.toJson()[fieldName];
+    final orderMultiplier = order == QuerySortOrder.ascending ? 1 : -1;
     if (valueA == null || valueB == null) {
       return orderMultiplier * _compareNull(valueA, valueB);
     } else if (valueA is bool && valueB is bool) {

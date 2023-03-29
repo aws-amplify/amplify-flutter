@@ -11,9 +11,9 @@ import 'testdata/test_values.dart';
 
 void main() {
   group('Config', () {
-    for (var testSuite in allTests) {
+    for (final testSuite in allTests) {
       group('Generated v${testSuite.version}', () {
-        for (var testData in testSuite.tests) {
+        for (final testData in testSuite.tests) {
           final name = testData.name;
           test(name, () {
             final json = jsonDecode(testData.config) as Map<String, Object?>;
@@ -168,11 +168,13 @@ const expected = {
     ),
   ),
   'Storage': AmplifyConfig(
-    storage: StorageConfig(plugins: {
-      S3PluginConfig.pluginKey: S3PluginConfig(
-        bucket: BUCKET,
-        region: REGION,
-      ),
-    }),
+    storage: StorageConfig(
+      plugins: {
+        S3PluginConfig.pluginKey: S3PluginConfig(
+          bucket: BUCKET,
+          region: REGION,
+        ),
+      },
+    ),
   )
 };

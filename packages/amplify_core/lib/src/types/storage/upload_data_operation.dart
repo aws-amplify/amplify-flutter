@@ -3,8 +3,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-import 'base/storage_controllable_operation.dart';
-import 'base/storage_operation.dart';
+import 'package:amplify_core/src/types/storage/base/storage_controllable_operation.dart';
+import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 
 /// {@template amplify_core.storage.upload_data_operation}
 /// Presents a storage upload data operation.

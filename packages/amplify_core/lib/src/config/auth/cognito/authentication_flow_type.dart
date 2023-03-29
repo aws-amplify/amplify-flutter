@@ -15,7 +15,6 @@ enum AuthenticationFlowType {
   userPasswordAuth('USER_PASSWORD_AUTH'),
 
   /// Authentication flow for custom flow which are backed by Lambda triggers.
-  // TODO(dnys1): Remove at GA
   @Deprecated('Use customAuthWithSrp or customAuthWithoutSrp instead')
   @JsonValue('CUSTOM_AUTH')
   customAuth('CUSTOM_AUTH'),

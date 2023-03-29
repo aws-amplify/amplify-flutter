@@ -10,11 +10,11 @@ class CognitoIdentityManager
     with AWSEquatable<CognitoIdentityManager>, AWSSerializable {
   const CognitoIdentityManager();
 
-  @override
-  List<Object?> get props => [];
-
   factory CognitoIdentityManager.fromJson(Map<String, Object?> json) =>
       _$CognitoIdentityManagerFromJson(json);
+
+  @override
+  List<Object?> get props => [];
 
   @override
   Map<String, Object?> toJson() => _$CognitoIdentityManagerToJson(this);

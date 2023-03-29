@@ -12,6 +12,9 @@ class S3TransferUtility with AWSEquatable<S3TransferUtility>, AWSSerializable {
     required this.region,
   });
 
+  factory S3TransferUtility.fromJson(Map<String, Object?> json) =>
+      _$S3TransferUtilityFromJson(json);
+
   final String bucket;
   final String region;
 
@@ -20,9 +23,6 @@ class S3TransferUtility with AWSEquatable<S3TransferUtility>, AWSSerializable {
         bucket,
         region,
       ];
-
-  factory S3TransferUtility.fromJson(Map<String, Object?> json) =>
-      _$S3TransferUtilityFromJson(json);
 
   S3TransferUtility copyWith({
     String? bucket,
