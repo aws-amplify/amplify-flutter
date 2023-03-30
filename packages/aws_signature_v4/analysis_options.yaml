@@ -4,3 +4,4 @@ analyzer:
   exclude:
     - lib/src/version.dart
     - '**/*.g.dart'
+    - test_runner
