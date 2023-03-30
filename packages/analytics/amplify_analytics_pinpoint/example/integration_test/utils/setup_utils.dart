@@ -17,7 +17,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart';
 import 'package:amplify_analytics_pinpoint_example/amplifyconfiguration.dart';
 import 'package:amplify_api/amplify_api.dart';

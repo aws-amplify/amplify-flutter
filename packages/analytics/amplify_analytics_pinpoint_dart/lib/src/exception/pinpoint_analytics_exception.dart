@@ -7,7 +7,7 @@ import 'package:amplify_core/amplify_core.dart';
 AnalyticsException _fromBadRequestException(
   BadRequestException exception,
 ) {
-  return AnalyticsException(
+  return UnknownException(
     'Error in request data sent to Pinpoint.',
     recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
     underlyingException: exception,
@@ -18,7 +18,7 @@ AnalyticsException _fromBadRequestException(
 AnalyticsException _fromForbiddenException(
   ForbiddenException exception,
 ) {
-  return AnalyticsException(
+  return UnknownException(
     'Forbidden from accessing the Pinpoint resource.',
     recoverySuggestion:
         'Please ensure Analytics is properly configured in your amplifyconfiguration.dart file and that unauthenticated guest access is allowed or an authorized user is signed in.',

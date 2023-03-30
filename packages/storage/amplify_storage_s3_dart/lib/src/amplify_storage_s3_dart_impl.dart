@@ -108,7 +108,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
         .getAuthProvider(APIAuthorizationType.userPools.authProviderToken);
 
     if (identityProvider == null) {
-      throw const StorageAuthException(
+      throw ConfigurationError(
         'No Cognito User Pool provider found for Storage.',
         recoverySuggestion:
             "If you haven't already, please add amplify_auth_cognito plugin to your App.",
@@ -124,7 +124,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
         .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
     if (credentialsProvider == null) {
-      throw const StorageAuthException(
+      throw ConfigurationError(
         'No credential provider found for Storage.',
         recoverySuggestion:
             "If you haven't already, please add amplify_auth_cognito plugin to your App.",
