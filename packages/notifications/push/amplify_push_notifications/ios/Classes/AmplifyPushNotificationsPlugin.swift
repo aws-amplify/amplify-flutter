@@ -10,15 +10,25 @@ public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotifi
     // to the foregound.
     var launchNotification: [AnyHashable: Any]?
 
-    let sharedEventsStreamHandlers: EventsStreamHandlers
+    let sharedEventsStreamHandlers: EventsStreamHandlersProtocol
     let flutterApi: PushNotificationsFlutterApi
 
     private init(
-        sharedEventsStreamHandlers: EventsStreamHandlers,
+        sharedEventsStreamHandlers: EventsStreamHandlersProtocol,
         flutterApi: PushNotificationsFlutterApi
     ) {
         self.sharedEventsStreamHandlers = sharedEventsStreamHandlers
         self.flutterApi = flutterApi
+    }
+
+    convenience init(
+        overrideFlutterApi: PushNotificationsFlutterApi,
+        overrideSharedEventsStreamHandlers: EventsStreamHandlersProtocol
+    ) {
+        self.init(
+            sharedEventsStreamHandlers: overrideSharedEventsStreamHandlers,
+            flutterApi: overrideFlutterApi
+        )
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
