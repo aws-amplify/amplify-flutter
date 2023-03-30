@@ -43,11 +43,6 @@ abstract class StackSetDriftDetectionDetails
     int? inProgressStackInstancesCount,
     int? failedStackInstancesCount,
   }) {
-    totalStackInstancesCount ??= 0;
-    driftedStackInstancesCount ??= 0;
-    inSyncStackInstancesCount ??= 0;
-    inProgressStackInstancesCount ??= 0;
-    failedStackInstancesCount ??= 0;
     return _$StackSetDriftDetectionDetails._(
       driftStatus: driftStatus,
       driftDetectionStatus: driftDetectionStatus,
@@ -78,13 +73,7 @@ abstract class StackSetDriftDetectionDetails
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetDriftDetectionDetailsBuilder b) {
-    b.totalStackInstancesCount = 0;
-    b.driftedStackInstancesCount = 0;
-    b.inSyncStackInstancesCount = 0;
-    b.inProgressStackInstancesCount = 0;
-    b.failedStackInstancesCount = 0;
-  }
+  static void _init(StackSetDriftDetectionDetailsBuilder b) {}
 
   /// Status of the stack set's actual configuration compared to its expected template and parameter configuration. A stack set is considered to have drifted if one or more of its stack instances have drifted from their expected template and parameter configuration.
   ///
@@ -122,19 +111,19 @@ abstract class StackSetDriftDetectionDetails
   /// *   Stack instances where the drift detection operation has failed.
   ///
   /// *   Stack instances currently being checked for drift.
-  int get totalStackInstancesCount;
+  int? get totalStackInstancesCount;
 
   /// The number of stack instances that have drifted from the expected template and parameter configuration of the stack set. A stack instance is considered to have drifted if one or more of the resources in the associated stack don't match their expected configuration.
-  int get driftedStackInstancesCount;
+  int? get driftedStackInstancesCount;
 
   /// The number of stack instances which match the expected template and parameter configuration of the stack set.
-  int get inSyncStackInstancesCount;
+  int? get inSyncStackInstancesCount;
 
   /// The number of stack instances that are currently being checked for drift.
-  int get inProgressStackInstancesCount;
+  int? get inProgressStackInstancesCount;
 
   /// The number of stack instances for which the drift detection operation failed.
-  int get failedStackInstancesCount;
+  int? get failedStackInstancesCount;
   @override
   List<Object?> get props => [
         driftStatus,
@@ -240,34 +229,44 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
           }
           break;
         case 'TotalStackInstancesCount':
-          result.totalStackInstancesCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.totalStackInstancesCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'DriftedStackInstancesCount':
-          result.driftedStackInstancesCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.driftedStackInstancesCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'InSyncStackInstancesCount':
-          result.inSyncStackInstancesCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.inSyncStackInstancesCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'InProgressStackInstancesCount':
-          result.inProgressStackInstancesCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.inProgressStackInstancesCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'FailedStackInstancesCount':
-          result.failedStackInstancesCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.failedStackInstancesCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -313,36 +312,46 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    result
-      ..add(const _i4.XmlElementName('TotalStackInstancesCount'))
-      ..add(serializers.serialize(
-        payload.totalStackInstancesCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i4.XmlElementName('DriftedStackInstancesCount'))
-      ..add(serializers.serialize(
-        payload.driftedStackInstancesCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i4.XmlElementName('InSyncStackInstancesCount'))
-      ..add(serializers.serialize(
-        payload.inSyncStackInstancesCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i4.XmlElementName('InProgressStackInstancesCount'))
-      ..add(serializers.serialize(
-        payload.inProgressStackInstancesCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i4.XmlElementName('FailedStackInstancesCount'))
-      ..add(serializers.serialize(
-        payload.failedStackInstancesCount,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.totalStackInstancesCount != null) {
+      result
+        ..add(const _i4.XmlElementName('TotalStackInstancesCount'))
+        ..add(serializers.serialize(
+          payload.totalStackInstancesCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.driftedStackInstancesCount != null) {
+      result
+        ..add(const _i4.XmlElementName('DriftedStackInstancesCount'))
+        ..add(serializers.serialize(
+          payload.driftedStackInstancesCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.inSyncStackInstancesCount != null) {
+      result
+        ..add(const _i4.XmlElementName('InSyncStackInstancesCount'))
+        ..add(serializers.serialize(
+          payload.inSyncStackInstancesCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.inProgressStackInstancesCount != null) {
+      result
+        ..add(const _i4.XmlElementName('InProgressStackInstancesCount'))
+        ..add(serializers.serialize(
+          payload.inProgressStackInstancesCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.failedStackInstancesCount != null) {
+      result
+        ..add(const _i4.XmlElementName('FailedStackInstancesCount'))
+        ..add(serializers.serialize(
+          payload.failedStackInstancesCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

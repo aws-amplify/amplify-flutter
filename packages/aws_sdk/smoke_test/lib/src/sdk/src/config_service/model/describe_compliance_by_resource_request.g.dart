@@ -15,7 +15,7 @@ class _$DescribeComplianceByResourceRequest
   @override
   final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -29,12 +29,9 @@ class _$DescribeComplianceByResourceRequest
       {this.resourceType,
       this.resourceId,
       this.complianceTypes,
-      required this.limit,
+      this.limit,
       this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeComplianceByResourceRequest', 'limit');
-  }
+      : super._();
 
   @override
   DescribeComplianceByResourceRequest rebuild(
@@ -137,8 +134,7 @@ class DescribeComplianceByResourceRequestBuilder
               resourceType: resourceType,
               resourceId: resourceId,
               complianceTypes: _complianceTypes?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'DescribeComplianceByResourceRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

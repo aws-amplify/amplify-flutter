@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_detai
 import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
     as _i11;
 
-/// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
+/// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
 class GetComplianceDetailsByResourceOperation
     extends _i1.PaginatedHttpOperation<
         _i2.GetComplianceDetailsByResourceRequest,
@@ -32,7 +32,7 @@ class GetComplianceDetailsByResourceOperation
         String,
         void,
         _i4.BuiltList<_i5.EvaluationResult>> {
-  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
+  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
   GetComplianceDetailsByResourceOperation({
     required String region,
     Uri? baseUri,

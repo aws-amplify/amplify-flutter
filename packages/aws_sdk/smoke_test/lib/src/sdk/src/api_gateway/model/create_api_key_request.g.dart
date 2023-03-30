@@ -12,9 +12,9 @@ class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   @override
   final String? description;
   @override
-  final bool enabled;
+  final bool? enabled;
   @override
-  final bool generateDistinctId;
+  final bool? generateDistinctId;
   @override
   final String? value;
   @override
@@ -31,18 +31,13 @@ class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   _$CreateApiKeyRequest._(
       {this.name,
       this.description,
-      required this.enabled,
-      required this.generateDistinctId,
+      this.enabled,
+      this.generateDistinctId,
       this.value,
       this.stageKeys,
       this.customerId,
       this.tags})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        enabled, r'CreateApiKeyRequest', 'enabled');
-    BuiltValueNullFieldError.checkNotNull(
-        generateDistinctId, r'CreateApiKeyRequest', 'generateDistinctId');
-  }
+      : super._();
 
   @override
   CreateApiKeyRequest rebuild(
@@ -164,12 +159,8 @@ class CreateApiKeyRequestBuilder
           new _$CreateApiKeyRequest._(
               name: name,
               description: description,
-              enabled: BuiltValueNullFieldError.checkNotNull(
-                  enabled, r'CreateApiKeyRequest', 'enabled'),
-              generateDistinctId: BuiltValueNullFieldError.checkNotNull(
-                  generateDistinctId,
-                  r'CreateApiKeyRequest',
-                  'generateDistinctId'),
+              enabled: enabled,
+              generateDistinctId: generateDistinctId,
               value: value,
               stageKeys: _stageKeys?.build(),
               customerId: customerId,

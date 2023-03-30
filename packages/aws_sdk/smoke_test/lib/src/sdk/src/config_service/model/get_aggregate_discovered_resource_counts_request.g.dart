@@ -15,7 +15,7 @@ class _$GetAggregateDiscoveredResourceCountsRequest
   @override
   final _i4.ResourceCountGroupKey? groupByKey;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -30,15 +30,13 @@ class _$GetAggregateDiscoveredResourceCountsRequest
       {required this.configurationAggregatorName,
       this.filters,
       this.groupByKey,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'GetAggregateDiscoveredResourceCountsRequest',
         'configurationAggregatorName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetAggregateDiscoveredResourceCountsRequest', 'limit');
   }
 
   @override
@@ -151,8 +149,7 @@ class GetAggregateDiscoveredResourceCountsRequestBuilder
                       'configurationAggregatorName'),
               filters: _filters?.build(),
               groupByKey: groupByKey,
-              limit: BuiltValueNullFieldError.checkNotNull(limit,
-                  r'GetAggregateDiscoveredResourceCountsRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

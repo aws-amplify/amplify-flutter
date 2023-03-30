@@ -3,14 +3,11 @@
 library smoke_test.config_service.model.config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i8;
+import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_state.dart'
     as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode_configuration.dart'
-    as _i6;
 import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/config_service/model/scope.dart' as _i2;
@@ -18,25 +15,21 @@ import 'package:smoke_test/src/sdk/src/config_service/model/source.dart' as _i3;
 
 part 'config_rule.g.dart';
 
-/// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_.
+/// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: Config Managed Rules and Config Custom Rules. Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
 ///
-/// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
+/// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. It is invoked by events that are published to it by an event source, which Config invokes when the custom rule is initiated.
 ///
-/// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
-///
-/// For more information about developing and using Config rules, see [Evaluating Resource with Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
+/// For more information about developing and using Config rules, see [Evaluating Amazon Web Services resource Configurations with Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
 ///
 /// You can use the Amazon Web Services CLI and Amazon Web Services SDKs if you want to create a rule that triggers evaluations for your resources when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
 abstract class ConfigRule
     with _i1.AWSEquatable<ConfigRule>
     implements Built<ConfigRule, ConfigRuleBuilder> {
-  /// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_.
+  /// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: Config Managed Rules and Config Custom Rules. Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
   ///
-  /// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
+  /// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. It is invoked by events that are published to it by an event source, which Config invokes when the custom rule is initiated.
   ///
-  /// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
-  ///
-  /// For more information about developing and using Config rules, see [Evaluating Resource with Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
+  /// For more information about developing and using Config rules, see [Evaluating Amazon Web Services resource Configurations with Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
   ///
   /// You can use the Amazon Web Services CLI and Amazon Web Services SDKs if you want to create a rule that triggers evaluations for your resources when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
   factory ConfigRule({
@@ -50,7 +43,6 @@ abstract class ConfigRule
     _i4.MaximumExecutionFrequency? maximumExecutionFrequency,
     _i5.ConfigRuleState? configRuleState,
     String? createdBy,
-    List<_i6.EvaluationModeConfiguration>? evaluationModes,
   }) {
     return _$ConfigRule._(
       configRuleName: configRuleName,
@@ -63,18 +55,14 @@ abstract class ConfigRule
       maximumExecutionFrequency: maximumExecutionFrequency,
       configRuleState: configRuleState,
       createdBy: createdBy,
-      evaluationModes:
-          evaluationModes == null ? null : _i7.BuiltList(evaluationModes),
     );
   }
 
-  /// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_.
+  /// Config rules evaluate the configuration settings of your Amazon Web Services resources. A rule can run when Config detects a configuration change to an Amazon Web Services resource or at a periodic frequency that you choose (for example, every 24 hours). There are two types of rules: Config Managed Rules and Config Custom Rules. Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
   ///
-  /// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
+  /// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. It is invoked by events that are published to it by an event source, which Config invokes when the custom rule is initiated.
   ///
-  /// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
-  ///
-  /// For more information about developing and using Config rules, see [Evaluating Resource with Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
+  /// For more information about developing and using Config rules, see [Evaluating Amazon Web Services resource Configurations with Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
   ///
   /// You can use the Amazon Web Services CLI and Amazon Web Services SDKs if you want to create a rule that triggers evaluations for your resources when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
   factory ConfigRule.build([void Function(ConfigRuleBuilder) updates]) =
@@ -82,7 +70,7 @@ abstract class ConfigRule
 
   const ConfigRule._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer> serializers = [
     ConfigRuleAwsJson11Serializer()
   ];
 
@@ -135,9 +123,6 @@ abstract class ConfigRule
   ///
   /// The field is populated only if the service-linked rule is created by a service. The field is empty if you create your own rule.
   String? get createdBy;
-
-  /// The modes the Config rule can be evaluated in. The valid values are distinct objects. By default, the value is Detective evaluation mode only.
-  _i7.BuiltList<_i6.EvaluationModeConfiguration>? get evaluationModes;
   @override
   List<Object?> get props => [
         configRuleName,
@@ -150,7 +135,6 @@ abstract class ConfigRule
         maximumExecutionFrequency,
         configRuleState,
         createdBy,
-        evaluationModes,
       ];
   @override
   String toString() {
@@ -195,16 +179,12 @@ abstract class ConfigRule
       'createdBy',
       createdBy,
     );
-    helper.add(
-      'evaluationModes',
-      evaluationModes,
-    );
     return helper.toString();
   }
 }
 
 class ConfigRuleAwsJson11Serializer
-    extends _i8.StructuredSmithySerializer<ConfigRule> {
+    extends _i6.StructuredSmithySerializer<ConfigRule> {
   const ConfigRuleAwsJson11Serializer() : super('ConfigRule');
 
   @override
@@ -213,8 +193,8 @@ class ConfigRuleAwsJson11Serializer
         _$ConfigRule,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i6.ShapeId> get supportedProtocols => const [
+        _i6.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -310,17 +290,6 @@ class ConfigRuleAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'EvaluationModes':
-          if (value != null) {
-            result.evaluationModes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i6.EvaluationModeConfiguration)],
-              ),
-            ) as _i7.BuiltList<_i6.EvaluationModeConfiguration>));
-          }
-          break;
       }
     }
 
@@ -411,17 +380,6 @@ class ConfigRuleAwsJson11Serializer
         ..add(serializers.serialize(
           payload.createdBy!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.evaluationModes != null) {
-      result
-        ..add('EvaluationModes')
-        ..add(serializers.serialize(
-          payload.evaluationModes!,
-          specifiedType: const FullType(
-            _i7.BuiltList,
-            [FullType(_i6.EvaluationModeConfiguration)],
-          ),
         ));
     }
     return result;

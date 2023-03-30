@@ -9,14 +9,14 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'conformance_pack_compliance_score.g.dart';
 
-/// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
+/// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
 abstract class ConformancePackComplianceScore
     with
         _i1.AWSEquatable<ConformancePackComplianceScore>
     implements
         Built<ConformancePackComplianceScore,
             ConformancePackComplianceScoreBuilder> {
-  /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
+  /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   factory ConformancePackComplianceScore({
     String? score,
     String? conformancePackName,
@@ -29,7 +29,7 @@ abstract class ConformancePackComplianceScore
     );
   }
 
-  /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
+  /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   factory ConformancePackComplianceScore.build(
           [void Function(ConformancePackComplianceScoreBuilder) updates]) =
       _$ConformancePackComplianceScore;

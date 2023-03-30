@@ -2,7 +2,7 @@
 
 library smoke_test.config_service.operation.describe_config_rules_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i13;
 
 import 'package:aws_common/aws_common.dart' as _i9;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
@@ -21,10 +21,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule
     as _i3;
 import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i12;
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart'
-    as _i13;
+    as _i12;
 
 /// Returns details about your Config rules.
 class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
@@ -127,20 +125,11 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
         _i1.SmithyError(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
-            shape: 'InvalidParameterValueException',
-          ),
-          _i1.ErrorKind.client,
-          _i12.InvalidParameterValueException,
-          builder: _i12.InvalidParameterValueException.fromResponse,
-        ),
-        _i1.SmithyError(
-          _i1.ShapeId(
-            namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
           ),
           _i1.ErrorKind.client,
-          _i13.NoSuchConfigRuleException,
-          builder: _i13.NoSuchConfigRuleException.fromResponse,
+          _i12.NoSuchConfigRuleException,
+          builder: _i12.NoSuchConfigRuleException.fromResponse,
         ),
       ];
   @override
@@ -157,7 +146,7 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
     _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i13.runZoned(
       () => super.run(
         input,
         client: client,

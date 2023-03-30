@@ -136,7 +136,7 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
       ..add(const _i3.XmlElementName('Days'))
       ..add(serializers.serialize(
         payload.days,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType.nullable(int),
       ));
     return result;
   }

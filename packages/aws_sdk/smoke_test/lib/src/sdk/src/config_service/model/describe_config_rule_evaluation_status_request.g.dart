@@ -13,7 +13,7 @@ class _$DescribeConfigRuleEvaluationStatusRequest
   @override
   final String? nextToken;
   @override
-  final int limit;
+  final int? limit;
 
   factory _$DescribeConfigRuleEvaluationStatusRequest(
           [void Function(DescribeConfigRuleEvaluationStatusRequestBuilder)?
@@ -22,11 +22,8 @@ class _$DescribeConfigRuleEvaluationStatusRequest
           ._build();
 
   _$DescribeConfigRuleEvaluationStatusRequest._(
-      {this.configRuleNames, this.nextToken, required this.limit})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeConfigRuleEvaluationStatusRequest', 'limit');
-  }
+      {this.configRuleNames, this.nextToken, this.limit})
+      : super._();
 
   @override
   DescribeConfigRuleEvaluationStatusRequest rebuild(
@@ -116,8 +113,7 @@ class DescribeConfigRuleEvaluationStatusRequestBuilder
           new _$DescribeConfigRuleEvaluationStatusRequest._(
               configRuleNames: _configRuleNames?.build(),
               nextToken: nextToken,
-              limit: BuiltValueNullFieldError.checkNotNull(limit,
-                  r'DescribeConfigRuleEvaluationStatusRequest', 'limit'));
+              limit: limit);
     } catch (_) {
       late String _$failedField;
       try {

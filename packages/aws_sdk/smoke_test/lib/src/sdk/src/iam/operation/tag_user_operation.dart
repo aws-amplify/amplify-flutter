@@ -29,7 +29,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart' as _i2;
 ///
 /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
 ///
-/// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+/// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
 ///
 /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
 ///
@@ -48,7 +48,7 @@ class TagUserOperation extends _i1
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
   ///

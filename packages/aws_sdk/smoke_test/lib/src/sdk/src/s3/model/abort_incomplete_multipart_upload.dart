@@ -18,7 +18,6 @@ abstract class AbortIncompleteMultipartUpload
             AbortIncompleteMultipartUploadBuilder> {
   /// Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config) in the _Amazon S3 User Guide_.
   factory AbortIncompleteMultipartUpload({int? daysAfterInitiation}) {
-    daysAfterInitiation ??= 0;
     return _$AbortIncompleteMultipartUpload._(
         daysAfterInitiation: daysAfterInitiation);
   }
@@ -35,12 +34,10 @@ abstract class AbortIncompleteMultipartUpload
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AbortIncompleteMultipartUploadBuilder b) {
-    b.daysAfterInitiation = 0;
-  }
+  static void _init(AbortIncompleteMultipartUploadBuilder b) {}
 
   /// Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload.
-  int get daysAfterInitiation;
+  int? get daysAfterInitiation;
   @override
   List<Object?> get props => [daysAfterInitiation];
   @override
@@ -86,10 +83,12 @@ class AbortIncompleteMultipartUploadRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'DaysAfterInitiation':
-          result.daysAfterInitiation = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.daysAfterInitiation = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -110,12 +109,14 @@ class AbortIncompleteMultipartUploadRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i2.XmlElementName('DaysAfterInitiation'))
-      ..add(serializers.serialize(
-        payload.daysAfterInitiation,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.daysAfterInitiation != null) {
+      result
+        ..add(const _i2.XmlElementName('DaysAfterInitiation'))
+        ..add(serializers.serialize(
+          payload.daysAfterInitiation!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

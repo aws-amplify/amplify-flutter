@@ -29,8 +29,6 @@ class _$StackInstance extends StackInstance {
   final _i5.StackDriftStatus? driftStatus;
   @override
   final DateTime? lastDriftCheckTimestamp;
-  @override
-  final String? lastOperationId;
 
   factory _$StackInstance([void Function(StackInstanceBuilder)? updates]) =>
       (new StackInstanceBuilder()..update(updates))._build();
@@ -46,8 +44,7 @@ class _$StackInstance extends StackInstance {
       this.statusReason,
       this.organizationalUnitId,
       this.driftStatus,
-      this.lastDriftCheckTimestamp,
-      this.lastOperationId})
+      this.lastDriftCheckTimestamp})
       : super._();
 
   @override
@@ -71,8 +68,7 @@ class _$StackInstance extends StackInstance {
         statusReason == other.statusReason &&
         organizationalUnitId == other.organizationalUnitId &&
         driftStatus == other.driftStatus &&
-        lastDriftCheckTimestamp == other.lastDriftCheckTimestamp &&
-        lastOperationId == other.lastOperationId;
+        lastDriftCheckTimestamp == other.lastDriftCheckTimestamp;
   }
 
   @override
@@ -89,7 +85,6 @@ class _$StackInstance extends StackInstance {
     _$hash = $jc(_$hash, organizationalUnitId.hashCode);
     _$hash = $jc(_$hash, driftStatus.hashCode);
     _$hash = $jc(_$hash, lastDriftCheckTimestamp.hashCode);
-    _$hash = $jc(_$hash, lastOperationId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -152,11 +147,6 @@ class StackInstanceBuilder
   set lastDriftCheckTimestamp(DateTime? lastDriftCheckTimestamp) =>
       _$this._lastDriftCheckTimestamp = lastDriftCheckTimestamp;
 
-  String? _lastOperationId;
-  String? get lastOperationId => _$this._lastOperationId;
-  set lastOperationId(String? lastOperationId) =>
-      _$this._lastOperationId = lastOperationId;
-
   StackInstanceBuilder() {
     StackInstance._init(this);
   }
@@ -175,7 +165,6 @@ class StackInstanceBuilder
       _organizationalUnitId = $v.organizationalUnitId;
       _driftStatus = $v.driftStatus;
       _lastDriftCheckTimestamp = $v.lastDriftCheckTimestamp;
-      _lastOperationId = $v.lastOperationId;
       _$v = null;
     }
     return this;
@@ -210,8 +199,7 @@ class StackInstanceBuilder
               statusReason: statusReason,
               organizationalUnitId: organizationalUnitId,
               driftStatus: driftStatus,
-              lastDriftCheckTimestamp: lastDriftCheckTimestamp,
-              lastOperationId: lastOperationId);
+              lastDriftCheckTimestamp: lastDriftCheckTimestamp);
     } catch (_) {
       late String _$failedField;
       try {

@@ -12,7 +12,7 @@ class _$CreatePolicyVersionRequest extends CreatePolicyVersionRequest {
   @override
   final String policyDocument;
   @override
-  final bool setAsDefault;
+  final bool? setAsDefault;
 
   factory _$CreatePolicyVersionRequest(
           [void Function(CreatePolicyVersionRequestBuilder)? updates]) =>
@@ -21,14 +21,12 @@ class _$CreatePolicyVersionRequest extends CreatePolicyVersionRequest {
   _$CreatePolicyVersionRequest._(
       {required this.policyArn,
       required this.policyDocument,
-      required this.setAsDefault})
+      this.setAsDefault})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         policyArn, r'CreatePolicyVersionRequest', 'policyArn');
     BuiltValueNullFieldError.checkNotNull(
         policyDocument, r'CreatePolicyVersionRequest', 'policyDocument');
-    BuiltValueNullFieldError.checkNotNull(
-        setAsDefault, r'CreatePolicyVersionRequest', 'setAsDefault');
   }
 
   @override
@@ -116,8 +114,7 @@ class CreatePolicyVersionRequestBuilder
                 policyDocument,
                 r'CreatePolicyVersionRequest',
                 'policyDocument'),
-            setAsDefault: BuiltValueNullFieldError.checkNotNull(
-                setAsDefault, r'CreatePolicyVersionRequest', 'setAsDefault'));
+            setAsDefault: setAsDefault);
     replace(_$result);
     return _$result;
   }

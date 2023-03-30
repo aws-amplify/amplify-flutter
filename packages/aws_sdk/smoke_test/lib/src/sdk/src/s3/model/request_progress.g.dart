@@ -8,15 +8,12 @@ part of smoke_test.s3.model.request_progress;
 
 class _$RequestProgress extends RequestProgress {
   @override
-  final bool enabled;
+  final bool? enabled;
 
   factory _$RequestProgress([void Function(RequestProgressBuilder)? updates]) =>
       (new RequestProgressBuilder()..update(updates))._build();
 
-  _$RequestProgress._({required this.enabled}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        enabled, r'RequestProgress', 'enabled');
-  }
+  _$RequestProgress._({this.enabled}) : super._();
 
   @override
   RequestProgress rebuild(void Function(RequestProgressBuilder) updates) =>
@@ -77,10 +74,7 @@ class RequestProgressBuilder
   RequestProgress build() => _build();
 
   _$RequestProgress _build() {
-    final _$result = _$v ??
-        new _$RequestProgress._(
-            enabled: BuiltValueNullFieldError.checkNotNull(
-                enabled, r'RequestProgress', 'enabled'));
+    final _$result = _$v ?? new _$RequestProgress._(enabled: enabled);
     replace(_$result);
     return _$result;
   }

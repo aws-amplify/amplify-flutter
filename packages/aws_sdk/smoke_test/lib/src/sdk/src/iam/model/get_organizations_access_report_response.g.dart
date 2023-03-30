@@ -21,7 +21,7 @@ class _$GetOrganizationsAccessReportResponse
   @override
   final _i5.BuiltList<_i3.AccessDetail>? accessDetails;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
   @override
@@ -40,7 +40,7 @@ class _$GetOrganizationsAccessReportResponse
       this.numberOfServicesAccessible,
       this.numberOfServicesNotAccessed,
       this.accessDetails,
-      required this.isTruncated,
+      this.isTruncated,
       this.marker,
       this.errorDetails})
       : super._() {
@@ -48,8 +48,6 @@ class _$GetOrganizationsAccessReportResponse
         jobStatus, r'GetOrganizationsAccessReportResponse', 'jobStatus');
     BuiltValueNullFieldError.checkNotNull(jobCreationDate,
         r'GetOrganizationsAccessReportResponse', 'jobCreationDate');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'GetOrganizationsAccessReportResponse', 'isTruncated');
   }
 
   @override
@@ -194,8 +192,7 @@ class GetOrganizationsAccessReportResponseBuilder
               numberOfServicesAccessible: numberOfServicesAccessible,
               numberOfServicesNotAccessed: numberOfServicesNotAccessed,
               accessDetails: _accessDetails?.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'GetOrganizationsAccessReportResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker,
               errorDetails: _errorDetails?.build());
     } catch (_) {

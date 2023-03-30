@@ -17,11 +17,11 @@ part 'insufficient_permissions_exception.g.dart';
 ///
 /// *   For PutOrganizationConfigRule, organization Config rule cannot be created because you do not have permissions to call IAM `GetRole` action or create a service-linked role.
 ///
-/// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have the following permissions:
+/// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have permissions:
 ///
-///     *   You do not have permission to call IAM `GetRole` action or create a service-linked role.
+///     *   To call IAM `GetRole` action or create a service-linked role.
 ///
-///     *   You do not have permission to read Amazon S3 bucket or call SSM:GetDocument.
+///     *   To read Amazon S3 bucket or call SSM:GetDocument.
 abstract class InsufficientPermissionsException
     with
         _i1.AWSEquatable<InsufficientPermissionsException>
@@ -37,11 +37,11 @@ abstract class InsufficientPermissionsException
   ///
   /// *   For PutOrganizationConfigRule, organization Config rule cannot be created because you do not have permissions to call IAM `GetRole` action or create a service-linked role.
   ///
-  /// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have the following permissions:
+  /// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have permissions:
   ///
-  ///     *   You do not have permission to call IAM `GetRole` action or create a service-linked role.
+  ///     *   To call IAM `GetRole` action or create a service-linked role.
   ///
-  ///     *   You do not have permission to read Amazon S3 bucket or call SSM:GetDocument.
+  ///     *   To read Amazon S3 bucket or call SSM:GetDocument.
   factory InsufficientPermissionsException({String? message}) {
     return _$InsufficientPermissionsException._(message: message);
   }
@@ -54,11 +54,11 @@ abstract class InsufficientPermissionsException
   ///
   /// *   For PutOrganizationConfigRule, organization Config rule cannot be created because you do not have permissions to call IAM `GetRole` action or create a service-linked role.
   ///
-  /// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have the following permissions:
+  /// *   For PutConformancePack and PutOrganizationConformancePack, a conformance pack cannot be created because you do not have permissions:
   ///
-  ///     *   You do not have permission to call IAM `GetRole` action or create a service-linked role.
+  ///     *   To call IAM `GetRole` action or create a service-linked role.
   ///
-  ///     *   You do not have permission to read Amazon S3 bucket or call SSM:GetDocument.
+  ///     *   To read Amazon S3 bucket or call SSM:GetDocument.
   factory InsufficientPermissionsException.build(
           [void Function(InsufficientPermissionsExceptionBuilder) updates]) =
       _$InsufficientPermissionsException;

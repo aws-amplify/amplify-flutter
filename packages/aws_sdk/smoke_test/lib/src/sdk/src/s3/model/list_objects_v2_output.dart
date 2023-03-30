@@ -30,9 +30,6 @@ abstract class ListObjectsV2Output
     String? nextContinuationToken,
     String? startAfter,
   }) {
-    isTruncated ??= false;
-    maxKeys ??= 0;
-    keyCount ??= 0;
     return _$ListObjectsV2Output._(
       isTruncated: isTruncated,
       contents: contents == null ? null : _i5.BuiltList(contents),
@@ -68,14 +65,10 @@ abstract class ListObjectsV2Output
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {
-    b.isTruncated = false;
-    b.maxKeys = 0;
-    b.keyCount = 0;
-  }
+  static void _init(ListObjectsV2OutputBuilder b) {}
 
   /// Set to false if all of the results were returned. Set to true if more keys are available to return. If the number of results exceeds that specified by MaxKeys, all of the results might not be returned.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// Metadata about each object returned.
   _i5.BuiltList<_i2.S3Object>? get contents;
@@ -84,7 +77,7 @@ abstract class ListObjectsV2Output
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String? get name;
 
   /// Keys that begin with the indicated prefix.
@@ -94,7 +87,7 @@ abstract class ListObjectsV2Output
   String? get delimiter;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
-  int get maxKeys;
+  int? get maxKeys;
 
   /// All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of returns.
   ///
@@ -114,8 +107,8 @@ abstract class ListObjectsV2Output
   /// `Delimiter, Prefix, Key,` and `StartAfter`.
   _i4.EncodingType? get encodingType;
 
-  /// KeyCount is the number of keys returned with this request. KeyCount will always be less than or equal to the `MaxKeys` field. Say you ask for 50 keys, your result will include 50 keys or fewer.
-  int get keyCount;
+  /// KeyCount is the number of keys returned with this request. KeyCount will always be less than or equals to MaxKeys field. Say you ask for 50 keys, your result will include less than equals 50 keys
+  int? get keyCount;
 
   /// If ContinuationToken was sent with the request, it is included in the response.
   String? get continuationToken;
@@ -265,22 +258,28 @@ class ListObjectsV2OutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'KeyCount':
-          result.keyCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.keyCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'MaxKeys':
-          result.maxKeys = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxKeys = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'Name':
           if (value != null) {
@@ -380,24 +379,30 @@ class ListObjectsV2OutputRestXmlSerializer
           specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
-    result
-      ..add(const _i6.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i6.XmlElementName('KeyCount'))
-      ..add(serializers.serialize(
-        payload.keyCount,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i6.XmlElementName('MaxKeys'))
-      ..add(serializers.serialize(
-        payload.maxKeys,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i6.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.keyCount != null) {
+      result
+        ..add(const _i6.XmlElementName('KeyCount'))
+        ..add(serializers.serialize(
+          payload.keyCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.maxKeys != null) {
+      result
+        ..add(const _i6.XmlElementName('MaxKeys'))
+        ..add(serializers.serialize(
+          payload.maxKeys!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.name != null) {
       result
         ..add(const _i6.XmlElementName('Name'))

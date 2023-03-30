@@ -48,9 +48,6 @@ abstract class ImportTableDescription
     String? failureCode,
     String? failureMessage,
   }) {
-    errorCount ??= _i4.Int64.ZERO;
-    processedItemCount ??= _i4.Int64.ZERO;
-    importedItemCount ??= _i4.Int64.ZERO;
     return _$ImportTableDescription._(
       importArn: importArn,
       importStatus: importStatus,
@@ -86,11 +83,7 @@ abstract class ImportTableDescription
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportTableDescriptionBuilder b) {
-    b.errorCount = _i4.Int64.ZERO;
-    b.processedItemCount = _i4.Int64.ZERO;
-    b.importedItemCount = _i4.Int64.ZERO;
-  }
+  static void _init(ImportTableDescriptionBuilder b) {}
 
   /// The Amazon Resource Number (ARN) corresponding to the import request.
   String? get importArn;
@@ -111,7 +104,7 @@ abstract class ImportTableDescription
   _i3.S3BucketSource? get s3BucketSource;
 
   /// The number of errors occurred on importing the source file into the target table.
-  _i4.Int64 get errorCount;
+  _i4.Int64? get errorCount;
 
   /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with the target table.
   String? get cloudWatchLogGroupArn;
@@ -138,10 +131,10 @@ abstract class ImportTableDescription
   _i4.Int64? get processedSizeBytes;
 
   /// The total number of items processed from the source file.
-  _i4.Int64 get processedItemCount;
+  _i4.Int64? get processedItemCount;
 
   /// The number of items successfully imported into the new table.
-  _i4.Int64 get importedItemCount;
+  _i4.Int64? get importedItemCount;
 
   /// The error code corresponding to the failure that the import job ran into during execution.
   String? get failureCode;
@@ -332,10 +325,12 @@ class ImportTableDescriptionAwsJson10Serializer
           }
           break;
         case 'ErrorCount':
-          result.errorCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+          if (value != null) {
+            result.errorCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
           break;
         case 'CloudWatchLogGroupArn':
           if (value != null) {
@@ -402,16 +397,20 @@ class ImportTableDescriptionAwsJson10Serializer
           }
           break;
         case 'ProcessedItemCount':
-          result.processedItemCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+          if (value != null) {
+            result.processedItemCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
           break;
         case 'ImportedItemCount':
-          result.importedItemCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+          if (value != null) {
+            result.importedItemCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
           break;
         case 'FailureCode':
           if (value != null) {
@@ -442,23 +441,7 @@ class ImportTableDescriptionAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ImportTableDescription);
-    final result = <Object?>[
-      'ErrorCount',
-      serializers.serialize(
-        payload.errorCount,
-        specifiedType: const FullType(_i4.Int64),
-      ),
-      'ProcessedItemCount',
-      serializers.serialize(
-        payload.processedItemCount,
-        specifiedType: const FullType(_i4.Int64),
-      ),
-      'ImportedItemCount',
-      serializers.serialize(
-        payload.importedItemCount,
-        specifiedType: const FullType(_i4.Int64),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.importArn != null) {
       result
         ..add('ImportArn')
@@ -505,6 +488,14 @@ class ImportTableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           payload.s3BucketSource!,
           specifiedType: const FullType(_i3.S3BucketSource),
+        ));
+    }
+    if (payload.errorCount != null) {
+      result
+        ..add('ErrorCount')
+        ..add(serializers.serialize(
+          payload.errorCount!,
+          specifiedType: const FullType(_i4.Int64),
         ));
     }
     if (payload.cloudWatchLogGroupArn != null) {
@@ -568,6 +559,22 @@ class ImportTableDescriptionAwsJson10Serializer
         ..add('ProcessedSizeBytes')
         ..add(serializers.serialize(
           payload.processedSizeBytes!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.processedItemCount != null) {
+      result
+        ..add('ProcessedItemCount')
+        ..add(serializers.serialize(
+          payload.processedItemCount!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.importedItemCount != null) {
+      result
+        ..add('ImportedItemCount')
+        ..add(serializers.serialize(
+          payload.importedItemCount!,
           specifiedType: const FullType(_i4.Int64),
         ));
     }

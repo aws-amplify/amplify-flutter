@@ -12,7 +12,7 @@ class _$DeletedObject extends DeletedObject {
   @override
   final String? versionId;
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final String? deleteMarkerVersionId;
 
@@ -20,14 +20,8 @@ class _$DeletedObject extends DeletedObject {
       (new DeletedObjectBuilder()..update(updates))._build();
 
   _$DeletedObject._(
-      {this.key,
-      this.versionId,
-      required this.deleteMarker,
-      this.deleteMarkerVersionId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'DeletedObject', 'deleteMarker');
-  }
+      {this.key, this.versionId, this.deleteMarker, this.deleteMarkerVersionId})
+      : super._();
 
   @override
   DeletedObject rebuild(void Function(DeletedObjectBuilder) updates) =>
@@ -114,8 +108,7 @@ class DeletedObjectBuilder
         new _$DeletedObject._(
             key: key,
             versionId: versionId,
-            deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                deleteMarker, r'DeletedObject', 'deleteMarker'),
+            deleteMarker: deleteMarker,
             deleteMarkerVersionId: deleteMarkerVersionId);
     replace(_$result);
     return _$result;

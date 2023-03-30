@@ -10,7 +10,7 @@ class _$ReplicationRule extends ReplicationRule {
   @override
   final String? id;
   @override
-  final int priority;
+  final int? priority;
   @override
   final String? prefix;
   @override
@@ -31,7 +31,7 @@ class _$ReplicationRule extends ReplicationRule {
 
   _$ReplicationRule._(
       {this.id,
-      required this.priority,
+      this.priority,
       this.prefix,
       this.filter,
       required this.status,
@@ -40,8 +40,6 @@ class _$ReplicationRule extends ReplicationRule {
       required this.destination,
       this.deleteMarkerReplication})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        priority, r'ReplicationRule', 'priority');
     BuiltValueNullFieldError.checkNotNull(status, r'ReplicationRule', 'status');
     BuiltValueNullFieldError.checkNotNull(
         destination, r'ReplicationRule', 'destination');
@@ -182,8 +180,7 @@ class ReplicationRuleBuilder
       _$result = _$v ??
           new _$ReplicationRule._(
               id: id,
-              priority: BuiltValueNullFieldError.checkNotNull(
-                  priority, r'ReplicationRule', 'priority'),
+              priority: priority,
               prefix: prefix,
               filter: filter,
               status: BuiltValueNullFieldError.checkNotNull(

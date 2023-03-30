@@ -27,21 +27,21 @@ import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack
 import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exception.dart'
     as _i13;
 
-/// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+/// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across Amazon Web Services Organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
 ///
 /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
 ///
-/// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
+/// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
 class PutConformancePackOperation extends _i1.HttpOperation<
     _i2.PutConformancePackRequest,
     _i2.PutConformancePackRequest,
     _i3.PutConformancePackResponse,
     _i3.PutConformancePackResponse> {
-  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across Amazon Web Services Organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   ///
   /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
   ///
-  /// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
+  /// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
   PutConformancePackOperation({
     required String region,
     Uri? baseUri,

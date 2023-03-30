@@ -15,7 +15,7 @@ class _$PutBucketNotificationConfigurationRequest
   @override
   final String? expectedBucketOwner;
   @override
-  final bool skipDestinationValidation;
+  final bool? skipDestinationValidation;
 
   factory _$PutBucketNotificationConfigurationRequest(
           [void Function(PutBucketNotificationConfigurationRequestBuilder)?
@@ -27,7 +27,7 @@ class _$PutBucketNotificationConfigurationRequest
       {required this.bucket,
       required this.notificationConfiguration,
       this.expectedBucketOwner,
-      required this.skipDestinationValidation})
+      this.skipDestinationValidation})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketNotificationConfigurationRequest', 'bucket');
@@ -35,10 +35,6 @@ class _$PutBucketNotificationConfigurationRequest
         notificationConfiguration,
         r'PutBucketNotificationConfigurationRequest',
         'notificationConfiguration');
-    BuiltValueNullFieldError.checkNotNull(
-        skipDestinationValidation,
-        r'PutBucketNotificationConfigurationRequest',
-        'skipDestinationValidation');
   }
 
   @override
@@ -142,10 +138,7 @@ class PutBucketNotificationConfigurationRequestBuilder
                   r'PutBucketNotificationConfigurationRequest', 'bucket'),
               notificationConfiguration: notificationConfiguration.build(),
               expectedBucketOwner: expectedBucketOwner,
-              skipDestinationValidation: BuiltValueNullFieldError.checkNotNull(
-                  skipDestinationValidation,
-                  r'PutBucketNotificationConfigurationRequest',
-                  'skipDestinationValidation'));
+              skipDestinationValidation: skipDestinationValidation);
     } catch (_) {
       late String _$failedField;
       try {

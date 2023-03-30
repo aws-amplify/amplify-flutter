@@ -692,7 +692,7 @@ abstract class Error
   ///
   /// *   *   _Code:_ ServiceUnavailable
   ///
-  ///     *   _Description:_ Service is unable to handle request.
+  ///     *   _Description:_ Reduce your request rate.
   ///
   ///     *   _HTTP Status Code:_ 503 Service Unavailable
   ///

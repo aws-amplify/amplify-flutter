@@ -13,7 +13,7 @@ class _$DescribeRemediationExecutionStatusRequest
   @override
   final _i4.BuiltList<_i3.ResourceKey>? resourceKeys;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -26,13 +26,11 @@ class _$DescribeRemediationExecutionStatusRequest
   _$DescribeRemediationExecutionStatusRequest._(
       {required this.configRuleName,
       this.resourceKeys,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(configRuleName,
         r'DescribeRemediationExecutionStatusRequest', 'configRuleName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeRemediationExecutionStatusRequest', 'limit');
   }
 
   @override
@@ -134,8 +132,7 @@ class DescribeRemediationExecutionStatusRequestBuilder
                   r'DescribeRemediationExecutionStatusRequest',
                   'configRuleName'),
               resourceKeys: _resourceKeys?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'DescribeRemediationExecutionStatusRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

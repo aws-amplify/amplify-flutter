@@ -20,7 +20,7 @@ class _$ImportTableDescription extends ImportTableDescription {
   @override
   final _i3.S3BucketSource? s3BucketSource;
   @override
-  final _i4.Int64 errorCount;
+  final _i4.Int64? errorCount;
   @override
   final String? cloudWatchLogGroupArn;
   @override
@@ -38,9 +38,9 @@ class _$ImportTableDescription extends ImportTableDescription {
   @override
   final _i4.Int64? processedSizeBytes;
   @override
-  final _i4.Int64 processedItemCount;
+  final _i4.Int64? processedItemCount;
   @override
-  final _i4.Int64 importedItemCount;
+  final _i4.Int64? importedItemCount;
   @override
   final String? failureCode;
   @override
@@ -57,7 +57,7 @@ class _$ImportTableDescription extends ImportTableDescription {
       this.tableId,
       this.clientToken,
       this.s3BucketSource,
-      required this.errorCount,
+      this.errorCount,
       this.cloudWatchLogGroupArn,
       this.inputFormat,
       this.inputFormatOptions,
@@ -66,18 +66,11 @@ class _$ImportTableDescription extends ImportTableDescription {
       this.startTime,
       this.endTime,
       this.processedSizeBytes,
-      required this.processedItemCount,
-      required this.importedItemCount,
+      this.processedItemCount,
+      this.importedItemCount,
       this.failureCode,
       this.failureMessage})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        errorCount, r'ImportTableDescription', 'errorCount');
-    BuiltValueNullFieldError.checkNotNull(
-        processedItemCount, r'ImportTableDescription', 'processedItemCount');
-    BuiltValueNullFieldError.checkNotNull(
-        importedItemCount, r'ImportTableDescription', 'importedItemCount');
-  }
+      : super._();
 
   @override
   ImportTableDescription rebuild(
@@ -293,8 +286,7 @@ class ImportTableDescriptionBuilder
               tableId: tableId,
               clientToken: clientToken,
               s3BucketSource: _s3BucketSource?.build(),
-              errorCount: BuiltValueNullFieldError.checkNotNull(
-                  errorCount, r'ImportTableDescription', 'errorCount'),
+              errorCount: errorCount,
               cloudWatchLogGroupArn: cloudWatchLogGroupArn,
               inputFormat: inputFormat,
               inputFormatOptions: _inputFormatOptions?.build(),
@@ -303,14 +295,8 @@ class ImportTableDescriptionBuilder
               startTime: startTime,
               endTime: endTime,
               processedSizeBytes: processedSizeBytes,
-              processedItemCount: BuiltValueNullFieldError.checkNotNull(
-                  processedItemCount,
-                  r'ImportTableDescription',
-                  'processedItemCount'),
-              importedItemCount: BuiltValueNullFieldError.checkNotNull(
-                  importedItemCount,
-                  r'ImportTableDescription',
-                  'importedItemCount'),
+              processedItemCount: processedItemCount,
+              importedItemCount: importedItemCount,
               failureCode: failureCode,
               failureMessage: failureMessage);
     } catch (_) {

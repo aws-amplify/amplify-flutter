@@ -22,7 +22,6 @@ abstract class SdkConfigurationProperty
     bool? required,
     String? defaultValue,
   }) {
-    required ??= false;
     return _$SdkConfigurationProperty._(
       name: name,
       friendlyName: friendlyName,
@@ -44,9 +43,7 @@ abstract class SdkConfigurationProperty
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkConfigurationPropertyBuilder b) {
-    b.required = false;
-  }
+  static void _init(SdkConfigurationPropertyBuilder b) {}
 
   /// The name of a an SdkType configuration property.
   String? get name;
@@ -58,7 +55,7 @@ abstract class SdkConfigurationProperty
   String? get description;
 
   /// A boolean flag of an SdkType configuration property to indicate if the associated SDK configuration property is required (`true`) or not (`false`).
-  bool get required;
+  bool? get required;
 
   /// The default value of an SdkType configuration property.
   String? get defaultValue;
@@ -160,10 +157,12 @@ class SdkConfigurationPropertyRestJson1Serializer
           }
           break;
         case 'required':
-          result.required = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.required = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -178,13 +177,7 @@ class SdkConfigurationPropertyRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as SdkConfigurationProperty);
-    final result = <Object?>[
-      'required',
-      serializers.serialize(
-        payload.required,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.defaultValue != null) {
       result
         ..add('defaultValue')
@@ -215,6 +208,14 @@ class SdkConfigurationPropertyRestJson1Serializer
         ..add(serializers.serialize(
           payload.name!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.required != null) {
+      result
+        ..add('required')
+        ..add(serializers.serialize(
+          payload.required!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

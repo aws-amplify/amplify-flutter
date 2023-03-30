@@ -125,12 +125,6 @@ class HandlerErrorCode extends _i1.SmithyEnum<HandlerErrorCode> {
     'Unknown',
   );
 
-  static const unsupportedTarget = HandlerErrorCode._(
-    18,
-    'UnsupportedTarget',
-    'UnsupportedTarget',
-  );
-
   /// All values of [HandlerErrorCode].
   static const values = <HandlerErrorCode>[
     HandlerErrorCode.accessDenied,
@@ -151,7 +145,6 @@ class HandlerErrorCode extends _i1.SmithyEnum<HandlerErrorCode> {
     HandlerErrorCode.serviceTimeout,
     HandlerErrorCode.throttling,
     HandlerErrorCode.unknown,
-    HandlerErrorCode.unsupportedTarget,
   ];
 
   static const List<_i1.SmithySerializer<HandlerErrorCode>> serializers = [

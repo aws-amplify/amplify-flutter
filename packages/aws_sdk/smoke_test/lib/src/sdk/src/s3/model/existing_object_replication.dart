@@ -36,7 +36,6 @@ abstract class ExistingObjectReplication
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExistingObjectReplicationBuilder b) {}
 
-  /// Specifies whether Amazon S3 replicates existing source bucket objects.
   _i2.ExistingObjectReplicationStatus get status;
   @override
   List<Object?> get props => [status];

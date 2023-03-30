@@ -11,7 +11,7 @@ class _$DescribeOrganizationConformancePacksRequest
   @override
   final _i3.BuiltList<String>? organizationConformancePackNames;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -23,13 +23,8 @@ class _$DescribeOrganizationConformancePacksRequest
           ._build();
 
   _$DescribeOrganizationConformancePacksRequest._(
-      {this.organizationConformancePackNames,
-      required this.limit,
-      this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeOrganizationConformancePacksRequest', 'limit');
-  }
+      {this.organizationConformancePackNames, this.limit, this.nextToken})
+      : super._();
 
   @override
   DescribeOrganizationConformancePacksRequest rebuild(
@@ -124,8 +119,7 @@ class DescribeOrganizationConformancePacksRequestBuilder
           new _$DescribeOrganizationConformancePacksRequest._(
               organizationConformancePackNames:
                   _organizationConformancePackNames?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(limit,
-                  r'DescribeOrganizationConformancePacksRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

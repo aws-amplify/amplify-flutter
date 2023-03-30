@@ -22,7 +22,6 @@ abstract class DeleteMarkerEntry
     bool? isLatest,
     DateTime? lastModified,
   }) {
-    isLatest ??= false;
     return _$DeleteMarkerEntry._(
       owner: owner,
       key: key,
@@ -43,9 +42,7 @@ abstract class DeleteMarkerEntry
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMarkerEntryBuilder b) {
-    b.isLatest = false;
-  }
+  static void _init(DeleteMarkerEntryBuilder b) {}
 
   /// The account that created the delete marker.>
   _i2.Owner? get owner;
@@ -57,7 +54,7 @@ abstract class DeleteMarkerEntry
   String? get versionId;
 
   /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool get isLatest;
+  bool? get isLatest;
 
   /// Date and time the object was last modified.
   DateTime? get lastModified;
@@ -126,10 +123,12 @@ class DeleteMarkerEntryRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'IsLatest':
-          result.isLatest = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isLatest = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Key':
           if (value != null) {
@@ -182,12 +181,14 @@ class DeleteMarkerEntryRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i3.XmlElementName('IsLatest'))
-      ..add(serializers.serialize(
-        payload.isLatest,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isLatest != null) {
+      result
+        ..add(const _i3.XmlElementName('IsLatest'))
+        ..add(serializers.serialize(
+          payload.isLatest!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.key != null) {
       result
         ..add(const _i3.XmlElementName('Key'))

@@ -8,11 +8,11 @@ part of smoke_test.api_gateway.model.test_invoke_authorizer_response;
 
 class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
   @override
-  final int clientStatus;
+  final int? clientStatus;
   @override
   final String? log;
   @override
-  final _i2.Int64 latency;
+  final _i2.Int64? latency;
   @override
   final String? principalId;
   @override
@@ -27,19 +27,14 @@ class _$TestInvokeAuthorizerResponse extends TestInvokeAuthorizerResponse {
       (new TestInvokeAuthorizerResponseBuilder()..update(updates))._build();
 
   _$TestInvokeAuthorizerResponse._(
-      {required this.clientStatus,
+      {this.clientStatus,
       this.log,
-      required this.latency,
+      this.latency,
       this.principalId,
       this.policy,
       this.authorization,
       this.claims})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        clientStatus, r'TestInvokeAuthorizerResponse', 'clientStatus');
-    BuiltValueNullFieldError.checkNotNull(
-        latency, r'TestInvokeAuthorizerResponse', 'latency');
-  }
+      : super._();
 
   @override
   TestInvokeAuthorizerResponse rebuild(
@@ -153,11 +148,9 @@ class TestInvokeAuthorizerResponseBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeAuthorizerResponse._(
-              clientStatus: BuiltValueNullFieldError.checkNotNull(clientStatus,
-                  r'TestInvokeAuthorizerResponse', 'clientStatus'),
+              clientStatus: clientStatus,
               log: log,
-              latency: BuiltValueNullFieldError.checkNotNull(
-                  latency, r'TestInvokeAuthorizerResponse', 'latency'),
+              latency: latency,
               principalId: principalId,
               policy: policy,
               authorization: _authorization?.build(),

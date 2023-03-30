@@ -11,15 +11,15 @@ class _$UpdateAccountPasswordPolicyRequest
   @override
   final int? minimumPasswordLength;
   @override
-  final bool requireSymbols;
+  final bool? requireSymbols;
   @override
-  final bool requireNumbers;
+  final bool? requireNumbers;
   @override
-  final bool requireUppercaseCharacters;
+  final bool? requireUppercaseCharacters;
   @override
-  final bool requireLowercaseCharacters;
+  final bool? requireLowercaseCharacters;
   @override
-  final bool allowUsersToChangePassword;
+  final bool? allowUsersToChangePassword;
   @override
   final int? maxPasswordAge;
   @override
@@ -35,26 +35,15 @@ class _$UpdateAccountPasswordPolicyRequest
 
   _$UpdateAccountPasswordPolicyRequest._(
       {this.minimumPasswordLength,
-      required this.requireSymbols,
-      required this.requireNumbers,
-      required this.requireUppercaseCharacters,
-      required this.requireLowercaseCharacters,
-      required this.allowUsersToChangePassword,
+      this.requireSymbols,
+      this.requireNumbers,
+      this.requireUppercaseCharacters,
+      this.requireLowercaseCharacters,
+      this.allowUsersToChangePassword,
       this.maxPasswordAge,
       this.passwordReusePrevention,
       this.hardExpiry})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(requireSymbols,
-        r'UpdateAccountPasswordPolicyRequest', 'requireSymbols');
-    BuiltValueNullFieldError.checkNotNull(requireNumbers,
-        r'UpdateAccountPasswordPolicyRequest', 'requireNumbers');
-    BuiltValueNullFieldError.checkNotNull(requireUppercaseCharacters,
-        r'UpdateAccountPasswordPolicyRequest', 'requireUppercaseCharacters');
-    BuiltValueNullFieldError.checkNotNull(requireLowercaseCharacters,
-        r'UpdateAccountPasswordPolicyRequest', 'requireLowercaseCharacters');
-    BuiltValueNullFieldError.checkNotNull(allowUsersToChangePassword,
-        r'UpdateAccountPasswordPolicyRequest', 'allowUsersToChangePassword');
-  }
+      : super._();
 
   @override
   UpdateAccountPasswordPolicyRequest rebuild(
@@ -187,24 +176,11 @@ class UpdateAccountPasswordPolicyRequestBuilder
     final _$result = _$v ??
         new _$UpdateAccountPasswordPolicyRequest._(
             minimumPasswordLength: minimumPasswordLength,
-            requireSymbols: BuiltValueNullFieldError.checkNotNull(
-                requireSymbols, r'UpdateAccountPasswordPolicyRequest', 'requireSymbols'),
-            requireNumbers: BuiltValueNullFieldError.checkNotNull(
-                requireNumbers,
-                r'UpdateAccountPasswordPolicyRequest',
-                'requireNumbers'),
-            requireUppercaseCharacters: BuiltValueNullFieldError.checkNotNull(
-                requireUppercaseCharacters,
-                r'UpdateAccountPasswordPolicyRequest',
-                'requireUppercaseCharacters'),
-            requireLowercaseCharacters: BuiltValueNullFieldError.checkNotNull(
-                requireLowercaseCharacters,
-                r'UpdateAccountPasswordPolicyRequest',
-                'requireLowercaseCharacters'),
-            allowUsersToChangePassword: BuiltValueNullFieldError.checkNotNull(
-                allowUsersToChangePassword,
-                r'UpdateAccountPasswordPolicyRequest',
-                'allowUsersToChangePassword'),
+            requireSymbols: requireSymbols,
+            requireNumbers: requireNumbers,
+            requireUppercaseCharacters: requireUppercaseCharacters,
+            requireLowercaseCharacters: requireLowercaseCharacters,
+            allowUsersToChangePassword: allowUsersToChangePassword,
             maxPasswordAge: maxPasswordAge,
             passwordReusePrevention: passwordReusePrevention,
             hardExpiry: hardExpiry);

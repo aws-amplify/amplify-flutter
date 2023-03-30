@@ -101,7 +101,7 @@ abstract class UpdateItemInput
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
   _i6.ConditionalOperator? get conditionalOperator;
 
-  /// Use `ReturnValues` if you want to get the item attributes as they appear before or after they are successfully updated. For `UpdateItem`, the valid values are:
+  /// Use `ReturnValues` if you want to get the item attributes as they appear before or after they are updated. For `UpdateItem`, the valid values are:
   ///
   /// *   `NONE` \- If `ReturnValues` is not specified, or if its value is `NONE`, then nothing is returned. (This setting is the default for `ReturnValues`.)
   ///

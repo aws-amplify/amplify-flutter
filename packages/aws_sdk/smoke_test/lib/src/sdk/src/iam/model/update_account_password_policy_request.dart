@@ -27,11 +27,6 @@ abstract class UpdateAccountPasswordPolicyRequest
     int? passwordReusePrevention,
     bool? hardExpiry,
   }) {
-    requireSymbols ??= false;
-    requireNumbers ??= false;
-    requireUppercaseCharacters ??= false;
-    requireLowercaseCharacters ??= false;
-    allowUsersToChangePassword ??= false;
     return _$UpdateAccountPasswordPolicyRequest._(
       minimumPasswordLength: minimumPasswordLength,
       requireSymbols: requireSymbols,
@@ -63,13 +58,7 @@ abstract class UpdateAccountPasswordPolicyRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateAccountPasswordPolicyRequestBuilder b) {
-    b.requireSymbols = false;
-    b.requireNumbers = false;
-    b.requireUppercaseCharacters = false;
-    b.requireLowercaseCharacters = false;
-    b.allowUsersToChangePassword = false;
-  }
+  static void _init(UpdateAccountPasswordPolicyRequestBuilder b) {}
 
   /// The minimum number of characters allowed in an IAM user password.
   ///
@@ -81,27 +70,27 @@ abstract class UpdateAccountPasswordPolicyRequest
   /// ! @ # $ % ^ & * ( ) _ + - = \[ \] { } | '
   ///
   /// If you do not specify a value for this parameter, then the operation uses the default value of `false`. The result is that passwords do not require at least one symbol character.
-  bool get requireSymbols;
+  bool? get requireSymbols;
 
   /// Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
   ///
   /// If you do not specify a value for this parameter, then the operation uses the default value of `false`. The result is that passwords do not require at least one numeric character.
-  bool get requireNumbers;
+  bool? get requireNumbers;
 
   /// Specifies whether IAM user passwords must contain at least one uppercase character from the ISO basic Latin alphabet (A to Z).
   ///
   /// If you do not specify a value for this parameter, then the operation uses the default value of `false`. The result is that passwords do not require at least one uppercase character.
-  bool get requireUppercaseCharacters;
+  bool? get requireUppercaseCharacters;
 
   /// Specifies whether IAM user passwords must contain at least one lowercase character from the ISO basic Latin alphabet (a to z).
   ///
   /// If you do not specify a value for this parameter, then the operation uses the default value of `false`. The result is that passwords do not require at least one lowercase character.
-  bool get requireLowercaseCharacters;
+  bool? get requireLowercaseCharacters;
 
   /// Allows all IAM users in your account to use the Amazon Web Services Management Console to change their own passwords. For more information, see [Permitting IAM users to change their own passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_enable-user-change.html) in the _IAM User Guide_.
   ///
   /// If you do not specify a value for this parameter, then the operation uses the default value of `false`. The result is that IAM users in the account do not automatically have permissions to change their own password.
-  bool get allowUsersToChangePassword;
+  bool? get allowUsersToChangePassword;
 
   /// The number of days that an IAM user password is valid.
   ///
@@ -216,34 +205,44 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
           }
           break;
         case 'RequireSymbols':
-          result.requireSymbols = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.requireSymbols = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'RequireNumbers':
-          result.requireNumbers = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.requireNumbers = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'RequireUppercaseCharacters':
-          result.requireUppercaseCharacters = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.requireUppercaseCharacters = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'RequireLowercaseCharacters':
-          result.requireLowercaseCharacters = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.requireLowercaseCharacters = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'AllowUsersToChangePassword':
-          result.allowUsersToChangePassword = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.allowUsersToChangePassword = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'MaxPasswordAge':
           if (value != null) {
@@ -296,36 +295,46 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
           specifiedType: const FullType.nullable(int),
         ));
     }
-    result
-      ..add(const _i1.XmlElementName('RequireSymbols'))
-      ..add(serializers.serialize(
-        payload.requireSymbols,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i1.XmlElementName('RequireNumbers'))
-      ..add(serializers.serialize(
-        payload.requireNumbers,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i1.XmlElementName('RequireUppercaseCharacters'))
-      ..add(serializers.serialize(
-        payload.requireUppercaseCharacters,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i1.XmlElementName('RequireLowercaseCharacters'))
-      ..add(serializers.serialize(
-        payload.requireLowercaseCharacters,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i1.XmlElementName('AllowUsersToChangePassword'))
-      ..add(serializers.serialize(
-        payload.allowUsersToChangePassword,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.requireSymbols != null) {
+      result
+        ..add(const _i1.XmlElementName('RequireSymbols'))
+        ..add(serializers.serialize(
+          payload.requireSymbols!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.requireNumbers != null) {
+      result
+        ..add(const _i1.XmlElementName('RequireNumbers'))
+        ..add(serializers.serialize(
+          payload.requireNumbers!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.requireUppercaseCharacters != null) {
+      result
+        ..add(const _i1.XmlElementName('RequireUppercaseCharacters'))
+        ..add(serializers.serialize(
+          payload.requireUppercaseCharacters!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.requireLowercaseCharacters != null) {
+      result
+        ..add(const _i1.XmlElementName('RequireLowercaseCharacters'))
+        ..add(serializers.serialize(
+          payload.requireLowercaseCharacters!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.allowUsersToChangePassword != null) {
+      result
+        ..add(const _i1.XmlElementName('AllowUsersToChangePassword'))
+        ..add(serializers.serialize(
+          payload.allowUsersToChangePassword!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.maxPasswordAge != null) {
       result
         ..add(const _i1.XmlElementName('MaxPasswordAge'))

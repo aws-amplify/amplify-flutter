@@ -8,9 +8,9 @@ part of smoke_test.s3.model.object_part;
 
 class _$ObjectPart extends ObjectPart {
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
-  final _i2.Int64 size;
+  final _i2.Int64? size;
   @override
   final String? checksumCrc32;
   @override
@@ -24,17 +24,13 @@ class _$ObjectPart extends ObjectPart {
       (new ObjectPartBuilder()..update(updates))._build();
 
   _$ObjectPart._(
-      {required this.partNumber,
-      required this.size,
+      {this.partNumber,
+      this.size,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'ObjectPart', 'partNumber');
-    BuiltValueNullFieldError.checkNotNull(size, r'ObjectPart', 'size');
-  }
+      : super._();
 
   @override
   ObjectPart rebuild(void Function(ObjectPartBuilder) updates) =>
@@ -134,10 +130,8 @@ class ObjectPartBuilder implements Builder<ObjectPart, ObjectPartBuilder> {
   _$ObjectPart _build() {
     final _$result = _$v ??
         new _$ObjectPart._(
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'ObjectPart', 'partNumber'),
-            size: BuiltValueNullFieldError.checkNotNull(
-                size, r'ObjectPart', 'size'),
+            partNumber: partNumber,
+            size: size,
             checksumCrc32: checksumCrc32,
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,

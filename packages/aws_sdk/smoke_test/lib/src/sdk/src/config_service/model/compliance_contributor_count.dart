@@ -19,8 +19,6 @@ abstract class ComplianceContributorCount
     int? cappedCount,
     bool? capExceeded,
   }) {
-    cappedCount ??= 0;
-    capExceeded ??= false;
     return _$ComplianceContributorCount._(
       cappedCount: cappedCount,
       capExceeded: capExceeded,
@@ -39,16 +37,13 @@ abstract class ComplianceContributorCount
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceContributorCountBuilder b) {
-    b.cappedCount = 0;
-    b.capExceeded = false;
-  }
+  static void _init(ComplianceContributorCountBuilder b) {}
 
   /// The number of Amazon Web Services resources or Config rules responsible for the current compliance of the item.
-  int get cappedCount;
+  int? get cappedCount;
 
   /// Indicates whether the maximum count is reached.
-  bool get capExceeded;
+  bool? get capExceeded;
   @override
   List<Object?> get props => [
         cappedCount,
@@ -100,16 +95,20 @@ class ComplianceContributorCountAwsJson11Serializer
       final value = iterator.current;
       switch (key) {
         case 'CappedCount':
-          result.cappedCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.cappedCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'CapExceeded':
-          result.capExceeded = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.capExceeded = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -124,18 +123,23 @@ class ComplianceContributorCountAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ComplianceContributorCount);
-    final result = <Object?>[
-      'CappedCount',
-      serializers.serialize(
-        payload.cappedCount,
-        specifiedType: const FullType(int),
-      ),
-      'CapExceeded',
-      serializers.serialize(
-        payload.capExceeded,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.cappedCount != null) {
+      result
+        ..add('CappedCount')
+        ..add(serializers.serialize(
+          payload.cappedCount!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.capExceeded != null) {
+      result
+        ..add('CapExceeded')
+        ..add(serializers.serialize(
+          payload.capExceeded!,
+          specifiedType: const FullType(bool),
+        ));
+    }
     return result;
   }
 }

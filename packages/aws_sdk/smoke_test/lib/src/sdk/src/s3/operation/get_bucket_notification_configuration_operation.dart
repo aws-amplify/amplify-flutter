@@ -21,8 +21,6 @@ import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration.dart'
 ///
 /// By default, you must be the bucket owner to read the notification configuration of a bucket. However, the bucket owner can use a bucket policy to grant permission to other users to read this configuration with the `s3:GetBucketNotification` permission.
 ///
-/// To use this API against an access point, provide the alias of the access point in place of the bucket name.
-///
 /// For more information about setting and reading the notification configuration on a bucket, see [Setting Up Notification of Bucket Events](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html). For more information about bucket policies, see [Using Bucket Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
 ///
 /// The following action is related to `GetBucketNotification`:
@@ -38,8 +36,6 @@ class GetBucketNotificationConfigurationOperation extends _i1.HttpOperation<
   /// If notifications are not enabled on the bucket, the action returns an empty `NotificationConfiguration` element.
   ///
   /// By default, you must be the bucket owner to read the notification configuration of a bucket. However, the bucket owner can use a bucket policy to grant permission to other users to read this configuration with the `s3:GetBucketNotification` permission.
-  ///
-  /// To use this API against an access point, provide the alias of the access point in place of the bucket name.
   ///
   /// For more information about setting and reading the notification configuration on a bucket, see [Setting Up Notification of Bucket Events](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html). For more information about bucket policies, see [Using Bucket Policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
   ///

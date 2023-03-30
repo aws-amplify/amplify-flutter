@@ -28,7 +28,6 @@ abstract class PolicyVersion
     bool? isDefaultVersion,
     DateTime? createDate,
   }) {
-    isDefaultVersion ??= false;
     return _$PolicyVersion._(
       document: document,
       versionId: versionId,
@@ -52,9 +51,7 @@ abstract class PolicyVersion
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyVersionBuilder b) {
-    b.isDefaultVersion = false;
-  }
+  static void _init(PolicyVersionBuilder b) {}
 
   /// The policy document.
   ///
@@ -69,7 +66,7 @@ abstract class PolicyVersion
   String? get versionId;
 
   /// Specifies whether the policy version is set as the policy's default version.
-  bool get isDefaultVersion;
+  bool? get isDefaultVersion;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the policy version was created.
   DateTime? get createDate;
@@ -149,10 +146,12 @@ class PolicyVersionAwsQuerySerializer
           }
           break;
         case 'IsDefaultVersion':
-          result.isDefaultVersion = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isDefaultVersion = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'CreateDate':
           if (value != null) {
@@ -197,12 +196,14 @@ class PolicyVersionAwsQuerySerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('IsDefaultVersion'))
-      ..add(serializers.serialize(
-        payload.isDefaultVersion,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isDefaultVersion != null) {
+      result
+        ..add(const _i2.XmlElementName('IsDefaultVersion'))
+        ..add(serializers.serialize(
+          payload.isDefaultVersion!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.createDate != null) {
       result
         ..add(const _i2.XmlElementName('CreateDate'))

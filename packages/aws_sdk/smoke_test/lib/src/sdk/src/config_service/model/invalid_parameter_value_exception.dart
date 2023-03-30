@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_parameter_value_exception.g.dart';
 
-/// One or more of the specified parameters are not valid. Verify that your parameters are valid and try again.
+/// One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
 abstract class InvalidParameterValueException
     with
         _i1.AWSEquatable<InvalidParameterValueException>
@@ -17,12 +17,12 @@ abstract class InvalidParameterValueException
         Built<InvalidParameterValueException,
             InvalidParameterValueExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// One or more of the specified parameters are not valid. Verify that your parameters are valid and try again.
+  /// One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
   factory InvalidParameterValueException({String? message}) {
     return _$InvalidParameterValueException._(message: message);
   }
 
-  /// One or more of the specified parameters are not valid. Verify that your parameters are valid and try again.
+  /// One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
   factory InvalidParameterValueException.build(
           [void Function(InvalidParameterValueExceptionBuilder) updates]) =
       _$InvalidParameterValueException;

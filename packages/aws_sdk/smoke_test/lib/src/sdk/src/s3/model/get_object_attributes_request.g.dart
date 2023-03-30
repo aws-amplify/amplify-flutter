@@ -14,7 +14,7 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
   @override
   final String? versionId;
   @override
-  final int maxParts;
+  final int? maxParts;
   @override
   final String? partNumberMarker;
   @override
@@ -38,7 +38,7 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
       {required this.bucket,
       required this.key,
       this.versionId,
-      required this.maxParts,
+      this.maxParts,
       this.partNumberMarker,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
@@ -51,8 +51,6 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
         bucket, r'GetObjectAttributesRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(
         key, r'GetObjectAttributesRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        maxParts, r'GetObjectAttributesRequest', 'maxParts');
     BuiltValueNullFieldError.checkNotNull(
         objectAttributes, r'GetObjectAttributesRequest', 'objectAttributes');
   }
@@ -207,8 +205,7 @@ class GetObjectAttributesRequestBuilder
               key: BuiltValueNullFieldError.checkNotNull(
                   key, r'GetObjectAttributesRequest', 'key'),
               versionId: versionId,
-              maxParts: BuiltValueNullFieldError.checkNotNull(
-                  maxParts, r'GetObjectAttributesRequest', 'maxParts'),
+              maxParts: maxParts,
               partNumberMarker: partNumberMarker,
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKey: sseCustomerKey,

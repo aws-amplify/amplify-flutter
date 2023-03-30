@@ -25,7 +25,6 @@ abstract class DescribeRemediationExceptionsRequest
     int? limit,
     String? nextToken,
   }) {
-    limit ??= 0;
     return _$DescribeRemediationExceptionsRequest._(
       configRuleName: configRuleName,
       resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
@@ -52,9 +51,7 @@ abstract class DescribeRemediationExceptionsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationExceptionsRequestBuilder b) {
-    b.limit = 0;
-  }
+  static void _init(DescribeRemediationExceptionsRequestBuilder b) {}
 
   /// The name of the Config rule.
   String get configRuleName;
@@ -63,7 +60,7 @@ abstract class DescribeRemediationExceptionsRequest
   _i4.BuiltList<_i3.RemediationExceptionResourceKey>? get resourceKeys;
 
   /// The maximum number of RemediationExceptionResourceKey returned on each page. The default is 25. If you specify 0, Config uses the default.
-  int get limit;
+  int? get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -148,10 +145,12 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          result.limit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextToken':
           if (value != null) {
@@ -180,11 +179,6 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
         payload.configRuleName,
         specifiedType: const FullType(String),
       ),
-      'Limit',
-      serializers.serialize(
-        payload.limit,
-        specifiedType: const FullType(int),
-      ),
     ];
     if (payload.resourceKeys != null) {
       result
@@ -195,6 +189,14 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.RemediationExceptionResourceKey)],
           ),
+        ));
+    }
+    if (payload.limit != null) {
+      result
+        ..add('Limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

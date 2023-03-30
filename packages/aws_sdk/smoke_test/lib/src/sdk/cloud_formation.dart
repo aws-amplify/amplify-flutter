@@ -161,8 +161,6 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/on_failure.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_id_already_exists_exception.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_in_progress_exception.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_not_found_exception.dart';
-export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter.dart';
-export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter_name.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status_check_failed_exception.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/output.dart';
@@ -240,7 +238,6 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_status.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_summary.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status.dart';
-export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status_details.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_summary.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_summary.dart';

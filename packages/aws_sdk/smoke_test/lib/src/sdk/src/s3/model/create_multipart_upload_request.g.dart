@@ -52,7 +52,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
   final String? ssekmsEncryptionContext;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i6.RequestPayer? requestPayer;
   @override
@@ -95,7 +95,7 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.ssekmsEncryptionContext,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.requestPayer,
       this.tagging,
       this.objectLockMode,
@@ -108,8 +108,6 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
         bucket, r'CreateMultipartUploadRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(
         key, r'CreateMultipartUploadRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CreateMultipartUploadRequest', 'bucketKeyEnabled');
   }
 
   @override
@@ -430,10 +428,7 @@ class CreateMultipartUploadRequestBuilder
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
               ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled,
-                  r'CreateMultipartUploadRequest',
-                  'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               requestPayer: requestPayer,
               tagging: tagging,
               objectLockMode: objectLockMode,

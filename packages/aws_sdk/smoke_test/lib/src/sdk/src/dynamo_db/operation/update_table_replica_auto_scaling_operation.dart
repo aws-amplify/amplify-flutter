@@ -27,7 +27,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_replica_auto
 
 /// Updates auto scaling settings on your global tables at once.
 ///
-/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+/// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
 class UpdateTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i2.UpdateTableReplicaAutoScalingInput,
     _i2.UpdateTableReplicaAutoScalingInput,
@@ -35,7 +35,7 @@ class UpdateTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i3.UpdateTableReplicaAutoScalingOutput> {
   /// Updates auto scaling settings on your global tables at once.
   ///
-  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   UpdateTableReplicaAutoScalingOperation({
     required String region,
     Uri? baseUri,

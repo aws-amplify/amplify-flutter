@@ -22,7 +22,7 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? contentLanguage;
   @override
-  final _i5.Int64 contentLength;
+  final _i5.Int64? contentLength;
   @override
   final String? contentMd5;
   @override
@@ -68,7 +68,7 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? ssekmsEncryptionContext;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i9.RequestPayer? requestPayer;
   @override
@@ -94,7 +94,7 @@ class _$PutObjectRequest extends PutObjectRequest {
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
-      required this.contentLength,
+      this.contentLength,
       this.contentMd5,
       this.contentType,
       this.checksumAlgorithm,
@@ -117,7 +117,7 @@ class _$PutObjectRequest extends PutObjectRequest {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.ssekmsEncryptionContext,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.requestPayer,
       this.tagging,
       this.objectLockMode,
@@ -127,11 +127,7 @@ class _$PutObjectRequest extends PutObjectRequest {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutObjectRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        contentLength, r'PutObjectRequest', 'contentLength');
     BuiltValueNullFieldError.checkNotNull(key, r'PutObjectRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'PutObjectRequest', 'bucketKeyEnabled');
   }
 
   @override
@@ -486,8 +482,7 @@ class PutObjectRequestBuilder
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
-              contentLength: BuiltValueNullFieldError.checkNotNull(
-                  contentLength, r'PutObjectRequest', 'contentLength'),
+              contentLength: contentLength,
               contentMd5: contentMd5,
               contentType: contentType,
               checksumAlgorithm: checksumAlgorithm,
@@ -511,8 +506,7 @@ class PutObjectRequestBuilder
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
               ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled, r'PutObjectRequest', 'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               requestPayer: requestPayer,
               tagging: tagging,
               objectLockMode: objectLockMode,

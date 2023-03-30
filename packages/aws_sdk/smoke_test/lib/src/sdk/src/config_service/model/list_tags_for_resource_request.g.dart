@@ -10,7 +10,7 @@ class _$ListTagsForResourceRequest extends ListTagsForResourceRequest {
   @override
   final String resourceArn;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -19,12 +19,10 @@ class _$ListTagsForResourceRequest extends ListTagsForResourceRequest {
       (new ListTagsForResourceRequestBuilder()..update(updates))._build();
 
   _$ListTagsForResourceRequest._(
-      {required this.resourceArn, required this.limit, this.nextToken})
+      {required this.resourceArn, this.limit, this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceArn, r'ListTagsForResourceRequest', 'resourceArn');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'ListTagsForResourceRequest', 'limit');
   }
 
   @override
@@ -107,8 +105,7 @@ class ListTagsForResourceRequestBuilder
         new _$ListTagsForResourceRequest._(
             resourceArn: BuiltValueNullFieldError.checkNotNull(
                 resourceArn, r'ListTagsForResourceRequest', 'resourceArn'),
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'ListTagsForResourceRequest', 'limit'),
+            limit: limit,
             nextToken: nextToken);
     replace(_$result);
     return _$result;

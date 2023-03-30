@@ -32,7 +32,7 @@ class _$RestApi extends RestApi {
   @override
   final _i4.BuiltMap<String, String>? tags;
   @override
-  final bool disableExecuteApiEndpoint;
+  final bool? disableExecuteApiEndpoint;
 
   factory _$RestApi([void Function(RestApiBuilder)? updates]) =>
       (new RestApiBuilder()..update(updates))._build();
@@ -50,11 +50,8 @@ class _$RestApi extends RestApi {
       this.endpointConfiguration,
       this.policy,
       this.tags,
-      required this.disableExecuteApiEndpoint})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        disableExecuteApiEndpoint, r'RestApi', 'disableExecuteApiEndpoint');
-  }
+      this.disableExecuteApiEndpoint})
+      : super._();
 
   @override
   RestApi rebuild(void Function(RestApiBuilder) updates) =>
@@ -225,10 +222,7 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
               endpointConfiguration: _endpointConfiguration?.build(),
               policy: policy,
               tags: _tags?.build(),
-              disableExecuteApiEndpoint: BuiltValueNullFieldError.checkNotNull(
-                  disableExecuteApiEndpoint,
-                  r'RestApi',
-                  'disableExecuteApiEndpoint'));
+              disableExecuteApiEndpoint: disableExecuteApiEndpoint);
     } catch (_) {
       late String _$failedField;
       try {

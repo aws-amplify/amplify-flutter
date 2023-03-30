@@ -35,7 +35,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_conflict_exce
 
 /// Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the `ReturnValues` parameter.
 ///
-/// When you add an item, the primary key attributes are the only required attributes.
+/// When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
 ///
 /// Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
 ///
@@ -48,7 +48,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
     _i2.PutItemInput, _i3.PutItemOutput, _i3.PutItemOutput> {
   /// Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the `ReturnValues` parameter.
   ///
-  /// When you add an item, the primary key attributes are the only required attributes.
+  /// When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
   ///
   /// Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
   ///

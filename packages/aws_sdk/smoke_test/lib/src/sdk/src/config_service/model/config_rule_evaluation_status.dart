@@ -36,7 +36,6 @@ abstract class ConfigRuleEvaluationStatus
     String? lastDebugLogDeliveryStatusReason,
     DateTime? lastDebugLogDeliveryTime,
   }) {
-    firstEvaluationStarted ??= false;
     return _$ConfigRuleEvaluationStatus._(
       configRuleName: configRuleName,
       configRuleArn: configRuleArn,
@@ -70,9 +69,7 @@ abstract class ConfigRuleEvaluationStatus
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleEvaluationStatusBuilder b) {
-    b.firstEvaluationStarted = false;
-  }
+  static void _init(ConfigRuleEvaluationStatusBuilder b) {}
 
   /// The name of the Config rule.
   String? get configRuleName;
@@ -112,7 +109,7 @@ abstract class ConfigRuleEvaluationStatus
   /// *   `true` \- Config has evaluated your Amazon Web Services resources against the rule at least once.
   ///
   /// *   `false` \- Config has not finished evaluating your Amazon Web Services resources against the rule at least once.
-  bool get firstEvaluationStarted;
+  bool? get firstEvaluationStarted;
 
   /// The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either `Successful` or `Failed`.
   String? get lastDebugLogDeliveryStatus;
@@ -326,10 +323,12 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
           }
           break;
         case 'FirstEvaluationStarted':
-          result.firstEvaluationStarted = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.firstEvaluationStarted = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'LastDebugLogDeliveryStatus':
           if (value != null) {
@@ -368,13 +367,7 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ConfigRuleEvaluationStatus);
-    final result = <Object?>[
-      'FirstEvaluationStarted',
-      serializers.serialize(
-        payload.firstEvaluationStarted,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.configRuleName != null) {
       result
         ..add('ConfigRuleName')
@@ -461,6 +454,14 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ..add(serializers.serialize(
           payload.lastErrorMessage!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.firstEvaluationStarted != null) {
+      result
+        ..add('FirstEvaluationStarted')
+        ..add(serializers.serialize(
+          payload.firstEvaluationStarted!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.lastDebugLogDeliveryStatus != null) {

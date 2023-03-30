@@ -24,7 +24,6 @@ abstract class ImportRestApiRequest
     Map<String, String>? parameters,
     required _i2.Uint8List body,
   }) {
-    failOnWarnings ??= false;
     return _$ImportRestApiRequest._(
       failOnWarnings: failOnWarnings,
       parameters: parameters == null ? null : _i4.BuiltMap(parameters),
@@ -57,12 +56,10 @@ abstract class ImportRestApiRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportRestApiRequestBuilder b) {
-    b.failOnWarnings = false;
-  }
+  static void _init(ImportRestApiRequestBuilder b) {}
 
   /// A query parameter to indicate whether to rollback the API creation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool get failOnWarnings;
+  bool? get failOnWarnings;
 
   /// A key-value map of context-specific query string parameters specifying the behavior of different API importing operations. The following shows operation-specific parameters and their supported values.
   ///

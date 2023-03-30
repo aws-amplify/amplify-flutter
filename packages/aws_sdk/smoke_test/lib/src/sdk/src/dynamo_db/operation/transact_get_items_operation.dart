@@ -39,7 +39,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_canceled_exce
 ///
 /// *   There is a user error, such as an invalid data format.
 ///
-/// *   The aggregate size of the items in the transaction exceeded 4 MB.
+/// *   The aggregate size of the items in the transaction cannot exceed 4 MB.
 class TransactGetItemsOperation extends _i1.HttpOperation<
     _i2.TransactGetItemsInput,
     _i2.TransactGetItemsInput,
@@ -55,7 +55,7 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
   ///
   /// *   There is a user error, such as an invalid data format.
   ///
-  /// *   The aggregate size of the items in the transaction exceeded 4 MB.
+  /// *   The aggregate size of the items in the transaction cannot exceed 4 MB.
   TransactGetItemsOperation({
     required String region,
     Uri? baseUri,

@@ -12,9 +12,9 @@ class _$LifecycleRuleAndOperator extends LifecycleRuleAndOperator {
   @override
   final _i4.BuiltList<_i2.Tag>? tags;
   @override
-  final _i3.Int64 objectSizeGreaterThan;
+  final _i3.Int64? objectSizeGreaterThan;
   @override
-  final _i3.Int64 objectSizeLessThan;
+  final _i3.Int64? objectSizeLessThan;
 
   factory _$LifecycleRuleAndOperator(
           [void Function(LifecycleRuleAndOperatorBuilder)? updates]) =>
@@ -23,14 +23,9 @@ class _$LifecycleRuleAndOperator extends LifecycleRuleAndOperator {
   _$LifecycleRuleAndOperator._(
       {this.prefix,
       this.tags,
-      required this.objectSizeGreaterThan,
-      required this.objectSizeLessThan})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(objectSizeGreaterThan,
-        r'LifecycleRuleAndOperator', 'objectSizeGreaterThan');
-    BuiltValueNullFieldError.checkNotNull(
-        objectSizeLessThan, r'LifecycleRuleAndOperator', 'objectSizeLessThan');
-  }
+      this.objectSizeGreaterThan,
+      this.objectSizeLessThan})
+      : super._();
 
   @override
   LifecycleRuleAndOperator rebuild(
@@ -124,14 +119,8 @@ class LifecycleRuleAndOperatorBuilder
           new _$LifecycleRuleAndOperator._(
               prefix: prefix,
               tags: _tags?.build(),
-              objectSizeGreaterThan: BuiltValueNullFieldError.checkNotNull(
-                  objectSizeGreaterThan,
-                  r'LifecycleRuleAndOperator',
-                  'objectSizeGreaterThan'),
-              objectSizeLessThan: BuiltValueNullFieldError.checkNotNull(
-                  objectSizeLessThan,
-                  r'LifecycleRuleAndOperator',
-                  'objectSizeLessThan'));
+              objectSizeGreaterThan: objectSizeGreaterThan,
+              objectSizeLessThan: objectSizeLessThan);
     } catch (_) {
       late String _$failedField;
       try {

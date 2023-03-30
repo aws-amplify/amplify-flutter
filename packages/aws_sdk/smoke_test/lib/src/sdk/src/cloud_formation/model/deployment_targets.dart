@@ -69,7 +69,7 @@ abstract class DeploymentTargets
   ///
   /// *   `DIFFERENCE`: StackSets excludes the accounts specified in `Accounts` parameter. This enables user to avoid certain accounts within an OU such as suspended accounts.
   ///
-  /// *   `UNION`: StackSets includes additional accounts deployment targets.
+  /// *   `UNION`: (default value) StackSets includes additional accounts deployment targets.
   ///
   ///     This is the default value if `AccountFilterType` is not provided. This enables user to update an entire OU and individual accounts from a different OU in one request, which used to be two separate requests.
   ///

@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_recording_group_exception.g.dart';
 
-/// Config throws an exception if the recording group does not contain a valid list of resource types. Values that are not valid might also be incorrectly formatted.
+/// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
 abstract class InvalidRecordingGroupException
     with
         _i1.AWSEquatable<InvalidRecordingGroupException>
@@ -17,12 +17,12 @@ abstract class InvalidRecordingGroupException
         Built<InvalidRecordingGroupException,
             InvalidRecordingGroupExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// Config throws an exception if the recording group does not contain a valid list of resource types. Values that are not valid might also be incorrectly formatted.
+  /// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
   factory InvalidRecordingGroupException({String? message}) {
     return _$InvalidRecordingGroupException._(message: message);
   }
 
-  /// Config throws an exception if the recording group does not contain a valid list of resource types. Values that are not valid might also be incorrectly formatted.
+  /// Config throws an exception if the recording group does not contain a valid list of resource types. Invalid values might also be incorrectly formatted.
   factory InvalidRecordingGroupException.build(
           [void Function(InvalidRecordingGroupExceptionBuilder) updates]) =
       _$InvalidRecordingGroupException;

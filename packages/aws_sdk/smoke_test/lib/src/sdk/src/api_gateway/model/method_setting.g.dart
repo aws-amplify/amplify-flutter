@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.method_setting;
 
 class _$MethodSetting extends MethodSetting {
   @override
-  final bool metricsEnabled;
+  final bool? metricsEnabled;
   @override
   final String? loggingLevel;
   @override
-  final bool dataTraceEnabled;
+  final bool? dataTraceEnabled;
   @override
-  final int throttlingBurstLimit;
+  final int? throttlingBurstLimit;
   @override
-  final double throttlingRateLimit;
+  final double? throttlingRateLimit;
   @override
-  final bool cachingEnabled;
+  final bool? cachingEnabled;
   @override
-  final int cacheTtlInSeconds;
+  final int? cacheTtlInSeconds;
   @override
-  final bool cacheDataEncrypted;
+  final bool? cacheDataEncrypted;
   @override
-  final bool requireAuthorizationForCacheControl;
+  final bool? requireAuthorizationForCacheControl;
   @override
   final _i2.UnauthorizedCacheControlHeaderStrategy?
       unauthorizedCacheControlHeaderStrategy;
@@ -33,34 +33,17 @@ class _$MethodSetting extends MethodSetting {
       (new MethodSettingBuilder()..update(updates))._build();
 
   _$MethodSetting._(
-      {required this.metricsEnabled,
+      {this.metricsEnabled,
       this.loggingLevel,
-      required this.dataTraceEnabled,
-      required this.throttlingBurstLimit,
-      required this.throttlingRateLimit,
-      required this.cachingEnabled,
-      required this.cacheTtlInSeconds,
-      required this.cacheDataEncrypted,
-      required this.requireAuthorizationForCacheControl,
+      this.dataTraceEnabled,
+      this.throttlingBurstLimit,
+      this.throttlingRateLimit,
+      this.cachingEnabled,
+      this.cacheTtlInSeconds,
+      this.cacheDataEncrypted,
+      this.requireAuthorizationForCacheControl,
       this.unauthorizedCacheControlHeaderStrategy})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        metricsEnabled, r'MethodSetting', 'metricsEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        dataTraceEnabled, r'MethodSetting', 'dataTraceEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        throttlingBurstLimit, r'MethodSetting', 'throttlingBurstLimit');
-    BuiltValueNullFieldError.checkNotNull(
-        throttlingRateLimit, r'MethodSetting', 'throttlingRateLimit');
-    BuiltValueNullFieldError.checkNotNull(
-        cachingEnabled, r'MethodSetting', 'cachingEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        cacheTtlInSeconds, r'MethodSetting', 'cacheTtlInSeconds');
-    BuiltValueNullFieldError.checkNotNull(
-        cacheDataEncrypted, r'MethodSetting', 'cacheDataEncrypted');
-    BuiltValueNullFieldError.checkNotNull(requireAuthorizationForCacheControl,
-        r'MethodSetting', 'requireAuthorizationForCacheControl');
-  }
+      : super._();
 
   @override
   MethodSetting rebuild(void Function(MethodSettingBuilder) updates) =>
@@ -208,24 +191,18 @@ class MethodSettingBuilder
   _$MethodSetting _build() {
     final _$result = _$v ??
         new _$MethodSetting._(
-            metricsEnabled: BuiltValueNullFieldError.checkNotNull(
-                metricsEnabled, r'MethodSetting', 'metricsEnabled'),
+            metricsEnabled: metricsEnabled,
             loggingLevel: loggingLevel,
-            dataTraceEnabled: BuiltValueNullFieldError.checkNotNull(
-                dataTraceEnabled, r'MethodSetting', 'dataTraceEnabled'),
-            throttlingBurstLimit: BuiltValueNullFieldError.checkNotNull(
-                throttlingBurstLimit, r'MethodSetting', 'throttlingBurstLimit'),
-            throttlingRateLimit: BuiltValueNullFieldError.checkNotNull(
-                throttlingRateLimit, r'MethodSetting', 'throttlingRateLimit'),
-            cachingEnabled: BuiltValueNullFieldError.checkNotNull(
-                cachingEnabled, r'MethodSetting', 'cachingEnabled'),
-            cacheTtlInSeconds: BuiltValueNullFieldError.checkNotNull(
-                cacheTtlInSeconds, r'MethodSetting', 'cacheTtlInSeconds'),
-            cacheDataEncrypted: BuiltValueNullFieldError.checkNotNull(
-                cacheDataEncrypted, r'MethodSetting', 'cacheDataEncrypted'),
+            dataTraceEnabled: dataTraceEnabled,
+            throttlingBurstLimit: throttlingBurstLimit,
+            throttlingRateLimit: throttlingRateLimit,
+            cachingEnabled: cachingEnabled,
+            cacheTtlInSeconds: cacheTtlInSeconds,
+            cacheDataEncrypted: cacheDataEncrypted,
             requireAuthorizationForCacheControl:
-                BuiltValueNullFieldError.checkNotNull(requireAuthorizationForCacheControl, r'MethodSetting', 'requireAuthorizationForCacheControl'),
-            unauthorizedCacheControlHeaderStrategy: unauthorizedCacheControlHeaderStrategy);
+                requireAuthorizationForCacheControl,
+            unauthorizedCacheControlHeaderStrategy:
+                unauthorizedCacheControlHeaderStrategy);
     replace(_$result);
     return _$result;
   }

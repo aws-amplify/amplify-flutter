@@ -64,13 +64,6 @@ abstract class GetObjectOutput
     DateTime? objectLockRetainUntilDate,
     _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
   }) {
-    body ??= const _i3.Stream.empty();
-    deleteMarker ??= false;
-    contentLength ??= _i4.Int64.ZERO;
-    missingMeta ??= 0;
-    bucketKeyEnabled ??= false;
-    partsCount ??= 0;
-    tagCount ??= 0;
     return _$GetObjectOutput._(
       body: body,
       deleteMarker: deleteMarker,
@@ -269,21 +262,13 @@ abstract class GetObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectOutputBuilder b) {
-    b.body = const _i3.Stream.empty();
-    b.deleteMarker = false;
-    b.contentLength = _i4.Int64.ZERO;
-    b.missingMeta = 0;
-    b.bucketKeyEnabled = false;
-    b.partsCount = 0;
-    b.tagCount = 0;
-  }
+  static void _init(GetObjectOutputBuilder b) {}
 
   /// Object data.
   _i3.Stream<List<int>>? get body;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
@@ -298,7 +283,7 @@ abstract class GetObjectOutput
   DateTime? get lastModified;
 
   /// Size of the body in bytes.
-  _i4.Int64 get contentLength;
+  _i4.Int64? get contentLength;
 
   /// An entity tag (ETag) is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
@@ -316,7 +301,7 @@ abstract class GetObjectOutput
   String? get checksumSha256;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int get missingMeta;
+  int? get missingMeta;
 
   /// Version of the object.
   String? get versionId;
@@ -345,7 +330,7 @@ abstract class GetObjectOutput
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
   String? get websiteRedirectLocation;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
   _i5.ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
@@ -357,11 +342,11 @@ abstract class GetObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   _i6.StorageClass? get storageClass;
@@ -373,10 +358,10 @@ abstract class GetObjectOutput
   _i8.ReplicationStatus? get replicationStatus;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
-  int get partsCount;
+  int? get partsCount;
 
   /// The number of tags, if any, on the object.
-  int get tagCount;
+  int? get tagCount;
 
   /// The Object Lock mode currently in place for this object.
   _i9.ObjectLockMode? get objectLockMode;

@@ -22,8 +22,6 @@ abstract class Position
     int? line,
     int? column,
   }) {
-    line ??= 0;
-    column ??= 0;
     return _$Position._(
       line: line,
       column: column,
@@ -42,16 +40,13 @@ abstract class Position
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PositionBuilder b) {
-    b.line = 0;
-    b.column = 0;
-  }
+  static void _init(PositionBuilder b) {}
 
   /// The line containing the specified position in the document.
-  int get line;
+  int? get line;
 
   /// The column in the line containing the specified position in the document.
-  int get column;
+  int? get column;
   @override
   List<Object?> get props => [
         line,
@@ -102,16 +97,20 @@ class PositionAwsQuerySerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Line':
-          result.line = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.line = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'Column':
-          result.column = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.column = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -132,18 +131,22 @@ class PositionAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    result
-      ..add(const _i2.XmlElementName('Line'))
-      ..add(serializers.serialize(
-        payload.line,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i2.XmlElementName('Column'))
-      ..add(serializers.serialize(
-        payload.column,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.line != null) {
+      result
+        ..add(const _i2.XmlElementName('Line'))
+        ..add(serializers.serialize(
+          payload.line!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.column != null) {
+      result
+        ..add(const _i2.XmlElementName('Column'))
+        ..add(serializers.serialize(
+          payload.column!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

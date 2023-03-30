@@ -12,7 +12,7 @@ class _$CreateLoginProfileRequest extends CreateLoginProfileRequest {
   @override
   final String password;
   @override
-  final bool passwordResetRequired;
+  final bool? passwordResetRequired;
 
   factory _$CreateLoginProfileRequest(
           [void Function(CreateLoginProfileRequestBuilder)? updates]) =>
@@ -21,14 +21,12 @@ class _$CreateLoginProfileRequest extends CreateLoginProfileRequest {
   _$CreateLoginProfileRequest._(
       {required this.userName,
       required this.password,
-      required this.passwordResetRequired})
+      this.passwordResetRequired})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         userName, r'CreateLoginProfileRequest', 'userName');
     BuiltValueNullFieldError.checkNotNull(
         password, r'CreateLoginProfileRequest', 'password');
-    BuiltValueNullFieldError.checkNotNull(passwordResetRequired,
-        r'CreateLoginProfileRequest', 'passwordResetRequired');
   }
 
   @override
@@ -114,10 +112,7 @@ class CreateLoginProfileRequestBuilder
                 userName, r'CreateLoginProfileRequest', 'userName'),
             password: BuiltValueNullFieldError.checkNotNull(
                 password, r'CreateLoginProfileRequest', 'password'),
-            passwordResetRequired: BuiltValueNullFieldError.checkNotNull(
-                passwordResetRequired,
-                r'CreateLoginProfileRequest',
-                'passwordResetRequired'));
+            passwordResetRequired: passwordResetRequired);
     replace(_$result);
     return _$result;
   }

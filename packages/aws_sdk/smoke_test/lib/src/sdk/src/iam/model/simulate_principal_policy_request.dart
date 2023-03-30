@@ -112,8 +112,6 @@ abstract class SimulatePrincipalPolicyRequest
   /// The simulation does not automatically retrieve policies for the specified resources. If you want to include a resource policy in the simulation, then you must include the policy as a string in the `ResourcePolicy` parameter.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.
-  ///
-  /// Simulation of resource-based policies isn't supported for IAM roles.
   _i4.BuiltList<String>? get resourceArns;
 
   /// A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.
@@ -127,9 +125,6 @@ abstract class SimulatePrincipalPolicyRequest
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement character set (through `\\u00FF`)
   ///
   /// *   The special characters tab (`\\u0009`), line feed (`\\u000A`), and carriage return (`\\u000D`)
-  ///
-  ///
-  /// Simulation of resource-based policies isn't supported for IAM roles.
   String? get resourcePolicy;
 
   /// An Amazon Web Services account ID that specifies the owner of any simulated resource that does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If `ResourceOwner` is specified, it is also used as the account owner of any `ResourcePolicy` included in the simulation. If the `ResourceOwner` parameter is not specified, then the owner of the resources and the resource policy defaults to the account of the identity provided in `CallerArn`. This parameter is required only if you specify a resource-based policy and account that owns the resource is different from the account that owns the simulated calling user `CallerArn`.

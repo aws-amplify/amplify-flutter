@@ -13,7 +13,7 @@ class _$DescribeAggregateComplianceByConformancePacksRequest
   @override
   final _i3.AggregateConformancePackComplianceFilters? filters;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -28,15 +28,13 @@ class _$DescribeAggregateComplianceByConformancePacksRequest
   _$DescribeAggregateComplianceByConformancePacksRequest._(
       {required this.configurationAggregatorName,
       this.filters,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'DescribeAggregateComplianceByConformancePacksRequest',
         'configurationAggregatorName');
-    BuiltValueNullFieldError.checkNotNull(limit,
-        r'DescribeAggregateComplianceByConformancePacksRequest', 'limit');
   }
 
   @override
@@ -144,10 +142,7 @@ class DescribeAggregateComplianceByConformancePacksRequestBuilder
                       r'DescribeAggregateComplianceByConformancePacksRequest',
                       'configurationAggregatorName'),
               filters: _filters?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit,
-                  r'DescribeAggregateComplianceByConformancePacksRequest',
-                  'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

@@ -24,7 +24,6 @@ abstract class GetDiscoveredResourceCountsResponse
     List<_i3.ResourceCount>? resourceCounts,
     String? nextToken,
   }) {
-    totalDiscoveredResources ??= _i2.Int64.ZERO;
     return _$GetDiscoveredResourceCountsResponse._(
       totalDiscoveredResources: totalDiscoveredResources,
       resourceCounts:
@@ -51,9 +50,7 @@ abstract class GetDiscoveredResourceCountsResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDiscoveredResourceCountsResponseBuilder b) {
-    b.totalDiscoveredResources = _i2.Int64.ZERO;
-  }
+  static void _init(GetDiscoveredResourceCountsResponseBuilder b) {}
 
   /// The total number of resources that Config is recording in the region for your account. If you specify resource types in the request, Config returns only the total number of resources for those resource types.
   ///
@@ -64,7 +61,7 @@ abstract class GetDiscoveredResourceCountsResponse
   /// 2.  You make a call to the `GetDiscoveredResourceCounts` action and specify the resource type, `"AWS::EC2::Instances"`, in the request.
   ///
   /// 3.  Config returns 25 for `totalDiscoveredResources`.
-  _i2.Int64 get totalDiscoveredResources;
+  _i2.Int64? get totalDiscoveredResources;
 
   /// The list of `ResourceCount` objects. Each object is listed in descending order by the number of resources.
   _i4.BuiltList<_i3.ResourceCount>? get resourceCounts;
@@ -128,10 +125,12 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
       final value = iterator.current;
       switch (key) {
         case 'totalDiscoveredResources':
-          result.totalDiscoveredResources = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.totalDiscoveredResources = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'resourceCounts':
           if (value != null) {
@@ -165,13 +164,15 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as GetDiscoveredResourceCountsResponse);
-    final result = <Object?>[
-      'totalDiscoveredResources',
-      serializers.serialize(
-        payload.totalDiscoveredResources,
-        specifiedType: const FullType(_i2.Int64),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.totalDiscoveredResources != null) {
+      result
+        ..add('totalDiscoveredResources')
+        ..add(serializers.serialize(
+          payload.totalDiscoveredResources!,
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
     if (payload.resourceCounts != null) {
       result
         ..add('resourceCounts')

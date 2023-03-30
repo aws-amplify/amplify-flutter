@@ -21,7 +21,6 @@ abstract class ListContributorInsightsInput
     String? nextToken,
     int? maxResults,
   }) {
-    maxResults ??= 0;
     return _$ListContributorInsightsInput._(
       tableName: tableName,
       nextToken: nextToken,
@@ -47,9 +46,7 @@ abstract class ListContributorInsightsInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListContributorInsightsInputBuilder b) {
-    b.maxResults = 0;
-  }
+  static void _init(ListContributorInsightsInputBuilder b) {}
 
   /// The name of the table.
   String? get tableName;
@@ -58,7 +55,7 @@ abstract class ListContributorInsightsInput
   String? get nextToken;
 
   /// Maximum number of results to return per page.
-  int get maxResults;
+  int? get maxResults;
   @override
   ListContributorInsightsInput getPayload() => this;
   @override
@@ -133,10 +130,12 @@ class ListContributorInsightsInputAwsJson10Serializer
           }
           break;
         case 'MaxResults':
-          result.maxResults = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxResults = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -151,13 +150,7 @@ class ListContributorInsightsInputAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ListContributorInsightsInput);
-    final result = <Object?>[
-      'MaxResults',
-      serializers.serialize(
-        payload.maxResults,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.tableName != null) {
       result
         ..add('TableName')
@@ -172,6 +165,14 @@ class ListContributorInsightsInputAwsJson10Serializer
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.maxResults != null) {
+      result
+        ..add('MaxResults')
+        ..add(serializers.serialize(
+          payload.maxResults!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

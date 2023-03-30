@@ -31,8 +31,6 @@ abstract class ObjectVersion
     DateTime? lastModified,
     _i5.Owner? owner,
   }) {
-    size ??= _i3.Int64.ZERO;
-    isLatest ??= false;
     return _$ObjectVersion._(
       eTag: eTag,
       checksumAlgorithm:
@@ -58,10 +56,7 @@ abstract class ObjectVersion
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectVersionBuilder b) {
-    b.size = _i3.Int64.ZERO;
-    b.isLatest = false;
-  }
+  static void _init(ObjectVersionBuilder b) {}
 
   /// The entity tag is an MD5 hash of that version of the object.
   String? get eTag;
@@ -70,7 +65,7 @@ abstract class ObjectVersion
   _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
 
   /// Size in bytes of the object.
-  _i3.Int64 get size;
+  _i3.Int64? get size;
 
   /// The class of storage used to store the object.
   _i4.ObjectVersionStorageClass? get storageClass;
@@ -82,7 +77,7 @@ abstract class ObjectVersion
   String? get versionId;
 
   /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool get isLatest;
+  bool? get isLatest;
 
   /// Date and time the object was last modified.
   DateTime? get lastModified;
@@ -190,10 +185,12 @@ class ObjectVersionRestXmlSerializer
           }
           break;
         case 'IsLatest':
-          result.isLatest = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isLatest = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Key':
           if (value != null) {
@@ -220,10 +217,12 @@ class ObjectVersionRestXmlSerializer
           }
           break;
         case 'Size':
-          result.size = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+          if (value != null) {
+            result.size = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
+          }
           break;
         case 'StorageClass':
           if (value != null) {
@@ -280,12 +279,14 @@ class ObjectVersionRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i7.XmlElementName('IsLatest'))
-      ..add(serializers.serialize(
-        payload.isLatest,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isLatest != null) {
+      result
+        ..add(const _i7.XmlElementName('IsLatest'))
+        ..add(serializers.serialize(
+          payload.isLatest!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.key != null) {
       result
         ..add(const _i7.XmlElementName('Key'))
@@ -310,12 +311,14 @@ class ObjectVersionRestXmlSerializer
           specifiedType: const FullType(_i5.Owner),
         ));
     }
-    result
-      ..add(const _i7.XmlElementName('Size'))
-      ..add(serializers.serialize(
-        payload.size,
-        specifiedType: const FullType(_i3.Int64),
-      ));
+    if (payload.size != null) {
+      result
+        ..add(const _i7.XmlElementName('Size'))
+        ..add(serializers.serialize(
+          payload.size!,
+          specifiedType: const FullType.nullable(_i3.Int64),
+        ));
+    }
     if (payload.storageClass != null) {
       result
         ..add(const _i7.XmlElementName('StorageClass'))

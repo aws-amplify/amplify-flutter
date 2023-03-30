@@ -26,7 +26,7 @@ class _$UploadPartOutput extends UploadPartOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i4.RequestCharged? requestCharged;
 
@@ -44,12 +44,9 @@ class _$UploadPartOutput extends UploadPartOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.requestCharged})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'UploadPartOutput', 'bucketKeyEnabled');
-  }
+      : super._();
 
   @override
   UploadPartOutput rebuild(void Function(UploadPartOutputBuilder) updates) =>
@@ -201,8 +198,7 @@ class UploadPartOutputBuilder
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
             ssekmsKeyId: ssekmsKeyId,
-            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                bucketKeyEnabled, r'UploadPartOutput', 'bucketKeyEnabled'),
+            bucketKeyEnabled: bucketKeyEnabled,
             requestCharged: requestCharged);
     replace(_$result);
     return _$result;

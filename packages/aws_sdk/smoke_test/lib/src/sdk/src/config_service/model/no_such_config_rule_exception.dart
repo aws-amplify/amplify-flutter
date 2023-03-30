@@ -9,18 +9,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'no_such_config_rule_exception.g.dart';
 
-/// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+/// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
 abstract class NoSuchConfigRuleException
     with _i1.AWSEquatable<NoSuchConfigRuleException>
     implements
         Built<NoSuchConfigRuleException, NoSuchConfigRuleExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchConfigRuleException({String? message}) {
     return _$NoSuchConfigRuleException._(message: message);
   }
 
-  /// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchConfigRuleException.build(
           [void Function(NoSuchConfigRuleExceptionBuilder) updates]) =
       _$NoSuchConfigRuleException;

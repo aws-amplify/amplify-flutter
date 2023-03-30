@@ -20,8 +20,6 @@ abstract class RequestValidator
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
-    validateRequestBody ??= false;
-    validateRequestParameters ??= false;
     return _$RequestValidator._(
       id: id,
       name: name,
@@ -48,10 +46,7 @@ abstract class RequestValidator
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestValidatorBuilder b) {
-    b.validateRequestBody = false;
-    b.validateRequestParameters = false;
-  }
+  static void _init(RequestValidatorBuilder b) {}
 
   /// The identifier of this RequestValidator.
   String? get id;
@@ -60,10 +55,10 @@ abstract class RequestValidator
   String? get name;
 
   /// A Boolean flag to indicate whether to validate a request body according to the configured Model schema.
-  bool get validateRequestBody;
+  bool? get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters (`true`) or not (`false`).
-  bool get validateRequestParameters;
+  bool? get validateRequestParameters;
   @override
   List<Object?> get props => [
         id,
@@ -140,16 +135,20 @@ class RequestValidatorRestJson1Serializer
           }
           break;
         case 'validateRequestBody':
-          result.validateRequestBody = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.validateRequestBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'validateRequestParameters':
-          result.validateRequestParameters = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.validateRequestParameters = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -164,18 +163,7 @@ class RequestValidatorRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as RequestValidator);
-    final result = <Object?>[
-      'validateRequestBody',
-      serializers.serialize(
-        payload.validateRequestBody,
-        specifiedType: const FullType(bool),
-      ),
-      'validateRequestParameters',
-      serializers.serialize(
-        payload.validateRequestParameters,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.id != null) {
       result
         ..add('id')
@@ -190,6 +178,22 @@ class RequestValidatorRestJson1Serializer
         ..add(serializers.serialize(
           payload.name!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.validateRequestBody != null) {
+      result
+        ..add('validateRequestBody')
+        ..add(serializers.serialize(
+          payload.validateRequestBody!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.validateRequestParameters != null) {
+      result
+        ..add('validateRequestParameters')
+        ..add(serializers.serialize(
+          payload.validateRequestParameters!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

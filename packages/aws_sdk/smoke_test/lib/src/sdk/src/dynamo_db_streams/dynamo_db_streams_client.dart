@@ -21,13 +21,13 @@ import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/list_streams_inpu
     as _i14;
 import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/list_streams_output.dart'
     as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/describe_stream.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/describe_stream_operation.dart'
     as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/get_records.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/get_records_operation.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/get_shard_iterator.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/get_shard_iterator_operation.dart'
     as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/list_streams.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/operation/list_streams_operation.dart'
     as _i15;
 
 /// ## Amazon DynamoDB

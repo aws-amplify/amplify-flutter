@@ -5,15 +5,11 @@ library smoke_test.cloud_formation.model.stack_set_operation_summary; // ignore_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
+import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_action.dart'
     as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i5;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status.dart'
     as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status_details.dart'
-    as _i4;
 
 part 'stack_set_operation_summary.g.dart';
 
@@ -30,8 +26,6 @@ abstract class StackSetOperationSummary
     DateTime? creationTimestamp,
     DateTime? endTimestamp,
     String? statusReason,
-    _i4.StackSetOperationStatusDetails? statusDetails,
-    _i5.StackSetOperationPreferences? operationPreferences,
   }) {
     return _$StackSetOperationSummary._(
       operationId: operationId,
@@ -40,8 +34,6 @@ abstract class StackSetOperationSummary
       creationTimestamp: creationTimestamp,
       endTimestamp: endTimestamp,
       statusReason: statusReason,
-      statusDetails: statusDetails,
-      operationPreferences: operationPreferences,
     );
   }
 
@@ -52,7 +44,7 @@ abstract class StackSetOperationSummary
 
   const StackSetOperationSummary._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer> serializers = [
     StackSetOperationSummaryAwsQuerySerializer()
   ];
 
@@ -88,14 +80,6 @@ abstract class StackSetOperationSummary
 
   /// The status of the operation in details.
   String? get statusReason;
-
-  /// Detailed information about the stack set operation.
-  _i4.StackSetOperationStatusDetails? get statusDetails;
-
-  /// The user-specified preferences for how CloudFormation performs a stack set operation.
-  ///
-  /// For more information about maximum concurrent accounts and failure tolerance, see [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
-  _i5.StackSetOperationPreferences? get operationPreferences;
   @override
   List<Object?> get props => [
         operationId,
@@ -104,8 +88,6 @@ abstract class StackSetOperationSummary
         creationTimestamp,
         endTimestamp,
         statusReason,
-        statusDetails,
-        operationPreferences,
       ];
   @override
   String toString() {
@@ -134,20 +116,12 @@ abstract class StackSetOperationSummary
       'statusReason',
       statusReason,
     );
-    helper.add(
-      'statusDetails',
-      statusDetails,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
     return helper.toString();
   }
 }
 
 class StackSetOperationSummaryAwsQuerySerializer
-    extends _i6.StructuredSmithySerializer<StackSetOperationSummary> {
+    extends _i4.StructuredSmithySerializer<StackSetOperationSummary> {
   const StackSetOperationSummaryAwsQuerySerializer()
       : super('StackSetOperationSummary');
 
@@ -157,8 +131,8 @@ class StackSetOperationSummaryAwsQuerySerializer
         _$StackSetOperationSummary,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -224,22 +198,6 @@ class StackSetOperationSummaryAwsQuerySerializer
             ) as String);
           }
           break;
-        case 'StatusDetails':
-          if (value != null) {
-            result.statusDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.StackSetOperationStatusDetails),
-            ) as _i4.StackSetOperationStatusDetails));
-          }
-          break;
-        case 'OperationPreferences':
-          if (value != null) {
-            result.operationPreferences.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.StackSetOperationPreferences),
-            ) as _i5.StackSetOperationPreferences));
-          }
-          break;
       }
     }
 
@@ -254,14 +212,14 @@ class StackSetOperationSummaryAwsQuerySerializer
   }) {
     final payload = (object as StackSetOperationSummary);
     final result = <Object?>[
-      const _i6.XmlElementName(
+      const _i4.XmlElementName(
         'StackSetOperationSummaryResponse',
-        _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     if (payload.operationId != null) {
       result
-        ..add(const _i6.XmlElementName('OperationId'))
+        ..add(const _i4.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           payload.operationId!,
           specifiedType: const FullType(String),
@@ -269,7 +227,7 @@ class StackSetOperationSummaryAwsQuerySerializer
     }
     if (payload.action != null) {
       result
-        ..add(const _i6.XmlElementName('Action'))
+        ..add(const _i4.XmlElementName('Action'))
         ..add(serializers.serialize(
           payload.action!,
           specifiedType: const FullType.nullable(_i2.StackSetOperationAction),
@@ -277,7 +235,7 @@ class StackSetOperationSummaryAwsQuerySerializer
     }
     if (payload.status != null) {
       result
-        ..add(const _i6.XmlElementName('Status'))
+        ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
           payload.status!,
           specifiedType: const FullType.nullable(_i3.StackSetOperationStatus),
@@ -285,7 +243,7 @@ class StackSetOperationSummaryAwsQuerySerializer
     }
     if (payload.creationTimestamp != null) {
       result
-        ..add(const _i6.XmlElementName('CreationTimestamp'))
+        ..add(const _i4.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
           payload.creationTimestamp!,
           specifiedType: const FullType.nullable(DateTime),
@@ -293,7 +251,7 @@ class StackSetOperationSummaryAwsQuerySerializer
     }
     if (payload.endTimestamp != null) {
       result
-        ..add(const _i6.XmlElementName('EndTimestamp'))
+        ..add(const _i4.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
           payload.endTimestamp!,
           specifiedType: const FullType.nullable(DateTime),
@@ -301,26 +259,10 @@ class StackSetOperationSummaryAwsQuerySerializer
     }
     if (payload.statusReason != null) {
       result
-        ..add(const _i6.XmlElementName('StatusReason'))
+        ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           payload.statusReason!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.statusDetails != null) {
-      result
-        ..add(const _i6.XmlElementName('StatusDetails'))
-        ..add(serializers.serialize(
-          payload.statusDetails!,
-          specifiedType: const FullType(_i4.StackSetOperationStatusDetails),
-        ));
-    }
-    if (payload.operationPreferences != null) {
-      result
-        ..add(const _i6.XmlElementName('OperationPreferences'))
-        ..add(serializers.serialize(
-          payload.operationPreferences!,
-          specifiedType: const FullType(_i5.StackSetOperationPreferences),
         ));
     }
     return result;

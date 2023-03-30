@@ -44,8 +44,6 @@ abstract class Stage
     DateTime? createdDate,
     DateTime? lastUpdatedDate,
   }) {
-    cacheClusterEnabled ??= false;
-    tracingEnabled ??= false;
     return _$Stage._(
       deploymentId: deploymentId,
       clientCertificateId: clientCertificateId,
@@ -85,10 +83,7 @@ abstract class Stage
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(StageBuilder b) {
-    b.cacheClusterEnabled = false;
-    b.tracingEnabled = false;
-  }
+  static void _init(StageBuilder b) {}
 
   /// The identifier of the Deployment that the stage points to.
   String? get deploymentId;
@@ -103,9 +98,9 @@ abstract class Stage
   String? get description;
 
   /// Specifies whether a cache cluster is enabled for the stage.
-  bool get cacheClusterEnabled;
+  bool? get cacheClusterEnabled;
 
-  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
+  /// The size of the cache cluster for the stage, if enabled.
   _i2.CacheClusterSize? get cacheClusterSize;
 
   /// The status of the cache cluster for the stage, if enabled.
@@ -127,7 +122,7 @@ abstract class Stage
   _i6.CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
-  bool get tracingEnabled;
+  bool? get tracingEnabled;
 
   /// The ARN of the WebAcl associated with the Stage.
   String? get webAclArn;
@@ -272,10 +267,12 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           }
           break;
         case 'cacheClusterEnabled':
-          result.cacheClusterEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.cacheClusterEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'cacheClusterSize':
           if (value != null) {
@@ -386,10 +383,12 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
           }
           break;
         case 'tracingEnabled':
-          result.tracingEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.tracingEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'variables':
           if (value != null) {
@@ -426,24 +425,21 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as Stage);
-    final result = <Object?>[
-      'cacheClusterEnabled',
-      serializers.serialize(
-        payload.cacheClusterEnabled,
-        specifiedType: const FullType(bool),
-      ),
-      'tracingEnabled',
-      serializers.serialize(
-        payload.tracingEnabled,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.accessLogSettings != null) {
       result
         ..add('accessLogSettings')
         ..add(serializers.serialize(
           payload.accessLogSettings!,
           specifiedType: const FullType(_i5.AccessLogSettings),
+        ));
+    }
+    if (payload.cacheClusterEnabled != null) {
+      result
+        ..add('cacheClusterEnabled')
+        ..add(serializers.serialize(
+          payload.cacheClusterEnabled!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.cacheClusterSize != null) {
@@ -552,6 +548,14 @@ class StageRestJson1Serializer extends _i8.StructuredSmithySerializer<Stage> {
               FullType(String),
             ],
           ),
+        ));
+    }
+    if (payload.tracingEnabled != null) {
+      result
+        ..add('tracingEnabled')
+        ..add(serializers.serialize(
+          payload.tracingEnabled!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.variables != null) {

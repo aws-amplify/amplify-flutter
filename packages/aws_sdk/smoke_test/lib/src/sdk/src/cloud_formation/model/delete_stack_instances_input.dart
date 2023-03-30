@@ -343,7 +343,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('RetainStacks'))
       ..add(serializers.serialize(
         payload.retainStacks,
-        specifiedType: const FullType(bool),
+        specifiedType: const FullType.nullable(bool),
       ));
     if (payload.operationId != null) {
       result

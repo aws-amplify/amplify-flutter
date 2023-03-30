@@ -24,7 +24,6 @@ abstract class ListPoliciesRequest
     String? marker,
     int? maxItems,
   }) {
-    onlyAttached ??= false;
     return _$ListPoliciesRequest._(
       scope: scope,
       onlyAttached: onlyAttached,
@@ -53,9 +52,7 @@ abstract class ListPoliciesRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPoliciesRequestBuilder b) {
-    b.onlyAttached = false;
-  }
+  static void _init(ListPoliciesRequestBuilder b) {}
 
   /// The scope to use for filtering the results.
   ///
@@ -67,7 +64,7 @@ abstract class ListPoliciesRequest
   /// A flag to filter the results to only the attached policies.
   ///
   /// When `OnlyAttached` is `true`, the returned list contains only the policies that are attached to an IAM user, group, or role. When `OnlyAttached` is `false`, or when the parameter is not included, all policies are returned.
-  bool get onlyAttached;
+  bool? get onlyAttached;
 
   /// The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all policies. This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (`\\u0021`) through the DEL character (`\\u007F`), including most punctuation characters, digits, and upper and lowercased letters.
   String? get pathPrefix;
@@ -166,10 +163,12 @@ class ListPoliciesRequestAwsQuerySerializer
           }
           break;
         case 'OnlyAttached':
-          result.onlyAttached = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.onlyAttached = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'PathPrefix':
           if (value != null) {
@@ -230,12 +229,14 @@ class ListPoliciesRequestAwsQuerySerializer
           specifiedType: const FullType.nullable(_i3.PolicyScopeType),
         ));
     }
-    result
-      ..add(const _i1.XmlElementName('OnlyAttached'))
-      ..add(serializers.serialize(
-        payload.onlyAttached,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.onlyAttached != null) {
+      result
+        ..add(const _i1.XmlElementName('OnlyAttached'))
+        ..add(serializers.serialize(
+          payload.onlyAttached!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.pathPrefix != null) {
       result
         ..add(const _i1.XmlElementName('PathPrefix'))

@@ -13,18 +13,13 @@ class _$EvaluationResultQualifier extends EvaluationResultQualifier {
   final String? resourceType;
   @override
   final String? resourceId;
-  @override
-  final _i2.EvaluationMode? evaluationMode;
 
   factory _$EvaluationResultQualifier(
           [void Function(EvaluationResultQualifierBuilder)? updates]) =>
       (new EvaluationResultQualifierBuilder()..update(updates))._build();
 
   _$EvaluationResultQualifier._(
-      {this.configRuleName,
-      this.resourceType,
-      this.resourceId,
-      this.evaluationMode})
+      {this.configRuleName, this.resourceType, this.resourceId})
       : super._();
 
   @override
@@ -42,8 +37,7 @@ class _$EvaluationResultQualifier extends EvaluationResultQualifier {
     return other is EvaluationResultQualifier &&
         configRuleName == other.configRuleName &&
         resourceType == other.resourceType &&
-        resourceId == other.resourceId &&
-        evaluationMode == other.evaluationMode;
+        resourceId == other.resourceId;
   }
 
   @override
@@ -52,7 +46,6 @@ class _$EvaluationResultQualifier extends EvaluationResultQualifier {
     _$hash = $jc(_$hash, configRuleName.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, evaluationMode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -76,11 +69,6 @@ class EvaluationResultQualifierBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
-      _$this._evaluationMode = evaluationMode;
-
   EvaluationResultQualifierBuilder() {
     EvaluationResultQualifier._init(this);
   }
@@ -91,7 +79,6 @@ class EvaluationResultQualifierBuilder
       _configRuleName = $v.configRuleName;
       _resourceType = $v.resourceType;
       _resourceId = $v.resourceId;
-      _evaluationMode = $v.evaluationMode;
       _$v = null;
     }
     return this;
@@ -116,8 +103,7 @@ class EvaluationResultQualifierBuilder
         new _$EvaluationResultQualifier._(
             configRuleName: configRuleName,
             resourceType: resourceType,
-            resourceId: resourceId,
-            evaluationMode: evaluationMode);
+            resourceId: resourceId);
     replace(_$result);
     return _$result;
   }

@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i11;
 
-/// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
+/// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
 ///
 /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
 ///
@@ -32,7 +32,7 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
     _i2.DeleteLoginProfileRequest,
     _i1.Unit,
     _i1.Unit> {
-  /// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
+  /// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
   ///
   /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
   ///

@@ -37,7 +37,6 @@ abstract class RemediationConfiguration
     String? arn,
     String? createdByService,
   }) {
-    automatic ??= false;
     return _$RemediationConfiguration._(
       configRuleName: configRuleName,
       targetType: targetType,
@@ -66,9 +65,7 @@ abstract class RemediationConfiguration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationConfigurationBuilder b) {
-    b.automatic = false;
-  }
+  static void _init(RemediationConfigurationBuilder b) {}
 
   /// The name of the Config rule.
   String get configRuleName;
@@ -91,7 +88,7 @@ abstract class RemediationConfiguration
   String? get resourceType;
 
   /// The remediation is triggered automatically.
-  bool get automatic;
+  bool? get automatic;
 
   /// An ExecutionControls object.
   _i4.ExecutionControls? get executionControls;
@@ -260,10 +257,12 @@ class RemediationConfigurationAwsJson11Serializer
           }
           break;
         case 'Automatic':
-          result.automatic = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.automatic = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'ExecutionControls':
           if (value != null) {
@@ -334,11 +333,6 @@ class RemediationConfigurationAwsJson11Serializer
         payload.targetId,
         specifiedType: const FullType(String),
       ),
-      'Automatic',
-      serializers.serialize(
-        payload.automatic,
-        specifiedType: const FullType(bool),
-      ),
     ];
     if (payload.targetVersion != null) {
       result
@@ -368,6 +362,14 @@ class RemediationConfigurationAwsJson11Serializer
         ..add(serializers.serialize(
           payload.resourceType!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.automatic != null) {
+      result
+        ..add('Automatic')
+        ..add(serializers.serialize(
+          payload.automatic!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.executionControls != null) {

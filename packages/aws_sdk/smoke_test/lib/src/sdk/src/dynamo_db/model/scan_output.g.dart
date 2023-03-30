@@ -10,9 +10,9 @@ class _$ScanOutput extends ScanOutput {
   @override
   final _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? items;
   @override
-  final int count;
+  final int? count;
   @override
-  final int scannedCount;
+  final int? scannedCount;
   @override
   final _i4.BuiltMap<String, _i2.AttributeValue>? lastEvaluatedKey;
   @override
@@ -23,15 +23,11 @@ class _$ScanOutput extends ScanOutput {
 
   _$ScanOutput._(
       {this.items,
-      required this.count,
-      required this.scannedCount,
+      this.count,
+      this.scannedCount,
       this.lastEvaluatedKey,
       this.consumedCapacity})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(count, r'ScanOutput', 'count');
-    BuiltValueNullFieldError.checkNotNull(
-        scannedCount, r'ScanOutput', 'scannedCount');
-  }
+      : super._();
 
   @override
   ScanOutput rebuild(void Function(ScanOutputBuilder) updates) =>
@@ -133,10 +129,8 @@ class ScanOutputBuilder implements Builder<ScanOutput, ScanOutputBuilder> {
       _$result = _$v ??
           new _$ScanOutput._(
               items: _items?.build(),
-              count: BuiltValueNullFieldError.checkNotNull(
-                  count, r'ScanOutput', 'count'),
-              scannedCount: BuiltValueNullFieldError.checkNotNull(
-                  scannedCount, r'ScanOutput', 'scannedCount'),
+              count: count,
+              scannedCount: scannedCount,
               lastEvaluatedKey: _lastEvaluatedKey?.build(),
               consumedCapacity: _consumedCapacity?.build());
     } catch (_) {

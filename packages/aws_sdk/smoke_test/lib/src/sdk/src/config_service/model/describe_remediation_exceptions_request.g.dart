@@ -13,7 +13,7 @@ class _$DescribeRemediationExceptionsRequest
   @override
   final _i4.BuiltList<_i3.RemediationExceptionResourceKey>? resourceKeys;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -26,13 +26,11 @@ class _$DescribeRemediationExceptionsRequest
   _$DescribeRemediationExceptionsRequest._(
       {required this.configRuleName,
       this.resourceKeys,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(configRuleName,
         r'DescribeRemediationExceptionsRequest', 'configRuleName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeRemediationExceptionsRequest', 'limit');
   }
 
   @override
@@ -134,8 +132,7 @@ class DescribeRemediationExceptionsRequestBuilder
                   r'DescribeRemediationExceptionsRequest',
                   'configRuleName'),
               resourceKeys: _resourceKeys?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'DescribeRemediationExceptionsRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

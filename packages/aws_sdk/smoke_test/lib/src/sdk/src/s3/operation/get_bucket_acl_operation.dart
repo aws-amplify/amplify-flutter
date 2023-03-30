@@ -17,8 +17,6 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_request.dart'
 
 /// This implementation of the `GET` action uses the `acl` subresource to return the access control list (ACL) of a bucket. To use `GET` to return the ACL of the bucket, you must have `READ_ACP` access to the bucket. If `READ_ACP` permission is granted to the anonymous user, you can return the ACL of the bucket without using an authorization header.
 ///
-/// To use this API against an access point, provide the alias of the access point in place of the bucket name.
-///
 /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, requests to read ACLs are still supported and return the `bucket-owner-full-control` ACL with the owner being the account that created the bucket. For more information, see [Controlling object ownership and disabling ACLs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
 ///
 /// **Related Resources**
@@ -30,8 +28,6 @@ class GetBucketAclOperation extends _i1.HttpOperation<
     _i3.GetBucketAclOutput,
     _i3.GetBucketAclOutput> {
   /// This implementation of the `GET` action uses the `acl` subresource to return the access control list (ACL) of a bucket. To use `GET` to return the ACL of the bucket, you must have `READ_ACP` access to the bucket. If `READ_ACP` permission is granted to the anonymous user, you can return the ACL of the bucket without using an authorization header.
-  ///
-  /// To use this API against an access point, provide the alias of the access point in place of the bucket name.
   ///
   /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, requests to read ACLs are still supported and return the `bucket-owner-full-control` ACL with the owner being the account that created the bucket. For more information, see [Controlling object ownership and disabling ACLs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
   ///

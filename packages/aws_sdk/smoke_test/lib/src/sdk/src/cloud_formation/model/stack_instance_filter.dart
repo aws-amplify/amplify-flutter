@@ -11,11 +11,11 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filt
 
 part 'stack_instance_filter.g.dart';
 
-/// The filter to apply to stack instances
+/// The status that stack instances are filtered by.
 abstract class StackInstanceFilter
     with _i1.AWSEquatable<StackInstanceFilter>
     implements Built<StackInstanceFilter, StackInstanceFilterBuilder> {
-  /// The filter to apply to stack instances
+  /// The status that stack instances are filtered by.
   factory StackInstanceFilter({
     _i2.StackInstanceFilterName? name,
     String? values,
@@ -26,7 +26,7 @@ abstract class StackInstanceFilter
     );
   }
 
-  /// The filter to apply to stack instances
+  /// The status that stack instances are filtered by.
   factory StackInstanceFilter.build(
           [void Function(StackInstanceFilterBuilder) updates]) =
       _$StackInstanceFilter;

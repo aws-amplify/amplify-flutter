@@ -32,8 +32,6 @@ abstract class GetObjectAttributesOutput
     _i6.StorageClass? storageClass,
     _i7.Int64? objectSize,
   }) {
-    deleteMarker ??= false;
-    objectSize ??= _i7.Int64.ZERO;
     return _$GetObjectAttributesOutput._(
       deleteMarker: deleteMarker,
       lastModified: lastModified,
@@ -91,13 +89,10 @@ abstract class GetObjectAttributesOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputBuilder b) {
-    b.deleteMarker = false;
-    b.objectSize = _i7.Int64.ZERO;
-  }
+  static void _init(GetObjectAttributesOutputBuilder b) {}
 
   /// Specifies whether the object retrieved was (`true`) or was not (`false`) a delete marker. If `false`, this response header does not appear in the response.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// The creation date of the object.
   DateTime? get lastModified;
@@ -123,7 +118,7 @@ abstract class GetObjectAttributesOutput
   _i6.StorageClass? get storageClass;
 
   /// The size of the object in bytes.
-  _i7.Int64 get objectSize;
+  _i7.Int64? get objectSize;
   @override
   GetObjectAttributesOutputPayload getPayload() =>
       GetObjectAttributesOutputPayload((b) {
@@ -206,9 +201,7 @@ abstract class GetObjectAttributesOutputPayload
   const GetObjectAttributesOutputPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputPayloadBuilder b) {
-    b.objectSize = _i7.Int64.ZERO;
-  }
+  static void _init(GetObjectAttributesOutputPayloadBuilder b) {}
 
   /// The checksum or digest of the object.
   _i4.Checksum? get checksum;
@@ -220,7 +213,7 @@ abstract class GetObjectAttributesOutputPayload
   _i5.GetObjectAttributesParts? get objectParts;
 
   /// The size of the object in bytes.
-  _i7.Int64 get objectSize;
+  _i7.Int64? get objectSize;
 
   /// Provides the storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   ///
@@ -319,10 +312,12 @@ class GetObjectAttributesOutputRestXmlSerializer
           }
           break;
         case 'ObjectSize':
-          result.objectSize = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i7.Int64),
-          ) as _i7.Int64);
+          if (value != null) {
+            result.objectSize = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i7.Int64),
+            ) as _i7.Int64);
+          }
           break;
         case 'StorageClass':
           if (value != null) {
@@ -377,12 +372,14 @@ class GetObjectAttributesOutputRestXmlSerializer
           specifiedType: const FullType(_i5.GetObjectAttributesParts),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('ObjectSize'))
-      ..add(serializers.serialize(
-        payload.objectSize,
-        specifiedType: const FullType(_i7.Int64),
-      ));
+    if (payload.objectSize != null) {
+      result
+        ..add(const _i2.XmlElementName('ObjectSize'))
+        ..add(serializers.serialize(
+          payload.objectSize!,
+          specifiedType: const FullType.nullable(_i7.Int64),
+        ));
+    }
     if (payload.storageClass != null) {
       result
         ..add(const _i2.XmlElementName('StorageClass'))

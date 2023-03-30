@@ -14,7 +14,7 @@ class _$PutBucketPolicyRequest extends PutBucketPolicyRequest {
   @override
   final _i3.ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final bool confirmRemoveSelfBucketAccess;
+  final bool? confirmRemoveSelfBucketAccess;
   @override
   final String policy;
   @override
@@ -28,14 +28,12 @@ class _$PutBucketPolicyRequest extends PutBucketPolicyRequest {
       {required this.bucket,
       this.contentMd5,
       this.checksumAlgorithm,
-      required this.confirmRemoveSelfBucketAccess,
+      this.confirmRemoveSelfBucketAccess,
       required this.policy,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketPolicyRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(confirmRemoveSelfBucketAccess,
-        r'PutBucketPolicyRequest', 'confirmRemoveSelfBucketAccess');
     BuiltValueNullFieldError.checkNotNull(
         policy, r'PutBucketPolicyRequest', 'policy');
   }
@@ -146,11 +144,7 @@ class PutBucketPolicyRequestBuilder
                 bucket, r'PutBucketPolicyRequest', 'bucket'),
             contentMd5: contentMd5,
             checksumAlgorithm: checksumAlgorithm,
-            confirmRemoveSelfBucketAccess:
-                BuiltValueNullFieldError.checkNotNull(
-                    confirmRemoveSelfBucketAccess,
-                    r'PutBucketPolicyRequest',
-                    'confirmRemoveSelfBucketAccess'),
+            confirmRemoveSelfBucketAccess: confirmRemoveSelfBucketAccess,
             policy: BuiltValueNullFieldError.checkNotNull(
                 policy, r'PutBucketPolicyRequest', 'policy'),
             expectedBucketOwner: expectedBucketOwner);

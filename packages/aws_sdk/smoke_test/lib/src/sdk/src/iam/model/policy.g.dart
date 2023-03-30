@@ -22,7 +22,7 @@ class _$Policy extends Policy {
   @override
   final int? permissionsBoundaryUsageCount;
   @override
-  final bool isAttachable;
+  final bool? isAttachable;
   @override
   final String? description;
   @override
@@ -43,15 +43,12 @@ class _$Policy extends Policy {
       this.defaultVersionId,
       this.attachmentCount,
       this.permissionsBoundaryUsageCount,
-      required this.isAttachable,
+      this.isAttachable,
       this.description,
       this.createDate,
       this.updateDate,
       this.tags})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isAttachable, r'Policy', 'isAttachable');
-  }
+      : super._();
 
   @override
   Policy rebuild(void Function(PolicyBuilder) updates) =>
@@ -204,8 +201,7 @@ class PolicyBuilder implements Builder<Policy, PolicyBuilder> {
               defaultVersionId: defaultVersionId,
               attachmentCount: attachmentCount,
               permissionsBoundaryUsageCount: permissionsBoundaryUsageCount,
-              isAttachable: BuiltValueNullFieldError.checkNotNull(
-                  isAttachable, r'Policy', 'isAttachable'),
+              isAttachable: isAttachable,
               description: description,
               createDate: createDate,
               updateDate: updateDate,

@@ -9,19 +9,15 @@ part of smoke_test.iam.model.permissions_boundary_decision_detail;
 class _$PermissionsBoundaryDecisionDetail
     extends PermissionsBoundaryDecisionDetail {
   @override
-  final bool allowedByPermissionsBoundary;
+  final bool? allowedByPermissionsBoundary;
 
   factory _$PermissionsBoundaryDecisionDetail(
           [void Function(PermissionsBoundaryDecisionDetailBuilder)? updates]) =>
       (new PermissionsBoundaryDecisionDetailBuilder()..update(updates))
           ._build();
 
-  _$PermissionsBoundaryDecisionDetail._(
-      {required this.allowedByPermissionsBoundary})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(allowedByPermissionsBoundary,
-        r'PermissionsBoundaryDecisionDetail', 'allowedByPermissionsBoundary');
-  }
+  _$PermissionsBoundaryDecisionDetail._({this.allowedByPermissionsBoundary})
+      : super._();
 
   @override
   PermissionsBoundaryDecisionDetail rebuild(
@@ -91,10 +87,7 @@ class PermissionsBoundaryDecisionDetailBuilder
   _$PermissionsBoundaryDecisionDetail _build() {
     final _$result = _$v ??
         new _$PermissionsBoundaryDecisionDetail._(
-            allowedByPermissionsBoundary: BuiltValueNullFieldError.checkNotNull(
-                allowedByPermissionsBoundary,
-                r'PermissionsBoundaryDecisionDetail',
-                'allowedByPermissionsBoundary'));
+            allowedByPermissionsBoundary: allowedByPermissionsBoundary);
     replace(_$result);
     return _$result;
   }

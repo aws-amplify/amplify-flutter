@@ -19,7 +19,7 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
   @override
   final _i3.ComplianceType? complianceType;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -37,7 +37,7 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
       required this.accountId,
       required this.awsRegion,
       this.complianceType,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -50,8 +50,6 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
         r'GetAggregateComplianceDetailsByConfigRuleRequest', 'accountId');
     BuiltValueNullFieldError.checkNotNull(awsRegion,
         r'GetAggregateComplianceDetailsByConfigRuleRequest', 'awsRegion');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetAggregateComplianceDetailsByConfigRuleRequest', 'limit');
   }
 
   @override
@@ -178,14 +176,15 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
                 r'GetAggregateComplianceDetailsByConfigRuleRequest',
                 'configRuleName'),
             accountId: BuiltValueNullFieldError.checkNotNull(
-                accountId, r'GetAggregateComplianceDetailsByConfigRuleRequest', 'accountId'),
+                accountId,
+                r'GetAggregateComplianceDetailsByConfigRuleRequest',
+                'accountId'),
             awsRegion: BuiltValueNullFieldError.checkNotNull(
                 awsRegion,
                 r'GetAggregateComplianceDetailsByConfigRuleRequest',
                 'awsRegion'),
             complianceType: complianceType,
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GetAggregateComplianceDetailsByConfigRuleRequest', 'limit'),
+            limit: limit,
             nextToken: nextToken);
     replace(_$result);
     return _$result;

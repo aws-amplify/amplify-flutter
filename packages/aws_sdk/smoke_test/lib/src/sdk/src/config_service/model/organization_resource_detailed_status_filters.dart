@@ -46,7 +46,7 @@ abstract class OrganizationResourceDetailedStatusFilters
   /// The 12-digit account ID of the member account within an organization.
   String? get accountId;
 
-  /// Indicates deployment status for conformance pack in a member account. When management account calls `PutOrganizationConformancePack` action for the first time, conformance pack status is created in the member account. When management account calls `PutOrganizationConformancePack` action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the management account deletes `OrganizationConformancePack` and disables service access for `config-multiaccountsetup.amazonaws.com`.
+  /// Indicates deployment status for conformance pack in a member account. When master account calls `PutOrganizationConformancePack` action for the first time, conformance pack status is created in the member account. When master account calls `PutOrganizationConformancePack` action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the master account deletes `OrganizationConformancePack` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the conformance pack to:
   ///

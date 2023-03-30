@@ -10,7 +10,7 @@ class _$ListVirtualMfaDevicesResponse extends ListVirtualMfaDevicesResponse {
   @override
   final _i3.BuiltList<_i2.VirtualMfaDevice> virtualMfaDevices;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
 
@@ -19,12 +19,10 @@ class _$ListVirtualMfaDevicesResponse extends ListVirtualMfaDevicesResponse {
       (new ListVirtualMfaDevicesResponseBuilder()..update(updates))._build();
 
   _$ListVirtualMfaDevicesResponse._(
-      {required this.virtualMfaDevices, required this.isTruncated, this.marker})
+      {required this.virtualMfaDevices, this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(virtualMfaDevices,
         r'ListVirtualMfaDevicesResponse', 'virtualMfaDevices');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListVirtualMfaDevicesResponse', 'isTruncated');
   }
 
   @override
@@ -112,8 +110,7 @@ class ListVirtualMfaDevicesResponseBuilder
       _$result = _$v ??
           new _$ListVirtualMfaDevicesResponse._(
               virtualMfaDevices: virtualMfaDevices.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'ListVirtualMfaDevicesResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker);
     } catch (_) {
       late String _$failedField;

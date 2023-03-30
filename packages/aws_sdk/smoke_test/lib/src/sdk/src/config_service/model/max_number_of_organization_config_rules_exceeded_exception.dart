@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'max_number_of_organization_config_rules_exceeded_exception.g.dart';
 
-/// You have reached the limit of the number of organization Config rules you can create. For more information, see see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+/// You have reached the limit of the number of organization Config rules you can create.
 abstract class MaxNumberOfOrganizationConfigRulesExceededException
     with
         _i1.AWSEquatable<MaxNumberOfOrganizationConfigRulesExceededException>
@@ -17,14 +17,14 @@ abstract class MaxNumberOfOrganizationConfigRulesExceededException
         Built<MaxNumberOfOrganizationConfigRulesExceededException,
             MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit of the number of organization Config rules you can create. For more information, see see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// You have reached the limit of the number of organization Config rules you can create.
   factory MaxNumberOfOrganizationConfigRulesExceededException(
       {String? message}) {
     return _$MaxNumberOfOrganizationConfigRulesExceededException._(
         message: message);
   }
 
-  /// You have reached the limit of the number of organization Config rules you can create. For more information, see see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// You have reached the limit of the number of organization Config rules you can create.
   factory MaxNumberOfOrganizationConfigRulesExceededException.build(
       [void Function(MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder)
           updates]) = _$MaxNumberOfOrganizationConfigRulesExceededException;

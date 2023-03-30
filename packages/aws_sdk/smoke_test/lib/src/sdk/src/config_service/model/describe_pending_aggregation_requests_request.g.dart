@@ -9,7 +9,7 @@ part of smoke_test.config_service.model.describe_pending_aggregation_requests_re
 class _$DescribePendingAggregationRequestsRequest
     extends DescribePendingAggregationRequestsRequest {
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -19,12 +19,8 @@ class _$DescribePendingAggregationRequestsRequest
       (new DescribePendingAggregationRequestsRequestBuilder()..update(updates))
           ._build();
 
-  _$DescribePendingAggregationRequestsRequest._(
-      {required this.limit, this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribePendingAggregationRequestsRequest', 'limit');
-  }
+  _$DescribePendingAggregationRequestsRequest._({this.limit, this.nextToken})
+      : super._();
 
   @override
   DescribePendingAggregationRequestsRequest rebuild(
@@ -101,9 +97,7 @@ class DescribePendingAggregationRequestsRequestBuilder
   _$DescribePendingAggregationRequestsRequest _build() {
     final _$result = _$v ??
         new _$DescribePendingAggregationRequestsRequest._(
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'DescribePendingAggregationRequestsRequest', 'limit'),
-            nextToken: nextToken);
+            limit: limit, nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

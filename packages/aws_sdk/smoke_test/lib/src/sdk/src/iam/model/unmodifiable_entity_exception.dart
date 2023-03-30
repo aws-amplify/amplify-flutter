@@ -9,18 +9,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unmodifiable_entity_exception.g.dart';
 
-/// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+/// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
 abstract class UnmodifiableEntityException
     with _i1.AWSEquatable<UnmodifiableEntityException>
     implements
         Built<UnmodifiableEntityException, UnmodifiableEntityExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+  /// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
   factory UnmodifiableEntityException({String? message}) {
     return _$UnmodifiableEntityException._(message: message);
   }
 
-  /// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+  /// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
   factory UnmodifiableEntityException.build(
           [void Function(UnmodifiableEntityExceptionBuilder) updates]) =
       _$UnmodifiableEntityException;

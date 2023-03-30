@@ -23,14 +23,10 @@ import 'package:smoke_test/src/sdk/src/s3/model/transition.dart' as _i5;
 part 'lifecycle_rule.g.dart';
 
 /// A lifecycle rule for individual objects in an Amazon S3 bucket.
-///
-/// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
 abstract class LifecycleRule
     with _i1.AWSEquatable<LifecycleRule>
     implements Built<LifecycleRule, LifecycleRuleBuilder> {
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
-  ///
-  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleRule({
     _i2.LifecycleExpiration? expiration,
     String? id,
@@ -59,8 +55,6 @@ abstract class LifecycleRule
   }
 
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
-  ///
-  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleRule.build([void Function(LifecycleRuleBuilder) updates]) =
       _$LifecycleRule;
 

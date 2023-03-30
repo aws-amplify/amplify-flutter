@@ -10,18 +10,15 @@ class _$ServerSideEncryptionRule extends ServerSideEncryptionRule {
   @override
   final _i2.ServerSideEncryptionByDefault? applyServerSideEncryptionByDefault;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
 
   factory _$ServerSideEncryptionRule(
           [void Function(ServerSideEncryptionRuleBuilder)? updates]) =>
       (new ServerSideEncryptionRuleBuilder()..update(updates))._build();
 
   _$ServerSideEncryptionRule._(
-      {this.applyServerSideEncryptionByDefault, required this.bucketKeyEnabled})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'ServerSideEncryptionRule', 'bucketKeyEnabled');
-  }
+      {this.applyServerSideEncryptionByDefault, this.bucketKeyEnabled})
+      : super._();
 
   @override
   ServerSideEncryptionRule rebuild(
@@ -108,10 +105,7 @@ class ServerSideEncryptionRuleBuilder
           new _$ServerSideEncryptionRule._(
               applyServerSideEncryptionByDefault:
                   _applyServerSideEncryptionByDefault?.build(),
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled,
-                  r'ServerSideEncryptionRule',
-                  'bucketKeyEnabled'));
+              bucketKeyEnabled: bucketKeyEnabled);
     } catch (_) {
       late String _$failedField;
       try {

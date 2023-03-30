@@ -13,7 +13,7 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   @override
   final _i3.OrganizationResourceDetailedStatusFilters? filters;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -28,15 +28,13 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   _$GetOrganizationConformancePackDetailedStatusRequest._(
       {required this.organizationConformancePackName,
       this.filters,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         organizationConformancePackName,
         r'GetOrganizationConformancePackDetailedStatusRequest',
         'organizationConformancePackName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetOrganizationConformancePackDetailedStatusRequest', 'limit');
   }
 
   @override
@@ -145,10 +143,7 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
                       r'GetOrganizationConformancePackDetailedStatusRequest',
                       'organizationConformancePackName'),
               filters: _filters?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit,
-                  r'GetOrganizationConformancePackDetailedStatusRequest',
-                  'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

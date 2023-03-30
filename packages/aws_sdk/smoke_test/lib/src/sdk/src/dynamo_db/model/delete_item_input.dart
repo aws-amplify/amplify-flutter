@@ -82,7 +82,7 @@ abstract class DeleteItemInput
 
   /// A map of attribute names to `AttributeValue` objects, representing the primary key of the item to delete.
   ///
-  /// For the primary key, you must provide all of the key attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
+  /// For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
   _i9.BuiltMap<String, _i3.AttributeValue> get key;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [Expected](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html) in the _Amazon DynamoDB Developer Guide_.

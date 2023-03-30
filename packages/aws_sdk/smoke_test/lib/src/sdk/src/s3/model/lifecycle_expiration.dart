@@ -10,21 +10,15 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'lifecycle_expiration.g.dart';
 
 /// Container for the expiration for the lifecycle of the object.
-///
-/// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
 abstract class LifecycleExpiration
     with _i1.AWSEquatable<LifecycleExpiration>
     implements Built<LifecycleExpiration, LifecycleExpirationBuilder> {
   /// Container for the expiration for the lifecycle of the object.
-  ///
-  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration({
     DateTime? date,
     int? days,
     bool? expiredObjectDeleteMarker,
   }) {
-    days ??= 0;
-    expiredObjectDeleteMarker ??= false;
     return _$LifecycleExpiration._(
       date: date,
       days: days,
@@ -33,8 +27,6 @@ abstract class LifecycleExpiration
   }
 
   /// Container for the expiration for the lifecycle of the object.
-  ///
-  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration.build(
           [void Function(LifecycleExpirationBuilder) updates]) =
       _$LifecycleExpiration;
@@ -46,19 +38,16 @@ abstract class LifecycleExpiration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleExpirationBuilder b) {
-    b.days = 0;
-    b.expiredObjectDeleteMarker = false;
-  }
+  static void _init(LifecycleExpirationBuilder b) {}
 
   /// Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601 Format.
   DateTime? get date;
 
   /// Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.
-  int get days;
+  int? get days;
 
   /// Indicates whether Amazon S3 will remove a delete marker with no noncurrent versions. If set to true, the delete marker will be expired; if set to false the policy takes no action. This cannot be specified with Days or Date in a Lifecycle Expiration Policy.
-  bool get expiredObjectDeleteMarker;
+  bool? get expiredObjectDeleteMarker;
   @override
   List<Object?> get props => [
         date,
@@ -122,16 +111,20 @@ class LifecycleExpirationRestXmlSerializer
           }
           break;
         case 'Days':
-          result.days = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.days = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'ExpiredObjectDeleteMarker':
-          result.expiredObjectDeleteMarker = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.expiredObjectDeleteMarker = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -160,18 +153,22 @@ class LifecycleExpirationRestXmlSerializer
           payload.date!,
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('Days'))
-      ..add(serializers.serialize(
-        payload.days,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i2.XmlElementName('ExpiredObjectDeleteMarker'))
-      ..add(serializers.serialize(
-        payload.expiredObjectDeleteMarker,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.days != null) {
+      result
+        ..add(const _i2.XmlElementName('Days'))
+        ..add(serializers.serialize(
+          payload.days!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.expiredObjectDeleteMarker != null) {
+      result
+        ..add(const _i2.XmlElementName('ExpiredObjectDeleteMarker'))
+        ..add(serializers.serialize(
+          payload.expiredObjectDeleteMarker!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

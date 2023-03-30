@@ -452,301 +452,321 @@ import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.
 import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i141;
 import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
     as _i285;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider_operation.dart'
     as _i5;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile_operation.dart'
     as _i7;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group_operation.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy_operation.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy_operation.dart'
     as _i13;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy_operation.dart'
     as _i15;
-import 'package:smoke_test/src/sdk/src/iam/operation/change_password.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/change_password_operation.dart'
     as _i17;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key_operation.dart'
     as _i20;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias_operation.dart'
     as _i22;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_group.dart' as _i25;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_group_operation.dart'
+    as _i25;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile_operation.dart'
     as _i28;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile_operation.dart'
     as _i31;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider_operation.dart'
     as _i34;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_operation.dart'
     as _i37;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version_operation.dart'
     as _i40;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_role.dart' as _i43;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_role_operation.dart'
+    as _i43;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider_operation.dart'
     as _i46;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role_operation.dart'
     as _i49;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential_operation.dart'
     as _i52;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_user.dart' as _i55;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_user_operation.dart'
+    as _i55;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device_operation.dart'
     as _i58;
-import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device_operation.dart'
     as _i60;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key_operation.dart'
     as _i62;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias_operation.dart'
     as _i64;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy_operation.dart'
     as _i65;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group.dart' as _i67;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_operation.dart'
+    as _i67;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy_operation.dart'
     as _i69;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile_operation.dart'
     as _i71;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile_operation.dart'
     as _i73;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider_operation.dart'
     as _i75;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_operation.dart'
     as _i77;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version_operation.dart'
     as _i79;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role.dart' as _i81;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_operation.dart'
+    as _i81;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary_operation.dart'
     as _i83;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy_operation.dart'
     as _i85;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider_operation.dart'
     as _i87;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate_operation.dart'
     as _i91;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role_operation.dart'
     as _i94;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential_operation.dart'
     as _i96;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate_operation.dart'
     as _i98;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key_operation.dart'
     as _i89;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user.dart' as _i100;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_operation.dart'
+    as _i100;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary_operation.dart'
     as _i102;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy_operation.dart'
     as _i104;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device_operation.dart'
     as _i106;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy_operation.dart'
     as _i108;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy_operation.dart'
     as _i110;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy_operation.dart'
     as _i112;
-import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device_operation.dart'
     as _i114;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report_operation.dart'
     as _i116;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report_operation.dart'
     as _i119;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details_operation.dart'
     as _i122;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used_operation.dart'
     as _i125;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details_operation.dart'
     as _i128;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy_operation.dart'
     as _i130;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary_operation.dart'
     as _i132;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy_operation.dart'
     as _i135;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy_operation.dart'
     as _i137;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report_operation.dart'
     as _i139;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group.dart' as _i143;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group_operation.dart'
+    as _i143;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy_operation.dart'
     as _i146;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile_operation.dart'
     as _i149;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile_operation.dart'
     as _i152;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider_operation.dart'
     as _i155;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report_operation.dart'
     as _i158;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy.dart' as _i161;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_operation.dart'
+    as _i161;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version_operation.dart'
     as _i164;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role.dart' as _i167;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role_operation.dart'
+    as _i167;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy_operation.dart'
     as _i170;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider_operation.dart'
     as _i173;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate_operation.dart'
     as _i179;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_operation.dart'
     as _i182;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities_operation.dart'
     as _i185;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status_operation.dart'
     as _i188;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key_operation.dart'
     as _i176;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user.dart' as _i191;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user_operation.dart'
+    as _i191;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy_operation.dart'
     as _i194;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys_operation.dart'
     as _i197;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases_operation.dart'
     as _i199;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies_operation.dart'
     as _i202;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies_operation.dart'
     as _i204;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies_operation.dart'
     as _i206;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy_operation.dart'
     as _i209;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies_operation.dart'
     as _i211;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups.dart' as _i214;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user_operation.dart'
     as _i216;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_operation.dart'
+    as _i214;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags_operation.dart'
     as _i219;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles.dart'
-    as _i222;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role_operation.dart'
     as _i224;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_operation.dart'
+    as _i222;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags_operation.dart'
     as _i227;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices_operation.dart'
     as _i230;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags_operation.dart'
     as _i233;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers_operation.dart'
     as _i236;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies.dart'
-    as _i239;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access_operation.dart'
     as _i242;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_operation.dart'
+    as _i239;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags_operation.dart'
     as _i245;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions_operation.dart'
     as _i248;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies_operation.dart'
     as _i250;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags_operation.dart'
     as _i253;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_roles.dart' as _i256;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_roles_operation.dart'
+    as _i256;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags_operation.dart'
     as _i259;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers_operation.dart'
     as _i262;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags_operation.dart'
     as _i268;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates_operation.dart'
     as _i271;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials_operation.dart'
     as _i274;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates_operation.dart'
     as _i277;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys_operation.dart'
     as _i265;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies_operation.dart'
     as _i279;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags_operation.dart'
     as _i282;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_users.dart' as _i284;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_users_operation.dart'
+    as _i284;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices_operation.dart'
     as _i287;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy_operation.dart'
     as _i289;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary_operation.dart'
     as _i291;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy_operation.dart'
     as _i293;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary_operation.dart'
     as _i295;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy_operation.dart'
     as _i297;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider_operation.dart'
     as _i299;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile_operation.dart'
     as _i301;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group_operation.dart'
     as _i303;
-import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential_operation.dart'
     as _i306;
-import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device_operation.dart'
     as _i308;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version_operation.dart'
     as _i310;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences_operation.dart'
     as _i312;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy_operation.dart'
     as _i315;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy_operation.dart'
     as _i317;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile_operation.dart'
     as _i319;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device_operation.dart'
     as _i321;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider_operation.dart'
     as _i323;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy.dart' as _i325;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_role.dart' as _i327;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy_operation.dart'
+    as _i325;
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_role_operation.dart'
+    as _i327;
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider_operation.dart'
     as _i329;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate_operation.dart'
     as _i331;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_user.dart' as _i333;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_user_operation.dart'
+    as _i333;
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile_operation.dart'
     as _i335;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device_operation.dart'
     as _i337;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider_operation.dart'
     as _i339;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy_operation.dart'
     as _i341;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_role.dart' as _i343;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_role_operation.dart'
+    as _i343;
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider_operation.dart'
     as _i345;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate_operation.dart'
     as _i347;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_user.dart' as _i349;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_user_operation.dart'
+    as _i349;
+import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key_operation.dart'
     as _i351;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy_operation.dart'
     as _i353;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy_operation.dart'
     as _i355;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_group.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_group_operation.dart'
     as _i357;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile_operation.dart'
     as _i359;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint_operation.dart'
     as _i361;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role.dart' as _i364;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description_operation.dart'
     as _i367;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role_operation.dart'
+    as _i364;
+import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider_operation.dart'
     as _i370;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate_operation.dart'
     as _i374;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential_operation.dart'
     as _i376;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate_operation.dart'
     as _i378;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key_operation.dart'
     as _i372;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_user.dart' as _i380;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_user_operation.dart'
+    as _i380;
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate_operation.dart'
     as _i386;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate_operation.dart'
     as _i389;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key_operation.dart'
     as _i383;
 
 /// ## Identity and Access Management
@@ -1051,14 +1071,12 @@ class IamClient {
   ///
   /// *   A list of client IDs (also known as audiences) that identify the application or applications allowed to authenticate using the OIDC provider
   ///
-  /// *   A list of tags that are attached to the specified IAM OIDC provider
-  ///
   /// *   A list of thumbprints of one or more server certificates that the IdP uses
   ///
   ///
   /// You get all of this information from the OIDC IdP you want to use to access Amazon Web Services.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
   _i3.SmithyOperation<_i32.CreateOpenIdConnectProviderResponse>
@@ -1395,7 +1413,7 @@ class IamClient {
     );
   }
 
-  /// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
+  /// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
   ///
   /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
   ///
@@ -1490,16 +1508,7 @@ class IamClient {
     );
   }
 
-  /// Deletes the specified role. Unlike the Amazon Web Services Management Console, when you delete a role programmatically, you must delete the items attached to the role manually, or the deletion fails. For more information, see [Deleting an IAM role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html#roles-managingrole-deleting-cli). Before attempting to delete a role, remove the following attached items:
-  ///
-  /// *   Inline policies (DeleteRolePolicy)
-  ///
-  /// *   Attached managed policies (DetachRolePolicy)
-  ///
-  /// *   Instance profile (RemoveRoleFromInstanceProfile)
-  ///
-  /// *   Optional – Delete instance profile after detaching from role for resource clean up (DeleteInstanceProfile)
-  ///
+  /// Deletes the specified role. The role must not have any policies attached. For more information about roles, see [Working with roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the role you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
   _i3.SmithyOperation<void> deleteRole(
@@ -1520,8 +1529,6 @@ class IamClient {
   }
 
   /// Deletes the permissions boundary for the specified IAM role.
-  ///
-  /// You cannot set the boundary for a service-linked role.
   ///
   /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
   _i3.SmithyOperation<void> deleteRolePermissionsBoundary(
@@ -2223,7 +2230,7 @@ class IamClient {
   ///
   /// To call this operation, you must be signed in to the management account in your organization. SCPs must be enabled for your organization root. You must have permissions to perform this operation. For more information, see [Refining permissions using service last accessed data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html) in the _IAM User Guide_.
   ///
-  /// For each service that principals in an account (root user, IAM users, or IAM roles) could access using SCPs, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, it returns the reason that it failed.
+  /// For each service that principals in an account (root users, IAM users, or IAM roles) could access using SCPs, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, it returns the reason that it failed.
   ///
   /// By default, the list is sorted by service namespace.
   _i3.SmithyOperation<_i156.GetOrganizationsAccessReportResponse>
@@ -3569,7 +3576,7 @@ class IamClient {
   ///
   /// If the output is long, you can use `MaxItems` and `Marker` parameters to paginate the results.
   ///
-  /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+  /// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
       _i3.PaginatedResult<_i140.BuiltList<_i313.EvaluationResult>, int,
           String>> simulateCustomPolicy(
@@ -3593,7 +3600,7 @@ class IamClient {
   ///
   /// You can optionally include a list of one or more additional policies specified as strings to include in the simulation. If you want to simulate only policies specified as strings, use SimulateCustomPolicy instead.
   ///
-  /// You can also optionally include one resource-based policy to be evaluated with each of the resources included in the simulation for IAM users only.
+  /// You can also optionally include one resource-based policy to be evaluated with each of the resources included in the simulation.
   ///
   /// The simulation does not perform the API operations; it only checks the authorization to determine if the simulated policies allow or deny the operations.
   ///
@@ -3603,7 +3610,7 @@ class IamClient {
   ///
   /// If the output is long, you can use the `MaxItems` and `Marker` parameters to paginate the results.
   ///
-  /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+  /// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
       _i3.PaginatedResult<_i140.BuiltList<_i313.EvaluationResult>, int,
           String>> simulatePrincipalPolicy(
@@ -3687,7 +3694,7 @@ class IamClient {
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an OIDC provider that has a specified tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an OIDC provider that has a specified tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   ///
   /// *   If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request fails and the resource is not created. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
@@ -3841,7 +3848,7 @@ class IamClient {
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
   ///
@@ -4125,7 +4132,7 @@ class IamClient {
   ///
   /// Typically, you need to update a thumbprint only when the identity provider certificate changes, which occurs rarely. However, if the provider's certificate _does_ change, any attempt to assume an IAM role that specifies the OIDC provider as a principal fails until the certificate thumbprint is updated.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, Auth0, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// Trust for the OIDC provider is derived from the provider certificate and is validated by the thumbprint. Therefore, it is best to limit access to the `UpdateOpenIDConnectProviderThumbprint` operation to highly privileged users.
   _i3.SmithyOperation<void> updateOpenIdConnectProviderThumbprint(

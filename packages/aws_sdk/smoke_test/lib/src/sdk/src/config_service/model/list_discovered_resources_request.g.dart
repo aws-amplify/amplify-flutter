@@ -14,9 +14,9 @@ class _$ListDiscoveredResourcesRequest extends ListDiscoveredResourcesRequest {
   @override
   final String? resourceName;
   @override
-  final int limit;
+  final int? limit;
   @override
-  final bool includeDeletedResources;
+  final bool? includeDeletedResources;
   @override
   final String? nextToken;
 
@@ -28,16 +28,12 @@ class _$ListDiscoveredResourcesRequest extends ListDiscoveredResourcesRequest {
       {required this.resourceType,
       this.resourceIds,
       this.resourceName,
-      required this.limit,
-      required this.includeDeletedResources,
+      this.limit,
+      this.includeDeletedResources,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceType, r'ListDiscoveredResourcesRequest', 'resourceType');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'ListDiscoveredResourcesRequest', 'limit');
-    BuiltValueNullFieldError.checkNotNull(includeDeletedResources,
-        r'ListDiscoveredResourcesRequest', 'includeDeletedResources');
   }
 
   @override
@@ -150,12 +146,8 @@ class ListDiscoveredResourcesRequestBuilder
                   r'ListDiscoveredResourcesRequest', 'resourceType'),
               resourceIds: _resourceIds?.build(),
               resourceName: resourceName,
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'ListDiscoveredResourcesRequest', 'limit'),
-              includeDeletedResources: BuiltValueNullFieldError.checkNotNull(
-                  includeDeletedResources,
-                  r'ListDiscoveredResourcesRequest',
-                  'includeDeletedResources'),
+              limit: limit,
+              includeDeletedResources: includeDeletedResources,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

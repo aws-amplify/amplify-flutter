@@ -8,7 +8,7 @@ part of smoke_test.api_gateway.model.import_rest_api_request;
 
 class _$ImportRestApiRequest extends ImportRestApiRequest {
   @override
-  final bool failOnWarnings;
+  final bool? failOnWarnings;
   @override
   final _i4.BuiltMap<String, String>? parameters;
   @override
@@ -19,10 +19,8 @@ class _$ImportRestApiRequest extends ImportRestApiRequest {
       (new ImportRestApiRequestBuilder()..update(updates))._build();
 
   _$ImportRestApiRequest._(
-      {required this.failOnWarnings, this.parameters, required this.body})
+      {this.failOnWarnings, this.parameters, required this.body})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        failOnWarnings, r'ImportRestApiRequest', 'failOnWarnings');
     BuiltValueNullFieldError.checkNotNull(
         body, r'ImportRestApiRequest', 'body');
   }
@@ -109,8 +107,7 @@ class ImportRestApiRequestBuilder
     try {
       _$result = _$v ??
           new _$ImportRestApiRequest._(
-              failOnWarnings: BuiltValueNullFieldError.checkNotNull(
-                  failOnWarnings, r'ImportRestApiRequest', 'failOnWarnings'),
+              failOnWarnings: failOnWarnings,
               parameters: _parameters?.build(),
               body: BuiltValueNullFieldError.checkNotNull(
                   body, r'ImportRestApiRequest', 'body'));

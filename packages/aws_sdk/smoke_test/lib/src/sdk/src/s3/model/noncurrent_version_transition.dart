@@ -22,8 +22,6 @@ abstract class NoncurrentVersionTransition
     _i2.TransitionStorageClass? storageClass,
     int? newerNoncurrentVersions,
   }) {
-    noncurrentDays ??= 0;
-    newerNoncurrentVersions ??= 0;
     return _$NoncurrentVersionTransition._(
       noncurrentDays: noncurrentDays,
       storageClass: storageClass,
@@ -43,19 +41,16 @@ abstract class NoncurrentVersionTransition
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoncurrentVersionTransitionBuilder b) {
-    b.noncurrentDays = 0;
-    b.newerNoncurrentVersions = 0;
-  }
+  static void _init(NoncurrentVersionTransitionBuilder b) {}
 
   /// Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. For information about the noncurrent days calculations, see [How Amazon S3 Calculates How Long an Object Has Been Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations) in the _Amazon S3 User Guide_.
-  int get noncurrentDays;
+  int? get noncurrentDays;
 
   /// The class of storage used to store the object.
   _i2.TransitionStorageClass? get storageClass;
 
   /// Specifies how many noncurrent versions Amazon S3 will retain. If there are this many more recent noncurrent versions, Amazon S3 will take the associated action. For more information about noncurrent versions, see [Lifecycle configuration elements](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html) in the _Amazon S3 User Guide_.
-  int get newerNoncurrentVersions;
+  int? get newerNoncurrentVersions;
   @override
   List<Object?> get props => [
         noncurrentDays,
@@ -112,16 +107,20 @@ class NoncurrentVersionTransitionRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'NewerNoncurrentVersions':
-          result.newerNoncurrentVersions = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.newerNoncurrentVersions = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NoncurrentDays':
-          result.noncurrentDays = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.noncurrentDays = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'StorageClass':
           if (value != null) {
@@ -150,18 +149,22 @@ class NoncurrentVersionTransitionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i3.XmlElementName('NewerNoncurrentVersions'))
-      ..add(serializers.serialize(
-        payload.newerNoncurrentVersions,
-        specifiedType: const FullType(int),
-      ));
-    result
-      ..add(const _i3.XmlElementName('NoncurrentDays'))
-      ..add(serializers.serialize(
-        payload.noncurrentDays,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.newerNoncurrentVersions != null) {
+      result
+        ..add(const _i3.XmlElementName('NewerNoncurrentVersions'))
+        ..add(serializers.serialize(
+          payload.newerNoncurrentVersions!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
+    if (payload.noncurrentDays != null) {
+      result
+        ..add(const _i3.XmlElementName('NoncurrentDays'))
+        ..add(serializers.serialize(
+          payload.noncurrentDays!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.storageClass != null) {
       result
         ..add(const _i3.XmlElementName('StorageClass'))

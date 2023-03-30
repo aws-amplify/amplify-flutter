@@ -32,7 +32,6 @@ abstract class UploadPartOutput
     bool? bucketKeyEnabled,
     _i4.RequestCharged? requestCharged,
   }) {
-    bucketKeyEnabled ??= false;
     return _$UploadPartOutput._(
       serverSideEncryption: serverSideEncryption,
       eTag: eTag,
@@ -112,11 +111,9 @@ abstract class UploadPartOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartOutputBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(UploadPartOutputBuilder b) {}
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
   _i3.ServerSideEncryption? get serverSideEncryption;
 
   /// Entity tag for the uploaded object.
@@ -140,11 +137,11 @@ abstract class UploadPartOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key was used for the object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key was used for the object.
   String? get ssekmsKeyId;
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i4.RequestCharged? get requestCharged;

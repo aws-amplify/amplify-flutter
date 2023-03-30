@@ -22,7 +22,6 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
     int? limit,
     String? nextToken,
   }) {
-    limit ??= 0;
     return _$DescribeOrganizationConformancePackStatusesRequest._(
       organizationConformancePackNames: organizationConformancePackNames == null
           ? null
@@ -51,15 +50,13 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      DescribeOrganizationConformancePackStatusesRequestBuilder b) {
-    b.limit = 0;
-  }
+      DescribeOrganizationConformancePackStatusesRequestBuilder b) {}
 
   /// The names of organization conformance packs for which you want status details. If you do not specify any names, Config returns details for all your organization conformance packs.
   _i3.BuiltList<String>? get organizationConformancePackNames;
 
   /// The maximum number of OrganizationConformancePackStatuses returned on each page. If you do no specify a number, Config uses the default. The default is 100.
-  int get limit;
+  int? get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -135,10 +132,12 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
           }
           break;
         case 'Limit':
-          result.limit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextToken':
           if (value != null) {
@@ -162,13 +161,7 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
   }) {
     final payload =
         (object as DescribeOrganizationConformancePackStatusesRequest);
-    final result = <Object?>[
-      'Limit',
-      serializers.serialize(
-        payload.limit,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.organizationConformancePackNames != null) {
       result
         ..add('OrganizationConformancePackNames')
@@ -178,6 +171,14 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.limit != null) {
+      result
+        ..add('Limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

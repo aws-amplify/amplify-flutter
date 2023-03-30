@@ -23,7 +23,6 @@ abstract class PutBucketPolicyRequest
     required String policy,
     String? expectedBucketOwner,
   }) {
-    confirmRemoveSelfBucketAccess ??= false;
     return _$PutBucketPolicyRequest._(
       bucket: bucket,
       contentMd5: contentMd5,
@@ -74,9 +73,7 @@ abstract class PutBucketPolicyRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketPolicyRequestBuilder b) {
-    b.confirmRemoveSelfBucketAccess = false;
-  }
+  static void _init(PutBucketPolicyRequestBuilder b) {}
 
   /// The name of the bucket.
   String get bucket;
@@ -92,7 +89,7 @@ abstract class PutBucketPolicyRequest
   _i3.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Set this parameter to true to confirm that you want to remove your permissions to change this bucket policy in the future.
-  bool get confirmRemoveSelfBucketAccess;
+  bool? get confirmRemoveSelfBucketAccess;
 
   /// The bucket policy as a JSON document.
   String get policy;

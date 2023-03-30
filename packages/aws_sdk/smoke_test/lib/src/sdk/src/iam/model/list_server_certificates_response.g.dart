@@ -11,7 +11,7 @@ class _$ListServerCertificatesResponse extends ListServerCertificatesResponse {
   final _i3.BuiltList<_i2.ServerCertificateMetadata>
       serverCertificateMetadataList;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
 
@@ -21,13 +21,11 @@ class _$ListServerCertificatesResponse extends ListServerCertificatesResponse {
 
   _$ListServerCertificatesResponse._(
       {required this.serverCertificateMetadataList,
-      required this.isTruncated,
+      this.isTruncated,
       this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(serverCertificateMetadataList,
         r'ListServerCertificatesResponse', 'serverCertificateMetadataList');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListServerCertificatesResponse', 'isTruncated');
   }
 
   @override
@@ -121,8 +119,7 @@ class ListServerCertificatesResponseBuilder
           new _$ListServerCertificatesResponse._(
               serverCertificateMetadataList:
                   serverCertificateMetadataList.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'ListServerCertificatesResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker);
     } catch (_) {
       late String _$failedField;

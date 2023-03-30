@@ -26,7 +26,7 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final String? ssekmsEncryptionContext;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i5.RequestCharged? requestCharged;
 
@@ -44,12 +44,9 @@ class _$CopyObjectOutput extends CopyObjectOutput {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.ssekmsEncryptionContext,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.requestCharged})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'CopyObjectOutput', 'bucketKeyEnabled');
-  }
+      : super._();
 
   @override
   CopyObjectOutput rebuild(void Function(CopyObjectOutputBuilder) updates) =>
@@ -204,8 +201,7 @@ class CopyObjectOutputBuilder
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
               ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled, r'CopyObjectOutput', 'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               requestCharged: requestCharged);
     } catch (_) {
       late String _$failedField;

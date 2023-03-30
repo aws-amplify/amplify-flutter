@@ -13,9 +13,9 @@ class _$SelectAggregateResourceConfigRequest
   @override
   final String configurationAggregatorName;
   @override
-  final int limit;
+  final int? limit;
   @override
-  final int maxResults;
+  final int? maxResults;
   @override
   final String? nextToken;
 
@@ -28,18 +28,14 @@ class _$SelectAggregateResourceConfigRequest
   _$SelectAggregateResourceConfigRequest._(
       {required this.expression,
       required this.configurationAggregatorName,
-      required this.limit,
-      required this.maxResults,
+      this.limit,
+      this.maxResults,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         expression, r'SelectAggregateResourceConfigRequest', 'expression');
     BuiltValueNullFieldError.checkNotNull(configurationAggregatorName,
         r'SelectAggregateResourceConfigRequest', 'configurationAggregatorName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'SelectAggregateResourceConfigRequest', 'limit');
-    BuiltValueNullFieldError.checkNotNull(
-        maxResults, r'SelectAggregateResourceConfigRequest', 'maxResults');
   }
 
   @override
@@ -144,10 +140,8 @@ class SelectAggregateResourceConfigRequestBuilder
                 configurationAggregatorName,
                 r'SelectAggregateResourceConfigRequest',
                 'configurationAggregatorName'),
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'SelectAggregateResourceConfigRequest', 'limit'),
-            maxResults: BuiltValueNullFieldError.checkNotNull(maxResults,
-                r'SelectAggregateResourceConfigRequest', 'maxResults'),
+            limit: limit,
+            maxResults: maxResults,
             nextToken: nextToken);
     replace(_$result);
     return _$result;

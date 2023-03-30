@@ -8,22 +8,17 @@ part of smoke_test.s3.model.noncurrent_version_expiration;
 
 class _$NoncurrentVersionExpiration extends NoncurrentVersionExpiration {
   @override
-  final int noncurrentDays;
+  final int? noncurrentDays;
   @override
-  final int newerNoncurrentVersions;
+  final int? newerNoncurrentVersions;
 
   factory _$NoncurrentVersionExpiration(
           [void Function(NoncurrentVersionExpirationBuilder)? updates]) =>
       (new NoncurrentVersionExpirationBuilder()..update(updates))._build();
 
   _$NoncurrentVersionExpiration._(
-      {required this.noncurrentDays, required this.newerNoncurrentVersions})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        noncurrentDays, r'NoncurrentVersionExpiration', 'noncurrentDays');
-    BuiltValueNullFieldError.checkNotNull(newerNoncurrentVersions,
-        r'NoncurrentVersionExpiration', 'newerNoncurrentVersions');
-  }
+      {this.noncurrentDays, this.newerNoncurrentVersions})
+      : super._();
 
   @override
   NoncurrentVersionExpiration rebuild(
@@ -99,14 +94,8 @@ class NoncurrentVersionExpirationBuilder
   _$NoncurrentVersionExpiration _build() {
     final _$result = _$v ??
         new _$NoncurrentVersionExpiration._(
-            noncurrentDays: BuiltValueNullFieldError.checkNotNull(
-                noncurrentDays,
-                r'NoncurrentVersionExpiration',
-                'noncurrentDays'),
-            newerNoncurrentVersions: BuiltValueNullFieldError.checkNotNull(
-                newerNoncurrentVersions,
-                r'NoncurrentVersionExpiration',
-                'newerNoncurrentVersions'));
+            noncurrentDays: noncurrentDays,
+            newerNoncurrentVersions: newerNoncurrentVersions);
     replace(_$result);
     return _$result;
   }

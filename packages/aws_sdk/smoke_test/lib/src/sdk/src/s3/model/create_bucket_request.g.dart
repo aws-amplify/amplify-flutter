@@ -24,7 +24,7 @@ class _$CreateBucketRequest extends CreateBucketRequest {
   @override
   final String? grantWriteAcp;
   @override
-  final bool objectLockEnabledForBucket;
+  final bool? objectLockEnabledForBucket;
   @override
   final _i5.ObjectOwnership? objectOwnership;
 
@@ -41,13 +41,11 @@ class _$CreateBucketRequest extends CreateBucketRequest {
       this.grantReadAcp,
       this.grantWrite,
       this.grantWriteAcp,
-      required this.objectLockEnabledForBucket,
+      this.objectLockEnabledForBucket,
       this.objectOwnership})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'CreateBucketRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(objectLockEnabledForBucket,
-        r'CreateBucketRequest', 'objectLockEnabledForBucket');
   }
 
   @override
@@ -195,10 +193,7 @@ class CreateBucketRequestBuilder
               grantReadAcp: grantReadAcp,
               grantWrite: grantWrite,
               grantWriteAcp: grantWriteAcp,
-              objectLockEnabledForBucket: BuiltValueNullFieldError.checkNotNull(
-                  objectLockEnabledForBucket,
-                  r'CreateBucketRequest',
-                  'objectLockEnabledForBucket'),
+              objectLockEnabledForBucket: objectLockEnabledForBucket,
               objectOwnership: objectOwnership);
     } catch (_) {
       late String _$failedField;

@@ -243,7 +243,7 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
         payload.isEnabled,
-        specifiedType: const FullType(bool),
+        specifiedType: const FullType.nullable(bool),
       ));
     if (payload.filter != null) {
       result

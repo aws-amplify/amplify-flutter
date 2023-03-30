@@ -15,7 +15,6 @@ abstract class TlsConfig
     implements Built<TlsConfig, TlsConfigBuilder> {
   /// Specifies the TLS configuration for an integration.
   factory TlsConfig({bool? insecureSkipVerification}) {
-    insecureSkipVerification ??= false;
     return _$TlsConfig._(insecureSkipVerification: insecureSkipVerification);
   }
 
@@ -30,14 +29,12 @@ abstract class TlsConfig
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TlsConfigBuilder b) {
-    b.insecureSkipVerification = false;
-  }
+  static void _init(TlsConfigBuilder b) {}
 
   /// Specifies whether or not API Gateway skips verification that the certificate for an integration endpoint is issued by a supported certificate authority. This isn’t recommended, but it enables you to use certificates that are signed by private certificate authorities, or certificates that are self-signed. If enabled, API Gateway still performs basic certificate validation, which includes checking the certificate's expiration date, hostname, and presence of a root certificate authority. Supported only for `HTTP` and `HTTP_PROXY` integrations.
   ///
   /// Enabling `insecureSkipVerification` isn't recommended, especially for integrations with public HTTPS endpoints. If you enable `insecureSkipVerification`, you increase the risk of man-in-the-middle attacks.
-  bool get insecureSkipVerification;
+  bool? get insecureSkipVerification;
   @override
   List<Object?> get props => [insecureSkipVerification];
   @override
@@ -81,10 +78,12 @@ class TlsConfigRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'insecureSkipVerification':
-          result.insecureSkipVerification = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.insecureSkipVerification = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -99,13 +98,15 @@ class TlsConfigRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as TlsConfig);
-    final result = <Object?>[
-      'insecureSkipVerification',
-      serializers.serialize(
-        payload.insecureSkipVerification,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.insecureSkipVerification != null) {
+      result
+        ..add('insecureSkipVerification')
+        ..add(serializers.serialize(
+          payload.insecureSkipVerification!,
+          specifiedType: const FullType(bool),
+        ));
+    }
     return result;
   }
 }

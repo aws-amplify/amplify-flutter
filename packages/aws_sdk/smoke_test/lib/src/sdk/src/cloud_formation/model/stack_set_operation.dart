@@ -5,7 +5,7 @@ library smoke_test.cloud_formation.model.stack_set_operation; // ignore_for_file
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i8;
+import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_details.dart'
@@ -16,8 +16,6 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation
     as _i4;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status.dart'
     as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status_details.dart'
-    as _i7;
 
 part 'stack_set_operation.g.dart';
 
@@ -40,7 +38,6 @@ abstract class StackSetOperation
     _i5.DeploymentTargets? deploymentTargets,
     _i6.StackSetDriftDetectionDetails? stackSetDriftDetectionDetails,
     String? statusReason,
-    _i7.StackSetOperationStatusDetails? statusDetails,
   }) {
     return _$StackSetOperation._(
       operationId: operationId,
@@ -56,7 +53,6 @@ abstract class StackSetOperation
       deploymentTargets: deploymentTargets,
       stackSetDriftDetectionDetails: stackSetDriftDetectionDetails,
       statusReason: statusReason,
-      statusDetails: statusDetails,
     );
   }
 
@@ -66,7 +62,7 @@ abstract class StackSetOperation
 
   const StackSetOperation._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer> serializers = [
     StackSetOperationAwsQuerySerializer()
   ];
 
@@ -131,9 +127,6 @@ abstract class StackSetOperation
 
   /// The status of the operation in details.
   String? get statusReason;
-
-  /// Detailed information about the StackSet operation.
-  _i7.StackSetOperationStatusDetails? get statusDetails;
   @override
   List<Object?> get props => [
         operationId,
@@ -149,7 +142,6 @@ abstract class StackSetOperation
         deploymentTargets,
         stackSetDriftDetectionDetails,
         statusReason,
-        statusDetails,
       ];
   @override
   String toString() {
@@ -206,16 +198,12 @@ abstract class StackSetOperation
       'statusReason',
       statusReason,
     );
-    helper.add(
-      'statusDetails',
-      statusDetails,
-    );
     return helper.toString();
   }
 }
 
 class StackSetOperationAwsQuerySerializer
-    extends _i8.StructuredSmithySerializer<StackSetOperation> {
+    extends _i7.StructuredSmithySerializer<StackSetOperation> {
   const StackSetOperationAwsQuerySerializer() : super('StackSetOperation');
 
   @override
@@ -224,8 +212,8 @@ class StackSetOperationAwsQuerySerializer
         _$StackSetOperation,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i7.ShapeId> get supportedProtocols => const [
+        _i7.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -348,14 +336,6 @@ class StackSetOperationAwsQuerySerializer
             ) as String);
           }
           break;
-        case 'StatusDetails':
-          if (value != null) {
-            result.statusDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.StackSetOperationStatusDetails),
-            ) as _i7.StackSetOperationStatusDetails));
-          }
-          break;
       }
     }
 
@@ -370,14 +350,14 @@ class StackSetOperationAwsQuerySerializer
   }) {
     final payload = (object as StackSetOperation);
     final result = <Object?>[
-      const _i8.XmlElementName(
+      const _i7.XmlElementName(
         'StackSetOperationResponse',
-        _i8.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     if (payload.operationId != null) {
       result
-        ..add(const _i8.XmlElementName('OperationId'))
+        ..add(const _i7.XmlElementName('OperationId'))
         ..add(serializers.serialize(
           payload.operationId!,
           specifiedType: const FullType(String),
@@ -385,7 +365,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.stackSetId != null) {
       result
-        ..add(const _i8.XmlElementName('StackSetId'))
+        ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
           payload.stackSetId!,
           specifiedType: const FullType(String),
@@ -393,7 +373,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.action != null) {
       result
-        ..add(const _i8.XmlElementName('Action'))
+        ..add(const _i7.XmlElementName('Action'))
         ..add(serializers.serialize(
           payload.action!,
           specifiedType: const FullType.nullable(_i2.StackSetOperationAction),
@@ -401,7 +381,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.status != null) {
       result
-        ..add(const _i8.XmlElementName('Status'))
+        ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
           payload.status!,
           specifiedType: const FullType.nullable(_i3.StackSetOperationStatus),
@@ -409,7 +389,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.operationPreferences != null) {
       result
-        ..add(const _i8.XmlElementName('OperationPreferences'))
+        ..add(const _i7.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           payload.operationPreferences!,
           specifiedType: const FullType(_i4.StackSetOperationPreferences),
@@ -417,7 +397,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.retainStacks != null) {
       result
-        ..add(const _i8.XmlElementName('RetainStacks'))
+        ..add(const _i7.XmlElementName('RetainStacks'))
         ..add(serializers.serialize(
           payload.retainStacks!,
           specifiedType: const FullType.nullable(bool),
@@ -425,7 +405,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.administrationRoleArn != null) {
       result
-        ..add(const _i8.XmlElementName('AdministrationRoleARN'))
+        ..add(const _i7.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
           payload.administrationRoleArn!,
           specifiedType: const FullType(String),
@@ -433,7 +413,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.executionRoleName != null) {
       result
-        ..add(const _i8.XmlElementName('ExecutionRoleName'))
+        ..add(const _i7.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
           payload.executionRoleName!,
           specifiedType: const FullType(String),
@@ -441,7 +421,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.creationTimestamp != null) {
       result
-        ..add(const _i8.XmlElementName('CreationTimestamp'))
+        ..add(const _i7.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
           payload.creationTimestamp!,
           specifiedType: const FullType.nullable(DateTime),
@@ -449,7 +429,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.endTimestamp != null) {
       result
-        ..add(const _i8.XmlElementName('EndTimestamp'))
+        ..add(const _i7.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
           payload.endTimestamp!,
           specifiedType: const FullType.nullable(DateTime),
@@ -457,7 +437,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.deploymentTargets != null) {
       result
-        ..add(const _i8.XmlElementName('DeploymentTargets'))
+        ..add(const _i7.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           payload.deploymentTargets!,
           specifiedType: const FullType(_i5.DeploymentTargets),
@@ -465,7 +445,7 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.stackSetDriftDetectionDetails != null) {
       result
-        ..add(const _i8.XmlElementName('StackSetDriftDetectionDetails'))
+        ..add(const _i7.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
           payload.stackSetDriftDetectionDetails!,
           specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
@@ -473,18 +453,10 @@ class StackSetOperationAwsQuerySerializer
     }
     if (payload.statusReason != null) {
       result
-        ..add(const _i8.XmlElementName('StatusReason'))
+        ..add(const _i7.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           payload.statusReason!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.statusDetails != null) {
-      result
-        ..add(const _i8.XmlElementName('StatusDetails'))
-        ..add(serializers.serialize(
-          payload.statusDetails!,
-          specifiedType: const FullType(_i7.StackSetOperationStatusDetails),
         ));
     }
     return result;

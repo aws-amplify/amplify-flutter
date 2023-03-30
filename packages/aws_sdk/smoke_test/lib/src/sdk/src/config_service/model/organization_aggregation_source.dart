@@ -23,7 +23,6 @@ abstract class OrganizationAggregationSource
     List<String>? awsRegions,
     bool? allAwsRegions,
   }) {
-    allAwsRegions ??= false;
     return _$OrganizationAggregationSource._(
       roleArn: roleArn,
       awsRegions: awsRegions == null ? null : _i2.BuiltList(awsRegions),
@@ -43,9 +42,7 @@ abstract class OrganizationAggregationSource
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationAggregationSourceBuilder b) {
-    b.allAwsRegions = false;
-  }
+  static void _init(OrganizationAggregationSourceBuilder b) {}
 
   /// ARN of the IAM role used to retrieve Amazon Web Services Organization details associated with the aggregator account.
   String get roleArn;
@@ -54,7 +51,7 @@ abstract class OrganizationAggregationSource
   _i2.BuiltList<String>? get awsRegions;
 
   /// If true, aggregate existing Config regions and future regions.
-  bool get allAwsRegions;
+  bool? get allAwsRegions;
   @override
   List<Object?> get props => [
         roleArn,
@@ -128,10 +125,12 @@ class OrganizationAggregationSourceAwsJson11Serializer
           }
           break;
         case 'AllAwsRegions':
-          result.allAwsRegions = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.allAwsRegions = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -152,11 +151,6 @@ class OrganizationAggregationSourceAwsJson11Serializer
         payload.roleArn,
         specifiedType: const FullType(String),
       ),
-      'AllAwsRegions',
-      serializers.serialize(
-        payload.allAwsRegions,
-        specifiedType: const FullType(bool),
-      ),
     ];
     if (payload.awsRegions != null) {
       result
@@ -167,6 +161,14 @@ class OrganizationAggregationSourceAwsJson11Serializer
             _i2.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.allAwsRegions != null) {
+      result
+        ..add('AllAwsRegions')
+        ..add(serializers.serialize(
+          payload.allAwsRegions!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

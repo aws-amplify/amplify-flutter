@@ -22,7 +22,6 @@ abstract class CompletedPart
     String? checksumSha256,
     int? partNumber,
   }) {
-    partNumber ??= 0;
     return _$CompletedPart._(
       eTag: eTag,
       checksumCrc32: checksumCrc32,
@@ -44,9 +43,7 @@ abstract class CompletedPart
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CompletedPartBuilder b) {
-    b.partNumber = 0;
-  }
+  static void _init(CompletedPartBuilder b) {}
 
   /// Entity tag returned when the part was uploaded.
   String? get eTag;
@@ -64,7 +61,7 @@ abstract class CompletedPart
   String? get checksumSha256;
 
   /// Part number that identifies the part. This is a positive integer between 1 and 10,000.
-  int get partNumber;
+  int? get partNumber;
   @override
   List<Object?> get props => [
         eTag,
@@ -175,10 +172,12 @@ class CompletedPartRestXmlSerializer
           }
           break;
         case 'PartNumber':
-          result.partNumber = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.partNumber = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -239,12 +238,14 @@ class CompletedPartRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i2.XmlElementName('PartNumber'))
-      ..add(serializers.serialize(
-        payload.partNumber,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.partNumber != null) {
+      result
+        ..add(const _i2.XmlElementName('PartNumber'))
+        ..add(serializers.serialize(
+          payload.partNumber!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

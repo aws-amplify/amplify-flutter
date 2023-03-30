@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'max_active_resources_exceeded_exception.g.dart';
 
-/// You have reached the limit of active custom resource types in your account. There is a limit of 100,000. Delete unused resources using [DeleteResourceConfig](https://docs.aws.amazon.com/config/latest/APIReference/API_DeleteResourceConfig.html) .
+/// You have reached the limit (100,000) of active custom resource types in your account. Delete unused resources using `DeleteResourceConfig`.
 abstract class MaxActiveResourcesExceededException
     with
         _i1.AWSEquatable<MaxActiveResourcesExceededException>
@@ -17,12 +17,12 @@ abstract class MaxActiveResourcesExceededException
         Built<MaxActiveResourcesExceededException,
             MaxActiveResourcesExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit of active custom resource types in your account. There is a limit of 100,000. Delete unused resources using [DeleteResourceConfig](https://docs.aws.amazon.com/config/latest/APIReference/API_DeleteResourceConfig.html) .
+  /// You have reached the limit (100,000) of active custom resource types in your account. Delete unused resources using `DeleteResourceConfig`.
   factory MaxActiveResourcesExceededException({String? message}) {
     return _$MaxActiveResourcesExceededException._(message: message);
   }
 
-  /// You have reached the limit of active custom resource types in your account. There is a limit of 100,000. Delete unused resources using [DeleteResourceConfig](https://docs.aws.amazon.com/config/latest/APIReference/API_DeleteResourceConfig.html) .
+  /// You have reached the limit (100,000) of active custom resource types in your account. Delete unused resources using `DeleteResourceConfig`.
   factory MaxActiveResourcesExceededException.build(
           [void Function(MaxActiveResourcesExceededExceptionBuilder) updates]) =
       _$MaxActiveResourcesExceededException;

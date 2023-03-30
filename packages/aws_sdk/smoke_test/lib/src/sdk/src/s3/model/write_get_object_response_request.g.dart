@@ -14,7 +14,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final _i2.Stream<List<int>>? body;
   @override
-  final int statusCode;
+  final int? statusCode;
   @override
   final String? errorCode;
   @override
@@ -30,7 +30,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final String? contentLanguage;
   @override
-  final _i4.Int64 contentLength;
+  final _i4.Int64? contentLength;
   @override
   final String? contentRange;
   @override
@@ -44,7 +44,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final String? checksumSha256;
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final String? eTag;
   @override
@@ -54,7 +54,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final DateTime? lastModified;
   @override
-  final int missingMeta;
+  final int? missingMeta;
   @override
   final _i11.BuiltMap<String, String>? metadata;
   @override
@@ -64,7 +64,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final int partsCount;
+  final int? partsCount;
   @override
   final _i7.ReplicationStatus? replicationStatus;
   @override
@@ -82,11 +82,11 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
   @override
   final _i10.StorageClass? storageClass;
   @override
-  final int tagCount;
+  final int? tagCount;
   @override
   final String? versionId;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
 
   factory _$WriteGetObjectResponseRequest(
           [void Function(WriteGetObjectResponseRequestBuilder)? updates]) =>
@@ -96,7 +96,7 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
       {required this.requestRoute,
       required this.requestToken,
       this.body,
-      required this.statusCode,
+      this.statusCode,
       this.errorCode,
       this.errorMessage,
       this.acceptRanges,
@@ -104,24 +104,24 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
       this.contentDisposition,
       this.contentEncoding,
       this.contentLanguage,
-      required this.contentLength,
+      this.contentLength,
       this.contentRange,
       this.contentType,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
-      required this.deleteMarker,
+      this.deleteMarker,
       this.eTag,
       this.expires,
       this.expiration,
       this.lastModified,
-      required this.missingMeta,
+      this.missingMeta,
       this.metadata,
       this.objectLockMode,
       this.objectLockLegalHoldStatus,
       this.objectLockRetainUntilDate,
-      required this.partsCount,
+      this.partsCount,
       this.replicationStatus,
       this.requestCharged,
       this.restore,
@@ -130,28 +130,14 @@ class _$WriteGetObjectResponseRequest extends WriteGetObjectResponseRequest {
       this.ssekmsKeyId,
       this.sseCustomerKeyMd5,
       this.storageClass,
-      required this.tagCount,
+      this.tagCount,
       this.versionId,
-      required this.bucketKeyEnabled})
+      this.bucketKeyEnabled})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         requestRoute, r'WriteGetObjectResponseRequest', 'requestRoute');
     BuiltValueNullFieldError.checkNotNull(
         requestToken, r'WriteGetObjectResponseRequest', 'requestToken');
-    BuiltValueNullFieldError.checkNotNull(
-        statusCode, r'WriteGetObjectResponseRequest', 'statusCode');
-    BuiltValueNullFieldError.checkNotNull(
-        contentLength, r'WriteGetObjectResponseRequest', 'contentLength');
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'WriteGetObjectResponseRequest', 'deleteMarker');
-    BuiltValueNullFieldError.checkNotNull(
-        missingMeta, r'WriteGetObjectResponseRequest', 'missingMeta');
-    BuiltValueNullFieldError.checkNotNull(
-        partsCount, r'WriteGetObjectResponseRequest', 'partsCount');
-    BuiltValueNullFieldError.checkNotNull(
-        tagCount, r'WriteGetObjectResponseRequest', 'tagCount');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'WriteGetObjectResponseRequest', 'bucketKeyEnabled');
   }
 
   @override
@@ -517,13 +503,12 @@ class WriteGetObjectResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$WriteGetObjectResponseRequest._(
-              requestRoute: BuiltValueNullFieldError.checkNotNull(
-                  requestRoute, r'WriteGetObjectResponseRequest', 'requestRoute'),
-              requestToken: BuiltValueNullFieldError.checkNotNull(
-                  requestToken, r'WriteGetObjectResponseRequest', 'requestToken'),
+              requestRoute: BuiltValueNullFieldError.checkNotNull(requestRoute,
+                  r'WriteGetObjectResponseRequest', 'requestRoute'),
+              requestToken: BuiltValueNullFieldError.checkNotNull(requestToken,
+                  r'WriteGetObjectResponseRequest', 'requestToken'),
               body: body,
-              statusCode: BuiltValueNullFieldError.checkNotNull(
-                  statusCode, r'WriteGetObjectResponseRequest', 'statusCode'),
+              statusCode: statusCode,
               errorCode: errorCode,
               errorMessage: errorMessage,
               acceptRanges: acceptRanges,
@@ -531,28 +516,24 @@ class WriteGetObjectResponseRequestBuilder
               contentDisposition: contentDisposition,
               contentEncoding: contentEncoding,
               contentLanguage: contentLanguage,
-              contentLength: BuiltValueNullFieldError.checkNotNull(
-                  contentLength, r'WriteGetObjectResponseRequest', 'contentLength'),
+              contentLength: contentLength,
               contentRange: contentRange,
               contentType: contentType,
               checksumCrc32: checksumCrc32,
               checksumCrc32C: checksumCrc32C,
               checksumSha1: checksumSha1,
               checksumSha256: checksumSha256,
-              deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                  deleteMarker, r'WriteGetObjectResponseRequest', 'deleteMarker'),
+              deleteMarker: deleteMarker,
               eTag: eTag,
               expires: expires,
               expiration: expiration,
               lastModified: lastModified,
-              missingMeta: BuiltValueNullFieldError.checkNotNull(
-                  missingMeta, r'WriteGetObjectResponseRequest', 'missingMeta'),
+              missingMeta: missingMeta,
               metadata: _metadata?.build(),
               objectLockMode: objectLockMode,
               objectLockLegalHoldStatus: objectLockLegalHoldStatus,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
-              partsCount: BuiltValueNullFieldError.checkNotNull(
-                  partsCount, r'WriteGetObjectResponseRequest', 'partsCount'),
+              partsCount: partsCount,
               replicationStatus: replicationStatus,
               requestCharged: requestCharged,
               restore: restore,
@@ -561,10 +542,9 @@ class WriteGetObjectResponseRequestBuilder
               ssekmsKeyId: ssekmsKeyId,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               storageClass: storageClass,
-              tagCount:
-                  BuiltValueNullFieldError.checkNotNull(tagCount, r'WriteGetObjectResponseRequest', 'tagCount'),
+              tagCount: tagCount,
               versionId: versionId,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(bucketKeyEnabled, r'WriteGetObjectResponseRequest', 'bucketKeyEnabled'));
+              bucketKeyEnabled: bucketKeyEnabled);
     } catch (_) {
       late String _$failedField;
       try {

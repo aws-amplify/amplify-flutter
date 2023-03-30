@@ -214,6 +214,8 @@ class DescribeOrganizationConfigRulesOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        b.limit = pageSize;
+        if (pageSize != null) {
+          b.limit = pageSize;
+        }
       });
 }

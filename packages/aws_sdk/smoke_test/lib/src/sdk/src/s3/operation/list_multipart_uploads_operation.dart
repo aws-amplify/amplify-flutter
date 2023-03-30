@@ -155,10 +155,12 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
             input.keyMarker!,
           );
         }
-        b.queryParameters.add(
-          'max-uploads',
-          input.maxUploads.toString(),
-        );
+        if (input.maxUploads != null) {
+          b.queryParameters.add(
+            'max-uploads',
+            input.maxUploads!.toString(),
+          );
+        }
         if (input.prefix != null) {
           b.queryParameters.add(
             'prefix',

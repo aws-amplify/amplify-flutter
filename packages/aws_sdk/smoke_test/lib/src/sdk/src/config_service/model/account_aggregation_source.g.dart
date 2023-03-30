@@ -10,7 +10,7 @@ class _$AccountAggregationSource extends AccountAggregationSource {
   @override
   final _i2.BuiltList<String> accountIds;
   @override
-  final bool allAwsRegions;
+  final bool? allAwsRegions;
   @override
   final _i2.BuiltList<String>? awsRegions;
 
@@ -19,12 +19,10 @@ class _$AccountAggregationSource extends AccountAggregationSource {
       (new AccountAggregationSourceBuilder()..update(updates))._build();
 
   _$AccountAggregationSource._(
-      {required this.accountIds, required this.allAwsRegions, this.awsRegions})
+      {required this.accountIds, this.allAwsRegions, this.awsRegions})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accountIds, r'AccountAggregationSource', 'accountIds');
-    BuiltValueNullFieldError.checkNotNull(
-        allAwsRegions, r'AccountAggregationSource', 'allAwsRegions');
   }
 
   @override
@@ -113,8 +111,7 @@ class AccountAggregationSourceBuilder
       _$result = _$v ??
           new _$AccountAggregationSource._(
               accountIds: accountIds.build(),
-              allAwsRegions: BuiltValueNullFieldError.checkNotNull(
-                  allAwsRegions, r'AccountAggregationSource', 'allAwsRegions'),
+              allAwsRegions: allAwsRegions,
               awsRegions: _awsRegions?.build());
     } catch (_) {
       late String _$failedField;

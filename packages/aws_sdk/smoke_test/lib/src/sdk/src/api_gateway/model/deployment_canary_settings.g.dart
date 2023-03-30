@@ -8,26 +8,19 @@ part of smoke_test.api_gateway.model.deployment_canary_settings;
 
 class _$DeploymentCanarySettings extends DeploymentCanarySettings {
   @override
-  final double percentTraffic;
+  final double? percentTraffic;
   @override
   final _i2.BuiltMap<String, String>? stageVariableOverrides;
   @override
-  final bool useStageCache;
+  final bool? useStageCache;
 
   factory _$DeploymentCanarySettings(
           [void Function(DeploymentCanarySettingsBuilder)? updates]) =>
       (new DeploymentCanarySettingsBuilder()..update(updates))._build();
 
   _$DeploymentCanarySettings._(
-      {required this.percentTraffic,
-      this.stageVariableOverrides,
-      required this.useStageCache})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        percentTraffic, r'DeploymentCanarySettings', 'percentTraffic');
-    BuiltValueNullFieldError.checkNotNull(
-        useStageCache, r'DeploymentCanarySettings', 'useStageCache');
-  }
+      {this.percentTraffic, this.stageVariableOverrides, this.useStageCache})
+      : super._();
 
   @override
   DeploymentCanarySettings rebuild(
@@ -114,13 +107,9 @@ class DeploymentCanarySettingsBuilder
     try {
       _$result = _$v ??
           new _$DeploymentCanarySettings._(
-              percentTraffic: BuiltValueNullFieldError.checkNotNull(
-                  percentTraffic,
-                  r'DeploymentCanarySettings',
-                  'percentTraffic'),
+              percentTraffic: percentTraffic,
               stageVariableOverrides: _stageVariableOverrides?.build(),
-              useStageCache: BuiltValueNullFieldError.checkNotNull(
-                  useStageCache, r'DeploymentCanarySettings', 'useStageCache'));
+              useStageCache: useStageCache);
     } catch (_) {
       late String _$failedField;
       try {

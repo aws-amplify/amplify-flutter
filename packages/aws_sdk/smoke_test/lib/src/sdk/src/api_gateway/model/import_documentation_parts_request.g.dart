@@ -13,7 +13,7 @@ class _$ImportDocumentationPartsRequest
   @override
   final _i4.PutMode? mode;
   @override
-  final bool failOnWarnings;
+  final bool? failOnWarnings;
   @override
   final _i2.Uint8List body;
 
@@ -24,13 +24,11 @@ class _$ImportDocumentationPartsRequest
   _$ImportDocumentationPartsRequest._(
       {required this.restApiId,
       this.mode,
-      required this.failOnWarnings,
+      this.failOnWarnings,
       required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'ImportDocumentationPartsRequest', 'restApiId');
-    BuiltValueNullFieldError.checkNotNull(
-        failOnWarnings, r'ImportDocumentationPartsRequest', 'failOnWarnings');
     BuiltValueNullFieldError.checkNotNull(
         body, r'ImportDocumentationPartsRequest', 'body');
   }
@@ -125,10 +123,7 @@ class ImportDocumentationPartsRequestBuilder
             restApiId: BuiltValueNullFieldError.checkNotNull(
                 restApiId, r'ImportDocumentationPartsRequest', 'restApiId'),
             mode: mode,
-            failOnWarnings: BuiltValueNullFieldError.checkNotNull(
-                failOnWarnings,
-                r'ImportDocumentationPartsRequest',
-                'failOnWarnings'),
+            failOnWarnings: failOnWarnings,
             body: BuiltValueNullFieldError.checkNotNull(
                 body, r'ImportDocumentationPartsRequest', 'body'));
     replace(_$result);

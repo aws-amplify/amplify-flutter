@@ -21,7 +21,6 @@ abstract class ResourceCount
     _i2.ResourceType? resourceType,
     _i3.Int64? count,
   }) {
-    count ??= _i3.Int64.ZERO;
     return _$ResourceCount._(
       resourceType: resourceType,
       count: count,
@@ -39,15 +38,13 @@ abstract class ResourceCount
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceCountBuilder b) {
-    b.count = _i3.Int64.ZERO;
-  }
+  static void _init(ResourceCountBuilder b) {}
 
   /// The resource type (for example, `"AWS::EC2::Instance"`).
   _i2.ResourceType? get resourceType;
 
   /// The number of resources.
-  _i3.Int64 get count;
+  _i3.Int64? get count;
   @override
   List<Object?> get props => [
         resourceType,
@@ -106,10 +103,12 @@ class ResourceCountAwsJson11Serializer
           }
           break;
         case 'count':
-          result.count = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+          if (value != null) {
+            result.count = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
+          }
           break;
       }
     }
@@ -124,19 +123,21 @@ class ResourceCountAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ResourceCount);
-    final result = <Object?>[
-      'count',
-      serializers.serialize(
-        payload.count,
-        specifiedType: const FullType(_i3.Int64),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.resourceType != null) {
       result
         ..add('resourceType')
         ..add(serializers.serialize(
           payload.resourceType!,
           specifiedType: const FullType(_i2.ResourceType),
+        ));
+    }
+    if (payload.count != null) {
+      result
+        ..add('count')
+        ..add(serializers.serialize(
+          payload.count!,
+          specifiedType: const FullType(_i3.Int64),
         ));
     }
     return result;

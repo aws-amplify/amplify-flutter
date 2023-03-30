@@ -14,7 +14,7 @@ class _$ConfigurationRecorderStatus extends ConfigurationRecorderStatus {
   @override
   final DateTime? lastStopTime;
   @override
-  final bool recording;
+  final bool? recording;
   @override
   final _i2.RecorderStatus? lastStatus;
   @override
@@ -32,15 +32,12 @@ class _$ConfigurationRecorderStatus extends ConfigurationRecorderStatus {
       {this.name,
       this.lastStartTime,
       this.lastStopTime,
-      required this.recording,
+      this.recording,
       this.lastStatus,
       this.lastErrorCode,
       this.lastErrorMessage,
       this.lastStatusChangeTime})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        recording, r'ConfigurationRecorderStatus', 'recording');
-  }
+      : super._();
 
   @override
   ConfigurationRecorderStatus rebuild(
@@ -165,8 +162,7 @@ class ConfigurationRecorderStatusBuilder
             name: name,
             lastStartTime: lastStartTime,
             lastStopTime: lastStopTime,
-            recording: BuiltValueNullFieldError.checkNotNull(
-                recording, r'ConfigurationRecorderStatus', 'recording'),
+            recording: recording,
             lastStatus: lastStatus,
             lastErrorCode: lastErrorCode,
             lastErrorMessage: lastErrorMessage,

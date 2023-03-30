@@ -26,8 +26,6 @@ class _$UpdateTableInput extends UpdateTableInput {
   final _i11.BuiltList<_i9.ReplicationGroupUpdate>? replicaUpdates;
   @override
   final _i10.TableClass? tableClass;
-  @override
-  final bool? deletionProtectionEnabled;
 
   factory _$UpdateTableInput(
           [void Function(UpdateTableInputBuilder)? updates]) =>
@@ -42,8 +40,7 @@ class _$UpdateTableInput extends UpdateTableInput {
       this.streamSpecification,
       this.sseSpecification,
       this.replicaUpdates,
-      this.tableClass,
-      this.deletionProtectionEnabled})
+      this.tableClass})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'UpdateTableInput', 'tableName');
@@ -69,8 +66,7 @@ class _$UpdateTableInput extends UpdateTableInput {
         streamSpecification == other.streamSpecification &&
         sseSpecification == other.sseSpecification &&
         replicaUpdates == other.replicaUpdates &&
-        tableClass == other.tableClass &&
-        deletionProtectionEnabled == other.deletionProtectionEnabled;
+        tableClass == other.tableClass;
   }
 
   @override
@@ -85,7 +81,6 @@ class _$UpdateTableInput extends UpdateTableInput {
     _$hash = $jc(_$hash, sseSpecification.hashCode);
     _$hash = $jc(_$hash, replicaUpdates.hashCode);
     _$hash = $jc(_$hash, tableClass.hashCode);
-    _$hash = $jc(_$hash, deletionProtectionEnabled.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -155,11 +150,6 @@ class UpdateTableInputBuilder
   set tableClass(_i10.TableClass? tableClass) =>
       _$this._tableClass = tableClass;
 
-  bool? _deletionProtectionEnabled;
-  bool? get deletionProtectionEnabled => _$this._deletionProtectionEnabled;
-  set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
-      _$this._deletionProtectionEnabled = deletionProtectionEnabled;
-
   UpdateTableInputBuilder() {
     UpdateTableInput._init(this);
   }
@@ -177,7 +167,6 @@ class UpdateTableInputBuilder
       _sseSpecification = $v.sseSpecification?.toBuilder();
       _replicaUpdates = $v.replicaUpdates?.toBuilder();
       _tableClass = $v.tableClass;
-      _deletionProtectionEnabled = $v.deletionProtectionEnabled;
       _$v = null;
     }
     return this;
@@ -212,8 +201,7 @@ class UpdateTableInputBuilder
               streamSpecification: _streamSpecification?.build(),
               sseSpecification: _sseSpecification?.build(),
               replicaUpdates: _replicaUpdates?.build(),
-              tableClass: tableClass,
-              deletionProtectionEnabled: deletionProtectionEnabled);
+              tableClass: tableClass);
     } catch (_) {
       late String _$failedField;
       try {

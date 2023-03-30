@@ -8,9 +8,9 @@ part of smoke_test.config_service.model.recording_group;
 
 class _$RecordingGroup extends RecordingGroup {
   @override
-  final bool allSupported;
+  final bool? allSupported;
   @override
-  final bool includeGlobalResourceTypes;
+  final bool? includeGlobalResourceTypes;
   @override
   final _i3.BuiltList<_i2.ResourceType>? resourceTypes;
 
@@ -18,15 +18,8 @@ class _$RecordingGroup extends RecordingGroup {
       (new RecordingGroupBuilder()..update(updates))._build();
 
   _$RecordingGroup._(
-      {required this.allSupported,
-      required this.includeGlobalResourceTypes,
-      this.resourceTypes})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        allSupported, r'RecordingGroup', 'allSupported');
-    BuiltValueNullFieldError.checkNotNull(includeGlobalResourceTypes,
-        r'RecordingGroup', 'includeGlobalResourceTypes');
-  }
+      {this.allSupported, this.includeGlobalResourceTypes, this.resourceTypes})
+      : super._();
 
   @override
   RecordingGroup rebuild(void Function(RecordingGroupBuilder) updates) =>
@@ -109,12 +102,8 @@ class RecordingGroupBuilder
     try {
       _$result = _$v ??
           new _$RecordingGroup._(
-              allSupported: BuiltValueNullFieldError.checkNotNull(
-                  allSupported, r'RecordingGroup', 'allSupported'),
-              includeGlobalResourceTypes: BuiltValueNullFieldError.checkNotNull(
-                  includeGlobalResourceTypes,
-                  r'RecordingGroup',
-                  'includeGlobalResourceTypes'),
+              allSupported: allSupported,
+              includeGlobalResourceTypes: includeGlobalResourceTypes,
               resourceTypes: _resourceTypes?.build());
     } catch (_) {
       late String _$failedField;

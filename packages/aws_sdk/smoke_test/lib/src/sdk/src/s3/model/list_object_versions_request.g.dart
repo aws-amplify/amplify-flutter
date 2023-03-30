@@ -16,7 +16,7 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   @override
   final String? keyMarker;
   @override
-  final int maxKeys;
+  final int? maxKeys;
   @override
   final String? prefix;
   @override
@@ -33,15 +33,13 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
       this.delimiter,
       this.encodingType,
       this.keyMarker,
-      required this.maxKeys,
+      this.maxKeys,
       this.prefix,
       this.versionIdMarker,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectVersionsRequest', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
-        maxKeys, r'ListObjectVersionsRequest', 'maxKeys');
   }
 
   @override
@@ -165,8 +163,7 @@ class ListObjectVersionsRequestBuilder
             delimiter: delimiter,
             encodingType: encodingType,
             keyMarker: keyMarker,
-            maxKeys: BuiltValueNullFieldError.checkNotNull(
-                maxKeys, r'ListObjectVersionsRequest', 'maxKeys'),
+            maxKeys: maxKeys,
             prefix: prefix,
             versionIdMarker: versionIdMarker,
             expectedBucketOwner: expectedBucketOwner);

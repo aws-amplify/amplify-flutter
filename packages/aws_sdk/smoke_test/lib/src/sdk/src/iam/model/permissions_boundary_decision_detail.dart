@@ -19,7 +19,6 @@ abstract class PermissionsBoundaryDecisionDetail
   /// Contains information about the effect that a permissions boundary has on a policy simulation when the boundary is applied to an IAM entity.
   factory PermissionsBoundaryDecisionDetail(
       {bool? allowedByPermissionsBoundary}) {
-    allowedByPermissionsBoundary ??= false;
     return _$PermissionsBoundaryDecisionDetail._(
         allowedByPermissionsBoundary: allowedByPermissionsBoundary);
   }
@@ -36,12 +35,10 @@ abstract class PermissionsBoundaryDecisionDetail
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PermissionsBoundaryDecisionDetailBuilder b) {
-    b.allowedByPermissionsBoundary = false;
-  }
+  static void _init(PermissionsBoundaryDecisionDetailBuilder b) {}
 
   /// Specifies whether an action is allowed by a permissions boundary that is applied to an IAM entity (user or role). A value of `true` means that the permissions boundary does not deny the action. This means that the policy includes an `Allow` statement that matches the request. In this case, if an identity-based policy also allows the action, the request is allowed. A value of `false` means that either the requested action is not allowed (implicitly denied) or that the action is explicitly denied by the permissions boundary. In both of these cases, the action is not allowed, regardless of the identity-based policy.
-  bool get allowedByPermissionsBoundary;
+  bool? get allowedByPermissionsBoundary;
   @override
   List<Object?> get props => [allowedByPermissionsBoundary];
   @override
@@ -87,10 +84,12 @@ class PermissionsBoundaryDecisionDetailAwsQuerySerializer
       final value = iterator.current;
       switch (key as String) {
         case 'AllowedByPermissionsBoundary':
-          result.allowedByPermissionsBoundary = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.allowedByPermissionsBoundary = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -111,12 +110,14 @@ class PermissionsBoundaryDecisionDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    result
-      ..add(const _i2.XmlElementName('AllowedByPermissionsBoundary'))
-      ..add(serializers.serialize(
-        payload.allowedByPermissionsBoundary,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.allowedByPermissionsBoundary != null) {
+      result
+        ..add(const _i2.XmlElementName('AllowedByPermissionsBoundary'))
+        ..add(serializers.serialize(
+          payload.allowedByPermissionsBoundary!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

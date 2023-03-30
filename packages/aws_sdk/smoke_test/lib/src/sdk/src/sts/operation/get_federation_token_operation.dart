@@ -34,16 +34,14 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// **Permissions**
 ///
-/// You can use the temporary credentials created by `GetFederationToken` in any Amazon Web Services service with the following exceptions:
+/// You can use the temporary credentials created by `GetFederationToken` in any Amazon Web Services service except the following:
 ///
-/// *   You cannot call any IAM operations using the CLI or the Amazon Web Services API. This limitation does not apply to console sessions.
+/// *   You cannot call any IAM operations using the CLI or the Amazon Web Services API.
 ///
 /// *   You cannot call any STS operations except `GetCallerIdentity`.
 ///
 ///
-/// You can use temporary credentials for single sign-on (SSO) to the console.
-///
-/// You must pass an inline or managed [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policy Amazon Resource Names (ARNs) to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters.
+/// You must pass an inline or managed [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters.
 ///
 /// Though the session policy parameters are optional, if you do not pass a policy, then the resulting federated user session has no permissions. When you pass session policies, the session permissions are the intersection of the IAM user policies and the session policies that you pass. This gives you a way to further restrict the permissions for a federated user. You cannot use session policies to grant more permissions than those that are defined in the permissions policy of the IAM user. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_. For information about using `GetFederationToken` to create temporary security credentials, see [GetFederationToken—Federation Through a Custom Identity Broker](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getfederationtoken).
 ///
@@ -75,16 +73,14 @@ class GetFederationTokenOperation extends _i1.HttpOperation<
   ///
   /// **Permissions**
   ///
-  /// You can use the temporary credentials created by `GetFederationToken` in any Amazon Web Services service with the following exceptions:
+  /// You can use the temporary credentials created by `GetFederationToken` in any Amazon Web Services service except the following:
   ///
-  /// *   You cannot call any IAM operations using the CLI or the Amazon Web Services API. This limitation does not apply to console sessions.
+  /// *   You cannot call any IAM operations using the CLI or the Amazon Web Services API.
   ///
   /// *   You cannot call any STS operations except `GetCallerIdentity`.
   ///
   ///
-  /// You can use temporary credentials for single sign-on (SSO) to the console.
-  ///
-  /// You must pass an inline or managed [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policy Amazon Resource Names (ARNs) to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters.
+  /// You must pass an inline or managed [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters.
   ///
   /// Though the session policy parameters are optional, if you do not pass a policy, then the resulting federated user session has no permissions. When you pass session policies, the session permissions are the intersection of the IAM user policies and the session policies that you pass. This gives you a way to further restrict the permissions for a federated user. You cannot use session policies to grant more permissions than those that are defined in the permissions policy of the IAM user. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_. For information about using `GetFederationToken` to create temporary security credentials, see [GetFederationToken—Federation Through a Custom Identity Broker](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getfederationtoken).
   ///

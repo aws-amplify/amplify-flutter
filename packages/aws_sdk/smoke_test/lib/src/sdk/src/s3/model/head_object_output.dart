@@ -63,11 +63,6 @@ abstract class HeadObjectOutput
     DateTime? objectLockRetainUntilDate,
     _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
   }) {
-    deleteMarker ??= false;
-    contentLength ??= _i4.Int64.ZERO;
-    missingMeta ??= 0;
-    bucketKeyEnabled ??= false;
-    partsCount ??= 0;
     return _$HeadObjectOutput._(
       deleteMarker: deleteMarker,
       acceptRanges: acceptRanges,
@@ -261,16 +256,10 @@ abstract class HeadObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputBuilder b) {
-    b.deleteMarker = false;
-    b.contentLength = _i4.Int64.ZERO;
-    b.missingMeta = 0;
-    b.bucketKeyEnabled = false;
-    b.partsCount = 0;
-  }
+  static void _init(HeadObjectOutputBuilder b) {}
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// Indicates that a range of bytes was specified.
   String? get acceptRanges;
@@ -296,7 +285,7 @@ abstract class HeadObjectOutput
   DateTime? get lastModified;
 
   /// Size of the body in bytes.
-  _i4.Int64 get contentLength;
+  _i4.Int64? get contentLength;
 
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -314,7 +303,7 @@ abstract class HeadObjectOutput
   String? get eTag;
 
   /// This is set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int get missingMeta;
+  int? get missingMeta;
 
   /// Version of the object.
   String? get versionId;
@@ -340,7 +329,7 @@ abstract class HeadObjectOutput
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
   String? get websiteRedirectLocation;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+  /// If the object is stored using server-side encryption either with an Amazon Web Services KMS key or an Amazon S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
   _i5.ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
@@ -352,11 +341,11 @@ abstract class HeadObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for the object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
   /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
   ///
@@ -383,7 +372,7 @@ abstract class HeadObjectOutput
   _i8.ReplicationStatus? get replicationStatus;
 
   /// The count of parts this object has. This value is only returned if you specify `partNumber` in your request and the object was uploaded as a multipart upload.
-  int get partsCount;
+  int? get partsCount;
 
   /// The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the `s3:GetObjectRetention` permission. For more information about S3 Object Lock, see [Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
   _i9.ObjectLockMode? get objectLockMode;

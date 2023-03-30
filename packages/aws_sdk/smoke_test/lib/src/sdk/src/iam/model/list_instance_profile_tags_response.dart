@@ -22,7 +22,6 @@ abstract class ListInstanceProfileTagsResponse
     bool? isTruncated,
     String? marker,
   }) {
-    isTruncated ??= false;
     return _$ListInstanceProfileTagsResponse._(
       tags: _i3.BuiltList(tags),
       isTruncated: isTruncated,
@@ -48,15 +47,13 @@ abstract class ListInstanceProfileTagsResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListInstanceProfileTagsResponseBuilder b) {
-    b.isTruncated = false;
-  }
+  static void _init(ListInstanceProfileTagsResponseBuilder b) {}
 
   /// The list of tags that are currently attached to the IAM instance profile. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
   _i3.BuiltList<_i2.Tag> get tags;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -129,10 +126,12 @@ class ListInstanceProfileTagsResponseAwsQuerySerializer
           ) as _i3.BuiltList<_i2.Tag>));
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Marker':
           if (value != null) {
@@ -173,12 +172,14 @@ class ListInstanceProfileTagsResponseAwsQuerySerializer
           [FullType(_i2.Tag)],
         ),
       ));
-    result
-      ..add(const _i4.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.marker != null) {
       result
         ..add(const _i4.XmlElementName('Marker'))

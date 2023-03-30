@@ -12,19 +12,17 @@ class _$OrganizationAggregationSource extends OrganizationAggregationSource {
   @override
   final _i2.BuiltList<String>? awsRegions;
   @override
-  final bool allAwsRegions;
+  final bool? allAwsRegions;
 
   factory _$OrganizationAggregationSource(
           [void Function(OrganizationAggregationSourceBuilder)? updates]) =>
       (new OrganizationAggregationSourceBuilder()..update(updates))._build();
 
   _$OrganizationAggregationSource._(
-      {required this.roleArn, this.awsRegions, required this.allAwsRegions})
+      {required this.roleArn, this.awsRegions, this.allAwsRegions})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         roleArn, r'OrganizationAggregationSource', 'roleArn');
-    BuiltValueNullFieldError.checkNotNull(
-        allAwsRegions, r'OrganizationAggregationSource', 'allAwsRegions');
   }
 
   @override
@@ -114,10 +112,7 @@ class OrganizationAggregationSourceBuilder
               roleArn: BuiltValueNullFieldError.checkNotNull(
                   roleArn, r'OrganizationAggregationSource', 'roleArn'),
               awsRegions: _awsRegions?.build(),
-              allAwsRegions: BuiltValueNullFieldError.checkNotNull(
-                  allAwsRegions,
-                  r'OrganizationAggregationSource',
-                  'allAwsRegions'));
+              allAwsRegions: allAwsRegions);
     } catch (_) {
       late String _$failedField;
       try {

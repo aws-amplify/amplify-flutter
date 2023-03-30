@@ -258,7 +258,7 @@ class InventoryConfigurationRestXmlSerializer
       ..add(const _i8.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
         payload.isEnabled,
-        specifiedType: const FullType(bool),
+        specifiedType: const FullType.nullable(bool),
       ));
     if (payload.optionalFields != null) {
       result

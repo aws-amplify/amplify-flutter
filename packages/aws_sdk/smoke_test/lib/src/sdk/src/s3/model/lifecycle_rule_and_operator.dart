@@ -24,8 +24,6 @@ abstract class LifecycleRuleAndOperator
     _i3.Int64? objectSizeGreaterThan,
     _i3.Int64? objectSizeLessThan,
   }) {
-    objectSizeGreaterThan ??= _i3.Int64.ZERO;
-    objectSizeLessThan ??= _i3.Int64.ZERO;
     return _$LifecycleRuleAndOperator._(
       prefix: prefix,
       tags: tags == null ? null : _i4.BuiltList(tags),
@@ -46,10 +44,7 @@ abstract class LifecycleRuleAndOperator
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleRuleAndOperatorBuilder b) {
-    b.objectSizeGreaterThan = _i3.Int64.ZERO;
-    b.objectSizeLessThan = _i3.Int64.ZERO;
-  }
+  static void _init(LifecycleRuleAndOperatorBuilder b) {}
 
   /// Prefix identifying one or more objects to which the rule applies.
   String? get prefix;
@@ -58,10 +53,10 @@ abstract class LifecycleRuleAndOperator
   _i4.BuiltList<_i2.Tag>? get tags;
 
   /// Minimum object size to which the rule applies.
-  _i3.Int64 get objectSizeGreaterThan;
+  _i3.Int64? get objectSizeGreaterThan;
 
   /// Maximum object size to which the rule applies.
-  _i3.Int64 get objectSizeLessThan;
+  _i3.Int64? get objectSizeLessThan;
   @override
   List<Object?> get props => [
         prefix,
@@ -123,16 +118,20 @@ class LifecycleRuleAndOperatorRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'ObjectSizeGreaterThan':
-          result.objectSizeGreaterThan = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+          if (value != null) {
+            result.objectSizeGreaterThan = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
+          }
           break;
         case 'ObjectSizeLessThan':
-          result.objectSizeLessThan = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+          if (value != null) {
+            result.objectSizeLessThan = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
+          }
           break;
         case 'Prefix':
           if (value != null) {
@@ -169,18 +168,22 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
-      ..add(serializers.serialize(
-        payload.objectSizeGreaterThan,
-        specifiedType: const FullType(_i3.Int64),
-      ));
-    result
-      ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
-      ..add(serializers.serialize(
-        payload.objectSizeLessThan,
-        specifiedType: const FullType(_i3.Int64),
-      ));
+    if (payload.objectSizeGreaterThan != null) {
+      result
+        ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
+        ..add(serializers.serialize(
+          payload.objectSizeGreaterThan!,
+          specifiedType: const FullType.nullable(_i3.Int64),
+        ));
+    }
+    if (payload.objectSizeLessThan != null) {
+      result
+        ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
+        ..add(serializers.serialize(
+          payload.objectSizeLessThan!,
+          specifiedType: const FullType.nullable(_i3.Int64),
+        ));
+    }
     if (payload.prefix != null) {
       result
         ..add(const _i5.XmlElementName('Prefix'))

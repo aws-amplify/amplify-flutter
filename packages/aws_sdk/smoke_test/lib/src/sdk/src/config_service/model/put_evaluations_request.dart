@@ -22,7 +22,6 @@ abstract class PutEvaluationsRequest
     required String resultToken,
     bool? testMode,
   }) {
-    testMode ??= false;
     return _$PutEvaluationsRequest._(
       evaluations: evaluations == null ? null : _i4.BuiltList(evaluations),
       resultToken: resultToken,
@@ -48,9 +47,7 @@ abstract class PutEvaluationsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEvaluationsRequestBuilder b) {
-    b.testMode = false;
-  }
+  static void _init(PutEvaluationsRequestBuilder b) {}
 
   /// The assessments that the Lambda function performs. Each evaluation identifies an Amazon Web Services resource and indicates whether it complies with the Config rule that invokes the Lambda function.
   _i4.BuiltList<_i3.Evaluation>? get evaluations;
@@ -61,7 +58,7 @@ abstract class PutEvaluationsRequest
   /// Use this parameter to specify a test run for `PutEvaluations`. You can verify whether your Lambda function will deliver evaluation results to Config. No updates occur to your existing evaluations, and evaluation results are not sent to Config.
   ///
   /// When `TestMode` is `true`, `PutEvaluations` doesn't require a valid value for the `ResultToken` parameter, but the value cannot be null.
-  bool get testMode;
+  bool? get testMode;
   @override
   PutEvaluationsRequest getPayload() => this;
   @override
@@ -137,10 +134,12 @@ class PutEvaluationsRequestAwsJson11Serializer
           ) as String);
           break;
         case 'TestMode':
-          result.testMode = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.testMode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -161,11 +160,6 @@ class PutEvaluationsRequestAwsJson11Serializer
         payload.resultToken,
         specifiedType: const FullType(String),
       ),
-      'TestMode',
-      serializers.serialize(
-        payload.testMode,
-        specifiedType: const FullType(bool),
-      ),
     ];
     if (payload.evaluations != null) {
       result
@@ -176,6 +170,14 @@ class PutEvaluationsRequestAwsJson11Serializer
             _i4.BuiltList,
             [FullType(_i3.Evaluation)],
           ),
+        ));
+    }
+    if (payload.testMode != null) {
+      result
+        ..add('TestMode')
+        ..add(serializers.serialize(
+          payload.testMode!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

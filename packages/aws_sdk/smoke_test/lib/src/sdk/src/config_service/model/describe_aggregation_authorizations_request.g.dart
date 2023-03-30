@@ -9,7 +9,7 @@ part of smoke_test.config_service.model.describe_aggregation_authorizations_requ
 class _$DescribeAggregationAuthorizationsRequest
     extends DescribeAggregationAuthorizationsRequest {
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -19,12 +19,8 @@ class _$DescribeAggregationAuthorizationsRequest
       (new DescribeAggregationAuthorizationsRequestBuilder()..update(updates))
           ._build();
 
-  _$DescribeAggregationAuthorizationsRequest._(
-      {required this.limit, this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeAggregationAuthorizationsRequest', 'limit');
-  }
+  _$DescribeAggregationAuthorizationsRequest._({this.limit, this.nextToken})
+      : super._();
 
   @override
   DescribeAggregationAuthorizationsRequest rebuild(
@@ -100,9 +96,7 @@ class DescribeAggregationAuthorizationsRequestBuilder
   _$DescribeAggregationAuthorizationsRequest _build() {
     final _$result = _$v ??
         new _$DescribeAggregationAuthorizationsRequest._(
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'DescribeAggregationAuthorizationsRequest', 'limit'),
-            nextToken: nextToken);
+            limit: limit, nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

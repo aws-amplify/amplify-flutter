@@ -20,7 +20,6 @@ abstract class DescribeAggregationAuthorizationsRequest
     int? limit,
     String? nextToken,
   }) {
-    limit ??= 0;
     return _$DescribeAggregationAuthorizationsRequest._(
       limit: limit,
       nextToken: nextToken,
@@ -45,12 +44,10 @@ abstract class DescribeAggregationAuthorizationsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAggregationAuthorizationsRequestBuilder b) {
-    b.limit = 0;
-  }
+  static void _init(DescribeAggregationAuthorizationsRequestBuilder b) {}
 
   /// The maximum number of AggregationAuthorizations returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int get limit;
+  int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -108,10 +105,12 @@ class DescribeAggregationAuthorizationsRequestAwsJson11Serializer extends _i1
       final value = iterator.current;
       switch (key) {
         case 'Limit':
-          result.limit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextToken':
           if (value != null) {
@@ -134,13 +133,15 @@ class DescribeAggregationAuthorizationsRequestAwsJson11Serializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as DescribeAggregationAuthorizationsRequest);
-    final result = <Object?>[
-      'Limit',
-      serializers.serialize(
-        payload.limit,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.limit != null) {
+      result
+        ..add('Limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
+        ));
+    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')

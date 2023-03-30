@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.aggregate_conformance_pack_compliance_co
 class _$AggregateConformancePackComplianceCount
     extends AggregateConformancePackComplianceCount {
   @override
-  final int compliantConformancePackCount;
+  final int? compliantConformancePackCount;
   @override
-  final int nonCompliantConformancePackCount;
+  final int? nonCompliantConformancePackCount;
 
   factory _$AggregateConformancePackComplianceCount(
           [void Function(AggregateConformancePackComplianceCountBuilder)?
@@ -20,18 +20,9 @@ class _$AggregateConformancePackComplianceCount
           ._build();
 
   _$AggregateConformancePackComplianceCount._(
-      {required this.compliantConformancePackCount,
-      required this.nonCompliantConformancePackCount})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        compliantConformancePackCount,
-        r'AggregateConformancePackComplianceCount',
-        'compliantConformancePackCount');
-    BuiltValueNullFieldError.checkNotNull(
-        nonCompliantConformancePackCount,
-        r'AggregateConformancePackComplianceCount',
-        'nonCompliantConformancePackCount');
-  }
+      {this.compliantConformancePackCount,
+      this.nonCompliantConformancePackCount})
+      : super._();
 
   @override
   AggregateConformancePackComplianceCount rebuild(
@@ -113,16 +104,8 @@ class AggregateConformancePackComplianceCountBuilder
   _$AggregateConformancePackComplianceCount _build() {
     final _$result = _$v ??
         new _$AggregateConformancePackComplianceCount._(
-            compliantConformancePackCount:
-                BuiltValueNullFieldError.checkNotNull(
-                    compliantConformancePackCount,
-                    r'AggregateConformancePackComplianceCount',
-                    'compliantConformancePackCount'),
-            nonCompliantConformancePackCount:
-                BuiltValueNullFieldError.checkNotNull(
-                    nonCompliantConformancePackCount,
-                    r'AggregateConformancePackComplianceCount',
-                    'nonCompliantConformancePackCount'));
+            compliantConformancePackCount: compliantConformancePackCount,
+            nonCompliantConformancePackCount: nonCompliantConformancePackCount);
     replace(_$result);
     return _$result;
   }

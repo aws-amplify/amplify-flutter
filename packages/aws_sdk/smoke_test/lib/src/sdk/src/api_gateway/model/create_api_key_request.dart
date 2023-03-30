@@ -28,8 +28,6 @@ abstract class CreateApiKeyRequest
     String? customerId,
     Map<String, String>? tags,
   }) {
-    enabled ??= false;
-    generateDistinctId ??= false;
     return _$CreateApiKeyRequest._(
       name: name,
       description: description,
@@ -61,10 +59,7 @@ abstract class CreateApiKeyRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateApiKeyRequestBuilder b) {
-    b.enabled = false;
-    b.generateDistinctId = false;
-  }
+  static void _init(CreateApiKeyRequestBuilder b) {}
 
   /// The name of the ApiKey.
   String? get name;
@@ -73,10 +68,10 @@ abstract class CreateApiKeyRequest
   String? get description;
 
   /// Specifies whether the ApiKey can be used by callers.
-  bool get enabled;
+  bool? get enabled;
 
   /// Specifies whether (`true`) or not (`false`) the key identifier is distinct from the created API key value. This parameter is deprecated and should not be used.
-  bool get generateDistinctId;
+  bool? get generateDistinctId;
 
   /// Specifies a value of the API key.
   String? get value;
@@ -187,16 +182,20 @@ class CreateApiKeyRequestRestJson1Serializer
           }
           break;
         case 'enabled':
-          result.enabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.enabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'generateDistinctId':
-          result.generateDistinctId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.generateDistinctId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'name':
           if (value != null) {
@@ -252,18 +251,7 @@ class CreateApiKeyRequestRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as CreateApiKeyRequest);
-    final result = <Object?>[
-      'enabled',
-      serializers.serialize(
-        payload.enabled,
-        specifiedType: const FullType(bool),
-      ),
-      'generateDistinctId',
-      serializers.serialize(
-        payload.generateDistinctId,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.customerId != null) {
       result
         ..add('customerId')
@@ -278,6 +266,22 @@ class CreateApiKeyRequestRestJson1Serializer
         ..add(serializers.serialize(
           payload.description!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.enabled != null) {
+      result
+        ..add('enabled')
+        ..add(serializers.serialize(
+          payload.enabled!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.generateDistinctId != null) {
+      result
+        ..add('generateDistinctId')
+        ..add(serializers.serialize(
+          payload.generateDistinctId!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.name != null) {

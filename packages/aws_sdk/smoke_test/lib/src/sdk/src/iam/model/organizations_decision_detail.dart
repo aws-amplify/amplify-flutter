@@ -16,7 +16,6 @@ abstract class OrganizationsDecisionDetail
         Built<OrganizationsDecisionDetail, OrganizationsDecisionDetailBuilder> {
   /// Contains information about the effect that Organizations has on a policy simulation.
   factory OrganizationsDecisionDetail({bool? allowedByOrganizations}) {
-    allowedByOrganizations ??= false;
     return _$OrganizationsDecisionDetail._(
         allowedByOrganizations: allowedByOrganizations);
   }
@@ -33,12 +32,10 @@ abstract class OrganizationsDecisionDetail
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationsDecisionDetailBuilder b) {
-    b.allowedByOrganizations = false;
-  }
+  static void _init(OrganizationsDecisionDetailBuilder b) {}
 
   /// Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.
-  bool get allowedByOrganizations;
+  bool? get allowedByOrganizations;
   @override
   List<Object?> get props => [allowedByOrganizations];
   @override
@@ -83,10 +80,12 @@ class OrganizationsDecisionDetailAwsQuerySerializer
       final value = iterator.current;
       switch (key as String) {
         case 'AllowedByOrganizations':
-          result.allowedByOrganizations = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.allowedByOrganizations = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -107,12 +106,14 @@ class OrganizationsDecisionDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    result
-      ..add(const _i2.XmlElementName('AllowedByOrganizations'))
-      ..add(serializers.serialize(
-        payload.allowedByOrganizations,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.allowedByOrganizations != null) {
+      result
+        ..add(const _i2.XmlElementName('AllowedByOrganizations'))
+        ..add(serializers.serialize(
+          payload.allowedByOrganizations!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

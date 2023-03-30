@@ -41,10 +41,10 @@ abstract class Encryption
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EncryptionBuilder b) {}
 
-  /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, `aws:kms`).
+  /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, aws:kms).
   _i2.ServerSideEncryption get encryptionType;
 
-  /// If the encryption type is `aws:kms`, this optional value specifies the ID of the symmetric encryption customer managed key to use for encryption of job results. Amazon S3 only supports symmetric encryption KMS keys. For more information, see [Asymmetric keys in Amazon Web Services KMS](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
+  /// If the encryption type is `aws:kms`, this optional value specifies the ID of the symmetric customer managed key to use for encryption of job results. Amazon S3 only supports symmetric keys. For more information, see [Using symmetric and asymmetric keys](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get kmsKeyId;
 
   /// If the encryption type is `aws:kms`, this optional value can be used to specify the encryption context for the restore results.

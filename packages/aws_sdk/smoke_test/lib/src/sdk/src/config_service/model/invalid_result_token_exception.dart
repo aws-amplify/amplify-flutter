@@ -9,18 +9,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_result_token_exception.g.dart';
 
-/// The specified `ResultToken` is not valid.
+/// The specified `ResultToken` is invalid.
 abstract class InvalidResultTokenException
     with _i1.AWSEquatable<InvalidResultTokenException>
     implements
         Built<InvalidResultTokenException, InvalidResultTokenExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The specified `ResultToken` is not valid.
+  /// The specified `ResultToken` is invalid.
   factory InvalidResultTokenException({String? message}) {
     return _$InvalidResultTokenException._(message: message);
   }
 
-  /// The specified `ResultToken` is not valid.
+  /// The specified `ResultToken` is invalid.
   factory InvalidResultTokenException.build(
           [void Function(InvalidResultTokenExceptionBuilder) updates]) =
       _$InvalidResultTokenException;

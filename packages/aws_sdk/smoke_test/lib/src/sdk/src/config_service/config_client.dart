@@ -11,7 +11,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart'
     as _i123;
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i178;
+    as _i175;
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status.dart'
     as _i69;
 import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart'
@@ -204,30 +204,24 @@ import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_cus
     as _i166;
 import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart'
     as _i170;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_request.dart'
-    as _i173;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_response.dart'
-    as _i172;
 import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_request.dart'
-    as _i176;
+    as _i173;
 import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_response.dart'
-    as _i175;
+    as _i172;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_aggregate_discovered_resources_request.dart'
-    as _i179;
+    as _i176;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_request.dart'
-    as _i182;
+    as _i179;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart'
-    as _i181;
+    as _i178;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_discovered_resources_request.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_resource_evaluations_request.dart'
-    as _i188;
+    as _i182;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_request.dart'
-    as _i191;
+    as _i185;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_response.dart'
-    as _i190;
+    as _i184;
 import 'package:smoke_test/src/sdk/src/config_service/model/list_tags_for_resource_request.dart'
-    as _i194;
+    as _i188;
 import 'package:smoke_test/src/sdk/src/config_service/model/member_account_status.dart'
     as _i160;
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart'
@@ -243,274 +237,262 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_conform
 import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart'
     as _i108;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_request.dart'
-    as _i197;
+    as _i191;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_response.dart'
-    as _i196;
+    as _i190;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_config_rule_request.dart'
-    as _i199;
+    as _i193;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_request.dart'
-    as _i202;
+    as _i196;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_response.dart'
-    as _i201;
+    as _i195;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_recorder_request.dart'
-    as _i204;
+    as _i198;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_request.dart'
-    as _i207;
+    as _i201;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_response.dart'
-    as _i206;
+    as _i200;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_delivery_channel_request.dart'
-    as _i209;
+    as _i203;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_request.dart'
-    as _i212;
+    as _i206;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_response.dart'
-    as _i211;
+    as _i205;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_request.dart'
-    as _i215;
+    as _i209;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_response.dart'
-    as _i214;
+    as _i208;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_request.dart'
-    as _i218;
+    as _i212;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_response.dart'
-    as _i217;
+    as _i211;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_request.dart'
-    as _i221;
+    as _i215;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_response.dart'
-    as _i220;
+    as _i214;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_request.dart'
-    as _i224;
+    as _i218;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_response.dart'
-    as _i223;
+    as _i217;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_request.dart'
-    as _i227;
+    as _i221;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_response.dart'
-    as _i226;
+    as _i220;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_resource_config_request.dart'
-    as _i229;
+    as _i223;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_request.dart'
-    as _i232;
+    as _i226;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_response.dart'
-    as _i231;
+    as _i225;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_request.dart'
-    as _i235;
+    as _i229;
 import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_response.dart'
-    as _i234;
+    as _i228;
 import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart'
     as _i117;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart'
-    as _i187;
 import 'package:smoke_test/src/sdk/src/config_service/model/resource_identifier.dart'
-    as _i184;
+    as _i181;
 import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart'
     as _i120;
 import 'package:smoke_test/src/sdk/src/config_service/model/select_aggregate_resource_config_request.dart'
-    as _i237;
+    as _i231;
 import 'package:smoke_test/src/sdk/src/config_service/model/select_resource_config_request.dart'
-    as _i239;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_request.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_response.dart'
-    as _i241;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_configuration_recorder_request.dart'
-    as _i244;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_request.dart'
-    as _i247;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_response.dart'
-    as _i246;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_request.dart'
-    as _i250;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_response.dart'
-    as _i249;
-import 'package:smoke_test/src/sdk/src/config_service/model/stop_configuration_recorder_request.dart'
-    as _i252;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i193;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag_resource_request.dart'
-    as _i254;
-import 'package:smoke_test/src/sdk/src/config_service/model/untag_resource_request.dart'
-    as _i256;
-import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_aggregate_resource_config.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_resource_config.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_aggregation_authorization.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_config_rule.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_aggregator.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_recorder.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_conformance_pack.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_delivery_channel.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_evaluation_results.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_config_rule.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_conformance_pack.dart'
-    as _i28;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_pending_aggregation_request.dart'
-    as _i30;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_configuration.dart'
-    as _i33;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_exceptions.dart'
-    as _i36;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_resource_config.dart'
-    as _i38;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_retention_configuration.dart'
-    as _i40;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_stored_query.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/config_service/operation/deliver_config_snapshot.dart'
-    as _i46;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_config_rules.dart'
-    as _i49;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_conformance_packs.dart'
-    as _i53;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregation_authorizations.dart'
-    as _i56;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_config_rule.dart'
-    as _i59;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_resource.dart'
-    as _i62;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rule_evaluation_status.dart'
-    as _i65;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rules.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregator_sources_status.dart'
-    as _i71;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregators.dart'
-    as _i74;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorder_status.dart'
-    as _i77;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorders.dart'
-    as _i80;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_compliance.dart'
-    as _i83;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_status.dart'
-    as _i86;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_packs.dart'
-    as _i89;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channel_status.dart'
-    as _i92;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channels.dart'
-    as _i95;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rule_statuses.dart'
-    as _i98;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rules.dart'
-    as _i101;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_pack_statuses.dart'
-    as _i104;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_packs.dart'
-    as _i107;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_pending_aggregation_requests.dart'
-    as _i110;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_configurations.dart'
-    as _i113;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_exceptions.dart'
-    as _i116;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_execution_status.dart'
-    as _i119;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_retention_configurations.dart'
-    as _i122;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_compliance_details_by_config_rule.dart'
-    as _i125;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_config_rule_compliance_summary.dart'
-    as _i128;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_conformance_pack_compliance_summary.dart'
-    as _i131;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_discovered_resource_counts.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_resource_config.dart'
-    as _i137;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_config_rule.dart'
-    as _i140;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_resource.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_config_rule.dart'
-    as _i144;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_resource_type.dart'
-    as _i147;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_details.dart'
-    as _i150;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_summary.dart'
-    as _i153;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_custom_rule_policy.dart'
-    as _i156;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_discovered_resource_counts.dart'
-    as _i159;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_config_rule_detailed_status.dart'
-    as _i162;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_conformance_pack_detailed_status.dart'
-    as _i165;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_custom_rule_policy.dart'
-    as _i168;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_config_history.dart'
-    as _i171;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_evaluation_summary.dart'
-    as _i174;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_stored_query.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_aggregate_discovered_resources.dart'
-    as _i180;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_conformance_pack_compliance_scores.dart'
-    as _i183;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_discovered_resources.dart'
-    as _i186;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_resource_evaluations.dart'
-    as _i189;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_stored_queries.dart'
-    as _i192;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_tags_for_resource.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_aggregation_authorization.dart'
-    as _i198;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_config_rule.dart'
-    as _i200;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_aggregator.dart'
-    as _i203;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_recorder.dart'
-    as _i205;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_conformance_pack.dart'
-    as _i208;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_delivery_channel.dart'
-    as _i210;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_evaluations.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_external_evaluation.dart'
-    as _i216;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_config_rule.dart'
-    as _i219;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_conformance_pack.dart'
-    as _i222;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_configurations.dart'
-    as _i225;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_exceptions.dart'
-    as _i228;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_resource_config.dart'
-    as _i230;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_retention_configuration.dart'
     as _i233;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_stored_query.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_request.dart'
     as _i236;
-import 'package:smoke_test/src/sdk/src/config_service/operation/select_aggregate_resource_config.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_response.dart'
+    as _i235;
+import 'package:smoke_test/src/sdk/src/config_service/model/start_configuration_recorder_request.dart'
     as _i238;
-import 'package:smoke_test/src/sdk/src/config_service/operation/select_resource_config.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_request.dart'
+    as _i241;
+import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_response.dart'
     as _i240;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_config_rules_evaluation.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/stop_configuration_recorder_request.dart'
     as _i243;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_configuration_recorder.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i187;
+import 'package:smoke_test/src/sdk/src/config_service/model/tag_resource_request.dart'
     as _i245;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_remediation_execution.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/untag_resource_request.dart'
+    as _i247;
+import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_aggregate_resource_config_operation.dart'
+    as _i6;
+import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_resource_config_operation.dart'
+    as _i9;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_aggregation_authorization_operation.dart'
+    as _i11;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_config_rule_operation.dart'
+    as _i13;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_aggregator_operation.dart'
+    as _i15;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_recorder_operation.dart'
+    as _i17;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_conformance_pack_operation.dart'
+    as _i19;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_delivery_channel_operation.dart'
+    as _i21;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_evaluation_results_operation.dart'
+    as _i24;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_config_rule_operation.dart'
+    as _i26;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_conformance_pack_operation.dart'
+    as _i28;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_pending_aggregation_request_operation.dart'
+    as _i30;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_configuration_operation.dart'
+    as _i33;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_exceptions_operation.dart'
+    as _i36;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_resource_config_operation.dart'
+    as _i38;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_retention_configuration_operation.dart'
+    as _i40;
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_stored_query_operation.dart'
+    as _i43;
+import 'package:smoke_test/src/sdk/src/config_service/operation/deliver_config_snapshot_operation.dart'
+    as _i46;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_config_rules_operation.dart'
+    as _i49;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_conformance_packs_operation.dart'
+    as _i53;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregation_authorizations_operation.dart'
+    as _i56;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_config_rule_operation.dart'
+    as _i59;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_resource_operation.dart'
+    as _i62;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rule_evaluation_status_operation.dart'
+    as _i65;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rules_operation.dart'
+    as _i68;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregator_sources_status_operation.dart'
+    as _i71;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregators_operation.dart'
+    as _i74;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorder_status_operation.dart'
+    as _i77;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorders_operation.dart'
+    as _i80;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_compliance_operation.dart'
+    as _i83;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_status_operation.dart'
+    as _i86;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_packs_operation.dart'
+    as _i89;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channel_status_operation.dart'
+    as _i92;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channels_operation.dart'
+    as _i95;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rule_statuses_operation.dart'
+    as _i98;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rules_operation.dart'
+    as _i101;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_pack_statuses_operation.dart'
+    as _i104;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_packs_operation.dart'
+    as _i107;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_pending_aggregation_requests_operation.dart'
+    as _i110;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_configurations_operation.dart'
+    as _i113;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_exceptions_operation.dart'
+    as _i116;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_execution_status_operation.dart'
+    as _i119;
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_retention_configurations_operation.dart'
+    as _i122;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_compliance_details_by_config_rule_operation.dart'
+    as _i125;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_config_rule_compliance_summary_operation.dart'
+    as _i128;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_conformance_pack_compliance_summary_operation.dart'
+    as _i131;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_discovered_resource_counts_operation.dart'
+    as _i134;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_resource_config_operation.dart'
+    as _i137;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_config_rule_operation.dart'
+    as _i140;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_resource_operation.dart'
+    as _i142;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_config_rule_operation.dart'
+    as _i144;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_resource_type_operation.dart'
+    as _i147;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_details_operation.dart'
+    as _i150;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_summary_operation.dart'
+    as _i153;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_custom_rule_policy_operation.dart'
+    as _i156;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_discovered_resource_counts_operation.dart'
+    as _i159;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_config_rule_detailed_status_operation.dart'
+    as _i162;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_conformance_pack_detailed_status_operation.dart'
+    as _i165;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_custom_rule_policy_operation.dart'
+    as _i168;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_config_history_operation.dart'
+    as _i171;
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_stored_query_operation.dart'
+    as _i174;
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_aggregate_discovered_resources_operation.dart'
+    as _i177;
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_conformance_pack_compliance_scores_operation.dart'
+    as _i180;
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_discovered_resources_operation.dart'
+    as _i183;
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_stored_queries_operation.dart'
+    as _i186;
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_tags_for_resource_operation.dart'
+    as _i189;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_aggregation_authorization_operation.dart'
+    as _i192;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_config_rule_operation.dart'
+    as _i194;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_aggregator_operation.dart'
+    as _i197;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_recorder_operation.dart'
+    as _i199;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_conformance_pack_operation.dart'
+    as _i202;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_delivery_channel_operation.dart'
+    as _i204;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_evaluations_operation.dart'
+    as _i207;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_external_evaluation_operation.dart'
+    as _i210;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_config_rule_operation.dart'
+    as _i213;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_conformance_pack_operation.dart'
+    as _i216;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_configurations_operation.dart'
+    as _i219;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_exceptions_operation.dart'
+    as _i222;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_resource_config_operation.dart'
+    as _i224;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_retention_configuration_operation.dart'
+    as _i227;
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_stored_query_operation.dart'
+    as _i230;
+import 'package:smoke_test/src/sdk/src/config_service/operation/select_aggregate_resource_config_operation.dart'
+    as _i232;
+import 'package:smoke_test/src/sdk/src/config_service/operation/select_resource_config_operation.dart'
+    as _i234;
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_config_rules_evaluation_operation.dart'
+    as _i237;
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_configuration_recorder_operation.dart'
+    as _i239;
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_remediation_execution_operation.dart'
+    as _i242;
+import 'package:smoke_test/src/sdk/src/config_service/operation/stop_configuration_recorder_operation.dart'
+    as _i244;
+import 'package:smoke_test/src/sdk/src/config_service/operation/tag_resource_operation.dart'
+    as _i246;
+import 'package:smoke_test/src/sdk/src/config_service/operation/untag_resource_operation.dart'
     as _i248;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_resource_evaluation.dart'
-    as _i251;
-import 'package:smoke_test/src/sdk/src/config_service/operation/stop_configuration_recorder.dart'
-    as _i253;
-import 'package:smoke_test/src/sdk/src/config_service/operation/tag_resource.dart'
-    as _i255;
-import 'package:smoke_test/src/sdk/src/config_service/operation/untag_resource.dart'
-    as _i257;
 
 /// ## Config
 ///
@@ -737,7 +719,7 @@ class ConfigClient {
 
   /// Deletes the specified organization Config rule and all of its evaluation results from all member accounts in that organization.
   ///
-  /// Only a management account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+  /// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
   _i3.SmithyOperation<void> deleteOrganizationConfigRule(
@@ -759,7 +741,7 @@ class ConfigClient {
 
   /// Deletes the specified organization conformance pack and all of the Config rules and remediation actions from all member accounts in that organization.
   ///
-  /// Only a management account or a delegated administrator account can delete an organization conformance pack. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+  /// Only a master account or a delegated administrator account can delete an organization conformance pack. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a conformance pack to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a conformance pack while it is in this state.
   _i3.SmithyOperation<void> deleteOrganizationConformancePack(
@@ -1121,9 +1103,9 @@ class ConfigClient {
     );
   }
 
-  /// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
+  /// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
+  /// Currently, you can specify only one configuration recorder per region in your account.
   _i3.SmithyOperation<_i75.DescribeConfigurationRecorderStatusResponse>
       describeConfigurationRecorderStatus(
     _i76.DescribeConfigurationRecorderStatusRequest input, {
@@ -1611,7 +1593,7 @@ class ConfigClient {
     );
   }
 
-  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
+  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
   _i3.SmithyOperation<
       _i3.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, void,
           String>> getComplianceDetailsByResource(
@@ -1859,34 +1841,13 @@ class ConfigClient {
     );
   }
 
-  /// Returns a summary of resource evaluation for the specified resource evaluation ID from the proactive rules that were run. The results indicate which evaluation context was used to evaluate the rules, which resource details were evaluated, the evaluation mode that was run, and whether the resource details comply with the configuration of the proactive rules.
-  ///
-  /// To see additional information about the evaluation result, such as which rule flagged a resource as NON_COMPLIANT, use the [GetComplianceDetailsByResource](https://docs.aws.amazon.com/config/latest/APIReference/API_GetComplianceDetailsByResource.html) API. For more information, see the [Examples](https://docs.aws.amazon.com/config/latest/APIReference/API_GetResourceEvaluationSummary.html#API_GetResourceEvaluationSummary_Examples) section.
-  _i3.SmithyOperation<_i172.GetResourceEvaluationSummaryResponse>
-      getResourceEvaluationSummary(
-    _i173.GetResourceEvaluationSummaryRequest input, {
-    _i1.AWSHttpClient? client,
-    _i2.AWSCredentialsProvider? credentialsProvider,
-  }) {
-    return _i174.GetResourceEvaluationSummaryOperation(
-      region: _region,
-      baseUri: _baseUri,
-      credentialsProvider: credentialsProvider ?? _credentialsProvider,
-      requestInterceptors: _requestInterceptors,
-      responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
-  }
-
   /// Returns the details of a specific stored query.
-  _i3.SmithyOperation<_i175.GetStoredQueryResponse> getStoredQuery(
-    _i176.GetStoredQueryRequest input, {
+  _i3.SmithyOperation<_i172.GetStoredQueryResponse> getStoredQuery(
+    _i173.GetStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i177.GetStoredQueryOperation(
+    return _i174.GetStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1902,13 +1863,13 @@ class ConfigClient {
   ///
   /// For example, if the input consists of accountID 12345678910 and the region is us-east-1 for resource type `AWS::EC2::Instance` then the API returns all the EC2 instance identifiers of accountID 12345678910 and region us-east-1.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i178.AggregateResourceIdentifier>,
+      _i3.PaginatedResult<_i50.BuiltList<_i175.AggregateResourceIdentifier>,
           int, String>> listAggregateDiscoveredResources(
-    _i179.ListAggregateDiscoveredResourcesRequest input, {
+    _i176.ListAggregateDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i180.ListAggregateDiscoveredResourcesOperation(
+    return _i177.ListAggregateDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1920,17 +1881,17 @@ class ConfigClient {
     );
   }
 
-  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
+  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i181.ListConformancePackComplianceScoresResponse,
+      _i3.PaginatedResult<_i178.ListConformancePackComplianceScoresResponse,
           int, String>> listConformancePackComplianceScores(
-    _i182.ListConformancePackComplianceScoresRequest input, {
+    _i179.ListConformancePackComplianceScoresRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i183.ListConformancePackComplianceScoresOperation(
+    return _i180.ListConformancePackComplianceScoresOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1948,33 +1909,13 @@ class ConfigClient {
   ///
   /// The response is paginated. By default, Config lists 100 resource identifiers on each page. You can customize this number with the `limit` parameter. The response includes a `nextToken` string. To get the next page of results, run the request again and specify the string for the `nextToken` parameter.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i184.ResourceIdentifier>, int,
+      _i3.PaginatedResult<_i50.BuiltList<_i181.ResourceIdentifier>, int,
           String>> listDiscoveredResources(
-    _i185.ListDiscoveredResourcesRequest input, {
+    _i182.ListDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i186.ListDiscoveredResourcesOperation(
-      region: _region,
-      baseUri: _baseUri,
-      credentialsProvider: credentialsProvider ?? _credentialsProvider,
-      requestInterceptors: _requestInterceptors,
-      responseInterceptors: _responseInterceptors,
-    ).runPaginated(
-      input,
-      client: client ?? _client,
-    );
-  }
-
-  /// Returns a list of proactive resource evaluations.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i187.ResourceEvaluation>, int,
-          String>> listResourceEvaluations(
-    _i188.ListResourceEvaluationsRequest input, {
-    _i1.AWSHttpClient? client,
-    _i2.AWSCredentialsProvider? credentialsProvider,
-  }) {
-    return _i189.ListResourceEvaluationsOperation(
+    return _i183.ListDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1988,13 +1929,13 @@ class ConfigClient {
 
   /// Lists the stored queries for a single Amazon Web Services account and a single Amazon Web Services Region. The default is 100.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i190.ListStoredQueriesResponse, int, String>>
+          _i3.PaginatedResult<_i184.ListStoredQueriesResponse, int, String>>
       listStoredQueries(
-    _i191.ListStoredQueriesRequest input, {
+    _i185.ListStoredQueriesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i192.ListStoredQueriesOperation(
+    return _i186.ListStoredQueriesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2008,13 +1949,13 @@ class ConfigClient {
 
   /// List the tags for Config resource.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i50.BuiltList<_i193.Tag>, int, String>>
+          _i3.PaginatedResult<_i50.BuiltList<_i187.Tag>, int, String>>
       listTagsForResource(
-    _i194.ListTagsForResourceRequest input, {
+    _i188.ListTagsForResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i195.ListTagsForResourceOperation(
+    return _i189.ListTagsForResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2027,15 +1968,13 @@ class ConfigClient {
   }
 
   /// Authorizes the aggregator account and region to collect data from the source account and region.
-  ///
-  /// `PutAggregationAuthorization` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i196.PutAggregationAuthorizationResponse>
+  _i3.SmithyOperation<_i190.PutAggregationAuthorizationResponse>
       putAggregationAuthorization(
-    _i197.PutAggregationAuthorizationRequest input, {
+    _i191.PutAggregationAuthorizationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i198.PutAggregationAuthorizationOperation(
+    return _i192.PutAggregationAuthorizationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2049,27 +1988,23 @@ class ConfigClient {
 
   /// Adds or updates an Config rule to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
-  /// There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_. You can use `PutConfigRule` to create both Config Managed Rules and Config Custom Rules.
+  /// There are two types of rules: Config Custom Rules and Config Managed Rules. You can use `PutConfigRule` to create both Config custom rules and Config managed rules.
   ///
-  /// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `SourceIdentifier` key.
+  /// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. If you are adding a new Custom Lambda rule, you first need to create an Lambda function that the rule invokes to evaluate your resources. When you use `PutConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function. You specify the ARN in the `SourceIdentifier` key. This key is part of the `Source` object, which is part of the `ConfigRule` object.
   ///
-  /// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
+  /// Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `SourceIdentifier` key.
   ///
-  /// If you are adding a new Config Custom Lambda rule, you first need to create an Lambda function that the rule invokes to evaluate your resources. When you use `PutConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function. You specify the ARN in the `SourceIdentifier` key. This key is part of the `Source` object, which is part of the `ConfigRule` object.
-  ///
-  /// For any new Config rule that you add, specify the `ConfigRuleName` in the `ConfigRule` object. Do not specify the `ConfigRuleArn` or the `ConfigRuleId`. These values are generated by Config for new rules.
+  /// For any new rule that you add, specify the `ConfigRuleName` in the `ConfigRule` object. Do not specify the `ConfigRuleArn` or the `ConfigRuleId`. These values are generated by Config for new rules.
   ///
   /// If you are updating a rule that you added previously, you can specify the rule by `ConfigRuleName`, `ConfigRuleId`, or `ConfigRuleArn` in the `ConfigRule` data type that you use in this request.
   ///
-  /// For more information about developing and using Config rules, see [Evaluating Resources with Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
-  ///
-  /// `PutConfigRule` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
+  /// For more information about developing and using Config rules, see [Evaluating Amazon Web Services resource Configurations with Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html) in the _Config Developer Guide_.
   _i3.SmithyOperation<void> putConfigRule(
-    _i199.PutConfigRuleRequest input, {
+    _i193.PutConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i200.PutConfigRuleOperation(
+    return _i194.PutConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2090,15 +2025,13 @@ class ConfigClient {
   /// If your source type is an organization, you must be signed in to the management account or a registered delegated administrator and all the features must be enabled in your organization. If the caller is a management account, Config calls `EnableAwsServiceAccess` API to enable integration between Config and Organizations. If the caller is a registered delegated administrator, Config calls `ListDelegatedAdministrators` API to verify whether the caller is a valid delegated administrator.
   ///
   /// To register a delegated administrator, see [Register a Delegated Administrator](https://docs.aws.amazon.com/config/latest/developerguide/set-up-aggregator-cli.html#register-a-delegated-administrator-cli) in the _Config developer guide_.
-  ///
-  /// `PutConfigurationAggregator` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i201.PutConfigurationAggregatorResponse>
+  _i3.SmithyOperation<_i195.PutConfigurationAggregatorResponse>
       putConfigurationAggregator(
-    _i202.PutConfigurationAggregatorRequest input, {
+    _i196.PutConfigurationAggregatorRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i203.PutConfigurationAggregatorOperation(
+    return _i197.PutConfigurationAggregatorOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2118,11 +2051,11 @@ class ConfigClient {
   ///
   /// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
   _i3.SmithyOperation<void> putConfigurationRecorder(
-    _i204.PutConfigurationRecorderRequest input, {
+    _i198.PutConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i205.PutConfigurationRecorderOperation(
+    return _i199.PutConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2134,17 +2067,17 @@ class ConfigClient {
     );
   }
 
-  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across Amazon Web Services Organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   ///
   /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
   ///
-  /// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
-  _i3.SmithyOperation<_i206.PutConformancePackResponse> putConformancePack(
-    _i207.PutConformancePackRequest input, {
+  /// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
+  _i3.SmithyOperation<_i200.PutConformancePackResponse> putConformancePack(
+    _i201.PutConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i208.PutConformancePackOperation(
+    return _i202.PutConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2164,11 +2097,11 @@ class ConfigClient {
   ///
   /// You can have only one delivery channel per region in your account.
   _i3.SmithyOperation<void> putDeliveryChannel(
-    _i209.PutDeliveryChannelRequest input, {
+    _i203.PutDeliveryChannelRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i210.PutDeliveryChannelOperation(
+    return _i204.PutDeliveryChannelOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2181,12 +2114,12 @@ class ConfigClient {
   }
 
   /// Used by an Lambda function to deliver evaluation results to Config. This action is required in every Lambda function that is invoked by an Config rule.
-  _i3.SmithyOperation<_i211.PutEvaluationsResponse> putEvaluations(
-    _i212.PutEvaluationsRequest input, {
+  _i3.SmithyOperation<_i205.PutEvaluationsResponse> putEvaluations(
+    _i206.PutEvaluationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i213.PutEvaluationsOperation(
+    return _i207.PutEvaluationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2199,13 +2132,13 @@ class ConfigClient {
   }
 
   /// Add or updates the evaluations for process checks. This API checks if the rule is a process check when the name of the Config rule is provided.
-  _i3.SmithyOperation<_i214.PutExternalEvaluationResponse>
+  _i3.SmithyOperation<_i208.PutExternalEvaluationResponse>
       putExternalEvaluation(
-    _i215.PutExternalEvaluationRequest input, {
+    _i209.PutExternalEvaluationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i216.PutExternalEvaluationOperation(
+    return _i210.PutExternalEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2219,30 +2152,28 @@ class ConfigClient {
 
   /// Adds or updates an Config rule for your entire organization to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many organization Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
-  /// Only a management account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+  /// Only a master account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
   ///
-  /// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
+  /// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
   ///
   /// To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegated-administrator` for `config-multiaccountsetup.amazonaws.com`.
   ///
-  /// There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_. You can use `PutOrganizationConfigRule` to create both Config Managed Rules and Config Custom Rules.
+  /// There are two types of rules: Config Custom Rules and Config Managed Rules. You can use `PutOrganizationConfigRule` to create both Config custom rules and Config managed rules.
   ///
-  /// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
+  /// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. If you are adding a new Custom Lambda rule, you first need to create an Lambda function in the master account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
   ///
-  /// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
-  ///
-  /// If you are adding a new Config Custom Lambda rule, you first need to create an Lambda function in the management account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
+  /// Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
   ///
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
   /// Make sure to specify one of either `OrganizationCustomPolicyRuleMetadata` for Custom Policy rules, `OrganizationCustomRuleMetadata` for Custom Lambda rules, or `OrganizationManagedRuleMetadata` for managed rules.
-  _i3.SmithyOperation<_i217.PutOrganizationConfigRuleResponse>
+  _i3.SmithyOperation<_i211.PutOrganizationConfigRuleResponse>
       putOrganizationConfigRule(
-    _i218.PutOrganizationConfigRuleRequest input, {
+    _i212.PutOrganizationConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i219.PutOrganizationConfigRuleOperation(
+    return _i213.PutOrganizationConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2256,22 +2187,22 @@ class ConfigClient {
 
   /// Deploys conformance packs across member accounts in an Amazon Web Services Organization. For information on how many organization conformance packs and how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   ///
-  /// Only a management account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+  /// Only a master account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
   ///
-  /// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
+  /// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
   /// You must specify either the `TemplateS3Uri` or the `TemplateBody` parameter, but not both. If you provide both Config uses the `TemplateS3Uri` parameter and ignores the `TemplateBody` parameter.
   ///
   /// Config sets the state of a conformance pack to CREATE\_IN\_PROGRESS and UPDATE\_IN\_PROGRESS until the conformance pack is created or updated. You cannot update a conformance pack while it is in this state.
-  _i3.SmithyOperation<_i220.PutOrganizationConformancePackResponse>
+  _i3.SmithyOperation<_i214.PutOrganizationConformancePackResponse>
       putOrganizationConformancePack(
-    _i221.PutOrganizationConformancePackRequest input, {
+    _i215.PutOrganizationConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i222.PutOrganizationConformancePackOperation(
+    return _i216.PutOrganizationConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2292,13 +2223,13 @@ class ConfigClient {
   /// For manual remediation configuration, you need to provide a value for `automationAssumeRole` or use a value in the `assumeRole`field to remediate your resources. The SSM automation document can use either as long as it maps to a valid parameter.
   ///
   /// However, for automatic remediation configuration, the only valid `assumeRole` field value is `AutomationAssumeRole` and you need to provide a value for `AutomationAssumeRole` to remediate your resources.
-  _i3.SmithyOperation<_i223.PutRemediationConfigurationsResponse>
+  _i3.SmithyOperation<_i217.PutRemediationConfigurationsResponse>
       putRemediationConfigurations(
-    _i224.PutRemediationConfigurationsRequest input, {
+    _i218.PutRemediationConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i225.PutRemediationConfigurationsOperation(
+    return _i219.PutRemediationConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2310,20 +2241,16 @@ class ConfigClient {
     );
   }
 
-  /// A remediation exception is when a specified resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specified resource with a specified Config rule.
+  /// A remediation exception is when a specific resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specific resource with a specific Config rule.
   ///
-  /// Config generates a remediation exception when a problem occurs running a remediation action for a specified resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
-  ///
-  /// When placing an exception on an Amazon Web Services resource, it is recommended that remediation is set as manual remediation until the given Config rule for the specified resource evaluates the resource as `NON_COMPLIANT`. Once the resource has been evaluated as `NON_COMPLIANT`, you can add remediation exceptions and change the remediation type back from Manual to Auto if you want to use auto-remediation. Otherwise, using auto-remediation before a `NON_COMPLIANT` evaluation result can delete resources before the exception is applied.
-  ///
-  /// Placing an exception can only be performed on resources that are `NON_COMPLIANT`. If you use this API for `COMPLIANT` resources or resources that are `NOT_APPLICABLE`, a remediation exception will not be generated. For more information on the conditions that initiate the possible Config evaluation results, see [Concepts | Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/config-concepts.html#aws-config-rules) in the Config Developer Guide.
-  _i3.SmithyOperation<_i226.PutRemediationExceptionsResponse>
+  /// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
+  _i3.SmithyOperation<_i220.PutRemediationExceptionsResponse>
       putRemediationExceptions(
-    _i227.PutRemediationExceptionsRequest input, {
+    _i221.PutRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i228.PutRemediationExceptionsOperation(
+    return _i222.PutRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2343,11 +2270,11 @@ class ConfigClient {
   ///
   /// Write-only schema properites are not recorded as part of the published configuration item.
   _i3.SmithyOperation<void> putResourceConfig(
-    _i229.PutResourceConfigRequest input, {
+    _i223.PutResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i230.PutResourceConfigOperation(
+    return _i224.PutResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2362,13 +2289,13 @@ class ConfigClient {
   /// Creates and updates the retention configuration with details about retention period (number of days) that Config stores your historical information. The API creates the `RetentionConfiguration` object and names the object as **default**. When you have a `RetentionConfiguration` object named **default**, calling the API modifies the default object.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
-  _i3.SmithyOperation<_i231.PutRetentionConfigurationResponse>
+  _i3.SmithyOperation<_i225.PutRetentionConfigurationResponse>
       putRetentionConfiguration(
-    _i232.PutRetentionConfigurationRequest input, {
+    _i226.PutRetentionConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i233.PutRetentionConfigurationOperation(
+    return _i227.PutRetentionConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2381,14 +2308,12 @@ class ConfigClient {
   }
 
   /// Saves a new query or updates an existing saved query. The `QueryName` must be unique for a single Amazon Web Services account and a single Amazon Web Services Region. You can create upto 300 queries in a single Amazon Web Services account and a single Amazon Web Services Region.
-  ///
-  /// `PutStoredQuery` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i234.PutStoredQueryResponse> putStoredQuery(
-    _i235.PutStoredQueryRequest input, {
+  _i3.SmithyOperation<_i228.PutStoredQueryResponse> putStoredQuery(
+    _i229.PutStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i236.PutStoredQueryOperation(
+    return _i230.PutStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2409,11 +2334,11 @@ class ConfigClient {
   /// If you run a non-aggregation query (i.e., not using `GROUP BY` or aggregate function; e.g., `SELECT * WHERE resourceType = 'AWS::IAM::Role'`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 25.
   _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
       selectAggregateResourceConfig(
-    _i237.SelectAggregateResourceConfigRequest input, {
+    _i231.SelectAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i238.SelectAggregateResourceConfigOperation(
+    return _i232.SelectAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2430,11 +2355,11 @@ class ConfigClient {
   /// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the _Config Developer Guide_.
   _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
       selectResourceConfig(
-    _i239.SelectResourceConfigRequest input, {
+    _i233.SelectResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i240.SelectResourceConfigOperation(
+    return _i234.SelectResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2465,13 +2390,13 @@ class ConfigClient {
   /// 4.  Config invokes your Lambda function and evaluates your IAM resources.
   ///
   /// 5.  Your custom rule will still run periodic evaluations every 24 hours.
-  _i3.SmithyOperation<_i241.StartConfigRulesEvaluationResponse>
+  _i3.SmithyOperation<_i235.StartConfigRulesEvaluationResponse>
       startConfigRulesEvaluation(
-    _i242.StartConfigRulesEvaluationRequest input, {
+    _i236.StartConfigRulesEvaluationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i243.StartConfigRulesEvaluationOperation(
+    return _i237.StartConfigRulesEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2487,11 +2412,11 @@ class ConfigClient {
   ///
   /// You must have created at least one delivery channel to successfully start the configuration recorder.
   _i3.SmithyOperation<void> startConfigurationRecorder(
-    _i244.StartConfigurationRecorderRequest input, {
+    _i238.StartConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i245.StartConfigurationRecorderOperation(
+    return _i239.StartConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2506,38 +2431,13 @@ class ConfigClient {
   /// Runs an on-demand remediation for the specified Config rules against the last known remediation configuration. It runs an execution against the current state of your resources. Remediation execution is asynchronous.
   ///
   /// You can specify up to 100 resource keys per request. An existing StartRemediationExecution call for the specified resource keys must complete before you can call the API again.
-  _i3.SmithyOperation<_i246.StartRemediationExecutionResponse>
+  _i3.SmithyOperation<_i240.StartRemediationExecutionResponse>
       startRemediationExecution(
-    _i247.StartRemediationExecutionRequest input, {
+    _i241.StartRemediationExecutionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i248.StartRemediationExecutionOperation(
-      region: _region,
-      baseUri: _baseUri,
-      credentialsProvider: credentialsProvider ?? _credentialsProvider,
-      requestInterceptors: _requestInterceptors,
-      responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
-  }
-
-  /// Runs an on-demand evaluation for the specified resource to determine whether the resource details will comply with configured Config rules. You can also use it for evaluation purposes. Config recommends using an evaluation context. It runs an execution against the resource details with all of the Config rules in your account that match with the specified proactive mode and resource type.
-  ///
-  /// Ensure you have the `cloudformation:DescribeType` role setup to validate the resource type schema.
-  ///
-  /// You can find the [Resource type schema](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-schema.html) in "_Amazon Web Services public extensions_" within the CloudFormation registry or with the following CLI commmand: `aws cloudformation describe-type --type-name "AWS::S3::Bucket" --type RESOURCE`.
-  ///
-  /// For more information, see [Managing extensions through the CloudFormation registry](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry.html#registry-view) and [Amazon Web Services resource and property types reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) in the CloudFormation User Guide.
-  _i3.SmithyOperation<_i249.StartResourceEvaluationResponse>
-      startResourceEvaluation(
-    _i250.StartResourceEvaluationRequest input, {
-    _i1.AWSHttpClient? client,
-    _i2.AWSCredentialsProvider? credentialsProvider,
-  }) {
-    return _i251.StartResourceEvaluationOperation(
+    return _i242.StartRemediationExecutionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2551,11 +2451,11 @@ class ConfigClient {
 
   /// Stops recording configurations of the Amazon Web Services resources you have selected to record in your Amazon Web Services account.
   _i3.SmithyOperation<void> stopConfigurationRecorder(
-    _i252.StopConfigurationRecorderRequest input, {
+    _i243.StopConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i253.StopConfigurationRecorderOperation(
+    return _i244.StopConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2567,13 +2467,13 @@ class ConfigClient {
     );
   }
 
-  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
+  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
   _i3.SmithyOperation<void> tagResource(
-    _i254.TagResourceRequest input, {
+    _i245.TagResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i255.TagResourceOperation(
+    return _i246.TagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2587,11 +2487,11 @@ class ConfigClient {
 
   /// Deletes specified tags from a resource.
   _i3.SmithyOperation<void> untagResource(
-    _i256.UntagResourceRequest input, {
+    _i247.UntagResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i257.UntagResourceOperation(
+    return _i248.UntagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

@@ -8,15 +8,15 @@ part of smoke_test.s3.model.get_object_attributes_parts;
 
 class _$GetObjectAttributesParts extends GetObjectAttributesParts {
   @override
-  final int totalPartsCount;
+  final int? totalPartsCount;
   @override
   final String? partNumberMarker;
   @override
   final String? nextPartNumberMarker;
   @override
-  final int maxParts;
+  final int? maxParts;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final _i3.BuiltList<_i2.ObjectPart>? parts;
 
@@ -25,20 +25,13 @@ class _$GetObjectAttributesParts extends GetObjectAttributesParts {
       (new GetObjectAttributesPartsBuilder()..update(updates))._build();
 
   _$GetObjectAttributesParts._(
-      {required this.totalPartsCount,
+      {this.totalPartsCount,
       this.partNumberMarker,
       this.nextPartNumberMarker,
-      required this.maxParts,
-      required this.isTruncated,
+      this.maxParts,
+      this.isTruncated,
       this.parts})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        totalPartsCount, r'GetObjectAttributesParts', 'totalPartsCount');
-    BuiltValueNullFieldError.checkNotNull(
-        maxParts, r'GetObjectAttributesParts', 'maxParts');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'GetObjectAttributesParts', 'isTruncated');
-  }
+      : super._();
 
   @override
   GetObjectAttributesParts rebuild(
@@ -145,16 +138,11 @@ class GetObjectAttributesPartsBuilder
     try {
       _$result = _$v ??
           new _$GetObjectAttributesParts._(
-              totalPartsCount: BuiltValueNullFieldError.checkNotNull(
-                  totalPartsCount,
-                  r'GetObjectAttributesParts',
-                  'totalPartsCount'),
+              totalPartsCount: totalPartsCount,
               partNumberMarker: partNumberMarker,
               nextPartNumberMarker: nextPartNumberMarker,
-              maxParts: BuiltValueNullFieldError.checkNotNull(
-                  maxParts, r'GetObjectAttributesParts', 'maxParts'),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'GetObjectAttributesParts', 'isTruncated'),
+              maxParts: maxParts,
+              isTruncated: isTruncated,
               parts: _parts?.build());
     } catch (_) {
       late String _$failedField;

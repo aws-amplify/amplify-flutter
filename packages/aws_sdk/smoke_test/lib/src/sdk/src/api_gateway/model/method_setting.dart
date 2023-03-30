@@ -29,14 +29,6 @@ abstract class MethodSetting
     _i2.UnauthorizedCacheControlHeaderStrategy?
         unauthorizedCacheControlHeaderStrategy,
   }) {
-    metricsEnabled ??= false;
-    dataTraceEnabled ??= false;
-    throttlingBurstLimit ??= 0;
-    throttlingRateLimit ??= 0;
-    cachingEnabled ??= false;
-    cacheTtlInSeconds ??= 0;
-    cacheDataEncrypted ??= false;
-    requireAuthorizationForCacheControl ??= false;
     return _$MethodSetting._(
       metricsEnabled: metricsEnabled,
       loggingLevel: loggingLevel,
@@ -63,43 +55,34 @@ abstract class MethodSetting
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MethodSettingBuilder b) {
-    b.metricsEnabled = false;
-    b.dataTraceEnabled = false;
-    b.throttlingBurstLimit = 0;
-    b.throttlingRateLimit = 0;
-    b.cachingEnabled = false;
-    b.cacheTtlInSeconds = 0;
-    b.cacheDataEncrypted = false;
-    b.requireAuthorizationForCacheControl = false;
-  }
+  static void _init(MethodSettingBuilder b) {}
 
   /// Specifies whether Amazon CloudWatch metrics are enabled for this method. The PATCH path for this setting is `/{method\_setting\_key}/metrics/enabled`, and the value is a Boolean.
-  bool get metricsEnabled;
+  bool? get metricsEnabled;
 
   /// Specifies the logging level for this method, which affects the log entries pushed to Amazon CloudWatch Logs. The PATCH path for this setting is `/{method\_setting\_key}/logging/loglevel`, and the available levels are `OFF`, `ERROR`, and `INFO`. Choose `ERROR` to write only error-level entries to CloudWatch Logs, or choose `INFO` to include all `ERROR` events as well as extra informational events.
   String? get loggingLevel;
 
   /// Specifies whether data trace logging is enabled for this method, which affects the log entries pushed to Amazon CloudWatch Logs. The PATCH path for this setting is `/{method\_setting\_key}/logging/dataTrace`, and the value is a Boolean.
-  bool get dataTraceEnabled;
+  bool? get dataTraceEnabled;
 
   /// Specifies the throttling burst limit. The PATCH path for this setting is `/{method\_setting\_key}/throttling/burstLimit`, and the value is an integer.
-  int get throttlingBurstLimit;
+  int? get throttlingBurstLimit;
 
   /// Specifies the throttling rate limit. The PATCH path for this setting is `/{method\_setting\_key}/throttling/rateLimit`, and the value is a double.
-  double get throttlingRateLimit;
+  double? get throttlingRateLimit;
 
   /// Specifies whether responses should be cached and returned for requests. A cache cluster must be enabled on the stage for responses to be cached. The PATCH path for this setting is `/{method\_setting\_key}/caching/enabled`, and the value is a Boolean.
-  bool get cachingEnabled;
+  bool? get cachingEnabled;
 
   /// Specifies the time to live (TTL), in seconds, for cached responses. The higher the TTL, the longer the response will be cached. The PATCH path for this setting is `/{method\_setting\_key}/caching/ttlInSeconds`, and the value is an integer.
-  int get cacheTtlInSeconds;
+  int? get cacheTtlInSeconds;
 
   /// Specifies whether the cached responses are encrypted. The PATCH path for this setting is `/{method\_setting\_key}/caching/dataEncrypted`, and the value is a Boolean.
-  bool get cacheDataEncrypted;
+  bool? get cacheDataEncrypted;
 
   /// Specifies whether authorization is required for a cache invalidation request. The PATCH path for this setting is `/{method\_setting\_key}/caching/requireAuthorizationForCacheControl`, and the value is a Boolean.
-  bool get requireAuthorizationForCacheControl;
+  bool? get requireAuthorizationForCacheControl;
 
   /// Specifies how to handle unauthorized requests for cache invalidation. The PATCH path for this setting is `/{method\_setting\_key}/caching/unauthorizedCacheControlHeaderStrategy`, and the available values are `FAIL\_WITH\_403`, `SUCCEED\_WITH\_RESPONSE_HEADER`, `SUCCEED\_WITHOUT\_RESPONSE_HEADER`.
   _i2.UnauthorizedCacheControlHeaderStrategy?
@@ -194,28 +177,36 @@ class MethodSettingRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'cacheDataEncrypted':
-          result.cacheDataEncrypted = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.cacheDataEncrypted = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'cacheTtlInSeconds':
-          result.cacheTtlInSeconds = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.cacheTtlInSeconds = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'cachingEnabled':
-          result.cachingEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.cachingEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'dataTraceEnabled':
-          result.dataTraceEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.dataTraceEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'loggingLevel':
           if (value != null) {
@@ -226,28 +217,37 @@ class MethodSettingRestJson1Serializer
           }
           break;
         case 'metricsEnabled':
-          result.metricsEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.metricsEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'requireAuthorizationForCacheControl':
-          result.requireAuthorizationForCacheControl = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.requireAuthorizationForCacheControl =
+                (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'throttlingBurstLimit':
-          result.throttlingBurstLimit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.throttlingBurstLimit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'throttlingRateLimit':
-          result.throttlingRateLimit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(double),
-          ) as double);
+          if (value != null) {
+            result.throttlingRateLimit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
+          }
           break;
         case 'unauthorizedCacheControlHeaderStrategy':
           if (value != null) {
@@ -272,54 +272,77 @@ class MethodSettingRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as MethodSetting);
-    final result = <Object?>[
-      'cacheDataEncrypted',
-      serializers.serialize(
-        payload.cacheDataEncrypted,
-        specifiedType: const FullType(bool),
-      ),
-      'cacheTtlInSeconds',
-      serializers.serialize(
-        payload.cacheTtlInSeconds,
-        specifiedType: const FullType(int),
-      ),
-      'cachingEnabled',
-      serializers.serialize(
-        payload.cachingEnabled,
-        specifiedType: const FullType(bool),
-      ),
-      'dataTraceEnabled',
-      serializers.serialize(
-        payload.dataTraceEnabled,
-        specifiedType: const FullType(bool),
-      ),
-      'metricsEnabled',
-      serializers.serialize(
-        payload.metricsEnabled,
-        specifiedType: const FullType(bool),
-      ),
-      'requireAuthorizationForCacheControl',
-      serializers.serialize(
-        payload.requireAuthorizationForCacheControl,
-        specifiedType: const FullType(bool),
-      ),
-      'throttlingBurstLimit',
-      serializers.serialize(
-        payload.throttlingBurstLimit,
-        specifiedType: const FullType(int),
-      ),
-      'throttlingRateLimit',
-      serializers.serialize(
-        payload.throttlingRateLimit,
-        specifiedType: const FullType(double),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.cacheDataEncrypted != null) {
+      result
+        ..add('cacheDataEncrypted')
+        ..add(serializers.serialize(
+          payload.cacheDataEncrypted!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.cacheTtlInSeconds != null) {
+      result
+        ..add('cacheTtlInSeconds')
+        ..add(serializers.serialize(
+          payload.cacheTtlInSeconds!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.cachingEnabled != null) {
+      result
+        ..add('cachingEnabled')
+        ..add(serializers.serialize(
+          payload.cachingEnabled!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.dataTraceEnabled != null) {
+      result
+        ..add('dataTraceEnabled')
+        ..add(serializers.serialize(
+          payload.dataTraceEnabled!,
+          specifiedType: const FullType(bool),
+        ));
+    }
     if (payload.loggingLevel != null) {
       result
         ..add('loggingLevel')
         ..add(serializers.serialize(
           payload.loggingLevel!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.metricsEnabled != null) {
+      result
+        ..add('metricsEnabled')
+        ..add(serializers.serialize(
+          payload.metricsEnabled!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.requireAuthorizationForCacheControl != null) {
+      result
+        ..add('requireAuthorizationForCacheControl')
+        ..add(serializers.serialize(
+          payload.requireAuthorizationForCacheControl!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.throttlingBurstLimit != null) {
+      result
+        ..add('throttlingBurstLimit')
+        ..add(serializers.serialize(
+          payload.throttlingBurstLimit!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.throttlingRateLimit != null) {
+      result
+        ..add('throttlingRateLimit')
+        ..add(serializers.serialize(
+          payload.throttlingRateLimit!,
+          specifiedType: const FullType(double),
         ));
     }
     if (payload.unauthorizedCacheControlHeaderStrategy != null) {

@@ -12,7 +12,7 @@ class _$CustomPolicyDetails extends CustomPolicyDetails {
   @override
   final String policyText;
   @override
-  final bool enableDebugLogDelivery;
+  final bool? enableDebugLogDelivery;
 
   factory _$CustomPolicyDetails(
           [void Function(CustomPolicyDetailsBuilder)? updates]) =>
@@ -21,14 +21,12 @@ class _$CustomPolicyDetails extends CustomPolicyDetails {
   _$CustomPolicyDetails._(
       {required this.policyRuntime,
       required this.policyText,
-      required this.enableDebugLogDelivery})
+      this.enableDebugLogDelivery})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         policyRuntime, r'CustomPolicyDetails', 'policyRuntime');
     BuiltValueNullFieldError.checkNotNull(
         policyText, r'CustomPolicyDetails', 'policyText');
-    BuiltValueNullFieldError.checkNotNull(enableDebugLogDelivery,
-        r'CustomPolicyDetails', 'enableDebugLogDelivery');
   }
 
   @override
@@ -114,10 +112,7 @@ class CustomPolicyDetailsBuilder
                 policyRuntime, r'CustomPolicyDetails', 'policyRuntime'),
             policyText: BuiltValueNullFieldError.checkNotNull(
                 policyText, r'CustomPolicyDetails', 'policyText'),
-            enableDebugLogDelivery: BuiltValueNullFieldError.checkNotNull(
-                enableDebugLogDelivery,
-                r'CustomPolicyDetails',
-                'enableDebugLogDelivery'));
+            enableDebugLogDelivery: enableDebugLogDelivery);
     replace(_$result);
     return _$result;
   }

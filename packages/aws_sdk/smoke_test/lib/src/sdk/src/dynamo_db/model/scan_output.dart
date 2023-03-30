@@ -26,8 +26,6 @@ abstract class ScanOutput
     Map<String, _i2.AttributeValue>? lastEvaluatedKey,
     _i3.ConsumedCapacity? consumedCapacity,
   }) {
-    count ??= 0;
-    scannedCount ??= 0;
     return _$ScanOutput._(
       items: items == null
           ? null
@@ -58,10 +56,7 @@ abstract class ScanOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanOutputBuilder b) {
-    b.count = 0;
-    b.scannedCount = 0;
-  }
+  static void _init(ScanOutputBuilder b) {}
 
   /// An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name and the value for that attribute.
   _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
@@ -71,12 +66,12 @@ abstract class ScanOutput
   /// If you set `ScanFilter` in the request, then `Count` is the number of items returned after the filter was applied, and `ScannedCount` is the number of matching items before the filter was applied.
   ///
   /// If you did not use a filter in the request, then `Count` is the same as `ScannedCount`.
-  int get count;
+  int? get count;
 
   /// The number of items evaluated, before any `ScanFilter` is applied. A high `ScannedCount` value with few, or no, `Count` results indicates an inefficient `Scan` operation. For more information, see [Count and ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// If you did not use a filter in the request, then `ScannedCount` is the same as `Count`.
-  int get scannedCount;
+  int? get scannedCount;
 
   /// The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
   ///
@@ -85,7 +80,7 @@ abstract class ScanOutput
   /// If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
   _i4.BuiltMap<String, _i2.AttributeValue>? get lastEvaluatedKey;
 
-  /// The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
+  /// The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.ConsumedCapacity? get consumedCapacity;
   @override
   List<Object?> get props => [
@@ -171,16 +166,20 @@ class ScanOutputAwsJson10Serializer
           }
           break;
         case 'Count':
-          result.count = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.count = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'ScannedCount':
-          result.scannedCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.scannedCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'LastEvaluatedKey':
           if (value != null) {
@@ -217,18 +216,7 @@ class ScanOutputAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ScanOutput);
-    final result = <Object?>[
-      'Count',
-      serializers.serialize(
-        payload.count,
-        specifiedType: const FullType(int),
-      ),
-      'ScannedCount',
-      serializers.serialize(
-        payload.scannedCount,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.items != null) {
       result
         ..add('Items')
@@ -246,6 +234,22 @@ class ScanOutputAwsJson10Serializer
               )
             ],
           ),
+        ));
+    }
+    if (payload.count != null) {
+      result
+        ..add('Count')
+        ..add(serializers.serialize(
+          payload.count!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.scannedCount != null) {
+      result
+        ..add('ScannedCount')
+        ..add(serializers.serialize(
+          payload.scannedCount!,
+          specifiedType: const FullType(int),
         ));
     }
     if (payload.lastEvaluatedKey != null) {

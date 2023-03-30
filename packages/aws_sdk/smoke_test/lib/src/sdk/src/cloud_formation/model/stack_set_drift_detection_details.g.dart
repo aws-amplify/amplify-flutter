@@ -14,15 +14,15 @@ class _$StackSetDriftDetectionDetails extends StackSetDriftDetectionDetails {
   @override
   final DateTime? lastDriftCheckTimestamp;
   @override
-  final int totalStackInstancesCount;
+  final int? totalStackInstancesCount;
   @override
-  final int driftedStackInstancesCount;
+  final int? driftedStackInstancesCount;
   @override
-  final int inSyncStackInstancesCount;
+  final int? inSyncStackInstancesCount;
   @override
-  final int inProgressStackInstancesCount;
+  final int? inProgressStackInstancesCount;
   @override
-  final int failedStackInstancesCount;
+  final int? failedStackInstancesCount;
 
   factory _$StackSetDriftDetectionDetails(
           [void Function(StackSetDriftDetectionDetailsBuilder)? updates]) =>
@@ -32,23 +32,12 @@ class _$StackSetDriftDetectionDetails extends StackSetDriftDetectionDetails {
       {this.driftStatus,
       this.driftDetectionStatus,
       this.lastDriftCheckTimestamp,
-      required this.totalStackInstancesCount,
-      required this.driftedStackInstancesCount,
-      required this.inSyncStackInstancesCount,
-      required this.inProgressStackInstancesCount,
-      required this.failedStackInstancesCount})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(totalStackInstancesCount,
-        r'StackSetDriftDetectionDetails', 'totalStackInstancesCount');
-    BuiltValueNullFieldError.checkNotNull(driftedStackInstancesCount,
-        r'StackSetDriftDetectionDetails', 'driftedStackInstancesCount');
-    BuiltValueNullFieldError.checkNotNull(inSyncStackInstancesCount,
-        r'StackSetDriftDetectionDetails', 'inSyncStackInstancesCount');
-    BuiltValueNullFieldError.checkNotNull(inProgressStackInstancesCount,
-        r'StackSetDriftDetectionDetails', 'inProgressStackInstancesCount');
-    BuiltValueNullFieldError.checkNotNull(failedStackInstancesCount,
-        r'StackSetDriftDetectionDetails', 'failedStackInstancesCount');
-  }
+      this.totalStackInstancesCount,
+      this.driftedStackInstancesCount,
+      this.inSyncStackInstancesCount,
+      this.inProgressStackInstancesCount,
+      this.failedStackInstancesCount})
+      : super._();
 
   @override
   StackSetDriftDetectionDetails rebuild(
@@ -178,22 +167,11 @@ class StackSetDriftDetectionDetailsBuilder
             driftStatus: driftStatus,
             driftDetectionStatus: driftDetectionStatus,
             lastDriftCheckTimestamp: lastDriftCheckTimestamp,
-            totalStackInstancesCount: BuiltValueNullFieldError.checkNotNull(
-                totalStackInstancesCount, r'StackSetDriftDetectionDetails', 'totalStackInstancesCount'),
-            driftedStackInstancesCount: BuiltValueNullFieldError.checkNotNull(
-                driftedStackInstancesCount,
-                r'StackSetDriftDetectionDetails',
-                'driftedStackInstancesCount'),
-            inSyncStackInstancesCount: BuiltValueNullFieldError.checkNotNull(
-                inSyncStackInstancesCount, r'StackSetDriftDetectionDetails', 'inSyncStackInstancesCount'),
-            inProgressStackInstancesCount: BuiltValueNullFieldError.checkNotNull(
-                inProgressStackInstancesCount,
-                r'StackSetDriftDetectionDetails',
-                'inProgressStackInstancesCount'),
-            failedStackInstancesCount: BuiltValueNullFieldError.checkNotNull(
-                failedStackInstancesCount,
-                r'StackSetDriftDetectionDetails',
-                'failedStackInstancesCount'));
+            totalStackInstancesCount: totalStackInstancesCount,
+            driftedStackInstancesCount: driftedStackInstancesCount,
+            inSyncStackInstancesCount: inSyncStackInstancesCount,
+            inProgressStackInstancesCount: inProgressStackInstancesCount,
+            failedStackInstancesCount: failedStackInstancesCount);
     replace(_$result);
     return _$result;
   }

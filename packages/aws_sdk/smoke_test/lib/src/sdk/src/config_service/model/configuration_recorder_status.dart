@@ -12,15 +12,11 @@ import 'package:smoke_test/src/sdk/src/config_service/model/recorder_status.dart
 part 'configuration_recorder_status.g.dart';
 
 /// The current status of the configuration recorder.
-///
-/// For a detailed status of recording events over time, add your Config events to CloudWatch metrics and use CloudWatch metrics.
 abstract class ConfigurationRecorderStatus
     with _i1.AWSEquatable<ConfigurationRecorderStatus>
     implements
         Built<ConfigurationRecorderStatus, ConfigurationRecorderStatusBuilder> {
   /// The current status of the configuration recorder.
-  ///
-  /// For a detailed status of recording events over time, add your Config events to CloudWatch metrics and use CloudWatch metrics.
   factory ConfigurationRecorderStatus({
     String? name,
     DateTime? lastStartTime,
@@ -31,7 +27,6 @@ abstract class ConfigurationRecorderStatus
     String? lastErrorMessage,
     DateTime? lastStatusChangeTime,
   }) {
-    recording ??= false;
     return _$ConfigurationRecorderStatus._(
       name: name,
       lastStartTime: lastStartTime,
@@ -45,8 +40,6 @@ abstract class ConfigurationRecorderStatus
   }
 
   /// The current status of the configuration recorder.
-  ///
-  /// For a detailed status of recording events over time, add your Config events to CloudWatch metrics and use CloudWatch metrics.
   factory ConfigurationRecorderStatus.build(
           [void Function(ConfigurationRecorderStatusBuilder) updates]) =
       _$ConfigurationRecorderStatus;
@@ -58,9 +51,7 @@ abstract class ConfigurationRecorderStatus
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigurationRecorderStatusBuilder b) {
-    b.recording = false;
-  }
+  static void _init(ConfigurationRecorderStatusBuilder b) {}
 
   /// The name of the configuration recorder.
   String? get name;
@@ -72,18 +63,18 @@ abstract class ConfigurationRecorderStatus
   DateTime? get lastStopTime;
 
   /// Specifies whether or not the recorder is currently recording.
-  bool get recording;
+  bool? get recording;
 
-  /// The status of the latest recording event processed by the recorder.
+  /// The last (previous) status of the recorder.
   _i2.RecorderStatus? get lastStatus;
 
-  /// The latest error code from when the recorder last failed.
+  /// The error code indicating that the recording failed.
   String? get lastErrorCode;
 
-  /// The latest error message from when the recorder last failed.
+  /// The message indicating that the recording failed due to an error.
   String? get lastErrorMessage;
 
-  /// The time of the latest change in status of an recording event processed by the recorder.
+  /// The time when the status was last changed.
   DateTime? get lastStatusChangeTime;
   @override
   List<Object?> get props => [
@@ -190,10 +181,12 @@ class ConfigurationRecorderStatusAwsJson11Serializer
           }
           break;
         case 'recording':
-          result.recording = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.recording = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'lastStatus':
           if (value != null) {
@@ -240,13 +233,7 @@ class ConfigurationRecorderStatusAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ConfigurationRecorderStatus);
-    final result = <Object?>[
-      'recording',
-      serializers.serialize(
-        payload.recording,
-        specifiedType: const FullType(bool),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.name != null) {
       result
         ..add('name')
@@ -269,6 +256,14 @@ class ConfigurationRecorderStatusAwsJson11Serializer
         ..add(serializers.serialize(
           payload.lastStopTime!,
           specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.recording != null) {
+      result
+        ..add('recording')
+        ..add(serializers.serialize(
+          payload.recording!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.lastStatus != null) {

@@ -11,15 +11,11 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
 
 part 'billing_mode_summary.g.dart';
 
-/// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
-///
-/// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
+/// Contains the details for the read/write capacity mode.
 abstract class BillingModeSummary
     with _i1.AWSEquatable<BillingModeSummary>
     implements Built<BillingModeSummary, BillingModeSummaryBuilder> {
-  /// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
-  ///
-  /// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
+  /// Contains the details for the read/write capacity mode.
   factory BillingModeSummary({
     _i2.BillingMode? billingMode,
     DateTime? lastUpdateToPayPerRequestDateTime,
@@ -30,9 +26,7 @@ abstract class BillingModeSummary
     );
   }
 
-  /// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
-  ///
-  /// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
+  /// Contains the details for the read/write capacity mode.
   factory BillingModeSummary.build(
           [void Function(BillingModeSummaryBuilder) updates]) =
       _$BillingModeSummary;

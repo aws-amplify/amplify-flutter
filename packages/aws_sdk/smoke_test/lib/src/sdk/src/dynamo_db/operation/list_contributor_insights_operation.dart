@@ -171,6 +171,8 @@ class ListContributorInsightsOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        b.maxResults = pageSize;
+        if (pageSize != null) {
+          b.maxResults = pageSize;
+        }
       });
 }

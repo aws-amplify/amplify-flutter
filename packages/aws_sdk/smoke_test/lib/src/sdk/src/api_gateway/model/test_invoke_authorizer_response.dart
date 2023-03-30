@@ -28,8 +28,6 @@ abstract class TestInvokeAuthorizerResponse
     Map<String, List<String>>? authorization,
     Map<String, String>? claims,
   }) {
-    clientStatus ??= 0;
-    latency ??= _i2.Int64.ZERO;
     return _$TestInvokeAuthorizerResponse._(
       clientStatus: clientStatus,
       log: log,
@@ -61,19 +59,16 @@ abstract class TestInvokeAuthorizerResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerResponseBuilder b) {
-    b.clientStatus = 0;
-    b.latency = _i2.Int64.ZERO;
-  }
+  static void _init(TestInvokeAuthorizerResponseBuilder b) {}
 
   /// The HTTP status code that the client would have received. Value is 0 if the authorizer succeeded.
-  int get clientStatus;
+  int? get clientStatus;
 
   /// The API Gateway execution log for the test authorizer request.
   String? get log;
 
   /// The execution latency of the test authorizer request.
-  _i2.Int64 get latency;
+  _i2.Int64? get latency;
 
   /// The principal identity returned by the Authorizer
   String? get principalId;
@@ -190,16 +185,20 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
           }
           break;
         case 'clientStatus':
-          result.clientStatus = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.clientStatus = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'latency':
-          result.latency = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.latency = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'log':
           if (value != null) {
@@ -238,18 +237,7 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as TestInvokeAuthorizerResponse);
-    final result = <Object?>[
-      'clientStatus',
-      serializers.serialize(
-        payload.clientStatus,
-        specifiedType: const FullType(int),
-      ),
-      'latency',
-      serializers.serialize(
-        payload.latency,
-        specifiedType: const FullType(_i2.Int64),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.authorization != null) {
       result
         ..add('authorization')
@@ -276,6 +264,22 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
               FullType(String),
             ],
           ),
+        ));
+    }
+    if (payload.clientStatus != null) {
+      result
+        ..add('clientStatus')
+        ..add(serializers.serialize(
+          payload.clientStatus!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.latency != null) {
+      result
+        ..add('latency')
+        ..add(serializers.serialize(
+          payload.latency!,
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (payload.log != null) {

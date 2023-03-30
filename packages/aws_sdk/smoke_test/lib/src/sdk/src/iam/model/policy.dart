@@ -38,7 +38,6 @@ abstract class Policy
     DateTime? updateDate,
     List<_i2.Tag>? tags,
   }) {
-    isAttachable ??= false;
     return _$Policy._(
       policyName: policyName,
       policyId: policyId,
@@ -69,9 +68,7 @@ abstract class Policy
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyBuilder b) {
-    b.isAttachable = false;
-  }
+  static void _init(PolicyBuilder b) {}
 
   /// The friendly name (not ARN) identifying the policy.
   String? get policyName;
@@ -103,7 +100,7 @@ abstract class Policy
   int? get permissionsBoundaryUsageCount;
 
   /// Specifies whether the policy can be attached to an IAM user, group, or role.
-  bool get isAttachable;
+  bool? get isAttachable;
 
   /// A friendly description of the policy.
   ///
@@ -275,10 +272,12 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
           }
           break;
         case 'IsAttachable':
-          result.isAttachable = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isAttachable = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'Description':
           if (value != null) {
@@ -393,12 +392,14 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
           specifiedType: const FullType.nullable(int),
         ));
     }
-    result
-      ..add(const _i4.XmlElementName('IsAttachable'))
-      ..add(serializers.serialize(
-        payload.isAttachable,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isAttachable != null) {
+      result
+        ..add(const _i4.XmlElementName('IsAttachable'))
+        ..add(serializers.serialize(
+          payload.isAttachable!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.description != null) {
       result
         ..add(const _i4.XmlElementName('Description'))

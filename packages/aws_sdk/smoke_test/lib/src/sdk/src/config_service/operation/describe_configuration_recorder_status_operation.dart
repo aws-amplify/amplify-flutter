@@ -19,17 +19,17 @@ import 'package:smoke_test/src/sdk/src/config_service/model/describe_configurati
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_recorder_exception.dart'
     as _i9;
 
-/// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
+/// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
 ///
-/// Currently, you can specify only one configuration recorder per region in your account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
+/// Currently, you can specify only one configuration recorder per region in your account.
 class DescribeConfigurationRecorderStatusOperation extends _i1.HttpOperation<
     _i2.DescribeConfigurationRecorderStatusRequest,
     _i2.DescribeConfigurationRecorderStatusRequest,
     _i3.DescribeConfigurationRecorderStatusResponse,
     _i3.DescribeConfigurationRecorderStatusResponse> {
-  /// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
+  /// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
+  /// Currently, you can specify only one configuration recorder per region in your account.
   DescribeConfigurationRecorderStatusOperation({
     required String region,
     Uri? baseUri,

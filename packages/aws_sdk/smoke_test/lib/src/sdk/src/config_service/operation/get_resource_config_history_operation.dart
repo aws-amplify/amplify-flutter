@@ -226,6 +226,8 @@ class GetResourceConfigHistoryOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        b.limit = pageSize;
+        if (pageSize != null) {
+          b.limit = pageSize;
+        }
       });
 }

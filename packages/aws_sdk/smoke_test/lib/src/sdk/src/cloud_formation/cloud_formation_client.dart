@@ -260,137 +260,137 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_i
     as _i196;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart'
     as _i195;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/activate_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/activate_type_operation.dart'
     as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/batch_describe_type_configurations.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/batch_describe_type_configurations_operation.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/cancel_update_stack.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/cancel_update_stack_operation.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/continue_update_rollback.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/continue_update_rollback_operation.dart'
     as _i14;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_change_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_change_set_operation.dart'
     as _i17;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack_instances.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack_instances_operation.dart'
     as _i23;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack_operation.dart'
+    as _i20;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/create_stack_set_operation.dart'
     as _i26;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/deactivate_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/deactivate_type_operation.dart'
     as _i29;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_change_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_change_set_operation.dart'
     as _i32;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack.dart'
-    as _i34;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack_instances.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack_instances_operation.dart'
     as _i37;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack_operation.dart'
+    as _i34;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/delete_stack_set_operation.dart'
     as _i40;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/deregister_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/deregister_type_operation.dart'
     as _i43;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_account_limits.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_account_limits_operation.dart'
     as _i47;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_change_set.dart'
-    as _i50;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_change_set_hooks.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_change_set_hooks_operation.dart'
     as _i53;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_publisher.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_change_set_operation.dart'
+    as _i50;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_publisher_operation.dart'
     as _i56;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_drift_detection_status.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_drift_detection_status_operation.dart'
     as _i59;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_events.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_events_operation.dart'
     as _i62;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_instance.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_instance_operation.dart'
     as _i65;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resource.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resource_drifts.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resource_drifts_operation.dart'
     as _i71;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resources.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resource_operation.dart'
+    as _i68;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_resources_operation.dart'
     as _i74;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_set.dart'
     as _i77;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stack_set_operation.dart'
     as _i80;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stacks.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_stacks_operation.dart'
     as _i83;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_type_operation.dart'
     as _i86;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_type_registration.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/describe_type_registration_operation.dart'
     as _i89;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_drift.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_drift_operation.dart'
     as _i92;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_resource_drift.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_resource_drift_operation.dart'
     as _i95;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_set_drift.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/detect_stack_set_drift_operation.dart'
     as _i98;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/estimate_template_cost.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/estimate_template_cost_operation.dart'
     as _i101;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/execute_change_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/execute_change_set_operation.dart'
     as _i104;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_stack_policy.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_stack_policy_operation.dart'
     as _i107;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_template.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_template_operation.dart'
     as _i110;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_template_summary.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/get_template_summary_operation.dart'
     as _i113;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/import_stacks_to_stack_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/import_stacks_to_stack_set_operation.dart'
     as _i116;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_change_sets.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_change_sets_operation.dart'
     as _i119;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_exports.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_exports_operation.dart'
     as _i122;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_imports.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_imports_operation.dart'
     as _i124;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_instances.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_instances_operation.dart'
     as _i127;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_resources.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_resources_operation.dart'
     as _i130;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operation_results.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operation_results_operation.dart'
     as _i133;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operations.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operations_operation.dart'
     as _i136;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_sets.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_sets_operation.dart'
     as _i139;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stacks.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stacks_operation.dart'
     as _i142;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_registrations.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_registrations_operation.dart'
     as _i145;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_versions.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_versions_operation.dart'
     as _i148;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_types.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_types_operation.dart'
     as _i151;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/publish_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/publish_type_operation.dart'
     as _i154;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/record_handler_progress.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/record_handler_progress_operation.dart'
     as _i157;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_publisher.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_publisher_operation.dart'
     as _i160;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_type_operation.dart'
     as _i163;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/rollback_stack.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/rollback_stack_operation.dart'
     as _i166;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_stack_policy.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_stack_policy_operation.dart'
     as _i168;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_configuration.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_configuration_operation.dart'
     as _i171;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_default_version.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_default_version_operation.dart'
     as _i174;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/signal_resource.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/signal_resource_operation.dart'
     as _i176;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/stop_stack_set_operation.dart'
     as _i179;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/test_type.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/test_type_operation.dart'
     as _i182;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_instances.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_instances_operation.dart'
     as _i188;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_set.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_operation.dart'
+    as _i185;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_set_operation.dart'
     as _i191;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_termination_protection.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_termination_protection_operation.dart'
     as _i194;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/validate_template.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/validate_template_operation.dart'
     as _i197;
 
 /// ## CloudFormation
@@ -1727,7 +1727,7 @@ class CloudFormationClient {
   ///
   /// To perform testing, CloudFormation assumes the execution role specified when the type was registered. For more information, see [RegisterType](AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
-  /// Once you've initiated testing on an extension using `TestType`, you can pass the returned `TypeVersionArn` into [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
+  /// Once you've initiated testing on an extension using `TestType`, you can use [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
   ///
   /// An extension must have a test status of `PASSED` before it can be published. For more information, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html) in the _CloudFormation CLI User Guide_.
   _i3.SmithyOperation<_i180.TestTypeOutput> testType(

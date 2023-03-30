@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exce
 
 /// Deletes the specified organization Config rule and all of its evaluation results from all member accounts in that organization.
 ///
-/// Only a management account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+/// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
 ///
 /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
 class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
@@ -33,7 +33,7 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
     _i1.Unit> {
   /// Deletes the specified organization Config rule and all of its evaluation results from all member accounts in that organization.
   ///
-  /// Only a management account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+  /// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
   DeleteOrganizationConfigRuleOperation({

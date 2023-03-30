@@ -8,15 +8,12 @@ part of smoke_test.api_gateway.model.tls_config;
 
 class _$TlsConfig extends TlsConfig {
   @override
-  final bool insecureSkipVerification;
+  final bool? insecureSkipVerification;
 
   factory _$TlsConfig([void Function(TlsConfigBuilder)? updates]) =>
       (new TlsConfigBuilder()..update(updates))._build();
 
-  _$TlsConfig._({required this.insecureSkipVerification}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        insecureSkipVerification, r'TlsConfig', 'insecureSkipVerification');
-  }
+  _$TlsConfig._({this.insecureSkipVerification}) : super._();
 
   @override
   TlsConfig rebuild(void Function(TlsConfigBuilder) updates) =>
@@ -78,11 +75,7 @@ class TlsConfigBuilder implements Builder<TlsConfig, TlsConfigBuilder> {
 
   _$TlsConfig _build() {
     final _$result = _$v ??
-        new _$TlsConfig._(
-            insecureSkipVerification: BuiltValueNullFieldError.checkNotNull(
-                insecureSkipVerification,
-                r'TlsConfig',
-                'insecureSkipVerification'));
+        new _$TlsConfig._(insecureSkipVerification: insecureSkipVerification);
     replace(_$result);
     return _$result;
   }

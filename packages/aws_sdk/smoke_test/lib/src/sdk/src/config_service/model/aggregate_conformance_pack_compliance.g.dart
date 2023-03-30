@@ -11,11 +11,11 @@ class _$AggregateConformancePackCompliance
   @override
   final _i2.ConformancePackComplianceType? complianceType;
   @override
-  final int compliantRuleCount;
+  final int? compliantRuleCount;
   @override
-  final int nonCompliantRuleCount;
+  final int? nonCompliantRuleCount;
   @override
-  final int totalRuleCount;
+  final int? totalRuleCount;
 
   factory _$AggregateConformancePackCompliance(
           [void Function(AggregateConformancePackComplianceBuilder)?
@@ -25,17 +25,10 @@ class _$AggregateConformancePackCompliance
 
   _$AggregateConformancePackCompliance._(
       {this.complianceType,
-      required this.compliantRuleCount,
-      required this.nonCompliantRuleCount,
-      required this.totalRuleCount})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(compliantRuleCount,
-        r'AggregateConformancePackCompliance', 'compliantRuleCount');
-    BuiltValueNullFieldError.checkNotNull(nonCompliantRuleCount,
-        r'AggregateConformancePackCompliance', 'nonCompliantRuleCount');
-    BuiltValueNullFieldError.checkNotNull(totalRuleCount,
-        r'AggregateConformancePackCompliance', 'totalRuleCount');
-  }
+      this.compliantRuleCount,
+      this.nonCompliantRuleCount,
+      this.totalRuleCount})
+      : super._();
 
   @override
   AggregateConformancePackCompliance rebuild(
@@ -130,18 +123,9 @@ class AggregateConformancePackComplianceBuilder
     final _$result = _$v ??
         new _$AggregateConformancePackCompliance._(
             complianceType: complianceType,
-            compliantRuleCount: BuiltValueNullFieldError.checkNotNull(
-                compliantRuleCount,
-                r'AggregateConformancePackCompliance',
-                'compliantRuleCount'),
-            nonCompliantRuleCount: BuiltValueNullFieldError.checkNotNull(
-                nonCompliantRuleCount,
-                r'AggregateConformancePackCompliance',
-                'nonCompliantRuleCount'),
-            totalRuleCount: BuiltValueNullFieldError.checkNotNull(
-                totalRuleCount,
-                r'AggregateConformancePackCompliance',
-                'totalRuleCount'));
+            compliantRuleCount: compliantRuleCount,
+            nonCompliantRuleCount: nonCompliantRuleCount,
+            totalRuleCount: totalRuleCount);
     replace(_$result);
     return _$result;
   }

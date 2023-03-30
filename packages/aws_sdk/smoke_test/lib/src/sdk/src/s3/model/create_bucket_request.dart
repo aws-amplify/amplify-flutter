@@ -34,7 +34,6 @@ abstract class CreateBucketRequest
     bool? objectLockEnabledForBucket,
     _i5.ObjectOwnership? objectOwnership,
   }) {
-    objectLockEnabledForBucket ??= false;
     return _$CreateBucketRequest._(
       acl: acl,
       bucket: bucket,
@@ -101,9 +100,7 @@ abstract class CreateBucketRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketRequestBuilder b) {
-    b.objectLockEnabledForBucket = false;
-  }
+  static void _init(CreateBucketRequestBuilder b) {}
 
   /// The canned ACL to apply to the bucket.
   _i4.BucketCannedAcl? get acl;
@@ -132,7 +129,7 @@ abstract class CreateBucketRequest
   String? get grantWriteAcp;
 
   /// Specifies whether you want S3 Object Lock to be enabled for the new bucket.
-  bool get objectLockEnabledForBucket;
+  bool? get objectLockEnabledForBucket;
 
   /// The container element for object ownership for a bucket's ownership controls.
   ///

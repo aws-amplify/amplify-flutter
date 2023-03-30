@@ -8,7 +8,7 @@ part of smoke_test.s3.model.restore_request;
 
 class _$RestoreRequest extends RestoreRequest {
   @override
-  final int days;
+  final int? days;
   @override
   final _i2.GlacierJobParameters? glacierJobParameters;
   @override
@@ -26,16 +26,14 @@ class _$RestoreRequest extends RestoreRequest {
       (new RestoreRequestBuilder()..update(updates))._build();
 
   _$RestoreRequest._(
-      {required this.days,
+      {this.days,
       this.glacierJobParameters,
       this.type,
       this.tier,
       this.description,
       this.selectParameters,
       this.outputLocation})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(days, r'RestoreRequest', 'days');
-  }
+      : super._();
 
   @override
   RestoreRequest rebuild(void Function(RestoreRequestBuilder) updates) =>
@@ -150,8 +148,7 @@ class RestoreRequestBuilder
     try {
       _$result = _$v ??
           new _$RestoreRequest._(
-              days: BuiltValueNullFieldError.checkNotNull(
-                  days, r'RestoreRequest', 'days'),
+              days: days,
               glacierJobParameters: _glacierJobParameters?.build(),
               type: type,
               tier: tier,

@@ -15,7 +15,7 @@ class _$ListAggregateDiscoveredResourcesRequest
   @override
   final _i4.ResourceFilters? filters;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -29,7 +29,7 @@ class _$ListAggregateDiscoveredResourcesRequest
       {required this.configurationAggregatorName,
       required this.resourceType,
       this.filters,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -38,8 +38,6 @@ class _$ListAggregateDiscoveredResourcesRequest
         'configurationAggregatorName');
     BuiltValueNullFieldError.checkNotNull(resourceType,
         r'ListAggregateDiscoveredResourcesRequest', 'resourceType');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'ListAggregateDiscoveredResourcesRequest', 'limit');
   }
 
   @override
@@ -151,8 +149,7 @@ class ListAggregateDiscoveredResourcesRequestBuilder
               resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
                   r'ListAggregateDiscoveredResourcesRequest', 'resourceType'),
               filters: _filters?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'ListAggregateDiscoveredResourcesRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

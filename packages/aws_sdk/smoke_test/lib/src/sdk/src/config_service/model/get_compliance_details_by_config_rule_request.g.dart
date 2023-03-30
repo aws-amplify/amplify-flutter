@@ -13,7 +13,7 @@ class _$GetComplianceDetailsByConfigRuleRequest
   @override
   final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -26,13 +26,11 @@ class _$GetComplianceDetailsByConfigRuleRequest
   _$GetComplianceDetailsByConfigRuleRequest._(
       {required this.configRuleName,
       this.complianceTypes,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(configRuleName,
         r'GetComplianceDetailsByConfigRuleRequest', 'configRuleName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetComplianceDetailsByConfigRuleRequest', 'limit');
   }
 
   @override
@@ -133,8 +131,7 @@ class GetComplianceDetailsByConfigRuleRequestBuilder
                   r'GetComplianceDetailsByConfigRuleRequest',
                   'configRuleName'),
               complianceTypes: _complianceTypes?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'GetComplianceDetailsByConfigRuleRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

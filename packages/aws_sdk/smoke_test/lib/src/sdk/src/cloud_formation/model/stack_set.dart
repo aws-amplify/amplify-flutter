@@ -47,7 +47,6 @@ abstract class StackSet
     _i8.PermissionModels? permissionModel,
     List<String>? organizationalUnitIds,
     _i9.ManagedExecution? managedExecution,
-    List<String>? regions,
   }) {
     return _$StackSet._(
       stackSetName: stackSetName,
@@ -68,7 +67,6 @@ abstract class StackSet
           ? null
           : _i10.BuiltList(organizationalUnitIds),
       managedExecution: managedExecution,
-      regions: regions == null ? null : _i10.BuiltList(regions),
     );
   }
 
@@ -141,7 +139,6 @@ abstract class StackSet
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
   _i9.ManagedExecution? get managedExecution;
-  _i10.BuiltList<String>? get regions;
   @override
   List<Object?> get props => [
         stackSetName,
@@ -160,7 +157,6 @@ abstract class StackSet
         permissionModel,
         organizationalUnitIds,
         managedExecution,
-        regions,
       ];
   @override
   String toString() {
@@ -228,10 +224,6 @@ abstract class StackSet
     helper.add(
       'managedExecution',
       managedExecution,
-    );
-    helper.add(
-      'regions',
-      regions,
     );
     return helper.toString();
   }
@@ -420,20 +412,6 @@ class StackSetAwsQuerySerializer
             ) as _i9.ManagedExecution));
           }
           break;
-        case 'Regions':
-          if (value != null) {
-            result.regions.replace((const _i11.XmlBuiltListSerializer(
-                    indexer: _i11.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i10.BuiltList<String>));
-          }
-          break;
       }
     }
 
@@ -604,20 +582,6 @@ class StackSetAwsQuerySerializer
         ..add(serializers.serialize(
           payload.managedExecution!,
           specifiedType: const FullType(_i9.ManagedExecution),
-        ));
-    }
-    if (payload.regions != null) {
-      result
-        ..add(const _i11.XmlElementName('Regions'))
-        ..add(const _i11.XmlBuiltListSerializer(
-                indexer: _i11.XmlIndexer.awsQueryList)
-            .serialize(
-          serializers,
-          payload.regions!,
-          specifiedType: const FullType.nullable(
-            _i10.BuiltList,
-            [FullType(String)],
-          ),
         ));
     }
     return result;

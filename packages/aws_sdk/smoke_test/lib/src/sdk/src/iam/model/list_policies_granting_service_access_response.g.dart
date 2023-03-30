@@ -12,7 +12,7 @@ class _$ListPoliciesGrantingServiceAccessResponse
   final _i3.BuiltList<_i2.ListPoliciesGrantingServiceAccessEntry>
       policiesGrantingServiceAccess;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
 
@@ -24,15 +24,13 @@ class _$ListPoliciesGrantingServiceAccessResponse
 
   _$ListPoliciesGrantingServiceAccessResponse._(
       {required this.policiesGrantingServiceAccess,
-      required this.isTruncated,
+      this.isTruncated,
       this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         policiesGrantingServiceAccess,
         r'ListPoliciesGrantingServiceAccessResponse',
         'policiesGrantingServiceAccess');
-    BuiltValueNullFieldError.checkNotNull(isTruncated,
-        r'ListPoliciesGrantingServiceAccessResponse', 'isTruncated');
   }
 
   @override
@@ -129,8 +127,7 @@ class ListPoliciesGrantingServiceAccessResponseBuilder
           new _$ListPoliciesGrantingServiceAccessResponse._(
               policiesGrantingServiceAccess:
                   policiesGrantingServiceAccess.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'ListPoliciesGrantingServiceAccessResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker);
     } catch (_) {
       late String _$failedField;

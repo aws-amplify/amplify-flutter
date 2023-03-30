@@ -19,7 +19,7 @@ class _$GetResourceConfigHistoryRequest
   @override
   final _i4.ChronologicalOrder? chronologicalOrder;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -33,15 +33,13 @@ class _$GetResourceConfigHistoryRequest
       this.laterTime,
       this.earlierTime,
       this.chronologicalOrder,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceType, r'GetResourceConfigHistoryRequest', 'resourceType');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'GetResourceConfigHistoryRequest', 'resourceId');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetResourceConfigHistoryRequest', 'limit');
   }
 
   @override
@@ -160,8 +158,7 @@ class GetResourceConfigHistoryRequestBuilder
             laterTime: laterTime,
             earlierTime: earlierTime,
             chronologicalOrder: chronologicalOrder,
-            limit: BuiltValueNullFieldError.checkNotNull(
-                limit, r'GetResourceConfigHistoryRequest', 'limit'),
+            limit: limit,
             nextToken: nextToken);
     replace(_$result);
     return _$result;

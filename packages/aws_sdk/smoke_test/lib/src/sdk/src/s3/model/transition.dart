@@ -21,7 +21,6 @@ abstract class Transition
     int? days,
     _i2.TransitionStorageClass? storageClass,
   }) {
-    days ??= 0;
     return _$Transition._(
       date: date,
       days: days,
@@ -40,15 +39,13 @@ abstract class Transition
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransitionBuilder b) {
-    b.days = 0;
-  }
+  static void _init(TransitionBuilder b) {}
 
   /// Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.
   DateTime? get date;
 
   /// Indicates the number of days after creation when objects are transitioned to the specified storage class. The value must be a positive integer.
-  int get days;
+  int? get days;
 
   /// The storage class to which you want the object to transition.
   _i2.TransitionStorageClass? get storageClass;
@@ -115,10 +112,12 @@ class TransitionRestXmlSerializer
           }
           break;
         case 'Days':
-          result.days = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.days = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'StorageClass':
           if (value != null) {
@@ -155,12 +154,14 @@ class TransitionRestXmlSerializer
           payload.date!,
         ));
     }
-    result
-      ..add(const _i3.XmlElementName('Days'))
-      ..add(serializers.serialize(
-        payload.days,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.days != null) {
+      result
+        ..add(const _i3.XmlElementName('Days'))
+        ..add(serializers.serialize(
+          payload.days!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.storageClass != null) {
       result
         ..add(const _i3.XmlElementName('StorageClass'))

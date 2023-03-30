@@ -71,14 +71,6 @@ abstract class WriteGetObjectResponseRequest
     String? versionId,
     bool? bucketKeyEnabled,
   }) {
-    body ??= const _i2.Stream.empty();
-    statusCode ??= 0;
-    contentLength ??= _i4.Int64.ZERO;
-    deleteMarker ??= false;
-    missingMeta ??= 0;
-    partsCount ??= 0;
-    tagCount ??= 0;
-    bucketKeyEnabled ??= false;
     return _$WriteGetObjectResponseRequest._(
       requestRoute: requestRoute,
       requestToken: requestToken,
@@ -316,16 +308,7 @@ abstract class WriteGetObjectResponseRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(WriteGetObjectResponseRequestBuilder b) {
-    b.body = const _i2.Stream.empty();
-    b.statusCode = 0;
-    b.contentLength = _i4.Int64.ZERO;
-    b.deleteMarker = false;
-    b.missingMeta = 0;
-    b.partsCount = 0;
-    b.tagCount = 0;
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(WriteGetObjectResponseRequestBuilder b) {}
 
   /// Route prefix to the HTTP URL generated.
   String get requestRoute;
@@ -367,7 +350,7 @@ abstract class WriteGetObjectResponseRequest
   /// *   `500 - Internal Server Error`
   ///
   /// *   `503 - Service Unavailable`
-  int get statusCode;
+  int? get statusCode;
 
   /// A string that uniquely identifies an error condition. Returned in the ``tag of the error XML response for a corresponding `GetObject` call. Cannot be used with a successful `StatusCode` header or when the transformed object is provided in the body. All error codes from S3 are sentence-cased. The regular expression (regex) value is `"^\[A-Z\]\[a-zA-Z\]+$"`.``
   String? get errorCode;
@@ -391,7 +374,7 @@ abstract class WriteGetObjectResponseRequest
   String? get contentLanguage;
 
   /// The size of the content body in bytes.
-  _i4.Int64 get contentLength;
+  _i4.Int64? get contentLength;
 
   /// The portion of the object returned in the response.
   String? get contentRange;
@@ -420,7 +403,7 @@ abstract class WriteGetObjectResponseRequest
   String? get checksumSha256;
 
   /// Specifies whether an object stored in Amazon S3 is (`true`) or is not (`false`) a delete marker.
-  bool get deleteMarker;
+  bool? get deleteMarker;
 
   /// An opaque identifier assigned by a web server to a specific version of a resource found at a URL.
   String? get eTag;
@@ -435,7 +418,7 @@ abstract class WriteGetObjectResponseRequest
   DateTime? get lastModified;
 
   /// Set to the number of metadata entries not returned in `x-amz-meta` headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.
-  int get missingMeta;
+  int? get missingMeta;
 
   /// A map of metadata to store with the object in S3.
   _i11.BuiltMap<String, String>? get metadata;
@@ -450,7 +433,7 @@ abstract class WriteGetObjectResponseRequest
   DateTime? get objectLockRetainUntilDate;
 
   /// The count of parts this object has.
-  int get partsCount;
+  int? get partsCount;
 
   /// Indicates if request involves bucket that is either a source or destination in a Replication rule. For more information about S3 Replication, see [Replication](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html).
   _i7.ReplicationStatus? get replicationStatus;
@@ -461,13 +444,13 @@ abstract class WriteGetObjectResponseRequest
   /// Provides information about object restoration operation and expiration time of the restored object copy.
   String? get restore;
 
-  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, `aws:kms`).
+  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, aws:kms).
   _i9.ServerSideEncryption? get serverSideEncryption;
 
   /// Encryption algorithm used if server-side encryption with a customer-provided encryption key was specified for object stored in Amazon S3.
   String? get sseCustomerAlgorithm;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for stored in Amazon S3 object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for stored in Amazon S3 object.
   String? get ssekmsKeyId;
 
   /// 128-bit MD5 digest of customer-provided encryption key used in Amazon S3 to encrypt data stored in S3. For more information, see [Protecting data using server-side encryption with customer-provided encryption keys (SSE-C)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html).
@@ -479,13 +462,13 @@ abstract class WriteGetObjectResponseRequest
   _i10.StorageClass? get storageClass;
 
   /// The number of tags, if any, on the object.
-  int get tagCount;
+  int? get tagCount;
 
   /// An ID used to reference a specific version of the object.
   String? get versionId;
 
   /// Indicates whether the object stored in Amazon S3 uses an S3 bucket key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
   @override
   String labelFor(String key) {
     switch (key) {

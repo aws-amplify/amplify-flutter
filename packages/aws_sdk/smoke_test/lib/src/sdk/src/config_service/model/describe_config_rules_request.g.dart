@@ -8,18 +8,15 @@ part of smoke_test.config_service.model.describe_config_rules_request;
 
 class _$DescribeConfigRulesRequest extends DescribeConfigRulesRequest {
   @override
-  final _i4.BuiltList<String>? configRuleNames;
+  final _i3.BuiltList<String>? configRuleNames;
   @override
   final String? nextToken;
-  @override
-  final _i3.DescribeConfigRulesFilters? filters;
 
   factory _$DescribeConfigRulesRequest(
           [void Function(DescribeConfigRulesRequestBuilder)? updates]) =>
       (new DescribeConfigRulesRequestBuilder()..update(updates))._build();
 
-  _$DescribeConfigRulesRequest._(
-      {this.configRuleNames, this.nextToken, this.filters})
+  _$DescribeConfigRulesRequest._({this.configRuleNames, this.nextToken})
       : super._();
 
   @override
@@ -36,8 +33,7 @@ class _$DescribeConfigRulesRequest extends DescribeConfigRulesRequest {
     if (identical(other, this)) return true;
     return other is DescribeConfigRulesRequest &&
         configRuleNames == other.configRuleNames &&
-        nextToken == other.nextToken &&
-        filters == other.filters;
+        nextToken == other.nextToken;
   }
 
   @override
@@ -45,7 +41,6 @@ class _$DescribeConfigRulesRequest extends DescribeConfigRulesRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, configRuleNames.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, filters.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,21 +51,15 @@ class DescribeConfigRulesRequestBuilder
         Builder<DescribeConfigRulesRequest, DescribeConfigRulesRequestBuilder> {
   _$DescribeConfigRulesRequest? _$v;
 
-  _i4.ListBuilder<String>? _configRuleNames;
-  _i4.ListBuilder<String> get configRuleNames =>
-      _$this._configRuleNames ??= new _i4.ListBuilder<String>();
-  set configRuleNames(_i4.ListBuilder<String>? configRuleNames) =>
+  _i3.ListBuilder<String>? _configRuleNames;
+  _i3.ListBuilder<String> get configRuleNames =>
+      _$this._configRuleNames ??= new _i3.ListBuilder<String>();
+  set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
-  _i3.DescribeConfigRulesFiltersBuilder? _filters;
-  _i3.DescribeConfigRulesFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.DescribeConfigRulesFiltersBuilder();
-  set filters(_i3.DescribeConfigRulesFiltersBuilder? filters) =>
-      _$this._filters = filters;
 
   DescribeConfigRulesRequestBuilder() {
     DescribeConfigRulesRequest._init(this);
@@ -81,7 +70,6 @@ class DescribeConfigRulesRequestBuilder
     if ($v != null) {
       _configRuleNames = $v.configRuleNames?.toBuilder();
       _nextToken = $v.nextToken;
-      _filters = $v.filters?.toBuilder();
       _$v = null;
     }
     return this;
@@ -106,17 +94,12 @@ class DescribeConfigRulesRequestBuilder
     try {
       _$result = _$v ??
           new _$DescribeConfigRulesRequest._(
-              configRuleNames: _configRuleNames?.build(),
-              nextToken: nextToken,
-              filters: _filters?.build());
+              configRuleNames: _configRuleNames?.build(), nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'configRuleNames';
         _configRuleNames?.build();
-
-        _$failedField = 'filters';
-        _filters?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'DescribeConfigRulesRequest', _$failedField, e.toString());

@@ -34,7 +34,6 @@ abstract class CreateRestApiRequest
     Map<String, String>? tags,
     bool? disableExecuteApiEndpoint,
   }) {
-    disableExecuteApiEndpoint ??= false;
     return _$CreateRestApiRequest._(
       name: name,
       description: description,
@@ -70,9 +69,7 @@ abstract class CreateRestApiRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRestApiRequestBuilder b) {
-    b.disableExecuteApiEndpoint = false;
-  }
+  static void _init(CreateRestApiRequestBuilder b) {}
 
   /// The name of the RestApi.
   String get name;
@@ -105,7 +102,7 @@ abstract class CreateRestApiRequest
   _i5.BuiltMap<String, String>? get tags;
 
   /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint
-  bool get disableExecuteApiEndpoint;
+  bool? get disableExecuteApiEndpoint;
   @override
   CreateRestApiRequest getPayload() => this;
   @override
@@ -239,10 +236,12 @@ class CreateRestApiRequestRestJson1Serializer
           }
           break;
         case 'disableExecuteApiEndpoint':
-          result.disableExecuteApiEndpoint = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.disableExecuteApiEndpoint = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'endpointConfiguration':
           if (value != null) {
@@ -310,11 +309,6 @@ class CreateRestApiRequestRestJson1Serializer
   }) {
     final payload = (object as CreateRestApiRequest);
     final result = <Object?>[
-      'disableExecuteApiEndpoint',
-      serializers.serialize(
-        payload.disableExecuteApiEndpoint,
-        specifiedType: const FullType(bool),
-      ),
       'name',
       serializers.serialize(
         payload.name,
@@ -354,6 +348,14 @@ class CreateRestApiRequestRestJson1Serializer
         ..add(serializers.serialize(
           payload.description!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.disableExecuteApiEndpoint != null) {
+      result
+        ..add('disableExecuteApiEndpoint')
+        ..add(serializers.serialize(
+          payload.disableExecuteApiEndpoint!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.endpointConfiguration != null) {

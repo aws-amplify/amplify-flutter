@@ -8,7 +8,7 @@ part of smoke_test.s3.model.head_object_output;
 
 class _$HeadObjectOutput extends HeadObjectOutput {
   @override
-  final bool deleteMarker;
+  final bool? deleteMarker;
   @override
   final String? acceptRanges;
   @override
@@ -20,7 +20,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final DateTime? lastModified;
   @override
-  final _i4.Int64 contentLength;
+  final _i4.Int64? contentLength;
   @override
   final String? checksumCrc32;
   @override
@@ -32,7 +32,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final String? eTag;
   @override
-  final int missingMeta;
+  final int? missingMeta;
   @override
   final String? versionId;
   @override
@@ -60,7 +60,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final bool bucketKeyEnabled;
+  final bool? bucketKeyEnabled;
   @override
   final _i6.StorageClass? storageClass;
   @override
@@ -68,7 +68,7 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final _i8.ReplicationStatus? replicationStatus;
   @override
-  final int partsCount;
+  final int? partsCount;
   @override
   final _i9.ObjectLockMode? objectLockMode;
   @override
@@ -81,19 +81,19 @@ class _$HeadObjectOutput extends HeadObjectOutput {
       (new HeadObjectOutputBuilder()..update(updates))._build();
 
   _$HeadObjectOutput._(
-      {required this.deleteMarker,
+      {this.deleteMarker,
       this.acceptRanges,
       this.expiration,
       this.restore,
       this.archiveStatus,
       this.lastModified,
-      required this.contentLength,
+      this.contentLength,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
       this.eTag,
-      required this.missingMeta,
+      this.missingMeta,
       this.versionId,
       this.cacheControl,
       this.contentDisposition,
@@ -107,26 +107,15 @@ class _$HeadObjectOutput extends HeadObjectOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
-      required this.bucketKeyEnabled,
+      this.bucketKeyEnabled,
       this.storageClass,
       this.requestCharged,
       this.replicationStatus,
-      required this.partsCount,
+      this.partsCount,
       this.objectLockMode,
       this.objectLockRetainUntilDate,
       this.objectLockLegalHoldStatus})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        deleteMarker, r'HeadObjectOutput', 'deleteMarker');
-    BuiltValueNullFieldError.checkNotNull(
-        contentLength, r'HeadObjectOutput', 'contentLength');
-    BuiltValueNullFieldError.checkNotNull(
-        missingMeta, r'HeadObjectOutput', 'missingMeta');
-    BuiltValueNullFieldError.checkNotNull(
-        bucketKeyEnabled, r'HeadObjectOutput', 'bucketKeyEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        partsCount, r'HeadObjectOutput', 'partsCount');
-  }
+      : super._();
 
   @override
   HeadObjectOutput rebuild(void Function(HeadObjectOutputBuilder) updates) =>
@@ -448,22 +437,19 @@ class HeadObjectOutputBuilder
     try {
       _$result = _$v ??
           new _$HeadObjectOutput._(
-              deleteMarker: BuiltValueNullFieldError.checkNotNull(
-                  deleteMarker, r'HeadObjectOutput', 'deleteMarker'),
+              deleteMarker: deleteMarker,
               acceptRanges: acceptRanges,
               expiration: expiration,
               restore: restore,
               archiveStatus: archiveStatus,
               lastModified: lastModified,
-              contentLength: BuiltValueNullFieldError.checkNotNull(
-                  contentLength, r'HeadObjectOutput', 'contentLength'),
+              contentLength: contentLength,
               checksumCrc32: checksumCrc32,
               checksumCrc32C: checksumCrc32C,
               checksumSha1: checksumSha1,
               checksumSha256: checksumSha256,
               eTag: eTag,
-              missingMeta: BuiltValueNullFieldError.checkNotNull(
-                  missingMeta, r'HeadObjectOutput', 'missingMeta'),
+              missingMeta: missingMeta,
               versionId: versionId,
               cacheControl: cacheControl,
               contentDisposition: contentDisposition,
@@ -477,13 +463,11 @@ class HeadObjectOutputBuilder
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
-                  bucketKeyEnabled, r'HeadObjectOutput', 'bucketKeyEnabled'),
+              bucketKeyEnabled: bucketKeyEnabled,
               storageClass: storageClass,
               requestCharged: requestCharged,
               replicationStatus: replicationStatus,
-              partsCount: BuiltValueNullFieldError.checkNotNull(
-                  partsCount, r'HeadObjectOutput', 'partsCount'),
+              partsCount: partsCount,
               objectLockMode: objectLockMode,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
               objectLockLegalHoldStatus: objectLockLegalHoldStatus);

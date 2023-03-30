@@ -20,7 +20,7 @@ class _$RemediationConfiguration extends RemediationConfiguration {
   @override
   final String? resourceType;
   @override
-  final bool automatic;
+  final bool? automatic;
   @override
   final _i4.ExecutionControls? executionControls;
   @override
@@ -43,7 +43,7 @@ class _$RemediationConfiguration extends RemediationConfiguration {
       this.targetVersion,
       this.parameters,
       this.resourceType,
-      required this.automatic,
+      this.automatic,
       this.executionControls,
       this.maximumAutomaticAttempts,
       this.retryAttemptSeconds,
@@ -56,8 +56,6 @@ class _$RemediationConfiguration extends RemediationConfiguration {
         targetType, r'RemediationConfiguration', 'targetType');
     BuiltValueNullFieldError.checkNotNull(
         targetId, r'RemediationConfiguration', 'targetId');
-    BuiltValueNullFieldError.checkNotNull(
-        automatic, r'RemediationConfiguration', 'automatic');
   }
 
   @override
@@ -226,8 +224,7 @@ class RemediationConfigurationBuilder
               targetVersion: targetVersion,
               parameters: _parameters?.build(),
               resourceType: resourceType,
-              automatic: BuiltValueNullFieldError.checkNotNull(
-                  automatic, r'RemediationConfiguration', 'automatic'),
+              automatic: automatic,
               executionControls: _executionControls?.build(),
               maximumAutomaticAttempts: maximumAutomaticAttempts,
               retryAttemptSeconds: retryAttemptSeconds,

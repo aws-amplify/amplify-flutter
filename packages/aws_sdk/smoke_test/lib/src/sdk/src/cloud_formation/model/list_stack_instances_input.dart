@@ -68,7 +68,7 @@ abstract class ListStackInstancesInput
   /// The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a `NextToken` value that you can assign to the `NextToken` request parameter to get the next set of results.
   int? get maxResults;
 
-  /// The filter to apply to stack instances
+  /// The status that stack instances are filtered by.
   _i5.BuiltList<_i3.StackInstanceFilter>? get filters;
 
   /// The name of the Amazon Web Services account that you want to list stack instances for.

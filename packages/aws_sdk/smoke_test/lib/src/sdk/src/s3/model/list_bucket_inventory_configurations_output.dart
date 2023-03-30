@@ -24,7 +24,6 @@ abstract class ListBucketInventoryConfigurationsOutput
     bool? isTruncated,
     String? nextContinuationToken,
   }) {
-    isTruncated ??= false;
     return _$ListBucketInventoryConfigurationsOutput._(
       continuationToken: continuationToken,
       inventoryConfigurationList: inventoryConfigurationList == null
@@ -53,9 +52,7 @@ abstract class ListBucketInventoryConfigurationsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketInventoryConfigurationsOutputBuilder b) {
-    b.isTruncated = false;
-  }
+  static void _init(ListBucketInventoryConfigurationsOutputBuilder b) {}
 
   /// If sent in the request, the marker that is used as a starting point for this inventory configuration list response.
   String? get continuationToken;
@@ -64,7 +61,7 @@ abstract class ListBucketInventoryConfigurationsOutput
   _i3.BuiltList<_i2.InventoryConfiguration>? get inventoryConfigurationList;
 
   /// Tells whether the returned list of inventory configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken is provided for a subsequent request.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// The marker used to continue this inventory configuration listing. Use the `NextContinuationToken` from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
   String? get nextContinuationToken;
@@ -146,10 +143,12 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'NextContinuationToken':
           if (value != null) {
@@ -198,12 +197,14 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
         ),
       ));
     }
-    result
-      ..add(const _i4.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.nextContinuationToken != null) {
       result
         ..add(const _i4.XmlElementName('NextContinuationToken'))

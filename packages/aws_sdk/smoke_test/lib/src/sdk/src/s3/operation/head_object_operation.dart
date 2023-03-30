@@ -17,7 +17,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/not_found.dart' as _i9;
 
 /// The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
 ///
-/// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
+/// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `404 Not Found` or `403 Forbidden` code. It is not possible to retrieve the exact exception beyond these error codes.
 ///
 /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
 ///
@@ -81,7 +81,7 @@ class HeadObjectOperation extends _i1.HttpOperation<
     _i3.HeadObjectOutput> {
   /// The HEAD action retrieves metadata from an object without returning the object itself. This action is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.
   ///
-  /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `400 Bad Request`, `403 Forbidden` or `404 Not Found` code. It is not possible to retrieve the exact exception beyond these error codes.
+  /// A `HEAD` request has the same options as a `GET` action on an object. The response is identical to the `GET` response except that there is no response body. Because of this, if the `HEAD` request generates an error, it returns a generic `404 Not Found` or `403 Forbidden` code. It is not possible to retrieve the exact exception beyond these error codes.
   ///
   /// If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:
   ///
@@ -266,10 +266,12 @@ class HeadObjectOperation extends _i1.HttpOperation<
             input.versionId!,
           );
         }
-        b.queryParameters.add(
-          'partNumber',
-          input.partNumber.toString(),
-        );
+        if (input.partNumber != null) {
+          b.queryParameters.add(
+            'partNumber',
+            input.partNumber!.toString(),
+          );
+        }
       });
   @override
   int successCode([_i3.HeadObjectOutput? output]) => 200;

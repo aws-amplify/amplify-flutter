@@ -21,8 +21,6 @@ abstract class AggregateConformancePackComplianceCount
     int? compliantConformancePackCount,
     int? nonCompliantConformancePackCount,
   }) {
-    compliantConformancePackCount ??= 0;
-    nonCompliantConformancePackCount ??= 0;
     return _$AggregateConformancePackComplianceCount._(
       compliantConformancePackCount: compliantConformancePackCount,
       nonCompliantConformancePackCount: nonCompliantConformancePackCount,
@@ -41,16 +39,13 @@ abstract class AggregateConformancePackComplianceCount
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceCountBuilder b) {
-    b.compliantConformancePackCount = 0;
-    b.nonCompliantConformancePackCount = 0;
-  }
+  static void _init(AggregateConformancePackComplianceCountBuilder b) {}
 
   /// Number of compliant conformance packs.
-  int get compliantConformancePackCount;
+  int? get compliantConformancePackCount;
 
   /// Number of noncompliant conformance packs.
-  int get nonCompliantConformancePackCount;
+  int? get nonCompliantConformancePackCount;
   @override
   List<Object?> get props => [
         compliantConformancePackCount,
@@ -103,16 +98,20 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
       final value = iterator.current;
       switch (key) {
         case 'CompliantConformancePackCount':
-          result.compliantConformancePackCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.compliantConformancePackCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NonCompliantConformancePackCount':
-          result.nonCompliantConformancePackCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.nonCompliantConformancePackCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -127,18 +126,23 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as AggregateConformancePackComplianceCount);
-    final result = <Object?>[
-      'CompliantConformancePackCount',
-      serializers.serialize(
-        payload.compliantConformancePackCount,
-        specifiedType: const FullType(int),
-      ),
-      'NonCompliantConformancePackCount',
-      serializers.serialize(
-        payload.nonCompliantConformancePackCount,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.compliantConformancePackCount != null) {
+      result
+        ..add('CompliantConformancePackCount')
+        ..add(serializers.serialize(
+          payload.compliantConformancePackCount!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.nonCompliantConformancePackCount != null) {
+      result
+        ..add('NonCompliantConformancePackCount')
+        ..add(serializers.serialize(
+          payload.nonCompliantConformancePackCount!,
+          specifiedType: const FullType(int),
+        ));
+    }
     return result;
   }
 }

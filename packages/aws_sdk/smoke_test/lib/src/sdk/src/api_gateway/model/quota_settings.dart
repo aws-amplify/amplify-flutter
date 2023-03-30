@@ -21,8 +21,6 @@ abstract class QuotaSettings
     int? offset,
     _i2.QuotaPeriodType? period,
   }) {
-    limit ??= 0;
-    offset ??= 0;
     return _$QuotaSettings._(
       limit: limit,
       offset: offset,
@@ -41,16 +39,13 @@ abstract class QuotaSettings
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(QuotaSettingsBuilder b) {
-    b.limit = 0;
-    b.offset = 0;
-  }
+  static void _init(QuotaSettingsBuilder b) {}
 
   /// The target maximum number of requests that can be made in a given time period.
-  int get limit;
+  int? get limit;
 
   /// The number of requests subtracted from the given limit in the initial time period.
-  int get offset;
+  int? get offset;
 
   /// The time period in which the limit applies. Valid values are "DAY", "WEEK" or "MONTH".
   _i2.QuotaPeriodType? get period;
@@ -109,16 +104,20 @@ class QuotaSettingsRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'limit':
-          result.limit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'offset':
-          result.offset = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.offset = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'period':
           if (value != null) {
@@ -141,18 +140,23 @@ class QuotaSettingsRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as QuotaSettings);
-    final result = <Object?>[
-      'limit',
-      serializers.serialize(
-        payload.limit,
-        specifiedType: const FullType(int),
-      ),
-      'offset',
-      serializers.serialize(
-        payload.offset,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
+    if (payload.limit != null) {
+      result
+        ..add('limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.offset != null) {
+      result
+        ..add('offset')
+        ..add(serializers.serialize(
+          payload.offset!,
+          specifiedType: const FullType(int),
+        ));
+    }
     if (payload.period != null) {
       result
         ..add('period')

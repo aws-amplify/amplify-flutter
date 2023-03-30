@@ -8,7 +8,7 @@ part of smoke_test.s3.model.list_object_versions_output;
 
 class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? keyMarker;
   @override
@@ -28,7 +28,7 @@ class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
   @override
   final String? delimiter;
   @override
-  final int maxKeys;
+  final int? maxKeys;
   @override
   final _i6.BuiltList<_i4.CommonPrefix>? commonPrefixes;
   @override
@@ -39,7 +39,7 @@ class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
       (new ListObjectVersionsOutputBuilder()..update(updates))._build();
 
   _$ListObjectVersionsOutput._(
-      {required this.isTruncated,
+      {this.isTruncated,
       this.keyMarker,
       this.versionIdMarker,
       this.nextKeyMarker,
@@ -49,15 +49,10 @@ class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
       this.name,
       this.prefix,
       this.delimiter,
-      required this.maxKeys,
+      this.maxKeys,
       this.commonPrefixes,
       this.encodingType})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListObjectVersionsOutput', 'isTruncated');
-    BuiltValueNullFieldError.checkNotNull(
-        maxKeys, r'ListObjectVersionsOutput', 'maxKeys');
-  }
+      : super._();
 
   @override
   ListObjectVersionsOutput rebuild(
@@ -219,8 +214,7 @@ class ListObjectVersionsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListObjectVersionsOutput._(
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'ListObjectVersionsOutput', 'isTruncated'),
+              isTruncated: isTruncated,
               keyMarker: keyMarker,
               versionIdMarker: versionIdMarker,
               nextKeyMarker: nextKeyMarker,
@@ -230,8 +224,7 @@ class ListObjectVersionsOutputBuilder
               name: name,
               prefix: prefix,
               delimiter: delimiter,
-              maxKeys: BuiltValueNullFieldError.checkNotNull(
-                  maxKeys, r'ListObjectVersionsOutput', 'maxKeys'),
+              maxKeys: maxKeys,
               commonPrefixes: _commonPrefixes?.build(),
               encodingType: encodingType);
     } catch (_) {

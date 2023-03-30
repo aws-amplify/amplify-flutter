@@ -20,7 +20,6 @@ abstract class CreateLoginProfileRequest
     required String password,
     bool? passwordResetRequired,
   }) {
-    passwordResetRequired ??= false;
     return _$CreateLoginProfileRequest._(
       userName: userName,
       password: password,
@@ -46,9 +45,7 @@ abstract class CreateLoginProfileRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateLoginProfileRequestBuilder b) {
-    b.passwordResetRequired = false;
-  }
+  static void _init(CreateLoginProfileRequestBuilder b) {}
 
   /// The name of the IAM user to create a password for. The user must already exist.
   ///
@@ -61,7 +58,7 @@ abstract class CreateLoginProfileRequest
   String get password;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool get passwordResetRequired;
+  bool? get passwordResetRequired;
   @override
   CreateLoginProfileRequest getPayload() => this;
   @override
@@ -132,10 +129,12 @@ class CreateLoginProfileRequestAwsQuerySerializer
           ) as String);
           break;
         case 'PasswordResetRequired':
-          result.passwordResetRequired = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.passwordResetRequired = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -168,12 +167,14 @@ class CreateLoginProfileRequestAwsQuerySerializer
         payload.password,
         specifiedType: const FullType(String),
       ));
-    result
-      ..add(const _i1.XmlElementName('PasswordResetRequired'))
-      ..add(serializers.serialize(
-        payload.passwordResetRequired,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.passwordResetRequired != null) {
+      result
+        ..add(const _i1.XmlElementName('PasswordResetRequired'))
+        ..add(serializers.serialize(
+          payload.passwordResetRequired!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

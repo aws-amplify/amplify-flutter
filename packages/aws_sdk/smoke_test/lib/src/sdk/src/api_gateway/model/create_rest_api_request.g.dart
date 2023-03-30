@@ -28,7 +28,7 @@ class _$CreateRestApiRequest extends CreateRestApiRequest {
   @override
   final _i5.BuiltMap<String, String>? tags;
   @override
-  final bool disableExecuteApiEndpoint;
+  final bool? disableExecuteApiEndpoint;
 
   factory _$CreateRestApiRequest(
           [void Function(CreateRestApiRequestBuilder)? updates]) =>
@@ -45,12 +45,10 @@ class _$CreateRestApiRequest extends CreateRestApiRequest {
       this.endpointConfiguration,
       this.policy,
       this.tags,
-      required this.disableExecuteApiEndpoint})
+      this.disableExecuteApiEndpoint})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         name, r'CreateRestApiRequest', 'name');
-    BuiltValueNullFieldError.checkNotNull(disableExecuteApiEndpoint,
-        r'CreateRestApiRequest', 'disableExecuteApiEndpoint');
   }
 
   @override
@@ -208,10 +206,7 @@ class CreateRestApiRequestBuilder
               endpointConfiguration: _endpointConfiguration?.build(),
               policy: policy,
               tags: _tags?.build(),
-              disableExecuteApiEndpoint: BuiltValueNullFieldError.checkNotNull(
-                  disableExecuteApiEndpoint,
-                  r'CreateRestApiRequest',
-                  'disableExecuteApiEndpoint'));
+              disableExecuteApiEndpoint: disableExecuteApiEndpoint);
     } catch (_) {
       late String _$failedField;
       try {

@@ -12,18 +12,15 @@ class _$ListContributorInsightsInput extends ListContributorInsightsInput {
   @override
   final String? nextToken;
   @override
-  final int maxResults;
+  final int? maxResults;
 
   factory _$ListContributorInsightsInput(
           [void Function(ListContributorInsightsInputBuilder)? updates]) =>
       (new ListContributorInsightsInputBuilder()..update(updates))._build();
 
   _$ListContributorInsightsInput._(
-      {this.tableName, this.nextToken, required this.maxResults})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        maxResults, r'ListContributorInsightsInput', 'maxResults');
-  }
+      {this.tableName, this.nextToken, this.maxResults})
+      : super._();
 
   @override
   ListContributorInsightsInput rebuild(
@@ -104,10 +101,7 @@ class ListContributorInsightsInputBuilder
   _$ListContributorInsightsInput _build() {
     final _$result = _$v ??
         new _$ListContributorInsightsInput._(
-            tableName: tableName,
-            nextToken: nextToken,
-            maxResults: BuiltValueNullFieldError.checkNotNull(
-                maxResults, r'ListContributorInsightsInput', 'maxResults'));
+            tableName: tableName, nextToken: nextToken, maxResults: maxResults);
     replace(_$result);
     return _$result;
   }

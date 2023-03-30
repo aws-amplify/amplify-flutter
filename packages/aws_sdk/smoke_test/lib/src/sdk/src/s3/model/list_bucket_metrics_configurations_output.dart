@@ -24,7 +24,6 @@ abstract class ListBucketMetricsConfigurationsOutput
     String? nextContinuationToken,
     List<_i2.MetricsConfiguration>? metricsConfigurationList,
   }) {
-    isTruncated ??= false;
     return _$ListBucketMetricsConfigurationsOutput._(
       isTruncated: isTruncated,
       continuationToken: continuationToken,
@@ -53,12 +52,10 @@ abstract class ListBucketMetricsConfigurationsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {
-    b.isTruncated = false;
-  }
+  static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {}
 
   /// Indicates whether the returned list of metrics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request.
   String? get continuationToken;
@@ -138,10 +135,12 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
           }
           break;
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'MetricsConfiguration':
           if (value != null) {
@@ -186,12 +185,14 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
           specifiedType: const FullType(String),
         ));
     }
-    result
-      ..add(const _i4.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (payload.metricsConfigurationList != null) {
       result.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'MetricsConfiguration')

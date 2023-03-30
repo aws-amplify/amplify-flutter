@@ -13,7 +13,7 @@ class _$ListBucketInventoryConfigurationsOutput
   @override
   final _i3.BuiltList<_i2.InventoryConfiguration>? inventoryConfigurationList;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? nextContinuationToken;
 
@@ -26,12 +26,9 @@ class _$ListBucketInventoryConfigurationsOutput
   _$ListBucketInventoryConfigurationsOutput._(
       {this.continuationToken,
       this.inventoryConfigurationList,
-      required this.isTruncated,
+      this.isTruncated,
       this.nextContinuationToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListBucketInventoryConfigurationsOutput', 'isTruncated');
-  }
+      : super._();
 
   @override
   ListBucketInventoryConfigurationsOutput rebuild(
@@ -132,8 +129,7 @@ class ListBucketInventoryConfigurationsOutputBuilder
           new _$ListBucketInventoryConfigurationsOutput._(
               continuationToken: continuationToken,
               inventoryConfigurationList: _inventoryConfigurationList?.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'ListBucketInventoryConfigurationsOutput', 'isTruncated'),
+              isTruncated: isTruncated,
               nextContinuationToken: nextContinuationToken);
     } catch (_) {
       late String _$failedField;

@@ -12,9 +12,9 @@ class _$RequestValidator extends RequestValidator {
   @override
   final String? name;
   @override
-  final bool validateRequestBody;
+  final bool? validateRequestBody;
   @override
-  final bool validateRequestParameters;
+  final bool? validateRequestParameters;
 
   factory _$RequestValidator(
           [void Function(RequestValidatorBuilder)? updates]) =>
@@ -23,14 +23,9 @@ class _$RequestValidator extends RequestValidator {
   _$RequestValidator._(
       {this.id,
       this.name,
-      required this.validateRequestBody,
-      required this.validateRequestParameters})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        validateRequestBody, r'RequestValidator', 'validateRequestBody');
-    BuiltValueNullFieldError.checkNotNull(validateRequestParameters,
-        r'RequestValidator', 'validateRequestParameters');
-  }
+      this.validateRequestBody,
+      this.validateRequestParameters})
+      : super._();
 
   @override
   RequestValidator rebuild(void Function(RequestValidatorBuilder) updates) =>
@@ -119,14 +114,8 @@ class RequestValidatorBuilder
         new _$RequestValidator._(
             id: id,
             name: name,
-            validateRequestBody: BuiltValueNullFieldError.checkNotNull(
-                validateRequestBody,
-                r'RequestValidator',
-                'validateRequestBody'),
-            validateRequestParameters: BuiltValueNullFieldError.checkNotNull(
-                validateRequestParameters,
-                r'RequestValidator',
-                'validateRequestParameters'));
+            validateRequestBody: validateRequestBody,
+            validateRequestParameters: validateRequestParameters);
     replace(_$result);
     return _$result;
   }

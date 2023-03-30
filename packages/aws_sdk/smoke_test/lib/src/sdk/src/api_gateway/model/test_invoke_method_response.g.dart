@@ -8,7 +8,7 @@ part of smoke_test.api_gateway.model.test_invoke_method_response;
 
 class _$TestInvokeMethodResponse extends TestInvokeMethodResponse {
   @override
-  final int status;
+  final int? status;
   @override
   final String? body;
   @override
@@ -18,25 +18,20 @@ class _$TestInvokeMethodResponse extends TestInvokeMethodResponse {
   @override
   final String? log;
   @override
-  final _i2.Int64 latency;
+  final _i2.Int64? latency;
 
   factory _$TestInvokeMethodResponse(
           [void Function(TestInvokeMethodResponseBuilder)? updates]) =>
       (new TestInvokeMethodResponseBuilder()..update(updates))._build();
 
   _$TestInvokeMethodResponse._(
-      {required this.status,
+      {this.status,
       this.body,
       this.headers,
       this.multiValueHeaders,
       this.log,
-      required this.latency})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        status, r'TestInvokeMethodResponse', 'status');
-    BuiltValueNullFieldError.checkNotNull(
-        latency, r'TestInvokeMethodResponse', 'latency');
-  }
+      this.latency})
+      : super._();
 
   @override
   TestInvokeMethodResponse rebuild(
@@ -145,14 +140,12 @@ class TestInvokeMethodResponseBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeMethodResponse._(
-              status: BuiltValueNullFieldError.checkNotNull(
-                  status, r'TestInvokeMethodResponse', 'status'),
+              status: status,
               body: body,
               headers: _headers?.build(),
               multiValueHeaders: _multiValueHeaders?.build(),
               log: log,
-              latency: BuiltValueNullFieldError.checkNotNull(
-                  latency, r'TestInvokeMethodResponse', 'latency'));
+              latency: latency);
     } catch (_) {
       late String _$failedField;
       try {

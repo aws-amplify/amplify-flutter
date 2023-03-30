@@ -19,7 +19,7 @@ class _$GetServiceLastAccessedDetailsResponse
   @override
   final DateTime jobCompletionDate;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
   @override
@@ -37,7 +37,7 @@ class _$GetServiceLastAccessedDetailsResponse
       required this.jobCreationDate,
       required this.servicesLastAccessed,
       required this.jobCompletionDate,
-      required this.isTruncated,
+      this.isTruncated,
       this.marker,
       this.error})
       : super._() {
@@ -49,8 +49,6 @@ class _$GetServiceLastAccessedDetailsResponse
         r'GetServiceLastAccessedDetailsResponse', 'servicesLastAccessed');
     BuiltValueNullFieldError.checkNotNull(jobCompletionDate,
         r'GetServiceLastAccessedDetailsResponse', 'jobCompletionDate');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'GetServiceLastAccessedDetailsResponse', 'isTruncated');
   }
 
   @override
@@ -191,8 +189,7 @@ class GetServiceLastAccessedDetailsResponseBuilder
                   jobCompletionDate,
                   r'GetServiceLastAccessedDetailsResponse',
                   'jobCompletionDate'),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'GetServiceLastAccessedDetailsResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker,
               error: _error?.build());
     } catch (_) {

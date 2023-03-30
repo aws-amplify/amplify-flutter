@@ -152,10 +152,12 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
             input.keyMarker!,
           );
         }
-        b.queryParameters.add(
-          'max-keys',
-          input.maxKeys.toString(),
-        );
+        if (input.maxKeys != null) {
+          b.queryParameters.add(
+            'max-keys',
+            input.maxKeys!.toString(),
+          );
+        }
         if (input.prefix != null) {
           b.queryParameters.add(
             'prefix',

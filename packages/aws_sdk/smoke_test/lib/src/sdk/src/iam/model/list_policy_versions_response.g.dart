@@ -10,7 +10,7 @@ class _$ListPolicyVersionsResponse extends ListPolicyVersionsResponse {
   @override
   final _i3.BuiltList<_i2.PolicyVersion>? versions;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
 
@@ -18,12 +18,8 @@ class _$ListPolicyVersionsResponse extends ListPolicyVersionsResponse {
           [void Function(ListPolicyVersionsResponseBuilder)? updates]) =>
       (new ListPolicyVersionsResponseBuilder()..update(updates))._build();
 
-  _$ListPolicyVersionsResponse._(
-      {this.versions, required this.isTruncated, this.marker})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListPolicyVersionsResponse', 'isTruncated');
-  }
+  _$ListPolicyVersionsResponse._({this.versions, this.isTruncated, this.marker})
+      : super._();
 
   @override
   ListPolicyVersionsResponse rebuild(
@@ -108,8 +104,7 @@ class ListPolicyVersionsResponseBuilder
       _$result = _$v ??
           new _$ListPolicyVersionsResponse._(
               versions: _versions?.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(
-                  isTruncated, r'ListPolicyVersionsResponse', 'isTruncated'),
+              isTruncated: isTruncated,
               marker: marker);
     } catch (_) {
       late String _$failedField;

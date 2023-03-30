@@ -19,10 +19,6 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
   final DateTime? endTimestamp;
   @override
   final String? statusReason;
-  @override
-  final _i4.StackSetOperationStatusDetails? statusDetails;
-  @override
-  final _i5.StackSetOperationPreferences? operationPreferences;
 
   factory _$StackSetOperationSummary(
           [void Function(StackSetOperationSummaryBuilder)? updates]) =>
@@ -34,9 +30,7 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
       this.status,
       this.creationTimestamp,
       this.endTimestamp,
-      this.statusReason,
-      this.statusDetails,
-      this.operationPreferences})
+      this.statusReason})
       : super._();
 
   @override
@@ -57,9 +51,7 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
         status == other.status &&
         creationTimestamp == other.creationTimestamp &&
         endTimestamp == other.endTimestamp &&
-        statusReason == other.statusReason &&
-        statusDetails == other.statusDetails &&
-        operationPreferences == other.operationPreferences;
+        statusReason == other.statusReason;
   }
 
   @override
@@ -71,8 +63,6 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
     _$hash = $jc(_$hash, creationTimestamp.hashCode);
     _$hash = $jc(_$hash, endTimestamp.hashCode);
     _$hash = $jc(_$hash, statusReason.hashCode);
-    _$hash = $jc(_$hash, statusDetails.hashCode);
-    _$hash = $jc(_$hash, operationPreferences.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -109,20 +99,6 @@ class StackSetOperationSummaryBuilder
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  _i4.StackSetOperationStatusDetailsBuilder? _statusDetails;
-  _i4.StackSetOperationStatusDetailsBuilder get statusDetails =>
-      _$this._statusDetails ??= new _i4.StackSetOperationStatusDetailsBuilder();
-  set statusDetails(_i4.StackSetOperationStatusDetailsBuilder? statusDetails) =>
-      _$this._statusDetails = statusDetails;
-
-  _i5.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i5.StackSetOperationPreferencesBuilder get operationPreferences =>
-      _$this._operationPreferences ??=
-          new _i5.StackSetOperationPreferencesBuilder();
-  set operationPreferences(
-          _i5.StackSetOperationPreferencesBuilder? operationPreferences) =>
-      _$this._operationPreferences = operationPreferences;
-
   StackSetOperationSummaryBuilder() {
     StackSetOperationSummary._init(this);
   }
@@ -136,8 +112,6 @@ class StackSetOperationSummaryBuilder
       _creationTimestamp = $v.creationTimestamp;
       _endTimestamp = $v.endTimestamp;
       _statusReason = $v.statusReason;
-      _statusDetails = $v.statusDetails?.toBuilder();
-      _operationPreferences = $v.operationPreferences?.toBuilder();
       _$v = null;
     }
     return this;
@@ -158,31 +132,14 @@ class StackSetOperationSummaryBuilder
   StackSetOperationSummary build() => _build();
 
   _$StackSetOperationSummary _build() {
-    _$StackSetOperationSummary _$result;
-    try {
-      _$result = _$v ??
-          new _$StackSetOperationSummary._(
-              operationId: operationId,
-              action: action,
-              status: status,
-              creationTimestamp: creationTimestamp,
-              endTimestamp: endTimestamp,
-              statusReason: statusReason,
-              statusDetails: _statusDetails?.build(),
-              operationPreferences: _operationPreferences?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'statusDetails';
-        _statusDetails?.build();
-        _$failedField = 'operationPreferences';
-        _operationPreferences?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'StackSetOperationSummary', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$StackSetOperationSummary._(
+            operationId: operationId,
+            action: action,
+            status: status,
+            creationTimestamp: creationTimestamp,
+            endTimestamp: endTimestamp,
+            statusReason: statusReason);
     replace(_$result);
     return _$result;
   }

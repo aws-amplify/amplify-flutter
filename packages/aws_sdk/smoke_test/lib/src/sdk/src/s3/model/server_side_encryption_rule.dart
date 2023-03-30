@@ -21,7 +21,6 @@ abstract class ServerSideEncryptionRule
     _i2.ServerSideEncryptionByDefault? applyServerSideEncryptionByDefault,
     bool? bucketKeyEnabled,
   }) {
-    bucketKeyEnabled ??= false;
     return _$ServerSideEncryptionRule._(
       applyServerSideEncryptionByDefault: applyServerSideEncryptionByDefault,
       bucketKeyEnabled: bucketKeyEnabled,
@@ -40,9 +39,7 @@ abstract class ServerSideEncryptionRule
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerSideEncryptionRuleBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(ServerSideEncryptionRuleBuilder b) {}
 
   /// Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
   _i2.ServerSideEncryptionByDefault? get applyServerSideEncryptionByDefault;
@@ -50,7 +47,7 @@ abstract class ServerSideEncryptionRule
   /// Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the `BucketKeyEnabled` element to `true` causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled.
   ///
   /// For more information, see [Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) in the _Amazon S3 User Guide_.
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
   @override
   List<Object?> get props => [
         applyServerSideEncryptionByDefault,
@@ -111,10 +108,12 @@ class ServerSideEncryptionRuleRestXmlSerializer
           }
           break;
         case 'BucketKeyEnabled':
-          result.bucketKeyEnabled = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.bucketKeyEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -143,12 +142,14 @@ class ServerSideEncryptionRuleRestXmlSerializer
           specifiedType: const FullType(_i2.ServerSideEncryptionByDefault),
         ));
     }
-    result
-      ..add(const _i3.XmlElementName('BucketKeyEnabled'))
-      ..add(serializers.serialize(
-        payload.bucketKeyEnabled,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.bucketKeyEnabled != null) {
+      result
+        ..add(const _i3.XmlElementName('BucketKeyEnabled'))
+        ..add(serializers.serialize(
+          payload.bucketKeyEnabled!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

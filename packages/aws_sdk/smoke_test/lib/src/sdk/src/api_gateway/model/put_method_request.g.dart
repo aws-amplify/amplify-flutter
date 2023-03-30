@@ -18,7 +18,7 @@ class _$PutMethodRequest extends PutMethodRequest {
   @override
   final String? authorizerId;
   @override
-  final bool apiKeyRequired;
+  final bool? apiKeyRequired;
   @override
   final String? operationName;
   @override
@@ -40,7 +40,7 @@ class _$PutMethodRequest extends PutMethodRequest {
       required this.httpMethod,
       required this.authorizationType,
       this.authorizerId,
-      required this.apiKeyRequired,
+      this.apiKeyRequired,
       this.operationName,
       this.requestParameters,
       this.requestModels,
@@ -55,8 +55,6 @@ class _$PutMethodRequest extends PutMethodRequest {
         httpMethod, r'PutMethodRequest', 'httpMethod');
     BuiltValueNullFieldError.checkNotNull(
         authorizationType, r'PutMethodRequest', 'authorizationType');
-    BuiltValueNullFieldError.checkNotNull(
-        apiKeyRequired, r'PutMethodRequest', 'apiKeyRequired');
   }
 
   @override
@@ -212,8 +210,7 @@ class PutMethodRequestBuilder
               authorizationType: BuiltValueNullFieldError.checkNotNull(
                   authorizationType, r'PutMethodRequest', 'authorizationType'),
               authorizerId: authorizerId,
-              apiKeyRequired: BuiltValueNullFieldError.checkNotNull(
-                  apiKeyRequired, r'PutMethodRequest', 'apiKeyRequired'),
+              apiKeyRequired: apiKeyRequired,
               operationName: operationName,
               requestParameters: _requestParameters?.build(),
               requestModels: _requestModels?.build(),
@@ -242,7 +239,7 @@ class PutMethodRequestBuilder
 
 class _$PutMethodRequestPayload extends PutMethodRequestPayload {
   @override
-  final bool apiKeyRequired;
+  final bool? apiKeyRequired;
   @override
   final _i3.BuiltList<String>? authorizationScopes;
   @override
@@ -263,7 +260,7 @@ class _$PutMethodRequestPayload extends PutMethodRequestPayload {
       (new PutMethodRequestPayloadBuilder()..update(updates))._build();
 
   _$PutMethodRequestPayload._(
-      {required this.apiKeyRequired,
+      {this.apiKeyRequired,
       this.authorizationScopes,
       required this.authorizationType,
       this.authorizerId,
@@ -272,8 +269,6 @@ class _$PutMethodRequestPayload extends PutMethodRequestPayload {
       this.requestParameters,
       this.requestValidatorId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        apiKeyRequired, r'PutMethodRequestPayload', 'apiKeyRequired');
     BuiltValueNullFieldError.checkNotNull(
         authorizationType, r'PutMethodRequestPayload', 'authorizationType');
   }
@@ -403,8 +398,7 @@ class PutMethodRequestPayloadBuilder
     try {
       _$result = _$v ??
           new _$PutMethodRequestPayload._(
-              apiKeyRequired: BuiltValueNullFieldError.checkNotNull(
-                  apiKeyRequired, r'PutMethodRequestPayload', 'apiKeyRequired'),
+              apiKeyRequired: apiKeyRequired,
               authorizationScopes: _authorizationScopes?.build(),
               authorizationType: BuiltValueNullFieldError.checkNotNull(
                   authorizationType,

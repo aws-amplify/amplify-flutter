@@ -15,7 +15,7 @@ class _$GetAggregateConfigRuleComplianceSummaryRequest
   @override
   final _i4.ConfigRuleComplianceSummaryGroupKey? groupByKey;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -30,15 +30,13 @@ class _$GetAggregateConfigRuleComplianceSummaryRequest
       {required this.configurationAggregatorName,
       this.filters,
       this.groupByKey,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'GetAggregateConfigRuleComplianceSummaryRequest',
         'configurationAggregatorName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetAggregateConfigRuleComplianceSummaryRequest', 'limit');
   }
 
   @override
@@ -152,8 +150,7 @@ class GetAggregateConfigRuleComplianceSummaryRequestBuilder
                       'configurationAggregatorName'),
               filters: _filters?.build(),
               groupByKey: groupByKey,
-              limit: BuiltValueNullFieldError.checkNotNull(limit,
-                  r'GetAggregateConfigRuleComplianceSummaryRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

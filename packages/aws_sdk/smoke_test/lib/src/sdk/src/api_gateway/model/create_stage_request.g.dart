@@ -16,7 +16,7 @@ class _$CreateStageRequest extends CreateStageRequest {
   @override
   final String? description;
   @override
-  final bool cacheClusterEnabled;
+  final bool? cacheClusterEnabled;
   @override
   final _i3.CacheClusterSize? cacheClusterSize;
   @override
@@ -26,7 +26,7 @@ class _$CreateStageRequest extends CreateStageRequest {
   @override
   final _i4.CanarySettings? canarySettings;
   @override
-  final bool tracingEnabled;
+  final bool? tracingEnabled;
   @override
   final _i5.BuiltMap<String, String>? tags;
 
@@ -39,12 +39,12 @@ class _$CreateStageRequest extends CreateStageRequest {
       required this.stageName,
       required this.deploymentId,
       this.description,
-      required this.cacheClusterEnabled,
+      this.cacheClusterEnabled,
       this.cacheClusterSize,
       this.variables,
       this.documentationVersion,
       this.canarySettings,
-      required this.tracingEnabled,
+      this.tracingEnabled,
       this.tags})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -53,10 +53,6 @@ class _$CreateStageRequest extends CreateStageRequest {
         stageName, r'CreateStageRequest', 'stageName');
     BuiltValueNullFieldError.checkNotNull(
         deploymentId, r'CreateStageRequest', 'deploymentId');
-    BuiltValueNullFieldError.checkNotNull(
-        cacheClusterEnabled, r'CreateStageRequest', 'cacheClusterEnabled');
-    BuiltValueNullFieldError.checkNotNull(
-        tracingEnabled, r'CreateStageRequest', 'tracingEnabled');
   }
 
   @override
@@ -210,16 +206,12 @@ class CreateStageRequestBuilder
               deploymentId: BuiltValueNullFieldError.checkNotNull(
                   deploymentId, r'CreateStageRequest', 'deploymentId'),
               description: description,
-              cacheClusterEnabled: BuiltValueNullFieldError.checkNotNull(
-                  cacheClusterEnabled,
-                  r'CreateStageRequest',
-                  'cacheClusterEnabled'),
+              cacheClusterEnabled: cacheClusterEnabled,
               cacheClusterSize: cacheClusterSize,
               variables: _variables?.build(),
               documentationVersion: documentationVersion,
               canarySettings: _canarySettings?.build(),
-              tracingEnabled: BuiltValueNullFieldError.checkNotNull(
-                  tracingEnabled, r'CreateStageRequest', 'tracingEnabled'),
+              tracingEnabled: tracingEnabled,
               tags: _tags?.build());
     } catch (_) {
       late String _$failedField;
@@ -245,7 +237,7 @@ class CreateStageRequestBuilder
 
 class _$CreateStageRequestPayload extends CreateStageRequestPayload {
   @override
-  final bool cacheClusterEnabled;
+  final bool? cacheClusterEnabled;
   @override
   final _i3.CacheClusterSize? cacheClusterSize;
   @override
@@ -261,7 +253,7 @@ class _$CreateStageRequestPayload extends CreateStageRequestPayload {
   @override
   final _i5.BuiltMap<String, String>? tags;
   @override
-  final bool tracingEnabled;
+  final bool? tracingEnabled;
   @override
   final _i5.BuiltMap<String, String>? variables;
 
@@ -270,7 +262,7 @@ class _$CreateStageRequestPayload extends CreateStageRequestPayload {
       (new CreateStageRequestPayloadBuilder()..update(updates))._build();
 
   _$CreateStageRequestPayload._(
-      {required this.cacheClusterEnabled,
+      {this.cacheClusterEnabled,
       this.cacheClusterSize,
       this.canarySettings,
       required this.deploymentId,
@@ -278,17 +270,13 @@ class _$CreateStageRequestPayload extends CreateStageRequestPayload {
       this.documentationVersion,
       required this.stageName,
       this.tags,
-      required this.tracingEnabled,
+      this.tracingEnabled,
       this.variables})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(cacheClusterEnabled,
-        r'CreateStageRequestPayload', 'cacheClusterEnabled');
     BuiltValueNullFieldError.checkNotNull(
         deploymentId, r'CreateStageRequestPayload', 'deploymentId');
     BuiltValueNullFieldError.checkNotNull(
         stageName, r'CreateStageRequestPayload', 'stageName');
-    BuiltValueNullFieldError.checkNotNull(
-        tracingEnabled, r'CreateStageRequestPayload', 'tracingEnabled');
   }
 
   @override
@@ -429,10 +417,7 @@ class CreateStageRequestPayloadBuilder
     try {
       _$result = _$v ??
           new _$CreateStageRequestPayload._(
-              cacheClusterEnabled: BuiltValueNullFieldError.checkNotNull(
-                  cacheClusterEnabled,
-                  r'CreateStageRequestPayload',
-                  'cacheClusterEnabled'),
+              cacheClusterEnabled: cacheClusterEnabled,
               cacheClusterSize: cacheClusterSize,
               canarySettings: _canarySettings?.build(),
               deploymentId: BuiltValueNullFieldError.checkNotNull(
@@ -442,10 +427,7 @@ class CreateStageRequestPayloadBuilder
               stageName: BuiltValueNullFieldError.checkNotNull(
                   stageName, r'CreateStageRequestPayload', 'stageName'),
               tags: _tags?.build(),
-              tracingEnabled: BuiltValueNullFieldError.checkNotNull(
-                  tracingEnabled,
-                  r'CreateStageRequestPayload',
-                  'tracingEnabled'),
+              tracingEnabled: tracingEnabled,
               variables: _variables?.build());
     } catch (_) {
       late String _$failedField;

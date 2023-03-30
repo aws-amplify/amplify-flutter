@@ -29,7 +29,6 @@ abstract class ListMultipartUploadsRequest
     String? uploadIdMarker,
     String? expectedBucketOwner,
   }) {
-    maxUploads ??= 0;
     return _$ListMultipartUploadsRequest._(
       bucket: bucket,
       delimiter: delimiter,
@@ -87,15 +86,13 @@ abstract class ListMultipartUploadsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsRequestBuilder b) {
-    b.maxUploads = 0;
-  }
+  static void _init(ListMultipartUploadsRequestBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Character you use to group keys.
@@ -114,7 +111,7 @@ abstract class ListMultipartUploadsRequest
   String? get keyMarker;
 
   /// Sets the maximum number of multipart uploads, from 1 to 1,000, to return in the response body. 1,000 is the maximum number of uploads that can be returned in a response.
-  int get maxUploads;
+  int? get maxUploads;
 
   /// Lists in-progress uploads only for those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different grouping of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.)
   String? get prefix;

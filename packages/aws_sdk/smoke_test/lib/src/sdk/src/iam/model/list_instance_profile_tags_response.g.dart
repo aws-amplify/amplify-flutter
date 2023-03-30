@@ -11,7 +11,7 @@ class _$ListInstanceProfileTagsResponse
   @override
   final _i3.BuiltList<_i2.Tag> tags;
   @override
-  final bool isTruncated;
+  final bool? isTruncated;
   @override
   final String? marker;
 
@@ -20,12 +20,10 @@ class _$ListInstanceProfileTagsResponse
       (new ListInstanceProfileTagsResponseBuilder()..update(updates))._build();
 
   _$ListInstanceProfileTagsResponse._(
-      {required this.tags, required this.isTruncated, this.marker})
+      {required this.tags, this.isTruncated, this.marker})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         tags, r'ListInstanceProfileTagsResponse', 'tags');
-    BuiltValueNullFieldError.checkNotNull(
-        isTruncated, r'ListInstanceProfileTagsResponse', 'isTruncated');
   }
 
   @override
@@ -110,10 +108,7 @@ class ListInstanceProfileTagsResponseBuilder
     try {
       _$result = _$v ??
           new _$ListInstanceProfileTagsResponse._(
-              tags: tags.build(),
-              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
-                  r'ListInstanceProfileTagsResponse', 'isTruncated'),
-              marker: marker);
+              tags: tags.build(), isTruncated: isTruncated, marker: marker);
     } catch (_) {
       late String _$failedField;
       try {

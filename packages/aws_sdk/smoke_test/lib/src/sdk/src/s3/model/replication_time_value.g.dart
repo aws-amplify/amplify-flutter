@@ -8,16 +8,13 @@ part of smoke_test.s3.model.replication_time_value;
 
 class _$ReplicationTimeValue extends ReplicationTimeValue {
   @override
-  final int minutes;
+  final int? minutes;
 
   factory _$ReplicationTimeValue(
           [void Function(ReplicationTimeValueBuilder)? updates]) =>
       (new ReplicationTimeValueBuilder()..update(updates))._build();
 
-  _$ReplicationTimeValue._({required this.minutes}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        minutes, r'ReplicationTimeValue', 'minutes');
-  }
+  _$ReplicationTimeValue._({this.minutes}) : super._();
 
   @override
   ReplicationTimeValue rebuild(
@@ -79,10 +76,7 @@ class ReplicationTimeValueBuilder
   ReplicationTimeValue build() => _build();
 
   _$ReplicationTimeValue _build() {
-    final _$result = _$v ??
-        new _$ReplicationTimeValue._(
-            minutes: BuiltValueNullFieldError.checkNotNull(
-                minutes, r'ReplicationTimeValue', 'minutes'));
+    final _$result = _$v ?? new _$ReplicationTimeValue._(minutes: minutes);
     replace(_$result);
     return _$result;
   }

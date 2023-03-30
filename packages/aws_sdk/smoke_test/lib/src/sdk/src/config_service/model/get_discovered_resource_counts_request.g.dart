@@ -11,7 +11,7 @@ class _$GetDiscoveredResourceCountsRequest
   @override
   final _i3.BuiltList<String>? resourceTypes;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -22,11 +22,8 @@ class _$GetDiscoveredResourceCountsRequest
           ._build();
 
   _$GetDiscoveredResourceCountsRequest._(
-      {this.resourceTypes, required this.limit, this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetDiscoveredResourceCountsRequest', 'limit');
-  }
+      {this.resourceTypes, this.limit, this.nextToken})
+      : super._();
 
   @override
   GetDiscoveredResourceCountsRequest rebuild(
@@ -113,8 +110,7 @@ class GetDiscoveredResourceCountsRequestBuilder
       _$result = _$v ??
           new _$GetDiscoveredResourceCountsRequest._(
               resourceTypes: _resourceTypes?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'GetDiscoveredResourceCountsRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

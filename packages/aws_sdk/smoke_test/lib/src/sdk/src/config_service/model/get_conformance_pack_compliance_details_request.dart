@@ -24,7 +24,6 @@ abstract class GetConformancePackComplianceDetailsRequest
     int? limit,
     String? nextToken,
   }) {
-    limit ??= 0;
     return _$GetConformancePackComplianceDetailsRequest._(
       conformancePackName: conformancePackName,
       filters: filters,
@@ -51,9 +50,7 @@ abstract class GetConformancePackComplianceDetailsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetConformancePackComplianceDetailsRequestBuilder b) {
-    b.limit = 0;
-  }
+  static void _init(GetConformancePackComplianceDetailsRequestBuilder b) {}
 
   /// Name of the conformance pack.
   String get conformancePackName;
@@ -62,7 +59,7 @@ abstract class GetConformancePackComplianceDetailsRequest
   _i3.ConformancePackEvaluationFilters? get filters;
 
   /// The maximum number of evaluation results returned on each page. If you do no specify a number, Config uses the default. The default is 100.
-  int get limit;
+  int? get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -145,10 +142,12 @@ class GetConformancePackComplianceDetailsRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          result.limit = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextToken':
           if (value != null) {
@@ -177,11 +176,6 @@ class GetConformancePackComplianceDetailsRequestAwsJson11Serializer extends _i1
         payload.conformancePackName,
         specifiedType: const FullType(String),
       ),
-      'Limit',
-      serializers.serialize(
-        payload.limit,
-        specifiedType: const FullType(int),
-      ),
     ];
     if (payload.filters != null) {
       result
@@ -189,6 +183,14 @@ class GetConformancePackComplianceDetailsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.filters!,
           specifiedType: const FullType(_i3.ConformancePackEvaluationFilters),
+        ));
+    }
+    if (payload.limit != null) {
+      result
+        ..add('Limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

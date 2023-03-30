@@ -25,8 +25,6 @@ abstract class TestInvokeMethodResponse
     String? log,
     _i2.Int64? latency,
   }) {
-    status ??= 0;
-    latency ??= _i2.Int64.ZERO;
     return _$TestInvokeMethodResponse._(
       status: status,
       body: body,
@@ -58,13 +56,10 @@ abstract class TestInvokeMethodResponse
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeMethodResponseBuilder b) {
-    b.status = 0;
-    b.latency = _i2.Int64.ZERO;
-  }
+  static void _init(TestInvokeMethodResponseBuilder b) {}
 
   /// The HTTP status code.
-  int get status;
+  int? get status;
 
   /// The body of the HTTP response.
   String? get body;
@@ -79,7 +74,7 @@ abstract class TestInvokeMethodResponse
   String? get log;
 
   /// The execution latency of the test invoke request.
-  _i2.Int64 get latency;
+  _i2.Int64? get latency;
   @override
   List<Object?> get props => [
         status,
@@ -173,10 +168,12 @@ class TestInvokeMethodResponseRestJson1Serializer
           }
           break;
         case 'latency':
-          result.latency = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.Int64),
-          ) as _i2.Int64);
+          if (value != null) {
+            result.latency = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
           break;
         case 'log':
           if (value != null) {
@@ -201,10 +198,12 @@ class TestInvokeMethodResponseRestJson1Serializer
           }
           break;
         case 'status':
-          result.status = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.status = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -219,18 +218,7 @@ class TestInvokeMethodResponseRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as TestInvokeMethodResponse);
-    final result = <Object?>[
-      'latency',
-      serializers.serialize(
-        payload.latency,
-        specifiedType: const FullType(_i2.Int64),
-      ),
-      'status',
-      serializers.serialize(
-        payload.status,
-        specifiedType: const FullType(int),
-      ),
-    ];
+    final result = <Object?>[];
     if (payload.body != null) {
       result
         ..add('body')
@@ -253,6 +241,14 @@ class TestInvokeMethodResponseRestJson1Serializer
           ),
         ));
     }
+    if (payload.latency != null) {
+      result
+        ..add('latency')
+        ..add(serializers.serialize(
+          payload.latency!,
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
     if (payload.log != null) {
       result
         ..add('log')
@@ -273,6 +269,14 @@ class TestInvokeMethodResponseRestJson1Serializer
               FullType(String),
             ],
           ),
+        ));
+    }
+    if (payload.status != null) {
+      result
+        ..add('status')
+        ..add(serializers.serialize(
+          payload.status!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

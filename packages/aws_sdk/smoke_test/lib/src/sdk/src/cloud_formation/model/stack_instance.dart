@@ -35,7 +35,6 @@ abstract class StackInstance
     String? organizationalUnitId,
     _i5.StackDriftStatus? driftStatus,
     DateTime? lastDriftCheckTimestamp,
-    String? lastOperationId,
   }) {
     return _$StackInstance._(
       stackSetId: stackSetId,
@@ -50,7 +49,6 @@ abstract class StackInstance
       organizationalUnitId: organizationalUnitId,
       driftStatus: driftStatus,
       lastDriftCheckTimestamp: lastDriftCheckTimestamp,
-      lastOperationId: lastOperationId,
     );
   }
 
@@ -117,9 +115,6 @@ abstract class StackInstance
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will be `NULL` for any stack instance on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
-
-  /// The last unique ID of a StackSet operation performed on a stack instance.
-  String? get lastOperationId;
   @override
   List<Object?> get props => [
         stackSetId,
@@ -133,7 +128,6 @@ abstract class StackInstance
         organizationalUnitId,
         driftStatus,
         lastDriftCheckTimestamp,
-        lastOperationId,
       ];
   @override
   String toString() {
@@ -181,10 +175,6 @@ abstract class StackInstance
     helper.add(
       'lastDriftCheckTimestamp',
       lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'lastOperationId',
-      lastOperationId,
     );
     return helper.toString();
   }
@@ -314,14 +304,6 @@ class StackInstanceAwsQuerySerializer
             ) as DateTime);
           }
           break;
-        case 'LastOperationId':
-          if (value != null) {
-            result.lastOperationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -433,14 +415,6 @@ class StackInstanceAwsQuerySerializer
         ..add(serializers.serialize(
           payload.lastDriftCheckTimestamp!,
           specifiedType: const FullType.nullable(DateTime),
-        ));
-    }
-    if (payload.lastOperationId != null) {
-      result
-        ..add(const _i7.XmlElementName('LastOperationId'))
-        ..add(serializers.serialize(
-          payload.lastOperationId!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

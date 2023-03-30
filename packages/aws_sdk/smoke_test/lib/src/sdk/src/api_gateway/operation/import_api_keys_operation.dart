@@ -100,10 +100,12 @@ class ImportApiKeysOperation extends _i1.HttpOperation<_i2.Uint8List,
           'format',
           input.format.value,
         );
-        b.queryParameters.add(
-          'failonwarnings',
-          input.failOnWarnings.toString(),
-        );
+        if (input.failOnWarnings != null) {
+          b.queryParameters.add(
+            'failonwarnings',
+            input.failOnWarnings!.toString(),
+          );
+        }
       });
   @override
   int successCode([_i4.ApiKeyIds? output]) => 201;

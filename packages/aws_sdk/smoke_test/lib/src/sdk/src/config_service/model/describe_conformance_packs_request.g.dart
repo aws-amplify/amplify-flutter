@@ -11,7 +11,7 @@ class _$DescribeConformancePacksRequest
   @override
   final _i3.BuiltList<String>? conformancePackNames;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -20,11 +20,8 @@ class _$DescribeConformancePacksRequest
       (new DescribeConformancePacksRequestBuilder()..update(updates))._build();
 
   _$DescribeConformancePacksRequest._(
-      {this.conformancePackNames, required this.limit, this.nextToken})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'DescribeConformancePacksRequest', 'limit');
-  }
+      {this.conformancePackNames, this.limit, this.nextToken})
+      : super._();
 
   @override
   DescribeConformancePacksRequest rebuild(
@@ -110,8 +107,7 @@ class DescribeConformancePacksRequestBuilder
       _$result = _$v ??
           new _$DescribeConformancePacksRequest._(
               conformancePackNames: _conformancePackNames?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(
-                  limit, r'DescribeConformancePacksRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

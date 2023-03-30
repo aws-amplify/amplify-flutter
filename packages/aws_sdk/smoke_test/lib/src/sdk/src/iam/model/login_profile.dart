@@ -23,7 +23,6 @@ abstract class LoginProfile
     required DateTime createDate,
     bool? passwordResetRequired,
   }) {
-    passwordResetRequired ??= false;
     return _$LoginProfile._(
       userName: userName,
       createDate: createDate,
@@ -44,9 +43,7 @@ abstract class LoginProfile
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoginProfileBuilder b) {
-    b.passwordResetRequired = false;
-  }
+  static void _init(LoginProfileBuilder b) {}
 
   /// The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
   String get userName;
@@ -55,7 +52,7 @@ abstract class LoginProfile
   DateTime get createDate;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool get passwordResetRequired;
+  bool? get passwordResetRequired;
   @override
   List<Object?> get props => [
         userName,
@@ -123,10 +120,12 @@ class LoginProfileAwsQuerySerializer
           ) as DateTime);
           break;
         case 'PasswordResetRequired':
-          result.passwordResetRequired = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.passwordResetRequired = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -159,12 +158,14 @@ class LoginProfileAwsQuerySerializer
         payload.createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    result
-      ..add(const _i2.XmlElementName('PasswordResetRequired'))
-      ..add(serializers.serialize(
-        payload.passwordResetRequired,
-        specifiedType: const FullType(bool),
-      ));
+    if (payload.passwordResetRequired != null) {
+      result
+        ..add(const _i2.XmlElementName('PasswordResetRequired'))
+        ..add(serializers.serialize(
+          payload.passwordResetRequired!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     return result;
   }
 }

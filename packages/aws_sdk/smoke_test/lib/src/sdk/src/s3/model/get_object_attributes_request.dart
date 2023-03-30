@@ -34,7 +34,6 @@ abstract class GetObjectAttributesRequest
     String? expectedBucketOwner,
     required List<_i4.ObjectAttributes> objectAttributes,
   }) {
-    maxParts ??= 0;
     return _$GetObjectAttributesRequest._(
       bucket: bucket,
       key: key,
@@ -113,15 +112,13 @@ abstract class GetObjectAttributesRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesRequestBuilder b) {
-    b.maxParts = 0;
-  }
+  static void _init(GetObjectAttributesRequestBuilder b) {}
 
   /// The name of the bucket that contains the object.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// The object key.
@@ -131,7 +128,7 @@ abstract class GetObjectAttributesRequest
   String? get versionId;
 
   /// Sets the maximum number of parts to return.
-  int get maxParts;
+  int? get maxParts;
 
   /// Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.
   String? get partNumberMarker;

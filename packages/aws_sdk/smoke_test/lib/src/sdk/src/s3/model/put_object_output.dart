@@ -35,7 +35,6 @@ abstract class PutObjectOutput
     bool? bucketKeyEnabled,
     _i4.RequestCharged? requestCharged,
   }) {
-    bucketKeyEnabled ??= false;
     return _$PutObjectOutput._(
       expiration: expiration,
       eTag: eTag,
@@ -128,9 +127,7 @@ abstract class PutObjectOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputBuilder b) {
-    b.bucketKeyEnabled = false;
-  }
+  static void _init(PutObjectOutputBuilder b) {}
 
   /// If the expiration is configured for the object (see [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration. The value of the `rule-id` is URL-encoded.
   String? get expiration;
@@ -150,7 +147,7 @@ abstract class PutObjectOutput
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
+  /// If you specified server-side encryption either with an Amazon Web Services KMS key or Amazon S3-managed encryption key in your PUT request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used to encrypt the object.
   _i3.ServerSideEncryption? get serverSideEncryption;
 
   /// Version of the object.
@@ -162,14 +159,14 @@ abstract class PutObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If `x-amz-server-side-encryption` is has a valid value of `aws:kms`, this header specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for the object.
+  /// If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is stored as object metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or `CopyObject` operations on this object.
+  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
   String? get ssekmsEncryptionContext;
 
   /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool get bucketKeyEnabled;
+  bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i4.RequestCharged? get requestCharged;

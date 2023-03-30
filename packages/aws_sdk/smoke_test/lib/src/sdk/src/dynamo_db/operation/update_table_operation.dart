@@ -29,8 +29,6 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart'
 
 /// Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
 ///
-/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
-///
 /// You can only perform one of the following operations at once:
 ///
 /// *   Modify the provisioned throughput settings of the table.
@@ -44,8 +42,6 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart'
 class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
     _i2.UpdateTableInput, _i3.UpdateTableOutput, _i3.UpdateTableOutput> {
   /// Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
-  ///
-  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   ///
   /// You can only perform one of the following operations at once:
   ///

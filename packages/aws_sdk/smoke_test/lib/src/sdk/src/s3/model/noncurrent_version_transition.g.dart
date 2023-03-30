@@ -8,26 +8,19 @@ part of smoke_test.s3.model.noncurrent_version_transition;
 
 class _$NoncurrentVersionTransition extends NoncurrentVersionTransition {
   @override
-  final int noncurrentDays;
+  final int? noncurrentDays;
   @override
   final _i2.TransitionStorageClass? storageClass;
   @override
-  final int newerNoncurrentVersions;
+  final int? newerNoncurrentVersions;
 
   factory _$NoncurrentVersionTransition(
           [void Function(NoncurrentVersionTransitionBuilder)? updates]) =>
       (new NoncurrentVersionTransitionBuilder()..update(updates))._build();
 
   _$NoncurrentVersionTransition._(
-      {required this.noncurrentDays,
-      this.storageClass,
-      required this.newerNoncurrentVersions})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        noncurrentDays, r'NoncurrentVersionTransition', 'noncurrentDays');
-    BuiltValueNullFieldError.checkNotNull(newerNoncurrentVersions,
-        r'NoncurrentVersionTransition', 'newerNoncurrentVersions');
-  }
+      {this.noncurrentDays, this.storageClass, this.newerNoncurrentVersions})
+      : super._();
 
   @override
   NoncurrentVersionTransition rebuild(
@@ -111,15 +104,9 @@ class NoncurrentVersionTransitionBuilder
   _$NoncurrentVersionTransition _build() {
     final _$result = _$v ??
         new _$NoncurrentVersionTransition._(
-            noncurrentDays: BuiltValueNullFieldError.checkNotNull(
-                noncurrentDays,
-                r'NoncurrentVersionTransition',
-                'noncurrentDays'),
+            noncurrentDays: noncurrentDays,
             storageClass: storageClass,
-            newerNoncurrentVersions: BuiltValueNullFieldError.checkNotNull(
-                newerNoncurrentVersions,
-                r'NoncurrentVersionTransition',
-                'newerNoncurrentVersions'));
+            newerNoncurrentVersions: newerNoncurrentVersions);
     replace(_$result);
     return _$result;
   }

@@ -13,7 +13,7 @@ class _$GetConformancePackComplianceDetailsRequest
   @override
   final _i3.ConformancePackEvaluationFilters? filters;
   @override
-  final int limit;
+  final int? limit;
   @override
   final String? nextToken;
 
@@ -26,13 +26,11 @@ class _$GetConformancePackComplianceDetailsRequest
   _$GetConformancePackComplianceDetailsRequest._(
       {required this.conformancePackName,
       this.filters,
-      required this.limit,
+      this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(conformancePackName,
         r'GetConformancePackComplianceDetailsRequest', 'conformancePackName');
-    BuiltValueNullFieldError.checkNotNull(
-        limit, r'GetConformancePackComplianceDetailsRequest', 'limit');
   }
 
   @override
@@ -134,8 +132,7 @@ class GetConformancePackComplianceDetailsRequestBuilder
                   r'GetConformancePackComplianceDetailsRequest',
                   'conformancePackName'),
               filters: _filters?.build(),
-              limit: BuiltValueNullFieldError.checkNotNull(limit,
-                  r'GetConformancePackComplianceDetailsRequest', 'limit'),
+              limit: limit,
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

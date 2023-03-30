@@ -12,7 +12,7 @@ class _$PutRestApiRequest extends PutRestApiRequest {
   @override
   final _i4.PutMode? mode;
   @override
-  final bool failOnWarnings;
+  final bool? failOnWarnings;
   @override
   final _i5.BuiltMap<String, String>? parameters;
   @override
@@ -25,14 +25,12 @@ class _$PutRestApiRequest extends PutRestApiRequest {
   _$PutRestApiRequest._(
       {required this.restApiId,
       this.mode,
-      required this.failOnWarnings,
+      this.failOnWarnings,
       this.parameters,
       required this.body})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'PutRestApiRequest', 'restApiId');
-    BuiltValueNullFieldError.checkNotNull(
-        failOnWarnings, r'PutRestApiRequest', 'failOnWarnings');
     BuiltValueNullFieldError.checkNotNull(body, r'PutRestApiRequest', 'body');
   }
 
@@ -134,8 +132,7 @@ class PutRestApiRequestBuilder
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'PutRestApiRequest', 'restApiId'),
               mode: mode,
-              failOnWarnings: BuiltValueNullFieldError.checkNotNull(
-                  failOnWarnings, r'PutRestApiRequest', 'failOnWarnings'),
+              failOnWarnings: failOnWarnings,
               parameters: _parameters?.build(),
               body: BuiltValueNullFieldError.checkNotNull(
                   body, r'PutRestApiRequest', 'body'));

@@ -25,9 +25,6 @@ abstract class GetObjectAttributesParts
     bool? isTruncated,
     List<_i2.ObjectPart>? parts,
   }) {
-    totalPartsCount ??= 0;
-    maxParts ??= 0;
-    isTruncated ??= false;
     return _$GetObjectAttributesParts._(
       totalPartsCount: totalPartsCount,
       partNumberMarker: partNumberMarker,
@@ -50,14 +47,10 @@ abstract class GetObjectAttributesParts
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesPartsBuilder b) {
-    b.totalPartsCount = 0;
-    b.maxParts = 0;
-    b.isTruncated = false;
-  }
+  static void _init(GetObjectAttributesPartsBuilder b) {}
 
   /// The total number of parts.
-  int get totalPartsCount;
+  int? get totalPartsCount;
 
   /// The marker for the current part.
   String? get partNumberMarker;
@@ -66,10 +59,10 @@ abstract class GetObjectAttributesParts
   String? get nextPartNumberMarker;
 
   /// The maximum number of parts allowed in the response.
-  int get maxParts;
+  int? get maxParts;
 
   /// Indicates whether the returned list of parts is truncated. A value of `true` indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the `MaxParts` element.
-  bool get isTruncated;
+  bool? get isTruncated;
 
   /// A container for elements related to a particular part. A response can contain zero or more `Parts` elements.
   _i3.BuiltList<_i2.ObjectPart>? get parts;
@@ -144,16 +137,20 @@ class GetObjectAttributesPartsRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'IsTruncated':
-          result.isTruncated = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+          if (value != null) {
+            result.isTruncated = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
         case 'MaxParts':
-          result.maxParts = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.maxParts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
         case 'NextPartNumberMarker':
           if (value != null) {
@@ -180,10 +177,12 @@ class GetObjectAttributesPartsRestXmlSerializer
           }
           break;
         case 'PartsCount':
-          result.totalPartsCount = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
+          if (value != null) {
+            result.totalPartsCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
           break;
       }
     }
@@ -204,18 +203,22 @@ class GetObjectAttributesPartsRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    result
-      ..add(const _i4.XmlElementName('IsTruncated'))
-      ..add(serializers.serialize(
-        payload.isTruncated,
-        specifiedType: const FullType(bool),
-      ));
-    result
-      ..add(const _i4.XmlElementName('MaxParts'))
-      ..add(serializers.serialize(
-        payload.maxParts,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.isTruncated != null) {
+      result
+        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(serializers.serialize(
+          payload.isTruncated!,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (payload.maxParts != null) {
+      result
+        ..add(const _i4.XmlElementName('MaxParts'))
+        ..add(serializers.serialize(
+          payload.maxParts!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     if (payload.nextPartNumberMarker != null) {
       result
         ..add(const _i4.XmlElementName('NextPartNumberMarker'))
@@ -243,12 +246,14 @@ class GetObjectAttributesPartsRestXmlSerializer
         ),
       ));
     }
-    result
-      ..add(const _i4.XmlElementName('PartsCount'))
-      ..add(serializers.serialize(
-        payload.totalPartsCount,
-        specifiedType: const FullType(int),
-      ));
+    if (payload.totalPartsCount != null) {
+      result
+        ..add(const _i4.XmlElementName('PartsCount'))
+        ..add(serializers.serialize(
+          payload.totalPartsCount!,
+          specifiedType: const FullType.nullable(int),
+        ));
+    }
     return result;
   }
 }

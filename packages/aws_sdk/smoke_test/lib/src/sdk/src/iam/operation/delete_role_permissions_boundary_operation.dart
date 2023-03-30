@@ -22,8 +22,6 @@ import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.d
 
 /// Deletes the permissions boundary for the specified IAM role.
 ///
-/// You cannot set the boundary for a service-linked role.
-///
 /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
 class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
     _i2.DeleteRolePermissionsBoundaryRequest,
@@ -31,8 +29,6 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
     _i1.Unit,
     _i1.Unit> {
   /// Deletes the permissions boundary for the specified IAM role.
-  ///
-  /// You cannot set the boundary for a service-linked role.
   ///
   /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
   DeleteRolePermissionsBoundaryOperation({

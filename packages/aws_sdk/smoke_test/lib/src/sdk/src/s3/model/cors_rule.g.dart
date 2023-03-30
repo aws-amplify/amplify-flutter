@@ -18,7 +18,7 @@ class _$CorsRule extends CorsRule {
   @override
   final _i2.BuiltList<String>? exposeHeaders;
   @override
-  final int maxAgeSeconds;
+  final int? maxAgeSeconds;
 
   factory _$CorsRule([void Function(CorsRuleBuilder)? updates]) =>
       (new CorsRuleBuilder()..update(updates))._build();
@@ -29,14 +29,12 @@ class _$CorsRule extends CorsRule {
       required this.allowedMethods,
       required this.allowedOrigins,
       this.exposeHeaders,
-      required this.maxAgeSeconds})
+      this.maxAgeSeconds})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         allowedMethods, r'CorsRule', 'allowedMethods');
     BuiltValueNullFieldError.checkNotNull(
         allowedOrigins, r'CorsRule', 'allowedOrigins');
-    BuiltValueNullFieldError.checkNotNull(
-        maxAgeSeconds, r'CorsRule', 'maxAgeSeconds');
   }
 
   @override
@@ -150,8 +148,7 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
               allowedMethods: allowedMethods.build(),
               allowedOrigins: allowedOrigins.build(),
               exposeHeaders: _exposeHeaders?.build(),
-              maxAgeSeconds: BuiltValueNullFieldError.checkNotNull(
-                  maxAgeSeconds, r'CorsRule', 'maxAgeSeconds'));
+              maxAgeSeconds: maxAgeSeconds);
     } catch (_) {
       late String _$failedField;
       try {
