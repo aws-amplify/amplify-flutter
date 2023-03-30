@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! command -v flutter >/dev/null; then
+    echo "Flutter not installed or not in PATH." >&2
+    exit 1
+fi
+
+REPO_ROOT=$(dirname $0)
+
+# Locate Dart SDK
+FLUTTER_EXE=$(which flutter)
+FLUTTER_BIN=$(dirname $FLUTTER_EXE)
+DART_BIN=$FLUTTER_BIN/cache/dart-sdk/bin
+
+# Run `aft` from snapshot
+$DART_BIN/dartaotruntime $REPO_ROOT/build-support/aft.snapshot $@
