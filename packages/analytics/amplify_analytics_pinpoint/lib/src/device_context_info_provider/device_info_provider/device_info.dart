@@ -1,7 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_platform.dart';
 
 /// {@template amplify_analytics_pinpoint.device_info}
 /// Data representation of DeviceInfo required for Pinpoint EndpointDemographic.
