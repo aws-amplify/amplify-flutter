@@ -170,7 +170,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       defaultPluginOptions: const S3ListPluginOptions(),
     );
     final s3Options = StorageListOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -197,7 +197,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageGetPropertiesOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -224,7 +224,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageGetUrlOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -252,7 +252,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageDownloadDataOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -293,7 +293,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       defaultPluginOptions: const S3DownloadFilePluginOptions(),
     );
     options = StorageDownloadFileOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
     return download_file_impl.downloadFile(
@@ -320,7 +320,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageUploadDataOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -357,7 +357,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageUploadFileOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -458,7 +458,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageRemoveOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 
@@ -485,7 +485,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     );
 
     final s3Options = StorageRemoveManyOptions(
-      accessLevel: options?.accessLevel ?? s3pluginConfig.defaultAccessLevel,
+      accessLevel: options?.accessLevel,
       pluginOptions: s3PluginOptions,
     );
 

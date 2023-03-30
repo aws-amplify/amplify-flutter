@@ -98,6 +98,9 @@ void main() {
 
       test('should invoke S3Client.listObjectsV2 with expected parameters',
           () async {
+        final testPrefixToDrop =
+            '${s3PluginConfig.defaultAccessLevel.defaultPrefix}$testDelimiter';
+        final testCommonPrefix = CommonPrefix(prefix: testPrefixToDrop);
         final testS3Objects = [1, 2, 3, 4, 5]
             .map(
               (e) => S3Object(
@@ -110,7 +113,6 @@ void main() {
         const testPath = 'album';
         const testTargetIdentityId = 'someone-else-id';
         const testOptions = StorageListOptions(
-          accessLevel: testStorageAccessLevel,
           pageSize: testPageSize,
           pluginOptions: S3ListPluginOptions.forIdentity(
             testTargetIdentityId,
@@ -158,7 +160,7 @@ void main() {
         expect(
           request.prefix,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testStorageAccessLevel,
+            accessLevel: s3PluginConfig.defaultAccessLevel,
             identityId: testTargetIdentityId,
           )}$testPath',
         );
@@ -407,6 +409,48 @@ void main() {
             bucket: 'fake bucket',
             key: 'dummy key',
           ),
+        );
+      });
+
+      test(
+          'should invoke S3Client.headObject with default access level as the key prefix',
+          () async {
+        const testOptions = StorageGetPropertiesOptions();
+        final testHeadObjectOutput = HeadObjectOutput(
+          eTag: testETag,
+          contentLength: Int64(testSize),
+          lastModified: testLastModified,
+          metadata: testMetadata,
+        );
+        final smithyOperation = MockSmithyOperation<HeadObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testHeadObjectOutput);
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenAnswer((_) => smithyOperation);
+
+        getPropertiesResult = await storageS3Service.getProperties(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.headObject(
+            captureAny<HeadObjectRequest>(),
+          ),
+        ).captured.last;
+        expect(capturedRequest is HeadObjectRequest, isTrue);
+
+        final request = capturedRequest as HeadObjectRequest;
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            accessLevel: s3PluginConfig.defaultAccessLevel,
+          )}$testKey',
         );
       });
 
@@ -1162,6 +1206,42 @@ void main() {
         );
       });
 
+      test('should invoke S3Client.deleteObject with default access level',
+          () async {
+        const testOptions = StorageRemoveOptions();
+        final testDeleteObjectOutput = DeleteObjectOutput();
+        final smithyOperation = MockSmithyOperation<DeleteObjectOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testDeleteObjectOutput);
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenAnswer((_) => smithyOperation);
+
+        removeResult = await storageS3Service.remove(
+          key: testKey,
+          options: testOptions,
+        );
+
+        final capturedRequest = verify(
+          () => s3Client.deleteObject(
+            captureAny<DeleteObjectRequest>(),
+          ),
+        ).captured.last;
+        expect(capturedRequest is DeleteObjectRequest, isTrue);
+
+        final request = capturedRequest as DeleteObjectRequest;
+        expect(request.bucket, testBucket);
+        expect(
+          request.key,
+          '${await testPrefixResolver.resolvePrefix(
+            accessLevel: s3PluginConfig.defaultAccessLevel,
+          )}$testKey',
+        );
+      });
+
       test('should invoke S3Client.deleteObject with expected parameters',
           () async {
         const testOptions = StorageRemoveOptions(
@@ -1263,6 +1343,60 @@ void main() {
             bucket: 'fake bucket',
             delete: Delete(objects: const []),
           ),
+        );
+      });
+
+      test('should invoke S3Client.deleteObjects with default access level',
+          () async {
+        const testOptions = StorageRemoveManyOptions();
+        final testPrefix =
+            '${s3PluginConfig.defaultAccessLevel.defaultPrefix}$testDelimiter';
+        final testDeleteObjectsOutput = DeleteObjectsOutput(
+          deleted: testKeys
+              .take(2)
+              .map((key) => DeletedObject(key: '$testPrefix$key'))
+              .toList(),
+        );
+
+        final smithyOperation = MockSmithyOperation<DeleteObjectsOutput>();
+
+        when(
+          () => smithyOperation.result,
+        ).thenAnswer((_) async => testDeleteObjectsOutput);
+
+        when(
+          () => s3Client.deleteObjects(
+            any(),
+          ),
+        ).thenAnswer((_) => smithyOperation);
+
+        removeManyResult = await storageS3Service.removeMany(
+          keys: testKeys.take(2).toList(),
+          options: testOptions,
+        );
+
+        final capturedRequests = verify(
+          () => s3Client.deleteObjects(captureAny<DeleteObjectsRequest>()),
+        ).captured;
+
+        expect(capturedRequests, hasLength(1));
+
+        final capturedRequest = capturedRequests.first;
+
+        expect(capturedRequest is DeleteObjectsRequest, isTrue);
+
+        final request = capturedRequest as DeleteObjectsRequest;
+        final expectedKeysForRequest = await Future.wait(
+          testKeys.take(2).map(
+                (key) async => '${await testPrefixResolver.resolvePrefix(
+                  accessLevel: s3PluginConfig.defaultAccessLevel,
+                )}$key',
+              ),
+        );
+
+        expect(
+          request.delete.objects.map((object) => object.key),
+          containsAllInOrder(expectedKeysForRequest),
         );
       });
 

@@ -148,10 +148,8 @@ void main() {
 
       test('should forward default options to StorageS3Service.list() API',
           () async {
-        const defaultOptions = StorageListOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3ListPluginOptions(),
-        );
+        const defaultOptions =
+            StorageListOptions(pluginOptions: S3ListPluginOptions());
 
         when(
           () => storageS3Service.list(
@@ -176,49 +174,6 @@ void main() {
         expect(
           capturedOptions,
           defaultOptions,
-        );
-
-        final result = await listOperation.result;
-        expect(
-          result,
-          testResult,
-        );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.list() API',
-          () async {
-        const testOptions = StorageListOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3ListPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.list(
-            path: testPath,
-            options: testOptions,
-          ),
-        ).thenAnswer(
-          (_) async => testResult,
-        );
-
-        final listOperation = storageS3Plugin.list(
-          path: testPath,
-          options: const StorageListOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.list(
-            path: testPath,
-            options: captureAny<StorageListOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
         );
 
         final result = await listOperation.result;
@@ -295,7 +250,6 @@ void main() {
           'should forward default options to StorageS3Service.getProperties() API',
           () async {
         const defaultOptions = StorageGetPropertiesOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3GetPropertiesPluginOptions(),
         );
 
@@ -331,46 +285,6 @@ void main() {
           result,
           testResult,
         );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.getProperties() API',
-          () async {
-        const testOptions = StorageGetPropertiesOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3GetPropertiesPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.getProperties(
-            key: testKey,
-            options: testOptions,
-          ),
-        ).thenAnswer(
-          (_) async => testResult,
-        );
-
-        final getPropertiesOperation = storageS3Plugin.getProperties(
-          key: testKey,
-          options: const StorageGetPropertiesOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.getProperties(
-            key: testKey,
-            options: captureAny<StorageGetPropertiesOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
-        );
-
-        final result = await getPropertiesOperation.result;
-        expect(result, testResult);
       });
 
       test('should forward options to StorageS3Service.getProperties() API',
@@ -433,7 +347,6 @@ void main() {
       test('should forward default options to StorageS3Service.getUrl() API',
           () async {
         const defaultOptions = StorageGetUrlOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3GetUrlPluginOptions(),
         );
 
@@ -460,49 +373,6 @@ void main() {
         expect(
           capturedOptions,
           defaultOptions,
-        );
-
-        final result = await getUrlOperation.result;
-        expect(
-          result,
-          testResult,
-        );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.getUrl() API',
-          () async {
-        const testOptions = StorageGetUrlOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3GetUrlPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.getUrl(
-            key: testKey,
-            options: testOptions,
-          ),
-        ).thenAnswer(
-          (_) async => testResult,
-        );
-
-        final getUrlOperation = storageS3Plugin.getUrl(
-          key: testKey,
-          options: const StorageGetUrlOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.getUrl(
-            key: testKey,
-            options: captureAny<StorageGetUrlOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
         );
 
         final result = await getUrlOperation.result;
@@ -583,7 +453,6 @@ void main() {
           'should forward default options to StorageS3Service.downloadData API',
           () async {
         const defaultOptions = StorageDownloadDataOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3DownloadDataPluginOptions(),
         );
 
@@ -625,45 +494,6 @@ void main() {
         final result = await downloadDataOperation.result;
         expect(result.bytes.isEmpty, true);
         expect(result.downloadedItem, testItem);
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.downloadData API',
-          () async {
-        const testOptions = StorageDownloadDataOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3DownloadDataPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.downloadData(
-            key: testKey,
-            options: testOptions,
-            onData: any(named: 'onData'),
-          ),
-        ).thenAnswer((_) => testS3DownloadTask);
-
-        when(() => testS3DownloadTask.result).thenAnswer((_) async => testItem);
-
-        downloadDataOperation = storageS3Plugin.downloadData(
-          key: testKey,
-          options: const StorageDownloadDataOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.downloadData(
-            key: testKey,
-            onData: any(named: 'onData'),
-            options: captureAny<StorageDownloadDataOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
-        );
       });
 
       test('should forward options to StorageS3Service.downloadData API',
@@ -750,7 +580,6 @@ void main() {
       test('should forward default options to StorageS3Service.uploadData API',
           () async {
         const defaultOptions = StorageUploadDataOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3UploadDataPluginOptions(),
         );
 
@@ -799,46 +628,6 @@ void main() {
         expect(
           result.uploadedItem,
           testItem,
-        );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.uploadData API',
-          () async {
-        const testOptions = StorageUploadDataOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3UploadDataPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.uploadData(
-            key: testKey,
-            dataPayload: any(named: 'dataPayload'),
-            options: testOptions,
-          ),
-        ).thenAnswer((_) => testS3UploadTask);
-
-        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
-
-        uploadDataOperation = storageS3Plugin.uploadData(
-          data: testData,
-          key: testKey,
-          options: const StorageUploadDataOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.uploadData(
-            key: testKey,
-            dataPayload: any(named: 'dataPayload'),
-            options: captureAny<StorageUploadDataOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
         );
       });
 
@@ -920,7 +709,6 @@ void main() {
       test('should forward default options to StorageS3Service.uploadFile API',
           () async {
         const defaultOptions = StorageUploadFileOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3UploadFilePluginOptions(),
         );
 
@@ -970,46 +758,6 @@ void main() {
 
         final result = await uploadFileOperation.result;
         expect(result.uploadedItem, testItem);
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.uploadFile API',
-          () async {
-        const testOptions = StorageUploadFileOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3UploadFilePluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.uploadFile(
-            key: testKey,
-            localFile: any(named: 'localFile'),
-            options: testOptions,
-          ),
-        ).thenAnswer((_) => testS3UploadTask);
-
-        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
-
-        uploadFileOperation = storageS3Plugin.uploadFile(
-          key: testKey,
-          localFile: testLocalFile,
-          options: const StorageUploadFileOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.uploadFile(
-            key: testKey,
-            localFile: any(named: 'localFile'),
-            options: captureAny<StorageUploadFileOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
-        );
       });
 
       test('should forward options to StorageS3Service.uploadFile API',
@@ -1290,7 +1038,6 @@ void main() {
       test('should forward default options to StorageS3Service.remove() API',
           () async {
         const defaultOptions = StorageRemoveOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3RemovePluginOptions(),
         );
         when(
@@ -1314,46 +1061,6 @@ void main() {
         expect(
           capturedOptions,
           defaultOptions,
-        );
-
-        final result = await removeOperation.result;
-        expect(
-          result,
-          testResult,
-        );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.remove() API',
-          () async {
-        const testOptions = StorageRemoveOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3RemovePluginOptions(),
-        );
-        when(
-          () => storageS3Service.remove(
-            key: testKey,
-            options: testOptions,
-          ),
-        ).thenAnswer((_) async => testResult);
-
-        final removeOperation = storageS3Plugin.remove(
-          key: testKey,
-          options: const StorageRemoveOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.remove(
-            key: testKey,
-            options: captureAny<StorageRemoveOptions>(
-              named: 'options',
-            ),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
         );
 
         final result = await removeOperation.result;
@@ -1424,7 +1131,6 @@ void main() {
           'should forward default options to StorageS3Service.removeMany() API',
           () async {
         const defaultOptions = StorageRemoveManyOptions(
-          accessLevel: testDefaultStorageAccessLevel,
           pluginOptions: S3RemoveManyPluginOptions(),
         );
 
@@ -1447,45 +1153,6 @@ void main() {
         expect(
           capturedOptions,
           defaultOptions,
-        );
-
-        final result = await removeManyOperation.result;
-        expect(
-          result.removedItems,
-          resultRemoveItems,
-        );
-      });
-
-      test(
-          'should forward options with default access level to StorageS3Service.removeMany() API',
-          () async {
-        const testOptions = StorageRemoveManyOptions(
-          accessLevel: testDefaultStorageAccessLevel,
-          pluginOptions: S3RemoveManyPluginOptions(),
-        );
-
-        when(
-          () => storageS3Service.removeMany(
-            keys: testKeys,
-            options: testOptions,
-          ),
-        ).thenAnswer((_) async => testResult);
-
-        final removeManyOperation = storageS3Plugin.removeMany(
-          keys: testKeys,
-          options: const StorageRemoveManyOptions(),
-        );
-
-        final capturedOptions = verify(
-          () => storageS3Service.removeMany(
-            keys: testKeys,
-            options: captureAny(named: 'options'),
-          ),
-        ).captured.last;
-
-        expect(
-          capturedOptions,
-          testOptions,
         );
 
         final result = await removeManyOperation.result;
