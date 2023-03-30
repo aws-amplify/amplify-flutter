@@ -14,7 +14,6 @@ import 'package:git/git.dart' as git;
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub/pub.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
@@ -239,11 +238,6 @@ abstract class AmplifyCommand extends Command<void>
     assert(configFile.existsSync(), 'Could not find aft.yaml');
     return configFile.readAsStringSync();
   }
-
-  /// A command runner for `pub`.
-  PubCommandRunner createPubRunner() => PubCommandRunner(
-        pubCommand(isVerbose: () => verbose),
-      );
 
   /// Displays a prompt to the user and waits for a response on stdin.
   String prompt(String prompt) {

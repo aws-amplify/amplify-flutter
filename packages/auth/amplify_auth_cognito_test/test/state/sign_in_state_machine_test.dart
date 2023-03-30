@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
+import 'package:amplify_auth_cognito_dart/src/exception/auth_precondition_exception.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
 import 'package:amplify_auth_cognito_dart/src/model/cognito_device_secrets.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
@@ -591,5 +592,172 @@ void main() {
         expect(await deviceRepo.get(username), isNotNull);
       });
     });
+
+    group('exception handling', () {
+      setUp(() async {
+        await stateMachine.acceptAndComplete(
+          ConfigurationEvent.configure(mockConfig),
+        );
+      });
+
+      test('exceptions during sign-in are unrecoverable', () async {
+        var retry = false;
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: expectAsync1(max: -1, (_) async {
+            if (retry) {
+              return cognito_idp.InitiateAuthResponse(
+                challengeName:
+                    cognito_idp.ChallengeNameType.newPasswordRequired,
+                challengeParameters: {
+                  CognitoConstants.challengeParamUsername: username,
+                  CognitoConstants.challengeParamUserIdForSrp: username,
+                },
+              );
+            } else {
+              retry = true;
+              throw const _SignInException();
+            }
+          }),
+          respondToAuthChallenge: expectAsync1((_) async {
+            return cognito_idp.RespondToAuthChallengeResponse(
+              authenticationResult: cognito_idp.AuthenticationResultType(
+                accessToken: accessToken.raw,
+                refreshToken: refreshToken,
+                idToken: idToken.raw,
+              ),
+            );
+          }),
+        );
+        stateMachine
+            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            SignInEvent.initiate(
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = username
+                  ..password = password,
+              ),
+            ),
+          ),
+          throwsA(const _SignInException()),
+        );
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            SignInEvent.initiate(
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = username
+                  ..password = password,
+              ),
+            ),
+          ),
+          throwsA(isA<AuthPreconditionException>()),
+          reason: 'Sign-in reattempts on the same state machine are disallowed',
+        );
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            const SignInEvent.respondToChallenge(answer: 'attempt'),
+          ),
+          throwsA(isA<AuthPreconditionException>()),
+          reason: 'Attempting to call confirmSignIn before a successful '
+              'signIn call should throw',
+        );
+
+        // Replace the old state machine.
+        stateMachine.create(SignInStateMachine.type);
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            SignInEvent.initiate(
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = username
+                  ..password = password,
+              ),
+            ),
+          ),
+          completion(isA<SignInChallenge>()),
+        );
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            const SignInEvent.respondToChallenge(answer: 'good-answer'),
+          ),
+          completion(isA<SignInSuccess>()),
+        );
+      });
+
+      test('exceptions during confirm sign-in are recoverable', () async {
+        var retry = false;
+        final mockClient = MockCognitoIdentityProviderClient(
+          initiateAuth: expectAsync1((_) async {
+            return cognito_idp.InitiateAuthResponse(
+              challengeName: cognito_idp.ChallengeNameType.newPasswordRequired,
+              challengeParameters: {
+                CognitoConstants.challengeParamUsername: username,
+                CognitoConstants.challengeParamUserIdForSrp: username,
+              },
+            );
+          }),
+          respondToAuthChallenge: expectAsync1(max: -1, (_) async {
+            if (retry) {
+              return cognito_idp.RespondToAuthChallengeResponse(
+                authenticationResult: cognito_idp.AuthenticationResultType(
+                  accessToken: accessToken.raw,
+                  refreshToken: refreshToken,
+                  idToken: idToken.raw,
+                ),
+              );
+            } else {
+              retry = true;
+              throw const _ConfirmSignInException();
+            }
+          }),
+        );
+        stateMachine
+            .addInstance<cognito_idp.CognitoIdentityProviderClient>(mockClient);
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            SignInEvent.initiate(
+              parameters: SignInParameters(
+                (b) => b
+                  ..username = username
+                  ..password = password,
+              ),
+            ),
+          ),
+          completion(isA<SignInChallenge>()),
+        );
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            const SignInEvent.respondToChallenge(answer: 'bad-answer'),
+          ),
+          throwsA(const _ConfirmSignInException()),
+        );
+
+        await expectLater(
+          stateMachine.acceptAndComplete(
+            const SignInEvent.respondToChallenge(answer: 'good-answer'),
+          ),
+          completion(isA<SignInSuccess>()),
+          reason: 'Attempting to confirmSignIn after any exception is thrown '
+              'should be permitted',
+        );
+      });
+    });
   });
+}
+
+class _SignInException implements Exception {
+  const _SignInException();
+}
+
+class _ConfirmSignInException implements Exception {
+  const _ConfirmSignInException();
 }

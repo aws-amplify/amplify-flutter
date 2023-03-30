@@ -177,6 +177,7 @@ Future<String> adminCreateUser(
       },
     },
   );
+  _logger.debug('Got result: $result');
 
   final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {

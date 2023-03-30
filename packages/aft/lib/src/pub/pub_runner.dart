@@ -4,65 +4,44 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
-import 'package:args/command_runner.dart';
+import 'package:aft/src/options/fail_fast_option.dart';
 
-/// Command runner for Dart `pub` commands.
-class PubCommandRunner extends CommandRunner<int> {
-  PubCommandRunner(Command<int> pubCommand) : super('', 'Runs pub commands') {
-    addCommand(pubCommand);
-  }
-
-  @override
-  Future<int> run(Iterable<String> args) async {
-    return await runCommand(argParser.parse(args)) ?? 0;
-  }
-}
-
-extension DartPubAction on PubCommandRunner {
-  /// Runs `pub` for a Dart-only package.
+extension PubAction on AmplifyCommand {
+  /// Runs "dart/flutter pub [arguments]" in the given [package].
   ///
-  /// We use an embedded `pub` runner to speed things up.
-  Future<void> runDartPub(
-    List<String> arguments,
-    PackageInfo package,
-  ) async {
-    int code;
-    String? errorMessage;
-    final command = [
-      'pub',
-      '--directory',
-      package.path,
-      ...arguments,
-    ];
-    try {
-      code = await run(command);
-    } on Object catch (e) {
-      code = 1;
-      errorMessage = e.toString();
+  /// Throws an [Exception] if the command fails.
+  Future<void> pubAction({
+    required List<String> arguments,
+    required PackageInfo package,
+  }) async {
+    if (package.skipChecks) {
+      return;
     }
-    if (code != 0) {
-      throw ProcessException(
-        'dart',
+    try {
+      await runPub(
+        package.flavor,
         arguments,
-        errorMessage ??
-            'An error occurred running `pub ${command.join(' ')}` '
-                'for `${package.name}`',
-        code,
+        package,
       );
+    } on Exception catch (e) {
+      final command = this;
+      if (command is FailFastOption && command.failFast) {
+        rethrow;
+      } else {
+        logger.error(e.toString());
+      }
     }
   }
 }
 
-/// Runs `pub` for a Flutter package.
-///
-/// We embed the `flutter pub` logic from `flutter_tools` to improve the speed
-/// over spawning a new process.
-Future<void> runFlutterPub(
+/// Runs `pub` for a package.
+Future<void> runPub(
+  PackageFlavor flavor,
   List<String> arguments,
   PackageInfo package,
 ) async {
   final proc = await Process.start(
-    'flutter',
+    flavor.entrypoint,
     ['pub', ...arguments],
     runInShell: true,
     mode: ProcessStartMode.inheritStdio,
@@ -70,6 +49,11 @@ Future<void> runFlutterPub(
   );
   final exitCode = await proc.exitCode;
   if (exitCode != 0) {
-    throw ProcessException('flutter', ['pub', ...arguments], '', exitCode);
+    throw ProcessException(
+      flavor.entrypoint,
+      ['pub', ...arguments],
+      '',
+      exitCode,
+    );
   }
 }
