@@ -13,7 +13,7 @@ class _$Changelog extends Changelog {
   final BuiltListMultimap<Version, Node> versions;
 
   factory _$Changelog([void Function(ChangelogBuilder)? updates]) =>
-      (new ChangelogBuilder()..update(updates))._build();
+      (ChangelogBuilder()..update(updates))._build();
 
   _$Changelog._({required this.originalText, required this.versions})
       : super._() {
@@ -27,7 +27,7 @@ class _$Changelog extends Changelog {
       (toBuilder()..update(updates)).build();
 
   @override
-  ChangelogBuilder toBuilder() => new ChangelogBuilder()..replace(this);
+  ChangelogBuilder toBuilder() => ChangelogBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -56,7 +56,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
 
   ListMultimapBuilder<Version, Node>? _versions;
   ListMultimapBuilder<Version, Node> get versions =>
-      _$this._versions ??= new ListMultimapBuilder<Version, Node>();
+      _$this._versions ??= ListMultimapBuilder<Version, Node>();
   set versions(ListMultimapBuilder<Version, Node>? versions) =>
       _$this._versions = versions;
 
@@ -90,7 +90,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
     _$Changelog _$result;
     try {
       _$result = _$v ??
-          new _$Changelog._(
+          _$Changelog._(
               originalText: BuiltValueNullFieldError.checkNotNull(
                   originalText, r'Changelog', 'originalText'),
               versions: versions.build());
@@ -100,7 +100,7 @@ class ChangelogBuilder implements Builder<Changelog, ChangelogBuilder> {
         _$failedField = 'versions';
         versions.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'Changelog', _$failedField, e.toString());
       }
       rethrow;
