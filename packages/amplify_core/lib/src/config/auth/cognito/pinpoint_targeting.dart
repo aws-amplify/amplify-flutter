@@ -12,13 +12,13 @@ class CognitoPinpointTargetingConfig
     required this.region,
   });
 
+  factory CognitoPinpointTargetingConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoPinpointTargetingConfigFromJson(json);
+
   final String region;
 
   @override
   List<Object?> get props => [region];
-
-  factory CognitoPinpointTargetingConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoPinpointTargetingConfigFromJson(json);
 
   CognitoPinpointTargetingConfig copyWith({
     String? region,

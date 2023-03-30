@@ -9,6 +9,22 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 abstract class DataStorePluginInterface extends AmplifyPluginInterface {
+  /// Constructs an AmplifyPlatform.
+  DataStorePluginInterface({
+    required this.modelProvider,
+    this.errorHandler,
+    this.conflictHandler,
+    this.syncExpressions,
+    this.syncInterval,
+    this.syncMaxRecords,
+    this.syncPageSize,
+    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
+  });
+
+  /// Internal use constructor
+  @protected
+  DataStorePluginInterface.emptyConstructor() : this(modelProvider: null);
+
   @override
   @nonVirtual
   Category get category => Category.dataStore;
@@ -37,25 +53,10 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
   /// The strategy for authorizing an API call.
   final AuthModeStrategy authModeStrategy;
 
-  /// Constructs an AmplifyPlatform.
-  DataStorePluginInterface({
-    required this.modelProvider,
-    this.errorHandler,
-    this.conflictHandler,
-    this.syncExpressions,
-    this.syncInterval,
-    this.syncMaxRecords,
-    this.syncPageSize,
-    this.authModeStrategy = AuthModeStrategy.defaultStrategy,
-  });
-
-  /// Internal use constructor
-  @protected
-  DataStorePluginInterface.emptyConstructor() : this(modelProvider: null);
-
   StreamController<DataStoreHubEvent> get streamController {
     throw UnimplementedError(
-        'streamController getter has not been implemented.');
+      'streamController getter has not been implemented.',
+    );
   }
 
   /// Configure AmplifyDataStore plugin with mandatory [modelProvider]
@@ -80,10 +81,12 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('configureDataStore() has not been implemented.');
   }
 
-  Future<List<T>> query<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where,
-      QueryPagination? pagination,
-      List<QuerySortBy>? sortBy}) {
+  Future<List<T>> query<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+    QueryPagination? pagination,
+    List<QuerySortBy>? sortBy,
+  }) {
     throw UnimplementedError('query() has not been implemented.');
   }
 
@@ -95,8 +98,10 @@ abstract class DataStorePluginInterface extends AmplifyPluginInterface {
     throw UnimplementedError('save() has not been implemented');
   }
 
-  Stream<SubscriptionEvent<T>> observe<T extends Model>(ModelType<T> modelType,
-      {QueryPredicate? where}) {
+  Stream<SubscriptionEvent<T>> observe<T extends Model>(
+    ModelType<T> modelType, {
+    QueryPredicate? where,
+  }) {
     throw UnimplementedError('observe() has not been implemented.');
   }
 

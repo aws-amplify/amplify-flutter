@@ -42,7 +42,9 @@ class TestAWSCredentialsAuthProvider extends AWSIamAmplifyAuthProvider {
   @override
   Future<AWSCredentials> retrieve() async {
     return const AWSCredentials(
-        'fake-access-key-123', 'fake-secret-access-key-456');
+      'fake-access-key-123',
+      'fake-secret-access-key-456',
+    );
   }
 
   @override
@@ -127,8 +129,7 @@ void main() {
       const providerKey =
           AmplifyAuthProviderToken<AWSIamAmplifyAuthProvider>('');
       authRepo.registerAuthProvider(providerKey, credentialAuthProvider);
-      AWSIamAmplifyAuthProvider? actualAuthProvider =
-          authRepo.getAuthProvider(providerKey);
+      final actualAuthProvider = authRepo.getAuthProvider(providerKey);
       expect(actualAuthProvider, isA<AWSIamAmplifyAuthProvider>());
     });
 
@@ -136,8 +137,9 @@ void main() {
       final authRepo = AmplifyAuthProviderRepository();
 
       const providerKey = AmplifyAuthProviderToken('');
-      authRepo.registerAuthProvider(providerKey, authProvider);
-      authRepo.registerAuthProvider(providerKey, SecondTestAuthProvider());
+      authRepo
+        ..registerAuthProvider(providerKey, authProvider)
+        ..registerAuthProvider(providerKey, SecondTestAuthProvider());
       final actualAuthProvider = authRepo.getAuthProvider(providerKey);
 
       final authorizedRequest =

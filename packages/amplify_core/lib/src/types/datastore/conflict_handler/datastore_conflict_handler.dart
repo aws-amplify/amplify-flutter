@@ -5,30 +5,32 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
 typedef DataStoreConflictHandler = ConflictResolutionDecision Function(
-    ConflictData);
+  ConflictData,
+);
 
 @immutable
 class ConflictData {
-  final Model local;
-  final Model remote;
-
   const ConflictData(this.local, this.remote);
 
-  ConflictData.fromJson(ModelType modelType, Map<String, dynamic> localJson,
-      Map<String, dynamic> remoteJson)
-      : local = modelType.fromJson(
-            (localJson['serializedData'] as Map).cast<String, dynamic>()),
+  ConflictData.fromJson(
+    ModelType modelType,
+    Map<String, dynamic> localJson,
+    Map<String, dynamic> remoteJson,
+  )   : local = modelType.fromJson(
+          (localJson['serializedData'] as Map).cast<String, dynamic>(),
+        ),
         remote = modelType.fromJson(
-            (remoteJson['serializedData'] as Map).cast<String, dynamic>());
+          (remoteJson['serializedData'] as Map).cast<String, dynamic>(),
+        );
+
+  final Model local;
+  final Model remote;
 }
 
 enum ResolutionStrategy { applyRemote, retryLocal, retry }
 
 @immutable
 class ConflictResolutionDecision {
-  final ResolutionStrategy _resolutionStrategy;
-  final Model? customModel;
-
   const ConflictResolutionDecision(this._resolutionStrategy, this.customModel);
 
   const ConflictResolutionDecision.applyRemote()
@@ -41,6 +43,9 @@ class ConflictResolutionDecision {
 
   const ConflictResolutionDecision.retry(Model this.customModel)
       : _resolutionStrategy = ResolutionStrategy.retry;
+
+  final ResolutionStrategy _resolutionStrategy;
+  final Model? customModel;
 
   @override
   String toString() {

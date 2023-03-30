@@ -46,15 +46,15 @@ class UnknownPluginConfig extends DelegatingMap<String, Object?>
   const UnknownPluginConfig(this.name, Map<String, Object?> plugin)
       : super(plugin);
 
+  factory UnknownPluginConfig.fromJson(String name, Map<String, Object?> json) {
+    return UnknownPluginConfig(name, json);
+  }
+
   @override
   final String name;
 
   @override
   List<Object?> get props => [name, this];
-
-  factory UnknownPluginConfig.fromJson(String name, Map<String, Object?> json) {
-    return UnknownPluginConfig(name, json);
-  }
 
   @override
   Map<String, Object?> toJson() => this;

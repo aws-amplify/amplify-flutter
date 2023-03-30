@@ -37,6 +37,9 @@ class S3PluginConfig
     this.defaultAccessLevel = StorageAccessLevel.guest,
   });
 
+  factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
+      _$S3PluginConfigFromJson(json);
+
   /// The plugin's configuration key.
   static const pluginKey = 'awsS3StoragePlugin';
 
@@ -53,9 +56,6 @@ class S3PluginConfig
         region,
         defaultAccessLevel,
       ];
-
-  factory S3PluginConfig.fromJson(Map<String, Object?> json) =>
-      _$S3PluginConfigFromJson(json);
 
   S3PluginConfig copyWith({
     String? bucket,

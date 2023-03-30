@@ -60,6 +60,9 @@ class CognitoPluginConfig
     this.s3TransferUtility,
   });
 
+  factory CognitoPluginConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoPluginConfigFromJson(json);
+
   /// The plugin's configuration key.
   static const pluginKey = 'awsCognitoAuthPlugin';
 
@@ -91,9 +94,6 @@ class CognitoPluginConfig
         pinpointTargeting,
         s3TransferUtility,
       ];
-
-  factory CognitoPluginConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoPluginConfigFromJson(json);
 
   CognitoPluginConfig copyWith({
     String? userAgent,

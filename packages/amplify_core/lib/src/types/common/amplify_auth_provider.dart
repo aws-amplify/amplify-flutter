@@ -12,9 +12,9 @@ import 'package:meta/meta.dart';
 /// type which has unintended consequences.
 @immutable
 class AmplifyAuthProviderToken<T extends AmplifyAuthProvider> {
-  final String name;
-
   const AmplifyAuthProviderToken(this.name);
+
+  final String name;
 }
 
 abstract class AuthProviderOptions {
@@ -35,9 +35,9 @@ class IamAuthProviderOptions extends AuthProviderOptions {
 }
 
 class ApiKeyAuthProviderOptions extends AuthProviderOptions {
-  final String apiKey;
-
   const ApiKeyAuthProviderOptions(this.apiKey);
+
+  final String apiKey;
 }
 
 abstract class AmplifyAuthProvider {

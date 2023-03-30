@@ -7,14 +7,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// include query predicates which specify filters for selectively persisting a
 /// subset of data to the local device
 class DataStoreSyncExpression {
+  /// Default constructor
+  DataStoreSyncExpression(this._modelType, this._queryPredicateResolver)
+      : id = uuid();
+
   /// A unique id for this sync expression
   final String id;
   final ModelType _modelType;
   final QueryPredicate Function() _queryPredicateResolver;
-
-  /// Default constructor
-  DataStoreSyncExpression(this._modelType, this._queryPredicateResolver)
-      : id = UUID.getUUID();
 
   /// Returns the result of the query predicate resolver
   QueryPredicate resolveQueryPredicate() => _queryPredicateResolver();

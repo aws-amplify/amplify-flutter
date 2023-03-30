@@ -19,21 +19,23 @@ void main() {
     group('Auth', () {
       void testDirectory(String dir) {
         final directory = Directory(dir);
-        for (var file in directory.listSync()) {
+        for (final file in directory.listSync()) {
           final name = path.basenameWithoutExtension(file.path);
           test(name, () {
             final json = File(file.path).readAsStringSync();
             final configJson = jsonDecode(json) as Map<String, Object?>;
             final config = AmplifyConfig.fromJson(configJson);
-            final CognitoAuthConfig expectedConfig = expected[name]!;
+            final expectedConfig = expected[name]!;
             final cognitoConfig = config.auth!.awsPlugin!.auth!.default$!;
             expect(cognitoConfig, equals(expectedConfig));
             expect(
-                expectedConfig.toJson(),
-                equals(
-                  (configJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
-                      ['Auth']['Default'],
-                ));
+              expectedConfig.toJson(),
+              equals(
+                // ignore: avoid_dynamic_calls
+                (configJson['auth'] as Map)['plugins']['awsCognitoAuthPlugin']
+                    ['Auth']['Default'],
+              ),
+            );
           });
         }
       }

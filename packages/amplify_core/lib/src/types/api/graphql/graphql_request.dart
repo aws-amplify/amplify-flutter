@@ -5,6 +5,16 @@ import 'package:amplify_core/amplify_core.dart';
 
 /// A GraphQL request with a few extra properties used to decode the response or use the correct API if the backend has multiple.
 class GraphQLRequest<T> {
+  GraphQLRequest({
+    required this.document,
+    this.apiName,
+    this.authorizationMode,
+    this.variables = const <String, dynamic>{},
+    this.headers,
+    this.decodePath,
+    this.modelType,
+  });
+
   final String id = UUID.getUUID();
 
   /// The body of the request, starting with the operation type and operation name.
@@ -48,16 +58,6 @@ class GraphQLRequest<T> {
   ///
   /// See https://docs.amplify.aws/lib/graphqlapi/advanced-workflows/q/platform/flutter/.
   final ModelType? modelType;
-
-  GraphQLRequest({
-    required this.document,
-    this.apiName,
-    this.authorizationMode,
-    this.variables = const <String, dynamic>{},
-    this.headers,
-    this.decodePath,
-    this.modelType,
-  });
 
   Map<String, dynamic> serializeAsMap() => <String, dynamic>{
         'document': document,

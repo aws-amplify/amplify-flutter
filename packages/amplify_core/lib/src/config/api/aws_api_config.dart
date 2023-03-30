@@ -34,9 +34,6 @@ class AWSApiPluginConfig extends ConfigMap<AWSApiConfig>
   /// {@macro amplify_core.aws_api_plugin_config}
   const AWSApiPluginConfig(this.endpoints);
 
-  /// All API endpoint configurations.
-  final Map<String, AWSApiConfig> endpoints;
-
   factory AWSApiPluginConfig.fromJson(Map<String, Object?> json) {
     final configMap = AWSConfigMap.fromJson(
       json,
@@ -44,6 +41,9 @@ class AWSApiPluginConfig extends ConfigMap<AWSApiConfig>
     );
     return AWSApiPluginConfig(configMap.configs);
   }
+
+  /// All API endpoint configurations.
+  final Map<String, AWSApiConfig> endpoints;
 
   @override
   AWSApiPluginConfig copy() => AWSApiPluginConfig(Map.of(endpoints));

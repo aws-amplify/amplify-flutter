@@ -89,11 +89,12 @@ void main() {
         Token<DependencyManager>(),
         Token<Dispatcher>(),
       ]);
-      dependencyManager.addBuilder<Dispatcher>(MyDispatcher.new);
-      dependencyManager.addBuilder<NeedsDependencyManagerAndDispatcher>(
-        NeedsDependencyManagerAndDispatcher.new,
-        token,
-      );
+      dependencyManager
+        ..addBuilder<Dispatcher>(MyDispatcher.new)
+        ..addBuilder<NeedsDependencyManagerAndDispatcher>(
+          NeedsDependencyManagerAndDispatcher.new,
+          token,
+        );
 
       expect(
         () => dependencyManager

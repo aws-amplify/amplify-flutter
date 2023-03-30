@@ -14,6 +14,21 @@ import 'dart:collection';
 /// Note: this is intended for use in observeQuery and is not intended to be
 /// part of the public API
 class SortedList<E> with ListMixin<E> {
+  /// creates a SortedList from a pre-sorted list of items
+  ///
+  /// This requires that the provided items are sorted according to the
+  /// compare function, otherwise the sort order of the list will not be
+  /// maintained
+  const SortedList.fromPresortedList({
+    required List<E> items,
+    int Function(E a, E b)? compare,
+  })  : _items = items,
+        _compare = compare;
+
+  SortedList.from(SortedList<E> list)
+      : _items = List.from(list._items),
+        _compare = list._compare;
+
   // Required for ListMixin
   @override
   set length(int newLength) {
@@ -44,28 +59,13 @@ class SortedList<E> with ListMixin<E> {
   // comparision function used to maintain list sort
   final int Function(E a, E b)? _compare;
 
-  /// creates a SortedList from a pre-sorted list of items
-  ///
-  /// This requires that the provided items are sorted according to the
-  /// compare function, otherwise the sort order of the list will not be
-  /// maintained
-  const SortedList.fromPresortedList({
-    required List<E> items,
-    int Function(E a, E b)? compare,
-  })  : _items = items,
-        _compare = compare;
-
-  SortedList.from(SortedList<E> list)
-      : _items = List.from(list._items),
-        _compare = list._compare;
-
   /// adds a new item to the list, maintaining the sort order
   void addSorted(E item) {
     if (_compare == null || _items.isEmpty) {
       add(item);
       return;
     }
-    int insertIndex = _findInsertionIndex(item);
+    final insertIndex = _findInsertionIndex(item);
     insert(insertIndex, item);
   }
 
@@ -83,11 +83,11 @@ class SortedList<E> with ListMixin<E> {
   ///
   /// O(log(n)) time complexity
   int _findInsertionIndex(E item) {
-    int low = 0;
-    int high = _items.length;
+    var low = 0;
+    var high = _items.length;
 
     while (low < high) {
-      var mid = (low + high) >> 1;
+      final mid = (low + high) >> 1;
       if (_compare!(item, _items[mid]) > 0) {
         low = mid + 1;
       } else {

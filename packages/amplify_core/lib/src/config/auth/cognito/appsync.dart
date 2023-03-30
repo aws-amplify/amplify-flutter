@@ -16,6 +16,9 @@ class CognitoAppSyncConfig
     required this.clientDatabasePrefix,
   });
 
+  factory CognitoAppSyncConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoAppSyncConfigFromJson(json);
+
   final String apiUrl;
   final String region;
   final APIAuthorizationType authMode;
@@ -30,9 +33,6 @@ class CognitoAppSyncConfig
         apiKey,
         clientDatabasePrefix,
       ];
-
-  factory CognitoAppSyncConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoAppSyncConfigFromJson(json);
 
   CognitoAppSyncConfig copyWith({
     String? apiUrl,

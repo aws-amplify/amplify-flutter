@@ -9,14 +9,16 @@ import 'package:flutter_test/flutter_test.dart';
 void main() async {
   var modelProvider = ModelProvider();
   var outboxMutationEnqueuedEventJson =
-      await getJsonFromFile('hub/outboxMutationEnqueuedEvent.json') as Map;
+      await getJsonFromFile('hub/outboxMutationEnqueuedEvent.json')
+          as Map<String, Object?>;
   var outboxMutationEnqueuedEvent = OutboxMutationEvent(
     outboxMutationEnqueuedEventJson,
     modelProvider,
     'outboxMutationEnqueued',
   );
   var outboxMutationProcessedEventJson =
-      await getJsonFromFile('hub/outboxMutationProcessedEvent.json') as Map;
+      await getJsonFromFile('hub/outboxMutationProcessedEvent.json')
+          as Map<String, Object?>;
   var outboxMutationProcessedEvent = OutboxMutationEvent(
     outboxMutationProcessedEventJson,
     modelProvider,

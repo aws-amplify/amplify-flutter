@@ -24,12 +24,14 @@ void main() {
 
       final config = AmplifyConfig.fromJson(json);
       const expected = AmplifyConfig(
-        auth: AuthConfig(plugins: {
-          customPluginName: UnknownPluginConfig(
-            customPluginName,
-            customPluginConfig,
-          ),
-        }),
+        auth: AuthConfig(
+          plugins: {
+            customPluginName: UnknownPluginConfig(
+              customPluginName,
+              customPluginConfig,
+            ),
+          },
+        ),
       );
       expect(config, equals(expected));
       expect(expected.toJson(), equals(json));

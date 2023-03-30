@@ -27,7 +27,7 @@ class AmplifyLogger extends AWSLogger {
   factory AmplifyLogger.category(Category category) =>
       AmplifyLogger().createChild(category.name);
 
-  AmplifyLogger._(String namespace) : super.protected(namespace);
+  AmplifyLogger._(super.namespace) : super.protected();
 
   /// The root namespace for all [AmplifyLogger] instances.
   static const rootNamespace = '${AWSLogger.rootNamespace}.Amplify';

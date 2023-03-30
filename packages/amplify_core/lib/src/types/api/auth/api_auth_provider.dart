@@ -12,10 +12,10 @@ import 'package:amplify_core/amplify_core.dart';
 /// For more information about the different authorization modes, see the
 /// [docs](https://docs.amplify.aws/cli/graphql-transformer/auth).
 abstract class APIAuthProvider {
+  const APIAuthProvider._(this.type);
+
   /// The authorization type of this provider.
   final APIAuthorizationType type;
-
-  const APIAuthProvider._(this.type);
 
   /// Returns the latest authorization token, or `null` if unavailable.
   /// If an [Exception] is thrown, it will be treated the same as a `null` token.
@@ -41,5 +41,6 @@ abstract class FunctionAuthProvider extends APIAuthProvider {
 }
 
 /// Refreshes the token for a given type or all registered types if none is passed.
-typedef APIAuthProviderRefresher = Future<void> Function(
-    [APIAuthorizationType?]);
+typedef APIAuthProviderRefresher = Future<void> Function([
+  APIAuthorizationType?,
+]);

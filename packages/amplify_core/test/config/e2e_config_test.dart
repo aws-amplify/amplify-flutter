@@ -29,7 +29,7 @@ const tests = [
 
 void main() {
   group('Config', () {
-    for (var e2eTest in tests) {
+    for (final e2eTest in tests) {
       test('v${e2eTest.version}', () {
         final json = jsonDecode(e2eTest.config) as Map<String, Object?>;
         final parsed = AmplifyConfig.fromJson(json.cast());

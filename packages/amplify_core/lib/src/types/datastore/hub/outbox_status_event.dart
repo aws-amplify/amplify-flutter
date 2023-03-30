@@ -4,8 +4,8 @@
 import 'package:amplify_core/amplify_core.dart';
 
 class OutboxStatusEvent extends DataStoreHubEventPayload {
-  late bool isEmpty;
-  OutboxStatusEvent(Map<dynamic, dynamic> serializedData) {
-    isEmpty = serializedData['isEmpty'] as bool;
-  }
+  OutboxStatusEvent(Map<dynamic, dynamic> serializedData)
+      : isEmpty = serializedData['isEmpty'] as bool;
+
+  final bool isEmpty;
 }

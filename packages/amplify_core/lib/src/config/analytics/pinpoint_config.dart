@@ -37,6 +37,9 @@ class PinpointPluginConfig
     required this.pinpointTargeting,
   });
 
+  factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
+      _$PinpointPluginConfigFromJson(json);
+
   /// The plugin's configuration key.
   static const pluginKey = 'awsPinpointAnalyticsPlugin';
 
@@ -45,9 +48,6 @@ class PinpointPluginConfig
 
   @override
   List<Object?> get props => [pinpointAnalytics, pinpointTargeting];
-
-  factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
-      _$PinpointPluginConfigFromJson(json);
 
   PinpointPluginConfig copyWith({
     PinpointAnalytics? pinpointAnalytics,
@@ -73,14 +73,14 @@ class PinpointAnalytics with AWSEquatable<PinpointAnalytics>, AWSSerializable {
     required this.region,
   });
 
+  factory PinpointAnalytics.fromJson(Map<String, Object?> json) =>
+      _$PinpointAnalyticsFromJson(json);
+
   final String appId;
   final String region;
 
   @override
   List<Object?> get props => [appId, region];
-
-  factory PinpointAnalytics.fromJson(Map<String, Object?> json) =>
-      _$PinpointAnalyticsFromJson(json);
 
   PinpointAnalytics copyWith({
     String? appId,
@@ -102,13 +102,13 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
     required this.region,
   });
 
+  factory PinpointTargeting.fromJson(Map<String, Object?> json) =>
+      _$PinpointTargetingFromJson(json);
+
   final String region;
 
   @override
   List<Object?> get props => [region];
-
-  factory PinpointTargeting.fromJson(Map<String, Object?> json) =>
-      _$PinpointTargetingFromJson(json);
 
   PinpointTargeting copyWith({
     String? region,

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'amplify_exception.dart';
+import 'package:amplify_core/src/types/exception/amplify_exception.dart';
 
 /// Exception thrown from codegen models
 class AmplifyCodeGenModelException extends AmplifyException {

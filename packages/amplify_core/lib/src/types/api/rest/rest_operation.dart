@@ -15,8 +15,7 @@ class RestOperation extends AWSHttpOperation<AWSHttpResponse> {
 
   /// Takes [AWSHttpOperation] and ensures response not streamed.
   factory RestOperation.fromHttpOperation(AWSHttpOperation httpOperation) {
-    CancelableOperation<AWSHttpResponse> cancelOp =
-        httpOperation.operation.then(
+    final cancelOp = httpOperation.operation.then<AWSHttpResponse>(
       (response) {
         if (response is AWSStreamedHttpResponse) {
           return response.read();

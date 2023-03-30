@@ -1,24 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/src/types/temporal/temporal.dart';
 import 'package:meta/meta.dart';
-
-import 'temporal.dart';
 
 /// Represents a valid extended ISO-8601 DateTime string.  The time zone offset is compulsory.
 /// YYYY-MM-DDThh:mm:ss.sssZ  (ISO_OFFSET_DATE_TIME)
 /// https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html#appsync-defined-scalars
 @immutable
 class TemporalDateTime implements Comparable<TemporalDateTime> {
-  final DateTime _dateTime;
-  final int _nanoseconds;
-  final Duration? _offset;
-
-  /// Constructs a new TemporalDateTime at the current date
-  static TemporalDateTime now() {
-    return TemporalDateTime(DateTime.now());
-  }
-
   /// Constructs a new TemporalDateTime from a Dart DateTime
   factory TemporalDateTime(DateTime dateTime) {
     dateTime = dateTime.toUtc();
@@ -34,7 +24,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
         dateTime.microsecond,
       ),
       // Always initialize Duration as offset is not optional for DateTime
-      offset: const Duration(),
+      offset: Duration.zero,
     );
   }
 
@@ -69,13 +59,14 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
   ///     +hh:mm
   ///     +hh:mm:ss
   factory TemporalDateTime.fromString(String iso8601String) {
-    RegExp regExp = RegExp(
-        r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](\.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
-        caseSensitive: false,
-        multiLine: false);
+    final regExp = RegExp(
+      r'^([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9](:[0-5][0-9](\.([0-9]{1,9}))?)?)((z|Z)|((\+|-)[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?))',
+      caseSensitive: false,
+      multiLine: false,
+    );
 
     // Validate
-    String? regexString = regExp.stringMatch(iso8601String);
+    final regexString = regExp.stringMatch(iso8601String);
     if (regexString == null || regexString != iso8601String) {
       throw const FormatException(
         'Invalid ISO8601 String Input\n\n'
@@ -90,15 +81,16 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     }
 
     // Extract Time
-    var match = regExp.matchAsPrefix(regexString)!;
+    final match = regExp.matchAsPrefix(regexString)!;
 
     // Parse cannot take a YYYY-MM-DD as UTC!
-    DateTime dateTime = DateTime.parse(match.group(1)!.split('.')[0]);
+    var dateTime = DateTime.parse(match.group(1)!.split('.')[0]);
 
-    int totalNanoseconds = Temporal.getIntOr0(match.group(4)?.padRight(9, '0'));
-    int milliseconds = totalNanoseconds ~/ 1000000;
-    int microseconds = (totalNanoseconds ~/ 1000) % 1000;
-    int nanoseconds = totalNanoseconds % 1000;
+    final totalNanoseconds =
+        Temporal.getIntOr0(match.group(4)?.padRight(9, '0'));
+    final milliseconds = totalNanoseconds ~/ 1000000;
+    final microseconds = (totalNanoseconds ~/ 1000) % 1000;
+    final nanoseconds = totalNanoseconds % 1000;
 
     dateTime = DateTime.utc(
       dateTime.year,
@@ -115,7 +107,7 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     if (match.group(7) != null && match.group(7)!.isNotEmpty) {
       offset = Temporal.offsetToDuration(match.group(7)!);
     } else {
-      offset = const Duration();
+      offset = Duration.zero;
     }
 
     return TemporalDateTime._(
@@ -131,6 +123,14 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
     Duration? offset,
   })  : _nanoseconds = nanoseconds,
         _offset = offset;
+  final DateTime _dateTime;
+  final int _nanoseconds;
+  final Duration? _offset;
+
+  /// Constructs a new TemporalDateTime at the current date
+  static TemporalDateTime now() {
+    return TemporalDateTime(DateTime.now());
+  }
 
   /// Return offset
   Duration? getOffset() {
@@ -144,15 +144,21 @@ class TemporalDateTime implements Comparable<TemporalDateTime> {
 
   /// Return ISO8601 String of format YYYY-MM-DDThh:mm:ss.sss+hh:mm:ss
   String format() {
-    var buffer = StringBuffer();
+    final buffer = StringBuffer();
 
     // DateTime with millisecond/microsecond leads to variable length ISO String
-    DateTime simpleDateTime = DateTime(_dateTime.year, _dateTime.month,
-        _dateTime.day, _dateTime.hour, _dateTime.minute, _dateTime.second);
-    String isoString = simpleDateTime.toIso8601String();
+    final simpleDateTime = DateTime(
+      _dateTime.year,
+      _dateTime.month,
+      _dateTime.day,
+      _dateTime.hour,
+      _dateTime.minute,
+      _dateTime.second,
+    );
+    final isoString = simpleDateTime.toIso8601String();
     buffer.write(isoString.substring(0, isoString.length - 4));
 
-    int totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
+    final totalMicroseconds = _nanoseconds + Temporal.getNanoseconds(_dateTime);
     // ensure DateTime strings stored in SQLite to be in the same format
     // and string based DataTime comparison to be accurate
     buffer.write('.${totalMicroseconds.toString().padLeft(9, '0')}');

@@ -23,6 +23,9 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
     this.verificationMechanisms,
   });
 
+  factory CognitoAuthConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoAuthConfigFromJson(json);
+
   @JsonKey(name: 'OAuth')
   final CognitoOAuthConfig? oAuth;
 
@@ -50,9 +53,6 @@ class CognitoAuthConfig with AWSEquatable<CognitoAuthConfig>, AWSSerializable {
         mfaTypes,
         verificationMechanisms,
       ];
-
-  factory CognitoAuthConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoAuthConfigFromJson(json);
 
   CognitoAuthConfig copyWith({
     CognitoOAuthConfig? oAuth,

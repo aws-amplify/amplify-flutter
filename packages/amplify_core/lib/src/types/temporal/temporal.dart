@@ -1,17 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore: avoid_classes_with_only_static_members
 class Temporal {
   static const genericDocErrorMessage =
       'For more information on acceptable string formats please visit https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html';
 
   static String durationToOffset(Duration duration) {
-    var buffer = StringBuffer();
-    buffer.write(duration.isNegative ? '-' : '+');
+    final buffer = StringBuffer()..write(duration.isNegative ? '-' : '+');
 
-    Duration absOffset = duration.abs();
-    buffer.write(absOffset.inHours.toString().padLeft(2, '0'));
+    final absOffset = duration.abs();
     buffer
+      ..write(absOffset.inHours.toString().padLeft(2, '0'))
       ..write(':')
       ..write((absOffset.inMinutes % 60).toString().padLeft(2, '0'));
 
@@ -25,18 +25,21 @@ class Temporal {
   }
 
   static Duration offsetToDuration(String offsetString) {
-    RegExp regExp = RegExp(r'^(\+|-)([0-2][0-9]):([0-5][0-9])(:([0-5][0-9]))?',
-        caseSensitive: false, multiLine: false);
+    final regExp = RegExp(
+      r'^(\+|-)([0-2][0-9]):([0-5][0-9])(:([0-5][0-9]))?',
+      caseSensitive: false,
+      multiLine: false,
+    );
 
-    Match? match = regExp.matchAsPrefix(offsetString);
+    final match = regExp.matchAsPrefix(offsetString);
     if (match == null) {
-      return const Duration();
+      return Duration.zero;
     }
 
-    int sign = match.group(1) == '+' ? 1 : -1;
-    int hours = sign * Temporal.getIntOr0(match.group(2));
-    int minutes = sign * Temporal.getIntOr0(match.group(3));
-    int seconds = sign * Temporal.getIntOr0(match.group(5));
+    final sign = match.group(1) == '+' ? 1 : -1;
+    final hours = sign * Temporal.getIntOr0(match.group(2));
+    final minutes = sign * Temporal.getIntOr0(match.group(3));
+    final seconds = sign * Temporal.getIntOr0(match.group(5));
     return Duration(hours: hours, minutes: minutes, seconds: seconds);
   }
 
@@ -45,8 +48,8 @@ class Temporal {
   }
 
   static Duration nanosecondsToDuration(int nanoseconds) {
-    int milli = (nanoseconds ~/ 1000000);
-    int micro = ((nanoseconds - (milli * 1000000)) ~/ 1000);
+    final milli = (nanoseconds ~/ 1000000);
+    final micro = ((nanoseconds - (milli * 1000000)) ~/ 1000);
     return Duration(milliseconds: milli, microseconds: micro);
   }
 

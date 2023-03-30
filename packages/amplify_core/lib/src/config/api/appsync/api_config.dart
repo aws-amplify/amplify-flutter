@@ -7,12 +7,6 @@ part 'api_config.g.dart';
 
 @zAmplifySerializable
 class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
-  final EndpointType endpointType;
-  final String endpoint;
-  final String region;
-  final APIAuthorizationType authorizationType;
-  final String? apiKey;
-
   const AWSApiConfig({
     required this.endpointType,
     required this.endpoint,
@@ -20,6 +14,14 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
     required this.authorizationType,
     this.apiKey,
   });
+
+  factory AWSApiConfig.fromJson(Map<String, Object?> json) =>
+      _$AWSApiConfigFromJson(json);
+  final EndpointType endpointType;
+  final String endpoint;
+  final String region;
+  final APIAuthorizationType authorizationType;
+  final String? apiKey;
 
   @override
   List<Object?> get props => [
@@ -29,9 +31,6 @@ class AWSApiConfig with AWSEquatable<AWSApiConfig>, AWSSerializable {
         authorizationType,
         apiKey,
       ];
-
-  factory AWSApiConfig.fromJson(Map<String, Object?> json) =>
-      _$AWSApiConfigFromJson(json);
 
   AWSApiConfig copyWith({
     EndpointType? endpointType,

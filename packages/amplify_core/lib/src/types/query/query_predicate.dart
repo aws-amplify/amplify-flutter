@@ -11,10 +11,10 @@ QueryPredicateGroup not(QueryPredicate predicate) {
 /// Represents individual conditions or groups of conditions
 /// that are used to query data
 abstract class QueryPredicate<T extends Model> {
+  const QueryPredicate();
+
   static const _queryPredicateAll =
       _QueryPredicateConstant(QueryPredicateConstantType.all);
-
-  const QueryPredicate();
 
   /// A static instance of [QueryPredicate] that matches any object.
   ///
@@ -36,10 +36,10 @@ abstract class QueryPredicate<T extends Model> {
 
 // Represents rating > 4
 class QueryPredicateOperation extends QueryPredicate {
-  final String field;
-  final QueryFieldOperator queryFieldOperator;
-
   const QueryPredicateOperation(this.field, this.queryFieldOperator);
+
+  final String field;
+  final QueryFieldOperator<Object?> queryFieldOperator;
 
   // and
   QueryPredicateGroup and(QueryPredicate predicate) {
@@ -57,9 +57,9 @@ class QueryPredicateOperation extends QueryPredicate {
 
   @override
   bool evaluate(Model model) {
-    String fieldName = getFieldName(field);
+    final fieldName = getFieldName(field);
     //ignore:implicit_dynamic_variable
-    var value = model.toJson()[fieldName];
+    final value = model.toJson()[fieldName];
     return queryFieldOperator.evaluate(value);
   }
 
@@ -75,10 +75,10 @@ class QueryPredicateOperation extends QueryPredicate {
 }
 
 class QueryByIdentifierOperation extends QueryPredicate {
-  final String field;
-  final QueryFieldOperator queryFieldOperator;
-
   const QueryByIdentifierOperation(this.field, this.queryFieldOperator);
+
+  final String field;
+  final QueryFieldOperator<Object?> queryFieldOperator;
 
   @override
   bool evaluate(Model model) {
@@ -97,10 +97,10 @@ enum QueryPredicateGroupType { and, or, not }
 
 // Represents rating > 4 & blogName.contains("awesome")
 class QueryPredicateGroup extends QueryPredicate {
+  const QueryPredicateGroup(this.type, this.predicates);
+
   final QueryPredicateGroupType type;
   final List<QueryPredicate> predicates;
-
-  QueryPredicateGroup(this.type, this.predicates);
 
   // and
   QueryPredicateGroup and(QueryPredicate predicate) {
@@ -151,9 +151,9 @@ class QueryPredicateGroup extends QueryPredicate {
 enum QueryPredicateConstantType { none, all }
 
 class _QueryPredicateConstant extends QueryPredicate {
-  final QueryPredicateConstantType _type;
+  const _QueryPredicateConstant(this._type);
 
-  const _QueryPredicateConstant(this._type) : super();
+  final QueryPredicateConstantType _type;
 
   @override
   bool evaluate(Model model) => _type == QueryPredicateConstantType.all;

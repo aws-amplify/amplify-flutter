@@ -5,10 +5,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/amplify_class_impl.dart';
 import 'package:amplify_core/src/version.dart';
 import 'package:meta/meta.dart';
-
-import 'amplify_class_impl.dart';
 
 /// {@template amplify_core.amplify_class}
 /// Amplify singleton class.
@@ -20,6 +19,16 @@ import 'amplify_class_impl.dart';
 abstract class AmplifyClass {
   /// {@macro amplify_flutter.amplify_class}
   factory AmplifyClass() = AmplifyClassImpl;
+
+  /// Constructs a Core platform.
+  /// Internal Use Only
+  @protected
+  AmplifyClass.protected();
+
+  /// The instance of [AmplifyClass] to use.
+  ///
+  /// Defaults to the platform-specific implementation.
+  static AmplifyClass? instance;
 
   /// The Auth category.
   final AuthCategory Auth = AuthCategory();
@@ -122,16 +131,6 @@ abstract class AmplifyClass {
   /// registered [config].
   @protected
   Future<void> configurePlatform(String config);
-
-  /// Constructs a Core platform.
-  /// Internal Use Only
-  @protected
-  AmplifyClass.protected();
-
-  /// The instance of [AmplifyClass] to use.
-  ///
-  /// Defaults to the platform-specific implementation.
-  static AmplifyClass? instance;
 
   /// The library version.
   String get version => packageVersion.split('+').first;
