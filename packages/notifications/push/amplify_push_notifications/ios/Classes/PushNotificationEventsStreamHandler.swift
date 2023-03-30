@@ -94,7 +94,13 @@ class PushNotificationEventsStreamHandler: NSObject, FlutterStreamHandler {
     }
 }
 
-struct EventsStreamHandlers {
+protocol EventsStreamHandlersProtocol {
+    var tokenReceived: PushNotificationEventsStreamHandler { get }
+    var notificationOpened: PushNotificationEventsStreamHandler { get }
+    var foregroundMessageReceived: PushNotificationEventsStreamHandler { get }
+}
+
+struct EventsStreamHandlers: EventsStreamHandlersProtocol {
     let tokenReceived: PushNotificationEventsStreamHandler
     let notificationOpened: PushNotificationEventsStreamHandler
     let foregroundMessageReceived: PushNotificationEventsStreamHandler
