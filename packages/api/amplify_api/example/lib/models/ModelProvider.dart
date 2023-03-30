@@ -25,6 +25,7 @@ import 'Comment.dart';
 import 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 import 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 import 'CpkOneToOneBidirectionalParentCD.dart';
+import 'OwnerOnly.dart';
 import 'Post.dart';
 
 export 'Blog.dart';
@@ -32,28 +33,22 @@ export 'Comment.dart';
 export 'CpkOneToOneBidirectionalChildExplicitCD.dart';
 export 'CpkOneToOneBidirectionalChildImplicitCD.dart';
 export 'CpkOneToOneBidirectionalParentCD.dart';
+export 'OwnerOnly.dart';
 export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "3fb3b6700f6705ce02267281ce067edd";
+  String version = "a88eeb9e37e28459e7e16f3f2f218f9e";
   @override
-  List<ModelSchema> modelSchemas = [
-    Blog.schema,
-    Comment.schema,
-    CpkOneToOneBidirectionalChildExplicitCD.schema,
-    CpkOneToOneBidirectionalChildImplicitCD.schema,
-    CpkOneToOneBidirectionalParentCD.schema,
-    Post.schema
-  ];
+  List<ModelSchema> modelSchemas = [Blog.schema, Comment.schema, CpkOneToOneBidirectionalChildExplicitCD.schema, CpkOneToOneBidirectionalChildImplicitCD.schema, CpkOneToOneBidirectionalParentCD.schema, OwnerOnly.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
+    switch(modelName) {
       case "Blog":
         return Blog.classType;
       case "Comment":
@@ -64,12 +59,12 @@ class ModelProvider implements ModelProviderInterface {
         return CpkOneToOneBidirectionalChildImplicitCD.classType;
       case "CpkOneToOneBidirectionalParentCD":
         return CpkOneToOneBidirectionalParentCD.classType;
+      case "OwnerOnly":
+        return OwnerOnly.classType;
       case "Post":
         return Post.classType;
       default:
-        throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+        throw Exception("Failed to find model in model provider for model name: " + modelName);
     }
   }
 }
