@@ -62,3 +62,8 @@ type CpkOneToOneBidirectionalChildExplicitCD @model @auth(rules: [
   belongsToParent: CpkOneToOneBidirectionalParentCD
     @belongsTo(fields: ["belongsToParentID", "belongsToParentName"])
 }
+
+type OwnerOnly @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  name: String!
+} 

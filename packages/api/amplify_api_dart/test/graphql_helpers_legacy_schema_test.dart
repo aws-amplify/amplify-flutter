@@ -75,7 +75,7 @@ void main() {
         MockAmplifyAPI(modelProvider: ModelProvider.instance),
       );
     });
-    const blogSelectionSet = 'id name createdAt updatedAt';
+    const blogSelectionSet = 'id name createdAt updatedAt owner';
 
     group('ModelQueries', () {
       test('ModelQueries.get() should build a valid request', () {
@@ -140,7 +140,7 @@ void main() {
           }
         };
         const expectedDoc =
-            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } blogID } }';
+            'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } blogID owner } }';
         final GraphQLRequest<Post> req = ModelMutations.create<Post>(post);
 
         expect(req.document, expectedDoc);

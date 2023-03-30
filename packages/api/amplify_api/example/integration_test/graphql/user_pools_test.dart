@@ -233,7 +233,6 @@ void main({bool useExistingTestUser = false}) {
           where: Blog.NAME.eq('THATS_NOT_MY_NAME'),
           authorizationMode: APIAuthorizationType.userPools,
         );
-
         // attempt delete
         final deleteRes = await Amplify.API.mutate(request: req).response;
         expect(deleteRes.data, isNull);
@@ -265,6 +264,26 @@ void main({bool useExistingTestUser = false}) {
           final blogFromEvent = eventResponse.data;
 
           expect(blogFromEvent?.name, equals(name));
+        });
+
+        testWidgets('should subscribe with owner only auth rule',
+            (WidgetTester tester) async {
+          final name =
+              'Integration Test OwnerOnly - subscription create ${uuid()}';
+          final subscriptionRequest = ModelSubscriptions.onCreate(
+            OwnerOnly.classType,
+            authorizationMode: APIAuthorizationType.userPools,
+          );
+
+          final eventResponse = await establishSubscriptionAndMutate<OwnerOnly>(
+            subscriptionRequest,
+            () => addOwnerOnly(name),
+            eventFilter: (response) => response.data?.name == name,
+          );
+
+          final modelFromEvent = eventResponse.data;
+
+          expect(modelFromEvent?.name, equals(name));
         });
       },
     );
