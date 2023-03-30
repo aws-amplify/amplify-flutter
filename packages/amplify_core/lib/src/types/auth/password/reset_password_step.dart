@@ -30,6 +30,9 @@ class ResetPasswordStep extends AuthNextStep
   final AuthResetPasswordStep updateStep;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [additionalInfo, codeDeliveryDetails, updateStep];
 
   @override

@@ -4,7 +4,7 @@ on:
     branches: [main, next, stable, feat/**]
   schedule:
     # 6am pacific time daily, only runs on default branch
-    - cron:  '0 13 * * *'
+    - cron: "0 13 * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,9 +23,21 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
+        api-level:
+          - 25
+          - 33
+        target:
+          - google_apis
+        include:
+          - api-level: 25
+            arch: x86
+          - api-level: 33
+            arch: x86_64
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -35,9 +47,9 @@ jobs:
       # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
         with:
-          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
-          java-version: '11'
-      
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -49,14 +61,38 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
+      - name: Cache AVD
+        id: avd-cache
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}-${{ matrix.arch }}-${{ matrix.target }}
+
+      - name: Create AVD and generate snapshot
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
+          script: echo "Generated AVD snapshot for caching."
+
       - name: Run Android integration tests
         uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
         # Make the timeout a little longer and add retry due to delay from starting emulator.
         timeout-minutes: 60
         with:
-          # API levels 30+ too slow https://github.com/ReactiveCircus/android-emulator-runner/issues/222
-          api-level: 29
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
+          script: |
+            adb shell settings put system screen_off_timeout 3600000 # set timeout to 1 hour
+            melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
     runs-on: macos-latest
@@ -70,15 +106,17 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_datastore_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -111,14 +149,17 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          # TODO(dnys1): Web UI tests are not currently able to be run in CI
+          # - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -147,21 +188,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope: 
+        scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          # TODO(dnys1): macOS tests are failing for some reason
+          # - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
-          flutter-version: '3.3.0'
+          flutter-version: "3.3.0"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -189,14 +233,16 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
           persist-credentials: false
           submodules: true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
@@ -226,8 +272,10 @@ jobs:
         scope:
           - "amplify_analytics_pinpoint_example"
           - "amplify_api_example"
+          - "amplify_authenticator_example"
           - "amplify_auth_cognito_example"
           - "amplify_storage_s3_example"
+          - "amplify_db_common_example"
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
         with:
@@ -236,7 +284,7 @@ jobs:
 
       - name: Change path restrictions
         run: git config --global core.longpaths true
-      
+
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 

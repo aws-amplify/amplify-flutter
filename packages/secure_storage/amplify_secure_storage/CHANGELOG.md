@@ -1,3 +1,11 @@
+## 0.3.0
+
+### Breaking Changes
+- feat(secure_storage)!: Use Local App Data Directory on Windows ([#2744](https://github.com/aws-amplify/amplify-flutter/pull/2744))
+
+### Fixes
+- fix(secure_storage): Only init Windows config on Windows ([#2751](https://github.com/aws-amplify/amplify-flutter/pull/2751))
+
 ## 0.2.0
 
 ### Breaking Changes

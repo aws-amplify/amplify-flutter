@@ -1,3 +1,11 @@
+## 0.8.0
+
+### Breaking Changes
+- refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
+
+### Fixes
+- fix(auth): Always pass client metadata
+
 ## 0.7.0
 
 ### Fixes

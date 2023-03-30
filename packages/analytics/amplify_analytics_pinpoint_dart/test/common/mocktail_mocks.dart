@@ -25,3 +25,5 @@ class MockLegacyNativeDataProvider extends Mock
     implements LegacyNativeDataProvider {}
 
 class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}
+
+class MockAWSHttpException extends Mock implements AWSHttpException {}

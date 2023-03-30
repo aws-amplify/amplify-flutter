@@ -17,15 +17,7 @@ CognitoResendUserAttributeConfirmationCodeOptions
         );
 
 Map<String, dynamic> _$CognitoResendUserAttributeConfirmationCodeOptionsToJson(
-    CognitoResendUserAttributeConfirmationCodeOptions instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+        CognitoResendUserAttributeConfirmationCodeOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

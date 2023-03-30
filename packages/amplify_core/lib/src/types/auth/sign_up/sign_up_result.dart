@@ -30,6 +30,9 @@ class SignUpResult
   final String? userId;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [isSignUpComplete, nextStep, userId];
 
   @override

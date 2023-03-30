@@ -1,32 +1,50 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 part 'cognito_sign_in_options.g.dart';
 
-/// {@template amplify_auth_cognito.model.cognito_sign_in_options}
-/// Cognito options for `Amplify.Auth.signIn`.
-/// {@endtemplate}
-@zAmplifySerializable
-class CognitoSignInOptions extends SignInOptions
-    with AWSEquatable<CognitoSignInOptions>, AWSDebuggable {
-  /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
-  const CognitoSignInOptions({this.authFlowType, this.clientMetadata});
+const _deprecatedMessage = '''
+Use SignInOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
 
-  /// {@macro amplify_auth_cognito.model.cognito_sign_in_options}
+SignInOptions(
+  pluginOptions: CognitoSignInPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
+
+/// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
+@zAmplifySerializable
+@Deprecated(_deprecatedMessage)
+class CognitoSignInOptions extends SignInOptions {
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
+  @Deprecated(_deprecatedMessage)
+  const CognitoSignInOptions({
+    this.authFlowType,
+    this.clientMetadata = const {},
+  });
+
+  /// {@macro amplify_auth_cognito.model.cognito_sign_in_plugin_options}
+  @Deprecated(_deprecatedMessage)
   factory CognitoSignInOptions.fromJson(Map<String, Object?> json) =>
       _$CognitoSignInOptionsFromJson(json);
 
-  /// Runtime override of the Authentication flow to use for sign in.
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_plugin_options.auth_flow_type}
   final AuthenticationFlowType? authFlowType;
 
-  /// A map of custom key-value pairs that you can provide as input for certain
-  /// custom workflows that this action triggers.
-  final Map<String, String>? clientMetadata;
+  /// {@macro amplify_auth_cognito_dart.cognito_sign_in_plugin_options.client_metadata}
+  final Map<String, String> clientMetadata;
 
   @override
-  List<Object?> get props => [authFlowType, clientMetadata];
+  CognitoSignInPluginOptions get pluginOptions => CognitoSignInPluginOptions(
+        authFlowType: authFlowType,
+        clientMetadata: clientMetadata,
+      );
 
   @override
   String get runtimeTypeName => 'CognitoSignInOptions';

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_analytics_pinpoint_dart/src/exception/pinpoint_analytics_exception.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/aws_pinpoint_user_profile.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
@@ -83,7 +84,7 @@ class EndpointClient {
   /// into a [EndpointUserBuilder] and [PublicEndpointBuilder].
   Future<void> setUser(
     String userId,
-    AnalyticsUserProfile userProfile,
+    UserProfile userProfile,
   ) async {
     final newUserBuilder = EndpointUserBuilder()..userId = userId;
 
@@ -125,18 +126,16 @@ class EndpointClient {
 
     // Note that the [copyFromProfile]'s properties are copied to Endpoint metrics/attributes.
     // Instead of the [EndpointUserBuilder] object.
-    if (userProfile.properties != null) {
+    if (userProfile.customProperties != null) {
       await _globalFieldsManager
-          .addAttributes(userProfile.properties!.attributes);
-      await _globalFieldsManager.addMetrics(userProfile.properties!.metrics);
+          .addAttributes(userProfile.customProperties!.attributes);
+      await _globalFieldsManager
+          .addMetrics(userProfile.customProperties!.metrics);
     }
 
     if (userProfile is AWSPinpointUserProfile) {
-      final attributes = <String, List<String>>{};
-      userProfile.userAttributes.getAllProperties().forEach((key, value) {
-        attributes[key] = [value.toString()];
-      });
-      newUserBuilder.userAttributes = ListMultimapBuilder(attributes);
+      newUserBuilder.userAttributes =
+          ListMultimapBuilder(userProfile.userAttributes);
     }
 
     _endpointBuilder.user = newUserBuilder;
@@ -159,15 +158,19 @@ class EndpointClient {
 
   /// Send local Endpoint instance to AWS Pinpoint.
   Future<void> updateEndpoint() async {
-    await _pinpointClient
-        .updateEndpoint(
-          UpdateEndpointRequest(
-            applicationId: _pinpointAppId,
-            endpointId: _fixedEndpointId,
-            endpointRequest: _endpointToRequest(getPublicEndpoint()),
-          ),
-        )
-        .result;
+    try {
+      await _pinpointClient
+          .updateEndpoint(
+            UpdateEndpointRequest(
+              applicationId: _pinpointAppId,
+              endpointId: _fixedEndpointId,
+              endpointRequest: _endpointToRequest(getPublicEndpoint()),
+            ),
+          )
+          .result;
+    } on Exception catch (e) {
+      throw fromPinpointException(e);
+    }
   }
 
   /// Create an EndpointRequest object from a local Endpoint instance.

@@ -29,6 +29,8 @@ void main() {
       );
     });
 
+    tearDown(deleteTestUser);
+
     // Scenario: Confirm a new username & password with an invalid code
     testWidgets(
       'Confirm a new username & password with an invalid code',

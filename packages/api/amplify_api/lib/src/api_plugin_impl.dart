@@ -15,19 +15,13 @@ import 'package:flutter/services.dart';
 class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
   /// {@macro amplify_api.amplify_api}
   AmplifyAPI({
-    List<APIAuthProvider> authProviders = const [],
+    super.authProviders,
     super.baseHttpClient,
     super.modelProvider,
     super.subscriptionOptions,
   }) : super(
-          authProviders: authProviders,
           connectivity: const ConnectivityPlusPlatform(),
-        ) {
-    authProviders.forEach(registerAuthProvider);
-  }
-
-  /// The registered [APIAuthProvider] instances.
-  final Map<APIAuthorizationType, APIAuthProvider> _authProviders = {};
+        );
 
   @override
   Future<void> addPlugin({
@@ -40,13 +34,13 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
     }
 
     // Configure this plugin to act as a native iOS/Android plugin.
-    final nativePlugin = _NativeAmplifyApi(_authProviders);
+    final nativePlugin = _NativeAmplifyApi(authProviders);
     NativeApiPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeApiBridge();
     try {
       final authProvidersList =
-          _authProviders.keys.map((key) => key.rawValue).toList();
+          authProviders.keys.map((key) => key.rawValue).toList();
       await nativeBridge.addPlugin(authProvidersList);
     } on PlatformException catch (e) {
       if (e.code.contains('AmplifyAlreadyConfiguredException') ||
@@ -66,11 +60,6 @@ class AmplifyAPI extends AmplifyAPIDart with AWSDebuggable {
 
   @override
   String get runtimeTypeName => 'AmplifyAPI';
-
-  @override
-  void registerAuthProvider(APIAuthProvider authProvider) {
-    _authProviders[authProvider.type] = authProvider;
-  }
 }
 
 class _NativeAmplifyApi

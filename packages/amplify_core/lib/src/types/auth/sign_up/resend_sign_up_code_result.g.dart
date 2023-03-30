@@ -11,8 +11,6 @@ part of 'resend_sign_up_code_result.dart';
 Map<String, dynamic> _$ResendSignUpCodeResultToJson(
         ResendSignUpCodeResult instance) =>
     <String, dynamic>{
-      'hashCode': instance.hashCode,
       'codeDeliveryDetails': instance.codeDeliveryDetails.toJson(),
-      'props': instance.props,
       'runtimeTypeName': instance.runtimeTypeName,
     };

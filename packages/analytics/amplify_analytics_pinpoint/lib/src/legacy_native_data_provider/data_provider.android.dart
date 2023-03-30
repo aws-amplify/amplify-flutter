@@ -4,7 +4,9 @@
 import 'dart:async';
 
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/pigeon_legacy_data_provider.android.g.dart';
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 
 /// {@macro amplify_analytics_pinpoint.flutter_legacy_native_data_provider}
 class DataProviderAndroid implements LegacyNativeDataProvider {

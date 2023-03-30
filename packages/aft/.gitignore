@@ -4,3 +4,6 @@
 
 # Conventional directory for build output.
 build/
+
+# Repo state (generate with `aft save-repo-state`)
+repo_state.g.dart

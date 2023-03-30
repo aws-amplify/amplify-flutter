@@ -12,6 +12,7 @@ enum InputMode {
   delete,
 }
 
+// ignore: invalid_use_of_internal_member
 final storage = AmplifySecureStorageDart(
   config: AmplifySecureStorageConfig(
     scope: 'default',

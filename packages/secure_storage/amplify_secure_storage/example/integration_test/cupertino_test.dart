@@ -31,6 +31,7 @@ void main() {
     final macOSOptions = MacOSSecureStorageOptions(useDataProtection: false);
 
     final userDefaults = NSUserDefaultsAPI();
+    // ignore: invalid_use_of_internal_member
     final storage = AmplifySecureStorage(
       config: AmplifySecureStorageConfig(
         scope: scope,
@@ -49,6 +50,7 @@ void main() {
       await storage.write(key: key2, value: value2);
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
+      // ignore: invalid_use_of_internal_member
       final storage1 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: scope,
@@ -66,6 +68,7 @@ void main() {
       );
 
       // assert value IS cleared when initializing a new scope after an app uninstall
+      // ignore: invalid_use_of_internal_member
       final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: scope,

@@ -11,6 +11,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
 import { Construct } from "constructs";
 import { IntegrationTestStackEnvironment } from "../../common";
+import { CUSTOM_HEADERS } from "../common";
 import {
   AuthBaseEnvironmentProps,
   AuthCustomAuthorizerEnvironmentProps
@@ -83,7 +84,13 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
       handler: apiHandler,
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
-        allowHeaders: [...apigw.Cors.DEFAULT_HEADERS, "x-amz-content-sha256"],
+        allowHeaders: [
+          ...apigw.Cors.DEFAULT_HEADERS,
+          ...CUSTOM_HEADERS
+        ],
+        exposeHeaders: CUSTOM_HEADERS,
+        allowCredentials: true,
+        disableCache: true,
       },
       defaultMethodOptions: {
         authorizationType: apigw.AuthorizationType.IAM,
@@ -99,6 +106,13 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
           new targets.ApiGateway(apiGateway)
         ),
       });
+      new route53.AaaaRecord(this, "CustomDomainAaaaRecord", {
+        zone: domainProperties.hostedZone,
+        recordName: domainProperties.domainName,
+        target: route53.RecordTarget.fromAlias(
+          new targets.ApiGateway(apiGateway)
+        ),
+      })
     }
 
     // Create the Cognito Identity Pool with permissions to invoke the API.
@@ -148,7 +162,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
 
     let domainName = apiGateway.url;
     if (apiGateway.domainName?.domainName) {
-      domainName = `https://${apiGateway.domainName?.domainName}`;
+      domainName = `https://${apiGateway.domainName?.domainName}/prod/`;
     }
 
     this.config = {
@@ -157,7 +171,7 @@ export class CustomAuthorizerIamStackEnvironment extends IntegrationTestStackEnv
           [apiGateway.restApiName]: {
             endpointType: "REST",
             endpoint: domainName,
-            authorizationType: "AMAZON_COGNITO_USER_POOLS",
+            authorizationType: "AWS_IAM",
           },
         },
       },

@@ -39,21 +39,23 @@ class _MyAppState extends State<MyApp> {
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-    // Configure analytics plugin
-    final secureStorage = AmplifySecureStorage(
-      config: AmplifySecureStorageConfig(
-        scope: 'analytics',
-        // FIXME: In your app, make sure to remove this line and set up
-        /// Keychain Sharing in Xcode as described in the docs:
-        /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
-        // ignore: invalid_use_of_visible_for_testing_member
-        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-      ),
+    // FIXME: In your app, make sure to remove this line and set up
+    /// Keychain Sharing in Xcode as described in the docs:
+    /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+    final storageFactory = AmplifySecureStorage.factoryFrom(
+      // ignore: invalid_use_of_visible_for_testing_member
+      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
     );
-    final authPlugin = AmplifyAuthCognito(credentialStorage: secureStorage);
-    final analyticsPlugin = AmplifyAnalyticsPinpoint();
 
-    await Amplify.addPlugins([authPlugin, analyticsPlugin]);
+    await Amplify.addPlugins([
+      AmplifyAuthCognito(
+        secureStorageFactory: storageFactory,
+      ),
+      AmplifyAnalyticsPinpoint(
+        // ignore: invalid_use_of_visible_for_testing_member
+        secureStorageFactory: storageFactory,
+      ),
+    ]);
 
     try {
       await Amplify.configure(amplifyconfig);
@@ -68,10 +70,10 @@ class _MyAppState extends State<MyApp> {
   void _recordEvent() async {
     final event = AnalyticsEvent(_uniqueId);
 
-    event.properties.addBoolProperty('boolKey', true);
-    event.properties.addDoubleProperty('doubleKey', 10.1);
-    event.properties.addIntProperty('intKey', 10);
-    event.properties.addStringProperty('stringKey', 'stringValue');
+    event.customProperties.addBoolProperty('boolKey', true);
+    event.customProperties.addDoubleProperty('doubleKey', 10.1);
+    event.customProperties.addIntProperty('intKey', 10);
+    event.customProperties.addStringProperty('stringKey', 'stringValue');
 
     await Amplify.Analytics.recordEvent(event: event);
   }
@@ -83,7 +85,7 @@ class _MyAppState extends State<MyApp> {
   void _registerGlobalProperties() async {
     safePrint('register global properties: $_globalProp');
 
-    final properties = AnalyticsProperties();
+    final properties = CustomProperties();
     properties.addIntProperty('${_globalProp}_1numKey', 1);
     properties.addBoolProperty('${_globalProp}_boolKey', true);
     properties.addDoubleProperty('${_globalProp}_doubleKey', 10);
@@ -117,33 +119,24 @@ class _MyAppState extends State<MyApp> {
 
   void _identifyUser() async {
     final analyticsUserProfile = AWSPinpointUserProfile(
-        userAttributes: AnalyticsProperties()
-          ..addStringProperty('${_userId}_user_stringKey', 'stringValue')
-          ..addIntProperty('${_userId}_user_intKey', 10)
-          ..addDoubleProperty('${_userId}_user_doubleKey', 10)
-          ..addBoolProperty('${_userId}_user_boolKey', false));
-    analyticsUserProfile.name = '${_userId}_name';
-    analyticsUserProfile.email = '${_userId}_email';
-    analyticsUserProfile.plan = '${_userId}_plan';
-
-    final analyticsUserLocation = AnalyticsUserProfileLocation();
-    analyticsUserLocation.latitude = 5;
-    analyticsUserLocation.longitude = 5;
-    analyticsUserLocation.postalCode = '94070';
-    analyticsUserLocation.city = 'SanFrancisco';
-    analyticsUserLocation.region = 'California';
-    analyticsUserLocation.country = 'USA';
-
-    analyticsUserProfile.location = analyticsUserLocation;
-
-    final properties = AnalyticsProperties();
-    properties.addStringProperty(
-        '${_userId}_endpoint_stringKey', 'stringValue');
-    properties.addIntProperty('${_userId}_endpoint_intKey', 10);
-    properties.addDoubleProperty('${_userId}_endpoint_doubleKey', 10);
-    properties.addBoolProperty('${_userId}_endpoint_boolKey', false);
-
-    analyticsUserProfile.properties = properties;
+        name: '${_userId}_name',
+        email: '${_userId}_email',
+        plan: '${_userId}_plan',
+        location: const UserProfileLocation(
+            latitude: 5,
+            longitude: 5,
+            postalCode: '94070',
+            city: 'SanFrancisco',
+            region: 'California',
+            country: 'USA'),
+        customProperties: CustomProperties()
+          ..addStringProperty('${_userId}_endpoint_stringKey', 'stringValue')
+          ..addIntProperty('${_userId}_endpoint_intKey', 10)
+          ..addDoubleProperty('${_userId}_endpoint_doubleKey', 10)
+          ..addBoolProperty('${_userId}_endpoint_boolKey', false),
+        userAttributes: {
+          '${_userId}_user_stringKey': ['stringValue', 'anotherStringValue']
+        });
 
     await Amplify.Analytics.identifyUser(
       userId: _userId,

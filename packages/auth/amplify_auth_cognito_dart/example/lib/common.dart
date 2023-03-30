@@ -16,14 +16,9 @@ Future<void> configure({
   }
   await Amplify.addPlugin(
     AmplifyAuthCognitoDart(
-      credentialStorage: AmplifySecureStorageWorker(
-        config: AmplifySecureStorageConfig.byNamespace(
-          namespace: 'dart-auth-test',
-        ).rebuild((config) {
-          // enabling useDataProtection requires adding the app to an
-          // app group, which requires setting a development team
-          config.macOSOptions.useDataProtection = false;
-        }),
+      secureStorageFactory: AmplifySecureStorageWorker.factoryFrom(
+        // ignore: invalid_use_of_visible_for_testing_member
+        macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
       ),
       hostedUiPlatformFactory: hostedUiPlatformFactory,
     ),
@@ -62,8 +57,10 @@ Future<SignInResult> confirmSignIn(
 }) {
   return Amplify.Auth.confirmSignIn(
     confirmationValue: confirmationValue,
-    options: CognitoConfirmSignInOptions(
-      userAttributes: userAttributes,
+    options: ConfirmSignInOptions(
+      pluginOptions: CognitoConfirmSignInPluginOptions(
+        userAttributes: userAttributes,
+      ),
     ),
   );
 }
@@ -120,7 +117,7 @@ Future<void> forgetDevice() async {
 Future<UpdateUserAttributeResult> updateUserAttribute({
   required AuthUserAttributeKey key,
   required String value,
-  CognitoUpdateUserAttributeOptions? options,
+  UpdateUserAttributeOptions? options,
 }) async {
   return Amplify.Auth.updateUserAttribute(
     userAttributeKey: key,
@@ -132,7 +129,7 @@ Future<UpdateUserAttributeResult> updateUserAttribute({
 Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
     updateUserAttributes({
   required List<AuthUserAttribute> attributes,
-  CognitoUpdateUserAttributesOptions? options,
+  UpdateUserAttributesOptions? options,
 }) async {
   return Amplify.Auth.updateUserAttributes(
     attributes: attributes,
@@ -153,7 +150,7 @@ Future<ConfirmUserAttributeResult> confirmUserAttribute({
 Future<ResendUserAttributeConfirmationCodeResult>
     resendUserAttributeConfirmationCode({
   required AuthUserAttributeKey key,
-  CognitoResendUserAttributeConfirmationCodeOptions? options,
+  ResendUserAttributeConfirmationCodeOptions? options,
 }) async {
   return Amplify.Auth.resendUserAttributeConfirmationCode(
     userAttributeKey: key,

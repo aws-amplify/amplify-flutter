@@ -16,7 +16,7 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps,
+  IntegrationTestStackEnvironmentProps
 } from "../common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
@@ -76,6 +76,13 @@ export interface AuthFullEnvironmentProps {
    * @default false
    */
   autoConfirm?: boolean;
+
+  /**
+   * Which custom authorization workflow is enabled.
+   *
+   * @default none
+   */
+  customAuth?: "WITH_SRP" | "WITHOUT_SRP";
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -156,6 +163,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
           required: true,
         },
       },
+      customAuth,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -179,32 +187,6 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         excludeVerboseContent: false,
       },
     });
-
-    // Create the Custom Auth handlers
-
-    const createAuthChallenge = new lambda_nodejs.NodejsFunction(
-      this,
-      "create-auth-challenge",
-      {
-        runtime: lambda.Runtime.NODEJS_18_X,
-      }
-    );
-
-    const defineAuthChallenge = new lambda_nodejs.NodejsFunction(
-      this,
-      "define-auth-challenge",
-      {
-        runtime: lambda.Runtime.NODEJS_18_X,
-      }
-    );
-
-    const verifyAuthChallengeResponse = new lambda_nodejs.NodejsFunction(
-      this,
-      "verify-auth-challenge",
-      {
-        runtime: lambda.Runtime.NODEJS_18_X,
-      }
-    );
 
     // Create Custom SMS handler + KMS key
 
@@ -252,11 +234,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     const additionalTriggers: Omit<
       cognito.UserPoolTriggers,
-      | "createAuthChallenge"
-      | "defineAuthChallenge"
-      | "verifyAuthChallengeResponse"
-      | "customSmsSender"
-      | "customEmailSender"
+      "customSmsSender" | "customEmailSender"
     > = {};
     if (props.autoConfirm) {
       additionalTriggers.preSignUp = new lambda_nodejs.NodejsFunction(
@@ -266,6 +244,57 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
           runtime: lambda.Runtime.NODEJS_18_X,
         }
       );
+    }
+
+    // Create the Custom Auth handlers
+    if (customAuth == "WITH_SRP") {
+      additionalTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
+        this,
+        "create-auth-challenge",
+        {
+          entry: "lib/auth/custom-auth-with-srp/create-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+
+      additionalTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
+        this,
+        "define-auth-challenge",
+        {
+          entry: "lib/auth/custom-auth-with-srp/define-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+
+      additionalTriggers.verifyAuthChallengeResponse =
+        new lambda_nodejs.NodejsFunction(this, "verify-auth-challenge", {
+          entry: "lib/auth/custom-auth-with-srp/verify-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        });
+    } else if (customAuth == "WITHOUT_SRP") {
+      additionalTriggers.createAuthChallenge = new lambda_nodejs.NodejsFunction(
+        this,
+        "create-auth-challenge",
+        {
+          entry: "lib/auth/custom-auth-without-srp/create-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+
+      additionalTriggers.defineAuthChallenge = new lambda_nodejs.NodejsFunction(
+        this,
+        "define-auth-challenge",
+        {
+          entry: "lib/auth/custom-auth-without-srp/define-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        }
+      );
+
+      additionalTriggers.verifyAuthChallengeResponse =
+        new lambda_nodejs.NodejsFunction(this, "verify-auth-challenge", {
+          entry: "lib/auth/custom-auth-without-srp/verify-auth-challenge.ts",
+          runtime: lambda.Runtime.NODEJS_18_X,
+        });
     }
 
     // Create the Cognito User Pool
@@ -293,9 +322,6 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       signInAliases,
       standardAttributes,
       lambdaTriggers: {
-        createAuthChallenge,
-        defineAuthChallenge,
-        verifyAuthChallengeResponse,
         customSmsSender,
         customEmailSender,
         ...additionalTriggers,

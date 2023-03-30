@@ -15,15 +15,7 @@ CognitoUpdateUserAttributeOptions _$CognitoUpdateUserAttributeOptionsFromJson(
     );
 
 Map<String, dynamic> _$CognitoUpdateUserAttributeOptionsToJson(
-    CognitoUpdateUserAttributeOptions instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+        CognitoUpdateUserAttributeOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

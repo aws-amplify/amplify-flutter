@@ -8,6 +8,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { IntegrationTestStackEnvironment } from "../../common";
+import { CUSTOM_HEADERS } from "../common";
 import {
   AuthBaseEnvironmentProps,
   AuthCustomAuthorizerEnvironmentProps
@@ -73,6 +74,13 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
       handler: apiHandler,
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
+        allowHeaders: [
+          ...apigw.Cors.DEFAULT_HEADERS,
+          ...CUSTOM_HEADERS
+        ],
+        exposeHeaders: CUSTOM_HEADERS,
+        allowCredentials: true,
+        disableCache: true,
       },
       defaultMethodOptions: {
         authorizer,
@@ -85,7 +93,10 @@ export class CustomAuthorizerUserPoolsStackEnvironment extends IntegrationTestSt
           [apiGateway.restApiName]: {
             endpointType: "REST",
             endpoint: apiGateway.url,
-            authorizationType: "AMAZON_COGNITO_USER_POOLS",
+            // We use OIDC instead of AMAZON_COGNITO_USER_POOLS so that we can use
+            // the ID token by default instead of the access token:
+            // https://docs.amplify.aws/lib/graphqlapi/authz/q/platform/flutter/#oidc
+            authorizationType: "OPENID_CONNECT",
           },
         },
       },

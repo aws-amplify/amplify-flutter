@@ -18,7 +18,8 @@ class AmplifyAuthorizationRestClient extends AWSBaseHttpClient {
     required this.authProviderRepo,
     this.authorizationMode,
     AWSHttpClient? baseClient,
-  }) : baseClient = baseClient ?? AWSHttpClient();
+  }) : baseClient = baseClient ??
+            (AWSHttpClient()..supportedProtocols = SupportedProtocols.http1);
 
   /// [AmplifyAuthProviderRepository] for any auth modes this client may use.
   final AmplifyAuthProviderRepository authProviderRepo;

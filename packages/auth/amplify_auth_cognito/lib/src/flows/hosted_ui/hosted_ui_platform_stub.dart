@@ -10,7 +10,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) {
     throw UnimplementedError();
@@ -18,8 +18,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) {
     throw UnimplementedError();
   }

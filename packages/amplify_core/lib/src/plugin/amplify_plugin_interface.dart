@@ -29,4 +29,26 @@ abstract class AmplifyPluginInterface {
   /// Resets the plugin by removing all traces of it from the device.
   @visibleForTesting
   Future<void> reset() async {}
+
+  /// Reifies [pluginOptions] as an instance of [T].
+  ///
+  /// If [pluginOptions] is `null` returns the [defaultPluginOptions].
+  /// Otherwise, throws an [ArgumentError] if [pluginOptions] does not conform
+  /// to [T].
+  @protected
+  T reifyPluginOptions<T extends AWSDebuggable>({
+    Object? pluginOptions,
+    required T defaultPluginOptions,
+  }) {
+    if (pluginOptions == null) {
+      return defaultPluginOptions;
+    }
+    if (pluginOptions is! T) {
+      throw ArgumentError(
+        'Expected pluginOptions with type "${defaultPluginOptions.runtimeTypeName}" '
+        'but got: $pluginOptions',
+      );
+    }
+    return pluginOptions;
+  }
 }

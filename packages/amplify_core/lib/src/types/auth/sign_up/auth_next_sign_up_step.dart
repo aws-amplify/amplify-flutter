@@ -23,6 +23,9 @@ class AuthNextSignUpStep extends AuthNextStep
   final AuthSignUpStep signUpStep;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [
         additionalInfo,
         codeDeliveryDetails,

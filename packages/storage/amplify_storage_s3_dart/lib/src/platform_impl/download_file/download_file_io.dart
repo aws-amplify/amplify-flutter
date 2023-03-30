@@ -12,40 +12,41 @@ import 'package:path/path.dart' as path;
 /// The io implementation of `downloadFile` API.
 @internal
 S3DownloadFileOperation downloadFile({
-  required StorageDownloadFileRequest request,
+  required String key,
+  required AWSFile localFile,
+  required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
 }) {
-  final s3Options = request.options as S3DownloadFileOptions? ??
-      S3DownloadFileOptions(
-        accessLevel: s3pluginConfig.defaultAccessLevel,
-      );
-  final targetIdentityId = s3Options.targetIdentityId;
-  final downloadDataOptions = targetIdentityId == null
-      ? S3DownloadDataOptions(
-          accessLevel: s3Options.accessLevel,
-          getProperties: s3Options.getProperties,
-          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
-        )
-      : S3DownloadDataOptions.forIdentity(
-          targetIdentityId,
-          getProperties: s3Options.getProperties,
-          useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
-        );
-
   late final String destinationPath;
   late final IOSink sink;
   late final File tempFile;
 
+  final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
+  final targetIdentityId = s3PluginOptions.targetIdentityId;
+  final downloadDataOptions = StorageDownloadDataOptions(
+    accessLevel: options.accessLevel,
+    pluginOptions: targetIdentityId == null
+        ? S3DownloadDataPluginOptions(
+            getProperties: s3PluginOptions.getProperties,
+            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+          )
+        : S3DownloadDataPluginOptions.forIdentity(
+            targetIdentityId,
+            getProperties: s3PluginOptions.getProperties,
+            useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+          ),
+  );
+
   final downloadDataTask = storageS3Service.downloadData(
-    key: request.key,
+    key: key,
     options: downloadDataOptions,
     // Ensure destination file is writable. Exception thrown in the check
     // will be forwarded to the Future, downloadDataTask.result below
     preStart: () async {
-      destinationPath = await _ensureDestinationWritable(request.localFile);
+      destinationPath = await _ensureDestinationWritable(localFile);
       tempFile = File(
         path.join(
           await appPathProvider.getTemporaryPath(),
@@ -77,15 +78,15 @@ S3DownloadFileOperation downloadFile({
 
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: request.key,
-      localFile: request.localFile,
-      options: s3Options,
+      key: key,
+      localFile: localFile,
+      options: options,
     ),
     // This future throws exceptions that may occurred in the entire
     // download process, all exceptions are remapped to a S3Exception
     result: downloadDataTask.result.then(
       (downloadedItem) => S3DownloadFileResult(
-        localFile: request.localFile,
+        localFile: localFile,
         downloadedItem: downloadedItem,
       ),
     ),

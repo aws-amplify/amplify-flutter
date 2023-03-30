@@ -7,8 +7,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// The configurable parameters invoking the Storage S3 plugin `copy`
 /// API.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageMoveOptions(pluginOptions: S3MovePluginOptions(...)) instead.',
+)
 class S3MoveOptions extends StorageMoveOptions {
   /// {@macro storage.amplify_storage_s3.move_options}
+  @Deprecated(
+    'use StorageMoveOptions(pluginOptions: S3MovePluginOptions(...)) instead.',
+  )
   const S3MoveOptions({
     this.getProperties = false,
   });

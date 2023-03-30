@@ -1,6 +1,11 @@
 {
   "configurations": [
     {
+      "name": "Run",
+      "type": "dart",
+      "request": "launch",
+    },
+    {
       "name": "Dart Test in Chrome",
       "type": "dart",
       "request": "launch",

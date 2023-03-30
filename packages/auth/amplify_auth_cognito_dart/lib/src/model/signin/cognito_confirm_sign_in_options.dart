@@ -1,60 +1,51 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 
-part 'cognito_confirm_sign_in_options.g.dart';
+const _deprecatedMessage = '''
+Use ConfirmSignInOptions instead. If Cognito-specific options are needed, use `pluginOptions`:
+
+ConfirmSignInOptions(
+  pluginOptions: CognitoConfirmSignInPluginOptions(
+    clientMetadata: {
+      'my-key': 'my-value',
+    },
+  ),
+)
+''';
 
 /// {@template amplify_auth_cognito.model.cognito_confirm_sign_in_options}
 /// Cognito options for `Amplify.Auth.confirmSignIn`.
 /// {@endtemplate}
-@zAmplifySerializable
-class CognitoConfirmSignInOptions extends ConfirmSignInOptions
-    with AWSEquatable<CognitoConfirmSignInOptions>, AWSDebuggable {
+@Deprecated(_deprecatedMessage)
+class CognitoConfirmSignInOptions extends ConfirmSignInOptions {
   /// {@macro amplify_auth_cognito.model.cognito_confirm_sign_in_options}
+  @Deprecated(_deprecatedMessage)
   const CognitoConfirmSignInOptions({
-    this.clientMetadata,
-    this.userAttributes,
-  });
-
-  /// {@macro amplify_auth_cognito.model.cognito_confirm_sign_in_options}
-  factory CognitoConfirmSignInOptions.fromJson(Map<String, Object?> json) =>
-      _$CognitoConfirmSignInOptionsFromJson(json);
+    Map<String, String>? clientMetadata,
+    Map<CognitoUserAttributeKey, String>? userAttributes,
+  })  : clientMetadata = clientMetadata ?? const {},
+        userAttributes = userAttributes ?? const {};
 
   /// A map of custom key-value pairs that you can provide as input for certain
   /// custom workflows that this action triggers.
-  final Map<String, String>? clientMetadata;
+  final Map<String, String> clientMetadata;
 
   /// User attributes which were marked as required and have not been previously
   /// provided.
-  @JsonKey(
-    fromJson: _userAttributesFromJson,
-    toJson: _userAttributesToJson,
-  )
-  final Map<CognitoUserAttributeKey, String>? userAttributes;
+  final Map<CognitoUserAttributeKey, String> userAttributes;
+
+  @override
+  CognitoConfirmSignInPluginOptions get pluginOptions =>
+      CognitoConfirmSignInPluginOptions(
+        clientMetadata: clientMetadata,
+        userAttributes: userAttributes,
+      );
 
   @override
   List<Object?> get props => [clientMetadata, userAttributes];
 
   @override
   String get runtimeTypeName => 'CognitoConfirmSignInOptions';
-
-  @override
-  Map<String, Object?> toJson() => _$CognitoConfirmSignInOptionsToJson(this);
-}
-
-Map<CognitoUserAttributeKey, String>? _userAttributesFromJson(Object? json) {
-  if (json is! Map) {
-    return null;
-  }
-  return json.cast<String, String>().map(
-        (k, v) => MapEntry(CognitoUserAttributeKey.parse(k), v),
-      );
-}
-
-Map<String, String>? _userAttributesToJson(
-  Map<CognitoUserAttributeKey, String>? userAttributes,
-) {
-  return userAttributes?.map((k, v) => MapEntry(k.key, v));
 }

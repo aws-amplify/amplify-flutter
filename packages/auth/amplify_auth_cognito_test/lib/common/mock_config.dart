@@ -15,6 +15,9 @@ const scopes = ['profile'];
 const testUrlScheme = 'authtest';
 const redirectUri = '$testUrlScheme:/,http://localhost:9999/';
 const webDomain = 'example.com';
+
+const testPinpointAppId = 'pinpointAppId';
+
 const hostedUiConfig = CognitoOAuthConfig(
   appClientId: testAppClientId,
   scopes: scopes,
@@ -44,6 +47,20 @@ final mockConfig = AmplifyConfig(
       region: testRegion,
     ),
     hostedUiConfig: hostedUiConfig,
+  ),
+);
+
+final mockConfigWithPinpoint = AmplifyConfig(
+  auth: AuthConfig.cognito(
+    userPoolConfig: const CognitoUserPoolConfig(
+      poolId: testUserPoolId,
+      appClientId: testAppClientId,
+      region: testRegion,
+    ),
+    pinpointAnalyticsConfig: const CognitoPinpointAnalyticsConfig(
+      appId: testPinpointAppId,
+      region: testRegion,
+    ),
   ),
 );
 

@@ -6,7 +6,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_core.storage.list_request}
 /// Presents a storage list request.
 /// {@endtemplate}
-class StorageListRequest<Options extends StorageListOptions> {
+class StorageListRequest {
   /// {@macro amplify_core.storage.list_request}
   const StorageListRequest({
     this.path,
@@ -16,6 +16,6 @@ class StorageListRequest<Options extends StorageListOptions> {
   /// Path to list objects under.
   final String? path;
 
-  /// Configurable options of the list request.
-  final Options? options;
+  /// Configurable options of the [StorageListRequest].
+  final StorageListOptions? options;
 }

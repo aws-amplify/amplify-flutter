@@ -9,12 +9,12 @@ import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps,
+  AuthIntegrationTestStackEnvironmentProps
 } from "./auth/stack";
 import { IntegrationTestStack } from "./common";
 import {
   StorageAccessLevel,
-  StorageIntegrationTestStack,
+  StorageIntegrationTestStack
 } from "./storage/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
@@ -195,6 +195,18 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
         type: "FULL",
         environmentName: "hosted-ui",
         enableHostedUI: true,
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "custom-auth-with-srp",
+        customAuth: "WITH_SRP",
+      },
+      {
+        associateWithWaf,
+        type: "FULL",
+        environmentName: "custom-auth-without-srp",
+        customAuth: "WITHOUT_SRP",
       },
       {
         associateWithWaf,

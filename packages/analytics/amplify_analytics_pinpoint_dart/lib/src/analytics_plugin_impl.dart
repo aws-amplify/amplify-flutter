@@ -3,13 +3,18 @@
 
 import 'dart:async';
 
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/session_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/stoppable_timer.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/app_lifecycle_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:meta/meta.dart';
 
 /// The Analytics Pinpoint session start event type.
@@ -30,15 +35,20 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   /// {@macro amplify_analytics_pinpoint_dart.amplify_analytics_pinpoint_dart}
   AmplifyAnalyticsPinpointDart({
     CachedEventsPathProvider? pathProvider,
+    LegacyNativeDataProvider? legacyNativeDataProvider,
+    DeviceContextInfoProvider? deviceContextInfoProvider,
     AppLifecycleProvider? appLifecycleProvider,
-    AnalyticsClient? analyticsClient,
-  })  : _appLifecycleProvider = appLifecycleProvider,
-        _pathProvider = pathProvider,
-        _analyticsClient = analyticsClient ?? AnalyticsClient();
+    SecureStorageFactory? secureStorageFactory,
+  })  : _pathProvider = pathProvider,
+        _legacyNativeDataProvider = legacyNativeDataProvider,
+        _deviceContextInfoProvider = deviceContextInfoProvider,
+        _appLifecycleProvider = appLifecycleProvider,
+        _secureStorageFactory =
+            secureStorageFactory ?? AmplifySecureStorageWorker.factoryFrom();
 
   void _ensureConfigured() {
     if (!_isConfigured) {
-      throw const AnalyticsException(
+      throw ConfigurationError(
         'Analytics not configured',
         recoverySuggestion:
             'Please make sure to call: await Amplify.configure(amplifyconfig)',
@@ -56,8 +66,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
-  final AnalyticsClient _analyticsClient;
   final CachedEventsPathProvider? _pathProvider;
+  final SecureStorageFactory _secureStorageFactory;
+  final DeviceContextInfoProvider? _deviceContextInfoProvider;
+  final LegacyNativeDataProvider? _legacyNativeDataProvider;
 
   static final _logger = AmplifyLogger.category(Category.analytics);
 
@@ -70,7 +82,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     if (config == null ||
         config.analytics == null ||
         config.analytics?.awsPlugin == null) {
-      throw const AnalyticsException('No Pinpoint plugin config available');
+      throw ConfigurationError('No Pinpoint plugin config available.');
     }
 
     final pinpointConfig = config.analytics!.awsPlugin!;
@@ -82,23 +94,35 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
         .getAuthProvider(APIAuthorizationType.iam.authProviderToken);
 
     if (authProvider == null) {
-      throw const AnalyticsException(
-        'No AWSIamAmplifyAuthProvider available. Is Auth category added and configured?',
+      throw ConfigurationError(
+        'No credential provider found for Analytics.',
+        recoverySuggestion:
+            "If you haven't already, please add amplify_auth_cognito plugin to your App.",
       );
     }
 
     final eventStoragePath = await _pathProvider?.getApplicationSupportPath();
     final eventStore = DartQueuedItemStore(eventStoragePath);
 
-    await _analyticsClient.init(
+    final endpointStorage = _secureStorageFactory(
+      AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+    );
+
+    final analyticsClient = AnalyticsClient(
+      endpointStorage: endpointStorage,
+      deviceContextInfoProvider: _deviceContextInfoProvider,
+      legacyNativeDataProvider: _legacyNativeDataProvider,
+    );
+
+    await analyticsClient.init(
       pinpointAppId: pinpointAppId,
       region: region,
       authProvider: authProvider,
       eventStore: eventStore,
     );
 
-    _endpointClient = _analyticsClient.endpointClient;
-    _eventClient = _analyticsClient.eventClient;
+    _endpointClient = analyticsClient.endpointClient;
+    _eventClient = analyticsClient.eventClient;
 
     unawaited(
       Amplify.asyncConfig.then((_) {
@@ -178,13 +202,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
     await _eventClient.recordEvent(
       eventType: event.name,
       session: _sessionManager.session,
-      properties: event.properties,
+      properties: event.customProperties,
     );
   }
 
   @override
   Future<void> registerGlobalProperties({
-    required AnalyticsProperties globalProperties,
+    required CustomProperties globalProperties,
   }) async {
     _ensureConfigured();
     _eventClient.registerGlobalProperties(globalProperties);
@@ -201,7 +225,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     _ensureConfigured();
     await _endpointClient.setUser(userId, userProfile);

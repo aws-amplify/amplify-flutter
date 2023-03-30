@@ -10,19 +10,21 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_analytics_pinpoint: ">=1.0.0-next.6 <1.0.0-next.7"
-  amplify_api: ">=1.0.0-next.6 <1.0.0-next.7"
-  amplify_auth_cognito: ">=1.0.0-next.6 <1.0.0-next.7"
-  amplify_flutter: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_analytics_pinpoint: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_api: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_auth_cognito: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_flutter: ">=1.0.0-next.7 <1.0.0-next.8"
 
   flutter:
     sdk: flutter
 
+# Needed to support both Flutter 3.3 + 3.7 in CI.
+# TODO(dnys1): Remove when Flutter 3.3 is no longer supported
 dependency_overrides:
   async: ^2.10.0
 
 dev_dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.1.4+2 <0.2.0"
+  amplify_analytics_pinpoint_dart: ">=0.1.4+3 <0.2.0"
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:

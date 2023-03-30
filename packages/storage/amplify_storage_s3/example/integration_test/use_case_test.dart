@@ -81,11 +81,8 @@ void main() {
           prefixResolver = const PassThroughPrefixResolver();
         }
         final authPlugin = AmplifyAuthCognito(
-          credentialStorage: AmplifySecureStorage(
-            config: AmplifySecureStorageConfig(
-              scope: 'auth',
-              macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-            ),
+          secureStorageFactory: AmplifySecureStorage.factoryFrom(
+            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
           ),
         );
         final storagePlugin = AmplifyStorageS3(prefixResolver: prefixResolver);
@@ -159,12 +156,14 @@ void main() {
                   contentType: testContentType,
                 ),
                 key: testObjectKey1,
-                options: const S3UploadDataOptions(
+                options: const StorageUploadDataOptions(
                   accessLevel: StorageAccessLevel.guest,
-                  getProperties: true,
-                  metadata: {
-                    'filename': testObjectFileName1,
-                  },
+                  pluginOptions: S3UploadDataPluginOptions(
+                    getProperties: true,
+                    metadata: {
+                      'filename': testObjectFileName1,
+                    },
+                  ),
                 ),
               )
               .result;
@@ -202,12 +201,14 @@ void main() {
               .uploadData(
                 data: S3DataPayload.dataUrl(testDataUrl),
                 key: testObjectKey2,
-                options: const S3UploadDataOptions(
+                options: const StorageUploadDataOptions(
                   accessLevel: StorageAccessLevel.protected,
-                  getProperties: true,
-                  metadata: {
-                    'filename': testObjectFileName2,
-                  },
+                  pluginOptions: S3UploadDataPluginOptions(
+                    getProperties: true,
+                    metadata: {
+                      'filename': testObjectFileName2,
+                    },
+                  ),
                 ),
               )
               .result;
@@ -245,12 +246,14 @@ void main() {
               .uploadFile(
                 localFile: AWSFile.fromData(testLargeFileBytes),
                 key: testObjectKey3,
-                options: const S3UploadFileOptions(
+                options: const StorageUploadFileOptions(
                   accessLevel: StorageAccessLevel.private,
-                  getProperties: true,
-                  metadata: {
-                    'filename': testObjectFileName3,
-                  },
+                  pluginOptions: S3UploadFilePluginOptions(
+                    getProperties: true,
+                    metadata: {
+                      'filename': testObjectFileName3,
+                    },
+                  ),
                 ),
               )
               .result;
@@ -285,10 +288,12 @@ void main() {
             ' currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.getUrl(
             key: testObjectKey3,
-            options: const S3GetUrlOptions(
+            options: const StorageGetUrlOptions(
               accessLevel: StorageAccessLevel.private,
-              checkObjectExistence: true,
-              expiresIn: Duration(minutes: 5),
+              pluginOptions: S3GetUrlPluginOptions(
+                checkObjectExistence: true,
+                expiresIn: Duration(minutes: 5),
+              ),
             ),
           ).result;
           final downloadedBytes = await http.readBytes(result.url);
@@ -300,9 +305,11 @@ void main() {
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
             key: testObjectKey3,
-            options: const S3DownloadDataOptions(
+            options: const StorageDownloadDataOptions(
               accessLevel: StorageAccessLevel.private,
-              getProperties: true,
+              pluginOptions: S3DownloadDataPluginOptions(
+                getProperties: true,
+              ),
             ),
           ).result;
 
@@ -317,12 +324,14 @@ void main() {
           const end = 5 * 1024 + 12;
           final result = await Amplify.Storage.downloadData(
             key: testObjectKey3,
-            options: S3DownloadDataOptions(
+            options: StorageDownloadDataOptions(
               accessLevel: StorageAccessLevel.private,
-              getProperties: true,
-              bytesRange: S3DataBytesRange(
-                start: start,
-                end: end,
+              pluginOptions: S3DownloadDataPluginOptions(
+                getProperties: true,
+                bytesRange: S3DataBytesRange(
+                  start: start,
+                  end: end,
+                ),
               ),
             ),
           ).result;
@@ -348,9 +357,11 @@ void main() {
                 .downloadFile(
                   key: testObjectKey3,
                   localFile: localFile,
-                  options: const S3DownloadFileOptions(
+                  options: const StorageDownloadFileOptions(
                     accessLevel: StorageAccessLevel.private,
-                    getProperties: true,
+                    pluginOptions: S3DownloadFilePluginOptions(
+                      getProperties: true,
+                    ),
                   ),
                 )
                 .result;
@@ -378,8 +389,10 @@ void main() {
               storageItem: S3Item(key: testObject3CopyKey),
               accessLevel: StorageAccessLevel.private,
             ),
-            options: const S3CopyOptions(
-              getProperties: true,
+            options: const StorageCopyOptions(
+              pluginOptions: S3CopyPluginOptions(
+                getProperties: true,
+              ),
             ),
           ).result;
 
@@ -399,15 +412,18 @@ void main() {
               storageItem: S3Item(key: testObject3CopyMoveKey),
               accessLevel: StorageAccessLevel.private,
             ),
-            options: const S3MoveOptions(getProperties: true),
+            options: const StorageMoveOptions(
+              pluginOptions: S3MovePluginOptions(getProperties: true),
+            ),
           ).result;
 
           expect(result.movedItem.key, testObject3CopyMoveKey);
           expect(result.movedItem.eTag, isNotEmpty);
 
           final listedObjects = await Amplify.Storage.list(
-            options:
-                const S3ListOptions(accessLevel: StorageAccessLevel.private),
+            options: const StorageListOptions(
+              accessLevel: StorageAccessLevel.private,
+            ),
           ).result;
 
           expect(
@@ -423,7 +439,7 @@ void main() {
             (WidgetTester tester) async {
           final result = await Amplify.Storage.remove(
             key: testObject3CopyMoveKey,
-            options: const S3RemoveOptions(
+            options: const StorageRemoveOptions(
               accessLevel: StorageAccessLevel.private,
             ),
           ).result;
@@ -485,7 +501,11 @@ void main() {
               (WidgetTester tester) async {
             final result = await Amplify.Storage.getProperties(
               key: testObjectKey2,
-              options: S3GetPropertiesOptions.forIdentity(user1IdentityId),
+              options: StorageGetPropertiesOptions(
+                accessLevel: StorageAccessLevel.protected,
+                pluginOptions:
+                    S3GetPropertiesPluginOptions.forIdentity(user1IdentityId),
+              ),
             ).result;
 
             expect(result.storageItem.eTag, object2Etag);
@@ -497,7 +517,7 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getProperties(
               key: testObjectKey3,
-              options: const S3GetPropertiesOptions(
+              options: const StorageGetPropertiesOptions(
                 accessLevel: StorageAccessLevel.private,
               ),
             );
@@ -512,8 +532,11 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
               key: testObjectKey1,
-              options: const S3GetUrlOptions(
-                checkObjectExistence: true,
+              options: const StorageGetUrlOptions(
+                accessLevel: StorageAccessLevel.guest,
+                pluginOptions: S3GetUrlPluginOptions(
+                  checkObjectExistence: true,
+                ),
               ),
             );
 
@@ -525,9 +548,12 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
               key: testObjectKey2,
-              options: S3GetUrlOptions.forIdentity(
-                user1IdentityId,
-                checkObjectExistence: true,
+              options: StorageGetUrlOptions(
+                accessLevel: StorageAccessLevel.protected,
+                pluginOptions: S3GetUrlPluginOptions.forIdentity(
+                  user1IdentityId,
+                  checkObjectExistence: true,
+                ),
               ),
             );
 
@@ -540,9 +566,11 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.getUrl(
               key: testObjectKey3,
-              options: const S3GetUrlOptions(
+              options: const StorageGetUrlOptions(
                 accessLevel: StorageAccessLevel.private,
-                checkObjectExistence: true,
+                pluginOptions: S3GetUrlPluginOptions(
+                  checkObjectExistence: true,
+                ),
               ),
             );
 
@@ -558,9 +586,12 @@ void main() {
               (WidgetTester tester) async {
             final result = await Amplify.Storage.downloadData(
               key: testObjectKey2,
-              options: S3DownloadDataOptions.forIdentity(
-                user1IdentityId,
-                getProperties: true,
+              options: StorageDownloadDataOptions(
+                accessLevel: StorageAccessLevel.protected,
+                pluginOptions: S3DownloadDataPluginOptions.forIdentity(
+                  user1IdentityId,
+                  getProperties: true,
+                ),
               ),
             ).result;
 
@@ -573,9 +604,11 @@ void main() {
               (WidgetTester tester) async {
             final operation = Amplify.Storage.downloadData(
               key: testObjectKey3,
-              options: const S3DownloadDataOptions(
+              options: const StorageDownloadDataOptions(
                 accessLevel: StorageAccessLevel.private,
-                getProperties: true,
+                pluginOptions: S3DownloadDataPluginOptions(
+                  getProperties: true,
+                ),
               ),
             );
 
@@ -597,7 +630,11 @@ void main() {
                 storageItem: S3Item(key: testObject1MoveKey),
                 accessLevel: StorageAccessLevel.private,
               ),
-              options: const S3MoveOptions(getProperties: true),
+              options: const StorageMoveOptions(
+                pluginOptions: S3MovePluginOptions(
+                  getProperties: true,
+                ),
+              ),
             ).result;
 
             expect(result.movedItem.eTag, isNotEmpty);
@@ -615,7 +652,11 @@ void main() {
                 storageItem: S3Item(key: testObject2MoveKey),
                 accessLevel: StorageAccessLevel.private,
               ),
-              options: const S3CopyOptions(getProperties: true),
+              options: const StorageCopyOptions(
+                pluginOptions: S3CopyPluginOptions(
+                  getProperties: true,
+                ),
+              ),
             ).result;
 
             expect(result.copiedItem.eTag, isNotEmpty);
@@ -625,7 +666,7 @@ void main() {
               'remove many objects belongs to the currently signed user',
               (WidgetTester tester) async {
             final listedObjects = await Amplify.Storage.list(
-              options: const S3ListOptions(
+              options: const StorageListOptions(
                 accessLevel: StorageAccessLevel.private,
               ),
             ).result;
@@ -633,7 +674,7 @@ void main() {
 
             final result = await Amplify.Storage.removeMany(
               keys: listedObjects.items.map((item) => item.key).toList(),
-              options: const S3RemoveManyOptions(
+              options: const StorageRemoveManyOptions(
                 accessLevel: StorageAccessLevel.private,
               ),
             ).result;
@@ -671,7 +712,9 @@ void main() {
               storageItem: S3Item(key: testObject2MoveKey),
               accessLevel: StorageAccessLevel.private,
             ),
-            options: const S3MoveOptions(getProperties: true),
+            options: const StorageMoveOptions(
+              pluginOptions: S3MovePluginOptions(getProperties: true),
+            ),
           ).result;
 
           expect(result.movedItem.eTag, isNotEmpty);
@@ -680,7 +723,7 @@ void main() {
         testWidgets('remove many objects belongs to the currently signed user',
             (WidgetTester tester) async {
           final listedObjects = await Amplify.Storage.list(
-            options: const S3ListOptions(
+            options: const StorageListOptions(
               accessLevel: StorageAccessLevel.private,
             ),
           ).result;
@@ -688,7 +731,7 @@ void main() {
 
           final result = await Amplify.Storage.removeMany(
             keys: listedObjects.items.map((item) => item.key).toList(),
-            options: const S3RemoveManyOptions(
+            options: const StorageRemoveManyOptions(
               accessLevel: StorageAccessLevel.private,
             ),
           ).result;

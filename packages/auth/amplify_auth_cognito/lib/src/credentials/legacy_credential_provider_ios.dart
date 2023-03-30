@@ -173,7 +173,9 @@ class LegacyCredentialProviderIOS implements LegacyCredentialProvider {
   /// The namespace is used as the "service" on iOS and the key-value
   /// repository name on Android.
   SecureStorageInterface _getSecureStorageInstance(String namespace) {
-    return _secureStorageInstances[namespace] ??= AmplifySecureStorageDart(
+    return _secureStorageInstances[namespace] ??=
+        // ignore: invalid_use_of_internal_member
+        AmplifySecureStorageDart(
       config: AmplifySecureStorageConfig.byNamespace(namespace: namespace),
     );
   }

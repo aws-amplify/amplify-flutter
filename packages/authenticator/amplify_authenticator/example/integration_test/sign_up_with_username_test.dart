@@ -27,6 +27,8 @@ void main() {
       );
     });
 
+    tearDown(deleteTestUser);
+
     // Scenario: Login mechanism set to "username"
     testWidgets('Login mechanism set to "username"', (tester) async {
       SignUpPage signUpPage = SignUpPage(tester: tester);

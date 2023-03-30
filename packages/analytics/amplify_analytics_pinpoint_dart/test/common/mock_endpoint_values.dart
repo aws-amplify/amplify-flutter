@@ -8,7 +8,7 @@ import 'mock_values.dart';
 
 const userId = 'userId';
 
-final userLocation = AnalyticsUserProfileLocation(
+const userLocation = UserProfileLocation(
   latitude: 12.3,
   longitude: 32.1,
   postalCode: 'postalCode',
@@ -17,12 +17,12 @@ final userLocation = AnalyticsUserProfileLocation(
   country: 'country',
 );
 
-final userProfile = AnalyticsUserProfile(
+final userProfile = UserProfile(
   name: 'name',
   email: 'email',
   plan: 'plan',
   location: userLocation,
-  analyticsProperties: analyticsProperties,
+  customProperties: analyticsProperties,
 );
 
 const channelType = ChannelType.apns;

@@ -4,15 +4,42 @@
 import 'dart:async';
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
+import 'package:meta/meta.dart';
 
 /// {@macro amplify_secure_storage.amplify_secure_storage}
 class AmplifySecureStorage extends AmplifySecureStorageInterface {
-  /// {@macro amplify_secure_storage.amplify_secure_storage}
+  /// {@macro amplify_secure_storage.amplify_secure_storage.from_config}
+  @internal
   AmplifySecureStorage({
     required super.config,
   });
 
+  /// {@macro amplify_secure_storage.amplify_secure_storage.factory_from}
+  static AmplifySecureStorage Function(
+    AmplifySecureStorageScope amplifyScope,
+  ) factoryFrom({
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return (AmplifySecureStorageScope scope) {
+      return AmplifySecureStorage(
+        config: AmplifySecureStorageConfig(
+          scope: scope.name,
+          webOptions: webOptions,
+          windowsOptions: windowsOptions,
+          linuxOptions: linuxOptions,
+          macOSOptions: macOSOptions,
+          iOSOptions: iOSOptions,
+        ),
+      );
+    };
+  }
+
   late final SecureStorageInterface _instance =
+      // ignore: invalid_use_of_internal_member
       AmplifySecureStorageDart(config: config);
 
   @override

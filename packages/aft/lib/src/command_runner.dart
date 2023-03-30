@@ -3,6 +3,7 @@
 
 import 'package:aft/aft.dart';
 import 'package:aft/src/commands/passthrough_command.dart';
+import 'package:aft/src/commands/save_repo_state_command.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
@@ -43,7 +44,9 @@ Future<void> run(List<String> args) async {
     ..addCommand(BootstrapCommand())
     ..addCommand(VersionBumpCommand())
     ..addCommand(ExecCommand())
-    ..addCommand(CreateCommand());
+    ..addCommand(CreateCommand())
+    ..addCommand(SaveRepoStateCommand())
+    ..addCommand(RunCommand());
 
   try {
     try {

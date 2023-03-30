@@ -23,7 +23,7 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
 
   /// {@macro amplify_core.amplify_analytics_category.register_global_properties}
   Future<void> registerGlobalProperties({
-    required AnalyticsProperties globalProperties,
+    required CustomProperties globalProperties,
   }) {
     throw UnimplementedError(
       'registerGlobalProperties() has not been implemented',
@@ -52,7 +52,7 @@ abstract class AnalyticsPluginInterface extends AmplifyPluginInterface {
   /// {@macro amplify_core.amplify_analytics_category.identify_user}
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) {
     throw UnimplementedError('identifyUser() has not been implemented');
   }

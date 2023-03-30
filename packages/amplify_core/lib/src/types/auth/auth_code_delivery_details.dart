@@ -59,6 +59,9 @@ class AuthCodeDeliveryDetails
   String? get attributeName => attributeKey?.key;
 
   @override
+  @JsonKey(
+    includeToJson: false,
+  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [attributeKey, deliveryMedium, destination];
 
   @override

@@ -15,15 +15,7 @@ CognitoResetPasswordOptions _$CognitoResetPasswordOptionsFromJson(
     );
 
 Map<String, dynamic> _$CognitoResetPasswordOptionsToJson(
-    CognitoResetPasswordOptions instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('clientMetadata', instance.clientMetadata);
-  return val;
-}
+        CognitoResetPasswordOptions instance) =>
+    <String, dynamic>{
+      'clientMetadata': instance.clientMetadata,
+    };

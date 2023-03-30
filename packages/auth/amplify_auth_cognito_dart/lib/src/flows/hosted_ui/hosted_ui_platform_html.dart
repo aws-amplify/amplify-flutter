@@ -48,7 +48,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUrl = (await getSignInUri(provider: provider)).toString();
@@ -57,8 +57,7 @@ class HostedUiPlatformImpl extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {
     final signOutUrl = getSignOutUri().toString();
     await launchUrl(signOutUrl);

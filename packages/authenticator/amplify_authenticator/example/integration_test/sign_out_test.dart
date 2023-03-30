@@ -24,7 +24,7 @@ void main() {
       );
     });
 
-    tearDown(signOut);
+    tearDown(deleteTestUser);
 
     // Scenario: Sign out with Auth.signOut()
     testWidgets('Sign out with Auth.signOut()', (tester) async {

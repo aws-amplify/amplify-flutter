@@ -13,6 +13,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -191,7 +192,7 @@ class FetchAuthSessionStateMachine
   Future<void> onFetchAuthSession(
     FetchAuthSessionFetch event,
   ) async {
-    final options = event.options ?? const CognitoSessionOptions();
+    final options = event.options ?? const FetchAuthSessionOptions();
     final result = await manager.loadCredentials();
 
     final userPoolTokens = result.userPoolTokens;
@@ -489,7 +490,8 @@ class FetchAuthSessionStateMachine
         ..clientId = _userPoolConfig!.appClientId
         ..authParameters.addAll({
           CognitoConstants.refreshToken: userPoolTokens.refreshToken,
-        });
+        })
+        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
       final deviceKey = deviceSecrets?.deviceKey;
       if (deviceKey != null) {

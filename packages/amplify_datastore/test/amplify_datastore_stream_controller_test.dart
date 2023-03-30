@@ -1,11 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_datastore/amplify_datastore_stream_controller.dart';
+import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';

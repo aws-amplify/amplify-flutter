@@ -8,21 +8,26 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_servic
 
 /// The html implementation of `downloadFile` API.
 S3DownloadFileOperation downloadFile({
-  required StorageDownloadFileRequest request,
+  required String key,
+  required AWSFile localFile,
+  required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
   required AppPathProvider appPathProvider,
   void Function(S3TransferProgress)? onProgress,
 }) {
   Future<void> noOp() async {}
+
   return S3DownloadFileOperation(
     request: StorageDownloadFileRequest(
-      key: request.key,
-      localFile: request.localFile,
-      options: request.options as S3DownloadFileOptions?,
+      key: key,
+      localFile: localFile,
+      options: options,
     ),
     result: _downloadFromUrl(
-      request: request,
+      key: key,
+      localFile: localFile,
+      options: options,
       s3pluginConfig: s3pluginConfig,
       storageS3Service: storageS3Service,
     ),
@@ -35,28 +40,32 @@ S3DownloadFileOperation downloadFile({
 }
 
 Future<S3DownloadFileResult> _downloadFromUrl({
-  required StorageDownloadFileRequest request,
+  required String key,
+  required AWSFile localFile,
+  required StorageDownloadFileOptions options,
   required S3PluginConfig s3pluginConfig,
   required StorageS3Service storageS3Service,
 }) async {
-  final s3Options = request.options as S3DownloadFileOptions? ??
-      S3DownloadFileOptions(
-        accessLevel: s3pluginConfig.defaultAccessLevel,
-      );
-  final targetIdentityId = s3Options.targetIdentityId;
+  final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
+  final targetIdentityId = s3PluginOptions.targetIdentityId;
   // download url expires in 15 mins by default, see [S3GetUrlOptions]
   final url = (await storageS3Service.getUrl(
-    key: request.key,
+    key: key,
     options: targetIdentityId == null
-        ? S3GetUrlOptions(
-            accessLevel: s3Options.accessLevel,
-            checkObjectExistence: true,
-            useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
+        ? StorageGetUrlOptions(
+            accessLevel: options.accessLevel,
+            pluginOptions: S3GetUrlPluginOptions(
+              checkObjectExistence: true,
+              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+            ),
           )
-        : S3GetUrlOptions.forIdentity(
-            targetIdentityId,
-            checkObjectExistence: true,
-            useAccelerateEndpoint: s3Options.useAccelerateEndpoint,
+        : StorageGetUrlOptions(
+            accessLevel: options.accessLevel,
+            pluginOptions: S3GetUrlPluginOptions.forIdentity(
+              targetIdentityId,
+              checkObjectExistence: true,
+              useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
+            ),
           ),
   ))
       .url;
@@ -66,21 +75,26 @@ Future<S3DownloadFileResult> _downloadFromUrl({
     url: url.toString(),
     // AWSFile.path is used as the file name that save the downloaded object
     // to.
-    name: request.localFile.path,
+    name: localFile.path,
   );
 
   return S3DownloadFileResult(
-    downloadedItem: s3Options.getProperties
+    downloadedItem: s3PluginOptions.getProperties
         ? (await storageS3Service.getProperties(
-            key: request.key,
+            key: key,
             options: targetIdentityId == null
-                ? S3GetPropertiesOptions(
-                    accessLevel: s3Options.accessLevel,
+                ? StorageGetPropertiesOptions(
+                    accessLevel: options.accessLevel,
                   )
-                : S3GetPropertiesOptions.forIdentity(targetIdentityId),
+                : StorageGetPropertiesOptions(
+                    accessLevel: options.accessLevel,
+                    pluginOptions: S3GetPropertiesPluginOptions.forIdentity(
+                      targetIdentityId,
+                    ),
+                  ),
           ))
             .storageItem
-        : S3Item(key: request.key),
-    localFile: request.localFile,
+        : S3Item(key: key),
+    localFile: localFile,
   );
 }

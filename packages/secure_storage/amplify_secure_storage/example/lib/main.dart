@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // ignore: invalid_use_of_internal_member
   final storage = AmplifySecureStorage(
     config: AmplifySecureStorageConfig(
       scope: 'test',

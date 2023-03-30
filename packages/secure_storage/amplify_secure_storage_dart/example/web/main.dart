@@ -4,6 +4,7 @@
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:example_common/example_common.dart';
 
+// ignore: invalid_use_of_internal_member
 final storage = AmplifySecureStorageDart(
   config: AmplifySecureStorageConfig(
     scope: 'default',

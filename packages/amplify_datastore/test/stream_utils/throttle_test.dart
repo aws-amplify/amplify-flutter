@@ -3,10 +3,9 @@
 
 import 'dart:async';
 
+import 'package:amplify_datastore/src/stream_utils/throttle.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../../lib/stream_utils/throttle.dart';
 
 void main() {
   group('throttleByCountAndTime', () {

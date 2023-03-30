@@ -7,17 +7,17 @@ import 'package:amplify_core/amplify_core.dart';
 /// Extends the category-defined UserProfile class to
 /// include features supported relevant to Pinpoint only.
 /// {@endtemplate}
-class AWSPinpointUserProfile extends AnalyticsUserProfile {
+class AWSPinpointUserProfile extends UserProfile {
   /// {@macro amplify_analytics_pinpoint_dart.aws_pinpoint_user_profile}
   AWSPinpointUserProfile({
     super.name,
     super.email,
     super.plan,
     super.location,
-    super.analyticsProperties,
-    required this.userAttributes,
+    super.customProperties,
+    this.userAttributes,
   });
 
   /// Analytics attributes for the Pinpoint User.
-  final AnalyticsProperties userAttributes;
+  final Map<String, List<String>>? userAttributes;
 }

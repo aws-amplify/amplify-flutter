@@ -7,8 +7,14 @@ import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 /// {@template storage.amplify_storage_s3.download_data_options}
 /// The configurable parameters invoking theStorage S3 plugin `downloadData` API.
 /// {@endtemplate}
+@Deprecated(
+  'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
+)
 class S3DownloadDataOptions extends StorageDownloadDataOptions {
   /// {@macro storage.amplify_storage_s3.download_data_options}
+  @Deprecated(
+    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
+  )
   const S3DownloadDataOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     bool getProperties = false,
@@ -20,7 +26,9 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
           getProperties: getProperties,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
-
+  @Deprecated(
+    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
+  )
   const S3DownloadDataOptions._({
     super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
@@ -34,6 +42,9 @@ class S3DownloadDataOptions extends StorageDownloadDataOptions {
   /// Use this when calling `downloadData` on an object that belongs to another
   /// user (identified by [targetIdentityId]) rather than the currently
   /// signed-in user.
+  @Deprecated(
+    'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
+  )
   const S3DownloadDataOptions.forIdentity(
     String targetIdentityId, {
     bool getProperties = false,

@@ -36,21 +36,17 @@ void main() {
     const testFileContent = 'Hello world!';
     const testItem = S3Item(key: testKey);
     final testFileBytes = utf8.encode(testFileContent);
-    final testDownloadFileRequest = StorageDownloadFileRequest(
-      key: testKey,
-      localFile: AWSFile.fromPath(testDestinationPath),
-      options: const S3DownloadFileOptions(
-        getProperties: true,
-        accessLevel: StorageAccessLevel.private,
-      ),
-    );
 
     late S3TransferProgress expectedProgress;
 
     setUpAll(() {
       storageS3Service = MockStorageS3Service();
       downloadTask = MockS3DownloadTask();
-      registerFallbackValue(const S3DownloadDataOptions());
+      registerFallbackValue(
+        const StorageDownloadDataOptions(
+          accessLevel: StorageAccessLevel.guest,
+        ),
+      );
 
       when(
         () => storageS3Service.downloadData(
@@ -71,8 +67,16 @@ void main() {
 
     test('should invoke StorageS3Service.downloadData with expected parameters',
         () async {
+      const options = StorageDownloadFileOptions(
+        accessLevel: StorageAccessLevel.private,
+        pluginOptions: S3DownloadFilePluginOptions(
+          getProperties: true,
+        ),
+      );
       final downloadFileOperation = downloadFile(
-        request: testDownloadFileRequest,
+        key: testKey,
+        localFile: AWSFile.fromPath(testDestinationPath),
+        options: options,
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
         appPathProvider: appPathProvider,
@@ -84,7 +88,9 @@ void main() {
       final captureParams = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<S3DownloadDataOptions>(named: 'options'),
+          options: captureAny<StorageDownloadDataOptions>(
+            named: 'options',
+          ),
           preStart: captureAny<FutureOr<void> Function()?>(named: 'preStart'),
           onProgress: captureAny<void Function(S3TransferProgress)?>(
             named: 'onProgress',
@@ -97,11 +103,18 @@ void main() {
 
       expect(
         captureParams[0],
-        isA<S3DownloadDataOptions>().having(
-          (o) => o.accessLevel,
-          'accessLevel',
-          testDownloadFileRequest.options?.accessLevel,
-        ),
+        isA<StorageDownloadDataOptions>()
+            .having(
+              (o) => o.accessLevel,
+              'accessLevel',
+              options.accessLevel,
+            )
+            .having(
+              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+                  .getProperties,
+              'getProperties',
+              isTrue,
+            ),
       );
 
       expect(captureParams[1] is Function, true);
@@ -146,9 +159,11 @@ void main() {
         'should correctly create S3DownloadDataOptions with default storage access level',
         () {
       downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: StorageDownloadFileOptions(
+          accessLevel: testS3pluginConfig.defaultAccessLevel,
+          pluginOptions: const S3DownloadFilePluginOptions(),
         ),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,
@@ -161,7 +176,9 @@ void main() {
       final capturedOptions = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<S3DownloadDataOptions>(named: 'options'),
+          options: captureAny<StorageDownloadDataOptions>(
+            named: 'options',
+          ),
           preStart: any(named: 'preStart'),
           onProgress: any(named: 'onProgress'),
           onData: any(named: 'onData'),
@@ -172,7 +189,7 @@ void main() {
 
       expect(
         capturedOptions,
-        isA<S3DownloadDataOptions>().having(
+        isA<StorageDownloadDataOptions>().having(
           (o) => o.accessLevel,
           'accessLevel',
           testS3pluginConfig.defaultAccessLevel,
@@ -184,11 +201,13 @@ void main() {
         'should correctly create S3DownloadDataOptions with correct targetIdentityId',
         () {
       const testTargetIdentity = 'someone-else';
+      const testAcessLevel = StorageAccessLevel.protected;
       downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
-          options: const S3DownloadFileOptions.forIdentity(
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: const StorageDownloadFileOptions(
+          accessLevel: testAcessLevel,
+          pluginOptions: S3DownloadFilePluginOptions.forIdentity(
             testTargetIdentity,
           ),
         ),
@@ -203,7 +222,9 @@ void main() {
       final capturedOptions = verify(
         () => storageS3Service.downloadData(
           key: testKey,
-          options: captureAny<S3DownloadDataOptions>(named: 'options'),
+          options: captureAny<StorageDownloadDataOptions>(
+            named: 'options',
+          ),
           preStart: any(named: 'preStart'),
           onProgress: any(named: 'onProgress'),
           onData: any(named: 'onData'),
@@ -214,17 +235,25 @@ void main() {
 
       expect(
         capturedOptions,
-        isA<S3DownloadDataOptions>().having(
-          (o) => o.accessLevel,
-          'accessLevel',
-          StorageAccessLevel.protected,
-        ),
+        isA<StorageDownloadDataOptions>()
+            .having(
+              (o) => o.accessLevel,
+              'accessLevel',
+              testAcessLevel,
+            )
+            .having(
+              (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+                  .targetIdentityId,
+              'targetIdentityId',
+              testTargetIdentity,
+            ),
       );
 
       expect(
         capturedOptions,
-        isA<S3DownloadDataOptions>().having(
-          (o) => o.targetIdentityId,
+        isA<StorageDownloadDataOptions>().having(
+          (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
+              .targetIdentityId,
           'targetIdentityId',
           testTargetIdentity,
         ),
@@ -236,9 +265,11 @@ void main() {
           'when destination path is null is throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          request: StorageDownloadFileRequest(
-            key: testKey,
-            localFile: AWSFile.fromData([101]),
+          key: testKey,
+          localFile: AWSFile.fromData([101]),
+          options: StorageDownloadFileOptions(
+            accessLevel: testS3pluginConfig.defaultAccessLevel,
+            pluginOptions: const S3DownloadFilePluginOptions(),
           ),
           s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
@@ -267,9 +298,11 @@ void main() {
           'when destination path is a directory instead of a file it throws StorageLocalFileNotFoundException',
           () {
         downloadFile(
-          request: StorageDownloadFileRequest(
-            key: testKey,
-            localFile: AWSFile.fromPath(Directory.systemTemp.path),
+          key: testKey,
+          localFile: AWSFile.fromPath(Directory.systemTemp.path),
+          options: StorageDownloadFileOptions(
+            accessLevel: testS3pluginConfig.defaultAccessLevel,
+            pluginOptions: const S3DownloadFilePluginOptions(),
           ),
           s3pluginConfig: testS3pluginConfig,
           storageS3Service: storageS3Service,
@@ -304,9 +337,11 @@ void main() {
       when(downloadTask.cancel).thenAnswer((_) async {});
 
       final downloadFileOperation = downloadFile(
-        request: StorageDownloadFileRequest(
-          key: testKey,
-          localFile: AWSFile.fromPath('path'),
+        key: testKey,
+        localFile: AWSFile.fromPath('path'),
+        options: StorageDownloadFileOptions(
+          accessLevel: testS3pluginConfig.defaultAccessLevel,
+          pluginOptions: const S3DownloadFilePluginOptions(),
         ),
         s3pluginConfig: testS3pluginConfig,
         storageS3Service: storageS3Service,

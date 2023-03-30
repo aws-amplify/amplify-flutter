@@ -5,7 +5,6 @@
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-in-with-email.feature
 
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
@@ -89,7 +88,7 @@ void main() {
       await Amplify.Auth.signUp(
         username: email,
         password: password,
-        options: CognitoSignUpOptions(
+        options: SignUpOptions(
           userAttributes: {CognitoUserAttributeKey.email: email},
         ),
       );

@@ -8,7 +8,6 @@ export '../exception/auth/not_authorized_exception.dart';
 export '../exception/auth/service_exception.dart';
 export '../exception/auth/session_expired_exception.dart';
 export '../exception/auth/signed_out_exception.dart';
-export '../exception/auth/unknown_exception.dart';
 export '../exception/auth/user_cancelled_exception.dart';
 export '../exception/auth/validation_exception.dart';
 
@@ -46,9 +45,9 @@ export 'password/update_password_result.dart';
 
 /// Session
 export 'session/auth_session.dart';
-export 'session/auth_session_options.dart';
 export 'session/auth_user.dart';
-export 'session/auth_user_options.dart';
+export 'session/fetch_auth_session_options.dart';
+export 'session/get_current_user_options.dart';
 export 'session/sign_in_details.dart';
 
 /// Sign In

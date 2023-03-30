@@ -3,11 +3,11 @@
 
 import 'dart:async';
 
-import 'package:amplify_secure_storage_dart/src/interfaces/amplify_secure_storage_interface.dart';
-import 'package:amplify_secure_storage_dart/src/mixins/amplify_secure_storage_mixin.dart';
+import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_request.dart';
 import 'package:amplify_secure_storage_dart/src/worker/secure_storage_worker.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:meta/meta.dart';
 import 'package:worker_bee/worker_bee.dart';
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_dart}
@@ -30,10 +30,40 @@ import 'package:worker_bee/worker_bee.dart';
 /// {@endtemplate}
 class AmplifySecureStorageDart extends AmplifySecureStorageInterface
     with AmplifySecureStorageDartMixin {
-  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart}
+  /// {@template amplify_secure_storage_dart.amplify_secure_storage_dart.fromConfig}
+  /// Generates a AmplifySecureStorage from a config.
+  ///
+  /// Should only be used within Amplify packages. See [factoryFrom] for
+  /// external use.
+  /// {@endtemplate}
+  @internal
   AmplifySecureStorageDart({
     required super.config,
   });
+
+  /// Returns a factory for creating [AmplifySecureStorageDart] instances.
+  static AmplifySecureStorageDart Function(
+    AmplifySecureStorageScope amplifyScope,
+  ) factoryFrom({
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return (AmplifySecureStorageScope scope) {
+      return AmplifySecureStorageDart(
+        config: AmplifySecureStorageConfig(
+          scope: scope.name,
+          webOptions: webOptions,
+          windowsOptions: windowsOptions,
+          linuxOptions: linuxOptions,
+          macOSOptions: macOSOptions,
+          iOSOptions: iOSOptions,
+        ),
+      );
+    };
+  }
 }
 
 /// {@template amplify_secure_storage_dart.amplify_secure_storage_worker}
@@ -42,10 +72,35 @@ class AmplifySecureStorageDart extends AmplifySecureStorageInterface
 /// {@endtemplate}
 class AmplifySecureStorageWorker extends AmplifySecureStorageInterface
     with AWSDebuggable, AWSLoggerMixin {
-  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_worker}
+  /// {@macro amplify_secure_storage_dart.amplify_secure_storage_dart.fromConfig}
+  @internal
   AmplifySecureStorageWorker({
     required super.config,
   });
+
+  /// Returns a factory for creating [AmplifySecureStorageWorker] instances.
+  static AmplifySecureStorageWorker Function(
+    AmplifySecureStorageScope amplifyScope,
+  ) factoryFrom({
+    WebSecureStorageOptions? webOptions,
+    WindowsSecureStorageOptions? windowsOptions,
+    LinuxSecureStorageOptions? linuxOptions,
+    MacOSSecureStorageOptions? macOSOptions,
+    IOSSecureStorageOptions? iOSOptions,
+  }) {
+    return (AmplifySecureStorageScope scope) {
+      return AmplifySecureStorageWorker(
+        config: AmplifySecureStorageConfig(
+          scope: scope.name,
+          webOptions: webOptions,
+          windowsOptions: windowsOptions,
+          linuxOptions: linuxOptions,
+          macOSOptions: macOSOptions,
+          iOSOptions: iOSOptions,
+        ),
+      );
+    };
+  }
 
   late final SecureStorageWorker _worker;
   final _workerMemo = AsyncMemoizer<void>();

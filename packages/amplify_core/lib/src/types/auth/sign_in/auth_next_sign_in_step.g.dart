@@ -23,10 +23,8 @@ Map<String, dynamic>
 
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
-  val['hashCode'] = instance.hashCode;
   val['signInStep'] = _$AuthSignInStepEnumMap[instance.signInStep]!;
   val['missingAttributes'] = instance.missingAttributes.map(toJsonKey).toList();
-  val['props'] = instance.props;
   val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }

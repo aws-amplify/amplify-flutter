@@ -17,20 +17,24 @@ import 'package:pub_semver/pub_semver.dart';
 /// management.
 class Repo {
   Repo(
-    this.rootDir, {
-    required this.allPackages,
-    required this.aftConfig,
+    this.aftConfig, {
     AWSLogger? logger,
   }) : logger = logger ?? AWSLogger().createChild('Repo');
 
+  final AftConfig aftConfig;
+
+  Map<String, PackageInfo> get allPackages => aftConfig.allPackages;
+
+  Map<String, AftComponent> get components => aftConfig.components;
+
   /// The root directory of the repository.
-  final Directory rootDir;
+  late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
+
+  /// The current working directory.
+  late final Directory workingDirectory =
+      Directory.fromUri(aftConfig.workingDirectory);
 
   final AWSLogger logger;
-
-  final Map<String, PackageInfo> allPackages;
-
-  final AftConfig aftConfig;
 
   /// All packages which can be published to `pub.dev`.
   List<PackageInfo> publishablePackages([
@@ -42,41 +46,6 @@ class Repo {
             .where((pkg) => pkg.isPublishable)
             .toList(),
       );
-
-  /// The components of the repository.
-  late final Map<String, AftRepoComponent> components = () {
-    final components = Map.fromEntries(
-      aftConfig.components.map((component) {
-        final summaryPackage =
-            component.summary == null ? null : allPackages[component.summary]!;
-        final packages =
-            component.packages.map((name) => allPackages[name]!).toList();
-        final packageGraph = UnmodifiableMapView({
-          for (final package in packages)
-            package: package.pubspecInfo.pubspec.dependencies.keys
-                .map(
-                  (packageName) => packages.firstWhereOrNull(
-                    (pkg) => pkg.name == packageName,
-                  ),
-                )
-                .whereType<PackageInfo>()
-                .toList(),
-        });
-        return MapEntry(
-          component.name,
-          AftRepoComponent(
-            name: component.name,
-            summary: summaryPackage,
-            packages: packages,
-            packageGraph: packageGraph,
-            propagate: component.propagate,
-          ),
-        );
-      }),
-    );
-    logger.verbose('Components: $components');
-    return components;
-  }();
 
   /// The libgit repository.
   late final Repository repo = Repository.open(rootDir.path);
@@ -379,7 +348,9 @@ class Repo {
       final componentPackages = component?.packageGraph;
       if (propagateToComponent && componentPackages != null) {
         dfs<PackageInfo>(
-          componentPackages,
+          componentPackages.map((name, dependents) {
+            return MapEntry(allPackages[name]!, dependents);
+          }),
           (componentPackage) {
             if (componentPackage == package) return;
             logger.verbose(
@@ -422,7 +393,10 @@ class Repo {
 
   /// Updates the constraint for [package] in [dependent].
   void updateConstraint(PackageInfo package, PackageInfo dependent) {
-    final newVersion = versionChanges.proposedVersion(package.name)!;
+    final newVersion = versionChanges.proposedVersion(package.name);
+    if (newVersion == null) {
+      return;
+    }
     final hasDependency =
         dependent.pubspecInfo.pubspec.dependencies.containsKey(package.name);
     final hasDevDependency =

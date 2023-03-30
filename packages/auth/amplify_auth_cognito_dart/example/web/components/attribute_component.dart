@@ -56,10 +56,12 @@ class UserAttributeComponent extends StatefulComponent {
         final res = await updateUserAttribute(
           key: _modifiedAttributes.entries.first.key,
           value: _modifiedAttributes.entries.first.value,
-          options: const CognitoUpdateUserAttributeOptions(
-            clientMetadata: {
-              'method': 'updateUserAttribute',
-            },
+          options: const UpdateUserAttributeOptions(
+            pluginOptions: CognitoUpdateUserAttributePluginOptions(
+              clientMetadata: {
+                'method': 'updateUserAttribute',
+              },
+            ),
           ),
         );
         if (!res.isUpdated) {
@@ -81,10 +83,12 @@ class UserAttributeComponent extends StatefulComponent {
       try {
         final res = await updateUserAttributes(
           attributes: List.from(_modifiedAttributes.entries),
-          options: const CognitoUpdateUserAttributesOptions(
-            clientMetadata: {
-              'method': 'updateUserAttributes',
-            },
+          options: const UpdateUserAttributesOptions(
+            pluginOptions: CognitoUpdateUserAttributesPluginOptions(
+              clientMetadata: {
+                'method': 'updateUserAttributes',
+              },
+            ),
           ),
         );
         final firstUnconfirmedAttr =

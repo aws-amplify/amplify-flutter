@@ -11,7 +11,6 @@ Map<String, dynamic> _$CognitoResetPasswordResultToJson(
     <String, dynamic>{
       'isPasswordReset': instance.isPasswordReset,
       'nextStep': instance.nextStep.toJson(),
-      'hashCode': instance.hashCode,
       'props': instance.props,
       'runtimeTypeName': instance.runtimeTypeName,
     };

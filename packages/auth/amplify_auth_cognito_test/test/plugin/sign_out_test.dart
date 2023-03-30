@@ -28,7 +28,7 @@ void main() {
 
   late AmplifyAuthCognitoDart plugin;
   late CognitoAuthStateMachine stateMachine;
-  late SecureStorageInterface secureStorage;
+  late MockSecureStorage secureStorage;
 
   late StreamController<AuthHubEvent> hubEventsController;
   late Stream<AuthHubEvent> hubEvents;
@@ -46,25 +46,24 @@ void main() {
   group('AmplifyAuthCognitoDart', () {
     setUp(() async {
       secureStorage = MockSecureStorage();
+      SecureStorageInterface storageFactory(scope) => secureStorage;
       stateMachine = CognitoAuthStateMachine()
-        ..addInstance(secureStorage)
         ..addBuilder(
           createHostedUiFactory(
             signIn: (
               HostedUiPlatform platform,
-              CognitoSignInWithWebUIOptions options,
+              CognitoSignInWithWebUIPluginOptions options,
               AuthProvider? provider,
             ) async {},
             signOut: (
               HostedUiPlatform platform,
-              CognitoSignOutWithWebUIOptions options,
-              bool isPreferPrivateSession,
+              CognitoSignInWithWebUIPluginOptions options,
             ) async {},
           ),
           HostedUiPlatform.token,
         );
 
-      plugin = AmplifyAuthCognitoDart(credentialStorage: secureStorage)
+      plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
         ..stateMachine = stateMachine;
 
       hubEventsController = StreamController();
@@ -375,13 +374,12 @@ void main() {
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
-                CognitoSignInWithWebUIOptions options,
+                CognitoSignInWithWebUIPluginOptions options,
                 AuthProvider? provider,
               ) async {},
               signOut: (
                 HostedUiPlatform platform,
-                CognitoSignOutWithWebUIOptions options,
-                bool isPreferPrivateSession,
+                CognitoSignInWithWebUIPluginOptions options,
               ) async =>
                   throw _HostedUiException(),
             ),
@@ -431,13 +429,12 @@ void main() {
               createHostedUiFactory(
                 signIn: (
                   HostedUiPlatform platform,
-                  CognitoSignInWithWebUIOptions options,
+                  CognitoSignInWithWebUIPluginOptions options,
                   AuthProvider? provider,
                 ) async {},
                 signOut: (
                   HostedUiPlatform platform,
-                  CognitoSignOutWithWebUIOptions options,
-                  bool isPreferPrivateSession,
+                  CognitoSignInWithWebUIPluginOptions options,
                 ) async =>
                     throw const UserCancelledException(''),
               ),

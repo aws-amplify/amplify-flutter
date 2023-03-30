@@ -12,8 +12,9 @@ CognitoSignInOptions _$CognitoSignInOptionsFromJson(
       authFlowType: $enumDecodeNullable(
           _$AuthenticationFlowTypeEnumMap, json['authFlowType']),
       clientMetadata: (json['clientMetadata'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$CognitoSignInOptionsToJson(
@@ -28,7 +29,7 @@ Map<String, dynamic> _$CognitoSignInOptionsToJson(
 
   writeNotNull(
       'authFlowType', _$AuthenticationFlowTypeEnumMap[instance.authFlowType]);
-  writeNotNull('clientMetadata', instance.clientMetadata);
+  val['clientMetadata'] = instance.clientMetadata;
   return val;
 }
 

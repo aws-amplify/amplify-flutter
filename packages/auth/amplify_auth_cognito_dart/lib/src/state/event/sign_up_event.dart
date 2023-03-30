@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/src/model/sign_up_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+import 'package:amplify_core/amplify_core.dart';
 
 /// Discrete event types of the sign up flow.
 enum SignUpEventType {
@@ -23,9 +24,9 @@ abstract class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
   /// {@macro amplify_auth_cognito.sign_up_inititate}
   const factory SignUpEvent.initiate({
     required SignUpParameters parameters,
-    Map<String, String>? clientMetadata,
-    Map<String, String>? userAttributes,
-    Map<String, String>? validationData,
+    Map<AuthUserAttributeKey, String> userAttributes,
+    Map<String, String> clientMetadata,
+    Map<String, String> validationData,
   }) = SignUpInitiate;
 
   /// {@macro amplify_auth_cognito.sign_up_confirm}
@@ -51,22 +52,19 @@ class SignUpInitiate extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_inititate}
   const SignUpInitiate({
     required this.parameters,
-    Map<String, String>? clientMetadata,
-    Map<String, String>? userAttributes,
-    Map<String, String>? validationData,
-  })  : clientMetadata = clientMetadata ?? const {},
-        userAttributes = userAttributes ?? const {},
-        validationData = validationData ?? const {},
-        super._();
+    this.userAttributes = const {},
+    this.clientMetadata = const {},
+    this.validationData = const {},
+  }) : super._();
 
   /// Flow-specific parameters.
   final SignUpParameters parameters;
 
+  /// User attributes.
+  final Map<AuthUserAttributeKey, String> userAttributes;
+
   /// Client metadata.
   final Map<String, String> clientMetadata;
-
-  /// User attributes.
-  final Map<String, String> userAttributes;
 
   /// Validation data.
   final Map<String, String> validationData;
@@ -78,8 +76,8 @@ class SignUpInitiate extends SignUpEvent {
   List<Object?> get props => [
         type,
         parameters,
-        clientMetadata,
         userAttributes,
+        clientMetadata,
         validationData,
       ];
 }

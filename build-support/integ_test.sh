@@ -74,6 +74,7 @@ do
     if [[ $deviceId = "web-server" ]] && flutter drive \
         --driver=test_driver/integration_test.dart \
         --target=$TARGET \
+        --dart-define CI=true \
         -d web-server
     then
         resultsList+=(0)
@@ -81,6 +82,8 @@ do
     elif flutter test \
         --no-pub \
         -d $deviceId \
+        --dart-define CI=true \
+        -v \
         $TARGET;
     then
         resultsList+=(0)
@@ -122,6 +125,7 @@ for ENTRY in $TEST_ENTRIES; do
         if [[ $deviceId = "web-server" ]] && flutter drive \
             --driver=test_driver/integration_test.dart \
             --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            --dart-define CI=true \
             --target=$ENTRY \
             -d web-server
         then
@@ -130,6 +134,7 @@ for ENTRY in $TEST_ENTRIES; do
         elif flutter test \
             --no-pub \
             --dart-define ENABLE_CLOUD_SYNC=$enableCloudSync \
+            --dart-define CI=true \
             -d $deviceId \
             $ENTRY;
         then

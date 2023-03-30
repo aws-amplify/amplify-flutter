@@ -16,10 +16,23 @@ class S3Item extends StorageItem {
     super.size,
     super.lastModified,
     super.eTag,
-    this.metadata = const <String, String>{},
+    super.metadata = const <String, String>{},
     this.versionId,
     this.contentType,
   });
+
+  /// Creates [S3Item] from [StorageItem].
+  factory S3Item.from(StorageItem storageItem) {
+    return storageItem is S3Item
+        ? storageItem
+        : S3Item(
+            key: storageItem.key,
+            size: storageItem.size,
+            lastModified: storageItem.lastModified,
+            eTag: storageItem.eTag,
+            metadata: storageItem.metadata,
+          );
+  }
 
   /// Creates a [S3Item] from [s3.S3Object] provided by S3 Client.
   @internal
@@ -77,9 +90,6 @@ class S3Item extends StorageItem {
   }) {
     return key.replaceRange(0, prefixToDrop.length, '');
   }
-
-  /// Metadata specified when the object was uploaded.
-  final Map<String, String> metadata;
 
   /// Object `versionId`, may be available when S3 bucket versioning is enabled.
   final String? versionId;

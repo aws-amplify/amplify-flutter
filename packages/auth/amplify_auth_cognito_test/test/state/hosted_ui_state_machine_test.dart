@@ -24,7 +24,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     final signInUrl = await getSignInUri(provider: provider);
@@ -33,8 +33,7 @@ class MockHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) async {}
 
   @override
@@ -49,7 +48,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signIn({
-    required CognitoSignInWithWebUIOptions options,
+    required CognitoSignInWithWebUIPluginOptions options,
     AuthProvider? provider,
   }) async {
     throw Exception();
@@ -57,8 +56,7 @@ class FailingHostedUiPlatform extends HostedUiPlatform {
 
   @override
   Future<void> signOut({
-    required CognitoSignOutWithWebUIOptions options,
-    required bool isPreferPrivateSession,
+    required CognitoSignInWithWebUIPluginOptions options,
   }) {
     throw Exception();
   }
@@ -526,19 +524,18 @@ void main() {
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
-                CognitoSignInWithWebUIOptions options,
+                CognitoSignInWithWebUIPluginOptions options,
                 AuthProvider? provider,
               ) async {
                 final signInUrl =
                     await platform.getSignInUri(provider: provider);
                 _launchUrl.complete(signInUrl);
               },
-              signOut: expectAsync3((
+              signOut: expectAsync2((
                 platform,
                 options,
-                isPreferPrivateSession,
               ) async {
-                expect(isPreferPrivateSession, isTrue);
+                expect(options.isPreferPrivateSession, isTrue);
               }),
             ),
             HostedUiPlatform.token,
@@ -556,7 +553,7 @@ void main() {
         stateMachine
             .dispatch(
               const HostedUiEvent.signIn(
-                options: CognitoSignInWithWebUIOptions(
+                options: CognitoSignInWithWebUIPluginOptions(
                   isPreferPrivateSession: true,
                 ),
               ),

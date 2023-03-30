@@ -14,36 +14,19 @@ abstract class AuthPluginInterface<
         PluginUserAttributeKey extends AuthUserAttributeKey,
         PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
         PluginAuthDevice extends AuthDevice,
-        PluginSignUpOptions extends SignUpOptions,
         PluginSignUpResult extends SignUpResult,
-        PluginConfirmSignUpOptions extends ConfirmSignUpOptions,
         PluginConfirmSignupResult extends SignUpResult,
-        PluginResendSignUpCodeOptions extends ResendSignUpCodeOptions,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-        PluginSignInOptions extends SignInOptions,
         PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
-        PluginConfirmSignInOptions extends ConfirmSignInOptions,
         PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
-        PluginSignOutOptions extends SignOutOptions,
         PluginSignOutResult extends SignOutResult,
-        PluginUpdatePasswordOptions extends UpdatePasswordOptions,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
-        PluginResetPasswordOptions extends ResetPasswordOptions,
         PluginResetPasswordResult extends ResetPasswordResult,
-        PluginConfirmResetPasswordOptions extends ConfirmResetPasswordOptions,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
-        PluginAuthUserOptions extends AuthUserOptions,
-        PluginFetchUserAttributeOptions extends FetchUserAttributesOptions,
-        PluginAuthSessionOptions extends AuthSessionOptions,
         PluginAuthSession extends AuthSession,
-        PluginSignInWithWebUIOptions extends SignInWithWebUIOptions,
         PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
-        PluginUpdateUserAttributeOptions extends UpdateUserAttributeOptions,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-        PluginUpdateUserAttributesOptions extends UpdateUserAttributesOptions,
-        PluginConfirmUserAttributeOptions extends ConfirmUserAttributeOptions,
         PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeOptions extends ResendUserAttributeConfirmationCodeOptions,
         PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
     extends AmplifyPluginInterface {
   @override
@@ -54,7 +37,7 @@ abstract class AuthPluginInterface<
   Future<PluginSignUpResult> signUp({
     required String username,
     required String password,
-    PluginSignUpOptions? options,
+    SignUpOptions? options,
   }) {
     throw UnimplementedError('signUp() has not been implemented');
   }
@@ -63,7 +46,7 @@ abstract class AuthPluginInterface<
   Future<PluginConfirmSignupResult> confirmSignUp({
     required String username,
     required String confirmationCode,
-    PluginConfirmSignUpOptions? options,
+    ConfirmSignUpOptions? options,
   }) {
     throw UnimplementedError('confirmSignUp() has not been implemented');
   }
@@ -71,7 +54,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.resend_sign_up_code}
   Future<PluginResendSignUpCodeResult> resendSignUpCode({
     required String username,
-    PluginResendSignUpCodeOptions? options,
+    ResendSignUpCodeOptions? options,
   }) {
     throw UnimplementedError('resendSignUpCode() has not been implemented');
   }
@@ -80,7 +63,7 @@ abstract class AuthPluginInterface<
   Future<PluginSignInResult> signIn({
     required String username,
     String? password,
-    PluginSignInOptions? options,
+    SignInOptions? options,
   }) {
     throw UnimplementedError('signIn() has not been implemented');
   }
@@ -88,14 +71,14 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_in}
   Future<PluginConfirmSignInResult> confirmSignIn({
     required String confirmationValue,
-    PluginConfirmSignInOptions? options,
+    ConfirmSignInOptions? options,
   }) {
     throw UnimplementedError('confirmSignIn() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_out}
   Future<PluginSignOutResult> signOut({
-    PluginSignOutOptions? options,
+    SignOutOptions? options,
   }) {
     throw UnimplementedError('signOut() has not been implemented');
   }
@@ -104,7 +87,7 @@ abstract class AuthPluginInterface<
   Future<PluginUpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
-    PluginUpdatePasswordOptions? options,
+    UpdatePasswordOptions? options,
   }) {
     throw UnimplementedError('updatePassword() has not been implemented.');
   }
@@ -112,7 +95,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.reset_password}
   Future<PluginResetPasswordResult> resetPassword({
     required String username,
-    PluginResetPasswordOptions? options,
+    ResetPasswordOptions? options,
   }) {
     throw UnimplementedError('resetPassword() has not been implemented.');
   }
@@ -122,7 +105,7 @@ abstract class AuthPluginInterface<
     required String username,
     required String newPassword,
     required String confirmationCode,
-    PluginConfirmResetPasswordOptions? options,
+    ConfirmResetPasswordOptions? options,
   }) {
     throw UnimplementedError(
       'confirmResetPassword() has not been implemented.',
@@ -131,21 +114,21 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.get_current_user}
   Future<PluginAuthUser> getCurrentUser({
-    PluginAuthUserOptions? options,
+    GetCurrentUserOptions? options,
   }) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_user_attributes}
   Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
-    PluginFetchUserAttributeOptions? options,
+    FetchUserAttributesOptions? options,
   }) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_auth_session}
   Future<PluginAuthSession> fetchAuthSession({
-    PluginAuthSessionOptions? options,
+    FetchAuthSessionOptions? options,
   }) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
@@ -153,7 +136,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.sign_in_with_web_ui}
   Future<PluginSignInWithWebUIResult> signInWithWebUI({
     AuthProvider? provider,
-    PluginSignInWithWebUIOptions? options,
+    SignInWithWebUIOptions? options,
   }) {
     throw UnimplementedError('signInWithWebUI() has not been implemented.');
   }
@@ -162,7 +145,7 @@ abstract class AuthPluginInterface<
   Future<PluginUpdateUserAttributeResult> updateUserAttribute({
     required PluginUserAttributeKey userAttributeKey,
     required String value,
-    PluginUpdateUserAttributeOptions? options,
+    UpdateUserAttributeOptions? options,
   }) {
     throw UnimplementedError('updateUserAttribute() has not been implemented.');
   }
@@ -171,7 +154,7 @@ abstract class AuthPluginInterface<
   Future<Map<PluginUserAttributeKey, PluginUpdateUserAttributeResult>>
       updateUserAttributes({
     required List<PluginAuthUserAttribute> attributes,
-    PluginUpdateUserAttributesOptions? options,
+    UpdateUserAttributesOptions? options,
   }) {
     throw UnimplementedError(
       'updateUserAttributes() has not been implemented.',
@@ -182,7 +165,7 @@ abstract class AuthPluginInterface<
   Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
     required PluginUserAttributeKey userAttributeKey,
     required String confirmationCode,
-    PluginConfirmUserAttributeOptions? options,
+    ConfirmUserAttributeOptions? options,
   }) {
     throw UnimplementedError(
       'confirmUserAttribute() has not been implemented.',
@@ -193,7 +176,7 @@ abstract class AuthPluginInterface<
   Future<PluginResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
     required PluginUserAttributeKey userAttributeKey,
-    PluginResendUserAttributeConfirmationCodeOptions? options,
+    ResendUserAttributeConfirmationCodeOptions? options,
   }) {
     throw UnimplementedError(
       'resendUserAttributeConfirmationCode() has not been implemented.',

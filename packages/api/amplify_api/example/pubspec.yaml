@@ -10,21 +10,23 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_api: ">=1.0.0-next.6 <1.0.0-next.7"
-  amplify_auth_cognito: ">=1.0.0-next.6 <1.0.0-next.7"
-  amplify_authenticator: ">=1.0.0-next.4+2 <1.0.0-next.5"
-  amplify_flutter: ">=1.0.0-next.6 <1.0.0-next.7"
+  amplify_api: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_auth_cognito: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_authenticator: ">=1.0.0-next.5 <1.0.0-next.6"
+  amplify_flutter: ">=1.0.0-next.7 <1.0.0-next.8"
   async: ^2.10.0
   aws_common: ">=0.4.0 <0.5.0"
 
   flutter:
     sdk: flutter
 
+# Needed to support both Flutter 3.3 + 3.7 in CI.
+# TODO(dnys1): Remove when Flutter 3.3 is no longer supported
 dependency_overrides:
   async: ^2.10.0
 
 dev_dependencies:
-  amplify_lints: 
+  amplify_lints:
     path: ../../../amplify_lints
   amplify_test:
     path: ../../../amplify_test

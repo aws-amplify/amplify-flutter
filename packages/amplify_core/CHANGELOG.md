@@ -1,3 +1,13 @@
+## 1.0.0-next.7
+
+### Breaking Changes
+- refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
+
+### Fixes
+- fix(analytics): event retry logic & max fail tries ([#2713](https://github.com/aws-amplify/amplify-flutter/pull/2713))
+- fix(auth): Always pass client metadata
+- fix(core): Refine `toJson` outputs when `createFactory = false`
+
 ## 1.0.0-next.6
 
 ### Breaking Changes

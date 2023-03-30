@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type * as lambda from "aws-lambda";
+import { CUSTOM_HEADERS } from "../common";
 
 export const handler: lambda.APIGatewayProxyHandler = async (
   event: lambda.APIGatewayProxyEvent
@@ -17,7 +18,17 @@ export const handler: lambda.APIGatewayProxyHandler = async (
     }),
     headers: {
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
       "Content-Type": "application/json",
+      ...Object.fromEntries(Object.entries(event.headers).filter(([key]) => {
+        return key.toLowerCase().startsWith('x');
+      })),
+      ...Object.fromEntries(Object.entries(event.queryStringParameters ?? {}).map(([key, value]) => {
+        return [`x-query-${key}`, value ?? ''];
+      })),
     },
+    multiValueHeaders: {
+      "Access-Control-Expose-Headers": CUSTOM_HEADERS,
+    }
   };
 };

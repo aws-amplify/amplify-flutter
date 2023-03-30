@@ -49,7 +49,7 @@ class S3UploadTask {
     required S3PrefixResolver prefixResolver,
     required String bucket,
     required String key,
-    required S3UploadDataOptions options,
+    required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
     AWSFile? localFile,
     void Function(S3TransferProgress)? onProgress,
@@ -65,7 +65,10 @@ class S3UploadTask {
         _localFile = localFile,
         _onProgress = onProgress,
         _logger = logger,
-        _transferDatabase = transferDatabase;
+        _transferDatabase = transferDatabase,
+        _s3PluginOptions =
+            options.pluginOptions as S3UploadDataPluginOptions? ??
+                const S3UploadDataPluginOptions();
 
   /// Initiates an upload task for a [S3DataPayload].
   ///
@@ -79,7 +82,7 @@ class S3UploadTask {
     required S3PrefixResolver prefixResolver,
     required String bucket,
     required String key,
-    required S3UploadDataOptions options,
+    required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
     required transfer.TransferDatabase transferDatabase,
@@ -106,7 +109,7 @@ class S3UploadTask {
     required S3PrefixResolver prefixResolver,
     required String bucket,
     required String key,
-    required S3UploadDataOptions options,
+    required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
     required AWSLogger logger,
     required transfer.TransferDatabase transferDatabase,
@@ -133,10 +136,11 @@ class S3UploadTask {
   final S3PrefixResolver _prefixResolver;
   final String _bucket;
   final String _key;
-  final S3UploadDataOptions _options;
+  final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
   final AWSLogger _logger;
   final transfer.TransferDatabase _transferDatabase;
+  final S3UploadDataPluginOptions _s3PluginOptions;
 
   S3DataPayload? _dataPayload;
   AWSFile? _localFile;
@@ -309,14 +313,14 @@ class S3UploadTask {
         ..body = body
         ..contentType = body.contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_options.metadata ?? const {});
+        ..metadata.addAll(_s3PluginOptions.metadata ?? const {});
     });
 
     try {
       _putObjectOperation = _s3Client.putObject(
         putObjectRequest,
         s3ClientConfig: _defaultS3ClientConfig.copyWith(
-          useAcceleration: _options.useAccelerateEndpoint,
+          useAcceleration: _s3PluginOptions.useAccelerateEndpoint,
         ),
       );
 
@@ -328,7 +332,7 @@ class S3UploadTask {
       await _putObjectOperation!.result;
 
       _uploadCompleter.complete(
-        _options.getProperties
+        _s3PluginOptions.getProperties
             ? S3Item.fromHeadObjectOutput(
                 await StorageS3Service.headObject(
                   s3client: _s3Client,
@@ -434,7 +438,7 @@ class S3UploadTask {
             try {
               await _completeMultipartUpload();
               _uploadCompleter.complete(
-                _options.getProperties
+                _s3PluginOptions.getProperties
                     ? S3Item.fromHeadObjectOutput(
                         await StorageS3Service.headObject(
                           s3client: _s3Client,
@@ -460,7 +464,7 @@ class S3UploadTask {
         ..bucket = _bucket
         ..contentType = contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_options.metadata ?? const {});
+        ..metadata.addAll(_s3PluginOptions.metadata ?? const {});
     });
 
     try {
@@ -625,7 +629,7 @@ class S3UploadTask {
       final operation = _s3Client.uploadPart(
         request,
         s3ClientConfig: _defaultS3ClientConfig.copyWith(
-          useAcceleration: _options.useAccelerateEndpoint,
+          useAcceleration: _s3PluginOptions.useAccelerateEndpoint,
         ),
       );
       _ongoingUploadPartHttpOperations[partNumber] =

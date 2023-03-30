@@ -24,12 +24,14 @@ void main() {
   group('Linux app uninstall & re-install', () {
     test('Previous keys are cleared when a new scope is initialized', () async {
       // initialize storage and store a value
+      // ignore: invalid_use_of_internal_member
       final storage = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
       await storage.write(key: key1, value: value1);
 
       // assert value IS NOT cleared when initializing a new instance with an existing scope
+      // ignore: invalid_use_of_internal_member
       final storage1 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
@@ -39,6 +41,7 @@ void main() {
       await uninstall();
 
       // assert value IS cleared when initializing a new scope after an app uninstall
+      // ignore: invalid_use_of_internal_member
       final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(scope: scope),
       );
@@ -48,6 +51,7 @@ void main() {
     test('Previous keys are NOT cleared on init when using an accessGroup',
         () async {
       // initialize storage and store a value
+      // ignore: invalid_use_of_internal_member
       final storage = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: scope,
@@ -62,6 +66,7 @@ void main() {
       await uninstall();
 
       // re-initialize storage
+      // ignore: invalid_use_of_internal_member
       final storage2 = AmplifySecureStorage(
         config: AmplifySecureStorageConfig(
           scope: scope,

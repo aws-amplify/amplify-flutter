@@ -1,3 +1,8 @@
+## 1.0.0-next.7
+
+### Breaking Changes
+- refactor(auth)!: Plugin options ([#2691](https://github.com/aws-amplify/amplify-flutter/pull/2691))
+
 ## 1.0.0-next.6
 
 ### Fixes

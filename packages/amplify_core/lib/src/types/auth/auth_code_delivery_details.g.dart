@@ -11,7 +11,6 @@ part of 'auth_code_delivery_details.dart';
 Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
     AuthCodeDeliveryDetails instance) {
   final val = <String, dynamic>{
-    'hashCode': instance.hashCode,
     'deliveryMedium': _$DeliveryMediumEnumMap[instance.deliveryMedium]!,
   };
 
@@ -24,7 +23,6 @@ Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
   writeNotNull('destination', instance.destination);
   writeNotNull('attributeKey', instance.attributeKey?.toJson());
   writeNotNull('attributeName', instance.attributeName);
-  val['props'] = instance.props;
   val['runtimeTypeName'] = instance.runtimeTypeName;
   return val;
 }

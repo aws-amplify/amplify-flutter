@@ -24,8 +24,8 @@ void main() {
           ..username = username
           ..password = password,
       ),
-      userAttributes: const {
-        'email': 'test@example.com',
+      userAttributes: {
+        AuthUserAttributeKey.email: 'test@example.com',
       },
       validationData: const {'key': 'value'},
     );

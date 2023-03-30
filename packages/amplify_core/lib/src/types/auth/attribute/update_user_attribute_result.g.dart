@@ -11,9 +11,7 @@ part of 'update_user_attribute_result.dart';
 Map<String, dynamic> _$UpdateUserAttributeResultToJson(
         UpdateUserAttributeResult instance) =>
     <String, dynamic>{
-      'hashCode': instance.hashCode,
       'isUpdated': instance.isUpdated,
       'nextStep': instance.nextStep.toJson(),
-      'props': instance.props,
       'runtimeTypeName': instance.runtimeTypeName,
     };

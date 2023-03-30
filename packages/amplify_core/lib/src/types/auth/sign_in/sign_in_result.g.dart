@@ -13,9 +13,7 @@ Map<String, dynamic> _$SignInResultToJson<Key extends AuthUserAttributeKey>(
   Object? Function(Key value) toJsonKey,
 ) =>
     <String, dynamic>{
-      'hashCode': instance.hashCode,
       'isSignedIn': instance.isSignedIn,
       'nextStep': instance.nextStep.toJson(),
-      'props': instance.props,
       'runtimeTypeName': instance.runtimeTypeName,
     };

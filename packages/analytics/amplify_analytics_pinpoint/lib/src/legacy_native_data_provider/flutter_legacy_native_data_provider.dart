@@ -6,7 +6,8 @@ import 'dart:io' show Platform;
 
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/data_provider.android.dart';
 import 'package:amplify_analytics_pinpoint/src/legacy_native_data_provider/data_provider.ios.dart';
-import 'package:amplify_analytics_pinpoint_dart/amplify_analytics_pinpoint_dart.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:aws_common/aws_common.dart';
 
 /// {@template amplify_analytics_pinpoint.flutter_legacy_native_data_provider}

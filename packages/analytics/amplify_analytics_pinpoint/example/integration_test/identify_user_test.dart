@@ -40,7 +40,7 @@ void main() {
         const region = 'region';
         const country = 'USA';
 
-        final location = AnalyticsUserProfileLocation(
+        const location = UserProfileLocation(
           latitude: latitude,
           longitude: longitude,
           postalCode: postalCode,
@@ -49,7 +49,7 @@ void main() {
           country: country,
         );
 
-        final properties = AnalyticsProperties()
+        final properties = CustomProperties()
           ..addBoolProperty(boolProperty.key, boolProperty.value)
           ..addDoubleProperty(doubleProperty.key, doubleProperty.value)
           ..addIntProperty(intProperty.key, intProperty.value)
@@ -62,8 +62,10 @@ void main() {
             email: email,
             plan: plan,
             location: location,
-            analyticsProperties: properties,
-            userAttributes: properties,
+            customProperties: properties,
+            userAttributes: {
+              stringProperty.key: [stringProperty.value, stringProperty.value]
+            },
           ),
         );
 
@@ -101,10 +103,10 @@ void main() {
                   (e) => e.endpoint.user?.userAttributes?.toMap() ?? const {},
                   'UserAttributes',
                   equals({
-                    boolProperty.key: [stringifiedBoolProperty.value],
-                    stringProperty.key: [stringProperty.value],
-                    intProperty.key: [intProperty.value.toString()],
-                    doubleProperty.key: [doubleProperty.value.toString()],
+                    stringProperty.key: [
+                      stringProperty.value,
+                      stringProperty.value,
+                    ],
                   }),
                 )
                 .having(

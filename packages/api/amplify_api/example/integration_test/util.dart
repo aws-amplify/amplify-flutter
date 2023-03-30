@@ -38,7 +38,7 @@ class TestUser {
     final result = await Amplify.Auth.signUp(
       username: _username,
       password: _password,
-      options: CognitoSignUpOptions(
+      options: SignUpOptions(
         userAttributes: {CognitoUserAttributeKey.email: testEmail},
       ),
     );
@@ -78,11 +78,8 @@ Future<void> configureAmplify() async {
   if (!Amplify.isConfigured) {
     await Amplify.addPlugins([
       AmplifyAuthCognito(
-        credentialStorage: AmplifySecureStorage(
-          config: AmplifySecureStorageConfig(
-            scope: 'api',
-            macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-          ),
+        secureStorageFactory: AmplifySecureStorage.factoryFrom(
+          macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
         ),
       ),
       AmplifyAPI(modelProvider: ModelProvider.instance)
