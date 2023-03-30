@@ -47,6 +47,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
     }
 
+    //    TODO(Samaritan1011001): Test handling only pinpoint intents
     override fun handleIntent(intent: Intent) {
         // If the intent is for a new token, just forward intent to Firebase SDK
         if (intent.action == PushNotificationPluginConstants.ACTION_NEW_TOKEN) {
@@ -64,6 +65,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    //    TODO(Samaritan1011001): Test FG & BG difference
     /**
      * Method to handle and forward messages received in foreground & background using isolates and event channels
      */

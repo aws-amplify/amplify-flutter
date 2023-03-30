@@ -54,7 +54,6 @@ class PinpointProvider implements ServiceProviderClient {
           ),
         );
 
-        // TODO(Samaritan1011001): Write tests for other exceptiosn that can be throw here.
         await _analyticsClient.init(
           pinpointAppId: appId,
           region: region,

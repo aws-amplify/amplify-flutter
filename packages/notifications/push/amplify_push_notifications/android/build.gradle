@@ -54,9 +54,11 @@ android {
     }
 
     testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
         unitTests.all {
             useJUnitPlatform()
-
             testLogging {
                 events "passed", "skipped", "failed", "standardOut", "standardError"
                 outputs.upToDateWhen {false}
@@ -76,4 +78,11 @@ dependencies {
     implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.5.0'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     implementation project(path: ':flutter_plugin_android_lifecycle')
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.13.4'
+    testImplementation 'org.slf4j:slf4j-nop:2.0.7'
+    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+
 }

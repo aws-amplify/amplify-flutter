@@ -34,6 +34,10 @@ data class PushNotificationsEvent(
     val event: NativeEvent, val payload: Map<Any, Any?>
 )
 
+//    TODO(Samaritan1011001): Test queueing and sending only after listening
+//    TODO(Samaritan1011001): Test sending error
+
+
 @InternalAmplifyApi
 class PushNotificationEventsStreamHandler constructor(
     private val associatedNativeEvent: NativeEvent

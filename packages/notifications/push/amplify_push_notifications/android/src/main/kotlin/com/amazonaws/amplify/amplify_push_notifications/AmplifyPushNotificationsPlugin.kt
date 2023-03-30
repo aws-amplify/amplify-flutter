@@ -169,12 +169,9 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     launchNotification = notificationHashMap.toMutableMap()
                 }
             }
-
-
             StreamHandlers.notificationOpened!!.send(
                 notificationHashMap
             )
-
         }
         return true
     }
@@ -188,6 +185,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return
     }
 
+//    TODO(Samaritan1011001): Test error and happy paths
     override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
         val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()
         val permission = PushNotificationPermission(applicationContext)
@@ -221,6 +219,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return
     }
 
+    //    TODO(Samaritan1011001): Test error and happy paths
     override fun requestPermissions(
         withPermissionOptions: PushNotificationsHostApiBindings.PermissionsOptions,
         result: PushNotificationsHostApiBindings.Result<Boolean>

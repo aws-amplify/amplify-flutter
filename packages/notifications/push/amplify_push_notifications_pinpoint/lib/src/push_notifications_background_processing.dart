@@ -20,7 +20,7 @@ const _backgroundChannel = MethodChannel(
 /// {@endtemplate}
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing({
-  AmplifySecureStorage? amplifySecureStorage,
+  @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   final amplifySecureStorage0 = amplifySecureStorage ??

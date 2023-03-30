@@ -23,12 +23,12 @@ import kotlin.random.Random
 
 private const val TAG = "PushNotificationUtils"
 
+//    TODO(Samaritan1011001): Test that the correct notification payload is formed with the desired notificationId
 @InternalAmplifyApi
 class InternalPushNotificationUtils constructor(
     private val context: Context
 ) {
     private val utils = PushNotificationsUtils(context)
-
 
     fun showNotification(
         payload: NotificationPayload
@@ -94,6 +94,7 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
+//    TODO(Samaritan1011001): Test error and happy path cases
 @InternalAmplifyApi
 fun refreshToken() {
     FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -147,10 +148,14 @@ fun NotificationPayload?.getProcessedIntent(
     return notificationIntent
 }
 
+//TODO(Samaritan1011001): Test that the right map with key fields are returned
 @InternalAmplifyApi
 fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
     val payload = PinpointNotificationPayload.fromNotificationPayload(this)
-
+    val data = mutableMapOf<Any, Any?>()
+    this.rawData.entries.forEach {
+        data.putIfAbsent(it.key, it.value)
+    }
     // Build and return final map
     return mapOf(
         "title" to payload?.title,
@@ -161,12 +166,8 @@ fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
             PushNotificationsConstants.URL to payload?.action?.get(PushNotificationsConstants.URL),
             PushNotificationsConstants.DEEPLINK to payload?.action?.get(PushNotificationsConstants.DEEPLINK),
         ),
-        "data" to rawData,
+        "data" to data,
         "fcmOptions" to mapOf(
-            // TODO(Samaritan1011001): Add these when Android shared utils provides them.
-            // "senderId" to senderId,
-            // "messageId" to messageId,
-            // "sentTime" to sendTime,
             "channelId" to payload?.channelId,
         ),
 
