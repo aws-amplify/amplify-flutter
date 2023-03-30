@@ -22,10 +22,10 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the OwnerOnly type in your schema. */
+/// This is an auto generated class representing the OwnerOnly type in your schema.
 @immutable
 class OwnerOnly extends Model {
-  static const classType = const _OwnerOnlyModelType();
+  static const classType = _OwnerOnlyModelType();
   final String id;
   final String? _name;
   final TemporalDateTime? _createdAt;
@@ -47,7 +47,7 @@ class OwnerOnly extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw new AmplifyCodeGenModelException(
+      throw AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -90,7 +90,7 @@ class OwnerOnly extends Model {
 
   @override
   String toString() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
     buffer.write("OwnerOnly {");
     buffer.write("id=" + "$id" + ", ");
@@ -191,15 +191,13 @@ class _OwnerOnlyModelType extends ModelType<OwnerOnly> {
   }
 }
 
-/**
- * This is an auto generated class representing the model identifier
- * of [OwnerOnly] in your schema.
- */
+/// This is an auto generated class representing the model identifier
+/// of [OwnerOnly] in your schema.
 @immutable
 class OwnerOnlyModelIdentifier implements ModelIdentifier<OwnerOnly> {
   final String id;
 
-  /** Create an instance of OwnerOnlyModelIdentifier using [id] the primary key. */
+  /// Create an instance of OwnerOnlyModelIdentifier using [id] the primary key.
   const OwnerOnlyModelIdentifier({required this.id});
 
   @override
