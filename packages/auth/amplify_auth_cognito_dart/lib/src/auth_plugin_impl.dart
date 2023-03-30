@@ -131,6 +131,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   /// The underlying state machine, for use in subclasses.
   @protected
+  @visibleForTesting
   CognitoAuthStateMachine get stateMachine => _stateMachine;
 
   @visibleForTesting
@@ -569,6 +570,20 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     String? password,
     SignInOptions? options,
   }) async {
+    bool isSignedIn;
+    try {
+      isSignedIn = (await fetchAuthSession()).isSignedIn;
+    } on Exception {
+      isSignedIn = false;
+    }
+    if (isSignedIn) {
+      throw const InvalidStateException(
+        'A user is already signed in.',
+        recoverySuggestion:
+            'Sign out the current user by calling `Amplify.Auth.signOut` and try the sign in again.',
+      );
+    }
+
     final pluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoSignInPluginOptions(),
