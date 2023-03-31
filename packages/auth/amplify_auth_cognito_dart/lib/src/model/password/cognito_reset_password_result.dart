@@ -2,26 +2,24 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'cognito_reset_password_result.g.dart';
 
 /// {@template amplify_auth_cognito.model.cognito_reset_password_result}
 /// The result of performing a password reset.
 /// {@endtemplate}
-@JsonSerializable(
-  includeIfNull: false,
-  explicitToJson: true,
-  // TODO(dnys1): Fix generic serialization
-  createFactory: false,
-)
+@zAmplifySerializable
 class CognitoResetPasswordResult extends ResetPasswordResult
     with AWSEquatable<CognitoResetPasswordResult>, AWSDebuggable {
-  /// {@template amplify_auth_cognito.model.cognito_reset_password_result}
+  /// {@macro amplify_auth_cognito.model.cognito_reset_password_result}
   const CognitoResetPasswordResult({
     required super.isPasswordReset,
     required super.nextStep,
   });
+
+  /// {@macro amplify_auth_cognito.model.cognito_reset_password_result}
+  factory CognitoResetPasswordResult.fromJson(Map<String, Object?> json) =>
+      _$CognitoResetPasswordResultFromJson(json);
 
   @override
   List<Object?> get props => [isPasswordReset, nextStep];

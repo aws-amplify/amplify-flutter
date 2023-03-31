@@ -52,7 +52,7 @@ import 'package:meta/meta.dart';
 class AmplifyAuthCognitoDart extends AuthPluginInterface<
         CognitoAuthUser,
         CognitoUserAttributeKey,
-        AuthUserAttribute<CognitoUserAttributeKey>,
+        AuthUserAttribute,
         CognitoDevice,
         CognitoSignUpResult,
         CognitoSignUpResult,
@@ -83,7 +83,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   static const AuthPluginKey<
       CognitoAuthUser,
       CognitoUserAttributeKey,
-      AuthUserAttribute<CognitoUserAttributeKey>,
+      AuthUserAttribute,
       CognitoDevice,
       CognitoSignUpResult,
       CognitoSignUpResult,
@@ -697,7 +697,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<List<AuthUserAttribute<CognitoUserAttributeKey>>> fetchUserAttributes({
+  Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
   }) async {
     final tokens = await stateMachine.getUserPoolTokens();
@@ -716,7 +716,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<UpdateUserAttributeResult> updateUserAttribute({
-    required CognitoUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
   }) async {
@@ -743,7 +743,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<Map<CognitoUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
-    required List<AuthUserAttribute<AuthUserAttributeKey>> attributes,
+    required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) async {
     final pluginOptions = reifyPluginOptions(
@@ -792,7 +792,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   @override
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
-    required CognitoUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
   }) async {
@@ -812,7 +812,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   @override
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    required CognitoUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
   }) async {
     final pluginOptions = reifyPluginOptions(
@@ -1123,7 +1123,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
     CognitoAuthUser,
     CognitoUserAttributeKey,
-    AuthUserAttribute<CognitoUserAttributeKey>,
+    AuthUserAttribute,
     CognitoDevice,
     CognitoSignUpResult,
     CognitoSignUpResult,

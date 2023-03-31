@@ -10,18 +10,26 @@ part 'cognito_auth_user.g.dart';
 /// A Cognito user, including details of how they signed in.
 /// {@endtemplate}
 @zAmplifySerializable
-class CognitoAuthUser extends AuthUser<CognitoSignInDetails>
-    with AWSEquatable<CognitoAuthUser>, AWSDebuggable {
+class CognitoAuthUser with AWSEquatable<CognitoAuthUser> implements AuthUser {
   /// {@macro amplify_auth_cognito_dart.cognito_auth_user}
   const CognitoAuthUser({
-    required super.username,
-    required super.userId,
-    required super.signInDetails,
+    required this.userId,
+    required this.username,
+    required this.signInDetails,
   });
 
   /// {@macro amplify_auth_cognito_dart.cognito_auth_user}
   factory CognitoAuthUser.fromJson(Map<String, Object?> json) =>
       _$CognitoAuthUserFromJson(json);
+
+  @override
+  final String userId;
+
+  @override
+  final String username;
+
+  @override
+  final CognitoSignInDetails signInDetails;
 
   @override
   List<Object?> get props => [userId, username, signInDetails];

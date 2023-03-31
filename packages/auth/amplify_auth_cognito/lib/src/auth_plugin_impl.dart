@@ -8,7 +8,6 @@ import 'dart:io';
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
-
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_impl.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
@@ -44,7 +43,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
   static const AuthPluginKey<
       CognitoAuthUser,
       CognitoUserAttributeKey,
-      AuthUserAttribute<CognitoUserAttributeKey>,
+      AuthUserAttribute,
       CognitoDevice,
       CognitoSignUpResult,
       CognitoSignUpResult,
@@ -244,7 +243,7 @@ class _NativeAmplifyAuthCognito
 class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
     CognitoAuthUser,
     CognitoUserAttributeKey,
-    AuthUserAttribute<CognitoUserAttributeKey>,
+    AuthUserAttribute,
     CognitoDevice,
     CognitoSignUpResult,
     CognitoSignUpResult,

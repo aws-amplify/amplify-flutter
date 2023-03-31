@@ -12,19 +12,19 @@ import 'package:meta/meta.dart';
 abstract class AuthPluginInterface<
         PluginAuthUser extends AuthUser,
         PluginUserAttributeKey extends AuthUserAttributeKey,
-        PluginAuthUserAttribute extends AuthUserAttribute<PluginUserAttributeKey>,
+        PluginAuthUserAttribute extends AuthUserAttribute,
         PluginAuthDevice extends AuthDevice,
         PluginSignUpResult extends SignUpResult,
         PluginConfirmSignupResult extends SignUpResult,
         PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-        PluginSignInResult extends SignInResult<PluginUserAttributeKey>,
-        PluginConfirmSignInResult extends SignInResult<PluginUserAttributeKey>,
+        PluginSignInResult extends SignInResult,
+        PluginConfirmSignInResult extends SignInResult,
         PluginSignOutResult extends SignOutResult,
         PluginUpdatePasswordResult extends UpdatePasswordResult,
         PluginResetPasswordResult extends ResetPasswordResult,
         PluginConfirmResetPasswordResult extends ResetPasswordResult,
         PluginAuthSession extends AuthSession,
-        PluginSignInWithWebUIResult extends SignInResult<PluginUserAttributeKey>,
+        PluginSignInWithWebUIResult extends SignInResult,
         PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
         PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
         PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
@@ -143,7 +143,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attribute}
   Future<PluginUpdateUserAttributeResult> updateUserAttribute({
-    required PluginUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
   }) {
@@ -153,7 +153,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.update_user_attributes}
   Future<Map<PluginUserAttributeKey, PluginUpdateUserAttributeResult>>
       updateUserAttributes({
-    required List<PluginAuthUserAttribute> attributes,
+    required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) {
     throw UnimplementedError(
@@ -163,7 +163,7 @@ abstract class AuthPluginInterface<
 
   /// {@macro amplify_core.amplify_auth_category.confirm_user_attribute}
   Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
-    required PluginUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
   }) {
@@ -175,7 +175,7 @@ abstract class AuthPluginInterface<
   /// {@macro amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
   Future<PluginResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
-    required PluginUserAttributeKey userAttributeKey,
+    required AuthUserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
   }) {
     throw UnimplementedError(

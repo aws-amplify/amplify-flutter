@@ -2,21 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'sign_in_result.g.dart';
 
-@JsonSerializable(
-  includeIfNull: false,
-  explicitToJson: true,
-  genericArgumentFactories: true,
-  // TODO(dnys1): Fix generic serialization
-  createFactory: false,
-)
-class SignInResult<Key extends AuthUserAttributeKey>
+@zAmplifySerializable
+class SignInResult
     with
-        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
-        AWSEquatable<SignInResult<Key>>,
+        AWSEquatable<SignInResult>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   const SignInResult({
@@ -24,21 +16,18 @@ class SignInResult<Key extends AuthUserAttributeKey>
     required this.nextStep,
   });
 
+  factory SignInResult.fromJson(Map<String, Object?> json) =>
+      _$SignInResultFromJson(json);
+
   final bool isSignedIn;
-  final AuthNextSignInStep<Key> nextStep;
+  final AuthNextSignInStep nextStep;
 
   @override
-  @JsonKey(
-    includeToJson: false,
-  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [isSignedIn, nextStep];
 
   @override
   String get runtimeTypeName => 'SignInResult';
 
   @override
-  Map<String, Object?> toJson() => _$SignInResultToJson(
-        this,
-        (Key key) => key.toJson(),
-      );
+  Map<String, Object?> toJson() => _$SignInResultToJson(this);
 }

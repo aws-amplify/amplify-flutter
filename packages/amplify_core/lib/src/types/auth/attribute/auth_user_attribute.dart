@@ -8,11 +8,10 @@ part 'auth_user_attribute.g.dart';
 /// {@template amplify_core.auth.auth_user_attribute}
 /// The key and value for a user attribute.
 /// {@endtemplate}
-@zAmplifyGenericSerializable
-class AuthUserAttribute<Key extends AuthUserAttributeKey>
+@zAmplifySerializable
+class AuthUserAttribute
     with
-        // TODO(dnys1): https://github.com/dart-lang/sdk/issues/49484
-        AWSEquatable<AuthUserAttribute<Key>>,
+        AWSEquatable<AuthUserAttribute>,
         AWSSerializable<Map<String, Object?>>,
         AWSDebuggable {
   /// {@macro amplify_core.auth.auth_user_attribute}
@@ -22,16 +21,10 @@ class AuthUserAttribute<Key extends AuthUserAttributeKey>
   });
 
   /// {@macro amplify_core.auth.auth_user_attribute}
-  factory AuthUserAttribute.fromJson(
-    Map<String, Object?> json,
-    Key Function(Object?) fromJsonKey,
-  ) =>
-      _$AuthUserAttributeFromJson(
-        json,
-        (key) => fromJsonKey(key as String),
-      );
+  factory AuthUserAttribute.fromJson(Map<String, Object?> json) =>
+      _$AuthUserAttributeFromJson(json);
 
-  final Key userAttributeKey;
+  final AuthUserAttributeKey userAttributeKey;
   final String value;
 
   @override
@@ -44,8 +37,5 @@ class AuthUserAttribute<Key extends AuthUserAttributeKey>
   String get runtimeTypeName => 'AuthUserAttribute';
 
   @override
-  Map<String, Object?> toJson() => _$AuthUserAttributeToJson(
-        this,
-        (Key key) => key.toJson(),
-      );
+  Map<String, Object?> toJson() => _$AuthUserAttributeToJson(this);
 }

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 @Deprecated('Use AuthUserAttributeKey instead')
@@ -15,7 +16,11 @@ abstract class AuthUserAttributeKey
     with AWSSerializable<String>
     implements Comparable<AuthUserAttributeKey> {
   /// {@macro amplify_core.auth_user_attribute_key}
-  const AuthUserAttributeKey();
+  const factory AuthUserAttributeKey(String key) = _AuthUserAttributeKey;
+
+  /// {@macro amplify_core.auth_user_attribute_key}
+  @protected
+  const AuthUserAttributeKey.base();
 
   /// The JSON key for this attribute.
   String get key;
@@ -154,8 +159,19 @@ abstract class AuthUserAttributeKey
 }
 
 class _AuthUserAttributeKey extends AuthUserAttributeKey {
-  const _AuthUserAttributeKey(this.key);
+  const _AuthUserAttributeKey(this.key) : super.base();
 
   @override
   final String key;
+}
+
+class AuthUserAttributeKeyConverter
+    implements JsonConverter<AuthUserAttributeKey, String> {
+  const AuthUserAttributeKeyConverter();
+
+  @override
+  AuthUserAttributeKey fromJson(String json) => AuthUserAttributeKey(json);
+
+  @override
+  String toJson(AuthUserAttributeKey object) => object.toJson();
 }
