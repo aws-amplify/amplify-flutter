@@ -13,14 +13,14 @@ class CognitoPinpointAnalyticsConfig
     required this.region,
   });
 
+  factory CognitoPinpointAnalyticsConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoPinpointAnalyticsConfigFromJson(json);
+
   final String appId;
   final String region;
 
   @override
   List<Object?> get props => [appId, region];
-
-  factory CognitoPinpointAnalyticsConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoPinpointAnalyticsConfigFromJson(json);
 
   CognitoPinpointAnalyticsConfig copyWith({
     String? appId,

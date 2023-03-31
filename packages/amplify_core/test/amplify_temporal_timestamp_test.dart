@@ -10,10 +10,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('compareTo compares two TemporalTimestamp objects', () {
-    var value1 = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 00));
-    var value1Copy = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 00));
-    var value2 = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 05));
-    var value3 = TemporalTimestamp(DateTime(2020, 01, 01, 11, 30, 00));
+    final value1 = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 00));
+    final value1Copy = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 00));
+    final value2 = TemporalTimestamp(DateTime(2020, 01, 01, 10, 30, 05));
+    final value3 = TemporalTimestamp(DateTime(2020, 01, 01, 11, 30, 00));
 
     expect(value1.compareTo(value1Copy), 0);
     expect(value1.compareTo(value2), -1);

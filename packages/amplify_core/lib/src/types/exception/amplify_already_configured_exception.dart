@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'amplify_exception.dart';
+import 'package:amplify_core/src/types/exception/amplify_exception.dart';
 
 /// Thrown when amplify has already been configured.
 /// Amplify can only be configured once at run time.

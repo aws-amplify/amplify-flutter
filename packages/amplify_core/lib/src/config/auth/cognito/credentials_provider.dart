@@ -9,8 +9,8 @@ typedef CognitoIdentityPoolConfig = CognitoIdentityCredentialsProvider;
 
 class CredentialsProviders extends AWSConfigMap {
   const CredentialsProviders(
-    Map<String, AWSSerializable> providers,
-  ) : super(providers);
+    super.providers,
+  );
 
   factory CredentialsProviders.fromJson(Map<String, Object?> json) {
     final providers = json.map((key, value) {
@@ -46,23 +46,22 @@ class CredentialsProviders extends AWSConfigMap {
 @zAwsSerializable
 class CognitoIdentityCredentialsProvider
     with AWSEquatable<CognitoIdentityCredentialsProvider>, AWSSerializable {
-  static const configKey = 'CognitoIdentity';
-
-  final String poolId;
-  final String region;
-
   const CognitoIdentityCredentialsProvider({
     required this.poolId,
     required this.region,
   });
 
-  @override
-  List<Object> get props => [poolId, region];
-
   factory CognitoIdentityCredentialsProvider.fromJson(
     Map<String, Object?> json,
   ) =>
       _$CognitoIdentityCredentialsProviderFromJson(json);
+  static const configKey = 'CognitoIdentity';
+
+  final String poolId;
+  final String region;
+
+  @override
+  List<Object> get props => [poolId, region];
 
   CognitoIdentityCredentialsProvider copyWith({
     String? poolId,

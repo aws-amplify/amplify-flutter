@@ -3,8 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/types/storage/base/storage_controllable_operation.dart';
-
-import 'base/storage_operation.dart';
+import 'package:amplify_core/src/types/storage/base/storage_operation.dart';
 
 /// {@template amplify_core.storage.download_file_operation}
 /// A storage download data operation interface.

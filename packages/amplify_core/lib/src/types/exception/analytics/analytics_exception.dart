@@ -34,6 +34,7 @@ abstract class AnalyticsException extends AmplifyException {
     }
     String message;
     try {
+      // ignore: avoid_dynamic_calls
       message = (e as dynamic).message as String;
     } on Object {
       message = _unknownMessage;

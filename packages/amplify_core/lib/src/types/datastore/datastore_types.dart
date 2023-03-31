@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 export 'package:amplify_core/src/types/models/auth_rule.dart';
 export 'package:amplify_core/src/types/models/model.dart';
 export 'package:amplify_core/src/types/models/model_field.dart';

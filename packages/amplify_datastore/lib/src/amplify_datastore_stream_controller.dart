@@ -28,8 +28,12 @@ StreamController<DataStoreHubEvent> _controller =
 
 _onListen() {
   if (eventStream == null) {
-    eventStream = channel.receiveBroadcastStream(1).listen((event) {
-      final eventName = event['eventName'];
+    eventStream = channel
+        .receiveBroadcastStream(1)
+        .cast<Map<Object?, Object?>>()
+        .listen((event) {
+      final map = event.cast<String, Object?>();
+      final eventName = map['eventName'] as String;
       switch (eventName) {
         case 'ready':
           {
@@ -38,7 +42,7 @@ _onListen() {
           break;
         case 'networkStatus':
           {
-            _rebroadcast(eventName, payload: NetworkStatusEvent(event));
+            _rebroadcast(eventName, payload: NetworkStatusEvent(map));
           }
           break;
         case 'subscriptionsEstablished':
@@ -48,12 +52,12 @@ _onListen() {
           break;
         case 'syncQueriesStarted':
           {
-            _rebroadcast(eventName, payload: SyncQueriesStartedEvent(event));
+            _rebroadcast(eventName, payload: SyncQueriesStartedEvent(map));
           }
           break;
         case 'modelSynced':
           {
-            _rebroadcast(eventName, payload: ModelSyncedEvent(event));
+            _rebroadcast(eventName, payload: ModelSyncedEvent(map));
           }
           break;
         case 'syncQueriesReady':
@@ -64,18 +68,18 @@ _onListen() {
         case 'outboxMutationEnqueued':
           {
             _rebroadcast(eventName,
-                payload: OutboxMutationEvent(event, modelProvider, eventName));
+                payload: OutboxMutationEvent(map, modelProvider, eventName));
           }
           break;
         case 'outboxMutationProcessed':
           {
             _rebroadcast(eventName,
-                payload: OutboxMutationEvent(event, modelProvider, eventName));
+                payload: OutboxMutationEvent(map, modelProvider, eventName));
           }
           break;
         case 'outboxStatus':
           {
-            _rebroadcast(eventName, payload: OutboxStatusEvent(event));
+            _rebroadcast(eventName, payload: OutboxStatusEvent(map));
           }
           break;
         // event name in amplify-android
@@ -86,7 +90,7 @@ _onListen() {
             _rebroadcast(
               'subscriptionDataProcessed',
               payload: SubscriptionDataProcessedEvent(
-                event,
+                map,
                 modelProvider,
               ),
             );

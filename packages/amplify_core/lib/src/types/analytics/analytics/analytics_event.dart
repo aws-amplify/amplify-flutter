@@ -4,9 +4,8 @@
 import 'package:amplify_core/src/types/analytics/analytics/custom_properties.dart';
 
 class AnalyticsEvent {
-  final String name;
-
-  final CustomProperties customProperties = CustomProperties();
-
   AnalyticsEvent(this.name);
+
+  final String name;
+  final CustomProperties customProperties = CustomProperties();
 }

@@ -118,7 +118,10 @@ void main() {
       final getIntPlugin = category.getPlugin(const IntMockPluginKey());
       final getStringPlugin = category.getPlugin(const StringMockPluginKey());
 
+      // Assert the static type of the values as well as the runtime type.
+      // ignore: omit_local_variable_types
       final int intValue = getIntPlugin.getValue();
+      // ignore: omit_local_variable_types
       final String stringValue = getStringPlugin.getValue();
 
       expect(intValue, 42);

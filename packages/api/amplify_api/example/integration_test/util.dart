@@ -18,6 +18,7 @@ TestUser? testUser;
 // Keep track of what is created here so it can be deleted.
 final blogCache = <Blog>[];
 final postCache = <Post>[];
+final ownerOnlyCache = <OwnerOnly>[];
 final cpkParentCache = <CpkOneToOneBidirectionalParentCD>[];
 final cpkExplicitChildCache = <CpkOneToOneBidirectionalChildExplicitCD>[];
 final cpkImplicitChildCache = <CpkOneToOneBidirectionalChildImplicitCD>[];
@@ -164,6 +165,20 @@ Future<CpkOneToOneBidirectionalParentCD> addCpkParent(String name) async {
   return cpkParent;
 }
 
+// declare utility which creates OwnerOnly model with name as parameter
+Future<OwnerOnly> addOwnerOnly(String name) async {
+  final request = ModelMutations.create(
+    OwnerOnly(name: name),
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+
+  final response = await Amplify.API.mutate(request: request).response;
+  expect(response, hasNoGraphQLErrors);
+  final ownerOnly = response.data!;
+  ownerOnlyCache.add(ownerOnly);
+  return ownerOnly;
+}
+
 /// Run a mutation on [Blog] with a partial selection set.
 ///
 /// This is used to trigger an error on subscriptions listening for the
@@ -270,11 +285,24 @@ Future<CpkOneToOneBidirectionalChildImplicitCD?> deleteCpkImplicitChild(
   return res.data;
 }
 
+Future<OwnerOnly?> deleteOwnerOnly(OwnerOnly model) async {
+  final request = ModelMutations.deleteById(
+    OwnerOnly.classType,
+    model.modelIdentifier,
+    authorizationMode: APIAuthorizationType.userPools,
+  );
+  final res = await Amplify.API.mutate(request: request).response;
+  expect(res, hasNoGraphQLErrors);
+  ownerOnlyCache.removeWhere((modelFromCache) => modelFromCache.id == model.id);
+  return res.data;
+}
+
 Future<void> deleteTestModels() async {
   await Future.wait(blogCache.map(deleteBlog));
   await Future.wait(postCache.map(deletePost));
   await Future.wait(cpkExplicitChildCache.map(deleteCpkExplicitChild));
   await Future.wait(cpkImplicitChildCache.map(deleteCpkImplicitChild));
+  await Future.wait(ownerOnlyCache.map(deleteOwnerOnly));
 }
 
 /// Wait for subscription established for given request.

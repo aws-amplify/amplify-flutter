@@ -14,6 +14,9 @@ class HttpStatusException extends ApiException {
   /// {@macro rest_exception}
   HttpStatusException(this.response) : super(response.decodeBody());
 
+  /// The HTTP response from the server.
+  final AWSHttpResponse response;
+
   @override
   String toString() {
     return 'HttpStatusException{response=$response}';

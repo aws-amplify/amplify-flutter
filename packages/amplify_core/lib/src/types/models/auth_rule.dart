@@ -16,6 +16,17 @@ enum AuthRuleProvider { APIKEY, OIDC, IAM, USERPOOLS, FUNCTION }
 
 @immutable
 class AuthRule {
+  const AuthRule({
+    required this.authStrategy,
+    this.ownerField,
+    this.identityClaim,
+    this.groupClaim,
+    this.groups,
+    this.groupsField,
+    this.provider,
+    this.operations,
+  });
+
   final AuthStrategy authStrategy;
   final String? ownerField;
   final String? identityClaim;
@@ -24,16 +35,6 @@ class AuthRule {
   final String? groupsField;
   final AuthRuleProvider? provider;
   final List<ModelOperation>? operations;
-
-  const AuthRule(
-      {required this.authStrategy,
-      this.ownerField,
-      this.identityClaim,
-      this.groupClaim,
-      this.groups,
-      this.groupsField,
-      this.provider,
-      this.operations});
 
   AuthRule copyWith({
     AuthStrategy? authStrategy,

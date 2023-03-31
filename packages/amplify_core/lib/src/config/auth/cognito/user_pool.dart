@@ -8,13 +8,6 @@ part 'user_pool.g.dart';
 @zAwsSerializable
 class CognitoUserPoolConfig
     with AWSEquatable<CognitoUserPoolConfig>, AWSSerializable {
-  final String poolId;
-  final String appClientId;
-  final String? appClientSecret;
-  final String region;
-  final CognitoOAuthConfig? hostedUI;
-  final String? endpoint;
-
   const CognitoUserPoolConfig({
     required this.poolId,
     required this.appClientId,
@@ -23,6 +16,15 @@ class CognitoUserPoolConfig
     this.hostedUI,
     this.endpoint,
   });
+
+  factory CognitoUserPoolConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoUserPoolConfigFromJson(json);
+  final String poolId;
+  final String appClientId;
+  final String? appClientSecret;
+  final String region;
+  final CognitoOAuthConfig? hostedUI;
+  final String? endpoint;
 
   @override
   List<Object?> get props => [
@@ -33,9 +35,6 @@ class CognitoUserPoolConfig
         hostedUI,
         endpoint,
       ];
-
-  factory CognitoUserPoolConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoUserPoolConfigFromJson(json);
 
   CognitoUserPoolConfig copyWith({
     String? poolId,

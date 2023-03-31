@@ -46,9 +46,11 @@ enum APIAuthorizationType<T extends AmplifyAuthProvider> {
   /// See also:
   /// - [Amazon Cognito User Pools](https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#amazon-cognito-user-pools-authorization)
   @JsonValue('AMAZON_COGNITO_USER_POOLS')
-  userPools(AmplifyAuthProviderToken<TokenIdentityAmplifyAuthProvider>(
-    'AMAZON_COGNITO_USER_POOLS',
-  )),
+  userPools(
+    AmplifyAuthProviderToken<TokenIdentityAmplifyAuthProvider>(
+      'AMAZON_COGNITO_USER_POOLS',
+    ),
+  ),
 
   /// Control access by calling a lambda function.
   ///
@@ -68,6 +70,6 @@ extension APIAuthorizationTypeX on APIAuthorizationType {
       APIAuthorizationType.values
           .firstWhereOrNull((el) => el.rawValue == value);
 
-  /// Returns the underlying [String] backing [this].
+  /// Returns the underlying [String] backing `this`.
   String get rawValue => _$APIAuthorizationTypeEnumMap[this]!;
 }

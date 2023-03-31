@@ -1,37 +1,40 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_core/src/types/models/model_schema.dart';
+import 'package:amplify_core/src/types/models/model_schema_definition.dart';
 import 'package:meta/meta.dart';
 
-import 'model_schema.dart';
-import 'model_schema_definition.dart';
-
 abstract class Model {
+  const Model();
+
   ModelType getInstanceType() {
     throw UnimplementedError(
-        'getInstanceType() has not been implemented on Model.');
+      'getInstanceType() has not been implemented on Model.',
+    );
   }
 
   @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+    '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.',
+  )
   String getId() {
     throw UnimplementedError('getId() has not been implemented on Model.');
   }
 
   ModelIdentifier get modelIdentifier {
     throw UnimplementedError(
-        'modelIdentifier has not been implemented on Model.');
+      'modelIdentifier has not been implemented on Model.',
+    );
   }
 
   Map<String, Object?> toJson() {
     throw UnimplementedError('toJson() has not been implemented on Model.');
   }
 
-  const Model();
-
-  static ModelSchema defineSchema(
-      {required void Function(ModelSchemaDefinition) define}) {
-    var definition = ModelSchemaDefinition();
+  static ModelSchema defineSchema({
+    required void Function(ModelSchemaDefinition) define,
+  }) {
+    final definition = ModelSchemaDefinition();
 
     define(definition);
 

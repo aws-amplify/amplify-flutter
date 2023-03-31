@@ -27,6 +27,9 @@ class CognitoOAuthConfig
     this.tokenUriQueryParameters,
   });
 
+  factory CognitoOAuthConfig.fromJson(Map<String, Object?> json) =>
+      _$CognitoOAuthConfigFromJson(json);
+
   /// The FQDN of your Cognito endpoint, e.g. https://mydomain.region.auth.amazoncognito.com.
   final String webDomain;
 
@@ -78,9 +81,6 @@ class CognitoOAuthConfig
         tokenUriQueryParameters,
         scopes,
       ];
-
-  factory CognitoOAuthConfig.fromJson(Map<String, Object?> json) =>
-      _$CognitoOAuthConfigFromJson(json);
 
   CognitoOAuthConfig copyWith({
     String? webDomain,

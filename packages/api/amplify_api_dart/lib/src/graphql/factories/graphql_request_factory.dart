@@ -96,7 +96,14 @@ class GraphQLRequestFactory {
       }
     }
 
-    final fieldSelection = fields.join(' '); // e.g. "id name createdAt"
+    // Get owner fields if present in auth rules
+    final ownerFields = (schema.authRules ?? [])
+        .map((authRule) => authRule.ownerField)
+        .whereNotNull()
+        .toList();
+
+    final fieldSelection =
+        [...fields, ...ownerFields].join(' '); // e.g. "id name createdAt"
 
     if (operation == GraphQLRequestOperation.list) {
       return '$items { $fieldSelection } nextToken';

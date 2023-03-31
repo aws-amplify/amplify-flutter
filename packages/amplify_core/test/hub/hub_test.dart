@@ -26,7 +26,7 @@ void main() {
       test('single channel, single subscription', () {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
-        final Completer<AuthHubEvent> subscriber = Completer();
+        final subscriber = Completer<AuthHubEvent>();
         Amplify.Hub.listen(HubChannel.Auth, subscriber.complete);
 
         expect(
@@ -39,7 +39,7 @@ void main() {
       });
 
       test('can listen before channel registered', () {
-        final Completer<AuthHubEvent> subscriber = Completer();
+        final subscriber = Completer<AuthHubEvent>();
         expect(
           () => Amplify.Hub.listen(HubChannel.Auth, subscriber.complete),
           returnsNormally,
@@ -61,10 +61,10 @@ void main() {
       test('single channel, multiple subscriptions', () {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
-        final Completer<AuthHubEvent> subscriber1 = Completer();
+        final subscriber1 = Completer<AuthHubEvent>();
         Amplify.Hub.listen(HubChannel.Auth, subscriber1.complete);
 
-        final Completer<AuthHubEvent> subscriber2 = Completer();
+        final subscriber2 = Completer<AuthHubEvent>();
         Amplify.Hub.listen(HubChannel.Auth, subscriber2.complete);
 
         expect(
@@ -86,7 +86,7 @@ void main() {
         Amplify.Hub.addChannel(HubChannel.Auth, additionalController.stream);
 
         var events = 0;
-        final Completer<void> subscriber = Completer();
+        final subscriber = Completer<void>();
         Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
           if (++events == 2) {
             subscriber.complete();
@@ -108,7 +108,7 @@ void main() {
         Amplify.Hub.addChannel(HubChannel.Auth, additionalController.stream);
 
         var subscriber1Events = 0;
-        final Completer<void> subscriber1 = Completer();
+        final subscriber1 = Completer<void>();
         Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
           if (++subscriber1Events == 2) {
             subscriber1.complete();
@@ -116,7 +116,7 @@ void main() {
         });
 
         var subscriber2Events = 0;
-        final Completer<void> subscriber2 = Completer();
+        final subscriber2 = Completer<void>();
         Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
           if (++subscriber2Events == 2) {
             subscriber2.complete();
@@ -141,7 +141,7 @@ void main() {
       test('single subscriber error', () {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
-        final Completer<void> finished = Completer();
+        final finished = Completer<void>();
         Amplify.Hub.listen(
           HubChannel.Auth,
           (_) {},
@@ -160,14 +160,14 @@ void main() {
       test('multiple subscriber error', () {
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);
 
-        final Completer<void> finished1 = Completer();
+        final finished1 = Completer<void>();
         Amplify.Hub.listen(
           HubChannel.Auth,
           (_) {},
           onError: finished1.complete,
         );
 
-        final Completer<void> finished2 = Completer();
+        final finished2 = Completer<void>();
         Amplify.Hub.listen(
           HubChannel.Auth,
           (_) {},
@@ -194,7 +194,7 @@ void main() {
         final stream = Amplify.Hub.availableStreams[HubChannel.Auth];
         expect(stream, isNotNull);
 
-        final Completer<void> gotEvent = Completer();
+        final gotEvent = Completer<void>();
         stream!.listen((_) => gotEvent.complete());
 
         Amplify.Hub.addChannel(HubChannel.Auth, controller.stream);

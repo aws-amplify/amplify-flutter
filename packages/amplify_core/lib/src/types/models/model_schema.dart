@@ -1,25 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library model_schema;
-
 import 'dart:convert';
 
+import 'package:amplify_core/src/types/models/auth_rule.dart';
+import 'package:amplify_core/src/types/models/model_field.dart';
+import 'package:amplify_core/src/types/models/model_index.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
-import 'auth_rule.dart';
-import 'model_field.dart';
-import 'model_index.dart';
-
 @immutable
 class ModelSchema with AWSEquatable<ModelSchema> {
-  final String name;
-  final String? pluralName;
-  final List<AuthRule>? authRules;
-  final Map<String, ModelField>? fields;
-  final List<ModelIndex>? indexes;
-
   const ModelSchema({
     required this.name,
     this.pluralName,
@@ -27,6 +18,12 @@ class ModelSchema with AWSEquatable<ModelSchema> {
     this.fields,
     this.indexes,
   });
+
+  final String name;
+  final String? pluralName;
+  final List<AuthRule>? authRules;
+  final Map<String, ModelField>? fields;
+  final List<ModelIndex>? indexes;
 
   ModelSchema copyWith({
     String? name,

@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'amplify_plugin_config.dart';
-import 'analytics/pinpoint_config.dart';
-import 'api/aws_api_config.dart';
-import 'auth/cognito_config.dart';
-import 'storage/s3_config.dart';
+import 'package:amplify_core/src/config/amplify_plugin_config.dart';
+import 'package:amplify_core/src/config/analytics/pinpoint_config.dart';
+import 'package:amplify_core/src/config/api/aws_api_config.dart';
+import 'package:amplify_core/src/config/auth/cognito_config.dart';
+import 'package:amplify_core/src/config/storage/s3_config.dart';
 
 /// Default plugins known to Amplify. Users can register additional plugins
 /// through the [AmplifyPluginRegistry] interface.
