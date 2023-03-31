@@ -24,11 +24,12 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
   String get className => shape.dartName;
 
   @override
-  Library generate() {
-    if (httpTrait != null) {
-      builder.body.add(_operationClass);
-    }
+  HttpTrait get httpTrait =>
+      super.httpTrait ?? const HttpTrait(method: 'POST', uri: '/');
 
+  @override
+  Library generate() {
+    builder.body.add(_operationClass);
     return builder.build();
   }
 
@@ -89,10 +90,10 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
 
     yield builder
         .property('method')
-        .assign(literalString(httpTrait!.method))
+        .assign(literalString(httpTrait.method))
         .statement;
 
-    final uri = httpTrait!.uri;
+    final uri = httpTrait.uri;
     // S3 requires special treatment of the path
     // https://awslabs.github.io/smithy/1.0/spec/aws/customizations/s3-customizations.html
     final isS3 = context.service?.resolvedService?.sdkId == 'S3';
@@ -359,7 +360,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
     );
 
     // The `successCode` method
-    var successCode = literalNum(httpTrait!.code);
+    var successCode = literalNum(httpTrait.code);
     final responseCodeMember = httpOutputTraits.httpResponseCode;
     if (responseCodeMember != null) {
       successCode = refer('output')

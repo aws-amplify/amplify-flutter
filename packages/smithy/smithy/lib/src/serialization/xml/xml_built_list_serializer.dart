@@ -12,14 +12,17 @@ class XmlBuiltListSerializer implements StructuredSerializer<BuiltList> {
     this.memberName = 'member',
     this.memberNamespace,
     this.flattened = false,
-  });
+    XmlIndexer? indexer,
+  }) : indexer = indexer ?? XmlIndexer.none;
 
   final String memberName;
   final XmlNamespace? memberNamespace;
   final bool flattened;
+  final XmlIndexer indexer;
 
   @override
-  Iterable<Type> get types => [BuiltList, BuiltList<Object>().runtimeType];
+  Iterable<Type> get types => [BuiltList, BuiltList<dynamic>().runtimeType];
+
   @override
   final String wireName = 'list';
 
@@ -34,13 +37,17 @@ class XmlBuiltListSerializer implements StructuredSerializer<BuiltList> {
         ? FullType.unspecified
         : specifiedType.parameters[0];
 
-    return builtList.expand((Object? item) {
+    return builtList.expandIndexed((index, Object? item) {
       Object? value = serializers.serialize(item, specifiedType: elementType);
       // Nested structures are always unwrapped.
       if (value is XmlElement) {
         value = value.children;
       }
-      return [XmlElementName(memberName, memberNamespace), value];
+      final elementName = indexer.elementName(memberName, index);
+      return [
+        XmlElementName(elementName, memberNamespace),
+        value,
+      ];
     });
   }
 

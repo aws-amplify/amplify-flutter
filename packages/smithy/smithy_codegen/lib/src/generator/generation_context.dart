@@ -21,10 +21,7 @@ mixin NamedMembersGenerationContext<S extends NamedMembersShape, U>
   Iterable<MemberShape> get members => shape.members.values;
 
   /// Members sorted by their re-cased Dart name.
-  late final List<MemberShape> sortedMembers = members.toList()
-    ..sort((a, b) {
-      return a.dartName(shape.getType()).compareTo(b.dartName(shape.getType()));
-    });
+  late final List<MemberShape> sortedMembers = members.toList();
 
   /// Member shapes and their [Reference] types.
   late final Map<MemberShape, Reference> memberSymbols = {

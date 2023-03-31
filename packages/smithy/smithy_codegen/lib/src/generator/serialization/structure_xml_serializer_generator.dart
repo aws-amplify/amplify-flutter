@@ -12,11 +12,11 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 import 'package:smithy_codegen/src/util/trait_ext.dart';
 
 /// Generates a serializer class for [shape] and [protocol].
-class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
-  StructureRestXmlSerializerGenerator(
+class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
+  StructureXmlSerializerGenerator(
     StructureShape shape,
     CodegenContext context,
-    RestXmlTrait protocol, {
+    ProtocolDefinitionTrait protocol, {
     SerializerConfig? config,
   }) : super(shape, context, protocol, config: config);
 
@@ -101,6 +101,8 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
         if (memberName != null) 'memberName': literalString(memberName),
         if (memberNamespace != null)
           'memberNamespace': memberNamespace.constructedInstance,
+        if (protocol is AwsQueryTrait)
+          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList'),
       });
     } else if (targetShape is SetShape) {
       memberName ??= targetShape.member.getTrait<XmlNameTrait>()?.value;
@@ -109,6 +111,8 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
         if (memberName != null) 'memberName': literalString(memberName),
         if (memberNamespace != null)
           'memberNamespace': memberNamespace.constructedInstance,
+        if (protocol is AwsQueryTrait)
+          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList'),
       });
     } else {
       targetShape as MapShape;
@@ -116,11 +120,26 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
           targetShape.key.traits.getTrait<XmlNameTrait>()?.value;
       final String? valueName =
           targetShape.value.traits.getTrait<XmlNameTrait>()?.value;
-      ctor = DartTypes.smithy.xmlBuiltMapSerializer.constInstance([], {
-        if (keyName != null) 'keyName': literalString(keyName),
-        if (valueName != null) 'valueName': literalString(valueName),
-        if (isFlattened) 'flattenedKey': literalString(memberWireName(member)),
-      });
+      final valueShape = context.shapeFor(targetShape.value.target);
+      if (valueShape is ListShape) {
+        ctor = DartTypes.smithy.xmlBuiltMultimapSerializer.constInstance([], {
+          if (keyName != null) 'keyName': literalString(keyName),
+          if (valueName != null) 'valueName': literalString(valueName),
+          if (isFlattened)
+            'flattenedKey': literalString(memberWireName(member)),
+          if (protocol is AwsQueryTrait)
+            'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryMap'),
+        });
+      } else {
+        ctor = DartTypes.smithy.xmlBuiltMapSerializer.constInstance([], {
+          if (keyName != null) 'keyName': literalString(keyName),
+          if (valueName != null) 'valueName': literalString(valueName),
+          if (isFlattened)
+            'flattenedKey': literalString(memberWireName(member)),
+          if (protocol is AwsQueryTrait)
+            'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryMap'),
+        });
+      }
     }
     return ctor;
   }
@@ -186,11 +205,14 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
 
     // Create a result object to store serialized members.
     final namespace = this.namespace;
+    final payloadResponseName = protocol is AwsQueryTrait
+        ? '${payloadWireName}Response'
+        : payloadWireName;
     builder.addExpression(
       declareFinal('result').assign(
         literalList([
           DartTypes.smithy.xmlElementName.constInstance([
-            literalString(payloadWireName),
+            literalString(payloadResponseName),
             if (namespace != null) namespace.constructedInstance
           ])
         ], DartTypes.core.object.boxed),
@@ -297,11 +319,14 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
     if (targetType == ShapeType.list ||
         targetType == ShapeType.set ||
         targetType == ShapeType.map) {
+      final iterableType = DartTypes.core.iterable(DartTypes.core.object.boxed);
       final deserialized = _builtXmlConstructor(member, targetShape)
           .property('deserialize')
           .call([
         refer('serializers'),
-        value.asA(DartTypes.core.iterable(DartTypes.core.object.boxed)),
+        value
+            .isA(DartTypes.core.string)
+            .conditional(literalConstList([]), value.asA(iterableType)),
       ], {
         'specifiedType': memberSymbol.fullType(),
       });
@@ -329,7 +354,9 @@ class StructureRestXmlSerializerGenerator extends StructureSerializerGenerator {
         switch (key as ${allocate(DartTypes.core.string)}) {
       ''');
     return Block.of([
-      if (shape.isError && !(protocol as RestXmlTrait).noErrorWrapping)
+      if (shape.isError &&
+          protocol is RestXmlTrait &&
+          !(protocol as RestXmlTrait).noErrorWrapping)
         Code.scope((allocate) => '''
       final errorIterator = serialized.iterator;
       while (errorIterator.moveNext()) {
