@@ -55,7 +55,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
         ? StorageGetUrlOptions(
             accessLevel: options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions(
-              checkObjectExistence: true,
+              validateObjectExistence: true,
               useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
             ),
           )
@@ -63,7 +63,7 @@ Future<S3DownloadFileResult> _downloadFromUrl({
             accessLevel: options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions.forIdentity(
               targetIdentityId,
-              checkObjectExistence: true,
+              validateObjectExistence: true,
               useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
             ),
           ),

@@ -18,12 +18,12 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   const S3GetUrlOptions({
     StorageAccessLevel accessLevel = StorageAccessLevel.guest,
     Duration expiresIn = const Duration(minutes: 15),
-    bool checkObjectExistence = false,
+    bool validateObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: accessLevel,
           expiresIn: expiresIn,
-          checkObjectExistence: checkObjectExistence,
+          validateObjectExistence: validateObjectExistence,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
   @Deprecated(
@@ -32,7 +32,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   const S3GetUrlOptions._({
     super.accessLevel = StorageAccessLevel.guest,
     this.expiresIn = const Duration(minutes: 15),
-    this.checkObjectExistence = false,
+    this.validateObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
@@ -47,12 +47,12 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
   const S3GetUrlOptions.forIdentity(
     String targetIdentityId, {
     Duration expiresIn = const Duration(minutes: 15),
-    bool checkObjectExistence = false,
+    bool validateObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           accessLevel: StorageAccessLevel.protected,
           expiresIn: expiresIn,
-          checkObjectExistence: checkObjectExistence,
+          validateObjectExistence: validateObjectExistence,
           targetIdentityId: targetIdentityId,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
@@ -62,7 +62,7 @@ class S3GetUrlOptions extends StorageGetUrlOptions {
 
   /// Specifies if check object existence in the S3 bucket before generating
   /// a presigned url.
-  final bool checkObjectExistence;
+  final bool validateObjectExistence;
 
   /// The identity ID of another user who uploaded the object.
   ///

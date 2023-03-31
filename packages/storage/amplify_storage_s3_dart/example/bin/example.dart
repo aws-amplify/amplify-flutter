@@ -197,7 +197,7 @@ Future<void> getUrlOperation() async {
         expiresIn: const Duration(
           minutes: 10,
         ),
-        checkObjectExistence: true,
+        validateObjectExistence: true,
         useAccelerateEndpoint: useAccelerateEndpoint,
       ),
     ),

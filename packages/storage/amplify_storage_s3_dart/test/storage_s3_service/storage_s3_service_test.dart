@@ -663,12 +663,12 @@ void main() {
       });
 
       test(
-          'should invoke s3Client.headObject when checkObjectExistence option is set to true',
+          'should invoke s3Client.headObject when validateObjectExistence option is set to true',
           () async {
         const testOptions = StorageGetUrlOptions(
           accessLevel: StorageAccessLevel.private,
           pluginOptions: S3GetUrlPluginOptions(
-            checkObjectExistence: true,
+            validateObjectExistence: true,
           ),
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -705,14 +705,14 @@ void main() {
       });
 
       test(
-          'should invoke s3Client.headObject when checkObjectExistence option is'
+          'should invoke s3Client.headObject when validateObjectExistence option is'
           ' set to true and specified targetIdentityId', () async {
         const testTargetIdentityId = 'some-else-id';
         const testOptions = StorageGetUrlOptions(
           accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3GetUrlPluginOptions.forIdentity(
             testTargetIdentityId,
-            checkObjectExistence: true,
+            validateObjectExistence: true,
           ),
         );
         const testUnknownException = UnknownSmithyHttpException(

@@ -291,7 +291,7 @@ void main() {
             options: const StorageGetUrlOptions(
               accessLevel: StorageAccessLevel.private,
               pluginOptions: S3GetUrlPluginOptions(
-                checkObjectExistence: true,
+                validateObjectExistence: true,
                 expiresIn: Duration(minutes: 5),
               ),
             ),
@@ -535,7 +535,7 @@ void main() {
               options: const StorageGetUrlOptions(
                 accessLevel: StorageAccessLevel.guest,
                 pluginOptions: S3GetUrlPluginOptions(
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );
@@ -552,7 +552,7 @@ void main() {
                 accessLevel: StorageAccessLevel.protected,
                 pluginOptions: S3GetUrlPluginOptions.forIdentity(
                   user1IdentityId,
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );
@@ -569,7 +569,7 @@ void main() {
               options: const StorageGetUrlOptions(
                 accessLevel: StorageAccessLevel.private,
                 pluginOptions: S3GetUrlPluginOptions(
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );

@@ -386,7 +386,7 @@ void main() {
         const testOptions = StorageGetUrlOptions(
           accessLevel: testAccessLevelProtected,
           pluginOptions: S3GetUrlPluginOptions(
-            checkObjectExistence: true,
+            validateObjectExistence: true,
             expiresIn: Duration(minutes: 10),
             useAccelerateEndpoint: true,
           ),

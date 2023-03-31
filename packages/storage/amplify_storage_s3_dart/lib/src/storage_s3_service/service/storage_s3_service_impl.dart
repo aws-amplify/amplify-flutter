@@ -210,9 +210,10 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
         const S3GetUrlPluginOptions();
 
-    if (s3PluginOptions.checkObjectExistence) {
-      // make a HeadObject call for checking object existence
-      // it may throw 404 if object doesn't exist in bucket
+    if (s3PluginOptions.validateObjectExistence) {
+      // make a HeadObject call for validating object existence
+      // the validation may throw exceptions that are thrown from
+      // the `getProperties` API (i.e. HeadObject)
       final targetIdentityId = s3PluginOptions.targetIdentityId;
       final getPropertiesOptions = targetIdentityId == null
           ? StorageGetPropertiesOptions(
