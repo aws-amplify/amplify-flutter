@@ -110,6 +110,12 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
             "x-amz-request-id",
             "x-amz-id-2",
             "ETag",
+            // This is required workaround on Web to retrieve metadata fields
+            // via GetObject and HeadObject.
+            // https://github.com/aws-amplify/amplify-js/issues/2903#issuecomment-475012164
+            "x-amz-meta-filename",
+            "x-amz-meta-description",
+            "x-amz-meta-owner",
           ],
           maxAge: 3000,
         },
