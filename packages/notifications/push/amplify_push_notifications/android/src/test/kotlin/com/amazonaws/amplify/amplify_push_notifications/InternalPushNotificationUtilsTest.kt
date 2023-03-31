@@ -1,8 +1,9 @@
+package com.amazonaws.amplify.amplify_push_notifications
+
 import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
+import androidx.test.core.app.ApplicationProvider
 import com.amazonaws.amplify.amplify_push_notifications.*
 import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.notifications.pushnotifications.NotificationContentProvider
@@ -18,11 +19,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Assert.*
 import org.junit.Before
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import kotlin.random.Random
 
@@ -52,75 +51,62 @@ class InternalPushNotificationUtilsTest {
         ).build()
     }
 
-//    private val launchIntentFilter = IntentFilter(Intent.ACTION_MAIN).apply {
-//        addCategory(Intent.CATEGORY_LAUNCHER)
-//    }
-//    private val mockMap = mockk<Map<Any, Any?>>()
     private lateinit var context: Context
 
     @Before
     fun setup() {
-        println("context in setup")
-
-        context = RuntimeEnvironment.getApplication().applicationContext
+        context = ApplicationProvider.getApplicationContext()
         mockkConstructor(PushNotificationPermission::class)
         mockkConstructor(PushNotificationsUtils::class)
         mockkObject(Random)
-        mockkClass(IntentFilter::class)
-//        mockkStatic(Arguments::class)
         justRun {
-//            mockMap.putMap(any(), any())
-//            mockMap.putString(any(), any())
             anyConstructed<PushNotificationsUtils>().showNotification(any(), any(), any())
         }
         every { Random.nextInt() } returns TestConst.RANDOM_INT
         every { anyConstructed<PushNotificationsUtils>().areNotificationsEnabled() } returns true
-//        every { Arguments.createMap() } returns mockMap
         val component = ComponentName(context.packageName, "TestMainActivity")
         shadowOf(context.packageManager).apply {
             addActivityIfNotPresent(component)
-//            addIntentFilterForActivity(component, launchIntentFilter)
         }
     }
 
     @Test
     fun `returns permission status`() {
-        context = RuntimeEnvironment.getApplication().applicationContext
-
         val pushPermission = PushNotificationPermission(context)
 
         every {
             anyConstructed<PushNotificationPermission>().hasRequiredPermission
         } returns true
-        Assertions.assertTrue(pushPermission.hasRequiredPermission)
+        assertTrue(pushPermission.hasRequiredPermission)
 
         every {
             anyConstructed<PushNotificationPermission>().hasRequiredPermission
         } returns false
-        Assertions.assertFalse(pushPermission.hasRequiredPermission)
+        assertTrue(pushPermission.hasRequiredPermission)
     }
 
-//    @Test
-//    fun `requests permission`() = runTest {
-//        coEvery {
-//            anyConstructed<PushNotificationPermission>().requestPermission()
-//        } returns PermissionRequestResult.Granted
-//        assertTrue(PushNotificationPermission(context).requestPermission() == PermissionRequestResult.Granted)
-//
-//        coEvery {
-//            anyConstructed<PushNotificationPermission>().requestPermission()
-//        } returns PermissionRequestResult.NotGranted(
-//            true
-//        )
-//        assertTrue(
-//            PushNotificationPermission(context).requestPermission() == PermissionRequestResult.NotGranted(
-//                true
-//            )
-//        )
-//    }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `requests permission`() = runTest {
+        coEvery {
+            anyConstructed<PushNotificationPermission>().requestPermission()
+        } returns PermissionRequestResult.Granted
+        assertTrue(PushNotificationPermission(context).requestPermission() == PermissionRequestResult.Granted)
+
+        coEvery {
+            anyConstructed<PushNotificationPermission>().requestPermission()
+        } returns PermissionRequestResult.NotGranted(
+            true
+        )
+        assertTrue(
+            PushNotificationPermission(context).requestPermission() == PermissionRequestResult.NotGranted(
+                true
+            )
+        )
+    }
 
     @Test
-    fun `shows notification if enabled`() {
+    fun `show notification if enabled`() {
         InternalPushNotificationUtils(context).showNotification(getTestPayload())
         verify {
             anyConstructed<PushNotificationsUtils>().showNotification(
@@ -219,9 +205,9 @@ class InternalPushNotificationUtilsTest {
     @Test
     fun `returns if app is in foreground`() {
         every { anyConstructed<PushNotificationsUtils>().isAppInForeground() } returns true
-        Assertions.assertTrue(InternalPushNotificationUtils(context).isAppInForeground())
+        assertTrue(InternalPushNotificationUtils(context).isAppInForeground())
         every { anyConstructed<PushNotificationsUtils>().isAppInForeground() } returns false
-        Assertions.assertFalse(InternalPushNotificationUtils(context).isAppInForeground())
+        assertFalse(InternalPushNotificationUtils(context).isAppInForeground())
     }
 
     @Test
@@ -231,14 +217,12 @@ class InternalPushNotificationUtilsTest {
             putString(PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE, TestConst.TITLE)
             putString(PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY, TestConst.BODY)
         }
-
-        println("bundle: ${bundle}")
         val payload = bundle.getNotificationPayload()
-        Assertions.assertEquals(
+        assertEquals(
             TestConst.TITLE,
             payload?.rawData?.get(PushNotificationsConstants.PINPOINT_NOTIFICATION_TITLE)
         )
-        Assertions.assertEquals(
+        assertEquals(
             TestConst.BODY,
             payload?.rawData?.get(PushNotificationsConstants.PINPOINT_NOTIFICATION_BODY)
         )
@@ -260,11 +244,11 @@ class InternalPushNotificationUtilsTest {
         val fcmOptions = payloadMap["fcmOptions"] as Map<*,*>
         val data = payloadMap["data"] as Map<*,*>
 
-        Assertions.assertEquals(payloadMap["title"], TestConst.TITLE)
-        Assertions.assertEquals(payloadMap["body"], TestConst.BODY)
-        Assertions.assertEquals(payloadMap["imageUrl"], TestConst.IMAGE_URL)
-        Assertions.assertEquals(fcmOptions["channelId"], PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
-        Assertions.assertEquals(data[TestConst.ADHOC_KEY], TestConst.ADHOC_VAL)
+        assertEquals(payloadMap["title"], TestConst.TITLE)
+        assertEquals(payloadMap["body"], TestConst.BODY)
+        assertEquals(payloadMap["imageUrl"], TestConst.IMAGE_URL)
+        assertEquals(fcmOptions["channelId"], PushNotificationsConstants.DEFAULT_NOTIFICATION_CHANNEL_ID)
+        assertEquals(data[TestConst.ADHOC_KEY], TestConst.ADHOC_VAL)
 
     }
 
@@ -275,7 +259,7 @@ class InternalPushNotificationUtilsTest {
         ).build()
         val payloadMap = payload.toWritableMap()
         val action = payloadMap["action"] as Map<*, *>
-        Assertions.assertEquals(action[PushNotificationsConstants.URL], TestConst.URL)
+        assertEquals(action[PushNotificationsConstants.URL], TestConst.URL)
     }
 
     @Test
@@ -285,7 +269,7 @@ class InternalPushNotificationUtilsTest {
         ).build()
         val payloadMap =  payload.toWritableMap()
         val action = payloadMap["action"] as Map<*, *>
-        Assertions.assertEquals(
+        assertEquals(
             action[PushNotificationsConstants.DEEPLINK],
             TestConst.DEEPLINK_URL
         )
@@ -299,7 +283,7 @@ class InternalPushNotificationUtilsTest {
         ).build()
         val payloadMap = payload.toWritableMap()
 
-        Assertions.assertTrue(payloadMap["data"] is Map<*, *>)
+        assertTrue(payloadMap["data"] is Map<*, *>)
     }
 
 }

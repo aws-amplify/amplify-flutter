@@ -11,7 +11,6 @@ import com.amplifyframework.notifications.pushnotifications.NotificationPayload
 import com.google.firebase.messaging.FirebaseMessagingService
 import io.flutter.Log
 import io.flutter.embedding.engine.FlutterEngineCache
-import io.flutter.embedding.engine.FlutterEngineGroup
 
 
 private const val TAG = "PushNotificationFirebaseMessagingService"
@@ -24,15 +23,10 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      */
     private lateinit var utils: InternalPushNotificationUtils
 
-    /**
-     * Flutter Engine group that holds main and background engines
-     */
-    private lateinit var engineGroup: FlutterEngineGroup
 
     override fun onCreate() {
         super.onCreate()
         utils = InternalPushNotificationUtils(baseContext)
-        engineGroup = FlutterEngineGroup(baseContext)
     }
 
     /**
@@ -47,7 +41,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
     }
 
-    //    TODO(Samaritan1011001): Test handling only pinpoint intents
     override fun handleIntent(intent: Intent) {
         // If the intent is for a new token, just forward intent to Firebase SDK
         if (intent.action == PushNotificationPluginConstants.ACTION_NEW_TOKEN) {
@@ -65,15 +58,17 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    //    TODO(Samaritan1011001): Test FG & BG difference
     /**
      * Method to handle and forward messages received in foreground & background using isolates and event channels
      */
     private fun handleMessageReceived(intent: Intent, payload: NotificationPayload) {
+
         Handler(baseContext.mainLooper).post {
             if (utils.isAppInForeground()) {
                 val notificationHashMap = payload.toWritableMap()
+
                 StreamHandlers.foregroundMessageReceived!!.send(notificationHashMap)
+
             } else {
                 try {
                     utils.showNotification(
@@ -92,6 +87,7 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun runAppFromKilledState(intent: Intent, payload: NotificationPayload) {
+
         // Check if there is already a main Flutter Engine running
         val mainEngine = FlutterEngineCache.getInstance()
             .get(PushNotificationPluginConstants.FLUTTER_ENGINE_ID)
@@ -105,5 +101,6 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
                 notificationPayload
             ) {}
         }
+
     }
 }

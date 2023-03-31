@@ -185,7 +185,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return
     }
 
-//    TODO(Samaritan1011001): Test error and happy paths
     override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
         val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()
         val permission = PushNotificationPermission(applicationContext)
@@ -219,7 +218,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         return
     }
 
-    //    TODO(Samaritan1011001): Test error and happy paths
     override fun requestPermissions(
         withPermissionOptions: PushNotificationsHostApiBindings.PermissionsOptions,
         result: PushNotificationsHostApiBindings.Result<Boolean>
@@ -229,12 +227,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
             if (res is PermissionRequestResult.Granted) {
                 result.success(true)
-            } else {
+            } else if (res is PermissionRequestResult.NotGranted){
                 // If permission was not granted and the shouldShowRequestPermissionRationale flag
                 // is true then user must have denied for the first time. We will set the
                 // wasPermissionPreviouslyDenied value to true only in this scenario since it's
                 // possible to dismiss the permission request without explicitly denying as well.
-                if (shouldShowRequestPermissionRationale()) {
+                if (res.shouldShowRationale) {
                     with(sharedPreferences.edit()) {
                         putBoolean(
                             PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, true

@@ -61,71 +61,77 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         if (backgroundFlutterEngine != null) {
             return
         }
-        val callbackHandle = context.getSharedPreferences(
-            PushNotificationPluginConstants.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE
-        ).getLong(
-            PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, 0
-        )
-        if (callbackHandle == 0L) {
-            Log.w(
-                TAG,
-                "Warning: Background service could not start. Callback dispatcher not found."
-            )
-            return
-        }
-        val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
-        if (callbackInfo == null) {
-            Log.e(TAG, "Error: failed to find callback")
-            return
-        }
-        Log.i(TAG, "Starting PushNotificationBackgroundService")
+        try {
 
-        synchronized(serviceStarted) {
-            val mainHandler = Handler(context.mainLooper)
-            mainHandler.post {
-                val loader = FlutterLoader()
-                loader.startInitialization(context)
-                loader.ensureInitializationCompleteAsync(
-                    context,
-                    null,
-                    mainHandler,
-                ) {
+            Log.i(TAG, "Starting PushNotificationBackgroundService")
 
-                    // Get the background engine from FlutterEngineCache, returns null if not found
-                    backgroundFlutterEngine = FlutterEngineCache.getInstance()
-                        .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
+            synchronized(serviceStarted) {
+                val mainHandler = Handler(context.mainLooper)
+                mainHandler.post {
+                    val loader = FlutterLoader()
+                    loader.startInitialization(context)
+                    loader.ensureInitializationCompleteAsync(
+                        context,
+                        null,
+                        mainHandler,
+                    ) {
 
-                    // If the Flutter engine is not found in cache, create and put into cache
-                    if (backgroundFlutterEngine == null) {
-                        // Create a background Flutter Engine
-                        backgroundFlutterEngine = FlutterEngine(context)
-                        // Put it into cache so the next notification coming through in killed state
-                        // can use the same Flutter engine.
-                        FlutterEngineCache.getInstance().put(
-                            PushNotificationPluginConstants.BACKGROUND_ENGINE_ID,
-                            backgroundFlutterEngine,
+                        // Get the background engine from FlutterEngineCache, returns null if not found
+                        backgroundFlutterEngine = FlutterEngineCache.getInstance()
+                            .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
+
+                        // If the Flutter engine is not found in cache, create and put into cache
+                        if (backgroundFlutterEngine == null) {
+                            // Create a background Flutter Engine
+                            backgroundFlutterEngine = FlutterEngine(context)
+                            // Put it into cache so the next notification coming through in killed state
+                            // can use the same Flutter engine.
+                            FlutterEngineCache.getInstance().put(
+                                PushNotificationPluginConstants.BACKGROUND_ENGINE_ID,
+                                backgroundFlutterEngine,
+                            )
+                        }
+                        val callbackHandle = context.getSharedPreferences(
+                            PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
+                            Context.MODE_PRIVATE
+                        ).getLong(
+                            PushNotificationPluginConstants.BACKGROUND_FUNCTION_KEY, 0
                         )
+                        if (callbackHandle == 0L) {
+                            Log.w(
+                                TAG,
+                                "Warning: Background service could not start. Callback dispatcher not found."
+                            )
+                            return@ensureInitializationCompleteAsync
+                        }
+                        val callbackInfo =
+                            FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
+                        if (callbackInfo == null) {
+                            Log.e(TAG, "Error: failed to find callback")
+                            return@ensureInitializationCompleteAsync
+                        }
+                        backgroundFlutterEngine!!.dartExecutor.executeDartCallback(
+                            DartExecutor.DartCallback(
+                                context.assets, loader.findAppBundlePath(), callbackInfo
+                            ),
+                        )
+                        backgroundChannel = MethodChannel(
+                            backgroundFlutterEngine!!.dartExecutor.binaryMessenger,
+                            PushNotificationPluginConstants.BACKGROUND_METHOD_CHANNEL,
+                        )
+                        backgroundChannel.setMethodCallHandler(this)
+
                     }
-
-                    backgroundFlutterEngine!!.dartExecutor.executeDartCallback(
-                        DartExecutor.DartCallback(
-                            context.assets, loader.findAppBundlePath(), callbackInfo
-                        ),
-                    )
-                    backgroundChannel = MethodChannel(
-                        backgroundFlutterEngine!!.dartExecutor.binaryMessenger,
-                        PushNotificationPluginConstants.BACKGROUND_METHOD_CHANNEL,
-                    )
-                    backgroundChannel.setMethodCallHandler(this)
-
                 }
             }
+        } catch (exception: Exception) {
+            Log.e(TAG, "Fatal error retrieving background processor info: $exception")
         }
     }
 
     private fun sendToDart(intent: Intent) {
-         intent.extras?.let { bundle ->
-             bundle.getNotificationPayload()?.let {
+        intent.extras?.let { bundle ->
+            bundle.getNotificationPayload()?.let {
                 AmplifyPushNotificationsPlugin.flutterApi!!.onNotificationReceivedInBackground(
                     it.toWritableMap()
                 ) {}
