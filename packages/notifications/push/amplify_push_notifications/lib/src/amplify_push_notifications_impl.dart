@@ -91,7 +91,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     await _serviceProviderClient.identifyUser(
       userId: userId,
@@ -106,7 +106,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   }) async {
     final notificationsConfig = config?.notifications?.awsPlugin;
     if (notificationsConfig == null) {
-      throw const AnalyticsException('No Pinpoint plugin config available');
+      throw ConfigurationError('No Pinpoint plugin config available');
     }
 
     if (_isConfigured) {

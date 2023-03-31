@@ -4,8 +4,16 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+// Analytics Imports
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint/src/device_context_info_provider/flutter_device_context_info_provider.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analytics_client.dart';
+// ignore: implementation_imports
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
+
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
@@ -20,7 +28,7 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 class PinpointProvider implements ServiceProviderClient {
   /// {@macro amplify_push_notifications_pinpoint.pinpoint_provider}
 
-  late FlutterAnalyticsClient _analyticsClient;
+  late AnalyticsClient _analyticsClient;
 
   static const _androidCampaignIdKey = 'pinpoint.campaign.campaign_id';
   static const _androidCampaignActivityIdKey =
@@ -47,10 +55,15 @@ class PinpointProvider implements ServiceProviderClient {
         final region = config.region;
         final appId = config.appId;
 
-        _analyticsClient = FlutterAnalyticsClient(
-          endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
-            storageScope: EndpointStorageScope.pushNotifications,
-          ),
+        final secureStorageFactory = AmplifySecureStorage.factoryFrom();
+
+        final endpointStorage = secureStorageFactory(
+          AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+        );
+
+        _analyticsClient = AnalyticsClient(
+          endpointStorage: endpointStorage,
+          deviceContextInfoProvider: const FlutterDeviceContextInfoProvider(),
         );
         await _analyticsClient.init(
           pinpointAppId: appId,
@@ -68,7 +81,7 @@ class PinpointProvider implements ServiceProviderClient {
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     try {
       if (!_isInitialized) {
@@ -109,7 +122,7 @@ class PinpointProvider implements ServiceProviderClient {
       final eventInfo = _constructEventInfo(notification: notification);
       await _analyticsClient.eventClient.recordEvent(
         eventType: '${eventInfo.first as String}.${eventType.name}',
-        properties: eventInfo.last as AnalyticsProperties,
+        properties: eventInfo.last as CustomProperties,
       );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
@@ -141,7 +154,7 @@ class PinpointProvider implements ServiceProviderClient {
     required PushNotificationMessage notification,
   }) {
     final data = notification.data;
-    final analyticsProperties = AnalyticsProperties();
+    final analyticsProperties = CustomProperties();
     var source = PinpointEventSource.campaign.name;
     var campaign = <String, String>{};
     var journey = <String, String>{};

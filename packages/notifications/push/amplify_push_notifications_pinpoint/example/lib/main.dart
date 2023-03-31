@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   await Amplify.Notifications.Push.identifyUser(
                     userId: 'test-user-101',
-                    userProfile: AnalyticsUserProfile(name: 'test-name-101'),
+                    userProfile: const UserProfile(name: 'test-name-101'),
                   );
                 },
                 child: const Text('identifyUser'),
