@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/analytics_export_destination.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class_analysis_schema_version.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class_analysis_schema_version.dart'
+    as _i2;
 
 part 'storage_class_analysis_data_export.g.dart';
 
@@ -22,12 +22,12 @@ abstract class StorageClassAnalysisDataExport
             StorageClassAnalysisDataExportBuilder> {
   /// Container for data related to the storage class analysis for an Amazon S3 bucket for export.
   factory StorageClassAnalysisDataExport({
-    required _i2.AnalyticsExportDestination destination,
-    required _i3.StorageClassAnalysisSchemaVersion outputSchemaVersion,
+    required _i2.StorageClassAnalysisSchemaVersion outputSchemaVersion,
+    required _i3.AnalyticsExportDestination destination,
   }) {
     return _$StorageClassAnalysisDataExport._(
-      destination: destination,
       outputSchemaVersion: outputSchemaVersion,
+      destination: destination,
     );
   }
 
@@ -45,27 +45,27 @@ abstract class StorageClassAnalysisDataExport
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StorageClassAnalysisDataExportBuilder b) {}
 
-  /// The place to store the data for an analysis.
-  _i2.AnalyticsExportDestination get destination;
-
   /// The version of the output schema to use when exporting data. Must be `V_1`.
-  _i3.StorageClassAnalysisSchemaVersion get outputSchemaVersion;
+  _i2.StorageClassAnalysisSchemaVersion get outputSchemaVersion;
+
+  /// The place to store the data for an analysis.
+  _i3.AnalyticsExportDestination get destination;
   @override
   List<Object?> get props => [
-        destination,
         outputSchemaVersion,
+        destination,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StorageClassAnalysisDataExport');
     helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
       'outputSchemaVersion',
       outputSchemaVersion,
+    );
+    helper.add(
+      'destination',
+      destination,
     );
     return helper.toString();
   }
@@ -104,15 +104,15 @@ class StorageClassAnalysisDataExportRestXmlSerializer
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AnalyticsExportDestination),
-          ) as _i2.AnalyticsExportDestination));
+            specifiedType: const FullType(_i3.AnalyticsExportDestination),
+          ) as _i3.AnalyticsExportDestination));
           break;
         case 'OutputSchemaVersion':
           result.outputSchemaVersion = (serializers.deserialize(
             value!,
             specifiedType:
-                const FullType(_i3.StorageClassAnalysisSchemaVersion),
-          ) as _i3.StorageClassAnalysisSchemaVersion);
+                const FullType(_i2.StorageClassAnalysisSchemaVersion),
+          ) as _i2.StorageClassAnalysisSchemaVersion);
           break;
       }
     }
@@ -137,14 +137,14 @@ class StorageClassAnalysisDataExportRestXmlSerializer
       ..add(const _i4.XmlElementName('Destination'))
       ..add(serializers.serialize(
         payload.destination,
-        specifiedType: const FullType(_i2.AnalyticsExportDestination),
+        specifiedType: const FullType(_i3.AnalyticsExportDestination),
       ));
     result
       ..add(const _i4.XmlElementName('OutputSchemaVersion'))
       ..add(serializers.serialize(
         payload.outputSchemaVersion,
         specifiedType:
-            const FullType.nullable(_i3.StorageClassAnalysisSchemaVersion),
+            const FullType.nullable(_i2.StorageClassAnalysisSchemaVersion),
       ));
     return result;
   }

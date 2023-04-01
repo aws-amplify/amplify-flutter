@@ -21,13 +21,13 @@ abstract class ConformancePackComplianceFilters
             ConformancePackComplianceFiltersBuilder> {
   /// Filters the conformance pack by compliance types and Config rule names.
   factory ConformancePackComplianceFilters({
-    _i2.ConformancePackComplianceType? complianceType,
     List<String>? configRuleNames,
+    _i2.ConformancePackComplianceType? complianceType,
   }) {
     return _$ConformancePackComplianceFilters._(
-      complianceType: complianceType,
       configRuleNames:
           configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
+      complianceType: complianceType,
     );
   }
 
@@ -45,29 +45,29 @@ abstract class ConformancePackComplianceFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceFiltersBuilder b) {}
 
+  /// Filters the results by Config rule names.
+  _i3.BuiltList<String>? get configRuleNames;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
   _i2.ConformancePackComplianceType? get complianceType;
-
-  /// Filters the results by Config rule names.
-  _i3.BuiltList<String>? get configRuleNames;
   @override
   List<Object?> get props => [
-        complianceType,
         configRuleNames,
+        complianceType,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceFilters');
     helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
       'configRuleNames',
       configRuleNames,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
     );
     return helper.toString();
   }
@@ -103,14 +103,6 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
         case 'ConfigRuleNames':
           if (value != null) {
             result.configRuleNames.replace((serializers.deserialize(
@@ -120,6 +112,14 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
                 [FullType(String)],
               ),
             ) as _i3.BuiltList<String>));
+          }
+          break;
+        case 'ComplianceType':
+          if (value != null) {
+            result.complianceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ConformancePackComplianceType),
+            ) as _i2.ConformancePackComplianceType);
           }
           break;
       }
@@ -136,14 +136,6 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackComplianceFilters);
     final result = <Object?>[];
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
     if (payload.configRuleNames != null) {
       result
         ..add('ConfigRuleNames')
@@ -153,6 +145,14 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.complianceType != null) {
+      result
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          payload.complianceType!,
+          specifiedType: const FullType(_i2.ConformancePackComplianceType),
         ));
     }
     return result;

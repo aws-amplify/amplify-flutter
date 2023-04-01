@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/config_service/model/resource_filters.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
+    as _i3;
 
 part 'list_aggregate_discovered_resources_request.g.dart';
 
@@ -22,17 +22,17 @@ abstract class ListAggregateDiscoveredResourcesRequest
             ListAggregateDiscoveredResourcesRequestBuilder> {
   factory ListAggregateDiscoveredResourcesRequest({
     required String configurationAggregatorName,
-    _i3.ResourceFilters? filters,
+    required _i3.ResourceType resourceType,
+    _i4.ResourceFilters? filters,
     int? limit,
     String? nextToken,
-    required _i4.ResourceType resourceType,
   }) {
     return _$ListAggregateDiscoveredResourcesRequest._(
       configurationAggregatorName: configurationAggregatorName,
+      resourceType: resourceType,
       filters: filters,
       limit: limit,
       nextToken: nextToken,
-      resourceType: resourceType,
     );
   }
 
@@ -59,26 +59,26 @@ abstract class ListAggregateDiscoveredResourcesRequest
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 
+  /// The type of resources that you want Config to list in the response.
+  _i3.ResourceType get resourceType;
+
   /// Filters the results based on the `ResourceFilters` object.
-  _i3.ResourceFilters? get filters;
+  _i4.ResourceFilters? get filters;
 
   /// The maximum number of resource identifiers returned on each page. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The type of resources that you want Config to list in the response.
-  _i4.ResourceType get resourceType;
   @override
   ListAggregateDiscoveredResourcesRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configurationAggregatorName,
+        resourceType,
         filters,
         limit,
         nextToken,
-        resourceType,
       ];
   @override
   String toString() {
@@ -87,6 +87,10 @@ abstract class ListAggregateDiscoveredResourcesRequest
     helper.add(
       'configurationAggregatorName',
       configurationAggregatorName,
+    );
+    helper.add(
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'filters',
@@ -99,10 +103,6 @@ abstract class ListAggregateDiscoveredResourcesRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
     );
     return helper.toString();
   }
@@ -144,12 +144,18 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'ResourceType':
+          result.resourceType = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i3.ResourceType),
+          ) as _i3.ResourceType);
+          break;
         case 'Filters':
           if (value != null) {
             result.filters.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ResourceFilters),
-            ) as _i3.ResourceFilters));
+              specifiedType: const FullType(_i4.ResourceFilters),
+            ) as _i4.ResourceFilters));
           }
           break;
         case 'Limit':
@@ -167,12 +173,6 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'ResourceType':
-          result.resourceType = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i4.ResourceType),
-          ) as _i4.ResourceType);
           break;
       }
     }
@@ -196,7 +196,7 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
       'ResourceType',
       serializers.serialize(
         payload.resourceType,
-        specifiedType: const FullType(_i4.ResourceType),
+        specifiedType: const FullType(_i3.ResourceType),
       ),
     ];
     if (payload.filters != null) {
@@ -204,7 +204,7 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
         ..add('Filters')
         ..add(serializers.serialize(
           payload.filters!,
-          specifiedType: const FullType(_i3.ResourceFilters),
+          specifiedType: const FullType(_i4.ResourceFilters),
         ));
     }
     if (payload.limit != null) {

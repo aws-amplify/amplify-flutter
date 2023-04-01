@@ -16,12 +16,12 @@ abstract class DeleteResourceConfigRequest
     implements
         Built<DeleteResourceConfigRequest, DeleteResourceConfigRequestBuilder> {
   factory DeleteResourceConfigRequest({
-    required String resourceId,
     required String resourceType,
+    required String resourceId,
   }) {
     return _$DeleteResourceConfigRequest._(
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -45,28 +45,28 @@ abstract class DeleteResourceConfigRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteResourceConfigRequestBuilder b) {}
 
-  /// Unique identifier of the resource.
-  String get resourceId;
-
   /// The type of the resource.
   String get resourceType;
+
+  /// Unique identifier of the resource.
+  String get resourceId;
   @override
   DeleteResourceConfigRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteResourceConfigRequest');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -102,14 +102,14 @@ class DeleteResourceConfigRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
+        case 'ResourceType':
+          result.resourceType = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ResourceType':
-          result.resourceType = (serializers.deserialize(
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -128,14 +128,14 @@ class DeleteResourceConfigRequestAwsJson11Serializer
   }) {
     final payload = (object as DeleteResourceConfigRequest);
     final result = <Object?>[
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
       'ResourceType',
       serializers.serialize(
         payload.resourceType,
+        specifiedType: const FullType(String),
+      ),
+      'ResourceId',
+      serializers.serialize(
+        payload.resourceId,
         specifiedType: const FullType(String),
       ),
     ];

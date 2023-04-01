@@ -19,16 +19,16 @@ abstract class GetOrganizationConformancePackDetailedStatusResponse
         Built<GetOrganizationConformancePackDetailedStatusResponse,
             GetOrganizationConformancePackDetailedStatusResponseBuilder> {
   factory GetOrganizationConformancePackDetailedStatusResponse({
-    String? nextToken,
     List<_i2.OrganizationConformancePackDetailedStatus>?
         organizationConformancePackDetailedStatuses,
+    String? nextToken,
   }) {
     return _$GetOrganizationConformancePackDetailedStatusResponse._(
-      nextToken: nextToken,
       organizationConformancePackDetailedStatuses:
           organizationConformancePackDetailedStatuses == null
               ? null
               : _i3.BuiltList(organizationConformancePackDetailedStatuses),
+      nextToken: nextToken,
     );
   }
 
@@ -54,28 +54,28 @@ abstract class GetOrganizationConformancePackDetailedStatusResponse
   static void _init(
       GetOrganizationConformancePackDetailedStatusResponseBuilder b) {}
 
-  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of `OrganizationConformancePackDetailedStatus` objects.
   _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>?
       get organizationConformancePackDetailedStatuses;
+
+  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConformancePackDetailedStatuses,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConformancePackDetailedStatusResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConformancePackDetailedStatuses',
       organizationConformancePackDetailedStatuses,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -113,14 +113,6 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePackDetailedStatuses':
           if (value != null) {
             result.organizationConformancePackDetailedStatuses
@@ -131,6 +123,14 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
                 [FullType(_i2.OrganizationConformancePackDetailedStatus)],
               ),
             ) as _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -148,14 +148,6 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
     final payload =
         (object as GetOrganizationConformancePackDetailedStatusResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.organizationConformancePackDetailedStatuses != null) {
       result
         ..add('OrganizationConformancePackDetailedStatuses')
@@ -165,6 +157,14 @@ class GetOrganizationConformancePackDetailedStatusResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePackDetailedStatus)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

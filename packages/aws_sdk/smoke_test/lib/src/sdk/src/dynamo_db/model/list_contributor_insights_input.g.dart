@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db.model.list_contributor_insights_input;
 
 class _$ListContributorInsightsInput extends ListContributorInsightsInput {
   @override
-  final int? maxResults;
+  final String? tableName;
   @override
   final String? nextToken;
   @override
-  final String? tableName;
+  final int? maxResults;
 
   factory _$ListContributorInsightsInput(
           [void Function(ListContributorInsightsInputBuilder)? updates]) =>
       (new ListContributorInsightsInputBuilder()..update(updates))._build();
 
   _$ListContributorInsightsInput._(
-      {this.maxResults, this.nextToken, this.tableName})
+      {this.tableName, this.nextToken, this.maxResults})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$ListContributorInsightsInput extends ListContributorInsightsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListContributorInsightsInput &&
-        maxResults == other.maxResults &&
+        tableName == other.tableName &&
         nextToken == other.nextToken &&
-        tableName == other.tableName;
+        maxResults == other.maxResults;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, maxResults.hashCode);
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,17 +57,17 @@ class ListContributorInsightsInputBuilder
             ListContributorInsightsInputBuilder> {
   _$ListContributorInsightsInput? _$v;
 
-  int? _maxResults;
-  int? get maxResults => _$this._maxResults;
-  set maxResults(int? maxResults) => _$this._maxResults = maxResults;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  int? _maxResults;
+  int? get maxResults => _$this._maxResults;
+  set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
   ListContributorInsightsInputBuilder() {
     ListContributorInsightsInput._init(this);
@@ -76,9 +76,9 @@ class ListContributorInsightsInputBuilder
   ListContributorInsightsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _maxResults = $v.maxResults;
-      _nextToken = $v.nextToken;
       _tableName = $v.tableName;
+      _nextToken = $v.nextToken;
+      _maxResults = $v.maxResults;
       _$v = null;
     }
     return this;
@@ -101,7 +101,7 @@ class ListContributorInsightsInputBuilder
   _$ListContributorInsightsInput _build() {
     final _$result = _$v ??
         new _$ListContributorInsightsInput._(
-            maxResults: maxResults, nextToken: nextToken, tableName: tableName);
+            tableName: tableName, nextToken: nextToken, maxResults: maxResults);
     replace(_$result);
     return _$result;
   }

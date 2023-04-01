@@ -16,12 +16,12 @@ abstract class RetryConfig
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
   factory RetryConfig({
-    int? maxAttempts,
     _i2.RetryMode? mode,
+    int? maxAttempts,
   }) {
     return _$RetryConfig._(
-      maxAttempts: maxAttempts,
       mode: mode,
+      maxAttempts: maxAttempts,
     );
   }
 
@@ -37,25 +37,25 @@ abstract class RetryConfig
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RetryConfigBuilder b) {}
-  int? get maxAttempts;
 
   /// Controls the strategy used for retries.
   _i2.RetryMode? get mode;
+  int? get maxAttempts;
   @override
   List<Object?> get props => [
-        maxAttempts,
         mode,
+        maxAttempts,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig');
     helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
-    helper.add(
       'mode',
       mode,
+    );
+    helper.add(
+      'maxAttempts',
+      maxAttempts,
     );
     return helper.toString();
   }

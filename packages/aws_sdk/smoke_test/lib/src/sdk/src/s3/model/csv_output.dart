@@ -16,18 +16,18 @@ abstract class CsvOutput
     implements Built<CsvOutput, CsvOutputBuilder> {
   /// Describes how uncompressed comma-separated values (CSV)-formatted results are formatted.
   factory CsvOutput({
+    _i2.QuoteFields? quoteFields,
+    String? quoteEscapeCharacter,
+    String? recordDelimiter,
     String? fieldDelimiter,
     String? quoteCharacter,
-    String? quoteEscapeCharacter,
-    _i2.QuoteFields? quoteFields,
-    String? recordDelimiter,
   }) {
     return _$CsvOutput._(
+      quoteFields: quoteFields,
+      quoteEscapeCharacter: quoteEscapeCharacter,
+      recordDelimiter: recordDelimiter,
       fieldDelimiter: fieldDelimiter,
       quoteCharacter: quoteCharacter,
-      quoteEscapeCharacter: quoteEscapeCharacter,
-      quoteFields: quoteFields,
-      recordDelimiter: recordDelimiter,
     );
   }
 
@@ -44,15 +44,6 @@ abstract class CsvOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CsvOutputBuilder b) {}
 
-  /// The value used to separate individual fields in a record. You can specify an arbitrary delimiter.
-  String? get fieldDelimiter;
-
-  /// A single character used for escaping when the field delimiter is part of the value. For example, if the value is `a, b`, Amazon S3 wraps this field value in quotation marks, as follows: `" a , b "`.
-  String? get quoteCharacter;
-
-  /// The single character used for escaping the quote character inside an already escaped value.
-  String? get quoteEscapeCharacter;
-
   /// Indicates whether to use quotation marks around output fields.
   ///
   /// *   `ALWAYS`: Always use quotation marks for output fields.
@@ -60,19 +51,40 @@ abstract class CsvOutput
   /// *   `ASNEEDED`: Use quotation marks for output fields when needed.
   _i2.QuoteFields? get quoteFields;
 
+  /// The single character used for escaping the quote character inside an already escaped value.
+  String? get quoteEscapeCharacter;
+
   /// A single character used to separate individual records in the output. Instead of the default value, you can specify an arbitrary delimiter.
   String? get recordDelimiter;
+
+  /// The value used to separate individual fields in a record. You can specify an arbitrary delimiter.
+  String? get fieldDelimiter;
+
+  /// A single character used for escaping when the field delimiter is part of the value. For example, if the value is `a, b`, Amazon S3 wraps this field value in quotation marks, as follows: `" a , b "`.
+  String? get quoteCharacter;
   @override
   List<Object?> get props => [
+        quoteFields,
+        quoteEscapeCharacter,
+        recordDelimiter,
         fieldDelimiter,
         quoteCharacter,
-        quoteEscapeCharacter,
-        quoteFields,
-        recordDelimiter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CsvOutput');
+    helper.add(
+      'quoteFields',
+      quoteFields,
+    );
+    helper.add(
+      'quoteEscapeCharacter',
+      quoteEscapeCharacter,
+    );
+    helper.add(
+      'recordDelimiter',
+      recordDelimiter,
+    );
     helper.add(
       'fieldDelimiter',
       fieldDelimiter,
@@ -80,18 +92,6 @@ abstract class CsvOutput
     helper.add(
       'quoteCharacter',
       quoteCharacter,
-    );
-    helper.add(
-      'quoteEscapeCharacter',
-      quoteEscapeCharacter,
-    );
-    helper.add(
-      'quoteFields',
-      quoteFields,
-    );
-    helper.add(
-      'recordDelimiter',
-      recordDelimiter,
     );
     return helper.toString();
   }

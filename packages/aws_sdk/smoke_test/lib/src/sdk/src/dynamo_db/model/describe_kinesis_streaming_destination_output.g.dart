@@ -9,10 +9,10 @@ part of smoke_test.dynamo_db.model.describe_kinesis_streaming_destination_output
 class _$DescribeKinesisStreamingDestinationOutput
     extends DescribeKinesisStreamingDestinationOutput {
   @override
+  final String? tableName;
+  @override
   final _i3.BuiltList<_i2.KinesisDataStreamDestination>?
       kinesisDataStreamDestinations;
-  @override
-  final String? tableName;
 
   factory _$DescribeKinesisStreamingDestinationOutput(
           [void Function(DescribeKinesisStreamingDestinationOutputBuilder)?
@@ -21,7 +21,7 @@ class _$DescribeKinesisStreamingDestinationOutput
           ._build();
 
   _$DescribeKinesisStreamingDestinationOutput._(
-      {this.kinesisDataStreamDestinations, this.tableName})
+      {this.tableName, this.kinesisDataStreamDestinations})
       : super._();
 
   @override
@@ -38,15 +38,15 @@ class _$DescribeKinesisStreamingDestinationOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeKinesisStreamingDestinationOutput &&
-        kinesisDataStreamDestinations == other.kinesisDataStreamDestinations &&
-        tableName == other.tableName;
+        tableName == other.tableName &&
+        kinesisDataStreamDestinations == other.kinesisDataStreamDestinations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, kinesisDataStreamDestinations.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, kinesisDataStreamDestinations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,6 +57,10 @@ class DescribeKinesisStreamingDestinationOutputBuilder
         Builder<DescribeKinesisStreamingDestinationOutput,
             DescribeKinesisStreamingDestinationOutputBuilder> {
   _$DescribeKinesisStreamingDestinationOutput? _$v;
+
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   _i3.ListBuilder<_i2.KinesisDataStreamDestination>?
       _kinesisDataStreamDestinations;
@@ -69,10 +73,6 @@ class DescribeKinesisStreamingDestinationOutputBuilder
               kinesisDataStreamDestinations) =>
       _$this._kinesisDataStreamDestinations = kinesisDataStreamDestinations;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
-
   DescribeKinesisStreamingDestinationOutputBuilder() {
     DescribeKinesisStreamingDestinationOutput._init(this);
   }
@@ -80,9 +80,9 @@ class DescribeKinesisStreamingDestinationOutputBuilder
   DescribeKinesisStreamingDestinationOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _tableName = $v.tableName;
       _kinesisDataStreamDestinations =
           $v.kinesisDataStreamDestinations?.toBuilder();
-      _tableName = $v.tableName;
       _$v = null;
     }
     return this;
@@ -109,9 +109,9 @@ class DescribeKinesisStreamingDestinationOutputBuilder
     try {
       _$result = _$v ??
           new _$DescribeKinesisStreamingDestinationOutput._(
+              tableName: tableName,
               kinesisDataStreamDestinations:
-                  _kinesisDataStreamDestinations?.build(),
-              tableName: tableName);
+                  _kinesisDataStreamDestinations?.build());
     } catch (_) {
       late String _$failedField;
       try {

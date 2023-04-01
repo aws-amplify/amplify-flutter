@@ -19,14 +19,14 @@ abstract class SdkResponse
         _i2.HasPayload<_i3.Uint8List> {
   /// The binary blob response to GetSdk, which contains the generated SDK.
   factory SdkResponse({
-    _i3.Uint8List? body,
-    String? contentDisposition,
     String? contentType,
+    String? contentDisposition,
+    _i3.Uint8List? body,
   }) {
     return _$SdkResponse._(
-      body: body,
-      contentDisposition: contentDisposition,
       contentType: contentType,
+      contentDisposition: contentDisposition,
+      body: body,
     );
   }
 
@@ -58,36 +58,36 @@ abstract class SdkResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkResponseBuilder b) {}
 
-  /// The binary blob response to GetSdk, which contains the generated SDK.
-  _i3.Uint8List? get body;
+  /// The content-type header value in the HTTP response.
+  String? get contentType;
 
   /// The content-disposition header value in the HTTP response.
   String? get contentDisposition;
 
-  /// The content-type header value in the HTTP response.
-  String? get contentType;
+  /// The binary blob response to GetSdk, which contains the generated SDK.
+  _i3.Uint8List? get body;
   @override
   _i3.Uint8List? getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        contentDisposition,
         contentType,
+        contentDisposition,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SdkResponse');
     helper.add(
-      'body',
-      body,
+      'contentType',
+      contentType,
     );
     helper.add(
       'contentDisposition',
       contentDisposition,
     );
     helper.add(
-      'contentType',
-      contentType,
+      'body',
+      body,
     );
     return helper.toString();
   }

@@ -9,10 +9,10 @@ import 'package:meta/meta.dart' as _i8;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/input_serialization.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart'
     as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/request_progress.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart'
+    as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/request_progress.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/scan_range.dart' as _i7;
 
 part 'select_object_content_request.g.dart';
@@ -28,31 +28,31 @@ abstract class SelectObjectContentRequest
   /// Request to filter the contents of an Amazon S3 object based on a simple Structured Query Language (SQL) statement. In the request, along with the SQL expression, you must specify a data serialization format (JSON or CSV) of the object. Amazon S3 uses this to parse object data into records. It returns only records that match the specified SQL expression. You must also specify the data serialization format for the response. For more information, see [S3Select API Documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectSELECTContent.html).
   factory SelectObjectContentRequest({
     required String bucket,
-    String? expectedBucketOwner,
-    required String expression,
-    required _i3.ExpressionType expressionType,
-    required _i4.InputSerialization inputSerialization,
     required String key,
-    required _i5.OutputSerialization outputSerialization,
-    _i6.RequestProgress? requestProgress,
-    _i7.ScanRange? scanRange,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
+    required String expression,
+    required _i3.ExpressionType expressionType,
+    _i4.RequestProgress? requestProgress,
+    required _i5.InputSerialization inputSerialization,
+    required _i6.OutputSerialization outputSerialization,
+    _i7.ScanRange? scanRange,
+    String? expectedBucketOwner,
   }) {
     return _$SelectObjectContentRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
-      expression: expression,
-      expressionType: expressionType,
-      inputSerialization: inputSerialization,
       key: key,
-      outputSerialization: outputSerialization,
-      requestProgress: requestProgress,
-      scanRange: scanRange,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKey: sseCustomerKey,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
+      expression: expression,
+      expressionType: expressionType,
+      requestProgress: requestProgress,
+      inputSerialization: inputSerialization,
+      outputSerialization: outputSerialization,
+      scanRange: scanRange,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -117,8 +117,17 @@ abstract class SelectObjectContentRequest
   /// The S3 bucket.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
+  /// The object key.
+  String get key;
+
+  /// The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  String? get sseCustomerAlgorithm;
+
+  /// The server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  String? get sseCustomerKey;
+
+  /// The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
+  String? get sseCustomerKeyMd5;
 
   /// The expression that is used to query the object.
   String get expression;
@@ -126,17 +135,14 @@ abstract class SelectObjectContentRequest
   /// The type of the provided expression (for example, SQL).
   _i3.ExpressionType get expressionType;
 
-  /// Describes the format of the data in the object that is being queried.
-  _i4.InputSerialization get inputSerialization;
+  /// Specifies if periodic request progress information should be enabled.
+  _i4.RequestProgress? get requestProgress;
 
-  /// The object key.
-  String get key;
+  /// Describes the format of the data in the object that is being queried.
+  _i5.InputSerialization get inputSerialization;
 
   /// Describes the format of the data that you want Amazon S3 to return in response.
-  _i5.OutputSerialization get outputSerialization;
-
-  /// Specifies if periodic request progress information should be enabled.
-  _i6.RequestProgress? get requestProgress;
+  _i6.OutputSerialization get outputSerialization;
 
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
   ///
@@ -149,14 +155,8 @@ abstract class SelectObjectContentRequest
   /// *   `50` \- process only the records within the last 50 bytes of the file.
   _i7.ScanRange? get scanRange;
 
-  /// The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
-  String? get sseCustomerAlgorithm;
-
-  /// The server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
-  String? get sseCustomerKey;
-
-  /// The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
-  String? get sseCustomerKeyMd5;
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -188,17 +188,17 @@ abstract class SelectObjectContentRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
-        expression,
-        expressionType,
-        inputSerialization,
         key,
-        outputSerialization,
-        requestProgress,
-        scanRange,
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
+        expression,
+        expressionType,
+        requestProgress,
+        inputSerialization,
+        outputSerialization,
+        scanRange,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -208,36 +208,8 @@ abstract class SelectObjectContentRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
       'key',
       key,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
-    helper.add(
-      'requestProgress',
-      requestProgress,
-    );
-    helper.add(
-      'scanRange',
-      scanRange,
     );
     helper.add(
       'sseCustomerAlgorithm',
@@ -250,6 +222,34 @@ abstract class SelectObjectContentRequest
     helper.add(
       'sseCustomerKeyMd5',
       sseCustomerKeyMd5,
+    );
+    helper.add(
+      'expression',
+      expression,
+    );
+    helper.add(
+      'expressionType',
+      expressionType,
+    );
+    helper.add(
+      'requestProgress',
+      requestProgress,
+    );
+    helper.add(
+      'inputSerialization',
+      inputSerialization,
+    );
+    helper.add(
+      'outputSerialization',
+      outputSerialization,
+    );
+    helper.add(
+      'scanRange',
+      scanRange,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -278,13 +278,13 @@ abstract class SelectObjectContentRequestPayload
   _i3.ExpressionType get expressionType;
 
   /// Describes the format of the data in the object that is being queried.
-  _i4.InputSerialization get inputSerialization;
+  _i5.InputSerialization get inputSerialization;
 
   /// Describes the format of the data that you want Amazon S3 to return in response.
-  _i5.OutputSerialization get outputSerialization;
+  _i6.OutputSerialization get outputSerialization;
 
   /// Specifies if periodic request progress information should be enabled.
-  _i6.RequestProgress? get requestProgress;
+  _i4.RequestProgress? get requestProgress;
 
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
   ///
@@ -384,21 +384,21 @@ class SelectObjectContentRequestRestXmlSerializer
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.InputSerialization),
-          ) as _i4.InputSerialization));
+            specifiedType: const FullType(_i5.InputSerialization),
+          ) as _i5.InputSerialization));
           break;
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.OutputSerialization),
-          ) as _i5.OutputSerialization));
+            specifiedType: const FullType(_i6.OutputSerialization),
+          ) as _i6.OutputSerialization));
           break;
         case 'RequestProgress':
           if (value != null) {
             result.requestProgress.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.RequestProgress),
-            ) as _i6.RequestProgress));
+              specifiedType: const FullType(_i4.RequestProgress),
+            ) as _i4.RequestProgress));
           }
           break;
         case 'ScanRange':
@@ -446,20 +446,20 @@ class SelectObjectContentRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         payload.inputSerialization,
-        specifiedType: const FullType(_i4.InputSerialization),
+        specifiedType: const FullType(_i5.InputSerialization),
       ));
     result
       ..add(const _i1.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
         payload.outputSerialization,
-        specifiedType: const FullType(_i5.OutputSerialization),
+        specifiedType: const FullType(_i6.OutputSerialization),
       ));
     if (payload.requestProgress != null) {
       result
         ..add(const _i1.XmlElementName('RequestProgress'))
         ..add(serializers.serialize(
           payload.requestProgress!,
-          specifiedType: const FullType(_i6.RequestProgress),
+          specifiedType: const FullType(_i4.RequestProgress),
         ));
     }
     if (payload.scanRange != null) {

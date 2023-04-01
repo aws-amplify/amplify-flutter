@@ -21,22 +21,22 @@ abstract class PutMethodResponseRequest
         _i1.HasPayload<PutMethodResponseRequestPayload> {
   /// Request to add a MethodResponse to an existing Method resource.
   factory PutMethodResponseRequest({
-    required String httpMethod,
-    required String resourceId,
-    Map<String, String>? responseModels,
-    Map<String, bool>? responseParameters,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
+    Map<String, bool>? responseParameters,
+    Map<String, String>? responseModels,
   }) {
     return _$PutMethodResponseRequest._(
-      httpMethod: httpMethod,
+      restApiId: restApiId,
       resourceId: resourceId,
-      responseModels:
-          responseModels == null ? null : _i3.BuiltMap(responseModels),
+      httpMethod: httpMethod,
+      statusCode: statusCode,
       responseParameters:
           responseParameters == null ? null : _i3.BuiltMap(responseParameters),
-      restApiId: restApiId,
-      statusCode: statusCode,
+      responseModels:
+          responseModels == null ? null : _i3.BuiltMap(responseModels),
     );
   }
 
@@ -80,23 +80,23 @@ abstract class PutMethodResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutMethodResponseRequestBuilder b) {}
 
-  /// The HTTP verb of the Method resource.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The Resource identifier for the Method resource.
   String get resourceId;
 
-  /// Specifies the Model resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a Model name as the value.
-  _i3.BuiltMap<String, String>? get responseModels;
+  /// The HTTP verb of the Method resource.
+  String get httpMethod;
+
+  /// The method response's status code.
+  String get statusCode;
 
   /// A key-value map specifying required or optional response parameters that API Gateway can send back to the caller. A key defines a method response header name and the associated value is a Boolean flag indicating whether the method response parameter is required or not. The method response header names must match the pattern of `method.response.header.{name}`, where `name` is a valid and unique header name. The response parameter names defined here are available in the integration response to be mapped from an integration response header expressed in `integration.response.header.{name}`, a static value enclosed within a pair of single quotes (e.g., `'application/json'`), or a JSON expression from the back-end response payload in the form of `integration.response.body.{JSON-expression}`, where `JSON-expression` is a valid JSON expression without the `$` prefix.)
   _i3.BuiltMap<String, bool>? get responseParameters;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The method response's status code.
-  String get statusCode;
+  /// Specifies the Model resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a Model name as the value.
+  _i3.BuiltMap<String, String>? get responseModels;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -127,39 +127,39 @@ abstract class PutMethodResponseRequest
       });
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
-        responseModels,
-        responseParameters,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
+        responseParameters,
+        responseModels,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutMethodResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'responseModels',
-      responseModels,
+      'httpMethod',
+      httpMethod,
+    );
+    helper.add(
+      'statusCode',
+      statusCode,
     );
     helper.add(
       'responseParameters',
       responseParameters,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
+      'responseModels',
+      responseModels,
     );
     return helper.toString();
   }

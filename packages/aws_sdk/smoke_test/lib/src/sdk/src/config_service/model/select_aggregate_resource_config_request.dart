@@ -17,15 +17,15 @@ abstract class SelectAggregateResourceConfigRequest
         Built<SelectAggregateResourceConfigRequest,
             SelectAggregateResourceConfigRequestBuilder> {
   factory SelectAggregateResourceConfigRequest({
-    required String configurationAggregatorName,
     required String expression,
+    required String configurationAggregatorName,
     int? limit,
     int? maxResults,
     String? nextToken,
   }) {
     return _$SelectAggregateResourceConfigRequest._(
-      configurationAggregatorName: configurationAggregatorName,
       expression: expression,
+      configurationAggregatorName: configurationAggregatorName,
       limit: limit,
       maxResults: maxResults,
       nextToken: nextToken,
@@ -52,11 +52,11 @@ abstract class SelectAggregateResourceConfigRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectAggregateResourceConfigRequestBuilder b) {}
 
-  /// The name of the configuration aggregator.
-  String get configurationAggregatorName;
-
   /// The SQL query SELECT command.
   String get expression;
+
+  /// The name of the configuration aggregator.
+  String get configurationAggregatorName;
 
   /// The maximum number of query results returned on each page.
   int? get limit;
@@ -70,8 +70,8 @@ abstract class SelectAggregateResourceConfigRequest
   SelectAggregateResourceConfigRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        configurationAggregatorName,
         expression,
+        configurationAggregatorName,
         limit,
         maxResults,
         nextToken,
@@ -81,12 +81,12 @@ abstract class SelectAggregateResourceConfigRequest
     final helper =
         newBuiltValueToStringHelper('SelectAggregateResourceConfigRequest');
     helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
       'expression',
       expression,
+    );
+    helper.add(
+      'configurationAggregatorName',
+      configurationAggregatorName,
     );
     helper.add(
       'limit',
@@ -134,14 +134,14 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConfigurationAggregatorName':
-          result.configurationAggregatorName = (serializers.deserialize(
+        case 'Expression':
+          result.expression = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'Expression':
-          result.expression = (serializers.deserialize(
+        case 'ConfigurationAggregatorName':
+          result.configurationAggregatorName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -184,14 +184,14 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as SelectAggregateResourceConfigRequest);
     final result = <Object?>[
-      'ConfigurationAggregatorName',
-      serializers.serialize(
-        payload.configurationAggregatorName,
-        specifiedType: const FullType(String),
-      ),
       'Expression',
       serializers.serialize(
         payload.expression,
+        specifiedType: const FullType(String),
+      ),
+      'ConfigurationAggregatorName',
+      serializers.serialize(
+        payload.configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
     ];

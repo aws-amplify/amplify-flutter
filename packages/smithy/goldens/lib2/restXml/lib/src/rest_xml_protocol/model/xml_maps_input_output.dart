@@ -95,7 +95,7 @@ class XmlMapsInputOutputRestXmlSerializer
           if (value != null) {
             result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltMap,
                 [

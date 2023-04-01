@@ -15,16 +15,16 @@ abstract class StoredQueryMetadata
     implements Built<StoredQueryMetadata, StoredQueryMetadataBuilder> {
   /// Returns details of a specific query.
   factory StoredQueryMetadata({
-    String? description,
-    required String queryArn,
     required String queryId,
+    required String queryArn,
     required String queryName,
+    String? description,
   }) {
     return _$StoredQueryMetadata._(
-      description: description,
-      queryArn: queryArn,
       queryId: queryId,
+      queryArn: queryArn,
       queryName: queryName,
+      description: description,
     );
   }
 
@@ -42,42 +42,42 @@ abstract class StoredQueryMetadata
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StoredQueryMetadataBuilder b) {}
 
-  /// A unique description for the query.
-  String? get description;
+  /// The ID of the query.
+  String get queryId;
 
   /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
   String get queryArn;
 
-  /// The ID of the query.
-  String get queryId;
-
   /// The name of the query.
   String get queryName;
+
+  /// A unique description for the query.
+  String? get description;
   @override
   List<Object?> get props => [
-        description,
-        queryArn,
         queryId,
+        queryArn,
         queryName,
+        description,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StoredQueryMetadata');
     helper.add(
-      'description',
-      description,
+      'queryId',
+      queryId,
     );
     helper.add(
       'queryArn',
       queryArn,
     );
     helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
       'queryName',
       queryName,
+    );
+    helper.add(
+      'description',
+      description,
     );
     return helper.toString();
   }
@@ -112,22 +112,14 @@ class StoredQueryMetadataAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryArn':
-          result.queryArn = (serializers.deserialize(
+        case 'QueryId':
+          result.queryId = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'QueryId':
-          result.queryId = (serializers.deserialize(
+        case 'QueryArn':
+          result.queryArn = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -137,6 +129,14 @@ class StoredQueryMetadataAwsJson11Serializer
             value!,
             specifiedType: const FullType(String),
           ) as String);
+          break;
+        case 'Description':
+          if (value != null) {
+            result.description = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -152,14 +152,14 @@ class StoredQueryMetadataAwsJson11Serializer
   }) {
     final payload = (object as StoredQueryMetadata);
     final result = <Object?>[
-      'QueryArn',
-      serializers.serialize(
-        payload.queryArn,
-        specifiedType: const FullType(String),
-      ),
       'QueryId',
       serializers.serialize(
         payload.queryId,
+        specifiedType: const FullType(String),
+      ),
+      'QueryArn',
+      serializers.serialize(
+        payload.queryArn,
         specifiedType: const FullType(String),
       ),
       'QueryName',

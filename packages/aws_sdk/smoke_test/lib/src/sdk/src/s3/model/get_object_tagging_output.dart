@@ -18,12 +18,12 @@ abstract class GetObjectTaggingOutput
         Built<GetObjectTaggingOutput, GetObjectTaggingOutputBuilder>,
         _i2.HasPayload<GetObjectTaggingOutputPayload> {
   factory GetObjectTaggingOutput({
-    required List<_i3.Tag> tagSet,
     String? versionId,
+    required List<_i3.Tag> tagSet,
   }) {
     return _$GetObjectTaggingOutput._(
-      tagSet: _i4.BuiltList(tagSet),
       versionId: versionId,
+      tagSet: _i4.BuiltList(tagSet),
     );
   }
 
@@ -52,11 +52,11 @@ abstract class GetObjectTaggingOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTaggingOutputBuilder b) {}
 
-  /// Contains the tag set.
-  _i4.BuiltList<_i3.Tag> get tagSet;
-
   /// The versionId of the object for which you got the tagging information.
   String? get versionId;
+
+  /// Contains the tag set.
+  _i4.BuiltList<_i3.Tag> get tagSet;
   @override
   GetObjectTaggingOutputPayload getPayload() =>
       GetObjectTaggingOutputPayload((b) {
@@ -64,19 +64,19 @@ abstract class GetObjectTaggingOutput
       });
   @override
   List<Object?> get props => [
-        tagSet,
         versionId,
+        tagSet,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput');
     helper.add(
-      'tagSet',
-      tagSet,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'tagSet',
+      tagSet,
     );
     return helper.toString();
   }
@@ -149,7 +149,7 @@ class GetObjectTaggingOutputRestXmlSerializer
           result.tagSet.replace(
               (const _i2.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
-            (value as Iterable<Object?>),
+            value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
               _i4.BuiltList,
               [FullType(_i3.Tag)],

@@ -19,13 +19,13 @@ abstract class UpdateContinuousBackupsInput
         Built<UpdateContinuousBackupsInput,
             UpdateContinuousBackupsInputBuilder> {
   factory UpdateContinuousBackupsInput({
+    required String tableName,
     required _i3.PointInTimeRecoverySpecification
         pointInTimeRecoverySpecification,
-    required String tableName,
   }) {
     return _$UpdateContinuousBackupsInput._(
-      pointInTimeRecoverySpecification: pointInTimeRecoverySpecification,
       tableName: tableName,
+      pointInTimeRecoverySpecification: pointInTimeRecoverySpecification,
     );
   }
 
@@ -49,28 +49,28 @@ abstract class UpdateContinuousBackupsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContinuousBackupsInputBuilder b) {}
 
-  /// Represents the settings used to enable point in time recovery.
-  _i3.PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
-
   /// The name of the table.
   String get tableName;
+
+  /// Represents the settings used to enable point in time recovery.
+  _i3.PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
   @override
   UpdateContinuousBackupsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        pointInTimeRecoverySpecification,
         tableName,
+        pointInTimeRecoverySpecification,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsInput');
     helper.add(
-      'pointInTimeRecoverySpecification',
-      pointInTimeRecoverySpecification,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'pointInTimeRecoverySpecification',
+      pointInTimeRecoverySpecification,
     );
     return helper.toString();
   }
@@ -106,18 +106,18 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'PointInTimeRecoverySpecification':
           result.pointInTimeRecoverySpecification
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
           ) as _i3.PointInTimeRecoverySpecification));
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -133,15 +133,15 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
   }) {
     final payload = (object as UpdateContinuousBackupsInput);
     final result = <Object?>[
-      'PointInTimeRecoverySpecification',
-      serializers.serialize(
-        payload.pointInTimeRecoverySpecification,
-        specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
-      ),
       'TableName',
       serializers.serialize(
         payload.tableName,
         specifiedType: const FullType(String),
+      ),
+      'PointInTimeRecoverySpecification',
+      serializers.serialize(
+        payload.pointInTimeRecoverySpecification,
+        specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
       ),
     ];
     return result;

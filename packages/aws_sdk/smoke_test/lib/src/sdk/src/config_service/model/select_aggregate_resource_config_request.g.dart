@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.select_aggregate_resource_config_request
 class _$SelectAggregateResourceConfigRequest
     extends SelectAggregateResourceConfigRequest {
   @override
-  final String configurationAggregatorName;
-  @override
   final String expression;
+  @override
+  final String configurationAggregatorName;
   @override
   final int? limit;
   @override
@@ -26,16 +26,16 @@ class _$SelectAggregateResourceConfigRequest
           ._build();
 
   _$SelectAggregateResourceConfigRequest._(
-      {required this.configurationAggregatorName,
-      required this.expression,
+      {required this.expression,
+      required this.configurationAggregatorName,
       this.limit,
       this.maxResults,
       this.nextToken})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(configurationAggregatorName,
-        r'SelectAggregateResourceConfigRequest', 'configurationAggregatorName');
     BuiltValueNullFieldError.checkNotNull(
         expression, r'SelectAggregateResourceConfigRequest', 'expression');
+    BuiltValueNullFieldError.checkNotNull(configurationAggregatorName,
+        r'SelectAggregateResourceConfigRequest', 'configurationAggregatorName');
   }
 
   @override
@@ -51,8 +51,8 @@ class _$SelectAggregateResourceConfigRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SelectAggregateResourceConfigRequest &&
-        configurationAggregatorName == other.configurationAggregatorName &&
         expression == other.expression &&
+        configurationAggregatorName == other.configurationAggregatorName &&
         limit == other.limit &&
         maxResults == other.maxResults &&
         nextToken == other.nextToken;
@@ -61,8 +61,8 @@ class _$SelectAggregateResourceConfigRequest
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
     _$hash = $jc(_$hash, expression.hashCode);
+    _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
@@ -77,15 +77,15 @@ class SelectAggregateResourceConfigRequestBuilder
             SelectAggregateResourceConfigRequestBuilder> {
   _$SelectAggregateResourceConfigRequest? _$v;
 
+  String? _expression;
+  String? get expression => _$this._expression;
+  set expression(String? expression) => _$this._expression = expression;
+
   String? _configurationAggregatorName;
   String? get configurationAggregatorName =>
       _$this._configurationAggregatorName;
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
-
-  String? _expression;
-  String? get expression => _$this._expression;
-  set expression(String? expression) => _$this._expression = expression;
 
   int? _limit;
   int? get limit => _$this._limit;
@@ -106,8 +106,8 @@ class SelectAggregateResourceConfigRequestBuilder
   SelectAggregateResourceConfigRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _configurationAggregatorName = $v.configurationAggregatorName;
       _expression = $v.expression;
+      _configurationAggregatorName = $v.configurationAggregatorName;
       _limit = $v.limit;
       _maxResults = $v.maxResults;
       _nextToken = $v.nextToken;
@@ -134,12 +134,12 @@ class SelectAggregateResourceConfigRequestBuilder
   _$SelectAggregateResourceConfigRequest _build() {
     final _$result = _$v ??
         new _$SelectAggregateResourceConfigRequest._(
+            expression: BuiltValueNullFieldError.checkNotNull(expression,
+                r'SelectAggregateResourceConfigRequest', 'expression'),
             configurationAggregatorName: BuiltValueNullFieldError.checkNotNull(
                 configurationAggregatorName,
                 r'SelectAggregateResourceConfigRequest',
                 'configurationAggregatorName'),
-            expression: BuiltValueNullFieldError.checkNotNull(expression,
-                r'SelectAggregateResourceConfigRequest', 'expression'),
             limit: limit,
             maxResults: maxResults,
             nextToken: nextToken);

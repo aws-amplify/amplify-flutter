@@ -20,33 +20,33 @@ abstract class JsonListsInputOutput
         _i2.AWSEquatable<JsonListsInputOutput>
     implements Built<JsonListsInputOutput, JsonListsInputOutputBuilder> {
   factory JsonListsInputOutput({
+    List<String>? stringList,
+    List<String?>? sparseStringList,
+    Set<String>? stringSet,
+    List<int>? integerList,
     List<bool>? booleanList,
+    List<DateTime>? timestampList,
     List<_i3.FooEnum>? enumList,
     List<int>? intEnumList,
-    List<int>? integerList,
     List<List<String>>? nestedStringList,
-    List<String?>? sparseStringList,
-    List<String>? stringList,
-    Set<String>? stringSet,
     List<_i4.StructureListMember>? structureList,
-    List<DateTime>? timestampList,
   }) {
     return _$JsonListsInputOutput._(
+      stringList: stringList == null ? null : _i5.BuiltList(stringList),
+      sparseStringList:
+          sparseStringList == null ? null : _i5.BuiltList(sparseStringList),
+      stringSet: stringSet == null ? null : _i5.BuiltSet(stringSet),
+      integerList: integerList == null ? null : _i5.BuiltList(integerList),
       booleanList: booleanList == null ? null : _i5.BuiltList(booleanList),
+      timestampList:
+          timestampList == null ? null : _i5.BuiltList(timestampList),
       enumList: enumList == null ? null : _i5.BuiltList(enumList),
       intEnumList: intEnumList == null ? null : _i5.BuiltList(intEnumList),
-      integerList: integerList == null ? null : _i5.BuiltList(integerList),
       nestedStringList: nestedStringList == null
           ? null
           : _i5.BuiltList(nestedStringList.map((el) => _i5.BuiltList(el))),
-      sparseStringList:
-          sparseStringList == null ? null : _i5.BuiltList(sparseStringList),
-      stringList: stringList == null ? null : _i5.BuiltList(stringList),
-      stringSet: stringSet == null ? null : _i5.BuiltSet(stringSet),
       structureList:
           structureList == null ? null : _i5.BuiltList(structureList),
-      timestampList:
-          timestampList == null ? null : _i5.BuiltList(timestampList),
     );
   }
 
@@ -76,39 +76,59 @@ abstract class JsonListsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(JsonListsInputOutputBuilder b) {}
+  _i5.BuiltList<String>? get stringList;
+  _i5.BuiltList<String?>? get sparseStringList;
+  _i5.BuiltSet<String>? get stringSet;
+  _i5.BuiltList<int>? get integerList;
   _i5.BuiltList<bool>? get booleanList;
+  _i5.BuiltList<DateTime>? get timestampList;
   _i5.BuiltList<_i3.FooEnum>? get enumList;
   _i5.BuiltList<int>? get intEnumList;
-  _i5.BuiltList<int>? get integerList;
 
   /// A list of lists of strings.
   _i5.BuiltList<_i5.BuiltList<String>>? get nestedStringList;
-  _i5.BuiltList<String?>? get sparseStringList;
-  _i5.BuiltList<String>? get stringList;
-  _i5.BuiltSet<String>? get stringSet;
   _i5.BuiltList<_i4.StructureListMember>? get structureList;
-  _i5.BuiltList<DateTime>? get timestampList;
   @override
   JsonListsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        stringList,
+        sparseStringList,
+        stringSet,
+        integerList,
         booleanList,
+        timestampList,
         enumList,
         intEnumList,
-        integerList,
         nestedStringList,
-        sparseStringList,
-        stringList,
-        stringSet,
         structureList,
-        timestampList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonListsInputOutput');
     helper.add(
+      'stringList',
+      stringList,
+    );
+    helper.add(
+      'sparseStringList',
+      sparseStringList,
+    );
+    helper.add(
+      'stringSet',
+      stringSet,
+    );
+    helper.add(
+      'integerList',
+      integerList,
+    );
+    helper.add(
       'booleanList',
       booleanList,
+    );
+    helper.add(
+      'timestampList',
+      timestampList,
     );
     helper.add(
       'enumList',
@@ -119,32 +139,12 @@ abstract class JsonListsInputOutput
       intEnumList,
     );
     helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
       'nestedStringList',
       nestedStringList,
     );
     helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'stringSet',
-      stringSet,
-    );
-    helper.add(
       'structureList',
       structureList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
     );
     return helper.toString();
   }

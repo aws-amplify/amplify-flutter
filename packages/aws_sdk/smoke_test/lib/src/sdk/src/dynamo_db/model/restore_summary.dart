@@ -15,17 +15,17 @@ abstract class RestoreSummary
     implements Built<RestoreSummary, RestoreSummaryBuilder> {
   /// Contains details for the restore.
   factory RestoreSummary({
-    required DateTime restoreDateTime,
-    bool? restoreInProgress,
     String? sourceBackupArn,
     String? sourceTableArn,
+    required DateTime restoreDateTime,
+    bool? restoreInProgress,
   }) {
     restoreInProgress ??= false;
     return _$RestoreSummary._(
-      restoreDateTime: restoreDateTime,
-      restoreInProgress: restoreInProgress,
       sourceBackupArn: sourceBackupArn,
       sourceTableArn: sourceTableArn,
+      restoreDateTime: restoreDateTime,
+      restoreInProgress: restoreInProgress,
     );
   }
 
@@ -44,35 +44,27 @@ abstract class RestoreSummary
     b.restoreInProgress = false;
   }
 
-  /// Point in time or source backup time.
-  DateTime get restoreDateTime;
-
-  /// Indicates if a restore is in progress or not.
-  bool get restoreInProgress;
-
   /// The Amazon Resource Name (ARN) of the backup from which the table was restored.
   String? get sourceBackupArn;
 
   /// The ARN of the source table of the backup that is being restored.
   String? get sourceTableArn;
+
+  /// Point in time or source backup time.
+  DateTime get restoreDateTime;
+
+  /// Indicates if a restore is in progress or not.
+  bool get restoreInProgress;
   @override
   List<Object?> get props => [
-        restoreDateTime,
-        restoreInProgress,
         sourceBackupArn,
         sourceTableArn,
+        restoreDateTime,
+        restoreInProgress,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestoreSummary');
-    helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'restoreInProgress',
-      restoreInProgress,
-    );
     helper.add(
       'sourceBackupArn',
       sourceBackupArn,
@@ -80,6 +72,14 @@ abstract class RestoreSummary
     helper.add(
       'sourceTableArn',
       sourceTableArn,
+    );
+    helper.add(
+      'restoreDateTime',
+      restoreDateTime,
+    );
+    helper.add(
+      'restoreInProgress',
+      restoreInProgress,
     );
     return helper.toString();
   }
@@ -114,18 +114,6 @@ class RestoreSummaryAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'RestoreDateTime':
-          result.restoreDateTime = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
-          break;
-        case 'RestoreInProgress':
-          result.restoreInProgress = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
-          break;
         case 'SourceBackupArn':
           if (value != null) {
             result.sourceBackupArn = (serializers.deserialize(
@@ -141,6 +129,18 @@ class RestoreSummaryAwsJson10Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
+          break;
+        case 'RestoreDateTime':
+          result.restoreDateTime = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+          break;
+        case 'RestoreInProgress':
+          result.restoreInProgress = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }

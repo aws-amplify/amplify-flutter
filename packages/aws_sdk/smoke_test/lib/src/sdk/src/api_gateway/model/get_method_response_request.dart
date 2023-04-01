@@ -21,15 +21,15 @@ abstract class GetMethodResponseRequest
         _i1.HasPayload<GetMethodResponseRequestPayload> {
   /// Request to describe a MethodResponse resource.
   factory GetMethodResponseRequest({
-    required String httpMethod,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
   }) {
     return _$GetMethodResponseRequest._(
-      httpMethod: httpMethod,
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      httpMethod: httpMethod,
       statusCode: statusCode,
     );
   }
@@ -68,14 +68,14 @@ abstract class GetMethodResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetMethodResponseRequestBuilder b) {}
 
-  /// The HTTP verb of the Method resource.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The Resource identifier for the MethodResponse resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The HTTP verb of the Method resource.
+  String get httpMethod;
 
   /// The status code for the MethodResponse resource.
   String get statusCode;
@@ -102,25 +102,25 @@ abstract class GetMethodResponseRequest
       GetMethodResponseRequestPayload();
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetMethodResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     helper.add(
       'statusCode',

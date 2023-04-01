@@ -18,14 +18,14 @@ abstract class UpdateContributorInsightsOutput
         Built<UpdateContributorInsightsOutput,
             UpdateContributorInsightsOutputBuilder> {
   factory UpdateContributorInsightsOutput({
-    _i2.ContributorInsightsStatus? contributorInsightsStatus,
-    String? indexName,
     String? tableName,
+    String? indexName,
+    _i2.ContributorInsightsStatus? contributorInsightsStatus,
   }) {
     return _$UpdateContributorInsightsOutput._(
-      contributorInsightsStatus: contributorInsightsStatus,
-      indexName: indexName,
       tableName: tableName,
+      indexName: indexName,
+      contributorInsightsStatus: contributorInsightsStatus,
     );
   }
 
@@ -49,35 +49,35 @@ abstract class UpdateContributorInsightsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContributorInsightsOutputBuilder b) {}
 
-  /// The status of contributor insights
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+  /// The name of the table.
+  String? get tableName;
 
   /// The name of the global secondary index, if applicable.
   String? get indexName;
 
-  /// The name of the table.
-  String? get tableName;
+  /// The status of contributor insights
+  _i2.ContributorInsightsStatus? get contributorInsightsStatus;
   @override
   List<Object?> get props => [
-        contributorInsightsStatus,
-        indexName,
         tableName,
+        indexName,
+        contributorInsightsStatus,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateContributorInsightsOutput');
     helper.add(
-      'contributorInsightsStatus',
-      contributorInsightsStatus,
+      'tableName',
+      tableName,
     );
     helper.add(
       'indexName',
       indexName,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'contributorInsightsStatus',
+      contributorInsightsStatus,
     );
     return helper.toString();
   }
@@ -113,12 +113,12 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ContributorInsightsStatus':
+        case 'TableName':
           if (value != null) {
-            result.contributorInsightsStatus = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ContributorInsightsStatus),
-            ) as _i2.ContributorInsightsStatus);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'IndexName':
@@ -129,12 +129,12 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'TableName':
+        case 'ContributorInsightsStatus':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.contributorInsightsStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i2.ContributorInsightsStatus),
+            ) as _i2.ContributorInsightsStatus);
           }
           break;
       }
@@ -151,12 +151,12 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
   }) {
     final payload = (object as UpdateContributorInsightsOutput);
     final result = <Object?>[];
-    if (payload.contributorInsightsStatus != null) {
+    if (payload.tableName != null) {
       result
-        ..add('ContributorInsightsStatus')
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.contributorInsightsStatus!,
-          specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          payload.tableName!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.indexName != null) {
@@ -167,12 +167,12 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableName != null) {
+    if (payload.contributorInsightsStatus != null) {
       result
-        ..add('TableName')
+        ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          payload.contributorInsightsStatus!,
+          specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }
     return result;

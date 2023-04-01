@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_deployment_request;
 
 class _$DeleteDeploymentRequest extends DeleteDeploymentRequest {
   @override
-  final String deploymentId;
-  @override
   final String restApiId;
+  @override
+  final String deploymentId;
 
   factory _$DeleteDeploymentRequest(
           [void Function(DeleteDeploymentRequestBuilder)? updates]) =>
       (new DeleteDeploymentRequestBuilder()..update(updates))._build();
 
   _$DeleteDeploymentRequest._(
-      {required this.deploymentId, required this.restApiId})
+      {required this.restApiId, required this.deploymentId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        deploymentId, r'DeleteDeploymentRequest', 'deploymentId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteDeploymentRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        deploymentId, r'DeleteDeploymentRequest', 'deploymentId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteDeploymentRequest extends DeleteDeploymentRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteDeploymentRequest &&
-        deploymentId == other.deploymentId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        deploymentId == other.deploymentId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class DeleteDeploymentRequestBuilder
         Builder<DeleteDeploymentRequest, DeleteDeploymentRequestBuilder> {
   _$DeleteDeploymentRequest? _$v;
 
-  String? _deploymentId;
-  String? get deploymentId => _$this._deploymentId;
-  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _deploymentId;
+  String? get deploymentId => _$this._deploymentId;
+  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
   DeleteDeploymentRequestBuilder() {
     DeleteDeploymentRequest._init(this);
@@ -72,8 +72,8 @@ class DeleteDeploymentRequestBuilder
   DeleteDeploymentRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _deploymentId = $v.deploymentId;
       _restApiId = $v.restApiId;
+      _deploymentId = $v.deploymentId;
       _$v = null;
     }
     return this;
@@ -96,10 +96,10 @@ class DeleteDeploymentRequestBuilder
   _$DeleteDeploymentRequest _build() {
     final _$result = _$v ??
         new _$DeleteDeploymentRequest._(
-            deploymentId: BuiltValueNullFieldError.checkNotNull(
-                deploymentId, r'DeleteDeploymentRequest', 'deploymentId'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteDeploymentRequest', 'restApiId'));
+                restApiId, r'DeleteDeploymentRequest', 'restApiId'),
+            deploymentId: BuiltValueNullFieldError.checkNotNull(
+                deploymentId, r'DeleteDeploymentRequest', 'deploymentId'));
     replace(_$result);
     return _$result;
   }

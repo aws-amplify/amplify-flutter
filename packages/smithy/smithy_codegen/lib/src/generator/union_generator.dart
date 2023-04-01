@@ -75,7 +75,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
 
   /// The getter fields for members.
   Iterable<Method> get _variantGetters sync* {
-    for (var member in sortedMembers) {
+    for (final member in members) {
       yield Method(
         (m) => m
           ..docs.addAll([
@@ -111,7 +111,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ..modifier = FieldModifier.final$
             ..type = DartTypes.core.string
             ..name = 'value'));
-        for (final member in sortedMembers) {
+        for (final member in members) {
           e.values.add(
             EnumValue(
               (v) => v
@@ -151,7 +151,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..lambda = true
           ..body = Block.of([
             const Code('('),
-            sortedMembers.fold<Expression?>(null, (ref, m) {
+            members.fold<Expression?>(null, (ref, m) {
               final memberRef = refer(variantName(m));
               if (ref == null) {
                 return memberRef;
@@ -164,7 +164,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
 
   /// Factory constructors for each member.
   Iterable<Constructor> get _factoryConstructors sync* {
-    for (var member in sortedMembers) {
+    for (final member in members) {
       final memberSymbol = memberSymbols[member]!;
       final requiresTransformation =
           memberSymbol.requiresConstructorTransformation;
@@ -220,7 +220,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
         ..types.add(refer('T'));
 
       m.optionalParameters.addAll([
-        for (var member in sortedMembers)
+        for (final member in members)
           Parameter(
             (p) => p
               ..named = true
@@ -249,7 +249,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       ]);
 
       m.body = Block.of([
-        for (var member in sortedMembers) ...[
+        for (final member in members) ...[
           const Code('if ('),
           refer('this').isA(refer(variantClassName(member))).code,
           const Code(') {'),
@@ -286,7 +286,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
 
   /// Factory constructors for each member.
   Iterable<Class> get _variantClasses sync* {
-    for (var member in sortedMembers) {
+    for (final member in members) {
       final memberSymbol = memberSymbols[member]!;
       final requiresTransformation =
           memberSymbol.requiresConstructorTransformation;
@@ -435,7 +435,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             .call([literalString(className, raw: true)]),
       ),
     );
-    for (final member in sortedMembers) {
+    for (final member in members) {
       final dartName = member.dartName(ShapeType.union);
       final isSensitive = shape.hasTrait<SensitiveTrait>() ||
           member.hasTrait<SensitiveTrait>() ||

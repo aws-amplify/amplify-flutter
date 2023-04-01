@@ -65,10 +65,10 @@ final Map<FullType, Function> builderFactories = {
   ): _i24.MapBuilder<String, _i9.FileConfigSettings>.new,
   const FullType(
     _i24.BuiltList,
-    [FullType(_i17.CommonPrefix)],
-  ): _i24.ListBuilder<_i17.CommonPrefix>.new,
-  const FullType(
-    _i24.BuiltList,
     [FullType(_i15.S3Object)],
   ): _i24.ListBuilder<_i15.S3Object>.new,
+  const FullType(
+    _i24.BuiltList,
+    [FullType(_i17.CommonPrefix)],
+  ): _i24.ListBuilder<_i17.CommonPrefix>.new,
 };

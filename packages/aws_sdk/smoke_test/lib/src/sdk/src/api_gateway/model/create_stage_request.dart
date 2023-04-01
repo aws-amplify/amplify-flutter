@@ -25,30 +25,30 @@ abstract class CreateStageRequest
         _i1.HasPayload<CreateStageRequestPayload> {
   /// Requests API Gateway to create a Stage resource.
   factory CreateStageRequest({
-    bool? cacheClusterEnabled,
-    _i3.CacheClusterSize? cacheClusterSize,
-    _i4.CanarySettings? canarySettings,
-    required String deploymentId,
-    String? description,
-    String? documentationVersion,
     required String restApiId,
     required String stageName,
-    Map<String, String>? tags,
-    bool? tracingEnabled,
+    required String deploymentId,
+    String? description,
+    bool? cacheClusterEnabled,
+    _i3.CacheClusterSize? cacheClusterSize,
     Map<String, String>? variables,
+    String? documentationVersion,
+    _i4.CanarySettings? canarySettings,
+    bool? tracingEnabled,
+    Map<String, String>? tags,
   }) {
     return _$CreateStageRequest._(
-      cacheClusterEnabled: cacheClusterEnabled,
-      cacheClusterSize: cacheClusterSize,
-      canarySettings: canarySettings,
-      deploymentId: deploymentId,
-      description: description,
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
       stageName: stageName,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
-      tracingEnabled: tracingEnabled,
+      deploymentId: deploymentId,
+      description: description,
+      cacheClusterEnabled: cacheClusterEnabled,
+      cacheClusterSize: cacheClusterSize,
       variables: variables == null ? null : _i5.BuiltMap(variables),
+      documentationVersion: documentationVersion,
+      canarySettings: canarySettings,
+      tracingEnabled: tracingEnabled,
+      tags: tags == null ? null : _i5.BuiltMap(tags),
     );
   }
 
@@ -93,14 +93,11 @@ abstract class CreateStageRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStageRequestBuilder b) {}
 
-  /// Whether cache clustering is enabled for the stage.
-  bool? get cacheClusterEnabled;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
-  /// The stage's cache cluster size.
-  _i3.CacheClusterSize? get cacheClusterSize;
-
-  /// The canary deployment settings of this stage.
-  _i4.CanarySettings? get canarySettings;
+  /// The name for the Stage resource. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
+  String get stageName;
 
   /// The identifier of the Deployment resource for the Stage resource.
   String get deploymentId;
@@ -108,23 +105,26 @@ abstract class CreateStageRequest
   /// The description of the Stage resource.
   String? get description;
 
+  /// Whether cache clustering is enabled for the stage.
+  bool? get cacheClusterEnabled;
+
+  /// The stage's cache cluster size.
+  _i3.CacheClusterSize? get cacheClusterSize;
+
+  /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
+  _i5.BuiltMap<String, String>? get variables;
+
   /// The version of the associated API documentation.
   String? get documentationVersion;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The name for the Stage resource. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
-  String get stageName;
-
-  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i5.BuiltMap<String, String>? get tags;
+  /// The canary deployment settings of this stage.
+  _i4.CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool? get tracingEnabled;
 
-  /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
+  /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
+  _i5.BuiltMap<String, String>? get tags;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -158,32 +158,28 @@ abstract class CreateStageRequest
       });
   @override
   List<Object?> get props => [
-        cacheClusterEnabled,
-        cacheClusterSize,
-        canarySettings,
-        deploymentId,
-        description,
-        documentationVersion,
         restApiId,
         stageName,
-        tags,
-        tracingEnabled,
+        deploymentId,
+        description,
+        cacheClusterEnabled,
+        cacheClusterSize,
         variables,
+        documentationVersion,
+        canarySettings,
+        tracingEnabled,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateStageRequest');
     helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
+      'restApiId',
+      restApiId,
     );
     helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
+      'stageName',
+      stageName,
     );
     helper.add(
       'deploymentId',
@@ -194,28 +190,32 @@ abstract class CreateStageRequest
       description,
     );
     helper.add(
+      'cacheClusterEnabled',
+      cacheClusterEnabled,
+    );
+    helper.add(
+      'cacheClusterSize',
+      cacheClusterSize,
+    );
+    helper.add(
+      'variables',
+      variables,
+    );
+    helper.add(
       'documentationVersion',
       documentationVersion,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tags',
-      tags,
+      'canarySettings',
+      canarySettings,
     );
     helper.add(
       'tracingEnabled',
       tracingEnabled,
     );
     helper.add(
-      'variables',
-      variables,
+      'tags',
+      tags,
     );
     return helper.toString();
   }

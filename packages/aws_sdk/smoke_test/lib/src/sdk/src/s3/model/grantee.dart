@@ -20,15 +20,15 @@ abstract class Grantee
     String? displayName,
     String? emailAddress,
     String? id,
-    required _i2.S3Type type,
     String? uri,
+    required _i2.S3Type type,
   }) {
     return _$Grantee._(
       displayName: displayName,
       emailAddress: emailAddress,
       id: id,
-      type: type,
       uri: uri,
+      type: type,
     );
   }
 
@@ -74,18 +74,18 @@ abstract class Grantee
   /// The canonical user ID of the grantee.
   String? get id;
 
-  /// Type of grantee
-  _i2.S3Type get type;
-
   /// URI of the grantee group.
   String? get uri;
+
+  /// Type of grantee
+  _i2.S3Type get type;
   @override
   List<Object?> get props => [
         displayName,
         emailAddress,
         id,
-        type,
         uri,
+        type,
       ];
   @override
   String toString() {
@@ -103,12 +103,12 @@ abstract class Grantee
       id,
     );
     helper.add(
-      'type',
-      type,
-    );
-    helper.add(
       'uri',
       uri,
+    );
+    helper.add(
+      'type',
+      type,
     );
     return helper.toString();
   }

@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_status.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_status.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/replication_time_value.dart'
-    as _i2;
+    as _i3;
 
 part 'metrics.g.dart';
 
@@ -18,12 +18,12 @@ abstract class Metrics
     implements Built<Metrics, MetricsBuilder> {
   /// A container specifying replication metrics-related settings enabling replication metrics and events.
   factory Metrics({
-    _i2.ReplicationTimeValue? eventThreshold,
-    required _i3.MetricsStatus status,
+    required _i2.MetricsStatus status,
+    _i3.ReplicationTimeValue? eventThreshold,
   }) {
     return _$Metrics._(
-      eventThreshold: eventThreshold,
       status: status,
+      eventThreshold: eventThreshold,
     );
   }
 
@@ -39,26 +39,26 @@ abstract class Metrics
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetricsBuilder b) {}
 
-  /// A container specifying the time threshold for emitting the `s3:Replication:OperationMissedThreshold` event.
-  _i2.ReplicationTimeValue? get eventThreshold;
-
   /// Specifies whether the replication metrics are enabled.
-  _i3.MetricsStatus get status;
+  _i2.MetricsStatus get status;
+
+  /// A container specifying the time threshold for emitting the `s3:Replication:OperationMissedThreshold` event.
+  _i3.ReplicationTimeValue? get eventThreshold;
   @override
   List<Object?> get props => [
-        eventThreshold,
         status,
+        eventThreshold,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Metrics');
     helper.add(
-      'eventThreshold',
-      eventThreshold,
-    );
-    helper.add(
       'status',
       status,
+    );
+    helper.add(
+      'eventThreshold',
+      eventThreshold,
     );
     return helper.toString();
   }
@@ -96,15 +96,15 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
           if (value != null) {
             result.eventThreshold.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ReplicationTimeValue),
-            ) as _i2.ReplicationTimeValue));
+              specifiedType: const FullType(_i3.ReplicationTimeValue),
+            ) as _i3.ReplicationTimeValue));
           }
           break;
         case 'Status':
           result.status = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i3.MetricsStatus),
-          ) as _i3.MetricsStatus);
+            specifiedType: const FullType(_i2.MetricsStatus),
+          ) as _i2.MetricsStatus);
           break;
       }
     }
@@ -130,14 +130,14 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
         ..add(const _i4.XmlElementName('EventThreshold'))
         ..add(serializers.serialize(
           payload.eventThreshold!,
-          specifiedType: const FullType(_i2.ReplicationTimeValue),
+          specifiedType: const FullType(_i3.ReplicationTimeValue),
         ));
     }
     result
       ..add(const _i4.XmlElementName('Status'))
       ..add(serializers.serialize(
         payload.status,
-        specifiedType: const FullType.nullable(_i3.MetricsStatus),
+        specifiedType: const FullType.nullable(_i2.MetricsStatus),
       ));
     return result;
   }

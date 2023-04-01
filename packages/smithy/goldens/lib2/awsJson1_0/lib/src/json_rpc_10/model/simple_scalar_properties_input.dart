@@ -16,12 +16,12 @@ abstract class SimpleScalarPropertiesInput
     implements
         Built<SimpleScalarPropertiesInput, SimpleScalarPropertiesInputBuilder> {
   factory SimpleScalarPropertiesInput({
-    double? doubleValue,
     double? floatValue,
+    double? doubleValue,
   }) {
     return _$SimpleScalarPropertiesInput._(
-      doubleValue: doubleValue,
       floatValue: floatValue,
+      doubleValue: doubleValue,
     );
   }
 
@@ -44,25 +44,25 @@ abstract class SimpleScalarPropertiesInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarPropertiesInputBuilder b) {}
-  double? get doubleValue;
   double? get floatValue;
+  double? get doubleValue;
   @override
   SimpleScalarPropertiesInput getPayload() => this;
   @override
   List<Object?> get props => [
-        doubleValue,
         floatValue,
+        doubleValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SimpleScalarPropertiesInput');
     helper.add(
-      'doubleValue',
-      doubleValue,
-    );
-    helper.add(
       'floatValue',
       floatValue,
+    );
+    helper.add(
+      'doubleValue',
+      doubleValue,
     );
     return helper.toString();
   }
@@ -98,17 +98,17 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'doubleValue':
+        case 'floatValue':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(
+            result.floatValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(double),
             ) as double);
           }
           break;
-        case 'floatValue':
+        case 'doubleValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(
+            result.doubleValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(double),
             ) as double);
@@ -128,19 +128,19 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
   }) {
     final payload = (object as SimpleScalarPropertiesInput);
     final result = <Object?>[];
-    if (payload.doubleValue != null) {
-      result
-        ..add('doubleValue')
-        ..add(serializers.serialize(
-          payload.doubleValue!,
-          specifiedType: const FullType(double),
-        ));
-    }
     if (payload.floatValue != null) {
       result
         ..add('floatValue')
         ..add(serializers.serialize(
           payload.floatValue!,
+          specifiedType: const FullType(double),
+        ));
+    }
+    if (payload.doubleValue != null) {
+      result
+        ..add('doubleValue')
+        ..add(serializers.serialize(
+          payload.doubleValue!,
           specifiedType: const FullType(double),
         ));
     }

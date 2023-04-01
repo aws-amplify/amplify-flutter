@@ -13,9 +13,9 @@ class _$PutBucketLifecycleConfigurationRequest
   @override
   final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final String? expectedBucketOwner;
-  @override
   final _i2.BucketLifecycleConfiguration? lifecycleConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketLifecycleConfigurationRequest(
           [void Function(PutBucketLifecycleConfigurationRequestBuilder)?
@@ -26,8 +26,8 @@ class _$PutBucketLifecycleConfigurationRequest
   _$PutBucketLifecycleConfigurationRequest._(
       {required this.bucket,
       this.checksumAlgorithm,
-      this.expectedBucketOwner,
-      this.lifecycleConfiguration})
+      this.lifecycleConfiguration,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketLifecycleConfigurationRequest', 'bucket');
@@ -49,8 +49,8 @@ class _$PutBucketLifecycleConfigurationRequest
     return other is PutBucketLifecycleConfigurationRequest &&
         bucket == other.bucket &&
         checksumAlgorithm == other.checksumAlgorithm &&
-        expectedBucketOwner == other.expectedBucketOwner &&
-        lifecycleConfiguration == other.lifecycleConfiguration;
+        lifecycleConfiguration == other.lifecycleConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
@@ -58,8 +58,8 @@ class _$PutBucketLifecycleConfigurationRequest
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, lifecycleConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -80,11 +80,6 @@ class PutBucketLifecycleConfigurationRequestBuilder
   set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   _i2.BucketLifecycleConfigurationBuilder? _lifecycleConfiguration;
   _i2.BucketLifecycleConfigurationBuilder get lifecycleConfiguration =>
       _$this._lifecycleConfiguration ??=
@@ -92,6 +87,11 @@ class PutBucketLifecycleConfigurationRequestBuilder
   set lifecycleConfiguration(
           _i2.BucketLifecycleConfigurationBuilder? lifecycleConfiguration) =>
       _$this._lifecycleConfiguration = lifecycleConfiguration;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutBucketLifecycleConfigurationRequestBuilder() {
     PutBucketLifecycleConfigurationRequest._init(this);
@@ -102,8 +102,8 @@ class PutBucketLifecycleConfigurationRequestBuilder
     if ($v != null) {
       _bucket = $v.bucket;
       _checksumAlgorithm = $v.checksumAlgorithm;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _lifecycleConfiguration = $v.lifecycleConfiguration?.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -132,8 +132,8 @@ class PutBucketLifecycleConfigurationRequestBuilder
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketLifecycleConfigurationRequest', 'bucket'),
               checksumAlgorithm: checksumAlgorithm,
-              expectedBucketOwner: expectedBucketOwner,
-              lifecycleConfiguration: _lifecycleConfiguration?.build());
+              lifecycleConfiguration: _lifecycleConfiguration?.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

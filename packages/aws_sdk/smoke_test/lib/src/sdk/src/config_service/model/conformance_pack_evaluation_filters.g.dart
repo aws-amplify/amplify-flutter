@@ -9,23 +9,23 @@ part of smoke_test.config_service.model.conformance_pack_evaluation_filters;
 class _$ConformancePackEvaluationFilters
     extends ConformancePackEvaluationFilters {
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
-  @override
   final _i3.BuiltList<String>? configRuleNames;
   @override
-  final _i3.BuiltList<String>? resourceIds;
+  final _i2.ConformancePackComplianceType? complianceType;
   @override
   final String? resourceType;
+  @override
+  final _i3.BuiltList<String>? resourceIds;
 
   factory _$ConformancePackEvaluationFilters(
           [void Function(ConformancePackEvaluationFiltersBuilder)? updates]) =>
       (new ConformancePackEvaluationFiltersBuilder()..update(updates))._build();
 
   _$ConformancePackEvaluationFilters._(
-      {this.complianceType,
-      this.configRuleNames,
-      this.resourceIds,
-      this.resourceType})
+      {this.configRuleNames,
+      this.complianceType,
+      this.resourceType,
+      this.resourceIds})
       : super._();
 
   @override
@@ -41,19 +41,19 @@ class _$ConformancePackEvaluationFilters
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConformancePackEvaluationFilters &&
-        complianceType == other.complianceType &&
         configRuleNames == other.configRuleNames &&
-        resourceIds == other.resourceIds &&
-        resourceType == other.resourceType;
+        complianceType == other.complianceType &&
+        resourceType == other.resourceType &&
+        resourceIds == other.resourceIds;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, configRuleNames.hashCode);
-    _$hash = $jc(_$hash, resourceIds.hashCode);
+    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceIds.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,27 +65,27 @@ class ConformancePackEvaluationFiltersBuilder
             ConformancePackEvaluationFiltersBuilder> {
   _$ConformancePackEvaluationFilters? _$v;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
-      _$this._complianceType = complianceType;
-
   _i3.ListBuilder<String>? _configRuleNames;
   _i3.ListBuilder<String> get configRuleNames =>
       _$this._configRuleNames ??= new _i3.ListBuilder<String>();
   set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
+  _i2.ConformancePackComplianceType? _complianceType;
+  _i2.ConformancePackComplianceType? get complianceType =>
+      _$this._complianceType;
+  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+      _$this._complianceType = complianceType;
+
+  String? _resourceType;
+  String? get resourceType => _$this._resourceType;
+  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
+
   _i3.ListBuilder<String>? _resourceIds;
   _i3.ListBuilder<String> get resourceIds =>
       _$this._resourceIds ??= new _i3.ListBuilder<String>();
   set resourceIds(_i3.ListBuilder<String>? resourceIds) =>
       _$this._resourceIds = resourceIds;
-
-  String? _resourceType;
-  String? get resourceType => _$this._resourceType;
-  set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
   ConformancePackEvaluationFiltersBuilder() {
     ConformancePackEvaluationFilters._init(this);
@@ -94,10 +94,10 @@ class ConformancePackEvaluationFiltersBuilder
   ConformancePackEvaluationFiltersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceType = $v.complianceType;
       _configRuleNames = $v.configRuleNames?.toBuilder();
-      _resourceIds = $v.resourceIds?.toBuilder();
+      _complianceType = $v.complianceType;
       _resourceType = $v.resourceType;
+      _resourceIds = $v.resourceIds?.toBuilder();
       _$v = null;
     }
     return this;
@@ -122,15 +122,16 @@ class ConformancePackEvaluationFiltersBuilder
     try {
       _$result = _$v ??
           new _$ConformancePackEvaluationFilters._(
-              complianceType: complianceType,
               configRuleNames: _configRuleNames?.build(),
-              resourceIds: _resourceIds?.build(),
-              resourceType: resourceType);
+              complianceType: complianceType,
+              resourceType: resourceType,
+              resourceIds: _resourceIds?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'configRuleNames';
         _configRuleNames?.build();
+
         _$failedField = 'resourceIds';
         _resourceIds?.build();
       } catch (e) {

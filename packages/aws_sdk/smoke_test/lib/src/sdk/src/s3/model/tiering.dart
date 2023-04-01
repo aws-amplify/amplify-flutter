@@ -17,13 +17,13 @@ abstract class Tiering
     implements Built<Tiering, TieringBuilder> {
   /// The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead.
   factory Tiering({
-    required _i2.IntelligentTieringAccessTier accessTier,
     int? days,
+    required _i2.IntelligentTieringAccessTier accessTier,
   }) {
     days ??= 0;
     return _$Tiering._(
-      accessTier: accessTier,
       days: days,
+      accessTier: accessTier,
     );
   }
 
@@ -41,26 +41,26 @@ abstract class Tiering
     b.days = 0;
   }
 
-  /// S3 Intelligent-Tiering access tier. See [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access) for a list of access tiers in the S3 Intelligent-Tiering storage class.
-  _i2.IntelligentTieringAccessTier get accessTier;
-
   /// The number of consecutive days of no access after which an object will be eligible to be transitioned to the corresponding tier. The minimum number of days specified for Archive Access tier must be at least 90 days and Deep Archive Access tier must be at least 180 days. The maximum can be up to 2 years (730 days).
   int get days;
+
+  /// S3 Intelligent-Tiering access tier. See [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access) for a list of access tiers in the S3 Intelligent-Tiering storage class.
+  _i2.IntelligentTieringAccessTier get accessTier;
   @override
   List<Object?> get props => [
-        accessTier,
         days,
+        accessTier,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Tiering');
     helper.add(
-      'accessTier',
-      accessTier,
-    );
-    helper.add(
       'days',
       days,
+    );
+    helper.add(
+      'accessTier',
+      accessTier,
     );
     return helper.toString();
   }

@@ -12,9 +12,9 @@ class _$PutBucketLoggingRequest extends PutBucketLoggingRequest {
   @override
   final _i2.BucketLoggingStatus bucketLoggingStatus;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? contentMd5;
+  @override
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -25,8 +25,8 @@ class _$PutBucketLoggingRequest extends PutBucketLoggingRequest {
   _$PutBucketLoggingRequest._(
       {required this.bucket,
       required this.bucketLoggingStatus,
-      this.checksumAlgorithm,
       this.contentMd5,
+      this.checksumAlgorithm,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -50,8 +50,8 @@ class _$PutBucketLoggingRequest extends PutBucketLoggingRequest {
     return other is PutBucketLoggingRequest &&
         bucket == other.bucket &&
         bucketLoggingStatus == other.bucketLoggingStatus &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         contentMd5 == other.contentMd5 &&
+        checksumAlgorithm == other.checksumAlgorithm &&
         expectedBucketOwner == other.expectedBucketOwner;
   }
 
@@ -60,8 +60,8 @@ class _$PutBucketLoggingRequest extends PutBucketLoggingRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, bucketLoggingStatus.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -84,14 +84,14 @@ class PutBucketLoggingRequestBuilder
           _i2.BucketLoggingStatusBuilder? bucketLoggingStatus) =>
       _$this._bucketLoggingStatus = bucketLoggingStatus;
 
+  String? _contentMd5;
+  String? get contentMd5 => _$this._contentMd5;
+  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
+
   _i4.ChecksumAlgorithm? _checksumAlgorithm;
   _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
   set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
-
-  String? _contentMd5;
-  String? get contentMd5 => _$this._contentMd5;
-  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -107,8 +107,8 @@ class PutBucketLoggingRequestBuilder
     if ($v != null) {
       _bucket = $v.bucket;
       _bucketLoggingStatus = $v.bucketLoggingStatus.toBuilder();
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _contentMd5 = $v.contentMd5;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
@@ -137,8 +137,8 @@ class PutBucketLoggingRequestBuilder
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketLoggingRequest', 'bucket'),
               bucketLoggingStatus: bucketLoggingStatus.build(),
-              checksumAlgorithm: checksumAlgorithm,
               contentMd5: contentMd5,
+              checksumAlgorithm: checksumAlgorithm,
               expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;

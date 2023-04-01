@@ -17,14 +17,14 @@ abstract class ListContributorInsightsInput
         Built<ListContributorInsightsInput,
             ListContributorInsightsInputBuilder> {
   factory ListContributorInsightsInput({
-    int? maxResults,
-    String? nextToken,
     String? tableName,
+    String? nextToken,
+    int? maxResults,
   }) {
     return _$ListContributorInsightsInput._(
-      maxResults: maxResults,
-      nextToken: nextToken,
       tableName: tableName,
+      nextToken: nextToken,
+      maxResults: maxResults,
     );
   }
 
@@ -48,36 +48,36 @@ abstract class ListContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListContributorInsightsInputBuilder b) {}
 
-  /// Maximum number of results to return per page.
-  int? get maxResults;
+  /// The name of the table.
+  String? get tableName;
 
   /// A token to for the desired page, if there is one.
   String? get nextToken;
 
-  /// The name of the table.
-  String? get tableName;
+  /// Maximum number of results to return per page.
+  int? get maxResults;
   @override
   ListContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        maxResults,
-        nextToken,
         tableName,
+        nextToken,
+        maxResults,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListContributorInsightsInput');
     helper.add(
-      'maxResults',
-      maxResults,
+      'tableName',
+      tableName,
     );
     helper.add(
       'nextToken',
       nextToken,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'maxResults',
+      maxResults,
     );
     return helper.toString();
   }
@@ -113,12 +113,12 @@ class ListContributorInsightsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'MaxResults':
+        case 'TableName':
           if (value != null) {
-            result.maxResults = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(int),
-            ) as int);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'NextToken':
@@ -129,12 +129,12 @@ class ListContributorInsightsInputAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'TableName':
+        case 'MaxResults':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.maxResults = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -151,12 +151,12 @@ class ListContributorInsightsInputAwsJson10Serializer
   }) {
     final payload = (object as ListContributorInsightsInput);
     final result = <Object?>[];
-    if (payload.maxResults != null) {
+    if (payload.tableName != null) {
       result
-        ..add('MaxResults')
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.maxResults!,
-          specifiedType: const FullType(int),
+          payload.tableName!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.nextToken != null) {
@@ -167,12 +167,12 @@ class ListContributorInsightsInputAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableName != null) {
+    if (payload.maxResults != null) {
       result
-        ..add('TableName')
+        ..add('MaxResults')
         ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          payload.maxResults!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

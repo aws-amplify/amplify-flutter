@@ -19,12 +19,12 @@ abstract class GetRestApisRequest
         _i1.EmptyPayload,
         _i1.HasPayload<GetRestApisRequestPayload> {
   factory GetRestApisRequest({
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetRestApisRequest._(
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -54,25 +54,25 @@ abstract class GetRestApisRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRestApisRequestBuilder b) {}
-  int? get limit;
   String? get position;
+  int? get limit;
   @override
   GetRestApisRequestPayload getPayload() => GetRestApisRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRestApisRequest');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }

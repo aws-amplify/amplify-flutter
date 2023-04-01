@@ -16,12 +16,12 @@ abstract class MalformedRequestBodyInput
     implements
         Built<MalformedRequestBodyInput, MalformedRequestBodyInputBuilder> {
   factory MalformedRequestBodyInput({
-    double? float,
     int? int_,
+    double? float,
   }) {
     return _$MalformedRequestBodyInput._(
-      float: float,
       int_: int_,
+      float: float,
     );
   }
 
@@ -44,25 +44,25 @@ abstract class MalformedRequestBodyInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedRequestBodyInputBuilder b) {}
-  double? get float;
   int? get int_;
+  double? get float;
   @override
   MalformedRequestBodyInput getPayload() => this;
   @override
   List<Object?> get props => [
-        float,
         int_,
+        float,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedRequestBodyInput');
     helper.add(
-      'float',
-      float,
-    );
-    helper.add(
       'int_',
       int_,
+    );
+    helper.add(
+      'float',
+      float,
     );
     return helper.toString();
   }

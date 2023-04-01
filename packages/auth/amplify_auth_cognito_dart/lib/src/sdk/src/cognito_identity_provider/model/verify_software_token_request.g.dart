@@ -10,11 +10,11 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
   @override
   final String? accessToken;
   @override
-  final String? friendlyDeviceName;
-  @override
   final String? session;
   @override
   final String userCode;
+  @override
+  final String? friendlyDeviceName;
 
   factory _$VerifySoftwareTokenRequest(
           [void Function(VerifySoftwareTokenRequestBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
 
   _$VerifySoftwareTokenRequest._(
       {this.accessToken,
-      this.friendlyDeviceName,
       this.session,
-      required this.userCode})
+      required this.userCode,
+      this.friendlyDeviceName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         userCode, r'VerifySoftwareTokenRequest', 'userCode');
@@ -44,18 +44,18 @@ class _$VerifySoftwareTokenRequest extends VerifySoftwareTokenRequest {
     if (identical(other, this)) return true;
     return other is VerifySoftwareTokenRequest &&
         accessToken == other.accessToken &&
-        friendlyDeviceName == other.friendlyDeviceName &&
         session == other.session &&
-        userCode == other.userCode;
+        userCode == other.userCode &&
+        friendlyDeviceName == other.friendlyDeviceName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, accessToken.hashCode);
-    _$hash = $jc(_$hash, friendlyDeviceName.hashCode);
     _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jc(_$hash, userCode.hashCode);
+    _$hash = $jc(_$hash, friendlyDeviceName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,11 +70,6 @@ class VerifySoftwareTokenRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  String? _friendlyDeviceName;
-  String? get friendlyDeviceName => _$this._friendlyDeviceName;
-  set friendlyDeviceName(String? friendlyDeviceName) =>
-      _$this._friendlyDeviceName = friendlyDeviceName;
-
   String? _session;
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
@@ -82,6 +77,11 @@ class VerifySoftwareTokenRequestBuilder
   String? _userCode;
   String? get userCode => _$this._userCode;
   set userCode(String? userCode) => _$this._userCode = userCode;
+
+  String? _friendlyDeviceName;
+  String? get friendlyDeviceName => _$this._friendlyDeviceName;
+  set friendlyDeviceName(String? friendlyDeviceName) =>
+      _$this._friendlyDeviceName = friendlyDeviceName;
 
   VerifySoftwareTokenRequestBuilder() {
     VerifySoftwareTokenRequest._init(this);
@@ -91,9 +91,9 @@ class VerifySoftwareTokenRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _accessToken = $v.accessToken;
-      _friendlyDeviceName = $v.friendlyDeviceName;
       _session = $v.session;
       _userCode = $v.userCode;
+      _friendlyDeviceName = $v.friendlyDeviceName;
       _$v = null;
     }
     return this;
@@ -117,10 +117,10 @@ class VerifySoftwareTokenRequestBuilder
     final _$result = _$v ??
         new _$VerifySoftwareTokenRequest._(
             accessToken: accessToken,
-            friendlyDeviceName: friendlyDeviceName,
             session: session,
             userCode: BuiltValueNullFieldError.checkNotNull(
-                userCode, r'VerifySoftwareTokenRequest', 'userCode'));
+                userCode, r'VerifySoftwareTokenRequest', 'userCode'),
+            friendlyDeviceName: friendlyDeviceName);
     replace(_$result);
     return _$result;
   }

@@ -8,23 +8,23 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_aut
 
 class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
   @override
-  final _i2.AuthenticationResultType? authenticationResult;
+  final _i2.ChallengeNameType? challengeName;
   @override
-  final _i3.ChallengeNameType? challengeName;
+  final String? session;
   @override
   final _i4.BuiltMap<String, String>? challengeParameters;
   @override
-  final String? session;
+  final _i3.AuthenticationResultType? authenticationResult;
 
   factory _$RespondToAuthChallengeResponse(
           [void Function(RespondToAuthChallengeResponseBuilder)? updates]) =>
       (new RespondToAuthChallengeResponseBuilder()..update(updates))._build();
 
   _$RespondToAuthChallengeResponse._(
-      {this.authenticationResult,
-      this.challengeName,
+      {this.challengeName,
+      this.session,
       this.challengeParameters,
-      this.session})
+      this.authenticationResult})
       : super._();
 
   @override
@@ -40,19 +40,19 @@ class _$RespondToAuthChallengeResponse extends RespondToAuthChallengeResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RespondToAuthChallengeResponse &&
-        authenticationResult == other.authenticationResult &&
         challengeName == other.challengeName &&
+        session == other.session &&
         challengeParameters == other.challengeParameters &&
-        session == other.session;
+        authenticationResult == other.authenticationResult;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, authenticationResult.hashCode);
     _$hash = $jc(_$hash, challengeName.hashCode);
-    _$hash = $jc(_$hash, challengeParameters.hashCode);
     _$hash = $jc(_$hash, session.hashCode);
+    _$hash = $jc(_$hash, challengeParameters.hashCode);
+    _$hash = $jc(_$hash, authenticationResult.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,18 +64,14 @@ class RespondToAuthChallengeResponseBuilder
             RespondToAuthChallengeResponseBuilder> {
   _$RespondToAuthChallengeResponse? _$v;
 
-  _i2.AuthenticationResultTypeBuilder? _authenticationResult;
-  _i2.AuthenticationResultTypeBuilder get authenticationResult =>
-      _$this._authenticationResult ??=
-          new _i2.AuthenticationResultTypeBuilder();
-  set authenticationResult(
-          _i2.AuthenticationResultTypeBuilder? authenticationResult) =>
-      _$this._authenticationResult = authenticationResult;
-
-  _i3.ChallengeNameType? _challengeName;
-  _i3.ChallengeNameType? get challengeName => _$this._challengeName;
-  set challengeName(_i3.ChallengeNameType? challengeName) =>
+  _i2.ChallengeNameType? _challengeName;
+  _i2.ChallengeNameType? get challengeName => _$this._challengeName;
+  set challengeName(_i2.ChallengeNameType? challengeName) =>
       _$this._challengeName = challengeName;
+
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
 
   _i4.MapBuilder<String, String>? _challengeParameters;
   _i4.MapBuilder<String, String> get challengeParameters =>
@@ -84,9 +80,13 @@ class RespondToAuthChallengeResponseBuilder
           _i4.MapBuilder<String, String>? challengeParameters) =>
       _$this._challengeParameters = challengeParameters;
 
-  String? _session;
-  String? get session => _$this._session;
-  set session(String? session) => _$this._session = session;
+  _i3.AuthenticationResultTypeBuilder? _authenticationResult;
+  _i3.AuthenticationResultTypeBuilder get authenticationResult =>
+      _$this._authenticationResult ??=
+          new _i3.AuthenticationResultTypeBuilder();
+  set authenticationResult(
+          _i3.AuthenticationResultTypeBuilder? authenticationResult) =>
+      _$this._authenticationResult = authenticationResult;
 
   RespondToAuthChallengeResponseBuilder() {
     RespondToAuthChallengeResponse._init(this);
@@ -95,10 +95,10 @@ class RespondToAuthChallengeResponseBuilder
   RespondToAuthChallengeResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _authenticationResult = $v.authenticationResult?.toBuilder();
       _challengeName = $v.challengeName;
-      _challengeParameters = $v.challengeParameters?.toBuilder();
       _session = $v.session;
+      _challengeParameters = $v.challengeParameters?.toBuilder();
+      _authenticationResult = $v.authenticationResult?.toBuilder();
       _$v = null;
     }
     return this;
@@ -123,18 +123,17 @@ class RespondToAuthChallengeResponseBuilder
     try {
       _$result = _$v ??
           new _$RespondToAuthChallengeResponse._(
-              authenticationResult: _authenticationResult?.build(),
               challengeName: challengeName,
+              session: session,
               challengeParameters: _challengeParameters?.build(),
-              session: session);
+              authenticationResult: _authenticationResult?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'authenticationResult';
-        _authenticationResult?.build();
-
         _$failedField = 'challengeParameters';
         _challengeParameters?.build();
+        _$failedField = 'authenticationResult';
+        _authenticationResult?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'RespondToAuthChallengeResponse', _$failedField, e.toString());

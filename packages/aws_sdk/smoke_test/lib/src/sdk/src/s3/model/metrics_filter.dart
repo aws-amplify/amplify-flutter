@@ -6,22 +6,22 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
 /// The discrete values of [MetricsFilter].
 enum MetricsFilterType<T extends MetricsFilter> {
-  /// The type for [MetricsFilterAccessPointArn].
-  accessPointArn<MetricsFilterAccessPointArn>(r'AccessPointArn'),
-
-  /// The type for [MetricsFilterAnd].
-  and<MetricsFilterAnd>(r'And'),
-
   /// The type for [MetricsFilterPrefix].
   prefix<MetricsFilterPrefix>(r'Prefix'),
 
   /// The type for [MetricsFilterTag].
   tag<MetricsFilterTag>(r'Tag'),
+
+  /// The type for [MetricsFilterAccessPointArn].
+  accessPointArn<MetricsFilterAccessPointArn>(r'AccessPointArn'),
+
+  /// The type for [MetricsFilterAnd].
+  and<MetricsFilterAnd>(r'And'),
 
   /// The type for an unknown value.
   sdkUnknown<MetricsFilterSdkUnknown>('sdkUnknown');
@@ -37,15 +37,15 @@ enum MetricsFilterType<T extends MetricsFilter> {
 abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   const MetricsFilter._();
 
+  const factory MetricsFilter.prefix(String prefix) = MetricsFilterPrefix;
+
+  const factory MetricsFilter.tag(_i2.Tag tag) = MetricsFilterTag;
+
   const factory MetricsFilter.accessPointArn(String accessPointArn) =
       MetricsFilterAccessPointArn;
 
-  const factory MetricsFilter.and(_i2.MetricsAndOperator and) =
+  const factory MetricsFilter.and(_i3.MetricsAndOperator and) =
       MetricsFilterAnd;
-
-  const factory MetricsFilter.prefix(String prefix) = MetricsFilterPrefix;
-
-  const factory MetricsFilter.tag(_i3.Tag tag) = MetricsFilterTag;
 
   const factory MetricsFilter.sdkUnknown(
     String name,
@@ -56,44 +56,44 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
     MetricsFilterRestXmlSerializer()
   ];
 
-  /// The access point ARN used when evaluating a metrics filter.
-  String? get accessPointArn => null;
-
-  /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
-  _i2.MetricsAndOperator? get and => null;
-
   /// The prefix used when evaluating a metrics filter.
   String? get prefix => null;
 
   /// The tag used when evaluating a metrics filter.
-  _i3.Tag? get tag => null;
+  _i2.Tag? get tag => null;
+
+  /// The access point ARN used when evaluating a metrics filter.
+  String? get accessPointArn => null;
+
+  /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
+  _i3.MetricsAndOperator? get and => null;
   MetricsFilterType get type;
   @override
-  Object get value => (accessPointArn ?? and ?? prefix ?? tag)!;
+  Object get value => (prefix ?? tag ?? accessPointArn ?? and)!;
   @override
   T? when<T>({
-    T Function(String)? accessPointArn,
-    T Function(_i2.MetricsAndOperator)? and,
     T Function(String)? prefix,
-    T Function(_i3.Tag)? tag,
+    T Function(_i2.Tag)? tag,
+    T Function(String)? accessPointArn,
+    T Function(_i3.MetricsAndOperator)? and,
     T Function(
       String,
       Object,
     )?
         sdkUnknown,
   }) {
+    if (this is MetricsFilterPrefix) {
+      return prefix?.call((this as MetricsFilterPrefix).prefix);
+    }
+    if (this is MetricsFilterTag) {
+      return tag?.call((this as MetricsFilterTag).tag);
+    }
     if (this is MetricsFilterAccessPointArn) {
       return accessPointArn
           ?.call((this as MetricsFilterAccessPointArn).accessPointArn);
     }
     if (this is MetricsFilterAnd) {
       return and?.call((this as MetricsFilterAnd).and);
-    }
-    if (this is MetricsFilterPrefix) {
-      return prefix?.call((this as MetricsFilterPrefix).prefix);
-    }
-    if (this is MetricsFilterTag) {
-      return tag?.call((this as MetricsFilterTag).tag);
     }
     return sdkUnknown?.call(
       name,
@@ -104,18 +104,6 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'MetricsFilter');
-    if (accessPointArn != null) {
-      helper.add(
-        r'accessPointArn',
-        accessPointArn,
-      );
-    }
-    if (and != null) {
-      helper.add(
-        r'and',
-        and,
-      );
-    }
     if (prefix != null) {
       helper.add(
         r'prefix',
@@ -128,32 +116,20 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
         tag,
       );
     }
+    if (accessPointArn != null) {
+      helper.add(
+        r'accessPointArn',
+        accessPointArn,
+      );
+    }
+    if (and != null) {
+      helper.add(
+        r'and',
+        and,
+      );
+    }
     return helper.toString();
   }
-}
-
-class MetricsFilterAccessPointArn extends MetricsFilter {
-  const MetricsFilterAccessPointArn(this.accessPointArn) : super._();
-
-  @override
-  final String accessPointArn;
-
-  @override
-  MetricsFilterType get type => MetricsFilterType.accessPointArn;
-  @override
-  String get name => 'AccessPointArn';
-}
-
-class MetricsFilterAnd extends MetricsFilter {
-  const MetricsFilterAnd(this.and) : super._();
-
-  @override
-  final _i2.MetricsAndOperator and;
-
-  @override
-  MetricsFilterType get type => MetricsFilterType.and;
-  @override
-  String get name => 'And';
 }
 
 class MetricsFilterPrefix extends MetricsFilter {
@@ -172,12 +148,36 @@ class MetricsFilterTag extends MetricsFilter {
   const MetricsFilterTag(this.tag) : super._();
 
   @override
-  final _i3.Tag tag;
+  final _i2.Tag tag;
 
   @override
   MetricsFilterType get type => MetricsFilterType.tag;
   @override
   String get name => 'Tag';
+}
+
+class MetricsFilterAccessPointArn extends MetricsFilter {
+  const MetricsFilterAccessPointArn(this.accessPointArn) : super._();
+
+  @override
+  final String accessPointArn;
+
+  @override
+  MetricsFilterType get type => MetricsFilterType.accessPointArn;
+  @override
+  String get name => 'AccessPointArn';
+}
+
+class MetricsFilterAnd extends MetricsFilter {
+  const MetricsFilterAnd(this.and) : super._();
+
+  @override
+  final _i3.MetricsAndOperator and;
+
+  @override
+  MetricsFilterType get type => MetricsFilterType.and;
+  @override
+  String get name => 'And';
 }
 
 class MetricsFilterSdkUnknown extends MetricsFilter {
@@ -203,10 +203,10 @@ class MetricsFilterRestXmlSerializer
   @override
   Iterable<Type> get types => const [
         MetricsFilter,
-        MetricsFilterAccessPointArn,
-        MetricsFilterAnd,
         MetricsFilterPrefix,
         MetricsFilterTag,
+        MetricsFilterAccessPointArn,
+        MetricsFilterAnd,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -227,16 +227,6 @@ class MetricsFilterRestXmlSerializer
     iterator.moveNext();
     final value = iterator.current as Object;
     switch (key) {
-      case 'AccessPointArn':
-        return MetricsFilterAccessPointArn((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
-      case 'And':
-        return MetricsFilterAnd((serializers.deserialize(
-          value,
-          specifiedType: const FullType(_i2.MetricsAndOperator),
-        ) as _i2.MetricsAndOperator));
       case 'Prefix':
         return MetricsFilterPrefix((serializers.deserialize(
           value,
@@ -245,8 +235,18 @@ class MetricsFilterRestXmlSerializer
       case 'Tag':
         return MetricsFilterTag((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.Tag),
-        ) as _i3.Tag));
+          specifiedType: const FullType(_i2.Tag),
+        ) as _i2.Tag));
+      case 'AccessPointArn':
+        return MetricsFilterAccessPointArn((serializers.deserialize(
+          value,
+          specifiedType: const FullType(String),
+        ) as String));
+      case 'And':
+        return MetricsFilterAnd((serializers.deserialize(
+          value,
+          specifiedType: const FullType(_i3.MetricsAndOperator),
+        ) as _i3.MetricsAndOperator));
     }
     return MetricsFilter.sdkUnknown(
       key,
@@ -264,21 +264,21 @@ class MetricsFilterRestXmlSerializer
     return [
       object.name,
       object.when<Object?>(
-        accessPointArn: (String accessPointArn) => serializers.serialize(
-          accessPointArn,
-          specifiedType: const FullType(String),
-        ),
-        and: (_i2.MetricsAndOperator and) => serializers.serialize(
-          and,
-          specifiedType: const FullType(_i2.MetricsAndOperator),
-        ),
         prefix: (String prefix) => serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
         ),
-        tag: (_i3.Tag tag) => serializers.serialize(
+        tag: (_i2.Tag tag) => serializers.serialize(
           tag,
-          specifiedType: const FullType(_i3.Tag),
+          specifiedType: const FullType(_i2.Tag),
+        ),
+        accessPointArn: (String accessPointArn) => serializers.serialize(
+          accessPointArn,
+          specifiedType: const FullType(String),
+        ),
+        and: (_i3.MetricsAndOperator and) => serializers.serialize(
+          and,
+          specifiedType: const FullType(_i3.MetricsAndOperator),
         ),
         sdkUnknown: (
           String _,

@@ -23,16 +23,16 @@ abstract class DeliveryChannelStatus
   ///
   /// Valid values: `Success` | `Failure`
   factory DeliveryChannelStatus({
-    _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo,
-    _i2.ConfigExportDeliveryInfo? configSnapshotDeliveryInfo,
-    _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo,
     String? name,
+    _i2.ConfigExportDeliveryInfo? configSnapshotDeliveryInfo,
+    _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo,
+    _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo,
   }) {
     return _$DeliveryChannelStatus._(
-      configHistoryDeliveryInfo: configHistoryDeliveryInfo,
-      configSnapshotDeliveryInfo: configSnapshotDeliveryInfo,
-      configStreamDeliveryInfo: configStreamDeliveryInfo,
       name: name,
+      configSnapshotDeliveryInfo: configSnapshotDeliveryInfo,
+      configHistoryDeliveryInfo: configHistoryDeliveryInfo,
+      configStreamDeliveryInfo: configStreamDeliveryInfo,
     );
   }
 
@@ -52,42 +52,42 @@ abstract class DeliveryChannelStatus
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeliveryChannelStatusBuilder b) {}
 
-  /// A list that contains the status of the delivery of the configuration history to the specified Amazon S3 bucket.
-  _i2.ConfigExportDeliveryInfo? get configHistoryDeliveryInfo;
+  /// The name of the delivery channel.
+  String? get name;
 
   /// A list containing the status of the delivery of the snapshot to the specified Amazon S3 bucket.
   _i2.ConfigExportDeliveryInfo? get configSnapshotDeliveryInfo;
 
+  /// A list that contains the status of the delivery of the configuration history to the specified Amazon S3 bucket.
+  _i2.ConfigExportDeliveryInfo? get configHistoryDeliveryInfo;
+
   /// A list containing the status of the delivery of the configuration stream notification to the specified Amazon SNS topic.
   _i3.ConfigStreamDeliveryInfo? get configStreamDeliveryInfo;
-
-  /// The name of the delivery channel.
-  String? get name;
   @override
   List<Object?> get props => [
-        configHistoryDeliveryInfo,
-        configSnapshotDeliveryInfo,
-        configStreamDeliveryInfo,
         name,
+        configSnapshotDeliveryInfo,
+        configHistoryDeliveryInfo,
+        configStreamDeliveryInfo,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeliveryChannelStatus');
     helper.add(
-      'configHistoryDeliveryInfo',
-      configHistoryDeliveryInfo,
+      'name',
+      name,
     );
     helper.add(
       'configSnapshotDeliveryInfo',
       configSnapshotDeliveryInfo,
     );
     helper.add(
-      'configStreamDeliveryInfo',
-      configStreamDeliveryInfo,
+      'configHistoryDeliveryInfo',
+      configHistoryDeliveryInfo,
     );
     helper.add(
-      'name',
-      name,
+      'configStreamDeliveryInfo',
+      configStreamDeliveryInfo,
     );
     return helper.toString();
   }
@@ -123,17 +123,25 @@ class DeliveryChannelStatusAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'configHistoryDeliveryInfo':
+        case 'name':
           if (value != null) {
-            result.configHistoryDeliveryInfo.replace((serializers.deserialize(
+            result.name = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
-            ) as _i2.ConfigExportDeliveryInfo));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'configSnapshotDeliveryInfo':
           if (value != null) {
             result.configSnapshotDeliveryInfo.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+            ) as _i2.ConfigExportDeliveryInfo));
+          }
+          break;
+        case 'configHistoryDeliveryInfo':
+          if (value != null) {
+            result.configHistoryDeliveryInfo.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
             ) as _i2.ConfigExportDeliveryInfo));
@@ -145,14 +153,6 @@ class DeliveryChannelStatusAwsJson11Serializer
               value,
               specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
             ) as _i3.ConfigStreamDeliveryInfo));
-          }
-          break;
-        case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -169,12 +169,12 @@ class DeliveryChannelStatusAwsJson11Serializer
   }) {
     final payload = (object as DeliveryChannelStatus);
     final result = <Object?>[];
-    if (payload.configHistoryDeliveryInfo != null) {
+    if (payload.name != null) {
       result
-        ..add('configHistoryDeliveryInfo')
+        ..add('name')
         ..add(serializers.serialize(
-          payload.configHistoryDeliveryInfo!,
-          specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+          payload.name!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.configSnapshotDeliveryInfo != null) {
@@ -185,20 +185,20 @@ class DeliveryChannelStatusAwsJson11Serializer
           specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
         ));
     }
+    if (payload.configHistoryDeliveryInfo != null) {
+      result
+        ..add('configHistoryDeliveryInfo')
+        ..add(serializers.serialize(
+          payload.configHistoryDeliveryInfo!,
+          specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+        ));
+    }
     if (payload.configStreamDeliveryInfo != null) {
       result
         ..add('configStreamDeliveryInfo')
         ..add(serializers.serialize(
           payload.configStreamDeliveryInfo!,
           specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
-        ));
-    }
-    if (payload.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(
-          payload.name!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

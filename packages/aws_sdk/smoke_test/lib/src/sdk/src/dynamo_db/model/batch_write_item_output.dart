@@ -8,11 +8,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i2;
+    as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/write_request.dart'
-    as _i4;
+    as _i2;
 
 part 'batch_write_item_output.g.dart';
 
@@ -22,19 +22,19 @@ abstract class BatchWriteItemOutput
     implements Built<BatchWriteItemOutput, BatchWriteItemOutputBuilder> {
   /// Represents the output of a `BatchWriteItem` operation.
   factory BatchWriteItemOutput({
-    List<_i2.ConsumedCapacity>? consumedCapacity,
+    Map<String, List<_i2.WriteRequest>>? unprocessedItems,
     Map<String, List<_i3.ItemCollectionMetrics>>? itemCollectionMetrics,
-    Map<String, List<_i4.WriteRequest>>? unprocessedItems,
+    List<_i4.ConsumedCapacity>? consumedCapacity,
   }) {
     return _$BatchWriteItemOutput._(
-      consumedCapacity:
-          consumedCapacity == null ? null : _i5.BuiltList(consumedCapacity),
-      itemCollectionMetrics: itemCollectionMetrics == null
-          ? null
-          : _i5.BuiltListMultimap(itemCollectionMetrics),
       unprocessedItems: unprocessedItems == null
           ? null
           : _i5.BuiltListMultimap(unprocessedItems),
+      itemCollectionMetrics: itemCollectionMetrics == null
+          ? null
+          : _i5.BuiltListMultimap(itemCollectionMetrics),
+      consumedCapacity:
+          consumedCapacity == null ? null : _i5.BuiltList(consumedCapacity),
     );
   }
 
@@ -59,27 +59,6 @@ abstract class BatchWriteItemOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BatchWriteItemOutputBuilder b) {}
 
-  /// The capacity units consumed by the entire `BatchWriteItem` operation.
-  ///
-  /// Each element consists of:
-  ///
-  /// *   `TableName` \- The table that consumed the provisioned throughput.
-  ///
-  /// *   `CapacityUnits` \- The total number of capacity units consumed.
-  _i5.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
-
-  /// A list of tables that were processed by `BatchWriteItem` and, for each table, information about any item collections that were affected by individual `DeleteItem` or `PutItem` operations.
-  ///
-  /// Each entry consists of the following subelements:
-  ///
-  /// *   `ItemCollectionKey` \- The partition key value of the item collection. This is the same as the partition key value of the item.
-  ///
-  /// *   `SizeEstimateRangeGB` \- An estimate of item collection size, expressed in GB. This is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on the table. Use this estimate to measure whether a local secondary index is approaching its size limit.
-  ///
-  ///     The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-  _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
-      get itemCollectionMetrics;
-
   /// A map of tables and requests against those tables that were not processed. The `UnprocessedItems` value is in the same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchGetItem` operation. For more information, see `RequestItems` in the Request Parameters section.
   ///
   /// Each `UnprocessedItems` entry consists of a table name and, for that table, a list of operations to perform (`DeleteRequest` or `PutRequest`).
@@ -96,27 +75,48 @@ abstract class BatchWriteItemOutput
   ///
   ///
   /// If there are no unprocessed items remaining, the response contains an empty `UnprocessedItems` map.
-  _i5.BuiltListMultimap<String, _i4.WriteRequest>? get unprocessedItems;
+  _i5.BuiltListMultimap<String, _i2.WriteRequest>? get unprocessedItems;
+
+  /// A list of tables that were processed by `BatchWriteItem` and, for each table, information about any item collections that were affected by individual `DeleteItem` or `PutItem` operations.
+  ///
+  /// Each entry consists of the following subelements:
+  ///
+  /// *   `ItemCollectionKey` \- The partition key value of the item collection. This is the same as the partition key value of the item.
+  ///
+  /// *   `SizeEstimateRangeGB` \- An estimate of item collection size, expressed in GB. This is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on the table. Use this estimate to measure whether a local secondary index is approaching its size limit.
+  ///
+  ///     The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
+  _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
+      get itemCollectionMetrics;
+
+  /// The capacity units consumed by the entire `BatchWriteItem` operation.
+  ///
+  /// Each element consists of:
+  ///
+  /// *   `TableName` \- The table that consumed the provisioned throughput.
+  ///
+  /// *   `CapacityUnits` \- The total number of capacity units consumed.
+  _i5.BuiltList<_i4.ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
-        consumedCapacity,
-        itemCollectionMetrics,
         unprocessedItems,
+        itemCollectionMetrics,
+        consumedCapacity,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BatchWriteItemOutput');
     helper.add(
-      'consumedCapacity',
-      consumedCapacity,
+      'unprocessedItems',
+      unprocessedItems,
     );
     helper.add(
       'itemCollectionMetrics',
       itemCollectionMetrics,
     );
     helper.add(
-      'unprocessedItems',
-      unprocessedItems,
+      'consumedCapacity',
+      consumedCapacity,
     );
     return helper.toString();
   }
@@ -152,15 +152,18 @@ class BatchWriteItemOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConsumedCapacity':
+        case 'UnprocessedItems':
           if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
+            result.unprocessedItems.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.ConsumedCapacity)],
+                _i5.BuiltListMultimap,
+                [
+                  FullType(String),
+                  FullType(_i2.WriteRequest),
+                ],
               ),
-            ) as _i5.BuiltList<_i2.ConsumedCapacity>));
+            ) as _i5.BuiltListMultimap<String, _i2.WriteRequest>));
           }
           break;
         case 'ItemCollectionMetrics':
@@ -177,18 +180,15 @@ class BatchWriteItemOutputAwsJson10Serializer
             ) as _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
           }
           break;
-        case 'UnprocessedItems':
+        case 'ConsumedCapacity':
           if (value != null) {
-            result.unprocessedItems.replace((serializers.deserialize(
+            result.consumedCapacity.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
-                _i5.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(_i4.WriteRequest),
-                ],
+                _i5.BuiltList,
+                [FullType(_i4.ConsumedCapacity)],
               ),
-            ) as _i5.BuiltListMultimap<String, _i4.WriteRequest>));
+            ) as _i5.BuiltList<_i4.ConsumedCapacity>));
           }
           break;
       }
@@ -205,14 +205,17 @@ class BatchWriteItemOutputAwsJson10Serializer
   }) {
     final payload = (object as BatchWriteItemOutput);
     final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
+    if (payload.unprocessedItems != null) {
       result
-        ..add('ConsumedCapacity')
+        ..add('UnprocessedItems')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          payload.unprocessedItems!,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i2.ConsumedCapacity)],
+            _i5.BuiltListMultimap,
+            [
+              FullType(String),
+              FullType(_i2.WriteRequest),
+            ],
           ),
         ));
     }
@@ -230,17 +233,14 @@ class BatchWriteItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.unprocessedItems != null) {
+    if (payload.consumedCapacity != null) {
       result
-        ..add('UnprocessedItems')
+        ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.unprocessedItems!,
+          payload.consumedCapacity!,
           specifiedType: const FullType(
-            _i5.BuiltListMultimap,
-            [
-              FullType(String),
-              FullType(_i4.WriteRequest),
-            ],
+            _i5.BuiltList,
+            [FullType(_i4.ConsumedCapacity)],
           ),
         ));
     }

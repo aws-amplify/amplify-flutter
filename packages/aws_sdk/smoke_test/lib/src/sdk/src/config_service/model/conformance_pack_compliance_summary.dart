@@ -20,12 +20,12 @@ abstract class ConformancePackComplianceSummary
             ConformancePackComplianceSummaryBuilder> {
   /// Summary includes the name and status of the conformance pack.
   factory ConformancePackComplianceSummary({
-    required _i2.ConformancePackComplianceType conformancePackComplianceStatus,
     required String conformancePackName,
+    required _i2.ConformancePackComplianceType conformancePackComplianceStatus,
   }) {
     return _$ConformancePackComplianceSummary._(
-      conformancePackComplianceStatus: conformancePackComplianceStatus,
       conformancePackName: conformancePackName,
+      conformancePackComplianceStatus: conformancePackComplianceStatus,
     );
   }
 
@@ -43,27 +43,27 @@ abstract class ConformancePackComplianceSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceSummaryBuilder b) {}
 
-  /// The status of the conformance pack. The allowed values are `COMPLIANT`, `NON_COMPLIANT` and `INSUFFICIENT_DATA`.
-  _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
-
   /// The name of the conformance pack name.
   String get conformancePackName;
+
+  /// The status of the conformance pack. The allowed values are `COMPLIANT`, `NON_COMPLIANT` and `INSUFFICIENT_DATA`.
+  _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
   @override
   List<Object?> get props => [
-        conformancePackComplianceStatus,
         conformancePackName,
+        conformancePackComplianceStatus,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceSummary');
     helper.add(
-      'conformancePackComplianceStatus',
-      conformancePackComplianceStatus,
-    );
-    helper.add(
       'conformancePackName',
       conformancePackName,
+    );
+    helper.add(
+      'conformancePackComplianceStatus',
+      conformancePackComplianceStatus,
     );
     return helper.toString();
   }
@@ -99,17 +99,17 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConformancePackComplianceStatus':
-          result.conformancePackComplianceStatus = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
-          break;
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
+          break;
+        case 'ConformancePackComplianceStatus':
+          result.conformancePackComplianceStatus = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
           break;
       }
     }
@@ -125,15 +125,15 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackComplianceSummary);
     final result = <Object?>[
-      'ConformancePackComplianceStatus',
-      serializers.serialize(
-        payload.conformancePackComplianceStatus,
-        specifiedType: const FullType(_i2.ConformancePackComplianceType),
-      ),
       'ConformancePackName',
       serializers.serialize(
         payload.conformancePackName,
         specifiedType: const FullType(String),
+      ),
+      'ConformancePackComplianceStatus',
+      serializers.serialize(
+        payload.conformancePackComplianceStatus,
+        specifiedType: const FullType(_i2.ConformancePackComplianceType),
       ),
     ];
     return result;

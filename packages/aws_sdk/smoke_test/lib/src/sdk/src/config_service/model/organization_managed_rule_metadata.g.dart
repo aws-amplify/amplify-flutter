@@ -11,15 +11,15 @@ class _$OrganizationManagedRuleMetadata
   @override
   final String? description;
   @override
+  final String ruleIdentifier;
+  @override
   final String? inputParameters;
   @override
   final _i2.MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final String? resourceIdScope;
-  @override
   final _i3.BuiltList<String>? resourceTypesScope;
   @override
-  final String ruleIdentifier;
+  final String? resourceIdScope;
   @override
   final String? tagKeyScope;
   @override
@@ -31,11 +31,11 @@ class _$OrganizationManagedRuleMetadata
 
   _$OrganizationManagedRuleMetadata._(
       {this.description,
+      required this.ruleIdentifier,
       this.inputParameters,
       this.maximumExecutionFrequency,
-      this.resourceIdScope,
       this.resourceTypesScope,
-      required this.ruleIdentifier,
+      this.resourceIdScope,
       this.tagKeyScope,
       this.tagValueScope})
       : super._() {
@@ -57,11 +57,11 @@ class _$OrganizationManagedRuleMetadata
     if (identical(other, this)) return true;
     return other is OrganizationManagedRuleMetadata &&
         description == other.description &&
+        ruleIdentifier == other.ruleIdentifier &&
         inputParameters == other.inputParameters &&
         maximumExecutionFrequency == other.maximumExecutionFrequency &&
-        resourceIdScope == other.resourceIdScope &&
         resourceTypesScope == other.resourceTypesScope &&
-        ruleIdentifier == other.ruleIdentifier &&
+        resourceIdScope == other.resourceIdScope &&
         tagKeyScope == other.tagKeyScope &&
         tagValueScope == other.tagValueScope;
   }
@@ -70,11 +70,11 @@ class _$OrganizationManagedRuleMetadata
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, ruleIdentifier.hashCode);
     _$hash = $jc(_$hash, inputParameters.hashCode);
     _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
-    _$hash = $jc(_$hash, resourceIdScope.hashCode);
     _$hash = $jc(_$hash, resourceTypesScope.hashCode);
-    _$hash = $jc(_$hash, ruleIdentifier.hashCode);
+    _$hash = $jc(_$hash, resourceIdScope.hashCode);
     _$hash = $jc(_$hash, tagKeyScope.hashCode);
     _$hash = $jc(_$hash, tagValueScope.hashCode);
     _$hash = $jf(_$hash);
@@ -92,6 +92,11 @@ class OrganizationManagedRuleMetadataBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
+  String? _ruleIdentifier;
+  String? get ruleIdentifier => _$this._ruleIdentifier;
+  set ruleIdentifier(String? ruleIdentifier) =>
+      _$this._ruleIdentifier = ruleIdentifier;
+
   String? _inputParameters;
   String? get inputParameters => _$this._inputParameters;
   set inputParameters(String? inputParameters) =>
@@ -104,21 +109,16 @@ class OrganizationManagedRuleMetadataBuilder
           _i2.MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  String? _resourceIdScope;
-  String? get resourceIdScope => _$this._resourceIdScope;
-  set resourceIdScope(String? resourceIdScope) =>
-      _$this._resourceIdScope = resourceIdScope;
-
   _i3.ListBuilder<String>? _resourceTypesScope;
   _i3.ListBuilder<String> get resourceTypesScope =>
       _$this._resourceTypesScope ??= new _i3.ListBuilder<String>();
   set resourceTypesScope(_i3.ListBuilder<String>? resourceTypesScope) =>
       _$this._resourceTypesScope = resourceTypesScope;
 
-  String? _ruleIdentifier;
-  String? get ruleIdentifier => _$this._ruleIdentifier;
-  set ruleIdentifier(String? ruleIdentifier) =>
-      _$this._ruleIdentifier = ruleIdentifier;
+  String? _resourceIdScope;
+  String? get resourceIdScope => _$this._resourceIdScope;
+  set resourceIdScope(String? resourceIdScope) =>
+      _$this._resourceIdScope = resourceIdScope;
 
   String? _tagKeyScope;
   String? get tagKeyScope => _$this._tagKeyScope;
@@ -137,11 +137,11 @@ class OrganizationManagedRuleMetadataBuilder
     final $v = _$v;
     if ($v != null) {
       _description = $v.description;
+      _ruleIdentifier = $v.ruleIdentifier;
       _inputParameters = $v.inputParameters;
       _maximumExecutionFrequency = $v.maximumExecutionFrequency;
-      _resourceIdScope = $v.resourceIdScope;
       _resourceTypesScope = $v.resourceTypesScope?.toBuilder();
-      _ruleIdentifier = $v.ruleIdentifier;
+      _resourceIdScope = $v.resourceIdScope;
       _tagKeyScope = $v.tagKeyScope;
       _tagValueScope = $v.tagValueScope;
       _$v = null;
@@ -169,14 +169,14 @@ class OrganizationManagedRuleMetadataBuilder
       _$result = _$v ??
           new _$OrganizationManagedRuleMetadata._(
               description: description,
-              inputParameters: inputParameters,
-              maximumExecutionFrequency: maximumExecutionFrequency,
-              resourceIdScope: resourceIdScope,
-              resourceTypesScope: _resourceTypesScope?.build(),
               ruleIdentifier: BuiltValueNullFieldError.checkNotNull(
                   ruleIdentifier,
                   r'OrganizationManagedRuleMetadata',
                   'ruleIdentifier'),
+              inputParameters: inputParameters,
+              maximumExecutionFrequency: maximumExecutionFrequency,
+              resourceTypesScope: _resourceTypesScope?.build(),
+              resourceIdScope: resourceIdScope,
               tagKeyScope: tagKeyScope,
               tagValueScope: tagValueScope);
     } catch (_) {

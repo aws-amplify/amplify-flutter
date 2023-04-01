@@ -6,14 +6,14 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
+    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
+    as _i4;
 
 part 'source_table_details.g.dart';
 
@@ -23,26 +23,26 @@ abstract class SourceTableDetails
     implements Built<SourceTableDetails, SourceTableDetailsBuilder> {
   /// Contains the details of the table when the backup was created.
   factory SourceTableDetails({
-    _i2.BillingMode? billingMode,
-    _i3.Int64? itemCount,
-    required List<_i4.KeySchemaElement> keySchema,
-    required _i5.ProvisionedThroughput provisionedThroughput,
-    String? tableArn,
-    required DateTime tableCreationDateTime,
-    required String tableId,
     required String tableName,
-    _i3.Int64? tableSizeBytes,
+    required String tableId,
+    String? tableArn,
+    _i2.Int64? tableSizeBytes,
+    required List<_i3.KeySchemaElement> keySchema,
+    required DateTime tableCreationDateTime,
+    required _i4.ProvisionedThroughput provisionedThroughput,
+    _i2.Int64? itemCount,
+    _i5.BillingMode? billingMode,
   }) {
     return _$SourceTableDetails._(
-      billingMode: billingMode,
-      itemCount: itemCount,
-      keySchema: _i6.BuiltList(keySchema),
-      provisionedThroughput: provisionedThroughput,
-      tableArn: tableArn,
-      tableCreationDateTime: tableCreationDateTime,
-      tableId: tableId,
       tableName: tableName,
+      tableId: tableId,
+      tableArn: tableArn,
       tableSizeBytes: tableSizeBytes,
+      keySchema: _i6.BuiltList(keySchema),
+      tableCreationDateTime: tableCreationDateTime,
+      provisionedThroughput: provisionedThroughput,
+      itemCount: itemCount,
+      billingMode: billingMode,
     );
   }
 
@@ -60,86 +60,86 @@ abstract class SourceTableDetails
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceTableDetailsBuilder b) {}
 
+  /// The name of the table for which the backup was created.
+  String get tableName;
+
+  /// Unique identifier for the table for which the backup was created.
+  String get tableId;
+
+  /// ARN of the table for which backup was created.
+  String? get tableArn;
+
+  /// Size of the table in bytes. Note that this is an approximate value.
+  _i2.Int64? get tableSizeBytes;
+
+  /// Schema of the table.
+  _i6.BuiltList<_i3.KeySchemaElement> get keySchema;
+
+  /// Time when the source table was created.
+  DateTime get tableCreationDateTime;
+
+  /// Read IOPs and Write IOPS on the table when the backup was created.
+  _i4.ProvisionedThroughput get provisionedThroughput;
+
+  /// Number of items in the table. Note that this is an approximate value.
+  _i2.Int64? get itemCount;
+
   /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
   ///
   /// *   `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`. We recommend using `PROVISIONED` for predictable workloads.
   ///
   /// *   `PAY\_PER\_REQUEST` \- Sets the read/write capacity mode to `PAY\_PER\_REQUEST`. We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads.
-  _i2.BillingMode? get billingMode;
-
-  /// Number of items in the table. Note that this is an approximate value.
-  _i3.Int64? get itemCount;
-
-  /// Schema of the table.
-  _i6.BuiltList<_i4.KeySchemaElement> get keySchema;
-
-  /// Read IOPs and Write IOPS on the table when the backup was created.
-  _i5.ProvisionedThroughput get provisionedThroughput;
-
-  /// ARN of the table for which backup was created.
-  String? get tableArn;
-
-  /// Time when the source table was created.
-  DateTime get tableCreationDateTime;
-
-  /// Unique identifier for the table for which the backup was created.
-  String get tableId;
-
-  /// The name of the table for which the backup was created.
-  String get tableName;
-
-  /// Size of the table in bytes. Note that this is an approximate value.
-  _i3.Int64? get tableSizeBytes;
+  _i5.BillingMode? get billingMode;
   @override
   List<Object?> get props => [
-        billingMode,
-        itemCount,
-        keySchema,
-        provisionedThroughput,
-        tableArn,
-        tableCreationDateTime,
-        tableId,
         tableName,
+        tableId,
+        tableArn,
         tableSizeBytes,
+        keySchema,
+        tableCreationDateTime,
+        provisionedThroughput,
+        itemCount,
+        billingMode,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SourceTableDetails');
     helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableCreationDateTime',
-      tableCreationDateTime,
+      'tableName',
+      tableName,
     );
     helper.add(
       'tableId',
       tableId,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'tableArn',
+      tableArn,
     );
     helper.add(
       'tableSizeBytes',
       tableSizeBytes,
+    );
+    helper.add(
+      'keySchema',
+      keySchema,
+    );
+    helper.add(
+      'tableCreationDateTime',
+      tableCreationDateTime,
+    );
+    helper.add(
+      'provisionedThroughput',
+      provisionedThroughput,
+    );
+    helper.add(
+      'itemCount',
+      itemCount,
+    );
+    helper.add(
+      'billingMode',
+      billingMode,
     );
     return helper.toString();
   }
@@ -174,36 +174,17 @@ class SourceTableDetailsAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BillingMode),
-            ) as _i2.BillingMode);
-          }
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
-        case 'ItemCount':
-          if (value != null) {
-            result.itemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
-        case 'KeySchema':
-          result.keySchema.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.KeySchemaElement)],
-            ),
-          ) as _i6.BuiltList<_i4.KeySchemaElement>));
-          break;
-        case 'ProvisionedThroughput':
-          result.provisionedThroughput.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i5.ProvisionedThroughput),
-          ) as _i5.ProvisionedThroughput));
+        case 'TableId':
+          result.tableId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'TableArn':
           if (value != null) {
@@ -213,30 +194,49 @@ class SourceTableDetailsAwsJson10Serializer
             ) as String);
           }
           break;
+        case 'TableSizeBytes':
+          if (value != null) {
+            result.tableSizeBytes = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
+          break;
+        case 'KeySchema':
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.KeySchemaElement)],
+            ),
+          ) as _i6.BuiltList<_i3.KeySchemaElement>));
+          break;
         case 'TableCreationDateTime':
           result.tableCreationDateTime = (serializers.deserialize(
             value!,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
           break;
-        case 'TableId':
-          result.tableId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
+        case 'ProvisionedThroughput':
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisionedThroughput),
+          ) as _i4.ProvisionedThroughput));
           break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'TableSizeBytes':
+        case 'ItemCount':
           if (value != null) {
-            result.tableSizeBytes = (serializers.deserialize(
+            result.itemCount = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
+          break;
+        case 'BillingMode':
+          if (value != null) {
+            result.billingMode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.BillingMode),
+            ) as _i5.BillingMode);
           }
           break;
       }
@@ -253,51 +253,35 @@ class SourceTableDetailsAwsJson10Serializer
   }) {
     final payload = (object as SourceTableDetails);
     final result = <Object?>[
-      'KeySchema',
+      'TableName',
       serializers.serialize(
-        payload.keySchema,
-        specifiedType: const FullType(
-          _i6.BuiltList,
-          [FullType(_i4.KeySchemaElement)],
-        ),
-      ),
-      'ProvisionedThroughput',
-      serializers.serialize(
-        payload.provisionedThroughput,
-        specifiedType: const FullType(_i5.ProvisionedThroughput),
-      ),
-      'TableCreationDateTime',
-      serializers.serialize(
-        payload.tableCreationDateTime,
-        specifiedType: const FullType(DateTime),
+        payload.tableName,
+        specifiedType: const FullType(String),
       ),
       'TableId',
       serializers.serialize(
         payload.tableId,
         specifiedType: const FullType(String),
       ),
-      'TableName',
+      'KeySchema',
       serializers.serialize(
-        payload.tableName,
-        specifiedType: const FullType(String),
+        payload.keySchema,
+        specifiedType: const FullType(
+          _i6.BuiltList,
+          [FullType(_i3.KeySchemaElement)],
+        ),
+      ),
+      'TableCreationDateTime',
+      serializers.serialize(
+        payload.tableCreationDateTime,
+        specifiedType: const FullType(DateTime),
+      ),
+      'ProvisionedThroughput',
+      serializers.serialize(
+        payload.provisionedThroughput,
+        specifiedType: const FullType(_i4.ProvisionedThroughput),
       ),
     ];
-    if (payload.billingMode != null) {
-      result
-        ..add('BillingMode')
-        ..add(serializers.serialize(
-          payload.billingMode!,
-          specifiedType: const FullType(_i2.BillingMode),
-        ));
-    }
-    if (payload.itemCount != null) {
-      result
-        ..add('ItemCount')
-        ..add(serializers.serialize(
-          payload.itemCount!,
-          specifiedType: const FullType(_i3.Int64),
-        ));
-    }
     if (payload.tableArn != null) {
       result
         ..add('TableArn')
@@ -311,7 +295,23 @@ class SourceTableDetailsAwsJson10Serializer
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
           payload.tableSizeBytes!,
-          specifiedType: const FullType(_i3.Int64),
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
+    if (payload.itemCount != null) {
+      result
+        ..add('ItemCount')
+        ..add(serializers.serialize(
+          payload.itemCount!,
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
+    if (payload.billingMode != null) {
+      result
+        ..add('BillingMode')
+        ..add(serializers.serialize(
+          payload.billingMode!,
+          specifiedType: const FullType(_i5.BillingMode),
         ));
     }
     return result;

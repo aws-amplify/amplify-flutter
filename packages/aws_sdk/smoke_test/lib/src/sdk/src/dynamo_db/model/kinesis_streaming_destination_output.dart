@@ -18,14 +18,14 @@ abstract class KinesisStreamingDestinationOutput
         Built<KinesisStreamingDestinationOutput,
             KinesisStreamingDestinationOutputBuilder> {
   factory KinesisStreamingDestinationOutput({
-    _i2.DestinationStatus? destinationStatus,
-    String? streamArn,
     String? tableName,
+    String? streamArn,
+    _i2.DestinationStatus? destinationStatus,
   }) {
     return _$KinesisStreamingDestinationOutput._(
-      destinationStatus: destinationStatus,
-      streamArn: streamArn,
       tableName: tableName,
+      streamArn: streamArn,
+      destinationStatus: destinationStatus,
     );
   }
 
@@ -49,35 +49,35 @@ abstract class KinesisStreamingDestinationOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisStreamingDestinationOutputBuilder b) {}
 
-  /// The current status of the replication.
-  _i2.DestinationStatus? get destinationStatus;
+  /// The name of the table being modified.
+  String? get tableName;
 
   /// The ARN for the specific Kinesis data stream.
   String? get streamArn;
 
-  /// The name of the table being modified.
-  String? get tableName;
+  /// The current status of the replication.
+  _i2.DestinationStatus? get destinationStatus;
   @override
   List<Object?> get props => [
-        destinationStatus,
-        streamArn,
         tableName,
+        streamArn,
+        destinationStatus,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('KinesisStreamingDestinationOutput');
     helper.add(
-      'destinationStatus',
-      destinationStatus,
+      'tableName',
+      tableName,
     );
     helper.add(
       'streamArn',
       streamArn,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'destinationStatus',
+      destinationStatus,
     );
     return helper.toString();
   }
@@ -113,12 +113,12 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'DestinationStatus':
+        case 'TableName':
           if (value != null) {
-            result.destinationStatus = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.DestinationStatus),
-            ) as _i2.DestinationStatus);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'StreamArn':
@@ -129,12 +129,12 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'TableName':
+        case 'DestinationStatus':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.destinationStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i2.DestinationStatus),
+            ) as _i2.DestinationStatus);
           }
           break;
       }
@@ -151,12 +151,12 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
   }) {
     final payload = (object as KinesisStreamingDestinationOutput);
     final result = <Object?>[];
-    if (payload.destinationStatus != null) {
+    if (payload.tableName != null) {
       result
-        ..add('DestinationStatus')
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.destinationStatus!,
-          specifiedType: const FullType(_i2.DestinationStatus),
+          payload.tableName!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.streamArn != null) {
@@ -167,12 +167,12 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableName != null) {
+    if (payload.destinationStatus != null) {
       result
-        ..add('TableName')
+        ..add('DestinationStatus')
         ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          payload.destinationStatus!,
+          specifiedType: const FullType(_i2.DestinationStatus),
         ));
     }
     return result;

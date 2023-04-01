@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.test_invoke_method_request;
 
 class _$TestInvokeMethodRequest extends TestInvokeMethodRequest {
   @override
-  final String? body;
-  @override
-  final String? clientCertificateId;
-  @override
-  final _i3.BuiltMap<String, String>? headers;
-  @override
-  final String httpMethod;
-  @override
-  final _i3.BuiltListMultimap<String, String>? multiValueHeaders;
-  @override
-  final String? pathWithQueryString;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final String httpMethod;
+  @override
+  final String? pathWithQueryString;
+  @override
+  final String? body;
+  @override
+  final _i3.BuiltMap<String, String>? headers;
+  @override
+  final _i3.BuiltListMultimap<String, String>? multiValueHeaders;
+  @override
+  final String? clientCertificateId;
   @override
   final _i3.BuiltMap<String, String>? stageVariables;
 
@@ -31,22 +31,22 @@ class _$TestInvokeMethodRequest extends TestInvokeMethodRequest {
       (new TestInvokeMethodRequestBuilder()..update(updates))._build();
 
   _$TestInvokeMethodRequest._(
-      {this.body,
-      this.clientCertificateId,
-      this.headers,
-      required this.httpMethod,
-      this.multiValueHeaders,
-      this.pathWithQueryString,
+      {required this.restApiId,
       required this.resourceId,
-      required this.restApiId,
+      required this.httpMethod,
+      this.pathWithQueryString,
+      this.body,
+      this.headers,
+      this.multiValueHeaders,
+      this.clientCertificateId,
       this.stageVariables})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'TestInvokeMethodRequest', 'httpMethod');
+        restApiId, r'TestInvokeMethodRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'TestInvokeMethodRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'TestInvokeMethodRequest', 'restApiId');
+        httpMethod, r'TestInvokeMethodRequest', 'httpMethod');
   }
 
   @override
@@ -62,28 +62,28 @@ class _$TestInvokeMethodRequest extends TestInvokeMethodRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TestInvokeMethodRequest &&
-        body == other.body &&
-        clientCertificateId == other.clientCertificateId &&
-        headers == other.headers &&
-        httpMethod == other.httpMethod &&
-        multiValueHeaders == other.multiValueHeaders &&
-        pathWithQueryString == other.pathWithQueryString &&
-        resourceId == other.resourceId &&
         restApiId == other.restApiId &&
+        resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
+        pathWithQueryString == other.pathWithQueryString &&
+        body == other.body &&
+        headers == other.headers &&
+        multiValueHeaders == other.multiValueHeaders &&
+        clientCertificateId == other.clientCertificateId &&
         stageVariables == other.stageVariables;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, clientCertificateId.hashCode);
-    _$hash = $jc(_$hash, headers.hashCode);
-    _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, multiValueHeaders.hashCode);
-    _$hash = $jc(_$hash, pathWithQueryString.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, pathWithQueryString.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
+    _$hash = $jc(_$hash, headers.hashCode);
+    _$hash = $jc(_$hash, multiValueHeaders.hashCode);
+    _$hash = $jc(_$hash, clientCertificateId.hashCode);
     _$hash = $jc(_$hash, stageVariables.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -95,24 +95,32 @@ class TestInvokeMethodRequestBuilder
         Builder<TestInvokeMethodRequest, TestInvokeMethodRequestBuilder> {
   _$TestInvokeMethodRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
+
+  String? _httpMethod;
+  String? get httpMethod => _$this._httpMethod;
+  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+
+  String? _pathWithQueryString;
+  String? get pathWithQueryString => _$this._pathWithQueryString;
+  set pathWithQueryString(String? pathWithQueryString) =>
+      _$this._pathWithQueryString = pathWithQueryString;
+
   String? _body;
   String? get body => _$this._body;
   set body(String? body) => _$this._body = body;
-
-  String? _clientCertificateId;
-  String? get clientCertificateId => _$this._clientCertificateId;
-  set clientCertificateId(String? clientCertificateId) =>
-      _$this._clientCertificateId = clientCertificateId;
 
   _i3.MapBuilder<String, String>? _headers;
   _i3.MapBuilder<String, String> get headers =>
       _$this._headers ??= new _i3.MapBuilder<String, String>();
   set headers(_i3.MapBuilder<String, String>? headers) =>
       _$this._headers = headers;
-
-  String? _httpMethod;
-  String? get httpMethod => _$this._httpMethod;
-  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
   _i3.ListMultimapBuilder<String, String>? _multiValueHeaders;
   _i3.ListMultimapBuilder<String, String> get multiValueHeaders =>
@@ -122,18 +130,10 @@ class TestInvokeMethodRequestBuilder
           _i3.ListMultimapBuilder<String, String>? multiValueHeaders) =>
       _$this._multiValueHeaders = multiValueHeaders;
 
-  String? _pathWithQueryString;
-  String? get pathWithQueryString => _$this._pathWithQueryString;
-  set pathWithQueryString(String? pathWithQueryString) =>
-      _$this._pathWithQueryString = pathWithQueryString;
-
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  String? _clientCertificateId;
+  String? get clientCertificateId => _$this._clientCertificateId;
+  set clientCertificateId(String? clientCertificateId) =>
+      _$this._clientCertificateId = clientCertificateId;
 
   _i3.MapBuilder<String, String>? _stageVariables;
   _i3.MapBuilder<String, String> get stageVariables =>
@@ -148,14 +148,14 @@ class TestInvokeMethodRequestBuilder
   TestInvokeMethodRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _body = $v.body;
-      _clientCertificateId = $v.clientCertificateId;
-      _headers = $v.headers?.toBuilder();
-      _httpMethod = $v.httpMethod;
-      _multiValueHeaders = $v.multiValueHeaders?.toBuilder();
-      _pathWithQueryString = $v.pathWithQueryString;
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
+      _pathWithQueryString = $v.pathWithQueryString;
+      _body = $v.body;
+      _headers = $v.headers?.toBuilder();
+      _multiValueHeaders = $v.multiValueHeaders?.toBuilder();
+      _clientCertificateId = $v.clientCertificateId;
       _stageVariables = $v.stageVariables?.toBuilder();
       _$v = null;
     }
@@ -181,24 +181,23 @@ class TestInvokeMethodRequestBuilder
     try {
       _$result = _$v ??
           new _$TestInvokeMethodRequest._(
-              body: body,
-              clientCertificateId: clientCertificateId,
-              headers: _headers?.build(),
-              httpMethod: BuiltValueNullFieldError.checkNotNull(
-                  httpMethod, r'TestInvokeMethodRequest', 'httpMethod'),
-              multiValueHeaders: _multiValueHeaders?.build(),
-              pathWithQueryString: pathWithQueryString,
-              resourceId: BuiltValueNullFieldError.checkNotNull(
-                  resourceId, r'TestInvokeMethodRequest', 'resourceId'),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'TestInvokeMethodRequest', 'restApiId'),
+              resourceId: BuiltValueNullFieldError.checkNotNull(
+                  resourceId, r'TestInvokeMethodRequest', 'resourceId'),
+              httpMethod: BuiltValueNullFieldError.checkNotNull(
+                  httpMethod, r'TestInvokeMethodRequest', 'httpMethod'),
+              pathWithQueryString: pathWithQueryString,
+              body: body,
+              headers: _headers?.build(),
+              multiValueHeaders: _multiValueHeaders?.build(),
+              clientCertificateId: clientCertificateId,
               stageVariables: _stageVariables?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'headers';
         _headers?.build();
-
         _$failedField = 'multiValueHeaders';
         _multiValueHeaders?.build();
 

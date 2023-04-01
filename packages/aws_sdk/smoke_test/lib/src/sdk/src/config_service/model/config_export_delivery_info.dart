@@ -18,18 +18,18 @@ abstract class ConfigExportDeliveryInfo
         Built<ConfigExportDeliveryInfo, ConfigExportDeliveryInfoBuilder> {
   /// Provides status of the delivery of the snapshot or the configuration history to the specified Amazon S3 bucket. Also provides the status of notifications about the Amazon S3 delivery to the specified Amazon SNS topic.
   factory ConfigExportDeliveryInfo({
-    DateTime? lastAttemptTime,
+    _i2.DeliveryStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
-    _i2.DeliveryStatus? lastStatus,
+    DateTime? lastAttemptTime,
     DateTime? lastSuccessfulTime,
     DateTime? nextDeliveryTime,
   }) {
     return _$ConfigExportDeliveryInfo._(
-      lastAttemptTime: lastAttemptTime,
+      lastStatus: lastStatus,
       lastErrorCode: lastErrorCode,
       lastErrorMessage: lastErrorMessage,
-      lastStatus: lastStatus,
+      lastAttemptTime: lastAttemptTime,
       lastSuccessfulTime: lastSuccessfulTime,
       nextDeliveryTime: nextDeliveryTime,
     );
@@ -49,8 +49,8 @@ abstract class ConfigExportDeliveryInfo
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigExportDeliveryInfoBuilder b) {}
 
-  /// The time of the last attempted delivery.
-  DateTime? get lastAttemptTime;
+  /// Status of the last attempted delivery.
+  _i2.DeliveryStatus? get lastStatus;
 
   /// The error code from the last attempted delivery.
   String? get lastErrorCode;
@@ -58,8 +58,8 @@ abstract class ConfigExportDeliveryInfo
   /// The error message from the last attempted delivery.
   String? get lastErrorMessage;
 
-  /// Status of the last attempted delivery.
-  _i2.DeliveryStatus? get lastStatus;
+  /// The time of the last attempted delivery.
+  DateTime? get lastAttemptTime;
 
   /// The time of the last successful delivery.
   DateTime? get lastSuccessfulTime;
@@ -68,10 +68,10 @@ abstract class ConfigExportDeliveryInfo
   DateTime? get nextDeliveryTime;
   @override
   List<Object?> get props => [
-        lastAttemptTime,
+        lastStatus,
         lastErrorCode,
         lastErrorMessage,
-        lastStatus,
+        lastAttemptTime,
         lastSuccessfulTime,
         nextDeliveryTime,
       ];
@@ -79,8 +79,8 @@ abstract class ConfigExportDeliveryInfo
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo');
     helper.add(
-      'lastAttemptTime',
-      lastAttemptTime,
+      'lastStatus',
+      lastStatus,
     );
     helper.add(
       'lastErrorCode',
@@ -91,8 +91,8 @@ abstract class ConfigExportDeliveryInfo
       lastErrorMessage,
     );
     helper.add(
-      'lastStatus',
-      lastStatus,
+      'lastAttemptTime',
+      lastAttemptTime,
     );
     helper.add(
       'lastSuccessfulTime',
@@ -136,12 +136,12 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'lastAttemptTime':
+        case 'lastStatus':
           if (value != null) {
-            result.lastAttemptTime = (serializers.deserialize(
+            result.lastStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
+              specifiedType: const FullType(_i2.DeliveryStatus),
+            ) as _i2.DeliveryStatus);
           }
           break;
         case 'lastErrorCode':
@@ -160,12 +160,12 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'lastStatus':
+        case 'lastAttemptTime':
           if (value != null) {
-            result.lastStatus = (serializers.deserialize(
+            result.lastAttemptTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.DeliveryStatus),
-            ) as _i2.DeliveryStatus);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'lastSuccessfulTime':
@@ -198,12 +198,12 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
   }) {
     final payload = (object as ConfigExportDeliveryInfo);
     final result = <Object?>[];
-    if (payload.lastAttemptTime != null) {
+    if (payload.lastStatus != null) {
       result
-        ..add('lastAttemptTime')
+        ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastAttemptTime!,
-          specifiedType: const FullType(DateTime),
+          payload.lastStatus!,
+          specifiedType: const FullType(_i2.DeliveryStatus),
         ));
     }
     if (payload.lastErrorCode != null) {
@@ -222,12 +222,12 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastStatus != null) {
+    if (payload.lastAttemptTime != null) {
       result
-        ..add('lastStatus')
+        ..add('lastAttemptTime')
         ..add(serializers.serialize(
-          payload.lastStatus!,
-          specifiedType: const FullType(_i2.DeliveryStatus),
+          payload.lastAttemptTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.lastSuccessfulTime != null) {

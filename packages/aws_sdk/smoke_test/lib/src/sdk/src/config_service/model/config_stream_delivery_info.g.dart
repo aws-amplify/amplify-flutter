@@ -8,11 +8,11 @@ part of smoke_test.config_service.model.config_stream_delivery_info;
 
 class _$ConfigStreamDeliveryInfo extends ConfigStreamDeliveryInfo {
   @override
+  final _i2.DeliveryStatus? lastStatus;
+  @override
   final String? lastErrorCode;
   @override
   final String? lastErrorMessage;
-  @override
-  final _i2.DeliveryStatus? lastStatus;
   @override
   final DateTime? lastStatusChangeTime;
 
@@ -21,9 +21,9 @@ class _$ConfigStreamDeliveryInfo extends ConfigStreamDeliveryInfo {
       (new ConfigStreamDeliveryInfoBuilder()..update(updates))._build();
 
   _$ConfigStreamDeliveryInfo._(
-      {this.lastErrorCode,
+      {this.lastStatus,
+      this.lastErrorCode,
       this.lastErrorMessage,
-      this.lastStatus,
       this.lastStatusChangeTime})
       : super._();
 
@@ -40,18 +40,18 @@ class _$ConfigStreamDeliveryInfo extends ConfigStreamDeliveryInfo {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConfigStreamDeliveryInfo &&
+        lastStatus == other.lastStatus &&
         lastErrorCode == other.lastErrorCode &&
         lastErrorMessage == other.lastErrorMessage &&
-        lastStatus == other.lastStatus &&
         lastStatusChangeTime == other.lastStatusChangeTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, lastStatus.hashCode);
     _$hash = $jc(_$hash, lastErrorCode.hashCode);
     _$hash = $jc(_$hash, lastErrorMessage.hashCode);
-    _$hash = $jc(_$hash, lastStatus.hashCode);
     _$hash = $jc(_$hash, lastStatusChangeTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -63,6 +63,11 @@ class ConfigStreamDeliveryInfoBuilder
         Builder<ConfigStreamDeliveryInfo, ConfigStreamDeliveryInfoBuilder> {
   _$ConfigStreamDeliveryInfo? _$v;
 
+  _i2.DeliveryStatus? _lastStatus;
+  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
+  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
+      _$this._lastStatus = lastStatus;
+
   String? _lastErrorCode;
   String? get lastErrorCode => _$this._lastErrorCode;
   set lastErrorCode(String? lastErrorCode) =>
@@ -72,11 +77,6 @@ class ConfigStreamDeliveryInfoBuilder
   String? get lastErrorMessage => _$this._lastErrorMessage;
   set lastErrorMessage(String? lastErrorMessage) =>
       _$this._lastErrorMessage = lastErrorMessage;
-
-  _i2.DeliveryStatus? _lastStatus;
-  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
-  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
-      _$this._lastStatus = lastStatus;
 
   DateTime? _lastStatusChangeTime;
   DateTime? get lastStatusChangeTime => _$this._lastStatusChangeTime;
@@ -90,9 +90,9 @@ class ConfigStreamDeliveryInfoBuilder
   ConfigStreamDeliveryInfoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _lastStatus = $v.lastStatus;
       _lastErrorCode = $v.lastErrorCode;
       _lastErrorMessage = $v.lastErrorMessage;
-      _lastStatus = $v.lastStatus;
       _lastStatusChangeTime = $v.lastStatusChangeTime;
       _$v = null;
     }
@@ -116,9 +116,9 @@ class ConfigStreamDeliveryInfoBuilder
   _$ConfigStreamDeliveryInfo _build() {
     final _$result = _$v ??
         new _$ConfigStreamDeliveryInfo._(
+            lastStatus: lastStatus,
             lastErrorCode: lastErrorCode,
             lastErrorMessage: lastErrorMessage,
-            lastStatus: lastStatus,
             lastStatusChangeTime: lastStatusChangeTime);
     replace(_$result);
     return _$result;

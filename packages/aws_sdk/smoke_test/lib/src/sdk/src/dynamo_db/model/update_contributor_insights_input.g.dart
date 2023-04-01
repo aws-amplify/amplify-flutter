@@ -8,25 +8,25 @@ part of smoke_test.dynamo_db.model.update_contributor_insights_input;
 
 class _$UpdateContributorInsightsInput extends UpdateContributorInsightsInput {
   @override
-  final _i3.ContributorInsightsAction contributorInsightsAction;
+  final String tableName;
   @override
   final String? indexName;
   @override
-  final String tableName;
+  final _i3.ContributorInsightsAction contributorInsightsAction;
 
   factory _$UpdateContributorInsightsInput(
           [void Function(UpdateContributorInsightsInputBuilder)? updates]) =>
       (new UpdateContributorInsightsInputBuilder()..update(updates))._build();
 
   _$UpdateContributorInsightsInput._(
-      {required this.contributorInsightsAction,
+      {required this.tableName,
       this.indexName,
-      required this.tableName})
+      required this.contributorInsightsAction})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(contributorInsightsAction,
-        r'UpdateContributorInsightsInput', 'contributorInsightsAction');
     BuiltValueNullFieldError.checkNotNull(
         tableName, r'UpdateContributorInsightsInput', 'tableName');
+    BuiltValueNullFieldError.checkNotNull(contributorInsightsAction,
+        r'UpdateContributorInsightsInput', 'contributorInsightsAction');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateContributorInsightsInput extends UpdateContributorInsightsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateContributorInsightsInput &&
-        contributorInsightsAction == other.contributorInsightsAction &&
+        tableName == other.tableName &&
         indexName == other.indexName &&
-        tableName == other.tableName;
+        contributorInsightsAction == other.contributorInsightsAction;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contributorInsightsAction.hashCode);
-    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, indexName.hashCode);
+    _$hash = $jc(_$hash, contributorInsightsAction.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,20 +64,20 @@ class UpdateContributorInsightsInputBuilder
             UpdateContributorInsightsInputBuilder> {
   _$UpdateContributorInsightsInput? _$v;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
+  String? _indexName;
+  String? get indexName => _$this._indexName;
+  set indexName(String? indexName) => _$this._indexName = indexName;
+
   _i3.ContributorInsightsAction? _contributorInsightsAction;
   _i3.ContributorInsightsAction? get contributorInsightsAction =>
       _$this._contributorInsightsAction;
   set contributorInsightsAction(
           _i3.ContributorInsightsAction? contributorInsightsAction) =>
       _$this._contributorInsightsAction = contributorInsightsAction;
-
-  String? _indexName;
-  String? get indexName => _$this._indexName;
-  set indexName(String? indexName) => _$this._indexName = indexName;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
 
   UpdateContributorInsightsInputBuilder() {
     UpdateContributorInsightsInput._init(this);
@@ -86,9 +86,9 @@ class UpdateContributorInsightsInputBuilder
   UpdateContributorInsightsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contributorInsightsAction = $v.contributorInsightsAction;
-      _indexName = $v.indexName;
       _tableName = $v.tableName;
+      _indexName = $v.indexName;
+      _contributorInsightsAction = $v.contributorInsightsAction;
       _$v = null;
     }
     return this;
@@ -111,13 +111,13 @@ class UpdateContributorInsightsInputBuilder
   _$UpdateContributorInsightsInput _build() {
     final _$result = _$v ??
         new _$UpdateContributorInsightsInput._(
+            tableName: BuiltValueNullFieldError.checkNotNull(
+                tableName, r'UpdateContributorInsightsInput', 'tableName'),
+            indexName: indexName,
             contributorInsightsAction: BuiltValueNullFieldError.checkNotNull(
                 contributorInsightsAction,
                 r'UpdateContributorInsightsInput',
-                'contributorInsightsAction'),
-            indexName: indexName,
-            tableName: BuiltValueNullFieldError.checkNotNull(
-                tableName, r'UpdateContributorInsightsInput', 'tableName'));
+                'contributorInsightsAction'));
     replace(_$result);
     return _$result;
   }

@@ -8,23 +8,23 @@ part of smoke_test.dynamo_db.model.transact_write_items_input;
 
 class _$TransactWriteItemsInput extends TransactWriteItemsInput {
   @override
+  final _i6.BuiltList<_i3.TransactWriteItem> transactItems;
+  @override
+  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  @override
+  final _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
+  @override
   final String? clientRequestToken;
-  @override
-  final _i3.ReturnConsumedCapacity? returnConsumedCapacity;
-  @override
-  final _i4.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
-  @override
-  final _i6.BuiltList<_i5.TransactWriteItem> transactItems;
 
   factory _$TransactWriteItemsInput(
           [void Function(TransactWriteItemsInputBuilder)? updates]) =>
       (new TransactWriteItemsInputBuilder()..update(updates))._build();
 
   _$TransactWriteItemsInput._(
-      {this.clientRequestToken,
+      {required this.transactItems,
       this.returnConsumedCapacity,
       this.returnItemCollectionMetrics,
-      required this.transactItems})
+      this.clientRequestToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         transactItems, r'TransactWriteItemsInput', 'transactItems');
@@ -43,19 +43,19 @@ class _$TransactWriteItemsInput extends TransactWriteItemsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TransactWriteItemsInput &&
-        clientRequestToken == other.clientRequestToken &&
+        transactItems == other.transactItems &&
         returnConsumedCapacity == other.returnConsumedCapacity &&
         returnItemCollectionMetrics == other.returnItemCollectionMetrics &&
-        transactItems == other.transactItems;
+        clientRequestToken == other.clientRequestToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, clientRequestToken.hashCode);
+    _$hash = $jc(_$hash, transactItems.hashCode);
     _$hash = $jc(_$hash, returnConsumedCapacity.hashCode);
     _$hash = $jc(_$hash, returnItemCollectionMetrics.hashCode);
-    _$hash = $jc(_$hash, transactItems.hashCode);
+    _$hash = $jc(_$hash, clientRequestToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -66,30 +66,30 @@ class TransactWriteItemsInputBuilder
         Builder<TransactWriteItemsInput, TransactWriteItemsInputBuilder> {
   _$TransactWriteItemsInput? _$v;
 
+  _i6.ListBuilder<_i3.TransactWriteItem>? _transactItems;
+  _i6.ListBuilder<_i3.TransactWriteItem> get transactItems =>
+      _$this._transactItems ??= new _i6.ListBuilder<_i3.TransactWriteItem>();
+  set transactItems(_i6.ListBuilder<_i3.TransactWriteItem>? transactItems) =>
+      _$this._transactItems = transactItems;
+
+  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+      _$this._returnConsumedCapacity;
+  set returnConsumedCapacity(
+          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+      _$this._returnConsumedCapacity = returnConsumedCapacity;
+
+  _i5.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
+  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
+      _$this._returnItemCollectionMetrics;
+  set returnItemCollectionMetrics(
+          _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
+      _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
+
   String? _clientRequestToken;
   String? get clientRequestToken => _$this._clientRequestToken;
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
-
-  _i3.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity =>
-      _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i3.ReturnConsumedCapacity? returnConsumedCapacity) =>
-      _$this._returnConsumedCapacity = returnConsumedCapacity;
-
-  _i4.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
-  _i4.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
-      _$this._returnItemCollectionMetrics;
-  set returnItemCollectionMetrics(
-          _i4.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
-      _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
-
-  _i6.ListBuilder<_i5.TransactWriteItem>? _transactItems;
-  _i6.ListBuilder<_i5.TransactWriteItem> get transactItems =>
-      _$this._transactItems ??= new _i6.ListBuilder<_i5.TransactWriteItem>();
-  set transactItems(_i6.ListBuilder<_i5.TransactWriteItem>? transactItems) =>
-      _$this._transactItems = transactItems;
 
   TransactWriteItemsInputBuilder() {
     TransactWriteItemsInput._init(this);
@@ -98,10 +98,10 @@ class TransactWriteItemsInputBuilder
   TransactWriteItemsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _clientRequestToken = $v.clientRequestToken;
+      _transactItems = $v.transactItems.toBuilder();
       _returnConsumedCapacity = $v.returnConsumedCapacity;
       _returnItemCollectionMetrics = $v.returnItemCollectionMetrics;
-      _transactItems = $v.transactItems.toBuilder();
+      _clientRequestToken = $v.clientRequestToken;
       _$v = null;
     }
     return this;
@@ -126,10 +126,10 @@ class TransactWriteItemsInputBuilder
     try {
       _$result = _$v ??
           new _$TransactWriteItemsInput._(
-              clientRequestToken: clientRequestToken,
+              transactItems: transactItems.build(),
               returnConsumedCapacity: returnConsumedCapacity,
               returnItemCollectionMetrics: returnItemCollectionMetrics,
-              transactItems: transactItems.build());
+              clientRequestToken: clientRequestToken);
     } catch (_) {
       late String _$failedField;
       try {

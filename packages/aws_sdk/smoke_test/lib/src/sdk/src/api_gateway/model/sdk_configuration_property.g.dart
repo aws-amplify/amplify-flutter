@@ -8,26 +8,26 @@ part of smoke_test.api_gateway.model.sdk_configuration_property;
 
 class _$SdkConfigurationProperty extends SdkConfigurationProperty {
   @override
-  final String? defaultValue;
-  @override
-  final String? description;
+  final String? name;
   @override
   final String? friendlyName;
   @override
-  final String? name;
+  final String? description;
   @override
   final bool? required;
+  @override
+  final String? defaultValue;
 
   factory _$SdkConfigurationProperty(
           [void Function(SdkConfigurationPropertyBuilder)? updates]) =>
       (new SdkConfigurationPropertyBuilder()..update(updates))._build();
 
   _$SdkConfigurationProperty._(
-      {this.defaultValue,
-      this.description,
+      {this.name,
       this.friendlyName,
-      this.name,
-      this.required})
+      this.description,
+      this.required,
+      this.defaultValue})
       : super._();
 
   @override
@@ -43,21 +43,21 @@ class _$SdkConfigurationProperty extends SdkConfigurationProperty {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SdkConfigurationProperty &&
-        defaultValue == other.defaultValue &&
-        description == other.description &&
-        friendlyName == other.friendlyName &&
         name == other.name &&
-        required == other.required;
+        friendlyName == other.friendlyName &&
+        description == other.description &&
+        required == other.required &&
+        defaultValue == other.defaultValue;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, defaultValue.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, friendlyName.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, friendlyName.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, required.hashCode);
+    _$hash = $jc(_$hash, defaultValue.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,25 +68,25 @@ class SdkConfigurationPropertyBuilder
         Builder<SdkConfigurationProperty, SdkConfigurationPropertyBuilder> {
   _$SdkConfigurationProperty? _$v;
 
-  String? _defaultValue;
-  String? get defaultValue => _$this._defaultValue;
-  set defaultValue(String? defaultValue) => _$this._defaultValue = defaultValue;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   String? _friendlyName;
   String? get friendlyName => _$this._friendlyName;
   set friendlyName(String? friendlyName) => _$this._friendlyName = friendlyName;
 
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   bool? _required;
   bool? get required => _$this._required;
   set required(bool? required) => _$this._required = required;
+
+  String? _defaultValue;
+  String? get defaultValue => _$this._defaultValue;
+  set defaultValue(String? defaultValue) => _$this._defaultValue = defaultValue;
 
   SdkConfigurationPropertyBuilder() {
     SdkConfigurationProperty._init(this);
@@ -95,11 +95,11 @@ class SdkConfigurationPropertyBuilder
   SdkConfigurationPropertyBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _defaultValue = $v.defaultValue;
-      _description = $v.description;
-      _friendlyName = $v.friendlyName;
       _name = $v.name;
+      _friendlyName = $v.friendlyName;
+      _description = $v.description;
       _required = $v.required;
+      _defaultValue = $v.defaultValue;
       _$v = null;
     }
     return this;
@@ -122,11 +122,11 @@ class SdkConfigurationPropertyBuilder
   _$SdkConfigurationProperty _build() {
     final _$result = _$v ??
         new _$SdkConfigurationProperty._(
-            defaultValue: defaultValue,
-            description: description,
-            friendlyName: friendlyName,
             name: name,
-            required: required);
+            friendlyName: friendlyName,
+            description: description,
+            required: required,
+            defaultValue: defaultValue);
     replace(_$result);
     return _$result;
   }

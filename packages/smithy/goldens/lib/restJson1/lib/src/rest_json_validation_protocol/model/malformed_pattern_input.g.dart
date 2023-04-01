@@ -8,13 +8,13 @@ part of rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_inpu
 
 class _$MalformedPatternInput extends MalformedPatternInput {
   @override
+  final String? string;
+  @override
   final String? evilString;
   @override
   final _i4.BuiltList<String>? list;
   @override
   final _i4.BuiltMap<String, String>? map;
-  @override
-  final String? string;
   @override
   final _i3.PatternUnion? union;
 
@@ -23,7 +23,7 @@ class _$MalformedPatternInput extends MalformedPatternInput {
       (new MalformedPatternInputBuilder()..update(updates))._build();
 
   _$MalformedPatternInput._(
-      {this.evilString, this.list, this.map, this.string, this.union})
+      {this.string, this.evilString, this.list, this.map, this.union})
       : super._();
 
   @override
@@ -39,20 +39,20 @@ class _$MalformedPatternInput extends MalformedPatternInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MalformedPatternInput &&
+        string == other.string &&
         evilString == other.evilString &&
         list == other.list &&
         map == other.map &&
-        string == other.string &&
         union == other.union;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, string.hashCode);
     _$hash = $jc(_$hash, evilString.hashCode);
     _$hash = $jc(_$hash, list.hashCode);
     _$hash = $jc(_$hash, map.hashCode);
-    _$hash = $jc(_$hash, string.hashCode);
     _$hash = $jc(_$hash, union.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -62,6 +62,10 @@ class _$MalformedPatternInput extends MalformedPatternInput {
 class MalformedPatternInputBuilder
     implements Builder<MalformedPatternInput, MalformedPatternInputBuilder> {
   _$MalformedPatternInput? _$v;
+
+  String? _string;
+  String? get string => _$this._string;
+  set string(String? string) => _$this._string = string;
 
   String? _evilString;
   String? get evilString => _$this._evilString;
@@ -77,10 +81,6 @@ class MalformedPatternInputBuilder
       _$this._map ??= new _i4.MapBuilder<String, String>();
   set map(_i4.MapBuilder<String, String>? map) => _$this._map = map;
 
-  String? _string;
-  String? get string => _$this._string;
-  set string(String? string) => _$this._string = string;
-
   _i3.PatternUnion? _union;
   _i3.PatternUnion? get union => _$this._union;
   set union(_i3.PatternUnion? union) => _$this._union = union;
@@ -92,10 +92,10 @@ class MalformedPatternInputBuilder
   MalformedPatternInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _string = $v.string;
       _evilString = $v.evilString;
       _list = $v.list?.toBuilder();
       _map = $v.map?.toBuilder();
-      _string = $v.string;
       _union = $v.union;
       _$v = null;
     }
@@ -121,10 +121,10 @@ class MalformedPatternInputBuilder
     try {
       _$result = _$v ??
           new _$MalformedPatternInput._(
+              string: string,
               evilString: evilString,
               list: _list?.build(),
               map: _map?.build(),
-              string: string,
               union: union);
     } catch (_) {
       late String _$failedField;

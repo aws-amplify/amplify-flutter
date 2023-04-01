@@ -23,17 +23,17 @@ abstract class PutBucketRequestPaymentRequest
         _i1.HasPayload<_i2.RequestPaymentConfiguration> {
   factory PutBucketRequestPaymentRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
-    String? expectedBucketOwner,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     required _i2.RequestPaymentConfiguration requestPaymentConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketRequestPaymentRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
+      checksumAlgorithm: checksumAlgorithm,
       requestPaymentConfiguration: requestPaymentConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -76,21 +76,21 @@ abstract class PutBucketRequestPaymentRequest
   /// The bucket name.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The base64-encoded 128-bit MD5 digest of the data. You must use this header as a message integrity check to verify that the request body was not corrupted in transit. For more information, see [RFC 1864](http://www.ietf.org/rfc/rfc1864.txt).
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container for Payer.
   _i2.RequestPaymentConfiguration get requestPaymentConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -108,10 +108,10 @@ abstract class PutBucketRequestPaymentRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
         contentMd5,
-        expectedBucketOwner,
+        checksumAlgorithm,
         requestPaymentConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -122,20 +122,20 @@ abstract class PutBucketRequestPaymentRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'requestPaymentConfiguration',
       requestPaymentConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

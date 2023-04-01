@@ -122,17 +122,17 @@ class OmitsNullSerializesEmptyStringInputRestXmlSerializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'emptyString':
+        case 'nullValue':
           if (value != null) {
-            result.emptyString = (serializers.deserialize(
+            result.nullValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'nullValue':
+        case 'emptyString':
           if (value != null) {
-            result.nullValue = (serializers.deserialize(
+            result.emptyString = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);

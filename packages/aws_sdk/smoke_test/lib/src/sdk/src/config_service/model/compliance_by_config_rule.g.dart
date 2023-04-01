@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.compliance_by_config_rule;
 
 class _$ComplianceByConfigRule extends ComplianceByConfigRule {
   @override
-  final _i2.Compliance? compliance;
-  @override
   final String? configRuleName;
+  @override
+  final _i2.Compliance? compliance;
 
   factory _$ComplianceByConfigRule(
           [void Function(ComplianceByConfigRuleBuilder)? updates]) =>
       (new ComplianceByConfigRuleBuilder()..update(updates))._build();
 
-  _$ComplianceByConfigRule._({this.compliance, this.configRuleName})
+  _$ComplianceByConfigRule._({this.configRuleName, this.compliance})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$ComplianceByConfigRule extends ComplianceByConfigRule {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ComplianceByConfigRule &&
-        compliance == other.compliance &&
-        configRuleName == other.configRuleName;
+        configRuleName == other.configRuleName &&
+        compliance == other.compliance;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, compliance.hashCode);
     _$hash = $jc(_$hash, configRuleName.hashCode);
+    _$hash = $jc(_$hash, compliance.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,16 +50,16 @@ class ComplianceByConfigRuleBuilder
     implements Builder<ComplianceByConfigRule, ComplianceByConfigRuleBuilder> {
   _$ComplianceByConfigRule? _$v;
 
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
+
   _i2.ComplianceBuilder? _compliance;
   _i2.ComplianceBuilder get compliance =>
       _$this._compliance ??= new _i2.ComplianceBuilder();
   set compliance(_i2.ComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
-
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
 
   ComplianceByConfigRuleBuilder() {
     ComplianceByConfigRule._init(this);
@@ -68,8 +68,8 @@ class ComplianceByConfigRuleBuilder
   ComplianceByConfigRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _compliance = $v.compliance?.toBuilder();
       _configRuleName = $v.configRuleName;
+      _compliance = $v.compliance?.toBuilder();
       _$v = null;
     }
     return this;
@@ -94,7 +94,7 @@ class ComplianceByConfigRuleBuilder
     try {
       _$result = _$v ??
           new _$ComplianceByConfigRule._(
-              compliance: _compliance?.build(), configRuleName: configRuleName);
+              configRuleName: configRuleName, compliance: _compliance?.build());
     } catch (_) {
       late String _$failedField;
       try {

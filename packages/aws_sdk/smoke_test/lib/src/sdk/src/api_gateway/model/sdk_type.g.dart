@@ -8,22 +8,22 @@ part of smoke_test.api_gateway.model.sdk_type;
 
 class _$SdkType extends SdkType {
   @override
-  final _i3.BuiltList<_i2.SdkConfigurationProperty>? configurationProperties;
-  @override
-  final String? description;
+  final String? id;
   @override
   final String? friendlyName;
   @override
-  final String? id;
+  final String? description;
+  @override
+  final _i3.BuiltList<_i2.SdkConfigurationProperty>? configurationProperties;
 
   factory _$SdkType([void Function(SdkTypeBuilder)? updates]) =>
       (new SdkTypeBuilder()..update(updates))._build();
 
   _$SdkType._(
-      {this.configurationProperties,
-      this.description,
+      {this.id,
       this.friendlyName,
-      this.id})
+      this.description,
+      this.configurationProperties})
       : super._();
 
   @override
@@ -37,19 +37,19 @@ class _$SdkType extends SdkType {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SdkType &&
-        configurationProperties == other.configurationProperties &&
-        description == other.description &&
+        id == other.id &&
         friendlyName == other.friendlyName &&
-        id == other.id;
+        description == other.description &&
+        configurationProperties == other.configurationProperties;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, configurationProperties.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, friendlyName.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, friendlyName.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, configurationProperties.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,6 +57,18 @@ class _$SdkType extends SdkType {
 
 class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
   _$SdkType? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _friendlyName;
+  String? get friendlyName => _$this._friendlyName;
+  set friendlyName(String? friendlyName) => _$this._friendlyName = friendlyName;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   _i3.ListBuilder<_i2.SdkConfigurationProperty>? _configurationProperties;
   _i3.ListBuilder<_i2.SdkConfigurationProperty> get configurationProperties =>
@@ -67,18 +79,6 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
               configurationProperties) =>
       _$this._configurationProperties = configurationProperties;
 
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
-
-  String? _friendlyName;
-  String? get friendlyName => _$this._friendlyName;
-  set friendlyName(String? friendlyName) => _$this._friendlyName = friendlyName;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
   SdkTypeBuilder() {
     SdkType._init(this);
   }
@@ -86,10 +86,10 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
   SdkTypeBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _configurationProperties = $v.configurationProperties?.toBuilder();
-      _description = $v.description;
-      _friendlyName = $v.friendlyName;
       _id = $v.id;
+      _friendlyName = $v.friendlyName;
+      _description = $v.description;
+      _configurationProperties = $v.configurationProperties?.toBuilder();
       _$v = null;
     }
     return this;
@@ -114,10 +114,10 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
     try {
       _$result = _$v ??
           new _$SdkType._(
-              configurationProperties: _configurationProperties?.build(),
-              description: description,
+              id: id,
               friendlyName: friendlyName,
-              id: id);
+              description: description,
+              configurationProperties: _configurationProperties?.build());
     } catch (_) {
       late String _$failedField;
       try {

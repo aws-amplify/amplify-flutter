@@ -143,7 +143,7 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
                 (const _i2.XmlBuiltListSerializer(memberName: 'Field')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i7.BuiltList,
                 [FullType(_i8.InventoryOptionalField)],

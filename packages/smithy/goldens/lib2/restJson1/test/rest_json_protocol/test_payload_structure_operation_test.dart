@@ -173,20 +173,20 @@ class TestPayloadStructureInputOutputRestJson1Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'payloadConfig':
-          if (value != null) {
-            result.payloadConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.PayloadConfig),
-            ) as _i6.PayloadConfig));
-          }
-          break;
         case 'testId':
           if (value != null) {
             result.testId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'payloadConfig':
+          if (value != null) {
+            result.payloadConfig.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.PayloadConfig),
+            ) as _i6.PayloadConfig));
           }
           break;
       }

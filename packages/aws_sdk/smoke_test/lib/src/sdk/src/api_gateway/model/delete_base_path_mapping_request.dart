@@ -22,12 +22,12 @@ abstract class DeleteBasePathMappingRequest
         _i1.HasPayload<DeleteBasePathMappingRequestPayload> {
   /// A request to delete the BasePathMapping resource.
   factory DeleteBasePathMappingRequest({
-    required String basePath,
     required String domainName,
+    required String basePath,
   }) {
     return _$DeleteBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
     );
   }
 
@@ -59,13 +59,13 @@ abstract class DeleteBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBasePathMappingRequestBuilder b) {}
 
+  /// The domain name of the BasePathMapping resource to delete.
+  String get domainName;
+
   /// The base path name of the BasePathMapping resource to delete.
   ///
   /// To specify an empty base path, set this parameter to `'(none)'`.
   String get basePath;
-
-  /// The domain name of the BasePathMapping resource to delete.
-  String get domainName;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -85,19 +85,19 @@ abstract class DeleteBasePathMappingRequest
       DeleteBasePathMappingRequestPayload();
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     return helper.toString();
   }

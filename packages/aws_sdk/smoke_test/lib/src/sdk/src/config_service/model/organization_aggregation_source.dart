@@ -19,14 +19,14 @@ abstract class OrganizationAggregationSource
             OrganizationAggregationSourceBuilder> {
   /// This object contains regions to set up the aggregator and an IAM role to retrieve organization details.
   factory OrganizationAggregationSource({
-    bool? allAwsRegions,
-    List<String>? awsRegions,
     required String roleArn,
+    List<String>? awsRegions,
+    bool? allAwsRegions,
   }) {
     return _$OrganizationAggregationSource._(
-      allAwsRegions: allAwsRegions,
-      awsRegions: awsRegions == null ? null : _i2.BuiltList(awsRegions),
       roleArn: roleArn,
+      awsRegions: awsRegions == null ? null : _i2.BuiltList(awsRegions),
+      allAwsRegions: allAwsRegions,
     );
   }
 
@@ -44,34 +44,34 @@ abstract class OrganizationAggregationSource
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationAggregationSourceBuilder b) {}
 
-  /// If true, aggregate existing Config regions and future regions.
-  bool? get allAwsRegions;
+  /// ARN of the IAM role used to retrieve Amazon Web Services Organization details associated with the aggregator account.
+  String get roleArn;
 
   /// The source regions being aggregated.
   _i2.BuiltList<String>? get awsRegions;
 
-  /// ARN of the IAM role used to retrieve Amazon Web Services Organization details associated with the aggregator account.
-  String get roleArn;
+  /// If true, aggregate existing Config regions and future regions.
+  bool? get allAwsRegions;
   @override
   List<Object?> get props => [
-        allAwsRegions,
-        awsRegions,
         roleArn,
+        awsRegions,
+        allAwsRegions,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OrganizationAggregationSource');
     helper.add(
-      'allAwsRegions',
-      allAwsRegions,
+      'roleArn',
+      roleArn,
     );
     helper.add(
       'awsRegions',
       awsRegions,
     );
     helper.add(
-      'roleArn',
-      roleArn,
+      'allAwsRegions',
+      allAwsRegions,
     );
     return helper.toString();
   }
@@ -107,13 +107,11 @@ class OrganizationAggregationSourceAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AllAwsRegions':
-          if (value != null) {
-            result.allAwsRegions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+        case 'RoleArn':
+          result.roleArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'AwsRegions':
           if (value != null) {
@@ -126,11 +124,13 @@ class OrganizationAggregationSourceAwsJson11Serializer
             ) as _i2.BuiltList<String>));
           }
           break;
-        case 'RoleArn':
-          result.roleArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
+        case 'AllAwsRegions':
+          if (value != null) {
+            result.allAwsRegions = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
           break;
       }
     }
@@ -152,14 +152,6 @@ class OrganizationAggregationSourceAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.allAwsRegions != null) {
-      result
-        ..add('AllAwsRegions')
-        ..add(serializers.serialize(
-          payload.allAwsRegions!,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (payload.awsRegions != null) {
       result
         ..add('AwsRegions')
@@ -169,6 +161,14 @@ class OrganizationAggregationSourceAwsJson11Serializer
             _i2.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.allAwsRegions != null) {
+      result
+        ..add('AllAwsRegions')
+        ..add(serializers.serialize(
+          payload.allAwsRegions!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

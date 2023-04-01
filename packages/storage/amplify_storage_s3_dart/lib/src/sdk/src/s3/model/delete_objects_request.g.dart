@@ -10,17 +10,17 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
   @override
   final String bucket;
   @override
-  final bool? bypassGovernanceRetention;
-  @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final _i2.Delete delete;
-  @override
-  final String? expectedBucketOwner;
   @override
   final String? mfa;
   @override
-  final _i5.RequestPayer? requestPayer;
+  final _i4.RequestPayer? requestPayer;
+  @override
+  final bool? bypassGovernanceRetention;
+  @override
+  final String? expectedBucketOwner;
+  @override
+  final _i5.ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$DeleteObjectsRequest(
           [void Function(DeleteObjectsRequestBuilder)? updates]) =>
@@ -28,12 +28,12 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
 
   _$DeleteObjectsRequest._(
       {required this.bucket,
-      this.bypassGovernanceRetention,
-      this.checksumAlgorithm,
       required this.delete,
-      this.expectedBucketOwner,
       this.mfa,
-      this.requestPayer})
+      this.requestPayer,
+      this.bypassGovernanceRetention,
+      this.expectedBucketOwner,
+      this.checksumAlgorithm})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'DeleteObjectsRequest', 'bucket');
@@ -55,24 +55,24 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
     if (identical(other, this)) return true;
     return other is DeleteObjectsRequest &&
         bucket == other.bucket &&
-        bypassGovernanceRetention == other.bypassGovernanceRetention &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         delete == other.delete &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         mfa == other.mfa &&
-        requestPayer == other.requestPayer;
+        requestPayer == other.requestPayer &&
+        bypassGovernanceRetention == other.bypassGovernanceRetention &&
+        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, delete.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, mfa.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -86,33 +86,33 @@ class DeleteObjectsRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
+  _i2.DeleteBuilder? _delete;
+  _i2.DeleteBuilder get delete => _$this._delete ??= new _i2.DeleteBuilder();
+  set delete(_i2.DeleteBuilder? delete) => _$this._delete = delete;
+
+  String? _mfa;
+  String? get mfa => _$this._mfa;
+  set mfa(String? mfa) => _$this._mfa = mfa;
+
+  _i4.RequestPayer? _requestPayer;
+  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i4.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
   bool? _bypassGovernanceRetention;
   bool? get bypassGovernanceRetention => _$this._bypassGovernanceRetention;
   set bypassGovernanceRetention(bool? bypassGovernanceRetention) =>
       _$this._bypassGovernanceRetention = bypassGovernanceRetention;
-
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
-  _i2.DeleteBuilder? _delete;
-  _i2.DeleteBuilder get delete => _$this._delete ??= new _i2.DeleteBuilder();
-  set delete(_i2.DeleteBuilder? delete) => _$this._delete = delete;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  String? _mfa;
-  String? get mfa => _$this._mfa;
-  set mfa(String? mfa) => _$this._mfa = mfa;
-
-  _i5.RequestPayer? _requestPayer;
-  _i5.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i5.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
+  _i5.ChecksumAlgorithm? _checksumAlgorithm;
+  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   DeleteObjectsRequestBuilder() {
     DeleteObjectsRequest._init(this);
@@ -122,12 +122,12 @@ class DeleteObjectsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _delete = $v.delete.toBuilder();
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _mfa = $v.mfa;
       _requestPayer = $v.requestPayer;
+      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
+      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _$v = null;
     }
     return this;
@@ -154,12 +154,12 @@ class DeleteObjectsRequestBuilder
           new _$DeleteObjectsRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'DeleteObjectsRequest', 'bucket'),
-              bypassGovernanceRetention: bypassGovernanceRetention,
-              checksumAlgorithm: checksumAlgorithm,
               delete: delete.build(),
-              expectedBucketOwner: expectedBucketOwner,
               mfa: mfa,
-              requestPayer: requestPayer);
+              requestPayer: requestPayer,
+              bypassGovernanceRetention: bypassGovernanceRetention,
+              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm);
     } catch (_) {
       late String _$failedField;
       try {

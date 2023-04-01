@@ -20,14 +20,14 @@ abstract class CreateResourceRequest
         _i1.HasPayload<CreateResourceRequestPayload> {
   /// Requests API Gateway to create a Resource resource.
   factory CreateResourceRequest({
+    required String restApiId,
     required String parentId,
     required String pathPart,
-    required String restApiId,
   }) {
     return _$CreateResourceRequest._(
+      restApiId: restApiId,
       parentId: parentId,
       pathPart: pathPart,
-      restApiId: restApiId,
     );
   }
 
@@ -60,14 +60,14 @@ abstract class CreateResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateResourceRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The parent resource's identifier.
   String get parentId;
 
   /// The last path segment for this resource.
   String get pathPart;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,13 +89,17 @@ abstract class CreateResourceRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         parentId,
         pathPart,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateResourceRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'parentId',
       parentId,
@@ -103,10 +107,6 @@ abstract class CreateResourceRequest
     helper.add(
       'pathPart',
       pathPart,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

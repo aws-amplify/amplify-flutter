@@ -15,16 +15,16 @@ abstract class DeletedObject
     implements Built<DeletedObject, DeletedObjectBuilder> {
   /// Information about the deleted object.
   factory DeletedObject({
-    bool? deleteMarker,
-    String? deleteMarkerVersionId,
     String? key,
     String? versionId,
+    bool? deleteMarker,
+    String? deleteMarkerVersionId,
   }) {
     return _$DeletedObject._(
-      deleteMarker: deleteMarker,
-      deleteMarkerVersionId: deleteMarkerVersionId,
       key: key,
       versionId: versionId,
+      deleteMarker: deleteMarker,
+      deleteMarkerVersionId: deleteMarkerVersionId,
     );
   }
 
@@ -41,35 +41,27 @@ abstract class DeletedObject
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeletedObjectBuilder b) {}
 
-  /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
-  bool? get deleteMarker;
-
-  /// The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
-  String? get deleteMarkerVersionId;
-
   /// The name of the deleted object.
   String? get key;
 
   /// The version ID of the deleted object.
   String? get versionId;
+
+  /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
+  bool? get deleteMarker;
+
+  /// The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
+  String? get deleteMarkerVersionId;
   @override
   List<Object?> get props => [
-        deleteMarker,
-        deleteMarkerVersionId,
         key,
         versionId,
+        deleteMarker,
+        deleteMarkerVersionId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeletedObject');
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'deleteMarkerVersionId',
-      deleteMarkerVersionId,
-    );
     helper.add(
       'key',
       key,
@@ -77,6 +69,14 @@ abstract class DeletedObject
     helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'deleteMarker',
+      deleteMarker,
+    );
+    helper.add(
+      'deleteMarkerVersionId',
+      deleteMarkerVersionId,
     );
     return helper.toString();
   }

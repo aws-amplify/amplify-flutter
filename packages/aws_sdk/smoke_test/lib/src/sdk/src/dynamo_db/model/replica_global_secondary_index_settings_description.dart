@@ -5,10 +5,10 @@ library smoke_test.dynamo_db.model.replica_global_secondary_index_settings_descr
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart'
-    as _i3;
+    as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/index_status.dart'
     as _i2;
 
@@ -25,22 +25,22 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
   factory ReplicaGlobalSecondaryIndexSettingsDescription({
     required String indexName,
     _i2.IndexStatus? indexStatus,
-    _i3.AutoScalingSettingsDescription?
+    _i3.Int64? provisionedReadCapacityUnits,
+    _i4.AutoScalingSettingsDescription?
         provisionedReadCapacityAutoScalingSettings,
-    _i4.Int64? provisionedReadCapacityUnits,
-    _i3.AutoScalingSettingsDescription?
+    _i3.Int64? provisionedWriteCapacityUnits,
+    _i4.AutoScalingSettingsDescription?
         provisionedWriteCapacityAutoScalingSettings,
-    _i4.Int64? provisionedWriteCapacityUnits,
   }) {
     return _$ReplicaGlobalSecondaryIndexSettingsDescription._(
       indexName: indexName,
       indexStatus: indexStatus,
+      provisionedReadCapacityUnits: provisionedReadCapacityUnits,
       provisionedReadCapacityAutoScalingSettings:
           provisionedReadCapacityAutoScalingSettings,
-      provisionedReadCapacityUnits: provisionedReadCapacityUnits,
+      provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
       provisionedWriteCapacityAutoScalingSettings:
           provisionedWriteCapacityAutoScalingSettings,
-      provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
     );
   }
 
@@ -72,27 +72,27 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
   /// *   `ACTIVE` \- The global secondary index is ready for use.
   _i2.IndexStatus? get indexStatus;
 
+  /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`.
+  _i3.Int64? get provisionedReadCapacityUnits;
+
   /// Auto scaling settings for a global secondary index replica's read capacity units.
-  _i3.AutoScalingSettingsDescription?
+  _i4.AutoScalingSettingsDescription?
       get provisionedReadCapacityAutoScalingSettings;
 
-  /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`.
-  _i4.Int64? get provisionedReadCapacityUnits;
+  /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`.
+  _i3.Int64? get provisionedWriteCapacityUnits;
 
   /// Auto scaling settings for a global secondary index replica's write capacity units.
-  _i3.AutoScalingSettingsDescription?
+  _i4.AutoScalingSettingsDescription?
       get provisionedWriteCapacityAutoScalingSettings;
-
-  /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException`.
-  _i4.Int64? get provisionedWriteCapacityUnits;
   @override
   List<Object?> get props => [
         indexName,
         indexStatus,
-        provisionedReadCapacityAutoScalingSettings,
         provisionedReadCapacityUnits,
-        provisionedWriteCapacityAutoScalingSettings,
+        provisionedReadCapacityAutoScalingSettings,
         provisionedWriteCapacityUnits,
+        provisionedWriteCapacityAutoScalingSettings,
       ];
   @override
   String toString() {
@@ -107,20 +107,20 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
       indexStatus,
     );
     helper.add(
-      'provisionedReadCapacityAutoScalingSettings',
-      provisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
       'provisionedReadCapacityUnits',
       provisionedReadCapacityUnits,
     );
     helper.add(
-      'provisionedWriteCapacityAutoScalingSettings',
-      provisionedWriteCapacityAutoScalingSettings,
+      'provisionedReadCapacityAutoScalingSettings',
+      provisionedReadCapacityAutoScalingSettings,
     );
     helper.add(
       'provisionedWriteCapacityUnits',
       provisionedWriteCapacityUnits,
+    );
+    helper.add(
+      'provisionedWriteCapacityAutoScalingSettings',
+      provisionedWriteCapacityAutoScalingSettings,
     );
     return helper.toString();
   }
@@ -171,21 +171,29 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
             ) as _i2.IndexStatus);
           }
           break;
+        case 'ProvisionedReadCapacityUnits':
+          if (value != null) {
+            result.provisionedReadCapacityUnits = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
+          }
+          break;
         case 'ProvisionedReadCapacityAutoScalingSettings':
           if (value != null) {
             result.provisionedReadCapacityAutoScalingSettings
                 .replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-            ) as _i3.AutoScalingSettingsDescription));
+              specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
+            ) as _i4.AutoScalingSettingsDescription));
           }
           break;
-        case 'ProvisionedReadCapacityUnits':
+        case 'ProvisionedWriteCapacityUnits':
           if (value != null) {
-            result.provisionedReadCapacityUnits = (serializers.deserialize(
+            result.provisionedWriteCapacityUnits = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
           }
           break;
         case 'ProvisionedWriteCapacityAutoScalingSettings':
@@ -193,16 +201,8 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
             result.provisionedWriteCapacityAutoScalingSettings
                 .replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-            ) as _i3.AutoScalingSettingsDescription));
-          }
-          break;
-        case 'ProvisionedWriteCapacityUnits':
-          if (value != null) {
-            result.provisionedWriteCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
+              specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
+            ) as _i4.AutoScalingSettingsDescription));
           }
           break;
       }
@@ -233,28 +233,20 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
           specifiedType: const FullType(_i2.IndexStatus),
         ));
     }
-    if (payload.provisionedReadCapacityAutoScalingSettings != null) {
-      result
-        ..add('ProvisionedReadCapacityAutoScalingSettings')
-        ..add(serializers.serialize(
-          payload.provisionedReadCapacityAutoScalingSettings!,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-        ));
-    }
     if (payload.provisionedReadCapacityUnits != null) {
       result
         ..add('ProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
           payload.provisionedReadCapacityUnits!,
-          specifiedType: const FullType(_i4.Int64),
+          specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.provisionedWriteCapacityAutoScalingSettings != null) {
+    if (payload.provisionedReadCapacityAutoScalingSettings != null) {
       result
-        ..add('ProvisionedWriteCapacityAutoScalingSettings')
+        ..add('ProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingSettings!,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          payload.provisionedReadCapacityAutoScalingSettings!,
+          specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
         ));
     }
     if (payload.provisionedWriteCapacityUnits != null) {
@@ -262,7 +254,15 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         ..add('ProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           payload.provisionedWriteCapacityUnits!,
-          specifiedType: const FullType(_i4.Int64),
+          specifiedType: const FullType(_i3.Int64),
+        ));
+    }
+    if (payload.provisionedWriteCapacityAutoScalingSettings != null) {
+      result
+        ..add('ProvisionedWriteCapacityAutoScalingSettings')
+        ..add(serializers.serialize(
+          payload.provisionedWriteCapacityAutoScalingSettings!,
+          specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
         ));
     }
     return result;

@@ -23,19 +23,19 @@ abstract class UpdateMethodResponseRequest
         _i1.HasPayload<UpdateMethodResponseRequestPayload> {
   /// A request to update an existing MethodResponse resource.
   factory UpdateMethodResponseRequest({
-    required String httpMethod,
-    List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
     required String statusCode,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateMethodResponseRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       httpMethod: httpMethod,
+      statusCode: statusCode,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
-      statusCode: statusCode,
     );
   }
 
@@ -76,20 +76,20 @@ abstract class UpdateMethodResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateMethodResponseRequestBuilder b) {}
 
-  /// The HTTP verb of the Method resource.
-  String get httpMethod;
-
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The Resource identifier for the MethodResponse resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The HTTP verb of the Method resource.
+  String get httpMethod;
 
   /// The status code for the MethodResponse resource.
   String get statusCode;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -117,34 +117,34 @@ abstract class UpdateMethodResponseRequest
       });
   @override
   List<Object?> get props => [
-        httpMethod,
-        patchOperations,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
         statusCode,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateMethodResponseRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     helper.add(
       'statusCode',
       statusCode,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

@@ -20,14 +20,14 @@ abstract class CreateUsagePlanKeyRequest
         _i1.HasPayload<CreateUsagePlanKeyRequestPayload> {
   /// The POST request to create a usage plan key for adding an existing API key to a usage plan.
   factory CreateUsagePlanKeyRequest({
+    required String usagePlanId,
     required String keyId,
     required String keyType,
-    required String usagePlanId,
   }) {
     return _$CreateUsagePlanKeyRequest._(
+      usagePlanId: usagePlanId,
       keyId: keyId,
       keyType: keyType,
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -58,14 +58,14 @@ abstract class CreateUsagePlanKeyRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateUsagePlanKeyRequestBuilder b) {}
 
+  /// The Id of the UsagePlan resource representing the usage plan containing the to-be-created UsagePlanKey resource representing a plan customer.
+  String get usagePlanId;
+
   /// The identifier of a UsagePlanKey resource for a plan customer.
   String get keyId;
 
   /// The type of a UsagePlanKey resource for a plan customer.
   String get keyType;
-
-  /// The Id of the UsagePlan resource representing the usage plan containing the to-be-created UsagePlanKey resource representing a plan customer.
-  String get usagePlanId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -86,13 +86,17 @@ abstract class CreateUsagePlanKeyRequest
       });
   @override
   List<Object?> get props => [
+        usagePlanId,
         keyId,
         keyType,
-        usagePlanId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateUsagePlanKeyRequest');
+    helper.add(
+      'usagePlanId',
+      usagePlanId,
+    );
     helper.add(
       'keyId',
       keyId,
@@ -100,10 +104,6 @@ abstract class CreateUsagePlanKeyRequest
     helper.add(
       'keyType',
       keyType,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
     );
     return helper.toString();
   }

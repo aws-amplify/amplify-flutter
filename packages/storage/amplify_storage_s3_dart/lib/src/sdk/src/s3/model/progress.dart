@@ -16,14 +16,14 @@ abstract class Progress
     implements Built<Progress, ProgressBuilder> {
   /// This data type contains information about progress of an operation.
   factory Progress({
+    _i2.Int64? bytesScanned,
     _i2.Int64? bytesProcessed,
     _i2.Int64? bytesReturned,
-    _i2.Int64? bytesScanned,
   }) {
     return _$Progress._(
+      bytesScanned: bytesScanned,
       bytesProcessed: bytesProcessed,
       bytesReturned: bytesReturned,
-      bytesScanned: bytesScanned,
     );
   }
 
@@ -39,23 +39,27 @@ abstract class Progress
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProgressBuilder b) {}
 
+  /// The current number of object bytes scanned.
+  _i2.Int64? get bytesScanned;
+
   /// The current number of uncompressed object bytes processed.
   _i2.Int64? get bytesProcessed;
 
   /// The current number of bytes of records payload data returned.
   _i2.Int64? get bytesReturned;
-
-  /// The current number of object bytes scanned.
-  _i2.Int64? get bytesScanned;
   @override
   List<Object?> get props => [
+        bytesScanned,
         bytesProcessed,
         bytesReturned,
-        bytesScanned,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Progress');
+    helper.add(
+      'bytesScanned',
+      bytesScanned,
+    );
     helper.add(
       'bytesProcessed',
       bytesProcessed,
@@ -63,10 +67,6 @@ abstract class Progress
     helper.add(
       'bytesReturned',
       bytesReturned,
-    );
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
     );
     return helper.toString();
   }

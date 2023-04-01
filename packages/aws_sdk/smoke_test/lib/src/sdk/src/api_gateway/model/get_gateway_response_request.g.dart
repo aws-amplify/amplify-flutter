@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_gateway_response_request;
 
 class _$GetGatewayResponseRequest extends GetGatewayResponseRequest {
   @override
-  final _i3.GatewayResponseType responseType;
-  @override
   final String restApiId;
+  @override
+  final _i3.GatewayResponseType responseType;
 
   factory _$GetGatewayResponseRequest(
           [void Function(GetGatewayResponseRequestBuilder)? updates]) =>
       (new GetGatewayResponseRequestBuilder()..update(updates))._build();
 
   _$GetGatewayResponseRequest._(
-      {required this.responseType, required this.restApiId})
+      {required this.restApiId, required this.responseType})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        responseType, r'GetGatewayResponseRequest', 'responseType');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetGatewayResponseRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        responseType, r'GetGatewayResponseRequest', 'responseType');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetGatewayResponseRequest extends GetGatewayResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetGatewayResponseRequest &&
-        responseType == other.responseType &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        responseType == other.responseType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, responseType.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, responseType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,14 +57,14 @@ class GetGatewayResponseRequestBuilder
         Builder<GetGatewayResponseRequest, GetGatewayResponseRequestBuilder> {
   _$GetGatewayResponseRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   _i3.GatewayResponseType? _responseType;
   _i3.GatewayResponseType? get responseType => _$this._responseType;
   set responseType(_i3.GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   GetGatewayResponseRequestBuilder() {
     GetGatewayResponseRequest._init(this);
@@ -73,8 +73,8 @@ class GetGatewayResponseRequestBuilder
   GetGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _responseType = $v.responseType;
       _restApiId = $v.restApiId;
+      _responseType = $v.responseType;
       _$v = null;
     }
     return this;
@@ -97,10 +97,10 @@ class GetGatewayResponseRequestBuilder
   _$GetGatewayResponseRequest _build() {
     final _$result = _$v ??
         new _$GetGatewayResponseRequest._(
-            responseType: BuiltValueNullFieldError.checkNotNull(
-                responseType, r'GetGatewayResponseRequest', 'responseType'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetGatewayResponseRequest', 'restApiId'));
+                restApiId, r'GetGatewayResponseRequest', 'restApiId'),
+            responseType: BuiltValueNullFieldError.checkNotNull(
+                responseType, r'GetGatewayResponseRequest', 'responseType'));
     replace(_$result);
     return _$result;
   }

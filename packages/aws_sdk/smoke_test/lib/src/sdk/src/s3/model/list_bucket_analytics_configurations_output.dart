@@ -19,18 +19,18 @@ abstract class ListBucketAnalyticsConfigurationsOutput
         Built<ListBucketAnalyticsConfigurationsOutput,
             ListBucketAnalyticsConfigurationsOutputBuilder> {
   factory ListBucketAnalyticsConfigurationsOutput({
-    List<_i2.AnalyticsConfiguration>? analyticsConfigurationList,
-    String? continuationToken,
     bool? isTruncated,
+    String? continuationToken,
     String? nextContinuationToken,
+    List<_i2.AnalyticsConfiguration>? analyticsConfigurationList,
   }) {
     return _$ListBucketAnalyticsConfigurationsOutput._(
+      isTruncated: isTruncated,
+      continuationToken: continuationToken,
+      nextContinuationToken: nextContinuationToken,
       analyticsConfigurationList: analyticsConfigurationList == null
           ? null
           : _i3.BuiltList(analyticsConfigurationList),
-      continuationToken: continuationToken,
-      isTruncated: isTruncated,
-      nextContinuationToken: nextContinuationToken,
     );
   }
 
@@ -54,43 +54,43 @@ abstract class ListBucketAnalyticsConfigurationsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBucketAnalyticsConfigurationsOutputBuilder b) {}
 
-  /// The list of analytics configurations for a bucket.
-  _i3.BuiltList<_i2.AnalyticsConfiguration>? get analyticsConfigurationList;
+  /// Indicates whether the returned list of analytics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
+  bool? get isTruncated;
 
   /// The marker that is used as a starting point for this analytics configuration list response. This value is present if it was sent in the request.
   String? get continuationToken;
 
-  /// Indicates whether the returned list of analytics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
-  bool? get isTruncated;
-
   /// `NextContinuationToken` is sent when `isTruncated` is true, which indicates that there are more analytics configurations to list. The next request must include this `NextContinuationToken`. The token is obfuscated and is not a usable value.
   String? get nextContinuationToken;
+
+  /// The list of analytics configurations for a bucket.
+  _i3.BuiltList<_i2.AnalyticsConfiguration>? get analyticsConfigurationList;
   @override
   List<Object?> get props => [
-        analyticsConfigurationList,
-        continuationToken,
         isTruncated,
+        continuationToken,
         nextContinuationToken,
+        analyticsConfigurationList,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListBucketAnalyticsConfigurationsOutput');
     helper.add(
-      'analyticsConfigurationList',
-      analyticsConfigurationList,
+      'isTruncated',
+      isTruncated,
     );
     helper.add(
       'continuationToken',
       continuationToken,
     );
     helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
       'nextContinuationToken',
       nextContinuationToken,
+    );
+    helper.add(
+      'analyticsConfigurationList',
+      analyticsConfigurationList,
     );
     return helper.toString();
   }

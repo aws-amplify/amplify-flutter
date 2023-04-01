@@ -19,15 +19,15 @@ abstract class DescribeConfigurationAggregatorsRequest
             DescribeConfigurationAggregatorsRequestBuilder> {
   factory DescribeConfigurationAggregatorsRequest({
     List<String>? configurationAggregatorNames,
-    int? limit,
     String? nextToken,
+    int? limit,
   }) {
     return _$DescribeConfigurationAggregatorsRequest._(
       configurationAggregatorNames: configurationAggregatorNames == null
           ? null
           : _i3.BuiltList(configurationAggregatorNames),
-      limit: limit,
       nextToken: nextToken,
+      limit: limit,
     );
   }
 
@@ -54,18 +54,18 @@ abstract class DescribeConfigurationAggregatorsRequest
   /// The name of the configuration aggregators.
   _i3.BuiltList<String>? get configurationAggregatorNames;
 
-  /// The maximum number of configuration aggregators returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
-
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
+
+  /// The maximum number of configuration aggregators returned on each page. The default is maximum. If you specify 0, Config uses the default.
+  int? get limit;
   @override
   DescribeConfigurationAggregatorsRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configurationAggregatorNames,
-        limit,
         nextToken,
+        limit,
       ];
   @override
   String toString() {
@@ -76,12 +76,12 @@ abstract class DescribeConfigurationAggregatorsRequest
       configurationAggregatorNames,
     );
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'nextToken',
       nextToken,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -129,20 +129,20 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
             ) as _i3.BuiltList<String>));
           }
           break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'NextToken':
           if (value != null) {
             result.nextToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'Limit':
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -170,20 +170,20 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
           ),
         ));
     }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.limit != null) {
+      result
+        ..add('Limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

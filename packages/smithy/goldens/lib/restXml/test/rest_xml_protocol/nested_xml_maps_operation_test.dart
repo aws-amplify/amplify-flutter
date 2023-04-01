@@ -206,9 +206,9 @@ class NestedXmlMapsInputOutputRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'flatNestedMap':
+        case 'nestedMap':
           if (value != null) {
-            result.flatNestedMap.replace((serializers.deserialize(
+            result.nestedMap.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i6.BuiltMap,
@@ -226,9 +226,9 @@ class NestedXmlMapsInputOutputRestXmlSerializer
             ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
           }
           break;
-        case 'nestedMap':
+        case 'flatNestedMap':
           if (value != null) {
-            result.nestedMap.replace((serializers.deserialize(
+            result.flatNestedMap.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i6.BuiltMap,

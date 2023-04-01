@@ -27,15 +27,16 @@ abstract class RestoreTableFromBackupInput
     implements
         Built<RestoreTableFromBackupInput, RestoreTableFromBackupInputBuilder> {
   factory RestoreTableFromBackupInput({
+    required String targetTableName,
     required String backupArn,
     _i3.BillingMode? billingModeOverride,
     List<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride,
     List<_i5.LocalSecondaryIndex>? localSecondaryIndexOverride,
     _i6.ProvisionedThroughput? provisionedThroughputOverride,
     _i7.SseSpecification? sseSpecificationOverride,
-    required String targetTableName,
   }) {
     return _$RestoreTableFromBackupInput._(
+      targetTableName: targetTableName,
       backupArn: backupArn,
       billingModeOverride: billingModeOverride,
       globalSecondaryIndexOverride: globalSecondaryIndexOverride == null
@@ -46,7 +47,6 @@ abstract class RestoreTableFromBackupInput
           : _i8.BuiltList(localSecondaryIndexOverride),
       provisionedThroughputOverride: provisionedThroughputOverride,
       sseSpecificationOverride: sseSpecificationOverride,
-      targetTableName: targetTableName,
     );
   }
 
@@ -70,6 +70,9 @@ abstract class RestoreTableFromBackupInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableFromBackupInputBuilder b) {}
 
+  /// The name of the new table to which the backup must be restored.
+  String get targetTableName;
+
   /// The Amazon Resource Name (ARN) associated with the backup.
   String get backupArn;
 
@@ -87,24 +90,25 @@ abstract class RestoreTableFromBackupInput
 
   /// The new server-side encryption settings for the restored table.
   _i7.SseSpecification? get sseSpecificationOverride;
-
-  /// The name of the new table to which the backup must be restored.
-  String get targetTableName;
   @override
   RestoreTableFromBackupInput getPayload() => this;
   @override
   List<Object?> get props => [
+        targetTableName,
         backupArn,
         billingModeOverride,
         globalSecondaryIndexOverride,
         localSecondaryIndexOverride,
         provisionedThroughputOverride,
         sseSpecificationOverride,
-        targetTableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestoreTableFromBackupInput');
+    helper.add(
+      'targetTableName',
+      targetTableName,
+    );
     helper.add(
       'backupArn',
       backupArn,
@@ -128,10 +132,6 @@ abstract class RestoreTableFromBackupInput
     helper.add(
       'sseSpecificationOverride',
       sseSpecificationOverride,
-    );
-    helper.add(
-      'targetTableName',
-      targetTableName,
     );
     return helper.toString();
   }
@@ -167,6 +167,12 @@ class RestoreTableFromBackupInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TargetTableName':
+          result.targetTableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'BackupArn':
           result.backupArn = (serializers.deserialize(
             value!,
@@ -221,12 +227,6 @@ class RestoreTableFromBackupInputAwsJson10Serializer
             ) as _i7.SseSpecification));
           }
           break;
-        case 'TargetTableName':
-          result.targetTableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
       }
     }
 
@@ -241,14 +241,14 @@ class RestoreTableFromBackupInputAwsJson10Serializer
   }) {
     final payload = (object as RestoreTableFromBackupInput);
     final result = <Object?>[
-      'BackupArn',
-      serializers.serialize(
-        payload.backupArn,
-        specifiedType: const FullType(String),
-      ),
       'TargetTableName',
       serializers.serialize(
         payload.targetTableName,
+        specifiedType: const FullType(String),
+      ),
+      'BackupArn',
+      serializers.serialize(
+        payload.backupArn,
         specifiedType: const FullType(String),
       ),
     ];

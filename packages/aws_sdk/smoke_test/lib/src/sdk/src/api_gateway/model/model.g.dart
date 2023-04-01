@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.model;
 
 class _$Model extends Model {
   @override
-  final String? contentType;
-  @override
-  final String? description;
-  @override
   final String? id;
   @override
   final String? name;
   @override
+  final String? description;
+  @override
   final String? schema;
+  @override
+  final String? contentType;
 
   factory _$Model([void Function(ModelBuilder)? updates]) =>
       (new ModelBuilder()..update(updates))._build();
 
   _$Model._(
-      {this.contentType, this.description, this.id, this.name, this.schema})
+      {this.id, this.name, this.description, this.schema, this.contentType})
       : super._();
 
   @override
@@ -36,21 +36,21 @@ class _$Model extends Model {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Model &&
-        contentType == other.contentType &&
-        description == other.description &&
         id == other.id &&
         name == other.name &&
-        schema == other.schema;
+        description == other.description &&
+        schema == other.schema &&
+        contentType == other.contentType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contentType.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, schema.hashCode);
+    _$hash = $jc(_$hash, contentType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,14 +58,6 @@ class _$Model extends Model {
 
 class ModelBuilder implements Builder<Model, ModelBuilder> {
   _$Model? _$v;
-
-  String? _contentType;
-  String? get contentType => _$this._contentType;
-  set contentType(String? contentType) => _$this._contentType = contentType;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
 
   String? _id;
   String? get id => _$this._id;
@@ -75,9 +67,17 @@ class ModelBuilder implements Builder<Model, ModelBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
   String? _schema;
   String? get schema => _$this._schema;
   set schema(String? schema) => _$this._schema = schema;
+
+  String? _contentType;
+  String? get contentType => _$this._contentType;
+  set contentType(String? contentType) => _$this._contentType = contentType;
 
   ModelBuilder() {
     Model._init(this);
@@ -86,11 +86,11 @@ class ModelBuilder implements Builder<Model, ModelBuilder> {
   ModelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contentType = $v.contentType;
-      _description = $v.description;
       _id = $v.id;
       _name = $v.name;
+      _description = $v.description;
       _schema = $v.schema;
+      _contentType = $v.contentType;
       _$v = null;
     }
     return this;
@@ -113,11 +113,11 @@ class ModelBuilder implements Builder<Model, ModelBuilder> {
   _$Model _build() {
     final _$result = _$v ??
         new _$Model._(
-            contentType: contentType,
-            description: description,
             id: id,
             name: name,
-            schema: schema);
+            description: description,
+            schema: schema,
+            contentType: contentType);
     replace(_$result);
     return _$result;
   }

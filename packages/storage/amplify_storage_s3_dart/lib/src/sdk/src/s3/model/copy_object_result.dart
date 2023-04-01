@@ -15,20 +15,20 @@ abstract class CopyObjectResult
     implements Built<CopyObjectResult, CopyObjectResultBuilder> {
   /// Container for all response elements.
   factory CopyObjectResult({
+    String? eTag,
+    DateTime? lastModified,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    String? eTag,
-    DateTime? lastModified,
   }) {
     return _$CopyObjectResult._(
+      eTag: eTag,
+      lastModified: lastModified,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      eTag: eTag,
-      lastModified: lastModified,
     );
   }
 
@@ -45,6 +45,12 @@ abstract class CopyObjectResult
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CopyObjectResultBuilder b) {}
 
+  /// Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
+  String? get eTag;
+
+  /// Creation date of the object.
+  DateTime? get lastModified;
+
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
 
@@ -56,24 +62,26 @@ abstract class CopyObjectResult
 
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
-
-  /// Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
-  String? get eTag;
-
-  /// Creation date of the object.
-  DateTime? get lastModified;
   @override
   List<Object?> get props => [
+        eTag,
+        lastModified,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        eTag,
-        lastModified,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectResult');
+    helper.add(
+      'eTag',
+      eTag,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
     helper.add(
       'checksumCrc32',
       checksumCrc32,
@@ -89,14 +97,6 @@ abstract class CopyObjectResult
     helper.add(
       'checksumSha256',
       checksumSha256,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
     );
     return helper.toString();
   }

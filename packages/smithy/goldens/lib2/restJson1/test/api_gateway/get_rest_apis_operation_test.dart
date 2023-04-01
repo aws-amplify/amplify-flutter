@@ -100,20 +100,20 @@ class GetRestApisRequestRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'position':
           if (value != null) {
             result.position = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'limit':
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -219,12 +219,56 @@ class RestApiRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'apiKeySource':
+        case 'id':
           if (value != null) {
-            result.apiKeySource = (serializers.deserialize(
+            result.id = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i10.ApiKeySourceType),
-            ) as _i10.ApiKeySourceType);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'name':
+          if (value != null) {
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'description':
+          if (value != null) {
+            result.description = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'createdDate':
+          if (value != null) {
+            result.createdDate =
+                _i5.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
+        case 'version':
+          if (value != null) {
+            result.version = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'warnings':
+          if (value != null) {
+            result.warnings.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i8.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i8.BuiltList<String>));
           }
           break;
         case 'binaryMediaTypes':
@@ -238,47 +282,6 @@ class RestApiRestJson1Serializer
             ) as _i8.BuiltList<String>));
           }
           break;
-        case 'createdDate':
-          if (value != null) {
-            result.createdDate =
-                _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'disableExecuteApiEndpoint':
-          if (value != null) {
-            result.disableExecuteApiEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'endpointConfiguration':
-          if (value != null) {
-            result.endpointConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i11.EndpointConfiguration),
-            ) as _i11.EndpointConfiguration));
-          }
-          break;
-        case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'minimumCompressionSize':
           if (value != null) {
             result.minimumCompressionSize = (serializers.deserialize(
@@ -287,12 +290,20 @@ class RestApiRestJson1Serializer
             ) as int);
           }
           break;
-        case 'name':
+        case 'apiKeySource':
           if (value != null) {
-            result.name = (serializers.deserialize(
+            result.apiKeySource = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i10.ApiKeySourceType),
+            ) as _i10.ApiKeySourceType);
+          }
+          break;
+        case 'endpointConfiguration':
+          if (value != null) {
+            result.endpointConfiguration.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i11.EndpointConfiguration),
+            ) as _i11.EndpointConfiguration));
           }
           break;
         case 'policy':
@@ -317,23 +328,12 @@ class RestApiRestJson1Serializer
             ) as _i8.BuiltMap<String, String>));
           }
           break;
-        case 'version':
+        case 'disableExecuteApiEndpoint':
           if (value != null) {
-            result.version = (serializers.deserialize(
+            result.disableExecuteApiEndpoint = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i8.BuiltList<String>));
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
       }
@@ -494,17 +494,17 @@ class TooManyRequestsExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'message':
+        case 'retryAfterSeconds':
           if (value != null) {
-            result.message = (serializers.deserialize(
+            result.retryAfterSeconds = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'retryAfterSeconds':
+        case 'message':
           if (value != null) {
-            result.retryAfterSeconds = (serializers.deserialize(
+            result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);

@@ -18,12 +18,12 @@ abstract class GetRecordsOutput
     implements Built<GetRecordsOutput, GetRecordsOutputBuilder> {
   /// Represents the output of a `GetRecords` operation.
   factory GetRecordsOutput({
-    String? nextShardIterator,
     List<_i2.Record>? records,
+    String? nextShardIterator,
   }) {
     return _$GetRecordsOutput._(
-      nextShardIterator: nextShardIterator,
       records: records == null ? null : _i3.BuiltList(records),
+      nextShardIterator: nextShardIterator,
     );
   }
 
@@ -47,26 +47,26 @@ abstract class GetRecordsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRecordsOutputBuilder b) {}
 
-  /// The next position in the shard from which to start sequentially reading stream records. If set to `null`, the shard has been closed and the requested iterator will not return any more data.
-  String? get nextShardIterator;
-
   /// The stream records from the shard, which were retrieved using the shard iterator.
   _i3.BuiltList<_i2.Record>? get records;
+
+  /// The next position in the shard from which to start sequentially reading stream records. If set to `null`, the shard has been closed and the requested iterator will not return any more data.
+  String? get nextShardIterator;
   @override
   List<Object?> get props => [
-        nextShardIterator,
         records,
+        nextShardIterator,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRecordsOutput');
     helper.add(
-      'nextShardIterator',
-      nextShardIterator,
-    );
-    helper.add(
       'records',
       records,
+    );
+    helper.add(
+      'nextShardIterator',
+      nextShardIterator,
     );
     return helper.toString();
   }
@@ -101,14 +101,6 @@ class GetRecordsOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextShardIterator':
-          if (value != null) {
-            result.nextShardIterator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Records':
           if (value != null) {
             result.records.replace((serializers.deserialize(
@@ -118,6 +110,14 @@ class GetRecordsOutputAwsJson10Serializer
                 [FullType(_i2.Record)],
               ),
             ) as _i3.BuiltList<_i2.Record>));
+          }
+          break;
+        case 'NextShardIterator':
+          if (value != null) {
+            result.nextShardIterator = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -134,14 +134,6 @@ class GetRecordsOutputAwsJson10Serializer
   }) {
     final payload = (object as GetRecordsOutput);
     final result = <Object?>[];
-    if (payload.nextShardIterator != null) {
-      result
-        ..add('NextShardIterator')
-        ..add(serializers.serialize(
-          payload.nextShardIterator!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.records != null) {
       result
         ..add('Records')
@@ -151,6 +143,14 @@ class GetRecordsOutputAwsJson10Serializer
             _i3.BuiltList,
             [FullType(_i2.Record)],
           ),
+        ));
+    }
+    if (payload.nextShardIterator != null) {
+      result
+        ..add('NextShardIterator')
+        ..add(serializers.serialize(
+          payload.nextShardIterator!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

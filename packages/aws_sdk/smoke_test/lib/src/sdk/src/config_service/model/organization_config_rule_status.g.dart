@@ -8,26 +8,26 @@ part of smoke_test.config_service.model.organization_config_rule_status;
 
 class _$OrganizationConfigRuleStatus extends OrganizationConfigRuleStatus {
   @override
+  final String organizationConfigRuleName;
+  @override
+  final _i2.OrganizationRuleStatus organizationRuleStatus;
+  @override
   final String? errorCode;
   @override
   final String? errorMessage;
   @override
   final DateTime? lastUpdateTime;
-  @override
-  final String organizationConfigRuleName;
-  @override
-  final _i2.OrganizationRuleStatus organizationRuleStatus;
 
   factory _$OrganizationConfigRuleStatus(
           [void Function(OrganizationConfigRuleStatusBuilder)? updates]) =>
       (new OrganizationConfigRuleStatusBuilder()..update(updates))._build();
 
   _$OrganizationConfigRuleStatus._(
-      {this.errorCode,
+      {required this.organizationConfigRuleName,
+      required this.organizationRuleStatus,
+      this.errorCode,
       this.errorMessage,
-      this.lastUpdateTime,
-      required this.organizationConfigRuleName,
-      required this.organizationRuleStatus})
+      this.lastUpdateTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(organizationConfigRuleName,
         r'OrganizationConfigRuleStatus', 'organizationConfigRuleName');
@@ -48,21 +48,21 @@ class _$OrganizationConfigRuleStatus extends OrganizationConfigRuleStatus {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is OrganizationConfigRuleStatus &&
+        organizationConfigRuleName == other.organizationConfigRuleName &&
+        organizationRuleStatus == other.organizationRuleStatus &&
         errorCode == other.errorCode &&
         errorMessage == other.errorMessage &&
-        lastUpdateTime == other.lastUpdateTime &&
-        organizationConfigRuleName == other.organizationConfigRuleName &&
-        organizationRuleStatus == other.organizationRuleStatus;
+        lastUpdateTime == other.lastUpdateTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
+    _$hash = $jc(_$hash, organizationRuleStatus.hashCode);
     _$hash = $jc(_$hash, errorCode.hashCode);
     _$hash = $jc(_$hash, errorMessage.hashCode);
     _$hash = $jc(_$hash, lastUpdateTime.hashCode);
-    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
-    _$hash = $jc(_$hash, organizationRuleStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,6 +73,18 @@ class OrganizationConfigRuleStatusBuilder
         Builder<OrganizationConfigRuleStatus,
             OrganizationConfigRuleStatusBuilder> {
   _$OrganizationConfigRuleStatus? _$v;
+
+  String? _organizationConfigRuleName;
+  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
+  set organizationConfigRuleName(String? organizationConfigRuleName) =>
+      _$this._organizationConfigRuleName = organizationConfigRuleName;
+
+  _i2.OrganizationRuleStatus? _organizationRuleStatus;
+  _i2.OrganizationRuleStatus? get organizationRuleStatus =>
+      _$this._organizationRuleStatus;
+  set organizationRuleStatus(
+          _i2.OrganizationRuleStatus? organizationRuleStatus) =>
+      _$this._organizationRuleStatus = organizationRuleStatus;
 
   String? _errorCode;
   String? get errorCode => _$this._errorCode;
@@ -87,18 +99,6 @@ class OrganizationConfigRuleStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  String? _organizationConfigRuleName;
-  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
-  set organizationConfigRuleName(String? organizationConfigRuleName) =>
-      _$this._organizationConfigRuleName = organizationConfigRuleName;
-
-  _i2.OrganizationRuleStatus? _organizationRuleStatus;
-  _i2.OrganizationRuleStatus? get organizationRuleStatus =>
-      _$this._organizationRuleStatus;
-  set organizationRuleStatus(
-          _i2.OrganizationRuleStatus? organizationRuleStatus) =>
-      _$this._organizationRuleStatus = organizationRuleStatus;
-
   OrganizationConfigRuleStatusBuilder() {
     OrganizationConfigRuleStatus._init(this);
   }
@@ -106,11 +106,11 @@ class OrganizationConfigRuleStatusBuilder
   OrganizationConfigRuleStatusBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _organizationConfigRuleName = $v.organizationConfigRuleName;
+      _organizationRuleStatus = $v.organizationRuleStatus;
       _errorCode = $v.errorCode;
       _errorMessage = $v.errorMessage;
       _lastUpdateTime = $v.lastUpdateTime;
-      _organizationConfigRuleName = $v.organizationConfigRuleName;
-      _organizationRuleStatus = $v.organizationRuleStatus;
       _$v = null;
     }
     return this;
@@ -133,9 +133,6 @@ class OrganizationConfigRuleStatusBuilder
   _$OrganizationConfigRuleStatus _build() {
     final _$result = _$v ??
         new _$OrganizationConfigRuleStatus._(
-            errorCode: errorCode,
-            errorMessage: errorMessage,
-            lastUpdateTime: lastUpdateTime,
             organizationConfigRuleName: BuiltValueNullFieldError.checkNotNull(
                 organizationConfigRuleName,
                 r'OrganizationConfigRuleStatus',
@@ -143,7 +140,10 @@ class OrganizationConfigRuleStatusBuilder
             organizationRuleStatus: BuiltValueNullFieldError.checkNotNull(
                 organizationRuleStatus,
                 r'OrganizationConfigRuleStatus',
-                'organizationRuleStatus'));
+                'organizationRuleStatus'),
+            errorCode: errorCode,
+            errorMessage: errorMessage,
+            lastUpdateTime: lastUpdateTime);
     replace(_$result);
     return _$result;
   }

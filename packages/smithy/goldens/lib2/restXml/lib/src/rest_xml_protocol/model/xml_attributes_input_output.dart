@@ -17,12 +17,12 @@ abstract class XmlAttributesInputOutput
     implements
         Built<XmlAttributesInputOutput, XmlAttributesInputOutputBuilder> {
   factory XmlAttributesInputOutput({
-    String? attr,
     String? foo,
+    String? attr,
   }) {
     return _$XmlAttributesInputOutput._(
-      attr: attr,
       foo: foo,
+      attr: attr,
     );
   }
 
@@ -52,25 +52,25 @@ abstract class XmlAttributesInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlAttributesInputOutputBuilder b) {}
-  String? get attr;
   String? get foo;
+  String? get attr;
   @override
   XmlAttributesInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
-        attr,
         foo,
+        attr,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlAttributesInputOutput');
     helper.add(
-      'attr',
-      attr,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'attr',
+      attr,
     );
     return helper.toString();
   }

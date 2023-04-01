@@ -86,14 +86,14 @@ class HttpRequestWithGreedyLabelInPathInputRestJson1Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'baz':
-          result.baz = (serializers.deserialize(
+        case 'foo':
+          result.foo = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'foo':
-          result.foo = (serializers.deserialize(
+        case 'baz':
+          result.baz = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);

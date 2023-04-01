@@ -8,10 +8,10 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/config_service/model/custom_policy_details.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/owner.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/source_detail.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/owner.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/source_detail.dart'
+    as _i3;
 
 part 'source.g.dart';
 
@@ -21,17 +21,17 @@ abstract class Source
     implements Built<Source, SourceBuilder> {
   /// Provides the CustomPolicyDetails, the rule owner (`Amazon Web Services` for managed rules, `CUSTOM_POLICY` for Custom Policy rules, and `CUSTOM_LAMBDA` for Custom Lambda rules), the rule identifier, and the events that cause the evaluation of your Amazon Web Services resources.
   factory Source({
-    _i2.CustomPolicyDetails? customPolicyDetails,
-    required _i3.Owner owner,
-    List<_i4.SourceDetail>? sourceDetails,
+    required _i2.Owner owner,
     String? sourceIdentifier,
+    List<_i3.SourceDetail>? sourceDetails,
+    _i4.CustomPolicyDetails? customPolicyDetails,
   }) {
     return _$Source._(
-      customPolicyDetails: customPolicyDetails,
       owner: owner,
+      sourceIdentifier: sourceIdentifier,
       sourceDetails:
           sourceDetails == null ? null : _i5.BuiltList(sourceDetails),
-      sourceIdentifier: sourceIdentifier,
+      customPolicyDetails: customPolicyDetails,
     );
   }
 
@@ -47,20 +47,12 @@ abstract class Source
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceBuilder b) {}
 
-  /// Provides the runtime system, policy definition, and whether debug logging is enabled. Required when owner is set to `CUSTOM_POLICY`.
-  _i2.CustomPolicyDetails? get customPolicyDetails;
-
   /// Indicates whether Amazon Web Services or the customer owns and manages the Config rule.
   ///
   /// Config Managed Rules are predefined rules owned by Amazon Web Services. For more information, see [Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html) in the _Config developer guide_.
   ///
   /// Config Custom Rules are rules that you can develop either with Guard (`CUSTOM_POLICY`) or Lambda (`CUSTOM_LAMBDA`). For more information, see [Config Custom Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_develop-rules.html) in the _Config developer guide_.
-  _i3.Owner get owner;
-
-  /// Provides the source and the message types that cause Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
-  ///
-  /// If the owner is set to `CUSTOM_POLICY`, the only acceptable values for the Config rule trigger message type are `ConfigurationItemChangeNotification` and `OversizedConfigurationItemChangeNotification`.
-  _i5.BuiltList<_i4.SourceDetail>? get sourceDetails;
+  _i2.Owner get owner;
 
   /// For Config Managed rules, a predefined identifier from a list. For example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference a managed rule, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
   ///
@@ -68,31 +60,39 @@ abstract class Source
   ///
   /// For Config Custom Policy rules, this field will be ignored.
   String? get sourceIdentifier;
+
+  /// Provides the source and the message types that cause Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  ///
+  /// If the owner is set to `CUSTOM_POLICY`, the only acceptable values for the Config rule trigger message type are `ConfigurationItemChangeNotification` and `OversizedConfigurationItemChangeNotification`.
+  _i5.BuiltList<_i3.SourceDetail>? get sourceDetails;
+
+  /// Provides the runtime system, policy definition, and whether debug logging is enabled. Required when owner is set to `CUSTOM_POLICY`.
+  _i4.CustomPolicyDetails? get customPolicyDetails;
   @override
   List<Object?> get props => [
-        customPolicyDetails,
         owner,
-        sourceDetails,
         sourceIdentifier,
+        sourceDetails,
+        customPolicyDetails,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Source');
     helper.add(
-      'customPolicyDetails',
-      customPolicyDetails,
-    );
-    helper.add(
       'owner',
       owner,
+    );
+    helper.add(
+      'sourceIdentifier',
+      sourceIdentifier,
     );
     helper.add(
       'sourceDetails',
       sourceDetails,
     );
     helper.add(
-      'sourceIdentifier',
-      sourceIdentifier,
+      'customPolicyDetails',
+      customPolicyDetails,
     );
     return helper.toString();
   }
@@ -126,30 +126,11 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CustomPolicyDetails':
-          if (value != null) {
-            result.customPolicyDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CustomPolicyDetails),
-            ) as _i2.CustomPolicyDetails));
-          }
-          break;
         case 'Owner':
           result.owner = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i3.Owner),
-          ) as _i3.Owner);
-          break;
-        case 'SourceDetails':
-          if (value != null) {
-            result.sourceDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.SourceDetail)],
-              ),
-            ) as _i5.BuiltList<_i4.SourceDetail>));
-          }
+            specifiedType: const FullType(_i2.Owner),
+          ) as _i2.Owner);
           break;
         case 'SourceIdentifier':
           if (value != null) {
@@ -157,6 +138,25 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'SourceDetails':
+          if (value != null) {
+            result.sourceDetails.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltList,
+                [FullType(_i3.SourceDetail)],
+              ),
+            ) as _i5.BuiltList<_i3.SourceDetail>));
+          }
+          break;
+        case 'CustomPolicyDetails':
+          if (value != null) {
+            result.customPolicyDetails.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.CustomPolicyDetails),
+            ) as _i4.CustomPolicyDetails));
           }
           break;
       }
@@ -176,15 +176,15 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
       'Owner',
       serializers.serialize(
         payload.owner,
-        specifiedType: const FullType(_i3.Owner),
+        specifiedType: const FullType(_i2.Owner),
       ),
     ];
-    if (payload.customPolicyDetails != null) {
+    if (payload.sourceIdentifier != null) {
       result
-        ..add('CustomPolicyDetails')
+        ..add('SourceIdentifier')
         ..add(serializers.serialize(
-          payload.customPolicyDetails!,
-          specifiedType: const FullType(_i2.CustomPolicyDetails),
+          payload.sourceIdentifier!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.sourceDetails != null) {
@@ -194,16 +194,16 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
           payload.sourceDetails!,
           specifiedType: const FullType(
             _i5.BuiltList,
-            [FullType(_i4.SourceDetail)],
+            [FullType(_i3.SourceDetail)],
           ),
         ));
     }
-    if (payload.sourceIdentifier != null) {
+    if (payload.customPolicyDetails != null) {
       result
-        ..add('SourceIdentifier')
+        ..add('CustomPolicyDetails')
         ..add(serializers.serialize(
-          payload.sourceIdentifier!,
-          specifiedType: const FullType(String),
+          payload.customPolicyDetails!,
+          specifiedType: const FullType(_i4.CustomPolicyDetails),
         ));
     }
     return result;

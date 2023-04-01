@@ -17,14 +17,14 @@ abstract class ListStoredQueriesResponse
     implements
         Built<ListStoredQueriesResponse, ListStoredQueriesResponseBuilder> {
   factory ListStoredQueriesResponse({
-    String? nextToken,
     List<_i2.StoredQueryMetadata>? storedQueryMetadata,
+    String? nextToken,
   }) {
     return _$ListStoredQueriesResponse._(
-      nextToken: nextToken,
       storedQueryMetadata: storedQueryMetadata == null
           ? null
           : _i3.BuiltList(storedQueryMetadata),
+      nextToken: nextToken,
     );
   }
 
@@ -48,26 +48,26 @@ abstract class ListStoredQueriesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStoredQueriesResponseBuilder b) {}
 
-  /// If the previous paginated request didn't return all of the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
-  String? get nextToken;
-
   /// A list of `StoredQueryMetadata` objects.
   _i3.BuiltList<_i2.StoredQueryMetadata>? get storedQueryMetadata;
+
+  /// If the previous paginated request didn't return all of the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         storedQueryMetadata,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStoredQueriesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'storedQueryMetadata',
       storedQueryMetadata,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -103,14 +103,6 @@ class ListStoredQueriesResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'StoredQueryMetadata':
           if (value != null) {
             result.storedQueryMetadata.replace((serializers.deserialize(
@@ -120,6 +112,14 @@ class ListStoredQueriesResponseAwsJson11Serializer
                 [FullType(_i2.StoredQueryMetadata)],
               ),
             ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -136,14 +136,6 @@ class ListStoredQueriesResponseAwsJson11Serializer
   }) {
     final payload = (object as ListStoredQueriesResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.storedQueryMetadata != null) {
       result
         ..add('StoredQueryMetadata')
@@ -153,6 +145,14 @@ class ListStoredQueriesResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.StoredQueryMetadata)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

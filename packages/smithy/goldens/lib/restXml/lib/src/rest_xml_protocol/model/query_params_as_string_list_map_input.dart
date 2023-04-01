@@ -21,12 +21,12 @@ abstract class QueryParamsAsStringListMapInput
         _i1.EmptyPayload,
         _i1.HasPayload<QueryParamsAsStringListMapInputPayload> {
   factory QueryParamsAsStringListMapInput({
-    Map<String, List<String>>? foo,
     String? qux,
+    Map<String, List<String>>? foo,
   }) {
     return _$QueryParamsAsStringListMapInput._(
-      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
       qux: qux,
+      foo: foo == null ? null : _i3.BuiltListMultimap(foo),
     );
   }
 
@@ -53,27 +53,27 @@ abstract class QueryParamsAsStringListMapInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryParamsAsStringListMapInputBuilder b) {}
-  _i3.BuiltListMultimap<String, String>? get foo;
   String? get qux;
+  _i3.BuiltListMultimap<String, String>? get foo;
   @override
   QueryParamsAsStringListMapInputPayload getPayload() =>
       QueryParamsAsStringListMapInputPayload();
   @override
   List<Object?> get props => [
-        foo,
         qux,
+        foo,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('QueryParamsAsStringListMapInput');
     helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
       'qux',
       qux,
+    );
+    helper.add(
+      'foo',
+      foo,
     );
     return helper.toString();
   }

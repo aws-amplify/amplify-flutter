@@ -21,14 +21,14 @@ abstract class GetGatewayResponsesRequest
         _i1.HasPayload<GetGatewayResponsesRequestPayload> {
   /// Gets the GatewayResponses collection on the given RestApi. If an API developer has not added any definitions for gateway responses, the result will be the API Gateway-generated default GatewayResponses collection for the supported response types.
   factory GetGatewayResponsesRequest({
-    int? limit,
-    String? position,
     required String restApiId,
+    String? position,
+    int? limit,
   }) {
     return _$GetGatewayResponsesRequest._(
-      limit: limit,
-      position: position,
       restApiId: restApiId,
+      position: position,
+      limit: limit,
     );
   }
 
@@ -63,14 +63,14 @@ abstract class GetGatewayResponsesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetGatewayResponsesRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500. The GatewayResponses collection does not support pagination and the limit does not apply here.
-  int? get limit;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The current pagination position in the paged result set. The GatewayResponse collection does not support pagination and the position does not apply here.
   String? get position;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500. The GatewayResponses collection does not support pagination and the limit does not apply here.
+  int? get limit;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,24 +88,24 @@ abstract class GetGatewayResponsesRequest
       GetGatewayResponsesRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
-        position,
         restApiId,
+        position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetGatewayResponsesRequest');
     helper.add(
-      'limit',
-      limit,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'position',
       position,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'limit',
+      limit,
     );
     return helper.toString();
   }

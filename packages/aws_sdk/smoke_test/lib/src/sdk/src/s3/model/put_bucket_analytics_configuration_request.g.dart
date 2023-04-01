@@ -9,13 +9,13 @@ part of smoke_test.s3.model.put_bucket_analytics_configuration_request;
 class _$PutBucketAnalyticsConfigurationRequest
     extends PutBucketAnalyticsConfigurationRequest {
   @override
-  final _i2.AnalyticsConfiguration analyticsConfiguration;
-  @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String id;
+  @override
+  final _i2.AnalyticsConfiguration analyticsConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketAnalyticsConfigurationRequest(
           [void Function(PutBucketAnalyticsConfigurationRequestBuilder)?
@@ -24,17 +24,17 @@ class _$PutBucketAnalyticsConfigurationRequest
           ._build();
 
   _$PutBucketAnalyticsConfigurationRequest._(
-      {required this.analyticsConfiguration,
-      required this.bucket,
-      this.expectedBucketOwner,
-      required this.id})
+      {required this.bucket,
+      required this.id,
+      required this.analyticsConfiguration,
+      this.expectedBucketOwner})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(analyticsConfiguration,
-        r'PutBucketAnalyticsConfigurationRequest', 'analyticsConfiguration');
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketAnalyticsConfigurationRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(
         id, r'PutBucketAnalyticsConfigurationRequest', 'id');
+    BuiltValueNullFieldError.checkNotNull(analyticsConfiguration,
+        r'PutBucketAnalyticsConfigurationRequest', 'analyticsConfiguration');
   }
 
   @override
@@ -51,19 +51,19 @@ class _$PutBucketAnalyticsConfigurationRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutBucketAnalyticsConfigurationRequest &&
-        analyticsConfiguration == other.analyticsConfiguration &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
-        id == other.id;
+        id == other.id &&
+        analyticsConfiguration == other.analyticsConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, analyticsConfiguration.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, analyticsConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,6 +75,14 @@ class PutBucketAnalyticsConfigurationRequestBuilder
             PutBucketAnalyticsConfigurationRequestBuilder> {
   _$PutBucketAnalyticsConfigurationRequest? _$v;
 
+  String? _bucket;
+  String? get bucket => _$this._bucket;
+  set bucket(String? bucket) => _$this._bucket = bucket;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
   _i2.AnalyticsConfigurationBuilder? _analyticsConfiguration;
   _i2.AnalyticsConfigurationBuilder get analyticsConfiguration =>
       _$this._analyticsConfiguration ??=
@@ -83,18 +91,10 @@ class PutBucketAnalyticsConfigurationRequestBuilder
           _i2.AnalyticsConfigurationBuilder? analyticsConfiguration) =>
       _$this._analyticsConfiguration = analyticsConfiguration;
 
-  String? _bucket;
-  String? get bucket => _$this._bucket;
-  set bucket(String? bucket) => _$this._bucket = bucket;
-
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
 
   PutBucketAnalyticsConfigurationRequestBuilder() {
     PutBucketAnalyticsConfigurationRequest._init(this);
@@ -103,10 +103,10 @@ class PutBucketAnalyticsConfigurationRequestBuilder
   PutBucketAnalyticsConfigurationRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _analyticsConfiguration = $v.analyticsConfiguration.toBuilder();
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _id = $v.id;
+      _analyticsConfiguration = $v.analyticsConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -132,12 +132,12 @@ class PutBucketAnalyticsConfigurationRequestBuilder
     try {
       _$result = _$v ??
           new _$PutBucketAnalyticsConfigurationRequest._(
-              analyticsConfiguration: analyticsConfiguration.build(),
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketAnalyticsConfigurationRequest', 'bucket'),
-              expectedBucketOwner: expectedBucketOwner,
               id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'PutBucketAnalyticsConfigurationRequest', 'id'));
+                  id, r'PutBucketAnalyticsConfigurationRequest', 'id'),
+              analyticsConfiguration: analyticsConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

@@ -15,12 +15,12 @@ abstract class SequenceNumberRange
     implements Built<SequenceNumberRange, SequenceNumberRangeBuilder> {
   /// The beginning and ending sequence numbers for the stream records contained within a shard.
   factory SequenceNumberRange({
-    String? endingSequenceNumber,
     String? startingSequenceNumber,
+    String? endingSequenceNumber,
   }) {
     return _$SequenceNumberRange._(
-      endingSequenceNumber: endingSequenceNumber,
       startingSequenceNumber: startingSequenceNumber,
+      endingSequenceNumber: endingSequenceNumber,
     );
   }
 
@@ -38,26 +38,26 @@ abstract class SequenceNumberRange
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SequenceNumberRangeBuilder b) {}
 
-  /// The last sequence number for the stream records contained within a shard. String contains numeric characters only.
-  String? get endingSequenceNumber;
-
   /// The first sequence number for the stream records contained within a shard. String contains numeric characters only.
   String? get startingSequenceNumber;
+
+  /// The last sequence number for the stream records contained within a shard. String contains numeric characters only.
+  String? get endingSequenceNumber;
   @override
   List<Object?> get props => [
-        endingSequenceNumber,
         startingSequenceNumber,
+        endingSequenceNumber,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SequenceNumberRange');
     helper.add(
-      'endingSequenceNumber',
-      endingSequenceNumber,
-    );
-    helper.add(
       'startingSequenceNumber',
       startingSequenceNumber,
+    );
+    helper.add(
+      'endingSequenceNumber',
+      endingSequenceNumber,
     );
     return helper.toString();
   }
@@ -92,17 +92,17 @@ class SequenceNumberRangeAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'EndingSequenceNumber':
+        case 'StartingSequenceNumber':
           if (value != null) {
-            result.endingSequenceNumber = (serializers.deserialize(
+            result.startingSequenceNumber = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'StartingSequenceNumber':
+        case 'EndingSequenceNumber':
           if (value != null) {
-            result.startingSequenceNumber = (serializers.deserialize(
+            result.endingSequenceNumber = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -122,19 +122,19 @@ class SequenceNumberRangeAwsJson10Serializer
   }) {
     final payload = (object as SequenceNumberRange);
     final result = <Object?>[];
-    if (payload.endingSequenceNumber != null) {
-      result
-        ..add('EndingSequenceNumber')
-        ..add(serializers.serialize(
-          payload.endingSequenceNumber!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.startingSequenceNumber != null) {
       result
         ..add('StartingSequenceNumber')
         ..add(serializers.serialize(
           payload.startingSequenceNumber!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.endingSequenceNumber != null) {
+      result
+        ..add('EndingSequenceNumber')
+        ..add(serializers.serialize(
+          payload.endingSequenceNumber!,
           specifiedType: const FullType(String),
         ));
     }

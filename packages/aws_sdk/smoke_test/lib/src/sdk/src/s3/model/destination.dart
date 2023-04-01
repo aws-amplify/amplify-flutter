@@ -7,12 +7,12 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/s3/model/access_control_translation.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/encryption_configuration.dart'
     as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/encryption_configuration.dart'
+    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/s3/model/replication_time.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i2;
 
 part 'destination.g.dart';
 
@@ -22,22 +22,22 @@ abstract class Destination
     implements Built<Destination, DestinationBuilder> {
   /// Specifies information about where to publish analysis or configuration results for an Amazon S3 bucket and S3 Replication Time Control (S3 RTC).
   factory Destination({
-    _i2.AccessControlTranslation? accessControlTranslation,
-    String? account,
     required String bucket,
-    _i3.EncryptionConfiguration? encryptionConfiguration,
-    _i4.Metrics? metrics,
+    String? account,
+    _i2.StorageClass? storageClass,
+    _i3.AccessControlTranslation? accessControlTranslation,
+    _i4.EncryptionConfiguration? encryptionConfiguration,
     _i5.ReplicationTime? replicationTime,
-    _i6.StorageClass? storageClass,
+    _i6.Metrics? metrics,
   }) {
     return _$Destination._(
-      accessControlTranslation: accessControlTranslation,
-      account: account,
       bucket: bucket,
-      encryptionConfiguration: encryptionConfiguration,
-      metrics: metrics,
-      replicationTime: replicationTime,
+      account: account,
       storageClass: storageClass,
+      accessControlTranslation: accessControlTranslation,
+      encryptionConfiguration: encryptionConfiguration,
+      replicationTime: replicationTime,
+      metrics: metrics,
     );
   }
 
@@ -54,68 +54,68 @@ abstract class Destination
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DestinationBuilder b) {}
 
-  /// Specify this only in a cross-account scenario (where source and destination bucket owners are not the same), and you want to change replica ownership to the Amazon Web Services account that owns the destination bucket. If this is not specified in the replication configuration, the replicas are owned by same Amazon Web Services account that owns the source object.
-  _i2.AccessControlTranslation? get accessControlTranslation;
+  /// The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the results.
+  String get bucket;
 
   /// Destination bucket owner account ID. In a cross-account scenario, if you direct Amazon S3 to change replica ownership to the Amazon Web Services account that owns the destination bucket by specifying the `AccessControlTranslation` property, this is the account ID of the destination bucket owner. For more information, see [Replication Additional Configuration: Changing the Replica Owner](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-change-owner.html) in the _Amazon S3 User Guide_.
   String? get account;
 
-  /// The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the results.
-  String get bucket;
+  /// The storage class to use when replicating objects, such as S3 Standard or reduced redundancy. By default, Amazon S3 uses the storage class of the source object to create the object replica.
+  ///
+  /// For valid values, see the `StorageClass` element of the [PUT Bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) action in the _Amazon S3 API Reference_.
+  _i2.StorageClass? get storageClass;
+
+  /// Specify this only in a cross-account scenario (where source and destination bucket owners are not the same), and you want to change replica ownership to the Amazon Web Services account that owns the destination bucket. If this is not specified in the replication configuration, the replicas are owned by same Amazon Web Services account that owns the source object.
+  _i3.AccessControlTranslation? get accessControlTranslation;
 
   /// A container that provides information about encryption. If `SourceSelectionCriteria` is specified, you must specify this element.
-  _i3.EncryptionConfiguration? get encryptionConfiguration;
-
-  /// A container specifying replication metrics-related settings enabling replication metrics and events.
-  _i4.Metrics? get metrics;
+  _i4.EncryptionConfiguration? get encryptionConfiguration;
 
   /// A container specifying S3 Replication Time Control (S3 RTC), including whether S3 RTC is enabled and the time when all objects and operations on objects must be replicated. Must be specified together with a `Metrics` block.
   _i5.ReplicationTime? get replicationTime;
 
-  /// The storage class to use when replicating objects, such as S3 Standard or reduced redundancy. By default, Amazon S3 uses the storage class of the source object to create the object replica.
-  ///
-  /// For valid values, see the `StorageClass` element of the [PUT Bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) action in the _Amazon S3 API Reference_.
-  _i6.StorageClass? get storageClass;
+  /// A container specifying replication metrics-related settings enabling replication metrics and events.
+  _i6.Metrics? get metrics;
   @override
   List<Object?> get props => [
-        accessControlTranslation,
-        account,
         bucket,
-        encryptionConfiguration,
-        metrics,
-        replicationTime,
+        account,
         storageClass,
+        accessControlTranslation,
+        encryptionConfiguration,
+        replicationTime,
+        metrics,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Destination');
     helper.add(
-      'accessControlTranslation',
-      accessControlTranslation,
+      'bucket',
+      bucket,
     );
     helper.add(
       'account',
       account,
     );
     helper.add(
-      'bucket',
-      bucket,
+      'storageClass',
+      storageClass,
+    );
+    helper.add(
+      'accessControlTranslation',
+      accessControlTranslation,
     );
     helper.add(
       'encryptionConfiguration',
       encryptionConfiguration,
     );
     helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
       'replicationTime',
       replicationTime,
     );
     helper.add(
-      'storageClass',
-      storageClass,
+      'metrics',
+      metrics,
     );
     return helper.toString();
   }
@@ -154,8 +154,8 @@ class DestinationRestXmlSerializer
           if (value != null) {
             result.accessControlTranslation.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.AccessControlTranslation),
-            ) as _i2.AccessControlTranslation));
+              specifiedType: const FullType(_i3.AccessControlTranslation),
+            ) as _i3.AccessControlTranslation));
           }
           break;
         case 'Account':
@@ -176,16 +176,16 @@ class DestinationRestXmlSerializer
           if (value != null) {
             result.encryptionConfiguration.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.EncryptionConfiguration),
-            ) as _i3.EncryptionConfiguration));
+              specifiedType: const FullType(_i4.EncryptionConfiguration),
+            ) as _i4.EncryptionConfiguration));
           }
           break;
         case 'Metrics':
           if (value != null) {
             result.metrics.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Metrics),
-            ) as _i4.Metrics));
+              specifiedType: const FullType(_i6.Metrics),
+            ) as _i6.Metrics));
           }
           break;
         case 'ReplicationTime':
@@ -200,8 +200,8 @@ class DestinationRestXmlSerializer
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.StorageClass),
-            ) as _i6.StorageClass);
+              specifiedType: const FullType(_i2.StorageClass),
+            ) as _i2.StorageClass);
           }
           break;
       }
@@ -228,7 +228,7 @@ class DestinationRestXmlSerializer
         ..add(const _i7.XmlElementName('AccessControlTranslation'))
         ..add(serializers.serialize(
           payload.accessControlTranslation!,
-          specifiedType: const FullType(_i2.AccessControlTranslation),
+          specifiedType: const FullType(_i3.AccessControlTranslation),
         ));
     }
     if (payload.account != null) {
@@ -250,7 +250,7 @@ class DestinationRestXmlSerializer
         ..add(const _i7.XmlElementName('EncryptionConfiguration'))
         ..add(serializers.serialize(
           payload.encryptionConfiguration!,
-          specifiedType: const FullType(_i3.EncryptionConfiguration),
+          specifiedType: const FullType(_i4.EncryptionConfiguration),
         ));
     }
     if (payload.metrics != null) {
@@ -258,7 +258,7 @@ class DestinationRestXmlSerializer
         ..add(const _i7.XmlElementName('Metrics'))
         ..add(serializers.serialize(
           payload.metrics!,
-          specifiedType: const FullType(_i4.Metrics),
+          specifiedType: const FullType(_i6.Metrics),
         ));
     }
     if (payload.replicationTime != null) {
@@ -274,7 +274,7 @@ class DestinationRestXmlSerializer
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i6.StorageClass),
+          specifiedType: const FullType.nullable(_i2.StorageClass),
         ));
     }
     return result;

@@ -23,19 +23,19 @@ abstract class PutBucketReplicationRequest
         _i1.HasPayload<_i2.ReplicationConfiguration> {
   factory PutBucketReplicationRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
-    String? expectedBucketOwner,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     required _i2.ReplicationConfiguration replicationConfiguration,
     String? token,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketReplicationRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
+      checksumAlgorithm: checksumAlgorithm,
       replicationConfiguration: replicationConfiguration,
       token: token,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -81,24 +81,24 @@ abstract class PutBucketReplicationRequest
   /// The name of the bucket
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The base64-encoded 128-bit MD5 digest of the data. You must use this header as a message integrity check to verify that the request body was not corrupted in transit. For more information, see [RFC 1864](http://www.ietf.org/rfc/rfc1864.txt).
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
   _i2.ReplicationConfiguration get replicationConfiguration;
 
   /// A token to allow Object Lock to be enabled for an existing bucket.
   String? get token;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -116,11 +116,11 @@ abstract class PutBucketReplicationRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
         contentMd5,
-        expectedBucketOwner,
+        checksumAlgorithm,
         replicationConfiguration,
         token,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -130,16 +130,12 @@ abstract class PutBucketReplicationRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'replicationConfiguration',
@@ -148,6 +144,10 @@ abstract class PutBucketReplicationRequest
     helper.add(
       'token',
       token,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

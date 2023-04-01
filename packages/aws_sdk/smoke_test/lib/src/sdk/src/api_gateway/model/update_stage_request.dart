@@ -23,15 +23,15 @@ abstract class UpdateStageRequest
         _i1.HasPayload<UpdateStageRequestPayload> {
   /// Requests API Gateway to change information about a Stage resource.
   factory UpdateStageRequest({
-    List<_i3.PatchOperation>? patchOperations,
     required String restApiId,
     required String stageName,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateStageRequest._(
-      patchOperations:
-          patchOperations == null ? null : _i4.BuiltList(patchOperations),
       restApiId: restApiId,
       stageName: stageName,
+      patchOperations:
+          patchOperations == null ? null : _i4.BuiltList(patchOperations),
     );
   }
 
@@ -66,14 +66,14 @@ abstract class UpdateStageRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateStageRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
   /// The name of the Stage resource to change information about.
   String get stageName;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,17 +96,13 @@ abstract class UpdateStageRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
         restApiId,
         stageName,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateStageRequest');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
     helper.add(
       'restApiId',
       restApiId,
@@ -114,6 +110,10 @@ abstract class UpdateStageRequest
     helper.add(
       'stageName',
       stageName,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

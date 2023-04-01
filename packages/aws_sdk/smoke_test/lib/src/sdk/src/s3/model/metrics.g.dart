@@ -8,14 +8,14 @@ part of smoke_test.s3.model.metrics;
 
 class _$Metrics extends Metrics {
   @override
-  final _i2.ReplicationTimeValue? eventThreshold;
+  final _i2.MetricsStatus status;
   @override
-  final _i3.MetricsStatus status;
+  final _i3.ReplicationTimeValue? eventThreshold;
 
   factory _$Metrics([void Function(MetricsBuilder)? updates]) =>
       (new MetricsBuilder()..update(updates))._build();
 
-  _$Metrics._({this.eventThreshold, required this.status}) : super._() {
+  _$Metrics._({required this.status, this.eventThreshold}) : super._() {
     BuiltValueNullFieldError.checkNotNull(status, r'Metrics', 'status');
   }
 
@@ -30,15 +30,15 @@ class _$Metrics extends Metrics {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Metrics &&
-        eventThreshold == other.eventThreshold &&
-        status == other.status;
+        status == other.status &&
+        eventThreshold == other.eventThreshold;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, eventThreshold.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, eventThreshold.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -47,15 +47,15 @@ class _$Metrics extends Metrics {
 class MetricsBuilder implements Builder<Metrics, MetricsBuilder> {
   _$Metrics? _$v;
 
-  _i2.ReplicationTimeValueBuilder? _eventThreshold;
-  _i2.ReplicationTimeValueBuilder get eventThreshold =>
-      _$this._eventThreshold ??= new _i2.ReplicationTimeValueBuilder();
-  set eventThreshold(_i2.ReplicationTimeValueBuilder? eventThreshold) =>
-      _$this._eventThreshold = eventThreshold;
+  _i2.MetricsStatus? _status;
+  _i2.MetricsStatus? get status => _$this._status;
+  set status(_i2.MetricsStatus? status) => _$this._status = status;
 
-  _i3.MetricsStatus? _status;
-  _i3.MetricsStatus? get status => _$this._status;
-  set status(_i3.MetricsStatus? status) => _$this._status = status;
+  _i3.ReplicationTimeValueBuilder? _eventThreshold;
+  _i3.ReplicationTimeValueBuilder get eventThreshold =>
+      _$this._eventThreshold ??= new _i3.ReplicationTimeValueBuilder();
+  set eventThreshold(_i3.ReplicationTimeValueBuilder? eventThreshold) =>
+      _$this._eventThreshold = eventThreshold;
 
   MetricsBuilder() {
     Metrics._init(this);
@@ -64,8 +64,8 @@ class MetricsBuilder implements Builder<Metrics, MetricsBuilder> {
   MetricsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _eventThreshold = $v.eventThreshold?.toBuilder();
       _status = $v.status;
+      _eventThreshold = $v.eventThreshold?.toBuilder();
       _$v = null;
     }
     return this;
@@ -90,9 +90,9 @@ class MetricsBuilder implements Builder<Metrics, MetricsBuilder> {
     try {
       _$result = _$v ??
           new _$Metrics._(
-              eventThreshold: _eventThreshold?.build(),
               status: BuiltValueNullFieldError.checkNotNull(
-                  status, r'Metrics', 'status'));
+                  status, r'Metrics', 'status'),
+              eventThreshold: _eventThreshold?.build());
     } catch (_) {
       late String _$failedField;
       try {

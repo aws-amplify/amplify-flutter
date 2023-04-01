@@ -19,14 +19,14 @@ abstract class DescribeOrganizationConfigRulesResponse
         Built<DescribeOrganizationConfigRulesResponse,
             DescribeOrganizationConfigRulesResponseBuilder> {
   factory DescribeOrganizationConfigRulesResponse({
-    String? nextToken,
     List<_i2.OrganizationConfigRule>? organizationConfigRules,
+    String? nextToken,
   }) {
     return _$DescribeOrganizationConfigRulesResponse._(
-      nextToken: nextToken,
       organizationConfigRules: organizationConfigRules == null
           ? null
           : _i3.BuiltList(organizationConfigRules),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class DescribeOrganizationConfigRulesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConfigRulesResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of `OrganizationConfigRule` objects.
   _i3.BuiltList<_i2.OrganizationConfigRule>? get organizationConfigRules;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConfigRules,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeOrganizationConfigRulesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConfigRules',
       organizationConfigRules,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,14 +106,6 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConfigRules':
           if (value != null) {
             result.organizationConfigRules.replace((serializers.deserialize(
@@ -123,6 +115,14 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
                 [FullType(_i2.OrganizationConfigRule)],
               ),
             ) as _i3.BuiltList<_i2.OrganizationConfigRule>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -139,14 +139,6 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeOrganizationConfigRulesResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.organizationConfigRules != null) {
       result
         ..add('OrganizationConfigRules')
@@ -156,6 +148,14 @@ class DescribeOrganizationConfigRulesResponseAwsJson11Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.OrganizationConfigRule)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

@@ -19,25 +19,25 @@ abstract class OrganizationConformancePack
         Built<OrganizationConformancePack, OrganizationConformancePackBuilder> {
   /// An organization conformance pack that has information about conformance packs that Config creates in member accounts.
   factory OrganizationConformancePack({
-    List<_i2.ConformancePackInputParameter>? conformancePackInputParameters,
+    required String organizationConformancePackName,
+    required String organizationConformancePackArn,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
+    List<_i2.ConformancePackInputParameter>? conformancePackInputParameters,
     List<String>? excludedAccounts,
     required DateTime lastUpdateTime,
-    required String organizationConformancePackArn,
-    required String organizationConformancePackName,
   }) {
     return _$OrganizationConformancePack._(
+      organizationConformancePackName: organizationConformancePackName,
+      organizationConformancePackArn: organizationConformancePackArn,
+      deliveryS3Bucket: deliveryS3Bucket,
+      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
           : _i3.BuiltList(conformancePackInputParameters),
-      deliveryS3Bucket: deliveryS3Bucket,
-      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       excludedAccounts:
           excludedAccounts == null ? null : _i3.BuiltList(excludedAccounts),
       lastUpdateTime: lastUpdateTime,
-      organizationConformancePackArn: organizationConformancePackArn,
-      organizationConformancePackName: organizationConformancePackName,
     );
   }
 
@@ -55,9 +55,11 @@ abstract class OrganizationConformancePack
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConformancePackBuilder b) {}
 
-  /// A list of `ConformancePackInputParameter` objects.
-  _i3.BuiltList<_i2.ConformancePackInputParameter>?
-      get conformancePackInputParameters;
+  /// The name you assign to an organization conformance pack.
+  String get organizationConformancePackName;
+
+  /// Amazon Resource Name (ARN) of organization conformance pack.
+  String get organizationConformancePackArn;
 
   /// The name of the Amazon S3 bucket where Config stores conformance pack templates.
   ///
@@ -69,33 +71,35 @@ abstract class OrganizationConformancePack
   /// This field is optional.
   String? get deliveryS3KeyPrefix;
 
+  /// A list of `ConformancePackInputParameter` objects.
+  _i3.BuiltList<_i2.ConformancePackInputParameter>?
+      get conformancePackInputParameters;
+
   /// A comma-separated list of accounts excluded from organization conformance pack.
   _i3.BuiltList<String>? get excludedAccounts;
 
   /// Last time when organization conformation pack was updated.
   DateTime get lastUpdateTime;
-
-  /// Amazon Resource Name (ARN) of organization conformance pack.
-  String get organizationConformancePackArn;
-
-  /// The name you assign to an organization conformance pack.
-  String get organizationConformancePackName;
   @override
   List<Object?> get props => [
-        conformancePackInputParameters,
+        organizationConformancePackName,
+        organizationConformancePackArn,
         deliveryS3Bucket,
         deliveryS3KeyPrefix,
+        conformancePackInputParameters,
         excludedAccounts,
         lastUpdateTime,
-        organizationConformancePackArn,
-        organizationConformancePackName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('OrganizationConformancePack');
     helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
+      'organizationConformancePackName',
+      organizationConformancePackName,
+    );
+    helper.add(
+      'organizationConformancePackArn',
+      organizationConformancePackArn,
     );
     helper.add(
       'deliveryS3Bucket',
@@ -106,20 +110,16 @@ abstract class OrganizationConformancePack
       deliveryS3KeyPrefix,
     );
     helper.add(
+      'conformancePackInputParameters',
+      conformancePackInputParameters,
+    );
+    helper.add(
       'excludedAccounts',
       excludedAccounts,
     );
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'organizationConformancePackArn',
-      organizationConformancePackArn,
-    );
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
     );
     return helper.toString();
   }
@@ -155,17 +155,17 @@ class OrganizationConformancePackAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConformancePackInputParameters':
-          if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConformancePackInputParameter)],
-              ),
-            ) as _i3.BuiltList<_i2.ConformancePackInputParameter>));
-          }
+        case 'OrganizationConformancePackName':
+          result.organizationConformancePackName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'OrganizationConformancePackArn':
+          result.organizationConformancePackArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'DeliveryS3Bucket':
           if (value != null) {
@@ -181,6 +181,18 @@ class OrganizationConformancePackAwsJson11Serializer
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ConformancePackInputParameters':
+          if (value != null) {
+            result.conformancePackInputParameters
+                .replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltList,
+                [FullType(_i2.ConformancePackInputParameter)],
+              ),
+            ) as _i3.BuiltList<_i2.ConformancePackInputParameter>));
           }
           break;
         case 'ExcludedAccounts':
@@ -200,18 +212,6 @@ class OrganizationConformancePackAwsJson11Serializer
             specifiedType: const FullType(DateTime),
           ) as DateTime);
           break;
-        case 'OrganizationConformancePackArn':
-          result.organizationConformancePackArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'OrganizationConformancePackName':
-          result.organizationConformancePackName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
       }
     }
 
@@ -226,33 +226,22 @@ class OrganizationConformancePackAwsJson11Serializer
   }) {
     final payload = (object as OrganizationConformancePack);
     final result = <Object?>[
-      'LastUpdateTime',
+      'OrganizationConformancePackName',
       serializers.serialize(
-        payload.lastUpdateTime,
-        specifiedType: const FullType(DateTime),
+        payload.organizationConformancePackName,
+        specifiedType: const FullType(String),
       ),
       'OrganizationConformancePackArn',
       serializers.serialize(
         payload.organizationConformancePackArn,
         specifiedType: const FullType(String),
       ),
-      'OrganizationConformancePackName',
+      'LastUpdateTime',
       serializers.serialize(
-        payload.organizationConformancePackName,
-        specifiedType: const FullType(String),
+        payload.lastUpdateTime,
+        specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.conformancePackInputParameters != null) {
-      result
-        ..add('ConformancePackInputParameters')
-        ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackInputParameter)],
-          ),
-        ));
-    }
     if (payload.deliveryS3Bucket != null) {
       result
         ..add('DeliveryS3Bucket')
@@ -267,6 +256,17 @@ class OrganizationConformancePackAwsJson11Serializer
         ..add(serializers.serialize(
           payload.deliveryS3KeyPrefix!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.conformancePackInputParameters != null) {
+      result
+        ..add('ConformancePackInputParameters')
+        ..add(serializers.serialize(
+          payload.conformancePackInputParameters!,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(_i2.ConformancePackInputParameter)],
+          ),
         ));
     }
     if (payload.excludedAccounts != null) {

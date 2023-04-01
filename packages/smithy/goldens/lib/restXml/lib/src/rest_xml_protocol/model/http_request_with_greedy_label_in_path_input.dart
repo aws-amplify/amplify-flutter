@@ -20,12 +20,12 @@ abstract class HttpRequestWithGreedyLabelInPathInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithGreedyLabelInPathInputPayload> {
   factory HttpRequestWithGreedyLabelInPathInput({
-    required String baz,
     required String foo,
+    required String baz,
   }) {
     return _$HttpRequestWithGreedyLabelInPathInput._(
-      baz: baz,
       foo: foo,
+      baz: baz,
     );
   }
 
@@ -55,8 +55,8 @@ abstract class HttpRequestWithGreedyLabelInPathInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithGreedyLabelInPathInputBuilder b) {}
-  String get baz;
   String get foo;
+  String get baz;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -76,20 +76,20 @@ abstract class HttpRequestWithGreedyLabelInPathInput
       HttpRequestWithGreedyLabelInPathInputPayload();
   @override
   List<Object?> get props => [
-        baz,
         foo,
+        baz,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithGreedyLabelInPathInput');
     helper.add(
-      'baz',
-      baz,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'baz',
+      baz,
     );
     return helper.toString();
   }

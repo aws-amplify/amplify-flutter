@@ -6,8 +6,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/compression_type.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/csv_input.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/compression_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/csv_input.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/json_input.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/parquet_input.dart' as _i5;
 
@@ -19,14 +19,14 @@ abstract class InputSerialization
     implements Built<InputSerialization, InputSerializationBuilder> {
   /// Describes the serialization format of the object.
   factory InputSerialization({
-    _i2.CompressionType? compressionType,
-    _i3.CsvInput? csv,
+    _i2.CsvInput? csv,
+    _i3.CompressionType? compressionType,
     _i4.JsonInput? json,
     _i5.ParquetInput? parquet,
   }) {
     return _$InputSerialization._(
-      compressionType: compressionType,
       csv: csv,
+      compressionType: compressionType,
       json: json,
       parquet: parquet,
     );
@@ -46,11 +46,11 @@ abstract class InputSerialization
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InputSerializationBuilder b) {}
 
-  /// Specifies object's compression format. Valid values: NONE, GZIP, BZIP2. Default Value: NONE.
-  _i2.CompressionType? get compressionType;
-
   /// Describes the serialization of a CSV-encoded object.
-  _i3.CsvInput? get csv;
+  _i2.CsvInput? get csv;
+
+  /// Specifies object's compression format. Valid values: NONE, GZIP, BZIP2. Default Value: NONE.
+  _i3.CompressionType? get compressionType;
 
   /// Specifies JSON as object's input serialization format.
   _i4.JsonInput? get json;
@@ -59,8 +59,8 @@ abstract class InputSerialization
   _i5.ParquetInput? get parquet;
   @override
   List<Object?> get props => [
-        compressionType,
         csv,
+        compressionType,
         json,
         parquet,
       ];
@@ -68,12 +68,12 @@ abstract class InputSerialization
   String toString() {
     final helper = newBuiltValueToStringHelper('InputSerialization');
     helper.add(
-      'compressionType',
-      compressionType,
-    );
-    helper.add(
       'csv',
       csv,
+    );
+    helper.add(
+      'compressionType',
+      compressionType,
     );
     helper.add(
       'json',
@@ -120,16 +120,16 @@ class InputSerializationRestXmlSerializer
           if (value != null) {
             result.compressionType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.CompressionType),
-            ) as _i2.CompressionType);
+              specifiedType: const FullType(_i3.CompressionType),
+            ) as _i3.CompressionType);
           }
           break;
         case 'CSV':
           if (value != null) {
             result.csv.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.CsvInput),
-            ) as _i3.CsvInput));
+              specifiedType: const FullType(_i2.CsvInput),
+            ) as _i2.CsvInput));
           }
           break;
         case 'JSON':
@@ -172,7 +172,7 @@ class InputSerializationRestXmlSerializer
         ..add(const _i6.XmlElementName('CompressionType'))
         ..add(serializers.serialize(
           payload.compressionType!,
-          specifiedType: const FullType.nullable(_i2.CompressionType),
+          specifiedType: const FullType.nullable(_i3.CompressionType),
         ));
     }
     if (payload.csv != null) {
@@ -180,7 +180,7 @@ class InputSerializationRestXmlSerializer
         ..add(const _i6.XmlElementName('CSV'))
         ..add(serializers.serialize(
           payload.csv!,
-          specifiedType: const FullType(_i3.CsvInput),
+          specifiedType: const FullType(_i2.CsvInput),
         ));
     }
     if (payload.json != null) {

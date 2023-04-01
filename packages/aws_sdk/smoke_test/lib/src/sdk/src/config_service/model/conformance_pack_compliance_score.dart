@@ -18,14 +18,14 @@ abstract class ConformancePackComplianceScore
             ConformancePackComplianceScoreBuilder> {
   /// A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
   factory ConformancePackComplianceScore({
+    String? score,
     String? conformancePackName,
     DateTime? lastUpdatedTime,
-    String? score,
   }) {
     return _$ConformancePackComplianceScore._(
+      score: score,
       conformancePackName: conformancePackName,
       lastUpdatedTime: lastUpdatedTime,
-      score: score,
     );
   }
 
@@ -43,24 +43,28 @@ abstract class ConformancePackComplianceScore
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackComplianceScoreBuilder b) {}
 
+  /// Compliance score for the conformance pack. Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
+  String? get score;
+
   /// The name of the conformance pack.
   String? get conformancePackName;
 
   /// The time that the conformance pack compliance score was last updated.
   DateTime? get lastUpdatedTime;
-
-  /// Compliance score for the conformance pack. Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
-  String? get score;
   @override
   List<Object?> get props => [
+        score,
         conformancePackName,
         lastUpdatedTime,
-        score,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackComplianceScore');
+    helper.add(
+      'score',
+      score,
+    );
     helper.add(
       'conformancePackName',
       conformancePackName,
@@ -68,10 +72,6 @@ abstract class ConformancePackComplianceScore
     helper.add(
       'lastUpdatedTime',
       lastUpdatedTime,
-    );
-    helper.add(
-      'score',
-      score,
     );
     return helper.toString();
   }
@@ -107,6 +107,14 @@ class ConformancePackComplianceScoreAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Score':
+          if (value != null) {
+            result.score = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ConformancePackName':
           if (value != null) {
             result.conformancePackName = (serializers.deserialize(
@@ -123,14 +131,6 @@ class ConformancePackComplianceScoreAwsJson11Serializer
             ) as DateTime);
           }
           break;
-        case 'Score':
-          if (value != null) {
-            result.score = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -145,6 +145,14 @@ class ConformancePackComplianceScoreAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackComplianceScore);
     final result = <Object?>[];
+    if (payload.score != null) {
+      result
+        ..add('Score')
+        ..add(serializers.serialize(
+          payload.score!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.conformancePackName != null) {
       result
         ..add('ConformancePackName')
@@ -159,14 +167,6 @@ class ConformancePackComplianceScoreAwsJson11Serializer
         ..add(serializers.serialize(
           payload.lastUpdatedTime!,
           specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.score != null) {
-      result
-        ..add('Score')
-        ..add(serializers.serialize(
-          payload.score!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

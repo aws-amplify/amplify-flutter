@@ -19,18 +19,18 @@ abstract class ListBucketMetricsConfigurationsOutput
         Built<ListBucketMetricsConfigurationsOutput,
             ListBucketMetricsConfigurationsOutputBuilder> {
   factory ListBucketMetricsConfigurationsOutput({
-    String? continuationToken,
     bool? isTruncated,
-    List<_i2.MetricsConfiguration>? metricsConfigurationList,
+    String? continuationToken,
     String? nextContinuationToken,
+    List<_i2.MetricsConfiguration>? metricsConfigurationList,
   }) {
     return _$ListBucketMetricsConfigurationsOutput._(
-      continuationToken: continuationToken,
       isTruncated: isTruncated,
+      continuationToken: continuationToken,
+      nextContinuationToken: nextContinuationToken,
       metricsConfigurationList: metricsConfigurationList == null
           ? null
           : _i3.BuiltList(metricsConfigurationList),
-      nextContinuationToken: nextContinuationToken,
     );
   }
 
@@ -54,43 +54,43 @@ abstract class ListBucketMetricsConfigurationsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {}
 
-  /// The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request.
-  String? get continuationToken;
-
   /// Indicates whether the returned list of metrics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
   bool? get isTruncated;
 
-  /// The list of metrics configurations for a bucket.
-  _i3.BuiltList<_i2.MetricsConfiguration>? get metricsConfigurationList;
+  /// The marker that is used as a starting point for this metrics configuration list response. This value is present if it was sent in the request.
+  String? get continuationToken;
 
   /// The marker used to continue a metrics configuration listing that has been truncated. Use the `NextContinuationToken` from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
   String? get nextContinuationToken;
+
+  /// The list of metrics configurations for a bucket.
+  _i3.BuiltList<_i2.MetricsConfiguration>? get metricsConfigurationList;
   @override
   List<Object?> get props => [
-        continuationToken,
         isTruncated,
-        metricsConfigurationList,
+        continuationToken,
         nextContinuationToken,
+        metricsConfigurationList,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListBucketMetricsConfigurationsOutput');
     helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
       'isTruncated',
       isTruncated,
     );
     helper.add(
-      'metricsConfigurationList',
-      metricsConfigurationList,
+      'continuationToken',
+      continuationToken,
     );
     helper.add(
       'nextContinuationToken',
       nextContinuationToken,
+    );
+    helper.add(
+      'metricsConfigurationList',
+      metricsConfigurationList,
     );
     return helper.toString();
   }

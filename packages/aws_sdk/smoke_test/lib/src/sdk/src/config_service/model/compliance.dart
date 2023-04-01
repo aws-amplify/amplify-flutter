@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/config_service/model/compliance_contributor_count.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
+    as _i2;
 
 part 'compliance.g.dart';
 
@@ -19,12 +19,12 @@ abstract class Compliance
     implements Built<Compliance, ComplianceBuilder> {
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant and provides the number of contributors that affect the compliance.
   factory Compliance({
-    _i2.ComplianceContributorCount? complianceContributorCount,
-    _i3.ComplianceType? complianceType,
+    _i2.ComplianceType? complianceType,
+    _i3.ComplianceContributorCount? complianceContributorCount,
   }) {
     return _$Compliance._(
-      complianceContributorCount: complianceContributorCount,
       complianceType: complianceType,
+      complianceContributorCount: complianceContributorCount,
     );
   }
 
@@ -41,9 +41,6 @@ abstract class Compliance
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceBuilder b) {}
 
-  /// The number of Amazon Web Services resources or Config rules that cause a result of `NON_COMPLIANT`, up to a maximum number.
-  _i2.ComplianceContributorCount? get complianceContributorCount;
-
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant.
   ///
   /// A resource is compliant if it complies with all of the Config rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.
@@ -53,22 +50,25 @@ abstract class Compliance
   /// Config returns the `INSUFFICIENT_DATA` value when no evaluation results are available for the Amazon Web Services resource or Config rule.
   ///
   /// For the `Compliance` data type, Config supports only `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA` values. Config does not support the `NOT_APPLICABLE` value for the `Compliance` data type.
-  _i3.ComplianceType? get complianceType;
+  _i2.ComplianceType? get complianceType;
+
+  /// The number of Amazon Web Services resources or Config rules that cause a result of `NON_COMPLIANT`, up to a maximum number.
+  _i3.ComplianceContributorCount? get complianceContributorCount;
   @override
   List<Object?> get props => [
-        complianceContributorCount,
         complianceType,
+        complianceContributorCount,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Compliance');
     helper.add(
-      'complianceContributorCount',
-      complianceContributorCount,
-    );
-    helper.add(
       'complianceType',
       complianceType,
+    );
+    helper.add(
+      'complianceContributorCount',
+      complianceContributorCount,
     );
     return helper.toString();
   }
@@ -103,20 +103,20 @@ class ComplianceAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceContributorCount':
-          if (value != null) {
-            result.complianceContributorCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceContributorCount),
-            ) as _i2.ComplianceContributorCount));
-          }
-          break;
         case 'ComplianceType':
           if (value != null) {
             result.complianceType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ComplianceType),
-            ) as _i3.ComplianceType);
+              specifiedType: const FullType(_i2.ComplianceType),
+            ) as _i2.ComplianceType);
+          }
+          break;
+        case 'ComplianceContributorCount':
+          if (value != null) {
+            result.complianceContributorCount.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ComplianceContributorCount),
+            ) as _i3.ComplianceContributorCount));
           }
           break;
       }
@@ -133,20 +133,20 @@ class ComplianceAwsJson11Serializer
   }) {
     final payload = (object as Compliance);
     final result = <Object?>[];
-    if (payload.complianceContributorCount != null) {
-      result
-        ..add('ComplianceContributorCount')
-        ..add(serializers.serialize(
-          payload.complianceContributorCount!,
-          specifiedType: const FullType(_i2.ComplianceContributorCount),
-        ));
-    }
     if (payload.complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
           payload.complianceType!,
-          specifiedType: const FullType(_i3.ComplianceType),
+          specifiedType: const FullType(_i2.ComplianceType),
+        ));
+    }
+    if (payload.complianceContributorCount != null) {
+      result
+        ..add('ComplianceContributorCount')
+        ..add(serializers.serialize(
+          payload.complianceContributorCount!,
+          specifiedType: const FullType(_i3.ComplianceContributorCount),
         ));
     }
     return result;

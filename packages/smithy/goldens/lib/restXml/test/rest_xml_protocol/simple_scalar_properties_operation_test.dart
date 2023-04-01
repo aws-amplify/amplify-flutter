@@ -741,20 +741,28 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'byteValue':
+        case 'foo':
           if (value != null) {
-            result.byteValue = (serializers.deserialize(
+            result.foo = (serializers.deserialize(
               value,
-              specifiedType: const FullType(int),
-            ) as int);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
-        case 'doubleValue':
+        case 'stringValue':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(
+            result.stringValue = (serializers.deserialize(
               value,
-              specifiedType: const FullType(double),
-            ) as double);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'trueBooleanValue':
+          if (value != null) {
+            result.trueBooleanValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'falseBooleanValue':
@@ -765,20 +773,20 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
             ) as bool);
           }
           break;
-        case 'floatValue':
+        case 'byteValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(
+            result.byteValue = (serializers.deserialize(
               value,
-              specifiedType: const FullType(double),
-            ) as double);
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
-        case 'foo':
+        case 'shortValue':
           if (value != null) {
-            result.foo = (serializers.deserialize(
+            result.shortValue = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'integerValue':
@@ -797,28 +805,20 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
             ) as _i6.Int64);
           }
           break;
-        case 'shortValue':
+        case 'floatValue':
           if (value != null) {
-            result.shortValue = (serializers.deserialize(
+            result.floatValue = (serializers.deserialize(
               value,
-              specifiedType: const FullType(int),
-            ) as int);
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
-        case 'stringValue':
+        case 'doubleValue':
           if (value != null) {
-            result.stringValue = (serializers.deserialize(
+            result.doubleValue = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'trueBooleanValue':
-          if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
       }

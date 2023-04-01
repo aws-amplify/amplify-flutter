@@ -21,15 +21,15 @@ abstract class DescribeRemediationExceptionsRequest
             DescribeRemediationExceptionsRequestBuilder> {
   factory DescribeRemediationExceptionsRequest({
     required String configRuleName,
+    List<_i3.RemediationExceptionResourceKey>? resourceKeys,
     int? limit,
     String? nextToken,
-    List<_i3.RemediationExceptionResourceKey>? resourceKeys,
   }) {
     return _$DescribeRemediationExceptionsRequest._(
       configRuleName: configRuleName,
+      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
       limit: limit,
       nextToken: nextToken,
-      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
     );
   }
 
@@ -56,22 +56,22 @@ abstract class DescribeRemediationExceptionsRequest
   /// The name of the Config rule.
   String get configRuleName;
 
+  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
+  _i4.BuiltList<_i3.RemediationExceptionResourceKey>? get resourceKeys;
+
   /// The maximum number of RemediationExceptionResourceKey returned on each page. The default is 25. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
-
-  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
-  _i4.BuiltList<_i3.RemediationExceptionResourceKey>? get resourceKeys;
   @override
   DescribeRemediationExceptionsRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleName,
+        resourceKeys,
         limit,
         nextToken,
-        resourceKeys,
       ];
   @override
   String toString() {
@@ -82,16 +82,16 @@ abstract class DescribeRemediationExceptionsRequest
       configRuleName,
     );
     helper.add(
+      'resourceKeys',
+      resourceKeys,
+    );
+    helper.add(
       'limit',
       limit,
     );
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
     );
     return helper.toString();
   }
@@ -133,6 +133,17 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'ResourceKeys':
+          if (value != null) {
+            result.resourceKeys.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.RemediationExceptionResourceKey)],
+              ),
+            ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
+          }
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -147,17 +158,6 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'ResourceKeys':
-          if (value != null) {
-            result.resourceKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.RemediationExceptionResourceKey)],
-              ),
-            ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
           }
           break;
       }
@@ -180,6 +180,17 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.resourceKeys != null) {
+      result
+        ..add('ResourceKeys')
+        ..add(serializers.serialize(
+          payload.resourceKeys!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.RemediationExceptionResourceKey)],
+          ),
+        ));
+    }
     if (payload.limit != null) {
       result
         ..add('Limit')
@@ -194,17 +205,6 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceKeys != null) {
-      result
-        ..add('ResourceKeys')
-        ..add(serializers.serialize(
-          payload.resourceKeys!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.RemediationExceptionResourceKey)],
-          ),
         ));
     }
     return result;

@@ -22,13 +22,13 @@ abstract class ImportApiKeysRequest
   /// The POST request to import API keys from an external source, such as a CSV-formatted file.
   factory ImportApiKeysRequest({
     required _i2.Uint8List body,
-    bool? failOnWarnings,
     required _i4.ApiKeysFormat format,
+    bool? failOnWarnings,
   }) {
     return _$ImportApiKeysRequest._(
       body: body,
-      failOnWarnings: failOnWarnings,
       format: format,
+      failOnWarnings: failOnWarnings,
     );
   }
 
@@ -66,18 +66,18 @@ abstract class ImportApiKeysRequest
   /// The payload of the POST request to import API keys. For the payload format, see API Key File Format.
   _i2.Uint8List get body;
 
-  /// A query parameter to indicate whether to rollback ApiKey importation (`true`) or not (`false`) when error is encountered.
-  bool? get failOnWarnings;
-
   /// A query parameter to specify the input format to imported API keys. Currently, only the `csv` format is supported.
   _i4.ApiKeysFormat get format;
+
+  /// A query parameter to indicate whether to rollback ApiKey importation (`true`) or not (`false`) when error is encountered.
+  bool? get failOnWarnings;
   @override
   _i2.Uint8List getPayload() => body;
   @override
   List<Object?> get props => [
         body,
-        failOnWarnings,
         format,
+        failOnWarnings,
       ];
   @override
   String toString() {
@@ -87,12 +87,12 @@ abstract class ImportApiKeysRequest
       body,
     );
     helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
       'format',
       format,
+    );
+    helper.add(
+      'failOnWarnings',
+      failOnWarnings,
     );
     return helper.toString();
   }

@@ -18,18 +18,18 @@ abstract class DocumentationPartLocation
         Built<DocumentationPartLocation, DocumentationPartLocationBuilder> {
   /// Specifies the target API entity to which the documentation applies.
   factory DocumentationPartLocation({
-    String? method,
-    String? name,
-    String? path,
-    String? statusCode,
     required _i2.DocumentationPartType type,
+    String? path,
+    String? method,
+    String? statusCode,
+    String? name,
   }) {
     return _$DocumentationPartLocation._(
-      method: method,
-      name: name,
-      path: path,
-      statusCode: statusCode,
       type: type,
+      path: path,
+      method: method,
+      statusCode: statusCode,
+      name: name,
     );
   }
 
@@ -47,50 +47,50 @@ abstract class DocumentationPartLocation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentationPartLocationBuilder b) {}
 
-  /// The HTTP verb of a method. It is a valid field for the API entity types of `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `method` attribute must match that of the parent entity exactly.
-  String? get method;
-
-  /// The name of the targeted API entity. It is a valid and required field for the API entity types of `AUTHORIZER`, `MODEL`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY` and `RESPONSE_HEADER`. It is an invalid field for any other entity type.
-  String? get name;
+  /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
+  _i2.DocumentationPartType get type;
 
   /// The URL path of the target. It is a valid field for the API entity types of `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `/` for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other `location` attributes, the child entity's `path` attribute must match that of the parent entity as a prefix.
   String? get path;
 
+  /// The HTTP verb of a method. It is a valid field for the API entity types of `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `method` attribute must match that of the parent entity exactly.
+  String? get method;
+
   /// The HTTP status code of a response. It is a valid field for the API entity types of `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. The default value is `*` for any status code. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other `location` attributes, the child entity's `statusCode` attribute must match that of the parent entity exactly.
   String? get statusCode;
 
-  /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
-  _i2.DocumentationPartType get type;
+  /// The name of the targeted API entity. It is a valid and required field for the API entity types of `AUTHORIZER`, `MODEL`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY` and `RESPONSE_HEADER`. It is an invalid field for any other entity type.
+  String? get name;
   @override
   List<Object?> get props => [
-        method,
-        name,
-        path,
-        statusCode,
         type,
+        path,
+        method,
+        statusCode,
+        name,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentationPartLocation');
     helper.add(
-      'method',
-      method,
-    );
-    helper.add(
-      'name',
-      name,
+      'type',
+      type,
     );
     helper.add(
       'path',
       path,
     );
     helper.add(
+      'method',
+      method,
+    );
+    helper.add(
       'statusCode',
       statusCode,
     );
     helper.add(
-      'type',
-      type,
+      'name',
+      name,
     );
     return helper.toString();
   }

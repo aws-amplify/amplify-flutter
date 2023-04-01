@@ -21,22 +21,22 @@ abstract class DescribeContributorInsightsOutput
         Built<DescribeContributorInsightsOutput,
             DescribeContributorInsightsOutputBuilder> {
   factory DescribeContributorInsightsOutput({
+    String? tableName,
+    String? indexName,
     List<String>? contributorInsightsRuleList,
     _i2.ContributorInsightsStatus? contributorInsightsStatus,
-    _i3.FailureException? failureException,
-    String? indexName,
     DateTime? lastUpdateDateTime,
-    String? tableName,
+    _i3.FailureException? failureException,
   }) {
     return _$DescribeContributorInsightsOutput._(
+      tableName: tableName,
+      indexName: indexName,
       contributorInsightsRuleList: contributorInsightsRuleList == null
           ? null
           : _i4.BuiltList(contributorInsightsRuleList),
       contributorInsightsStatus: contributorInsightsStatus,
-      failureException: failureException,
-      indexName: indexName,
       lastUpdateDateTime: lastUpdateDateTime,
-      tableName: tableName,
+      failureException: failureException,
     );
   }
 
@@ -60,11 +60,20 @@ abstract class DescribeContributorInsightsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContributorInsightsOutputBuilder b) {}
 
+  /// The name of the table being described.
+  String? get tableName;
+
+  /// The name of the global secondary index being described.
+  String? get indexName;
+
   /// List of names of the associated contributor insights rules.
   _i4.BuiltList<String>? get contributorInsightsRuleList;
 
   /// Current status of contributor insights.
   _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+
+  /// Timestamp of the last time the status was changed.
+  DateTime? get lastUpdateDateTime;
 
   /// Returns information about the last failure that was encountered.
   ///
@@ -78,28 +87,27 @@ abstract class DescribeContributorInsightsOutput
   ///
   /// *   InternalServerError - Failed to create Amazon CloudWatch Contributor Insights rules. Please retry request.
   _i3.FailureException? get failureException;
-
-  /// The name of the global secondary index being described.
-  String? get indexName;
-
-  /// Timestamp of the last time the status was changed.
-  DateTime? get lastUpdateDateTime;
-
-  /// The name of the table being described.
-  String? get tableName;
   @override
   List<Object?> get props => [
+        tableName,
+        indexName,
         contributorInsightsRuleList,
         contributorInsightsStatus,
-        failureException,
-        indexName,
         lastUpdateDateTime,
-        tableName,
+        failureException,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeContributorInsightsOutput');
+    helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
+      'indexName',
+      indexName,
+    );
     helper.add(
       'contributorInsightsRuleList',
       contributorInsightsRuleList,
@@ -109,20 +117,12 @@ abstract class DescribeContributorInsightsOutput
       contributorInsightsStatus,
     );
     helper.add(
-      'failureException',
-      failureException,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
       'lastUpdateDateTime',
       lastUpdateDateTime,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'failureException',
+      failureException,
     );
     return helper.toString();
   }
@@ -158,6 +158,22 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          if (value != null) {
+            result.tableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'IndexName':
+          if (value != null) {
+            result.indexName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ContributorInsightsRuleList':
           if (value != null) {
             result.contributorInsightsRuleList.replace((serializers.deserialize(
@@ -177,22 +193,6 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
             ) as _i2.ContributorInsightsStatus);
           }
           break;
-        case 'FailureException':
-          if (value != null) {
-            result.failureException.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.FailureException),
-            ) as _i3.FailureException));
-          }
-          break;
-        case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'LastUpdateDateTime':
           if (value != null) {
             result.lastUpdateDateTime = (serializers.deserialize(
@@ -201,12 +201,12 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'TableName':
+        case 'FailureException':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.failureException.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i3.FailureException),
+            ) as _i3.FailureException));
           }
           break;
       }
@@ -223,6 +223,22 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeContributorInsightsOutput);
     final result = <Object?>[];
+    if (payload.tableName != null) {
+      result
+        ..add('TableName')
+        ..add(serializers.serialize(
+          payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.indexName != null) {
+      result
+        ..add('IndexName')
+        ..add(serializers.serialize(
+          payload.indexName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.contributorInsightsRuleList != null) {
       result
         ..add('ContributorInsightsRuleList')
@@ -242,22 +258,6 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
           specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }
-    if (payload.failureException != null) {
-      result
-        ..add('FailureException')
-        ..add(serializers.serialize(
-          payload.failureException!,
-          specifiedType: const FullType(_i3.FailureException),
-        ));
-    }
-    if (payload.indexName != null) {
-      result
-        ..add('IndexName')
-        ..add(serializers.serialize(
-          payload.indexName!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.lastUpdateDateTime != null) {
       result
         ..add('LastUpdateDateTime')
@@ -266,12 +266,12 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.tableName != null) {
+    if (payload.failureException != null) {
       result
-        ..add('TableName')
+        ..add('FailureException')
         ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          payload.failureException!,
+          specifiedType: const FullType(_i3.FailureException),
         ));
     }
     return result;

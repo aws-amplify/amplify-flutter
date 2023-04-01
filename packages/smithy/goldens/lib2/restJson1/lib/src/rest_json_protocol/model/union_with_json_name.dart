@@ -8,14 +8,14 @@ import 'package:smithy/smithy.dart' as _i1;
 
 /// The discrete values of [UnionWithJsonName].
 enum UnionWithJsonNameType<T extends UnionWithJsonName> {
+  /// The type for [UnionWithJsonNameFoo].
+  foo<UnionWithJsonNameFoo>(r'foo'),
+
   /// The type for [UnionWithJsonNameBar].
   bar<UnionWithJsonNameBar>(r'bar'),
 
   /// The type for [UnionWithJsonNameBaz].
   baz<UnionWithJsonNameBaz>(r'baz'),
-
-  /// The type for [UnionWithJsonNameFoo].
-  foo<UnionWithJsonNameFoo>(r'foo'),
 
   /// The type for an unknown value.
   sdkUnknown<UnionWithJsonNameSdkUnknown>('sdkUnknown');
@@ -30,11 +30,11 @@ enum UnionWithJsonNameType<T extends UnionWithJsonName> {
 abstract class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
   const UnionWithJsonName._();
 
+  const factory UnionWithJsonName.foo(String foo) = UnionWithJsonNameFoo;
+
   const factory UnionWithJsonName.bar(String bar) = UnionWithJsonNameBar;
 
   const factory UnionWithJsonName.baz(String baz) = UnionWithJsonNameBaz;
-
-  const factory UnionWithJsonName.foo(String foo) = UnionWithJsonNameFoo;
 
   const factory UnionWithJsonName.sdkUnknown(
     String name,
@@ -45,31 +45,31 @@ abstract class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
     UnionWithJsonNameRestJson1Serializer()
   ];
 
+  String? get foo => null;
   String? get bar => null;
   String? get baz => null;
-  String? get foo => null;
   UnionWithJsonNameType get type;
   @override
-  Object get value => (bar ?? baz ?? foo)!;
+  Object get value => (foo ?? bar ?? baz)!;
   @override
   T? when<T>({
+    T Function(String)? foo,
     T Function(String)? bar,
     T Function(String)? baz,
-    T Function(String)? foo,
     T Function(
       String,
       Object,
     )?
         sdkUnknown,
   }) {
+    if (this is UnionWithJsonNameFoo) {
+      return foo?.call((this as UnionWithJsonNameFoo).foo);
+    }
     if (this is UnionWithJsonNameBar) {
       return bar?.call((this as UnionWithJsonNameBar).bar);
     }
     if (this is UnionWithJsonNameBaz) {
       return baz?.call((this as UnionWithJsonNameBaz).baz);
-    }
-    if (this is UnionWithJsonNameFoo) {
-      return foo?.call((this as UnionWithJsonNameFoo).foo);
     }
     return sdkUnknown?.call(
       name,
@@ -80,6 +80,12 @@ abstract class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'UnionWithJsonName');
+    if (foo != null) {
+      helper.add(
+        r'foo',
+        foo,
+      );
+    }
     if (bar != null) {
       helper.add(
         r'bar',
@@ -92,14 +98,20 @@ abstract class UnionWithJsonName extends _i1.SmithyUnion<UnionWithJsonName> {
         baz,
       );
     }
-    if (foo != null) {
-      helper.add(
-        r'foo',
-        foo,
-      );
-    }
     return helper.toString();
   }
+}
+
+class UnionWithJsonNameFoo extends UnionWithJsonName {
+  const UnionWithJsonNameFoo(this.foo) : super._();
+
+  @override
+  final String foo;
+
+  @override
+  UnionWithJsonNameType get type => UnionWithJsonNameType.foo;
+  @override
+  String get name => 'foo';
 }
 
 class UnionWithJsonNameBar extends UnionWithJsonName {
@@ -126,18 +138,6 @@ class UnionWithJsonNameBaz extends UnionWithJsonName {
   String get name => 'baz';
 }
 
-class UnionWithJsonNameFoo extends UnionWithJsonName {
-  const UnionWithJsonNameFoo(this.foo) : super._();
-
-  @override
-  final String foo;
-
-  @override
-  UnionWithJsonNameType get type => UnionWithJsonNameType.foo;
-  @override
-  String get name => 'foo';
-}
-
 class UnionWithJsonNameSdkUnknown extends UnionWithJsonName {
   const UnionWithJsonNameSdkUnknown(
     this.name,
@@ -161,9 +161,9 @@ class UnionWithJsonNameRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         UnionWithJsonName,
+        UnionWithJsonNameFoo,
         UnionWithJsonNameBar,
         UnionWithJsonNameBaz,
-        UnionWithJsonNameFoo,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -184,6 +184,11 @@ class UnionWithJsonNameRestJson1Serializer
     iterator.moveNext();
     final value = iterator.current as Object;
     switch (key) {
+      case 'FOO':
+        return UnionWithJsonNameFoo((serializers.deserialize(
+          value,
+          specifiedType: const FullType(String),
+        ) as String));
       case 'bar':
         return UnionWithJsonNameBar((serializers.deserialize(
           value,
@@ -191,11 +196,6 @@ class UnionWithJsonNameRestJson1Serializer
         ) as String));
       case '_baz':
         return UnionWithJsonNameBaz((serializers.deserialize(
-          value,
-          specifiedType: const FullType(String),
-        ) as String));
-      case 'FOO':
-        return UnionWithJsonNameFoo((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
@@ -220,16 +220,16 @@ class UnionWithJsonNameRestJson1Serializer
     return [
       renames[object.name] ?? object.name,
       object.when<Object?>(
+        foo: (String foo) => serializers.serialize(
+          foo,
+          specifiedType: const FullType(String),
+        ),
         bar: (String bar) => serializers.serialize(
           bar,
           specifiedType: const FullType(String),
         ),
         baz: (String baz) => serializers.serialize(
           baz,
-          specifiedType: const FullType(String),
-        ),
-        foo: (String foo) => serializers.serialize(
-          foo,
           specifiedType: const FullType(String),
         ),
         sdkUnknown: (

@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db.model.batch_execute_statement_output;
 
 class _$BatchExecuteStatementOutput extends BatchExecuteStatementOutput {
   @override
-  final _i4.BuiltList<_i2.ConsumedCapacity>? consumedCapacity;
+  final _i4.BuiltList<_i2.BatchStatementResponse>? responses;
   @override
-  final _i4.BuiltList<_i3.BatchStatementResponse>? responses;
+  final _i4.BuiltList<_i3.ConsumedCapacity>? consumedCapacity;
 
   factory _$BatchExecuteStatementOutput(
           [void Function(BatchExecuteStatementOutputBuilder)? updates]) =>
       (new BatchExecuteStatementOutputBuilder()..update(updates))._build();
 
-  _$BatchExecuteStatementOutput._({this.consumedCapacity, this.responses})
+  _$BatchExecuteStatementOutput._({this.responses, this.consumedCapacity})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$BatchExecuteStatementOutput extends BatchExecuteStatementOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BatchExecuteStatementOutput &&
-        consumedCapacity == other.consumedCapacity &&
-        responses == other.responses;
+        responses == other.responses &&
+        consumedCapacity == other.consumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, consumedCapacity.hashCode);
     _$hash = $jc(_$hash, responses.hashCode);
+    _$hash = $jc(_$hash, consumedCapacity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,18 +52,18 @@ class BatchExecuteStatementOutputBuilder
             BatchExecuteStatementOutputBuilder> {
   _$BatchExecuteStatementOutput? _$v;
 
-  _i4.ListBuilder<_i2.ConsumedCapacity>? _consumedCapacity;
-  _i4.ListBuilder<_i2.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i4.ListBuilder<_i2.ConsumedCapacity>();
-  set consumedCapacity(
-          _i4.ListBuilder<_i2.ConsumedCapacity>? consumedCapacity) =>
-      _$this._consumedCapacity = consumedCapacity;
-
-  _i4.ListBuilder<_i3.BatchStatementResponse>? _responses;
-  _i4.ListBuilder<_i3.BatchStatementResponse> get responses =>
-      _$this._responses ??= new _i4.ListBuilder<_i3.BatchStatementResponse>();
-  set responses(_i4.ListBuilder<_i3.BatchStatementResponse>? responses) =>
+  _i4.ListBuilder<_i2.BatchStatementResponse>? _responses;
+  _i4.ListBuilder<_i2.BatchStatementResponse> get responses =>
+      _$this._responses ??= new _i4.ListBuilder<_i2.BatchStatementResponse>();
+  set responses(_i4.ListBuilder<_i2.BatchStatementResponse>? responses) =>
       _$this._responses = responses;
+
+  _i4.ListBuilder<_i3.ConsumedCapacity>? _consumedCapacity;
+  _i4.ListBuilder<_i3.ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i4.ListBuilder<_i3.ConsumedCapacity>();
+  set consumedCapacity(
+          _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
+      _$this._consumedCapacity = consumedCapacity;
 
   BatchExecuteStatementOutputBuilder() {
     BatchExecuteStatementOutput._init(this);
@@ -72,8 +72,8 @@ class BatchExecuteStatementOutputBuilder
   BatchExecuteStatementOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _consumedCapacity = $v.consumedCapacity?.toBuilder();
       _responses = $v.responses?.toBuilder();
+      _consumedCapacity = $v.consumedCapacity?.toBuilder();
       _$v = null;
     }
     return this;
@@ -98,15 +98,15 @@ class BatchExecuteStatementOutputBuilder
     try {
       _$result = _$v ??
           new _$BatchExecuteStatementOutput._(
-              consumedCapacity: _consumedCapacity?.build(),
-              responses: _responses?.build());
+              responses: _responses?.build(),
+              consumedCapacity: _consumedCapacity?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'consumedCapacity';
-        _consumedCapacity?.build();
         _$failedField = 'responses';
         _responses?.build();
+        _$failedField = 'consumedCapacity';
+        _consumedCapacity?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'BatchExecuteStatementOutput', _$failedField, e.toString());

@@ -20,19 +20,19 @@ abstract class DescribeComplianceByResourceRequest
         Built<DescribeComplianceByResourceRequest,
             DescribeComplianceByResourceRequestBuilder> {
   factory DescribeComplianceByResourceRequest({
+    String? resourceType,
+    String? resourceId,
     List<_i3.ComplianceType>? complianceTypes,
     int? limit,
     String? nextToken,
-    String? resourceId,
-    String? resourceType,
   }) {
     return _$DescribeComplianceByResourceRequest._(
+      resourceType: resourceType,
+      resourceId: resourceId,
       complianceTypes:
           complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
       limit: limit,
       nextToken: nextToken,
-      resourceId: resourceId,
-      resourceType: resourceType,
     );
   }
 
@@ -56,6 +56,12 @@ abstract class DescribeComplianceByResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeComplianceByResourceRequestBuilder b) {}
 
+  /// The types of Amazon Web Services resources for which you want compliance information (for example, `AWS::EC2::Instance`). For this action, you can specify that the resource type is an Amazon Web Services account by specifying `AWS::::Account`.
+  String? get resourceType;
+
+  /// The ID of the Amazon Web Services resource for which you want compliance information. You can specify only one resource ID. If you specify a resource ID, you must also specify a type for `ResourceType`.
+  String? get resourceId;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
@@ -66,26 +72,28 @@ abstract class DescribeComplianceByResourceRequest
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The ID of the Amazon Web Services resource for which you want compliance information. You can specify only one resource ID. If you specify a resource ID, you must also specify a type for `ResourceType`.
-  String? get resourceId;
-
-  /// The types of Amazon Web Services resources for which you want compliance information (for example, `AWS::EC2::Instance`). For this action, you can specify that the resource type is an Amazon Web Services account by specifying `AWS::::Account`.
-  String? get resourceType;
   @override
   DescribeComplianceByResourceRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        resourceType,
+        resourceId,
         complianceTypes,
         limit,
         nextToken,
-        resourceId,
-        resourceType,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeComplianceByResourceRequest');
+    helper.add(
+      'resourceType',
+      resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
+    );
     helper.add(
       'complianceTypes',
       complianceTypes,
@@ -97,14 +105,6 @@ abstract class DescribeComplianceByResourceRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
     );
     return helper.toString();
   }
@@ -140,6 +140,22 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ResourceType':
+          if (value != null) {
+            result.resourceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'ResourceId':
+          if (value != null) {
+            result.resourceId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ComplianceTypes':
           if (value != null) {
             result.complianceTypes.replace((serializers.deserialize(
@@ -167,22 +183,6 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
             ) as String);
           }
           break;
-        case 'ResourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -197,6 +197,22 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as DescribeComplianceByResourceRequest);
     final result = <Object?>[];
+    if (payload.resourceType != null) {
+      result
+        ..add('ResourceType')
+        ..add(serializers.serialize(
+          payload.resourceType!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceId != null) {
+      result
+        ..add('ResourceId')
+        ..add(serializers.serialize(
+          payload.resourceId!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.complianceTypes != null) {
       result
         ..add('ComplianceTypes')
@@ -221,22 +237,6 @@ class DescribeComplianceByResourceRequestAwsJson11Serializer extends _i1
         ..add('NextToken')
         ..add(serializers.serialize(
           payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceId != null) {
-      result
-        ..add('ResourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
-        ..add('ResourceType')
-        ..add(serializers.serialize(
-          payload.resourceType!,
           specifiedType: const FullType(String),
         ));
     }

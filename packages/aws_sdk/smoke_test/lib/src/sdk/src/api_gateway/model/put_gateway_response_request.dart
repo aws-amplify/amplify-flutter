@@ -23,20 +23,20 @@ abstract class PutGatewayResponseRequest
         _i1.HasPayload<PutGatewayResponseRequestPayload> {
   /// Creates a customization of a GatewayResponse of a specified response type and status code on the given RestApi.
   factory PutGatewayResponseRequest({
+    required String restApiId,
+    required _i3.GatewayResponseType responseType,
+    String? statusCode,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
-    required _i3.GatewayResponseType responseType,
-    required String restApiId,
-    String? statusCode,
   }) {
     return _$PutGatewayResponseRequest._(
+      restApiId: restApiId,
+      responseType: responseType,
+      statusCode: statusCode,
       responseParameters:
           responseParameters == null ? null : _i4.BuiltMap(responseParameters),
       responseTemplates:
           responseTemplates == null ? null : _i4.BuiltMap(responseTemplates),
-      responseType: responseType,
-      restApiId: restApiId,
-      statusCode: statusCode,
     );
   }
 
@@ -76,20 +76,20 @@ abstract class PutGatewayResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutGatewayResponseRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// The response type of the associated GatewayResponse
+  _i3.GatewayResponseType get responseType;
+
+  /// The HTTP status code of the GatewayResponse.
+  String? get statusCode;
+
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseParameters;
 
   /// Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseTemplates;
-
-  /// The response type of the associated GatewayResponse
-  _i3.GatewayResponseType get responseType;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The HTTP status code of the GatewayResponse.
-  String? get statusCode;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -117,15 +117,27 @@ abstract class PutGatewayResponseRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
+        responseType,
+        statusCode,
         responseParameters,
         responseTemplates,
-        responseType,
-        restApiId,
-        statusCode,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'responseType',
+      responseType,
+    );
+    helper.add(
+      'statusCode',
+      statusCode,
+    );
     helper.add(
       'responseParameters',
       responseParameters,
@@ -133,18 +145,6 @@ abstract class PutGatewayResponseRequest
     helper.add(
       'responseTemplates',
       responseTemplates,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
     );
     return helper.toString();
   }

@@ -24,15 +24,15 @@ abstract class UpdateDocumentationVersionRequest
         _i1.HasPayload<UpdateDocumentationVersionRequestPayload> {
   /// Updates an existing documentation version of an API.
   factory UpdateDocumentationVersionRequest({
+    required String restApiId,
     required String documentationVersion,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateDocumentationVersionRequest._(
+      restApiId: restApiId,
       documentationVersion: documentationVersion,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -67,14 +67,14 @@ abstract class UpdateDocumentationVersionRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDocumentationVersionRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi..
+  String get restApiId;
+
   /// The version identifier of the to-be-updated documentation version.
   String get documentationVersion;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi..
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,14 +98,18 @@ abstract class UpdateDocumentationVersionRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         documentationVersion,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateDocumentationVersionRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'documentationVersion',
       documentationVersion,
@@ -113,10 +117,6 @@ abstract class UpdateDocumentationVersionRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

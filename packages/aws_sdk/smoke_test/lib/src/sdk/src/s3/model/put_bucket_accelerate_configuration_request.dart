@@ -23,16 +23,16 @@ abstract class PutBucketAccelerateConfigurationRequest
             PutBucketAccelerateConfigurationRequestBuilder>,
         _i1.HasPayload<_i2.AccelerateConfiguration> {
   factory PutBucketAccelerateConfigurationRequest({
-    required _i2.AccelerateConfiguration accelerateConfiguration,
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    required _i2.AccelerateConfiguration accelerateConfiguration,
     String? expectedBucketOwner,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$PutBucketAccelerateConfigurationRequest._(
-      accelerateConfiguration: accelerateConfiguration,
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
+      accelerateConfiguration: accelerateConfiguration,
       expectedBucketOwner: expectedBucketOwner,
+      checksumAlgorithm: checksumAlgorithm,
     );
   }
 
@@ -69,19 +69,19 @@ abstract class PutBucketAccelerateConfigurationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketAccelerateConfigurationRequestBuilder b) {}
 
+  /// The name of the bucket for which the accelerate configuration is set.
+  String get bucket;
+
   /// Container for setting the transfer acceleration state.
   _i2.AccelerateConfiguration get accelerateConfiguration;
 
-  /// The name of the bucket for which the accelerate configuration is set.
-  String get bucket;
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
 
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
   _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,30 +98,30 @@ abstract class PutBucketAccelerateConfigurationRequest
   _i2.AccelerateConfiguration getPayload() => accelerateConfiguration;
   @override
   List<Object?> get props => [
-        accelerateConfiguration,
         bucket,
-        checksumAlgorithm,
+        accelerateConfiguration,
         expectedBucketOwner,
+        checksumAlgorithm,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutBucketAccelerateConfigurationRequest');
     helper.add(
-      'accelerateConfiguration',
-      accelerateConfiguration,
-    );
-    helper.add(
       'bucket',
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
+      'accelerateConfiguration',
+      accelerateConfiguration,
     );
     helper.add(
       'expectedBucketOwner',
       expectedBucketOwner,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     return helper.toString();
   }

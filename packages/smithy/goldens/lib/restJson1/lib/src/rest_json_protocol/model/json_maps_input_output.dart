@@ -18,38 +18,38 @@ abstract class JsonMapsInputOutput
         _i2.AWSEquatable<JsonMapsInputOutput>
     implements Built<JsonMapsInputOutput, JsonMapsInputOutputBuilder> {
   factory JsonMapsInputOutput({
-    Map<String, bool>? denseBooleanMap,
-    Map<String, int>? denseNumberMap,
-    Map<String, Set<String>>? denseSetMap,
-    Map<String, String>? denseStringMap,
     Map<String, _i3.GreetingStruct>? denseStructMap,
-    Map<String, bool?>? sparseBooleanMap,
-    Map<String, int?>? sparseNumberMap,
-    Map<String, Set<String>>? sparseSetMap,
-    Map<String, String?>? sparseStringMap,
     Map<String, _i3.GreetingStruct?>? sparseStructMap,
+    Map<String, int>? denseNumberMap,
+    Map<String, bool>? denseBooleanMap,
+    Map<String, String>? denseStringMap,
+    Map<String, int?>? sparseNumberMap,
+    Map<String, bool?>? sparseBooleanMap,
+    Map<String, String?>? sparseStringMap,
+    Map<String, Set<String>>? denseSetMap,
+    Map<String, Set<String>>? sparseSetMap,
   }) {
     return _$JsonMapsInputOutput._(
-      denseBooleanMap:
-          denseBooleanMap == null ? null : _i4.BuiltMap(denseBooleanMap),
-      denseNumberMap:
-          denseNumberMap == null ? null : _i4.BuiltMap(denseNumberMap),
-      denseSetMap:
-          denseSetMap == null ? null : _i4.BuiltSetMultimap(denseSetMap),
-      denseStringMap:
-          denseStringMap == null ? null : _i4.BuiltMap(denseStringMap),
       denseStructMap:
           denseStructMap == null ? null : _i4.BuiltMap(denseStructMap),
-      sparseBooleanMap:
-          sparseBooleanMap == null ? null : _i4.BuiltMap(sparseBooleanMap),
-      sparseNumberMap:
-          sparseNumberMap == null ? null : _i4.BuiltMap(sparseNumberMap),
-      sparseSetMap:
-          sparseSetMap == null ? null : _i4.BuiltSetMultimap(sparseSetMap),
-      sparseStringMap:
-          sparseStringMap == null ? null : _i4.BuiltMap(sparseStringMap),
       sparseStructMap:
           sparseStructMap == null ? null : _i4.BuiltMap(sparseStructMap),
+      denseNumberMap:
+          denseNumberMap == null ? null : _i4.BuiltMap(denseNumberMap),
+      denseBooleanMap:
+          denseBooleanMap == null ? null : _i4.BuiltMap(denseBooleanMap),
+      denseStringMap:
+          denseStringMap == null ? null : _i4.BuiltMap(denseStringMap),
+      sparseNumberMap:
+          sparseNumberMap == null ? null : _i4.BuiltMap(sparseNumberMap),
+      sparseBooleanMap:
+          sparseBooleanMap == null ? null : _i4.BuiltMap(sparseBooleanMap),
+      sparseStringMap:
+          sparseStringMap == null ? null : _i4.BuiltMap(sparseStringMap),
+      denseSetMap:
+          denseSetMap == null ? null : _i4.BuiltSetMultimap(denseSetMap),
+      sparseSetMap:
+          sparseSetMap == null ? null : _i4.BuiltSetMultimap(sparseSetMap),
     );
   }
 
@@ -79,73 +79,73 @@ abstract class JsonMapsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(JsonMapsInputOutputBuilder b) {}
-  _i4.BuiltMap<String, bool>? get denseBooleanMap;
-  _i4.BuiltMap<String, int>? get denseNumberMap;
-  _i4.BuiltSetMultimap<String, String>? get denseSetMap;
-  _i4.BuiltMap<String, String>? get denseStringMap;
   _i4.BuiltMap<String, _i3.GreetingStruct>? get denseStructMap;
-  _i4.BuiltMap<String, bool?>? get sparseBooleanMap;
-  _i4.BuiltMap<String, int?>? get sparseNumberMap;
-  _i4.BuiltSetMultimap<String, String>? get sparseSetMap;
-  _i4.BuiltMap<String, String?>? get sparseStringMap;
   _i4.BuiltMap<String, _i3.GreetingStruct?>? get sparseStructMap;
+  _i4.BuiltMap<String, int>? get denseNumberMap;
+  _i4.BuiltMap<String, bool>? get denseBooleanMap;
+  _i4.BuiltMap<String, String>? get denseStringMap;
+  _i4.BuiltMap<String, int?>? get sparseNumberMap;
+  _i4.BuiltMap<String, bool?>? get sparseBooleanMap;
+  _i4.BuiltMap<String, String?>? get sparseStringMap;
+  _i4.BuiltSetMultimap<String, String>? get denseSetMap;
+  _i4.BuiltSetMultimap<String, String>? get sparseSetMap;
   @override
   JsonMapsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
-        denseBooleanMap,
-        denseNumberMap,
-        denseSetMap,
-        denseStringMap,
         denseStructMap,
-        sparseBooleanMap,
-        sparseNumberMap,
-        sparseSetMap,
-        sparseStringMap,
         sparseStructMap,
+        denseNumberMap,
+        denseBooleanMap,
+        denseStringMap,
+        sparseNumberMap,
+        sparseBooleanMap,
+        sparseStringMap,
+        denseSetMap,
+        sparseSetMap,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('JsonMapsInputOutput');
     helper.add(
-      'denseBooleanMap',
-      denseBooleanMap,
+      'denseStructMap',
+      denseStructMap,
+    );
+    helper.add(
+      'sparseStructMap',
+      sparseStructMap,
     );
     helper.add(
       'denseNumberMap',
       denseNumberMap,
     );
     helper.add(
-      'denseSetMap',
-      denseSetMap,
+      'denseBooleanMap',
+      denseBooleanMap,
     );
     helper.add(
       'denseStringMap',
       denseStringMap,
     );
     helper.add(
-      'denseStructMap',
-      denseStructMap,
+      'sparseNumberMap',
+      sparseNumberMap,
     );
     helper.add(
       'sparseBooleanMap',
       sparseBooleanMap,
     );
     helper.add(
-      'sparseNumberMap',
-      sparseNumberMap,
-    );
-    helper.add(
-      'sparseSetMap',
-      sparseSetMap,
-    );
-    helper.add(
       'sparseStringMap',
       sparseStringMap,
     );
     helper.add(
-      'sparseStructMap',
-      sparseStructMap,
+      'denseSetMap',
+      denseSetMap,
+    );
+    helper.add(
+      'sparseSetMap',
+      sparseSetMap,
     );
     return helper.toString();
   }

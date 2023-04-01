@@ -8,27 +8,27 @@ part of smoke_test.api_gateway.model.create_documentation_part_request;
 
 class _$CreateDocumentationPartRequest extends CreateDocumentationPartRequest {
   @override
+  final String restApiId;
+  @override
   final _i3.DocumentationPartLocation location;
   @override
   final String properties;
-  @override
-  final String restApiId;
 
   factory _$CreateDocumentationPartRequest(
           [void Function(CreateDocumentationPartRequestBuilder)? updates]) =>
       (new CreateDocumentationPartRequestBuilder()..update(updates))._build();
 
   _$CreateDocumentationPartRequest._(
-      {required this.location,
-      required this.properties,
-      required this.restApiId})
+      {required this.restApiId,
+      required this.location,
+      required this.properties})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        restApiId, r'CreateDocumentationPartRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         location, r'CreateDocumentationPartRequest', 'location');
     BuiltValueNullFieldError.checkNotNull(
         properties, r'CreateDocumentationPartRequest', 'properties');
-    BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'CreateDocumentationPartRequest', 'restApiId');
   }
 
   @override
@@ -44,17 +44,17 @@ class _$CreateDocumentationPartRequest extends CreateDocumentationPartRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateDocumentationPartRequest &&
+        restApiId == other.restApiId &&
         location == other.location &&
-        properties == other.properties &&
-        restApiId == other.restApiId;
+        properties == other.properties;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, location.hashCode);
     _$hash = $jc(_$hash, properties.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -66,6 +66,10 @@ class CreateDocumentationPartRequestBuilder
             CreateDocumentationPartRequestBuilder> {
   _$CreateDocumentationPartRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   _i3.DocumentationPartLocationBuilder? _location;
   _i3.DocumentationPartLocationBuilder get location =>
       _$this._location ??= new _i3.DocumentationPartLocationBuilder();
@@ -76,10 +80,6 @@ class CreateDocumentationPartRequestBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   CreateDocumentationPartRequestBuilder() {
     CreateDocumentationPartRequest._init(this);
   }
@@ -87,9 +87,9 @@ class CreateDocumentationPartRequestBuilder
   CreateDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _location = $v.location.toBuilder();
       _properties = $v.properties;
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -114,11 +114,11 @@ class CreateDocumentationPartRequestBuilder
     try {
       _$result = _$v ??
           new _$CreateDocumentationPartRequest._(
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'CreateDocumentationPartRequest', 'restApiId'),
               location: location.build(),
               properties: BuiltValueNullFieldError.checkNotNull(
-                  properties, r'CreateDocumentationPartRequest', 'properties'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'CreateDocumentationPartRequest', 'restApiId'));
+                  properties, r'CreateDocumentationPartRequest', 'properties'));
     } catch (_) {
       late String _$failedField;
       try {

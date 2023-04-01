@@ -10,9 +10,9 @@ class _$PublicAccessBlockConfiguration extends PublicAccessBlockConfiguration {
   @override
   final bool? blockPublicAcls;
   @override
-  final bool? blockPublicPolicy;
-  @override
   final bool? ignorePublicAcls;
+  @override
+  final bool? blockPublicPolicy;
   @override
   final bool? restrictPublicBuckets;
 
@@ -22,8 +22,8 @@ class _$PublicAccessBlockConfiguration extends PublicAccessBlockConfiguration {
 
   _$PublicAccessBlockConfiguration._(
       {this.blockPublicAcls,
-      this.blockPublicPolicy,
       this.ignorePublicAcls,
+      this.blockPublicPolicy,
       this.restrictPublicBuckets})
       : super._();
 
@@ -41,8 +41,8 @@ class _$PublicAccessBlockConfiguration extends PublicAccessBlockConfiguration {
     if (identical(other, this)) return true;
     return other is PublicAccessBlockConfiguration &&
         blockPublicAcls == other.blockPublicAcls &&
-        blockPublicPolicy == other.blockPublicPolicy &&
         ignorePublicAcls == other.ignorePublicAcls &&
+        blockPublicPolicy == other.blockPublicPolicy &&
         restrictPublicBuckets == other.restrictPublicBuckets;
   }
 
@@ -50,8 +50,8 @@ class _$PublicAccessBlockConfiguration extends PublicAccessBlockConfiguration {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, blockPublicAcls.hashCode);
-    _$hash = $jc(_$hash, blockPublicPolicy.hashCode);
     _$hash = $jc(_$hash, ignorePublicAcls.hashCode);
+    _$hash = $jc(_$hash, blockPublicPolicy.hashCode);
     _$hash = $jc(_$hash, restrictPublicBuckets.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -69,15 +69,15 @@ class PublicAccessBlockConfigurationBuilder
   set blockPublicAcls(bool? blockPublicAcls) =>
       _$this._blockPublicAcls = blockPublicAcls;
 
-  bool? _blockPublicPolicy;
-  bool? get blockPublicPolicy => _$this._blockPublicPolicy;
-  set blockPublicPolicy(bool? blockPublicPolicy) =>
-      _$this._blockPublicPolicy = blockPublicPolicy;
-
   bool? _ignorePublicAcls;
   bool? get ignorePublicAcls => _$this._ignorePublicAcls;
   set ignorePublicAcls(bool? ignorePublicAcls) =>
       _$this._ignorePublicAcls = ignorePublicAcls;
+
+  bool? _blockPublicPolicy;
+  bool? get blockPublicPolicy => _$this._blockPublicPolicy;
+  set blockPublicPolicy(bool? blockPublicPolicy) =>
+      _$this._blockPublicPolicy = blockPublicPolicy;
 
   bool? _restrictPublicBuckets;
   bool? get restrictPublicBuckets => _$this._restrictPublicBuckets;
@@ -92,8 +92,8 @@ class PublicAccessBlockConfigurationBuilder
     final $v = _$v;
     if ($v != null) {
       _blockPublicAcls = $v.blockPublicAcls;
-      _blockPublicPolicy = $v.blockPublicPolicy;
       _ignorePublicAcls = $v.ignorePublicAcls;
+      _blockPublicPolicy = $v.blockPublicPolicy;
       _restrictPublicBuckets = $v.restrictPublicBuckets;
       _$v = null;
     }
@@ -118,8 +118,8 @@ class PublicAccessBlockConfigurationBuilder
     final _$result = _$v ??
         new _$PublicAccessBlockConfiguration._(
             blockPublicAcls: blockPublicAcls,
-            blockPublicPolicy: blockPublicPolicy,
             ignorePublicAcls: ignorePublicAcls,
+            blockPublicPolicy: blockPublicPolicy,
             restrictPublicBuckets: restrictPublicBuckets);
     replace(_$result);
     return _$result;

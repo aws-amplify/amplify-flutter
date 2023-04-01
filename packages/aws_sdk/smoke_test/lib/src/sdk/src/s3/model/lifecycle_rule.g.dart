@@ -8,38 +8,38 @@ part of smoke_test.s3.model.lifecycle_rule;
 
 class _$LifecycleRule extends LifecycleRule {
   @override
-  final _i2.AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload;
-  @override
-  final _i3.LifecycleExpiration? expiration;
-  @override
-  final _i4.LifecycleRuleFilter? filter;
+  final _i2.LifecycleExpiration? expiration;
   @override
   final String? id;
   @override
-  final _i5.NoncurrentVersionExpiration? noncurrentVersionExpiration;
+  final String? prefix;
+  @override
+  final _i3.LifecycleRuleFilter? filter;
+  @override
+  final _i4.ExpirationStatus status;
+  @override
+  final _i9.BuiltList<_i5.Transition>? transitions;
   @override
   final _i9.BuiltList<_i6.NoncurrentVersionTransition>?
       noncurrentVersionTransitions;
   @override
-  final String? prefix;
+  final _i7.NoncurrentVersionExpiration? noncurrentVersionExpiration;
   @override
-  final _i7.ExpirationStatus status;
-  @override
-  final _i9.BuiltList<_i8.Transition>? transitions;
+  final _i8.AbortIncompleteMultipartUpload? abortIncompleteMultipartUpload;
 
   factory _$LifecycleRule([void Function(LifecycleRuleBuilder)? updates]) =>
       (new LifecycleRuleBuilder()..update(updates))._build();
 
   _$LifecycleRule._(
-      {this.abortIncompleteMultipartUpload,
-      this.expiration,
-      this.filter,
+      {this.expiration,
       this.id,
-      this.noncurrentVersionExpiration,
-      this.noncurrentVersionTransitions,
       this.prefix,
+      this.filter,
       required this.status,
-      this.transitions})
+      this.transitions,
+      this.noncurrentVersionTransitions,
+      this.noncurrentVersionExpiration,
+      this.abortIncompleteMultipartUpload})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(status, r'LifecycleRule', 'status');
   }
@@ -55,30 +55,29 @@ class _$LifecycleRule extends LifecycleRule {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LifecycleRule &&
-        abortIncompleteMultipartUpload ==
-            other.abortIncompleteMultipartUpload &&
         expiration == other.expiration &&
-        filter == other.filter &&
         id == other.id &&
-        noncurrentVersionExpiration == other.noncurrentVersionExpiration &&
-        noncurrentVersionTransitions == other.noncurrentVersionTransitions &&
         prefix == other.prefix &&
+        filter == other.filter &&
         status == other.status &&
-        transitions == other.transitions;
+        transitions == other.transitions &&
+        noncurrentVersionTransitions == other.noncurrentVersionTransitions &&
+        noncurrentVersionExpiration == other.noncurrentVersionExpiration &&
+        abortIncompleteMultipartUpload == other.abortIncompleteMultipartUpload;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, abortIncompleteMultipartUpload.hashCode);
     _$hash = $jc(_$hash, expiration.hashCode);
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, noncurrentVersionExpiration.hashCode);
-    _$hash = $jc(_$hash, noncurrentVersionTransitions.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, transitions.hashCode);
+    _$hash = $jc(_$hash, noncurrentVersionTransitions.hashCode);
+    _$hash = $jc(_$hash, noncurrentVersionExpiration.hashCode);
+    _$hash = $jc(_$hash, abortIncompleteMultipartUpload.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,38 +87,33 @@ class LifecycleRuleBuilder
     implements Builder<LifecycleRule, LifecycleRuleBuilder> {
   _$LifecycleRule? _$v;
 
-  _i2.AbortIncompleteMultipartUploadBuilder? _abortIncompleteMultipartUpload;
-  _i2.AbortIncompleteMultipartUploadBuilder
-      get abortIncompleteMultipartUpload =>
-          _$this._abortIncompleteMultipartUpload ??=
-              new _i2.AbortIncompleteMultipartUploadBuilder();
-  set abortIncompleteMultipartUpload(
-          _i2.AbortIncompleteMultipartUploadBuilder?
-              abortIncompleteMultipartUpload) =>
-      _$this._abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
-
-  _i3.LifecycleExpirationBuilder? _expiration;
-  _i3.LifecycleExpirationBuilder get expiration =>
-      _$this._expiration ??= new _i3.LifecycleExpirationBuilder();
-  set expiration(_i3.LifecycleExpirationBuilder? expiration) =>
+  _i2.LifecycleExpirationBuilder? _expiration;
+  _i2.LifecycleExpirationBuilder get expiration =>
+      _$this._expiration ??= new _i2.LifecycleExpirationBuilder();
+  set expiration(_i2.LifecycleExpirationBuilder? expiration) =>
       _$this._expiration = expiration;
-
-  _i4.LifecycleRuleFilter? _filter;
-  _i4.LifecycleRuleFilter? get filter => _$this._filter;
-  set filter(_i4.LifecycleRuleFilter? filter) => _$this._filter = filter;
 
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i5.NoncurrentVersionExpirationBuilder? _noncurrentVersionExpiration;
-  _i5.NoncurrentVersionExpirationBuilder get noncurrentVersionExpiration =>
-      _$this._noncurrentVersionExpiration ??=
-          new _i5.NoncurrentVersionExpirationBuilder();
-  set noncurrentVersionExpiration(
-          _i5.NoncurrentVersionExpirationBuilder?
-              noncurrentVersionExpiration) =>
-      _$this._noncurrentVersionExpiration = noncurrentVersionExpiration;
+  String? _prefix;
+  String? get prefix => _$this._prefix;
+  set prefix(String? prefix) => _$this._prefix = prefix;
+
+  _i3.LifecycleRuleFilter? _filter;
+  _i3.LifecycleRuleFilter? get filter => _$this._filter;
+  set filter(_i3.LifecycleRuleFilter? filter) => _$this._filter = filter;
+
+  _i4.ExpirationStatus? _status;
+  _i4.ExpirationStatus? get status => _$this._status;
+  set status(_i4.ExpirationStatus? status) => _$this._status = status;
+
+  _i9.ListBuilder<_i5.Transition>? _transitions;
+  _i9.ListBuilder<_i5.Transition> get transitions =>
+      _$this._transitions ??= new _i9.ListBuilder<_i5.Transition>();
+  set transitions(_i9.ListBuilder<_i5.Transition>? transitions) =>
+      _$this._transitions = transitions;
 
   _i9.ListBuilder<_i6.NoncurrentVersionTransition>?
       _noncurrentVersionTransitions;
@@ -132,19 +126,24 @@ class LifecycleRuleBuilder
               noncurrentVersionTransitions) =>
       _$this._noncurrentVersionTransitions = noncurrentVersionTransitions;
 
-  String? _prefix;
-  String? get prefix => _$this._prefix;
-  set prefix(String? prefix) => _$this._prefix = prefix;
+  _i7.NoncurrentVersionExpirationBuilder? _noncurrentVersionExpiration;
+  _i7.NoncurrentVersionExpirationBuilder get noncurrentVersionExpiration =>
+      _$this._noncurrentVersionExpiration ??=
+          new _i7.NoncurrentVersionExpirationBuilder();
+  set noncurrentVersionExpiration(
+          _i7.NoncurrentVersionExpirationBuilder?
+              noncurrentVersionExpiration) =>
+      _$this._noncurrentVersionExpiration = noncurrentVersionExpiration;
 
-  _i7.ExpirationStatus? _status;
-  _i7.ExpirationStatus? get status => _$this._status;
-  set status(_i7.ExpirationStatus? status) => _$this._status = status;
-
-  _i9.ListBuilder<_i8.Transition>? _transitions;
-  _i9.ListBuilder<_i8.Transition> get transitions =>
-      _$this._transitions ??= new _i9.ListBuilder<_i8.Transition>();
-  set transitions(_i9.ListBuilder<_i8.Transition>? transitions) =>
-      _$this._transitions = transitions;
+  _i8.AbortIncompleteMultipartUploadBuilder? _abortIncompleteMultipartUpload;
+  _i8.AbortIncompleteMultipartUploadBuilder
+      get abortIncompleteMultipartUpload =>
+          _$this._abortIncompleteMultipartUpload ??=
+              new _i8.AbortIncompleteMultipartUploadBuilder();
+  set abortIncompleteMultipartUpload(
+          _i8.AbortIncompleteMultipartUploadBuilder?
+              abortIncompleteMultipartUpload) =>
+      _$this._abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
 
   LifecycleRuleBuilder() {
     LifecycleRule._init(this);
@@ -153,18 +152,18 @@ class LifecycleRuleBuilder
   LifecycleRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _abortIncompleteMultipartUpload =
-          $v.abortIncompleteMultipartUpload?.toBuilder();
       _expiration = $v.expiration?.toBuilder();
-      _filter = $v.filter;
       _id = $v.id;
-      _noncurrentVersionExpiration =
-          $v.noncurrentVersionExpiration?.toBuilder();
-      _noncurrentVersionTransitions =
-          $v.noncurrentVersionTransitions?.toBuilder();
       _prefix = $v.prefix;
+      _filter = $v.filter;
       _status = $v.status;
       _transitions = $v.transitions?.toBuilder();
+      _noncurrentVersionTransitions =
+          $v.noncurrentVersionTransitions?.toBuilder();
+      _noncurrentVersionExpiration =
+          $v.noncurrentVersionExpiration?.toBuilder();
+      _abortIncompleteMultipartUpload =
+          $v.abortIncompleteMultipartUpload?.toBuilder();
       _$v = null;
     }
     return this;
@@ -189,34 +188,33 @@ class LifecycleRuleBuilder
     try {
       _$result = _$v ??
           new _$LifecycleRule._(
-              abortIncompleteMultipartUpload:
-                  _abortIncompleteMultipartUpload?.build(),
               expiration: _expiration?.build(),
-              filter: filter,
               id: id,
-              noncurrentVersionExpiration:
-                  _noncurrentVersionExpiration?.build(),
-              noncurrentVersionTransitions:
-                  _noncurrentVersionTransitions?.build(),
               prefix: prefix,
+              filter: filter,
               status: BuiltValueNullFieldError.checkNotNull(
                   status, r'LifecycleRule', 'status'),
-              transitions: _transitions?.build());
+              transitions: _transitions?.build(),
+              noncurrentVersionTransitions:
+                  _noncurrentVersionTransitions?.build(),
+              noncurrentVersionExpiration:
+                  _noncurrentVersionExpiration?.build(),
+              abortIncompleteMultipartUpload:
+                  _abortIncompleteMultipartUpload?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'abortIncompleteMultipartUpload';
-        _abortIncompleteMultipartUpload?.build();
         _$failedField = 'expiration';
         _expiration?.build();
 
-        _$failedField = 'noncurrentVersionExpiration';
-        _noncurrentVersionExpiration?.build();
-        _$failedField = 'noncurrentVersionTransitions';
-        _noncurrentVersionTransitions?.build();
-
         _$failedField = 'transitions';
         _transitions?.build();
+        _$failedField = 'noncurrentVersionTransitions';
+        _noncurrentVersionTransitions?.build();
+        _$failedField = 'noncurrentVersionExpiration';
+        _noncurrentVersionExpiration?.build();
+        _$failedField = 'abortIncompleteMultipartUpload';
+        _abortIncompleteMultipartUpload?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'LifecycleRule', _$failedField, e.toString());

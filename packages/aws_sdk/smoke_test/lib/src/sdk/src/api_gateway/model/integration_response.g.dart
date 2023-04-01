@@ -8,26 +8,26 @@ part of smoke_test.api_gateway.model.integration_response;
 
 class _$IntegrationResponse extends IntegrationResponse {
   @override
-  final _i2.ContentHandlingStrategy? contentHandling;
+  final String? statusCode;
+  @override
+  final String? selectionPattern;
   @override
   final _i3.BuiltMap<String, String>? responseParameters;
   @override
   final _i3.BuiltMap<String, String>? responseTemplates;
   @override
-  final String? selectionPattern;
-  @override
-  final String? statusCode;
+  final _i2.ContentHandlingStrategy? contentHandling;
 
   factory _$IntegrationResponse(
           [void Function(IntegrationResponseBuilder)? updates]) =>
       (new IntegrationResponseBuilder()..update(updates))._build();
 
   _$IntegrationResponse._(
-      {this.contentHandling,
+      {this.statusCode,
+      this.selectionPattern,
       this.responseParameters,
       this.responseTemplates,
-      this.selectionPattern,
-      this.statusCode})
+      this.contentHandling})
       : super._();
 
   @override
@@ -43,21 +43,21 @@ class _$IntegrationResponse extends IntegrationResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is IntegrationResponse &&
-        contentHandling == other.contentHandling &&
+        statusCode == other.statusCode &&
+        selectionPattern == other.selectionPattern &&
         responseParameters == other.responseParameters &&
         responseTemplates == other.responseTemplates &&
-        selectionPattern == other.selectionPattern &&
-        statusCode == other.statusCode;
+        contentHandling == other.contentHandling;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contentHandling.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, selectionPattern.hashCode);
     _$hash = $jc(_$hash, responseParameters.hashCode);
     _$hash = $jc(_$hash, responseTemplates.hashCode);
-    _$hash = $jc(_$hash, selectionPattern.hashCode);
-    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, contentHandling.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,10 +67,14 @@ class IntegrationResponseBuilder
     implements Builder<IntegrationResponse, IntegrationResponseBuilder> {
   _$IntegrationResponse? _$v;
 
-  _i2.ContentHandlingStrategy? _contentHandling;
-  _i2.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i2.ContentHandlingStrategy? contentHandling) =>
-      _$this._contentHandling = contentHandling;
+  String? _statusCode;
+  String? get statusCode => _$this._statusCode;
+  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
+
+  String? _selectionPattern;
+  String? get selectionPattern => _$this._selectionPattern;
+  set selectionPattern(String? selectionPattern) =>
+      _$this._selectionPattern = selectionPattern;
 
   _i3.MapBuilder<String, String>? _responseParameters;
   _i3.MapBuilder<String, String> get responseParameters =>
@@ -84,14 +88,10 @@ class IntegrationResponseBuilder
   set responseTemplates(_i3.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
-  String? _selectionPattern;
-  String? get selectionPattern => _$this._selectionPattern;
-  set selectionPattern(String? selectionPattern) =>
-      _$this._selectionPattern = selectionPattern;
-
-  String? _statusCode;
-  String? get statusCode => _$this._statusCode;
-  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
+  _i2.ContentHandlingStrategy? _contentHandling;
+  _i2.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(_i2.ContentHandlingStrategy? contentHandling) =>
+      _$this._contentHandling = contentHandling;
 
   IntegrationResponseBuilder() {
     IntegrationResponse._init(this);
@@ -100,11 +100,11 @@ class IntegrationResponseBuilder
   IntegrationResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contentHandling = $v.contentHandling;
+      _statusCode = $v.statusCode;
+      _selectionPattern = $v.selectionPattern;
       _responseParameters = $v.responseParameters?.toBuilder();
       _responseTemplates = $v.responseTemplates?.toBuilder();
-      _selectionPattern = $v.selectionPattern;
-      _statusCode = $v.statusCode;
+      _contentHandling = $v.contentHandling;
       _$v = null;
     }
     return this;
@@ -129,11 +129,11 @@ class IntegrationResponseBuilder
     try {
       _$result = _$v ??
           new _$IntegrationResponse._(
-              contentHandling: contentHandling,
+              statusCode: statusCode,
+              selectionPattern: selectionPattern,
               responseParameters: _responseParameters?.build(),
               responseTemplates: _responseTemplates?.build(),
-              selectionPattern: selectionPattern,
-              statusCode: statusCode);
+              contentHandling: contentHandling);
     } catch (_) {
       late String _$failedField;
       try {

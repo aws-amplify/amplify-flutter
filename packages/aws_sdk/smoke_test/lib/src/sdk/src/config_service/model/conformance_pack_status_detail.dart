@@ -18,24 +18,24 @@ abstract class ConformancePackStatusDetail
         Built<ConformancePackStatusDetail, ConformancePackStatusDetailBuilder> {
   /// Status details of a conformance pack.
   factory ConformancePackStatusDetail({
-    required String conformancePackArn,
-    required String conformancePackId,
     required String conformancePackName,
+    required String conformancePackId,
+    required String conformancePackArn,
     required _i2.ConformancePackState conformancePackState,
-    String? conformancePackStatusReason,
-    DateTime? lastUpdateCompletedTime,
-    required DateTime lastUpdateRequestedTime,
     required String stackArn,
+    String? conformancePackStatusReason,
+    required DateTime lastUpdateRequestedTime,
+    DateTime? lastUpdateCompletedTime,
   }) {
     return _$ConformancePackStatusDetail._(
-      conformancePackArn: conformancePackArn,
-      conformancePackId: conformancePackId,
       conformancePackName: conformancePackName,
+      conformancePackId: conformancePackId,
+      conformancePackArn: conformancePackArn,
       conformancePackState: conformancePackState,
-      conformancePackStatusReason: conformancePackStatusReason,
-      lastUpdateCompletedTime: lastUpdateCompletedTime,
-      lastUpdateRequestedTime: lastUpdateRequestedTime,
       stackArn: stackArn,
+      conformancePackStatusReason: conformancePackStatusReason,
+      lastUpdateRequestedTime: lastUpdateRequestedTime,
+      lastUpdateCompletedTime: lastUpdateCompletedTime,
     );
   }
 
@@ -53,14 +53,14 @@ abstract class ConformancePackStatusDetail
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackStatusDetailBuilder b) {}
 
-  /// Amazon Resource Name (ARN) of comformance pack.
-  String get conformancePackArn;
+  /// Name of the conformance pack.
+  String get conformancePackName;
 
   /// ID of the conformance pack.
   String get conformancePackId;
 
-  /// Name of the conformance pack.
-  String get conformancePackName;
+  /// Amazon Resource Name (ARN) of comformance pack.
+  String get conformancePackArn;
 
   /// Indicates deployment status of conformance pack.
   ///
@@ -77,62 +77,62 @@ abstract class ConformancePackStatusDetail
   /// *   DELETE_FAILED when a conformance pack deletion failed in your account.
   _i2.ConformancePackState get conformancePackState;
 
+  /// Amazon Resource Name (ARN) of CloudFormation stack.
+  String get stackArn;
+
   /// The reason of conformance pack creation failure.
   String? get conformancePackStatusReason;
-
-  /// Last time when conformation pack creation and update was successful.
-  DateTime? get lastUpdateCompletedTime;
 
   /// Last time when conformation pack creation and update was requested.
   DateTime get lastUpdateRequestedTime;
 
-  /// Amazon Resource Name (ARN) of CloudFormation stack.
-  String get stackArn;
+  /// Last time when conformation pack creation and update was successful.
+  DateTime? get lastUpdateCompletedTime;
   @override
   List<Object?> get props => [
-        conformancePackArn,
-        conformancePackId,
         conformancePackName,
+        conformancePackId,
+        conformancePackArn,
         conformancePackState,
-        conformancePackStatusReason,
-        lastUpdateCompletedTime,
-        lastUpdateRequestedTime,
         stackArn,
+        conformancePackStatusReason,
+        lastUpdateRequestedTime,
+        lastUpdateCompletedTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConformancePackStatusDetail');
     helper.add(
-      'conformancePackArn',
-      conformancePackArn,
+      'conformancePackName',
+      conformancePackName,
     );
     helper.add(
       'conformancePackId',
       conformancePackId,
     );
     helper.add(
-      'conformancePackName',
-      conformancePackName,
+      'conformancePackArn',
+      conformancePackArn,
     );
     helper.add(
       'conformancePackState',
       conformancePackState,
     );
     helper.add(
-      'conformancePackStatusReason',
-      conformancePackStatusReason,
+      'stackArn',
+      stackArn,
     );
     helper.add(
-      'lastUpdateCompletedTime',
-      lastUpdateCompletedTime,
+      'conformancePackStatusReason',
+      conformancePackStatusReason,
     );
     helper.add(
       'lastUpdateRequestedTime',
       lastUpdateRequestedTime,
     );
     helper.add(
-      'stackArn',
-      stackArn,
+      'lastUpdateCompletedTime',
+      lastUpdateCompletedTime,
     );
     return helper.toString();
   }
@@ -168,8 +168,8 @@ class ConformancePackStatusDetailAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConformancePackArn':
-          result.conformancePackArn = (serializers.deserialize(
+        case 'ConformancePackName':
+          result.conformancePackName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -180,8 +180,8 @@ class ConformancePackStatusDetailAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ConformancePackName':
-          result.conformancePackName = (serializers.deserialize(
+        case 'ConformancePackArn':
+          result.conformancePackArn = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -192,6 +192,12 @@ class ConformancePackStatusDetailAwsJson11Serializer
             specifiedType: const FullType(_i2.ConformancePackState),
           ) as _i2.ConformancePackState);
           break;
+        case 'StackArn':
+          result.stackArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ConformancePackStatusReason':
           if (value != null) {
             result.conformancePackStatusReason = (serializers.deserialize(
@@ -200,6 +206,12 @@ class ConformancePackStatusDetailAwsJson11Serializer
             ) as String);
           }
           break;
+        case 'LastUpdateRequestedTime':
+          result.lastUpdateRequestedTime = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+          break;
         case 'LastUpdateCompletedTime':
           if (value != null) {
             result.lastUpdateCompletedTime = (serializers.deserialize(
@@ -207,18 +219,6 @@ class ConformancePackStatusDetailAwsJson11Serializer
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
-          break;
-        case 'LastUpdateRequestedTime':
-          result.lastUpdateRequestedTime = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
-          break;
-        case 'StackArn':
-          result.stackArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -234,9 +234,9 @@ class ConformancePackStatusDetailAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackStatusDetail);
     final result = <Object?>[
-      'ConformancePackArn',
+      'ConformancePackName',
       serializers.serialize(
-        payload.conformancePackArn,
+        payload.conformancePackName,
         specifiedType: const FullType(String),
       ),
       'ConformancePackId',
@@ -244,9 +244,9 @@ class ConformancePackStatusDetailAwsJson11Serializer
         payload.conformancePackId,
         specifiedType: const FullType(String),
       ),
-      'ConformancePackName',
+      'ConformancePackArn',
       serializers.serialize(
-        payload.conformancePackName,
+        payload.conformancePackArn,
         specifiedType: const FullType(String),
       ),
       'ConformancePackState',
@@ -254,15 +254,15 @@ class ConformancePackStatusDetailAwsJson11Serializer
         payload.conformancePackState,
         specifiedType: const FullType(_i2.ConformancePackState),
       ),
-      'LastUpdateRequestedTime',
-      serializers.serialize(
-        payload.lastUpdateRequestedTime,
-        specifiedType: const FullType(DateTime),
-      ),
       'StackArn',
       serializers.serialize(
         payload.stackArn,
         specifiedType: const FullType(String),
+      ),
+      'LastUpdateRequestedTime',
+      serializers.serialize(
+        payload.lastUpdateRequestedTime,
+        specifiedType: const FullType(DateTime),
       ),
     ];
     if (payload.conformancePackStatusReason != null) {

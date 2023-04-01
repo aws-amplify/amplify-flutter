@@ -19,12 +19,12 @@ abstract class TooManyRequestsException
         _i2.SmithyHttpException {
   /// The request has reached its throttling limit. Retry after the specified time period.
   factory TooManyRequestsException({
-    String? message,
     String? retryAfterSeconds,
+    String? message,
   }) {
     return _$TooManyRequestsException._(
-      message: message,
       retryAfterSeconds: retryAfterSeconds,
+      message: message,
     );
   }
 
@@ -54,9 +54,9 @@ abstract class TooManyRequestsException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TooManyRequestsExceptionBuilder b) {}
+  String? get retryAfterSeconds;
   @override
   String? get message;
-  String? get retryAfterSeconds;
   @override
   TooManyRequestsExceptionPayload getPayload() =>
       TooManyRequestsExceptionPayload((b) {
@@ -79,19 +79,19 @@ abstract class TooManyRequestsException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        message,
         retryAfterSeconds,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TooManyRequestsException');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'retryAfterSeconds',
       retryAfterSeconds,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }

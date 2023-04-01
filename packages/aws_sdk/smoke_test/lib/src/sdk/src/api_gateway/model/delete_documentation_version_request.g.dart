@@ -9,9 +9,9 @@ part of smoke_test.api_gateway.model.delete_documentation_version_request;
 class _$DeleteDocumentationVersionRequest
     extends DeleteDocumentationVersionRequest {
   @override
-  final String documentationVersion;
-  @override
   final String restApiId;
+  @override
+  final String documentationVersion;
 
   factory _$DeleteDocumentationVersionRequest(
           [void Function(DeleteDocumentationVersionRequestBuilder)? updates]) =>
@@ -19,12 +19,12 @@ class _$DeleteDocumentationVersionRequest
           ._build();
 
   _$DeleteDocumentationVersionRequest._(
-      {required this.documentationVersion, required this.restApiId})
+      {required this.restApiId, required this.documentationVersion})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(documentationVersion,
-        r'DeleteDocumentationVersionRequest', 'documentationVersion');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteDocumentationVersionRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(documentationVersion,
+        r'DeleteDocumentationVersionRequest', 'documentationVersion');
   }
 
   @override
@@ -40,15 +40,15 @@ class _$DeleteDocumentationVersionRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteDocumentationVersionRequest &&
-        documentationVersion == other.documentationVersion &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        documentationVersion == other.documentationVersion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, documentationVersion.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,14 +60,14 @@ class DeleteDocumentationVersionRequestBuilder
             DeleteDocumentationVersionRequestBuilder> {
   _$DeleteDocumentationVersionRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _documentationVersion;
   String? get documentationVersion => _$this._documentationVersion;
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   DeleteDocumentationVersionRequestBuilder() {
     DeleteDocumentationVersionRequest._init(this);
@@ -76,8 +76,8 @@ class DeleteDocumentationVersionRequestBuilder
   DeleteDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _documentationVersion = $v.documentationVersion;
       _restApiId = $v.restApiId;
+      _documentationVersion = $v.documentationVersion;
       _$v = null;
     }
     return this;
@@ -101,12 +101,12 @@ class DeleteDocumentationVersionRequestBuilder
   _$DeleteDocumentationVersionRequest _build() {
     final _$result = _$v ??
         new _$DeleteDocumentationVersionRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'DeleteDocumentationVersionRequest', 'restApiId'),
             documentationVersion: BuiltValueNullFieldError.checkNotNull(
                 documentationVersion,
                 r'DeleteDocumentationVersionRequest',
-                'documentationVersion'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteDocumentationVersionRequest', 'restApiId'));
+                'documentationVersion'));
     replace(_$result);
     return _$result;
   }

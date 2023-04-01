@@ -16,12 +16,12 @@ abstract class ListStoredQueriesRequest
     implements
         Built<ListStoredQueriesRequest, ListStoredQueriesRequestBuilder> {
   factory ListStoredQueriesRequest({
-    int? maxResults,
     String? nextToken,
+    int? maxResults,
   }) {
     return _$ListStoredQueriesRequest._(
-      maxResults: maxResults,
       nextToken: nextToken,
+      maxResults: maxResults,
     );
   }
 
@@ -45,28 +45,28 @@ abstract class ListStoredQueriesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStoredQueriesRequestBuilder b) {}
 
-  /// The maximum number of results to be returned with a single call.
-  int? get maxResults;
-
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
+
+  /// The maximum number of results to be returned with a single call.
+  int? get maxResults;
   @override
   ListStoredQueriesRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        maxResults,
         nextToken,
+        maxResults,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStoredQueriesRequest');
     helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
       'nextToken',
       nextToken,
+    );
+    helper.add(
+      'maxResults',
+      maxResults,
     );
     return helper.toString();
   }
@@ -102,20 +102,20 @@ class ListStoredQueriesRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'NextToken':
           if (value != null) {
             result.nextToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'MaxResults':
+          if (value != null) {
+            result.maxResults = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -132,20 +132,20 @@ class ListStoredQueriesRequestAwsJson11Serializer
   }) {
     final payload = (object as ListStoredQueriesRequest);
     final result = <Object?>[];
-    if (payload.maxResults != null) {
-      result
-        ..add('MaxResults')
-        ..add(serializers.serialize(
-          payload.maxResults!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.maxResults != null) {
+      result
+        ..add('MaxResults')
+        ..add(serializers.serialize(
+          payload.maxResults!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

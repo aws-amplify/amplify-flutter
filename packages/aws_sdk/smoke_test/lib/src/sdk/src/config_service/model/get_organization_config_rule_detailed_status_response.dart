@@ -19,15 +19,15 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
         Built<GetOrganizationConfigRuleDetailedStatusResponse,
             GetOrganizationConfigRuleDetailedStatusResponseBuilder> {
   factory GetOrganizationConfigRuleDetailedStatusResponse({
-    String? nextToken,
     List<_i2.MemberAccountStatus>? organizationConfigRuleDetailedStatus,
+    String? nextToken,
   }) {
     return _$GetOrganizationConfigRuleDetailedStatusResponse._(
-      nextToken: nextToken,
       organizationConfigRuleDetailedStatus:
           organizationConfigRuleDetailedStatus == null
               ? null
               : _i3.BuiltList(organizationConfigRuleDetailedStatus),
+      nextToken: nextToken,
     );
   }
 
@@ -51,28 +51,28 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetOrganizationConfigRuleDetailedStatusResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of `MemberAccountStatus` objects.
   _i3.BuiltList<_i2.MemberAccountStatus>?
       get organizationConfigRuleDetailedStatus;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConfigRuleDetailedStatus,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConfigRuleDetailedStatusResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConfigRuleDetailedStatus',
       organizationConfigRuleDetailedStatus,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -109,14 +109,6 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConfigRuleDetailedStatus':
           if (value != null) {
             result.organizationConfigRuleDetailedStatus
@@ -127,6 +119,14 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
                 [FullType(_i2.MemberAccountStatus)],
               ),
             ) as _i3.BuiltList<_i2.MemberAccountStatus>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -143,14 +143,6 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
   }) {
     final payload = (object as GetOrganizationConfigRuleDetailedStatusResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.organizationConfigRuleDetailedStatus != null) {
       result
         ..add('OrganizationConfigRuleDetailedStatus')
@@ -160,6 +152,14 @@ class GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.MemberAccountStatus)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

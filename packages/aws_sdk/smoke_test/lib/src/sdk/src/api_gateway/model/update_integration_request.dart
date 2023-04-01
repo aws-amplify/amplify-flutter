@@ -23,17 +23,17 @@ abstract class UpdateIntegrationRequest
         _i1.HasPayload<UpdateIntegrationRequestPayload> {
   /// Represents an update integration request.
   factory UpdateIntegrationRequest({
+    required String restApiId,
+    required String resourceId,
     required String httpMethod,
     List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
-    required String restApiId,
   }) {
     return _$UpdateIntegrationRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       httpMethod: httpMethod,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
     );
   }
 
@@ -71,17 +71,17 @@ abstract class UpdateIntegrationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateIntegrationRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// Represents an update integration request's resource identifier.
+  String get resourceId;
+
   /// Represents an update integration request's HTTP method.
   String get httpMethod;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// Represents an update integration request's resource identifier.
-  String get resourceId;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -107,14 +107,22 @@ abstract class UpdateIntegrationRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
+        resourceId,
         httpMethod,
         patchOperations,
-        resourceId,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateIntegrationRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
+    );
     helper.add(
       'httpMethod',
       httpMethod,
@@ -122,14 +130,6 @@ abstract class UpdateIntegrationRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

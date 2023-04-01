@@ -21,16 +21,16 @@ abstract class GetUsagePlanKeysRequest
         _i1.HasPayload<GetUsagePlanKeysRequestPayload> {
   /// The GET request to get all the usage plan keys representing the API keys added to a specified usage plan.
   factory GetUsagePlanKeysRequest({
+    required String usagePlanId,
+    String? position,
     int? limit,
     String? nameQuery,
-    String? position,
-    required String usagePlanId,
   }) {
     return _$GetUsagePlanKeysRequest._(
+      usagePlanId: usagePlanId,
+      position: position,
       limit: limit,
       nameQuery: nameQuery,
-      position: position,
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -68,17 +68,17 @@ abstract class GetUsagePlanKeysRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsagePlanKeysRequestBuilder b) {}
 
+  /// The Id of the UsagePlan resource representing the usage plan containing the to-be-retrieved UsagePlanKey resource representing a plan customer.
+  String get usagePlanId;
+
+  /// The current pagination position in the paged result set.
+  String? get position;
+
   /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
   int? get limit;
 
   /// A query parameter specifying the name of the to-be-returned usage plan keys.
   String? get nameQuery;
-
-  /// The current pagination position in the paged result set.
-  String? get position;
-
-  /// The Id of the UsagePlan resource representing the usage plan containing the to-be-retrieved UsagePlanKey resource representing a plan customer.
-  String get usagePlanId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,14 +96,22 @@ abstract class GetUsagePlanKeysRequest
       GetUsagePlanKeysRequestPayload();
   @override
   List<Object?> get props => [
+        usagePlanId,
+        position,
         limit,
         nameQuery,
-        position,
-        usagePlanId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUsagePlanKeysRequest');
+    helper.add(
+      'usagePlanId',
+      usagePlanId,
+    );
+    helper.add(
+      'position',
+      position,
+    );
     helper.add(
       'limit',
       limit,
@@ -111,14 +119,6 @@ abstract class GetUsagePlanKeysRequest
     helper.add(
       'nameQuery',
       nameQuery,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
     );
     return helper.toString();
   }

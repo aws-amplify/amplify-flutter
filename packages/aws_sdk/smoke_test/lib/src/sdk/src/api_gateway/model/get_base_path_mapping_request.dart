@@ -21,12 +21,12 @@ abstract class GetBasePathMappingRequest
         _i1.HasPayload<GetBasePathMappingRequestPayload> {
   /// Request to describe a BasePathMapping resource.
   factory GetBasePathMappingRequest({
-    required String basePath,
     required String domainName,
+    required String basePath,
   }) {
     return _$GetBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class GetBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBasePathMappingRequestBuilder b) {}
 
-  /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify any base path name after the domain name.
-  String get basePath;
-
   /// The domain name of the BasePathMapping resource to be described.
   String get domainName;
+
+  /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify any base path name after the domain name.
+  String get basePath;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +82,19 @@ abstract class GetBasePathMappingRequest
       GetBasePathMappingRequestPayload();
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     return helper.toString();
   }

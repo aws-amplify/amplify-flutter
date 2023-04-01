@@ -30,14 +30,14 @@ abstract class PutBucketNotificationConfigurationRequest
         _i1.HasPayload<_i2.NotificationConfiguration> {
   factory PutBucketNotificationConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required _i2.NotificationConfiguration notificationConfiguration,
+    String? expectedBucketOwner,
     bool? skipDestinationValidation,
   }) {
     return _$PutBucketNotificationConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       notificationConfiguration: notificationConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
       skipDestinationValidation: skipDestinationValidation,
     );
   }
@@ -78,11 +78,11 @@ abstract class PutBucketNotificationConfigurationRequest
   /// The name of the bucket.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// A container for specifying the notification configuration of the bucket. If this element is empty, notifications are turned off for the bucket.
   _i2.NotificationConfiguration get notificationConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
 
   /// Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations. True or false value.
   bool? get skipDestinationValidation;
@@ -103,8 +103,8 @@ abstract class PutBucketNotificationConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         notificationConfiguration,
+        expectedBucketOwner,
         skipDestinationValidation,
       ];
   @override
@@ -116,12 +116,12 @@ abstract class PutBucketNotificationConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'notificationConfiguration',
       notificationConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     helper.add(
       'skipDestinationValidation',

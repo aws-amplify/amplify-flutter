@@ -16,12 +16,12 @@ abstract class MetricsConfiguration
     implements Built<MetricsConfiguration, MetricsConfigurationBuilder> {
   /// Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration. If you don't include the elements you want to keep, they are erased. For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html).
   factory MetricsConfiguration({
-    _i2.MetricsFilter? filter,
     required String id,
+    _i2.MetricsFilter? filter,
   }) {
     return _$MetricsConfiguration._(
-      filter: filter,
       id: id,
+      filter: filter,
     );
   }
 
@@ -39,26 +39,26 @@ abstract class MetricsConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetricsConfigurationBuilder b) {}
 
-  /// Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator).
-  _i2.MetricsFilter? get filter;
-
   /// The ID used to identify the metrics configuration.
   String get id;
+
+  /// Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator).
+  _i2.MetricsFilter? get filter;
   @override
   List<Object?> get props => [
-        filter,
         id,
+        filter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MetricsConfiguration');
     helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     return helper.toString();
   }

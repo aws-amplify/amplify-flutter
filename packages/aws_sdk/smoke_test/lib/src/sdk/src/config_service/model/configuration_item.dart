@@ -10,9 +10,9 @@ import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item_status.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/config_service/model/relationship.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
+    as _i3;
 
 part 'configuration_item.g.dart';
 
@@ -22,48 +22,48 @@ abstract class ConfigurationItem
     implements Built<ConfigurationItem, ConfigurationItemBuilder> {
   /// A list that contains detailed configurations of a specified resource.
   factory ConfigurationItem({
+    String? version,
     String? accountId,
-    String? arn,
-    String? availabilityZone,
-    String? awsRegion,
-    String? configuration,
     DateTime? configurationItemCaptureTime,
-    String? configurationItemMd5Hash,
     _i2.ConfigurationItemStatus? configurationItemStatus,
     String? configurationStateId,
-    List<String>? relatedEvents,
-    List<_i3.Relationship>? relationships,
-    DateTime? resourceCreationTime,
+    String? configurationItemMd5Hash,
+    String? arn,
+    _i3.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i4.ResourceType? resourceType,
-    Map<String, String>? supplementaryConfiguration,
+    String? awsRegion,
+    String? availabilityZone,
+    DateTime? resourceCreationTime,
     Map<String, String>? tags,
-    String? version,
+    List<String>? relatedEvents,
+    List<_i4.Relationship>? relationships,
+    String? configuration,
+    Map<String, String>? supplementaryConfiguration,
   }) {
     return _$ConfigurationItem._(
+      version: version,
       accountId: accountId,
-      arn: arn,
-      availabilityZone: availabilityZone,
-      awsRegion: awsRegion,
-      configuration: configuration,
       configurationItemCaptureTime: configurationItemCaptureTime,
-      configurationItemMd5Hash: configurationItemMd5Hash,
       configurationItemStatus: configurationItemStatus,
       configurationStateId: configurationStateId,
+      configurationItemMd5Hash: configurationItemMd5Hash,
+      arn: arn,
+      resourceType: resourceType,
+      resourceId: resourceId,
+      resourceName: resourceName,
+      awsRegion: awsRegion,
+      availabilityZone: availabilityZone,
+      resourceCreationTime: resourceCreationTime,
+      tags: tags == null ? null : _i5.BuiltMap(tags),
       relatedEvents:
           relatedEvents == null ? null : _i5.BuiltList(relatedEvents),
       relationships:
           relationships == null ? null : _i5.BuiltList(relationships),
-      resourceCreationTime: resourceCreationTime,
-      resourceId: resourceId,
-      resourceName: resourceName,
-      resourceType: resourceType,
+      configuration: configuration,
       supplementaryConfiguration: supplementaryConfiguration == null
           ? null
           : _i5.BuiltMap(supplementaryConfiguration),
-      tags: tags == null ? null : _i5.BuiltMap(tags),
-      version: version,
     );
   }
 
@@ -80,28 +80,14 @@ abstract class ConfigurationItem
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigurationItemBuilder b) {}
 
+  /// The version number of the resource configuration.
+  String? get version;
+
   /// The 12-digit Amazon Web Services account ID associated with the resource.
   String? get accountId;
 
-  /// Amazon Resource Name (ARN) associated with the resource.
-  String? get arn;
-
-  /// The Availability Zone associated with the resource.
-  String? get availabilityZone;
-
-  /// The region where the resource resides.
-  String? get awsRegion;
-
-  /// The description of the resource configuration.
-  String? get configuration;
-
   /// The time when the configuration recording was initiated.
   DateTime? get configurationItemCaptureTime;
-
-  /// Unique MD5 hash that represents the configuration item's state.
-  ///
-  /// You can use MD5 hash to compare the states of two or more configuration items that are associated with the same resource.
-  String? get configurationItemMd5Hash;
 
   /// The configuration item status. The valid values are:
   ///
@@ -122,6 +108,35 @@ abstract class ConfigurationItem
   /// An identifier that indicates the ordering of the configuration items of a resource.
   String? get configurationStateId;
 
+  /// Unique MD5 hash that represents the configuration item's state.
+  ///
+  /// You can use MD5 hash to compare the states of two or more configuration items that are associated with the same resource.
+  String? get configurationItemMd5Hash;
+
+  /// Amazon Resource Name (ARN) associated with the resource.
+  String? get arn;
+
+  /// The type of Amazon Web Services resource.
+  _i3.ResourceType? get resourceType;
+
+  /// The ID of the resource (for example, `sg-xxxxxx`).
+  String? get resourceId;
+
+  /// The custom name of the resource, if available.
+  String? get resourceName;
+
+  /// The region where the resource resides.
+  String? get awsRegion;
+
+  /// The Availability Zone associated with the resource.
+  String? get availabilityZone;
+
+  /// The time stamp when the resource was created.
+  DateTime? get resourceCreationTime;
+
+  /// A mapping of key value tags associated with the resource.
+  _i5.BuiltMap<String, String>? get tags;
+
   /// A list of CloudTrail event IDs.
   ///
   /// A populated field indicates that the current configuration was initiated by the events recorded in the CloudTrail log. For more information about CloudTrail, see [What Is CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
@@ -130,79 +145,48 @@ abstract class ConfigurationItem
   _i5.BuiltList<String>? get relatedEvents;
 
   /// A list of related Amazon Web Services resources.
-  _i5.BuiltList<_i3.Relationship>? get relationships;
+  _i5.BuiltList<_i4.Relationship>? get relationships;
 
-  /// The time stamp when the resource was created.
-  DateTime? get resourceCreationTime;
-
-  /// The ID of the resource (for example, `sg-xxxxxx`).
-  String? get resourceId;
-
-  /// The custom name of the resource, if available.
-  String? get resourceName;
-
-  /// The type of Amazon Web Services resource.
-  _i4.ResourceType? get resourceType;
+  /// The description of the resource configuration.
+  String? get configuration;
 
   /// Configuration attributes that Config returns for certain resource types to supplement the information returned for the `configuration` parameter.
   _i5.BuiltMap<String, String>? get supplementaryConfiguration;
-
-  /// A mapping of key value tags associated with the resource.
-  _i5.BuiltMap<String, String>? get tags;
-
-  /// The version number of the resource configuration.
-  String? get version;
   @override
   List<Object?> get props => [
+        version,
         accountId,
-        arn,
-        availabilityZone,
-        awsRegion,
-        configuration,
         configurationItemCaptureTime,
-        configurationItemMd5Hash,
         configurationItemStatus,
         configurationStateId,
-        relatedEvents,
-        relationships,
-        resourceCreationTime,
+        configurationItemMd5Hash,
+        arn,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
-        supplementaryConfiguration,
+        awsRegion,
+        availabilityZone,
+        resourceCreationTime,
         tags,
-        version,
+        relatedEvents,
+        relationships,
+        configuration,
+        supplementaryConfiguration,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigurationItem');
     helper.add(
+      'version',
+      version,
+    );
+    helper.add(
       'accountId',
       accountId,
     );
     helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'availabilityZone',
-      availabilityZone,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
       'configurationItemCaptureTime',
       configurationItemCaptureTime,
-    );
-    helper.add(
-      'configurationItemMd5Hash',
-      configurationItemMd5Hash,
     );
     helper.add(
       'configurationItemStatus',
@@ -213,16 +197,16 @@ abstract class ConfigurationItem
       configurationStateId,
     );
     helper.add(
-      'relatedEvents',
-      relatedEvents,
+      'configurationItemMd5Hash',
+      configurationItemMd5Hash,
     );
     helper.add(
-      'relationships',
-      relationships,
+      'arn',
+      arn,
     );
     helper.add(
-      'resourceCreationTime',
-      resourceCreationTime,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -233,20 +217,36 @@ abstract class ConfigurationItem
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'awsRegion',
+      awsRegion,
     );
     helper.add(
-      'supplementaryConfiguration',
-      supplementaryConfiguration,
+      'availabilityZone',
+      availabilityZone,
+    );
+    helper.add(
+      'resourceCreationTime',
+      resourceCreationTime,
     );
     helper.add(
       'tags',
       tags,
     );
     helper.add(
-      'version',
-      version,
+      'relatedEvents',
+      relatedEvents,
+    );
+    helper.add(
+      'relationships',
+      relationships,
+    );
+    helper.add(
+      'configuration',
+      configuration,
+    );
+    helper.add(
+      'supplementaryConfiguration',
+      supplementaryConfiguration,
     );
     return helper.toString();
   }
@@ -281,41 +281,17 @@ class ConfigurationItemAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'version':
+          if (value != null) {
+            result.version = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'accountId':
           if (value != null) {
             result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'availabilityZone':
-          if (value != null) {
-            result.availabilityZone = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'awsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'configuration':
-          if (value != null) {
-            result.configuration = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -327,14 +303,6 @@ class ConfigurationItemAwsJson11Serializer
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
-          }
-          break;
-        case 'configurationItemMD5Hash':
-          if (value != null) {
-            result.configurationItemMd5Hash = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
         case 'configurationItemStatus':
@@ -351,6 +319,84 @@ class ConfigurationItemAwsJson11Serializer
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'configurationItemMD5Hash':
+          if (value != null) {
+            result.configurationItemMd5Hash = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'arn':
+          if (value != null) {
+            result.arn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'resourceType':
+          if (value != null) {
+            result.resourceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ResourceType),
+            ) as _i3.ResourceType);
+          }
+          break;
+        case 'resourceId':
+          if (value != null) {
+            result.resourceId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'resourceName':
+          if (value != null) {
+            result.resourceName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'awsRegion':
+          if (value != null) {
+            result.awsRegion = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'availabilityZone':
+          if (value != null) {
+            result.availabilityZone = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'resourceCreationTime':
+          if (value != null) {
+            result.resourceCreationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'tags':
+          if (value != null) {
+            result.tags.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i5.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(String),
+                ],
+              ),
+            ) as _i5.BuiltMap<String, String>));
           }
           break;
         case 'relatedEvents':
@@ -370,41 +416,17 @@ class ConfigurationItemAwsJson11Serializer
               value,
               specifiedType: const FullType(
                 _i5.BuiltList,
-                [FullType(_i3.Relationship)],
+                [FullType(_i4.Relationship)],
               ),
-            ) as _i5.BuiltList<_i3.Relationship>));
+            ) as _i5.BuiltList<_i4.Relationship>));
           }
           break;
-        case 'resourceCreationTime':
+        case 'configuration':
           if (value != null) {
-            result.resourceCreationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'resourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
+            result.configuration = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ResourceType),
-            ) as _i4.ResourceType);
           }
           break;
         case 'supplementaryConfiguration':
@@ -421,28 +443,6 @@ class ConfigurationItemAwsJson11Serializer
             ) as _i5.BuiltMap<String, String>));
           }
           break;
-        case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
-        case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -457,43 +457,19 @@ class ConfigurationItemAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationItem);
     final result = <Object?>[];
+    if (payload.version != null) {
+      result
+        ..add('version')
+        ..add(serializers.serialize(
+          payload.version!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.accountId != null) {
       result
         ..add('accountId')
         ..add(serializers.serialize(
           payload.accountId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.arn != null) {
-      result
-        ..add('arn')
-        ..add(serializers.serialize(
-          payload.arn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.availabilityZone != null) {
-      result
-        ..add('availabilityZone')
-        ..add(serializers.serialize(
-          payload.availabilityZone!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.awsRegion != null) {
-      result
-        ..add('awsRegion')
-        ..add(serializers.serialize(
-          payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.configuration != null) {
-      result
-        ..add('configuration')
-        ..add(serializers.serialize(
-          payload.configuration!,
           specifiedType: const FullType(String),
         ));
     }
@@ -503,14 +479,6 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           payload.configurationItemCaptureTime!,
           specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.configurationItemMd5Hash != null) {
-      result
-        ..add('configurationItemMD5Hash')
-        ..add(serializers.serialize(
-          payload.configurationItemMd5Hash!,
-          specifiedType: const FullType(String),
         ));
     }
     if (payload.configurationItemStatus != null) {
@@ -527,6 +495,84 @@ class ConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           payload.configurationStateId!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.configurationItemMd5Hash != null) {
+      result
+        ..add('configurationItemMD5Hash')
+        ..add(serializers.serialize(
+          payload.configurationItemMd5Hash!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.arn != null) {
+      result
+        ..add('arn')
+        ..add(serializers.serialize(
+          payload.arn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceType != null) {
+      result
+        ..add('resourceType')
+        ..add(serializers.serialize(
+          payload.resourceType!,
+          specifiedType: const FullType(_i3.ResourceType),
+        ));
+    }
+    if (payload.resourceId != null) {
+      result
+        ..add('resourceId')
+        ..add(serializers.serialize(
+          payload.resourceId!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceName != null) {
+      result
+        ..add('resourceName')
+        ..add(serializers.serialize(
+          payload.resourceName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.awsRegion != null) {
+      result
+        ..add('awsRegion')
+        ..add(serializers.serialize(
+          payload.awsRegion!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.availabilityZone != null) {
+      result
+        ..add('availabilityZone')
+        ..add(serializers.serialize(
+          payload.availabilityZone!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceCreationTime != null) {
+      result
+        ..add('resourceCreationTime')
+        ..add(serializers.serialize(
+          payload.resourceCreationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.tags != null) {
+      result
+        ..add('tags')
+        ..add(serializers.serialize(
+          payload.tags!,
+          specifiedType: const FullType(
+            _i5.BuiltMap,
+            [
+              FullType(String),
+              FullType(String),
+            ],
+          ),
         ));
     }
     if (payload.relatedEvents != null) {
@@ -547,40 +593,16 @@ class ConfigurationItemAwsJson11Serializer
           payload.relationships!,
           specifiedType: const FullType(
             _i5.BuiltList,
-            [FullType(_i3.Relationship)],
+            [FullType(_i4.Relationship)],
           ),
         ));
     }
-    if (payload.resourceCreationTime != null) {
+    if (payload.configuration != null) {
       result
-        ..add('resourceCreationTime')
+        ..add('configuration')
         ..add(serializers.serialize(
-          payload.resourceCreationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.resourceId != null) {
-      result
-        ..add('resourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
+          payload.configuration!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceName != null) {
-      result
-        ..add('resourceName')
-        ..add(serializers.serialize(
-          payload.resourceName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
-        ..add('resourceType')
-        ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(_i4.ResourceType),
         ));
     }
     if (payload.supplementaryConfiguration != null) {
@@ -595,28 +617,6 @@ class ConfigurationItemAwsJson11Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.tags != null) {
-      result
-        ..add('tags')
-        ..add(serializers.serialize(
-          payload.tags!,
-          specifiedType: const FullType(
-            _i5.BuiltMap,
-            [
-              FullType(String),
-              FullType(String),
-            ],
-          ),
-        ));
-    }
-    if (payload.version != null) {
-      result
-        ..add('version')
-        ..add(serializers.serialize(
-          payload.version!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

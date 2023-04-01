@@ -8,61 +8,61 @@ part of smoke_test.api_gateway.model.stage;
 
 class _$Stage extends Stage {
   @override
-  final _i2.AccessLogSettings? accessLogSettings;
-  @override
-  final bool? cacheClusterEnabled;
-  @override
-  final _i3.CacheClusterSize? cacheClusterSize;
-  @override
-  final _i4.CacheClusterStatus? cacheClusterStatus;
-  @override
-  final _i5.CanarySettings? canarySettings;
+  final String? deploymentId;
   @override
   final String? clientCertificateId;
   @override
-  final DateTime? createdDate;
-  @override
-  final String? deploymentId;
+  final String? stageName;
   @override
   final String? description;
   @override
-  final String? documentationVersion;
+  final bool? cacheClusterEnabled;
   @override
-  final DateTime? lastUpdatedDate;
+  final _i2.CacheClusterSize? cacheClusterSize;
   @override
-  final _i7.BuiltMap<String, _i6.MethodSetting>? methodSettings;
+  final _i3.CacheClusterStatus? cacheClusterStatus;
   @override
-  final String? stageName;
-  @override
-  final _i7.BuiltMap<String, String>? tags;
-  @override
-  final bool? tracingEnabled;
+  final _i7.BuiltMap<String, _i4.MethodSetting>? methodSettings;
   @override
   final _i7.BuiltMap<String, String>? variables;
   @override
+  final String? documentationVersion;
+  @override
+  final _i5.AccessLogSettings? accessLogSettings;
+  @override
+  final _i6.CanarySettings? canarySettings;
+  @override
+  final bool? tracingEnabled;
+  @override
   final String? webAclArn;
+  @override
+  final _i7.BuiltMap<String, String>? tags;
+  @override
+  final DateTime? createdDate;
+  @override
+  final DateTime? lastUpdatedDate;
 
   factory _$Stage([void Function(StageBuilder)? updates]) =>
       (new StageBuilder()..update(updates))._build();
 
   _$Stage._(
-      {this.accessLogSettings,
+      {this.deploymentId,
+      this.clientCertificateId,
+      this.stageName,
+      this.description,
       this.cacheClusterEnabled,
       this.cacheClusterSize,
       this.cacheClusterStatus,
-      this.canarySettings,
-      this.clientCertificateId,
-      this.createdDate,
-      this.deploymentId,
-      this.description,
-      this.documentationVersion,
-      this.lastUpdatedDate,
       this.methodSettings,
-      this.stageName,
-      this.tags,
-      this.tracingEnabled,
       this.variables,
-      this.webAclArn})
+      this.documentationVersion,
+      this.accessLogSettings,
+      this.canarySettings,
+      this.tracingEnabled,
+      this.webAclArn,
+      this.tags,
+      this.createdDate,
+      this.lastUpdatedDate})
       : super._();
 
   @override
@@ -76,45 +76,45 @@ class _$Stage extends Stage {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Stage &&
-        accessLogSettings == other.accessLogSettings &&
+        deploymentId == other.deploymentId &&
+        clientCertificateId == other.clientCertificateId &&
+        stageName == other.stageName &&
+        description == other.description &&
         cacheClusterEnabled == other.cacheClusterEnabled &&
         cacheClusterSize == other.cacheClusterSize &&
         cacheClusterStatus == other.cacheClusterStatus &&
-        canarySettings == other.canarySettings &&
-        clientCertificateId == other.clientCertificateId &&
-        createdDate == other.createdDate &&
-        deploymentId == other.deploymentId &&
-        description == other.description &&
-        documentationVersion == other.documentationVersion &&
-        lastUpdatedDate == other.lastUpdatedDate &&
         methodSettings == other.methodSettings &&
-        stageName == other.stageName &&
-        tags == other.tags &&
-        tracingEnabled == other.tracingEnabled &&
         variables == other.variables &&
-        webAclArn == other.webAclArn;
+        documentationVersion == other.documentationVersion &&
+        accessLogSettings == other.accessLogSettings &&
+        canarySettings == other.canarySettings &&
+        tracingEnabled == other.tracingEnabled &&
+        webAclArn == other.webAclArn &&
+        tags == other.tags &&
+        createdDate == other.createdDate &&
+        lastUpdatedDate == other.lastUpdatedDate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessLogSettings.hashCode);
+    _$hash = $jc(_$hash, deploymentId.hashCode);
+    _$hash = $jc(_$hash, clientCertificateId.hashCode);
+    _$hash = $jc(_$hash, stageName.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, cacheClusterEnabled.hashCode);
     _$hash = $jc(_$hash, cacheClusterSize.hashCode);
     _$hash = $jc(_$hash, cacheClusterStatus.hashCode);
-    _$hash = $jc(_$hash, canarySettings.hashCode);
-    _$hash = $jc(_$hash, clientCertificateId.hashCode);
-    _$hash = $jc(_$hash, createdDate.hashCode);
-    _$hash = $jc(_$hash, deploymentId.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, documentationVersion.hashCode);
-    _$hash = $jc(_$hash, lastUpdatedDate.hashCode);
     _$hash = $jc(_$hash, methodSettings.hashCode);
-    _$hash = $jc(_$hash, stageName.hashCode);
-    _$hash = $jc(_$hash, tags.hashCode);
-    _$hash = $jc(_$hash, tracingEnabled.hashCode);
     _$hash = $jc(_$hash, variables.hashCode);
+    _$hash = $jc(_$hash, documentationVersion.hashCode);
+    _$hash = $jc(_$hash, accessLogSettings.hashCode);
+    _$hash = $jc(_$hash, canarySettings.hashCode);
+    _$hash = $jc(_$hash, tracingEnabled.hashCode);
     _$hash = $jc(_$hash, webAclArn.hashCode);
+    _$hash = $jc(_$hash, tags.hashCode);
+    _$hash = $jc(_$hash, createdDate.hashCode);
+    _$hash = $jc(_$hash, lastUpdatedDate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -123,81 +123,45 @@ class _$Stage extends Stage {
 class StageBuilder implements Builder<Stage, StageBuilder> {
   _$Stage? _$v;
 
-  _i2.AccessLogSettingsBuilder? _accessLogSettings;
-  _i2.AccessLogSettingsBuilder get accessLogSettings =>
-      _$this._accessLogSettings ??= new _i2.AccessLogSettingsBuilder();
-  set accessLogSettings(_i2.AccessLogSettingsBuilder? accessLogSettings) =>
-      _$this._accessLogSettings = accessLogSettings;
-
-  bool? _cacheClusterEnabled;
-  bool? get cacheClusterEnabled => _$this._cacheClusterEnabled;
-  set cacheClusterEnabled(bool? cacheClusterEnabled) =>
-      _$this._cacheClusterEnabled = cacheClusterEnabled;
-
-  _i3.CacheClusterSize? _cacheClusterSize;
-  _i3.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i3.CacheClusterSize? cacheClusterSize) =>
-      _$this._cacheClusterSize = cacheClusterSize;
-
-  _i4.CacheClusterStatus? _cacheClusterStatus;
-  _i4.CacheClusterStatus? get cacheClusterStatus => _$this._cacheClusterStatus;
-  set cacheClusterStatus(_i4.CacheClusterStatus? cacheClusterStatus) =>
-      _$this._cacheClusterStatus = cacheClusterStatus;
-
-  _i5.CanarySettingsBuilder? _canarySettings;
-  _i5.CanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i5.CanarySettingsBuilder();
-  set canarySettings(_i5.CanarySettingsBuilder? canarySettings) =>
-      _$this._canarySettings = canarySettings;
+  String? _deploymentId;
+  String? get deploymentId => _$this._deploymentId;
+  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
   String? _clientCertificateId;
   String? get clientCertificateId => _$this._clientCertificateId;
   set clientCertificateId(String? clientCertificateId) =>
       _$this._clientCertificateId = clientCertificateId;
 
-  DateTime? _createdDate;
-  DateTime? get createdDate => _$this._createdDate;
-  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
-
-  String? _deploymentId;
-  String? get deploymentId => _$this._deploymentId;
-  set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
+  String? _stageName;
+  String? get stageName => _$this._stageName;
+  set stageName(String? stageName) => _$this._stageName = stageName;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  String? _documentationVersion;
-  String? get documentationVersion => _$this._documentationVersion;
-  set documentationVersion(String? documentationVersion) =>
-      _$this._documentationVersion = documentationVersion;
+  bool? _cacheClusterEnabled;
+  bool? get cacheClusterEnabled => _$this._cacheClusterEnabled;
+  set cacheClusterEnabled(bool? cacheClusterEnabled) =>
+      _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  DateTime? _lastUpdatedDate;
-  DateTime? get lastUpdatedDate => _$this._lastUpdatedDate;
-  set lastUpdatedDate(DateTime? lastUpdatedDate) =>
-      _$this._lastUpdatedDate = lastUpdatedDate;
+  _i2.CacheClusterSize? _cacheClusterSize;
+  _i2.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(_i2.CacheClusterSize? cacheClusterSize) =>
+      _$this._cacheClusterSize = cacheClusterSize;
 
-  _i7.MapBuilder<String, _i6.MethodSetting>? _methodSettings;
-  _i7.MapBuilder<String, _i6.MethodSetting> get methodSettings =>
+  _i3.CacheClusterStatus? _cacheClusterStatus;
+  _i3.CacheClusterStatus? get cacheClusterStatus => _$this._cacheClusterStatus;
+  set cacheClusterStatus(_i3.CacheClusterStatus? cacheClusterStatus) =>
+      _$this._cacheClusterStatus = cacheClusterStatus;
+
+  _i7.MapBuilder<String, _i4.MethodSetting>? _methodSettings;
+  _i7.MapBuilder<String, _i4.MethodSetting> get methodSettings =>
       _$this._methodSettings ??=
-          new _i7.MapBuilder<String, _i6.MethodSetting>();
+          new _i7.MapBuilder<String, _i4.MethodSetting>();
   set methodSettings(
-          _i7.MapBuilder<String, _i6.MethodSetting>? methodSettings) =>
+          _i7.MapBuilder<String, _i4.MethodSetting>? methodSettings) =>
       _$this._methodSettings = methodSettings;
-
-  String? _stageName;
-  String? get stageName => _$this._stageName;
-  set stageName(String? stageName) => _$this._stageName = stageName;
-
-  _i7.MapBuilder<String, String>? _tags;
-  _i7.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i7.MapBuilder<String, String>();
-  set tags(_i7.MapBuilder<String, String>? tags) => _$this._tags = tags;
-
-  bool? _tracingEnabled;
-  bool? get tracingEnabled => _$this._tracingEnabled;
-  set tracingEnabled(bool? tracingEnabled) =>
-      _$this._tracingEnabled = tracingEnabled;
 
   _i7.MapBuilder<String, String>? _variables;
   _i7.MapBuilder<String, String> get variables =>
@@ -205,9 +169,45 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   set variables(_i7.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
+  String? _documentationVersion;
+  String? get documentationVersion => _$this._documentationVersion;
+  set documentationVersion(String? documentationVersion) =>
+      _$this._documentationVersion = documentationVersion;
+
+  _i5.AccessLogSettingsBuilder? _accessLogSettings;
+  _i5.AccessLogSettingsBuilder get accessLogSettings =>
+      _$this._accessLogSettings ??= new _i5.AccessLogSettingsBuilder();
+  set accessLogSettings(_i5.AccessLogSettingsBuilder? accessLogSettings) =>
+      _$this._accessLogSettings = accessLogSettings;
+
+  _i6.CanarySettingsBuilder? _canarySettings;
+  _i6.CanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new _i6.CanarySettingsBuilder();
+  set canarySettings(_i6.CanarySettingsBuilder? canarySettings) =>
+      _$this._canarySettings = canarySettings;
+
+  bool? _tracingEnabled;
+  bool? get tracingEnabled => _$this._tracingEnabled;
+  set tracingEnabled(bool? tracingEnabled) =>
+      _$this._tracingEnabled = tracingEnabled;
+
   String? _webAclArn;
   String? get webAclArn => _$this._webAclArn;
   set webAclArn(String? webAclArn) => _$this._webAclArn = webAclArn;
+
+  _i7.MapBuilder<String, String>? _tags;
+  _i7.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i7.MapBuilder<String, String>();
+  set tags(_i7.MapBuilder<String, String>? tags) => _$this._tags = tags;
+
+  DateTime? _createdDate;
+  DateTime? get createdDate => _$this._createdDate;
+  set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
+
+  DateTime? _lastUpdatedDate;
+  DateTime? get lastUpdatedDate => _$this._lastUpdatedDate;
+  set lastUpdatedDate(DateTime? lastUpdatedDate) =>
+      _$this._lastUpdatedDate = lastUpdatedDate;
 
   StageBuilder() {
     Stage._init(this);
@@ -216,23 +216,23 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   StageBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessLogSettings = $v.accessLogSettings?.toBuilder();
+      _deploymentId = $v.deploymentId;
+      _clientCertificateId = $v.clientCertificateId;
+      _stageName = $v.stageName;
+      _description = $v.description;
       _cacheClusterEnabled = $v.cacheClusterEnabled;
       _cacheClusterSize = $v.cacheClusterSize;
       _cacheClusterStatus = $v.cacheClusterStatus;
-      _canarySettings = $v.canarySettings?.toBuilder();
-      _clientCertificateId = $v.clientCertificateId;
-      _createdDate = $v.createdDate;
-      _deploymentId = $v.deploymentId;
-      _description = $v.description;
-      _documentationVersion = $v.documentationVersion;
-      _lastUpdatedDate = $v.lastUpdatedDate;
       _methodSettings = $v.methodSettings?.toBuilder();
-      _stageName = $v.stageName;
-      _tags = $v.tags?.toBuilder();
-      _tracingEnabled = $v.tracingEnabled;
       _variables = $v.variables?.toBuilder();
+      _documentationVersion = $v.documentationVersion;
+      _accessLogSettings = $v.accessLogSettings?.toBuilder();
+      _canarySettings = $v.canarySettings?.toBuilder();
+      _tracingEnabled = $v.tracingEnabled;
       _webAclArn = $v.webAclArn;
+      _tags = $v.tags?.toBuilder();
+      _createdDate = $v.createdDate;
+      _lastUpdatedDate = $v.lastUpdatedDate;
       _$v = null;
     }
     return this;
@@ -257,40 +257,38 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
     try {
       _$result = _$v ??
           new _$Stage._(
-              accessLogSettings: _accessLogSettings?.build(),
+              deploymentId: deploymentId,
+              clientCertificateId: clientCertificateId,
+              stageName: stageName,
+              description: description,
               cacheClusterEnabled: cacheClusterEnabled,
               cacheClusterSize: cacheClusterSize,
               cacheClusterStatus: cacheClusterStatus,
-              canarySettings: _canarySettings?.build(),
-              clientCertificateId: clientCertificateId,
-              createdDate: createdDate,
-              deploymentId: deploymentId,
-              description: description,
-              documentationVersion: documentationVersion,
-              lastUpdatedDate: lastUpdatedDate,
               methodSettings: _methodSettings?.build(),
-              stageName: stageName,
-              tags: _tags?.build(),
-              tracingEnabled: tracingEnabled,
               variables: _variables?.build(),
-              webAclArn: webAclArn);
+              documentationVersion: documentationVersion,
+              accessLogSettings: _accessLogSettings?.build(),
+              canarySettings: _canarySettings?.build(),
+              tracingEnabled: tracingEnabled,
+              webAclArn: webAclArn,
+              tags: _tags?.build(),
+              createdDate: createdDate,
+              lastUpdatedDate: lastUpdatedDate);
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'methodSettings';
+        _methodSettings?.build();
+        _$failedField = 'variables';
+        _variables?.build();
+
         _$failedField = 'accessLogSettings';
         _accessLogSettings?.build();
-
         _$failedField = 'canarySettings';
         _canarySettings?.build();
 
-        _$failedField = 'methodSettings';
-        _methodSettings?.build();
-
         _$failedField = 'tags';
         _tags?.build();
-
-        _$failedField = 'variables';
-        _variables?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Stage', _$failedField, e.toString());

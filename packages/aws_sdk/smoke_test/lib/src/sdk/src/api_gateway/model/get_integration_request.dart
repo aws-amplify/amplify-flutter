@@ -21,14 +21,14 @@ abstract class GetIntegrationRequest
         _i1.HasPayload<GetIntegrationRequestPayload> {
   /// Represents a request to get the integration configuration.
   factory GetIntegrationRequest({
-    required String httpMethod,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
   }) {
     return _$GetIntegrationRequest._(
-      httpMethod: httpMethod,
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      httpMethod: httpMethod,
     );
   }
 
@@ -63,14 +63,14 @@ abstract class GetIntegrationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetIntegrationRequestBuilder b) {}
 
-  /// Specifies a get integration request's HTTP method.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies a get integration request's resource identifier
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// Specifies a get integration request's HTTP method.
+  String get httpMethod;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -91,24 +91,24 @@ abstract class GetIntegrationRequest
   GetIntegrationRequestPayload getPayload() => GetIntegrationRequestPayload();
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetIntegrationRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     return helper.toString();
   }

@@ -8,23 +8,23 @@ part of smoke_test.config_service.model.resource_identifier;
 
 class _$ResourceIdentifier extends ResourceIdentifier {
   @override
-  final DateTime? resourceDeletionTime;
+  final _i2.ResourceType? resourceType;
   @override
   final String? resourceId;
   @override
   final String? resourceName;
   @override
-  final _i2.ResourceType? resourceType;
+  final DateTime? resourceDeletionTime;
 
   factory _$ResourceIdentifier(
           [void Function(ResourceIdentifierBuilder)? updates]) =>
       (new ResourceIdentifierBuilder()..update(updates))._build();
 
   _$ResourceIdentifier._(
-      {this.resourceDeletionTime,
+      {this.resourceType,
       this.resourceId,
       this.resourceName,
-      this.resourceType})
+      this.resourceDeletionTime})
       : super._();
 
   @override
@@ -40,19 +40,19 @@ class _$ResourceIdentifier extends ResourceIdentifier {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ResourceIdentifier &&
-        resourceDeletionTime == other.resourceDeletionTime &&
+        resourceType == other.resourceType &&
         resourceId == other.resourceId &&
         resourceName == other.resourceName &&
-        resourceType == other.resourceType;
+        resourceDeletionTime == other.resourceDeletionTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, resourceDeletionTime.hashCode);
+    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, resourceName.hashCode);
-    _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceDeletionTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,10 +62,10 @@ class ResourceIdentifierBuilder
     implements Builder<ResourceIdentifier, ResourceIdentifierBuilder> {
   _$ResourceIdentifier? _$v;
 
-  DateTime? _resourceDeletionTime;
-  DateTime? get resourceDeletionTime => _$this._resourceDeletionTime;
-  set resourceDeletionTime(DateTime? resourceDeletionTime) =>
-      _$this._resourceDeletionTime = resourceDeletionTime;
+  _i2.ResourceType? _resourceType;
+  _i2.ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(_i2.ResourceType? resourceType) =>
+      _$this._resourceType = resourceType;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
@@ -75,10 +75,10 @@ class ResourceIdentifierBuilder
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
 
-  _i2.ResourceType? _resourceType;
-  _i2.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i2.ResourceType? resourceType) =>
-      _$this._resourceType = resourceType;
+  DateTime? _resourceDeletionTime;
+  DateTime? get resourceDeletionTime => _$this._resourceDeletionTime;
+  set resourceDeletionTime(DateTime? resourceDeletionTime) =>
+      _$this._resourceDeletionTime = resourceDeletionTime;
 
   ResourceIdentifierBuilder() {
     ResourceIdentifier._init(this);
@@ -87,10 +87,10 @@ class ResourceIdentifierBuilder
   ResourceIdentifierBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _resourceDeletionTime = $v.resourceDeletionTime;
+      _resourceType = $v.resourceType;
       _resourceId = $v.resourceId;
       _resourceName = $v.resourceName;
-      _resourceType = $v.resourceType;
+      _resourceDeletionTime = $v.resourceDeletionTime;
       _$v = null;
     }
     return this;
@@ -113,10 +113,10 @@ class ResourceIdentifierBuilder
   _$ResourceIdentifier _build() {
     final _$result = _$v ??
         new _$ResourceIdentifier._(
-            resourceDeletionTime: resourceDeletionTime,
+            resourceType: resourceType,
             resourceId: resourceId,
             resourceName: resourceName,
-            resourceType: resourceType);
+            resourceDeletionTime: resourceDeletionTime);
     replace(_$result);
     return _$result;
   }

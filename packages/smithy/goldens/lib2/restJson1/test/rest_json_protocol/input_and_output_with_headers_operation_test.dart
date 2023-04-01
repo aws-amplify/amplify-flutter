@@ -3,15 +3,15 @@
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.input_and_output_with_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i7;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i9;
+import 'package:fixnum/fixnum.dart' as _i6;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
-    as _i7;
+    as _i8;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
     as _i5;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
-    as _i8;
+    as _i9;
 import 'package:rest_json1_v2/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart'
     as _i3;
 import 'package:smithy/smithy.dart' as _i4;
@@ -990,15 +990,12 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'headerBooleanList':
+        case 'headerString':
           if (value != null) {
-            result.headerBooleanList.replace((serializers.deserialize(
+            result.headerString = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(bool)],
-              ),
-            ) as _i6.BuiltList<bool>));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'headerByte':
@@ -1009,47 +1006,12 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
             ) as int);
           }
           break;
-        case 'headerDouble':
+        case 'headerShort':
           if (value != null) {
-            result.headerDouble = (serializers.deserialize(
+            result.headerShort = (serializers.deserialize(
               value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
-        case 'headerEnum':
-          if (value != null) {
-            result.headerEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.FooEnum),
-            ) as _i7.FooEnum);
-          }
-          break;
-        case 'headerEnumList':
-          if (value != null) {
-            result.headerEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i7.FooEnum)],
-              ),
-            ) as _i6.BuiltList<_i7.FooEnum>));
-          }
-          break;
-        case 'headerFalseBool':
-          if (value != null) {
-            result.headerFalseBool = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'headerFloat':
-          if (value != null) {
-            result.headerFloat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'headerInteger':
@@ -1060,91 +1022,28 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
             ) as int);
           }
           break;
-        case 'headerIntegerEnum':
-          if (value != null) {
-            result.headerIntegerEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.IntegerEnum),
-            ) as _i8.IntegerEnum);
-          }
-          break;
-        case 'headerIntegerEnumList':
-          if (value != null) {
-            result.headerIntegerEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i8.IntegerEnum)],
-              ),
-            ) as _i6.BuiltList<_i8.IntegerEnum>));
-          }
-          break;
-        case 'headerIntegerList':
-          if (value != null) {
-            result.headerIntegerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
         case 'headerLong':
           if (value != null) {
             result.headerLong = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i9.Int64),
-            ) as _i9.Int64);
+              specifiedType: const FullType(_i6.Int64),
+            ) as _i6.Int64);
           }
           break;
-        case 'headerShort':
+        case 'headerFloat':
           if (value != null) {
-            result.headerShort = (serializers.deserialize(
+            result.headerFloat = (serializers.deserialize(
               value,
-              specifiedType: const FullType(int),
-            ) as int);
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
-        case 'headerString':
+        case 'headerDouble':
           if (value != null) {
-            result.headerString = (serializers.deserialize(
+            result.headerDouble = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'headerStringList':
-          if (value != null) {
-            result.headerStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'headerStringSet':
-          if (value != null) {
-            result.headerStringSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
-        case 'headerTimestampList':
-          if (value != null) {
-            result.headerTimestampList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(DateTime)],
-              ),
-            ) as _i6.BuiltList<DateTime>));
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'headerTrueBool':
@@ -1153,6 +1052,107 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
               value,
               specifiedType: const FullType(bool),
             ) as bool);
+          }
+          break;
+        case 'headerFalseBool':
+          if (value != null) {
+            result.headerFalseBool = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'headerStringList':
+          if (value != null) {
+            result.headerStringList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i7.BuiltList<String>));
+          }
+          break;
+        case 'headerStringSet':
+          if (value != null) {
+            result.headerStringSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltSet,
+                [FullType(String)],
+              ),
+            ) as _i7.BuiltSet<String>));
+          }
+          break;
+        case 'headerIntegerList':
+          if (value != null) {
+            result.headerIntegerList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i7.BuiltList<int>));
+          }
+          break;
+        case 'headerBooleanList':
+          if (value != null) {
+            result.headerBooleanList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(bool)],
+              ),
+            ) as _i7.BuiltList<bool>));
+          }
+          break;
+        case 'headerTimestampList':
+          if (value != null) {
+            result.headerTimestampList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(DateTime)],
+              ),
+            ) as _i7.BuiltList<DateTime>));
+          }
+          break;
+        case 'headerEnum':
+          if (value != null) {
+            result.headerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i8.FooEnum),
+            ) as _i8.FooEnum);
+          }
+          break;
+        case 'headerEnumList':
+          if (value != null) {
+            result.headerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(_i8.FooEnum)],
+              ),
+            ) as _i7.BuiltList<_i8.FooEnum>));
+          }
+          break;
+        case 'headerIntegerEnum':
+          if (value != null) {
+            result.headerIntegerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i9.IntegerEnum),
+            ) as _i9.IntegerEnum);
+          }
+          break;
+        case 'headerIntegerEnumList':
+          if (value != null) {
+            result.headerIntegerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltList,
+                [FullType(_i9.IntegerEnum)],
+              ),
+            ) as _i7.BuiltList<_i9.IntegerEnum>));
           }
           break;
       }
