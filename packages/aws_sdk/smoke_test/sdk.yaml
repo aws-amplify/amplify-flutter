@@ -14,8 +14,9 @@ apis:
   dynamodb:
   streams.dynamodb:
 
-  # STS (awsQuery)
-  # sts:
+  # IAM/STS (awsQuery)
+  iam:
+  sts:
 
   # S3 (restXml)
   s3:
