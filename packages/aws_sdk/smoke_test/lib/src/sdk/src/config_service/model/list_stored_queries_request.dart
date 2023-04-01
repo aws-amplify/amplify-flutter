@@ -19,6 +19,7 @@ abstract class ListStoredQueriesRequest
     String? nextToken,
     int? maxResults,
   }) {
+    maxResults ??= 0;
     return _$ListStoredQueriesRequest._(
       nextToken: nextToken,
       maxResults: maxResults,
@@ -43,13 +44,15 @@ abstract class ListStoredQueriesRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStoredQueriesRequestBuilder b) {}
+  static void _init(ListStoredQueriesRequestBuilder b) {
+    b.maxResults = 0;
+  }
 
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
 
   /// The maximum number of results to be returned with a single call.
-  int? get maxResults;
+  int get maxResults;
   @override
   ListStoredQueriesRequest getPayload() => this;
   @override
@@ -111,12 +114,10 @@ class ListStoredQueriesRequestAwsJson11Serializer
           }
           break;
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxResults = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -131,21 +132,19 @@ class ListStoredQueriesRequestAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ListStoredQueriesRequest);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'MaxResults',
+      serializers.serialize(
+        payload.maxResults,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.maxResults != null) {
-      result
-        ..add('MaxResults')
-        ..add(serializers.serialize(
-          payload.maxResults!,
-          specifiedType: const FullType(int),
         ));
     }
     return result;

@@ -100,7 +100,7 @@ abstract class CreateDeploymentRequest
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;
 
-  /// Specifies the cache cluster size for the Stage resource specified in the input, if a cache cluster is enabled.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
@@ -213,7 +213,7 @@ abstract class CreateDeploymentRequestPayload
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;
 
-  /// Specifies the cache cluster size for the Stage resource specified in the input, if a cache cluster is enabled.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// The input configuration for the canary deployment when the deployment is a canary release deployment.

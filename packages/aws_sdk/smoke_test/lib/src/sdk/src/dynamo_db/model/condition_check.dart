@@ -61,13 +61,13 @@ abstract class ConditionCheck
   /// Name of the table for the check item request.
   String get tableName;
 
-  /// A condition that must be satisfied in order for a conditional update to succeed.
+  /// A condition that must be satisfied in order for a conditional update to succeed. For more information, see [Condition expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html) in the _Amazon DynamoDB Developer Guide_.
   String get conditionExpression;
 
-  /// One or more substitution tokens for attribute names in an expression.
+  /// One or more substitution tokens for attribute names in an expression. For more information, see [Expression attribute names](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html) in the _Amazon DynamoDB Developer Guide_.
   _i4.BuiltMap<String, String>? get expressionAttributeNames;
 
-  /// One or more values that can be substituted in an expression.
+  /// One or more values that can be substituted in an expression. For more information, see [Condition expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html) in the _Amazon DynamoDB Developer Guide_.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `ConditionCheck` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.

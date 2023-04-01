@@ -12,17 +12,19 @@ class _$PutEvaluationsRequest extends PutEvaluationsRequest {
   @override
   final String resultToken;
   @override
-  final bool? testMode;
+  final bool testMode;
 
   factory _$PutEvaluationsRequest(
           [void Function(PutEvaluationsRequestBuilder)? updates]) =>
       (new PutEvaluationsRequestBuilder()..update(updates))._build();
 
   _$PutEvaluationsRequest._(
-      {this.evaluations, required this.resultToken, this.testMode})
+      {this.evaluations, required this.resultToken, required this.testMode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resultToken, r'PutEvaluationsRequest', 'resultToken');
+    BuiltValueNullFieldError.checkNotNull(
+        testMode, r'PutEvaluationsRequest', 'testMode');
   }
 
   @override
@@ -109,7 +111,8 @@ class PutEvaluationsRequestBuilder
               evaluations: _evaluations?.build(),
               resultToken: BuiltValueNullFieldError.checkNotNull(
                   resultToken, r'PutEvaluationsRequest', 'resultToken'),
-              testMode: testMode);
+              testMode: BuiltValueNullFieldError.checkNotNull(
+                  testMode, r'PutEvaluationsRequest', 'testMode'));
     } catch (_) {
       late String _$failedField;
       try {

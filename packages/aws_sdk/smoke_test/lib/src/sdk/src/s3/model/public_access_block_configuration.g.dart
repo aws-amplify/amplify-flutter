@@ -8,24 +8,33 @@ part of smoke_test.s3.model.public_access_block_configuration;
 
 class _$PublicAccessBlockConfiguration extends PublicAccessBlockConfiguration {
   @override
-  final bool? blockPublicAcls;
+  final bool blockPublicAcls;
   @override
-  final bool? ignorePublicAcls;
+  final bool ignorePublicAcls;
   @override
-  final bool? blockPublicPolicy;
+  final bool blockPublicPolicy;
   @override
-  final bool? restrictPublicBuckets;
+  final bool restrictPublicBuckets;
 
   factory _$PublicAccessBlockConfiguration(
           [void Function(PublicAccessBlockConfigurationBuilder)? updates]) =>
       (new PublicAccessBlockConfigurationBuilder()..update(updates))._build();
 
   _$PublicAccessBlockConfiguration._(
-      {this.blockPublicAcls,
-      this.ignorePublicAcls,
-      this.blockPublicPolicy,
-      this.restrictPublicBuckets})
-      : super._();
+      {required this.blockPublicAcls,
+      required this.ignorePublicAcls,
+      required this.blockPublicPolicy,
+      required this.restrictPublicBuckets})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        blockPublicAcls, r'PublicAccessBlockConfiguration', 'blockPublicAcls');
+    BuiltValueNullFieldError.checkNotNull(ignorePublicAcls,
+        r'PublicAccessBlockConfiguration', 'ignorePublicAcls');
+    BuiltValueNullFieldError.checkNotNull(blockPublicPolicy,
+        r'PublicAccessBlockConfiguration', 'blockPublicPolicy');
+    BuiltValueNullFieldError.checkNotNull(restrictPublicBuckets,
+        r'PublicAccessBlockConfiguration', 'restrictPublicBuckets');
+  }
 
   @override
   PublicAccessBlockConfiguration rebuild(
@@ -117,10 +126,22 @@ class PublicAccessBlockConfigurationBuilder
   _$PublicAccessBlockConfiguration _build() {
     final _$result = _$v ??
         new _$PublicAccessBlockConfiguration._(
-            blockPublicAcls: blockPublicAcls,
-            ignorePublicAcls: ignorePublicAcls,
-            blockPublicPolicy: blockPublicPolicy,
-            restrictPublicBuckets: restrictPublicBuckets);
+            blockPublicAcls: BuiltValueNullFieldError.checkNotNull(
+                blockPublicAcls,
+                r'PublicAccessBlockConfiguration',
+                'blockPublicAcls'),
+            ignorePublicAcls: BuiltValueNullFieldError.checkNotNull(
+                ignorePublicAcls,
+                r'PublicAccessBlockConfiguration',
+                'ignorePublicAcls'),
+            blockPublicPolicy: BuiltValueNullFieldError.checkNotNull(
+                blockPublicPolicy,
+                r'PublicAccessBlockConfiguration',
+                'blockPublicPolicy'),
+            restrictPublicBuckets: BuiltValueNullFieldError.checkNotNull(
+                restrictPublicBuckets,
+                r'PublicAccessBlockConfiguration',
+                'restrictPublicBuckets'));
     replace(_$result);
     return _$result;
   }

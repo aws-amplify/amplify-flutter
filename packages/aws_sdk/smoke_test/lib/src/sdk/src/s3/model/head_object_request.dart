@@ -37,6 +37,7 @@ abstract class HeadObjectRequest
     String? expectedBucketOwner,
     _i4.ChecksumMode? checksumMode,
   }) {
+    partNumber ??= 0;
     return _$HeadObjectRequest._(
       bucket: bucket,
       ifMatch: ifMatch,
@@ -135,13 +136,15 @@ abstract class HeadObjectRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectRequestBuilder b) {}
+  static void _init(HeadObjectRequestBuilder b) {
+    b.partNumber = 0;
+  }
 
   /// The name of the bucket containing the object.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412 (precondition failed) error.
@@ -159,7 +162,7 @@ abstract class HeadObjectRequest
   /// The object key.
   String get key;
 
-  /// Because `HeadObject` returns only the metadata for an object, this parameter has no effect.
+  /// HeadObject returns only the metadata for an object. If the Range is satisfiable, only the `ContentLength` is affected in the response. If the Range is not satisfiable, S3 returns a `416 - Requested Range Not Satisfiable` error.
   String? get range;
 
   /// VersionId used to reference a specific version of the object.
@@ -178,7 +181,7 @@ abstract class HeadObjectRequest
   _i3.RequestPayer? get requestPayer;
 
   /// Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' HEAD request for the part specified. Useful querying about the size of the part and the number of parts in this object.
-  int? get partNumber;
+  int get partNumber;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;

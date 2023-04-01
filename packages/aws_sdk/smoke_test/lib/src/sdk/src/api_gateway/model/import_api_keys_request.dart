@@ -25,6 +25,7 @@ abstract class ImportApiKeysRequest
     required _i4.ApiKeysFormat format,
     bool? failOnWarnings,
   }) {
+    failOnWarnings ??= false;
     return _$ImportApiKeysRequest._(
       body: body,
       format: format,
@@ -61,7 +62,9 @@ abstract class ImportApiKeysRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportApiKeysRequestBuilder b) {}
+  static void _init(ImportApiKeysRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The payload of the POST request to import API keys. For the payload format, see API Key File Format.
   _i2.Uint8List get body;
@@ -70,7 +73,7 @@ abstract class ImportApiKeysRequest
   _i4.ApiKeysFormat get format;
 
   /// A query parameter to indicate whether to rollback ApiKey importation (`true`) or not (`false`) when error is encountered.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
   @override
   _i2.Uint8List getPayload() => body;
   @override

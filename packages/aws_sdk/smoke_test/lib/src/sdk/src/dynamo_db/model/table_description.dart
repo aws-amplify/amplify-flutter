@@ -65,6 +65,7 @@ abstract class TableDescription
     _i13.SseDescription? sseDescription,
     _i14.ArchivalSummary? archivalSummary,
     _i15.TableClassSummary? tableClassSummary,
+    bool? deletionProtectionEnabled,
   }) {
     return _$TableDescription._(
       attributeDefinitions: attributeDefinitions == null
@@ -95,6 +96,7 @@ abstract class TableDescription
       sseDescription: sseDescription,
       archivalSummary: archivalSummary,
       tableClassSummary: tableClassSummary,
+      deletionProtectionEnabled: deletionProtectionEnabled,
     );
   }
 
@@ -146,7 +148,7 @@ abstract class TableDescription
   ///
   /// *   `CREATING` \- The table is being created.
   ///
-  /// *   `UPDATING` \- The table is being updated.
+  /// *   `UPDATING` \- The table/index configuration is being updated. The table/index remains available for data operations when `UPDATING`.
   ///
   /// *   `DELETING` \- The table is being deleted.
   ///
@@ -283,6 +285,9 @@ abstract class TableDescription
 
   /// Contains details of the table class.
   _i15.TableClassSummary? get tableClassSummary;
+
+  /// Indicates whether deletion protection is enabled (true) or disabled (false) on the table.
+  bool? get deletionProtectionEnabled;
   @override
   List<Object?> get props => [
         attributeDefinitions,
@@ -307,6 +312,7 @@ abstract class TableDescription
         sseDescription,
         archivalSummary,
         tableClassSummary,
+        deletionProtectionEnabled,
       ];
   @override
   String toString() {
@@ -398,6 +404,10 @@ abstract class TableDescription
     helper.add(
       'tableClassSummary',
       tableClassSummary,
+    );
+    helper.add(
+      'deletionProtectionEnabled',
+      deletionProtectionEnabled,
     );
     return helper.toString();
   }
@@ -624,6 +634,14 @@ class TableDescriptionAwsJson10Serializer
             ) as _i15.TableClassSummary));
           }
           break;
+        case 'DeletionProtectionEnabled':
+          if (value != null) {
+            result.deletionProtectionEnabled = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
       }
     }
 
@@ -827,6 +845,14 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           payload.tableClassSummary!,
           specifiedType: const FullType(_i15.TableClassSummary),
+        ));
+    }
+    if (payload.deletionProtectionEnabled != null) {
+      result
+        ..add('DeletionProtectionEnabled')
+        ..add(serializers.serialize(
+          payload.deletionProtectionEnabled!,
+          specifiedType: const FullType(bool),
         ));
     }
     return result;

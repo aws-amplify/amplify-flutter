@@ -10,7 +10,7 @@ class _$SelectResourceConfigRequest extends SelectResourceConfigRequest {
   @override
   final String expression;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -19,10 +19,12 @@ class _$SelectResourceConfigRequest extends SelectResourceConfigRequest {
       (new SelectResourceConfigRequestBuilder()..update(updates))._build();
 
   _$SelectResourceConfigRequest._(
-      {required this.expression, this.limit, this.nextToken})
+      {required this.expression, required this.limit, this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         expression, r'SelectResourceConfigRequest', 'expression');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'SelectResourceConfigRequest', 'limit');
   }
 
   @override
@@ -106,7 +108,8 @@ class SelectResourceConfigRequestBuilder
         new _$SelectResourceConfigRequest._(
             expression: BuiltValueNullFieldError.checkNotNull(
                 expression, r'SelectResourceConfigRequest', 'expression'),
-            limit: limit,
+            limit: BuiltValueNullFieldError.checkNotNull(
+                limit, r'SelectResourceConfigRequest', 'limit'),
             nextToken: nextToken);
     replace(_$result);
     return _$result;

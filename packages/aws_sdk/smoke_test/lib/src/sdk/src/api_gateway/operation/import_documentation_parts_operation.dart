@@ -105,12 +105,10 @@ class ImportDocumentationPartsOperation extends _i1.HttpOperation<
             input.mode!.value,
           );
         }
-        if (input.failOnWarnings != null) {
-          b.queryParameters.add(
-            'failonwarnings',
-            input.failOnWarnings!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'failonwarnings',
+          input.failOnWarnings.toString(),
+        );
       });
   @override
   int successCode([_i4.DocumentationPartIds? output]) => 200;

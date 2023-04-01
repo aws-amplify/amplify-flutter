@@ -15,6 +15,7 @@ abstract class ReplicationTimeValue
     implements Built<ReplicationTimeValue, ReplicationTimeValueBuilder> {
   /// A container specifying the time value for S3 Replication Time Control (S3 RTC) and replication metrics `EventThreshold`.
   factory ReplicationTimeValue({int? minutes}) {
+    minutes ??= 0;
     return _$ReplicationTimeValue._(minutes: minutes);
   }
 
@@ -30,12 +31,14 @@ abstract class ReplicationTimeValue
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationTimeValueBuilder b) {}
+  static void _init(ReplicationTimeValueBuilder b) {
+    b.minutes = 0;
+  }
 
   /// Contains an integer specifying time in minutes.
   ///
   /// Valid value: 15
-  int? get minutes;
+  int get minutes;
   @override
   List<Object?> get props => [minutes];
   @override
@@ -79,12 +82,10 @@ class ReplicationTimeValueRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Minutes':
-          if (value != null) {
-            result.minutes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.minutes = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -105,14 +106,12 @@ class ReplicationTimeValueRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.minutes != null) {
-      result
-        ..add(const _i2.XmlElementName('Minutes'))
-        ..add(serializers.serialize(
-          payload.minutes!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i2.XmlElementName('Minutes'))
+      ..add(serializers.serialize(
+        payload.minutes,
+        specifiedType: const FullType(int),
+      ));
     return result;
   }
 }

@@ -30,6 +30,7 @@ abstract class RestoreRequest
     _i5.SelectParameters? selectParameters,
     _i6.OutputLocation? outputLocation,
   }) {
+    days ??= 0;
     return _$RestoreRequest._(
       days: days,
       glacierJobParameters: glacierJobParameters,
@@ -52,12 +53,14 @@ abstract class RestoreRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreRequestBuilder b) {}
+  static void _init(RestoreRequestBuilder b) {
+    b.days = 0;
+  }
 
   /// Lifetime of the active copy in days. Do not use with restores that specify `OutputLocation`.
   ///
   /// The Days element is required for regular restores, and must not be provided for select requests.
-  int? get days;
+  int get days;
 
   /// S3 Glacier related parameters pertaining to this job. Do not use with restores that specify `OutputLocation`.
   _i2.GlacierJobParameters? get glacierJobParameters;
@@ -151,12 +154,10 @@ class RestoreRequestRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.days = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Description':
           if (value != null) {
@@ -225,14 +226,12 @@ class RestoreRequestRestXmlSerializer
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.days != null) {
-      result
-        ..add(const _i7.XmlElementName('Days'))
-        ..add(serializers.serialize(
-          payload.days!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i7.XmlElementName('Days'))
+      ..add(serializers.serialize(
+        payload.days,
+        specifiedType: const FullType(int),
+      ));
     if (payload.description != null) {
       result
         ..add(const _i7.XmlElementName('Description'))

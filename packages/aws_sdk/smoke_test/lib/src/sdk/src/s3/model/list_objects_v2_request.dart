@@ -32,6 +32,8 @@ abstract class ListObjectsV2Request
     _i4.RequestPayer? requestPayer,
     String? expectedBucketOwner,
   }) {
+    maxKeys ??= 0;
+    fetchOwner ??= false;
     return _$ListObjectsV2Request._(
       bucket: bucket,
       delimiter: delimiter,
@@ -98,13 +100,16 @@ abstract class ListObjectsV2Request
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestBuilder b) {}
+  static void _init(ListObjectsV2RequestBuilder b) {
+    b.maxKeys = 0;
+    b.fetchOwner = false;
+  }
 
   /// Bucket name to list.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// A delimiter is a character you use to group keys.
@@ -114,7 +119,7 @@ abstract class ListObjectsV2Request
   _i3.EncodingType? get encodingType;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
-  int? get maxKeys;
+  int get maxKeys;
 
   /// Limits the response to keys that begin with the specified prefix.
   String? get prefix;
@@ -123,7 +128,7 @@ abstract class ListObjectsV2Request
   String? get continuationToken;
 
   /// The owner field is not present in listV2 by default, if you want to return owner field with each key in the result then set the fetch owner field to true.
-  bool? get fetchOwner;
+  bool get fetchOwner;
 
   /// StartAfter is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key. StartAfter can be any key in the bucket.
   String? get startAfter;

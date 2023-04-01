@@ -91,7 +91,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
 ///
 /// *   By Email address:
 ///
-///     `<>Grantees@email.com<>lt;/Grantee>`
+///     `<>Grantees@email.com<>&`
 ///
 ///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
 ///
@@ -202,7 +202,7 @@ class PutBucketAclOperation extends _i1.HttpOperation<_i2.AccessControlPolicy,
   ///
   /// *   By Email address:
   ///
-  ///     `<>Grantees@email.com<>lt;/Grantee>`
+  ///     `<>Grantees@email.com<>&`
   ///
   ///     The grantee is resolved to the CanonicalUser and, in a response to a GET Object acl request, appears as the CanonicalUser.
   ///

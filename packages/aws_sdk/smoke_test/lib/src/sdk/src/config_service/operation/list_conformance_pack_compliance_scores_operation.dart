@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pac
 import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart'
     as _i3;
 
-/// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
+/// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
 ///
 /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
 class ListConformancePackComplianceScoresOperation
@@ -35,7 +35,7 @@ class ListConformancePackComplianceScoresOperation
         String,
         int,
         _i3.ListConformancePackComplianceScoresResponse> {
-  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
+  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   ListConformancePackComplianceScoresOperation({
@@ -189,8 +189,6 @@ class ListConformancePackComplianceScoresOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

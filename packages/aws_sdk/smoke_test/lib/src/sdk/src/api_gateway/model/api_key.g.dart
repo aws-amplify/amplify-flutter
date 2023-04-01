@@ -18,7 +18,7 @@ class _$ApiKey extends ApiKey {
   @override
   final String? description;
   @override
-  final bool? enabled;
+  final bool enabled;
   @override
   final DateTime? createdDate;
   @override
@@ -37,12 +37,14 @@ class _$ApiKey extends ApiKey {
       this.name,
       this.customerId,
       this.description,
-      this.enabled,
+      required this.enabled,
       this.createdDate,
       this.lastUpdatedDate,
       this.stageKeys,
       this.tags})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(enabled, r'ApiKey', 'enabled');
+  }
 
   @override
   ApiKey rebuild(void Function(ApiKeyBuilder) updates) =>
@@ -178,7 +180,8 @@ class ApiKeyBuilder implements Builder<ApiKey, ApiKeyBuilder> {
               name: name,
               customerId: customerId,
               description: description,
-              enabled: enabled,
+              enabled: BuiltValueNullFieldError.checkNotNull(
+                  enabled, r'ApiKey', 'enabled'),
               createdDate: createdDate,
               lastUpdatedDate: lastUpdatedDate,
               stageKeys: _stageKeys?.build(),

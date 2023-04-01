@@ -20,12 +20,16 @@ import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_auth
     as _i3;
 
 /// Authorizes the aggregator account and region to collect data from the source account and region.
+///
+/// `PutAggregationAuthorization` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
 class PutAggregationAuthorizationOperation extends _i1.HttpOperation<
     _i2.PutAggregationAuthorizationRequest,
     _i2.PutAggregationAuthorizationRequest,
     _i3.PutAggregationAuthorizationResponse,
     _i3.PutAggregationAuthorizationResponse> {
   /// Authorizes the aggregator account and region to collect data from the source account and region.
+  ///
+  /// `PutAggregationAuthorization` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
   PutAggregationAuthorizationOperation({
     required String region,
     Uri? baseUri,

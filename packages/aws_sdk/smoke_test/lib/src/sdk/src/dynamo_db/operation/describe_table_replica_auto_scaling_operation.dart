@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// Describes auto scaling settings across replicas of the global table at once.
 ///
-/// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
 class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i2.DescribeTableReplicaAutoScalingInput,
     _i2.DescribeTableReplicaAutoScalingInput,
@@ -31,7 +31,7 @@ class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i3.DescribeTableReplicaAutoScalingOutput> {
   /// Describes auto scaling settings across replicas of the global table at once.
   ///
-  /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   DescribeTableReplicaAutoScalingOperation({
     required String region,
     Uri? baseUri,

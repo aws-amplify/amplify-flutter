@@ -18,7 +18,7 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
   @override
   final _i3.RequestPayer? requestPayer;
   @override
-  final bool? bypassGovernanceRetention;
+  final bool bypassGovernanceRetention;
   @override
   final String? expectedBucketOwner;
 
@@ -32,12 +32,14 @@ class _$DeleteObjectRequest extends DeleteObjectRequest {
       this.mfa,
       this.versionId,
       this.requestPayer,
-      this.bypassGovernanceRetention,
+      required this.bypassGovernanceRetention,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'DeleteObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'DeleteObjectRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(bypassGovernanceRetention,
+        r'DeleteObjectRequest', 'bypassGovernanceRetention');
   }
 
   @override
@@ -155,7 +157,10 @@ class DeleteObjectRequestBuilder
             mfa: mfa,
             versionId: versionId,
             requestPayer: requestPayer,
-            bypassGovernanceRetention: bypassGovernanceRetention,
+            bypassGovernanceRetention: BuiltValueNullFieldError.checkNotNull(
+                bypassGovernanceRetention,
+                r'DeleteObjectRequest',
+                'bypassGovernanceRetention'),
             expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;

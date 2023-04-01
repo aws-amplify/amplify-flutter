@@ -18,6 +18,7 @@ abstract class MethodSnapshot
     String? authorizationType,
     bool? apiKeyRequired,
   }) {
+    apiKeyRequired ??= false;
     return _$MethodSnapshot._(
       authorizationType: authorizationType,
       apiKeyRequired: apiKeyRequired,
@@ -35,13 +36,15 @@ abstract class MethodSnapshot
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(MethodSnapshotBuilder b) {}
+  static void _init(MethodSnapshotBuilder b) {
+    b.apiKeyRequired = false;
+  }
 
   /// The method's authorization type. Valid values are `NONE` for open access, `AWS_IAM` for using AWS IAM permissions, `CUSTOM` for using a custom authorizer, or `COGNITO\_USER\_POOLS` for using a Cognito user pool.
   String? get authorizationType;
 
   /// Specifies whether the method requires a valid ApiKey.
-  bool? get apiKeyRequired;
+  bool get apiKeyRequired;
   @override
   List<Object?> get props => [
         authorizationType,
@@ -92,12 +95,10 @@ class MethodSnapshotRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'apiKeyRequired':
-          if (value != null) {
-            result.apiKeyRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.apiKeyRequired = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'authorizationType':
           if (value != null) {
@@ -120,15 +121,13 @@ class MethodSnapshotRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as MethodSnapshot);
-    final result = <Object?>[];
-    if (payload.apiKeyRequired != null) {
-      result
-        ..add('apiKeyRequired')
-        ..add(serializers.serialize(
-          payload.apiKeyRequired!,
-          specifiedType: const FullType(bool),
-        ));
-    }
+    final result = <Object?>[
+      'apiKeyRequired',
+      serializers.serialize(
+        payload.apiKeyRequired,
+        specifiedType: const FullType(bool),
+      ),
+    ];
     if (payload.authorizationType != null) {
       result
         ..add('authorizationType')

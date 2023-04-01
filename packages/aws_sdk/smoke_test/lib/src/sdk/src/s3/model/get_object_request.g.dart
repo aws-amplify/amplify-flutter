@@ -44,7 +44,7 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final _i3.RequestPayer? requestPayer;
   @override
-  final int? partNumber;
+  final int partNumber;
   @override
   final String? expectedBucketOwner;
   @override
@@ -73,13 +73,15 @@ class _$GetObjectRequest extends GetObjectRequest {
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
       this.requestPayer,
-      this.partNumber,
+      required this.partNumber,
       this.expectedBucketOwner,
       this.checksumMode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'GetObjectRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(
+        partNumber, r'GetObjectRequest', 'partNumber');
   }
 
   @override
@@ -318,7 +320,8 @@ class GetObjectRequestBuilder
             sseCustomerKey: sseCustomerKey,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
             requestPayer: requestPayer,
-            partNumber: partNumber,
+            partNumber: BuiltValueNullFieldError.checkNotNull(
+                partNumber, r'GetObjectRequest', 'partNumber'),
             expectedBucketOwner: expectedBucketOwner,
             checksumMode: checksumMode);
     replace(_$result);

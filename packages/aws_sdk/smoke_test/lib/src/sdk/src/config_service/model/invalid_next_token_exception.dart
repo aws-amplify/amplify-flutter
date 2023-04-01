@@ -9,18 +9,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'invalid_next_token_exception.g.dart';
 
-/// The specified next token is invalid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
+/// The specified next token is not valid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
 abstract class InvalidNextTokenException
     with _i1.AWSEquatable<InvalidNextTokenException>
     implements
         Built<InvalidNextTokenException, InvalidNextTokenExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The specified next token is invalid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
+  /// The specified next token is not valid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
   factory InvalidNextTokenException({String? message}) {
     return _$InvalidNextTokenException._(message: message);
   }
 
-  /// The specified next token is invalid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
+  /// The specified next token is not valid. Specify the `nextToken` string that was returned in the previous response to get the next page of results.
   factory InvalidNextTokenException.build(
           [void Function(InvalidNextTokenExceptionBuilder) updates]) =
       _$InvalidNextTokenException;

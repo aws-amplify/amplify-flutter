@@ -160,12 +160,10 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
                 input.sseCustomerKeyMd5!;
           }
         }
-        if (input.maxParts != null) {
-          b.queryParameters.add(
-            'max-parts',
-            input.maxParts!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'max-parts',
+          input.maxParts.toString(),
+        );
         if (input.partNumberMarker != null) {
           b.queryParameters.add(
             'part-number-marker',
@@ -246,8 +244,6 @@ class ListPartsOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.partNumberMarker = token;
-        if (pageSize != null) {
-          b.maxParts = pageSize;
-        }
+        b.maxParts = pageSize;
       });
 }

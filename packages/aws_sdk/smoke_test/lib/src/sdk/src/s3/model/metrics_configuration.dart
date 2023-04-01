@@ -39,7 +39,7 @@ abstract class MetricsConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetricsConfigurationBuilder b) {}
 
-  /// The ID used to identify the metrics configuration.
+  /// The ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters, numbers, periods, dashes, and underscores.
   String get id;
 
   /// Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator).

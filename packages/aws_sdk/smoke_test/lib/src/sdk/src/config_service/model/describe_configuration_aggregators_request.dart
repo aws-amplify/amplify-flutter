@@ -22,6 +22,7 @@ abstract class DescribeConfigurationAggregatorsRequest
     String? nextToken,
     int? limit,
   }) {
+    limit ??= 0;
     return _$DescribeConfigurationAggregatorsRequest._(
       configurationAggregatorNames: configurationAggregatorNames == null
           ? null
@@ -49,7 +50,9 @@ abstract class DescribeConfigurationAggregatorsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationAggregatorsRequestBuilder b) {}
+  static void _init(DescribeConfigurationAggregatorsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregators.
   _i3.BuiltList<String>? get configurationAggregatorNames;
@@ -58,7 +61,7 @@ abstract class DescribeConfigurationAggregatorsRequest
   String? get nextToken;
 
   /// The maximum number of configuration aggregators returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
   @override
   DescribeConfigurationAggregatorsRequest getPayload() => this;
   @override
@@ -138,12 +141,10 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -158,7 +159,13 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as DescribeConfigurationAggregatorsRequest);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.configurationAggregatorNames != null) {
       result
         ..add('ConfigurationAggregatorNames')
@@ -176,14 +183,6 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     return result;

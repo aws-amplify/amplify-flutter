@@ -9,7 +9,7 @@ part of smoke_test.s3.model.list_bucket_metrics_configurations_output;
 class _$ListBucketMetricsConfigurationsOutput
     extends ListBucketMetricsConfigurationsOutput {
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? continuationToken;
   @override
@@ -24,11 +24,14 @@ class _$ListBucketMetricsConfigurationsOutput
           ._build();
 
   _$ListBucketMetricsConfigurationsOutput._(
-      {this.isTruncated,
+      {required this.isTruncated,
       this.continuationToken,
       this.nextContinuationToken,
       this.metricsConfigurationList})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListBucketMetricsConfigurationsOutput', 'isTruncated');
+  }
 
   @override
   ListBucketMetricsConfigurationsOutput rebuild(
@@ -127,7 +130,8 @@ class ListBucketMetricsConfigurationsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListBucketMetricsConfigurationsOutput._(
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListBucketMetricsConfigurationsOutput', 'isTruncated'),
               continuationToken: continuationToken,
               nextContinuationToken: nextContinuationToken,
               metricsConfigurationList: _metricsConfigurationList?.build());

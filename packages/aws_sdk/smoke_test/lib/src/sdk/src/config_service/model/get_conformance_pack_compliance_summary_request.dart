@@ -22,6 +22,7 @@ abstract class GetConformancePackComplianceSummaryRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetConformancePackComplianceSummaryRequest._(
       conformancePackNames: _i3.BuiltList(conformancePackNames),
       limit: limit,
@@ -47,13 +48,15 @@ abstract class GetConformancePackComplianceSummaryRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetConformancePackComplianceSummaryRequestBuilder b) {}
+  static void _init(GetConformancePackComplianceSummaryRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Names of conformance packs.
   _i3.BuiltList<String> get conformancePackNames;
 
   /// The maximum number of conformance packs returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -125,12 +128,10 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
           ) as _i3.BuiltList<String>));
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -162,15 +163,12 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
           [FullType(String)],
         ),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')

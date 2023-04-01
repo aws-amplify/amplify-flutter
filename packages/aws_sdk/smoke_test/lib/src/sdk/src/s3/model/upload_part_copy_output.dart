@@ -28,6 +28,7 @@ abstract class UploadPartCopyOutput
     bool? bucketKeyEnabled,
     _i5.RequestCharged? requestCharged,
   }) {
+    bucketKeyEnabled ??= false;
     return _$UploadPartCopyOutput._(
       copySourceVersionId: copySourceVersionId,
       copyPartResult: copyPartResult,
@@ -97,7 +98,9 @@ abstract class UploadPartCopyOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyOutputBuilder b) {}
+  static void _init(UploadPartCopyOutputBuilder b) {
+    b.bucketKeyEnabled = false;
+  }
 
   /// The version of the source object that was copied, if you have enabled versioning on the source bucket.
   String? get copySourceVersionId;
@@ -105,7 +108,7 @@ abstract class UploadPartCopyOutput
   /// Container for all response elements.
   _i3.CopyPartResult? get copyPartResult;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, `aws:kms`).
   _i4.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
@@ -114,11 +117,11 @@ abstract class UploadPartCopyOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
   /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  bool get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i5.RequestCharged? get requestCharged;

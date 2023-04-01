@@ -27,6 +27,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetAggregateComplianceDetailsByConfigRuleRequest._(
       configurationAggregatorName: configurationAggregatorName,
       configRuleName: configRuleName,
@@ -56,8 +57,9 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetAggregateComplianceDetailsByConfigRuleRequestBuilder b) {}
+  static void _init(GetAggregateComplianceDetailsByConfigRuleRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -77,7 +79,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   _i3.ComplianceType? get complianceType;
 
   /// The maximum number of evaluation results returned on each page. The default is 50. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -193,12 +195,10 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -243,6 +243,11 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         payload.awsRegion,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.complianceType != null) {
       result
@@ -250,14 +255,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.complianceType!,
           specifiedType: const FullType(_i3.ComplianceType),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

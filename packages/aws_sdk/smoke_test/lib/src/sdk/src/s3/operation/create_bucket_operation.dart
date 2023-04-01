@@ -270,10 +270,8 @@ class CreateBucketOperation extends _i1.HttpOperation<
             b.headers['x-amz-grant-write-acp'] = input.grantWriteAcp!;
           }
         }
-        if (input.objectLockEnabledForBucket != null) {
-          b.headers['x-amz-bucket-object-lock-enabled'] =
-              input.objectLockEnabledForBucket!.toString();
-        }
+        b.headers['x-amz-bucket-object-lock-enabled'] =
+            input.objectLockEnabledForBucket.toString();
         if (input.objectOwnership != null) {
           b.headers['x-amz-object-ownership'] = input.objectOwnership!.value;
         }

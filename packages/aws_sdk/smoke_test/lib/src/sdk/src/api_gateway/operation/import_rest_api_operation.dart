@@ -95,12 +95,10 @@ class ImportRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/restapis?mode=import';
-        if (input.failOnWarnings != null) {
-          b.queryParameters.add(
-            'failonwarnings',
-            input.failOnWarnings!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'failonwarnings',
+          input.failOnWarnings.toString(),
+        );
         if (input.parameters != null) {
           for (var entry in input.parameters!.toMap().entries) {
             b.queryParameters.add(

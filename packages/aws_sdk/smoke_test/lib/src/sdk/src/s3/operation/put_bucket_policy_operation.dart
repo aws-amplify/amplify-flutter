@@ -117,10 +117,8 @@ class PutBucketPolicyOperation extends _i1
           b.headers['x-amz-sdk-checksum-algorithm'] =
               input.checksumAlgorithm!.value;
         }
-        if (input.confirmRemoveSelfBucketAccess != null) {
-          b.headers['x-amz-confirm-remove-self-bucket-access'] =
-              input.confirmRemoveSelfBucketAccess!.toString();
-        }
+        b.headers['x-amz-confirm-remove-self-bucket-access'] =
+            input.confirmRemoveSelfBucketAccess.toString();
         if (input.expectedBucketOwner != null) {
           if (input.expectedBucketOwner!.isNotEmpty) {
             b.headers['x-amz-expected-bucket-owner'] =

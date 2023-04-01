@@ -34,6 +34,7 @@ abstract class PutBucketNotificationConfigurationRequest
     String? expectedBucketOwner,
     bool? skipDestinationValidation,
   }) {
+    skipDestinationValidation ??= false;
     return _$PutBucketNotificationConfigurationRequest._(
       bucket: bucket,
       notificationConfiguration: notificationConfiguration,
@@ -73,7 +74,9 @@ abstract class PutBucketNotificationConfigurationRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketNotificationConfigurationRequestBuilder b) {}
+  static void _init(PutBucketNotificationConfigurationRequestBuilder b) {
+    b.skipDestinationValidation = false;
+  }
 
   /// The name of the bucket.
   String get bucket;
@@ -85,7 +88,7 @@ abstract class PutBucketNotificationConfigurationRequest
   String? get expectedBucketOwner;
 
   /// Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations. True or false value.
-  bool? get skipDestinationValidation;
+  bool get skipDestinationValidation;
   @override
   String labelFor(String key) {
     switch (key) {

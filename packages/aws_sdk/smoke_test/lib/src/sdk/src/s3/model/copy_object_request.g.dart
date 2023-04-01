@@ -68,7 +68,7 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String? ssekmsEncryptionContext;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final String? copySourceSseCustomerAlgorithm;
   @override
@@ -125,7 +125,7 @@ class _$CopyObjectRequest extends CopyObjectRequest {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.copySourceSseCustomerAlgorithm,
       this.copySourceSseCustomerKey,
       this.copySourceSseCustomerKeyMd5,
@@ -142,6 +142,8 @@ class _$CopyObjectRequest extends CopyObjectRequest {
     BuiltValueNullFieldError.checkNotNull(
         copySource, r'CopyObjectRequest', 'copySource');
     BuiltValueNullFieldError.checkNotNull(key, r'CopyObjectRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'CopyObjectRequest', 'bucketKeyEnabled');
   }
 
   @override
@@ -559,7 +561,8 @@ class CopyObjectRequestBuilder
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
               ssekmsEncryptionContext: ssekmsEncryptionContext,
-              bucketKeyEnabled: bucketKeyEnabled,
+              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                  bucketKeyEnabled, r'CopyObjectRequest', 'bucketKeyEnabled'),
               copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
               copySourceSseCustomerKey: copySourceSseCustomerKey,
               copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,

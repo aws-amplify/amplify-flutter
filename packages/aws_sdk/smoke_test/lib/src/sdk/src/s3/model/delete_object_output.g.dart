@@ -8,7 +8,7 @@ part of smoke_test.s3.model.delete_object_output;
 
 class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
-  final bool? deleteMarker;
+  final bool deleteMarker;
   @override
   final String? versionId;
   @override
@@ -19,8 +19,11 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
       (new DeleteObjectOutputBuilder()..update(updates))._build();
 
   _$DeleteObjectOutput._(
-      {this.deleteMarker, this.versionId, this.requestCharged})
-      : super._();
+      {required this.deleteMarker, this.versionId, this.requestCharged})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        deleteMarker, r'DeleteObjectOutput', 'deleteMarker');
+  }
 
   @override
   DeleteObjectOutput rebuild(
@@ -100,7 +103,8 @@ class DeleteObjectOutputBuilder
   _$DeleteObjectOutput _build() {
     final _$result = _$v ??
         new _$DeleteObjectOutput._(
-            deleteMarker: deleteMarker,
+            deleteMarker: BuiltValueNullFieldError.checkNotNull(
+                deleteMarker, r'DeleteObjectOutput', 'deleteMarker'),
             versionId: versionId,
             requestCharged: requestCharged);
     replace(_$result);

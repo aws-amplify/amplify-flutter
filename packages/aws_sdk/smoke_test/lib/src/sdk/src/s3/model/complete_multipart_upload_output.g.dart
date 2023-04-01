@@ -32,7 +32,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final _i4.RequestCharged? requestCharged;
 
@@ -53,9 +53,12 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
       this.serverSideEncryption,
       this.versionId,
       this.ssekmsKeyId,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.requestCharged})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'CompleteMultipartUploadOutput', 'bucketKeyEnabled');
+  }
 
   @override
   CompleteMultipartUploadOutput rebuild(
@@ -232,7 +235,10 @@ class CompleteMultipartUploadOutputBuilder
             serverSideEncryption: serverSideEncryption,
             versionId: versionId,
             ssekmsKeyId: ssekmsKeyId,
-            bucketKeyEnabled: bucketKeyEnabled,
+            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                bucketKeyEnabled,
+                r'CompleteMultipartUploadOutput',
+                'bucketKeyEnabled'),
             requestCharged: requestCharged);
     replace(_$result);
     return _$result;

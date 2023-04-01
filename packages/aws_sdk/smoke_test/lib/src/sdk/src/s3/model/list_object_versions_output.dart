@@ -34,6 +34,8 @@ abstract class ListObjectVersionsOutput
     List<_i4.CommonPrefix>? commonPrefixes,
     _i5.EncodingType? encodingType,
   }) {
+    isTruncated ??= false;
+    maxKeys ??= 0;
     return _$ListObjectVersionsOutput._(
       isTruncated: isTruncated,
       keyMarker: keyMarker,
@@ -71,10 +73,13 @@ abstract class ListObjectVersionsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsOutputBuilder b) {}
+  static void _init(ListObjectVersionsOutputBuilder b) {
+    b.isTruncated = false;
+    b.maxKeys = 0;
+  }
 
   /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request using the NextKeyMarker and NextVersionIdMarker response parameters as a starting place in another request to return the rest of the results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// Marks the last key returned in a truncated response.
   String? get keyMarker;
@@ -104,7 +109,7 @@ abstract class ListObjectVersionsOutput
   String? get delimiter;
 
   /// Specifies the maximum number of objects to return.
-  int? get maxKeys;
+  int get maxKeys;
 
   /// All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
   _i6.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
@@ -253,12 +258,10 @@ class ListObjectVersionsOutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isTruncated = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'KeyMarker':
           if (value != null) {
@@ -269,12 +272,10 @@ class ListObjectVersionsOutputRestXmlSerializer
           }
           break;
         case 'MaxKeys':
-          if (value != null) {
-            result.maxKeys = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxKeys = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Name':
           if (value != null) {
@@ -382,14 +383,12 @@ class ListObjectVersionsOutputRestXmlSerializer
           specifiedType: const FullType.nullable(_i5.EncodingType),
         ));
     }
-    if (payload.isTruncated != null) {
-      result
-        ..add(const _i7.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          payload.isTruncated!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i7.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        payload.isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (payload.keyMarker != null) {
       result
         ..add(const _i7.XmlElementName('KeyMarker'))
@@ -398,14 +397,12 @@ class ListObjectVersionsOutputRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxKeys != null) {
-      result
-        ..add(const _i7.XmlElementName('MaxKeys'))
-        ..add(serializers.serialize(
-          payload.maxKeys!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i7.XmlElementName('MaxKeys'))
+      ..add(serializers.serialize(
+        payload.maxKeys,
+        specifiedType: const FullType(int),
+      ));
     if (payload.name != null) {
       result
         ..add(const _i7.XmlElementName('Name'))

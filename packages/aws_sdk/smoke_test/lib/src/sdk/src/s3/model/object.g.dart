@@ -16,7 +16,7 @@ class _$S3Object extends S3Object {
   @override
   final _i6.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
   @override
-  final _i3.Int64? size;
+  final _i3.Int64 size;
   @override
   final _i4.ObjectStorageClass? storageClass;
   @override
@@ -30,10 +30,12 @@ class _$S3Object extends S3Object {
       this.lastModified,
       this.eTag,
       this.checksumAlgorithm,
-      this.size,
+      required this.size,
       this.storageClass,
       this.owner})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(size, r'S3Object', 'size');
+  }
 
   @override
   S3Object rebuild(void Function(S3ObjectBuilder) updates) =>
@@ -149,7 +151,8 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
               lastModified: lastModified,
               eTag: eTag,
               checksumAlgorithm: _checksumAlgorithm?.build(),
-              size: size,
+              size: BuiltValueNullFieldError.checkNotNull(
+                  size, r'S3Object', 'size'),
               storageClass: storageClass,
               owner: _owner?.build());
     } catch (_) {

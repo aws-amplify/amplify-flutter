@@ -16,7 +16,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   @override
   final String? keyMarker;
   @override
-  final int? maxUploads;
+  final int maxUploads;
   @override
   final String? prefix;
   @override
@@ -33,13 +33,15 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
       this.delimiter,
       this.encodingType,
       this.keyMarker,
-      this.maxUploads,
+      required this.maxUploads,
       this.prefix,
       this.uploadIdMarker,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListMultipartUploadsRequest', 'bucket');
+    BuiltValueNullFieldError.checkNotNull(
+        maxUploads, r'ListMultipartUploadsRequest', 'maxUploads');
   }
 
   @override
@@ -164,7 +166,8 @@ class ListMultipartUploadsRequestBuilder
             delimiter: delimiter,
             encodingType: encodingType,
             keyMarker: keyMarker,
-            maxUploads: maxUploads,
+            maxUploads: BuiltValueNullFieldError.checkNotNull(
+                maxUploads, r'ListMultipartUploadsRequest', 'maxUploads'),
             prefix: prefix,
             uploadIdMarker: uploadIdMarker,
             expectedBucketOwner: expectedBucketOwner);

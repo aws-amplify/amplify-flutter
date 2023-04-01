@@ -20,6 +20,7 @@ abstract class ListTagsForResourceRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$ListTagsForResourceRequest._(
       resourceArn: resourceArn,
       limit: limit,
@@ -45,13 +46,15 @@ abstract class ListTagsForResourceRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsForResourceRequestBuilder b) {}
+  static void _init(ListTagsForResourceRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
   String get resourceArn;
 
   /// The maximum number of tags returned on each page. The limit maximum is 50. You cannot specify a number greater than 50. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -119,12 +122,10 @@ class ListTagsForResourceRequestAwsJson11Serializer
           ) as String);
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -153,15 +154,12 @@ class ListTagsForResourceRequestAwsJson11Serializer
         payload.resourceArn,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')

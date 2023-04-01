@@ -29,6 +29,8 @@ abstract class DefaultRetention
     int? days,
     int? years,
   }) {
+    days ??= 0;
+    years ??= 0;
     return _$DefaultRetention._(
       mode: mode,
       days: days,
@@ -51,16 +53,19 @@ abstract class DefaultRetention
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultRetentionBuilder b) {}
+  static void _init(DefaultRetentionBuilder b) {
+    b.days = 0;
+    b.years = 0;
+  }
 
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
   _i2.ObjectLockRetentionMode? get mode;
 
   /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
-  int? get days;
+  int get days;
 
   /// The number of years that you want to specify for the default retention period. Must be used with `Mode`.
-  int? get years;
+  int get years;
   @override
   List<Object?> get props => [
         mode,
@@ -116,12 +121,10 @@ class DefaultRetentionRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.days = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Mode':
           if (value != null) {
@@ -132,12 +135,10 @@ class DefaultRetentionRestXmlSerializer
           }
           break;
         case 'Years':
-          if (value != null) {
-            result.years = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.years = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -158,14 +159,12 @@ class DefaultRetentionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.days != null) {
-      result
-        ..add(const _i3.XmlElementName('Days'))
-        ..add(serializers.serialize(
-          payload.days!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('Days'))
+      ..add(serializers.serialize(
+        payload.days,
+        specifiedType: const FullType(int),
+      ));
     if (payload.mode != null) {
       result
         ..add(const _i3.XmlElementName('Mode'))
@@ -174,14 +173,12 @@ class DefaultRetentionRestXmlSerializer
           specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
         ));
     }
-    if (payload.years != null) {
-      result
-        ..add(const _i3.XmlElementName('Years'))
-        ..add(serializers.serialize(
-          payload.years!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('Years'))
+      ..add(serializers.serialize(
+        payload.years,
+        specifiedType: const FullType(int),
+      ));
     return result;
   }
 }

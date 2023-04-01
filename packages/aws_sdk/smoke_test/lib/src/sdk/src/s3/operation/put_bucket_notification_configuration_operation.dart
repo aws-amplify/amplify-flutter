@@ -148,10 +148,8 @@ class PutBucketNotificationConfigurationOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
-        if (input.skipDestinationValidation != null) {
-          b.headers['x-amz-skip-destination-validation'] =
-              input.skipDestinationValidation!.toString();
-        }
+        b.headers['x-amz-skip-destination-validation'] =
+            input.skipDestinationValidation.toString();
       });
   @override
   int successCode([_i1.Unit? output]) => 200;

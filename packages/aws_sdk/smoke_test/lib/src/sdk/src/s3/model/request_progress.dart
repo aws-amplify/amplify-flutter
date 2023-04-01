@@ -15,6 +15,7 @@ abstract class RequestProgress
     implements Built<RequestProgress, RequestProgressBuilder> {
   /// Container for specifying if periodic `QueryProgress` messages should be sent.
   factory RequestProgress({bool? enabled}) {
+    enabled ??= false;
     return _$RequestProgress._(enabled: enabled);
   }
 
@@ -29,10 +30,12 @@ abstract class RequestProgress
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestProgressBuilder b) {}
+  static void _init(RequestProgressBuilder b) {
+    b.enabled = false;
+  }
 
   /// Specifies whether periodic QueryProgress frames should be sent. Valid values: TRUE, FALSE. Default value: FALSE.
-  bool? get enabled;
+  bool get enabled;
   @override
   List<Object?> get props => [enabled];
   @override
@@ -76,12 +79,10 @@ class RequestProgressRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'Enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.enabled = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -102,14 +103,12 @@ class RequestProgressRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.enabled != null) {
-      result
-        ..add(const _i2.XmlElementName('Enabled'))
-        ..add(serializers.serialize(
-          payload.enabled!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i2.XmlElementName('Enabled'))
+      ..add(serializers.serialize(
+        payload.enabled,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

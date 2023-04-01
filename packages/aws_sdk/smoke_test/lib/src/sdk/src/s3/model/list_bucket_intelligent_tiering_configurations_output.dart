@@ -25,6 +25,7 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
     List<_i2.IntelligentTieringConfiguration>?
         intelligentTieringConfigurationList,
   }) {
+    isTruncated ??= false;
     return _$ListBucketIntelligentTieringConfigurationsOutput._(
       isTruncated: isTruncated,
       continuationToken: continuationToken,
@@ -54,11 +55,12 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      ListBucketIntelligentTieringConfigurationsOutputBuilder b) {}
+  static void _init(ListBucketIntelligentTieringConfigurationsOutputBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// The `ContinuationToken` that represents a placeholder from where this request should begin.
   String? get continuationToken;
@@ -150,12 +152,10 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isTruncated = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'NextContinuationToken':
           if (value != null) {
@@ -205,14 +205,12 @@ class ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer
         ),
       ));
     }
-    if (payload.isTruncated != null) {
-      result
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          payload.isTruncated!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        payload.isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (payload.nextContinuationToken != null) {
       result
         ..add(const _i4.XmlElementName('NextContinuationToken'))

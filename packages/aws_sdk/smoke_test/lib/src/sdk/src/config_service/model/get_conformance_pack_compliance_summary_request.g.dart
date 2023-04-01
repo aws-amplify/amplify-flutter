@@ -11,7 +11,7 @@ class _$GetConformancePackComplianceSummaryRequest
   @override
   final _i3.BuiltList<String> conformancePackNames;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -22,10 +22,12 @@ class _$GetConformancePackComplianceSummaryRequest
           ._build();
 
   _$GetConformancePackComplianceSummaryRequest._(
-      {required this.conformancePackNames, this.limit, this.nextToken})
+      {required this.conformancePackNames, required this.limit, this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(conformancePackNames,
         r'GetConformancePackComplianceSummaryRequest', 'conformancePackNames');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GetConformancePackComplianceSummaryRequest', 'limit');
   }
 
   @override
@@ -115,7 +117,8 @@ class GetConformancePackComplianceSummaryRequestBuilder
       _$result = _$v ??
           new _$GetConformancePackComplianceSummaryRequest._(
               conformancePackNames: conformancePackNames.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(limit,
+                  r'GetConformancePackComplianceSummaryRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

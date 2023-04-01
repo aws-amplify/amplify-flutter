@@ -16,7 +16,7 @@ class _$GatewayResponse extends GatewayResponse {
   @override
   final _i3.BuiltMap<String, String>? responseTemplates;
   @override
-  final bool? defaultResponse;
+  final bool defaultResponse;
 
   factory _$GatewayResponse([void Function(GatewayResponseBuilder)? updates]) =>
       (new GatewayResponseBuilder()..update(updates))._build();
@@ -26,8 +26,11 @@ class _$GatewayResponse extends GatewayResponse {
       this.statusCode,
       this.responseParameters,
       this.responseTemplates,
-      this.defaultResponse})
-      : super._();
+      required this.defaultResponse})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        defaultResponse, r'GatewayResponse', 'defaultResponse');
+  }
 
   @override
   GatewayResponse rebuild(void Function(GatewayResponseBuilder) updates) =>
@@ -131,7 +134,8 @@ class GatewayResponseBuilder
               statusCode: statusCode,
               responseParameters: _responseParameters?.build(),
               responseTemplates: _responseTemplates?.build(),
-              defaultResponse: defaultResponse);
+              defaultResponse: BuiltValueNullFieldError.checkNotNull(
+                  defaultResponse, r'GatewayResponse', 'defaultResponse'));
     } catch (_) {
       late String _$failedField;
       try {

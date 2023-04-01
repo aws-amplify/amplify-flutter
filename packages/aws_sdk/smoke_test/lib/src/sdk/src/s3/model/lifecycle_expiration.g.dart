@@ -10,17 +10,21 @@ class _$LifecycleExpiration extends LifecycleExpiration {
   @override
   final DateTime? date;
   @override
-  final int? days;
+  final int days;
   @override
-  final bool? expiredObjectDeleteMarker;
+  final bool expiredObjectDeleteMarker;
 
   factory _$LifecycleExpiration(
           [void Function(LifecycleExpirationBuilder)? updates]) =>
       (new LifecycleExpirationBuilder()..update(updates))._build();
 
   _$LifecycleExpiration._(
-      {this.date, this.days, this.expiredObjectDeleteMarker})
-      : super._();
+      {this.date, required this.days, required this.expiredObjectDeleteMarker})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(days, r'LifecycleExpiration', 'days');
+    BuiltValueNullFieldError.checkNotNull(expiredObjectDeleteMarker,
+        r'LifecycleExpiration', 'expiredObjectDeleteMarker');
+  }
 
   @override
   LifecycleExpiration rebuild(
@@ -101,8 +105,12 @@ class LifecycleExpirationBuilder
     final _$result = _$v ??
         new _$LifecycleExpiration._(
             date: date,
-            days: days,
-            expiredObjectDeleteMarker: expiredObjectDeleteMarker);
+            days: BuiltValueNullFieldError.checkNotNull(
+                days, r'LifecycleExpiration', 'days'),
+            expiredObjectDeleteMarker: BuiltValueNullFieldError.checkNotNull(
+                expiredObjectDeleteMarker,
+                r'LifecycleExpiration',
+                'expiredObjectDeleteMarker'));
     replace(_$result);
     return _$result;
   }

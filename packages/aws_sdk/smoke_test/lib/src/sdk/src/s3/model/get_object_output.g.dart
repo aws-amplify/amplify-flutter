@@ -10,7 +10,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final _i3.Stream<List<int>>? body;
   @override
-  final bool? deleteMarker;
+  final bool deleteMarker;
   @override
   final String? acceptRanges;
   @override
@@ -20,7 +20,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final DateTime? lastModified;
   @override
-  final _i4.Int64? contentLength;
+  final _i4.Int64 contentLength;
   @override
   final String? eTag;
   @override
@@ -32,7 +32,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final String? checksumSha256;
   @override
-  final int? missingMeta;
+  final int missingMeta;
   @override
   final String? versionId;
   @override
@@ -62,7 +62,7 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final _i6.StorageClass? storageClass;
   @override
@@ -70,9 +70,9 @@ class _$GetObjectOutput extends GetObjectOutput {
   @override
   final _i8.ReplicationStatus? replicationStatus;
   @override
-  final int? partsCount;
+  final int partsCount;
   @override
-  final int? tagCount;
+  final int tagCount;
   @override
   final _i9.ObjectLockMode? objectLockMode;
   @override
@@ -85,18 +85,18 @@ class _$GetObjectOutput extends GetObjectOutput {
 
   _$GetObjectOutput._(
       {this.body,
-      this.deleteMarker,
+      required this.deleteMarker,
       this.acceptRanges,
       this.expiration,
       this.restore,
       this.lastModified,
-      this.contentLength,
+      required this.contentLength,
       this.eTag,
       this.checksumCrc32,
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
-      this.missingMeta,
+      required this.missingMeta,
       this.versionId,
       this.cacheControl,
       this.contentDisposition,
@@ -111,16 +111,29 @@ class _$GetObjectOutput extends GetObjectOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.storageClass,
       this.requestCharged,
       this.replicationStatus,
-      this.partsCount,
-      this.tagCount,
+      required this.partsCount,
+      required this.tagCount,
       this.objectLockMode,
       this.objectLockRetainUntilDate,
       this.objectLockLegalHoldStatus})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        deleteMarker, r'GetObjectOutput', 'deleteMarker');
+    BuiltValueNullFieldError.checkNotNull(
+        contentLength, r'GetObjectOutput', 'contentLength');
+    BuiltValueNullFieldError.checkNotNull(
+        missingMeta, r'GetObjectOutput', 'missingMeta');
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'GetObjectOutput', 'bucketKeyEnabled');
+    BuiltValueNullFieldError.checkNotNull(
+        partsCount, r'GetObjectOutput', 'partsCount');
+    BuiltValueNullFieldError.checkNotNull(
+        tagCount, r'GetObjectOutput', 'tagCount');
+  }
 
   @override
   GetObjectOutput rebuild(void Function(GetObjectOutputBuilder) updates) =>
@@ -456,18 +469,21 @@ class GetObjectOutputBuilder
       _$result = _$v ??
           new _$GetObjectOutput._(
               body: body,
-              deleteMarker: deleteMarker,
+              deleteMarker: BuiltValueNullFieldError.checkNotNull(
+                  deleteMarker, r'GetObjectOutput', 'deleteMarker'),
               acceptRanges: acceptRanges,
               expiration: expiration,
               restore: restore,
               lastModified: lastModified,
-              contentLength: contentLength,
+              contentLength: BuiltValueNullFieldError.checkNotNull(
+                  contentLength, r'GetObjectOutput', 'contentLength'),
               eTag: eTag,
               checksumCrc32: checksumCrc32,
               checksumCrc32C: checksumCrc32C,
               checksumSha1: checksumSha1,
               checksumSha256: checksumSha256,
-              missingMeta: missingMeta,
+              missingMeta: BuiltValueNullFieldError.checkNotNull(
+                  missingMeta, r'GetObjectOutput', 'missingMeta'),
               versionId: versionId,
               cacheControl: cacheControl,
               contentDisposition: contentDisposition,
@@ -482,12 +498,15 @@ class GetObjectOutputBuilder
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: bucketKeyEnabled,
+              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                  bucketKeyEnabled, r'GetObjectOutput', 'bucketKeyEnabled'),
               storageClass: storageClass,
               requestCharged: requestCharged,
               replicationStatus: replicationStatus,
-              partsCount: partsCount,
-              tagCount: tagCount,
+              partsCount: BuiltValueNullFieldError.checkNotNull(
+                  partsCount, r'GetObjectOutput', 'partsCount'),
+              tagCount: BuiltValueNullFieldError.checkNotNull(
+                  tagCount, r'GetObjectOutput', 'tagCount'),
               objectLockMode: objectLockMode,
               objectLockRetainUntilDate: objectLockRetainUntilDate,
               objectLockLegalHoldStatus: objectLockLegalHoldStatus);

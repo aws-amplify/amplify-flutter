@@ -15,7 +15,7 @@ class _$DescribeConfigurationAggregatorSourcesStatusRequest
   @override
   final String? nextToken;
   @override
-  final int? limit;
+  final int limit;
 
   factory _$DescribeConfigurationAggregatorSourcesStatusRequest(
           [void Function(
@@ -29,12 +29,14 @@ class _$DescribeConfigurationAggregatorSourcesStatusRequest
       {required this.configurationAggregatorName,
       this.updateStatus,
       this.nextToken,
-      this.limit})
+      required this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'DescribeConfigurationAggregatorSourcesStatusRequest',
         'configurationAggregatorName');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeConfigurationAggregatorSourcesStatusRequest', 'limit');
   }
 
   @override
@@ -143,7 +145,10 @@ class DescribeConfigurationAggregatorSourcesStatusRequestBuilder
                       'configurationAggregatorName'),
               updateStatus: _updateStatus?.build(),
               nextToken: nextToken,
-              limit: limit);
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit,
+                  r'DescribeConfigurationAggregatorSourcesStatusRequest',
+                  'limit'));
     } catch (_) {
       late String _$failedField;
       try {

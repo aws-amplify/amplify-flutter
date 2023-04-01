@@ -31,6 +31,7 @@ abstract class GetResourceConfigHistoryRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetResourceConfigHistoryRequest._(
       resourceType: resourceType,
       resourceId: resourceId,
@@ -61,7 +62,9 @@ abstract class GetResourceConfigHistoryRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourceConfigHistoryRequestBuilder b) {}
+  static void _init(GetResourceConfigHistoryRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The resource type.
   _i3.ResourceType get resourceType;
@@ -79,7 +82,7 @@ abstract class GetResourceConfigHistoryRequest
   _i4.ChronologicalOrder? get chronologicalOrder;
 
   /// The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -198,12 +201,10 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
           }
           break;
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'nextToken':
           if (value != null) {
@@ -237,6 +238,11 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         payload.resourceId,
         specifiedType: const FullType(String),
       ),
+      'limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.laterTime != null) {
       result
@@ -260,14 +266,6 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.chronologicalOrder!,
           specifiedType: const FullType(_i4.ChronologicalOrder),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

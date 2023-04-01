@@ -18,7 +18,7 @@ class _$CompletedPart extends CompletedPart {
   @override
   final String? checksumSha256;
   @override
-  final int? partNumber;
+  final int partNumber;
 
   factory _$CompletedPart([void Function(CompletedPartBuilder)? updates]) =>
       (new CompletedPartBuilder()..update(updates))._build();
@@ -29,8 +29,11 @@ class _$CompletedPart extends CompletedPart {
       this.checksumCrc32C,
       this.checksumSha1,
       this.checksumSha256,
-      this.partNumber})
-      : super._();
+      required this.partNumber})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        partNumber, r'CompletedPart', 'partNumber');
+  }
 
   @override
   CompletedPart rebuild(void Function(CompletedPartBuilder) updates) =>
@@ -136,7 +139,8 @@ class CompletedPartBuilder
             checksumCrc32C: checksumCrc32C,
             checksumSha1: checksumSha1,
             checksumSha256: checksumSha256,
-            partNumber: partNumber);
+            partNumber: BuiltValueNullFieldError.checkNotNull(
+                partNumber, r'CompletedPart', 'partNumber'));
     replace(_$result);
     return _$result;
   }

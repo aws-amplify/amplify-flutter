@@ -14,13 +14,13 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   @override
   final _i3.EncodingType? encodingType;
   @override
-  final int? maxKeys;
+  final int maxKeys;
   @override
   final String? prefix;
   @override
   final String? continuationToken;
   @override
-  final bool? fetchOwner;
+  final bool fetchOwner;
   @override
   final String? startAfter;
   @override
@@ -36,16 +36,20 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
       {required this.bucket,
       this.delimiter,
       this.encodingType,
-      this.maxKeys,
+      required this.maxKeys,
       this.prefix,
       this.continuationToken,
-      this.fetchOwner,
+      required this.fetchOwner,
       this.startAfter,
       this.requestPayer,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectsV2Request', 'bucket');
+    BuiltValueNullFieldError.checkNotNull(
+        maxKeys, r'ListObjectsV2Request', 'maxKeys');
+    BuiltValueNullFieldError.checkNotNull(
+        fetchOwner, r'ListObjectsV2Request', 'fetchOwner');
   }
 
   @override
@@ -182,10 +186,12 @@ class ListObjectsV2RequestBuilder
                 bucket, r'ListObjectsV2Request', 'bucket'),
             delimiter: delimiter,
             encodingType: encodingType,
-            maxKeys: maxKeys,
+            maxKeys: BuiltValueNullFieldError.checkNotNull(
+                maxKeys, r'ListObjectsV2Request', 'maxKeys'),
             prefix: prefix,
             continuationToken: continuationToken,
-            fetchOwner: fetchOwner,
+            fetchOwner: BuiltValueNullFieldError.checkNotNull(
+                fetchOwner, r'ListObjectsV2Request', 'fetchOwner'),
             startAfter: startAfter,
             requestPayer: requestPayer,
             expectedBucketOwner: expectedBucketOwner);

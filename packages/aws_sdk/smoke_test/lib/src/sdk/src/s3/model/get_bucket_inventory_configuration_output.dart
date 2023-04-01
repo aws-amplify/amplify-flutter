@@ -191,7 +191,7 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
       ..add(const _i2.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
         payload.isEnabled,
-        specifiedType: const FullType.nullable(bool),
+        specifiedType: const FullType(bool),
       ));
     if (payload.filter != null) {
       result

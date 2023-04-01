@@ -8,7 +8,7 @@ part of smoke_test.s3.model.get_object_attributes_output;
 
 class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
   @override
-  final bool? deleteMarker;
+  final bool deleteMarker;
   @override
   final DateTime? lastModified;
   @override
@@ -24,14 +24,14 @@ class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
   @override
   final _i6.StorageClass? storageClass;
   @override
-  final _i7.Int64? objectSize;
+  final _i7.Int64 objectSize;
 
   factory _$GetObjectAttributesOutput(
           [void Function(GetObjectAttributesOutputBuilder)? updates]) =>
       (new GetObjectAttributesOutputBuilder()..update(updates))._build();
 
   _$GetObjectAttributesOutput._(
-      {this.deleteMarker,
+      {required this.deleteMarker,
       this.lastModified,
       this.versionId,
       this.requestCharged,
@@ -39,8 +39,13 @@ class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
       this.checksum,
       this.objectParts,
       this.storageClass,
-      this.objectSize})
-      : super._();
+      required this.objectSize})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        deleteMarker, r'GetObjectAttributesOutput', 'deleteMarker');
+    BuiltValueNullFieldError.checkNotNull(
+        objectSize, r'GetObjectAttributesOutput', 'objectSize');
+  }
 
   @override
   GetObjectAttributesOutput rebuild(
@@ -170,7 +175,8 @@ class GetObjectAttributesOutputBuilder
     try {
       _$result = _$v ??
           new _$GetObjectAttributesOutput._(
-              deleteMarker: deleteMarker,
+              deleteMarker: BuiltValueNullFieldError.checkNotNull(
+                  deleteMarker, r'GetObjectAttributesOutput', 'deleteMarker'),
               lastModified: lastModified,
               versionId: versionId,
               requestCharged: requestCharged,
@@ -178,7 +184,8 @@ class GetObjectAttributesOutputBuilder
               checksum: _checksum?.build(),
               objectParts: _objectParts?.build(),
               storageClass: storageClass,
-              objectSize: objectSize);
+              objectSize: BuiltValueNullFieldError.checkNotNull(
+                  objectSize, r'GetObjectAttributesOutput', 'objectSize'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -206,7 +213,7 @@ class _$GetObjectAttributesOutputPayload
   @override
   final _i5.GetObjectAttributesParts? objectParts;
   @override
-  final _i7.Int64? objectSize;
+  final _i7.Int64 objectSize;
   @override
   final _i6.StorageClass? storageClass;
 
@@ -218,9 +225,12 @@ class _$GetObjectAttributesOutputPayload
       {this.checksum,
       this.eTag,
       this.objectParts,
-      this.objectSize,
+      required this.objectSize,
       this.storageClass})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        objectSize, r'GetObjectAttributesOutputPayload', 'objectSize');
+  }
 
   @override
   GetObjectAttributesOutputPayload rebuild(
@@ -324,7 +334,8 @@ class GetObjectAttributesOutputPayloadBuilder
               checksum: _checksum?.build(),
               eTag: eTag,
               objectParts: _objectParts?.build(),
-              objectSize: objectSize,
+              objectSize: BuiltValueNullFieldError.checkNotNull(objectSize,
+                  r'GetObjectAttributesOutputPayload', 'objectSize'),
               storageClass: storageClass);
     } catch (_) {
       late String _$failedField;

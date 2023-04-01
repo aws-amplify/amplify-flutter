@@ -42,6 +42,7 @@ abstract class Integration
     Map<String, _i5.IntegrationResponse>? integrationResponses,
     _i6.TlsConfig? tlsConfig,
   }) {
+    timeoutInMillis ??= 0;
     return _$Integration._(
       type: type,
       httpMethod: httpMethod,
@@ -84,7 +85,9 @@ abstract class Integration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntegrationBuilder b) {}
+  static void _init(IntegrationBuilder b) {
+    b.timeoutInMillis = 0;
+  }
 
   /// Specifies an API method integration type. The valid value is one of the following:
   ///
@@ -123,7 +126,7 @@ abstract class Integration
   _i4.ContentHandlingStrategy? get contentHandling;
 
   /// Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
-  int? get timeoutInMillis;
+  int get timeoutInMillis;
 
   /// Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the `cacheNamespace`. You can specify the same `cacheNamespace` across resources to return the same cached data for requests to different resources.
   String? get cacheNamespace;
@@ -360,12 +363,10 @@ class IntegrationRestJson1Serializer
           }
           break;
         case 'timeoutInMillis':
-          if (value != null) {
-            result.timeoutInMillis = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.timeoutInMillis = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'tlsConfig':
           if (value != null) {
@@ -404,7 +405,13 @@ class IntegrationRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as Integration);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'timeoutInMillis',
+      serializers.serialize(
+        payload.timeoutInMillis,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.cacheKeyParameters != null) {
       result
         ..add('cacheKeyParameters')
@@ -512,14 +519,6 @@ class IntegrationRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.timeoutInMillis != null) {
-      result
-        ..add('timeoutInMillis')
-        ..add(serializers.serialize(
-          payload.timeoutInMillis!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.tlsConfig != null) {

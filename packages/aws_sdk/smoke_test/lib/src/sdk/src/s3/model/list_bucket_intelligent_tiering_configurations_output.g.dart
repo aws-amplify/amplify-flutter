@@ -9,7 +9,7 @@ part of smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_outpu
 class _$ListBucketIntelligentTieringConfigurationsOutput
     extends ListBucketIntelligentTieringConfigurationsOutput {
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? continuationToken;
   @override
@@ -27,11 +27,14 @@ class _$ListBucketIntelligentTieringConfigurationsOutput
           ._build();
 
   _$ListBucketIntelligentTieringConfigurationsOutput._(
-      {this.isTruncated,
+      {required this.isTruncated,
       this.continuationToken,
       this.nextContinuationToken,
       this.intelligentTieringConfigurationList})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(isTruncated,
+        r'ListBucketIntelligentTieringConfigurationsOutput', 'isTruncated');
+  }
 
   @override
   ListBucketIntelligentTieringConfigurationsOutput rebuild(
@@ -137,7 +140,10 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListBucketIntelligentTieringConfigurationsOutput._(
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated,
+                  r'ListBucketIntelligentTieringConfigurationsOutput',
+                  'isTruncated'),
               continuationToken: continuationToken,
               nextContinuationToken: nextContinuationToken,
               intelligentTieringConfigurationList:

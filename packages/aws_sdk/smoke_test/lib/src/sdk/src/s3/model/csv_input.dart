@@ -24,6 +24,7 @@ abstract class CsvInput
     String? quoteCharacter,
     bool? allowQuotedRecordDelimiter,
   }) {
+    allowQuotedRecordDelimiter ??= false;
     return _$CsvInput._(
       fileHeaderInfo: fileHeaderInfo,
       comments: comments,
@@ -45,7 +46,9 @@ abstract class CsvInput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvInputBuilder b) {}
+  static void _init(CsvInputBuilder b) {
+    b.allowQuotedRecordDelimiter = false;
+  }
 
   /// Describes the first line of input. Valid values are:
   ///
@@ -56,7 +59,9 @@ abstract class CsvInput
   /// *   `Use`: First line is a header, and you can use the header value to identify a column in an expression (`SELECT "name" FROM OBJECT`).
   _i2.FileHeaderInfo? get fileHeaderInfo;
 
-  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line.
+  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line. The default character is `#`.
+  ///
+  /// Default: `#`
   String? get comments;
 
   /// A single character used for escaping the quotation mark character inside an already escaped value. For example, the value `""" a , b """` is parsed as `" a , b "`.
@@ -78,7 +83,7 @@ abstract class CsvInput
   String? get quoteCharacter;
 
   /// Specifies that CSV field values may contain quoted record delimiters and such records should be allowed. Default value is FALSE. Setting this value to TRUE may lower performance.
-  bool? get allowQuotedRecordDelimiter;
+  bool get allowQuotedRecordDelimiter;
   @override
   List<Object?> get props => [
         fileHeaderInfo,
@@ -154,12 +159,10 @@ class CsvInputRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'AllowQuotedRecordDelimiter':
-          if (value != null) {
-            result.allowQuotedRecordDelimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.allowQuotedRecordDelimiter = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'Comments':
           if (value != null) {
@@ -228,14 +231,12 @@ class CsvInputRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.allowQuotedRecordDelimiter != null) {
-      result
-        ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
-        ..add(serializers.serialize(
-          payload.allowQuotedRecordDelimiter!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
+      ..add(serializers.serialize(
+        payload.allowQuotedRecordDelimiter,
+        specifiedType: const FullType(bool),
+      ));
     if (payload.comments != null) {
       result
         ..add(const _i3.XmlElementName('Comments'))

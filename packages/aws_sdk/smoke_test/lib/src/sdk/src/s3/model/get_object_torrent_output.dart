@@ -21,6 +21,7 @@ abstract class GetObjectTorrentOutput
     _i3.Stream<List<int>>? body,
     _i4.RequestCharged? requestCharged,
   }) {
+    body ??= const _i3.Stream.empty();
     return _$GetObjectTorrentOutput._(
       body: body,
       requestCharged: requestCharged,
@@ -51,7 +52,9 @@ abstract class GetObjectTorrentOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTorrentOutputBuilder b) {}
+  static void _init(GetObjectTorrentOutputBuilder b) {
+    b.body = const _i3.Stream.empty();
+  }
 
   /// A Bencoded dictionary as defined by the BitTorrent specification
   _i3.Stream<List<int>>? get body;

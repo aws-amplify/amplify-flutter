@@ -8,7 +8,7 @@ part of smoke_test.s3.model.list_objects_output;
 
 class _$ListObjectsOutput extends ListObjectsOutput {
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
   @override
@@ -22,7 +22,7 @@ class _$ListObjectsOutput extends ListObjectsOutput {
   @override
   final String? delimiter;
   @override
-  final int? maxKeys;
+  final int maxKeys;
   @override
   final _i5.BuiltList<_i3.CommonPrefix>? commonPrefixes;
   @override
@@ -33,17 +33,22 @@ class _$ListObjectsOutput extends ListObjectsOutput {
       (new ListObjectsOutputBuilder()..update(updates))._build();
 
   _$ListObjectsOutput._(
-      {this.isTruncated,
+      {required this.isTruncated,
       this.marker,
       this.nextMarker,
       this.contents,
       this.name,
       this.prefix,
       this.delimiter,
-      this.maxKeys,
+      required this.maxKeys,
       this.commonPrefixes,
       this.encodingType})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListObjectsOutput', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxKeys, r'ListObjectsOutput', 'maxKeys');
+  }
 
   @override
   ListObjectsOutput rebuild(void Function(ListObjectsOutputBuilder) updates) =>
@@ -177,14 +182,16 @@ class ListObjectsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsOutput._(
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListObjectsOutput', 'isTruncated'),
               marker: marker,
               nextMarker: nextMarker,
               contents: _contents?.build(),
               name: name,
               prefix: prefix,
               delimiter: delimiter,
-              maxKeys: maxKeys,
+              maxKeys: BuiltValueNullFieldError.checkNotNull(
+                  maxKeys, r'ListObjectsOutput', 'maxKeys'),
               commonPrefixes: _commonPrefixes?.build(),
               encodingType: encodingType);
     } catch (_) {

@@ -53,6 +53,8 @@ class _$TableDescription extends TableDescription {
   final _i14.ArchivalSummary? archivalSummary;
   @override
   final _i15.TableClassSummary? tableClassSummary;
+  @override
+  final bool? deletionProtectionEnabled;
 
   factory _$TableDescription(
           [void Function(TableDescriptionBuilder)? updates]) =>
@@ -80,7 +82,8 @@ class _$TableDescription extends TableDescription {
       this.restoreSummary,
       this.sseDescription,
       this.archivalSummary,
-      this.tableClassSummary})
+      this.tableClassSummary,
+      this.deletionProtectionEnabled})
       : super._();
 
   @override
@@ -116,7 +119,8 @@ class _$TableDescription extends TableDescription {
         restoreSummary == other.restoreSummary &&
         sseDescription == other.sseDescription &&
         archivalSummary == other.archivalSummary &&
-        tableClassSummary == other.tableClassSummary;
+        tableClassSummary == other.tableClassSummary &&
+        deletionProtectionEnabled == other.deletionProtectionEnabled;
   }
 
   @override
@@ -144,6 +148,7 @@ class _$TableDescription extends TableDescription {
     _$hash = $jc(_$hash, sseDescription.hashCode);
     _$hash = $jc(_$hash, archivalSummary.hashCode);
     _$hash = $jc(_$hash, tableClassSummary.hashCode);
+    _$hash = $jc(_$hash, deletionProtectionEnabled.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -283,6 +288,11 @@ class TableDescriptionBuilder
   set tableClassSummary(_i15.TableClassSummaryBuilder? tableClassSummary) =>
       _$this._tableClassSummary = tableClassSummary;
 
+  bool? _deletionProtectionEnabled;
+  bool? get deletionProtectionEnabled => _$this._deletionProtectionEnabled;
+  set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
+      _$this._deletionProtectionEnabled = deletionProtectionEnabled;
+
   TableDescriptionBuilder() {
     TableDescription._init(this);
   }
@@ -312,6 +322,7 @@ class TableDescriptionBuilder
       _sseDescription = $v.sseDescription?.toBuilder();
       _archivalSummary = $v.archivalSummary?.toBuilder();
       _tableClassSummary = $v.tableClassSummary?.toBuilder();
+      _deletionProtectionEnabled = $v.deletionProtectionEnabled;
       _$v = null;
     }
     return this;
@@ -357,7 +368,8 @@ class TableDescriptionBuilder
               restoreSummary: _restoreSummary?.build(),
               sseDescription: _sseDescription?.build(),
               archivalSummary: _archivalSummary?.build(),
-              tableClassSummary: _tableClassSummary?.build());
+              tableClassSummary: _tableClassSummary?.build(),
+              deletionProtectionEnabled: deletionProtectionEnabled);
     } catch (_) {
       late String _$failedField;
       try {

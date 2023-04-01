@@ -27,6 +27,7 @@ abstract class ApiKey
     List<String>? stageKeys,
     Map<String, String>? tags,
   }) {
+    enabled ??= false;
     return _$ApiKey._(
       id: id,
       value: value,
@@ -58,7 +59,9 @@ abstract class ApiKey
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiKeyBuilder b) {}
+  static void _init(ApiKeyBuilder b) {
+    b.enabled = false;
+  }
 
   /// The identifier of the API Key.
   String? get id;
@@ -76,7 +79,7 @@ abstract class ApiKey
   String? get description;
 
   /// Specifies whether the API Key can be used by callers.
-  bool? get enabled;
+  bool get enabled;
 
   /// The timestamp when the API Key was created.
   DateTime? get createdDate;
@@ -202,12 +205,10 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
           }
           break;
         case 'enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.enabled = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'id':
           if (value != null) {
@@ -279,7 +280,13 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ApiKey);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'enabled',
+      serializers.serialize(
+        payload.enabled,
+        specifiedType: const FullType(bool),
+      ),
+    ];
     if (payload.createdDate != null) {
       result
         ..add('createdDate')
@@ -302,14 +309,6 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ..add(serializers.serialize(
           payload.description!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.enabled != null) {
-      result
-        ..add('enabled')
-        ..add(serializers.serialize(
-          payload.enabled!,
-          specifiedType: const FullType(bool),
         ));
     }
     if (payload.id != null) {

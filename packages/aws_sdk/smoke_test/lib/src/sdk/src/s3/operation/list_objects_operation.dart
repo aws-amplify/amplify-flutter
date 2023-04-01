@@ -143,12 +143,10 @@ class ListObjectsOperation extends _i1.HttpOperation<
             input.marker!,
           );
         }
-        if (input.maxKeys != null) {
-          b.queryParameters.add(
-            'max-keys',
-            input.maxKeys!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'max-keys',
+          input.maxKeys.toString(),
+        );
         if (input.prefix != null) {
           b.queryParameters.add(
             'prefix',

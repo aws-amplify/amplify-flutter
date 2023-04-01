@@ -18,6 +18,8 @@ abstract class ThrottleSettings
     int? burstLimit,
     double? rateLimit,
   }) {
+    burstLimit ??= 0;
+    rateLimit ??= 0;
     return _$ThrottleSettings._(
       burstLimit: burstLimit,
       rateLimit: rateLimit,
@@ -35,13 +37,16 @@ abstract class ThrottleSettings
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ThrottleSettingsBuilder b) {}
+  static void _init(ThrottleSettingsBuilder b) {
+    b.burstLimit = 0;
+    b.rateLimit = 0;
+  }
 
   /// The API target request burst rate limit. This allows more requests through for a period of time than the target rate limit.
-  int? get burstLimit;
+  int get burstLimit;
 
   /// The API target request rate limit.
-  double? get rateLimit;
+  double get rateLimit;
   @override
   List<Object?> get props => [
         burstLimit,
@@ -92,20 +97,16 @@ class ThrottleSettingsRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'burstLimit':
-          if (value != null) {
-            result.burstLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.burstLimit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'rateLimit':
-          if (value != null) {
-            result.rateLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
+          result.rateLimit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(double),
+          ) as double);
           break;
       }
     }
@@ -120,23 +121,18 @@ class ThrottleSettingsRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ThrottleSettings);
-    final result = <Object?>[];
-    if (payload.burstLimit != null) {
-      result
-        ..add('burstLimit')
-        ..add(serializers.serialize(
-          payload.burstLimit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.rateLimit != null) {
-      result
-        ..add('rateLimit')
-        ..add(serializers.serialize(
-          payload.rateLimit!,
-          specifiedType: const FullType(double),
-        ));
-    }
+    final result = <Object?>[
+      'burstLimit',
+      serializers.serialize(
+        payload.burstLimit,
+        specifiedType: const FullType(int),
+      ),
+      'rateLimit',
+      serializers.serialize(
+        payload.rateLimit,
+        specifiedType: const FullType(double),
+      ),
+    ];
     return result;
   }
 }

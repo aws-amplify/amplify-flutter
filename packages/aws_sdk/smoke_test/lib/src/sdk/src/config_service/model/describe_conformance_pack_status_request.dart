@@ -22,6 +22,7 @@ abstract class DescribeConformancePackStatusRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeConformancePackStatusRequest._(
       conformancePackNames: conformancePackNames == null
           ? null
@@ -49,13 +50,15 @@ abstract class DescribeConformancePackStatusRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConformancePackStatusRequestBuilder b) {}
+  static void _init(DescribeConformancePackStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Comma-separated list of conformance pack names.
   _i3.BuiltList<String>? get conformancePackNames;
 
   /// The maximum number of conformance packs status returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -129,12 +132,10 @@ class DescribeConformancePackStatusRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -157,7 +158,13 @@ class DescribeConformancePackStatusRequestAwsJson11Serializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as DescribeConformancePackStatusRequest);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.conformancePackNames != null) {
       result
         ..add('ConformancePackNames')
@@ -167,14 +174,6 @@ class DescribeConformancePackStatusRequestAwsJson11Serializer extends _i1
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

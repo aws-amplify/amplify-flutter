@@ -15,6 +15,7 @@ abstract class PolicyStatus
     implements Built<PolicyStatus, PolicyStatusBuilder> {
   /// The container element for a bucket's policy status.
   factory PolicyStatus({bool? isPublic}) {
+    isPublic ??= false;
     return _$PolicyStatus._(isPublic: isPublic);
   }
 
@@ -29,10 +30,12 @@ abstract class PolicyStatus
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyStatusBuilder b) {}
+  static void _init(PolicyStatusBuilder b) {
+    b.isPublic = false;
+  }
 
   /// The policy status for this bucket. `TRUE` indicates that this bucket is public. `FALSE` indicates that the bucket is not public.
-  bool? get isPublic;
+  bool get isPublic;
   @override
   List<Object?> get props => [isPublic];
   @override
@@ -76,12 +79,10 @@ class PolicyStatusRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'IsPublic':
-          if (value != null) {
-            result.isPublic = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isPublic = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -102,14 +103,12 @@ class PolicyStatusRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.isPublic != null) {
-      result
-        ..add(const _i2.XmlElementName('IsPublic'))
-        ..add(serializers.serialize(
-          payload.isPublic!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i2.XmlElementName('IsPublic'))
+      ..add(serializers.serialize(
+        payload.isPublic,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

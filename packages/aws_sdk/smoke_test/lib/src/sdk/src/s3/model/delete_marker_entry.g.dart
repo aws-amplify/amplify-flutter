@@ -14,7 +14,7 @@ class _$DeleteMarkerEntry extends DeleteMarkerEntry {
   @override
   final String? versionId;
   @override
-  final bool? isLatest;
+  final bool isLatest;
   @override
   final DateTime? lastModified;
 
@@ -23,8 +23,15 @@ class _$DeleteMarkerEntry extends DeleteMarkerEntry {
       (new DeleteMarkerEntryBuilder()..update(updates))._build();
 
   _$DeleteMarkerEntry._(
-      {this.owner, this.key, this.versionId, this.isLatest, this.lastModified})
-      : super._();
+      {this.owner,
+      this.key,
+      this.versionId,
+      required this.isLatest,
+      this.lastModified})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isLatest, r'DeleteMarkerEntry', 'isLatest');
+  }
 
   @override
   DeleteMarkerEntry rebuild(void Function(DeleteMarkerEntryBuilder) updates) =>
@@ -122,7 +129,8 @@ class DeleteMarkerEntryBuilder
               owner: _owner?.build(),
               key: key,
               versionId: versionId,
-              isLatest: isLatest,
+              isLatest: BuiltValueNullFieldError.checkNotNull(
+                  isLatest, r'DeleteMarkerEntry', 'isLatest'),
               lastModified: lastModified);
     } catch (_) {
       late String _$failedField;

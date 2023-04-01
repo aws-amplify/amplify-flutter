@@ -28,7 +28,7 @@ class _$Integration extends Integration {
   @override
   final _i4.ContentHandlingStrategy? contentHandling;
   @override
-  final int? timeoutInMillis;
+  final int timeoutInMillis;
   @override
   final String? cacheNamespace;
   @override
@@ -52,12 +52,15 @@ class _$Integration extends Integration {
       this.requestTemplates,
       this.passthroughBehavior,
       this.contentHandling,
-      this.timeoutInMillis,
+      required this.timeoutInMillis,
       this.cacheNamespace,
       this.cacheKeyParameters,
       this.integrationResponses,
       this.tlsConfig})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        timeoutInMillis, r'Integration', 'timeoutInMillis');
+  }
 
   @override
   Integration rebuild(void Function(IntegrationBuilder) updates) =>
@@ -247,7 +250,8 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
               requestTemplates: _requestTemplates?.build(),
               passthroughBehavior: passthroughBehavior,
               contentHandling: contentHandling,
-              timeoutInMillis: timeoutInMillis,
+              timeoutInMillis: BuiltValueNullFieldError.checkNotNull(
+                  timeoutInMillis, r'Integration', 'timeoutInMillis'),
               cacheNamespace: cacheNamespace,
               cacheKeyParameters: _cacheKeyParameters?.build(),
               integrationResponses: _integrationResponses?.build(),

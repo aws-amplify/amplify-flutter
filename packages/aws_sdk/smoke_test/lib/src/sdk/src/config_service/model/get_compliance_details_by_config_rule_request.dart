@@ -25,6 +25,7 @@ abstract class GetComplianceDetailsByConfigRuleRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetComplianceDetailsByConfigRuleRequest._(
       configRuleName: configRuleName,
       complianceTypes:
@@ -52,18 +53,20 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceDetailsByConfigRuleRequestBuilder b) {}
+  static void _init(GetComplianceDetailsByConfigRuleRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the Config rule for which you want compliance information.
   String get configRuleName;
 
   /// Filters the results by compliance.
   ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE`.
+  /// `INSUFFICIENT_DATA` is a valid `ComplianceType` that is returned when an Config rule cannot be evaluated. However, `INSUFFICIENT_DATA` cannot be used as a `ComplianceType` for filtering results.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
 
   /// The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -148,12 +151,10 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -182,6 +183,11 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
         payload.configRuleName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.complianceTypes != null) {
       result
@@ -192,14 +198,6 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.ComplianceType)],
           ),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

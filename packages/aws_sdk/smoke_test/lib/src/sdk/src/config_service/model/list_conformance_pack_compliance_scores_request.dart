@@ -29,6 +29,7 @@ abstract class ListConformancePackComplianceScoresRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$ListConformancePackComplianceScoresRequest._(
       filters: filters,
       sortOrder: sortOrder,
@@ -56,25 +57,29 @@ abstract class ListConformancePackComplianceScoresRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListConformancePackComplianceScoresRequestBuilder b) {}
+  static void _init(ListConformancePackComplianceScoresRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Filters the results based on the `ConformancePackComplianceScoresFilters`.
   _i3.ConformancePackComplianceScoresFilters? get filters;
 
   /// Determines the order in which conformance pack compliance scores are sorted. Either in ascending or descending order.
   ///
-  /// Conformance packs with a compliance score of `INSUFFICIENT_DATA` will be first when sorting by ascending order and last when sorting by descending order.
+  /// By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Conformance pack compliance scores are sorted in reverse alphabetical order if you enter `DESCENDING`.
+  ///
+  /// You can sort conformance pack compliance scores by the numerical value of the compliance score by entering `SCORE` in the `SortBy` action. When compliance scores are sorted by `SCORE`, conformance packs with a compliance score of `INSUFFICIENT_DATA` will be last when sorting by ascending order and first when sorting by descending order.
   _i4.SortOrder? get sortOrder;
 
   /// Sorts your conformance pack compliance scores in either ascending or descending order, depending on `SortOrder`.
   ///
-  /// By default, conformance pack compliance scores are sorted in ascending order by compliance score and alphabetically by name of the conformance pack if there is more than one conformance pack with the same compliance score.
+  /// By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Enter `SCORE`, to sort conformance pack compliance scores by the numerical value of the compliance score.
   _i5.SortBy? get sortBy;
 
   /// The maximum number of conformance pack compliance scores returned on each page.
-  int? get limit;
+  int get limit;
 
-  /// The `nextToken` string in a prior request that you can use to get the paginated response for next set of conformance pack compliance scores.
+  /// The `nextToken` string in a prior request that you can use to get the paginated response for the next set of conformance pack compliance scores.
   String? get nextToken;
   @override
   ListConformancePackComplianceScoresRequest getPayload() => this;
@@ -170,12 +175,10 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -198,7 +201,13 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as ListConformancePackComplianceScoresRequest);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.filters != null) {
       result
         ..add('Filters')
@@ -222,14 +231,6 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.sortBy!,
           specifiedType: const FullType(_i5.SortBy),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

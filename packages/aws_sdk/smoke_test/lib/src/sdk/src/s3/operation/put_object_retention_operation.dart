@@ -102,10 +102,8 @@ class PutObjectRetentionOperation extends _i1.HttpOperation<
         if (input.requestPayer != null) {
           b.headers['x-amz-request-payer'] = input.requestPayer!.value;
         }
-        if (input.bypassGovernanceRetention != null) {
-          b.headers['x-amz-bypass-governance-retention'] =
-              input.bypassGovernanceRetention!.toString();
-        }
+        b.headers['x-amz-bypass-governance-retention'] =
+            input.bypassGovernanceRetention.toString();
         if (input.contentMd5 != null) {
           if (input.contentMd5!.isNotEmpty) {
             b.headers['Content-MD5'] = input.contentMd5!;

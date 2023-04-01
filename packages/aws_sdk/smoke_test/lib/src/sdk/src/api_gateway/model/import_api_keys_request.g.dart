@@ -12,19 +12,21 @@ class _$ImportApiKeysRequest extends ImportApiKeysRequest {
   @override
   final _i4.ApiKeysFormat format;
   @override
-  final bool? failOnWarnings;
+  final bool failOnWarnings;
 
   factory _$ImportApiKeysRequest(
           [void Function(ImportApiKeysRequestBuilder)? updates]) =>
       (new ImportApiKeysRequestBuilder()..update(updates))._build();
 
   _$ImportApiKeysRequest._(
-      {required this.body, required this.format, this.failOnWarnings})
+      {required this.body, required this.format, required this.failOnWarnings})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         body, r'ImportApiKeysRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
         format, r'ImportApiKeysRequest', 'format');
+    BuiltValueNullFieldError.checkNotNull(
+        failOnWarnings, r'ImportApiKeysRequest', 'failOnWarnings');
   }
 
   @override
@@ -109,7 +111,8 @@ class ImportApiKeysRequestBuilder
                 body, r'ImportApiKeysRequest', 'body'),
             format: BuiltValueNullFieldError.checkNotNull(
                 format, r'ImportApiKeysRequest', 'format'),
-            failOnWarnings: failOnWarnings);
+            failOnWarnings: BuiltValueNullFieldError.checkNotNull(
+                failOnWarnings, r'ImportApiKeysRequest', 'failOnWarnings'));
     replace(_$result);
     return _$result;
   }

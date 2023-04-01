@@ -5,7 +5,9 @@ library smoke_test.config_service.model.evaluation_result_qualifier; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
+    as _i2;
 
 part 'evaluation_result_qualifier.g.dart';
 
@@ -19,11 +21,13 @@ abstract class EvaluationResultQualifier
     String? configRuleName,
     String? resourceType,
     String? resourceId,
+    _i2.EvaluationMode? evaluationMode,
   }) {
     return _$EvaluationResultQualifier._(
       configRuleName: configRuleName,
       resourceType: resourceType,
       resourceId: resourceId,
+      evaluationMode: evaluationMode,
     );
   }
 
@@ -34,7 +38,7 @@ abstract class EvaluationResultQualifier
 
   const EvaluationResultQualifier._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer> serializers = [
     EvaluationResultQualifierAwsJson11Serializer()
   ];
 
@@ -49,11 +53,15 @@ abstract class EvaluationResultQualifier
 
   /// The ID of the evaluated Amazon Web Services resource.
   String? get resourceId;
+
+  /// The mode of an evaluation. The valid values are Detective or Proactive.
+  _i2.EvaluationMode? get evaluationMode;
   @override
   List<Object?> get props => [
         configRuleName,
         resourceType,
         resourceId,
+        evaluationMode,
       ];
   @override
   String toString() {
@@ -70,12 +78,16 @@ abstract class EvaluationResultQualifier
       'resourceId',
       resourceId,
     );
+    helper.add(
+      'evaluationMode',
+      evaluationMode,
+    );
     return helper.toString();
   }
 }
 
 class EvaluationResultQualifierAwsJson11Serializer
-    extends _i2.StructuredSmithySerializer<EvaluationResultQualifier> {
+    extends _i3.StructuredSmithySerializer<EvaluationResultQualifier> {
   const EvaluationResultQualifierAwsJson11Serializer()
       : super('EvaluationResultQualifier');
 
@@ -85,8 +97,8 @@ class EvaluationResultQualifierAwsJson11Serializer
         _$EvaluationResultQualifier,
       ];
   @override
-  Iterable<_i2.ShapeId> get supportedProtocols => const [
-        _i2.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -128,6 +140,14 @@ class EvaluationResultQualifierAwsJson11Serializer
             ) as String);
           }
           break;
+        case 'EvaluationMode':
+          if (value != null) {
+            result.evaluationMode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.EvaluationMode),
+            ) as _i2.EvaluationMode);
+          }
+          break;
       }
     }
 
@@ -164,6 +184,14 @@ class EvaluationResultQualifierAwsJson11Serializer
         ..add(serializers.serialize(
           payload.resourceId!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.evaluationMode != null) {
+      result
+        ..add('EvaluationMode')
+        ..add(serializers.serialize(
+          payload.evaluationMode!,
+          specifiedType: const FullType(_i2.EvaluationMode),
         ));
     }
     return result;

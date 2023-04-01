@@ -8,7 +8,7 @@ part of smoke_test.s3.model.list_objects_v2_output;
 
 class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final _i5.BuiltList<_i2.S3Object>? contents;
   @override
@@ -18,13 +18,13 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final String? delimiter;
   @override
-  final int? maxKeys;
+  final int maxKeys;
   @override
   final _i5.BuiltList<_i3.CommonPrefix>? commonPrefixes;
   @override
   final _i4.EncodingType? encodingType;
   @override
-  final int? keyCount;
+  final int keyCount;
   @override
   final String? continuationToken;
   @override
@@ -37,19 +37,26 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
       (new ListObjectsV2OutputBuilder()..update(updates))._build();
 
   _$ListObjectsV2Output._(
-      {this.isTruncated,
+      {required this.isTruncated,
       this.contents,
       this.name,
       this.prefix,
       this.delimiter,
-      this.maxKeys,
+      required this.maxKeys,
       this.commonPrefixes,
       this.encodingType,
-      this.keyCount,
+      required this.keyCount,
       this.continuationToken,
       this.nextContinuationToken,
       this.startAfter})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListObjectsV2Output', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxKeys, r'ListObjectsV2Output', 'maxKeys');
+    BuiltValueNullFieldError.checkNotNull(
+        keyCount, r'ListObjectsV2Output', 'keyCount');
+  }
 
   @override
   ListObjectsV2Output rebuild(
@@ -200,15 +207,18 @@ class ListObjectsV2OutputBuilder
     try {
       _$result = _$v ??
           new _$ListObjectsV2Output._(
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListObjectsV2Output', 'isTruncated'),
               contents: _contents?.build(),
               name: name,
               prefix: prefix,
               delimiter: delimiter,
-              maxKeys: maxKeys,
+              maxKeys: BuiltValueNullFieldError.checkNotNull(
+                  maxKeys, r'ListObjectsV2Output', 'maxKeys'),
               commonPrefixes: _commonPrefixes?.build(),
               encodingType: encodingType,
-              keyCount: keyCount,
+              keyCount: BuiltValueNullFieldError.checkNotNull(
+                  keyCount, r'ListObjectsV2Output', 'keyCount'),
               continuationToken: continuationToken,
               nextContinuationToken: nextContinuationToken,
               startAfter: startAfter);

@@ -65,14 +65,14 @@ abstract class PutConformancePackRequest
   /// The unique name of the conformance pack you want to deploy.
   String get conformancePackName;
 
-  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same region as the conformance pack.
+  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same Region as the conformance pack.
   ///
   /// You must have access to read Amazon S3 bucket.
   String? get templateS3Uri;
 
   /// A string containing the full conformance pack template body. The structure containing the template body has a minimum length of 1 byte and a maximum length of 51,200 bytes.
   ///
-  /// You can only use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
+  /// You can use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
   String? get templateBody;
 
   /// The name of the Amazon S3 bucket where Config stores conformance pack templates.

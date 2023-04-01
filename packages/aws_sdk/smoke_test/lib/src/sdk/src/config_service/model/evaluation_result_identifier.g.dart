@@ -11,13 +11,17 @@ class _$EvaluationResultIdentifier extends EvaluationResultIdentifier {
   final _i2.EvaluationResultQualifier? evaluationResultQualifier;
   @override
   final DateTime? orderingTimestamp;
+  @override
+  final String? resourceEvaluationId;
 
   factory _$EvaluationResultIdentifier(
           [void Function(EvaluationResultIdentifierBuilder)? updates]) =>
       (new EvaluationResultIdentifierBuilder()..update(updates))._build();
 
   _$EvaluationResultIdentifier._(
-      {this.evaluationResultQualifier, this.orderingTimestamp})
+      {this.evaluationResultQualifier,
+      this.orderingTimestamp,
+      this.resourceEvaluationId})
       : super._();
 
   @override
@@ -34,7 +38,8 @@ class _$EvaluationResultIdentifier extends EvaluationResultIdentifier {
     if (identical(other, this)) return true;
     return other is EvaluationResultIdentifier &&
         evaluationResultQualifier == other.evaluationResultQualifier &&
-        orderingTimestamp == other.orderingTimestamp;
+        orderingTimestamp == other.orderingTimestamp &&
+        resourceEvaluationId == other.resourceEvaluationId;
   }
 
   @override
@@ -42,6 +47,7 @@ class _$EvaluationResultIdentifier extends EvaluationResultIdentifier {
     var _$hash = 0;
     _$hash = $jc(_$hash, evaluationResultQualifier.hashCode);
     _$hash = $jc(_$hash, orderingTimestamp.hashCode);
+    _$hash = $jc(_$hash, resourceEvaluationId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,6 +71,11 @@ class EvaluationResultIdentifierBuilder
   set orderingTimestamp(DateTime? orderingTimestamp) =>
       _$this._orderingTimestamp = orderingTimestamp;
 
+  String? _resourceEvaluationId;
+  String? get resourceEvaluationId => _$this._resourceEvaluationId;
+  set resourceEvaluationId(String? resourceEvaluationId) =>
+      _$this._resourceEvaluationId = resourceEvaluationId;
+
   EvaluationResultIdentifierBuilder() {
     EvaluationResultIdentifier._init(this);
   }
@@ -74,6 +85,7 @@ class EvaluationResultIdentifierBuilder
     if ($v != null) {
       _evaluationResultQualifier = $v.evaluationResultQualifier?.toBuilder();
       _orderingTimestamp = $v.orderingTimestamp;
+      _resourceEvaluationId = $v.resourceEvaluationId;
       _$v = null;
     }
     return this;
@@ -99,7 +111,8 @@ class EvaluationResultIdentifierBuilder
       _$result = _$v ??
           new _$EvaluationResultIdentifier._(
               evaluationResultQualifier: _evaluationResultQualifier?.build(),
-              orderingTimestamp: orderingTimestamp);
+              orderingTimestamp: orderingTimestamp,
+              resourceEvaluationId: resourceEvaluationId);
     } catch (_) {
       late String _$failedField;
       try {

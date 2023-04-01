@@ -20,7 +20,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
   final String? ssekmsKeyId;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final _i5.RequestCharged? requestCharged;
 
@@ -35,9 +35,12 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
       this.sseCustomerAlgorithm,
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.requestCharged})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'UploadPartCopyOutput', 'bucketKeyEnabled');
+  }
 
   @override
   UploadPartCopyOutput rebuild(
@@ -168,7 +171,10 @@ class UploadPartCopyOutputBuilder
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
               ssekmsKeyId: ssekmsKeyId,
-              bucketKeyEnabled: bucketKeyEnabled,
+              bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                  bucketKeyEnabled,
+                  r'UploadPartCopyOutput',
+                  'bucketKeyEnabled'),
               requestCharged: requestCharged);
     } catch (_) {
       late String _$failedField;

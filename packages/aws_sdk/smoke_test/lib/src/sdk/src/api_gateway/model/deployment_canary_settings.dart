@@ -21,6 +21,8 @@ abstract class DeploymentCanarySettings
     Map<String, String>? stageVariableOverrides,
     bool? useStageCache,
   }) {
+    percentTraffic ??= 0;
+    useStageCache ??= false;
     return _$DeploymentCanarySettings._(
       percentTraffic: percentTraffic,
       stageVariableOverrides: stageVariableOverrides == null
@@ -42,16 +44,19 @@ abstract class DeploymentCanarySettings
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeploymentCanarySettingsBuilder b) {}
+  static void _init(DeploymentCanarySettingsBuilder b) {
+    b.percentTraffic = 0;
+    b.useStageCache = false;
+  }
 
   /// The percentage (0.0-100.0) of traffic routed to the canary deployment.
-  double? get percentTraffic;
+  double get percentTraffic;
 
   /// A stage variable overrides used for the canary release deployment. They can override existing stage variables or add new stage variables for the canary release deployment. These stage variables are represented as a string-to-string map between stage variable names and their values.
   _i2.BuiltMap<String, String>? get stageVariableOverrides;
 
   /// A Boolean flag to indicate whether the canary release deployment uses the stage cache or not.
-  bool? get useStageCache;
+  bool get useStageCache;
   @override
   List<Object?> get props => [
         percentTraffic,
@@ -108,12 +113,10 @@ class DeploymentCanarySettingsRestJson1Serializer
       final value = iterator.current;
       switch (key) {
         case 'percentTraffic':
-          if (value != null) {
-            result.percentTraffic = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
+          result.percentTraffic = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(double),
+          ) as double);
           break;
         case 'stageVariableOverrides':
           if (value != null) {
@@ -130,12 +133,10 @@ class DeploymentCanarySettingsRestJson1Serializer
           }
           break;
         case 'useStageCache':
-          if (value != null) {
-            result.useStageCache = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.useStageCache = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -150,15 +151,18 @@ class DeploymentCanarySettingsRestJson1Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as DeploymentCanarySettings);
-    final result = <Object?>[];
-    if (payload.percentTraffic != null) {
-      result
-        ..add('percentTraffic')
-        ..add(serializers.serialize(
-          payload.percentTraffic!,
-          specifiedType: const FullType(double),
-        ));
-    }
+    final result = <Object?>[
+      'percentTraffic',
+      serializers.serialize(
+        payload.percentTraffic,
+        specifiedType: const FullType(double),
+      ),
+      'useStageCache',
+      serializers.serialize(
+        payload.useStageCache,
+        specifiedType: const FullType(bool),
+      ),
+    ];
     if (payload.stageVariableOverrides != null) {
       result
         ..add('stageVariableOverrides')
@@ -171,14 +175,6 @@ class DeploymentCanarySettingsRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.useStageCache != null) {
-      result
-        ..add('useStageCache')
-        ..add(serializers.serialize(
-          payload.useStageCache!,
-          specifiedType: const FullType(bool),
         ));
     }
     return result;

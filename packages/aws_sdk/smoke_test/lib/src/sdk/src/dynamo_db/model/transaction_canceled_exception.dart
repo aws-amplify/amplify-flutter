@@ -94,7 +94,7 @@ part 'transaction_canceled_exception.g.dart';
 ///
 ///         *   Throughput exceeds the current capacity for one or more global secondary indexes. DynamoDB is automatically scaling your index so please try again shortly.
 ///
-///             This message is returned when when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
+///             This message is returned when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
 ///
 /// *   Validation Error:
 ///
@@ -210,7 +210,7 @@ abstract class TransactionCanceledException
   ///
   ///         *   Throughput exceeds the current capacity for one or more global secondary indexes. DynamoDB is automatically scaling your index so please try again shortly.
   ///
-  ///             This message is returned when when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
+  ///             This message is returned when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
   ///
   /// *   Validation Error:
   ///
@@ -331,7 +331,7 @@ abstract class TransactionCanceledException
   ///
   ///         *   Throughput exceeds the current capacity for one or more global secondary indexes. DynamoDB is automatically scaling your index so please try again shortly.
   ///
-  ///             This message is returned when when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
+  ///             This message is returned when writes get throttled on an On-Demand GSI as DynamoDB is automatically scaling the GSI.
   ///
   /// *   Validation Error:
   ///

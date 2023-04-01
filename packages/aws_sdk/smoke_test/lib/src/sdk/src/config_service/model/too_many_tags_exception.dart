@@ -9,18 +9,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'too_many_tags_exception.g.dart';
 
-/// You have reached the limit of the number of tags you can use. You have more than 50 tags.
+/// You have reached the limit of the number of tags you can use. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
 abstract class TooManyTagsException
     with _i1.AWSEquatable<TooManyTagsException>
     implements
         Built<TooManyTagsException, TooManyTagsExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit of the number of tags you can use. You have more than 50 tags.
+  /// You have reached the limit of the number of tags you can use. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   factory TooManyTagsException({String? message}) {
     return _$TooManyTagsException._(message: message);
   }
 
-  /// You have reached the limit of the number of tags you can use. You have more than 50 tags.
+  /// You have reached the limit of the number of tags you can use. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   factory TooManyTagsException.build(
           [void Function(TooManyTagsExceptionBuilder) updates]) =
       _$TooManyTagsException;

@@ -25,10 +25,14 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.
 ///
+/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+///
 /// If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable` request again.
 class DescribeTableOperation extends _i1.HttpOperation<_i2.DescribeTableInput,
     _i2.DescribeTableInput, _i3.DescribeTableOutput, _i3.DescribeTableOutput> {
   /// Returns information about the table, including the current status of the table, when it was created, the primary key schema, and any indexes on the table.
+  ///
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   ///
   /// If you issue a `DescribeTable` request immediately after a `CreateTable` request, DynamoDB might return a `ResourceNotFoundException`. This is because `DescribeTable` uses an eventually consistent query, and the metadata for your table might not be available at that moment. Wait for a few seconds, and then try the `DescribeTable` request again.
   DescribeTableOperation({

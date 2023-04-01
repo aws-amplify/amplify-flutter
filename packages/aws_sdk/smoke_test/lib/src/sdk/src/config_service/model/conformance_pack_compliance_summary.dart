@@ -46,7 +46,7 @@ abstract class ConformancePackComplianceSummary
   /// The name of the conformance pack name.
   String get conformancePackName;
 
-  /// The status of the conformance pack. The allowed values are `COMPLIANT`, `NON_COMPLIANT` and `INSUFFICIENT_DATA`.
+  /// The status of the conformance pack.
   _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
   @override
   List<Object?> get props => [

@@ -91,12 +91,10 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
       _i1.HttpRequest((b) {
         b.method = 'GET';
         b.path = r'/restapis/{restApiId}/models/{modelName}';
-        if (input.flatten != null) {
-          b.queryParameters.add(
-            'flatten',
-            input.flatten!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'flatten',
+          input.flatten.toString(),
+        );
       });
   @override
   int successCode([_i3.Model? output]) => 200;

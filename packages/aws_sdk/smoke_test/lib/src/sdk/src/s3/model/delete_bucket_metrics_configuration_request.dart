@@ -65,7 +65,7 @@ abstract class DeleteBucketMetricsConfigurationRequest
   /// The name of the bucket containing the metrics configuration to delete.
   String get bucket;
 
-  /// The ID used to identify the metrics configuration.
+  /// The ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters, numbers, periods, dashes, and underscores.
   String get id;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).

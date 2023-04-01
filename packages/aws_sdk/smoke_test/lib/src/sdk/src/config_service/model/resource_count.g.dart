@@ -10,12 +10,14 @@ class _$ResourceCount extends ResourceCount {
   @override
   final _i2.ResourceType? resourceType;
   @override
-  final _i3.Int64? count;
+  final _i3.Int64 count;
 
   factory _$ResourceCount([void Function(ResourceCountBuilder)? updates]) =>
       (new ResourceCountBuilder()..update(updates))._build();
 
-  _$ResourceCount._({this.resourceType, this.count}) : super._();
+  _$ResourceCount._({this.resourceType, required this.count}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(count, r'ResourceCount', 'count');
+  }
 
   @override
   ResourceCount rebuild(void Function(ResourceCountBuilder) updates) =>
@@ -84,8 +86,11 @@ class ResourceCountBuilder
   ResourceCount build() => _build();
 
   _$ResourceCount _build() {
-    final _$result =
-        _$v ?? new _$ResourceCount._(resourceType: resourceType, count: count);
+    final _$result = _$v ??
+        new _$ResourceCount._(
+            resourceType: resourceType,
+            count: BuiltValueNullFieldError.checkNotNull(
+                count, r'ResourceCount', 'count'));
     replace(_$result);
     return _$result;
   }

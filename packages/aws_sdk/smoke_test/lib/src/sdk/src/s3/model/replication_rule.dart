@@ -37,6 +37,7 @@ abstract class ReplicationRule
     required _i6.Destination destination,
     _i7.DeleteMarkerReplication? deleteMarkerReplication,
   }) {
+    priority ??= 0;
     return _$ReplicationRule._(
       id: id,
       priority: priority,
@@ -61,7 +62,9 @@ abstract class ReplicationRule
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationRuleBuilder b) {}
+  static void _init(ReplicationRuleBuilder b) {
+    b.priority = 0;
+  }
 
   /// A unique identifier for the rule. The maximum value is 255 characters.
   String? get id;
@@ -69,7 +72,7 @@ abstract class ReplicationRule
   /// The priority indicates which rule has precedence whenever two or more replication rules conflict. Amazon S3 will attempt to replicate objects according to all replication rules. However, if there are two or more rules with the same destination bucket, then objects will be replicated according to the rule with the highest priority. The higher the number, the higher the priority.
   ///
   /// For more information, see [Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication.html) in the _Amazon S3 User Guide_.
-  int? get priority;
+  int get priority;
 
   /// An object key name prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string.
   ///
@@ -87,6 +90,7 @@ abstract class ReplicationRule
   /// A container that describes additional filters for identifying the source objects that you want to replicate. You can choose to enable or disable the replication of these objects. Currently, Amazon S3 supports only the filter that you can specify for objects created with server-side encryption using a customer managed key stored in Amazon Web Services Key Management Service (SSE-KMS).
   _i4.SourceSelectionCriteria? get sourceSelectionCriteria;
 
+  /// Optional configuration to replicate existing source bucket objects. For more information, see [Replicating Existing Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-what-is-isnot-replicated.html#existing-object-replication) in the _Amazon S3 User Guide_.
   _i5.ExistingObjectReplication? get existingObjectReplication;
 
   /// A container for information about the replication destination and its configurations including enabling the S3 Replication Time Control (S3 RTC).
@@ -229,12 +233,10 @@ class ReplicationRuleRestXmlSerializer
           }
           break;
         case 'Priority':
-          if (value != null) {
-            result.priority = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.priority = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'SourceSelectionCriteria':
           if (value != null) {
@@ -315,14 +317,12 @@ class ReplicationRuleRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.priority != null) {
-      result
-        ..add(const _i8.XmlElementName('Priority'))
-        ..add(serializers.serialize(
-          payload.priority!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i8.XmlElementName('Priority'))
+      ..add(serializers.serialize(
+        payload.priority,
+        specifiedType: const FullType(int),
+      ));
     if (payload.sourceSelectionCriteria != null) {
       result
         ..add(const _i8.XmlElementName('SourceSelectionCriteria'))

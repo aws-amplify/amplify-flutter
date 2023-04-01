@@ -23,6 +23,8 @@ abstract class ObjectPart
     String? checksumSha1,
     String? checksumSha256,
   }) {
+    partNumber ??= 0;
+    size ??= _i2.Int64.ZERO;
     return _$ObjectPart._(
       partNumber: partNumber,
       size: size,
@@ -44,13 +46,16 @@ abstract class ObjectPart
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectPartBuilder b) {}
+  static void _init(ObjectPartBuilder b) {
+    b.partNumber = 0;
+    b.size = _i2.Int64.ZERO;
+  }
 
   /// The part number identifying the part. This value is a positive integer between 1 and 10,000.
-  int? get partNumber;
+  int get partNumber;
 
   /// The size of the uploaded part in bytes.
-  _i2.Int64? get size;
+  _i2.Int64 get size;
 
   /// This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -165,20 +170,16 @@ class ObjectPartRestXmlSerializer
           }
           break;
         case 'PartNumber':
-          if (value != null) {
-            result.partNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.partNumber = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
+          result.size = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
           break;
       }
     }
@@ -231,22 +232,18 @@ class ObjectPartRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.partNumber != null) {
-      result
-        ..add(const _i3.XmlElementName('PartNumber'))
-        ..add(serializers.serialize(
-          payload.partNumber!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
-    if (payload.size != null) {
-      result
-        ..add(const _i3.XmlElementName('Size'))
-        ..add(serializers.serialize(
-          payload.size!,
-          specifiedType: const FullType.nullable(_i2.Int64),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('PartNumber'))
+      ..add(serializers.serialize(
+        payload.partNumber,
+        specifiedType: const FullType(int),
+      ));
+    result
+      ..add(const _i3.XmlElementName('Size'))
+      ..add(serializers.serialize(
+        payload.size,
+        specifiedType: const FullType(_i2.Int64),
+      ));
     return result;
   }
 }

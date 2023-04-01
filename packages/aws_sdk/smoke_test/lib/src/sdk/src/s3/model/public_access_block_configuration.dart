@@ -23,6 +23,10 @@ abstract class PublicAccessBlockConfiguration
     bool? blockPublicPolicy,
     bool? restrictPublicBuckets,
   }) {
+    blockPublicAcls ??= false;
+    ignorePublicAcls ??= false;
+    blockPublicPolicy ??= false;
+    restrictPublicBuckets ??= false;
     return _$PublicAccessBlockConfiguration._(
       blockPublicAcls: blockPublicAcls,
       ignorePublicAcls: ignorePublicAcls,
@@ -43,7 +47,12 @@ abstract class PublicAccessBlockConfiguration
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublicAccessBlockConfigurationBuilder b) {}
+  static void _init(PublicAccessBlockConfigurationBuilder b) {
+    b.blockPublicAcls = false;
+    b.ignorePublicAcls = false;
+    b.blockPublicPolicy = false;
+    b.restrictPublicBuckets = false;
+  }
 
   /// Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket and objects in this bucket. Setting this element to `TRUE` causes the following behavior:
   ///
@@ -55,22 +64,22 @@ abstract class PublicAccessBlockConfiguration
   ///
   ///
   /// Enabling this setting doesn't affect existing policies or ACLs.
-  bool? get blockPublicAcls;
+  bool get blockPublicAcls;
 
   /// Specifies whether Amazon S3 should ignore public ACLs for this bucket and objects in this bucket. Setting this element to `TRUE` causes Amazon S3 to ignore all public ACLs on this bucket and objects in this bucket.
   ///
   /// Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set.
-  bool? get ignorePublicAcls;
+  bool get ignorePublicAcls;
 
   /// Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.
   ///
   /// Enabling this setting doesn't affect existing bucket policies.
-  bool? get blockPublicPolicy;
+  bool get blockPublicPolicy;
 
   /// Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to `TRUE` restricts access to this bucket to only Amazon Web Service principals and authorized users within this account if the bucket has a public policy.
   ///
   /// Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.
-  bool? get restrictPublicBuckets;
+  bool get restrictPublicBuckets;
   @override
   List<Object?> get props => [
         blockPublicAcls,
@@ -133,36 +142,28 @@ class PublicAccessBlockConfigurationRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'BlockPublicAcls':
-          if (value != null) {
-            result.blockPublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.blockPublicAcls = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'BlockPublicPolicy':
-          if (value != null) {
-            result.blockPublicPolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.blockPublicPolicy = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'IgnorePublicAcls':
-          if (value != null) {
-            result.ignorePublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.ignorePublicAcls = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'RestrictPublicBuckets':
-          if (value != null) {
-            result.restrictPublicBuckets = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.restrictPublicBuckets = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -183,38 +184,30 @@ class PublicAccessBlockConfigurationRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.blockPublicAcls != null) {
-      result
-        ..add(const _i2.XmlElementName('BlockPublicAcls'))
-        ..add(serializers.serialize(
-          payload.blockPublicAcls!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.blockPublicPolicy != null) {
-      result
-        ..add(const _i2.XmlElementName('BlockPublicPolicy'))
-        ..add(serializers.serialize(
-          payload.blockPublicPolicy!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.ignorePublicAcls != null) {
-      result
-        ..add(const _i2.XmlElementName('IgnorePublicAcls'))
-        ..add(serializers.serialize(
-          payload.ignorePublicAcls!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.restrictPublicBuckets != null) {
-      result
-        ..add(const _i2.XmlElementName('RestrictPublicBuckets'))
-        ..add(serializers.serialize(
-          payload.restrictPublicBuckets!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i2.XmlElementName('BlockPublicAcls'))
+      ..add(serializers.serialize(
+        payload.blockPublicAcls,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i2.XmlElementName('BlockPublicPolicy'))
+      ..add(serializers.serialize(
+        payload.blockPublicPolicy,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i2.XmlElementName('IgnorePublicAcls'))
+      ..add(serializers.serialize(
+        payload.ignorePublicAcls,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i2.XmlElementName('RestrictPublicBuckets'))
+      ..add(serializers.serialize(
+        payload.restrictPublicBuckets,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

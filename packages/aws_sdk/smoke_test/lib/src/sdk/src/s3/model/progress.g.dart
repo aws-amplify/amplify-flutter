@@ -8,17 +8,27 @@ part of smoke_test.s3.model.progress;
 
 class _$Progress extends Progress {
   @override
-  final _i2.Int64? bytesScanned;
+  final _i2.Int64 bytesScanned;
   @override
-  final _i2.Int64? bytesProcessed;
+  final _i2.Int64 bytesProcessed;
   @override
-  final _i2.Int64? bytesReturned;
+  final _i2.Int64 bytesReturned;
 
   factory _$Progress([void Function(ProgressBuilder)? updates]) =>
       (new ProgressBuilder()..update(updates))._build();
 
-  _$Progress._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
-      : super._();
+  _$Progress._(
+      {required this.bytesScanned,
+      required this.bytesProcessed,
+      required this.bytesReturned})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bytesScanned, r'Progress', 'bytesScanned');
+    BuiltValueNullFieldError.checkNotNull(
+        bytesProcessed, r'Progress', 'bytesProcessed');
+    BuiltValueNullFieldError.checkNotNull(
+        bytesReturned, r'Progress', 'bytesReturned');
+  }
 
   @override
   Progress rebuild(void Function(ProgressBuilder) updates) =>
@@ -97,9 +107,12 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress _build() {
     final _$result = _$v ??
         new _$Progress._(
-            bytesScanned: bytesScanned,
-            bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned);
+            bytesScanned: BuiltValueNullFieldError.checkNotNull(
+                bytesScanned, r'Progress', 'bytesScanned'),
+            bytesProcessed: BuiltValueNullFieldError.checkNotNull(
+                bytesProcessed, r'Progress', 'bytesProcessed'),
+            bytesReturned: BuiltValueNullFieldError.checkNotNull(
+                bytesReturned, r'Progress', 'bytesReturned'));
     replace(_$result);
     return _$result;
   }

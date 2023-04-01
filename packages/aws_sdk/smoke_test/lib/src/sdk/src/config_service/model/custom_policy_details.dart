@@ -19,6 +19,7 @@ abstract class CustomPolicyDetails
     required String policyText,
     bool? enableDebugLogDelivery,
   }) {
+    enableDebugLogDelivery ??= false;
     return _$CustomPolicyDetails._(
       policyRuntime: policyRuntime,
       policyText: policyText,
@@ -38,7 +39,9 @@ abstract class CustomPolicyDetails
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CustomPolicyDetailsBuilder b) {}
+  static void _init(CustomPolicyDetailsBuilder b) {
+    b.enableDebugLogDelivery = false;
+  }
 
   /// The runtime system for your Config Custom Policy rule. Guard is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. For more information about Guard, see the [Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard).
   String get policyRuntime;
@@ -47,7 +50,7 @@ abstract class CustomPolicyDetails
   String get policyText;
 
   /// The boolean expression for enabling debug logging for your Config Custom Policy rule. The default value is `false`.
-  bool? get enableDebugLogDelivery;
+  bool get enableDebugLogDelivery;
   @override
   List<Object?> get props => [
         policyRuntime,
@@ -115,12 +118,10 @@ class CustomPolicyDetailsAwsJson11Serializer
           ) as String);
           break;
         case 'EnableDebugLogDelivery':
-          if (value != null) {
-            result.enableDebugLogDelivery = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.enableDebugLogDelivery = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -146,15 +147,12 @@ class CustomPolicyDetailsAwsJson11Serializer
         payload.policyText,
         specifiedType: const FullType(String),
       ),
+      'EnableDebugLogDelivery',
+      serializers.serialize(
+        payload.enableDebugLogDelivery,
+        specifiedType: const FullType(bool),
+      ),
     ];
-    if (payload.enableDebugLogDelivery != null) {
-      result
-        ..add('EnableDebugLogDelivery')
-        ..add(serializers.serialize(
-          payload.enableDebugLogDelivery!,
-          specifiedType: const FullType(bool),
-        ));
-    }
     return result;
   }
 }

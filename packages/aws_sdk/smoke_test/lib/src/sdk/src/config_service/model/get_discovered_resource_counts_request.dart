@@ -22,6 +22,7 @@ abstract class GetDiscoveredResourceCountsRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetDiscoveredResourceCountsRequest._(
       resourceTypes:
           resourceTypes == null ? null : _i3.BuiltList(resourceTypes),
@@ -48,7 +49,9 @@ abstract class GetDiscoveredResourceCountsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDiscoveredResourceCountsRequestBuilder b) {}
+  static void _init(GetDiscoveredResourceCountsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The comma-separated list that specifies the resource types that you want Config to return (for example, `"AWS::EC2::Instance"`, `"AWS::IAM::User"`).
   ///
@@ -58,7 +61,7 @@ abstract class GetDiscoveredResourceCountsRequest
   _i3.BuiltList<String>? get resourceTypes;
 
   /// The maximum number of ResourceCount objects returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -132,12 +135,10 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
           }
           break;
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'nextToken':
           if (value != null) {
@@ -160,7 +161,13 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as GetDiscoveredResourceCountsRequest);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.resourceTypes != null) {
       result
         ..add('resourceTypes')
@@ -170,14 +177,6 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

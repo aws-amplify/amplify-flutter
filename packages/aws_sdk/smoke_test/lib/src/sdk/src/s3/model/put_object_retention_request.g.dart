@@ -18,7 +18,7 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
   @override
   final String? versionId;
   @override
-  final bool? bypassGovernanceRetention;
+  final bool bypassGovernanceRetention;
   @override
   final String? contentMd5;
   @override
@@ -36,7 +36,7 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
       this.retention,
       this.requestPayer,
       this.versionId,
-      this.bypassGovernanceRetention,
+      required this.bypassGovernanceRetention,
       this.contentMd5,
       this.checksumAlgorithm,
       this.expectedBucketOwner})
@@ -45,6 +45,8 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
         bucket, r'PutObjectRetentionRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(
         key, r'PutObjectRetentionRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(bypassGovernanceRetention,
+        r'PutObjectRetentionRequest', 'bypassGovernanceRetention');
   }
 
   @override
@@ -182,7 +184,10 @@ class PutObjectRetentionRequestBuilder
               retention: _retention?.build(),
               requestPayer: requestPayer,
               versionId: versionId,
-              bypassGovernanceRetention: bypassGovernanceRetention,
+              bypassGovernanceRetention: BuiltValueNullFieldError.checkNotNull(
+                  bypassGovernanceRetention,
+                  r'PutObjectRetentionRequest',
+                  'bypassGovernanceRetention'),
               contentMd5: contentMd5,
               checksumAlgorithm: checksumAlgorithm,
               expectedBucketOwner: expectedBucketOwner);

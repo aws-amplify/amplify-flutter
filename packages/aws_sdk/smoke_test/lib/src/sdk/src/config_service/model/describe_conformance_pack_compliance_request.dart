@@ -24,6 +24,7 @@ abstract class DescribeConformancePackComplianceRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeConformancePackComplianceRequest._(
       conformancePackName: conformancePackName,
       filters: filters,
@@ -50,7 +51,9 @@ abstract class DescribeConformancePackComplianceRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConformancePackComplianceRequestBuilder b) {}
+  static void _init(DescribeConformancePackComplianceRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Name of the conformance pack.
   String get conformancePackName;
@@ -59,7 +62,7 @@ abstract class DescribeConformancePackComplianceRequest
   _i3.ConformancePackComplianceFilters? get filters;
 
   /// The maximum number of Config rules within a conformance pack are returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -142,12 +145,10 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -176,6 +177,11 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         payload.conformancePackName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.filters != null) {
       result
@@ -183,14 +189,6 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.filters!,
           specifiedType: const FullType(_i3.ConformancePackComplianceFilters),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

@@ -8,17 +8,27 @@ part of smoke_test.s3.model.stats;
 
 class _$Stats extends Stats {
   @override
-  final _i2.Int64? bytesScanned;
+  final _i2.Int64 bytesScanned;
   @override
-  final _i2.Int64? bytesProcessed;
+  final _i2.Int64 bytesProcessed;
   @override
-  final _i2.Int64? bytesReturned;
+  final _i2.Int64 bytesReturned;
 
   factory _$Stats([void Function(StatsBuilder)? updates]) =>
       (new StatsBuilder()..update(updates))._build();
 
-  _$Stats._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
-      : super._();
+  _$Stats._(
+      {required this.bytesScanned,
+      required this.bytesProcessed,
+      required this.bytesReturned})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bytesScanned, r'Stats', 'bytesScanned');
+    BuiltValueNullFieldError.checkNotNull(
+        bytesProcessed, r'Stats', 'bytesProcessed');
+    BuiltValueNullFieldError.checkNotNull(
+        bytesReturned, r'Stats', 'bytesReturned');
+  }
 
   @override
   Stats rebuild(void Function(StatsBuilder) updates) =>
@@ -97,9 +107,12 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   _$Stats _build() {
     final _$result = _$v ??
         new _$Stats._(
-            bytesScanned: bytesScanned,
-            bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned);
+            bytesScanned: BuiltValueNullFieldError.checkNotNull(
+                bytesScanned, r'Stats', 'bytesScanned'),
+            bytesProcessed: BuiltValueNullFieldError.checkNotNull(
+                bytesProcessed, r'Stats', 'bytesProcessed'),
+            bytesReturned: BuiltValueNullFieldError.checkNotNull(
+                bytesReturned, r'Stats', 'bytesReturned'));
     replace(_$result);
     return _$result;
   }

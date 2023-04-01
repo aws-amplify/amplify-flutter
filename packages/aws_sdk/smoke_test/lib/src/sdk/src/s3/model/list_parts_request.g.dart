@@ -12,7 +12,7 @@ class _$ListPartsRequest extends ListPartsRequest {
   @override
   final String key;
   @override
-  final int? maxParts;
+  final int maxParts;
   @override
   final String? partNumberMarker;
   @override
@@ -35,7 +35,7 @@ class _$ListPartsRequest extends ListPartsRequest {
   _$ListPartsRequest._(
       {required this.bucket,
       required this.key,
-      this.maxParts,
+      required this.maxParts,
       this.partNumberMarker,
       required this.uploadId,
       this.requestPayer,
@@ -47,6 +47,8 @@ class _$ListPartsRequest extends ListPartsRequest {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListPartsRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'ListPartsRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(
+        maxParts, r'ListPartsRequest', 'maxParts');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'ListPartsRequest', 'uploadId');
   }
@@ -186,7 +188,8 @@ class ListPartsRequestBuilder
                 bucket, r'ListPartsRequest', 'bucket'),
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'ListPartsRequest', 'key'),
-            maxParts: maxParts,
+            maxParts: BuiltValueNullFieldError.checkNotNull(
+                maxParts, r'ListPartsRequest', 'maxParts'),
             partNumberMarker: partNumberMarker,
             uploadId: BuiltValueNullFieldError.checkNotNull(
                 uploadId, r'ListPartsRequest', 'uploadId'),

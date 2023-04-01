@@ -28,6 +28,7 @@ abstract class ImportDocumentationPartsRequest
     bool? failOnWarnings,
     required _i2.Uint8List body,
   }) {
+    failOnWarnings ??= false;
     return _$ImportDocumentationPartsRequest._(
       restApiId: restApiId,
       mode: mode,
@@ -67,7 +68,9 @@ abstract class ImportDocumentationPartsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportDocumentationPartsRequestBuilder b) {}
+  static void _init(ImportDocumentationPartsRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -76,7 +79,7 @@ abstract class ImportDocumentationPartsRequest
   _i4.PutMode? get mode;
 
   /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
 
   /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
   _i2.Uint8List get body;

@@ -8,14 +8,17 @@ part of smoke_test.s3.model.scan_range;
 
 class _$ScanRange extends ScanRange {
   @override
-  final _i2.Int64? start;
+  final _i2.Int64 start;
   @override
-  final _i2.Int64? end;
+  final _i2.Int64 end;
 
   factory _$ScanRange([void Function(ScanRangeBuilder)? updates]) =>
       (new ScanRangeBuilder()..update(updates))._build();
 
-  _$ScanRange._({this.start, this.end}) : super._();
+  _$ScanRange._({required this.start, required this.end}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(start, r'ScanRange', 'start');
+    BuiltValueNullFieldError.checkNotNull(end, r'ScanRange', 'end');
+  }
 
   @override
   ScanRange rebuild(void Function(ScanRangeBuilder) updates) =>
@@ -80,7 +83,12 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   ScanRange build() => _build();
 
   _$ScanRange _build() {
-    final _$result = _$v ?? new _$ScanRange._(start: start, end: end);
+    final _$result = _$v ??
+        new _$ScanRange._(
+            start: BuiltValueNullFieldError.checkNotNull(
+                start, r'ScanRange', 'start'),
+            end: BuiltValueNullFieldError.checkNotNull(
+                end, r'ScanRange', 'end'));
     replace(_$result);
     return _$result;
   }

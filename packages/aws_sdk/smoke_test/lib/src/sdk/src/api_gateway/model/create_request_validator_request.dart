@@ -26,6 +26,8 @@ abstract class CreateRequestValidatorRequest
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
+    validateRequestBody ??= false;
+    validateRequestParameters ??= false;
     return _$CreateRequestValidatorRequest._(
       restApiId: restApiId,
       name: name,
@@ -60,7 +62,10 @@ abstract class CreateRequestValidatorRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRequestValidatorRequestBuilder b) {}
+  static void _init(CreateRequestValidatorRequestBuilder b) {
+    b.validateRequestBody = false;
+    b.validateRequestParameters = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -69,10 +74,10 @@ abstract class CreateRequestValidatorRequest
   String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters, `true`, or not `false`.
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -136,16 +141,19 @@ abstract class CreateRequestValidatorRequestPayload
   const CreateRequestValidatorRequestPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRequestValidatorRequestPayloadBuilder b) {}
+  static void _init(CreateRequestValidatorRequestPayloadBuilder b) {
+    b.validateRequestBody = false;
+    b.validateRequestParameters = false;
+  }
 
   /// The name of the to-be-created RequestValidator.
   String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters, `true`, or not `false`.
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   List<Object?> get props => [
         name,
@@ -213,20 +221,16 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
           }
           break;
         case 'validateRequestBody':
-          if (value != null) {
-            result.validateRequestBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.validateRequestBody = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'validateRequestParameters':
-          if (value != null) {
-            result.validateRequestParameters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.validateRequestParameters = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -243,29 +247,24 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
     final payload = object is CreateRequestValidatorRequest
         ? object.getPayload()
         : (object as CreateRequestValidatorRequestPayload);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'validateRequestBody',
+      serializers.serialize(
+        payload.validateRequestBody,
+        specifiedType: const FullType(bool),
+      ),
+      'validateRequestParameters',
+      serializers.serialize(
+        payload.validateRequestParameters,
+        specifiedType: const FullType(bool),
+      ),
+    ];
     if (payload.name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
           payload.name!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.validateRequestBody != null) {
-      result
-        ..add('validateRequestBody')
-        ..add(serializers.serialize(
-          payload.validateRequestBody!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.validateRequestParameters != null) {
-      result
-        ..add('validateRequestParameters')
-        ..add(serializers.serialize(
-          payload.validateRequestParameters!,
-          specifiedType: const FullType(bool),
         ));
     }
     return result;

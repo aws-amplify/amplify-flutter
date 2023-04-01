@@ -27,6 +27,7 @@ abstract class GetAggregateDiscoveredResourceCountsRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetAggregateDiscoveredResourceCountsRequest._(
       configurationAggregatorName: configurationAggregatorName,
       filters: filters,
@@ -54,7 +55,9 @@ abstract class GetAggregateDiscoveredResourceCountsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateDiscoveredResourceCountsRequestBuilder b) {}
+  static void _init(GetAggregateDiscoveredResourceCountsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -66,7 +69,7 @@ abstract class GetAggregateDiscoveredResourceCountsRequest
   _i4.ResourceCountGroupKey? get groupByKey;
 
   /// The maximum number of GroupedResourceCount objects returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -161,12 +164,10 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -195,6 +196,11 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
         payload.configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.filters != null) {
       result
@@ -210,14 +216,6 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.groupByKey!,
           specifiedType: const FullType(_i4.ResourceCountGroupKey),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {

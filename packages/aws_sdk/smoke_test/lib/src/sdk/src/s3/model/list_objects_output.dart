@@ -28,6 +28,8 @@ abstract class ListObjectsOutput
     List<_i3.CommonPrefix>? commonPrefixes,
     _i4.EncodingType? encodingType,
   }) {
+    isTruncated ??= false;
+    maxKeys ??= 0;
     return _$ListObjectsOutput._(
       isTruncated: isTruncated,
       marker: marker,
@@ -60,10 +62,13 @@ abstract class ListObjectsOutput
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsOutputBuilder b) {}
+  static void _init(ListObjectsOutputBuilder b) {
+    b.isTruncated = false;
+    b.maxKeys = 0;
+  }
 
   /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// Indicates where in the bucket listing begins. Marker is included in the response if it was sent with the request.
   String? get marker;
@@ -84,7 +89,7 @@ abstract class ListObjectsOutput
   String? get delimiter;
 
   /// The maximum number of keys returned in the response body.
-  int? get maxKeys;
+  int get maxKeys;
 
   /// All of the keys (up to 1,000) rolled up in a common prefix count as a single return when calculating the number of returns.
   ///
@@ -221,12 +226,10 @@ class ListObjectsOutputRestXmlSerializer
           }
           break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isTruncated = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'Marker':
           if (value != null) {
@@ -237,12 +240,10 @@ class ListObjectsOutputRestXmlSerializer
           }
           break;
         case 'MaxKeys':
-          if (value != null) {
-            result.maxKeys = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxKeys = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'Name':
           if (value != null) {
@@ -326,14 +327,12 @@ class ListObjectsOutputRestXmlSerializer
           specifiedType: const FullType.nullable(_i4.EncodingType),
         ));
     }
-    if (payload.isTruncated != null) {
-      result
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          payload.isTruncated!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        payload.isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (payload.marker != null) {
       result
         ..add(const _i6.XmlElementName('Marker'))
@@ -342,14 +341,12 @@ class ListObjectsOutputRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxKeys != null) {
-      result
-        ..add(const _i6.XmlElementName('MaxKeys'))
-        ..add(serializers.serialize(
-          payload.maxKeys!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i6.XmlElementName('MaxKeys'))
+      ..add(serializers.serialize(
+        payload.maxKeys,
+        specifiedType: const FullType(int),
+      ));
     if (payload.name != null) {
       result
         ..add(const _i6.XmlElementName('Name'))

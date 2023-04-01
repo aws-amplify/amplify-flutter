@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'max_number_of_organization_conformance_packs_exceeded_exception.g.dart';
 
-/// You have reached the limit (6) of the number of organization conformance packs in an account (6 conformance pack with 25 Config rules per pack per account).
+/// You have reached the limit of the number of organization conformance packs you can create in an account. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
 abstract class MaxNumberOfOrganizationConformancePacksExceededException
     with
         _i1.AWSEquatable<
@@ -18,14 +18,14 @@ abstract class MaxNumberOfOrganizationConformancePacksExceededException
         Built<MaxNumberOfOrganizationConformancePacksExceededException,
             MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit (6) of the number of organization conformance packs in an account (6 conformance pack with 25 Config rules per pack per account).
+  /// You have reached the limit of the number of organization conformance packs you can create in an account. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   factory MaxNumberOfOrganizationConformancePacksExceededException(
       {String? message}) {
     return _$MaxNumberOfOrganizationConformancePacksExceededException._(
         message: message);
   }
 
-  /// You have reached the limit (6) of the number of organization conformance packs in an account (6 conformance pack with 25 Config rules per pack per account).
+  /// You have reached the limit of the number of organization conformance packs you can create in an account. For more information, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
   factory MaxNumberOfOrganizationConformancePacksExceededException.build(
       [void Function(
               MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder)

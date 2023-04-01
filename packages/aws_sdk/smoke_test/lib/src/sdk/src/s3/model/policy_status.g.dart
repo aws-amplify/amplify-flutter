@@ -8,12 +8,15 @@ part of smoke_test.s3.model.policy_status;
 
 class _$PolicyStatus extends PolicyStatus {
   @override
-  final bool? isPublic;
+  final bool isPublic;
 
   factory _$PolicyStatus([void Function(PolicyStatusBuilder)? updates]) =>
       (new PolicyStatusBuilder()..update(updates))._build();
 
-  _$PolicyStatus._({this.isPublic}) : super._();
+  _$PolicyStatus._({required this.isPublic}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isPublic, r'PolicyStatus', 'isPublic');
+  }
 
   @override
   PolicyStatus rebuild(void Function(PolicyStatusBuilder) updates) =>
@@ -73,7 +76,10 @@ class PolicyStatusBuilder
   PolicyStatus build() => _build();
 
   _$PolicyStatus _build() {
-    final _$result = _$v ?? new _$PolicyStatus._(isPublic: isPublic);
+    final _$result = _$v ??
+        new _$PolicyStatus._(
+            isPublic: BuiltValueNullFieldError.checkNotNull(
+                isPublic, r'PolicyStatus', 'isPublic'));
     replace(_$result);
     return _$result;
   }

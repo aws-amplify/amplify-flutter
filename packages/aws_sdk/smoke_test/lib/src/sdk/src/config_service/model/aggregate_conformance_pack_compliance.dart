@@ -29,6 +29,9 @@ abstract class AggregateConformancePackCompliance
     int? nonCompliantRuleCount,
     int? totalRuleCount,
   }) {
+    compliantRuleCount ??= 0;
+    nonCompliantRuleCount ??= 0;
+    totalRuleCount ??= 0;
     return _$AggregateConformancePackCompliance._(
       complianceType: complianceType,
       compliantRuleCount: compliantRuleCount,
@@ -51,19 +54,23 @@ abstract class AggregateConformancePackCompliance
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceBuilder b) {}
+  static void _init(AggregateConformancePackComplianceBuilder b) {
+    b.compliantRuleCount = 0;
+    b.nonCompliantRuleCount = 0;
+    b.totalRuleCount = 0;
+  }
 
   /// The compliance status of the conformance pack.
   _i2.ConformancePackComplianceType? get complianceType;
 
   /// The number of compliant Config Rules.
-  int? get compliantRuleCount;
+  int get compliantRuleCount;
 
   /// The number of noncompliant Config Rules.
-  int? get nonCompliantRuleCount;
+  int get nonCompliantRuleCount;
 
   /// Total number of compliant rules, noncompliant rules, and the rules that do not have any applicable resources to evaluate upon resulting in insufficient data.
-  int? get totalRuleCount;
+  int get totalRuleCount;
   @override
   List<Object?> get props => [
         complianceType,
@@ -134,28 +141,22 @@ class AggregateConformancePackComplianceAwsJson11Serializer
           }
           break;
         case 'CompliantRuleCount':
-          if (value != null) {
-            result.compliantRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.compliantRuleCount = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NonCompliantRuleCount':
-          if (value != null) {
-            result.nonCompliantRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.nonCompliantRuleCount = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'TotalRuleCount':
-          if (value != null) {
-            result.totalRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.totalRuleCount = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -170,37 +171,29 @@ class AggregateConformancePackComplianceAwsJson11Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final payload = (object as AggregateConformancePackCompliance);
-    final result = <Object?>[];
+    final result = <Object?>[
+      'CompliantRuleCount',
+      serializers.serialize(
+        payload.compliantRuleCount,
+        specifiedType: const FullType(int),
+      ),
+      'NonCompliantRuleCount',
+      serializers.serialize(
+        payload.nonCompliantRuleCount,
+        specifiedType: const FullType(int),
+      ),
+      'TotalRuleCount',
+      serializers.serialize(
+        payload.totalRuleCount,
+        specifiedType: const FullType(int),
+      ),
+    ];
     if (payload.complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
           payload.complianceType!,
           specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
-    if (payload.compliantRuleCount != null) {
-      result
-        ..add('CompliantRuleCount')
-        ..add(serializers.serialize(
-          payload.compliantRuleCount!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nonCompliantRuleCount != null) {
-      result
-        ..add('NonCompliantRuleCount')
-        ..add(serializers.serialize(
-          payload.nonCompliantRuleCount!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.totalRuleCount != null) {
-      result
-        ..add('TotalRuleCount')
-        ..add(serializers.serialize(
-          payload.totalRuleCount!,
-          specifiedType: const FullType(int),
         ));
     }
     return result;

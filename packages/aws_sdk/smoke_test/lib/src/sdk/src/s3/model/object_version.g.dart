@@ -12,7 +12,7 @@ class _$ObjectVersion extends ObjectVersion {
   @override
   final _i6.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
   @override
-  final _i3.Int64? size;
+  final _i3.Int64 size;
   @override
   final _i4.ObjectVersionStorageClass? storageClass;
   @override
@@ -20,7 +20,7 @@ class _$ObjectVersion extends ObjectVersion {
   @override
   final String? versionId;
   @override
-  final bool? isLatest;
+  final bool isLatest;
   @override
   final DateTime? lastModified;
   @override
@@ -32,14 +32,18 @@ class _$ObjectVersion extends ObjectVersion {
   _$ObjectVersion._(
       {this.eTag,
       this.checksumAlgorithm,
-      this.size,
+      required this.size,
       this.storageClass,
       this.key,
       this.versionId,
-      this.isLatest,
+      required this.isLatest,
       this.lastModified,
       this.owner})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(size, r'ObjectVersion', 'size');
+    BuiltValueNullFieldError.checkNotNull(
+        isLatest, r'ObjectVersion', 'isLatest');
+  }
 
   @override
   ObjectVersion rebuild(void Function(ObjectVersionBuilder) updates) =>
@@ -168,11 +172,13 @@ class ObjectVersionBuilder
           new _$ObjectVersion._(
               eTag: eTag,
               checksumAlgorithm: _checksumAlgorithm?.build(),
-              size: size,
+              size: BuiltValueNullFieldError.checkNotNull(
+                  size, r'ObjectVersion', 'size'),
               storageClass: storageClass,
               key: key,
               versionId: versionId,
-              isLatest: isLatest,
+              isLatest: BuiltValueNullFieldError.checkNotNull(
+                  isLatest, r'ObjectVersion', 'isLatest'),
               lastModified: lastModified,
               owner: _owner?.build());
     } catch (_) {

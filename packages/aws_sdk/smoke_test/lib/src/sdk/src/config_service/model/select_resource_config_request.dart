@@ -20,6 +20,7 @@ abstract class SelectResourceConfigRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$SelectResourceConfigRequest._(
       expression: expression,
       limit: limit,
@@ -45,13 +46,15 @@ abstract class SelectResourceConfigRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectResourceConfigRequestBuilder b) {}
+  static void _init(SelectResourceConfigRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The SQL query `SELECT` command.
   String get expression;
 
   /// The maximum number of query results returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -119,12 +122,10 @@ class SelectResourceConfigRequestAwsJson11Serializer
           ) as String);
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -153,15 +154,12 @@ class SelectResourceConfigRequestAwsJson11Serializer
         payload.expression,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')

@@ -9,7 +9,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'no_such_organization_config_rule_exception.g.dart';
 
-/// The Config rule in the request is not valid. Verify that the rule is an organization Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+/// The Config rule in the request is not valid. Verify that the rule is an organization Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
 abstract class NoSuchOrganizationConfigRuleException
     with
         _i1.AWSEquatable<NoSuchOrganizationConfigRuleException>
@@ -17,12 +17,12 @@ abstract class NoSuchOrganizationConfigRuleException
         Built<NoSuchOrganizationConfigRuleException,
             NoSuchOrganizationConfigRuleExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The Config rule in the request is not valid. Verify that the rule is an organization Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an organization Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchOrganizationConfigRuleException({String? message}) {
     return _$NoSuchOrganizationConfigRuleException._(message: message);
   }
 
-  /// The Config rule in the request is not valid. Verify that the rule is an organization Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an organization Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchOrganizationConfigRuleException.build(
       [void Function(NoSuchOrganizationConfigRuleExceptionBuilder)
           updates]) = _$NoSuchOrganizationConfigRuleException;

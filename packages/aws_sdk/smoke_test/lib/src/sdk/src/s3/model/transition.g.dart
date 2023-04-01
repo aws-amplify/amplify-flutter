@@ -10,14 +10,17 @@ class _$Transition extends Transition {
   @override
   final DateTime? date;
   @override
-  final int? days;
+  final int days;
   @override
   final _i2.TransitionStorageClass? storageClass;
 
   factory _$Transition([void Function(TransitionBuilder)? updates]) =>
       (new TransitionBuilder()..update(updates))._build();
 
-  _$Transition._({this.date, this.days, this.storageClass}) : super._();
+  _$Transition._({this.date, required this.days, this.storageClass})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(days, r'Transition', 'days');
+  }
 
   @override
   Transition rebuild(void Function(TransitionBuilder) updates) =>
@@ -93,7 +96,11 @@ class TransitionBuilder implements Builder<Transition, TransitionBuilder> {
 
   _$Transition _build() {
     final _$result = _$v ??
-        new _$Transition._(date: date, days: days, storageClass: storageClass);
+        new _$Transition._(
+            date: date,
+            days: BuiltValueNullFieldError.checkNotNull(
+                days, r'Transition', 'days'),
+            storageClass: storageClass);
     replace(_$result);
     return _$result;
   }

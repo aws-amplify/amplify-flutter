@@ -29,6 +29,7 @@ abstract class ListObjectVersionsRequest
     String? versionIdMarker,
     String? expectedBucketOwner,
   }) {
+    maxKeys ??= 0;
     return _$ListObjectVersionsRequest._(
       bucket: bucket,
       delimiter: delimiter,
@@ -86,7 +87,9 @@ abstract class ListObjectVersionsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsRequestBuilder b) {}
+  static void _init(ListObjectVersionsRequestBuilder b) {
+    b.maxKeys = 0;
+  }
 
   /// The bucket name that contains the objects.
   String get bucket;
@@ -101,7 +104,7 @@ abstract class ListObjectVersionsRequest
   String? get keyMarker;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more. If additional keys satisfy the search criteria, but were not returned because max-keys was exceeded, the response contains true. To return the additional keys, see key-marker and version-id-marker.
-  int? get maxKeys;
+  int get maxKeys;
 
   /// Use this parameter to select only those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different groupings of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.) You can use prefix with delimiter to roll up numerous objects into a single result under CommonPrefixes.
   String? get prefix;

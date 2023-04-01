@@ -119,9 +119,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
         if (input.requestToken.isNotEmpty) {
           b.headers['x-amz-request-token'] = input.requestToken;
         }
-        if (input.statusCode != null) {
-          b.headers['x-amz-fwd-status'] = input.statusCode!.toString();
-        }
+        b.headers['x-amz-fwd-status'] = input.statusCode.toString();
         if (input.errorCode != null) {
           if (input.errorCode!.isNotEmpty) {
             b.headers['x-amz-fwd-error-code'] = input.errorCode!;
@@ -160,9 +158,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
                 input.contentLanguage!;
           }
         }
-        if (input.contentLength != null) {
-          b.headers['Content-Length'] = input.contentLength!.toString();
-        }
+        b.headers['Content-Length'] = input.contentLength.toString();
         if (input.contentRange != null) {
           if (input.contentRange!.isNotEmpty) {
             b.headers['x-amz-fwd-header-Content-Range'] = input.contentRange!;
@@ -197,10 +193,8 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
                 input.checksumSha256!;
           }
         }
-        if (input.deleteMarker != null) {
-          b.headers['x-amz-fwd-header-x-amz-delete-marker'] =
-              input.deleteMarker!.toString();
-        }
+        b.headers['x-amz-fwd-header-x-amz-delete-marker'] =
+            input.deleteMarker.toString();
         if (input.eTag != null) {
           if (input.eTag!.isNotEmpty) {
             b.headers['x-amz-fwd-header-ETag'] = input.eTag!;
@@ -222,10 +216,8 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
                   .format(_i1.TimestampFormat.httpDate)
                   .toString();
         }
-        if (input.missingMeta != null) {
-          b.headers['x-amz-fwd-header-x-amz-missing-meta'] =
-              input.missingMeta!.toString();
-        }
+        b.headers['x-amz-fwd-header-x-amz-missing-meta'] =
+            input.missingMeta.toString();
         if (input.objectLockMode != null) {
           b.headers['x-amz-fwd-header-x-amz-object-lock-mode'] =
               input.objectLockMode!.value;
@@ -240,10 +232,8 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
                   .format(_i1.TimestampFormat.dateTime)
                   .toString();
         }
-        if (input.partsCount != null) {
-          b.headers['x-amz-fwd-header-x-amz-mp-parts-count'] =
-              input.partsCount!.toString();
-        }
+        b.headers['x-amz-fwd-header-x-amz-mp-parts-count'] =
+            input.partsCount.toString();
         if (input.replicationStatus != null) {
           b.headers['x-amz-fwd-header-x-amz-replication-status'] =
               input.replicationStatus!.value;
@@ -286,20 +276,16 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
           b.headers['x-amz-fwd-header-x-amz-storage-class'] =
               input.storageClass!.value;
         }
-        if (input.tagCount != null) {
-          b.headers['x-amz-fwd-header-x-amz-tagging-count'] =
-              input.tagCount!.toString();
-        }
+        b.headers['x-amz-fwd-header-x-amz-tagging-count'] =
+            input.tagCount.toString();
         if (input.versionId != null) {
           if (input.versionId!.isNotEmpty) {
             b.headers['x-amz-fwd-header-x-amz-version-id'] = input.versionId!;
           }
         }
-        if (input.bucketKeyEnabled != null) {
-          b.headers[
-                  'x-amz-fwd-header-x-amz-server-side-encryption-bucket-key-enabled'] =
-              input.bucketKeyEnabled!.toString();
-        }
+        b.headers[
+                'x-amz-fwd-header-x-amz-server-side-encryption-bucket-key-enabled'] =
+            input.bucketKeyEnabled.toString();
         if (input.metadata != null) {
           for (var entry in input.metadata!.toMap().entries) {
             if (entry.value.isNotEmpty) {

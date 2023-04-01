@@ -23,6 +23,7 @@ abstract class CorsRule
     List<String>? exposeHeaders,
     int? maxAgeSeconds,
   }) {
+    maxAgeSeconds ??= 0;
     return _$CorsRule._(
       id: id,
       allowedHeaders:
@@ -45,7 +46,9 @@ abstract class CorsRule
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CorsRuleBuilder b) {}
+  static void _init(CorsRuleBuilder b) {
+    b.maxAgeSeconds = 0;
+  }
 
   /// Unique identifier for the rule. The value cannot be longer than 255 characters.
   String? get id;
@@ -63,7 +66,7 @@ abstract class CorsRule
   _i2.BuiltList<String>? get exposeHeaders;
 
   /// The time in seconds that your browser is to cache the preflight response for the specified resource.
-  int? get maxAgeSeconds;
+  int get maxAgeSeconds;
   @override
   List<Object?> get props => [
         id,
@@ -170,12 +173,10 @@ class CorsRuleRestXmlSerializer
           }
           break;
         case 'MaxAgeSeconds':
-          if (value != null) {
-            result.maxAgeSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxAgeSeconds = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -245,14 +246,12 @@ class CorsRuleRestXmlSerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxAgeSeconds != null) {
-      result
-        ..add(const _i3.XmlElementName('MaxAgeSeconds'))
-        ..add(serializers.serialize(
-          payload.maxAgeSeconds!,
-          specifiedType: const FullType.nullable(int),
-        ));
-    }
+    result
+      ..add(const _i3.XmlElementName('MaxAgeSeconds'))
+      ..add(serializers.serialize(
+        payload.maxAgeSeconds,
+        specifiedType: const FullType(int),
+      ));
     return result;
   }
 }

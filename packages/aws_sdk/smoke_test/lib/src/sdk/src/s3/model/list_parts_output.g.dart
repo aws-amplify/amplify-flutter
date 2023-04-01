@@ -22,9 +22,9 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final String? nextPartNumberMarker;
   @override
-  final int? maxParts;
+  final int maxParts;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final _i9.BuiltList<_i3.Part>? parts;
   @override
@@ -49,15 +49,20 @@ class _$ListPartsOutput extends ListPartsOutput {
       this.uploadId,
       this.partNumberMarker,
       this.nextPartNumberMarker,
-      this.maxParts,
-      this.isTruncated,
+      required this.maxParts,
+      required this.isTruncated,
       this.parts,
       this.initiator,
       this.owner,
       this.storageClass,
       this.requestCharged,
       this.checksumAlgorithm})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        maxParts, r'ListPartsOutput', 'maxParts');
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListPartsOutput', 'isTruncated');
+  }
 
   @override
   ListPartsOutput rebuild(void Function(ListPartsOutputBuilder) updates) =>
@@ -236,8 +241,10 @@ class ListPartsOutputBuilder
               uploadId: uploadId,
               partNumberMarker: partNumberMarker,
               nextPartNumberMarker: nextPartNumberMarker,
-              maxParts: maxParts,
-              isTruncated: isTruncated,
+              maxParts: BuiltValueNullFieldError.checkNotNull(
+                  maxParts, r'ListPartsOutput', 'maxParts'),
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListPartsOutput', 'isTruncated'),
               parts: _parts?.build(),
               initiator: _initiator?.build(),
               owner: _owner?.build(),
@@ -272,11 +279,11 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final _i4.Initiator? initiator;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? key;
   @override
-  final int? maxParts;
+  final int maxParts;
   @override
   final String? nextPartNumberMarker;
   @override
@@ -298,16 +305,21 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
       {this.bucket,
       this.checksumAlgorithm,
       this.initiator,
-      this.isTruncated,
+      required this.isTruncated,
       this.key,
-      this.maxParts,
+      required this.maxParts,
       this.nextPartNumberMarker,
       this.owner,
       this.partNumberMarker,
       this.parts,
       this.storageClass,
       this.uploadId})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListPartsOutputPayload', 'isTruncated');
+    BuiltValueNullFieldError.checkNotNull(
+        maxParts, r'ListPartsOutputPayload', 'maxParts');
+  }
 
   @override
   ListPartsOutputPayload rebuild(
@@ -461,9 +473,11 @@ class ListPartsOutputPayloadBuilder
               bucket: bucket,
               checksumAlgorithm: checksumAlgorithm,
               initiator: _initiator?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(
+                  isTruncated, r'ListPartsOutputPayload', 'isTruncated'),
               key: key,
-              maxParts: maxParts,
+              maxParts: BuiltValueNullFieldError.checkNotNull(
+                  maxParts, r'ListPartsOutputPayload', 'maxParts'),
               nextPartNumberMarker: nextPartNumberMarker,
               owner: _owner?.build(),
               partNumberMarker: partNumberMarker,

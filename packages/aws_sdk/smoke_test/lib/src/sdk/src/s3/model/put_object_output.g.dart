@@ -32,7 +32,7 @@ class _$PutObjectOutput extends PutObjectOutput {
   @override
   final String? ssekmsEncryptionContext;
   @override
-  final bool? bucketKeyEnabled;
+  final bool bucketKeyEnabled;
   @override
   final _i4.RequestCharged? requestCharged;
 
@@ -52,9 +52,12 @@ class _$PutObjectOutput extends PutObjectOutput {
       this.sseCustomerKeyMd5,
       this.ssekmsKeyId,
       this.ssekmsEncryptionContext,
-      this.bucketKeyEnabled,
+      required this.bucketKeyEnabled,
       this.requestCharged})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        bucketKeyEnabled, r'PutObjectOutput', 'bucketKeyEnabled');
+  }
 
   @override
   PutObjectOutput rebuild(void Function(PutObjectOutputBuilder) updates) =>
@@ -231,7 +234,8 @@ class PutObjectOutputBuilder
             sseCustomerKeyMd5: sseCustomerKeyMd5,
             ssekmsKeyId: ssekmsKeyId,
             ssekmsEncryptionContext: ssekmsEncryptionContext,
-            bucketKeyEnabled: bucketKeyEnabled,
+            bucketKeyEnabled: BuiltValueNullFieldError.checkNotNull(
+                bucketKeyEnabled, r'PutObjectOutput', 'bucketKeyEnabled'),
             requestCharged: requestCharged);
     replace(_$result);
     return _$result;

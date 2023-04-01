@@ -28,6 +28,7 @@ abstract class DeleteObjectsRequest
     String? expectedBucketOwner,
     _i5.ChecksumAlgorithm? checksumAlgorithm,
   }) {
+    bypassGovernanceRetention ??= false;
     return _$DeleteObjectsRequest._(
       bucket: bucket,
       delete: delete,
@@ -81,13 +82,15 @@ abstract class DeleteObjectsRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsRequestBuilder b) {}
+  static void _init(DeleteObjectsRequestBuilder b) {
+    b.bypassGovernanceRetention = false;
+  }
 
   /// The bucket name containing the objects to delete.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Container for the request.
@@ -100,7 +103,7 @@ abstract class DeleteObjectsRequest
   _i4.RequestPayer? get requestPayer;
 
   /// Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
-  bool? get bypassGovernanceRetention;
+  bool get bypassGovernanceRetention;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -206,12 +209,10 @@ class DeleteObjectsRequestRestXmlSerializer
           ) as _i6.ObjectIdentifier));
           break;
         case 'Quiet':
-          if (value != null) {
-            result.quiet = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.quiet = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -243,14 +244,12 @@ class DeleteObjectsRequestRestXmlSerializer
         [FullType(_i6.ObjectIdentifier)],
       ),
     ));
-    if (payload.quiet != null) {
-      result
-        ..add(const _i1.XmlElementName('Quiet'))
-        ..add(serializers.serialize(
-          payload.quiet!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i1.XmlElementName('Quiet'))
+      ..add(serializers.serialize(
+        payload.quiet,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

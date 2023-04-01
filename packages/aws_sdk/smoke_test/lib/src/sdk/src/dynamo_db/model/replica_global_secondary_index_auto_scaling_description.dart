@@ -61,7 +61,7 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
   ///
   /// *   `CREATING` \- The index is being created.
   ///
-  /// *   `UPDATING` \- The index is being updated.
+  /// *   `UPDATING` \- The table/index configuration is being updated. The table/index remains available for data operations when `UPDATING`
   ///
   /// *   `DELETING` \- The index is being deleted.
   ///

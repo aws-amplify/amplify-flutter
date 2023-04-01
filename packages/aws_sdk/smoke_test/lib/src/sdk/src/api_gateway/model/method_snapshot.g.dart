@@ -10,12 +10,16 @@ class _$MethodSnapshot extends MethodSnapshot {
   @override
   final String? authorizationType;
   @override
-  final bool? apiKeyRequired;
+  final bool apiKeyRequired;
 
   factory _$MethodSnapshot([void Function(MethodSnapshotBuilder)? updates]) =>
       (new MethodSnapshotBuilder()..update(updates))._build();
 
-  _$MethodSnapshot._({this.authorizationType, this.apiKeyRequired}) : super._();
+  _$MethodSnapshot._({this.authorizationType, required this.apiKeyRequired})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        apiKeyRequired, r'MethodSnapshot', 'apiKeyRequired');
+  }
 
   @override
   MethodSnapshot rebuild(void Function(MethodSnapshotBuilder) updates) =>
@@ -89,7 +93,8 @@ class MethodSnapshotBuilder
     final _$result = _$v ??
         new _$MethodSnapshot._(
             authorizationType: authorizationType,
-            apiKeyRequired: apiKeyRequired);
+            apiKeyRequired: BuiltValueNullFieldError.checkNotNull(
+                apiKeyRequired, r'MethodSnapshot', 'apiKeyRequired'));
     replace(_$result);
     return _$result;
   }

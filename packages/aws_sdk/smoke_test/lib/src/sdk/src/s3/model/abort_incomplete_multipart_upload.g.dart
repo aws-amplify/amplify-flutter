@@ -8,13 +8,17 @@ part of smoke_test.s3.model.abort_incomplete_multipart_upload;
 
 class _$AbortIncompleteMultipartUpload extends AbortIncompleteMultipartUpload {
   @override
-  final int? daysAfterInitiation;
+  final int daysAfterInitiation;
 
   factory _$AbortIncompleteMultipartUpload(
           [void Function(AbortIncompleteMultipartUploadBuilder)? updates]) =>
       (new AbortIncompleteMultipartUploadBuilder()..update(updates))._build();
 
-  _$AbortIncompleteMultipartUpload._({this.daysAfterInitiation}) : super._();
+  _$AbortIncompleteMultipartUpload._({required this.daysAfterInitiation})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(daysAfterInitiation,
+        r'AbortIncompleteMultipartUpload', 'daysAfterInitiation');
+  }
 
   @override
   AbortIncompleteMultipartUpload rebuild(
@@ -82,7 +86,10 @@ class AbortIncompleteMultipartUploadBuilder
   _$AbortIncompleteMultipartUpload _build() {
     final _$result = _$v ??
         new _$AbortIncompleteMultipartUpload._(
-            daysAfterInitiation: daysAfterInitiation);
+            daysAfterInitiation: BuiltValueNullFieldError.checkNotNull(
+                daysAfterInitiation,
+                r'AbortIncompleteMultipartUpload',
+                'daysAfterInitiation'));
     replace(_$result);
     return _$result;
   }

@@ -46,7 +46,7 @@ abstract class GetBucketPolicyStatusOutput
   /// The policy status for the specified bucket.
   _i3.PolicyStatus? get policyStatus;
   @override
-  _i3.PolicyStatus? getPayload() => policyStatus ?? _i3.PolicyStatus();
+  _i3.PolicyStatus? getPayload() => policyStatus;
   @override
   List<Object?> get props => [policyStatus];
   @override
@@ -91,12 +91,10 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'IsPublic':
-          if (value != null) {
-            result.isPublic = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.isPublic = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -122,14 +120,12 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.isPublic != null) {
-      result
-        ..add(const _i2.XmlElementName('IsPublic'))
-        ..add(serializers.serialize(
-          payload.isPublic!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i2.XmlElementName('IsPublic'))
+      ..add(serializers.serialize(
+        payload.isPublic,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

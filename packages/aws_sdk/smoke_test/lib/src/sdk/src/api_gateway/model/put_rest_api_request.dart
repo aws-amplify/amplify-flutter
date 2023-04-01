@@ -27,6 +27,7 @@ abstract class PutRestApiRequest
     Map<String, String>? parameters,
     required _i2.Uint8List body,
   }) {
+    failOnWarnings ??= false;
     return _$PutRestApiRequest._(
       restApiId: restApiId,
       mode: mode,
@@ -66,7 +67,9 @@ abstract class PutRestApiRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRestApiRequestBuilder b) {}
+  static void _init(PutRestApiRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -75,7 +78,7 @@ abstract class PutRestApiRequest
   _i4.PutMode? get mode;
 
   /// A query parameter to indicate whether to rollback the API update (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
 
   /// Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set `ignore=documentation` as a `parameters` value, as in the AWS CLI command of `aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'`.
   _i5.BuiltMap<String, String>? get parameters;

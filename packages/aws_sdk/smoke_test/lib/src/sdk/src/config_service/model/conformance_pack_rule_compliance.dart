@@ -50,8 +50,6 @@ abstract class ConformancePackRuleCompliance
   String? get configRuleName;
 
   /// Compliance of the Config rule.
-  ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
   _i2.ConformancePackComplianceType? get complianceType;
 
   /// Controls for the conformance pack. A control is a process to prevent or detect problems while meeting objectives. A control can align with a specific compliance regime or map to internal controls defined by an organization.

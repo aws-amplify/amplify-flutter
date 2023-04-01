@@ -21,13 +21,13 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dar
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart'
     as _i10;
 
-/// Returns information about contributor insights, for a given table or global secondary index.
+/// Returns information about contributor insights for a given table or global secondary index.
 class DescribeContributorInsightsOperation extends _i1.HttpOperation<
     _i2.DescribeContributorInsightsInput,
     _i2.DescribeContributorInsightsInput,
     _i3.DescribeContributorInsightsOutput,
     _i3.DescribeContributorInsightsOutput> {
-  /// Returns information about contributor insights, for a given table or global secondary index.
+  /// Returns information about contributor insights for a given table or global secondary index.
   DescribeContributorInsightsOperation({
     required String region,
     Uri? baseUri,

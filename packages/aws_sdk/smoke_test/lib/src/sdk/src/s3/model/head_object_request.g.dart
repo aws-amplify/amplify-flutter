@@ -32,7 +32,7 @@ class _$HeadObjectRequest extends HeadObjectRequest {
   @override
   final _i3.RequestPayer? requestPayer;
   @override
-  final int? partNumber;
+  final int partNumber;
   @override
   final String? expectedBucketOwner;
   @override
@@ -55,13 +55,15 @@ class _$HeadObjectRequest extends HeadObjectRequest {
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
       this.requestPayer,
-      this.partNumber,
+      required this.partNumber,
       this.expectedBucketOwner,
       this.checksumMode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'HeadObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'HeadObjectRequest', 'key');
+    BuiltValueNullFieldError.checkNotNull(
+        partNumber, r'HeadObjectRequest', 'partNumber');
   }
 
   @override
@@ -246,7 +248,8 @@ class HeadObjectRequestBuilder
             sseCustomerKey: sseCustomerKey,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
             requestPayer: requestPayer,
-            partNumber: partNumber,
+            partNumber: BuiltValueNullFieldError.checkNotNull(
+                partNumber, r'HeadObjectRequest', 'partNumber'),
             expectedBucketOwner: expectedBucketOwner,
             checksumMode: checksumMode);
     replace(_$result);

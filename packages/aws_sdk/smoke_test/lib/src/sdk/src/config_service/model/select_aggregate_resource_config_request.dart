@@ -23,6 +23,8 @@ abstract class SelectAggregateResourceConfigRequest
     int? maxResults,
     String? nextToken,
   }) {
+    limit ??= 0;
+    maxResults ??= 0;
     return _$SelectAggregateResourceConfigRequest._(
       expression: expression,
       configurationAggregatorName: configurationAggregatorName,
@@ -50,7 +52,10 @@ abstract class SelectAggregateResourceConfigRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectAggregateResourceConfigRequestBuilder b) {}
+  static void _init(SelectAggregateResourceConfigRequestBuilder b) {
+    b.limit = 0;
+    b.maxResults = 0;
+  }
 
   /// The SQL query SELECT command.
   String get expression;
@@ -59,10 +64,10 @@ abstract class SelectAggregateResourceConfigRequest
   String get configurationAggregatorName;
 
   /// The maximum number of query results returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The maximum number of query results returned on each page. Config also allows the Limit request parameter.
-  int? get maxResults;
+  int get maxResults;
 
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -147,20 +152,16 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
           ) as String);
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.maxResults = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -194,23 +195,17 @@ class SelectAggregateResourceConfigRequestAwsJson11Serializer extends _i1
         payload.configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
+      'MaxResults',
+      serializers.serialize(
+        payload.maxResults,
+        specifiedType: const FullType(int),
+      ),
     ];
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.maxResults != null) {
-      result
-        ..add('MaxResults')
-        ..add(serializers.serialize(
-          payload.maxResults!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.nextToken != null) {
       result
         ..add('NextToken')

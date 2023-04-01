@@ -170,36 +170,28 @@ class PutPublicAccessBlockRequestRestXmlSerializer
       final value = iterator.current;
       switch (key as String) {
         case 'BlockPublicAcls':
-          if (value != null) {
-            result.blockPublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.blockPublicAcls = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'IgnorePublicAcls':
-          if (value != null) {
-            result.ignorePublicAcls = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.ignorePublicAcls = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'BlockPublicPolicy':
-          if (value != null) {
-            result.blockPublicPolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.blockPublicPolicy = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'RestrictPublicBuckets':
-          if (value != null) {
-            result.restrictPublicBuckets = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.restrictPublicBuckets = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -222,38 +214,30 @@ class PutPublicAccessBlockRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.blockPublicAcls != null) {
-      result
-        ..add(const _i1.XmlElementName('BlockPublicAcls'))
-        ..add(serializers.serialize(
-          payload.blockPublicAcls!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.ignorePublicAcls != null) {
-      result
-        ..add(const _i1.XmlElementName('IgnorePublicAcls'))
-        ..add(serializers.serialize(
-          payload.ignorePublicAcls!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.blockPublicPolicy != null) {
-      result
-        ..add(const _i1.XmlElementName('BlockPublicPolicy'))
-        ..add(serializers.serialize(
-          payload.blockPublicPolicy!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (payload.restrictPublicBuckets != null) {
-      result
-        ..add(const _i1.XmlElementName('RestrictPublicBuckets'))
-        ..add(serializers.serialize(
-          payload.restrictPublicBuckets!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i1.XmlElementName('BlockPublicAcls'))
+      ..add(serializers.serialize(
+        payload.blockPublicAcls,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i1.XmlElementName('IgnorePublicAcls'))
+      ..add(serializers.serialize(
+        payload.ignorePublicAcls,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i1.XmlElementName('BlockPublicPolicy'))
+      ..add(serializers.serialize(
+        payload.blockPublicPolicy,
+        specifiedType: const FullType(bool),
+      ));
+    result
+      ..add(const _i1.XmlElementName('RestrictPublicBuckets'))
+      ..add(serializers.serialize(
+        payload.restrictPublicBuckets,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

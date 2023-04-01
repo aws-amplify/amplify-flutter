@@ -25,6 +25,7 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
     String? nextToken,
     int? limit,
   }) {
+    limit ??= 0;
     return _$DescribeConfigurationAggregatorSourcesStatusRequest._(
       configurationAggregatorName: configurationAggregatorName,
       updateStatus: updateStatus == null ? null : _i4.BuiltList(updateStatus),
@@ -52,7 +53,9 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      DescribeConfigurationAggregatorSourcesStatusRequestBuilder b) {}
+      DescribeConfigurationAggregatorSourcesStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -70,7 +73,7 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   String? get nextToken;
 
   /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
   @override
   DescribeConfigurationAggregatorSourcesStatusRequest getPayload() => this;
   @override
@@ -161,12 +164,10 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
       }
     }
@@ -188,6 +189,11 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         payload.configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.updateStatus != null) {
       result
@@ -206,14 +212,6 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     return result;

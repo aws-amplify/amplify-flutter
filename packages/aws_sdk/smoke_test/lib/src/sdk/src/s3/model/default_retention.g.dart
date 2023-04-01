@@ -10,15 +10,19 @@ class _$DefaultRetention extends DefaultRetention {
   @override
   final _i2.ObjectLockRetentionMode? mode;
   @override
-  final int? days;
+  final int days;
   @override
-  final int? years;
+  final int years;
 
   factory _$DefaultRetention(
           [void Function(DefaultRetentionBuilder)? updates]) =>
       (new DefaultRetentionBuilder()..update(updates))._build();
 
-  _$DefaultRetention._({this.mode, this.days, this.years}) : super._();
+  _$DefaultRetention._({this.mode, required this.days, required this.years})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(days, r'DefaultRetention', 'days');
+    BuiltValueNullFieldError.checkNotNull(years, r'DefaultRetention', 'years');
+  }
 
   @override
   DefaultRetention rebuild(void Function(DefaultRetentionBuilder) updates) =>
@@ -94,8 +98,13 @@ class DefaultRetentionBuilder
   DefaultRetention build() => _build();
 
   _$DefaultRetention _build() {
-    final _$result =
-        _$v ?? new _$DefaultRetention._(mode: mode, days: days, years: years);
+    final _$result = _$v ??
+        new _$DefaultRetention._(
+            mode: mode,
+            days: BuiltValueNullFieldError.checkNotNull(
+                days, r'DefaultRetention', 'days'),
+            years: BuiltValueNullFieldError.checkNotNull(
+                years, r'DefaultRetention', 'years'));
     replace(_$result);
     return _$result;
   }

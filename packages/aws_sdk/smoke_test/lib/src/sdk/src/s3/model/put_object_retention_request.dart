@@ -33,6 +33,7 @@ abstract class PutObjectRetentionRequest
     _i5.ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
+    bypassGovernanceRetention ??= false;
     return _$PutObjectRetentionRequest._(
       bucket: bucket,
       key: key,
@@ -96,7 +97,9 @@ abstract class PutObjectRetentionRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRetentionRequestBuilder b) {}
+  static void _init(PutObjectRetentionRequestBuilder b) {
+    b.bypassGovernanceRetention = false;
+  }
 
   /// The bucket name that contains the object you want to apply this Object Retention configuration to.
   ///
@@ -116,7 +119,7 @@ abstract class PutObjectRetentionRequest
   String? get versionId;
 
   /// Indicates whether this action should bypass Governance-mode restrictions.
-  bool? get bypassGovernanceRetention;
+  bool get bypassGovernanceRetention;
 
   /// The MD5 hash for the request body.
   ///

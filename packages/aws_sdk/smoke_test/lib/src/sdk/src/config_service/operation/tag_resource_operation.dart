@@ -21,10 +21,10 @@ import 'package:smoke_test/src/sdk/src/config_service/model/too_many_tags_except
 import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart'
     as _i10;
 
-/// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
+/// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
 class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
     _i2.TagResourceRequest, _i1.Unit, _i1.Unit> {
-  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
+  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
   TagResourceOperation({
     required String region,
     Uri? baseUri,

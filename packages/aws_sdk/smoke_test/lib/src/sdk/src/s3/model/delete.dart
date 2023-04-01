@@ -20,6 +20,7 @@ abstract class Delete
     required List<_i2.ObjectIdentifier> objects,
     bool? quiet,
   }) {
+    quiet ??= false;
     return _$Delete._(
       objects: _i3.BuiltList(objects),
       quiet: quiet,
@@ -36,13 +37,15 @@ abstract class Delete
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBuilder b) {}
+  static void _init(DeleteBuilder b) {
+    b.quiet = false;
+  }
 
   /// The objects to delete.
   _i3.BuiltList<_i2.ObjectIdentifier> get objects;
 
   /// Element to enable quiet mode for the request. When you add this element, you must set its value to true.
-  bool? get quiet;
+  bool get quiet;
   @override
   List<Object?> get props => [
         objects,
@@ -98,12 +101,10 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
           ) as _i2.ObjectIdentifier));
           break;
         case 'Quiet':
-          if (value != null) {
-            result.quiet = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
+          result.quiet = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
       }
     }
@@ -133,14 +134,12 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
         [FullType(_i2.ObjectIdentifier)],
       ),
     ));
-    if (payload.quiet != null) {
-      result
-        ..add(const _i4.XmlElementName('Quiet'))
-        ..add(serializers.serialize(
-          payload.quiet!,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result
+      ..add(const _i4.XmlElementName('Quiet'))
+      ..add(serializers.serialize(
+        payload.quiet,
+        specifiedType: const FullType(bool),
+      ));
     return result;
   }
 }

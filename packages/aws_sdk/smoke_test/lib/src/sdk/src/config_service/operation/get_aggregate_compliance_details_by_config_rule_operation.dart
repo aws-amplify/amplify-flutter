@@ -206,8 +206,6 @@ class GetAggregateComplianceDetailsByConfigRuleOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

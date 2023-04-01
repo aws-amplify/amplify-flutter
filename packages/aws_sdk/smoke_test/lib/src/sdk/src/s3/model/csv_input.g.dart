@@ -20,7 +20,7 @@ class _$CsvInput extends CsvInput {
   @override
   final String? quoteCharacter;
   @override
-  final bool? allowQuotedRecordDelimiter;
+  final bool allowQuotedRecordDelimiter;
 
   factory _$CsvInput([void Function(CsvInputBuilder)? updates]) =>
       (new CsvInputBuilder()..update(updates))._build();
@@ -32,8 +32,11 @@ class _$CsvInput extends CsvInput {
       this.recordDelimiter,
       this.fieldDelimiter,
       this.quoteCharacter,
-      this.allowQuotedRecordDelimiter})
-      : super._();
+      required this.allowQuotedRecordDelimiter})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        allowQuotedRecordDelimiter, r'CsvInput', 'allowQuotedRecordDelimiter');
+  }
 
   @override
   CsvInput rebuild(void Function(CsvInputBuilder) updates) =>
@@ -149,7 +152,10 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
             recordDelimiter: recordDelimiter,
             fieldDelimiter: fieldDelimiter,
             quoteCharacter: quoteCharacter,
-            allowQuotedRecordDelimiter: allowQuotedRecordDelimiter);
+            allowQuotedRecordDelimiter: BuiltValueNullFieldError.checkNotNull(
+                allowQuotedRecordDelimiter,
+                r'CsvInput',
+                'allowQuotedRecordDelimiter'));
     replace(_$result);
     return _$result;
   }

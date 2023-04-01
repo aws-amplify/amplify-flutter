@@ -24,6 +24,7 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetOrganizationConfigRuleDetailedStatusRequest._(
       organizationConfigRuleName: organizationConfigRuleName,
       filters: filters,
@@ -50,7 +51,9 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationConfigRuleDetailedStatusRequestBuilder b) {}
+  static void _init(GetOrganizationConfigRuleDetailedStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of your organization Config rule for which you want status details for member accounts.
   String get organizationConfigRuleName;
@@ -59,7 +62,7 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
   _i3.StatusDetailFilters? get filters;
 
   /// The maximum number of `OrganizationConfigRuleDetailedStatus` returned on each page. If you do not specify a number, Config uses the default. The default is 100.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -142,12 +145,10 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
           }
           break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
+          result.limit = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'NextToken':
           if (value != null) {
@@ -176,6 +177,11 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
         payload.organizationConfigRuleName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        payload.limit,
+        specifiedType: const FullType(int),
+      ),
     ];
     if (payload.filters != null) {
       result
@@ -183,14 +189,6 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.filters!,
           specifiedType: const FullType(_i3.StatusDetailFilters),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
         ));
     }
     if (payload.nextToken != null) {
