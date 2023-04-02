@@ -12,6 +12,7 @@ import com.amplifyframework.notifications.pushnotifications.NotificationContentP
 import com.amplifyframework.notifications.pushnotifications.NotificationPayload
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineGroup
+import io.flutter.embedding.engine.loader.FlutterLoader
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
@@ -77,6 +78,7 @@ class PushNotificationFirebaseMessagingServiceTest {
     fun `handles message in foreground`() {
         context = mockk()
         every { anyConstructed<InternalPushNotificationUtils>().isAppInForeground() } returns true
+        mockkConstructor(FlutterLoader::class)
         controller.create().get().handleIntent(Intent())
         shadowOf(getMainLooper()).idle()
         StreamHandlers.foregroundMessageReceived!!.onListen(ArgumentMatchers.any(), mockEventSink)
