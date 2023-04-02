@@ -176,7 +176,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     List<int>? body,
     super.followRedirects,
     super.maxRedirects,
-  })  : bodyBytes = body ?? const [],
+  })  : bodyBytes = Uint8List.fromList(body ?? const []),
         contentLength = body?.length ?? 0,
         super._(
           scheme: uri.scheme,
@@ -203,7 +203,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
     List<int>? body,
     super.followRedirects,
     super.maxRedirects,
-  })  : bodyBytes = body ?? const [],
+  })  : bodyBytes = Uint8List.fromList(body ?? const []),
         contentLength = body?.length ?? 0,
         super._();
 
@@ -313,7 +313,7 @@ class AWSHttpRequest extends AWSBaseHttpRequest {
   bool get hasContentLength => true;
 
   @override
-  final List<int> bodyBytes;
+  final Uint8List bodyBytes;
 
   @override
   AWSHttpRequest read() => this;

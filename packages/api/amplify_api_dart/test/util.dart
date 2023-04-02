@@ -49,7 +49,7 @@ class TestIamAuthProvider extends AWSIamAmplifyAuthProvider {
       request,
       credentialScope: scope,
       serviceConfiguration:
-          options.serviceConfiguration ?? const BaseServiceConfiguration(),
+          options.serviceConfiguration ?? BaseServiceConfiguration(),
     );
   }
 }

@@ -36,17 +36,17 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
     this.chunked = false,
     int chunkSize = _defaultChunkSize,
     this.encoding = S3PayloadEncoding.none,
-  })  : assert(
-          signPayload || !chunked,
-          'S3 does not accept unsigned, chunked payloads',
-        ),
-        chunkSize = max(chunkSize, _minChunkSize),
+  })  : chunkSize = max(chunkSize, _minChunkSize),
         super(
           normalizePath: false,
           omitSessionToken: false,
           doubleEncodePathSegments: false,
           signBody: signPayload,
-        );
+        ) {
+    if (!signPayload && chunked) {
+      throw ArgumentError('S3 does not accept unsigned, chunked payloads');
+    }
+  }
 
   // 8 KB is the minimum chunk size.
   static const int _minChunkSize = 8 * 1024;
@@ -71,6 +71,9 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
 
   /// The encoding to use for the body.
   final S3PayloadEncoding encoding;
+
+  @override
+  String get runtimeTypeName => 'S3ServiceConfiguration';
 
   int _calculateContentLength(int decodedLength) {
     var chunkedLength = 0;
@@ -190,24 +193,37 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
       return;
     }
 
+    final request = canonicalRequest.request;
     final reader = ChunkedStreamReader(
       encoding == S3PayloadEncoding.none
-          ? canonicalRequest.request.body
-          : canonicalRequest.request.body.transform(encoding.encoding.encoder),
+          ? request.body
+          : request.body.transform(encoding.encoding.encoder),
     );
     final decodedLength = contentLength;
     var previousSignature = seedSignature;
     var chunkedLength = 0;
     while (true) {
       final size = min(decodedLength - chunkedLength, chunkSize);
-      final chunk = await reader.readBytes(size);
+      // We can make a performance optimization for streamed requests only when
+      // they haven't been split.
+      //
+      // Split bodies share an underlying byte buffer and the `readBytes`
+      // method, which uses `collectBytes` underneath, does not create a copy
+      // of the bytes. Thus, we cannot transfer the byte buffer and must create
+      // a copy anyway.
+      final chunk =
+          // ignore: invalid_use_of_visible_for_testing_member
+          request is! AWSStreamedHttpRequest || request.debugNumSplits == 0
+              ? await reader.readBytes(size)
+              : Uint8List.fromList(await reader.readChunk(size));
+      final hashResponse = await hashChunk(chunk);
       final sb = StringBuffer()
         ..writeln('$algorithm-PAYLOAD')
         ..writeln(credentialScope.dateTime)
         ..writeln(credentialScope)
         ..writeln(previousSignature)
         ..writeln(emptyPayloadHash)
-        ..write(payloadEncoder.convert(chunk));
+        ..write(hashResponse.hash);
       final stringToSign = sb.toString();
 
       final chunkSignature = algorithm.sign(stringToSign, signingKey);
@@ -216,7 +232,7 @@ class S3ServiceConfiguration extends BaseServiceConfiguration {
         ..add(_sigSep)
         ..add(chunkSignature.codeUnits)
         ..add(_sep)
-        ..add(chunk)
+        ..add(hashResponse.chunk)
         ..add(_sep);
       yield bytes.takeBytes();
 

@@ -68,8 +68,7 @@ class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
     return signer.sign(
       request,
       credentialScope: scope,
-      serviceConfiguration:
-          serviceConfiguration ?? const BaseServiceConfiguration(),
+      serviceConfiguration: serviceConfiguration ?? BaseServiceConfiguration(),
     );
   }
 }

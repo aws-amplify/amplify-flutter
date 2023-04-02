@@ -199,7 +199,9 @@ abstract class WorkerBeeCommon<Request extends Object, Response>
   late final Stream<Response> _stream = _streamController.stream;
 
   /// The stream of responses.
-  Stream<Response> get stream => _stream;
+  Stream<Response> get stream => Stream.fromFuture(Result.release(result))
+      .startWithStream(_stream)
+      .whereType();
 
   @protected
   set stream(Stream<Response> stream) {

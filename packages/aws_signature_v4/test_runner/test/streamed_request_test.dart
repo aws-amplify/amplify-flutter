@@ -15,16 +15,18 @@ AWSHttpClient get mockClient => MockAWSHttpClient((req, _) {
     });
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   final uri = Uri.parse('https://example.com');
 
   group('AWSStreamedHttpRequest', () {
     const signer = AWSSigV4Signer(
       credentialsProvider: AWSCredentialsProvider(dummyCredentials),
     );
+    final serviceConfiguration = BaseServiceConfiguration();
     Stream<List<int>> makeBody() => Stream.fromIterable([
-          [0],
-          [1],
-          [2]
+          List.generate(1024, (i) => i),
+          List.generate(1024, (i) => i),
+          List.generate(1024, (i) => i)
         ]);
 
     group('base service configuration', () {
@@ -41,6 +43,7 @@ void main() {
             region: 'us-west-2',
             service: 'service',
           ),
+          serviceConfiguration: serviceConfiguration,
         );
         await signedRequest.send(client: mockClient).response;
 
@@ -61,6 +64,7 @@ void main() {
             region: 'us-west-2',
             service: 'service',
           ),
+          serviceConfiguration: serviceConfiguration,
         );
         await signedRequest.send(client: mockClient).response;
 
@@ -72,7 +76,10 @@ void main() {
     });
 
     group('s3 service configuration', () {
-      final serviceConfiguration = S3ServiceConfiguration(chunked: true);
+      final serviceConfiguration = S3ServiceConfiguration(
+        signPayload: true,
+        chunked: true,
+      );
 
       test('| body is not split when contentLength is given', () async {
         final request = AWSStreamedHttpRequest(

@@ -8,14 +8,15 @@ import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:smithy/smithy.dart';
 
 class WithSigV4 extends HttpRequestInterceptor {
-  const WithSigV4({
+  WithSigV4({
     required this.region,
     required this.service,
     required this.credentialsProvider,
-    this.serviceConfiguration = const BaseServiceConfiguration(),
+    ServiceConfiguration? serviceConfiguration,
     this.algorithm = AWSAlgorithm.hmacSha256,
     this.isOptional = false,
-  });
+  }) : serviceConfiguration =
+            serviceConfiguration ?? BaseServiceConfiguration();
 
   /// Do close to last, since it depends on all added headers and resolved
   /// endpoints, etc.

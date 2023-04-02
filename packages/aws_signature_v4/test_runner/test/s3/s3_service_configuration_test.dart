@@ -72,7 +72,7 @@ void main() {
           signPayload: false,
           chunked: true,
         ),
-        throwsA(isA<AssertionError>()),
+        throwsA(isA<ArgumentError>()),
       );
     });
 
