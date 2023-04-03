@@ -14,7 +14,8 @@ apis:
   dynamodb:
   streams.dynamodb:
 
-  # IAM/STS (awsQuery)
+  # CloudFormation, IAM, STS (awsQuery)
+  cloudformation:
   iam:
   sts:
 

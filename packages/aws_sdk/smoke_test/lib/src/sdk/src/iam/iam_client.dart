@@ -452,321 +452,301 @@ import 'package:smoke_test/src/sdk/src/iam/model/upload_ssh_public_key_response.
 import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i141;
 import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
     as _i285;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_client_id_to_open_id_connect_provider.dart'
     as _i5;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_role_to_instance_profile.dart'
     as _i7;
-import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/add_user_to_group.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_group_policy.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_role_policy.dart'
     as _i13;
-import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/attach_user_policy.dart'
     as _i15;
-import 'package:smoke_test/src/sdk/src/iam/operation/change_password_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/change_password.dart'
     as _i17;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_access_key.dart'
     as _i20;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_account_alias.dart'
     as _i22;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_group_operation.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_group.dart' as _i25;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_instance_profile.dart'
     as _i28;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_login_profile.dart'
     as _i31;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_open_id_connect_provider.dart'
     as _i34;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy.dart'
     as _i37;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_policy_version.dart'
     as _i40;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_role_operation.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_role.dart' as _i43;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_saml_provider.dart'
     as _i46;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_linked_role.dart'
     as _i49;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_service_specific_credential.dart'
     as _i52;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_user_operation.dart'
-    as _i55;
-import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/create_user.dart' as _i55;
+import 'package:smoke_test/src/sdk/src/iam/operation/create_virtual_mfa_device.dart'
     as _i58;
-import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/deactivate_mfa_device.dart'
     as _i60;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_access_key.dart'
     as _i62;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_alias.dart'
     as _i64;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_account_password_policy.dart'
     as _i65;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_operation.dart'
-    as _i67;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group.dart' as _i67;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_group_policy.dart'
     as _i69;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_instance_profile.dart'
     as _i71;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_login_profile.dart'
     as _i73;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_open_id_connect_provider.dart'
     as _i75;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy.dart'
     as _i77;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_policy_version.dart'
     as _i79;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_operation.dart'
-    as _i81;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role.dart' as _i81;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_permissions_boundary.dart'
     as _i83;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_role_policy.dart'
     as _i85;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_saml_provider.dart'
     as _i87;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_server_certificate.dart'
     as _i91;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_linked_role.dart'
     as _i94;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_service_specific_credential.dart'
     as _i96;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_signing_certificate.dart'
     as _i98;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_ssh_public_key.dart'
     as _i89;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_operation.dart'
-    as _i100;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user.dart' as _i100;
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_permissions_boundary.dart'
     as _i102;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_user_policy.dart'
     as _i104;
-import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/delete_virtual_mfa_device.dart'
     as _i106;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_group_policy.dart'
     as _i108;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_role_policy.dart'
     as _i110;
-import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/detach_user_policy.dart'
     as _i112;
-import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/enable_mfa_device.dart'
     as _i114;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_credential_report.dart'
     as _i116;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_organizations_access_report.dart'
     as _i119;
-import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/generate_service_last_accessed_details.dart'
     as _i122;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_access_key_last_used.dart'
     as _i125;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_authorization_details.dart'
     as _i128;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_password_policy.dart'
     as _i130;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_account_summary.dart'
     as _i132;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_custom_policy.dart'
     as _i135;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_context_keys_for_principal_policy.dart'
     as _i137;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_credential_report.dart'
     as _i139;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group_operation.dart'
-    as _i143;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group.dart' as _i143;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_group_policy.dart'
     as _i146;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_instance_profile.dart'
     as _i149;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_login_profile.dart'
     as _i152;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_open_id_connect_provider.dart'
     as _i155;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_organizations_access_report.dart'
     as _i158;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_operation.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy.dart' as _i161;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_policy_version.dart'
     as _i164;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role_operation.dart'
-    as _i167;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role.dart' as _i167;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_role_policy.dart'
     as _i170;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_saml_provider.dart'
     as _i173;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_server_certificate.dart'
     as _i179;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details.dart'
     as _i182;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_last_accessed_details_with_entities.dart'
     as _i185;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_service_linked_role_deletion_status.dart'
     as _i188;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_ssh_public_key.dart'
     as _i176;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user_operation.dart'
-    as _i191;
-import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user.dart' as _i191;
+import 'package:smoke_test/src/sdk/src/iam/operation/get_user_policy.dart'
     as _i194;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_access_keys.dart'
     as _i197;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_account_aliases.dart'
     as _i199;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_group_policies.dart'
     as _i202;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_role_policies.dart'
     as _i204;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_attached_user_policies.dart'
     as _i206;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_entities_for_policy.dart'
     as _i209;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_group_policies.dart'
     as _i211;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups.dart' as _i214;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_for_user.dart'
     as _i216;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_groups_operation.dart'
-    as _i214;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profile_tags.dart'
     as _i219;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role_operation.dart'
-    as _i224;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles.dart'
     as _i222;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_instance_profiles_for_role.dart'
+    as _i224;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_device_tags.dart'
     as _i227;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_mfa_devices.dart'
     as _i230;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_provider_tags.dart'
     as _i233;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_open_id_connect_providers.dart'
     as _i236;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access_operation.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies.dart'
     as _i239;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policies_granting_service_access.dart'
+    as _i242;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_tags.dart'
     as _i245;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_policy_versions.dart'
     as _i248;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_policies.dart'
     as _i250;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_role_tags.dart'
     as _i253;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_roles_operation.dart'
-    as _i256;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_roles.dart' as _i256;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_provider_tags.dart'
     as _i259;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_saml_providers.dart'
     as _i262;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificate_tags.dart'
     as _i268;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_server_certificates.dart'
     as _i271;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_service_specific_credentials.dart'
     as _i274;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_signing_certificates.dart'
     as _i277;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_ssh_public_keys.dart'
     as _i265;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_policies.dart'
     as _i279;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_user_tags.dart'
     as _i282;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_users_operation.dart'
-    as _i284;
-import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/list_users.dart' as _i284;
+import 'package:smoke_test/src/sdk/src/iam/operation/list_virtual_mfa_devices.dart'
     as _i287;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_group_policy.dart'
     as _i289;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_permissions_boundary.dart'
     as _i291;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_role_policy.dart'
     as _i293;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_permissions_boundary.dart'
     as _i295;
-import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/put_user_policy.dart'
     as _i297;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_client_id_from_open_id_connect_provider.dart'
     as _i299;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_role_from_instance_profile.dart'
     as _i301;
-import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/remove_user_from_group.dart'
     as _i303;
-import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/reset_service_specific_credential.dart'
     as _i306;
-import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/resync_mfa_device.dart'
     as _i308;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/set_default_policy_version.dart'
     as _i310;
-import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/set_security_token_service_preferences.dart'
     as _i312;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_custom_policy.dart'
     as _i315;
-import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/simulate_principal_policy.dart'
     as _i317;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_instance_profile.dart'
     as _i319;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_mfa_device.dart'
     as _i321;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_open_id_connect_provider.dart'
     as _i323;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy_operation.dart'
-    as _i325;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_role_operation.dart'
-    as _i327;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_policy.dart' as _i325;
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_role.dart' as _i327;
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_saml_provider.dart'
     as _i329;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_server_certificate.dart'
     as _i331;
-import 'package:smoke_test/src/sdk/src/iam/operation/tag_user_operation.dart'
-    as _i333;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/tag_user.dart' as _i333;
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_instance_profile.dart'
     as _i335;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_mfa_device.dart'
     as _i337;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_open_id_connect_provider.dart'
     as _i339;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_policy.dart'
     as _i341;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_role_operation.dart'
-    as _i343;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_role.dart' as _i343;
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_saml_provider.dart'
     as _i345;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_server_certificate.dart'
     as _i347;
-import 'package:smoke_test/src/sdk/src/iam/operation/untag_user_operation.dart'
-    as _i349;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/untag_user.dart' as _i349;
+import 'package:smoke_test/src/sdk/src/iam/operation/update_access_key.dart'
     as _i351;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_account_password_policy.dart'
     as _i353;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_assume_role_policy.dart'
     as _i355;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_group_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_group.dart'
     as _i357;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_login_profile.dart'
     as _i359;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_open_id_connect_provider_thumbprint.dart'
     as _i361;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role.dart' as _i364;
+import 'package:smoke_test/src/sdk/src/iam/operation/update_role_description.dart'
     as _i367;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_role_operation.dart'
-    as _i364;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_saml_provider.dart'
     as _i370;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_server_certificate.dart'
     as _i374;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_service_specific_credential.dart'
     as _i376;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_signing_certificate.dart'
     as _i378;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_ssh_public_key.dart'
     as _i372;
-import 'package:smoke_test/src/sdk/src/iam/operation/update_user_operation.dart'
-    as _i380;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/update_user.dart' as _i380;
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_server_certificate.dart'
     as _i386;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_signing_certificate.dart'
     as _i389;
-import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key_operation.dart'
+import 'package:smoke_test/src/sdk/src/iam/operation/upload_ssh_public_key.dart'
     as _i383;
 
 /// ## Identity and Access Management

@@ -37,21 +37,20 @@ import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_request.dart'
     as _i26;
 import 'package:smoke_test/src/sdk/src/sts/model/get_session_token_response.dart'
     as _i25;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_operation.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_saml_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_saml.dart'
     as _i9;
-import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_web_identity_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/assume_role_with_web_identity.dart'
     as _i12;
-import 'package:smoke_test/src/sdk/src/sts/operation/decode_authorization_message_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/decode_authorization_message.dart'
     as _i15;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_access_key_info_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/get_access_key_info.dart'
     as _i18;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_caller_identity_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/get_caller_identity.dart'
     as _i21;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_federation_token_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/get_federation_token.dart'
     as _i24;
-import 'package:smoke_test/src/sdk/src/sts/operation/get_session_token_operation.dart'
+import 'package:smoke_test/src/sdk/src/sts/operation/get_session_token.dart'
     as _i27;
 
 /// ## Security Token Service
