@@ -795,10 +795,10 @@ void main() {
 
     group('copy() API', () {
       late S3CopyResult copyResult;
-      const testSourceItem = S3Item(key: 'source');
-      const testDestinationItem = S3Item(key: 'destination');
-      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
-      const testDestination =
+      final testSourceItem = S3Item(key: 'source');
+      final testDestinationItem = S3Item(key: 'destination');
+      final testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
+      final testDestination =
           S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {
@@ -957,10 +957,10 @@ void main() {
 
     group('move() API', () {
       late S3MoveResult moveResult;
-      const testSourceItem = S3Item(key: 'source');
-      const testDestinationItem = S3Item(key: 'destination');
-      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
-      const testDestination =
+      final testSourceItem = S3Item(key: 'source');
+      final testDestinationItem = S3Item(key: 'destination');
+      final testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
+      final testDestination =
           S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {

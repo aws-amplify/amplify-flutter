@@ -664,13 +664,13 @@ void main() {
             description:
                 'should include metadata when getPropertiesValue is set to true',
             getPropertiesValue: true,
-            expectedS3Item: const S3Item(key: testKey, metadata: testMetadata),
+            expectedS3Item: S3Item(key: testKey, metadata: testMetadata),
           ),
           GetPropertiesTestItem(
             description:
                 'should NOT include metadata when getPropertiesValue is set to false',
             getPropertiesValue: false,
-            expectedS3Item: const S3Item(key: testKey, metadata: {}),
+            expectedS3Item: S3Item(key: testKey, metadata: {}),
           ),
         ];
 

@@ -832,12 +832,12 @@ void main() {
         accessLevel: StorageAccessLevel.protected,
       );
 
-      const testResult = S3CopyResult(copiedItem: S3Item(key: destinationKey));
+      final testResult = S3CopyResult(copiedItem: S3Item(key: destinationKey));
 
       setUpAll(() {
         registerFallbackValue(const StorageCopyOptions());
         registerFallbackValue(
-          const S3ItemWithAccessLevel(
+          S3ItemWithAccessLevel(
             storageItem: S3Item(key: 'some-key'),
           ),
         );
@@ -939,12 +939,12 @@ void main() {
         accessLevel: StorageAccessLevel.protected,
       );
 
-      const testResult = S3MoveResult(movedItem: S3Item(key: destinationKey));
+      final testResult = S3MoveResult(movedItem: S3Item(key: destinationKey));
 
       setUpAll(() {
         registerFallbackValue(const StorageMoveOptions());
         registerFallbackValue(
-          const S3ItemWithAccessLevel(
+          S3ItemWithAccessLevel(
             storageItem: S3Item(key: 'some-key'),
           ),
         );
@@ -1023,7 +1023,7 @@ void main() {
 
     group('remove() API', () {
       const testKey = 'object-to-remove';
-      const testResult = S3RemoveResult(
+      final testResult = S3RemoveResult(
         removedItem: S3Item(
           key: testKey,
         ),
