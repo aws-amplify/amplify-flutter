@@ -39,12 +39,12 @@ final dependencyVersions = {
 
   // Dev Dependencies
   'smithy_test': const Dependency.dev('^0.5.0', DependencyType.smithy),
-  'build_runner': const Dependency.dev('^2.0.0'),
-  'build_web_compilers': const Dependency.dev('^3.2.0'),
+  'build_runner': const Dependency.dev('^2.4.0'),
+  'build_web_compilers': const Dependency.dev('^4.0.0'),
   'build_test': const Dependency.dev('^2.1.5'),
   'built_value_generator': const Dependency.dev('8.4.4'),
   'lints': const Dependency.dev('^2.0.0'),
-  'test': const Dependency.dev('^1.16.0'),
+  'test': const Dependency.dev('^1.22.1'),
 };
 
 class PubspecGenerator implements Generator<String> {

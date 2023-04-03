@@ -21,7 +21,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
   }) : super(shape, context: context, smithyLibrary: smithyLibrary);
 
   @override
-  String get className => shape.dartName;
+  String get className => shape.dartName(context);
 
   @override
   Library generate() {

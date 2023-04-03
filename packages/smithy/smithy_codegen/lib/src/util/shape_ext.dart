@@ -336,11 +336,20 @@ extension ShapeUtils on Shape {
     if (basePath != null && !basePath.endsWith('/')) {
       basePath = '$basePath/';
     }
+    var filename = rename?.pascalCase.snakeCase;
+    if (filename == null) {
+      final shape = this;
+      if (shape is OperationShape) {
+        filename = shape.dartName(context).snakeCase;
+      } else {
+        filename = shape.shapeId.shape.pascalCase.snakeCase;
+      }
+    }
     return SmithyLibrary()
       ..packageName = context.packageName
       ..serviceName = context.serviceName
       ..libraryType = libraryType
-      ..filename = (rename ?? shapeId.shape).pascalCase.snakeCase
+      ..filename = filename
       ..basePath = basePath ?? '';
   }
 
@@ -397,12 +406,21 @@ extension NamedMembersShapeUtil on NamedMembersShape {
 
 extension OperationShapeUtil on OperationShape {
   /// The name of this operation as a Dart class.
-  String get dartName {
+  String dartName(CodegenContext context) {
     final shapeName = shapeId.shape.pascalCase;
     if (shapeName.endsWith('Operation')) {
       return shapeName;
     }
-    return '${shapeName}_Operation'.pascalCase;
+
+    // Don't rename if doing so would conflict with another class.
+    final operationShapeName = '${shapeName}_Operation'.pascalCase;
+    final existingShape = context.shapes.keys.firstWhereOrNull((shapeId) {
+      return shapeId.shape.pascalCase == operationShapeName;
+    });
+    if (existingShape != null) {
+      return shapeName;
+    }
+    return operationShapeName;
   }
 
   /// The shape for the operation's input.
