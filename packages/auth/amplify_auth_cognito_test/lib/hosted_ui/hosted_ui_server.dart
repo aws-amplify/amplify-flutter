@@ -127,7 +127,7 @@ class HostedUiServer implements Closeable {
       _currentSignIn = null;
       _currentSignOut = null;
     }
-    // ignore: invalid_use_of_protected_member
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     final credentials = await _plugin.stateMachine.loadCredentials();
     return credentials.toJson();
   }
