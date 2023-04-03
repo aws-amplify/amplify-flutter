@@ -61,7 +61,7 @@ ModelSchema getModelSchemaByModelName(
   // ignore: invalid_use_of_protected_member
   final provider = Amplify.API.defaultPlugin.modelProvider;
   if (provider == null) {
-    throw const UnknownException(
+    throw ConfigurationError(
       'No modelProvider found',
       recoverySuggestion:
           'Pass in a modelProvider instance while instantiating APIPlugin',
@@ -76,7 +76,7 @@ ModelSchema getModelSchemaByModelName(
   final schema =
       (provider.modelSchemas + provider.customTypeSchemas).firstWhere(
     (elem) => elem.name == modelName,
-    orElse: () => throw UnknownException(
+    orElse: () => throw ConfigurationError(
       'No schema found for the ModelType provided: $modelName',
       recoverySuggestion: 'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin or provide a valid ModelType',
@@ -84,7 +84,7 @@ ModelSchema getModelSchemaByModelName(
   );
 
   if (schema.fields == null) {
-    throw const UnknownException(
+    throw ConfigurationError(
       'Schema found does not have a fields property',
       recoverySuggestion: 'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin',
@@ -92,7 +92,7 @@ ModelSchema getModelSchemaByModelName(
   }
 
   if (operation == GraphQLRequestOperation.list && schema.pluralName == null) {
-    throw const UnknownException(
+    throw ConfigurationError(
       'No schema name found',
       recoverySuggestion: 'Pass in a valid modelProvider instance while '
           'instantiating APIPlugin or provide a valid ModelType',

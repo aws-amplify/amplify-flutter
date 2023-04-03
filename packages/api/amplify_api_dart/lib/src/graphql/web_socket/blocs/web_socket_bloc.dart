@@ -274,7 +274,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       // disconnect. Ignore those messages.
       _safeAdd,
       onError: (Object error, StackTrace st) {
-        final exception = UnknownException(
+        final exception = NetworkException(
           'Exception from WebSocketService.',
           underlyingException: error.toString(),
         );
@@ -535,7 +535,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       _pollResponseTimeout,
       onTimeout: () {
         op.cancel();
-        throw const UnknownException('Timeout while polling AppSync.');
+        throw const NetworkException('Timeout while polling AppSync.');
       },
     );
   }

@@ -6,9 +6,9 @@ import 'package:amplify_core/src/types/exception/api/api_exception.dart';
 /// {@template amplify_core.api.api_operation_error}
 /// An in-process operation encountered a processing error
 /// {@endtemplate}
-class ApiOperationError extends ApiException {
+class ApiOperationException extends ApiException {
   /// {@macro amplify_core.api.api_operation_error}
-  const ApiOperationError(
+  const ApiOperationException(
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
