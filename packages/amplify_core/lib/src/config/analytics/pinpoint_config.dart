@@ -35,6 +35,7 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
+    this.autoFlushEventsInterval = 10000,
   });
 
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
@@ -45,6 +46,7 @@ class PinpointPluginConfig
 
   final PinpointAnalytics pinpointAnalytics;
   final PinpointTargeting pinpointTargeting;
+  final int autoFlushEventsInterval;
 
   @override
   List<Object?> get props => [pinpointAnalytics, pinpointTargeting];
@@ -52,10 +54,13 @@ class PinpointPluginConfig
   PinpointPluginConfig copyWith({
     PinpointAnalytics? pinpointAnalytics,
     PinpointTargeting? pinpointTargeting,
+    int? autoFlushEventsInterval,
   }) {
     return PinpointPluginConfig(
       pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics,
       pinpointTargeting: pinpointTargeting ?? this.pinpointTargeting,
+      autoFlushEventsInterval:
+          autoFlushEventsInterval ?? this.autoFlushEventsInterval,
     );
   }
 
