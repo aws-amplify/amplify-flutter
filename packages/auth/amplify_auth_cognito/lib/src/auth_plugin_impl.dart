@@ -40,26 +40,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
-  static const AuthPluginKey<
-      CognitoAuthUser,
-      CognitoUserAttributeKey,
-      AuthUserAttribute,
-      CognitoDevice,
-      CognitoSignUpResult,
-      CognitoSignUpResult,
-      CognitoResendSignUpCodeResult,
-      CognitoSignInResult,
-      CognitoSignInResult,
-      SignOutResult,
-      UpdatePasswordResult,
-      CognitoResetPasswordResult,
-      CognitoResetPasswordResult,
-      CognitoAuthSession,
-      CognitoSignInResult,
-      UpdateUserAttributeResult,
-      ConfirmUserAttributeResult,
-      ResendUserAttributeConfirmationCodeResult,
-      AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
+  static const AuthPluginKey<AmplifyAuthCognito> pluginKey =
+      _AmplifyAuthCognitoPluginKey();
 
   @override
   Future<void> addPlugin({
@@ -240,26 +222,7 @@ class _NativeAmplifyAuthCognito
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
 }
 
-class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
-    CognitoAuthUser,
-    CognitoUserAttributeKey,
-    AuthUserAttribute,
-    CognitoDevice,
-    CognitoSignUpResult,
-    CognitoSignUpResult,
-    CognitoResendSignUpCodeResult,
-    CognitoSignInResult,
-    CognitoSignInResult,
-    SignOutResult,
-    UpdatePasswordResult,
-    CognitoResetPasswordResult,
-    CognitoResetPasswordResult,
-    CognitoAuthSession,
-    CognitoSignInResult,
-    UpdateUserAttributeResult,
-    ConfirmUserAttributeResult,
-    ResendUserAttributeConfirmationCodeResult,
-    AmplifyAuthCognito> {
+class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<AmplifyAuthCognito> {
   const _AmplifyAuthCognitoPluginKey();
 
   @override

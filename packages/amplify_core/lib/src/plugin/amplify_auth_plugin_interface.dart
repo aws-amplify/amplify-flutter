@@ -9,32 +9,13 @@ import 'package:meta/meta.dart';
 /// A plugin for the Amplify Auth category.
 ///
 /// {@macro amplify_core.amplify_auth_category}
-abstract class AuthPluginInterface<
-        PluginAuthUser extends AuthUser,
-        PluginUserAttributeKey extends AuthUserAttributeKey,
-        PluginAuthUserAttribute extends AuthUserAttribute,
-        PluginAuthDevice extends AuthDevice,
-        PluginSignUpResult extends SignUpResult,
-        PluginConfirmSignupResult extends SignUpResult,
-        PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-        PluginSignInResult extends SignInResult,
-        PluginConfirmSignInResult extends SignInResult,
-        PluginSignOutResult extends SignOutResult,
-        PluginUpdatePasswordResult extends UpdatePasswordResult,
-        PluginResetPasswordResult extends ResetPasswordResult,
-        PluginConfirmResetPasswordResult extends ResetPasswordResult,
-        PluginAuthSession extends AuthSession,
-        PluginSignInWithWebUIResult extends SignInResult,
-        PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-        PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult>
-    extends AmplifyPluginInterface {
+abstract class AuthPluginInterface extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.auth;
 
   /// {@macro amplify_core.amplify_auth_category.sign_up}
-  Future<PluginSignUpResult> signUp({
+  Future<SignUpResult> signUp({
     required String username,
     required String password,
     SignUpOptions? options,
@@ -43,7 +24,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_up}
-  Future<PluginConfirmSignupResult> confirmSignUp({
+  Future<SignUpResult> confirmSignUp({
     required String username,
     required String confirmationCode,
     ConfirmSignUpOptions? options,
@@ -52,7 +33,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.resend_sign_up_code}
-  Future<PluginResendSignUpCodeResult> resendSignUpCode({
+  Future<ResendSignUpCodeResult> resendSignUpCode({
     required String username,
     ResendSignUpCodeOptions? options,
   }) {
@@ -60,7 +41,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_in}
-  Future<PluginSignInResult> signIn({
+  Future<SignInResult> signIn({
     required String username,
     String? password,
     SignInOptions? options,
@@ -69,7 +50,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_sign_in}
-  Future<PluginConfirmSignInResult> confirmSignIn({
+  Future<SignInResult> confirmSignIn({
     required String confirmationValue,
     ConfirmSignInOptions? options,
   }) {
@@ -77,14 +58,14 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_out}
-  Future<PluginSignOutResult> signOut({
+  Future<SignOutResult> signOut({
     SignOutOptions? options,
   }) {
     throw UnimplementedError('signOut() has not been implemented');
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_password}
-  Future<PluginUpdatePasswordResult> updatePassword({
+  Future<UpdatePasswordResult> updatePassword({
     required String oldPassword,
     required String newPassword,
     UpdatePasswordOptions? options,
@@ -93,7 +74,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.reset_password}
-  Future<PluginResetPasswordResult> resetPassword({
+  Future<ResetPasswordResult> resetPassword({
     required String username,
     ResetPasswordOptions? options,
   }) {
@@ -101,7 +82,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_reset_password}
-  Future<PluginConfirmResetPasswordResult> confirmResetPassword({
+  Future<ResetPasswordResult> confirmResetPassword({
     required String username,
     required String newPassword,
     required String confirmationCode,
@@ -113,28 +94,28 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.get_current_user}
-  Future<PluginAuthUser> getCurrentUser({
+  Future<AuthUser> getCurrentUser({
     GetCurrentUserOptions? options,
   }) {
     throw UnimplementedError('getCurrentUser() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_user_attributes}
-  Future<List<PluginAuthUserAttribute>> fetchUserAttributes({
+  Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
   }) {
     throw UnimplementedError('fetchUserAttributes() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_auth_session}
-  Future<PluginAuthSession> fetchAuthSession({
+  Future<AuthSession> fetchAuthSession({
     FetchAuthSessionOptions? options,
   }) {
     throw UnimplementedError('fetchAuthSession() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.sign_in_with_web_ui}
-  Future<PluginSignInWithWebUIResult> signInWithWebUI({
+  Future<SignInResult> signInWithWebUI({
     AuthProvider? provider,
     SignInWithWebUIOptions? options,
   }) {
@@ -142,7 +123,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attribute}
-  Future<PluginUpdateUserAttributeResult> updateUserAttribute({
+  Future<UpdateUserAttributeResult> updateUserAttribute({
     required AuthUserAttributeKey userAttributeKey,
     required String value,
     UpdateUserAttributeOptions? options,
@@ -151,7 +132,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.update_user_attributes}
-  Future<Map<PluginUserAttributeKey, PluginUpdateUserAttributeResult>>
+  Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
@@ -162,7 +143,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.confirm_user_attribute}
-  Future<PluginConfirmUserAttributeResult> confirmUserAttribute({
+  Future<ConfirmUserAttributeResult> confirmUserAttribute({
     required AuthUserAttributeKey userAttributeKey,
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
@@ -173,7 +154,7 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
-  Future<PluginResendUserAttributeConfirmationCodeResult>
+  Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
     required AuthUserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
@@ -189,12 +170,12 @@ abstract class AuthPluginInterface<
   }
 
   /// {@macro amplify_core.amplify_auth_category.forget_device}
-  Future<void> forgetDevice([PluginAuthDevice? device]) {
+  Future<void> forgetDevice([AuthDevice? device]) {
     throw UnimplementedError('forgetDevice() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_auth_category.fetch_devices}
-  Future<List<PluginAuthDevice>> fetchDevices() {
+  Future<List<AuthDevice>> fetchDevices() {
     throw UnimplementedError('fetchDevices() has not been implemented.');
   }
 

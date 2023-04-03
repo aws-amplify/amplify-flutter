@@ -83,9 +83,4 @@ class AmplifyStub extends AmplifyClass {
   Future<void> configurePlatform(String config) async {
     // no-op
   }
-
-  @override
-  Future<void> reset() async {
-    // no-op
-  }
 }

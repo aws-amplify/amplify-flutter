@@ -49,25 +49,7 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito_dart.amplify_auth_cognito_dart}
 /// The AWS Cognito implementation of the Amplify Auth category.
 /// {@endtemplate}
-class AmplifyAuthCognitoDart extends AuthPluginInterface<
-        CognitoAuthUser,
-        CognitoUserAttributeKey,
-        AuthUserAttribute,
-        CognitoDevice,
-        CognitoSignUpResult,
-        CognitoSignUpResult,
-        CognitoResendSignUpCodeResult,
-        CognitoSignInResult,
-        CognitoSignInResult,
-        CognitoSignOutResult,
-        UpdatePasswordResult,
-        CognitoResetPasswordResult,
-        CognitoResetPasswordResult,
-        CognitoAuthSession,
-        CognitoSignInResult,
-        UpdateUserAttributeResult,
-        ConfirmUserAttributeResult,
-        ResendUserAttributeConfirmationCodeResult>
+class AmplifyAuthCognitoDart extends AuthPluginInterface
     with AWSDebuggable, AmplifyLoggerMixin
     implements Closeable {
   /// {@macro amplify_auth_cognito_dart.amplify_auth_cognito_dart}
@@ -80,26 +62,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
-  static const AuthPluginKey<
-      CognitoAuthUser,
-      CognitoUserAttributeKey,
-      AuthUserAttribute,
-      CognitoDevice,
-      CognitoSignUpResult,
-      CognitoSignUpResult,
-      CognitoResendSignUpCodeResult,
-      CognitoSignInResult,
-      CognitoSignInResult,
-      SignOutResult,
-      UpdatePasswordResult,
-      CognitoResetPasswordResult,
-      CognitoResetPasswordResult,
-      CognitoAuthSession,
-      CognitoSignInResult,
-      UpdateUserAttributeResult,
-      ConfirmUserAttributeResult,
-      ResendUserAttributeConfirmationCodeResult,
-      AmplifyAuthCognitoDart> pluginKey = _AmplifyAuthCognitoDartPluginKey();
+  static const AuthPluginKey<AmplifyAuthCognitoDart> pluginKey =
+      _AmplifyAuthCognitoDartPluginKey();
 
   /// Capture the initial parameters on instantiation of this class.
   ///
@@ -1004,7 +968,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   }
 
   @override
-  Future<void> forgetDevice([CognitoDevice? device]) async {
+  Future<void> forgetDevice([AuthDevice? device]) async {
     final tokens = await stateMachine.getUserPoolTokens();
     final username = tokens.username;
     final deviceSecrets = await _deviceRepo.get(username);
@@ -1120,26 +1084,8 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   String get runtimeTypeName => 'AmplifyAuthCognitoDart';
 }
 
-class _AmplifyAuthCognitoDartPluginKey extends AuthPluginKey<
-    CognitoAuthUser,
-    CognitoUserAttributeKey,
-    AuthUserAttribute,
-    CognitoDevice,
-    CognitoSignUpResult,
-    CognitoSignUpResult,
-    CognitoResendSignUpCodeResult,
-    CognitoSignInResult,
-    CognitoSignInResult,
-    SignOutResult,
-    UpdatePasswordResult,
-    CognitoResetPasswordResult,
-    CognitoResetPasswordResult,
-    CognitoAuthSession,
-    CognitoSignInResult,
-    UpdateUserAttributeResult,
-    ConfirmUserAttributeResult,
-    ResendUserAttributeConfirmationCodeResult,
-    AmplifyAuthCognitoDart> {
+class _AmplifyAuthCognitoDartPluginKey
+    extends AuthPluginKey<AmplifyAuthCognitoDart> {
   const _AmplifyAuthCognitoDartPluginKey();
 
   @override

@@ -17,45 +17,8 @@ abstract class AmplifyPluginKey<P extends AmplifyPluginInterface>
 /// A plugin identifier which can be passed to the Auth category's `getPlugin`
 /// method to retrieve a plugin-specific Auth category wrapper.
 /// {@endtemplate}
-abstract class AuthPluginKey<
-    PluginAuthUser extends AuthUser,
-    PluginUserAttributeKey extends AuthUserAttributeKey,
-    PluginAuthUserAttribute extends AuthUserAttribute,
-    PluginAuthDevice extends AuthDevice,
-    PluginSignUpResult extends SignUpResult,
-    PluginConfirmSignUpResult extends SignUpResult,
-    PluginResendSignUpCodeResult extends ResendSignUpCodeResult,
-    PluginSignInResult extends SignInResult,
-    PluginConfirmSignInResult extends SignInResult,
-    PluginSignOutResult extends SignOutResult,
-    PluginUpdatePasswordResult extends UpdatePasswordResult,
-    PluginResetPasswordResult extends ResetPasswordResult,
-    PluginConfirmResetPasswordResult extends ResetPasswordResult,
-    PluginAuthSession extends AuthSession,
-    PluginSignInWithWebUIResult extends SignInResult,
-    PluginUpdateUserAttributeResult extends UpdateUserAttributeResult,
-    PluginConfirmUserAttributeResult extends ConfirmUserAttributeResult,
-    PluginResendUserAttributeConfirmationCodeResult extends ResendUserAttributeConfirmationCodeResult,
-    P extends AuthPluginInterface<
-        PluginAuthUser,
-        PluginUserAttributeKey,
-        PluginAuthUserAttribute,
-        PluginAuthDevice,
-        PluginSignUpResult,
-        PluginConfirmSignUpResult,
-        PluginResendSignUpCodeResult,
-        PluginSignInResult,
-        PluginConfirmSignInResult,
-        PluginSignOutResult,
-        PluginUpdatePasswordResult,
-        PluginResetPasswordResult,
-        PluginConfirmResetPasswordResult,
-        PluginAuthSession,
-        PluginSignInWithWebUIResult,
-        PluginUpdateUserAttributeResult,
-        PluginConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeResult>> extends AmplifyPluginKey<
-    P> {
+abstract class AuthPluginKey<Plugin extends AuthPluginInterface>
+    extends AmplifyPluginKey<Plugin> {
   /// {@macro amplify_core.plugin.auth_plugin_key}
   const AuthPluginKey();
 }
