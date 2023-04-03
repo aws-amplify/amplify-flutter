@@ -1101,7 +1101,7 @@ void main() {
           Blog.classType,
           blog.modelIdentifier,
         );
-      } on ApiException catch (e) {
+      } on ConfigurationError catch (e) {
         expect(e.message, 'No modelProvider found');
         expect(
           e.recoverySuggestion,
