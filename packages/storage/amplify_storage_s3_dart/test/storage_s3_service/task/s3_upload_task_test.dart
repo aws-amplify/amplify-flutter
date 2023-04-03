@@ -321,7 +321,7 @@ void main() {
         );
       });
 
-      test('should throw S3Exception when prefix resolving fails', () {
+      test('should throw StorageException when prefix resolving fails', () {
         final prefixResolverThrowsException =
             TestCustomPrefixResolverThrowsException();
 
@@ -338,7 +338,7 @@ void main() {
         );
 
         unawaited(uploadDataTask.start());
-        expect(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        expect(uploadDataTask.result, throwsA(isA<StorageException>()));
       });
 
       test(
@@ -377,7 +377,44 @@ void main() {
       });
 
       test(
-          'cancel() should cancel underlying put object request and throw a S3Exception',
+          'should throw NetworkException when S3Client.putObject'
+          ' returned AWSHttpException', () {
+        const testUploadDataOptions = StorageUploadDataOptions(
+          accessLevel: StorageAccessLevel.private,
+        );
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.put, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.putObject(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        final uploadDataTask = S3UploadTask.fromDataPayload(
+          testDataPayload,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: testUploadDataOptions,
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadDataTask.start());
+
+        expect(
+          uploadDataTask.result,
+          throwsA(isA<NetworkException>()),
+        );
+      });
+
+      test(
+          'cancel() should cancel underlying put object request and throw a StorageException',
           () async {
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -418,7 +455,10 @@ void main() {
 
         completer.complete();
 
-        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        await expectLater(
+          uploadDataTask.result,
+          throwsA(isA<StorageException>()),
+        );
         verify(putSmithyOperation.cancel).called(1);
       });
     });
@@ -545,7 +585,7 @@ void main() {
       });
 
       test(
-          'cancel() should cancel underlying put object request and throw a S3Exception',
+          'cancel() should cancel underlying put object request and throw a StorageException',
           () async {
         final putSmithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
 
@@ -586,7 +626,10 @@ void main() {
 
         completer.complete();
 
-        await expectLater(uploadDataTask.result, throwsA(isA<S3Exception>()));
+        await expectLater(
+          uploadDataTask.result,
+          throwsA(isA<StorageException>()),
+        );
         verify(putSmithyOperation.cancel).called(1);
       });
 
@@ -1230,7 +1273,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -1281,6 +1324,51 @@ void main() {
       });
 
       test(
+          'should complete with NetworkException when CreateMultipartUploadRequest'
+          ' returned AWSHttpException', () async {
+        late S3TransferState finalState;
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: const StorageUploadDataOptions(
+            accessLevel: StorageAccessLevel.guest,
+          ),
+          logger: logger,
+          transferDatabase: transferDatabase,
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
+        );
+
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.post, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenThrow(testException);
+
+        unawaited(uploadTask.start());
+
+        await expectLater(
+          uploadTask.result,
+          throwsA(
+            isA<NetworkException>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              testException,
+            ),
+          ),
+        );
+
+        expect(finalState, S3TransferState.failure);
+      });
+
+      test(
           'should complete with error when CreateMultipartUploadRequest does NOT return a valid uploadId',
           () async {
         late S3TransferState finalState;
@@ -1317,7 +1405,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
         expect(finalState, S3TransferState.failure);
       });
@@ -1467,10 +1555,103 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageException>().having(
               (o) => o.underlyingException,
               'underlyingException',
               isA<StorageAccessDeniedException>().having(
+                (o) => o.underlyingException,
+                'underlyingException',
+                testException,
+              ),
+            ),
+          ),
+        );
+
+        final capturedAbortMultipartUploadRequest = verify(
+          () => s3Client.abortMultipartUpload(
+            captureAny<s3.AbortMultipartUploadRequest>(),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedAbortMultipartUploadRequest,
+          isA<s3.AbortMultipartUploadRequest>().having(
+            (o) => o.uploadId,
+            'uploadId',
+            testMultipartUploadId,
+          ),
+        );
+        expect(finalState, S3TransferState.failure);
+      });
+
+      test(
+          'should terminate multipart upload when a UploadPartRequest fails due to AWSHttpException'
+          ' and should complete with NetworkException', () async {
+        late S3TransferState finalState;
+        final uploadTask = S3UploadTask.fromAWSFile(
+          testLocalFile,
+          s3Client: s3Client,
+          defaultS3ClientConfig: defaultS3ClientConfig,
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          key: testKey,
+          options: const StorageUploadDataOptions(
+            accessLevel: StorageAccessLevel.guest,
+          ),
+          logger: logger,
+          transferDatabase: transferDatabase,
+          onProgress: (progress) {
+            finalState = progress.state;
+          },
+        );
+        const testMultipartUploadId = 'some-upload-id';
+
+        final testCreateMultipartUploadOutput = s3.CreateMultipartUploadOutput(
+          uploadId: testMultipartUploadId,
+        );
+        final createMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.CreateMultipartUploadOutput>();
+
+        when(
+          () => createMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testCreateMultipartUploadOutput);
+        when(
+          () => s3Client.createMultipartUpload(any()),
+        ).thenAnswer((_) => createMultipartUploadSmithyOperation);
+
+        when(
+          () => transferDatabase.insertTransferRecord(any()),
+        ).thenAnswer((_) async => '1');
+
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.put, uri: Uri()),
+        );
+        when(
+          () => s3Client.uploadPart(
+            any(),
+            s3ClientConfig: any(named: 's3ClientConfig'),
+          ),
+        ).thenThrow(testException);
+
+        unawaited(uploadTask.start());
+
+        final testAbortMultipartUploadOutput = s3.AbortMultipartUploadOutput();
+        final abortMultipartUploadSmithyOperation =
+            MockSmithyOperation<s3.AbortMultipartUploadOutput>();
+        when(
+          () => abortMultipartUploadSmithyOperation.result,
+        ).thenAnswer((_) async => testAbortMultipartUploadOutput);
+        when(
+          () => s3Client.abortMultipartUpload(any()),
+        ).thenAnswer((_) => abortMultipartUploadSmithyOperation);
+
+        await expectLater(
+          uploadTask.result,
+          throwsA(
+            isA<StorageException>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<NetworkException>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
@@ -1560,7 +1741,7 @@ void main() {
 
         await expectLater(
           uploadTask.result,
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
 
         expect(finalState, S3TransferState.failure);
@@ -1625,10 +1806,10 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<S3Exception>().having(
+            isA<StorageException>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<S3Exception>().having(
+              isA<StorageException>().having(
                 (o) => o.underlyingException,
                 'underlyingException',
                 testException,
@@ -1785,7 +1966,7 @@ void main() {
         });
 
         test(
-            'cancel() should terminate ongoing multipart upload and throw a S3Exception',
+            'cancel() should terminate ongoing multipart upload and throw a StorageException',
             () async {
           final receivedState = <S3TransferState>[];
           final uploadTask = S3UploadTask.fromAWSFile(
@@ -1839,7 +2020,7 @@ void main() {
 
           await expectLater(
             uploadTask.result,
-            throwsA(isA<S3Exception>()),
+            throwsA(isA<StorageException>()),
           );
 
           verify(uploadPartSmithyOperation1.cancel).called(1);

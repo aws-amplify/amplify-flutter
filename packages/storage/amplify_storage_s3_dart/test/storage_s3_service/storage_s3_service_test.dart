@@ -62,7 +62,7 @@ void main() {
 
     group('_getResolvedPrefix()', () {
       test(
-          'should throw a S3Exception if supplied prefix resolver throws an exception',
+          'should throw a StorageException if supplied prefix resolver throws an exception',
           () async {
         const testOptions = StorageListOptions(
           accessLevel: StorageAccessLevel.guest,
@@ -74,7 +74,7 @@ void main() {
 
         await expectLater(
           storageS3Service.list(path: 'a path', options: testOptions),
-          throwsA(isA<S3Exception>()),
+          throwsA(isA<StorageException>()),
         );
 
         verify(() => logger.error(any(), any(), any())).called(1);
@@ -370,6 +370,26 @@ void main() {
           equals(testS3Objects.map((e) => e.eTag)),
         );
       });
+
+      test('should handle AWSHttpException and throw NetworkException', () {
+        const testOptions =
+            StorageListOptions(accessLevel: StorageAccessLevel.guest);
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.get, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.listObjectsV2(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.list(
+            path: 'a path',
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
+        );
+      });
     });
 
     group('getProperties() API', () {
@@ -471,6 +491,26 @@ void main() {
             options: testOptions,
           ),
           throwsA(isA<StorageKeyNotFoundException>()),
+        );
+      });
+
+      test('should handle AWSHttpException and throw NetworkException', () {
+        const testOptions =
+            StorageGetPropertiesOptions(accessLevel: StorageAccessLevel.guest);
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.head, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.headObject(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.getProperties(
+            key: 'a key',
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
         );
       });
     });
@@ -803,6 +843,27 @@ void main() {
         );
       });
 
+      test('should handle AWSHttpException and throw NetworkException',
+          () async {
+        const testOptions = StorageCopyOptions();
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.put, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.copy(
+            source: testSource,
+            destination: testDestination,
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
+        );
+      });
+
       test(
           'should invoke S3Client.headObject with correct parameters when getProperties option is set to true',
           () async {
@@ -973,6 +1034,27 @@ void main() {
             options: testOptions,
           ),
           throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
+
+      test('should handle AWSHttpException and throw NetworkException',
+          () async {
+        const testOptions = StorageMoveOptions();
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.put, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.copyObject(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.move(
+            source: testSource,
+            destination: testDestination,
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
         );
       });
 
@@ -1150,6 +1232,27 @@ void main() {
           throwsA(isA<StorageAccessDeniedException>()),
         );
       });
+
+      test('should handle AWSHttpException and throw NetworkException',
+          () async {
+        const testOptions =
+            StorageRemoveOptions(accessLevel: StorageAccessLevel.guest);
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.delete, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.deleteObject(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.remove(
+            key: 'a key',
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
+        );
+      });
     });
 
     group('removeMany() API', () {
@@ -1309,6 +1412,26 @@ void main() {
             options: testOptions,
           ),
           throwsA(isA<StorageAccessDeniedException>()),
+        );
+      });
+
+      test('should handle AWSHttpRequest and throw NetworkException', () async {
+        const testOptions =
+            StorageRemoveManyOptions(accessLevel: StorageAccessLevel.guest);
+        final testException = AWSHttpException(
+          AWSHttpRequest(method: AWSHttpMethod.delete, uri: Uri()),
+        );
+
+        when(
+          () => s3Client.deleteObjects(any()),
+        ).thenThrow(testException);
+
+        expect(
+          storageS3Service.removeMany(
+            keys: testKeys,
+            options: testOptions,
+          ),
+          throwsA(isA<NetworkException>()),
         );
       });
     });

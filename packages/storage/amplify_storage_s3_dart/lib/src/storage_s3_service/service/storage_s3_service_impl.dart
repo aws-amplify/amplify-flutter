@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/common/endpoint_resolver.dart'
     as endpoint_resolver;
@@ -123,6 +124,8 @@ class StorageS3Service {
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.headObject may return 403 error
         throw S3Exception.fromUnknownSmithyHttpException(error);
+      } on AWSHttpException catch (error) {
+        throw S3Exception.fromAWSHttpException(error);
       }
     }
 
@@ -157,6 +160,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -424,6 +429,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.copyObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
 
     return S3CopyResult(
@@ -594,6 +601,8 @@ class StorageS3Service {
       } on smithy.UnknownSmithyHttpException catch (error) {
         // S3Client.deleteObjects may return 403
         throw S3Exception.fromUnknownSmithyHttpException(error);
+      } on AWSHttpException catch (error) {
+        throw S3Exception.fromAWSHttpException(error);
       } finally {
         objectIdentifiersToRemove.removeRange(0, numOfBatchedItems);
       }
@@ -624,6 +633,8 @@ class StorageS3Service {
       // S3Client.deleteObject may return 403, for deleting a non-existing
       // object, the API call returns a successful response
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -684,6 +695,8 @@ class StorageS3Service {
     } on smithy.UnknownSmithyHttpException catch (error) {
       // S3Client.headObject may return 403 or 404 error
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
