@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -16,9 +17,17 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 class AmplifyPushNotificationsFlutterApi
     implements PushNotificationsFlutterApi {
   /// {@macro amplify_push_notifications.amplify_push_notifications_flutter_api}
-  AmplifyPushNotificationsFlutterApi() {
+  AmplifyPushNotificationsFlutterApi._constructor() {
     PushNotificationsFlutterApi.setup(this);
   }
+
+  /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api}
+  /// Singleton instance of the class.
+  /// {@endtemplate}
+  static AmplifyPushNotificationsFlutterApi get instance => _instance;
+
+  static final AmplifyPushNotificationsFlutterApi _instance =
+      AmplifyPushNotificationsFlutterApi._constructor();
 
   final _eventQueue = <PushNotificationMessage>[];
 
@@ -26,7 +35,8 @@ class AmplifyPushNotificationsFlutterApi
   /// Internal eventQueue getter exposed for testing purposes only.
   /// {@endtemplate}
   @visibleForTesting
-  List<PushNotificationMessage> get eventQueue => _eventQueue;
+  List<PushNotificationMessage> get eventQueue =>
+      UnmodifiableListView(_eventQueue);
 
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
@@ -37,7 +47,7 @@ class AmplifyPushNotificationsFlutterApi
   @visibleForTesting
   List<OnRemoteMessageCallback>
       get onNotificationReceivedInBackgroundCallbacks =>
-          _onNotificationReceivedInBackgroundCallbacks;
+          UnmodifiableListView(_onNotificationReceivedInBackgroundCallbacks);
 
   /// {@template amplify_push_notifications.register_on_received_In_background_callback}
   /// Used to register callback function on iOS.
@@ -82,7 +92,7 @@ class AmplifyPushNotificationsFlutterApi
         'Invalid callback type: ${externalCallback.runtimeType}',
       );
     }
-    externalCallback(pushNotificationMessage);
+    await externalCallback(pushNotificationMessage);
   }
 
   @override
@@ -101,9 +111,7 @@ class AmplifyPushNotificationsFlutterApi
     await _dispatchToExternalHandle(notification);
     await Future.wait(
       _onNotificationReceivedInBackgroundCallbacks.map(
-        (callback) async {
-          await callback(notification);
-        },
+        (callback) async => callback(notification),
       ),
     );
   }

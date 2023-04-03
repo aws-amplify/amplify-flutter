@@ -78,3 +78,20 @@ const urlsiOSMessage = {
     'content-available': 1
   }
 };
+
+const defectivePushMessage = {
+  'title': 'TITTLE',
+  'body': 1,
+  'imageUrl': 'TEST_URL',
+  'fcmOptions': {
+    'channelId': 'PINPOINT.NOTIFICATION',
+  },
+  'action': {'openApp': true, 'url': null, 'deeplink': null},
+  'rawData': {
+    'pinpoint.openApp': true,
+    'pinpoint.notification.title': 'TITTLE',
+    'pinpoint.notification.body': 'BODY',
+    'pinpoint.campaign.campaign_id': '_DIRECT',
+    'pinpoint.notification.silentPush': 0
+  }
+};

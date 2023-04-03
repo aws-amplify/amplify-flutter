@@ -23,7 +23,6 @@ import kotlin.random.Random
 
 private const val TAG = "PushNotificationUtils"
 
-//    TODO(Samaritan1011001): Test that the correct notification payload is formed with the desired notificationId
 @InternalAmplifyApi
 class InternalPushNotificationUtils constructor(
     private val context: Context
@@ -148,7 +147,6 @@ fun NotificationPayload?.getProcessedIntent(
     return notificationIntent
 }
 
-//TODO(Samaritan1011001): Test that the right map with key fields are returned
 @InternalAmplifyApi
 fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
     val payload = PinpointNotificationPayload.fromNotificationPayload(this)

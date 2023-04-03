@@ -37,13 +37,13 @@ void main() {
         () {
       final mockStorage = MockAmplifySecureStorage();
       when(mockStorage.read(key: anyNamed('key')))
-          .thenAnswer((_) => Future(() => null));
+          .thenAnswer((_) async => null);
 
       expect(
         () async => amplifyBackgroundProcessing(
           amplifySecureStorage: mockStorage,
         ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<PushNotificationException>()),
       );
     });
   });

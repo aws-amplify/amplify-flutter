@@ -5,7 +5,6 @@ library amplify_push_notifications;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
@@ -14,6 +13,7 @@ import 'package:amplify_push_notifications/src/push_notifications_flutter_api.da
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:os_detect/os_detect.dart' as os;
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template amplify_push_notifications.config_storage}
@@ -21,7 +21,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// {@endtemplate}
 const configSecureStorageKey = 'configSecureStorageKey';
 
-const _tokenReceivedEventChannel = EventChannel(
+/// {@template amplify_push_notifications.config_storage}
+/// Token event channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
 const _notificationOpenedEventChannel = EventChannel(
@@ -38,21 +42,10 @@ const _foregroundNotificationEventChannel = EventChannel(
 /// {@endtemplate}
 const externalHandleKey = 'externalHandleKey';
 
-const _needsConfigurationException = PushNotificationException(
+final _needsConfigurationException = ConfigurationError(
   'Configure Amplify with Notifications Plugin before using this method.',
+  recoverySuggestion: 'Configure Amplify first.',
 );
-
-/// {@template amplify_push_notifications.android_check_override}
-/// Internal Platform check exposed for testing purposes only.
-/// {@endtemplate}
-@visibleForTesting
-const androidCheckOverride = #_androidCheckOverride;
-
-/// {@template amplify_push_notifications.ios_check_override}
-/// Internal Platform check exposed for testing purposes only.
-/// {@endtemplate}
-@visibleForTesting
-const iosCheckOverride = #_iosCheckOverride;
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
@@ -75,7 +68,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _dependencyManager = DependencyManager();
       _dependencyManager
         ..addInstance<AmplifyPushNotificationsFlutterApi>(
-          AmplifyPushNotificationsFlutterApi(),
+          AmplifyPushNotificationsFlutterApi.instance,
         )
         ..addInstance<PushNotificationsHostApi>(PushNotificationsHostApi())
         ..addInstance<AmplifySecureStorage>(
@@ -89,7 +82,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       _dependencyManager = dependencyManager;
     }
 
-    _onTokenReceived = _tokenReceivedEventChannel
+    _onTokenReceived = tokenReceivedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map((payload) {
@@ -118,11 +111,6 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
   final Future<void> Function() _backgroundProcessor;
-
-  final bool _androidCheck =
-      Zone.current[androidCheckOverride] as bool? ?? Platform.isAndroid;
-  final bool _iosCheck =
-      Zone.current[iosCheckOverride] as bool? ?? Platform.isIOS;
 
   @override
   PushNotificationMessage? get launchNotification {
@@ -162,7 +150,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
   void onNotificationReceivedInBackground(
     OnRemoteMessageCallback callback,
   ) {
-    if (_androidCheck) {
+    if (os.isAndroid) {
       final callbackHandle = PluginUtilities.getCallbackHandle(callback);
       if (callbackHandle == null) {
         throw const PushNotificationException(
@@ -177,7 +165,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
           await prefs.setInt(externalHandleKey, callbackHandle.toRawHandle());
         }),
       );
-    } else if (_iosCheck) {
+    } else if (os.isIOS) {
       _flutterApi.registerOnReceivedInBackgroundCallback(callback);
     }
   }
@@ -205,6 +193,8 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     if (notificationsConfig == null) {
       throw const PushNotificationException(
         'No Pinpoint plugin config available',
+        recoverySuggestion:
+            'Make sure to include missing or valid Push Notification configuration values',
       );
     }
 
@@ -221,7 +211,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
     // register device, attach internal listeners and internal background callbacks
     await _registerDeviceWhenConfigure();
     _attachEventChannelListeners();
-    if (_androidCheck) {
+    if (os.isAndroid) {
       await _registerBackgroundProcessorForAndroid();
     }
 
@@ -282,7 +272,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<int> getBadgeCount() {
-    if (!_iosCheck) {
+    if (!os.isIOS) {
       _logger.error('Not supported on this platform');
     }
     if (!_isConfigured) {
@@ -293,7 +283,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
 
   @override
   Future<void> setBadgeCount(int badgeCount) async {
-    if (!_iosCheck) {
+    if (!os.isIOS) {
       _logger.error('Not supported on this platform');
     }
     if (!_isConfigured) {
@@ -326,7 +316,7 @@ class AmplifyPushNotifications extends PushNotificationsPluginInterface {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
       throw PushNotificationException(
-        'Error occurred awaiting for device token to register device with Pinpoint',
+        'Error occurred awaiting for device token',
         recoverySuggestion: 'Please review the underlying exception',
         underlyingException: error,
       );

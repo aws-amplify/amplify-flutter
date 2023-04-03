@@ -60,15 +60,9 @@ class PushNotificationMessage
         }
         final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
         if (fcmOptionsMap != null) {
-          final sentTimeInt = fcmOptionsMap['sentTime'] as int?;
-          final sentTime = sentTimeInt == null
-              ? null
-              : DateTime.fromMillisecondsSinceEpoch(sentTimeInt);
           fcmOptions = FcmPlatformOptions(
             channelId: fcmOptionsMap['channelId'] as String?,
             messageId: fcmOptionsMap['messageId'] as String?,
-            senderId: fcmOptionsMap['sender'] as String?,
-            sentTime: sentTime,
           );
         }
       }

@@ -6,6 +6,7 @@ import 'dart:io' show Platform;
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
 import 'package:flutter/material.dart';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
@@ -34,6 +35,7 @@ class PinpointProvider implements ServiceProviderClient {
   Future<void> init({
     required NotificationsPinpointPluginConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
+    @visibleForTesting FlutterAnalyticsClient? mockAnalyticsClient,
   }) async {
     try {
       if (!_isInitialized) {
@@ -48,11 +50,12 @@ class PinpointProvider implements ServiceProviderClient {
         final region = config.region;
         final appId = config.appId;
 
-        _analyticsClient = FlutterAnalyticsClient(
-          endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
-            storageScope: EndpointStorageScope.pushNotifications,
-          ),
-        );
+        _analyticsClient = mockAnalyticsClient ??
+            FlutterAnalyticsClient(
+              endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
+                storageScope: EndpointStorageScope.pushNotifications,
+              ),
+            );
 
         await _analyticsClient.init(
           pinpointAppId: appId,
@@ -79,8 +82,10 @@ class PinpointProvider implements ServiceProviderClient {
   }) async {
     try {
       if (!_isInitialized) {
-        throw Exception(
-          'Pinpoint provider is not initialized. Re-run Amplify.configure.',
+        throw ConfigurationError(
+          'Pinpoint Provider is not initialized.',
+          recoverySuggestion:
+              'Make sure Pinpoint service provider client is initialized before using this method.',
         );
       }
       await _analyticsClient.endpointClient.setUser(
@@ -118,8 +123,8 @@ class PinpointProvider implements ServiceProviderClient {
 
       final eventInfo = constructEventInfo(notification: notification);
       await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.first as String}.${eventType.name}',
-        properties: eventInfo.last as AnalyticsProperties,
+        eventType: '${eventInfo.source}.${eventType.name}',
+        properties: eventInfo.properties,
       );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
@@ -148,7 +153,7 @@ class PinpointProvider implements ServiceProviderClient {
   }
 
   @visibleForTesting
-  Set<Object> constructEventInfo({
+  EventInfo constructEventInfo({
     required PushNotificationMessage notification,
   }) {
     final data = notification.data;
@@ -168,7 +173,7 @@ class PinpointProvider implements ServiceProviderClient {
       }
       if (data.containsKey(_androidCampaignTreatmentIdKey)) {
         campaign['treatment_id'] =
-            data[_androidCampaignTreatmentIdKey].toString();
+            (data[_androidCampaignTreatmentIdKey] as int).toString();
       }
     }
 
@@ -205,7 +210,7 @@ class PinpointProvider implements ServiceProviderClient {
     if (journey.isNotEmpty) {
       journey.forEach(analyticsProperties.addStringProperty);
     }
-    return {source, analyticsProperties};
+    return EventInfo(source, analyticsProperties);
   }
 
   ChannelType? _getChannelType() {

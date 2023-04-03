@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
@@ -11,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:os_detect/override.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplify_push_noitfications_impl_test.mocks.dart';
@@ -31,12 +31,9 @@ void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {}
   ],
 )
 void main() {
-  const tokenReceivedEventChannel = EventChannel(
-    'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
-  );
-
   final log = <MethodCall>[];
-  late TestWidgetsFlutterBinding testWidgetsFlutterBinding;
+  final testWidgetsFlutterBinding =
+      TestWidgetsFlutterBinding.ensureInitialized();
   final authProviderRepo = AmplifyAuthProviderRepository()
     ..registerAuthProvider(
       const AmplifyAuthProviderToken(''),
@@ -46,7 +43,7 @@ void main() {
   final mockServiceProviderClient = MockServiceProviderClient();
   final mockPushNotificationsHostApi = MockPushNotificationsHostApi();
   final mockPushNotificationsNativeToFlutterApi =
-      MockPushNotificationsNativeToFlutterApi();
+      MockAmplifyPushNotificationsFlutterApi();
   final mockAmplifySecureStorage = MockAmplifySecureStorage();
 
   final dependencyManager = DependencyManager()
@@ -92,7 +89,6 @@ void main() {
   );
 
   setUp(() {
-    testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
     plugin = AmplifyPushNotifications(
       serviceProviderClient: mockServiceProviderClient,
       backgroundProcessor: () async => {},
@@ -109,7 +105,7 @@ void main() {
 
   group('Push Notifications config', () {
     setUp(() {
-      testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
+      log.clear();
       plugin = AmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
@@ -122,9 +118,8 @@ void main() {
       );
     });
     test('should configure correctly', () async {
-      log.clear();
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => standardAndroidPushMessage),
+        (_) async => standardAndroidPushMessage,
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -145,21 +140,26 @@ void main() {
 
     test('should throw exception when configuring if there is no appId present',
         () async {
-      final config0 = AmplifyConfig.fromJson(
+      final config = AmplifyConfig.fromJson(
         jsonDecode(noPushAppIdAmplifyConfig) as Map<String, Object?>,
       );
       expect(
         () async => plugin.configure(
           authProviderRepo: authProviderRepo,
-          config: config0,
+          config: config,
         ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(
+          isA<PushNotificationException>().having(
+            (e) => e.message,
+            'No config',
+            contains('No Pinpoint plugin'),
+          ),
+        ),
       );
     });
 
     test('should fail configure when registering device is unsuccessfull',
         () async {
-      log.clear();
       testWidgetsFlutterBinding.defaultBinaryMessenger.setMockMethodCallHandler(
         MethodChannel(tokenReceivedEventChannel.name),
         throwErrorHandler,
@@ -169,50 +169,56 @@ void main() {
           authProviderRepo: authProviderRepo,
           config: config,
         ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(
+          isA<PushNotificationException>().having(
+            (e) => e.message,
+            'token message',
+            contains('device token'),
+          ),
+        ),
       );
     });
 
     test('should throw PushNotificationException if not configured', () async {
       expect(
         () async => plugin.onTokenReceived,
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
         () async => plugin.onNotificationReceivedInForeground,
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
         () async => plugin.onNotificationOpened,
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
         () async => plugin.launchNotification,
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
-        () async => plugin.identifyUser(
+        () => plugin.identifyUser(
           userId: 'userId',
           userProfile: AnalyticsUserProfile(),
         ),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
-        () async => plugin.requestPermissions(),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        () => plugin.requestPermissions(),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
         () async => plugin.getPermissionStatus(),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
 
       expect(
         () async => plugin.setBadgeCount(42),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
       expect(
         () async => plugin.getBadgeCount(),
-        throwsA(const TypeMatcher<PushNotificationException>()),
+        throwsA(isA<ConfigurationError>()),
       );
     });
   });
@@ -220,8 +226,6 @@ void main() {
   group('Permission APIs', () {
     setUp(() async {
       log.clear();
-
-      testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
       plugin = AmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
@@ -229,7 +233,7 @@ void main() {
       );
 
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => standardAndroidPushMessage),
+        (_) async => standardAndroidPushMessage,
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -251,14 +255,12 @@ void main() {
 
     test('requestPermissions returns a permission status', () async {
       when(mockPushNotificationsHostApi.requestPermissions(any)).thenAnswer(
-        (_) => Future(
-          () => true,
-        ),
+        (_) async => true,
       );
       final res = await plugin.requestPermissions();
       expect(
         res,
-        true,
+        isTrue,
       );
     });
   });
@@ -266,8 +268,6 @@ void main() {
   group('Badge count APIs', () {
     setUp(() async {
       log.clear();
-
-      testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
       plugin = AmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
@@ -275,7 +275,7 @@ void main() {
       );
 
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => standardAndroidPushMessage),
+        (_) async => standardAndroidPushMessage,
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -298,7 +298,7 @@ void main() {
     test('setBadgeCount calls the native layer to set', () async {
       await plugin.setBadgeCount(42);
       verify(
-        mockPushNotificationsHostApi.setBadgeCount(any),
+        mockPushNotificationsHostApi.setBadgeCount(42),
       ).called(1);
     });
   });
@@ -306,8 +306,6 @@ void main() {
   group('Analytics API', () {
     setUp(() async {
       log.clear();
-
-      testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
       plugin = AmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
@@ -315,7 +313,7 @@ void main() {
       );
 
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
-        (_) => Future(() => standardAndroidPushMessage),
+        (_) async => standardAndroidPushMessage,
       );
       await plugin.configure(
         authProviderRepo: authProviderRepo,
@@ -338,7 +336,7 @@ void main() {
 
   group('Notification handling APIs', () {
     setUp(() {
-      testWidgetsFlutterBinding = TestWidgetsFlutterBinding.ensureInitialized();
+      log.clear();
       plugin = AmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
@@ -348,97 +346,95 @@ void main() {
     test(
         'onNotificationReceivedInBackground throws an Exception when the given callback function is not top-level or static',
         () async {
-      runZoned(
+      overrideOperatingSystem(
+        const OperatingSystem('android', ''),
         () {
           plugin = AmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
             backgroundProcessor: () async => {},
           );
-
           expect(
             () async => plugin.onNotificationReceivedInBackground(
               (testGlobalCallbackFunction) {},
             ),
-            throwsA(const TypeMatcher<PushNotificationException>()),
+            throwsA(
+              isA<PushNotificationException>().having(
+                (e) => e.message,
+                'not a gloabal funciton',
+                contains('not a global or static function'),
+              ),
+            ),
           );
         },
-        zoneValues: {
-          androidCheckOverride: true,
-        },
       );
     });
+  });
 
-    test(
-        'onNotificationReceivedInBackground should register a top-level or static callback function',
-        () async {
-      await runZoned(
-        () async {
-          SharedPreferences.setMockInitialValues({});
-          final pref = await SharedPreferences.getInstance();
-          plugin = AmplifyPushNotifications(
-            serviceProviderClient: mockServiceProviderClient,
-            backgroundProcessor: () async => {},
-          )..onNotificationReceivedInBackground(
-              testGlobalCallbackFunction,
-            );
-          await Future.delayed(const Duration(seconds: 3), () {});
+  test(
+      'onNotificationReceivedInBackground should register a top-level or static callback function',
+      () async {
+    await overrideOperatingSystem(
+      const OperatingSystem('android', ''),
+      () async {
+        SharedPreferences.setMockInitialValues({});
+        final pref = await SharedPreferences.getInstance();
+        plugin = AmplifyPushNotifications(
+          serviceProviderClient: mockServiceProviderClient,
+          backgroundProcessor: () async => {},
+        )..onNotificationReceivedInBackground(
+            testGlobalCallbackFunction,
+          );
+        await Future.delayed(const Duration(seconds: 3), () {});
 
-          expect(pref.containsKey(externalHandleKey), true);
-        },
-        zoneValues: {
-          androidCheckOverride: true,
-        },
-      );
-    });
+        expect(pref.containsKey(externalHandleKey), isTrue);
+      },
+    );
+  });
 
-    test('should invoke the top-level or static external callback function',
-        () async {
-      await runZoned(
-        () async {
-          SharedPreferences.setMockInitialValues({});
-          final pref = await SharedPreferences.getInstance();
-          plugin = AmplifyPushNotifications(
-            serviceProviderClient: mockServiceProviderClient,
-            backgroundProcessor: () async => {},
-            dependencyManager: dependencyManager,
-          )..onNotificationReceivedInBackground(
-              testGlobalCallbackFunction,
-            );
-          await Future.delayed(const Duration(seconds: 3), () {});
+  test('should invoke the top-level or static external callback function',
+      () async {
+    await overrideOperatingSystem(
+      const OperatingSystem('android', ''),
+      () async {
+        SharedPreferences.setMockInitialValues({});
+        final pref = await SharedPreferences.getInstance();
+        plugin = AmplifyPushNotifications(
+          serviceProviderClient: mockServiceProviderClient,
+          backgroundProcessor: () async => {},
+          dependencyManager: dependencyManager,
+        )..onNotificationReceivedInBackground(
+            testGlobalCallbackFunction,
+          );
+        await Future.delayed(const Duration(seconds: 3), () {});
 
-          expect(pref.containsKey(externalHandleKey), true);
+        expect(pref.containsKey(externalHandleKey), isTrue);
 
-          await mockPushNotificationsNativeToFlutterApi
-              .onNotificationReceivedInBackground(standardAndroidPushMessage);
-        },
-        zoneValues: {
-          androidCheckOverride: true,
-        },
-      );
-    });
+        await mockPushNotificationsNativeToFlutterApi
+            .onNotificationReceivedInBackground(standardAndroidPushMessage);
+      },
+    );
+  });
 
-    test('onNotificationReceivedInBackground should accept the callback on iOS',
-        () async {
-      runZoned(
-        () {
-          plugin = AmplifyPushNotifications(
-            serviceProviderClient: mockServiceProviderClient,
-            backgroundProcessor: () async => {},
-            dependencyManager: dependencyManager,
-          )..onNotificationReceivedInBackground(
-              (testGlobalCallbackFunction) {},
-            );
-          verify(
-            mockPushNotificationsNativeToFlutterApi
-                .registerOnReceivedInBackgroundCallback(
-              any,
-            ),
-          ).called(1);
-        },
-        zoneValues: {
-          iosCheckOverride: true,
-        },
-      );
-    });
+  test('onNotificationReceivedInBackground should accept the callback on iOS',
+      () async {
+    overrideOperatingSystem(
+      const OperatingSystem('ios', ''),
+      () {
+        void localiOScallback(testGlobalCallbackFunction) {}
+        plugin = AmplifyPushNotifications(
+          serviceProviderClient: mockServiceProviderClient,
+          backgroundProcessor: () async => {},
+          dependencyManager: dependencyManager,
+        )..onNotificationReceivedInBackground(
+            localiOScallback,
+          );
+        verify(
+          mockPushNotificationsNativeToFlutterApi
+              .registerOnReceivedInBackgroundCallback(
+            localiOScallback,
+          ),
+        ).called(1);
+      },
+    );
   });
 }

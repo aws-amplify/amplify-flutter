@@ -23,13 +23,12 @@ Future<void> amplifyBackgroundProcessing({
   @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  final amplifySecureStorage0 = amplifySecureStorage ??
-      AmplifySecureStorage(
-        config: AmplifySecureStorageConfig(
-          scope: 'amplifyPushNotifications',
-        ),
-      );
-  final amplifyconfigStr = await amplifySecureStorage0.read(
+  amplifySecureStorage ??= AmplifySecureStorage(
+    config: AmplifySecureStorageConfig(
+      scope: 'amplifyPushNotifications',
+    ),
+  );
+  final amplifyconfigStr = await amplifySecureStorage.read(
     key: configSecureStorageKey,
   );
   if (amplifyconfigStr == null) {

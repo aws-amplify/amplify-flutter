@@ -45,5 +45,9 @@ void main() {
           PushNotificationMessage.fromJson(imageUrliOSMessage);
       expect(parseiOSMessage.imageUrl, 'TEST_URL');
     });
+
+    test('should not crash when there is a type mismatch', () {
+      PushNotificationMessage.fromJson(defectivePushMessage);
+    });
   });
 }
