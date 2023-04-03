@@ -53,7 +53,10 @@ jobs:
           pip install pyOpenSSL --upgrade
           pip install cryptography --upgrade
 
-          pip install localstack
+          # Pin to <2.0.0 until bucket creation is fixed:
+          # https://github.com/localstack/localstack/issues/8018
+          pip install "localstack<2.0.0"
+
           docker pull localstack/localstack
           localstack start --detached
           echo "Waiting for localstack startup..."
