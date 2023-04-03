@@ -7,6 +7,10 @@ on:
         description: The working directory relative to the repo root
         required: true
         type: string
+      skip-on-windows:
+        description: Whether the current package cannot be tested on Windows
+        required: true
+        type: boolean
 
 jobs:
   native_test:
@@ -71,6 +75,6 @@ jobs:
           fi
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && (runner.os != 'Windows' || !inputs.skip-on-windows)"
         run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}

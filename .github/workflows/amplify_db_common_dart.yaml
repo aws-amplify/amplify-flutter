@@ -35,6 +35,7 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/common/amplify_db_common_dart
+      skip-on-windows: true
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
