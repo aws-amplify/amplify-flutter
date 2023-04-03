@@ -603,6 +603,7 @@ void main() {
         await downloadTask.result;
         expect(finalState, StorageTransferState.success);
       });
+
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
           () async {
@@ -652,78 +653,71 @@ void main() {
         expect(finalState, StorageTransferState.failure);
       });
 
-      test(
-          'should invoke S3Client.headObject to retrieve properties of object when getProperties is set to true in the options',
-          () async {
-        const testTargetIdentity = 'some-else-id';
-        const testOptions = StorageDownloadDataOptions(
-          accessLevel: StorageAccessLevel.guest,
-          pluginOptions: S3DownloadDataPluginOptions.forIdentity(
-            testTargetIdentity,
-            getProperties: true,
-          ),
-        );
-
+      group('download result', () {
         const testBodyBytes = [101, 102];
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(testBodyBytes.length),
-          body: Stream.value(testBodyBytes),
-        );
-        final getSmithyOperation = MockSmithyOperation<GetObjectOutput>();
-        const testETag = '123';
-        final testHeadObjectOutput = HeadObjectOutput(eTag: testETag);
-        final headSmithyOperation = MockSmithyOperation<HeadObjectOutput>();
-
-        when(
-          () => getSmithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => headSmithyOperation.result,
-        ).thenAnswer((_) async => testHeadObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
+        const testMetadata = {
+          'filename': '1.jpg',
+          'group': 'GroupA',
+        };
+        final testItems = [
+          GetPropertiesTestItem(
+            description:
+                'should include metadata when getPropertiesValue is set to true',
+            getPropertiesValue: true,
+            expectedS3Item: const S3Item(key: testKey, metadata: testMetadata),
           ),
-        ).thenAnswer((_) => getSmithyOperation);
-
-        when(
-          () => s3Client.headObject(any()),
-        ).thenAnswer((_) => headSmithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
-          bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: testOptions,
-          logger: logger,
-        );
-
-        unawaited(downloadTask.start());
-
-        final result = await downloadTask.result;
-        expect(result.eTag, testETag);
-
-        final capturedRequest = verify(
-          () => s3Client.headObject(captureAny<HeadObjectRequest>()),
-        ).captured.last;
-
-        expect(
-          capturedRequest,
-          isA<HeadObjectRequest>().having(
-            (o) => o.key,
-            'key',
-            '${await testPrefixResolver.resolvePrefix(
-              accessLevel: testOptions.accessLevel!,
-              identityId: testTargetIdentity,
-            )}$testKey',
+          GetPropertiesTestItem(
+            description:
+                'should NOT include metadata when getPropertiesValue is set to false',
+            getPropertiesValue: false,
+            expectedS3Item: const S3Item(key: testKey, metadata: {}),
           ),
-        );
+        ];
+
+        setUp(() {
+          final testGetObjectOutput = GetObjectOutput(
+            contentLength: Int64(testBodyBytes.length),
+            body: Stream.value(testBodyBytes),
+            metadata: testMetadata,
+          );
+          final smithyOperation = MockSmithyOperation<GetObjectOutput>();
+
+          when(
+            () => smithyOperation.result,
+          ).thenAnswer((_) async => testGetObjectOutput);
+
+          when(
+            () => s3Client.getObject(
+              any(),
+              s3ClientConfig: any(named: 's3ClientConfig'),
+            ),
+          ).thenAnswer((_) => smithyOperation);
+        });
+
+        for (final item in testItems) {
+          test(item.description, () async {
+            final downloadTask = S3DownloadTask(
+              s3Client: s3Client,
+              defaultS3ClientConfig: defaultS3ClientConfig,
+              defaultAccessLevel: testDefaultAccessLevel,
+              prefixResolver: testPrefixResolver,
+              bucket: testBucket,
+              key: testKey,
+              options: StorageDownloadDataOptions(
+                accessLevel: StorageAccessLevel.guest,
+                pluginOptions: S3DownloadDataPluginOptions(
+                  getProperties: item.getPropertiesValue,
+                ),
+              ),
+              logger: logger,
+            );
+
+            unawaited(downloadTask.start());
+
+            final result = await downloadTask.result;
+            expect(result.metadata, item.expectedS3Item.metadata);
+          });
+        }
       });
     });
   });

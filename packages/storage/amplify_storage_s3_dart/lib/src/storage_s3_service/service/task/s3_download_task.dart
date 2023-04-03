@@ -111,6 +111,7 @@ class S3DownloadTask {
 
   late StorageTransferState _state;
   late final String _resolvedKey;
+  late final S3Item _downloadedS3Item;
 
   // Total bytes that need to be downloaded, this field is set when the
   // **very first** (without bytes range specified) `S3Client.getObject`
@@ -168,6 +169,8 @@ class S3DownloadTask {
 
       _totalBytes = remoteSize;
       _listenToBytesSteam(getObjectOutput.body);
+      _downloadedS3Item =
+          S3Item.fromGetObjectOutput(getObjectOutput, key: _key);
     } on Exception catch (error, stackTrace) {
       await _completeDownloadWithError(error, stackTrace);
     }
@@ -292,16 +295,17 @@ class S3DownloadTask {
             await _onDone?.call();
             _emitTransferProgress();
             _downloadCompleter.complete(
-              (_s3PluginOptions.getProperties)
-                  ? S3Item.fromHeadObjectOutput(
-                      await StorageS3Service.headObject(
-                        s3client: _s3Client,
-                        bucket: _bucket,
-                        key: _resolvedKey,
-                      ),
-                      key: _key,
-                    )
-                  : S3Item(key: _key),
+              // On VM, download operation gets object metadata directly
+              // from the underlying `GetObject` call.
+              // On Web, download operation is done by browser download from
+              // object presigned URL, where object metadata needs to be
+              // retrieve via a separate `HeadObject` call.
+              // To unify the behavior on `downloadOptions.getProperties`
+              // we hide the metadata from the result on VM if this parameter
+              // is set to `false`.
+              _s3PluginOptions.getProperties
+                  ? _downloadedS3Item
+                  : S3Item(key: _downloadedS3Item.key),
             );
           } on Exception catch (error, stackTrace) {
             await _completeDownloadWithError(error, stackTrace);
