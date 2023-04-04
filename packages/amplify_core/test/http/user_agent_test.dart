@@ -40,12 +40,12 @@ void main() {
     final httpClient = MockAWSHttpClient(expectAsync2(
       (request, isCancelled) {
         expect(
-          request.headers[AmplifyUserAgent.headerKey],
+          request.headers[AWSHeaders.platformUserAgent],
           contains(osIdentifier),
           reason: 'should contain default user agent component',
         );
         expect(
-          request.headers[AmplifyUserAgent.headerKey],
+          request.headers[AWSHeaders.platformUserAgent],
           contains(myUserAgent),
           reason: 'should contain custom user agent component',
         );

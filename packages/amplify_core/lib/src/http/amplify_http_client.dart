@@ -28,7 +28,7 @@ class AmplifyHttpClient extends AWSBaseHttpClient {
     final scopedUserAgent = Zone.current[AmplifyUserAgent] as AmplifyUserAgent?;
     final userAgent = scopedUserAgent ?? _userAgent;
     request.headers.update(
-      AmplifyUserAgent.headerKey,
+      AWSHeaders.platformUserAgent,
       (value) => '$value $userAgent',
       ifAbsent: () => '$userAgent',
     );

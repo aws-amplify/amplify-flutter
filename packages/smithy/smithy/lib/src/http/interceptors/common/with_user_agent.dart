@@ -13,7 +13,7 @@ class WithUserAgent extends HttpRequestInterceptor {
   @override
   AWSBaseHttpRequest intercept(AWSBaseHttpRequest request) {
     request.headers.update(
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent,
+      AWSHeaders.platformUserAgent,
       (value) => '$value $userAgent',
       ifAbsent: () => userAgent,
     );

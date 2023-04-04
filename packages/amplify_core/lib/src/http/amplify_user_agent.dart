@@ -22,10 +22,6 @@ class AmplifyUserAgent {
 
   AmplifyUserAgent._(this._components);
 
-  /// The HTTP header key for the user agent.
-  static const String headerKey =
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-
   final Set<String> _components;
 
   /// Adds a component to the user agent header.

@@ -19,7 +19,7 @@ void main() {
       final client = MockAWSHttpClient(
         expectAsync2((request, isCancelled) {
           expect(
-            request.headers[AmplifyUserAgent.headerKey],
+            request.headers[AWSHeaders.platformUserAgent],
             contains(AmplifyAuthService.userAgent),
           );
           return AWSHttpResponse(statusCode: 500);
