@@ -355,9 +355,9 @@ class StorageS3Service {
             const S3UploadFilePluginOptions();
     final uploadDataOptions = StorageUploadDataOptions(
       accessLevel: options.accessLevel,
+      metadata: options.metadata,
       pluginOptions: S3UploadDataPluginOptions(
         getProperties: s3PluginOptions.getProperties,
-        metadata: s3PluginOptions.metadata,
       ),
     );
     final uploadDataTask = S3UploadTask.fromAWSFile(
