@@ -29,20 +29,18 @@ const testDateTimeNowOverride = #_testDateTimeNowOverride;
 class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
   StorageS3Service({
-    required String defaultBucket,
-    required String defaultRegion,
+    required S3PluginConfig s3PluginConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
     String? delimiter,
     required DependencyManager dependencyManager,
-  })  : _defaultBucket = defaultBucket,
-        _defaultRegion = defaultRegion,
+  })  : _s3PluginConfig = s3PluginConfig,
         _delimiter = delimiter ?? '/',
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
             s3.S3Client(
-              region: defaultRegion,
+              region: s3PluginConfig.region,
               credentialsProvider: credentialsProvider,
               s3ClientConfig: _defaultS3ClientConfig,
               client: AmplifyHttpClient()
@@ -64,8 +62,7 @@ class StorageS3Service {
   static final _defaultS3SignerConfiguration =
       sigv4.S3ServiceConfiguration(signPayload: false);
 
-  final String _defaultBucket;
-  final String _defaultRegion;
+  final S3PluginConfig _s3PluginConfig;
   final String _delimiter;
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
@@ -75,7 +72,7 @@ class StorageS3Service {
   final DateTime _serviceStartingTime;
 
   sigv4.AWSCredentialScope get _signerScope => sigv4.AWSCredentialScope(
-        region: _defaultRegion,
+        region: _s3PluginConfig.region,
         service: AWSService.s3,
       );
 
@@ -100,7 +97,7 @@ class StorageS3Service {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: options.accessLevel,
+      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
       identityId: s3PluginOptions.targetIdentityId,
     );
 
@@ -109,7 +106,7 @@ class StorageS3Service {
     if (!s3PluginOptions.listAll) {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _defaultBucket
+          ..bucket = _s3PluginConfig.bucket
           ..prefix = listTargetPrefix
           ..maxKeys = options.pageSize
           ..continuationToken = options.nextToken
@@ -135,7 +132,7 @@ class StorageS3Service {
     try {
       final request = s3.ListObjectsV2Request.build((builder) {
         builder
-          ..bucket = _defaultBucket
+          ..bucket = _s3PluginConfig.bucket
           ..prefix = listTargetPrefix
           ..delimiter = s3PluginOptions.excludeSubPaths ? _delimiter : null;
       });
@@ -182,7 +179,7 @@ class StorageS3Service {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: options.accessLevel,
+      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
       identityId: s3PluginOptions.targetIdentityId,
     );
 
@@ -192,7 +189,7 @@ class StorageS3Service {
       storageItem: S3Item.fromHeadObjectOutput(
         await headObject(
           s3client: _defaultS3Client,
-          bucket: _defaultBucket,
+          bucket: _s3PluginConfig.bucket,
           key: keyToGetProperties,
         ),
         key: key,
@@ -234,7 +231,7 @@ class StorageS3Service {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: options.accessLevel,
+      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
       identityId: s3PluginOptions.targetIdentityId,
     );
     var keyToGetUrl = '$resolvedPrefix$key';
@@ -242,12 +239,13 @@ class StorageS3Service {
       keyToGetUrl = '/$keyToGetUrl';
     }
 
-    var host = '$_defaultBucket.${_getS3EndpointHost(region: _defaultRegion)}';
+    var host =
+        '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
 
     if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
-          .replaceFirst(RegExp('$_defaultRegion\\.'), '')
+          .replaceFirst(RegExp('${_s3PluginConfig.region}\\.'), '')
           .replaceFirst(RegExp(r'\.s3\.'), '.s3-accelerate.');
     }
 
@@ -293,7 +291,8 @@ class StorageS3Service {
     final downloadDataTask = S3DownloadTask(
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _defaultBucket,
+      bucket: _s3PluginConfig.bucket,
+      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: options,
       prefixResolver: _prefixResolver,
@@ -325,7 +324,8 @@ class StorageS3Service {
       dataPayload,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _defaultBucket,
+      bucket: _s3PluginConfig.bucket,
+      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: options,
       prefixResolver: _prefixResolver,
@@ -364,7 +364,8 @@ class StorageS3Service {
       localFile,
       s3Client: _defaultS3Client,
       defaultS3ClientConfig: _defaultS3ClientConfig,
-      bucket: _defaultBucket,
+      bucket: _s3PluginConfig.bucket,
+      defaultAccessLevel: _s3PluginConfig.defaultAccessLevel,
       key: key,
       options: uploadDataOptions,
       prefixResolver: _prefixResolver,
@@ -418,8 +419,8 @@ class StorageS3Service {
 
     final copyRequest = s3.CopyObjectRequest.build((builder) {
       builder
-        ..bucket = _defaultBucket
-        ..copySource = '$_defaultBucket/$sourceKey'
+        ..bucket = _s3PluginConfig.bucket
+        ..copySource = '${_s3PluginConfig.bucket}/$sourceKey'
         ..key = destinationKey
         ..metadataDirective = s3.MetadataDirective.copy;
     });
@@ -438,7 +439,7 @@ class StorageS3Service {
           ? S3Item.fromHeadObjectOutput(
               await headObject(
                 s3client: _defaultS3Client,
-                bucket: _defaultBucket,
+                bucket: _s3PluginConfig.bucket,
                 key: destinationKey,
               ),
               key: destination.storageItem.key,
@@ -502,7 +503,7 @@ class StorageS3Service {
     try {
       await _deleteObject(
         s3client: _defaultS3Client,
-        bucket: _defaultBucket,
+        bucket: _s3PluginConfig.bucket,
         key: keyToRemove,
       );
     } on S3Exception catch (error) {
@@ -528,14 +529,14 @@ class StorageS3Service {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: options.accessLevel,
+      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
     );
 
     final keyToRemove = '$resolvedPrefix$key';
 
     await _deleteObject(
       s3client: _defaultS3Client,
-      bucket: _defaultBucket,
+      bucket: _s3PluginConfig.bucket,
       key: keyToRemove,
     );
 
@@ -560,7 +561,7 @@ class StorageS3Service {
     final resolvedPrefix = await getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: options.accessLevel,
+      accessLevel: options.accessLevel ?? _s3PluginConfig.defaultAccessLevel,
     );
 
     final objectIdentifiersToRemove = keys
@@ -579,7 +580,7 @@ class StorageS3Service {
       );
       final request = s3.DeleteObjectsRequest.build((builder) {
         builder
-          ..bucket = _defaultBucket
+          ..bucket = _s3PluginConfig.bucket
           // force to use sha256 instead of md5
           ..checksumAlgorithm = s3.ChecksumAlgorithm.sha256
           ..delete = s3.Delete.build((builder) {
@@ -713,7 +714,7 @@ class StorageS3Service {
     for (final record in records) {
       final request = s3.AbortMultipartUploadRequest.build((builder) {
         builder
-          ..bucket = _defaultBucket
+          ..bucket = _s3PluginConfig.bucket
           ..key = record.objectKey
           ..uploadId = record.uploadId;
       });

@@ -14,7 +14,7 @@ class StorageUploadDataOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.upload_data_options}
   const StorageUploadDataOptions({
-    required super.accessLevel,
+    super.accessLevel,
     this.pluginOptions,
   });
 
@@ -29,7 +29,7 @@ class StorageUploadDataOptions extends StorageOperationOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel.name,
+        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }

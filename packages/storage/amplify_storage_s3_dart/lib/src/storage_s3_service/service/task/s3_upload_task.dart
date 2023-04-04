@@ -49,6 +49,7 @@ class S3UploadTask {
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
     required String bucket,
+    required StorageAccessLevel defaultAccessLevel,
     required String key,
     required StorageUploadDataOptions options,
     S3DataPayload? dataPayload,
@@ -60,6 +61,7 @@ class S3UploadTask {
         _defaultS3ClientConfig = defaultS3ClientConfig,
         _prefixResolver = prefixResolver,
         _bucket = bucket,
+        _defaultAccessLevel = defaultAccessLevel,
         _key = key,
         _options = options,
         _dataPayload = dataPayload,
@@ -82,6 +84,7 @@ class S3UploadTask {
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
     required String bucket,
+    required StorageAccessLevel defaultAccessLevel,
     required String key,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -92,6 +95,7 @@ class S3UploadTask {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: prefixResolver,
           bucket: bucket,
+          defaultAccessLevel: defaultAccessLevel,
           key: key,
           dataPayload: dataPayload,
           options: options,
@@ -109,6 +113,7 @@ class S3UploadTask {
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
     required String bucket,
+    required StorageAccessLevel defaultAccessLevel,
     required String key,
     required StorageUploadDataOptions options,
     void Function(S3TransferProgress)? onProgress,
@@ -119,6 +124,7 @@ class S3UploadTask {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: prefixResolver,
           bucket: bucket,
+          defaultAccessLevel: defaultAccessLevel,
           key: key,
           localFile: localFile,
           options: options,
@@ -136,6 +142,7 @@ class S3UploadTask {
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final S3PrefixResolver _prefixResolver;
   final String _bucket;
+  final StorageAccessLevel _defaultAccessLevel;
   final String _key;
   final StorageUploadDataOptions _options;
   final void Function(S3TransferProgress)? _onProgress;
@@ -298,7 +305,7 @@ class S3UploadTask {
     final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: _options.accessLevel,
+      accessLevel: _options.accessLevel ?? _defaultAccessLevel,
     );
 
     _resolvedKey = '$resolvedPrefix$_key';

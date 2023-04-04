@@ -31,6 +31,7 @@ void main() {
     const testUploadDataOptions = StorageUploadDataOptions(
       accessLevel: StorageAccessLevel.private,
     );
+    const testDefaultAccessLevel = StorageAccessLevel.guest;
 
     setUpAll(() {
       s3Client = MockS3Client();
@@ -91,7 +92,8 @@ void main() {
       final testDataPayloadBytes = S3DataPayload.bytes([101, 102]);
       const testKey = 'object-upload-to';
 
-      test('should invoke S3Client.putObject API with expected parameters',
+      test(
+          'should invoke S3Client.putObject API with expected parameters and default access level',
           () async {
         final testPutObjectOutput = s3.PutObjectOutput();
         final smithyOperation = MockSmithyOperation<s3.PutObjectOutput>();
@@ -115,8 +117,9 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
-          options: testUploadDataOptions,
+          options: const StorageUploadDataOptions(),
           logger: logger,
           transferDatabase: transferDatabase,
         );
@@ -140,7 +143,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel,
+            accessLevel: testDefaultAccessLevel,
           )}$testKey',
         );
         expect(request.body, testDataPayload);
@@ -177,6 +180,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -227,6 +231,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: testUploadDataOptions,
             logger: logger,
@@ -297,6 +302,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -316,7 +322,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel,
+            accessLevel: testUploadDataOptions.accessLevel!,
           )}$testKey',
         );
       });
@@ -331,6 +337,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: prefixResolverThrowsException,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -362,6 +369,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -399,6 +407,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -444,6 +453,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -496,6 +506,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -521,7 +532,7 @@ void main() {
         expect(
           request.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel,
+            accessLevel: testUploadDataOptions.accessLevel!,
           )}$testKey',
         );
         expect(request.contentType, await testLocalFile.contentType);
@@ -559,6 +570,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -615,6 +627,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -669,6 +682,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -808,6 +822,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -840,7 +855,7 @@ void main() {
         expect(
           createMultipartUploadRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel,
+            accessLevel: testUploadDataOptions.accessLevel!,
           )}$testKey',
         );
         expect(
@@ -881,7 +896,7 @@ void main() {
           expect(
             request.key,
             '${await testPrefixResolver.resolvePrefix(
-              accessLevel: testUploadDataOptions.accessLevel,
+              accessLevel: testUploadDataOptions.accessLevel!,
             )}$testKey',
           );
           partNumbers.add(request.partNumber);
@@ -917,7 +932,7 @@ void main() {
         expect(
           completeMultipartUploadRequest.key,
           '${await testPrefixResolver.resolvePrefix(
-            accessLevel: testUploadDataOptions.accessLevel,
+            accessLevel: testUploadDataOptions.accessLevel!,
           )}$testKey',
         );
 
@@ -998,6 +1013,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1090,6 +1106,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1191,6 +1208,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: testUploadDataOptions,
             logger: logger,
@@ -1228,6 +1246,7 @@ void main() {
               defaultS3ClientConfig: defaultS3ClientConfig,
               prefixResolver: testPrefixResolver,
               bucket: testBucket,
+              defaultAccessLevel: testDefaultAccessLevel,
               key: testKey,
               options: testUploadDataOptions,
               logger: logger,
@@ -1260,6 +1279,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1289,6 +1309,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1333,6 +1354,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: const StorageUploadDataOptions(
             accessLevel: StorageAccessLevel.guest,
@@ -1378,6 +1400,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1421,6 +1444,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1502,6 +1526,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1594,6 +1619,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: const StorageUploadDataOptions(
             accessLevel: StorageAccessLevel.guest,
@@ -1687,6 +1713,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1757,6 +1784,7 @@ void main() {
           defaultS3ClientConfig: defaultS3ClientConfig,
           prefixResolver: testPrefixResolver,
           bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
           key: testKey,
           options: testUploadDataOptions,
           logger: logger,
@@ -1917,6 +1945,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: testUploadDataOptions,
             logger: logger,
@@ -1975,6 +2004,7 @@ void main() {
             defaultS3ClientConfig: defaultS3ClientConfig,
             prefixResolver: testPrefixResolver,
             bucket: testBucket,
+            defaultAccessLevel: testDefaultAccessLevel,
             key: testKey,
             options: testUploadDataOptions,
             logger: logger,

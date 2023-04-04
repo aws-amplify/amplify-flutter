@@ -14,7 +14,7 @@ class StorageDownloadDataOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.download_data_options}
   const StorageDownloadDataOptions({
-    required super.accessLevel,
+    super.accessLevel,
     this.pluginOptions,
   });
 
@@ -29,7 +29,7 @@ class StorageDownloadDataOptions extends StorageOperationOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel.name,
+        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }
