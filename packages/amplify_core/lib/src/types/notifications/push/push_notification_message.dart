@@ -30,44 +30,39 @@ class PushNotificationMessage
   Map<Object?, Object?> data = {};
 
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    try {
-      data = (json['data'] as Map<Object?, Object?>?) ?? {};
+    data = (json['data'] as Map<Object?, Object?>?) ?? {};
 
-      final aps = json['aps'] as Map<Object?, Object?>?;
-      if (aps != null) {
-        final alert = aps['alert'] as Map<Object?, Object?>?;
-        if (alert != null) {
-          title = alert['title'] as String?;
-          body = alert['body'] as String?;
-          imageUrl = data['media-url'] as String?;
+    final aps = json['aps'] as Map<Object?, Object?>?;
+    if (aps != null) {
+      final alert = aps['alert'] as Map<Object?, Object?>?;
+      if (alert != null) {
+        title = alert['title'] as String?;
+        body = alert['body'] as String?;
+        imageUrl = data['media-url'] as String?;
 
-          if (data['pinpoint'] != null) {
-            final pinpointData = data['pinpoint'] as Map<Object?, Object?>;
-            deeplinkUrl = pinpointData['deeplink'] as String?;
-            goToUrl = deeplinkUrl;
-          }
-          apnsOptions =
-              ApnsPlatformOptions(subtitle: aps['subtitle'] as String?);
+        if (data['pinpoint'] != null) {
+          final pinpointData = data['pinpoint'] as Map<Object?, Object?>;
+          deeplinkUrl = pinpointData['deeplink'] as String?;
+          goToUrl = deeplinkUrl;
         }
-      } else {
-        final action = json['action'] as Map<Object?, Object?>?;
-        title = json['title'] as String?;
-        body = json['body'] as String?;
-        imageUrl = json['imageUrl'] as String?;
-        if (action != null) {
-          deeplinkUrl = action['deeplink'] as String?;
-          goToUrl = action['url'] as String?;
-        }
-        final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
-        if (fcmOptionsMap != null) {
-          fcmOptions = FcmPlatformOptions(
-            channelId: fcmOptionsMap['channelId'] as String?,
-            messageId: fcmOptionsMap['messageId'] as String?,
-          );
-        }
+        apnsOptions = ApnsPlatformOptions(subtitle: aps['subtitle'] as String?);
       }
-    } on Error catch (e) {
-      safePrint('Error when converting Json to PushNotificationMessage: $e');
+    } else {
+      final action = json['action'] as Map<Object?, Object?>?;
+      title = json['title'] as String?;
+      body = json['body'] as String?;
+      imageUrl = json['imageUrl'] as String?;
+      if (action != null) {
+        deeplinkUrl = action['deeplink'] as String?;
+        goToUrl = action['url'] as String?;
+      }
+      final fcmOptionsMap = json['fcmOptions'] as Map<Object?, Object?>?;
+      if (fcmOptionsMap != null) {
+        fcmOptions = FcmPlatformOptions(
+          channelId: fcmOptionsMap['channelId'] as String?,
+          messageId: fcmOptionsMap['messageId'] as String?,
+        );
+      }
     }
   }
 

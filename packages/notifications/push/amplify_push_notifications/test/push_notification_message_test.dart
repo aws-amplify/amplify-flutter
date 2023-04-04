@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -44,10 +47,6 @@ void main() {
       final parseiOSMessage =
           PushNotificationMessage.fromJson(imageUrliOSMessage);
       expect(parseiOSMessage.imageUrl, 'TEST_URL');
-    });
-
-    test('should not crash when there is a type mismatch', () {
-      PushNotificationMessage.fromJson(defectivePushMessage);
     });
   });
 }

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 const standardAndroidPushMessage = {
   'title': 'TITTLE',
   'body': 'BODY',
@@ -76,22 +79,5 @@ const urlsiOSMessage = {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
     'content-available': 1
-  }
-};
-
-const defectivePushMessage = {
-  'title': 'TITTLE',
-  'body': 1,
-  'imageUrl': 'TEST_URL',
-  'fcmOptions': {
-    'channelId': 'PINPOINT.NOTIFICATION',
-  },
-  'action': {'openApp': true, 'url': null, 'deeplink': null},
-  'rawData': {
-    'pinpoint.openApp': true,
-    'pinpoint.notification.title': 'TITTLE',
-    'pinpoint.notification.body': 'BODY',
-    'pinpoint.campaign.campaign_id': '_DIRECT',
-    'pinpoint.notification.silentPush': 0
   }
 };

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/amplify_push_notifications.dart';
 import 'package:amplify_push_notifications/src/push_notifications_flutter_api.dart';
@@ -22,16 +25,15 @@ void main() {
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     flutterApi = AmplifyPushNotificationsFlutterApi.instance;
+    SharedPreferences.setMockInitialValues({});
   });
 
   test('should queue events when the serviceClient is not ready', () {
-    SharedPreferences.setMockInitialValues({});
     flutterApi.onNotificationReceivedInBackground(standardAndroidPushMessage);
     expect(flutterApi.eventQueue.length, 1);
   });
 
   test('should flush events when the serviceClient is ready', () async {
-    SharedPreferences.setMockInitialValues({});
     await flutterApi
         .onNotificationReceivedInBackground(standardAndroidPushMessage);
     expect(flutterApi.eventQueue.length, 2);
@@ -49,8 +51,7 @@ void main() {
     expect(flutterApi.eventQueue.length, 0);
   });
 
-  test('should call the external callback function', () async {
-    SharedPreferences.setMockInitialValues({});
+  test('should call the external callback function for iOS', () async {
     void externalCallback(PushNotificationMessage pushMessage) {
       expect(
         pushMessage.title,
@@ -58,27 +59,26 @@ void main() {
       );
     }
 
-    flutterApi.registerOnReceivedInBackgroundCallback(externalCallback);
+    flutterApi.registerOnReceivedInBackgroundCallback(
+      externalCallback,
+    );
     await flutterApi
         .onNotificationReceivedInBackground(standardAndroidPushMessage);
   });
 
-  test('should invoke the top-level or static external callback function',
+  test(
+      'should invoke the top-level or static external callback function on Android',
       () async {
     await overrideOperatingSystem(
       const OperatingSystem('android', ''),
       () async {
-        SharedPreferences.setMockInitialValues({});
         final pref = await SharedPreferences.getInstance();
         AmplifyPushNotifications(
           serviceProviderClient: MockServiceProviderClient(),
           backgroundProcessor: () async => {},
-          // dependencyManager: dependencyManager,
         ).onNotificationReceivedInBackground(
           testGlobalCallbackFunction,
         );
-        flutterApi
-            .registerOnReceivedInBackgroundCallback(testGlobalCallbackFunction);
 
         await Future.delayed(const Duration(seconds: 3), () {});
 

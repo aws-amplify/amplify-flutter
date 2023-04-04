@@ -79,6 +79,7 @@ class PushNotificationBackgroundServiceTest {
 
     @Test
     fun `should start the background service`() {
+        every { context.packageName } returns ""
         pushNotificationBackgroundService.createAndRunBackgroundEngine(context, mockFlutterLoader)
         Shadows.shadowOf(Looper.getMainLooper()).idle()
     }

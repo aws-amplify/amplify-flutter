@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:convert';
 import 'dart:ui';
 
@@ -165,7 +168,7 @@ void main() {
         throwErrorHandler,
       );
       expect(
-        () async => plugin.configure(
+        plugin.configure(
           authProviderRepo: authProviderRepo,
           config: config,
         ),
