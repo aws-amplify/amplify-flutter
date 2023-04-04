@@ -5,8 +5,8 @@ import 'package:amplify_core/src/types/storage/access_level.dart';
 
 abstract class StorageOperationOptions {
   const StorageOperationOptions({
-    required this.accessLevel,
+    this.accessLevel,
   });
 
-  final StorageAccessLevel accessLevel;
+  final StorageAccessLevel? accessLevel;
 }

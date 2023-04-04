@@ -50,6 +50,7 @@ class S3DownloadTask {
     required s3.S3Client s3Client,
     required smithy_aws.S3ClientConfig defaultS3ClientConfig,
     required S3PrefixResolver prefixResolver,
+    required StorageAccessLevel defaultAccessLevel,
     required String bucket,
     required String key,
     required StorageDownloadDataOptions options,
@@ -64,6 +65,7 @@ class S3DownloadTask {
         _defaultS3ClientConfig = defaultS3ClientConfig,
         _prefixResolver = prefixResolver,
         _bucket = bucket,
+        _defaultAccessLevel = defaultAccessLevel,
         _key = key,
         _downloadDataOptions = options,
         _preStart = preStart,
@@ -84,6 +86,7 @@ class S3DownloadTask {
   final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final S3PrefixResolver _prefixResolver;
   final String _bucket;
+  final StorageAccessLevel _defaultAccessLevel;
   final String _key;
   final StorageDownloadDataOptions _downloadDataOptions;
   final FutureOr<void> Function()? _preStart;
@@ -137,7 +140,7 @@ class S3DownloadTask {
     final resolvedPrefix = await StorageS3Service.getResolvedPrefix(
       prefixResolver: _prefixResolver,
       logger: _logger,
-      accessLevel: _downloadDataOptions.accessLevel,
+      accessLevel: _downloadDataOptions.accessLevel ?? _defaultAccessLevel,
       identityId: _s3PluginOptions.targetIdentityId,
     );
 

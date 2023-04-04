@@ -14,7 +14,7 @@ class StorageGetUrlOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.get_url_options}
   const StorageGetUrlOptions({
-    required super.accessLevel,
+    super.accessLevel,
     this.pluginOptions,
   });
 
@@ -29,7 +29,7 @@ class StorageGetUrlOptions extends StorageOperationOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel.name,
+        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }

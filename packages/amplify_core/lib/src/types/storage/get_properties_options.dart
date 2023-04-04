@@ -14,7 +14,7 @@ class StorageGetPropertiesOptions extends StorageOperationOptions
         AWSDebuggable {
   /// {@macro amplify_core.storage.get_properties_options}
   const StorageGetPropertiesOptions({
-    required super.accessLevel,
+    super.accessLevel,
     this.pluginOptions,
   });
 
@@ -29,7 +29,7 @@ class StorageGetPropertiesOptions extends StorageOperationOptions
 
   @override
   Map<String, Object?> toJson() => {
-        'accessLevel': accessLevel.name,
+        'accessLevel': accessLevel?.name,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }
