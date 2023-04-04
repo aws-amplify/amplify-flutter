@@ -52,7 +52,6 @@ class AmplifyPushNotificationsPluginTest {
                 StreamHandlers.initStreamHandlers(refresh = true)
         StreamHandlers.initEventChannels(mockedBinaryMessenger)
 
-
         mockkConstructor(PushNotificationPermission::class)
         mockkObject(NotificationPayload)
         mockkStatic(ActivityCompat::class)

@@ -21,7 +21,6 @@ import org.robolectric.Shadows
 import org.robolectric.android.controller.ServiceController
 
 
-// TODO(Samaritan1011001): Test background service starting service, queueing and handling work
 @InternalAmplifyApi
 @RunWith(RobolectricTestRunner::class)
 class PushNotificationBackgroundServiceTest {
@@ -94,6 +93,4 @@ class PushNotificationBackgroundServiceTest {
             Shadows.shadowOf(Looper.getMainLooper()).idle()
         }
     }
-
-
 }

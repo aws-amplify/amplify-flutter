@@ -28,11 +28,6 @@ class PushNotificationEventsStreamHandlerTest {
         StreamHandlers.initEventChannels(mockedBinaryMessenger)
     }
 
-    @After
-    fun tearDown() {
-    }
-
-
     @Test
     fun `should queue and send event when listener is added`() {
         val testMap = mapOf<Any, Any?>()

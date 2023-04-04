@@ -107,7 +107,6 @@ void main() {
       );
     });
 
-    // TODO(Samaritan1011001) : Add happy path cases doe identifyUser and recordEvent, needs mocking endpointclient
     test('identifyUser should run successfully', () async {
       when(mockAmplifyAuthProviderRepository.getAuthProvider(any))
           .thenReturn(awsIamAmplifyAuthProvider);

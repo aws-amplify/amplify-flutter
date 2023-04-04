@@ -12,6 +12,10 @@ import com.amplifyframework.pushnotifications.pinpoint.PushNotificationsConstant
 import com.amplifyframework.pushnotifications.pinpoint.PushNotificationsUtils
 import com.amplifyframework.pushnotifications.pinpoint.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.permissions.PushNotificationPermission
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
+import io.flutter.plugin.common.EventChannel
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -21,8 +25,10 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
+import java.lang.Exception
 import kotlin.random.Random
 
 @InternalAmplifyApi
@@ -52,6 +58,8 @@ class InternalPushNotificationUtilsTest {
     }
 
     private lateinit var context: Context
+    private val mockTask = mockk<Task<String>>()
+    private val tokenOnCompleteListenerSlot = slot<OnCompleteListener<String>>()
 
     @Before
     fun setup() {
@@ -59,11 +67,22 @@ class InternalPushNotificationUtilsTest {
         mockkConstructor(PushNotificationPermission::class)
         mockkConstructor(PushNotificationsUtils::class)
         mockkObject(Random)
+        mockkStatic(Task::class)
+        mockkStatic(FirebaseMessaging::class)
+
         justRun {
             anyConstructed<PushNotificationsUtils>().showNotification(any(), any(), any())
         }
         every { Random.nextInt() } returns TestConst.RANDOM_INT
         every { anyConstructed<PushNotificationsUtils>().areNotificationsEnabled() } returns true
+
+        every { FirebaseMessaging.getInstance().token } returns mockTask
+        every { mockTask.isSuccessful } returns true
+        every { mockTask.result } returns "foo-bar"
+        every { mockTask.addOnCompleteListener(capture(tokenOnCompleteListenerSlot)) } answers {
+            tokenOnCompleteListenerSlot.captured.onComplete(mockTask)
+            mockTask
+        }
         val component = ComponentName(context.packageName, "TestMainActivity")
         shadowOf(context.packageManager).apply {
             addActivityIfNotPresent(component)
@@ -284,6 +303,32 @@ class InternalPushNotificationUtilsTest {
         val payloadMap = payload.toWritableMap()
 
         assertTrue(payloadMap["data"] is Map<*, *>)
+    }
+
+    @Test
+    fun `refresh token runs successfully`() {
+        StreamHandlers.initStreamHandlers(refresh = true)
+        val mockEventSink = mockk<EventChannel.EventSink>()
+        mockkConstructor(EventChannel.EventSink::class)
+        refreshToken()
+        StreamHandlers.tokenReceived!!.onListen(ArgumentMatchers.any(), mockEventSink)
+        verify(exactly = 1) {
+            mockEventSink.success(any())
+        }
+    }
+
+    @Test
+    fun `refresh token sends error`() {
+        StreamHandlers.initStreamHandlers(refresh = true)
+        val mockEventSink = mockk<EventChannel.EventSink>()
+        mockkConstructor(EventChannel.EventSink::class)
+        every { mockTask.exception } returns Exception("test")
+        every { mockTask.isSuccessful } returns false
+        refreshToken()
+        StreamHandlers.tokenReceived!!.onListen(ArgumentMatchers.any(), mockEventSink)
+        verify(exactly = 1) {
+            mockEventSink.error(any(),any(),any())
+        }
     }
 
 }

@@ -93,7 +93,6 @@ fun Context.getLaunchActivityClass(): Class<*>? {
     return null
 }
 
-//    TODO(Samaritan1011001): Test error and happy path cases
 @InternalAmplifyApi
 fun refreshToken() {
     FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
