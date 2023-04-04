@@ -1,8 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+@internal
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
+import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
 const _keyNotFoundRecoveryMessage =
@@ -221,6 +223,16 @@ class S3Exception extends StorageException {
         'Missing key in a S3Object: $object',
         recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
       );
+
+  /// Creates a [NetworkException] over a [AWSHttpException] thrown from
+  /// [s3.S3Client] APIs.
+  static NetworkException fromAWSHttpException(AWSHttpException exception) {
+    return NetworkException(
+      'The request failed due to a network error.',
+      recoverySuggestion: 'Ensure that you have an active network connection',
+      underlyingException: exception,
+    );
+  }
 
   @override
   String get runtimeTypeName => 'S3Exception';

@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/part_size_util.dart'
     as part_size_util;
@@ -345,18 +346,19 @@ class S3UploadTask {
       );
 
       _state = S3TransferState.success;
-      _emitTransferProgress();
     } on CancellationException {
       _logger.debug('PutObject HTTP operation has been canceled.');
       _state = S3TransferState.canceled;
       _uploadCompleter
           .completeError(S3Exception.controllableOperationCanceled());
-      _emitTransferProgress();
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
         S3Exception.fromUnknownSmithyHttpException(error),
         stackTrace,
       );
+    } on AWSHttpException catch (error) {
+      _completeUploadWithError(S3Exception.fromAWSHttpException(error));
+    } finally {
       _emitTransferProgress();
     }
   }
@@ -485,6 +487,8 @@ class S3UploadTask {
       }
     } on smithy.UnknownSmithyHttpException catch (error) {
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -521,6 +525,8 @@ class S3UploadTask {
       // TODO(HuiSF): verify if s3Client sdk throws different exception type
       //  wrapping errors extracted from a 200 response.
       throw S3Exception.fromUnknownSmithyHttpException(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 
@@ -658,6 +664,8 @@ class S3UploadTask {
       throw S3Exception.fromUnknownSmithyHttpException(error);
     } on s3.NoSuchUpload catch (error) {
       throw S3Exception.fromS3NoSuchUpload(error);
+    } on AWSHttpException catch (error) {
+      throw S3Exception.fromAWSHttpException(error);
     }
   }
 

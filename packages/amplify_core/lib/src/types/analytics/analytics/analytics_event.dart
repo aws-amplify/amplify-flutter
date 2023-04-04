@@ -8,4 +8,7 @@ class AnalyticsEvent {
 
   final String name;
   final CustomProperties customProperties = CustomProperties();
+
+  @Deprecated('Use customProperties instead')
+  CustomProperties get properties => customProperties;
 }

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:meta/meta.dart';
 
