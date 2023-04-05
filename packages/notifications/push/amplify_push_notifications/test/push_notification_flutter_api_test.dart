@@ -82,6 +82,7 @@ void main() {
           testGlobalCallbackFunction,
         );
 
+        // TODO(Samaritan1011001): Remove the wait time here by using expectAsync and completer if possible
         await Future.delayed(const Duration(microseconds: 1), () {});
         expect(pref.containsKey(externalHandleKey), true);
 
