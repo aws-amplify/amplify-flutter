@@ -10,9 +10,10 @@ environment:
 
 dependencies:
   amplify_analytics_pinpoint: ">=1.0.0-next.0 <1.0.0-next.1"
+  amplify_analytics_pinpoint_dart: ">=0.1.4+3 <0.2.0"
   amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_core: ">=1.0.0-next.4 <1.0.0-next.5"
+  amplify_flutter: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_push_notifications: ">=1.0.0-next.0 <1.0.0-next.1"
   amplify_secure_storage: ^0.1.0
   flutter:
@@ -27,3 +28,4 @@ dev_dependencies:
   built_value_generator: 8.4.1
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.0
