@@ -8,7 +8,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@endtemplate}
 class S3AppPathProvider implements AppPathProvider {
   /// {@macro amplify_storage_s3_dart.app_path_provider}
-  const S3AppPathProvider();
+  S3AppPathProvider();
 
   @override
   Future<String> getApplicationSupportPath() async {

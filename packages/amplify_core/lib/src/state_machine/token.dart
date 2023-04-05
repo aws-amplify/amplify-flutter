@@ -9,13 +9,10 @@ import 'package:meta/meta.dart';
 @immutable
 class Token<T extends Object> {
   /// {@macro amplify_core.token}
-  const Token([this.dependencies = const []]);
+  const Token();
 
   /// The type identified by this token.
   Type get type => T;
-
-  /// The dependencies needed to instantiate [T].
-  final List<Token> dependencies;
 
   @override
   bool operator ==(Object other) =>
@@ -33,10 +30,7 @@ class Token<T extends Object> {
 /// {@endtemplate}
 class TypeToken<T extends Object> extends Token<T> {
   /// {@macro amplify_core.type_token}
-  const TypeToken(
-    this.type, [
-    List<Token> dependencies = const [],
-  ]) : super(dependencies);
+  const TypeToken(this.type);
 
   @override
   final Type type;

@@ -92,7 +92,8 @@ const amplifyEnvironments = <String, String>{};
         // i.e. those packages which specify worker JS files in their assets.
         final needsBuild = package.needsBuildRunner &&
             (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                false);
+                false) &&
+            package.flavor == PackageFlavor.dart;
         if (needsBuild) {
           await runBuildRunner(package, logger: logger, verbose: verbose);
         }

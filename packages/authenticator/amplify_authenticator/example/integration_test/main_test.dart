@@ -9,6 +9,7 @@ import 'confirm_sign_up_email_or_phone_test.dart'
     as confirm_sign_up_email_or_phone_tests;
 import 'confirm_sign_up_test.dart' as confirm_sign_up_tests;
 import 'custom_ui_test.dart' as custom_ui_tests;
+import 'http_test.dart' as http_tests;
 import 'reset_password_test.dart' as reset_password_tests;
 import 'sign_in_force_new_password_test.dart'
     as sign_in_force_new_password_tests;
@@ -33,6 +34,7 @@ void main() {
     confirm_sign_up_email_or_phone_tests.main();
     confirm_sign_up_tests.main();
     custom_ui_tests.main();
+    http_tests.main();
     reset_password_tests.main();
     sign_in_force_new_password_tests.main();
     sign_in_mfa_tests.main();

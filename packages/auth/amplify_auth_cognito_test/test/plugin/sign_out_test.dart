@@ -46,7 +46,7 @@ void main() {
       secureStorage = MockSecureStorage();
       SecureStorageInterface storageFactory(scope) => secureStorage;
       stateMachine = CognitoAuthStateMachine()
-        ..addBuilder(
+        ..addBuilder<HostedUiPlatform>(
           createHostedUiFactory(
             signIn: (
               HostedUiPlatform platform,
@@ -58,7 +58,6 @@ void main() {
               CognitoSignInWithWebUIPluginOptions options,
             ) async {},
           ),
-          HostedUiPlatform.token,
         );
 
       plugin = AmplifyAuthCognitoDart(secureStorageFactory: storageFactory)
@@ -368,7 +367,7 @@ void main() {
             identityPoolKeys: identityPoolKeys,
             hostedUiKeys: hostedUiKeys,
           );
-          stateMachine.addBuilder(
+          stateMachine.addBuilder<HostedUiPlatform>(
             createHostedUiFactory(
               signIn: (
                 HostedUiPlatform platform,
@@ -381,7 +380,6 @@ void main() {
               ) async =>
                   throw _HostedUiException(),
             ),
-            HostedUiPlatform.token,
           );
           await plugin.configure(
             config: mockConfig,
@@ -423,7 +421,7 @@ void main() {
               identityPoolKeys: identityPoolKeys,
               hostedUiKeys: hostedUiKeys,
             );
-            stateMachine.addBuilder(
+            stateMachine.addBuilder<HostedUiPlatform>(
               createHostedUiFactory(
                 signIn: (
                   HostedUiPlatform platform,
@@ -436,7 +434,6 @@ void main() {
                 ) async =>
                     throw const UserCancelledException(''),
               ),
-              HostedUiPlatform.token,
             );
             await plugin.configure(
               config: mockConfig,

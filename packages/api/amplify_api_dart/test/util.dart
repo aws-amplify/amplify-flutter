@@ -62,10 +62,8 @@ class TestTokenAuthProvider extends TokenAmplifyAuthProvider {
 }
 
 void validateSignedRequest(AWSBaseHttpRequest request) {
-  const userAgentHeader =
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
   expect(
-    request.headers[userAgentHeader],
+    request.headers[AWSHeaders.platformUserAgent],
     contains('aws-sigv4'),
   );
 }

@@ -67,6 +67,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
     );
 
     await _hubEventController.close();
+    await super.reset();
   }
 
   @override
@@ -156,9 +157,10 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
         authorizationMode ?? endpoint.config.authorizationType;
     final clientPoolKey = '${endpoint.name}.${authModeForClientKey.name}';
     return _clientPool[clientPoolKey] ??= AmplifyHttpClient(
+      dependencies,
       baseClient: AmplifyAuthorizationRestClient(
         endpointConfig: endpoint.config,
-        baseClient: _baseHttpClient,
+        baseClient: _baseHttpClient ?? dependencies.getOrCreate(),
         authorizationMode: authorizationMode,
         authProviderRepo: _authProviderRepo,
       ),

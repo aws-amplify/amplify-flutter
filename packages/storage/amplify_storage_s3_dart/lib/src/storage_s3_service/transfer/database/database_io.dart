@@ -23,20 +23,15 @@ const dataBaseName = 'amplify_storage_transfer_records';
 class TransferDatabase extends _$TransferDatabase
     implements stub.TransferDatabase {
   /// {@macro amplify_storage_s3_dart.transfer_database}
-  TransferDatabase(
-    db_common.Connect connect,
-    AppPathProvider appPathProvider,
-  ) : super(
-          connect(
+  TransferDatabase(DependencyManager dependencies)
+      : super(
+          dependencies.getOrCreate<db_common.Connect>()(
             name: dataBaseName,
-            path: appPathProvider.getApplicationSupportPath(),
+            path: dependencies
+                .getOrCreate<AppPathProvider>()
+                .getApplicationSupportPath(),
           ),
         );
-
-  /// {@macro amplify_storage_s3_dart.transfer_database_token}
-  static const token = Token<TransferDatabase>(
-    [Token<db_common.Connect>(), Token<AppPathProvider>()],
-  );
 
   // Bump the version number when any alteration is made into tables.dart
   @override

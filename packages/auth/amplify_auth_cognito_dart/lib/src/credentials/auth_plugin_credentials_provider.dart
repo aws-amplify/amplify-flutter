@@ -25,11 +25,6 @@ abstract class AuthPluginCredentialsProvider implements AWSCredentialsProvider {
   /// {@macro amplify_auth_cognito.credentials.auth_plugin_credentials_provider}
   const AuthPluginCredentialsProvider(this.dependencyManager);
 
-  /// The dependency manager token for [AuthPluginCredentialsProvider].
-  static const token = Token<AuthPluginCredentialsProvider>([
-    Token<DependencyManager>(),
-  ]);
-
   /// The registered dependency manager.
   final DependencyManager dependencyManager;
 }

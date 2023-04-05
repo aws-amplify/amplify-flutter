@@ -3,7 +3,6 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -66,14 +65,10 @@ void main() {
               addTearDown(client.close);
               await configureAuth(
                 config: configJson,
-                additionalPlugins: [
-                  AmplifyAPI(
-                    authProviders: const [
-                      CognitoUserPoolsAuthorizer(),
-                    ],
-                    baseHttpClient: client,
-                  ),
+                apiAuthProviders: const [
+                  CognitoUserPoolsAuthorizer(),
                 ],
+                baseClient: client,
               );
               addTearDown(deleteAndSignOut);
             });
@@ -183,7 +178,7 @@ void main() {
                     containsPair('x-query-$key', value),
                   );
                 });
-              } on RestException catch (e) {
+              } on HttpStatusException catch (e) {
                 fail('${e.response.statusCode}: ${e.response.decodeBody()}');
               }
             });
@@ -215,14 +210,7 @@ void main() {
                   client = AWSHttpClient()
                     ..supportedProtocols = supportedProtocols;
                   addTearDown(client.close);
-                  await configureAuth(
-                    config: configJson,
-                    additionalPlugins: [
-                      AmplifyAPI(
-                        baseHttpClient: client,
-                      ),
-                    ],
-                  );
+                  await configureAuth(config: configJson);
                   addTearDown(signOutUser);
                 });
 
@@ -315,7 +303,7 @@ void main() {
                         containsPair('x-query-$key', value),
                       );
                     });
-                  } on RestException catch (e) {
+                  } on HttpStatusException catch (e) {
                     fail(
                       '${e.response.statusCode}: ${e.response.decodeBody()}',
                     );

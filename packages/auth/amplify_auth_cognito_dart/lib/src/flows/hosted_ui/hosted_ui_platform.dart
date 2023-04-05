@@ -34,9 +34,6 @@ abstract class HostedUiPlatform implements Closeable {
   @protected
   HostedUiPlatform.protected(this.dependencyManager);
 
-  /// The dependency token for [HostedUiPlatform].
-  static const token = Token<HostedUiPlatform>([Token<DependencyManager>()]);
-
   /// The Hosted UI configuration.
   @protected
   CognitoOAuthConfig get config => dependencyManager.expect();

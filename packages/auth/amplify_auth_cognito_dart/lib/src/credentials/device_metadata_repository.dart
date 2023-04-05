@@ -17,12 +17,14 @@ class DeviceMetadataRepository {
     this._secureStorage,
   );
 
-  /// The token of [DeviceMetadataRepository] for use with a
-  /// [DependencyManager].
-  static const token = Token<DeviceMetadataRepository>([
-    Token<CognitoUserPoolConfig>(),
-    Token<SecureStorageInterface>(),
-  ]);
+  /// {@macro amplify_auth_cognito_dart.credentials.device_metadata_repository}
+  factory DeviceMetadataRepository.fromDependencies(
+    DependencyManager dependencies,
+  ) =>
+      DeviceMetadataRepository(
+        dependencies.expect(),
+        dependencies.getOrCreate(),
+      );
 
   final CognitoUserPoolConfig _userPoolConfig;
   final SecureStorageInterface _secureStorage;

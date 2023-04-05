@@ -29,9 +29,10 @@ const _expectedQuerySuccessResponseBody = {
 
 /// Asserts user agent and API key present.
 final _mockGqlClient = MockAWSHttpClient((request, _) async {
-  const userAgentHeader =
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-  expect(request.headers[userAgentHeader], contains('amplify-dart'));
+  expect(
+    request.headers[AWSHeaders.platformUserAgent],
+    contains('amplify-dart'),
+  );
   expect(request.headers[xApiKey], isA<String>());
   return AWSHttpResponse(
     statusCode: 200,
@@ -43,9 +44,10 @@ final _mockGqlClient = MockAWSHttpClient((request, _) async {
 
 /// Asserts user agent and signed.
 final _mockRestClient = MockAWSHttpClient((request, _) async {
-  const userAgentHeader =
-      zIsWeb ? AWSHeaders.amzUserAgent : AWSHeaders.userAgent;
-  expect(request.headers[userAgentHeader], contains('amplify-dart'));
+  expect(
+    request.headers[AWSHeaders.platformUserAgent],
+    contains('amplify-dart'),
+  );
   validateSignedRequest(request);
   return AWSHttpResponse(
     statusCode: 200,

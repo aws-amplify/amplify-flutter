@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:aws_common/aws_common.dart';
+
 /// Headers used in AWS requests.
 abstract class AWSHeaders {
   const AWSHeaders._();
@@ -49,6 +51,14 @@ abstract class AWSHeaders {
 
   /// The `Location` header.
   static const location = 'Location';
+
+  /// The user agent header for the current platform.
+  ///
+  /// This differs between Web and all other platforms since on Web,
+  /// it is not possible to manually set the `User-Agent` header as
+  /// it is on other platforms. On the Web, AWS expects the
+  /// `X-Amz-User-Agent` header to be used in its place.
+  static const platformUserAgent = zIsWeb ? amzUserAgent : userAgent;
 
   /// The `X-Amz-Region-Set` header.
   static const regionSet = 'X-Amz-Region-Set';

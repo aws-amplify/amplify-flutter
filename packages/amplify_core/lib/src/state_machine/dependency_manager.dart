@@ -3,8 +3,8 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// Factory for type [T].
-typedef DependencyBuilder<T extends Object> = Function;
+/// Factory for a type [T] with dependencies.
+typedef DependencyBuilder<T extends Object> = T Function(DependencyManager);
 
 /// {@template amplify_core.dependency_manager}
 /// Service locator for state machine dependencies.
@@ -16,6 +16,10 @@ class DependencyManager implements Closeable {
   ]) : _builders = builders ?? {} {
     addInstance<DependencyManager>(this);
   }
+
+  /// {@macro amplify_core.scoped_dependency_manager}
+  factory DependencyManager.scoped(DependencyManager parent) =
+      _ScopedDependencyManager;
 
   final Map<Token, DependencyBuilder> _builders;
   final Map<Token, Object> _instances = {};
@@ -61,8 +65,10 @@ class DependencyManager implements Closeable {
   T expect<T extends Object>([Token<T>? token]) {
     token ??= Token<T>();
     final instance = get<T>(token);
-    assert(instance != null, 'No instance found for $token');
-    return instance!;
+    if (instance == null) {
+      throw StateError('No instance found for $token');
+    }
+    return instance;
   }
 
   /// Gets the instance for type [T] or creates it using a registered builder.
@@ -89,9 +95,7 @@ class DependencyManager implements Closeable {
     if (builder == null) {
       throw StateError('No builder registered for $token');
     }
-    return _instances[token] = Function.apply(builder, <Object>[
-      for (final dependency in token.dependencies) getOrCreate(dependency),
-    ]) as T;
+    return _instances[token] = builder(this) as T;
   }
 
   @override
@@ -100,5 +104,62 @@ class DependencyManager implements Closeable {
       _closeIfPossible(instance);
     }
     _instances.clear();
+  }
+}
+
+/// {@template amplify_core.scoped_dependency_manager}
+/// A service locator scoped to a parent [DependencyManager].
+///
+/// Adding instances/builders only affect this locator, whereas retrieving
+/// instances/builders will perform a local lookup before a parent lookup.
+/// Creating new instances only affects this locator.
+/// {@endtemplate}
+class _ScopedDependencyManager extends DependencyManager {
+  _ScopedDependencyManager(this._parent);
+
+  final DependencyManager _parent;
+  Map<Token, DependencyBuilder> get _allBuilders => {
+        ..._parent._builders,
+        ..._builders,
+      };
+
+  @override
+  void addInstance<T extends Object>(
+    T instance, [
+    Token<T>? token,
+  ]) {
+    token ??= Token<T>();
+    // Close the current instance, if any.
+    final currentInstance = super.get<T>(token);
+    _closeIfPossible(currentInstance);
+    _instances[token] = instance;
+  }
+
+  @override
+  T? get<T extends Object>([Token<T>? token]) {
+    return super.get(token) ?? _parent.get(token);
+  }
+
+  @override
+  T expect<T extends Object>([Token<T>? token]) {
+    try {
+      return super.expect(token);
+    } on StateError {
+      return _parent.expect(token);
+    }
+  }
+
+  @override
+  T create<T extends Object>([Token<T>? token]) {
+    token ??= Token<T>();
+    // Close the current instance, if any.
+    final currentInstance = super.get<T>(token);
+    _closeIfPossible(currentInstance);
+
+    final builder = _allBuilders[token];
+    if (builder == null) {
+      throw StateError('No builder registered for $token');
+    }
+    return _instances[token] = builder(this) as T;
   }
 }

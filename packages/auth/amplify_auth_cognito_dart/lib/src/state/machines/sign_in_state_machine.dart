@@ -623,7 +623,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   Future<void> _loadDeviceSecrets() async {
     try {
       final deviceSecrets =
-          await getOrCreate(DeviceMetadataRepository.token).get(user.username!);
+          await getOrCreate<DeviceMetadataRepository>().get(user.username!);
       if (deviceSecrets != null) {
         user.deviceSecrets = deviceSecrets.toBuilder();
       }
@@ -748,7 +748,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
           ..devicePassword = createDeviceResult.devicePassword
           ..deviceStatus = createDeviceResult.deviceStatus;
 
-        await getOrCreate(DeviceMetadataRepository.token).put(
+        await getOrCreate<DeviceMetadataRepository>().put(
           user.username!,
           user.deviceSecrets!.build(),
         );
@@ -836,8 +836,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
       if (_challengeName == ChallengeNameType.passwordVerifier &&
           user.deviceSecrets != null) {
         user.deviceSecrets = null;
-        await getOrCreate(DeviceMetadataRepository.token)
-            .remove(user.username!);
+        await getOrCreate<DeviceMetadataRepository>().remove(user.username!);
 
         final respondRequest = await respondToAuthChallenge(
           event,

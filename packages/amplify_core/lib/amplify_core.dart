@@ -28,6 +28,7 @@ export 'src/config/storage/storage_config.dart';
 
 /// HTTP
 export 'src/http/amplify_http_client.dart';
+export 'src/http/amplify_user_agent.dart';
 
 /// Hub
 export 'src/hub/amplify_hub.dart';
@@ -47,6 +48,7 @@ export 'src/plugin/amplify_plugin_key.dart';
 export 'src/plugin/amplify_storage_plugin_interface.dart';
 
 /// State Machine
+export 'src/state_machine/amplify_dependency_manager.dart';
 export 'src/state_machine/dependency_manager.dart';
 export 'src/state_machine/event.dart';
 export 'src/state_machine/exception.dart';

@@ -47,7 +47,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
     @visibleForTesting DependencyManager? dependencyManagerOverride,
   })  : _delimiter = delimiter,
         _prefixResolver = prefixResolver,
-        dependencyManager = dependencyManagerOverride ?? DependencyManager();
+        _dependencyManagerOverride = dependencyManagerOverride;
 
   /// {@template amplify_storage_s3_dart.plugin_key}
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
@@ -71,9 +71,11 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 
   final String? _delimiter;
 
-  /// Dependencies of the plugin.
-  @protected
-  final DependencyManager dependencyManager;
+  final DependencyManager? _dependencyManagerOverride;
+
+  @override
+  DependencyManager get dependencies =>
+      _dependencyManagerOverride ?? super.dependencies;
 
   /// The [S3PluginConfig] of the [AmplifyStorageS3Dart] plugin.
   @protected
@@ -87,9 +89,9 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 
   /// Gets the instance of dependent [StorageS3Service].
   @protected
-  StorageS3Service get storageS3Service => dependencyManager.expect();
+  StorageS3Service get storageS3Service => dependencies.expect();
 
-  AppPathProvider get _appPathProvider => dependencyManager.getOrCreate();
+  AppPathProvider get _appPathProvider => dependencies.getOrCreate();
 
   @override
   Future<void> configure({
@@ -131,15 +133,10 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
       );
     }
 
-    dependencyManager
+    dependencies
       ..addInstance<db_common.Connect>(db_common.connect)
-      ..addBuilder<AppPathProvider>(S3DartAppPathProvider.new)
-      ..addBuilder(
-        transfer.TransferDatabase.new,
-        const Token<transfer.TransferDatabase>(
-          [Token<db_common.Connect>(), Token<AppPathProvider>()],
-        ),
-      )
+      ..addBuilder<AppPathProvider>((_) => const S3DartAppPathProvider())
+      ..addBuilder(transfer.TransferDatabase.new)
       ..addInstance<StorageS3Service>(
         StorageS3Service(
           credentialsProvider: credentialsProvider,
@@ -147,7 +144,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
           delimiter: _delimiter,
           prefixResolver: _prefixResolver!,
           logger: logger,
-          dependencyManager: dependencyManager,
+          dependencyManager: dependencies,
         ),
       );
 

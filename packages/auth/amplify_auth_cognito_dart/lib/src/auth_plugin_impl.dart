@@ -126,7 +126,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
   /// ```
   final HostedUiPlatformFactory? _hostedUiPlatformFactory;
 
-  CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine();
+  late CognitoAuthStateMachine _stateMachine = CognitoAuthStateMachine(
+    dependencyManager: dependencies,
+  );
   StreamSubscription<AuthState>? _stateMachineSubscription;
 
   /// The underlying state machine, for use in subclasses.
@@ -152,8 +154,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       _stateMachine.get();
 
   /// The device metadata repository, used for handling device operations.
-  DeviceMetadataRepository get _deviceRepo =>
-      _stateMachine.getOrCreate(DeviceMetadataRepository.token);
+  DeviceMetadataRepository get _deviceRepo => _stateMachine.getOrCreate();
 
   /// Analytics Metadata Provider
   AnalyticsMetadataType? get _analyticsMetadata => _stateMachine.get();
@@ -177,10 +178,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
       )
       ..addInstance<AmplifyLogger>(logger);
     if (_hostedUiPlatformFactory != null) {
-      _stateMachine.addBuilder(
-        _hostedUiPlatformFactory!,
-        HostedUiPlatform.token,
-      );
+      _stateMachine.addBuilder<HostedUiPlatform>(_hostedUiPlatformFactory!);
     }
     if (_initialParameters != null) {
       _stateMachine.addInstance<OAuthParameters>(_initialParameters!);
@@ -251,8 +249,13 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface<
     }
 
     // Dependencies for AnalyticsMetadataType
-    _stateMachine
-        .addBuilder<EndpointInfoStoreManager>(EndpointInfoStoreManager.new);
+    _stateMachine.addBuilder<EndpointInfoStoreManager>(
+      (_) => EndpointInfoStoreManager(
+        store: AmplifySecureStorageWorker.factoryFrom()(
+          AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
+        ),
+      ),
+    );
 
     await _init();
     await _stateMachine.accept(ConfigurationEvent.configure(config)).accepted;

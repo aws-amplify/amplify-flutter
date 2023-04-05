@@ -9,10 +9,9 @@ import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database
 /// operations.
 /// {@endtemplate}
 class TransferDatabase {
-  /// {@template amplify_storage_s3_dart.transfer_database_token}
-  /// The dependency token for [TransferDatabase].
-  /// {@endtemplate}
-  static Token<TransferDatabase> token = const Token<TransferDatabase>();
+  /// {@macro amplify_storage_s3_dart.transfer_database}
+  // ignore: avoid_unused_constructor_parameters
+  TransferDatabase(DependencyManager dependencies);
 
   /// {@template amplify_storage_s3_dart.transfer_database_get}
   /// Gets a list of multipart upload records that are created earlier than

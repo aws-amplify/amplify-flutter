@@ -3,6 +3,7 @@
 
 @TestOn('browser')
 
+import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/database_html.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';
 import 'package:test/test.dart';
@@ -24,7 +25,7 @@ void main() {
     late TransferDatabase transferDatabase;
 
     setUp(() async {
-      transferDatabase = TransferDatabase();
+      transferDatabase = TransferDatabase(DependencyManager());
       await transferDatabase.deleteTransferRecords(testUploadId);
     });
 

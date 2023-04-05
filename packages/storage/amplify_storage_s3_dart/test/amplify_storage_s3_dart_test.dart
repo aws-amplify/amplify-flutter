@@ -42,7 +42,7 @@ void main() {
     late StorageS3Service storageS3Service;
 
     setUp(() async {
-      dependencyManager = DependencyManager();
+      dependencyManager = AmplifyDependencyManager();
       storageS3Service = MockStorageS3Service();
 
       when(
@@ -107,7 +107,7 @@ void main() {
     late StorageS3Service storageS3Service;
 
     setUp(() async {
-      dependencyManager = DependencyManager();
+      dependencyManager = AmplifyDependencyManager();
       storageS3Service = MockStorageS3Service();
       storageS3Plugin = AmplifyStorageS3Dart(
         dependencyManagerOverride: dependencyManager,

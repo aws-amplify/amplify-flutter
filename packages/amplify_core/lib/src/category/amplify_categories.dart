@@ -106,7 +106,7 @@ abstract class AmplifyCategory<P extends AmplifyPluginInterface> {
   /// Resets the category, clearing all registered plugins.
   @visibleForTesting
   Future<void> reset() async {
-    // ignore: invalid_use_of_visible_for_testing_member
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     await Future.wait<void>(_plugins.map((plugin) => plugin.reset()));
     _plugins.clear();
   }

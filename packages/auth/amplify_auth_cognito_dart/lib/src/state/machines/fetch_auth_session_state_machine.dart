@@ -482,7 +482,7 @@ class FetchAuthSessionStateMachine
   Future<CognitoUserPoolTokens> _refreshUserPoolTokens(
     CognitoUserPoolTokens userPoolTokens,
   ) async {
-    final deviceSecrets = await getOrCreate(DeviceMetadataRepository.token)
+    final deviceSecrets = await getOrCreate<DeviceMetadataRepository>()
         .get(userPoolTokens.username);
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b

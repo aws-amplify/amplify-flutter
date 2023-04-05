@@ -40,9 +40,7 @@ class ConfigurationStateMachine
   String get runtimeTypeName => 'ConfigurationStateMachine';
 
   /// The credentials provider for SDK calls.
-  AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate(
-        AuthPluginCredentialsProvider.token,
-      );
+  AuthPluginCredentialsProvider get _credentialsProvider => getOrCreate();
 
   @override
   Future<void> resolve(ConfigurationEvent event) async {

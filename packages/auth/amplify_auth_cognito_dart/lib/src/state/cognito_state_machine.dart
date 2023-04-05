@@ -14,7 +14,8 @@ import 'package:meta/meta.dart';
 
 /// Default state machine builders for [CognitoAuthStateMachine].
 @visibleForTesting
-final stateMachineBuilders = <StateMachineToken, Function>{
+final stateMachineBuilders = <StateMachineToken,
+    StateMachineBuilder<AuthEvent, AuthState, CognitoAuthStateMachine>>{
   ConfigurationStateMachine.type: ConfigurationStateMachine.new,
   CredentialStoreStateMachine.type: CredentialStoreStateMachine.new,
   FetchAuthSessionStateMachine.type: FetchAuthSessionStateMachine.new,
@@ -24,17 +25,15 @@ final stateMachineBuilders = <StateMachineToken, Function>{
   SignUpStateMachine.type: SignUpStateMachine.new,
 };
 
-AWSHttpClient _makeAwsHttpClient() =>
-    AmplifyHttpClient()..supportedProtocols = SupportedProtocols.http1;
-
 /// Default defaultDependencies for [CognitoAuthStateMachine].
 @visibleForTesting
 final defaultDependencies = <Token, DependencyBuilder>{
-  HostedUiPlatform.token: HostedUiPlatform.new,
-  const Token<http.Client>(): http.Client.new,
-  const Token<AWSHttpClient>(): _makeAwsHttpClient,
-  AuthPluginCredentialsProvider.token: AuthPluginCredentialsProviderImpl.new,
-  DeviceMetadataRepository.token: DeviceMetadataRepository.new,
+  const Token<HostedUiPlatform>(): HostedUiPlatform.new,
+  const Token<http.Client>(): (_) => http.Client(),
+  const Token<AuthPluginCredentialsProvider>():
+      AuthPluginCredentialsProviderImpl.new,
+  const Token<DeviceMetadataRepository>():
+      DeviceMetadataRepository.fromDependencies,
 };
 
 /// {@template amplify_auth_cognito.cognito_auth_state_machine}
@@ -47,8 +46,12 @@ class CognitoAuthStateMachine
     DependencyManager? dependencyManager,
   }) : super(
           stateMachineBuilders,
-          dependencyManager ?? DependencyManager(defaultDependencies),
-        );
+          dependencyManager ?? AmplifyDependencyManager(),
+        ) {
+    defaultDependencies.forEach((token, builder) {
+      addBuilder(builder, token);
+    });
+  }
 
   @override
   StateMachineToken mapEventToMachine(AuthEvent event) {

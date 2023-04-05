@@ -1,6 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -8,15 +11,28 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> configureAuth({
   String? config,
-  List<AmplifyPluginInterface> additionalPlugins = const [],
+  List<APIAuthProvider> apiAuthProviders = const [],
+  AWSHttpClient? baseClient,
 }) async {
+  config ??= amplifyconfig;
   final authPlugin = AmplifyAuthCognito(
     secureStorageFactory: AmplifySecureStorage.factoryFrom(
       macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
     ),
   );
-  await Amplify.addPlugins([authPlugin, ...additionalPlugins]);
-  await Amplify.configure(config ?? amplifyconfig);
+  final hasApiPlugin = AmplifyConfig.fromJson(
+        jsonDecode(config) as Map<String, dynamic>,
+      ).api?.awsPlugin !=
+      null;
+  await Amplify.addPlugins([
+    authPlugin,
+    if (hasApiPlugin)
+      AmplifyAPI(
+        authProviders: apiAuthProviders,
+        baseHttpClient: baseClient,
+      ),
+  ]);
+  await Amplify.configure(config);
   addTearDown(
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
   );
