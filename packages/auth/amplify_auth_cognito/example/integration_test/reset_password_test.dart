@@ -43,7 +43,7 @@ void main() {
 
         setUp(() async {
           await configureAuth(
-            config: amplifyEnvironments[environmentName],
+            config: amplifyEnvironments[environmentName]!,
           );
 
           // create new user for each test

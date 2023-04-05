@@ -21,7 +21,7 @@ void main() {
       group('no user pool', () {
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments['identity-pool-only'],
+            config: amplifyEnvironments['identity-pool-only']!,
           );
         });
 
@@ -115,7 +115,7 @@ void main() {
     group('unauthenticated access disabled', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['authenticated-users-only'],
+          config: amplifyEnvironments['authenticated-users-only']!,
         );
       });
 
@@ -196,7 +196,7 @@ void main() {
     group('user pool-only', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['user-pool-only'],
+          config: amplifyEnvironments['user-pool-only']!,
         );
       });
 
@@ -292,7 +292,7 @@ void main() {
 
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments[environmentName],
+            config: amplifyEnvironments[environmentName]!,
           );
         });
 

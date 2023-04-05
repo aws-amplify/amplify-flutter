@@ -26,7 +26,7 @@ void main() {
         group(environmentName, () {
           setUpAll(() async {
             await configureAuth(
-              config: amplifyEnvironments[environmentName],
+              config: amplifyEnvironments[environmentName]!,
             );
           });
 

@@ -24,7 +24,7 @@ void main() {
       group(environmentName, () {
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments[environmentName],
+            config: amplifyEnvironments[environmentName]!,
           );
         });
 
@@ -130,7 +130,7 @@ void main() {
     group('identity pool-only', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['identity-pool-only'],
+          config: amplifyEnvironments['identity-pool-only']!,
         );
       });
 
