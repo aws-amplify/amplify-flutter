@@ -37,7 +37,6 @@ void main() {
           final cognitoUsername = await adminCreateUser(
             username,
             password,
-            autoConfirm: true,
             enableMfa: true,
             verifyAttributes: true,
           );
@@ -50,9 +49,11 @@ void main() {
           expect(signInRes.isSignedIn, isFalse);
           expect(
             signInRes.nextStep.signInStep,
-            AuthSignInStep.confirmSignInWithSmsMfaCode,
+            AuthSignInStep.confirmSignInWithNewPassword,
           );
         });
+
+        tearDown(signOutUser);
 
         asyncTest('confirming signs in user', (_) async {
           final newPassword = generatePassword();
