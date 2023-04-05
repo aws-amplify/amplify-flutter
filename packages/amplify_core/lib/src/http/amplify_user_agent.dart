@@ -42,9 +42,12 @@ class AmplifyUserAgent {
   }) {
     final scopedUserAgent = _ScopedUserAgent(this);
     updates(scopedUserAgent);
-    return runZoned(fn, zoneValues: {
-      AmplifyUserAgent: scopedUserAgent,
-    });
+    return runZoned(
+      fn,
+      zoneValues: {
+        AmplifyUserAgent: scopedUserAgent,
+      },
+    );
   }
 
   @override

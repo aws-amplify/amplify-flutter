@@ -136,13 +136,14 @@ void main() {
     });
 
     test('injects dependency manager and dispatcher', () {
-      dependencyManager.addBuilder<Dispatcher>((_) => MyDispatcher());
-      dependencyManager.addBuilder<NeedsDependencyManagerAndDispatcher>(
-        (deps) => NeedsDependencyManagerAndDispatcher(
-          deps,
-          deps.getOrCreate(),
-        ),
-      );
+      dependencyManager
+        ..addBuilder<Dispatcher>((_) => MyDispatcher())
+        ..addBuilder<NeedsDependencyManagerAndDispatcher>(
+          (deps) => NeedsDependencyManagerAndDispatcher(
+            deps,
+            deps.getOrCreate(),
+          ),
+        );
 
       expect(
         () => dependencyManager
@@ -188,6 +189,17 @@ void main() {
       );
       expect(dep.isClosed, isFalse);
       expect(scopedDep.isClosed, isFalse);
+
+      final dep2 = dependencyManager.create<NeedsClosing>();
+      expect(dep.isClosed, isTrue);
+      expect(dep2.isClosed, isFalse);
+      expect(scopedDep.isClosed, isFalse);
+
+      final scopedDep2 = scopedDependencyManager.create<NeedsClosing>();
+      expect(dep.isClosed, isTrue);
+      expect(dep2.isClosed, isFalse);
+      expect(scopedDep.isClosed, isTrue);
+      expect(scopedDep2.isClosed, isFalse);
     });
 
     test('closing does not affect parent', () {

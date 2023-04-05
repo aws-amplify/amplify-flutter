@@ -37,21 +37,23 @@ void main() {
     const myUserAgent = 'my-user-agent';
 
     final dependencies = AmplifyDependencyManager();
-    final httpClient = MockAWSHttpClient(expectAsync2(
-      (request, isCancelled) {
-        expect(
-          request.headers[AWSHeaders.platformUserAgent],
-          contains(osIdentifier),
-          reason: 'should contain default user agent component',
-        );
-        expect(
-          request.headers[AWSHeaders.platformUserAgent],
-          contains(myUserAgent),
-          reason: 'should contain custom user agent component',
-        );
-        return AWSHttpResponse(statusCode: 200);
-      },
-    ));
+    final httpClient = MockAWSHttpClient(
+      expectAsync2(
+        (request, isCancelled) {
+          expect(
+            request.headers[AWSHeaders.platformUserAgent],
+            contains(osIdentifier),
+            reason: 'should contain default user agent component',
+          );
+          expect(
+            request.headers[AWSHeaders.platformUserAgent],
+            contains(myUserAgent),
+            reason: 'should contain custom user agent component',
+          );
+          return AWSHttpResponse(statusCode: 200);
+        },
+      ),
+    );
 
     dependencies.addInstance<AWSHttpClient>(httpClient);
     dependencies.getOrCreate<AmplifyUserAgent>().addComponent(myUserAgent);

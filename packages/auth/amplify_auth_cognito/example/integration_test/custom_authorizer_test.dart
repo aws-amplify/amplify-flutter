@@ -178,7 +178,7 @@ void main() {
                     containsPair('x-query-$key', value),
                   );
                 });
-              } on RestException catch (e) {
+              } on HttpStatusException catch (e) {
                 fail('${e.response.statusCode}: ${e.response.decodeBody()}');
               }
             });
@@ -303,7 +303,7 @@ void main() {
                         containsPair('x-query-$key', value),
                       );
                     });
-                  } on RestException catch (e) {
+                  } on HttpStatusException catch (e) {
                     fail(
                       '${e.response.statusCode}: ${e.response.decodeBody()}',
                     );
