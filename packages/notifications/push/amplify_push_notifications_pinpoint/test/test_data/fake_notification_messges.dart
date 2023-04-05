@@ -37,7 +37,7 @@ const androidCampaignMessage = {
   'action': {'openApp': true, 'url': null, 'deeplink': null},
   'data': {
     'pinpoint.openApp': true,
-    'pinpoint.campaign.treatment_id': 0,
+    'pinpoint.campaign.treatment_id': '0',
     'pinpoint.notification.title': 'TITTLE',
     'pinpoint.notification.body': 'BODY',
     'data': {

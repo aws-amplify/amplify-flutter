@@ -173,7 +173,7 @@ class PinpointProvider implements ServiceProviderClient {
       }
       if (data.containsKey(_androidCampaignTreatmentIdKey)) {
         campaign['treatment_id'] =
-            (data[_androidCampaignTreatmentIdKey] as int).toString();
+            data[_androidCampaignTreatmentIdKey] as String;
       }
     }
 
