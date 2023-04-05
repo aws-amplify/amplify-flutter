@@ -301,6 +301,23 @@ void main() {
         });
 
         testWidgets(
+            'should throw generating downloadable url of a non-existent object',
+            (WidgetTester tester) async {
+          final result = Amplify.Storage.getUrl(
+            key: 'random/non-existent/object.png',
+            options: const StorageGetUrlOptions(
+              accessLevel: StorageAccessLevel.private,
+              pluginOptions: S3GetUrlPluginOptions(
+                validateObjectExistence: true,
+                expiresIn: Duration(minutes: 5),
+              ),
+            ),
+          ).result;
+
+          expect(result, throwsA(isA<StorageKeyNotFoundException>()));
+        });
+
+        testWidgets(
             'download object as bytes data in memory with access level private'
             ' for the currently signed in user', (WidgetTester tester) async {
           final result = await Amplify.Storage.downloadData(
