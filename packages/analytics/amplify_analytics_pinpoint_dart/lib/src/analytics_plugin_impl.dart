@@ -155,7 +155,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     final autoFlushInterval = pinpointConfig.autoFlushEventsInterval;
     _autoEventSubmitter = StoppableTimer(
-      duration: Duration(milliseconds: autoFlushInterval),
+      duration: autoFlushInterval,
       callback: flushEvents,
       onError: (e) => _logger.warn('Exception in events auto flush', e),
     );

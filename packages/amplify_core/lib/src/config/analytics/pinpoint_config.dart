@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 part 'pinpoint_config.g.dart';
@@ -35,7 +36,7 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
-    this.autoFlushEventsInterval = 10000,
+    this.autoFlushEventsInterval = const Duration(milliseconds: 10000),
   });
 
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
@@ -46,15 +47,18 @@ class PinpointPluginConfig
 
   final PinpointAnalytics pinpointAnalytics;
   final PinpointTargeting pinpointTargeting;
-  final int autoFlushEventsInterval;
+
+  @DurationConverter()
+  final Duration autoFlushEventsInterval;
 
   @override
-  List<Object?> get props => [pinpointAnalytics, pinpointTargeting];
+  List<Object?> get props =>
+      [pinpointAnalytics, pinpointTargeting, autoFlushEventsInterval];
 
   PinpointPluginConfig copyWith({
     PinpointAnalytics? pinpointAnalytics,
     PinpointTargeting? pinpointTargeting,
-    int? autoFlushEventsInterval,
+    Duration? autoFlushEventsInterval,
   }) {
     return PinpointPluginConfig(
       pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics,
@@ -123,4 +127,14 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
 
   @override
   Map<String, Object?> toJson() => _$PinpointTargetingToJson(this);
+}
+
+class DurationConverter implements JsonConverter<Duration, int> {
+  const DurationConverter();
+
+  @override
+  Duration fromJson(int json) => Duration(milliseconds: json);
+
+  @override
+  int toJson(Duration object) => object.inMilliseconds;
 }

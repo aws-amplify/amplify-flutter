@@ -15,7 +15,10 @@ PinpointPluginConfig _$PinpointPluginConfigFromJson(
           json['pinpointAnalytics'] as Map<String, dynamic>),
       pinpointTargeting: PinpointTargeting.fromJson(
           json['pinpointTargeting'] as Map<String, dynamic>),
-      autoFlushEventsInterval: json['autoFlushEventsInterval'] as int? ?? 10000,
+      autoFlushEventsInterval: json['autoFlushEventsInterval'] == null
+          ? const Duration(milliseconds: 10000)
+          : const DurationConverter()
+              .fromJson(json['autoFlushEventsInterval'] as int),
     );
 
 Map<String, dynamic> _$PinpointPluginConfigToJson(
@@ -23,7 +26,8 @@ Map<String, dynamic> _$PinpointPluginConfigToJson(
     <String, dynamic>{
       'pinpointAnalytics': instance.pinpointAnalytics.toJson(),
       'pinpointTargeting': instance.pinpointTargeting.toJson(),
-      'autoFlushEventsInterval': instance.autoFlushEventsInterval,
+      'autoFlushEventsInterval':
+          const DurationConverter().toJson(instance.autoFlushEventsInterval),
     };
 
 PinpointAnalytics _$PinpointAnalyticsFromJson(Map<String, dynamic> json) =>
