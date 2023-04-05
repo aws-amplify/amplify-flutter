@@ -173,7 +173,7 @@ class AmplifyWebSocketService
           );
         }
 
-        final exception = ApiException(
+        final exception = ApiOperationException(
           'Error in GraphQL subscription.',
           underlyingException: wsError,
         );

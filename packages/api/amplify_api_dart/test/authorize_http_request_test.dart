@@ -173,7 +173,7 @@ void main() {
           endpointConfig: endpointConfig,
           authProviderRepo: authProviderRepo,
         ),
-        throwsA(isA<ApiException>()),
+        throwsA(isA<ConfigurationError>()),
       );
     });
 
@@ -277,7 +277,7 @@ void main() {
           endpointConfig: endpointConfig,
           authProviderRepo: emptyAuthRepo,
         ),
-        throwsA(isA<ApiException>()),
+        throwsA(isA<ConfigurationError>()),
       );
     });
   });

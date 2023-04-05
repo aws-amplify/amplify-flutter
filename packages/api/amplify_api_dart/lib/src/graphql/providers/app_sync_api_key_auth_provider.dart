@@ -18,7 +18,7 @@ class AppSyncApiKeyAuthProvider extends ApiKeyAmplifyAuthProvider {
     ApiKeyAuthProviderOptions? options,
   }) async {
     if (options == null) {
-      throw const ApiException(
+      throw ConfigurationError(
         'Called API key auth provider without passing a valid API key.',
       );
     }

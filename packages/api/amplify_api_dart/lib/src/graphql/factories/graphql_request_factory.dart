@@ -185,7 +185,7 @@ class GraphQLRequestFactory {
         }
         break;
       default:
-        throw const ApiException(
+        throw const ApiOperationException(
           'GraphQL Request Operation is currently unsupported',
           recoverySuggestion: 'please use a supported GraphQL operation',
         );
@@ -338,7 +338,7 @@ class GraphQLRequestFactory {
         }
         // Public not() API only allows 1 condition but QueryPredicateGroup
         // technically allows multiple conditions so explicitly disallow multiple.
-        throw const ApiException(
+        throw const ApiOperationException(
           'Unable to translate not() with multiple conditions.',
         );
       }
@@ -354,7 +354,7 @@ class GraphQLRequestFactory {
       };
     }
 
-    throw ApiException(
+    throw ApiOperationException(
       'Unable to translate the QueryPredicate $queryPredicate to a GraphQL filter.',
     );
   }
@@ -459,7 +459,7 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
     };
   }
 
-  throw ApiException(
+  throw ApiOperationException(
     'Unable to translate the QueryFieldOperator ${queryFieldOperator.type} to a GraphQL filter.',
   );
 }
@@ -478,7 +478,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
   };
   final result = dictionary[operatorType];
   if (result == null) {
-    throw ApiException(
+    throw ApiOperationException(
       '$operatorType does not have a defined GraphQL filter string.',
     );
   }

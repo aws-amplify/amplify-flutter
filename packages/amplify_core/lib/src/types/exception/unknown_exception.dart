@@ -8,7 +8,11 @@ import 'package:amplify_core/amplify_core.dart';
 /// encountered.
 /// {@endtemplate}
 class UnknownException extends AmplifyException
-    implements AuthException, StorageException, AnalyticsException {
+    implements
+        ApiException,
+        AuthException,
+        StorageException,
+        AnalyticsException {
   /// {@macro amplify_core.unknown_exception}
   const UnknownException(
     super.message, {

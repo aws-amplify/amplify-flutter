@@ -23,7 +23,9 @@ class RestOperation extends AWSHttpOperation<AWSHttpResponse> {
           return response;
         }
         // In case other response types ever added.
-        throw const ApiException('Unable to convert to AWSHttpResponse');
+        throw StateError(
+          'Unable to convert to AWSHttpResponse',
+        );
       },
     );
     return RestOperation._(

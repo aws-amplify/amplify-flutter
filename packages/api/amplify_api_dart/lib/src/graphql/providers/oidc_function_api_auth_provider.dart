@@ -20,7 +20,7 @@ class OidcFunctionAuthProvider extends TokenAmplifyAuthProvider {
   Future<String> getLatestAuthToken() async {
     final token = await authProvider.getLatestAuthToken();
     if (token == null) {
-      throw const ApiException(
+      throw const ApiOperationException(
         'No token was returned from getLatestAuthToken in defined authProvider.',
         recoverySuggestion:
             'Ensure defined getLatestAuthToken is returning expected value.',

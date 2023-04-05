@@ -66,7 +66,7 @@ void main({bool useExistingTestUser = false}) {
         final operation = Amplify.API.post(path);
         await expectLater(
           operation.response,
-          throwsA(isA<RestException>()),
+          throwsA(isA<HttpStatusException>()),
         );
       });
     });

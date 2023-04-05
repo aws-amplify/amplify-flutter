@@ -253,7 +253,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // handle connection errors on the web socket channel
   Stream<WebSocketState> _connectionError(ConnectionErrorEvent event) async* {
-    const exception = ApiException(
+    const exception = NetworkException(
       'Error occurred while connecting to the websocket',
     );
 
@@ -274,7 +274,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       // disconnect. Ignore those messages.
       _safeAdd,
       onError: (Object error, StackTrace st) {
-        final exception = ApiException(
+        final exception = NetworkException(
           'Exception from WebSocketService.',
           underlyingException: error.toString(),
         );
@@ -338,7 +338,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// First establishes there is a connection to AppSync
   /// Then clears web socket connection and restarts init workflow
-  /// Sends [ApiException] when unable to reach AppSync
+  /// Sends [NetworkException] when unable to reach AppSync
   Stream<WebSocketState> _reconnect() async* {
     assert(
       _currentState is ReconnectingState,
@@ -367,7 +367,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     } on Exception catch (e, st) {
       // Ping failed, close down
       _shutdownWithException(
-        ApiException(
+        NetworkException(
           'Unable to recover network connection, web socket will close.',
           recoverySuggestion: 'Check internet connection.',
           underlyingException: e,
@@ -439,7 +439,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
   Future<void> checkPollResponse(AWSBaseHttpResponse res) async {
     final body = await res.decodeBody();
     if (body != 'healthy') {
-      throw ApiException(
+      throw NetworkException(
         'Subscription connection broken. AppSync status check returned "$body"',
         recoverySuggestion:
             'Unable to reach the configured AppSync URL. Check internet connection or the configured AppSync URL',
@@ -535,7 +535,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
       _pollResponseTimeout,
       onTimeout: () {
         op.cancel();
-        throw const ApiException('Timeout while polling AppSync.');
+        throw const NetworkException('Timeout while polling AppSync.');
       },
     );
   }

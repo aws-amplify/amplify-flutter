@@ -94,9 +94,12 @@ void main() {
       await verifyRestOperation(operation);
     });
 
-    test('404 should throw RestException', () async {
+    test('404 should throw HttpStatusException', () async {
       final operation = Amplify.API.get(_pathThatShouldFail);
-      await expectLater(operation.response, throwsA(isA<RestException>()));
+      await expectLater(
+        operation.response,
+        throwsA(isA<HttpStatusException>()),
+      );
     });
 
     test('canceled request should never resolve', () async {

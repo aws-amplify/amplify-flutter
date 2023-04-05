@@ -33,7 +33,7 @@ Future<AWSBaseHttpRequest> authorizeHttpRequest(
       );
       final apiKey = endpointConfig.apiKey;
       if (apiKey == null) {
-        throw const ApiException(
+        throw ConfigurationError(
           'Auth mode is API Key, but no API Key was found in config.',
         );
       }
@@ -85,7 +85,7 @@ T _validateAuthProvider<T extends AmplifyAuthProvider>(
   APIAuthorizationType authType,
 ) {
   if (authProvider == null) {
-    throw ApiException(
+    throw ConfigurationError(
       'No auth provider found for auth mode ${authType.name}.',
       recoverySuggestion: 'Ensure API plugin correctly configured.',
     );
