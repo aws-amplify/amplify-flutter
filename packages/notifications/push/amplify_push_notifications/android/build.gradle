@@ -11,7 +11,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
@@ -24,6 +24,7 @@ allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdkVersion 33
@@ -53,14 +54,8 @@ android {
     }
 
     testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-
-            testLogging {
-                events "passed", "skipped", "failed", "standardOut", "standardError"
-                outputs.upToDateWhen {false}
-                showStandardStreams = true
-            }
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -71,6 +66,17 @@ def amplifyFlutter = project.rootProject.findProject(':amplify_flutter_android')
 dependencies {
     api amplifyFlutter
     api "com.google.firebase:firebase-messaging:23.1.0"
-    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-utils:2.1.0'
+    // Import support library for Amplify push utils
+    implementation 'com.amplifyframework:aws-push-notifications-pinpoint-common:2.5.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     implementation project(path: ':flutter_plugin_android_lifecycle')
+    implementation 'androidx.test:core-ktx:1.5.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.mockk:mockk:1.13.4'
+    // slf4j is logging facade package used by mockk internally
+    testImplementation 'org.slf4j:slf4j-nop:2.0.7'
+    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+
 }

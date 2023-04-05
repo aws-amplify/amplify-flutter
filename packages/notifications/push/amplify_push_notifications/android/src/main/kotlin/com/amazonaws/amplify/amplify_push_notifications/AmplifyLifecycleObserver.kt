@@ -5,9 +5,11 @@ package com.amazonaws.amplify.amplify_push_notifications
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.amplifyframework.annotations.InternalAmplifyApi
 
 private const val TAG = "AmplifyLifecycleObserver"
 
+@InternalAmplifyApi
 class AmplifyLifecycleObserver : DefaultLifecycleObserver {
     override fun onResume(owner: LifecycleOwner) {
         refreshToken()

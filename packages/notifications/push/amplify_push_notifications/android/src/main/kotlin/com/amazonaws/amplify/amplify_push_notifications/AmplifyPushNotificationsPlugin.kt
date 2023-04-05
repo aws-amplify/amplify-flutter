@@ -7,13 +7,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsFlutterApi
 import com.amazonaws.amplify.amplify_push_notifications.PushNotificationsHostApiBindings.PushNotificationsHostApi
-import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PermissionRequestResult
-import com.amplifyframework.pushnotifications.pinpoint.utils.permissions.PushNotificationPermission
+import com.amplifyframework.annotations.InternalAmplifyApi
+import com.amplifyframework.notifications.pushnotifications.NotificationPayload
+import com.amplifyframework.pushnotifications.pinpoint.permissions.PermissionRequestResult
+import com.amplifyframework.pushnotifications.pinpoint.permissions.PushNotificationPermission
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -26,6 +29,7 @@ import kotlinx.coroutines.*
 private const val TAG = "AmplifyPushNotificationsPlugin"
 
 /** AmplifyPushNotificationsPlugin */
+@InternalAmplifyApi
 open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     PluginRegistry.NewIntentListener, PushNotificationsHostApi {
     companion object {
@@ -95,8 +99,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         // TODO(Samaritan1011001): replace deprecated flutterPluginBinding.flutterEngine, is possible to
         //  just store a flag in shred preference to indicate main engine is already running.
         _flutterEngineCache.put(
-            PushNotificationPluginConstants.FLUTTER_ENGINE_ID,
-            flutterPluginBinding.flutterEngine
+            PushNotificationPluginConstants.FLUTTER_ENGINE_ID, flutterPluginBinding.flutterEngine
         )
         // Force init stream handlers when the app is opened from killed state so old handlers are removed.
         StreamHandlers.initStreamHandlers(true)
@@ -125,10 +128,10 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         activityBinding = binding
         binding.addOnNewIntentListener(this)
 
-        // Check for supported extras and not add the flag for other intents such as app opening via icon tap
-        binding.activity.intent.extras?.let {
-            val payload = it.asPayload()
-            if (payload != null) {
+        // Check for supported intent and not add the flag for other intents such as app opening via icon tap
+        val payload = NotificationPayload.fromIntent(binding.activity.intent)
+        if (payload != null) {
+            binding.activity.intent.extras?.let {
                 binding.activity.intent.putExtra(
                     PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION, true
                 )
@@ -153,13 +156,11 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         onDetachedFromActivity()
     }
 
-    // TODO(Samaritan1011001): 1. This gets called with intent only when a specific notification is tapped and not when the group is tapped
-    //      2. The intent here is the last notification device got rather than the one that was tapped
     override fun onNewIntent(intent: Intent): Boolean {
-        intent.extras?.let {
-            val payload = it.asPayload()
-            if (payload != null) {
-                val notificationHashMap = payload.asChannelMap()
+        val payload = NotificationPayload.fromIntent(intent)
+        if (payload != null) {
+            val notificationHashMap = payload.toWritableMap()
+            intent.extras?.let {
                 if (it.containsKey(PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION) && it.getBoolean(
                         PushNotificationPluginConstants.IS_LAUNCH_NOTIFICATION
                     )
@@ -167,10 +168,10 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
                     launchNotification = notificationHashMap.toMutableMap()
                 }
-                StreamHandlers.notificationOpened!!.send(
-                    notificationHashMap
-                )
             }
+            StreamHandlers.notificationOpened!!.send(
+                notificationHashMap
+            )
         }
         return true
     }
@@ -226,12 +227,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
 
             if (res is PermissionRequestResult.Granted) {
                 result.success(true)
-            } else {
+            } else if (res is PermissionRequestResult.NotGranted){
                 // If permission was not granted and the shouldShowRequestPermissionRationale flag
                 // is true then user must have denied for the first time. We will set the
                 // wasPermissionPreviouslyDenied value to true only in this scenario since it's
                 // possible to dismiss the permission request without explicitly denying as well.
-                if (shouldShowRequestPermissionRationale()) {
+                if (res.shouldShowRationale) {
                     with(sharedPreferences.edit()) {
                         putBoolean(
                             PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, true
