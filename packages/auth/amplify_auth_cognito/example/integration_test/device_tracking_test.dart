@@ -122,7 +122,8 @@ void main() {
 
     for (final environmentName in [
       'device-tracking-opt-in',
-      'user-pool-only'
+      'user-pool-only',
+      'with-client-secret'
     ]) {
       group('Opt-In', () {
         group(environmentName, () {

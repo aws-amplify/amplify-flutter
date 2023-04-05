@@ -15,7 +15,11 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('deleteUser', () {
-    for (final environmentName in ['main', 'user-pool-only']) {
+    for (final environmentName in [
+      'main',
+      'user-pool-only',
+      'with-client-secret'
+    ]) {
       group(environmentName, () {
         setUpAll(() async {
           await configureAuth(
