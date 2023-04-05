@@ -722,9 +722,9 @@ void main() {
 
         const testUploadDataOptions = StorageUploadDataOptions(
           accessLevel: StorageAccessLevel.protected,
+          metadata: {'filename': 'png.png'},
           pluginOptions: S3UploadDataPluginOptions(
             getProperties: true,
-            metadata: {'filename': 'png.png'},
           ),
         );
         const testMultipartUploadId = 'awesome-upload';
@@ -860,8 +860,7 @@ void main() {
         );
         expect(
           capturedCreateMultipartUploadRequest.metadata?['filename'],
-          (testUploadDataOptions.pluginOptions! as S3UploadDataPluginOptions)
-              .metadata?['filename'],
+          testUploadDataOptions.metadata['filename'],
         );
         final capturedTransferDBInsertParam = verify(
           () => transferDatabase.insertTransferRecord(

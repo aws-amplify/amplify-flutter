@@ -15,14 +15,18 @@ class StorageUploadFileOptions extends StorageOperationOptions
   /// {@macro amplify_core.storage.upload_file_options}
   const StorageUploadFileOptions({
     super.accessLevel,
+    this.metadata = const {},
     this.pluginOptions,
   });
+
+  /// The metadata attached to the object to be uploaded.
+  final Map<String, String> metadata;
 
   /// {@macro amplify_core.storage.upload_file_plugin_options}
   final StorageUploadFilePluginOptions? pluginOptions;
 
   @override
-  List<Object?> get props => [accessLevel, pluginOptions];
+  List<Object?> get props => [accessLevel, metadata, pluginOptions];
 
   @override
   String get runtimeTypeName => 'StorageUploadFileOptions';
@@ -30,6 +34,7 @@ class StorageUploadFileOptions extends StorageOperationOptions
   @override
   Map<String, Object?> toJson() => {
         'accessLevel': accessLevel?.name,
+        'metadata': metadata,
         'pluginOptions': pluginOptions?.toJson(),
       };
 }

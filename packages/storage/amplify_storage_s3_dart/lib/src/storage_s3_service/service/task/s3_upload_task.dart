@@ -321,7 +321,7 @@ class S3UploadTask {
         ..body = body
         ..contentType = body.contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_s3PluginOptions.metadata ?? const {});
+        ..metadata.addAll(_options.metadata);
     });
 
     try {
@@ -473,7 +473,7 @@ class S3UploadTask {
         ..bucket = _bucket
         ..contentType = contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_s3PluginOptions.metadata ?? const {});
+        ..metadata.addAll(_options.metadata);
     });
 
     try {

@@ -14,16 +14,12 @@ class S3UploadDataPluginOptions extends StorageUploadDataPluginOptions {
   /// {@macro storage.amplify_storage_s3.upload_data_plugin_options}
   const S3UploadDataPluginOptions({
     this.getProperties = false,
-    this.metadata,
     this.useAccelerateEndpoint = false,
   });
 
   /// {@macro storage.amplify_storage_s3.upload_data_plugin_options}
   factory S3UploadDataPluginOptions.fromJson(Map<String, Object?> json) =>
       _$S3UploadDataPluginOptionsFromJson(json);
-
-  /// The metadata attached to the object to be uploaded.
-  final Map<String, String>? metadata;
 
   /// Whether to retrieve properties for the uploaded object using the
   /// `getProperties` API.
@@ -33,7 +29,7 @@ class S3UploadDataPluginOptions extends StorageUploadDataPluginOptions {
   final bool useAccelerateEndpoint;
 
   @override
-  List<Object?> get props => [getProperties, useAccelerateEndpoint, metadata];
+  List<Object?> get props => [getProperties, useAccelerateEndpoint];
 
   @override
   String get runtimeTypeName => 'S3UploadDataPluginOptions';

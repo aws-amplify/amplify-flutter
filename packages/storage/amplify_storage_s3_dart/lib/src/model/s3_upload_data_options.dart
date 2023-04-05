@@ -18,12 +18,9 @@ class S3UploadDataOptions extends StorageUploadDataOptions {
   const S3UploadDataOptions({
     super.accessLevel = StorageAccessLevel.guest,
     this.getProperties = false,
-    this.metadata,
+    super.metadata,
     this.useAccelerateEndpoint = false,
   });
-
-  /// The metadata attached to the object to be uploaded.
-  final Map<String, String>? metadata;
 
   /// Whether to retrieve properties for the uploaded object using the
   /// `getProperties` API.

@@ -358,11 +358,11 @@ Future<void> uploadFileOperation() async {
     onProgress: onTransferProgress,
     options: StorageUploadFileOptions(
       accessLevel: accessLevel,
+      metadata: {
+        'nameTag': nameTag,
+      },
       pluginOptions: S3UploadFilePluginOptions(
         getProperties: true,
-        metadata: {
-          'nameTag': nameTag,
-        },
         useAccelerateEndpoint: useAccelerateEndpoint,
       ),
     ),
