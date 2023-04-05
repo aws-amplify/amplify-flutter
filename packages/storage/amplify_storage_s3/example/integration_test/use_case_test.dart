@@ -158,11 +158,11 @@ void main() {
                 key: testObjectKey1,
                 options: const StorageUploadDataOptions(
                   accessLevel: StorageAccessLevel.guest,
+                  metadata: {
+                    'filename': testObjectFileName1,
+                  },
                   pluginOptions: S3UploadDataPluginOptions(
                     getProperties: true,
-                    metadata: {
-                      'filename': testObjectFileName1,
-                    },
                   ),
                 ),
               )
@@ -203,11 +203,11 @@ void main() {
                 key: testObjectKey2,
                 options: const StorageUploadDataOptions(
                   accessLevel: StorageAccessLevel.protected,
+                  metadata: {
+                    'filename': testObjectFileName2,
+                  },
                   pluginOptions: S3UploadDataPluginOptions(
                     getProperties: true,
-                    metadata: {
-                      'filename': testObjectFileName2,
-                    },
                   ),
                 ),
               )
@@ -248,11 +248,11 @@ void main() {
                 key: testObjectKey3,
                 options: const StorageUploadFileOptions(
                   accessLevel: StorageAccessLevel.private,
+                  metadata: {
+                    'filename': testObjectFileName3,
+                  },
                   pluginOptions: S3UploadFilePluginOptions(
                     getProperties: true,
-                    metadata: {
-                      'filename': testObjectFileName3,
-                    },
                   ),
                 ),
               )
