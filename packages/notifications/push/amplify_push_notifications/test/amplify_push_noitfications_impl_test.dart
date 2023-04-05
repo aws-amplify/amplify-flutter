@@ -20,6 +20,7 @@ import 'amplify_push_noitfications_impl_test.mocks.dart';
 import 'test_data/fake_amplify_configuration.dart';
 import 'test_data/fake_defective_configuration.dart';
 import 'test_data/fake_notification_messges.dart';
+import 'test_data/test_amplify_push_notifications_impl.dart';
 import 'util.dart';
 
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {}
@@ -92,7 +93,7 @@ void main() {
   );
 
   setUp(() {
-    plugin = AmplifyPushNotifications(
+    plugin = TestAmplifyPushNotifications(
       serviceProviderClient: mockServiceProviderClient,
       backgroundProcessor: () async => {},
       dependencyManager: dependencyManager,
@@ -109,7 +110,7 @@ void main() {
   group('Push Notifications config', () {
     setUp(() {
       log.clear();
-      plugin = AmplifyPushNotifications(
+      plugin = TestAmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
         dependencyManager: dependencyManager,
@@ -229,7 +230,7 @@ void main() {
   group('Permission APIs', () {
     setUp(() async {
       log.clear();
-      plugin = AmplifyPushNotifications(
+      plugin = TestAmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
         dependencyManager: dependencyManager,
@@ -271,7 +272,7 @@ void main() {
   group('Badge count APIs', () {
     setUp(() async {
       log.clear();
-      plugin = AmplifyPushNotifications(
+      plugin = TestAmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
         dependencyManager: dependencyManager,
@@ -309,7 +310,7 @@ void main() {
   group('Analytics API', () {
     setUp(() async {
       log.clear();
-      plugin = AmplifyPushNotifications(
+      plugin = TestAmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
         dependencyManager: dependencyManager,
@@ -340,7 +341,7 @@ void main() {
   group('Notification handling APIs', () {
     setUp(() {
       log.clear();
-      plugin = AmplifyPushNotifications(
+      plugin = TestAmplifyPushNotifications(
         serviceProviderClient: mockServiceProviderClient,
         backgroundProcessor: () async => {},
         dependencyManager: dependencyManager,
@@ -352,7 +353,7 @@ void main() {
       overrideOperatingSystem(
         const OperatingSystem('android', ''),
         () {
-          plugin = AmplifyPushNotifications(
+          plugin = TestAmplifyPushNotifications(
             serviceProviderClient: mockServiceProviderClient,
             backgroundProcessor: () async => {},
           );
@@ -381,7 +382,7 @@ void main() {
       () async {
         SharedPreferences.setMockInitialValues({});
         final pref = await SharedPreferences.getInstance();
-        plugin = AmplifyPushNotifications(
+        plugin = TestAmplifyPushNotifications(
           serviceProviderClient: mockServiceProviderClient,
           backgroundProcessor: () async => {},
         )..onNotificationReceivedInBackground(
@@ -401,7 +402,7 @@ void main() {
       () async {
         SharedPreferences.setMockInitialValues({});
         final pref = await SharedPreferences.getInstance();
-        plugin = AmplifyPushNotifications(
+        plugin = TestAmplifyPushNotifications(
           serviceProviderClient: mockServiceProviderClient,
           backgroundProcessor: () async => {},
           dependencyManager: dependencyManager,
@@ -424,7 +425,7 @@ void main() {
       const OperatingSystem('ios', ''),
       () {
         void localiOScallback(testGlobalCallbackFunction) {}
-        plugin = AmplifyPushNotifications(
+        plugin = TestAmplifyPushNotifications(
           serviceProviderClient: mockServiceProviderClient,
           backgroundProcessor: () async => {},
           dependencyManager: dependencyManager,

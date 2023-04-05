@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplify_push_noitfications_impl_test.mocks.dart';
 import 'test_data/fake_notification_messges.dart';
+import 'test_data/test_amplify_push_notifications_impl.dart';
 
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {
   expect(
@@ -74,7 +75,7 @@ void main() {
       const OperatingSystem('android', ''),
       () async {
         final pref = await SharedPreferences.getInstance();
-        AmplifyPushNotifications(
+        TestAmplifyPushNotifications(
           serviceProviderClient: MockServiceProviderClient(),
           backgroundProcessor: () async => {},
         ).onNotificationReceivedInBackground(

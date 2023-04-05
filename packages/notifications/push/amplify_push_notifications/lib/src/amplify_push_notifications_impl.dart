@@ -56,7 +56,8 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 /// - Concrete implementation of the Plugin Interface
 /// - Communicates with native module via [PushNotificationsHostApi]
 /// {@endtemplate}
-class AmplifyPushNotifications extends PushNotificationsPluginInterface {
+abstract class AmplifyPushNotifications
+    extends PushNotificationsPluginInterface {
   /// {@macro amplify_push_notifications.amplify_push_notifications}
   AmplifyPushNotifications({
     required ServiceProviderClient serviceProviderClient,
