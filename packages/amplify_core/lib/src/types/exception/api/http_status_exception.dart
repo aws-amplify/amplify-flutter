@@ -12,13 +12,12 @@ typedef RestException = HttpStatusException;
 /// {@endtemplate}
 class HttpStatusException extends ApiException {
   /// {@macro rest_exception}
-  HttpStatusException(this.response) : super(response.decodeBody());
+  HttpStatusException(this.response)
+      : super(
+          response.decodeBody(),
+          underlyingException: 'HTTP Status code: ${response.statusCode}',
+        );
 
   /// The HTTP response from the server.
   final AWSHttpResponse response;
-
-  @override
-  String toString() {
-    return 'HttpStatusException{response=$response}';
-  }
 }

@@ -15,5 +15,5 @@ class ApiOperationException extends ApiException {
   });
 
   @override
-  String get runtimeTypeName => 'ApiOperationError';
+  String get runtimeTypeName => 'ApiOperationException';
 }
