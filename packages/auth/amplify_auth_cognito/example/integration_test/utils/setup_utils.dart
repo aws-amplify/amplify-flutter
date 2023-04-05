@@ -10,11 +10,10 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> configureAuth({
-  String? config,
+  String config = amplifyconfig,
   List<APIAuthProvider> apiAuthProviders = const [],
   AWSHttpClient? baseClient,
 }) async {
-  config ??= amplifyconfig;
   final authPlugin = AmplifyAuthCognito(
     secureStorageFactory: AmplifySecureStorage.factoryFrom(
       macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),

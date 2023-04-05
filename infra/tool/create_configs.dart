@@ -55,10 +55,11 @@ void main() {
       final environmentJson = prettyPrintJson(json);
       config.writeln("'$environmentName': '''$environmentJson''',");
     });
+    final mainEnvConfig = prettyPrintJson(environments[mainEnvName]);
     config.write('''
 };
 
-final String amplifyconfig = amplifyEnvironments['$mainEnvName']!;
+const amplifyconfig = \'\'\'$mainEnvConfig\'\'\';
 ''');
 
     for (var i = 0; i < exampleApps[category]!.length; i++) {

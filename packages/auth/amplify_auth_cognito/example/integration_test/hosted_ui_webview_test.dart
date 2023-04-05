@@ -41,7 +41,7 @@ void main() {
 
       setUp(() async {
         await configureAuth(
-          config: amplifyEnvironments['hosted-ui'],
+          config: amplifyEnvironments['hosted-ui']!,
         );
         plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
         stateMachine = plugin.stateMachine;

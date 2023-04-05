@@ -29,7 +29,7 @@ void main() {
 
           setUpAll(() async {
             await configureAuth(
-              config: amplifyEnvironments[environmentName],
+              config: amplifyEnvironments[environmentName]!,
             );
 
             final cognitoUsername = await adminCreateUser(
@@ -86,7 +86,7 @@ void main() {
 
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments['sign-in-with-phone'],
+            config: amplifyEnvironments['sign-in-with-phone']!,
           );
         });
 

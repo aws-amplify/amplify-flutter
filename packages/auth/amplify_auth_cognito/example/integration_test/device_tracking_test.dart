@@ -129,7 +129,7 @@ void main() {
         group(environmentName, () {
           setUpAll(() async {
             await configureAuth(
-              config: amplifyEnvironments[environmentName],
+              config: amplifyEnvironments[environmentName]!,
             );
           });
 
@@ -187,7 +187,7 @@ void main() {
       () {
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments['device-tracking-opt-in'],
+            config: amplifyEnvironments['device-tracking-opt-in']!,
           );
         });
 
@@ -238,7 +238,7 @@ void main() {
     group('Always', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['device-tracking-always'],
+          config: amplifyEnvironments['device-tracking-always']!,
         );
       });
 
@@ -285,7 +285,7 @@ void main() {
     group('Always (MFA)', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['device-tracking-always'],
+          config: amplifyEnvironments['device-tracking-always']!,
         );
       });
 
@@ -320,7 +320,7 @@ void main() {
     group('Always (Email Alias)', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['device-tracking-email-alias'],
+          config: amplifyEnvironments['device-tracking-email-alias']!,
         );
       });
 
@@ -367,7 +367,7 @@ void main() {
     group('Always (Email Alias / MFA)', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['device-tracking-email-alias'],
+          config: amplifyEnvironments['device-tracking-email-alias']!,
         );
       });
 
