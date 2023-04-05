@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:ui';
@@ -21,12 +24,20 @@ class AmplifyPushNotificationsFlutterApi
     PushNotificationsFlutterApi.setup(this);
   }
 
-  /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api}
+  /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api.reset}
+  /// Ability to reset the singeton anly used for resetting beteween tests.
+  /// {@endtemplate}
+  static void reset() {
+    PushNotificationsFlutterApi.setup(null);
+    _instance = AmplifyPushNotificationsFlutterApi._constructor();
+  }
+
+  /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api.instance}
   /// Singleton instance of the class.
   /// {@endtemplate}
   static AmplifyPushNotificationsFlutterApi get instance => _instance;
 
-  static final AmplifyPushNotificationsFlutterApi _instance =
+  static AmplifyPushNotificationsFlutterApi _instance =
       AmplifyPushNotificationsFlutterApi._constructor();
 
   final _eventQueue = <PushNotificationMessage>[];

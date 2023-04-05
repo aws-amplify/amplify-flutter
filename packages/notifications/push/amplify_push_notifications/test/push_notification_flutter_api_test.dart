@@ -24,6 +24,7 @@ void main() {
 
   setUp(() {
     TestWidgetsFlutterBinding.ensureInitialized();
+    AmplifyPushNotificationsFlutterApi.reset();
     flutterApi = AmplifyPushNotificationsFlutterApi.instance;
     SharedPreferences.setMockInitialValues({});
   });
@@ -36,7 +37,7 @@ void main() {
   test('should flush events when the serviceClient is ready', () async {
     await flutterApi
         .onNotificationReceivedInBackground(standardAndroidPushMessage);
-    expect(flutterApi.eventQueue.length, 2);
+    expect(flutterApi.eventQueue.length, 1);
     final mockServiceClient = MockServiceProviderClient();
     when(
       mockServiceClient.recordNotificationEvent(
@@ -47,7 +48,7 @@ void main() {
       (_) async {},
     );
     flutterApi.serviceProviderClient = mockServiceClient;
-    await Future.delayed(const Duration(seconds: 3), () {});
+    await Future.delayed(const Duration(microseconds: 1), () {});
     expect(flutterApi.eventQueue.length, 0);
   });
 
@@ -60,7 +61,7 @@ void main() {
     }
 
     flutterApi.registerOnReceivedInBackgroundCallback(
-      externalCallback,
+      expectAsync1(externalCallback),
     );
     await flutterApi
         .onNotificationReceivedInBackground(standardAndroidPushMessage);
@@ -80,8 +81,7 @@ void main() {
           testGlobalCallbackFunction,
         );
 
-        await Future.delayed(const Duration(seconds: 3), () {});
-
+        await Future.delayed(const Duration(microseconds: 1), () {});
         expect(pref.containsKey(externalHandleKey), true);
 
         await flutterApi
