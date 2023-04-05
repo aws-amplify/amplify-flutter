@@ -22,7 +22,11 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('User Attributes', () {
-    for (final environmentName in ['main', 'user-pool-only']) {
+    for (final environmentName in [
+      'main',
+      'user-pool-only',
+      'with-client-secret'
+    ]) {
       group(environmentName, () {
         late String username;
         late String password;
