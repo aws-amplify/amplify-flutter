@@ -32,7 +32,7 @@ export type AuthIntegrationEnvironmentType =
 
 export type AuthIntegrationTestStackEnvironmentProps =
   AuthBaseEnvironmentProps &
-    (AuthFullEnvironmentProps | AuthCustomAuthorizerEnvironmentProps);
+  (AuthFullEnvironmentProps | AuthCustomAuthorizerEnvironmentProps);
 
 export interface AuthBaseEnvironmentProps
   extends IntegrationTestStackEnvironmentProps {
@@ -108,6 +108,13 @@ export interface AuthFullEnvironmentProps {
    * @default true
    */
   allowUnauthenticatedIdentities?: boolean;
+  
+  /**
+   * Whether to issue a client secret to the user pool client.
+   * 
+   * @default false
+   */
+  withClientSecret?: boolean;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -192,6 +199,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       includeUserPool = true,
       includeIdentityPool = true,
       allowUnauthenticatedIdentities = true,
+      withClientSecret = false,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -402,6 +410,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       },
       disableOAuth,
       oAuth,
+      generateSecret: withClientSecret,
     });
 
     // Create the Cognito Identity Pool
@@ -608,6 +617,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       userPoolConfig = {
         userPoolId: userPool.userPoolId,
         userPoolClientId: userPoolClient.userPoolClientId,
+        userPoolClientSecret: withClientSecret ? userPoolClient.userPoolClientSecret.unsafeUnwrap() : undefined,
         standardAttributes,
         signInAliases,
         mfa,
