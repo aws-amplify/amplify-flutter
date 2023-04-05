@@ -6,6 +6,8 @@ import 'dart:io' show Platform;
 
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
+import 'package:flutter/material.dart';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
     .createChild('AmplifyPushNotification');
@@ -33,6 +35,7 @@ class PinpointProvider implements ServiceProviderClient {
   Future<void> init({
     required NotificationsPinpointPluginConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
+    @visibleForTesting FlutterAnalyticsClient? mockAnalyticsClient,
   }) async {
     try {
       if (!_isInitialized) {
@@ -47,11 +50,13 @@ class PinpointProvider implements ServiceProviderClient {
         final region = config.region;
         final appId = config.appId;
 
-        _analyticsClient = FlutterAnalyticsClient(
-          endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
-            storageScope: EndpointStorageScope.pushNotifications,
-          ),
-        );
+        _analyticsClient = mockAnalyticsClient ??
+            FlutterAnalyticsClient(
+              endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
+                storageScope: EndpointStorageScope.pushNotifications,
+              ),
+            );
+
         await _analyticsClient.init(
           pinpointAppId: appId,
           region: region,
@@ -61,7 +66,12 @@ class PinpointProvider implements ServiceProviderClient {
         _isInitialized = true;
       }
     } on Exception catch (e) {
-      _logger.error('Unable to initialize the Analytics Client: $e');
+      throw PushNotificationException(
+        'Unable to initialize the Pinpoint provider.',
+        recoverySuggestion:
+            'Make sure Auth and Analytics categories are set up correctly.',
+        underlyingException: e,
+      );
     }
   }
 
@@ -72,18 +82,23 @@ class PinpointProvider implements ServiceProviderClient {
   }) async {
     try {
       if (!_isInitialized) {
-        _logger.error(
-          'Pinpoint provider not configured, re-run Amplify.configure',
+        throw ConfigurationError(
+          'Pinpoint Provider is not initialized.',
+          recoverySuggestion:
+              'Make sure Pinpoint service provider client is initialized before using this method.',
         );
-        return;
       }
       await _analyticsClient.endpointClient.setUser(
         userId,
         userProfile,
       );
-      _logger.error('Successfully identified user details');
     } on Exception catch (e) {
-      _logger.error('Unable to register user details: $e');
+      throw PushNotificationException(
+        'Unable to identify user.',
+        recoverySuggestion:
+            'Make sure Auth and Analytics categories are set up correctly.',
+        underlyingException: e,
+      );
     }
   }
 
@@ -95,7 +110,7 @@ class PinpointProvider implements ServiceProviderClient {
     try {
       if (!_isInitialized) {
         _logger.error(
-          'Pinpoint provider not configured, re-run Amplify.configure',
+          'Pinpoint provider not configured.',
         );
         return;
       }
@@ -106,10 +121,10 @@ class PinpointProvider implements ServiceProviderClient {
         return;
       }
 
-      final eventInfo = _constructEventInfo(notification: notification);
+      final eventInfo = constructEventInfo(notification: notification);
       await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.first as String}.${eventType.name}',
-        properties: eventInfo.last as AnalyticsProperties,
+        eventType: '${eventInfo.source}.${eventType.name}',
+        properties: eventInfo.properties,
       );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
@@ -121,7 +136,7 @@ class PinpointProvider implements ServiceProviderClient {
     try {
       if (!_isInitialized) {
         _logger.error(
-          'Pinpoint provider not configured, re-run Amplify.configure',
+          'Pinpoint provider not configured.',
         );
         return;
       }
@@ -137,7 +152,8 @@ class PinpointProvider implements ServiceProviderClient {
     }
   }
 
-  Set<Object> _constructEventInfo({
+  @visibleForTesting
+  EventInfo constructEventInfo({
     required PushNotificationMessage notification,
   }) {
     final data = notification.data;
@@ -157,7 +173,7 @@ class PinpointProvider implements ServiceProviderClient {
       }
       if (data.containsKey(_androidCampaignTreatmentIdKey)) {
         campaign['treatment_id'] =
-            data[_androidCampaignTreatmentIdKey] as String;
+            (data[_androidCampaignTreatmentIdKey] as int).toString();
       }
     }
 
@@ -194,7 +210,7 @@ class PinpointProvider implements ServiceProviderClient {
     if (journey.isNotEmpty) {
       journey.forEach(analyticsProperties.addStringProperty);
     }
-    return {source, analyticsProperties};
+    return EventInfo(source, analyticsProperties);
   }
 
   ChannelType? _getChannelType() {

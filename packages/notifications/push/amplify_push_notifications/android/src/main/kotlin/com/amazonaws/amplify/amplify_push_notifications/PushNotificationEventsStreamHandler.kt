@@ -3,6 +3,7 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
+import com.amplifyframework.annotations.InternalAmplifyApi
 import io.flutter.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
@@ -10,6 +11,7 @@ import io.flutter.plugin.common.EventChannel.EventSink
 
 private const val TAG = "PushNotificationEventsStreamHandler"
 
+@InternalAmplifyApi
 enum class NativeEvent {
     TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED, ERROR;
 
@@ -27,10 +29,12 @@ enum class NativeEvent {
         get() = "${PushNotificationPluginConstants.CHANNEL_NAME_PREFIX}/event/$eventName"
 }
 
+@InternalAmplifyApi
 data class PushNotificationsEvent(
     val event: NativeEvent, val payload: Map<Any, Any?>
 )
 
+@InternalAmplifyApi
 class PushNotificationEventsStreamHandler constructor(
     private val associatedNativeEvent: NativeEvent
 ) : EventChannel.StreamHandler {
@@ -107,6 +111,7 @@ class PushNotificationEventsStreamHandler constructor(
     }
 }
 
+@InternalAmplifyApi
 class StreamHandlers {
     companion object {
 

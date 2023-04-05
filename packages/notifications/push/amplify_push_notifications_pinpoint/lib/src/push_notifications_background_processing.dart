@@ -19,9 +19,11 @@ const _backgroundChannel = MethodChannel(
 /// can record the notificaiton received event when the app is in a killed state.
 /// {@endtemplate}
 @pragma('vm:entry-point')
-Future<void> amplifyBackgroundProcessing() async {
+Future<void> amplifyBackgroundProcessing({
+  @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
+}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  final amplifySecureStorage = AmplifySecureStorage(
+  amplifySecureStorage ??= AmplifySecureStorage(
     config: AmplifySecureStorageConfig(
       scope: 'amplifyPushNotifications',
     ),
@@ -41,10 +43,10 @@ Future<void> amplifyBackgroundProcessing() async {
   if (!Amplify.isConfigured) {
     await Amplify.addPlugins([authPlugin, notificationsPlugin]);
     await Amplify.configure(amplifyconfigStr);
-
-    // Signal that this method finished running so queued up natove to dart events if any can be flushed.
-    await _backgroundChannel.invokeMethod(
-      'amplifyBackgroundProcessorFinished',
-    );
   }
+
+  // Signal that this method finished running so queued up native to dart events if any can be flushed.
+  await _backgroundChannel.invokeMethod(
+    'amplifyBackgroundProcessorFinished',
+  );
 }
