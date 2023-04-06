@@ -128,27 +128,6 @@ abstract class PushNotificationsFlutterApi {
         });
       }
     }
-    {
-      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened',
-          codec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        channel.setMessageHandler(null);
-      } else {
-        channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final Map<Object?, Object?>? arg_withPayload =
-              (args[0] as Map<Object?, Object?>?)?.cast<Object?, Object?>();
-          assert(arg_withPayload != null,
-              'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onLaunchNotificationOpened was null, expected non-null Map<Object?, Object?>.');
-          api.onLaunchNotificationOpened(arg_withPayload!);
-          return;
-        });
-      }
-    }
   }
 }
 
@@ -317,7 +296,8 @@ class PushNotificationsHostApi {
 
   Future<void> registerCallbackFunction(int arg_callbackHandle) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction', codec,
+        'dev.flutter.pigeon.PushNotificationsHostApi.registerCallbackFunction',
+        codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_callbackHandle]) as List<Object?>?;

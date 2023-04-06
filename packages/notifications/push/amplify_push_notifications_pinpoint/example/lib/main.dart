@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: avoid_print
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
@@ -65,18 +67,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isConfigured = false;
-  bool isForegroundListernerInitialized = false;
-  bool isBackgroundListernerInitialized = false;
-  bool notificationOpenedListernerInitialized = false;
+  bool isForegroundListenerInitialized = false;
+  bool isBackgroundListenerInitialized = false;
+  bool notificationOpenedListenerInitialized = false;
   int globalBgCallbackCount = 0;
 
   PushNotificationMessage? foregroundMessage;
   PushNotificationMessage? backgroundMessage;
 
-  PushNotificationMessage? notificaitonOpenedMessage;
+  PushNotificationMessage? notificationOpenedMessage;
   PushNotificationPermissionStatus? getPermissionStatus;
   bool? requestPermissionsResult;
-  PushNotificationMessage? launchNotificaitonAvailable;
+  PushNotificationMessage? launchNotificationAvailable;
 
   Future<int> getAndUpdateCallbackCounts() async {
     try {
@@ -90,9 +92,9 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  void getLaunchNotif() {
+  void getLaunchNotification() {
     setState(() {
-      launchNotificaitonAvailable =
+      launchNotificationAvailable =
           Amplify.Notifications.Push.launchNotification;
     });
   }
@@ -154,7 +156,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final status =
-                      await Amplify.Notifications.getPermissionStatus();
+                      await Amplify.Notifications.Push.getPermissionStatus();
                   setState(() {
                     getPermissionStatus = status;
                   });
@@ -162,11 +164,11 @@ class _MyAppState extends State<MyApp> {
                 child: const Text('getPermissionStatus'),
               ),
               if (getPermissionStatus != null)
-                Text('Perimission status: $getPermissionStatus'),
+                Text('Permission status: $getPermissionStatus'),
               ElevatedButton(
                 onPressed: () async {
                   final result =
-                      await Amplify.Notifications.requestPermissions();
+                      await Amplify.Notifications.Push.requestPermissions();
                   setState(() {
                     requestPermissionsResult = result;
                   });
@@ -175,7 +177,7 @@ class _MyAppState extends State<MyApp> {
               ),
               if (requestPermissionsResult != null)
                 Text(
-                  'Requesting Perimission result: $requestPermissionsResult',
+                  'Requesting permission result: $requestPermissionsResult',
                 ),
               const Divider(
                 height: 20,
@@ -196,13 +198,13 @@ class _MyAppState extends State<MyApp> {
               ),
               headerText('Notification Handling APIs'),
               ElevatedButton(
-                onPressed: getLaunchNotif,
+                onPressed: getLaunchNotification,
                 child: const Text('get Launch Notification'),
               ),
-              if (launchNotificaitonAvailable != null)
+              if (launchNotificationAvailable != null)
                 ListTile(
                   title: Text(
-                    'launchNotificaitonAvailable: $launchNotificaitonAvailable',
+                    'launchNotificationAvailable: $launchNotificationAvailable',
                   ),
                 ),
             ],
