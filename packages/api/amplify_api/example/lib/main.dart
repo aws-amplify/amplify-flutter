@@ -3,6 +3,7 @@
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_api_example/graphql_api_view.dart';
+import 'package:amplify_api_example/models/ModelProvider.dart';
 import 'package:amplify_api_example/rest_api_view.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -45,7 +46,9 @@ class _MyAppState extends State<MyApp> {
     );
     await Amplify.addPlugins([
       authPlugin,
-      AmplifyAPI(),
+      // FIXME: In your app, make sure to run `amplify codegen models` to generate
+      // the models and provider
+      AmplifyAPI(modelProvider: ModelProvider.instance),
     ]);
 
     try {
