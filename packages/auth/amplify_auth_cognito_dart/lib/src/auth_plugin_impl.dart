@@ -38,6 +38,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         VerifyUserAttributeRequest;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_iam_auth_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/util/cognito_user_pools_auth_provider.dart';

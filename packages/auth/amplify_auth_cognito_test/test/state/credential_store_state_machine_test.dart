@@ -4,7 +4,9 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/credential_store_keys.dart';
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/common/mock_config.dart';
 import 'package:amplify_auth_cognito_test/common/mock_legacy_credential_provider.dart';

@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_dart/src/util/credentials_providers.dart';
 import 'package:amplify_core/amplify_core.dart';
