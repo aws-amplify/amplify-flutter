@@ -36,7 +36,7 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
-    this.autoFlushEventsInterval = const Duration(seconds: 10),
+    this.autoFlushEventsInterval = const Duration(seconds: 30),
   });
 
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
