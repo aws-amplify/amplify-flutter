@@ -120,59 +120,66 @@ void main() {
       }
     }
 
-    group('Opt-In', () {
-      setUpAll(() async {
-        await configureAuth(
-          config: amplifyEnvironments['device-tracking-opt-in'],
-        );
-      });
+    for (final environmentName in [
+      'device-tracking-opt-in',
+      'user-pool-only'
+    ]) {
+      group('Opt-In', () {
+        group(environmentName, () {
+          setUpAll(() async {
+            await configureAuth(
+              config: amplifyEnvironments[environmentName],
+            );
+          });
 
-      setUp(signIn);
+          setUp(signIn);
 
-      asyncTest('device is not automatically remembered', (_) async {
-        expect(await getDeviceState(), DeviceState.tracked);
-      });
+          asyncTest('device is not automatically remembered', (_) async {
+            expect(await getDeviceState(), DeviceState.tracked);
+          });
 
-      asyncTest('rememberDevice starts tracking', (_) async {
-        expect(await getDeviceState(), DeviceState.tracked);
-        await Amplify.Auth.rememberDevice();
-        expect(await getDeviceState(), DeviceState.remembered);
-      });
+          asyncTest('rememberDevice starts tracking', (_) async {
+            expect(await getDeviceState(), DeviceState.tracked);
+            await Amplify.Auth.rememberDevice();
+            expect(await getDeviceState(), DeviceState.remembered);
+          });
 
-      asyncTest('forgetDevice stops tracking', (_) async {
-        expect(await getDeviceState(), DeviceState.tracked);
-        await Amplify.Auth.rememberDevice();
-        expect(await getDeviceState(), DeviceState.remembered);
-        await Amplify.Auth.forgetDevice();
-        expect(await getDeviceState(), DeviceState.untracked);
-      });
+          asyncTest('forgetDevice stops tracking', (_) async {
+            expect(await getDeviceState(), DeviceState.tracked);
+            await Amplify.Auth.rememberDevice();
+            expect(await getDeviceState(), DeviceState.remembered);
+            await Amplify.Auth.forgetDevice();
+            expect(await getDeviceState(), DeviceState.untracked);
+          });
 
-      asyncTest('fetchDevices lists remembered devices', (_) async {
-        expect(await getDeviceState(), DeviceState.tracked);
-        expect(await Amplify.Auth.fetchDevices(), isEmpty);
-        await Amplify.Auth.rememberDevice();
-        expect(await Amplify.Auth.fetchDevices(), isNotEmpty);
-      });
+          asyncTest('fetchDevices lists remembered devices', (_) async {
+            expect(await getDeviceState(), DeviceState.tracked);
+            expect(await Amplify.Auth.fetchDevices(), isEmpty);
+            await Amplify.Auth.rememberDevice();
+            expect(await Amplify.Auth.fetchDevices(), isNotEmpty);
+          });
 
-      asyncTest('multiple logins use the same device key', (_) async {
-        final deviceKey = await getDeviceKey();
-        expect(deviceKey, isNotNull);
-        await signOutUser();
-        await signIn();
-        expect(await getDeviceKey(), deviceKey);
-      });
+          asyncTest('multiple logins use the same device key', (_) async {
+            final deviceKey = await getDeviceKey();
+            expect(deviceKey, isNotNull);
+            await signOutUser();
+            await signIn();
+            expect(await getDeviceKey(), deviceKey);
+          });
 
-      asyncTest('can login when device is removed in Cognito', (_) async {
-        final deviceKey = await getDeviceKey();
-        expect(deviceKey, isNotNull);
-        await signOutUser();
-        await deleteDevice(cognitoUsername, deviceKey!);
-        await expectLater(signIn(), completes);
-        final newDeviceKey = await getDeviceKey();
-        expect(newDeviceKey, isNotNull);
-        expect(newDeviceKey, isNot(deviceKey));
+          asyncTest('can login when device is removed in Cognito', (_) async {
+            final deviceKey = await getDeviceKey();
+            expect(deviceKey, isNotNull);
+            await signOutUser();
+            await deleteDevice(cognitoUsername, deviceKey!);
+            await expectLater(signIn(), completes);
+            final newDeviceKey = await getDeviceKey();
+            expect(newDeviceKey, isNotNull);
+            expect(newDeviceKey, isNot(deviceKey));
+          });
+        });
       });
-    });
+    }
 
     group(
       'Opt-In (MFA)',

@@ -66,9 +66,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
   /// The configured identity pool.
   CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
 
-  /// Whether there is an identity pool configured.
-  bool get hasIdentityPool => identityPoolConfig != null;
-
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
 
@@ -607,7 +604,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
-    if (hasIdentityPool) {
+    if (identityPoolConfig != null) {
       await manager.clearCredentials(
         CognitoIdentityPoolKeys(identityPoolConfig!),
       );
@@ -735,9 +732,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     if (authenticationResult != null) {
       final accessToken = await _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
-      if (newDeviceMetadata != null &&
-          // ConfirmDevice API requires an identity pool
-          hasIdentityPool) {
+      if (newDeviceMetadata != null) {
         final createDeviceResult = await _createDevice(
           accessToken,
           newDeviceMetadata,

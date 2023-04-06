@@ -37,6 +37,7 @@ Future<void> configureAuth({
     Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
   );
   addTearDown(Amplify.reset);
+  addTearDown(signOutUser);
 }
 
 /// Whether a test for [environmentName] should be skipped.
@@ -54,4 +55,13 @@ Future<void> signOutUser() async {
   } on Exception {
     // Ignore a signOut error because we only care when someone signed in.
   }
+}
+
+Future<void> deleteTestUser() async {
+  try {
+    await Amplify.Auth.deleteUser();
+  } on Object {
+    // OK
+  }
+  await signOutUser();
 }

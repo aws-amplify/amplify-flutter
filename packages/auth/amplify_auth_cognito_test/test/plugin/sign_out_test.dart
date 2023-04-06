@@ -250,6 +250,13 @@ void main() {
           config: userPoolOnlyConfig,
           authProviderRepo: testAuthRepo,
         );
+
+        final mockIdp = MockCognitoIdentityProviderClient(
+          globalSignOut: () async => GlobalSignOutResponse(),
+          revokeToken: () async => RevokeTokenResponse(),
+        );
+        stateMachine.addInstance<CognitoIdentityProviderClient>(mockIdp);
+
         expect(plugin.signOut(), completion(isA<CognitoCompleteSignOut>()));
       });
 

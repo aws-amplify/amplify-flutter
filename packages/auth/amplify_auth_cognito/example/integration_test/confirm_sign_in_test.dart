@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_test/amplify_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,119 +16,128 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('confirmSignIn', () {
-    late String username;
-    late String tempPassword;
-    late OtpResult otpResult;
+    for (final environmentName in ['main', 'user-pool-only']) {
+      group(environmentName, () {
+        late String username;
+        late String password;
+        late OtpResult otpResult;
 
-    setUpAll(() async {
-      await configureAuth();
-    });
+        setUpAll(() async {
+          await configureAuth(
+            config: amplifyEnvironments[environmentName],
+          );
+        });
 
-    setUp(() async {
-      username = generateUsername();
-      tempPassword = generatePassword();
+        setUp(() async {
+          username = generateUsername();
+          password = generatePassword();
 
-      otpResult = await getOtpCode(UserAttribute.username(username));
+          otpResult = await getOtpCode(UserAttribute.username(username));
 
-      await adminCreateUser(
-        username,
-        tempPassword,
-        enableMfa: true,
-        verifyAttributes: true,
-      );
+          final cognitoUsername = await adminCreateUser(
+            username,
+            password,
+            enableMfa: true,
+            verifyAttributes: true,
+          );
+          addTearDown(() => deleteUser(cognitoUsername));
 
-      final signInRes = await Amplify.Auth.signIn(
-        username: username,
-        password: tempPassword,
-      );
-      expect(signInRes.isSignedIn, isFalse);
-      expect(
-        signInRes.nextStep.signInStep,
-        AuthSignInStep.confirmSignInWithNewPassword,
-      );
-    });
+          final signInRes = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(signInRes.isSignedIn, isFalse);
+          expect(
+            signInRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithNewPassword,
+          );
+        });
 
-    asyncTest('confirming signs in user', (_) async {
-      final newPassword = generatePassword();
+        tearDown(signOutUser);
 
-      final confirmRes = await Amplify.Auth.confirmSignIn(
-        confirmationValue: newPassword,
-      );
-      expect(confirmRes.isSignedIn, isFalse);
-      expect(
-        confirmRes.nextStep.signInStep,
-        AuthSignInStep.confirmSignInWithSmsMfaCode,
-      );
+        asyncTest('confirming signs in user', (_) async {
+          final newPassword = generatePassword();
 
-      final otpCode = await otpResult.code;
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: newPassword,
+          );
+          expect(confirmRes.isSignedIn, isFalse);
+          expect(
+            confirmRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithSmsMfaCode,
+          );
 
-      await expectLater(
-        Amplify.Auth.confirmSignIn(
-          confirmationValue: otpCode,
-        ),
-        completion(
-          isA<SignInResult>().having(
-            (res) => res.isSignedIn,
-            'isSignedIn',
-            isTrue,
-          ),
-        ),
-      );
-    });
+          final otpCode = await otpResult.code;
 
-    asyncTest('allows retrying on code mismatch', (_) async {
-      final newPassword = generatePassword();
+          await expectLater(
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: otpCode,
+            ),
+            completion(
+              isA<SignInResult>().having(
+                (res) => res.isSignedIn,
+                'isSignedIn',
+                isTrue,
+              ),
+            ),
+          );
+        });
 
-      final confirmRes = await Amplify.Auth.confirmSignIn(
-        confirmationValue: newPassword,
-      );
-      expect(confirmRes.isSignedIn, isFalse);
-      expect(
-        confirmRes.nextStep.signInStep,
-        AuthSignInStep.confirmSignInWithSmsMfaCode,
-      );
+        asyncTest('allows retrying on code mismatch', (_) async {
+          final newPassword = generatePassword();
 
-      final otpCode = await otpResult.code;
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: newPassword,
+          );
+          expect(confirmRes.isSignedIn, isFalse);
+          expect(
+            confirmRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithSmsMfaCode,
+          );
 
-      await expectLater(
-        Amplify.Auth.confirmSignIn(
-          confirmationValue: 'incorrect-code',
-        ),
-        throwsA(isA<CodeMismatchException>()),
-      );
+          final otpCode = await otpResult.code;
 
-      await expectLater(
-        Amplify.Auth.confirmSignIn(
-          confirmationValue: otpCode,
-        ),
-        completion(
-          isA<SignInResult>().having(
-            (res) => res.isSignedIn,
-            'isSignedIn',
-            isTrue,
-          ),
-        ),
-      );
-    });
+          await expectLater(
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: 'incorrect-code',
+            ),
+            throwsA(isA<CodeMismatchException>()),
+          );
 
-    asyncTest('allows retrying on weak password', (_) async {
-      const weakPassword = 'weak';
-      await expectLater(
-        Amplify.Auth.confirmSignIn(
-          confirmationValue: weakPassword,
-        ),
-        throwsA(isA<InvalidPasswordException>()),
-      );
+          await expectLater(
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: otpCode,
+            ),
+            completion(
+              isA<SignInResult>().having(
+                (res) => res.isSignedIn,
+                'isSignedIn',
+                isTrue,
+              ),
+            ),
+          );
+        });
 
-      final newPassword = generatePassword();
-      final confirmRes = await Amplify.Auth.confirmSignIn(
-        confirmationValue: newPassword,
-      );
-      expect(confirmRes.isSignedIn, isFalse);
-      expect(
-        confirmRes.nextStep.signInStep,
-        AuthSignInStep.confirmSignInWithSmsMfaCode,
-      );
-    });
+        asyncTest('allows retrying on weak password', (_) async {
+          const weakPassword = 'weak';
+          await expectLater(
+            Amplify.Auth.confirmSignIn(
+              confirmationValue: weakPassword,
+            ),
+            throwsA(isA<InvalidPasswordException>()),
+          );
+
+          final newPassword = generatePassword();
+          final confirmRes = await Amplify.Auth.confirmSignIn(
+            confirmationValue: newPassword,
+          );
+          expect(confirmRes.isSignedIn, isFalse);
+          expect(
+            confirmRes.nextStep.signInStep,
+            AuthSignInStep.confirmSignInWithSmsMfaCode,
+          );
+        });
+      });
+    }
   });
 }
