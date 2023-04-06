@@ -36,7 +36,7 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
-    this.autoFlushEventsInterval = const Duration(milliseconds: 10000),
+    this.autoFlushEventsInterval = const Duration(seconds: 10),
   });
 
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
@@ -133,8 +133,8 @@ class DurationConverter implements JsonConverter<Duration, int> {
   const DurationConverter();
 
   @override
-  Duration fromJson(int json) => Duration(milliseconds: json);
+  Duration fromJson(int json) => Duration(seconds: json);
 
   @override
-  int toJson(Duration object) => object.inMilliseconds;
+  int toJson(Duration object) => object.inSeconds;
 }

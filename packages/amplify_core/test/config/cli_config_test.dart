@@ -39,8 +39,7 @@ const expected = {
             region: REGION,
           ),
           pinpointTargeting: PinpointTargeting(region: REGION),
-          autoFlushEventsInterval:
-              Duration(milliseconds: ANALYTICS_FLUSH_INTERVAL),
+          autoFlushEventsInterval: Duration(seconds: ANALYTICS_FLUSH_INTERVAL),
         ),
       },
     ),
