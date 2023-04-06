@@ -10,7 +10,7 @@
       package: 'com.amazonaws.amplify.amplify_push_notifications',
     ),
     javaOut:
-        'android/src/main/kotlin/com/amazonaws/amplify/amplify_push_notifications/PushNotificationsNativePluginBindings.java',
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_push_notifications/PushNotificationsHostApiBindings.java',
     objcOptions: ObjcOptions(
       headerIncludePath: 'PushNotificationsNativePlugin.h',
     ),

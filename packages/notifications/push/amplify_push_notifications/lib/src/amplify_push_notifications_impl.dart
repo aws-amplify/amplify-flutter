@@ -205,7 +205,7 @@ abstract class AmplifyPushNotifications
 
     // Initialize Endpoint Client
     await _serviceProviderClient.init(
-      config: config,
+      config: notificationsConfig,
       authProviderRepo: authProviderRepo,
     );
 
@@ -259,7 +259,6 @@ abstract class AmplifyPushNotifications
       throw _needsConfigurationException;
     }
     final result = await _hostApi.getPermissionStatus();
-
     switch (result.status) {
       case PermissionStatus.denied:
         return PushNotificationPermissionStatus.denied;
@@ -336,9 +335,11 @@ abstract class AmplifyPushNotifications
 
   void _notificationOpenedListener(
     PushNotificationMessage pushNotificationMessage,
-  ) {
-    // TODO(Samaritan1011001): Record Analytics
-  }
+  ) =>
+      _serviceProviderClient.recordNotificationEvent(
+        eventType: PinpointEventType.notificationOpened,
+        notification: pushNotificationMessage,
+      );
 
   void _tokenReceivedListener(String deviceToken) {
     unawaited(_registerDevice(deviceToken));
@@ -357,8 +358,6 @@ abstract class AmplifyPushNotifications
         underlyingException: error,
       );
     }
-
-    await _registerDevice(deviceToken);
   }
 
   void _attachEventChannelListeners() {
@@ -385,13 +384,11 @@ abstract class AmplifyPushNotifications
     });
   }
 
-  Future<void> _recordAnalyticsForLaunchNotification() async {
-    if (_launchNotificationForAnalytics == null) {
-      return;
-    }
-
-    // TODO(Samaritan1011001): integrate analytic recodEvent
-
-    _launchNotificationForAnalytics = null;
-  }
+  void _recordAnalyticsForLaunchNotification(
+    PushNotificationMessage launchNotification,
+  ) =>
+      _serviceProviderClient.recordNotificationEvent(
+        eventType: PinpointEventType.notificationOpened,
+        notification: launchNotification,
+      );
 }
