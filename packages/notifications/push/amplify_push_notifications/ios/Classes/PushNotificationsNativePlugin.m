@@ -164,6 +164,16 @@ NSObject<FlutterMessageCodec> *PushNotificationsFlutterApiGetCodec() {
     completion(nil);
   }];
 }
+- (void)nullifyLaunchNotificationWithCompletion:(void (^)(NSError *_Nullable))completion {
+  FlutterBasicMessageChannel *channel =
+    [FlutterBasicMessageChannel
+      messageChannelWithName:@"dev.flutter.pigeon.PushNotificationsFlutterApi.nullifyLaunchNotification"
+      binaryMessenger:self.binaryMessenger
+      codec:PushNotificationsFlutterApiGetCodec()];
+  [channel sendMessage:nil reply:^(id reply) {
+    completion(nil);
+  }];
+}
 @end
 
 @interface PushNotificationsHostApiCodecReader : FlutterStandardReader

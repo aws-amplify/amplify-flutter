@@ -105,6 +105,8 @@ abstract class PushNotificationsFlutterApi {
   Future<void> onNotificationReceivedInBackground(
       Map<Object?, Object?> withPayload);
 
+  void nullifyLaunchNotification();
+
   static void setup(PushNotificationsFlutterApi? api,
       {BinaryMessenger? binaryMessenger}) {
     {
@@ -124,6 +126,21 @@ abstract class PushNotificationsFlutterApi {
           assert(arg_withPayload != null,
               'Argument for dev.flutter.pigeon.PushNotificationsFlutterApi.onNotificationReceivedInBackground was null, expected non-null Map<Object?, Object?>.');
           await api.onNotificationReceivedInBackground(arg_withPayload!);
+          return;
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.PushNotificationsFlutterApi.nullifyLaunchNotification',
+          codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        channel.setMessageHandler(null);
+      } else {
+        channel.setMessageHandler((Object? message) async {
+          // ignore message
+          api.nullifyLaunchNotification();
           return;
         });
       }

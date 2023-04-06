@@ -11,7 +11,7 @@ let expectedNotification = [
     "aps": [
         "alert": ["title": "I'm a PN"],
         "content-available": 1
-    ]
+    ] as [String : Any]
 ]
 let expectedDeviceToken = "abcd1234ef5678";
 let expectedDeviceTokenData = revertTokenOperation(expectedDeviceToken)
@@ -90,6 +90,11 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         XCTAssertTrue(
             NSDictionary(dictionary: result!).isEqual(to: expectedNotification)
         )
+
+        // Can only get the launchNotification once
+        let result2 = pluginInstance!.getLaunchNotificationWithError(fakePointer)
+
+        XCTAssertNil(result2);
     }
 
     func testGetLaunchNotification_AppInActive() {
@@ -101,7 +106,7 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
             "aps": [
                 "alert": ["title": "I'm a PN"],
                 "content-available": 1
-            ]
+            ] as [String : Any]
         ]
 
         let handled = pluginInstance!.application(
@@ -119,6 +124,11 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         XCTAssertTrue(
             NSDictionary(dictionary: result!).isEqual(to: expectedLaunchNotification)
         )
+
+        // Can only get the launchNotification once
+        let result2 = pluginInstance!.getLaunchNotificationWithError(fakePointer)
+
+        XCTAssertNil(result2);
     }
 
 
@@ -131,7 +141,7 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
             "aps": [
                 "alert": ["title": "I'm a PN"],
                 "content-available": 1
-            ]
+            ] as [String : Any]
         ]
 
         let handled = pluginInstance!.application(
@@ -155,6 +165,23 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         )
 
         XCTAssertTrue(handled)
+
+        let result = pluginInstance!.getLaunchNotificationWithError(fakePointer)
+
+        XCTAssertNil(result);
+    }
+
+    func testGetLaunchNotification_AfterApplicationDidEnterBackground_LaunchNoticicationNotConsumed() {
+        fakeUIApplicationState = UIApplication.State.active
+
+        let _ = pluginInstance!.application(
+            UIApplication.shared,
+            didFinishLaunchingWithOptions: [
+                UIApplication.LaunchOptionsKey.remoteNotification: expectedNotification
+            ]
+        )
+
+        pluginInstance!.applicationDidEnterBackground(UIApplication.shared)
 
         let result = pluginInstance!.getLaunchNotificationWithError(fakePointer)
 
