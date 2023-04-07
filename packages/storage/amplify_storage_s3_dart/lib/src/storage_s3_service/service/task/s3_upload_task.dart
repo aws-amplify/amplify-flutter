@@ -190,6 +190,8 @@ class S3UploadTask {
   int get _numOfOngoingSubtasks => _ongoingSubtasks.length;
   int get _numOfCompletedSubtasks => _completedSubtasks.length;
 
+  Map<String, String> get _metadata => encodeMetadata(_options.metadata);
+
   /// The Future of the [S3UploadTask]
   Future<S3Item> get result => _uploadCompleter.future;
 
@@ -325,7 +327,7 @@ class S3UploadTask {
         ..body = body
         ..contentType = body.contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_options.metadata);
+        ..metadata.addAll(_metadata);
     });
 
     try {
@@ -479,7 +481,7 @@ class S3UploadTask {
         ..bucket = _bucket
         ..contentType = contentType ?? fallbackContentType
         ..key = _resolvedKey
-        ..metadata.addAll(_options.metadata);
+        ..metadata.addAll(_metadata);
     });
 
     try {

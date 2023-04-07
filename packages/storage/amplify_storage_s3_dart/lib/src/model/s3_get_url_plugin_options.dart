@@ -14,17 +14,17 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   /// {@macro storage.amplify_storage_s3.get_url_plugin_options}
   const S3GetUrlPluginOptions({
     Duration expiresIn = const Duration(minutes: 15),
-    bool checkObjectExistence = false,
+    bool validateObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           expiresIn: expiresIn,
-          checkObjectExistence: checkObjectExistence,
+          validateObjectExistence: validateObjectExistence,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
 
   const S3GetUrlPluginOptions._({
     this.expiresIn = const Duration(minutes: 15),
-    this.checkObjectExistence = false,
+    this.validateObjectExistence = false,
     this.targetIdentityId,
     this.useAccelerateEndpoint = false,
   });
@@ -36,11 +36,11 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   const S3GetUrlPluginOptions.forIdentity(
     String targetIdentityId, {
     Duration expiresIn = const Duration(minutes: 15),
-    bool checkObjectExistence = false,
+    bool validateObjectExistence = false,
     bool useAccelerateEndpoint = false,
   }) : this._(
           expiresIn: expiresIn,
-          checkObjectExistence: checkObjectExistence,
+          validateObjectExistence: validateObjectExistence,
           targetIdentityId: targetIdentityId,
           useAccelerateEndpoint: useAccelerateEndpoint,
         );
@@ -54,7 +54,7 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
 
   /// Specifies if check object existence in the S3 bucket before generating
   /// a presigned url.
-  final bool checkObjectExistence;
+  final bool validateObjectExistence;
 
   /// The identity ID of another user who uploaded the object.
   ///
@@ -67,7 +67,7 @@ class S3GetUrlPluginOptions extends StorageGetUrlPluginOptions {
   @override
   List<Object?> get props => [
         expiresIn,
-        checkObjectExistence,
+        validateObjectExistence,
         useAccelerateEndpoint,
         targetIdentityId,
       ];

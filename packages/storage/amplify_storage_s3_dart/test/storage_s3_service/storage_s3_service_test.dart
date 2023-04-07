@@ -663,12 +663,12 @@ void main() {
       });
 
       test(
-          'should invoke s3Client.headObject when checkObjectExistence option is set to true',
+          'should invoke s3Client.headObject when validateObjectExistence option is set to true',
           () async {
         const testOptions = StorageGetUrlOptions(
           accessLevel: StorageAccessLevel.private,
           pluginOptions: S3GetUrlPluginOptions(
-            checkObjectExistence: true,
+            validateObjectExistence: true,
           ),
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -705,14 +705,14 @@ void main() {
       });
 
       test(
-          'should invoke s3Client.headObject when checkObjectExistence option is'
+          'should invoke s3Client.headObject when validateObjectExistence option is'
           ' set to true and specified targetIdentityId', () async {
         const testTargetIdentityId = 'some-else-id';
         const testOptions = StorageGetUrlOptions(
           accessLevel: StorageAccessLevel.guest,
           pluginOptions: S3GetUrlPluginOptions.forIdentity(
             testTargetIdentityId,
-            checkObjectExistence: true,
+            validateObjectExistence: true,
           ),
         );
         const testUnknownException = UnknownSmithyHttpException(
@@ -795,10 +795,10 @@ void main() {
 
     group('copy() API', () {
       late S3CopyResult copyResult;
-      const testSourceItem = S3Item(key: 'source');
-      const testDestinationItem = S3Item(key: 'destination');
-      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
-      const testDestination =
+      final testSourceItem = S3Item(key: 'source');
+      final testDestinationItem = S3Item(key: 'destination');
+      final testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
+      final testDestination =
           S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {
@@ -957,10 +957,10 @@ void main() {
 
     group('move() API', () {
       late S3MoveResult moveResult;
-      const testSourceItem = S3Item(key: 'source');
-      const testDestinationItem = S3Item(key: 'destination');
-      const testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
-      const testDestination =
+      final testSourceItem = S3Item(key: 'source');
+      final testDestinationItem = S3Item(key: 'destination');
+      final testSource = S3ItemWithAccessLevel(storageItem: testSourceItem);
+      final testDestination =
           S3ItemWithAccessLevel(storageItem: testDestinationItem);
 
       setUpAll(() {

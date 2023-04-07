@@ -34,7 +34,7 @@ void main() {
     );
     const testKey = 'upload-key.text';
     const testFileContent = 'Hello world!';
-    const testItem = S3Item(key: testKey);
+    final testItem = S3Item(key: testKey);
     final testFileBytes = utf8.encode(testFileContent);
 
     late S3TransferProgress expectedProgress;
@@ -201,12 +201,12 @@ void main() {
         'should correctly create S3DownloadDataOptions with correct targetIdentityId',
         () {
       const testTargetIdentity = 'someone-else';
-      const testAcessLevel = StorageAccessLevel.protected;
+      const testAccessLevel = StorageAccessLevel.protected;
       downloadFile(
         key: testKey,
         localFile: AWSFile.fromPath('path'),
         options: const StorageDownloadFileOptions(
-          accessLevel: testAcessLevel,
+          accessLevel: testAccessLevel,
           pluginOptions: S3DownloadFilePluginOptions.forIdentity(
             testTargetIdentity,
           ),
@@ -239,7 +239,7 @@ void main() {
             .having(
               (o) => o.accessLevel,
               'accessLevel',
-              testAcessLevel,
+              testAccessLevel,
             )
             .having(
               (o) => (o.pluginOptions! as S3DownloadDataPluginOptions)
