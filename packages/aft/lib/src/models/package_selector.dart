@@ -1,11 +1,21 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:collection';
+
 import 'package:aft/aft.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:glob/glob.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
+
+class _PathSet extends DelegatingSet<String> {
+  _PathSet(Iterable<String> paths)
+      : super(
+          HashSet(equals: p.equals, hashCode: p.hash)..addAll(paths),
+        );
+}
 
 /// {@template aft.models.package_selector}
 /// Defines a subset of the repo's packages.
@@ -158,8 +168,8 @@ class _PackageSelector extends PackageSelector {
 
   @override
   Iterable<String> allPaths(AftConfig config) {
-    final include = Set<String>.of(_include.allPaths(config));
-    final exclude = Set<String>.of(_exclude?.allPaths(config) ?? const {});
+    final include = _PathSet(_include.allPaths(config));
+    final exclude = _PathSet(_exclude?.allPaths(config) ?? const {});
     return include.difference(exclude);
   }
 
@@ -387,8 +397,8 @@ class _AndPackageSelector extends PackageSelector {
 
   @override
   Iterable<String> allPaths(AftConfig config) {
-    return selectors.map((selector) {
-      return Set.of(selector.allPaths(config));
+    return selectors.map<Set<String>>((selector) {
+      return _PathSet(selector.allPaths(config));
     }).reduce((value, element) {
       return value.intersection(element);
     });
