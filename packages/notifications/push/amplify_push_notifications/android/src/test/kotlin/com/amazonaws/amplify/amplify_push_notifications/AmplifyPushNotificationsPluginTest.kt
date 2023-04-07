@@ -26,6 +26,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.robolectric.RobolectricTestRunner
+import kotlin.random.Random
 
 
 @InternalAmplifyApi
@@ -84,7 +85,7 @@ class AmplifyPushNotificationsPluginTest {
     }
 
     @After
-    fun tearDown() {
+    fun tearDown(){
         StreamHandlers.deInit()
         unmockkStatic(::refreshToken)
         unmockkObject(NotificationPayload)
