@@ -9,6 +9,16 @@ import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Environments with a user pool and username-based sign in.
+const userPoolEnvironments = ['main', 'user-pool-only', 'with-client-secret'];
+
+/// Environments with a user pool and opt-in device tracking.
+const deviceOptInEnvironments = [
+  'device-tracking-opt-in',
+  'user-pool-only',
+  'with-client-secret'
+];
+
 Future<void> configureAuth({
   String config = amplifyconfig,
   List<APIAuthProvider> apiAuthProviders = const [],

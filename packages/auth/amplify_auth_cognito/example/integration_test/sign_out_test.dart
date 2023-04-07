@@ -19,11 +19,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('signOut', () {
-    for (final environmentName in [
-      'main',
-      'user-pool-only',
-      'with-client-secret'
-    ]) {
+    for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
         late final cognitoPlugin = Amplify.Auth.getPlugin(
           AmplifyAuthCognito.pluginKey,
