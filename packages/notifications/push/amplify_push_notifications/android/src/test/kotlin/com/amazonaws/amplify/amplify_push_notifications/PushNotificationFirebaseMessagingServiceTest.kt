@@ -67,6 +67,7 @@ class PushNotificationFirebaseMessagingServiceTest {
     @Test
     fun `sends token received event on new token`() {
         controller.create().get().onNewToken(TestConst.TOKEN)
+        shadowOf(getMainLooper()).idle()
 
         StreamHandlers.tokenReceived!!.onListen(ArgumentMatchers.any(), mockEventSink)
         verify(exactly = 1) {

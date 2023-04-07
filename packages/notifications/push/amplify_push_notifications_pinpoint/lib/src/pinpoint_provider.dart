@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:convert';
-import 'dart:io' show Platform;
 
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
 import 'package:flutter/material.dart';
 
+// TODO(Samaritan1011001): Ignore this file and test as they will be updated in the upcoming PR
+
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
-    .createChild('AmplifyPushNotification');
+    .createChild('PinpointProvider');
 
 /// {@template amplify_push_notifications_pinpoint.pinpoint_provider}
 /// AWS Pinpoint provider that implements [ServiceProviderClient].
@@ -22,7 +22,7 @@ final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
 class PinpointProvider implements ServiceProviderClient {
   /// {@macro amplify_push_notifications_pinpoint.pinpoint_provider}
 
-  late FlutterAnalyticsClient _analyticsClient;
+  // late FlutterAnalyticsClient _analyticsClient;
 
   static const _androidCampaignIdKey = 'pinpoint.campaign.campaign_id';
   static const _androidCampaignActivityIdKey =
@@ -35,7 +35,7 @@ class PinpointProvider implements ServiceProviderClient {
   Future<void> init({
     required NotificationsPinpointPluginConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
-    @visibleForTesting FlutterAnalyticsClient? mockAnalyticsClient,
+    // @visibleForTesting FlutterAnalyticsClient? mockAnalyticsClient,
   }) async {
     try {
       if (!_isInitialized) {
@@ -50,18 +50,18 @@ class PinpointProvider implements ServiceProviderClient {
         final region = config.region;
         final appId = config.appId;
 
-        _analyticsClient = mockAnalyticsClient ??
-            FlutterAnalyticsClient(
-              endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
-                storageScope: EndpointStorageScope.pushNotifications,
-              ),
-            );
+        // _analyticsClient = mockAnalyticsClient ??
+        //     FlutterAnalyticsClient(
+        //       endpointInfoStoreManager: FlutterEndpointInfoStoreManager(
+        //         storageScope: EndpointStorageScope.pushNotifications,
+        //       ),
+        //     );
 
-        await _analyticsClient.init(
-          pinpointAppId: appId,
-          region: region,
-          authProvider: authProvider,
-        );
+        // await _analyticsClient.init(
+        //   pinpointAppId: appId,
+        //   region: region,
+        //   authProvider: authProvider,
+        // );
 
         _isInitialized = true;
       }
@@ -88,10 +88,10 @@ class PinpointProvider implements ServiceProviderClient {
               'Make sure Pinpoint service provider client is initialized before using this method.',
         );
       }
-      await _analyticsClient.endpointClient.setUser(
-        userId,
-        userProfile,
-      );
+      // await _analyticsClient.endpointClient.setUser(
+      //   userId,
+      //   userProfile,
+      // );
     } on Exception catch (e) {
       throw PushNotificationException(
         'Unable to identify user.',
@@ -122,10 +122,10 @@ class PinpointProvider implements ServiceProviderClient {
       }
 
       final eventInfo = constructEventInfo(notification: notification);
-      await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.source}.${eventType.name}',
-        properties: eventInfo.properties,
-      );
+      // await _analyticsClient.eventClient.recordEvent(
+      //   eventType: '${eventInfo.source}.${eventType.name}',
+      //   properties: eventInfo.properties,
+      // );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
     }
@@ -140,13 +140,13 @@ class PinpointProvider implements ServiceProviderClient {
         );
         return;
       }
-      _analyticsClient.endpointClient.address = deviceToken;
-      final channelType = _getChannelType();
-      if (channelType != null) {
-        _analyticsClient.endpointClient.channelType = channelType;
-      }
-      _analyticsClient.endpointClient.optOut = 'NONE';
-      await _analyticsClient.endpointClient.updateEndpoint();
+      // _analyticsClient.endpointClient.address = deviceToken;
+      // final channelType = _getChannelType();
+      // if (channelType != null) {
+      //   _analyticsClient.endpointClient.channelType = channelType;
+      // }
+      // _analyticsClient.endpointClient.optOut = 'NONE';
+      // await _analyticsClient.endpointClient.updateEndpoint();
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }
@@ -213,15 +213,15 @@ class PinpointProvider implements ServiceProviderClient {
     return EventInfo(source, analyticsProperties);
   }
 
-  ChannelType? _getChannelType() {
-    if (Platform.isAndroid) {
-      return ChannelType.gcm;
-    } else if (Platform.isIOS) {
-      if (zDebugMode) {
-        return ChannelType.apnsSandbox;
-      }
-      return ChannelType.apns;
-    }
-    return null;
-  }
+  // ChannelType? _getChannelType() {
+  //   if (Platform.isAndroid) {
+  //     return ChannelType.gcm;
+  //   } else if (Platform.isIOS) {
+  //     if (zDebugMode) {
+  //       return ChannelType.apnsSandbox;
+  //     }
+  //     return ChannelType.apns;
+  //   }
+  //   return null;
+  // }
 }

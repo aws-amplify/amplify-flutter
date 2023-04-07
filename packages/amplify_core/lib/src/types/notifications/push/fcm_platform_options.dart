@@ -12,14 +12,13 @@ class FcmPlatformOptions
   const FcmPlatformOptions({
     this.channelId,
     this.messageId,
-    this.senderId,
-    this.sentTime,
   });
 
+  /// The default channelId for Push Notifications. Currently only supporting default channels.
   final String? channelId;
+
+  /// Unique id for the incomming message.
   final String? messageId;
-  final String? senderId;
-  final DateTime? sentTime;
 
   @override
   String get runtimeTypeName => 'FcmPlatformOptions';
@@ -28,7 +27,5 @@ class FcmPlatformOptions
   Map<String, Object?> toJson() => {
         'channelId': channelId,
         'messageId': messageId,
-        'senderId': senderId,
-        'sentTime': sentTime?.toIso8601String(),
       };
 }

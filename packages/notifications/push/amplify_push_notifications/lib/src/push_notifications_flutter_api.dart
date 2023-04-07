@@ -128,13 +128,16 @@ class AmplifyPushNotificationsFlutterApi
   }
 
   Future<void> _flushEvents({PushNotificationMessage? withItem}) async {
-    for (final element
-        in [..._eventQueue, withItem].whereType<PushNotificationMessage>()) {
-      await _serviceProviderClient?.recordNotificationEvent(
-        eventType: PinpointEventType.backgroundMessageReceived,
-        notification: element,
+    if (_serviceProviderClient != null) {
+      await Future.wait<void>(
+        [..._eventQueue, withItem].whereType<PushNotificationMessage>().map(
+              (notification) => _serviceProviderClient!.recordNotificationEvent(
+                eventType: PinpointEventType.backgroundMessageReceived,
+                notification: notification,
+              ),
+            ),
       );
+      _eventQueue.clear();
     }
-    _eventQueue.clear();
   }
 }

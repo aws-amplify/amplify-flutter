@@ -36,9 +36,11 @@ class PushNotificationFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        // Should initialize normally as it's initialized for the first time.
-        StreamHandlers.initStreamHandlers(false)
-        StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
+        Handler(baseContext.mainLooper).post {
+            // Should initialize normally as it's initialized for the first time.
+            StreamHandlers.initStreamHandlers(false)
+            StreamHandlers.tokenReceived!!.send(mapOf("token" to token))
+        }
     }
 
     override fun handleIntent(intent: Intent) {
