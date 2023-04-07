@@ -16,11 +16,7 @@ abstract class AuthUserAttributeKey
     with AWSSerializable<String>
     implements Comparable<AuthUserAttributeKey> {
   /// {@macro amplify_core.auth_user_attribute_key}
-  const factory AuthUserAttributeKey(String key) = _AuthUserAttributeKey;
-
-  /// {@macro amplify_core.auth_user_attribute_key}
-  @protected
-  const AuthUserAttributeKey.base();
+  const AuthUserAttributeKey();
 
   /// The JSON key for this attribute.
   String get key;
@@ -159,7 +155,7 @@ abstract class AuthUserAttributeKey
 }
 
 class _AuthUserAttributeKey extends AuthUserAttributeKey {
-  const _AuthUserAttributeKey(this.key) : super.base();
+  const _AuthUserAttributeKey(this.key);
 
   @override
   final String key;
@@ -170,7 +166,7 @@ class AuthUserAttributeKeyConverter
   const AuthUserAttributeKeyConverter();
 
   @override
-  AuthUserAttributeKey fromJson(String json) => AuthUserAttributeKey(json);
+  AuthUserAttributeKey fromJson(String json) => _AuthUserAttributeKey(json);
 
   @override
   String toJson(AuthUserAttributeKey object) => object.toJson();

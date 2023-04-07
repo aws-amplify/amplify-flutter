@@ -16,20 +16,17 @@ import 'package:meta/meta.dart';
 class CognitoUserAttributeKey extends AuthUserAttributeKey
     with AWSEquatable<CognitoUserAttributeKey>, AWSDebuggable {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
-      : isCustom = false,
-        super.base();
+      : isCustom = false;
 
   /// Creates a custom Cognito attribute.
   const CognitoUserAttributeKey.custom(this._key)
       : isCustom = true,
-        readOnly = false,
-        super.base();
+        readOnly = false;
 
   /// Creates an unknown Cognito attribute.
   const CognitoUserAttributeKey._unknown(this._key)
       : isCustom = false,
-        readOnly = true,
-        super.base();
+        readOnly = true;
 
   /// Parses the given Cognito attribute key.
   ///
