@@ -31,7 +31,14 @@ enum class NativeEvent {
 
 @InternalAmplifyApi
 data class PushNotificationsEvent(
-    val event: NativeEvent, val payload: Map<Any, Any?>
+    val event: NativeEvent, val payload: Map<Any, Any?>, val error: StreamHandlerException?,
+)
+
+@InternalAmplifyApi
+data class StreamHandlerException(
+    val eventName: String,
+    val errorMessage: String?,
+    val errorDetails: Any?
 )
 
 @InternalAmplifyApi
@@ -66,24 +73,21 @@ class PushNotificationEventsStreamHandler constructor(
     private val eventQueue = mutableListOf<PushNotificationsEvent>()
 
     fun send(payload: Map<Any, Any?>) {
-        val event = PushNotificationsEvent(associatedNativeEvent, payload)
+        val event = PushNotificationsEvent(associatedNativeEvent, payload, null)
         eventSink?.success(payload) ?: run {
             eventQueue.add(event)
         }
     }
 
     fun sendError(exception: Exception) {
-        val exceptionMap = mapOf<Any, Any?>(
-            "associatedNativeEventName" to associatedNativeEvent.eventName,
-            "message" to exception.message,
-            "details" to null
-        )
+        val sinkError =
+            StreamHandlerException(associatedNativeEvent.eventName, exception.message, null)
         eventSink?.error(
-            exceptionMap["associatedNativeEventName"] as String,
-            exceptionMap["message"] as String,
-            exceptionMap["details"]
+            sinkError.eventName,
+            sinkError.errorMessage,
+            sinkError.errorDetails,
         ) ?: run {
-            eventQueue.add(PushNotificationsEvent(NativeEvent.ERROR, exceptionMap))
+            eventQueue.add(PushNotificationsEvent(NativeEvent.ERROR, mapOf(), sinkError))
         }
     }
 
@@ -94,11 +98,11 @@ class PushNotificationEventsStreamHandler constructor(
                     val eventFromQueue = eventQueue.removeFirst()
                     // Check if it is an Error event and handle accordingly by using .error method
                     if (eventFromQueue.event.eventName == NativeEvent.ERROR.eventName) {
-                        val exception = eventFromQueue.payload
+                        val exception = eventFromQueue.error
                         it.error(
-                            exception["associatedNativeEventName"] as String?,
-                            exception["message"] as String?,
-                            exception["details"] as String?,
+                            exception?.eventName,
+                            exception?.errorMessage,
+                            exception?.errorDetails,
                         )
                     } else {
                         it.success(eventFromQueue.payload)
@@ -133,7 +137,7 @@ class StreamHandlers {
             // InitStreamHandlers can be called from multiple places but we only need to refresh it
             // when called from onAttachedToEngine. Sometimes, Firebase's onNewToken gets fired before
             // or after onAttachedToEngine. When it happens after, it's important we don't deInit.
-            if(refresh) {
+            if (refresh) {
                 deInit()
             }
             // Should only be initialized once

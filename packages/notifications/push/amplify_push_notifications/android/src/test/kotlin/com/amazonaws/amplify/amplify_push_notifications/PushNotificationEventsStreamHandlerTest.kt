@@ -55,7 +55,7 @@ class PushNotificationEventsStreamHandlerTest {
         }
         StreamHandlers.tokenReceived!!.onListen(any(), mockEventSink)
         verify(exactly = 1) {
-            mockEventSink.error(any(), any(), any())
+            mockEventSink.error(any(), "test", any())
         }
     }
 }

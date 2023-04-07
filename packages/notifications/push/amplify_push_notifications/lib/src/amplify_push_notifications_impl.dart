@@ -112,7 +112,7 @@ abstract class AmplifyPushNotifications
   var _isConfigured = false;
   PushNotificationMessage? _launchNotification;
   final Future<void> Function() _backgroundProcessor;
-
+  final List<StreamSubscription<dynamic>> _eventChannelListeners = [];
   @override
   PushNotificationMessage? get launchNotification {
     if (!_isConfigured) {
@@ -233,6 +233,14 @@ abstract class AmplifyPushNotifications
       value: jsonEncode(config),
     );
     _isConfigured = true;
+  }
+
+  @override
+  Future<void> reset() {
+    while (_eventChannelListeners.isNotEmpty) {
+      _eventChannelListeners.removeLast().cancel();
+    }
+    return super.reset();
   }
 
   @override
@@ -362,26 +370,32 @@ abstract class AmplifyPushNotifications
 
   void _attachEventChannelListeners() {
     // Initialize listeners
-    _onTokenReceived.listen(_tokenReceivedListener).onError((Object error) {
-      _logger.error(
-        'Unexpected error $error received from onTokenReceived event channel.',
+    _eventChannelListeners
+      ..add(
+        _onTokenReceived.listen(_tokenReceivedListener)
+          ..onError((Object error) {
+            _logger.error(
+              'Unexpected error $error received from onTokenReceived event channel.',
+            );
+          }),
+      )
+      ..add(
+        _onForegroundNotificationReceived
+            .listen(_foregroundNotificationListener)
+          ..onError((Object error) {
+            _logger.error(
+              'Unexpected error $error received from onNotificationReceivedInForeground event channel.',
+            );
+          }),
+      )
+      ..add(
+        _onNotificationOpened.listen(_notificationOpenedListener)
+          ..onError((Object error) {
+            _logger.error(
+              'Unexpected error $error received from onNotificationOpened event channel.',
+            );
+          }),
       );
-    });
-    _onForegroundNotificationReceived
-        .listen(_foregroundNotificationListener)
-        .onError((Object error) {
-      _logger.error(
-        'Unexpected error $error received from onNotificationReceivedInForeground event channel.',
-      );
-    });
-
-    _onNotificationOpened
-        .listen(_notificationOpenedListener)
-        .onError((Object error) {
-      _logger.error(
-        'Unexpected error $error received from onNotificationOpened event channel.',
-      );
-    });
   }
 
   void _recordAnalyticsForLaunchNotification(
