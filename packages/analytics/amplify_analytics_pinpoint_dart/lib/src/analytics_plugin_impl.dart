@@ -153,10 +153,18 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       },
     );
 
-    final autoFlushInterval = pinpointConfig.autoFlushEventsInterval;
-    if (autoFlushInterval.inSeconds > 0 || !autoFlushInterval.isNegative) {
+    final autoFlushEventsInterval = pinpointConfig.autoFlushEventsInterval;
+
+    if (autoFlushEventsInterval.isNegative) {
+      throw ConfigurationError(
+        'The autoFlushEventsInterval field in amplifyconfiguration.dart must be positive.',
+      );
+    }
+
+    /// Setting autoFlushEventsInterval to 0 disables autoflush.
+    if (autoFlushEventsInterval.inSeconds > 0) {
       _autoEventSubmitter = StoppableTimer(
-        duration: autoFlushInterval,
+        duration: autoFlushEventsInterval,
         callback: flushEvents,
         onError: (e) => _logger.warn('Exception in events auto flush', e),
       );
@@ -237,6 +245,8 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   @override
   Future<void> reset() async {
+    await super.reset();
+
     if (!_isConfigured) {
       return;
     }

@@ -48,6 +48,9 @@ class PinpointPluginConfig
   final PinpointAnalytics pinpointAnalytics;
   final PinpointTargeting pinpointTargeting;
 
+  /// The duration in seconds (rounded up) between flushing analytics events to Pinpoint.
+  ///
+  /// Max events per flush is 100.  Decrease duration to ensure you flush more events than you store over time.
   @DurationConverter()
   final Duration autoFlushEventsInterval;
 
