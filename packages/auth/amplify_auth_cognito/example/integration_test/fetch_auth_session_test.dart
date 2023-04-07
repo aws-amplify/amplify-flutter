@@ -274,11 +274,7 @@ void main() {
       });
     });
 
-    for (final environmentName in [
-      'main',
-      'user-pool-only',
-      'with-client-secret'
-    ]) {
+    for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
         Future<Map<String, Object?>> getCustomAttributes({
           bool forceRefresh = false,

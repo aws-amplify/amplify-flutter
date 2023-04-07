@@ -120,11 +120,7 @@ void main() {
       }
     }
 
-    for (final environmentName in [
-      'device-tracking-opt-in',
-      'user-pool-only',
-      'with-client-secret'
-    ]) {
+    for (final environmentName in deviceOptInEnvironments) {
       group('Opt-In', () {
         group(environmentName, () {
           setUpAll(() async {

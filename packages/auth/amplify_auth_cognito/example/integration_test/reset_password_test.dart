@@ -15,11 +15,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('resetPassword', () {
-    for (final environmentName in [
-      'main',
-      'user-pool-only',
-      'with-client-secret'
-    ]) {
+    for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
         late String username;
         late String password;
