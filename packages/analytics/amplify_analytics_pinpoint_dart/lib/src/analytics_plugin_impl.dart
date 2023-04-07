@@ -62,7 +62,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final EndpointClient _endpointClient;
   late final EventClient _eventClient;
   late final SessionManager _sessionManager;
-  late final StoppableTimer _autoEventSubmitter;
+
+  /// Autoflush timer for cached analytics events.
+  @visibleForTesting
+  late final StoppableTimer? autoEventSubmitter;
 
   /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
@@ -163,11 +166,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     /// Setting autoFlushEventsInterval to 0 disables autoflush.
     if (autoFlushEventsInterval.inSeconds > 0) {
-      _autoEventSubmitter = StoppableTimer(
+      autoEventSubmitter = StoppableTimer(
         duration: autoFlushEventsInterval,
         callback: flushEvents,
         onError: (e) => _logger.warn('Exception in events auto flush', e),
       );
+    } else {
+      autoEventSubmitter = null;
     }
 
     _isConfigured = true;
@@ -183,7 +188,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       return;
     }
     _analyticsEnabled = true;
-    _autoEventSubmitter.start();
+    autoEventSubmitter?.start();
     _sessionManager.startSessionTracking();
   }
 
@@ -195,7 +200,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       return;
     }
     _analyticsEnabled = false;
-    _autoEventSubmitter.stop();
+    autoEventSubmitter?.stop();
     _sessionManager.stopSessionTracking();
   }
 
@@ -251,7 +256,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       return;
     }
     _isConfigured = false;
-    _autoEventSubmitter.stop();
+    autoEventSubmitter?.stop();
     await _eventClient.close();
   }
 }

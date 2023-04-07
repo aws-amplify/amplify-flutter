@@ -36,8 +36,8 @@ class PinpointPluginConfig
   const PinpointPluginConfig({
     required this.pinpointAnalytics,
     required this.pinpointTargeting,
-    this.autoFlushEventsInterval = const Duration(seconds: 30),
-  });
+    int autoFlushEventsInterval = 30,
+  }) : _autoFlushEventsInterval = autoFlushEventsInterval;
 
   factory PinpointPluginConfig.fromJson(Map<String, Object?> json) =>
       _$PinpointPluginConfigFromJson(json);
@@ -48,17 +48,20 @@ class PinpointPluginConfig
   final PinpointAnalytics pinpointAnalytics;
   final PinpointTargeting pinpointTargeting;
 
-  /// The duration between flushing analytics events to Pinpoint.
+  final int _autoFlushEventsInterval;
+
+  /// The duration in seconds (rounded up) between flushing analytics events to Pinpoint.
   ///
-  /// A max of 100 events are included in each request. If more than 100 events 
-  /// are recorded per interval, they will be temporarily queued and sent in a 
-  /// later request. Consider reducing the duration for use cases where events 
+  /// A max of 100 events are included in each request. If more than 100 events
+  /// are recorded per interval, they will be temporarily queued and sent in a
+  /// later request. Consider reducing the duration for use cases where events
   /// are recorded at a high rate for sustained periods of time.
   ///
-  /// *Note:* The duration will be rounded down to the nearest whole second when 
+  /// *Note:* The duration will be rounded down to the nearest whole second when
   /// this value is serialized to json.
   @DurationConverter()
-  final Duration autoFlushEventsInterval;
+  Duration get autoFlushEventsInterval =>
+      Duration(seconds: _autoFlushEventsInterval);
 
   @override
   List<Object?> get props =>
@@ -67,13 +70,13 @@ class PinpointPluginConfig
   PinpointPluginConfig copyWith({
     PinpointAnalytics? pinpointAnalytics,
     PinpointTargeting? pinpointTargeting,
-    Duration? autoFlushEventsInterval,
+    int? autoFlushEventsInterval,
   }) {
     return PinpointPluginConfig(
       pinpointAnalytics: pinpointAnalytics ?? this.pinpointAnalytics,
       pinpointTargeting: pinpointTargeting ?? this.pinpointTargeting,
       autoFlushEventsInterval:
-          autoFlushEventsInterval ?? this.autoFlushEventsInterval,
+          autoFlushEventsInterval ?? _autoFlushEventsInterval,
     );
   }
 
