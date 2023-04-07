@@ -8,7 +8,11 @@ import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_p
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-const _backgroundChannel = MethodChannel(
+/// {@template amplify_push_notifications_pinpoint.background_channel}
+/// Background channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const backgroundChannel = MethodChannel(
   'plugins.flutter.io/amplify_push_notification_plugin_background',
 );
 
@@ -21,6 +25,7 @@ const _backgroundChannel = MethodChannel(
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing({
   @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
+  @visibleForTesting AmplifyClass? mockAmplify,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   amplifySecureStorage ??= AmplifySecureStorage(
@@ -40,13 +45,14 @@ Future<void> amplifyBackgroundProcessing({
   }
   final notificationsPlugin = AmplifyPushNotificationsPinpoint();
   final authPlugin = AmplifyAuthCognito();
-  if (!Amplify.isConfigured) {
-    await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-    await Amplify.configure(amplifyconfigStr);
+  final mockableAmplify = mockAmplify ?? Amplify;
+  if (!mockableAmplify.isConfigured) {
+    await mockableAmplify.addPlugins([authPlugin, notificationsPlugin]);
+    await mockableAmplify.configure(amplifyconfigStr);
   }
 
   // Signal that this method finished running so queued up native to dart events if any can be flushed.
-  await _backgroundChannel.invokeMethod(
+  await backgroundChannel.invokeMethod(
     'amplifyBackgroundProcessorFinished',
   );
 }

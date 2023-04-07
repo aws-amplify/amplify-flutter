@@ -203,7 +203,7 @@ void main() {
       expect(
         () => plugin.identifyUser(
           userId: 'userId',
-          userProfile: AnalyticsUserProfile(),
+          userProfile: const UserProfile(),
         ),
         throwsA(isA<ConfigurationError>()),
       );
@@ -327,7 +327,7 @@ void main() {
     test('identifyUser', () {
       plugin.identifyUser(
         userId: 'test-user-1',
-        userProfile: AnalyticsUserProfile(),
+        userProfile: const UserProfile(),
       );
       verify(
         mockServiceProviderClient.identifyUser(

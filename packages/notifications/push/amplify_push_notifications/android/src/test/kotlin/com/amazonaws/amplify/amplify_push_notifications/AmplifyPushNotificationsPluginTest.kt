@@ -73,7 +73,6 @@ class AmplifyPushNotificationsPluginTest {
         every { FirebaseMessaging.getInstance().token } returns mockTask
         every { NotificationPayload.fromIntent(any()) } returns testPayload
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
-        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
         amplifyPushNotificationsPlugin = AmplifyPushNotificationsPlugin()
         every { mockFlutterBinding.binaryMessenger } returns mockk()
         every { mockFlutterBinding.binaryMessenger.setMessageHandler(any(), any()) } returns mockk()
@@ -82,6 +81,17 @@ class AmplifyPushNotificationsPluginTest {
         mockkStatic(::refreshToken)
         every { refreshToken() } returns mockk()
         amplifyPushNotificationsPlugin.onAttachedToEngine(mockFlutterBinding)
+    }
+
+    @After
+    fun tearDown() {
+        StreamHandlers.deInit()
+        unmockkStatic(::refreshToken)
+        unmockkObject(NotificationPayload)
+        unmockkStatic(ActivityCompat::class)
+        unmockkStatic(FirebaseMessaging::class)
+        unmockkStatic(NotificationPayload::toWritableMap)
+        unmockkStatic(PushNotificationPermission::class)
     }
 
     @Test
@@ -143,19 +153,61 @@ class AmplifyPushNotificationsPluginTest {
         }
     }
 
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
-    @Test
-    fun `returns ShouldRequest permission status`() {
-    }
 
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
+
     @Test
     fun `returns ShouldExplainThenRequest permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+
+        val mockResult =
+            mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
+        every { mockResult.success(any()) } returns mockk()
+        // TODO(Samaritan1011001): Not able to stub shouldShowRequestPermissionRationale
+//        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns true
+//        amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+//        verify {
+//            mockResult.success(any())
+//        }
     }
 
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
     @Test
     fun `returns Denied permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+        val mockResult =
+            mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
+        every { mockResult.success(any()) } returns mockk()
+        // TODO(Samaritan1011001): Not able to stub shouldShowRequestPermissionRationale
+        // every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
+        every {
+            mockSharedPreferences.getBoolean(
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, false
+            )
+        } returns true
+
+        // amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+        // verify {
+        //     mockResult.success(any())
+        // }
+    }
+
+    @Test
+    fun `returns ShouldRequest permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+        val mockResult =
+            mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
+        every { mockResult.success(any()) } returns mockk()
+        // TODO(Samaritan1011001): Not able to stub shouldShowRequestPermissionRationale
+        // every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
+        every {
+            mockSharedPreferences.getBoolean(
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, false
+            )
+        } returns false
+
+        // amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+        // verify {
+        //     mockResult.success(any())
+        // }
     }
 
     @Test
@@ -178,8 +230,7 @@ class AmplifyPushNotificationsPluginTest {
                 any(), any()
             )
         } returns mockSharedPreferencesEditor
-        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns true
-        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns PermissionRequestResult.NotGranted(
+        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns NotGranted(
             shouldShowRationale = true
         )
         val mockResult = mockk<PushNotificationsHostApiBindings.Result<Boolean>>()

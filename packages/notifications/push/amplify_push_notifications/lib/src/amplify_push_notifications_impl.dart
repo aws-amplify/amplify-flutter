@@ -174,7 +174,7 @@ abstract class AmplifyPushNotifications
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     if (!_isConfigured) {
       throw _needsConfigurationException;

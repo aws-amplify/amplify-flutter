@@ -48,14 +48,18 @@ class PushNotificationBackgroundServiceTest {
         val mockSharedPreferencesEditor = mockk<SharedPreferences.Editor>()
         justRun { mockSharedPreferencesEditor.apply() }
         every { mockSharedPreferences.edit() } returns mockSharedPreferencesEditor
-        every { mockSharedPreferences.getLong(
-            any(),any()
-        ) } returns 5555
+        every {
+            mockSharedPreferences.getLong(
+                any(), any()
+            )
+        } returns 5555
 
         val mockFlutterEngine = mockk<FlutterEngine>()
         mockkConstructor(FlutterEngineCache::class)
-        every { anyConstructed<FlutterEngineCache>()
-            .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID) } returns mockFlutterEngine
+        every {
+            anyConstructed<FlutterEngineCache>()
+                .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
+        } returns mockFlutterEngine
 
         every {
             mockFlutterEngine.dartExecutor.executeDartCallback(any())
@@ -65,7 +69,8 @@ class PushNotificationBackgroundServiceTest {
         } returns mockk()
         mockkStatic(FlutterCallbackInformation::class)
         val mockFlutterCallbackInformation = mockk<FlutterCallbackInformation>()
-        every { FlutterCallbackInformation.lookupCallbackInformation(any())
+        every {
+            FlutterCallbackInformation.lookupCallbackInformation(any())
         } returns mockFlutterCallbackInformation
 
         mockkConstructor(MethodChannel::class)
@@ -76,20 +81,41 @@ class PushNotificationBackgroundServiceTest {
         pushNotificationBackgroundService = PushNotificationBackgroundService()
     }
 
+    @After
+    fun tearDown() {
+        unmockkStatic(FlutterCallbackInformation::class)
+    }
+
     @Test
     fun `should start the background service`() {
-        every { context.packageName } returns ""
-        pushNotificationBackgroundService.createAndRunBackgroundEngine(context, mockFlutterLoader)
+        val mockFlutterEngine = mockk<FlutterEngine>()
+        every {
+            anyConstructed<FlutterEngineCache>()
+                .get(PushNotificationPluginConstants.BACKGROUND_ENGINE_ID)
+        } returns null
+
+        every { mockFlutterEngine.dartExecutor.executeDartCallback(any()) } returns mockk()
+        every { mockFlutterEngine.dartExecutor.binaryMessenger } returns mockk()
+        pushNotificationBackgroundService.createAndRunBackgroundEngine(
+            mockContext,
+            mockFlutterLoader,
+            mockFlutterEngine,
+        )
         Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
 
 
     @Test
     fun `should throw if background processor function is not found`() {
-        every { FlutterCallbackInformation.lookupCallbackInformation(any())
+        every {
+            FlutterCallbackInformation.lookupCallbackInformation(any())
         } returns null
-        assertThrows(Exception::class.java){
-            pushNotificationBackgroundService.createAndRunBackgroundEngine(context, mockFlutterLoader)
+        assertThrows(Exception::class.java) {
+            pushNotificationBackgroundService.createAndRunBackgroundEngine(
+                mockContext,
+                mockFlutterLoader,
+                null,
+            )
             Shadows.shadowOf(Looper.getMainLooper()).idle()
         }
     }
