@@ -50,15 +50,7 @@ class PinpointPluginConfig
 
   final int _autoFlushEventsInterval;
 
-  /// The duration in seconds (rounded up) between flushing analytics events to Pinpoint.
-  ///
-  /// A max of 100 events are included in each request. If more than 100 events
-  /// are recorded per interval, they will be temporarily queued and sent in a
-  /// later request. Consider reducing the duration for use cases where events
-  /// are recorded at a high rate for sustained periods of time.
-  ///
-  /// *Note:* The duration will be rounded down to the nearest whole second when
-  /// this value is serialized to json.
+  /// The duration in seconds between flushing analytics events to Pinpoint.
   @_DurationConverter()
   Duration get autoFlushEventsInterval =>
       Duration(seconds: _autoFlushEventsInterval);
