@@ -37,6 +37,11 @@ class NotificationsPinpointPluginConfig
     required this.region,
   });
 
+  factory NotificationsPinpointPluginConfig.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$NotificationsPinpointPluginConfigFromJson(json);
+
   /// The plugin's configuration key.
   static const pluginKey = 'awsPinpointPushNotificationsPlugin';
 
@@ -45,10 +50,6 @@ class NotificationsPinpointPluginConfig
 
   @override
   List<Object?> get props => [appId, region];
-
-  factory NotificationsPinpointPluginConfig.fromJson(
-          Map<String, Object?> json) =>
-      _$NotificationsPinpointPluginConfigFromJson(json);
 
   NotificationsPinpointPluginConfig copyWith({
     String? appId,
