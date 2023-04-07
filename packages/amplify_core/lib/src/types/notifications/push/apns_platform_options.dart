@@ -4,7 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.push.apns_platform_options}
-/// Holds APNS specific push notification options
+/// Holds Apple Push Notification service (APNS) specific options for push notifications.
 /// {@endtemplate}
 class ApnsPlatformOptions
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {

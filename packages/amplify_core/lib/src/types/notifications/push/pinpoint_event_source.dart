@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// {@template amplify_core.push.pinpoint_event_source}
-/// Enum that indicates the source of push notifications.
+/// The source of a push notification.
 ///
 /// Pinpoint offers two ways of sending push notifications to users campaigns and journeys.
 /// {@endtemplate}

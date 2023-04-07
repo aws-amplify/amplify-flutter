@@ -4,7 +4,7 @@
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_core.push.fcm_platform_options}
-/// Holds FCM specific push notification options
+/// Holds Firebase Cloud Messaging (FCM) specific options for push notifications.
 /// {@endtemplate}
 class FcmPlatformOptions
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {

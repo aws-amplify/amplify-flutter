@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final AmplifyLogger _logger = AmplifyLogger.category(Category.pushNotifications)
-    .createChild('AmplifyPushNotification');
+    .createChild('AmplifyPushNotificationsFlutterApi');
 
 /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api}
 /// Internal Platform check exposed for testing purposes only.
