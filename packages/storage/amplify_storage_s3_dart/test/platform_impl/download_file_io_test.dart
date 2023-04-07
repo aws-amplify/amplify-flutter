@@ -140,7 +140,7 @@ void main() {
       const testProgress = S3TransferProgress(
         totalBytes: 1024,
         transferredBytes: 1024,
-        state: S3TransferState.inProgress,
+        state: StorageTransferState.inProgress,
       );
       onProgress(testProgress);
       expect(testProgress, expectedProgress);
@@ -291,7 +291,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
+        expect(preStart(), throwsA(isA<UnknownException>()));
       });
 
       test(
@@ -324,7 +324,7 @@ void main() {
           ),
         ).captured.last;
         final preStart = capturedPreStart as FutureOr<void> Function();
-        expect(preStart(), throwsA(isA<StorageLocalFileNotFoundException>()));
+        expect(preStart(), throwsA(isA<UnknownException>()));
       });
     });
 

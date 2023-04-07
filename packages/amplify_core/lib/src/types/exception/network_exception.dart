@@ -20,3 +20,15 @@ class NetworkException extends AmplifyException
     super.underlyingException,
   });
 }
+
+extension AWSHttpExceptionToAmplifyException on AWSHttpException {
+  /// Creates a [NetworkException] with the [AWSHttpException] as the underlying
+  /// exception.
+  NetworkException toNetworkException() {
+    return NetworkException(
+      'The request failed due to a network error.',
+      recoverySuggestion: 'Ensure that you have an active network connection',
+      underlyingException: this,
+    );
+  }
+}

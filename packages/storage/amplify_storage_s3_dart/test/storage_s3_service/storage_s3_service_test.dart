@@ -1072,7 +1072,13 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<StorageAccessDeniedException>()),
+          throwsA(
+            isA<UnknownException>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<StorageAccessDeniedException>(),
+            ),
+          ),
         );
       });
 
@@ -1093,7 +1099,13 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<NetworkException>()),
+          throwsA(
+            isA<UnknownException>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<NetworkException>(),
+            ),
+          ),
         );
       });
 
@@ -1129,7 +1141,13 @@ void main() {
             destination: testDestination,
             options: testOptions,
           ),
-          throwsA(isA<StorageHttpStatusException>()),
+          throwsA(
+            isA<UnknownException>().having(
+              (o) => o.underlyingException,
+              'underlyingException',
+              isA<StorageHttpStatusException>(),
+            ),
+          ),
         );
       });
 

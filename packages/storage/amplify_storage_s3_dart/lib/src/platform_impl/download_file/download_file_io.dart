@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
@@ -83,8 +82,9 @@ S3DownloadFileOperation downloadFile({
       localFile: localFile,
       options: options,
     ),
-    // This future throws exceptions that may occurred in the entire
-    // download process, all exceptions are remapped to a S3Exception
+    // This future throws exceptions that may occur in the entire
+    // download process, all exceptions will be remapped to subtypes of
+    // StorageException
     result: downloadDataTask.result.then(
       (downloadedItem) => S3DownloadFileResult(
         localFile: localFile,
@@ -101,12 +101,20 @@ Future<String> _ensureDestinationWritable(AWSFile file) async {
   final destinationPath = file.path;
 
   if (destinationPath == null) {
-    throw S3Exception.downloadDestinationFilePathIsNull;
+    throw const UnknownException(
+      'Download destination file path is null.',
+      recoverySuggestion:
+          'Ensure your `AWSFile` contains a valid `path` property.',
+    );
   }
 
   // path should not be a directory
   if (await FileSystemEntity.isDirectory(destinationPath)) {
-    throw S3Exception.downloadDestinationFilePathIsDirectory;
+    throw const UnknownException(
+      'Download destination file path is a directory.',
+      recoverySuggestion:
+          'Ensure the `path` property of your `AWSFile` is pointing to a file and not a directory.',
+    );
   }
 
   final destination = File(destinationPath);
@@ -116,7 +124,11 @@ Future<String> _ensureDestinationWritable(AWSFile file) async {
       await destination.delete();
     }
   } on FileSystemException catch (error) {
-    throw S3Exception.fromFileSystemException(error);
+    throw UnknownException(
+      'Unexpected file system error.',
+      recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+      underlyingException: error,
+    );
   }
 
   return destinationPath;

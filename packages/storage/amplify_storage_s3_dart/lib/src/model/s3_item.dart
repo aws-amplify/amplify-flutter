@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:meta/meta.dart';
 
@@ -42,9 +41,13 @@ class S3Item extends StorageItem {
   }) {
     final key = object.key;
 
-    // In S3 plugin, key is required property presenting an object
+    // Sanity check, key property should never be null in a S3Object returned
+    // from service.
     if (key == null) {
-      throw S3Exception.getS3ObjectMissingKeyException(object);
+      throw const UnknownException(
+        '`key` property is null in S3Object.',
+        recoverySuggestion: AmplifyExceptionMessages.missingExceptionMessage,
+      );
     }
 
     final keyDroppedPrefix = dropPrefixFromKey(

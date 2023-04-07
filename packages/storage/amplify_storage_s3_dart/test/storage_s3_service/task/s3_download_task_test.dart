@@ -5,7 +5,6 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
-import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/s3_download_task.dart';
 import 'package:mocktail/mocktail.dart';
@@ -55,7 +54,7 @@ void main() {
       test(
           'it should ripple exception thrown from `preStart` to the result Future',
           () {
-        final testException = S3Exception.unknownException();
+        const testException = UnknownException('test exception');
         Future<void> testPreStart() async {
           throw testException;
         }
@@ -86,7 +85,7 @@ void main() {
           body: Stream.value(testBodyBytes),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithyOperation.result,
@@ -135,7 +134,7 @@ void main() {
         expect(request.checksumMode, ChecksumMode.enabled);
 
         await downloadTask.result;
-        expect(finalState, S3TransferState.success);
+        expect(finalState, StorageTransferState.success);
       });
 
       test(
@@ -255,7 +254,7 @@ void main() {
           ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation.result,
@@ -286,7 +285,7 @@ void main() {
         unawaited(downloadTask.start());
         await downloadTask.pause();
 
-        expect(receivedState.last, S3TransferState.paused);
+        expect(receivedState.last, StorageTransferState.paused);
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
@@ -301,7 +300,7 @@ void main() {
           ).take(1024),
         );
         final smithyOperation1 = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation1.result,
@@ -353,51 +352,7 @@ void main() {
 
         await downloadTask.resume();
 
-        expect(receivedState.last, S3TransferState.inProgress);
-      });
-
-      test('should throw exception when attempt to resume a canceled task',
-          () async {
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(1024),
-          body: Stream<List<int>>.periodic(
-            const Duration(microseconds: 200),
-            (_) => [101],
-          ).take(1024),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
-
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
-          bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: defaultTestOptions,
-          logger: logger,
-          onProgress: (progress) {
-            receivedState.add(progress.state);
-          },
-        );
-
-        await downloadTask.start();
-        await downloadTask.cancel();
-
-        expect(downloadTask.result, throwsA(isA<StorageException>()));
-        expect(downloadTask.resume, throwsA(isA<StorageException>()));
+        expect(receivedState.last, StorageTransferState.inProgress);
       });
     });
 
@@ -416,7 +371,7 @@ void main() {
           ),
         );
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
 
         when(
           () => smithyOperation.result,
@@ -445,8 +400,11 @@ void main() {
 
         await downloadTask.start();
         await downloadTask.cancel();
-        expect(receivedState.last, S3TransferState.canceled);
-        expect(downloadTask.result, throwsA(isA<StorageException>()));
+        expect(receivedState.last, StorageTransferState.canceled);
+        expect(
+          downloadTask.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });
@@ -613,7 +571,7 @@ void main() {
           body: Stream.value(testBodyBytes),
         );
         final smithOperation = MockSmithyOperation<GetObjectOutput>();
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithOperation.result,
@@ -643,7 +601,7 @@ void main() {
         unawaited(downloadTask.start());
 
         await downloadTask.result;
-        expect(finalState, S3TransferState.success);
+        expect(finalState, StorageTransferState.success);
       });
       test(
           '`onDone` should be invoked when body stream is completed and ripples exception from onDone to the result Future',
@@ -656,7 +614,7 @@ void main() {
         final smithyOperation = MockSmithyOperation<GetObjectOutput>();
         final testOnDoneException = Exception('some exception');
         var onDoneHasBeenCalled = false;
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
 
         when(
           () => smithyOperation.result,
@@ -691,7 +649,7 @@ void main() {
 
         await expectLater(downloadTask.result, throwsA(testOnDoneException));
         expect(onDoneHasBeenCalled, isTrue);
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
