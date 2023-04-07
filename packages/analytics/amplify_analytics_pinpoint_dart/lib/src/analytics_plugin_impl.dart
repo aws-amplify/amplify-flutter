@@ -62,7 +62,10 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
   late final EndpointClient _endpointClient;
   late final EventClient _eventClient;
   late final SessionManager _sessionManager;
-  late final StoppableTimer _autoEventSubmitter;
+
+  /// Autoflush timer for cached analytics events.
+  @visibleForTesting
+  late final StoppableTimer? autoEventSubmitter;
 
   /// External Flutter Provider implementations
   final AppLifecycleProvider? _appLifecycleProvider;
@@ -153,11 +156,24 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       },
     );
 
-    _autoEventSubmitter = StoppableTimer(
-      duration: const Duration(seconds: 10),
-      callback: flushEvents,
-      onError: (e) => _logger.warn('Exception in events auto flush', e),
-    );
+    final autoFlushEventsInterval = pinpointConfig.autoFlushEventsInterval;
+
+    if (autoFlushEventsInterval.isNegative) {
+      throw ConfigurationError(
+        'The autoFlushEventsInterval field in your Amplify configuration must be a positive integer or 0 to disable auto-flushing.',
+      );
+    }
+
+    /// Setting autoFlushEventsInterval to 0 disables autoflush.
+    if (autoFlushEventsInterval.inSeconds > 0) {
+      autoEventSubmitter = StoppableTimer(
+        duration: autoFlushEventsInterval,
+        callback: flushEvents,
+        onError: (e) => _logger.warn('Exception in events auto flush', e),
+      );
+    } else {
+      autoEventSubmitter = null;
+    }
 
     _isConfigured = true;
     await enable();
@@ -172,7 +188,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       return;
     }
     _analyticsEnabled = true;
-    _autoEventSubmitter.start();
+    autoEventSubmitter?.start();
     _sessionManager.startSessionTracking();
   }
 
@@ -184,7 +200,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
       return;
     }
     _analyticsEnabled = false;
-    _autoEventSubmitter.stop();
+    autoEventSubmitter?.stop();
     _sessionManager.stopSessionTracking();
   }
 
@@ -234,11 +250,13 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
   @override
   Future<void> reset() async {
+    await super.reset();
+
     if (!_isConfigured) {
       return;
     }
     _isConfigured = false;
-    _autoEventSubmitter.stop();
+    autoEventSubmitter?.stop();
     await _eventClient.close();
   }
 }
