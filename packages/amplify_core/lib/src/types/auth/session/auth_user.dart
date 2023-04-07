@@ -3,14 +3,24 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-abstract class AuthUser
-    with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
-  const AuthUser();
+class AuthUser with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
+  const AuthUser({
+    required this.userId,
+    required this.username,
+    required this.signInDetails,
+  });
 
-  String get userId;
-  String get username;
-  SignInDetails get signInDetails;
+  final String userId;
+  final String username;
+  final SignInDetails signInDetails;
 
   @override
   String get runtimeTypeName => 'AuthUser';
+
+  @override
+  Map<String, Object?> toJson() => {
+        'userId': userId,
+        'username': username,
+        'signInDetails': signInDetails.toJson(),
+      };
 }
