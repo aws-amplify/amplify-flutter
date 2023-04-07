@@ -16,11 +16,15 @@ class AuthPreconditionException extends AuthException
     super.message, {
     super.recoverySuggestion,
     super.underlyingException,
+    this.shouldLog = true,
     this.shouldEmit = true,
   });
 
   @override
   String get precondition => message;
+
+  @override
+  final bool shouldLog;
 
   @override
   final bool shouldEmit;

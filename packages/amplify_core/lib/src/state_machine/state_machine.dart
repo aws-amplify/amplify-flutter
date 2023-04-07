@@ -311,10 +311,12 @@ abstract class StateMachine<
   bool _checkPrecondition(Event event) {
     final precondError = event.checkPrecondition(currentState);
     if (precondError != null) {
-      logger.debug(
-        'Precondition not met for event ($event):\n'
-        '${precondError.precondition}',
-      );
+      if (precondError.shouldLog) {
+        logger.debug(
+          'Precondition not met for event ($event):\n'
+          '${precondError.precondition}',
+        );
+      }
       if (precondError.shouldEmit) {
         _emitError(precondError, StackTrace.current);
       }
