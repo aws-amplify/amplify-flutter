@@ -6,7 +6,7 @@
 /// {@endtemplate}
 enum PushNotificationPermissionStatus {
   shouldRequest('should_request'),
-  shouldExplainThenRequest('shoudl_explain_then_request'),
+  shouldExplainThenRequest('should_explain_then_request'),
   granted('granted'),
   denied('denied');
 

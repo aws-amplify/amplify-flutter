@@ -4,7 +4,7 @@
 /// {@template amplify_core.push.pinpoint_event_source}
 /// Enum that indicates the source of push notifications.
 ///
-/// Pinpoint offers two ways of sending push notificaitons to users campaigns and journeys.
+/// Pinpoint offers two ways of sending push notifications to users campaigns and journeys.
 /// {@endtemplate}
 enum PinpointEventSource {
   campaign('campaign'),

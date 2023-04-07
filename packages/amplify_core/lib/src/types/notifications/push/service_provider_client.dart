@@ -25,7 +25,7 @@ abstract class ServiceProviderClient {
 
   Future<void> identifyUser({
     required String userId,
-    // TODO: Update this with the generic UserProfile
+    // TODO(Samaritan1011001): Update this with the generic UserProfile
     required AnalyticsUserProfile userProfile,
   });
 }

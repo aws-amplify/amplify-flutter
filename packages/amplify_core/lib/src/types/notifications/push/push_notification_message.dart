@@ -20,15 +20,6 @@ class PushNotificationMessage
     this.data = const {},
   });
 
-  String? title;
-  String? body;
-  String? imageUrl;
-  String? deeplinkUrl;
-  String? goToUrl;
-  FcmPlatformOptions? fcmOptions;
-  ApnsPlatformOptions? apnsOptions;
-  Map<Object?, Object?> data = {};
-
   PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
     data = (json['data'] as Map<Object?, Object?>?) ?? {};
 
@@ -65,6 +56,15 @@ class PushNotificationMessage
       }
     }
   }
+
+  String? title;
+  String? body;
+  String? imageUrl;
+  String? deeplinkUrl;
+  String? goToUrl;
+  FcmPlatformOptions? fcmOptions;
+  ApnsPlatformOptions? apnsOptions;
+  Map<Object?, Object?> data = {};
 
   @override
   String get runtimeTypeName => 'PushNotificationMessage';
