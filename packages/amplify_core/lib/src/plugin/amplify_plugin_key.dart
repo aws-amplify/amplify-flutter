@@ -60,33 +60,7 @@ abstract class AuthPluginKey<
   const AuthPluginKey();
 }
 
-abstract class StoragePluginKey<
-    PluginStorageListOperation extends StorageListOperation,
-    PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
-    PluginStorageGetUrlOperation extends StorageGetUrlOperation,
-    PluginStorageUploadDataOperation extends StorageUploadDataOperation,
-    PluginStorageUploadFileOperation extends StorageUploadFileOperation,
-    PluginStorageDownloadDataOperation extends StorageDownloadDataOperation,
-    PluginStorageDownloadFileOperation extends StorageDownloadFileOperation,
-    PluginStorageCopyOperation extends StorageCopyOperation,
-    PluginStorageMoveOperation extends StorageMoveOperation,
-    PluginStorageRemoveOperation extends StorageRemoveOperation,
-    PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
-    PluginStorageItem extends StorageItem,
-    PluginTransferProgress extends StorageTransferProgress,
-    P extends StoragePluginInterface<
-        PluginStorageListOperation,
-        PluginStorageGetPropertiesOperation,
-        PluginStorageGetUrlOperation,
-        PluginStorageUploadDataOperation,
-        PluginStorageUploadFileOperation,
-        PluginStorageDownloadDataOperation,
-        PluginStorageDownloadFileOperation,
-        PluginStorageCopyOperation,
-        PluginStorageMoveOperation,
-        PluginStorageRemoveOperation,
-        PluginStorageRemoveManyOperation,
-        PluginStorageItem,
-        PluginTransferProgress>> extends AmplifyPluginKey<P> {
+abstract class StoragePluginKey<P extends StoragePluginInterface>
+    extends AmplifyPluginKey<P> {
   const StoragePluginKey();
 }
