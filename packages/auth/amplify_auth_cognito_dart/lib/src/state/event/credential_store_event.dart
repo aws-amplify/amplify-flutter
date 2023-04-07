@@ -80,6 +80,7 @@ class CredentialStoreLoadCredentialStore extends CredentialStoreEvent {
       return const AuthPreconditionException(
         'Credential store already configured',
         shouldEmit: false,
+        shouldLog: false,
       );
     }
     return null;
