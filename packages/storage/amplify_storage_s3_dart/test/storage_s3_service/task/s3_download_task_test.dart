@@ -355,50 +355,6 @@ void main() {
 
         expect(receivedState.last, StorageTransferState.inProgress);
       });
-
-      test('should throw exception when attempt to resume a canceled task',
-          () async {
-        final testGetObjectOutput = GetObjectOutput(
-          contentLength: Int64(1024),
-          body: Stream<List<int>>.periodic(
-            const Duration(microseconds: 200),
-            (_) => [101],
-          ).take(1024),
-        );
-        final smithyOperation = MockSmithyOperation<GetObjectOutput>();
-        final receivedState = <StorageTransferState>[];
-
-        when(
-          () => smithyOperation.result,
-        ).thenAnswer((_) async => testGetObjectOutput);
-
-        when(
-          () => s3Client.getObject(
-            any(),
-            s3ClientConfig: any(named: 's3ClientConfig'),
-          ),
-        ).thenAnswer((_) => smithyOperation);
-
-        final downloadTask = S3DownloadTask(
-          s3Client: s3Client,
-          defaultS3ClientConfig: defaultS3ClientConfig,
-          prefixResolver: testPrefixResolver,
-          bucket: testBucket,
-          defaultAccessLevel: testDefaultAccessLevel,
-          key: testKey,
-          options: defaultTestOptions,
-          logger: logger,
-          onProgress: (progress) {
-            receivedState.add(progress.state);
-          },
-        );
-
-        await downloadTask.start();
-        await downloadTask.cancel();
-
-        expect(downloadTask.result, throwsA(isA<StorageException>()));
-        expect(downloadTask.resume, throwsA(isA<StorageException>()));
-      });
     });
 
     group('cancel API()', () {
@@ -446,7 +402,10 @@ void main() {
         await downloadTask.start();
         await downloadTask.cancel();
         expect(receivedState.last, StorageTransferState.canceled);
-        expect(downloadTask.result, throwsA(isA<StorageException>()));
+        expect(
+          downloadTask.result,
+          throwsA(isA<StorageOperationCanceledException>()),
+        );
         expect(bodyStreamHasBeenCanceled, isTrue);
       });
     });

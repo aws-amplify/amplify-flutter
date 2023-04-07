@@ -242,7 +242,7 @@ class S3DownloadTask {
 
     _emitTransferProgress();
     _downloadCompleter.completeError(
-      S3Exception.controllableOperationCanceled(),
+      s3ControllableOperationCanceledException,
     );
   }
 

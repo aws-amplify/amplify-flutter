@@ -59,16 +59,6 @@ class S3Exception extends StorageException {
     );
   }
 
-  /// Creates a [S3Exception] that represents an expected exception
-  /// thrown when invoke cancel() on an eligible storage operation object.
-  factory S3Exception.controllableOperationCanceled() {
-    return const S3Exception(
-      'The requested operation has been canceled.',
-      recoverySuggestion:
-          'This is an expected exception when you call cancel() API on the storage operation object. You need to handle this exception to take further action on operation cancellation.',
-    );
-  }
-
   /// An exception thrown when the `body` returned from GetObject is unexpectedly null.
   factory S3Exception.unexpectedGetObjectBody() {
     return const S3Exception(
@@ -228,3 +218,11 @@ class S3Exception extends StorageException {
   @override
   String get runtimeTypeName => 'S3Exception';
 }
+
+/// The exception thrown when cancel a controllable operation.
+const s3ControllableOperationCanceledException =
+    StorageOperationCanceledException(
+  'The operation has been canceled.',
+  recoverySuggestion:
+      'This is an expected exception when you call cancel() API on the storage operation object. You need to handle this exception to take further action on operation cancellation.',
+);

@@ -2049,7 +2049,7 @@ void main() {
 
           await expectLater(
             uploadTask.result,
-            throwsA(isA<StorageException>()),
+            throwsA(isA<StorageOperationCanceledException>()),
           );
 
           verify(uploadPartSmithyOperation1.cancel).called(1);

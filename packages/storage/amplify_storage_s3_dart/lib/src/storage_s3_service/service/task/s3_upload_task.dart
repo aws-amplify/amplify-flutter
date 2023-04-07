@@ -353,8 +353,7 @@ class S3UploadTask {
     } on CancellationException {
       _logger.debug('PutObject HTTP operation has been canceled.');
       _state = StorageTransferState.canceled;
-      _uploadCompleter
-          .completeError(S3Exception.controllableOperationCanceled());
+      _uploadCompleter.completeError(s3ControllableOperationCanceledException);
     } on smithy.UnknownSmithyHttpException catch (error, stackTrace) {
       _completeUploadWithError(
         S3Exception.fromUnknownSmithyHttpException(error),
@@ -414,7 +413,7 @@ class S3UploadTask {
         }
         _cancelOngoingUploadPartOperations();
         await _terminateMultipartUploadOnError(
-          S3Exception.controllableOperationCanceled(),
+          s3ControllableOperationCanceledException,
           isCancel: true,
         );
 
