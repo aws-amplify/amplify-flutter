@@ -59,7 +59,7 @@ class PinpointPluginConfig
   ///
   /// *Note:* The duration will be rounded down to the nearest whole second when
   /// this value is serialized to json.
-  @DurationConverter()
+  @_DurationConverter()
   Duration get autoFlushEventsInterval =>
       Duration(seconds: _autoFlushEventsInterval);
 
@@ -141,8 +141,8 @@ class PinpointTargeting with AWSEquatable<PinpointTargeting>, AWSSerializable {
   Map<String, Object?> toJson() => _$PinpointTargetingToJson(this);
 }
 
-class DurationConverter implements JsonConverter<Duration, int> {
-  const DurationConverter();
+class _DurationConverter implements JsonConverter<Duration, int> {
+  const _DurationConverter();
 
   @override
   Duration fromJson(int json) => Duration(seconds: json);

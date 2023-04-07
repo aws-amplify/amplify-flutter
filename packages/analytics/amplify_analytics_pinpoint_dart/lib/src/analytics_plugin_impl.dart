@@ -160,7 +160,7 @@ class AmplifyAnalyticsPinpointDart extends AnalyticsPluginInterface {
 
     if (autoFlushEventsInterval.isNegative) {
       throw ConfigurationError(
-        'The autoFlushEventsInterval field in amplifyconfiguration.dart must be positive.',
+        'The autoFlushEventsInterval field in your Amplify configuration must be a positive integer or 0 to disable auto-flushing.',
       );
     }
 
