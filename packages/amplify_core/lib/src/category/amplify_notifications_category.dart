@@ -4,9 +4,10 @@
 part of amplify_interface;
 
 /// {@template amplify_core.amplify_notifications_category}
-/// Top-Level Category for Notifications that holds a reference to Push Notifications
+/// Top-Level Category for Notifications.
 /// {@endtemplate}
 class NotificationsCategory {
+  /// The push notifications category.
   // ignore: non_constant_identifier_names
   final PushNotificationsCategory Push = PushNotificationsCategory();
 }

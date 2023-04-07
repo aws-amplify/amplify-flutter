@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// {@template amplify_core.push.pinpoint_event_type}
-/// Enum that indicates the different types recorded with Pinpoint
+/// The different push notification events recorded with Pinpoint.
 /// {@endtemplate}
 enum PinpointEventType {
   notificationOpened('opened_notification'),
