@@ -8,6 +8,16 @@ part of 'auth_code_delivery_details.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AuthCodeDeliveryDetails _$AuthCodeDeliveryDetailsFromJson(
+        Map<String, dynamic> json) =>
+    AuthCodeDeliveryDetails(
+      deliveryMedium:
+          $enumDecode(_$DeliveryMediumEnumMap, json['deliveryMedium']),
+      destination: json['destination'] as String?,
+      attributeKey: _$JsonConverterFromJson<String, AuthUserAttributeKey>(
+          json['attributeKey'], const AuthUserAttributeKeyConverter().fromJson),
+    );
+
 Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
     AuthCodeDeliveryDetails instance) {
   final val = <String, dynamic>{
@@ -21,9 +31,10 @@ Map<String, dynamic> _$AuthCodeDeliveryDetailsToJson(
   }
 
   writeNotNull('destination', instance.destination);
-  writeNotNull('attributeKey', instance.attributeKey?.toJson());
-  writeNotNull('attributeName', instance.attributeName);
-  val['runtimeTypeName'] = instance.runtimeTypeName;
+  writeNotNull(
+      'attributeKey',
+      _$JsonConverterToJson<String, AuthUserAttributeKey>(
+          instance.attributeKey, const AuthUserAttributeKeyConverter().toJson));
   return val;
 }
 
@@ -33,3 +44,15 @@ const _$DeliveryMediumEnumMap = {
   DeliveryMedium.sms: 'sms',
   DeliveryMedium.unknown: 'unknown',
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

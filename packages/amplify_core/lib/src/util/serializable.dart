@@ -23,16 +23,10 @@ const zAmplifySerializable = JsonSerializable(
   includeIfNull: false,
   explicitToJson: true,
   converters: [
+    AuthUserAttributeKeyConverter(),
     CognitoUserAttributeKeyConverter(),
     CognitoUserAttributeMapConverter(),
   ],
-);
-
-/// Global serialization options for Amplify types with generic parameters.
-const zAmplifyGenericSerializable = JsonSerializable(
-  genericArgumentFactories: true,
-  includeIfNull: false,
-  explicitToJson: true,
 );
 
 /// Global serialization options for AWS types.

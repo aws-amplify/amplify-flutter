@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 @Deprecated('Use AuthUserAttributeKey instead')
@@ -158,4 +159,15 @@ class _AuthUserAttributeKey extends AuthUserAttributeKey {
 
   @override
   final String key;
+}
+
+class AuthUserAttributeKeyConverter
+    implements JsonConverter<AuthUserAttributeKey, String> {
+  const AuthUserAttributeKeyConverter();
+
+  @override
+  AuthUserAttributeKey fromJson(String json) => _AuthUserAttributeKey(json);
+
+  @override
+  String toJson(AuthUserAttributeKey object) => object.toJson();
 }

@@ -8,8 +8,8 @@ part of 'cognito_auth_user.dart';
 
 CognitoAuthUser _$CognitoAuthUserFromJson(Map<String, dynamic> json) =>
     CognitoAuthUser(
-      username: json['username'] as String,
       userId: json['userId'] as String,
+      username: json['username'] as String,
       signInDetails: CognitoSignInDetails.fromJson(
           json['signInDetails'] as Map<String, dynamic>),
     );

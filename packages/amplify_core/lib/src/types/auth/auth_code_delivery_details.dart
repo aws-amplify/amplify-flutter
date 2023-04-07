@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_code_delivery_details.g.dart';
 
@@ -24,11 +23,7 @@ enum DeliveryMedium {
 /// {@template amplify_core.auth.auth_code_delivery_details}
 /// Details on where a confirmation code has been delivered.
 /// {@endtemplate}
-@JsonSerializable(
-  includeIfNull: false,
-  explicitToJson: true,
-  createFactory: false,
-)
+@zAmplifySerializable
 class AuthCodeDeliveryDetails
     with
         AWSEquatable<AuthCodeDeliveryDetails>,
@@ -40,6 +35,10 @@ class AuthCodeDeliveryDetails
     this.destination,
     this.attributeKey,
   });
+
+  /// {@macro amplify_core.auth.auth_code_delivery_details}
+  factory AuthCodeDeliveryDetails.fromJson(Map<String, Object?> json) =>
+      _$AuthCodeDeliveryDetailsFromJson(json);
 
   /// The type of [destination], to which the confirmation code was delivered.
   final DeliveryMedium deliveryMedium;
@@ -59,9 +58,6 @@ class AuthCodeDeliveryDetails
   String? get attributeName => attributeKey?.key;
 
   @override
-  @JsonKey(
-    includeToJson: false,
-  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [attributeKey, deliveryMedium, destination];
 
   @override
