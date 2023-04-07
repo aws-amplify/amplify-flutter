@@ -17,7 +17,7 @@ typedef AWSCognitoUserPoolTokens = CognitoUserPoolTokens;
 /// {@endtemplate}
 @zAmplifySerializable
 @_CognitoSignInMethodSerializer()
-@JsonWebTokenSerializer()
+@_JsonWebTokenSerializer()
 abstract class CognitoUserPoolTokens
     with AWSSerializable<Map<String, Object?>>
     implements Built<CognitoUserPoolTokens, CognitoUserPoolTokensBuilder> {
@@ -106,4 +106,18 @@ class _CognitoSignInMethodSerializer
 
   @override
   String toJson(CognitoSignInMethod object) => object.toJson();
+}
+
+/// {@template amplify_auth_cognito_dart.jwt.json_web_token_serializer}
+/// `package:json_serializable` plugin for [JsonWebToken].
+/// {@endtemplate}
+class _JsonWebTokenSerializer implements JsonConverter<JsonWebToken, String> {
+  /// {@macro amplify_auth_cognito_dart.jwt.json_web_token_serializer}
+  const _JsonWebTokenSerializer();
+
+  @override
+  JsonWebToken fromJson(String json) => JsonWebToken.parse(json);
+
+  @override
+  String toJson(JsonWebToken object) => object.toJson();
 }

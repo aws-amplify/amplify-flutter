@@ -5,7 +5,12 @@ import 'dart:io';
 
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_android.dart';
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_ios.dart';
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/state/credential_store_state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 /// {@template amplify_auth_cognito.legacy_credential_provider_impl}

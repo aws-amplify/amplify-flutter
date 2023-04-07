@@ -12,9 +12,17 @@ import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
+// ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
