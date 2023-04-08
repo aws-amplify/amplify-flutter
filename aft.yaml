@@ -146,3 +146,25 @@ scripts:
       if [ -d android ]; then
         flutter build apk --debug
       fi
+  build:docs:
+    description: Builds the documentation examples
+    run: |
+      if [ ! -f doc/build.yaml ]; then
+        echo "No documentation examples for {{ package.name }}" >&2
+        exit 0
+      fi
+      
+      pushd doc
+      if [ "{{ package.flavor }}" == "flutter" ]; then
+        PUB="flutter pub"
+      else
+        PUB="dart"
+      fi
+      $PUB run build_runner build
+      popd
+
+      $PUB run code_excerpt_updater \
+        --fragment-dir-path=doc/.dart_tool/build/generated \
+        --yaml \
+        --write-in-place \
+        lib

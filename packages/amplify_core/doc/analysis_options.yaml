@@ -1,0 +1,6 @@
+include: package:amplify_lints/library.yaml
+
+analyzer:
+  errors:
+    public_member_api_docs: ignore
+    unused_local_variable: ignore
