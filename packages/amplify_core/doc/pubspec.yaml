@@ -1,0 +1,28 @@
+name: doc
+description: Docs examples for the `amplify_core` package.
+version: 0.1.0
+homepage: https://docs.amplify.aws/lib/q/platform/flutter/
+repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify_core/doc
+issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
+
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+
+dependencies:
+  amplify_analytics_pinpoint: any
+  amplify_api: any
+  amplify_auth_cognito: any
+  amplify_datastore: any
+  amplify_flutter: any
+  amplify_storage_s3: any
+
+dev_dependencies:
+  amplify_lints: ^2.0.0
+  build_runner: ^2.0.0
+  code_excerpter:
+    git:
+      url: https://github.com/dart-lang/site-shared
+      # TODO(dnys1): Remove when Dart is bumped to >=2.19
+      ref: 0fe3c62c70c0e8c4f1a051a5dec3bbc4eb6c8e57
+      path: packages/code_excerpter
+  test: ^1.16.0
