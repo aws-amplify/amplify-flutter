@@ -6,9 +6,10 @@ import 'dart:typed_data';
 
 import 'package:amplify_secure_storage_dart/src/exception/secure_storage_exception.dart';
 import 'package:amplify_secure_storage_dart/src/exception/unknown_exception.dart';
-import 'package:win32/win32.dart';
+import 'package:win32/win32.dart'
+    show Uint8ListBlobConversion, WindowsException, HRESULT_FROM_WIN32;
 
-extension Uint8ListBlobConversion on Uint8List {
+extension Uint8ListBlobConversionX on Uint8List {
   /// Alternative to [allocatePointer] from win32, which accepts an allocator
   Pointer<Uint8> allocatePointerWith(Allocator allocator) {
     final blob = allocator<Uint8>(length);
