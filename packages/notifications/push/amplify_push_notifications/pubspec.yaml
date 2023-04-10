@@ -12,6 +12,7 @@ dependencies:
   amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
   amplify_core: ">=1.0.0-next.0 <1.0.0-next.1"
   amplify_secure_storage: ^0.1.0
+  async: ^2.11.0
   flutter:
     sdk: flutter
   os_detect: ^2.0.0

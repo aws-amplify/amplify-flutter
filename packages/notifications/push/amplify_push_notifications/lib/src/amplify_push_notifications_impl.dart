@@ -11,6 +11,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:amplify_push_notifications/src/push_notifications_flutter_api.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:os_detect/os_detect.dart' as os;
@@ -89,6 +90,7 @@ abstract class AmplifyPushNotifications
         .map((payload) {
       return payload['token'] as String;
     }).distinct();
+    _bufferedTokenStream = StreamQueue(_onTokenReceived);
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -107,6 +109,7 @@ abstract class AmplifyPushNotifications
   PushNotificationsHostApi get _hostApi => _dependencyManager.expect();
   AmplifySecureStorage get _amplifySecureStorage => _dependencyManager.expect();
   late final Stream<String> _onTokenReceived;
+  late final StreamQueue<String> _bufferedTokenStream;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
   late final Stream<PushNotificationMessage> _onNotificationOpened;
   var _isConfigured = false;
@@ -128,7 +131,7 @@ abstract class AmplifyPushNotifications
     if (!_isConfigured) {
       throw _needsConfigurationException;
     }
-    return _onTokenReceived;
+    return _bufferedTokenStream.rest;
   }
 
   @override
