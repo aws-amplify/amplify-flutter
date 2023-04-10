@@ -3,7 +3,6 @@
 
 package com.amazonaws.amplify.amplify_push_notifications
 
-import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.amplifyframework.annotations.InternalAmplifyApi
