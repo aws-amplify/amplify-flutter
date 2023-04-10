@@ -7,7 +7,6 @@ part 's3_move_plugin_options.g.dart';
 
 /// {@template storage.amplify_storage_s3.move_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `move` API.
-/// API.
 /// {@endtemplate}
 @zAmplifySerializable
 class S3MovePluginOptions extends StorageMovePluginOptions {
