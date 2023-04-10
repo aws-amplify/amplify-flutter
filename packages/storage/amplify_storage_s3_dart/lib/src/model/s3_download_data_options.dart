@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
 
 /// {@template storage.amplify_storage_s3.download_data_options}
-/// The configurable parameters invoking theStorage S3 plugin `downloadData` API.
+/// The configurable parameters invoking the Storage S3 plugin `downloadData` API.
 /// {@endtemplate}
 @Deprecated(
   'use StorageDownloadDataOptions(pluginOptions:S3DownloadDataPluginOptions(...)) instead.',
