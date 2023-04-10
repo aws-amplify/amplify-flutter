@@ -173,20 +173,25 @@ void main() {
             isA<S3UploadDataResult>().having(
               (o) => o.uploadedItem,
               'uploadedItem',
-              isA<S3Item>().having(
-                (o) => o.contentType,
-                'contentType',
-                testContentType,
-              ),
-            ),
-          );
-
-          expect(
-            result,
-            isA<S3UploadDataResult>().having(
-              (o) => o.uploadedItem,
-              'uploadedItem',
-              isA<S3Item>().having((o) => o.eTag, 'eTag', isNotEmpty),
+              isA<S3Item>()
+                  .having(
+                    (o) => o.contentType,
+                    'contentType',
+                    testContentType,
+                  )
+                  .having(
+                    (o) => o.eTag,
+                    'eTag',
+                    isNotEmpty,
+                  )
+                  .having(
+                    (o) => o.metadata,
+                    'metadata',
+                    containsPair(
+                      'filename',
+                      testObjectFileName1,
+                    ),
+                  ),
             ),
           );
 
@@ -218,20 +223,13 @@ void main() {
             isA<S3UploadDataResult>().having(
               (o) => o.uploadedItem,
               'uploadedItem',
-              isA<S3Item>().having(
-                (o) => o.contentType,
-                'contentType',
-                'image/jpeg',
-              ),
-            ),
-          );
-
-          expect(
-            result,
-            isA<S3UploadDataResult>().having(
-              (o) => o.uploadedItem,
-              'uploadedItem',
-              isA<S3Item>().having((o) => o.eTag, 'eTag', isNotEmpty),
+              isA<S3Item>()
+                  .having(
+                    (o) => o.contentType,
+                    'contentType',
+                    'image/jpeg',
+                  )
+                  .having((o) => o.eTag, 'eTag', isNotEmpty),
             ),
           );
 
@@ -263,20 +261,13 @@ void main() {
             isA<S3UploadFileResult>().having(
               (o) => o.uploadedItem,
               'uploadedItem',
-              isA<S3Item>().having(
-                (o) => o.contentType,
-                'contentType',
-                'application/octet-stream',
-              ),
-            ),
-          );
-
-          expect(
-            result,
-            isA<S3UploadFileResult>().having(
-              (o) => o.uploadedItem,
-              'uploadedItem',
-              isA<S3Item>().having((o) => o.eTag, 'eTag', isNotEmpty),
+              isA<S3Item>()
+                  .having(
+                    (o) => o.contentType,
+                    'contentType',
+                    'application/octet-stream',
+                  )
+                  .having((o) => o.eTag, 'eTag', isNotEmpty),
             ),
           );
 
@@ -291,13 +282,30 @@ void main() {
             options: const StorageGetUrlOptions(
               accessLevel: StorageAccessLevel.private,
               pluginOptions: S3GetUrlPluginOptions(
-                checkObjectExistence: true,
+                validateObjectExistence: true,
                 expiresIn: Duration(minutes: 5),
               ),
             ),
           ).result;
           final downloadedBytes = await http.readBytes(result.url);
           expect(downloadedBytes, equals(testLargeFileBytes));
+        });
+
+        testWidgets(
+            'should throw generating downloadable url of a non-existent object',
+            (WidgetTester tester) async {
+          final result = Amplify.Storage.getUrl(
+            key: 'random/non-existent/object.png',
+            options: const StorageGetUrlOptions(
+              accessLevel: StorageAccessLevel.private,
+              pluginOptions: S3GetUrlPluginOptions(
+                validateObjectExistence: true,
+                expiresIn: Duration(minutes: 5),
+              ),
+            ),
+          ).result;
+
+          expect(result, throwsA(isA<StorageKeyNotFoundException>()));
         });
 
         testWidgets(
@@ -472,6 +480,55 @@ void main() {
             )
           ],
         );
+
+        testWidgets(
+            'multiple fields of user defined metadata with non-ascii string values',
+            (widgetTester) async {
+          final objectKey = 'metadata-test-${uuid()}';
+          const testContentType = 'text/plain';
+          final testMetadata = {
+            'filename': objectKey,
+            'description': 'Today is a 🌞 晴天 😎',
+            'owner': '悟空',
+          };
+          final s3Plugin =
+              Amplify.Storage.getPlugin(AmplifyStorageS3.pluginKey);
+          final result = await s3Plugin
+              .uploadData(
+                data: S3DataPayload.bytes(
+                  testBytes,
+                  contentType: testContentType,
+                ),
+                key: objectKey,
+                options: StorageUploadDataOptions(
+                  metadata: testMetadata,
+                  accessLevel: StorageAccessLevel.guest,
+                  pluginOptions: const S3UploadDataPluginOptions(
+                    getProperties: true,
+                  ),
+                ),
+              )
+              .result;
+
+          expect(
+            result,
+            isA<S3UploadDataResult>().having(
+              (o) => o.uploadedItem,
+              'uploadedItem',
+              isA<S3Item>().having(
+                (o) => o.metadata,
+                'metadata',
+                isNotEmpty,
+              ),
+            ),
+          );
+
+          final metadata = result.uploadedItem.metadata;
+
+          expect(metadata, equals(testMetadata));
+
+          await s3Plugin.remove(key: objectKey).result;
+        });
       });
 
       group(
@@ -535,7 +592,7 @@ void main() {
               options: const StorageGetUrlOptions(
                 accessLevel: StorageAccessLevel.guest,
                 pluginOptions: S3GetUrlPluginOptions(
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );
@@ -552,7 +609,7 @@ void main() {
                 accessLevel: StorageAccessLevel.protected,
                 pluginOptions: S3GetUrlPluginOptions.forIdentity(
                   user1IdentityId,
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );
@@ -569,7 +626,7 @@ void main() {
               options: const StorageGetUrlOptions(
                 accessLevel: StorageAccessLevel.private,
                 pluginOptions: S3GetUrlPluginOptions(
-                  checkObjectExistence: true,
+                  validateObjectExistence: true,
                 ),
               ),
             );

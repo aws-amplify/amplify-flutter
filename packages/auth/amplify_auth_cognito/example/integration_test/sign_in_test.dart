@@ -16,14 +16,14 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('signIn (SRP)', () {
-    for (final environmentName in ['main', 'user-pool-only']) {
+    for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
         late String username;
         late String password;
 
         setUp(() async {
           await configureAuth(
-            config: amplifyEnvironments[environmentName],
+            config: amplifyEnvironments[environmentName]!,
           );
 
           // create new user for each test

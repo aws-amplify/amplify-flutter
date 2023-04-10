@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/data_protection.bindings.dart';
 import 'package:amplify_secure_storage_dart/src/ffi/win32/utils.dart';
 import 'package:ffi/ffi.dart';
-import 'package:win32/win32.dart';
+import 'package:win32/win32.dart' show GetLastError, ERROR_SUCCESS;
 
 /// Encrypts the provided string as a [Uint8List].
 Uint8List encryptString(String value) {
@@ -13,7 +13,7 @@ Uint8List encryptString(String value) {
   return encrypt(encodedValue);
 }
 
-/// Decrypts the providued [Uint8List] as a String.
+/// Decrypts the provided [Uint8List] as a String.
 String decryptString(Uint8List data) {
   final decryptedData = decrypt(data);
   return utf8.decode(decryptedData);

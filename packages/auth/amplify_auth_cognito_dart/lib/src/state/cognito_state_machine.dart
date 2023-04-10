@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credentials_provider.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';

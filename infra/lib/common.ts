@@ -205,6 +205,7 @@ export const createAmplifyConfig = (
         Default: {
           PoolId: userPoolConfig.userPoolId,
           AppClientId: userPoolConfig.userPoolClientId,
+          AppClientSecret: userPoolConfig.userPoolClientSecret,
           Region: region,
         },
       };
@@ -345,6 +346,7 @@ export type ApiEndpointConfig = {
 export type UserPoolConfig = {
   userPoolId: string;
   userPoolClientId: string;
+  userPoolClientSecret?: string;
   signInAliases?: cognito.SignInAliases;
   standardAttributes?: cognito.StandardAttributes;
   mfa: cognito.Mfa;

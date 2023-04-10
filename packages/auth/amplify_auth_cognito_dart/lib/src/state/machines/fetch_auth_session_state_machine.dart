@@ -8,12 +8,14 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -503,14 +505,24 @@ class FetchAuthSessionStateMachine
   ) async {
     final deviceSecrets = await getOrCreate<DeviceMetadataRepository>()
         .get(userPoolTokens.username);
+    final config = _userPoolConfig!;
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
-        ..clientId = _userPoolConfig!.appClientId
+        ..clientId = config.appClientId
         ..authParameters.addAll({
           CognitoConstants.refreshToken: userPoolTokens.refreshToken,
         })
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+
+      if (config.appClientSecret != null) {
+        b.authParameters[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+          userPoolTokens.username,
+          config.appClientId,
+          config.appClientSecret!,
+        );
+      }
 
       final deviceKey = deviceSecrets?.deviceKey;
       if (deviceKey != null) {

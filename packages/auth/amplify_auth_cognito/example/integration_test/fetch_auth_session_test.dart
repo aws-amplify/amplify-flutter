@@ -21,7 +21,7 @@ void main() {
       group('no user pool', () {
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments['identity-pool-only'],
+            config: amplifyEnvironments['identity-pool-only']!,
           );
         });
 
@@ -115,7 +115,7 @@ void main() {
     group('unauthenticated access disabled', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['authenticated-users-only'],
+          config: amplifyEnvironments['authenticated-users-only']!,
         );
       });
 
@@ -196,7 +196,7 @@ void main() {
     group('user pool-only', () {
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['user-pool-only'],
+          config: amplifyEnvironments['user-pool-only']!,
         );
       });
 
@@ -273,5 +273,67 @@ void main() {
         );
       });
     });
+
+    for (final environmentName in userPoolEnvironments) {
+      group(environmentName, () {
+        Future<Map<String, Object?>> getCustomAttributes({
+          bool forceRefresh = false,
+        }) async {
+          final session = await Amplify.Auth.fetchAuthSession(
+            options: FetchAuthSessionOptions(forceRefresh: forceRefresh),
+          ) as CognitoAuthSession;
+          final idToken = session.userPoolTokensResult.value.idToken;
+          return idToken.claims.customClaims;
+        }
+
+        setUpAll(() async {
+          await configureAuth(
+            config: amplifyEnvironments[environmentName]!,
+          );
+        });
+
+        asyncTest('Can force refresh', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+
+          final cognitoUsername = await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+          );
+          addTearDown(() => deleteUser(cognitoUsername));
+
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(res.nextStep.signInStep, AuthSignInStep.done);
+
+          expect(
+            await getCustomAttributes(),
+            isNot(contains('address')),
+            reason: 'No custom attrs exist yet',
+          );
+
+          await Amplify.Auth.updateUserAttribute(
+            userAttributeKey: CognitoUserAttributeKey.address,
+            value: '1 Main St',
+          );
+
+          expect(
+            await getCustomAttributes(),
+            isNot(contains('address')),
+            reason: 'Token is not yet updated',
+          );
+
+          expect(
+            await getCustomAttributes(forceRefresh: true),
+            contains('address'),
+            reason: 'Token is updated via force refresh',
+          );
+        });
+      });
+    }
   });
 }

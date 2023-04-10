@@ -5,6 +5,7 @@ export '../exception/storage/access_denied_exception.dart';
 export '../exception/storage/http_status_exception.dart';
 export '../exception/storage/key_not_found_exception.dart';
 export '../exception/storage/local_file_not_found_exception.dart';
+export '../exception/storage/operation_canceled_exception.dart';
 export '../exception/storage/storage_exception.dart';
 export 'access_level.dart';
 export 'copy_operation.dart';

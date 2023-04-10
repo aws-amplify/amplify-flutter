@@ -147,11 +147,11 @@ CognitoUserPoolTokens _$CognitoUserPoolTokensFromJson(
           ? CognitoSignInMethod.default$
           : const _CognitoSignInMethodSerializer()
               .fromJson(json['signInMethod'] as String),
-      accessToken: const JsonWebTokenSerializer()
+      accessToken: const _JsonWebTokenSerializer()
           .fromJson(json['accessToken'] as String),
       refreshToken: json['refreshToken'] as String,
       idToken:
-          const JsonWebTokenSerializer().fromJson(json['idToken'] as String),
+          const _JsonWebTokenSerializer().fromJson(json['idToken'] as String),
     );
 
 Map<String, dynamic> _$CognitoUserPoolTokensToJson(
@@ -160,7 +160,7 @@ Map<String, dynamic> _$CognitoUserPoolTokensToJson(
       'signInMethod':
           const _CognitoSignInMethodSerializer().toJson(instance.signInMethod),
       'accessToken':
-          const JsonWebTokenSerializer().toJson(instance.accessToken),
+          const _JsonWebTokenSerializer().toJson(instance.accessToken),
       'refreshToken': instance.refreshToken,
-      'idToken': const JsonWebTokenSerializer().toJson(instance.idToken),
+      'idToken': const _JsonWebTokenSerializer().toJson(instance.idToken),
     };

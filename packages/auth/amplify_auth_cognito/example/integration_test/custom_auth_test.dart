@@ -32,7 +32,7 @@ void main() {
 
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['custom-auth-without-srp'],
+          config: amplifyEnvironments['custom-auth-without-srp']!,
         );
       });
 
@@ -266,7 +266,7 @@ void main() {
 
       setUpAll(() async {
         await configureAuth(
-          config: amplifyEnvironments['custom-auth-with-srp'],
+          config: amplifyEnvironments['custom-auth-with-srp']!,
         );
       });
 

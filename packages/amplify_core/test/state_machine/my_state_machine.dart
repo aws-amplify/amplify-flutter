@@ -22,6 +22,9 @@ class MyPreconditionException implements PreconditionException {
   final String precondition;
 
   @override
+  bool get shouldLog => true;
+
+  @override
   bool get shouldEmit => false;
 }
 

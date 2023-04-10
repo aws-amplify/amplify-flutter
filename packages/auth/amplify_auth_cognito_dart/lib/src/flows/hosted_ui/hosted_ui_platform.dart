@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_config.d
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.io) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_io.dart';
+import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';

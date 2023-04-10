@@ -22,7 +22,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('User Attributes', () {
-    for (final environmentName in ['main', 'user-pool-only']) {
+    for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
         late String username;
         late String password;
@@ -32,7 +32,7 @@ void main() {
 
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments[environmentName],
+            config: amplifyEnvironments[environmentName]!,
           );
 
           username = generateUsername();

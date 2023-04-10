@@ -8,14 +8,21 @@ import 'dart:io';
 import 'package:amplify_analytics_pinpoint/src/flutter_endpoint_info_store_manager.dart';
 // ignore: implementation_imports
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
-
 import 'package:amplify_auth_cognito/src/credentials/legacy_credential_provider_impl.dart';
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 // ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/credentials/legacy_credential_provider.dart';
+// ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform_html.dart'
     if (dart.library.ui) 'flows/hosted_ui/hosted_ui_platform_flutter.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
+// ignore: implementation_imports
+import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
@@ -41,26 +48,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 
   /// A plugin key which can be used with `Amplify.Auth.getPlugin` to retrieve
   /// a Cognito-specific Auth category interface.
-  static const AuthPluginKey<
-      CognitoAuthUser,
-      CognitoUserAttributeKey,
-      AuthUserAttribute<CognitoUserAttributeKey>,
-      CognitoDevice,
-      CognitoSignUpResult,
-      CognitoSignUpResult,
-      CognitoResendSignUpCodeResult,
-      CognitoSignInResult,
-      CognitoSignInResult,
-      SignOutResult,
-      UpdatePasswordResult,
-      CognitoResetPasswordResult,
-      CognitoResetPasswordResult,
-      CognitoAuthSession,
-      CognitoSignInResult,
-      UpdateUserAttributeResult,
-      ConfirmUserAttributeResult,
-      ResendUserAttributeConfirmationCodeResult,
-      AmplifyAuthCognito> pluginKey = _AmplifyAuthCognitoPluginKey();
+  static const AuthPluginKey<AmplifyAuthCognito> pluginKey =
+      _AmplifyAuthCognitoPluginKey();
 
   @override
   Future<void> addPlugin({
@@ -241,26 +230,7 @@ class _NativeAmplifyAuthCognito
   String get runtimeTypeName => '_NativeAmplifyAuthCognito';
 }
 
-class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<
-    CognitoAuthUser,
-    CognitoUserAttributeKey,
-    AuthUserAttribute<CognitoUserAttributeKey>,
-    CognitoDevice,
-    CognitoSignUpResult,
-    CognitoSignUpResult,
-    CognitoResendSignUpCodeResult,
-    CognitoSignInResult,
-    CognitoSignInResult,
-    SignOutResult,
-    UpdatePasswordResult,
-    CognitoResetPasswordResult,
-    CognitoResetPasswordResult,
-    CognitoAuthSession,
-    CognitoSignInResult,
-    UpdateUserAttributeResult,
-    ConfirmUserAttributeResult,
-    ResendUserAttributeConfirmationCodeResult,
-    AmplifyAuthCognito> {
+class _AmplifyAuthCognitoPluginKey extends AuthPluginKey<AmplifyAuthCognito> {
   const _AmplifyAuthCognitoPluginKey();
 
   @override

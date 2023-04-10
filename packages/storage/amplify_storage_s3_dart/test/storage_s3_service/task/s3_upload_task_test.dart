@@ -715,7 +715,7 @@ void main() {
       test(
           'should invoke corresponding S3Client APIs with in a happy path to complete the upload',
           () async {
-        final receivedState = <S3TransferState>[];
+        final receivedState = <StorageTransferState>[];
         void onProgress(S3TransferProgress progress) {
           receivedState.add(progress.state);
         }
@@ -910,8 +910,8 @@ void main() {
         expect(partNumbers, equals([1, 2, 3]));
         expect(
           receivedState,
-          List.generate(4, (_) => S3TransferState.inProgress)
-            ..add(S3TransferState.success),
+          List.generate(4, (_) => StorageTransferState.inProgress)
+            ..add(StorageTransferState.success),
         ); // upload start + 3 parts
 
         // verify the CompleteMultipartUpload request
@@ -1267,7 +1267,7 @@ void main() {
       test(
           'should throw exception if the file to be upload is too large to initiate a multipart upload',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final testBadFile = AWSFile.fromStream(
           Stream.value([]),
           size: 5 * 1024 * 1024 * 1024 * 1024 + 1, // > 5TiB
@@ -1294,14 +1294,14 @@ void main() {
           uploadTask.result,
           throwsA(isA<StorageException>()),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should complete with StorageAccessDeniedException when CreateMultipartUploadRequest'
           ' returned UnknownSmithyHttpException with status code 403',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1340,13 +1340,13 @@ void main() {
           ),
         );
 
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should complete with NetworkException when CreateMultipartUploadRequest'
           ' returned AWSHttpException', () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1386,13 +1386,13 @@ void main() {
           ),
         );
 
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should complete with error when CreateMultipartUploadRequest does NOT return a valid uploadId',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1429,14 +1429,14 @@ void main() {
           uploadTask.result,
           throwsA(isA<StorageException>()),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should complete with StorageAccessDeniedException when'
           ' CompleteMultipartUploadRequest fails (should not happen just in case)',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1512,13 +1512,13 @@ void main() {
             ),
           ),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should terminate multipart upload when a UploadPartRequest fails due to 403'
           ' and should complete with StorageAccessDeniedException', () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1605,13 +1605,13 @@ void main() {
             testMultipartUploadId,
           ),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should terminate multipart upload when a UploadPartRequest fails due to AWSHttpException'
           ' and should complete with NetworkException', () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1699,13 +1699,13 @@ void main() {
             testMultipartUploadId,
           ),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should terminate multipart upload when a UploadPartRequest does NOT return a valid eTag and complete with error',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1770,13 +1770,13 @@ void main() {
           throwsA(isA<StorageException>()),
         );
 
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       test(
           'should terminate multipart upload when a UploadPartRequest encountered NoSuchUpload error and complete with error',
           () async {
-        late S3TransferState finalState;
+        late StorageTransferState finalState;
         final uploadTask = S3UploadTask.fromAWSFile(
           testLocalFile,
           s3Client: s3Client,
@@ -1833,18 +1833,14 @@ void main() {
         await expectLater(
           uploadTask.result,
           throwsA(
-            isA<StorageException>().having(
+            isA<UnknownException>().having(
               (o) => o.underlyingException,
               'underlyingException',
-              isA<StorageException>().having(
-                (o) => o.underlyingException,
-                'underlyingException',
-                testException,
-              ),
+              testException,
             ),
           ),
         );
-        expect(finalState, S3TransferState.failure);
+        expect(finalState, StorageTransferState.failure);
       });
 
       group('Control APIs', () {
@@ -1937,7 +1933,7 @@ void main() {
 
         test('pause()/resume() should emit paused stat and complete the upload',
             () async {
-          final receivedState = <S3TransferState>[];
+          final receivedState = <StorageTransferState>[];
           final uploadTask = S3UploadTask.fromAWSFile(
             testLocalFile,
             s3Client: s3Client,
@@ -1985,7 +1981,7 @@ void main() {
           await uploadTask.result;
           expect(
             receivedState,
-            contains(S3TransferState.paused),
+            contains(StorageTransferState.paused),
           );
 
           verify(uploadPartSmithyOperation1.cancel).called(1);
@@ -1996,7 +1992,7 @@ void main() {
         test(
             'cancel() should terminate ongoing multipart upload and throw a StorageException',
             () async {
-          final receivedState = <S3TransferState>[];
+          final receivedState = <StorageTransferState>[];
           final uploadTask = S3UploadTask.fromAWSFile(
             testLocalFile,
             s3Client: s3Client,
@@ -2049,7 +2045,7 @@ void main() {
 
           await expectLater(
             uploadTask.result,
-            throwsA(isA<StorageException>()),
+            throwsA(isA<StorageOperationCanceledException>()),
           );
 
           verify(uploadPartSmithyOperation1.cancel).called(1);
