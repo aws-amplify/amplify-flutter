@@ -11,6 +11,13 @@ import 'package:amplify_api_example/models/Post.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
+// TODO: Nice to have
+// select auth mode
+
+/// Amplify Flutter GraphQL API Example
+/// In the example below, we demonstrate ways to interact with the API Category.
+/// Each method contains a unique operation for different use cases.
+
 class GraphQLApiView extends StatefulWidget {
   const GraphQLApiView({super.key, this.isAmplifyConfigured = false});
   final bool isAmplifyConfigured;
@@ -106,11 +113,12 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   }
 
   /// Get a list of posts and parent blogs with model query helper
-  Future<void> queryPosts() async {
+  Future<void> queryPostsById() async {
     final req = ModelQueries.list(
       Post.classType,
       limit: 15,
       authorizationMode: APIAuthorizationType.userPools,
+      where: Post.BLOG.eq(_blog!.id),
     );
 
     final operation = Amplify.API.query(request: req);
@@ -289,12 +297,16 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     }
   }
 
+  // Checks for errors and print the response on screen
   void handleResponse(
     GraphQLResponse<Model> response,
   ) {
     final data = response.data;
     if (data == null) {
       print('errors: ${response.errors}');
+      setState(() {
+        _result = response.errors.toString();
+      });
       return;
     }
 
@@ -305,6 +317,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     });
   }
 
+  // Checks for errors and print the response on screen
   void handleSubscriptionEvents(GraphQLResponse<dynamic> event) {
     print('subscription event received');
     if (event.hasErrors) {
@@ -319,17 +332,11 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     });
   }
 
+  // Pretty prints the data responses
   String prettifyData(Model data) {
     final dataJson = const JsonEncoder.withIndent('  ').convert(data.toJson());
     print('Result data: $dataJson');
     return dataJson;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    queryBlogs();
-    queryPosts();
   }
 
   @override
@@ -347,35 +354,30 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: widget.isAmplifyConfigured ? queryBlogs : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green, // This is what you need!
-                    ),
-                    child: const Text('Blogs'),
+                ElevatedButton(
+                  onPressed: widget.isAmplifyConfigured ? queryBlogs : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, // This is what you need!
                   ),
+                  child: const Text('Blogs'),
                 ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: widget.isAmplifyConfigured ? queryPosts : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green, // This is what you need!
-                    ),
-                    child: const Text('Posts'),
+                ElevatedButton(
+                  onPressed: widget.isAmplifyConfigured && _blog != null
+                      ? queryPostsById
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, // This is what you need!
                   ),
+                  child: const Text('Posts by BlogID'),
                 ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed:
-                        widget.isAmplifyConfigured ? queryComments : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green, // This is what you need!
-                    ),
-                    child: const Text('Comments'),
+                ElevatedButton(
+                  onPressed: widget.isAmplifyConfigured ? queryComments : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, // This is what you need!
                   ),
+                  child: const Text('Comments'),
                 ),
               ],
             ),
@@ -439,36 +441,32 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed:
-                        widget.isAmplifyConfigured && _subscription == null
-                            ? subscribe
-                            : null,
-                    child: const Text('Blogs'),
+                ElevatedButton(
+                  onPressed: widget.isAmplifyConfigured && _subscription == null
+                      ? subscribe
+                      : null,
+                  child: const Text('Blogs'),
+                ),
+                ElevatedButton(
+                  onPressed: widget.isAmplifyConfigured &&
+                          _subscriptionByID == null &&
+                          _blog != null
+                      ? subscribeByID
+                      : null,
+                  child: const Text(
+                    'Posts By BlogID',
+                    maxLines: 1,
                   ),
                 ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: widget.isAmplifyConfigured &&
-                            _subscriptionByID == null &&
-                            _blog != null
-                        ? subscribeByID
-                        : null,
-                    child: const Text('Posts By BlogID'),
-                  ),
-                ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: _subscription != null
-                        ? () => setState(() {
-                              _unsubscribe?.call();
-                              _unsubscribe = null;
-                              _subscription = null;
-                            })
-                        : null,
-                    child: const Text('Unsubscribe'),
-                  ),
+                ElevatedButton(
+                  onPressed: _subscription != null
+                      ? () => setState(() {
+                            _unsubscribe?.call();
+                            _unsubscribe = null;
+                            _subscription = null;
+                          })
+                      : null,
+                  child: const Text('Unsubscribe'),
                 ),
               ],
             ),
@@ -552,6 +550,9 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         const Padding(padding: EdgeInsets.all(10)),
         Text(
           '\n$_result\n',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
         ),
       ],
     );
