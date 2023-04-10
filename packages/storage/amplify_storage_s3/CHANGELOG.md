@@ -1,3 +1,13 @@
+## 1.0.0-next.8
+
+### Breaking Changes
+- feat(storage)!: update upload APIs options to add metadata field ([#2815](https://github.com/aws-amplify/amplify-flutter/pull/2815))
+- refactor(storage)!: rename checkObjectExistence to validateObjectExistence
+- refactor(storage)!: storage category APIs to use category level plugin options ([#2754](https://github.com/aws-amplify/amplify-flutter/pull/2754))
+
+### Features
+- feat(storage): add handling of non-ascii object metadata values
+
 ## 1.0.0-next.7
 
 - Minor bug fixes and improvements

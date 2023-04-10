@@ -1,3 +1,23 @@
+## 0.2.0
+
+### Breaking Changes
+- feat(storage)!: update upload APIs options to add metadata field ([#2815](https://github.com/aws-amplify/amplify-flutter/pull/2815))
+- fix(storage)!: make S3Exception internal
+- refactor(storage)!: rename checkObjectExistence to validateObjectExistence
+- refactor(storage)!: simplify storage s3 exceptions throwing
+- refactor(storage)!: storage category APIs to use category level plugin options ([#2754](https://github.com/aws-amplify/amplify-flutter/pull/2754))
+
+### Fixes
+- fix(storage): Use `reifyPluginOptions` as instance method
+- fix(storage): add handling of AWSHttpException
+- fix(storage): remove unnecessary exception for resuming a canceled task
+
+### Features
+- feat(storage): add generic StorageOperationCanceledException in core
+- feat(storage): add handling of non-ascii object metadata values
+- feat(storage): make access level optional for storage APIs ([#2793](https://github.com/aws-amplify/amplify-flutter/pull/2793))
+- feat(storage): promote StorageTransferState to amplify_core
+
 ## 0.1.7+1
 
 - Minor bug fixes and improvements

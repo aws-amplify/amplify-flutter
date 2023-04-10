@@ -6,9 +6,9 @@ environment:
   sdk: '>=2.18.0 <4.0.0'
 
 dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.1.4+3 <0.2.0"
-  amplify_auth_cognito_dart: ">=0.8.0 <0.9.0"
-  amplify_core: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_analytics_pinpoint_dart: ">=0.2.0 <0.3.0"
+  amplify_auth_cognito_dart: ">=0.9.0 <0.10.0"
+  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_secure_storage_dart: ">=0.3.0 <0.4.0"
   aws_common: ">=0.4.0 <0.5.0"
   built_collection: ^5.0.0

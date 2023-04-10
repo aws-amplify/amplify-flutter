@@ -1,3 +1,9 @@
+## 1.0.0-next.8
+
+### Fixes
+- fix(api): Auth provider registration
+- fix(api): Include owner field in selection set ([#2795](https://github.com/aws-amplify/amplify-flutter/pull/2795))
+
 ## 1.0.0-next.7
 
 - Minor bug fixes and improvements
