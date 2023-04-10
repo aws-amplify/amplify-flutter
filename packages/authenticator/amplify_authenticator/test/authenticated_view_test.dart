@@ -11,14 +11,23 @@ import 'package:mocktail/mocktail.dart';
 
 void main() {
   group('AuthenticatedView', () {
-    late AuthenticatorState mockState;
+    late MockAuthenticatorState mockState;
     setUp(() {
       mockState = MockAuthenticatorState();
-      when(mockState.signIn).thenAnswer((_) => Future.value());
+      when(mockState.signIn).thenAnswer((_) async {
+        mockState.isBusy = true;
+        await Future<void>.delayed(Duration.zero);
+        mockState.isBusy = false;
+      });
     });
 
     /// Completes the sign in form via keyboard events (Tab & Enter).
-    Future<void> verifySignInWithKeyboard(WidgetTester tester) async {
+    Future<void> signInWithKeyboard(
+      WidgetTester tester, {
+      String username = 'user@example.com',
+      String password = 'Password123',
+      bool submitViaTextField = false,
+    }) async {
       // Move focus to first widget via keyboard (Sign In Tab).
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
 
@@ -29,31 +38,30 @@ void main() {
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
 
       // Enter text to currently focused widget (Username TextField).
-      tester.testTextInput.enterText('user@example.com');
+      tester.testTextInput.enterText(username);
 
       // Move focus to next widget via keyboard (Password TextField).
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
 
       // Enter text to currently focused widget (Password TextField).
-      tester.testTextInput.enterText('Password123');
+      tester.testTextInput.enterText(password);
 
-      expect(mockState.username, 'user@example.com');
-      expect(mockState.password, 'Password123');
+      expect(mockState.username, username);
+      expect(mockState.password, password);
 
-      // Move focus to first next widget via keyboard (Password Hide/Show toggle).
-      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      if (submitViaTextField) {
+        // Submit form via Enter from password field.
+        await tester.testTextInput.receiveAction(TextInputAction.done);
+      } else {
+        // Move focus to first next widget via keyboard (Password Hide/Show toggle).
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
 
-      // Move focus to first next widget via keyboard (Sign In Button).
-      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+        // Move focus to first next widget via keyboard (Sign In Button).
+        await tester.sendKeyEvent(LogicalKeyboardKey.tab);
 
-      verifyNever(mockState.signIn);
-
-      // Submit form with Enter key.
-      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-
-      await tester.pump();
-
-      verify(mockState.signIn).called(1);
+        // Submit form with Enter key.
+        await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      }
     }
 
     testWidgets(
@@ -77,7 +85,72 @@ void main() {
         // Set initial focus to window.
         await tester.tapAt(const Offset(0, 0));
 
-        await verifySignInWithKeyboard(tester);
+        verifyNever(mockState.signIn);
+        await signInWithKeyboard(tester);
+        await tester.pumpAndSettle();
+        verify(mockState.signIn).called(1);
+      },
+    );
+
+    testWidgets(
+      'form should submit when enter is pressed from a text field',
+      (tester) async {
+        final testWidget = MaterialApp(
+          home: Scaffold(
+            body: MockAuthenticatorApp(
+              child: InheritedAuthenticatorState(
+                state: mockState,
+                child: const AuthenticatedView(
+                  child: Center(child: Text('You are signed in.')),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpWidget(testWidget);
+        await tester.pumpAndSettle();
+
+        // Set initial focus to window.
+        await tester.tapAt(const Offset(0, 0));
+
+        verifyNever(mockState.signIn);
+        await signInWithKeyboard(tester, submitViaTextField: true);
+        await tester.pumpAndSettle();
+        verify(mockState.signIn).called(1);
+      },
+    );
+
+    testWidgets(
+      'form should only submit once when enter is pressed multiple times from a text field',
+      (tester) async {
+        final testWidget = MaterialApp(
+          home: Scaffold(
+            body: MockAuthenticatorApp(
+              child: InheritedAuthenticatorState(
+                state: mockState,
+                child: const AuthenticatedView(
+                  child: Center(child: Text('You are signed in.')),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpWidget(testWidget);
+        await tester.pumpAndSettle();
+
+        // Set initial focus to window.
+        await tester.tapAt(const Offset(0, 0));
+
+        verifyNever(mockState.signIn);
+        await signInWithKeyboard(tester, submitViaTextField: true);
+        await signInWithKeyboard(
+          tester,
+          username: '',
+          password: '',
+          submitViaTextField: true,
+        );
+        await tester.pumpAndSettle();
+        verify(mockState.signIn).called(1);
       },
     );
 
@@ -122,7 +195,10 @@ void main() {
           await tester.sendKeyEvent(LogicalKeyboardKey.tab);
         }
 
-        await verifySignInWithKeyboard(tester);
+        verifyNever(mockState.signIn);
+        await signInWithKeyboard(tester);
+        await tester.pumpAndSettle();
+        verify(mockState.signIn).called(1);
       },
     );
   });
@@ -133,6 +209,9 @@ class MockAuthenticatorState extends Mock implements AuthenticatorState {
 
   @override
   GlobalKey<FormState> get formKey => _formKey;
+
+  @override
+  AuthenticatorStep get currentStep => AuthenticatorStep.signIn;
 
   @override
   String get username => _username;
@@ -154,6 +233,12 @@ class MockAuthenticatorState extends Mock implements AuthenticatorState {
 
   String _password = '';
 
+  bool _isBusy = false;
+
   @override
-  bool get isBusy => false;
+  bool get isBusy => _isBusy;
+
+  set isBusy(bool busy) {
+    _isBusy = busy;
+  }
 }
