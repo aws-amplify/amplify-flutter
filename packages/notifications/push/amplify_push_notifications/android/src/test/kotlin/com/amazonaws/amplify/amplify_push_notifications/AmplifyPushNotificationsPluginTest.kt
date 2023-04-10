@@ -135,7 +135,8 @@ class AmplifyPushNotificationsPluginTest {
         assertNull(amplifyPushNotificationsPlugin.launchNotification)
     }
 
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
+    // TODO(Samaritan1011001): Add test cases to check possible permission values,
+    //  need a way to check particular permission type
     @Test
     fun `returns Granted permission status`() {
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns true
