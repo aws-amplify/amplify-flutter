@@ -17,10 +17,10 @@ const backgroundChannel = MethodChannel(
 );
 
 /// {@template amplify_push_notifications_pinpoint.amplify_background_processor}
-/// Dart entry point function that facilitates recording of notificaiton event when the app is killed.
+/// Dart entry point function that facilitates recording of notification event when the app is killed.
 ///
 /// Securely stored config is used to configure Amplify with Pinpoint push notifications plugin that
-/// can record the notificaiton received event when the app is in a killed state.
+/// can record the notification received event when the app is in a killed state.
 /// {@endtemplate}
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing({
