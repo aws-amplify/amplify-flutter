@@ -78,8 +78,8 @@ void main() {
       );
       final properties = res.properties;
       final source = res.source;
-      expect(properties.attributes.containsKey('journey_id'), true);
-      expect(source, PinpointEventSource.journey.name);
+      expect(properties.attributes.containsKey('journey_id'), isTrue);
+      expect(source, equals(PinpointEventSource.journey.name));
     });
 
     test(
@@ -90,8 +90,8 @@ void main() {
       );
       final properties = res.properties;
       final source = res.source;
-      expect(properties.attributes.containsKey('campaign_id'), true);
-      expect(source, PinpointEventSource.campaign.name);
+      expect(properties.attributes.containsKey('campaign_id'), isTrue);
+      expect(source, equals(PinpointEventSource.campaign.name));
     });
   });
 
@@ -108,10 +108,13 @@ void main() {
           authProvider: anyNamed('authProvider'),
         ),
       ).thenAnswer((realInvocation) async {});
-      await pinpointProvider.init(
-        config: notificationsPinpointConfig,
-        authProviderRepo: mockAmplifyAuthProviderRepository,
-        mockAnalyticsClient: mockAnalyticsClient,
+      expect(
+        pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          mockAnalyticsClient: mockAnalyticsClient,
+        ),
+        completes,
       );
     });
 
@@ -132,15 +135,21 @@ void main() {
         mockAnalyticsClient.endpointClient,
       ).thenReturn(mockEndpointClient);
 
-      await pinpointProvider.init(
-        config: notificationsPinpointConfig,
-        authProviderRepo: mockAmplifyAuthProviderRepository,
-        mockAnalyticsClient: mockAnalyticsClient,
+      expect(
+        pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          mockAnalyticsClient: mockAnalyticsClient,
+        ),
+        completes,
       );
 
-      await pinpointProvider.identifyUser(
-        userId: 'userId',
-        userProfile: MockUserProfile(),
+      expect(
+        pinpointProvider.identifyUser(
+          userId: 'userId',
+          userProfile: MockUserProfile(),
+        ),
+        completes,
       );
       verify(mockEndpointClient.setUser(any, any));
     });
@@ -162,14 +171,20 @@ void main() {
         mockAnalyticsClient.endpointClient,
       ).thenReturn(mockEndpointClient);
 
-      await pinpointProvider.init(
-        config: notificationsPinpointConfig,
-        authProviderRepo: mockAmplifyAuthProviderRepository,
-        mockAnalyticsClient: mockAnalyticsClient,
+      expect(
+        pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          mockAnalyticsClient: mockAnalyticsClient,
+        ),
+        completes,
       );
 
-      await pinpointProvider.registerDevice(
-        '',
+      expect(
+        pinpointProvider.registerDevice(
+          '',
+        ),
+        completes,
       );
       verify(mockEndpointClient.updateEndpoint());
     });
@@ -191,15 +206,22 @@ void main() {
         mockAnalyticsClient.eventClient,
       ).thenReturn(mockEventClient);
 
-      await pinpointProvider.init(
-        config: notificationsPinpointConfig,
-        authProviderRepo: mockAmplifyAuthProviderRepository,
-        mockAnalyticsClient: mockAnalyticsClient,
+      expect(
+        pinpointProvider.init(
+          config: notificationsPinpointConfig,
+          authProviderRepo: mockAmplifyAuthProviderRepository,
+          mockAnalyticsClient: mockAnalyticsClient,
+        ),
+        completes,
       );
 
-      await pinpointProvider.recordNotificationEvent(
-        eventType: PinpointEventType.foregroundMessageReceived,
-        notification: PushNotificationMessage.fromJson(androidCampaignMessage),
+      expect(
+        pinpointProvider.recordNotificationEvent(
+          eventType: PinpointEventType.foregroundMessageReceived,
+          notification:
+              PushNotificationMessage.fromJson(androidCampaignMessage),
+        ),
+        completes,
       );
       verify(
         mockEventClient.recordEvent(

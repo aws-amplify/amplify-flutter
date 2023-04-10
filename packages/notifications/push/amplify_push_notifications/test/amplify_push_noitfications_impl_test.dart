@@ -133,9 +133,10 @@ void main() {
         authProviderRepo: authProviderRepo,
         config: config,
       );
+      verify(mockServiceProviderClient.registerDevice('123')).called(1);
 
-      void tokenHandler(String t) {
-        expect(t, '123');
+      void tokenHandler(String token) {
+        expect(token, '123');
       }
 
       plugin.onTokenReceived.listen(tokenHandler);
