@@ -24,7 +24,9 @@ AuthNextUpdateAttributeStep _$AuthNextUpdateAttributeStepFromJson(
 
 Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
     AuthNextUpdateAttributeStep instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'additionalInfo': instance.additionalInfo,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -32,7 +34,6 @@ Map<String, dynamic> _$AuthNextUpdateAttributeStepToJson(
     }
   }
 
-  writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
   val['updateAttributeStep'] =
       _$AuthUpdateAttributeStepEnumMap[instance.updateAttributeStep]!;

@@ -4,8 +4,11 @@
 import 'package:amplify_core/amplify_core.dart';
 
 abstract class AuthNextStep with AWSSerializable<Map<String, Object?>> {
-  const AuthNextStep({this.codeDeliveryDetails, this.additionalInfo});
+  const AuthNextStep({
+    this.codeDeliveryDetails,
+    Map<String, String>? additionalInfo,
+  }) : additionalInfo = additionalInfo ?? const {};
 
-  final Map<String, String>? additionalInfo;
+  final Map<String, String> additionalInfo;
   final AuthCodeDeliveryDetails? codeDeliveryDetails;
 }

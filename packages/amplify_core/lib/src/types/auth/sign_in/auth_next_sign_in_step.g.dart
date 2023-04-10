@@ -26,7 +26,9 @@ AuthNextSignInStep _$AuthNextSignInStepFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'additionalInfo': instance.additionalInfo,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -34,7 +36,6 @@ Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
     }
   }
 
-  writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
   val['signInStep'] = _$AuthSignInStepEnumMap[instance.signInStep]!;
   val['missingAttributes'] = instance.missingAttributes
