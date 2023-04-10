@@ -1,3 +1,7 @@
+## 0.3.0+1
+
+-  chore: update win32 version, use show in win32 imports ([#2829](https://github.com/aws-amplify/amplify-flutter/pull/2829))
+
 ## 0.3.0
 
 - Minor bug fixes and improvements
