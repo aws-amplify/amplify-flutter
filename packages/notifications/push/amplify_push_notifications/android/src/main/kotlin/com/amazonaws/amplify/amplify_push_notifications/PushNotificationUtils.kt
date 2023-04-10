@@ -4,8 +4,6 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import com.amplifyframework.annotations.InternalAmplifyApi
@@ -120,33 +118,6 @@ fun Bundle.getNotificationPayload(): NotificationPayload? {
 }
 
 @InternalAmplifyApi
-fun NotificationPayload?.getProcessedIntent(
-    context: Context,
-): Intent? {
-    // Always launch app
-    val notificationIntent: Intent? =
-        context.packageManager.getLaunchIntentForPackage(context.packageName)
-    this?.let {
-        PinpointNotificationPayload.fromNotificationPayload(it)?.action?.let { action ->
-            when {
-                // Attach action to open url
-                action[PushNotificationsConstants.URL] != null -> {
-                    notificationIntent?.action = Intent.ACTION_VIEW
-                    notificationIntent?.data = Uri.parse(action[PushNotificationsConstants.URL])
-                }
-                // Attach action to open deep link
-                action[PushNotificationsConstants.DEEPLINK] != null -> {
-                    notificationIntent?.action = Intent.ACTION_VIEW
-                    notificationIntent?.data =
-                        Uri.parse(action[PushNotificationsConstants.DEEPLINK])
-                }
-            }
-        }
-    }
-    return notificationIntent
-}
-
-@InternalAmplifyApi
 fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
     val payload = PinpointNotificationPayload.fromNotificationPayload(this)
     val data = mutableMapOf<Any, Any?>()
@@ -167,6 +138,5 @@ fun NotificationPayload.toWritableMap(): Map<Any, Any?> {
         "fcmOptions" to mapOf(
             "channelId" to payload?.channelId,
         ),
-
     )
 }

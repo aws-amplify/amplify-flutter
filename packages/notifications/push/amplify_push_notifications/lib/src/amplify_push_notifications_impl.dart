@@ -323,7 +323,7 @@ abstract class AmplifyPushNotifications
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
-      deviceToken = await _onTokenReceived.first;
+      deviceToken = await _bufferedTokenStream.peek;
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token

@@ -25,7 +25,7 @@ const backgroundChannel = MethodChannel(
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing({
   @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
-  @visibleForTesting AmplifyClass? mockAmplify,
+  @visibleForTesting AmplifyClass? amplify,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   amplifySecureStorage ??= AmplifySecureStorage(
@@ -45,7 +45,7 @@ Future<void> amplifyBackgroundProcessing({
   }
   final notificationsPlugin = AmplifyPushNotificationsPinpoint();
   final authPlugin = AmplifyAuthCognito();
-  final mockableAmplify = mockAmplify ?? Amplify;
+  final mockableAmplify = amplify ?? Amplify;
   if (!mockableAmplify.isConfigured) {
     await mockableAmplify.addPlugins([authPlugin, notificationsPlugin]);
     await mockableAmplify.configure(amplifyconfigStr);

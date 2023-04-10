@@ -13,7 +13,12 @@ private const val TAG = "PushNotificationEventsStreamHandler"
 
 @InternalAmplifyApi
 enum class NativeEvent {
-    TOKEN_RECEIVED, NOTIFICATION_OPENED, LAUNCH_NOTIFICATION_OPENED, FOREGROUND_MESSAGE_RECEIVED, BACKGROUND_MESSAGE_RECEIVED, ERROR ;
+    TOKEN_RECEIVED,
+    NOTIFICATION_OPENED,
+    LAUNCH_NOTIFICATION_OPENED,
+    FOREGROUND_MESSAGE_RECEIVED,
+    BACKGROUND_MESSAGE_RECEIVED,
+    ERROR;
 
     val eventName: String
         get() = when (this) {
@@ -61,8 +66,10 @@ class PushNotificationEventsStreamHandler constructor(
     }
 
     override fun onListen(arguments: Any?, sink: EventSink?) {
-        eventSink = sink
-        flushEvents()
+        sink?.let {
+            eventSink = sink
+            flushEvents()
+        }
     }
 
     override fun onCancel(arguments: Any?) {
