@@ -22,7 +22,9 @@ ResetPasswordStep _$ResetPasswordStepFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'additionalInfo': instance.additionalInfo,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -30,7 +32,6 @@ Map<String, dynamic> _$ResetPasswordStepToJson(ResetPasswordStep instance) {
     }
   }
 
-  writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
   val['updateStep'] = _$AuthResetPasswordStepEnumMap[instance.updateStep]!;
   return val;
