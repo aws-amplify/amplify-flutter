@@ -21,7 +21,6 @@ class PushNotificationMessage
   });
 
   factory PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    final data = (json['data'] as Map<Object?, Object?>?) ?? {};
     String? title;
     String? body;
     String? imageUrl;
@@ -30,6 +29,7 @@ class PushNotificationMessage
     ApnsPlatformOptions? apnsOptions;
     FcmPlatformOptions? fcmOptions;
 
+    final data = (json['data'] as Map<Object?, Object?>?) ?? {};
     final aps = json['aps'] as Map<Object?, Object?>?;
     if (aps != null) {
       final alert = aps['alert'] as Map<Object?, Object?>?;
