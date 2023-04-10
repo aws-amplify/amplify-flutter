@@ -90,7 +90,7 @@ class PushNotificationsCategory
   /// {@endtemplate}
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) =>
       defaultPlugin.identifyUser(
         userId: userId,
