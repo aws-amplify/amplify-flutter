@@ -671,6 +671,50 @@ void main() {
         );
       });
 
+      test('should forward options.metadata to StorageS3Service.uploadData API',
+          () async {
+        const testMetadata = {
+          'filename': '123',
+        };
+        const testOptions = StorageUploadDataOptions(
+          accessLevel: testAccessLevelProtected,
+          metadata: testMetadata,
+        );
+
+        when(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: any(named: 'dataPayload'),
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+        uploadDataOperation = storageS3Plugin.uploadData(
+          data: testData,
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedOptions = verify(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: any(named: 'dataPayload'),
+            options: captureAny<StorageUploadDataOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<StorageUploadDataOptions>().having(
+            (o) => o.metadata,
+            'options.metadata',
+            equals(testMetadata),
+          ),
+        );
+      });
+
       test(
           'S3UploadDataOperation cancel APIs should interact with S3DownloadTask',
           () async {
@@ -799,6 +843,52 @@ void main() {
         expect(
           capturedOptions,
           testOptions,
+        );
+      });
+
+      test('should forward options.metadata to StorageS3Service.uploadFile API',
+          () async {
+        const testMetadata = {
+          'filename': '123',
+        };
+        const testOptions = StorageUploadFileOptions(
+          accessLevel: testAccessLevelProtected,
+          metadata: testMetadata,
+        );
+
+        when(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: any(named: 'localFile'),
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+
+        uploadFileOperation = storageS3Plugin.uploadFile(
+          key: testKey,
+          localFile: testLocalFile,
+          options: testOptions,
+        );
+
+        final capturedOptions = verify(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: any(named: 'localFile'),
+            options: captureAny<StorageUploadFileOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<StorageUploadFileOptions>().having(
+            (o) => o.metadata,
+            'options.metadata',
+            equals(testMetadata),
+          ),
         );
       });
 
