@@ -44,8 +44,8 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         var flutterApi: PushNotificationsFlutterApi? = null
 
         /**
-         * Launch notification has the notification map when app was launched by tapping on the notification
-         * when the app is in killed state and null otherwise.
+         * Map of notification data when app was launched by tapping on the notification 
+         * when the app is in a killed state, null otherwise. 
          */
         var launchNotification: MutableMap<Any, Any?>? = null
     }
@@ -252,11 +252,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun getBadgeCount(): Long {
-        throw NotImplementedError("Get badge count is not supported on Android")
+        // noop - not supported on Android so return 0 always.
+        return 0
     }
 
     override fun setBadgeCount(withBadgeCount: Long) {
-        throw NotImplementedError("Set badge count is not supported on Android")
+        // noop - not supported in Android.
     }
 
     private fun shouldShowRequestPermissionRationale(): Boolean {

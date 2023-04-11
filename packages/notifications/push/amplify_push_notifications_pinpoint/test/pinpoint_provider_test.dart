@@ -35,7 +35,7 @@ void main() {
   final awsIamAmplifyAuthProvider = MockAWSIamAmplifyAuthProvider();
   final mockAnalyticsClient = MockAnalyticsClient();
   group('PinpointProvider', () {
-    test('init fails when retreiving an Auth provider was not successfull', () {
+    test('init fails when retrieving an Auth provider was not successful', () {
       when(mockAmplifyAuthProviderRepository.getAuthProvider(any))
           .thenReturn(null);
       expect(
@@ -112,7 +112,7 @@ void main() {
         pinpointProvider.init(
           config: notificationsPinpointConfig,
           authProviderRepo: mockAmplifyAuthProviderRepository,
-          mockAnalyticsClient: mockAnalyticsClient,
+          analyticsClient: mockAnalyticsClient,
         ),
         completes,
       );
@@ -139,7 +139,7 @@ void main() {
         pinpointProvider.init(
           config: notificationsPinpointConfig,
           authProviderRepo: mockAmplifyAuthProviderRepository,
-          mockAnalyticsClient: mockAnalyticsClient,
+          analyticsClient: mockAnalyticsClient,
         ),
         completes,
       );
@@ -175,7 +175,7 @@ void main() {
         pinpointProvider.init(
           config: notificationsPinpointConfig,
           authProviderRepo: mockAmplifyAuthProviderRepository,
-          mockAnalyticsClient: mockAnalyticsClient,
+          analyticsClient: mockAnalyticsClient,
         ),
         completes,
       );
@@ -210,7 +210,7 @@ void main() {
         pinpointProvider.init(
           config: notificationsPinpointConfig,
           authProviderRepo: mockAmplifyAuthProviderRepository,
-          mockAnalyticsClient: mockAnalyticsClient,
+          analyticsClient: mockAnalyticsClient,
         ),
         completes,
       );

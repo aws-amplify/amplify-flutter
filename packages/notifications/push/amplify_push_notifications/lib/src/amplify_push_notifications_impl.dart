@@ -286,6 +286,7 @@ abstract class AmplifyPushNotifications
   Future<int> getBadgeCount() {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
+      return Future.value(0);
     }
     if (!_isConfigured) {
       throw _needsConfigurationException;
@@ -297,6 +298,7 @@ abstract class AmplifyPushNotifications
   Future<void> setBadgeCount(int badgeCount) async {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
+      return;
     }
     if (!_isConfigured) {
       throw _needsConfigurationException;

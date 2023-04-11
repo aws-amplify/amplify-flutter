@@ -42,7 +42,7 @@ class PinpointProvider implements ServiceProviderClient {
   Future<void> init({
     required NotificationsPinpointPluginConfig config,
     required AmplifyAuthProviderRepository authProviderRepo,
-    @visibleForTesting AnalyticsClient? mockAnalyticsClient,
+    @visibleForTesting AnalyticsClient? analyticsClient,
   }) async {
     try {
       if (!_isInitialized) {
@@ -63,7 +63,7 @@ class PinpointProvider implements ServiceProviderClient {
           AmplifySecureStorageScope.awsPinpointAnalyticsPlugin,
         );
 
-        _analyticsClient = mockAnalyticsClient ??
+        _analyticsClient = analyticsClient ??
             AnalyticsClient(
               endpointStorage: endpointStorage,
               deviceContextInfoProvider:
@@ -155,9 +155,7 @@ class PinpointProvider implements ServiceProviderClient {
       }
       _analyticsClient.endpointClient.address = deviceToken;
       final channelType = _getChannelType();
-      if (channelType != null) {
-        _analyticsClient.endpointClient.channelType = channelType;
-      }
+      _analyticsClient.endpointClient.channelType = channelType;
       _analyticsClient.endpointClient.optOut = 'NONE';
       await _analyticsClient.endpointClient.updateEndpoint();
     } on AWSHttpException catch (e) {
@@ -165,6 +163,7 @@ class PinpointProvider implements ServiceProviderClient {
     }
   }
 
+  /// Made public only for testing purposes.
   @visibleForTesting
   EventInfo constructEventInfo({
     required PushNotificationMessage notification,
@@ -226,15 +225,14 @@ class PinpointProvider implements ServiceProviderClient {
     return EventInfo(source, analyticsProperties);
   }
 
-  ChannelType? _getChannelType() {
+  ChannelType _getChannelType() {
     if (Platform.isAndroid) {
       return ChannelType.gcm;
-    } else if (Platform.isIOS) {
+    } else {
       if (zDebugMode) {
         return ChannelType.apnsSandbox;
       }
       return ChannelType.apns;
     }
-    return null;
   }
 }

@@ -19,15 +19,13 @@ void main() {
       TestWidgetsFlutterBinding.ensureInitialized();
   final log = <MethodCall>[];
 
-  Future<Map<String, dynamic>?>? handler(MethodCall methodCall) async {
-    log.add(methodCall);
-    return null;
-  }
-
   setUp(() {
     testWidgetsFlutterBinding.defaultBinaryMessenger.setMockMethodCallHandler(
       backgroundChannel,
-      handler,
+      (MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      },
     );
   });
   group('amplifyBackgroundProcessing', () {
@@ -53,10 +51,8 @@ void main() {
       final mockAmplify = MockAmplifyClass();
 
       when(mockAmplify.isConfigured).thenReturn(false);
-      when(mockAmplify.addPlugins(any))
-          .thenAnswer((realInvocation) => Future(() => null));
-      when(mockAmplify.configure(any))
-          .thenAnswer((realInvocation) => Future(() => null));
+      when(mockAmplify.addPlugins(any)).thenAnswer((realInvocation) async {});
+      when(mockAmplify.configure(any)).thenAnswer((realInvocation) async {});
       await amplifyBackgroundProcessing(
         amplifySecureStorage: mockStorage,
         amplify: mockAmplify,
