@@ -7,7 +7,10 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:stack_trace/stack_trace.dart';
 
 /// Environments with a user pool and username-based sign in.
 const userPoolEnvironments = ['main', 'user-pool-only', 'with-client-secret'];
@@ -18,6 +21,23 @@ const deviceOptInEnvironments = [
   'user-pool-only',
   'with-client-secret'
 ];
+
+/// Initializes the testing framework.
+void initTests() {
+  AWSLogger().logLevel = LogLevel.verbose;
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // Required demangler since we use `package:stack_trace` in Auth code
+  // but flutter_test expects normal stack traces.
+  FlutterError.demangleStackTrace = (StackTrace stack) {
+    if (stack is Trace) {
+      return stack.vmTrace;
+    }
+    if (stack is Chain) {
+      return stack.toTrace().vmTrace;
+    }
+    return stack;
+  };
+}
 
 Future<void> configureAuth({
   String config = amplifyconfig,

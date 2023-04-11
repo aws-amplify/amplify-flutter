@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
 import 'confirm_sign_in_test.dart' as confirm_sign_in_tests;
 import 'confirm_sign_up_test.dart' as confirm_sign_up_tests;
@@ -24,9 +23,10 @@ import 'sign_out_test.dart' as sign_out_tests;
 import 'sign_up_test.dart' as sign_up_tests;
 import 'update_password_test.dart' as update_password_tests;
 import 'user_attributes_test.dart' as user_attributes_tests;
+import 'utils/setup_utils.dart';
 
 void main() async {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  initTests();
 
   group('amplify_auth_cognito', () {
     confirm_sign_in_tests.main();
