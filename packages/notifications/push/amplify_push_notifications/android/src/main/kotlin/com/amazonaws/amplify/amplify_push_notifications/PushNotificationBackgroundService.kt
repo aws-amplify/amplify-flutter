@@ -84,7 +84,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         }
     }
 
-    fun createAndRunBackgroundEngine(context: Context, loader: FlutterLoader, mockEngine: FlutterEngine? ){
+    fun createAndRunBackgroundEngine(context: Context, loader: FlutterLoader, flutterEngine: FlutterEngine? ){
 
         // Get the background engine from FlutterEngineCache, returns null if not found
         backgroundFlutterEngine = FlutterEngineCache.getInstance()
@@ -93,7 +93,7 @@ class PushNotificationBackgroundService : JobIntentService(), MethodChannel.Meth
         // If the Flutter engine is not found in cache, create and put into cache
         if (backgroundFlutterEngine == null) {
             // Create a background Flutter Engine
-            backgroundFlutterEngine = mockEngine ?: FlutterEngine(context)
+            backgroundFlutterEngine = flutterEngine ?: FlutterEngine(context)
             // Put it into cache so the next notification coming through in killed state
             // can use the same Flutter engine.
             FlutterEngineCache.getInstance().put(
