@@ -1,0 +1,28 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: amplify_push_notifications_pinpoint Android
+on:
+  push:
+    branches:
+      - main
+      - stable
+      - next
+  pull_request:
+    paths:
+      - 'packages/notifications/push/amplify_push_notifications/android/**/*'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/**/*.yaml'
+      - 'packages/notifications/push/amplify_push_notifications_pinpoint/example/android/**/*'
+      - '.github/workflows/flutter_android.yaml'
+      - '.github/workflows/amplify_push_notifications_pinpoint.android.yaml'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/flutter_android.yaml
+    with:
+      working-directory: packages/notifications/push/amplify_push_notifications_pinpoint/example/android
+      package-name: amplify_push_notification

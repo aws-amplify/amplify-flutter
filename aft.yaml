@@ -60,6 +60,8 @@ components:
       - amplify_auth_cognito_android
       - amplify_auth_cognito_ios
       - amplify_storage_s3
+      - amplify_push_notifications
+      - amplify_push_notifications_pinpoint
   - name: Amplify Dart
     summary: amplify_core
     propagate: none
