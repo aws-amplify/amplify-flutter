@@ -1,3 +1,13 @@
+## 1.0.0-next.8
+
+### Breaking Changes
+- chore(auth)!: send Pinpoint Endpoint id to Cognito
+- refactor(auth)!: Remove generic types ([#2804](https://github.com/aws-amplify/amplify-flutter/pull/2804))
+
+### Fixes
+- fix(auth): Always allow repeated `confirmSignIn` attempts
+- fix(auth): Process sign-in events once
+
 ## 1.0.0-next.7
 
 ### Breaking Changes

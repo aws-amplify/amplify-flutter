@@ -10,10 +10,10 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_analytics_pinpoint: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_api: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_auth_cognito: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_flutter: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_analytics_pinpoint: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
 
   flutter:
     sdk: flutter
@@ -24,7 +24,7 @@ dependency_overrides:
   async: ^2.10.0
 
 dev_dependencies:
-  amplify_analytics_pinpoint_dart: ">=0.1.4+3 <0.2.0"
+  amplify_analytics_pinpoint_dart: ">=0.2.0 <0.3.0"
   amplify_lints:
     path: ../../../amplify_lints
   amplify_test:

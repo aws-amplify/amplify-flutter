@@ -1,3 +1,8 @@
+## 1.0.0-next.5+1
+
+### Fixes
+- fix: prevent duplicate calls to onFieldSubmitted ([#2828](https://github.com/aws-amplify/amplify-flutter/pull/2828))
+
 ## 1.0.0-next.5
 
 ### Fixes

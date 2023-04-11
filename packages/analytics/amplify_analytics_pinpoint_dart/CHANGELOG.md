@@ -1,3 +1,9 @@
+## 0.2.0
+
+### Breaking Changes
+- chore(analytics)!: Remove Analytics Prefix ([#2753](https://github.com/aws-amplify/amplify-flutter/pull/2753))
+- chore(analytics)!: export endpointManager, redo exports
+
 ## 0.1.4+3
 
 ### Fixes
