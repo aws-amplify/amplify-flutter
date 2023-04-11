@@ -74,10 +74,8 @@ abstract class AmplifyPushNotifications
         )
         ..addInstance<PushNotificationsHostApi>(PushNotificationsHostApi())
         ..addInstance<AmplifySecureStorage>(
-          AmplifySecureStorage(
-            config: AmplifySecureStorageConfig(
-              scope: 'amplifyPushNotifications',
-            ),
+          AmplifySecureStorage.factoryFrom()(
+            AmplifySecureStorageScope.awsPinpointPushNotificationsPlugin,
           ),
         );
     } else {
