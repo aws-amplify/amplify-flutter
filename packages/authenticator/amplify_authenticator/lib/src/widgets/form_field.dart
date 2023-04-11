@@ -208,6 +208,7 @@ abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
   /// A function that will be called when the Form Field is submitted, for
   /// example when the enter key is pressed down on web/desktop.
   void onFieldSubmitted(String _) {
+    if (state.isBusy) return;
     switch (state.currentStep) {
       case AuthenticatorStep.signUp:
         state.signUp();

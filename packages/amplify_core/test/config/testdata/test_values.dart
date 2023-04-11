@@ -21,6 +21,7 @@ const API_KEY = 'MY_KEY';
 
 /// Analytics values
 const ANALYTICS_APP_ID = 'analytics_app_id';
+const ANALYTICS_FLUSH_INTERVAL = 10;
 
 /// API values
 const GRAPHQL_TYPE = 'GraphQL';

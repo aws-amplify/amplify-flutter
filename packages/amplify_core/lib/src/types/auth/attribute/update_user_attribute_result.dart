@@ -2,19 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'update_user_attribute_result.g.dart';
 
 /// {@template amplify_core.update_user_attribute_result}
 /// Wraps the result of an update user attribute operation.
 /// {@endtemplate}
-@JsonSerializable(
-  includeIfNull: false,
-  explicitToJson: true,
-  // TODO(dnys1): Fix generic serialization
-  createFactory: false,
-)
+@zAmplifySerializable
 class UpdateUserAttributeResult
     with
         AWSEquatable<UpdateUserAttributeResult>,
@@ -26,6 +20,10 @@ class UpdateUserAttributeResult
     required this.nextStep,
   });
 
+  /// {@macro amplify_core.update_user_attribute_result}
+  factory UpdateUserAttributeResult.fromJson(Map<String, Object?> json) =>
+      _$UpdateUserAttributeResultFromJson(json);
+
   /// True if the user attribute has now been updated. False if it has not yet
   /// been updated.
   final bool isUpdated;
@@ -35,9 +33,6 @@ class UpdateUserAttributeResult
   final AuthNextUpdateAttributeStep nextStep;
 
   @override
-  @JsonKey(
-    includeToJson: false,
-  ) // Workaround for https://github.com/google/json_serializable.dart/issues/1102
   List<Object?> get props => [isUpdated, nextStep];
 
   @override

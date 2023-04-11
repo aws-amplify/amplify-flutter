@@ -13,60 +13,66 @@ import 'utils/test_utils.dart';
 import 'utils/validation_utils.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('getCurrentUser', () {
-    group('no alias', () {
-      final username = generateUsername();
-      final password = generatePassword();
+    for (final environmentName in userPoolEnvironments) {
+      group('no alias', () {
+        group(environmentName, () {
+          final username = generateUsername();
+          final password = generatePassword();
 
-      setUpAll(() async {
-        await configureAuth();
+          setUpAll(() async {
+            await configureAuth(
+              config: amplifyEnvironments[environmentName]!,
+            );
 
-        await adminCreateUser(
-          username,
-          password,
-          autoConfirm: true,
-          verifyAttributes: true,
-        );
-      });
+            final cognitoUsername = await adminCreateUser(
+              username,
+              password,
+              autoConfirm: true,
+              verifyAttributes: true,
+            );
+            addTearDown(() => deleteUser(cognitoUsername));
+          });
 
-      tearDownAll(Amplify.reset);
+          setUp(() async {
+            await signOutUser();
+            await Amplify.Auth.signIn(
+              username: username,
+              password: password,
+            );
+          });
 
-      setUp(() async {
-        await signOutUser();
-        await Amplify.Auth.signIn(
-          username: username,
-          password: password,
-        );
-      });
+          asyncTest('should return the current user', (_) async {
+            final authUser = await Amplify.Auth.getCurrentUser();
+            expect(authUser.username, username);
+            expect(isValidUserSub(authUser.userId), isTrue);
+            expect(
+              authUser.signInDetails,
+              isA<CognitoSignInDetailsApiBased>().having(
+                (details) => details.username,
+                'username',
+                authUser.username,
+              ),
+              reason: 'Should return the same username as AuthUser.username',
+            );
+          });
 
-      asyncTest('should return the current user', (_) async {
-        final authUser = await Amplify.Auth.getCurrentUser();
-        expect(authUser.username, username);
-        expect(isValidUserSub(authUser.userId), isTrue);
-        expect(
-          authUser.signInDetails,
-          isA<CognitoSignInDetailsApiBased>().having(
-            (details) => details.username,
-            'username',
-            authUser.username,
-          ),
-          reason: 'Should return the same username as AuthUser.username',
-        );
-      });
-
-      asyncTest(
-        'should throw SignedOutException if the user is signed out',
-        (_) async {
-          await Amplify.Auth.signOut();
-          await expectLater(
-            Amplify.Auth.getCurrentUser(),
-            throwsA(isA<SignedOutException>()),
+          asyncTest(
+            'should throw SignedOutException if the user is signed out',
+            (_) async {
+              await Amplify.Auth.signOut();
+              await expectLater(
+                Amplify.Auth.getCurrentUser(),
+                throwsA(isA<SignedOutException>()),
+              );
+            },
           );
-        },
-      );
-    });
+        });
+      });
+    }
 
     group(
       'with alias',
@@ -76,7 +82,7 @@ void main() {
 
         setUpAll(() async {
           await configureAuth(
-            config: amplifyEnvironments['sign-in-with-phone'],
+            config: amplifyEnvironments['sign-in-with-phone']!,
           );
         });
 

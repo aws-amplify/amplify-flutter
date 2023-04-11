@@ -386,7 +386,7 @@ void main() {
         const testOptions = StorageGetUrlOptions(
           accessLevel: testAccessLevelProtected,
           pluginOptions: S3GetUrlPluginOptions(
-            checkObjectExistence: true,
+            validateObjectExistence: true,
             expiresIn: Duration(minutes: 10),
             useAccelerateEndpoint: true,
           ),
@@ -671,6 +671,50 @@ void main() {
         );
       });
 
+      test('should forward options.metadata to StorageS3Service.uploadData API',
+          () async {
+        const testMetadata = {
+          'filename': '123',
+        };
+        const testOptions = StorageUploadDataOptions(
+          accessLevel: testAccessLevelProtected,
+          metadata: testMetadata,
+        );
+
+        when(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: any(named: 'dataPayload'),
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+        uploadDataOperation = storageS3Plugin.uploadData(
+          data: testData,
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedOptions = verify(
+          () => storageS3Service.uploadData(
+            key: testKey,
+            dataPayload: any(named: 'dataPayload'),
+            options: captureAny<StorageUploadDataOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<StorageUploadDataOptions>().having(
+            (o) => o.metadata,
+            'options.metadata',
+            equals(testMetadata),
+          ),
+        );
+      });
+
       test(
           'S3UploadDataOperation cancel APIs should interact with S3DownloadTask',
           () async {
@@ -802,6 +846,52 @@ void main() {
         );
       });
 
+      test('should forward options.metadata to StorageS3Service.uploadFile API',
+          () async {
+        const testMetadata = {
+          'filename': '123',
+        };
+        const testOptions = StorageUploadFileOptions(
+          accessLevel: testAccessLevelProtected,
+          metadata: testMetadata,
+        );
+
+        when(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: any(named: 'localFile'),
+            options: any(named: 'options'),
+          ),
+        ).thenAnswer((_) => testS3UploadTask);
+
+        when(() => testS3UploadTask.result).thenAnswer((_) async => testItem);
+
+        uploadFileOperation = storageS3Plugin.uploadFile(
+          key: testKey,
+          localFile: testLocalFile,
+          options: testOptions,
+        );
+
+        final capturedOptions = verify(
+          () => storageS3Service.uploadFile(
+            key: testKey,
+            localFile: any(named: 'localFile'),
+            options: captureAny<StorageUploadFileOptions>(
+              named: 'options',
+            ),
+          ),
+        ).captured.last;
+
+        expect(
+          capturedOptions,
+          isA<StorageUploadFileOptions>().having(
+            (o) => o.metadata,
+            'options.metadata',
+            equals(testMetadata),
+          ),
+        );
+      });
+
       test(
           'S3DownloadUploadOperation pause resume and cancel APIs should interact with S3DownloadTask',
           () async {
@@ -832,12 +922,12 @@ void main() {
         accessLevel: StorageAccessLevel.protected,
       );
 
-      const testResult = S3CopyResult(copiedItem: S3Item(key: destinationKey));
+      final testResult = S3CopyResult(copiedItem: S3Item(key: destinationKey));
 
       setUpAll(() {
         registerFallbackValue(const StorageCopyOptions());
         registerFallbackValue(
-          const S3ItemWithAccessLevel(
+          S3ItemWithAccessLevel(
             storageItem: S3Item(key: 'some-key'),
           ),
         );
@@ -939,12 +1029,12 @@ void main() {
         accessLevel: StorageAccessLevel.protected,
       );
 
-      const testResult = S3MoveResult(movedItem: S3Item(key: destinationKey));
+      final testResult = S3MoveResult(movedItem: S3Item(key: destinationKey));
 
       setUpAll(() {
         registerFallbackValue(const StorageMoveOptions());
         registerFallbackValue(
-          const S3ItemWithAccessLevel(
+          S3ItemWithAccessLevel(
             storageItem: S3Item(key: 'some-key'),
           ),
         );
@@ -1023,7 +1113,7 @@ void main() {
 
     group('remove() API', () {
       const testKey = 'object-to-remove';
-      const testResult = S3RemoveResult(
+      final testResult = S3RemoveResult(
         removedItem: S3Item(
           key: testKey,
         ),

@@ -48,14 +48,36 @@ Future<S3DownloadFileResult> _downloadFromUrl({
 }) async {
   final s3PluginOptions = options.pluginOptions as S3DownloadFilePluginOptions;
   final targetIdentityId = s3PluginOptions.targetIdentityId;
-  // download url expires in 15 mins by default, see [S3GetUrlOptions]
+  // Calling the `getProperties` by default to verify the existence of the object
+  // before downloading from the presigned URL, as the 404 or 403 should be
+  // handled by the plugin but not be thrown to an end user in browser.
+  // The result of this call will be used as the result when
+  // `options.getProperties` is set to true.
+  // Exception thrown from the getProperties will be thrown as download
+  // operation.
+  final downloadedItem = (await storageS3Service.getProperties(
+    key: key,
+    options: targetIdentityId == null
+        ? StorageGetPropertiesOptions(
+            accessLevel: options.accessLevel,
+          )
+        : StorageGetPropertiesOptions(
+            accessLevel: options.accessLevel,
+            pluginOptions:
+                S3GetPropertiesPluginOptions.forIdentity(targetIdentityId),
+          ),
+  ))
+      .storageItem;
+
+  // A download url expires in 15 mins by default, see [S3GetUrlPluginOptions].
+  // We are not setting validateObjectExistence to true here as we are not
+  // able to directly get the result of underlying HeadObject result.
   final url = (await storageS3Service.getUrl(
     key: key,
     options: targetIdentityId == null
         ? StorageGetUrlOptions(
             accessLevel: options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions(
-              checkObjectExistence: true,
               useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
             ),
           )
@@ -63,7 +85,6 @@ Future<S3DownloadFileResult> _downloadFromUrl({
             accessLevel: options.accessLevel,
             pluginOptions: S3GetUrlPluginOptions.forIdentity(
               targetIdentityId,
-              checkObjectExistence: true,
               useAccelerateEndpoint: s3PluginOptions.useAccelerateEndpoint,
             ),
           ),
@@ -79,22 +100,8 @@ Future<S3DownloadFileResult> _downloadFromUrl({
   );
 
   return S3DownloadFileResult(
-    downloadedItem: s3PluginOptions.getProperties
-        ? (await storageS3Service.getProperties(
-            key: key,
-            options: targetIdentityId == null
-                ? StorageGetPropertiesOptions(
-                    accessLevel: options.accessLevel,
-                  )
-                : StorageGetPropertiesOptions(
-                    accessLevel: options.accessLevel,
-                    pluginOptions: S3GetPropertiesPluginOptions.forIdentity(
-                      targetIdentityId,
-                    ),
-                  ),
-          ))
-            .storageItem
-        : S3Item(key: key),
+    downloadedItem:
+        s3PluginOptions.getProperties ? downloadedItem : S3Item(key: key),
     localFile: localFile,
   );
 }

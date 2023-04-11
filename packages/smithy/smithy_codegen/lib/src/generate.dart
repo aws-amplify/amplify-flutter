@@ -78,6 +78,13 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   Iterable<ShapeId> additionalShapes = const [],
   bool generateServer = false,
 }) {
+  const transformers = <ShapeVisitor<void>>[
+    _OptionalAuthVisitor(),
+  ];
+  for (final transformer in transformers) {
+    ast.shapes.forEach((_, shape) => shape.accept(transformer));
+  }
+
   var serviceShapes = ast.shapes.values.whereType<ServiceShape>();
   if (serviceName != null) {
     if (serviceShapes.length != 1) {
@@ -121,4 +128,62 @@ Map<ShapeId, GeneratedOutput> generateForAst(
   }
 
   return outputs;
+}
+
+class _OptionalAuthVisitor extends CategoryShapeVisitor<void> {
+  const _OptionalAuthVisitor();
+
+  /// Cognito is currently missing some `@optionalAuth` traits in their service
+  /// schema. This is awaiting a fix by Cognito and the current approach by
+  /// AWS SDKs is to manually fix this inline.
+  // TODO(dnys1): Remove when fixed by Cognito
+  static const missingOptionalAuth = [
+    'com.amazonaws.cognitoidentityprovider#AssociateSoftwareToken',
+    'com.amazonaws.cognitoidentityprovider#ConfirmDevice',
+    'com.amazonaws.cognitoidentityprovider#ForgetDevice',
+    'com.amazonaws.cognitoidentityprovider#GetDevice',
+    'com.amazonaws.cognitoidentityprovider#GlobalSignOut',
+    'com.amazonaws.cognitoidentityprovider#ListDevices',
+    'com.amazonaws.cognitoidentityprovider#RevokeToken',
+    'com.amazonaws.cognitoidentityprovider#SetUserMFAPreference',
+    'com.amazonaws.cognitoidentityprovider#UpdateDeviceStatus',
+    'com.amazonaws.cognitoidentityprovider#VerifySoftwareToken',
+  ];
+
+  @override
+  void enumShape(EnumShape shape, [Shape? parent]) {}
+
+  @override
+  void listShape(ListShape shape, [Shape? parent]) {}
+
+  @override
+  void mapShape(MapShape shape, [Shape? parent]) {}
+
+  @override
+  void memberShape(MemberShape shape, [Shape? parent]) {}
+
+  @override
+  void operationShape(OperationShape shape, [Shape? parent]) {
+    if (missingOptionalAuth.contains(shape.shapeId.toString())) {
+      shape.traits[OptionalAuthTrait.id] = const OptionalAuthTrait();
+    }
+  }
+
+  @override
+  void resourceShape(ResourceShape shape, [Shape? parent]) {}
+
+  @override
+  void serviceShape(ServiceShape shape, [Shape? parent]) {}
+
+  @override
+  void setShape(SetShape shape, [Shape? parent]) {}
+
+  @override
+  void simpleShape(SimpleShape shape, [Shape? parent]) {}
+
+  @override
+  void structureShape(StructureShape shape, [Shape? parent]) {}
+
+  @override
+  void unionShape(UnionShape shape, [Shape? parent]) {}
 }

@@ -24,6 +24,14 @@ class InvalidAccountTypeException extends AuthException {
           recoverySuggestion: recoverySuggestion,
         );
 
+  /// Thrown when no user pool is available, but a user pool operation
+  /// was explicitly requested.
+  const InvalidAccountTypeException.noUserPool()
+      : this(
+          'No user pool registered for this account',
+          recoverySuggestion: 'Register a user pool using the CLI',
+        );
+
   @override
   String get runtimeTypeName => 'InvalidAccountTypeException';
 }

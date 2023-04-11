@@ -6,6 +6,8 @@ import 'package:ffi/ffi.dart';
 
 final _crypt32 = DynamicLibrary.open('crypt32.dll');
 
+// TODO(Jordan-Nelson): remove when win32 version constraint is bumped to 4.1.2
+
 /// Performs encryption on the data in a DATA_BLOB structure.
 ///
 /// Typically, only a user with the same logon credential as the

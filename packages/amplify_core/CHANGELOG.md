@@ -1,3 +1,37 @@
+## 1.0.0-next.8
+
+### Breaking Changes
+- chore(analytics)!: Remove Analytics Prefix ([#2753](https://github.com/aws-amplify/amplify-flutter/pull/2753))
+- chore(analytics)!: export endpointManager, redo exports
+- chore(auth)!: send Pinpoint Endpoint id to Cognito
+- feat(storage)!: update upload APIs options to add metadata field ([#2815](https://github.com/aws-amplify/amplify-flutter/pull/2815))
+- fix(storage)!: make S3Exception internal
+- refactor(auth)!: Remove generic types ([#2804](https://github.com/aws-amplify/amplify-flutter/pull/2804))
+- refactor(core)!: Dependency management
+- refactor(storage)!: rename checkObjectExistence to validateObjectExistence
+- refactor(storage)!: simplify storage s3 exceptions throwing
+- refactor(storage)!: storage category APIs to use category level plugin options ([#2754](https://github.com/aws-amplify/amplify-flutter/pull/2754))
+
+### Fixes
+- fix(api): Auth provider registration
+- fix(api): Include owner field in selection set ([#2795](https://github.com/aws-amplify/amplify-flutter/pull/2795))
+- fix(api): Support model definition target name ([#2814](https://github.com/aws-amplify/amplify-flutter/pull/2814))
+- fix(api): Supported protocols should be set on base client only
+- fix(auth): Always allow repeated `confirmSignIn` attempts
+- fix(auth): Client secret support
+- fix(auth): Process sign-in events once
+- fix(auth): User pool-only support
+- fix(smithy): Add missing `@optionalAuth` traits
+- fix(storage): Use `reifyPluginOptions` as instance method
+- fix(storage): add handling of AWSHttpException
+- fix(storage): remove unnecessary exception for resuming a canceled task
+
+### Features
+- feat(storage): add generic StorageOperationCanceledException in core
+- feat(storage): add handling of non-ascii object metadata values
+- feat(storage): make access level optional for storage APIs ([#2793](https://github.com/aws-amplify/amplify-flutter/pull/2793))
+- feat(storage): promote StorageTransferState to amplify_core
+
 ## 1.0.0-next.7
 
 ### Breaking Changes

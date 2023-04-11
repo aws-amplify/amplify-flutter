@@ -4,6 +4,7 @@
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -24,8 +25,21 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
   @override
   String get runtimeTypeName => 'SignUpStateMachine';
 
-  CognitoIdentityProviderClient get _cognito => expect();
-  CognitoUserPoolConfig get _userPoolConfig => expect();
+  CognitoIdentityProviderClient get _cognito {
+    final cognitoIdp = get<CognitoIdentityProviderClient>();
+    if (cognitoIdp == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return cognitoIdp;
+  }
+
+  CognitoUserPoolConfig get _userPoolConfig {
+    final userPoolConfig = get<CognitoUserPoolConfig>();
+    if (userPoolConfig == null) {
+      throw const InvalidAccountTypeException.noUserPool();
+    }
+    return userPoolConfig;
+  }
 
   @override
   Future<void> resolve(SignUpEvent event) async {

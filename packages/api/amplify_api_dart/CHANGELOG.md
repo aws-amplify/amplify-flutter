@@ -1,3 +1,11 @@
+## 0.2.0+2
+
+### Fixes
+- fix(api): Auth provider registration
+- fix(api): Include owner field in selection set ([#2795](https://github.com/aws-amplify/amplify-flutter/pull/2795))
+- fix(api): Support model definition target name ([#2814](https://github.com/aws-amplify/amplify-flutter/pull/2814))
+- fix(api): Supported protocols should be set on base client only
+
 ## 0.2.0+1
 
 - Minor bug fixes and improvements

@@ -3,6 +3,7 @@
 
 import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -43,9 +44,6 @@ class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
 
   /// The Cognito Identity Provider client.
   CognitoIdentityProviderClient get _cognitoIdp => expect();
-
-  /// The Cognito identity pool configuration.
-  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
 
   /// The Cognito user pool configuration.
   CognitoUserPoolConfig get _userPoolConfig => expect();
@@ -95,51 +93,47 @@ class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
       await signOutHostedUi();
     }
 
-    // Do not try to send Cognito requests for plugin configs without an
-    // Identity Pool, since the requests will fail.
-    if (_identityPoolConfig != null) {
-      if (options.globalSignOut) {
-        // Revokes the refresh token
-        try {
-          await _cognitoIdp
-              .globalSignOut(
-                GlobalSignOutRequest(
-                  accessToken: tokens.accessToken.raw,
-                ),
-              )
-              .result;
-        } on Exception catch (e) {
-          globalSignOutException = GlobalSignOutException(
-            accessToken: tokens.accessToken.raw,
-            underlyingException: e,
-          );
-        }
+    if (options.globalSignOut) {
+      // Revokes the refresh token
+      try {
+        await _cognitoIdp
+            .globalSignOut(
+              GlobalSignOutRequest(
+                accessToken: tokens.accessToken.raw,
+              ),
+            )
+            .result;
+      } on Exception catch (e) {
+        globalSignOutException = GlobalSignOutException(
+          accessToken: tokens.accessToken.raw,
+          underlyingException: e,
+        );
       }
-      // Revokes the access token
-      if (globalSignOutException != null) {
+    }
+    // Revokes the access token
+    if (globalSignOutException != null) {
+      revokeTokenException = RevokeTokenException(
+        refreshToken: tokens.refreshToken,
+        underlyingException: Exception(
+          'RevokeToken not attempted because GlobalSignOut failed.',
+        ),
+      );
+    } else {
+      try {
+        await _cognitoIdp
+            .revokeToken(
+              RevokeTokenRequest(
+                clientId: _userPoolConfig.appClientId,
+                clientSecret: _userPoolConfig.appClientSecret,
+                token: tokens.refreshToken,
+              ),
+            )
+            .result;
+      } on Exception catch (e) {
         revokeTokenException = RevokeTokenException(
           refreshToken: tokens.refreshToken,
-          underlyingException: Exception(
-            'RevokeToken not attempted because GlobalSignOut failed.',
-          ),
+          underlyingException: e,
         );
-      } else {
-        try {
-          await _cognitoIdp
-              .revokeToken(
-                RevokeTokenRequest(
-                  clientId: _userPoolConfig.appClientId,
-                  clientSecret: _userPoolConfig.appClientSecret,
-                  token: tokens.refreshToken,
-                ),
-              )
-              .result;
-        } on Exception catch (e) {
-          revokeTokenException = RevokeTokenException(
-            refreshToken: tokens.refreshToken,
-            underlyingException: e,
-          );
-        }
       }
     }
 

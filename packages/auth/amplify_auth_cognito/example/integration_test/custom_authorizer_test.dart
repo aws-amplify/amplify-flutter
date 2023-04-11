@@ -210,7 +210,10 @@ void main() {
                   client = AWSHttpClient()
                     ..supportedProtocols = supportedProtocols;
                   addTearDown(client.close);
-                  await configureAuth(config: configJson);
+                  await configureAuth(
+                    config: configJson,
+                    baseClient: client,
+                  );
                   addTearDown(signOutUser);
                 });
 

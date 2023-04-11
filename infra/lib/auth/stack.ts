@@ -14,9 +14,13 @@ import { Construct } from "constructs";
 import * as path from "path";
 import {
   AmplifyCategory,
+  ApiConfig,
+  HostedUIConfig,
+  IdentityPoolConfig,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
+  UserPoolConfig
 } from "../common";
 import { CustomAuthorizerIamStackEnvironment } from "./custom-authorizer-iam/stack";
 import { CustomAuthorizerUserPoolsStackEnvironment } from "./custom-authorizer-user-pools/stack";
@@ -28,7 +32,7 @@ export type AuthIntegrationEnvironmentType =
 
 export type AuthIntegrationTestStackEnvironmentProps =
   AuthBaseEnvironmentProps &
-    (AuthFullEnvironmentProps | AuthCustomAuthorizerEnvironmentProps);
+  (AuthFullEnvironmentProps | AuthCustomAuthorizerEnvironmentProps);
 
 export interface AuthBaseEnvironmentProps
   extends IntegrationTestStackEnvironmentProps {
@@ -83,6 +87,34 @@ export interface AuthFullEnvironmentProps {
    * @default none
    */
   customAuth?: "WITH_SRP" | "WITHOUT_SRP";
+
+  /**
+   * Whether to include a Cognito User Pool.
+   *
+   * @default true
+   */
+  includeUserPool?: boolean;
+
+  /**
+   * Whether to include a Cognito Identity Pool.
+   *
+   * @default true
+   */
+  includeIdentityPool?: boolean;
+
+  /**
+   * Whether to allow unauthenticated access in the Identity Pool.
+   *
+   * @default true
+   */
+  allowUnauthenticatedIdentities?: boolean;
+  
+  /**
+   * Whether to issue a client secret to the user pool client.
+   * 
+   * @default false
+   */
+  withClientSecret?: boolean;
 }
 
 export interface AuthCustomAuthorizerEnvironmentProps {
@@ -164,6 +196,10 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
         },
       },
       customAuth,
+      includeUserPool = true,
+      includeIdentityPool = true,
+      allowUnauthenticatedIdentities = true,
+      withClientSecret = false,
     } = props;
 
     // Create the GraphQL API for admin actions
@@ -374,6 +410,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       },
       disableOAuth,
       oAuth,
+      generateSecret: withClientSecret,
     });
 
     // Create the Cognito Identity Pool
@@ -381,15 +418,18 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
     // Add stub unauthenticated/authenticated roles since these are needed by
     // the user pool.
 
+    const cognitoIdentityProviders: cognito.CfnIdentityPool.CognitoIdentityProviderProperty[] =
+      [];
+    if (includeUserPool) {
+      cognitoIdentityProviders.push({
+        clientId: userPoolClient.userPoolClientId,
+        providerName: `cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`,
+      });
+    }
     const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
       identityPoolName: this.name,
-      allowUnauthenticatedIdentities: true,
-      cognitoIdentityProviders: [
-        {
-          clientId: userPoolClient.userPoolClientId,
-          providerName: `cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`,
-        },
-      ],
+      allowUnauthenticatedIdentities,
+      cognitoIdentityProviders,
     });
 
     const unauthenticatedRole = new iam.Role(this, "UnauthenticatedRole", {
@@ -565,8 +605,25 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
 
     // Output the values needed to build our Amplify configuration.
 
-    this.config = {
-      apiConfig: {
+    let identityPoolConfig: IdentityPoolConfig | undefined;
+    if (includeIdentityPool) {
+      identityPoolConfig = {
+        identityPoolId: identityPool.ref,
+      };
+    }
+    let userPoolConfig: UserPoolConfig | undefined;
+    let apiConfig: ApiConfig | undefined;
+    if (includeUserPool) {
+      userPoolConfig = {
+        userPoolId: userPool.userPoolId,
+        userPoolClientId: userPoolClient.userPoolClientId,
+        userPoolClientSecret: withClientSecret ? userPoolClient.userPoolClientSecret.unsafeUnwrap() : undefined,
+        standardAttributes,
+        signInAliases,
+        mfa,
+        verificationMechanisms,
+      };
+      apiConfig = {
         apis: {
           [graphQLApi.name]: {
             endpointType: "GraphQL",
@@ -575,29 +632,24 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
             apiKey: graphQLApi.apiKey,
           },
         },
-      },
-      authConfig: {
-        userPoolConfig: {
-          userPoolId: userPool.userPoolId,
-          userPoolClientId: userPoolClient.userPoolClientId,
-          standardAttributes,
-          signInAliases,
-          mfa,
-          verificationMechanisms,
-        },
-        identityPoolConfig: {
-          identityPoolId: identityPool.ref,
-        },
-      },
-    };
-
+      };
+    }
+    let hostedUiConfig: HostedUIConfig | undefined;
     if (webDomain) {
-      this.config.authConfig!.hostedUiConfig = {
+      hostedUiConfig = {
         webDomain: webDomain.baseUrl(),
         signInRedirectUris,
         signOutRedirectUris,
         scopes: scopes.map((scope) => scope.scopeName),
       };
     }
+    this.config = {
+      apiConfig,
+      authConfig: {
+        userPoolConfig,
+        identityPoolConfig,
+        hostedUiConfig,
+      },
+    };
   }
 }

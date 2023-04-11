@@ -14,6 +14,7 @@ const child_process = require('child_process');
 const REGION = '$REGION';
 const API_KEY = '$API_KEY';
 const ANALYTICS_APP_ID = '$ANALYTICS_APP_ID';
+const ANALYTICS_FLUSH_INTERVAL = '$ANALYTICS_FLUSH_INTERVAL';
 const GRAPHQL_ENDPOINT = '$GRAPHQL_ENDPOINT';
 const REST_ENDPOINT = '$REST_ENDPOINT';
 const BUCKET = '$BUCKET';

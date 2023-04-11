@@ -1,3 +1,7 @@
+## 1.0.0-next.8
+
+- Minor bug fixes and improvements
+
 ## 1.0.0-next.7
 
 - Minor bug fixes and improvements

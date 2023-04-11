@@ -3,9 +3,10 @@
 
 import 'dart:async';
 
+import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/cached_events_path_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:smithy/smithy.dart';
 
@@ -27,3 +28,7 @@ class MockLegacyNativeDataProvider extends Mock
 class MockSmithyOperation<T> extends Mock implements SmithyOperation<T> {}
 
 class MockAWSHttpException extends Mock implements AWSHttpException {}
+
+class MockIamAuthProvider extends Mock implements AWSIamAmplifyAuthProvider {}
+
+class MockPathProvider extends Mock implements CachedEventsPathProvider {}

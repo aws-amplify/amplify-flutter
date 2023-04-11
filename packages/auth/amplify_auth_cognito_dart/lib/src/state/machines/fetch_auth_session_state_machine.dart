@@ -8,12 +8,14 @@ import 'package:amplify_auth_cognito_dart/src/credentials/auth_plugin_credential
 import 'package:amplify_auth_cognito_dart/src/credentials/cognito_keys.dart';
 import 'package:amplify_auth_cognito_dart/src/credentials/device_metadata_repository.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/constants.dart';
+import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity.dart'
     hide NotAuthorizedException;
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     as cognito_idp;
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 
@@ -195,14 +197,16 @@ class FetchAuthSessionStateMachine
     final options = event.options ?? const FetchAuthSessionOptions();
     final result = await manager.loadCredentials();
 
+    final hasUserPool = _userPoolConfig != null;
     final userPoolTokens = result.userPoolTokens;
     final accessTokenExpiration = userPoolTokens?.accessToken.claims.expiration;
     final idTokenExpiration = userPoolTokens?.idToken.claims.expiration;
     final forceRefreshUserPoolTokens =
         userPoolTokens != null && options.forceRefresh;
-    final refreshUserPoolTokens = forceRefreshUserPoolTokens ||
-        _isExpired(accessTokenExpiration) ||
-        _isExpired(idTokenExpiration);
+    final refreshUserPoolTokens = hasUserPool &&
+        (forceRefreshUserPoolTokens ||
+            _isExpired(accessTokenExpiration) ||
+            _isExpired(idTokenExpiration));
 
     final hasIdentityPool = _identityPoolConfig != null;
     final awsCredentials = result.awsCredentials;
@@ -242,7 +246,14 @@ class FetchAuthSessionStateMachine
 
     final AuthResult<CognitoUserPoolTokens> userPoolTokensResult;
     final AuthResult<String> userSubResult;
-    if (userPoolTokens == null) {
+    if (!hasUserPool) {
+      userPoolTokensResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+      userSubResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+    } else if (userPoolTokens == null) {
       userPoolTokensResult = result.signedOut();
       userSubResult = result.signedOut();
     } else {
@@ -344,29 +355,39 @@ class FetchAuthSessionStateMachine
     AuthResult<AWSCredentials> credentialsResult;
     AuthResult<String> identityIdResult;
 
+    final hasUserPool = _userPoolConfig != null;
     var userPoolTokens = result.userPoolTokens;
-    if (event.refreshUserPoolTokens) {
-      if (userPoolTokens == null) {
-        throw const UnknownException(
-          'No user pool tokens available for refresh',
-        );
-      }
-      try {
-        userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
-        userPoolTokensResult = AuthResult.success(userPoolTokens);
-        userSubResult = AuthResult.success(userPoolTokens.userId);
-      } on Exception catch (e, s) {
-        final authException = AuthException.fromException(e);
-        userPoolTokensResult = AuthResult.error(authException, s);
-        userSubResult = AuthResult.error(authException, s);
-      }
+    if (!hasUserPool) {
+      userPoolTokensResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
+      userSubResult = const AuthResult.error(
+        InvalidAccountTypeException.noUserPool(),
+      );
     } else {
-      if (userPoolTokens != null) {
-        userPoolTokensResult = AuthResult.success(userPoolTokens);
-        userSubResult = AuthResult.success(userPoolTokens.userId);
+      if (event.refreshUserPoolTokens) {
+        if (userPoolTokens == null) {
+          throw const UnknownException(
+            'No user pool tokens available for refresh',
+          );
+        }
+        try {
+          userPoolTokens = await _refreshUserPoolTokens(userPoolTokens);
+          userPoolTokensResult = AuthResult.success(userPoolTokens);
+          userSubResult = AuthResult.success(userPoolTokens.userId);
+        } on Exception catch (e, s) {
+          final authException = AuthException.fromException(e);
+          userPoolTokensResult = AuthResult.error(authException, s);
+          userSubResult = AuthResult.error(authException, s);
+        }
       } else {
-        userPoolTokensResult = result.signedOut();
-        userSubResult = result.signedOut();
+        if (userPoolTokens != null) {
+          userPoolTokensResult = AuthResult.success(userPoolTokens);
+          userSubResult = AuthResult.success(userPoolTokens.userId);
+        } else {
+          userPoolTokensResult = result.signedOut();
+          userSubResult = result.signedOut();
+        }
       }
     }
 
@@ -484,14 +505,24 @@ class FetchAuthSessionStateMachine
   ) async {
     final deviceSecrets = await getOrCreate<DeviceMetadataRepository>()
         .get(userPoolTokens.username);
+    final config = _userPoolConfig!;
     final refreshRequest = cognito_idp.InitiateAuthRequest.build((b) {
       b
         ..authFlow = cognito_idp.AuthFlowType.refreshTokenAuth
-        ..clientId = _userPoolConfig!.appClientId
+        ..clientId = config.appClientId
         ..authParameters.addAll({
           CognitoConstants.refreshToken: userPoolTokens.refreshToken,
         })
         ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+
+      if (config.appClientSecret != null) {
+        b.authParameters[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+          userPoolTokens.username,
+          config.appClientId,
+          config.appClientSecret!,
+        );
+      }
 
       final deviceKey = deviceSecrets?.deviceKey;
       if (deviceKey != null) {

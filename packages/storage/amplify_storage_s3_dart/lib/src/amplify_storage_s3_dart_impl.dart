@@ -26,20 +26,8 @@ bool get _zIsTest => Zone.current[zIsTest] as bool? ?? false;
 /// {@template amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
 /// The Dart Storage S3 plugin for the Amplify Storage Category.
 /// {@endtemplate}
-class AmplifyStorageS3Dart extends StoragePluginInterface<
-    S3ListOperation,
-    S3GetPropertiesOperation,
-    S3GetUrlOperation,
-    S3UploadDataOperation,
-    S3UploadFileOperation,
-    S3DownloadDataOperation,
-    S3DownloadFileOperation,
-    S3CopyOperation,
-    S3MoveOperation,
-    S3RemoveOperation,
-    S3RemoveManyOperation,
-    S3Item,
-    S3TransferProgress> with AWSDebuggable, AWSLoggerMixin {
+class AmplifyStorageS3Dart extends StoragePluginInterface
+    with AWSDebuggable, AWSLoggerMixin {
   /// {@macro amplify_storage_s3_dart.amplify_storage_s3_plugin_dart}
   AmplifyStorageS3Dart({
     String? delimiter,
@@ -53,21 +41,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   /// A plugin key which can be used with `Amplify.Storage.getPlugin` to retrieve
   /// a S3-specific Storage category interface.
   /// {@endtemplate}
-  static const StoragePluginKey<
-      S3ListOperation,
-      S3GetPropertiesOperation,
-      S3GetUrlOperation,
-      S3UploadDataOperation,
-      S3UploadFileOperation,
-      S3DownloadDataOperation,
-      S3DownloadFileOperation,
-      S3CopyOperation,
-      S3MoveOperation,
-      S3RemoveOperation,
-      S3RemoveManyOperation,
-      S3Item,
-      S3TransferProgress,
-      AmplifyStorageS3Dart> pluginKey = _AmplifyStorageS3DartPluginKey();
+  static const StoragePluginKey<AmplifyStorageS3Dart> pluginKey =
+      _AmplifyStorageS3DartPluginKey();
 
   final String? _delimiter;
 
@@ -318,6 +293,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 
     final s3Options = StorageUploadDataOptions(
       accessLevel: options?.accessLevel,
+      metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
     );
 
@@ -355,6 +331,7 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
 
     final s3Options = StorageUploadFileOptions(
       accessLevel: options?.accessLevel,
+      metadata: options?.metadata ?? const {},
       pluginOptions: s3PluginOptions,
     );
 
@@ -502,21 +479,8 @@ class AmplifyStorageS3Dart extends StoragePluginInterface<
   String get runtimeTypeName => 'AmplifyStorageS3Dart';
 }
 
-class _AmplifyStorageS3DartPluginKey extends StoragePluginKey<
-    S3ListOperation,
-    S3GetPropertiesOperation,
-    S3GetUrlOperation,
-    S3UploadDataOperation,
-    S3UploadFileOperation,
-    S3DownloadDataOperation,
-    S3DownloadFileOperation,
-    S3CopyOperation,
-    S3MoveOperation,
-    S3RemoveOperation,
-    S3RemoveManyOperation,
-    S3Item,
-    S3TransferProgress,
-    AmplifyStorageS3Dart> {
+class _AmplifyStorageS3DartPluginKey
+    extends StoragePluginKey<AmplifyStorageS3Dart> {
   const _AmplifyStorageS3DartPluginKey();
 
   @override

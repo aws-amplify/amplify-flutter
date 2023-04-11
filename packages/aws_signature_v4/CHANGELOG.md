@@ -1,3 +1,8 @@
+## 0.3.1+5
+
+### Fixes
+- fix(sigv4): Query parameter encoding
+
 ## 0.3.1+4
 
 - Minor bug fixes and improvements

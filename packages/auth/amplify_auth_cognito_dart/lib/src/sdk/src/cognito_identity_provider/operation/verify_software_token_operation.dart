@@ -84,6 +84,7 @@ class VerifySoftwareTokenOperation extends _i1.HttpOperation<
               region: _region,
               service: _i7.AWSService.cognitoIdentityProvider,
               credentialsProvider: _credentialsProvider,
+              isOptional: true,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
             const _i5.WithSdkInvocationId(),

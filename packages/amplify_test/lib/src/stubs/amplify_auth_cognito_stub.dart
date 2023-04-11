@@ -256,7 +256,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     if (_currentUser == null) {
       throw const SignedOutException('There is no user signed in.');
     } else {
-      return AuthUser(
+      return CognitoAuthUser(
         userId: _currentUser!.sub,
         username: _currentUser!.username,
         signInDetails: CognitoSignInDetailsApiBased(

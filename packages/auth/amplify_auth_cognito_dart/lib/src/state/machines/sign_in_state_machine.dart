@@ -20,6 +20,7 @@ import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart'
     hide InvalidParameterException, ResourceNotFoundException;
 import 'package:amplify_auth_cognito_dart/src/sdk/sdk_bridge.dart';
+import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:async/async.dart';
@@ -65,9 +66,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
   /// The configured identity pool.
   CognitoIdentityCredentialsProvider? get identityPoolConfig => get();
-
-  /// Whether there is an identity pool configured.
-  bool get hasIdentityPool => identityPoolConfig != null;
 
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
@@ -269,15 +267,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamSrpA:
               initResult.publicA.toRadixString(16),
         });
-
-      if (config.appClientSecret != null) {
-        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          user.username!,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
     });
   }
 
@@ -324,15 +313,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamSmsMfaCode: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
-
-      if (config.appClientSecret != null) {
-        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          user.username!,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
     });
   }
 
@@ -387,15 +367,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
             missingAttributeValue;
       }
       _attributesNeedingUpdate = newAttributes;
-
-      if (config.appClientSecret != null) {
-        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          user.username!,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
     });
   }
 
@@ -416,20 +387,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
               _initResult!.publicA.toRadixString(16),
         })
         ..clientMetadata.addAll(event.clientMetadata);
-
-      if (config.appClientSecret != null) {
-        b.authParameters[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          parameters.username,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
-
-      final deviceKey = user.deviceSecrets?.deviceKey;
-      if (deviceKey != null) {
-        b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
-      }
     });
   }
 
@@ -448,20 +405,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
           CognitoConstants.challengeParamPassword: password,
         })
         ..clientMetadata.addAll(event.clientMetadata);
-
-      if (config.appClientSecret != null) {
-        b.authParameters[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          parameters.username,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
-
-      final deviceKey = user.deviceSecrets?.deviceKey;
-      if (deviceKey != null) {
-        b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
-      }
     });
   }
 
@@ -517,20 +460,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
         })
         ..clientId = config.appClientId
         ..clientMetadata.addAll(event.clientMetadata);
-
-      if (config.appClientSecret != null) {
-        b.authParameters[CognitoConstants.challengeParamSecretHash] =
-            computeSecretHash(
-          parameters.username,
-          config.appClientId,
-          config.appClientSecret!,
-        );
-      }
-
-      final deviceKey = user.deviceSecrets?.deviceKey;
-      if (deviceKey != null) {
-        b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
-      }
     });
   }
 
@@ -607,7 +536,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
 
     // Clear anonymous credentials, if there were any, and fetch authenticated
     // credentials.
-    if (hasIdentityPool) {
+    if (identityPoolConfig != null) {
       await manager.clearCredentials(
         CognitoIdentityPoolKeys(identityPoolConfig!),
       );
@@ -642,9 +571,23 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     await _loadDeviceSecrets();
 
     var initRequest = await initiate(event);
-    initRequest = initRequest.rebuild(
-      (b) => b..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
-    );
+    initRequest = initRequest.rebuild((b) {
+      b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+
+      if (config.appClientSecret != null) {
+        b.authParameters[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+          parameters.username,
+          config.appClientId,
+          config.appClientSecret!,
+        );
+      }
+
+      final deviceKey = user.deviceSecrets?.deviceKey;
+      if (deviceKey != null) {
+        b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
+      }
+    });
 
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
@@ -735,9 +678,7 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     if (authenticationResult != null) {
       final accessToken = await _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
-      if (newDeviceMetadata != null &&
-          // ConfirmDevice API requires an identity pool
-          hasIdentityPool) {
+      if (newDeviceMetadata != null) {
         final createDeviceResult = await _createDevice(
           accessToken,
           newDeviceMetadata,
@@ -810,12 +751,23 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
     RespondToAuthChallengeRequest respondRequest,
   ) async {
     // Include session if not already included.
-    respondRequest = respondRequest.rebuild(
-      (b) => b
+    respondRequest = respondRequest.rebuild((b) {
+      b
         ..session ??= _session
         ..clientMetadata.replace(event?.clientMetadata ?? const {})
-        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
-    );
+        ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
+
+      if (config.appClientSecret != null &&
+          b.challengeResponses[CognitoConstants.challengeParamSecretHash] ==
+              null) {
+        b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
+            computeSecretHash(
+          user.username!,
+          config.appClientId,
+          config.appClientSecret!,
+        );
+      }
+    });
 
     try {
       final challengeResp = await cognitoIdentityProvider

@@ -8,11 +8,11 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_api: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_auth_cognito: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_authenticator: ">=1.0.0-next.5 <1.0.0-next.6"
-  amplify_core: ">=1.0.0-next.7 <1.0.0-next.8"
-  amplify_flutter: ">=1.0.0-next.7 <1.0.0-next.8"
+  amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_authenticator: ">=1.0.0-next.5+1 <1.0.0-next.6"
+  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
   flutter:
     sdk: flutter
   go_router: ^3.0.0
@@ -25,7 +25,7 @@ dependency_overrides:
   test_api: ^0.4.0
 
 dev_dependencies:
-  amplify_auth_cognito_dart: ">=0.8.0 <0.9.0"
+  amplify_auth_cognito_dart: ">=0.9.0 <0.10.0"
   amplify_auth_cognito_test: any
   amplify_lints:
     path: ../../../amplify_lints

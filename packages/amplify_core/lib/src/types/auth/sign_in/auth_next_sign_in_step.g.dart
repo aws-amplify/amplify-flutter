@@ -8,11 +8,24 @@ part of 'auth_next_sign_in_step.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic>
-    _$AuthNextSignInStepToJson<Key extends AuthUserAttributeKey>(
-  AuthNextSignInStep<Key> instance,
-  Object? Function(Key value) toJsonKey,
-) {
+AuthNextSignInStep _$AuthNextSignInStepFromJson(Map<String, dynamic> json) =>
+    AuthNextSignInStep(
+      additionalInfo: (json['additionalInfo'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      codeDeliveryDetails: json['codeDeliveryDetails'] == null
+          ? null
+          : AuthCodeDeliveryDetails.fromJson(
+              json['codeDeliveryDetails'] as Map<String, dynamic>),
+      signInStep: $enumDecode(_$AuthSignInStepEnumMap, json['signInStep']),
+      missingAttributes: (json['missingAttributes'] as List<dynamic>?)
+              ?.map((e) =>
+                  const AuthUserAttributeKeyConverter().fromJson(e as String))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$AuthNextSignInStepToJson(AuthNextSignInStep instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -24,8 +37,9 @@ Map<String, dynamic>
   writeNotNull('additionalInfo', instance.additionalInfo);
   writeNotNull('codeDeliveryDetails', instance.codeDeliveryDetails?.toJson());
   val['signInStep'] = _$AuthSignInStepEnumMap[instance.signInStep]!;
-  val['missingAttributes'] = instance.missingAttributes.map(toJsonKey).toList();
-  val['runtimeTypeName'] = instance.runtimeTypeName;
+  val['missingAttributes'] = instance.missingAttributes
+      .map(const AuthUserAttributeKeyConverter().toJson)
+      .toList();
   return val;
 }
 

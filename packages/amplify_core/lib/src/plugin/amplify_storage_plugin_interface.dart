@@ -9,27 +9,13 @@ import 'package:meta/meta.dart';
 /// Defines Amplify Storage plugin interface.
 ///
 /// {@macro amplify_core.amplify_storage_category}
-abstract class StoragePluginInterface<
-        PluginStorageListOperation extends StorageListOperation,
-        PluginStorageGetPropertiesOperation extends StorageGetPropertiesOperation,
-        PluginStorageGetUrlOperation extends StorageGetUrlOperation,
-        PluginStorageUploadDataOperation extends StorageUploadDataOperation,
-        PluginStorageUploadFileOperation extends StorageUploadFileOperation,
-        PluginStorageDownloadDataOperation extends StorageDownloadDataOperation,
-        PluginStorageDownloadFileOperation extends StorageDownloadFileOperation,
-        PluginStorageCopyOperation extends StorageCopyOperation,
-        PluginStorageMoveOperation extends StorageMoveOperation,
-        PluginStorageRemoveOperation extends StorageRemoveOperation,
-        PluginStorageRemoveManyOperation extends StorageRemoveManyOperation,
-        PluginStorageItem extends StorageItem,
-        PluginTransferProgress extends StorageTransferProgress>
-    extends AmplifyPluginInterface {
+abstract class StoragePluginInterface extends AmplifyPluginInterface {
   @override
   @nonVirtual
   Category get category => Category.storage;
 
   /// {@macro amplify_core.amplify_storage_category.list}
-  PluginStorageListOperation list({
+  StorageListOperation list({
     String? path,
     StorageListOptions? options,
   }) {
@@ -37,7 +23,7 @@ abstract class StoragePluginInterface<
   }
 
   /// {@macro amplify_core.amplify_storage_category.get_properties}
-  PluginStorageGetPropertiesOperation getProperties({
+  StorageGetPropertiesOperation getProperties({
     required String key,
     StorageGetPropertiesOptions? options,
   }) {
@@ -45,7 +31,7 @@ abstract class StoragePluginInterface<
   }
 
   /// {@macro amplify_core.amplify_storage_category.get_url}
-  PluginStorageGetUrlOperation getUrl({
+  StorageGetUrlOperation getUrl({
     required String key,
     StorageGetUrlOptions? options,
   }) {
@@ -53,64 +39,64 @@ abstract class StoragePluginInterface<
   }
 
   /// {@macro amplify_core.amplify_storage_category.download_data}
-  PluginStorageDownloadDataOperation downloadData({
+  StorageDownloadDataOperation downloadData({
     required String key,
-    void Function(PluginTransferProgress)? onProgress,
+    void Function(StorageTransferProgress)? onProgress,
     StorageDownloadDataOptions? options,
   }) {
     throw UnimplementedError('downloadData() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.download_file}
-  PluginStorageDownloadFileOperation downloadFile({
+  StorageDownloadFileOperation downloadFile({
     required String key,
     required AWSFile localFile,
-    void Function(PluginTransferProgress)? onProgress,
+    void Function(StorageTransferProgress)? onProgress,
     StorageDownloadFileOptions? options,
   }) {
     throw UnimplementedError('downloadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.upload_data}
-  PluginStorageUploadDataOperation uploadData({
+  StorageUploadDataOperation uploadData({
     required String key,
     required StorageDataPayload data,
-    void Function(PluginTransferProgress)? onProgress,
+    void Function(StorageTransferProgress)? onProgress,
     StorageUploadDataOptions? options,
   }) {
     throw UnimplementedError('uploadData() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.upload_file}
-  PluginStorageUploadFileOperation uploadFile({
+  StorageUploadFileOperation uploadFile({
     required String key,
     required AWSFile localFile,
-    void Function(PluginTransferProgress)? onProgress,
+    void Function(StorageTransferProgress)? onProgress,
     StorageUploadFileOptions? options,
   }) {
     throw UnimplementedError('uploadFile() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.copy}
-  PluginStorageCopyOperation copy({
-    required StorageItemWithAccessLevel<PluginStorageItem> source,
-    required StorageItemWithAccessLevel<PluginStorageItem> destination,
+  StorageCopyOperation copy({
+    required StorageItemWithAccessLevel<StorageItem> source,
+    required StorageItemWithAccessLevel<StorageItem> destination,
     StorageCopyOptions? options,
   }) {
     throw UnimplementedError('copy() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.move}
-  PluginStorageMoveOperation move({
-    required StorageItemWithAccessLevel<PluginStorageItem> source,
-    required StorageItemWithAccessLevel<PluginStorageItem> destination,
+  StorageMoveOperation move({
+    required StorageItemWithAccessLevel<StorageItem> source,
+    required StorageItemWithAccessLevel<StorageItem> destination,
     StorageMoveOptions? options,
   }) {
     throw UnimplementedError('move() has not been implemented.');
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove}
-  PluginStorageRemoveOperation remove({
+  StorageRemoveOperation remove({
     required String key,
     StorageRemoveOptions? options,
   }) {
@@ -118,7 +104,7 @@ abstract class StoragePluginInterface<
   }
 
   /// {@macro amplify_core.amplify_storage_category.remove_many}
-  PluginStorageRemoveManyOperation removeMany({
+  StorageRemoveManyOperation removeMany({
     required List<String> keys,
     StorageRemoveManyOptions? options,
   }) {
