@@ -351,6 +351,12 @@ class _SecurityFrameworkError {
 
   static const _noErrorStringMessage = 'No error string is available.';
 
+  static const _missingEntitlementRecoveryMacOS =
+      'Ensure that you have followed the step to enable Keychain Sharing in the '
+      'platform setup steps for macOS, See: '
+      'https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#macos '
+      'for details.';
+
   /// Maps the error to a [SecureStorageException].
   SecureStorageException toSecureStorageException() {
     switch (code) {
@@ -380,9 +386,8 @@ class _SecurityFrameworkError {
           underlyingException: this,
         );
       case errSecMissingEntitlement:
-        // TODO(Jordan-Nelson): point to amplify documentation when available.
         final recoverySuggestion = Platform.isMacOS
-            ? 'If you have not explicitly disabled `useDataProtection` this may be a result of your app not being in any app groups. See `MacOSSecureStorageOptions.useDataProtection` for more info.'
+            ? _missingEntitlementRecoveryMacOS
             : SecureStorageException.missingRecovery;
         return AccessDeniedException(
           'Could not access the items in the keychain due to a missing entitlement.',
