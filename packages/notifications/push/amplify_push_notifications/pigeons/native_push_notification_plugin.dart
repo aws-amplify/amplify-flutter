@@ -53,6 +53,8 @@ enum PermissionStatus {
 abstract class PushNotificationsFlutterApi {
   @async
   void onNotificationReceivedInBackground(Map<Object?, Object?> withPayload);
+
+  void nullifyLaunchNotification();
 }
 
 @HostApi()

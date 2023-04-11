@@ -115,4 +115,12 @@ extension AmplifyPushNotificationsPlugin {
     public func applicationDidBecomeActive(_ application: UIApplication) {
         application.registerForRemoteNotifications()
     }
+
+    public func applicationDidEnterBackground(_ application: UIApplication) {
+        // When App enters background we remove the cached launchNotification
+        // as when the App reopens after this point, there won't be a notification
+        // that launched the App.
+        launchNotification = nil
+        flutterApi.nullifyLaunchNotification() { result in }
+    }
 }

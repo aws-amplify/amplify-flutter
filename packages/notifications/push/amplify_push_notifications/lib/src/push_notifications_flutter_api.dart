@@ -25,7 +25,7 @@ class AmplifyPushNotificationsFlutterApi
   }
 
   /// {@template amplify_push_notifications.amplify_push_notifications_flutter_api.reset}
-  /// Ability to reset the singeton anly used for resetting beteween tests.
+  /// Ability to reset the singleton only used for resetting between tests.
   /// {@endtemplate}
   static void reset() {
     PushNotificationsFlutterApi.setup(null);
@@ -52,6 +52,8 @@ class AmplifyPushNotificationsFlutterApi
   final _onNotificationReceivedInBackgroundCallbacks =
       <OnRemoteMessageCallback>[];
 
+  void Function()? _onNullifyLaunchNotificationCallback;
+
   /// {@template amplify_push_notifications.on_notification_received_in_background_callbacks}
   /// Internal callbacks list getter exposed for testing purposes only.
   /// {@endtemplate}
@@ -67,6 +69,16 @@ class AmplifyPushNotificationsFlutterApi
     OnRemoteMessageCallback callback,
   ) {
     _onNotificationReceivedInBackgroundCallbacks.add(callback);
+  }
+
+  /// {@template amplify_push_notifications.}
+  /// Set a callback that to be called when [nullifyLaunchNotification] is
+  /// called from the native implementation.
+  /// {@endtemplate}
+  set onNullifyLaunchNotificationCallback(
+    void Function() callback,
+  ) {
+    _onNullifyLaunchNotificationCallback = callback;
   }
 
   ServiceProviderClient? _serviceProviderClient;
@@ -139,5 +151,10 @@ class AmplifyPushNotificationsFlutterApi
       );
       _eventQueue.clear();
     }
+  }
+
+  @override
+  void nullifyLaunchNotification() {
+    _onNullifyLaunchNotificationCallback?.call();
   }
 }

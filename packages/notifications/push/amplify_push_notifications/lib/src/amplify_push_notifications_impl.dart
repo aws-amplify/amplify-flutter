@@ -227,6 +227,9 @@ abstract class AmplifyPushNotifications
       final launchNotification =
           PushNotificationMessage.fromJson(rawLaunchNotification);
       _launchNotification = launchNotification;
+      _flutterApi.onNullifyLaunchNotificationCallback = () {
+        _launchNotification = null;
+      };
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
 

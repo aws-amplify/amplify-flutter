@@ -303,6 +303,15 @@ class MockAmplifyPushNotificationsFlutterApi extends _i1.Mock
             returnValue: <_i4.OnRemoteMessageCallback>[],
           ) as List<_i4.OnRemoteMessageCallback>);
   @override
+  set onNullifyLaunchNotificationCallback(void Function()? callback) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #onNullifyLaunchNotificationCallback,
+          callback,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   set serviceProviderClient(_i4.ServiceProviderClient? serviceProviderClient) =>
       super.noSuchMethod(
         Invocation.setter(
@@ -332,4 +341,12 @@ class MockAmplifyPushNotificationsFlutterApi extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  void nullifyLaunchNotification() => super.noSuchMethod(
+        Invocation.method(
+          #nullifyLaunchNotification,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

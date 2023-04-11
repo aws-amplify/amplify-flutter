@@ -45,69 +45,7 @@ class _FakeAWSLogger_1 extends _i1.SmartFake implements _i3.AWSLogger {
         );
 }
 
-class _FakeAuthCategory_2<
-        PluginAuthUser extends _i4.AuthUser<_i4.SignInDetails>,
-        PluginUserAttributeKey extends _i4.AuthUserAttributeKey,
-        PluginAuthUserAttribute extends _i4
-            .AuthUserAttribute<PluginUserAttributeKey>,
-        PluginAuthDevice extends _i4.AuthDevice,
-        PluginSignUpResult extends _i4.SignUpResult,
-        PluginConfirmSignUpResult extends _i4.SignUpResult,
-        PluginResendSignUpCodeResult extends _i4.ResendSignUpCodeResult,
-        PluginSignInResult extends _i4.SignInResult<PluginUserAttributeKey>,
-        PluginConfirmSignInResult extends _i4.SignInResult<PluginUserAttributeKey>,
-        PluginSignOutResult extends _i4.SignOutResult,
-        PluginUpdatePasswordResult extends _i4.UpdatePasswordResult,
-        PluginResetPasswordResult extends _i4.ResetPasswordResult,
-        PluginConfirmResetPasswordResult extends _i4.ResetPasswordResult,
-        PluginAuthSession extends _i4.AuthSession,
-        PluginSignInWithWebUIResult extends _i4
-            .SignInResult<PluginUserAttributeKey>,
-        PluginUpdateUserAttributeResult extends _i4.UpdateUserAttributeResult,
-        PluginConfirmUserAttributeResult extends _i4.ConfirmUserAttributeResult,
-        PluginResendUserAttributeConfirmationCodeResult extends _i4
-            .ResendUserAttributeConfirmationCodeResult,
-        Plugin extends _i4.AuthPluginInterface<
-            PluginAuthUser,
-            PluginUserAttributeKey,
-            PluginAuthUserAttribute,
-            PluginAuthDevice,
-            PluginSignUpResult,
-            PluginConfirmSignUpResult,
-            PluginResendSignUpCodeResult,
-            PluginSignInResult,
-            PluginConfirmSignInResult,
-            PluginSignOutResult,
-            PluginUpdatePasswordResult,
-            PluginResetPasswordResult,
-            PluginConfirmResetPasswordResult,
-            PluginAuthSession,
-            PluginSignInWithWebUIResult,
-            PluginUpdateUserAttributeResult,
-            PluginConfirmUserAttributeResult,
-            PluginResendUserAttributeConfirmationCodeResult>>
-    extends _i1.SmartFake
-    implements
-        _i4.AuthCategory<
-            PluginAuthUser,
-            PluginUserAttributeKey,
-            PluginAuthUserAttribute,
-            PluginAuthDevice,
-            PluginSignUpResult,
-            PluginConfirmSignUpResult,
-            PluginResendSignUpCodeResult,
-            PluginSignInResult,
-            PluginConfirmSignInResult,
-            PluginSignOutResult,
-            PluginUpdatePasswordResult,
-            PluginResetPasswordResult,
-            PluginConfirmResetPasswordResult,
-            PluginAuthSession,
-            PluginSignInWithWebUIResult,
-            PluginUpdateUserAttributeResult,
-            PluginConfirmUserAttributeResult,
-            PluginResendUserAttributeConfirmationCodeResult,
-            Plugin> {
+class _FakeAuthCategory_2 extends _i1.SmartFake implements _i4.AuthCategory {
   _FakeAuthCategory_2(
     Object parent,
     Invocation parentInvocation,
@@ -128,69 +66,8 @@ class _FakeAnalyticsCategory_3 extends _i1.SmartFake
         );
 }
 
-class _FakeStorageCategory_4<
-        PluginStorageListOperation extends _i4.StorageListOperation<
-            _i4.StorageListRequest, _i4.StorageListResult<_i4.StorageItem>>,
-        PluginStorageGetPropertiesOperation extends _i4.StorageGetPropertiesOperation<
-            _i4.StorageGetPropertiesRequest,
-            _i4.StorageGetPropertiesResult<_i4.StorageItem>>,
-        PluginStorageGetUrlOperation extends _i4.StorageGetUrlOperation<
-            _i4.StorageGetUrlRequest, _i4.StorageGetUrlResult>,
-        PluginStorageUploadDataOperation extends _i4.StorageUploadDataOperation<
-            _i4.StorageUploadDataRequest,
-            _i4.StorageUploadDataResult<_i4.StorageItem>>,
-        PluginStorageUploadFileOperation extends _i4.StorageUploadFileOperation<
-            _i4.StorageUploadFileRequest,
-            _i4.StorageUploadFileResult<_i4.StorageItem>>,
-        PluginStorageDownloadDataOperation extends _i4.StorageDownloadDataOperation<
-            _i4.StorageDownloadDataRequest,
-            _i4.StorageDownloadDataResult<_i4.StorageItem>>,
-        PluginStorageDownloadFileOperation extends _i4.StorageDownloadFileOperation<
-            _i4.StorageDownloadFileRequest,
-            _i4.StorageDownloadFileResult<_i4.StorageItem>>,
-        PluginStorageCopyOperation extends _i4.StorageCopyOperation<
-            _i4.StorageCopyRequest<_i4.StorageItem>,
-            _i4.StorageCopyResult<_i4.StorageItem>>,
-        PluginStorageMoveOperation extends _i4.StorageMoveOperation<
-            _i4.StorageMoveRequest<_i4.StorageItem>,
-            _i4.StorageMoveResult<_i4.StorageItem>>,
-        PluginStorageRemoveOperation extends _i4.StorageRemoveOperation<
-            _i4.StorageRemoveRequest, _i4.StorageRemoveResult<_i4.StorageItem>>,
-        PluginStorageRemoveManyOperation extends _i4.StorageRemoveManyOperation<
-            _i4.StorageRemoveManyRequest,
-            _i4.StorageRemoveManyResult<_i4.StorageItem>>,
-        PluginStorageItem extends _i4.StorageItem,
-        PluginTransferProgress extends _i4.StorageTransferProgress,
-        Plugin extends _i4.StoragePluginInterface<
-            PluginStorageListOperation,
-            PluginStorageGetPropertiesOperation,
-            PluginStorageGetUrlOperation,
-            PluginStorageUploadDataOperation,
-            PluginStorageUploadFileOperation,
-            PluginStorageDownloadDataOperation,
-            PluginStorageDownloadFileOperation,
-            PluginStorageCopyOperation,
-            PluginStorageMoveOperation,
-            PluginStorageRemoveOperation,
-            PluginStorageRemoveManyOperation,
-            PluginStorageItem,
-            PluginTransferProgress>> extends _i1.SmartFake
-    implements
-        _i4.StorageCategory<
-            PluginStorageListOperation,
-            PluginStorageGetPropertiesOperation,
-            PluginStorageGetUrlOperation,
-            PluginStorageUploadDataOperation,
-            PluginStorageUploadFileOperation,
-            PluginStorageDownloadDataOperation,
-            PluginStorageDownloadFileOperation,
-            PluginStorageCopyOperation,
-            PluginStorageMoveOperation,
-            PluginStorageRemoveOperation,
-            PluginStorageRemoveManyOperation,
-            PluginStorageItem,
-            PluginTransferProgress,
-            Plugin> {
+class _FakeStorageCategory_4 extends _i1.SmartFake
+    implements _i4.StorageCategory {
   _FakeStorageCategory_4(
     Object parent,
     Invocation parentInvocation,
@@ -340,107 +217,13 @@ class MockAmplifyClass extends _i1.Mock implements _i4.AmplifyClass {
   }
 
   @override
-  _i4.AuthCategory<
-          _i4.AuthUser<_i4.SignInDetails>,
-          _i4.AuthUserAttributeKey,
-          _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>,
-          _i4.AuthDevice,
-          _i4.SignUpResult,
-          _i4.SignUpResult,
-          _i4.ResendSignUpCodeResult,
-          _i4.SignInResult<_i4.AuthUserAttributeKey>,
-          _i4.SignInResult<_i4.AuthUserAttributeKey>,
-          _i4.SignOutResult,
-          _i4.UpdatePasswordResult,
-          _i4.ResetPasswordResult,
-          _i4.ResetPasswordResult,
-          _i4.AuthSession,
-          _i4.SignInResult<_i4.AuthUserAttributeKey>,
-          _i4.UpdateUserAttributeResult,
-          _i4.ConfirmUserAttributeResult,
-          _i4.ResendUserAttributeConfirmationCodeResult,
-          _i4.AuthPluginInterface<_i4.AuthUser<_i4.SignInDetails>, _i4.AuthUserAttributeKey, _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>, _i4.AuthDevice, _i4.SignUpResult, _i4.SignUpResult, _i4.ResendSignUpCodeResult, _i4.SignInResult<_i4.AuthUserAttributeKey>, _i4.SignInResult<_i4.AuthUserAttributeKey>, _i4.SignOutResult, _i4.UpdatePasswordResult, _i4.ResetPasswordResult, _i4.ResetPasswordResult, _i4.AuthSession, _i4.SignInResult<_i4.AuthUserAttributeKey>, _i4.UpdateUserAttributeResult, _i4.ConfirmUserAttributeResult, _i4.ResendUserAttributeConfirmationCodeResult>>
-      get Auth => (super.noSuchMethod(
-            Invocation.getter(#Auth),
-            returnValue: _FakeAuthCategory_2<
-                _i4.AuthUser<_i4.SignInDetails>,
-                _i4.AuthUserAttributeKey,
-                _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>,
-                _i4.AuthDevice,
-                _i4.SignUpResult,
-                _i4.SignUpResult,
-                _i4.ResendSignUpCodeResult,
-                _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                _i4.SignOutResult,
-                _i4.UpdatePasswordResult,
-                _i4.ResetPasswordResult,
-                _i4.ResetPasswordResult,
-                _i4.AuthSession,
-                _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                _i4.UpdateUserAttributeResult,
-                _i4.ConfirmUserAttributeResult,
-                _i4.ResendUserAttributeConfirmationCodeResult,
-                _i4.AuthPluginInterface<
-                    _i4.AuthUser<_i4.SignInDetails>,
-                    _i4.AuthUserAttributeKey,
-                    _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>,
-                    _i4.AuthDevice,
-                    _i4.SignUpResult,
-                    _i4.SignUpResult,
-                    _i4.ResendSignUpCodeResult,
-                    _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                    _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                    _i4.SignOutResult,
-                    _i4.UpdatePasswordResult,
-                    _i4.ResetPasswordResult,
-                    _i4.ResetPasswordResult,
-                    _i4.AuthSession,
-                    _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                    _i4.UpdateUserAttributeResult,
-                    _i4.ConfirmUserAttributeResult,
-                    _i4.ResendUserAttributeConfirmationCodeResult>>(
-              this,
-              Invocation.getter(#Auth),
-            ),
-          ) as _i4.AuthCategory<
-              _i4.AuthUser<_i4.SignInDetails>,
-              _i4.AuthUserAttributeKey,
-              _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>,
-              _i4.AuthDevice,
-              _i4.SignUpResult,
-              _i4.SignUpResult,
-              _i4.ResendSignUpCodeResult,
-              _i4.SignInResult<_i4.AuthUserAttributeKey>,
-              _i4.SignInResult<_i4.AuthUserAttributeKey>,
-              _i4.SignOutResult,
-              _i4.UpdatePasswordResult,
-              _i4.ResetPasswordResult,
-              _i4.ResetPasswordResult,
-              _i4.AuthSession,
-              _i4.SignInResult<_i4.AuthUserAttributeKey>,
-              _i4.UpdateUserAttributeResult,
-              _i4.ConfirmUserAttributeResult,
-              _i4.ResendUserAttributeConfirmationCodeResult,
-              _i4.AuthPluginInterface<
-                  _i4.AuthUser<_i4.SignInDetails>,
-                  _i4.AuthUserAttributeKey,
-                  _i4.AuthUserAttribute<_i4.AuthUserAttributeKey>,
-                  _i4.AuthDevice,
-                  _i4.SignUpResult,
-                  _i4.SignUpResult,
-                  _i4.ResendSignUpCodeResult,
-                  _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                  _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                  _i4.SignOutResult,
-                  _i4.UpdatePasswordResult,
-                  _i4.ResetPasswordResult,
-                  _i4.ResetPasswordResult,
-                  _i4.AuthSession,
-                  _i4.SignInResult<_i4.AuthUserAttributeKey>,
-                  _i4.UpdateUserAttributeResult,
-                  _i4.ConfirmUserAttributeResult,
-                  _i4.ResendUserAttributeConfirmationCodeResult>>);
+  _i4.AuthCategory get Auth => (super.noSuchMethod(
+        Invocation.getter(#Auth),
+        returnValue: _FakeAuthCategory_2(
+          this,
+          Invocation.getter(#Auth),
+        ),
+      ) as _i4.AuthCategory);
   @override
   _i4.AnalyticsCategory get Analytics => (super.noSuchMethod(
         Invocation.getter(#Analytics),
@@ -450,95 +233,13 @@ class MockAmplifyClass extends _i1.Mock implements _i4.AmplifyClass {
         ),
       ) as _i4.AnalyticsCategory);
   @override
-  _i4.StorageCategory<_i4.StorageListOperation<_i4.StorageListRequest, _i4.StorageListResult<_i4.StorageItem>>, _i4.StorageGetPropertiesOperation<_i4.StorageGetPropertiesRequest, _i4.StorageGetPropertiesResult<_i4.StorageItem>>, _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest, _i4.StorageGetUrlResult>, _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest, _i4.StorageUploadDataResult<_i4.StorageItem>>, _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest, _i4.StorageUploadFileResult<_i4.StorageItem>>, _i4.StorageDownloadDataOperation<_i4.StorageDownloadDataRequest, _i4.StorageDownloadDataResult<_i4.StorageItem>>, _i4.StorageDownloadFileOperation<_i4.StorageDownloadFileRequest, _i4.StorageDownloadFileResult<_i4.StorageItem>>, _i4.StorageCopyOperation<_i4.StorageCopyRequest<_i4.StorageItem>, _i4.StorageCopyResult<_i4.StorageItem>>, _i4.StorageMoveOperation<_i4.StorageMoveRequest<_i4.StorageItem>, _i4.StorageMoveResult<_i4.StorageItem>>, _i4.StorageRemoveOperation<_i4.StorageRemoveRequest, _i4.StorageRemoveResult<_i4.StorageItem>>, _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest, _i4.StorageRemoveManyResult<_i4.StorageItem>>, _i4.StorageItem, _i4.StorageTransferProgress, _i4.StoragePluginInterface<_i4.StorageListOperation<_i4.StorageListRequest, _i4.StorageListResult<_i4.StorageItem>>, _i4.StorageGetPropertiesOperation<_i4.StorageGetPropertiesRequest, _i4.StorageGetPropertiesResult<_i4.StorageItem>>, _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest, _i4.StorageGetUrlResult>, _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest, _i4.StorageUploadDataResult<_i4.StorageItem>>, _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest, _i4.StorageUploadFileResult<_i4.StorageItem>>, _i4.StorageDownloadDataOperation<_i4.StorageDownloadDataRequest, _i4.StorageDownloadDataResult<_i4.StorageItem>>, _i4.StorageDownloadFileOperation<_i4.StorageDownloadFileRequest, _i4.StorageDownloadFileResult<_i4.StorageItem>>, _i4.StorageCopyOperation<_i4.StorageCopyRequest<_i4.StorageItem>, _i4.StorageCopyResult<_i4.StorageItem>>, _i4.StorageMoveOperation<_i4.StorageMoveRequest<_i4.StorageItem>, _i4.StorageMoveResult<_i4.StorageItem>>, _i4.StorageRemoveOperation<_i4.StorageRemoveRequest, _i4.StorageRemoveResult<_i4.StorageItem>>, _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest, _i4.StorageRemoveManyResult<_i4.StorageItem>>, _i4.StorageItem, _i4.StorageTransferProgress>>
-      get Storage => (super.noSuchMethod(
-            Invocation.getter(#Storage),
-            returnValue: _FakeStorageCategory_4<
-                _i4.StorageListOperation<_i4.StorageListRequest,
-                    _i4.StorageListResult<_i4.StorageItem>>,
-                _i4.StorageGetPropertiesOperation<
-                    _i4.StorageGetPropertiesRequest,
-                    _i4.StorageGetPropertiesResult<_i4.StorageItem>>,
-                _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest,
-                    _i4.StorageGetUrlResult>,
-                _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest,
-                    _i4.StorageUploadDataResult<_i4.StorageItem>>,
-                _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest,
-                    _i4.StorageUploadFileResult<_i4.StorageItem>>,
-                _i4.StorageDownloadDataOperation<_i4.StorageDownloadDataRequest,
-                    _i4.StorageDownloadDataResult<_i4.StorageItem>>,
-                _i4.StorageDownloadFileOperation<_i4.StorageDownloadFileRequest,
-                    _i4.StorageDownloadFileResult<_i4.StorageItem>>,
-                _i4.StorageCopyOperation<
-                    _i4.StorageCopyRequest<_i4.StorageItem>,
-                    _i4.StorageCopyResult<_i4.StorageItem>>,
-                _i4.StorageMoveOperation<
-                    _i4.StorageMoveRequest<_i4.StorageItem>,
-                    _i4.StorageMoveResult<_i4.StorageItem>>,
-                _i4.StorageRemoveOperation<_i4.StorageRemoveRequest,
-                    _i4.StorageRemoveResult<_i4.StorageItem>>,
-                _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest,
-                    _i4.StorageRemoveManyResult<_i4.StorageItem>>,
-                _i4.StorageItem,
-                _i4.StorageTransferProgress,
-                _i4.StoragePluginInterface<
-                    _i4.StorageListOperation<_i4.StorageListRequest,
-                        _i4.StorageListResult<_i4.StorageItem>>,
-                    _i4.StorageGetPropertiesOperation<
-                        _i4.StorageGetPropertiesRequest,
-                        _i4.StorageGetPropertiesResult<_i4.StorageItem>>,
-                    _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest,
-                        _i4.StorageGetUrlResult>,
-                    _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest,
-                        _i4.StorageUploadDataResult<_i4.StorageItem>>,
-                    _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest,
-                        _i4.StorageUploadFileResult<_i4.StorageItem>>,
-                    _i4.StorageDownloadDataOperation<
-                        _i4.StorageDownloadDataRequest,
-                        _i4.StorageDownloadDataResult<_i4.StorageItem>>,
-                    _i4.StorageDownloadFileOperation<
-                        _i4.StorageDownloadFileRequest,
-                        _i4.StorageDownloadFileResult<_i4.StorageItem>>,
-                    _i4.StorageCopyOperation<
-                        _i4.StorageCopyRequest<_i4.StorageItem>,
-                        _i4.StorageCopyResult<_i4.StorageItem>>,
-                    _i4.StorageMoveOperation<
-                        _i4.StorageMoveRequest<_i4.StorageItem>,
-                        _i4.StorageMoveResult<_i4.StorageItem>>,
-                    _i4.StorageRemoveOperation<_i4.StorageRemoveRequest,
-                        _i4.StorageRemoveResult<_i4.StorageItem>>,
-                    _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest,
-                        _i4.StorageRemoveManyResult<_i4.StorageItem>>,
-                    _i4.StorageItem,
-                    _i4.StorageTransferProgress>>(
-              this,
-              Invocation.getter(#Storage),
-            ),
-          ) as _i4.StorageCategory<
-              _i4.StorageListOperation<_i4.StorageListRequest,
-                  _i4.StorageListResult<_i4.StorageItem>>,
-              _i4.StorageGetPropertiesOperation<_i4.StorageGetPropertiesRequest,
-                  _i4.StorageGetPropertiesResult<_i4.StorageItem>>,
-              _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest,
-                  _i4.StorageGetUrlResult>,
-              _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest,
-                  _i4.StorageUploadDataResult<_i4.StorageItem>>,
-              _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest,
-                  _i4.StorageUploadFileResult<_i4.StorageItem>>,
-              _i4.StorageDownloadDataOperation<_i4.StorageDownloadDataRequest,
-                  _i4.StorageDownloadDataResult<_i4.StorageItem>>,
-              _i4.StorageDownloadFileOperation<_i4.StorageDownloadFileRequest,
-                  _i4.StorageDownloadFileResult<_i4.StorageItem>>,
-              _i4.StorageCopyOperation<_i4.StorageCopyRequest<_i4.StorageItem>,
-                  _i4.StorageCopyResult<_i4.StorageItem>>,
-              _i4.StorageMoveOperation<_i4.StorageMoveRequest<_i4.StorageItem>,
-                  _i4.StorageMoveResult<_i4.StorageItem>>,
-              _i4.StorageRemoveOperation<_i4.StorageRemoveRequest,
-                  _i4.StorageRemoveResult<_i4.StorageItem>>,
-              _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest, _i4.StorageRemoveManyResult<_i4.StorageItem>>,
-              _i4.StorageItem,
-              _i4.StorageTransferProgress,
-              _i4.StoragePluginInterface<_i4.StorageListOperation<_i4.StorageListRequest, _i4.StorageListResult<_i4.StorageItem>>, _i4.StorageGetPropertiesOperation<_i4.StorageGetPropertiesRequest, _i4.StorageGetPropertiesResult<_i4.StorageItem>>, _i4.StorageGetUrlOperation<_i4.StorageGetUrlRequest, _i4.StorageGetUrlResult>, _i4.StorageUploadDataOperation<_i4.StorageUploadDataRequest, _i4.StorageUploadDataResult<_i4.StorageItem>>, _i4.StorageUploadFileOperation<_i4.StorageUploadFileRequest, _i4.StorageUploadFileResult<_i4.StorageItem>>, _i4.StorageDownloadDataOperation<_i4.StorageDownloadDataRequest, _i4.StorageDownloadDataResult<_i4.StorageItem>>, _i4.StorageDownloadFileOperation<_i4.StorageDownloadFileRequest, _i4.StorageDownloadFileResult<_i4.StorageItem>>, _i4.StorageCopyOperation<_i4.StorageCopyRequest<_i4.StorageItem>, _i4.StorageCopyResult<_i4.StorageItem>>, _i4.StorageMoveOperation<_i4.StorageMoveRequest<_i4.StorageItem>, _i4.StorageMoveResult<_i4.StorageItem>>, _i4.StorageRemoveOperation<_i4.StorageRemoveRequest, _i4.StorageRemoveResult<_i4.StorageItem>>, _i4.StorageRemoveManyOperation<_i4.StorageRemoveManyRequest, _i4.StorageRemoveManyResult<_i4.StorageItem>>, _i4.StorageItem, _i4.StorageTransferProgress>>);
+  _i4.StorageCategory get Storage => (super.noSuchMethod(
+        Invocation.getter(#Storage),
+        returnValue: _FakeStorageCategory_4(
+          this,
+          Invocation.getter(#Storage),
+        ),
+      ) as _i4.StorageCategory);
   @override
   _i4.DataStoreCategory get DataStore => (super.noSuchMethod(
         Invocation.getter(#DataStore),

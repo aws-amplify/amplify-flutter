@@ -254,6 +254,14 @@ public class PushNotificationsHostApiBindings {
           new ArrayList<Object>(Collections.singletonList(withPayloadArg)),
           channelReply -> callback.reply(null));
     }
+    public void nullifyLaunchNotification(Reply<Void> callback) {
+      BasicMessageChannel<Object> channel =
+          new BasicMessageChannel<>(
+              binaryMessenger, "dev.flutter.pigeon.PushNotificationsFlutterApi.nullifyLaunchNotification", getCodec());
+      channel.send(
+          null,
+          channelReply -> callback.reply(null));
+    }
   }
 
   private static class PushNotificationsHostApiCodec extends StandardMessageCodec {

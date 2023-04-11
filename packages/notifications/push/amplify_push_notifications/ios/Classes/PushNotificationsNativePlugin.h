@@ -47,6 +47,7 @@ NSObject<FlutterMessageCodec> *PushNotificationsFlutterApiGetCodec(void);
 @interface PushNotificationsFlutterApi : NSObject
 - (instancetype)initWithBinaryMessenger:(id<FlutterBinaryMessenger>)binaryMessenger;
 - (void)onNotificationReceivedInBackgroundWithPayload:(NSDictionary<id, id> *)withPayload completion:(void (^)(NSError *_Nullable))completion;
+- (void)nullifyLaunchNotificationWithCompletion:(void (^)(NSError *_Nullable))completion;
 @end
 
 /// The codec used by PushNotificationsHostApi.
