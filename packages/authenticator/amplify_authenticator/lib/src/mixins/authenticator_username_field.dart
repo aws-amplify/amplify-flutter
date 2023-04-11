@@ -168,7 +168,6 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     switch (selectedUsernameType) {
       case UsernameType.username:
         return (input) => usernameValidator(
-              isOptional: isOptional,
               context: context,
               inputResolver: stringResolver.inputs,
             )(input?.username);

@@ -34,13 +34,10 @@ FormFieldValidator<String> simpleValidator(
 }
 
 FormFieldValidator<String> usernameValidator({
-  required bool isOptional,
   required BuildContext context,
   required InputResolver inputResolver,
 }) {
   return (String? input) {
-    if (isOptional) return null;
-
     if (input == null || input.isEmpty) {
       return inputResolver.resolve(
         context,
