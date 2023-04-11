@@ -163,7 +163,7 @@ abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
   Widget? get companionWidget => null;
 
   /// Maximum number of lines to use for error text.
-  int get errorMaxLines => 1;
+  int get errorMaxLines => 2;
 
   /// The maximum length of the input.
   int? get maxLength => null;
