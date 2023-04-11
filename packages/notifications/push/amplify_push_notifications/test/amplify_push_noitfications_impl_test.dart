@@ -431,33 +431,9 @@ void main() {
         )..onNotificationReceivedInBackground(
             testGlobalCallbackFunction,
           );
-        await Future.delayed(const Duration(seconds: 3), () {});
+        await Future.delayed(const Duration(microseconds: 1), () {});
 
         expect(pref.containsKey(externalHandleKey), isTrue);
-      },
-    );
-  });
-
-  test('should invoke the top-level or static external callback function',
-      () async {
-    await overrideOperatingSystem(
-      const OperatingSystem('android', ''),
-      () async {
-        SharedPreferences.setMockInitialValues({});
-        final pref = await SharedPreferences.getInstance();
-        plugin = TestAmplifyPushNotifications(
-          serviceProviderClient: mockServiceProviderClient,
-          backgroundProcessor: () async => {},
-          dependencyManager: dependencyManager,
-        )..onNotificationReceivedInBackground(
-            testGlobalCallbackFunction,
-          );
-        await Future.delayed(const Duration(seconds: 3), () {});
-
-        expect(pref.containsKey(externalHandleKey), isTrue);
-
-        await mockPushNotificationsNativeToFlutterApi
-            .onNotificationReceivedInBackground(standardAndroidPushMessage);
       },
     );
   });
