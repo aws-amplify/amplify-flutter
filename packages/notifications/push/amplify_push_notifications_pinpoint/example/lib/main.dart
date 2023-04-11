@@ -7,11 +7,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_pinpoint.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'amplifyconfiguration.dart';
-
-String globalBgCallbackKey = 'globalBgCallbackCountKey';
 
 Future<void> myCallback(PushNotificationMessage notification) async {
   print('🚀 onNotificationReceivedInBackground callback: $notification');
@@ -79,18 +76,6 @@ class _MyAppState extends State<MyApp> {
   bool? requestPermissionsResult;
   PushNotificationMessage? launchNotificationAvailable;
 
-  Future<int> getAndUpdateCallbackCounts() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.reload();
-      globalBgCallbackCount = prefs.getInt(globalBgCallbackKey) ?? 0;
-      return globalBgCallbackCount;
-    } on Exception catch (e) {
-      print('Error when get call $e');
-      return 0;
-    }
-  }
-
   void getLaunchNotification() {
     setState(() {
       launchNotificationAvailable =
@@ -121,36 +106,6 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: ListView(
             children: [
-              const Divider(
-                height: 20,
-              ),
-              FutureBuilder<int>(
-                future: getAndUpdateCallbackCounts(),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<int> snapshot,
-                ) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return ListTile(
-                      title: Text(
-                        'Background callback count: ${snapshot.data}',
-                      ),
-                    );
-                  } else {
-                    return const ListTile(
-                      title: Text(
-                        'Background callback count:0',
-                      ),
-                    );
-                  }
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                child: const Text('Refresh count'),
-              ),
               headerText('Permissions APIs'),
               ElevatedButton(
                 onPressed: () async {
