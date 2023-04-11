@@ -646,20 +646,6 @@ void main() {
 
         await expectLater(
           stateMachine.acceptAndComplete(
-            SignInEvent.initiate(
-              parameters: SignInParameters(
-                (b) => b
-                  ..username = username
-                  ..password = password,
-              ),
-            ),
-          ),
-          throwsA(isA<AuthPreconditionException>()),
-          reason: 'Sign-in reattempts on the same state machine are disallowed',
-        );
-
-        await expectLater(
-          stateMachine.acceptAndComplete(
             const SignInEvent.respondToChallenge(answer: 'attempt'),
           ),
           throwsA(isA<AuthPreconditionException>()),

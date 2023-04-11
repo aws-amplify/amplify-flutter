@@ -552,59 +552,49 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     String? password,
     SignInOptions? options,
   }) async {
-    bool isSignedIn;
-    try {
-      isSignedIn = (await fetchAuthSession()).isSignedIn;
-    } on Exception {
-      isSignedIn = false;
-    }
-    if (isSignedIn) {
-      throw const InvalidStateException(
-        'A user is already signed in.',
-        recoverySuggestion:
-            'Sign out the current user by calling `Amplify.Auth.signOut` and try the sign in again.',
-      );
-    }
-
     final pluginOptions = reifyPluginOptions(
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoSignInPluginOptions(),
     );
 
-    // Create a new state machine for every call since it caches values
-    // internally on each run.
-    final stream = _stateMachine.create(SignInStateMachine.type).stream;
-    await _stateMachine
-        .accept(
-          SignInEvent.initiate(
-            authFlowType: pluginOptions.authFlowType,
-            parameters: SignInParameters(
-              (p) => p
-                ..username = username
-                ..password = password,
-            ),
-            clientMetadata: pluginOptions.clientMetadata,
+    // Cancel the current sign in, if any.
+    await _stateMachine.acceptAndComplete<SignInNotStarted>(
+      const SignInEvent.cancelled(),
+    );
+    try {
+      final result = await _stateMachine.acceptAndComplete<SignInState>(
+        SignInEvent.initiate(
+          authFlowType: pluginOptions.authFlowType,
+          parameters: SignInParameters(
+            (p) => p
+              ..username = username
+              ..password = password,
           ),
-        )
-        .accepted;
+          clientMetadata: pluginOptions.clientMetadata,
+        ),
+      );
 
-    await for (final state in stream) {
-      switch (state.type) {
+      switch (result.type) {
         case SignInStateType.notStarted:
         case SignInStateType.initiating:
+        case SignInStateType.failure:
+          // This should never happen.
+          throw const UnknownException('Sign in could not be completed');
         case SignInStateType.cancelling:
-          continue;
+          throw const UserCancelledException(
+            'The user canceled the sign-in flow',
+          );
         case SignInStateType.challenge:
-          state as SignInChallenge;
+          result as SignInChallenge;
           return CognitoSignInResult(
             isSignedIn: false,
             nextStep: AuthNextSignInStep(
-              signInStep: state.challengeName.signInStep,
+              signInStep: result.challengeName.signInStep,
               codeDeliveryDetails: _getChallengeDeliveryDetails(
-                state.challengeParameters,
+                result.challengeParameters,
               ),
-              additionalInfo: state.challengeParameters,
-              missingAttributes: state.requiredAttributes,
+              additionalInfo: result.challengeParameters,
+              missingAttributes: result.requiredAttributes,
             ),
           );
         case SignInStateType.success:
@@ -614,28 +604,22 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
               signInStep: AuthSignInStep.done,
             ),
           );
-        case SignInStateType.failure:
-          final exception = (state as SignInFailure).exception;
-          if (exception is PasswordResetRequiredException) {
-            return const CognitoSignInResult(
-              isSignedIn: false,
-              nextStep: AuthNextSignInStep(
-                signInStep: AuthSignInStep.resetPassword,
-              ),
-            );
-          } else if (exception is UserNotConfirmedException) {
-            return const CognitoSignInResult(
-              isSignedIn: false,
-              nextStep: AuthNextSignInStep(
-                signInStep: AuthSignInStep.confirmSignUp,
-              ),
-            );
-          }
-          throw exception;
       }
+    } on PasswordResetRequiredException {
+      return const CognitoSignInResult(
+        isSignedIn: false,
+        nextStep: AuthNextSignInStep(
+          signInStep: AuthSignInStep.resetPassword,
+        ),
+      );
+    } on UserNotConfirmedException {
+      return const CognitoSignInResult(
+        isSignedIn: false,
+        nextStep: AuthNextSignInStep(
+          signInStep: AuthSignInStep.confirmSignUp,
+        ),
+      );
     }
-
-    throw const UserCancelledException('The user cancelled the sign-in flow');
   }
 
   @override
@@ -647,50 +631,46 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoConfirmSignInPluginOptions(),
     );
-    await _stateMachine
-        .accept(
-          SignInEvent.respondToChallenge(
-            answer: confirmationValue,
-            clientMetadata: pluginOptions.clientMetadata,
-            userAttributes: pluginOptions.userAttributes,
+
+    final result = await _stateMachine.acceptAndComplete<SignInState>(
+      SignInEvent.respondToChallenge(
+        answer: confirmationValue,
+        clientMetadata: pluginOptions.clientMetadata,
+        userAttributes: pluginOptions.userAttributes,
+      ),
+    );
+
+    switch (result.type) {
+      case SignInStateType.notStarted:
+      case SignInStateType.initiating:
+      case SignInStateType.failure:
+        // This should never happen.
+        throw const UnknownException('Sign in could not be completed');
+      case SignInStateType.cancelling:
+        throw const UserCancelledException(
+          'The user canceled the sign-in flow',
+        );
+      case SignInStateType.challenge:
+        result as SignInChallenge;
+        return CognitoSignInResult(
+          isSignedIn: false,
+          nextStep: AuthNextSignInStep(
+            signInStep: result.challengeName.signInStep,
+            codeDeliveryDetails: _getChallengeDeliveryDetails(
+              result.challengeParameters,
+            ),
+            additionalInfo: result.challengeParameters,
+            missingAttributes: result.requiredAttributes,
           ),
-        )
-        .accepted;
-
-    final stream = _stateMachine.expect(SignInStateMachine.type).stream;
-    await for (final state in stream) {
-      switch (state.type) {
-        case SignInStateType.notStarted:
-        case SignInStateType.initiating:
-        case SignInStateType.cancelling:
-          continue;
-        case SignInStateType.challenge:
-          state as SignInChallenge;
-          return CognitoSignInResult(
-            isSignedIn: false,
-            nextStep: AuthNextSignInStep(
-              signInStep: state.challengeName.signInStep,
-              codeDeliveryDetails: _getChallengeDeliveryDetails(
-                state.challengeParameters,
-              ),
-              additionalInfo: state.challengeParameters,
-              missingAttributes: state.requiredAttributes,
-            ),
-          );
-        case SignInStateType.success:
-          return const CognitoSignInResult(
-            isSignedIn: true,
-            nextStep: AuthNextSignInStep(
-              signInStep: AuthSignInStep.done,
-            ),
-          );
-        case SignInStateType.failure:
-          throw (state as SignInFailure).exception;
-      }
+        );
+      case SignInStateType.success:
+        return const CognitoSignInResult(
+          isSignedIn: true,
+          nextStep: AuthNextSignInStep(
+            signInStep: AuthSignInStep.done,
+          ),
+        );
     }
-
-    // This should never happen.
-    throw const UnknownException('Sign in could not be completed');
   }
 
   @override
