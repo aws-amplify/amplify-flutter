@@ -12,6 +12,7 @@ dependencies:
   code_builder: 4.4.0
   dart_style: ">=2.2.0 <2.3.0"
   drift: ">=2.4.0 <2.6.0"
+  flutter_plugin_android_lifecycle: ^2.0.9
   json_annotation: ">=4.8.0 <4.9.0"
   json_serializable: 6.6.1
   intl: ">=0.17.0 <1.0.0"
