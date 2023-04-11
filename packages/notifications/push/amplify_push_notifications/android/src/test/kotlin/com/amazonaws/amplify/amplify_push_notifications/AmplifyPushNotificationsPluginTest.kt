@@ -3,7 +3,6 @@ package com.amazonaws.amplify.amplify_push_notifications
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.core.app.ActivityCompat
 import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.notifications.pushnotifications.NotificationContentProvider
 import com.amplifyframework.notifications.pushnotifications.NotificationPayload
@@ -20,6 +19,7 @@ import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -54,7 +54,6 @@ class AmplifyPushNotificationsPluginTest {
 
         mockkConstructor(PushNotificationPermission::class)
         mockkObject(NotificationPayload)
-        mockkStatic(ActivityCompat::class)
         mockkStatic(FirebaseMessaging::class)
         mockkStatic(NotificationPayload::toWritableMap)
         mockkStatic(PushNotificationPermission::class)
@@ -73,7 +72,6 @@ class AmplifyPushNotificationsPluginTest {
         every { FirebaseMessaging.getInstance().token } returns mockTask
         every { NotificationPayload.fromIntent(any()) } returns testPayload
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
-        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
         amplifyPushNotificationsPlugin = AmplifyPushNotificationsPlugin()
         every { mockFlutterBinding.binaryMessenger } returns mockk()
         every { mockFlutterBinding.binaryMessenger.setMessageHandler(any(), any()) } returns mockk()
@@ -82,6 +80,16 @@ class AmplifyPushNotificationsPluginTest {
         mockkStatic(::refreshToken)
         every { refreshToken() } returns mockk()
         amplifyPushNotificationsPlugin.onAttachedToEngine(mockFlutterBinding)
+    }
+
+    @After
+    fun tearDown() {
+        StreamHandlers.deInit()
+        unmockkStatic(::refreshToken)
+        unmockkObject(NotificationPayload)
+        unmockkStatic(FirebaseMessaging::class)
+        unmockkStatic(NotificationPayload::toWritableMap)
+        unmockkStatic(PushNotificationPermission::class)
     }
 
     @Test
@@ -127,35 +135,19 @@ class AmplifyPushNotificationsPluginTest {
         assertNull(amplifyPushNotificationsPlugin.launchNotification)
     }
 
+    // TODO(Samaritan1011001): Add test cases to check possible permission values,
+    //  need a way to check particular permission type
     @Test
     fun `returns Granted permission status`() {
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns true
         val mockResult =
             mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
         every { mockResult.success(any()) } returns mockk()
-
         mockkConstructor(PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder::class)
         amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
-
-        // TODO(Samaritan1011001): Find a way to check for the specific permission rather than any
         verify {
             mockResult.success(any())
         }
-    }
-
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
-    @Test
-    fun `returns ShouldRequest permission status`() {
-    }
-
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
-    @Test
-    fun `returns ShouldExplainThenRequest permission status`() {
-    }
-
-    // TODO(Samaritan1011001): Implement after figuring out the above todo
-    @Test
-    fun `returns Denied permission status`() {
     }
 
     @Test
@@ -178,8 +170,7 @@ class AmplifyPushNotificationsPluginTest {
                 any(), any()
             )
         } returns mockSharedPreferencesEditor
-        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns true
-        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns PermissionRequestResult.NotGranted(
+        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns NotGranted(
             shouldShowRationale = true
         )
         val mockResult = mockk<PushNotificationsHostApiBindings.Result<Boolean>>()

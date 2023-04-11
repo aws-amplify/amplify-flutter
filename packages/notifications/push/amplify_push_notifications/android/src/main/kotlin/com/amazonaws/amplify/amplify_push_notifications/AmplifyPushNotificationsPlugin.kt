@@ -42,6 +42,12 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
          * Flutter API interface.
          */
         var flutterApi: PushNotificationsFlutterApi? = null
+
+        /**
+         * Map of notification data when app was launched by tapping on the notification 
+         * when the app is in a killed state, null otherwise. 
+         */
+        var launchNotification: MutableMap<Any, Any?>? = null
     }
 
     /**
@@ -70,12 +76,6 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
      */
     private var mainBinaryMessenger: BinaryMessenger? = null
 
-
-    /**
-     * Launch notification has the notification map when app was launched by tapping on the notification
-     * when the app is in killed state and null otherwise.
-     */
-    private var launchNotification: MutableMap<Any, Any?>? = null
 
     /**
      * Flutter cache that holds the created Flutter Engines.
@@ -165,7 +165,7 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
                     )
                 ) {
                     // Converting to mutable map as pigeon's generated type expects it to be mutable.
-                    launchNotification = notificationHashMap.toMutableMap()
+                    AmplifyPushNotificationsPlugin.launchNotification = notificationHashMap.toMutableMap()
                 }
             }
             StreamHandlers.notificationOpened!!.send(
@@ -246,17 +246,18 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun getLaunchNotification(): MutableMap<Any, Any?>? {
-        val result = launchNotification
-        launchNotification = null
+        val result = AmplifyPushNotificationsPlugin.launchNotification
+        AmplifyPushNotificationsPlugin.launchNotification = null
         return result
     }
 
     override fun getBadgeCount(): Long {
-        throw NotImplementedError("Get badge count is not supported on Android")
+        // noop - not supported on Android so return 0 always.
+        return 0
     }
 
     override fun setBadgeCount(withBadgeCount: Long) {
-        throw NotImplementedError("Set badge count is not supported on Android")
+        // noop - not supported in Android.
     }
 
     private fun shouldShowRequestPermissionRationale(): Boolean {

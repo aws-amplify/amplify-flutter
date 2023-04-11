@@ -1,14 +1,11 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
 import com.amplifyframework.annotations.InternalAmplifyApi
-import com.amplifyframework.pushnotifications.pinpoint.PushNotificationsUtils
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.mockk.*
 import org.junit.Assert.*
-
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

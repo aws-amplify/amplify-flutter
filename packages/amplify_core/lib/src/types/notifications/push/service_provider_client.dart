@@ -27,7 +27,6 @@ abstract class ServiceProviderClient {
   /// Link the user details to the service provider so messages can be targeted on a user level.
   Future<void> identifyUser({
     required String userId,
-    // TODO(Samaritan1011001): Update this with the generic UserProfile
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   });
 }

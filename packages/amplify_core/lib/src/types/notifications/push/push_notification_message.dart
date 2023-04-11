@@ -9,7 +9,7 @@ import 'package:amplify_core/amplify_core.dart';
 class PushNotificationMessage
     with AWSDebuggable, AWSSerializable<Map<String, Object?>> {
   /// {@macro amplify_core.push.push_notification_message}
-  PushNotificationMessage({
+  const PushNotificationMessage({
     this.title,
     this.body,
     this.imageUrl,
@@ -20,9 +20,16 @@ class PushNotificationMessage
     this.data = const {},
   });
 
-  PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
-    data = (json['data'] as Map<Object?, Object?>?) ?? {};
+  factory PushNotificationMessage.fromJson(Map<Object?, Object?> json) {
+    String? title;
+    String? body;
+    String? imageUrl;
+    String? deeplinkUrl;
+    String? goToUrl;
+    ApnsPlatformOptions? apnsOptions;
+    FcmPlatformOptions? fcmOptions;
 
+    final data = (json['data'] as Map<Object?, Object?>?) ?? {};
     final aps = json['aps'] as Map<Object?, Object?>?;
     if (aps != null) {
       final alert = aps['alert'] as Map<Object?, Object?>?;
@@ -55,16 +62,26 @@ class PushNotificationMessage
         );
       }
     }
+    return PushNotificationMessage(
+      title: title,
+      body: body,
+      imageUrl: imageUrl,
+      deeplinkUrl: deeplinkUrl,
+      goToUrl: goToUrl,
+      apnsOptions: apnsOptions,
+      fcmOptions: fcmOptions,
+      data: data,
+    );
   }
 
-  String? title;
-  String? body;
-  String? imageUrl;
-  String? deeplinkUrl;
-  String? goToUrl;
-  FcmPlatformOptions? fcmOptions;
-  ApnsPlatformOptions? apnsOptions;
-  Map<Object?, Object?> data = {};
+  final String? title;
+  final String? body;
+  final String? imageUrl;
+  final String? deeplinkUrl;
+  final String? goToUrl;
+  final FcmPlatformOptions? fcmOptions;
+  final ApnsPlatformOptions? apnsOptions;
+  final Map<Object?, Object?> data;
 
   @override
   String get runtimeTypeName => 'PushNotificationMessage';

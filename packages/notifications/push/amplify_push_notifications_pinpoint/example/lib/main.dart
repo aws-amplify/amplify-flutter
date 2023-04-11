@@ -33,7 +33,6 @@ void main() async {
     if (!Amplify.isConfigured) {
       await Amplify.addPlugins([authPlugin, notificationsPlugin]);
       await Amplify.configure(amplifyconfig);
-
       // Required to call this after Amplify.configure.
       // Doesn't get called on app start as event is swallowed by library to register device.
       Amplify.Notifications.Push.onTokenReceived.listen((event) {
@@ -187,8 +186,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   await Amplify.Notifications.Push.identifyUser(
                     userId: 'test-user-101',
-                    userProfile:
-                        const AnalyticsUserProfile(name: 'test-name-101'),
+                    userProfile: const UserProfile(name: 'test-name-101'),
                   );
                 },
                 child: const Text('identifyUser'),

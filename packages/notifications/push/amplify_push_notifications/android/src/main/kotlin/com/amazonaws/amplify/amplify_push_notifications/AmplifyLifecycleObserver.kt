@@ -11,8 +11,15 @@ private const val TAG = "AmplifyLifecycleObserver"
 
 @InternalAmplifyApi
 class AmplifyLifecycleObserver : DefaultLifecycleObserver {
+    private var isAppLaunch: Boolean = true
     override fun onResume(owner: LifecycleOwner) {
+
+        // Only set launchNotification to null when app resumes from background.
+        if (!isAppLaunch) {
+            AmplifyPushNotificationsPlugin.launchNotification = null
+        }
         refreshToken()
+        isAppLaunch = false
         super.onResume(owner)
     }
     override fun onCreate(owner: LifecycleOwner) {

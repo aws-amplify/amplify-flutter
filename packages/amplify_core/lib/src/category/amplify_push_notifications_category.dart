@@ -13,8 +13,8 @@ class PushNotificationsCategory
   /// The current Push Notificaiton permission state.
   ///
   /// The status can be one of the following:
-  /// 1. notRequested - Android only status to indicate push permissions dialogue has not been requested
-  /// 2. shouldRequestWithRationale - show a rationale message on why the app needs to send push notifications
+  /// 1. shouldRequest - Android only status to indicate push permissions dialogue has not been requested
+  /// 2. shouldExplainThenRequest - should explain to end user why push notifications needs to be enabled before requesting again
   /// 3. granted - end user has granted the request for the app to send push notifications
   /// 4. denied - end user has denied the request for the app to send push notifications
   /// {@endtemplate}
@@ -90,7 +90,7 @@ class PushNotificationsCategory
   /// {@endtemplate}
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) =>
       defaultPlugin.identifyUser(
         userId: userId,

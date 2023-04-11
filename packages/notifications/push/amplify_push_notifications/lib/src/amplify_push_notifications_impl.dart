@@ -11,6 +11,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/src/native_push_notifications_plugin.g.dart';
 import 'package:amplify_push_notifications/src/push_notifications_flutter_api.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
+import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:os_detect/os_detect.dart' as os;
@@ -89,6 +90,7 @@ abstract class AmplifyPushNotifications
         .map((payload) {
       return payload['token'] as String;
     }).distinct();
+    _bufferedTokenStream = StreamQueue(_onTokenReceived);
     _onForegroundNotificationReceived = _foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
@@ -107,6 +109,7 @@ abstract class AmplifyPushNotifications
   PushNotificationsHostApi get _hostApi => _dependencyManager.expect();
   AmplifySecureStorage get _amplifySecureStorage => _dependencyManager.expect();
   late final Stream<String> _onTokenReceived;
+  late final StreamQueue<String> _bufferedTokenStream;
   late final Stream<PushNotificationMessage> _onForegroundNotificationReceived;
   late final Stream<PushNotificationMessage> _onNotificationOpened;
   var _isConfigured = false;
@@ -128,7 +131,7 @@ abstract class AmplifyPushNotifications
     if (!_isConfigured) {
       throw _needsConfigurationException;
     }
-    return _onTokenReceived;
+    return _bufferedTokenStream.rest;
   }
 
   @override
@@ -174,7 +177,7 @@ abstract class AmplifyPushNotifications
   @override
   Future<void> identifyUser({
     required String userId,
-    required AnalyticsUserProfile userProfile,
+    required UserProfile userProfile,
   }) async {
     if (!_isConfigured) {
       throw _needsConfigurationException;
@@ -283,6 +286,7 @@ abstract class AmplifyPushNotifications
   Future<int> getBadgeCount() {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
+      return Future.value(0);
     }
     if (!_isConfigured) {
       throw _needsConfigurationException;
@@ -294,6 +298,7 @@ abstract class AmplifyPushNotifications
   Future<void> setBadgeCount(int badgeCount) async {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
+      return;
     }
     if (!_isConfigured) {
       throw _needsConfigurationException;
@@ -320,7 +325,7 @@ abstract class AmplifyPushNotifications
   Future<void> _registerDeviceWhenConfigure() async {
     late String deviceToken;
     try {
-      deviceToken = await _onTokenReceived.first;
+      deviceToken = await _bufferedTokenStream.peek;
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token

@@ -8,19 +8,24 @@ import 'package:amplify_push_notifications_pinpoint/amplify_push_notifications_p
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-const _backgroundChannel = MethodChannel(
+/// {@template amplify_push_notifications_pinpoint.background_channel}
+/// Background channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const backgroundChannel = MethodChannel(
   'plugins.flutter.io/amplify_push_notification_plugin_background',
 );
 
 /// {@template amplify_push_notifications_pinpoint.amplify_background_processor}
-/// Dart entry point function that facilitates recording of notificaiton event when the app is killed.
+/// Dart entry point function that facilitates recording of notification event when the app is killed.
 ///
 /// Securely stored config is used to configure Amplify with Pinpoint push notifications plugin that
-/// can record the notificaiton received event when the app is in a killed state.
+/// can record the notification received event when the app is in a killed state.
 /// {@endtemplate}
 @pragma('vm:entry-point')
 Future<void> amplifyBackgroundProcessing({
   @visibleForTesting AmplifySecureStorage? amplifySecureStorage,
+  @visibleForTesting AmplifyClass? amplify,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   amplifySecureStorage ??= AmplifySecureStorage(
@@ -40,13 +45,14 @@ Future<void> amplifyBackgroundProcessing({
   }
   final notificationsPlugin = AmplifyPushNotificationsPinpoint();
   final authPlugin = AmplifyAuthCognito();
-  if (!Amplify.isConfigured) {
-    await Amplify.addPlugins([authPlugin, notificationsPlugin]);
-    await Amplify.configure(amplifyconfigStr);
+  final mockableAmplify = amplify ?? Amplify;
+  if (!mockableAmplify.isConfigured) {
+    await mockableAmplify.addPlugins([authPlugin, notificationsPlugin]);
+    await mockableAmplify.configure(amplifyconfigStr);
   }
 
   // Signal that this method finished running so queued up native to dart events if any can be flushed.
-  await _backgroundChannel.invokeMethod(
+  await backgroundChannel.invokeMethod(
     'amplifyBackgroundProcessorFinished',
   );
 }
