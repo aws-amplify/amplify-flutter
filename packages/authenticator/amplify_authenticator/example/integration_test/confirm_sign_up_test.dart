@@ -3,7 +3,7 @@
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -33,10 +33,9 @@ void main() {
     testWidgets(
       'Confirm a new username & password with an invalid code',
       (tester) async {
-        final SignUpPage signUpPage = SignUpPage(tester: tester);
-        final ConfirmSignUpPage confirmSignUpPage =
-            ConfirmSignUpPage(tester: tester);
-        final SignInPage signInPage = SignInPage(tester: tester);
+        final signUpPage = SignUpPage(tester: tester);
+        final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
 
         await loadAuthenticator(tester: tester);
 
@@ -86,10 +85,9 @@ void main() {
     // Scenario: Confirm a new username & password with a valid code
     testWidgets('Confirm a new username & password with a valid code',
         (tester) async {
-      final SignUpPage signUpPage = SignUpPage(tester: tester);
-      final ConfirmSignUpPage confirmSignUpPage =
-          ConfirmSignUpPage(tester: tester);
-      final SignInPage signInPage = SignInPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
 
@@ -136,23 +134,5 @@ void main() {
 
       await tester.bloc.close();
     });
-
-    // Scenario: User is already confirmed and then clicks Resend Code
-    testWidgets(
-      'User is already confirmed and then clicks Resend Code',
-      (tester) async {
-        // TODO: clarify requirements
-      },
-      skip: true,
-    );
-
-    // Scenario: Supports "One-Time Code"
-    testWidgets(
-      'Supports "One-Time Code"',
-      (tester) async {
-        // TODO: clarify requirements
-      },
-      skip: true,
-    );
   });
 }

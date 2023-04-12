@@ -4,7 +4,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -51,9 +51,9 @@ void main() {
       );
       addTearDown(() => deleteUser(cognitoUsername));
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      RouteAPage routeAPage = RouteAPage(tester: tester);
-      RouteBPage routeBPage = RouteBPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final routeAPage = RouteAPage(tester: tester);
+      final routeBPage = RouteBPage(tester: tester);
 
       // when I launch the authenticator
       await loadAuthenticator(tester: tester, authenticator: authenticator);
@@ -105,7 +105,7 @@ const navToRouteBButtonKey = Key('nav-to-route-b-button');
 const routeBKey = Key('route-b');
 
 class RouteA extends StatelessWidget {
-  const RouteA({Key? key}) : super(key: key);
+  const RouteA({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class RouteA extends StatelessWidget {
 }
 
 class RouteB extends StatelessWidget {
-  const RouteB({Key? key}) : super(key: key);
+  const RouteB({super.key});
 
   @override
   Widget build(BuildContext context) {

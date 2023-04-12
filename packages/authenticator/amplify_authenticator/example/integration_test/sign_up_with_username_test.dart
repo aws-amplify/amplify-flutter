@@ -6,7 +6,7 @@
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -31,8 +31,8 @@ void main() {
 
     // Scenario: Login mechanism set to "username"
     testWidgets('Login mechanism set to "username"', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -53,8 +53,8 @@ void main() {
     // Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     testWidgets('"Email" is included from aws_cognito_verification_mechanisms',
         (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -72,8 +72,8 @@ void main() {
 
     // Scenario: "Phone Number" is not included
     testWidgets('"Phone Number" is not included', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -93,9 +93,9 @@ void main() {
 
     // Scenario: Sign up a new username & password
     testWidgets('Sign up a new username & password', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
 
@@ -110,10 +110,6 @@ void main() {
       );
 
       await signInPage.navigateToSignUp();
-
-      // TODO: Clarify requirements
-      // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-      // with fixture "sign-up-with-username"
 
       final username = generateUsername();
       final password = generatePassword();
@@ -130,14 +126,5 @@ void main() {
 
       await tester.bloc.close();
     });
-
-    // Scenario: Username field autocompletes username
-    // TODO: Clarify requirements
-    // testWidgets('Username field autocompletes username', (tester) async {});
-
-    // Scenario: Password fields autocomplete "new-password"
-    // TODO: Clarify requirements
-    // testWidgets('Then "Password" field autocompletes "new-password"',
-    //     (tester) async {});
   });
 }

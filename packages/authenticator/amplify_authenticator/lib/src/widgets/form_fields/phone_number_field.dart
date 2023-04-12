@@ -6,22 +6,18 @@ part of '../form_field.dart';
 class AuthenticatorPhoneField<FieldType extends Enum>
     extends AuthenticatorFormField<FieldType, String> {
   const AuthenticatorPhoneField({
-    Key? key,
-    required FieldType field,
-    bool? requiredOverride,
+    super.key,
+    required super.field,
+    super.requiredOverride,
     this.onChanged,
     this.validator,
     this.enabled,
     this.initialValue,
     this.errorMaxLines,
-    Iterable<String>? autofillHints,
+    super.autofillHints,
   }) : super._(
-          key: key,
-          field: field,
           titleKey: InputResolverKey.phoneNumberTitle,
           hintTextKey: InputResolverKey.phoneNumberHint,
-          requiredOverride: requiredOverride,
-          autofillHints: autofillHints,
         );
 
   final bool? enabled;
@@ -37,13 +33,19 @@ class AuthenticatorPhoneField<FieldType extends Enum>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
-    properties.add(DiagnosticsProperty<bool?>('enabled', enabled));
-    properties.add(StringProperty('initialValue', initialValue));
-    properties.add(IntProperty('errorMaxLines', errorMaxLines));
-    properties.add(ObjectFlagProperty<FormFieldValidator<String?>?>.has(
-        'validator', validator));
+    properties
+      ..add(
+        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged),
+      )
+      ..add(DiagnosticsProperty<bool?>('enabled', enabled))
+      ..add(StringProperty('initialValue', initialValue))
+      ..add(IntProperty('errorMaxLines', errorMaxLines))
+      ..add(
+        ObjectFlagProperty<FormFieldValidator<String?>?>.has(
+          'validator',
+          validator,
+        ),
+      );
   }
 }
 
@@ -85,7 +87,7 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
   FormFieldValidator<String> get validator {
     return (String? phoneNumber) {
       phoneNumber = formatPhoneNumber(phoneNumber);
-      var validator = widget.validator;
+      final validator = widget.validator;
       if (validator != null) {
         return validator(phoneNumber);
       }
@@ -108,8 +110,9 @@ class _AuthenticatorPhoneFieldState<FieldType extends Enum>
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-        .add(IterableProperty<Country>('filteredCountries', filteredCountries));
-    properties.add(
-        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged));
+      ..add(IterableProperty<Country>('filteredCountries', filteredCountries))
+      ..add(
+        ObjectFlagProperty<ValueChanged<String>>.has('onChanged', onChanged),
+      );
   }
 }

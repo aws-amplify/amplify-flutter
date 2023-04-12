@@ -6,10 +6,9 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
@@ -25,8 +24,7 @@ class CognitoUserPoolsAuthorizer extends OIDCAuthProvider {
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  AWSLogger().logLevel = LogLevel.verbose;
+  initTests();
 
   group('Custom Authorizer', () {
     const customHeaders = {

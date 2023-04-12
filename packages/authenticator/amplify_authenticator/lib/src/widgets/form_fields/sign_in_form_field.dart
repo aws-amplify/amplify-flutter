@@ -11,35 +11,27 @@ part of authenticator.form_field;
 ///
 /// See also: [SignInForm.custom]
 /// {@endtemplate}
-abstract class SignInFormField<FieldValue>
+abstract class SignInFormField<FieldValue extends Object>
     extends AuthenticatorFormField<SignInField, FieldValue> {
   /// {@macro amplify_authenticator.sign_in_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const SignInFormField._({
-    Key? key,
-    required SignInField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<FieldValue>? validator,
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
+    super.validator,
     bool? required,
-    Iterable<String>? autofillHints,
+    super.autofillHints,
   }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
           requiredOverride: required,
-          autofillHints: autofillHints,
         );
 
   /// {@macro amplify_authenticator.username_form_field}
-  static SignInFormField username({
+  static SignInFormField<UsernameInput> username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
@@ -51,7 +43,7 @@ abstract class SignInFormField<FieldValue>
       );
 
   /// Creates a password FormField for the sign in step.
-  static SignInFormField password({
+  static SignInFormField<String> password({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
@@ -85,7 +77,7 @@ abstract class SignInFormField<FieldValue>
   }
 }
 
-abstract class _SignInFormFieldState<FieldValue>
+abstract class _SignInFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<SignInField, FieldValue,
         SignInFormField<FieldValue>> {
   @override
@@ -136,26 +128,13 @@ abstract class _SignInFormFieldState<FieldValue>
 
 class _SignInTextField extends SignInFormField<String> {
   const _SignInTextField({
-    Key? key,
-    required SignInField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-    bool? required,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          required: required,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   @override
   _SignInTextFieldState createState() => _SignInTextFieldState();
@@ -211,15 +190,13 @@ class _SignInTextFieldState extends _SignInFormFieldState<String>
 class _SignInUsernameField extends SignInFormField<UsernameInput> {
   const _SignInUsernameField({
     Key? key,
-    FormFieldValidator<UsernameInput>? validator,
-    Iterable<String>? autofillHints,
+    super.validator,
+    super.autofillHints,
   }) : super._(
           key: key ?? keyUsernameSignInFormField,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
           field: SignInField.username,
-          validator: validator,
-          autofillHints: autofillHints,
         );
 
   @override

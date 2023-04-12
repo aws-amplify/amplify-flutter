@@ -41,17 +41,16 @@ class AuthSignUpData {
 }
 
 class AuthConfirmSignUpData {
-  final String code;
-
-  final String username;
-
-  final String password;
-
   const AuthConfirmSignUpData({
     required this.username,
     required this.code,
     required this.password,
   });
+  final String code;
+
+  final String username;
+
+  final String password;
 }
 
 class AuthResetPasswordData {

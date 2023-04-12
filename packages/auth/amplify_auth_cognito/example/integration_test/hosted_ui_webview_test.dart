@@ -16,11 +16,10 @@ import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // ignore: implementation_imports
 import 'package:webview_flutter_wkwebview/src/foundation/foundation.dart';
@@ -32,8 +31,7 @@ final AWSLogger _logger = AWSLogger().createChild('HostedUI');
 // This test verifies the non-native logic of the Hosted UI flow on iOS and
 // Android using an embedded WebView.
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  AWSLogger().logLevel = LogLevel.verbose;
+  initTests();
 
   group(
     'Hosted UI',

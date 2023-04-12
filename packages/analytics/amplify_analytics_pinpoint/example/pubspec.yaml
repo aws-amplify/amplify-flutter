@@ -25,10 +25,9 @@ dependency_overrides:
 
 dev_dependencies:
   amplify_analytics_pinpoint_dart: ">=0.2.0 <0.3.0"
+  amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_test:
-    path: ../../../amplify_test
   aws_common: ">=0.4.0 <0.5.0"
   build_runner: ^2.3.2
   built_value: ">=8.4.0 <8.5.0"

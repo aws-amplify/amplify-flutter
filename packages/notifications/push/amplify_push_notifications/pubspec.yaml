@@ -9,9 +9,8 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_auth_cognito: ">=1.0.0-next.4 <1.0.0-next.5"
-  amplify_core: ">=1.0.0-next.0 <1.0.0-next.1"
-  amplify_secure_storage: ^0.1.0
+  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_secure_storage: ">=0.3.0+1 <0.4.0"
   async: ^2.10.0
   flutter:
     sdk: flutter
@@ -20,9 +19,8 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  amplify_test:
-    path: ../../../amplify_test
-  aws_signature_v4: ">=0.3.1+2 <0.4.0"
+  amplify_test: any
+  aws_signature_v4: ">=0.3.1+5 <0.4.0"
   build_runner: ^2.0.0
   build_test: ^2.1.5
   flutter_test:

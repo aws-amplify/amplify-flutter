@@ -8,6 +8,7 @@ import 'package:aft/src/models/script_template.dart';
 import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:collection/collection.dart';
+import 'package:path/path.dart' as p;
 
 /// Command to run a predefined script in the repo.
 class RunCommand extends AmplifyCommand with GlobOptions, FailFastOption {
@@ -70,8 +71,9 @@ ${commandPaths.map((path) => '- $path').join('\n')}
     try {
       for (final commandPath in commandPaths) {
         final package = aftConfig.allPackages.values.firstWhereOrNull(
-          (package) => package.path == commandPath,
+          (package) => p.equals(package.path, commandPath),
         );
+        logger.verbose('Running for package: ${package?.name}');
         final renderedScript = templater.render({
           'package': package?.toJson(),
         }).trim();

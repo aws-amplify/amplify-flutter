@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       return 'Username cannot be empty';
     }
 
-    final bool containsAmplify = username.contains('amplify');
+    final containsAmplify = username.contains('amplify');
     if (!containsAmplify) {
       return 'Username needs to include amplify';
     }

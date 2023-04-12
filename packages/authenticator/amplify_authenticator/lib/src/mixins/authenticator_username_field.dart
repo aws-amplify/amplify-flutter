@@ -73,16 +73,16 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
 
   @override
   Widget? get surlabel {
-    final InputResolver inputResolver = stringResolver.inputs;
-    final String phoneNumberTitle = inputResolver.title(
+    final inputResolver = stringResolver.inputs;
+    final phoneNumberTitle = inputResolver.title(
       context,
       InputField.phoneNumber,
     );
-    final String emailTitle = inputResolver.title(
+    final emailTitle = inputResolver.title(
       context,
       InputField.email,
     );
-    final String usernameTitle = inputResolver.title(
+    final usernameTitle = inputResolver.title(
       context,
       InputField.usernameType,
     );
@@ -97,64 +97,67 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
                   const TextStyle(fontSize: 16),
             ),
             SizedBox(height: labelGap),
-            LayoutBuilder(builder: (context, constraints) {
-              const int buttonCount = 2;
-              // borders are not duplicated between buttons - 2 buttons means 3 total borders
-              const int borderCount = buttonCount + 1;
-              const double bordersPerButton = borderCount / buttonCount;
-              final ToggleButtonsThemeData toggleButtonsTheme =
-                  Theme.of(context).toggleButtonsTheme;
-              final double buttonBorderWidth =
-                  toggleButtonsTheme.borderWidth ?? 1.0;
-              // half of the total width, minus the with of the borders
-              final double buttonWidth = (constraints.maxWidth / buttonCount) -
-                  (buttonBorderWidth * bordersPerButton);
-              final double buttonMinHeight =
-                  toggleButtonsTheme.constraints?.minHeight ?? 36.0;
-              final BoxConstraints buttonConstraints = BoxConstraints(
-                minWidth: buttonWidth,
-                maxWidth: buttonWidth,
-                minHeight: buttonMinHeight,
-              );
-              return ToggleButtons(
-                borderWidth: buttonBorderWidth,
-                constraints: buttonConstraints,
-                isSelected: [
-                  state.usernameSelection == UsernameSelection.email,
-                  state.usernameSelection == UsernameSelection.phoneNumber,
-                ],
-                onPressed: (int index) {
-                  final newUsernameSelection = index == 0
-                      ? UsernameSelection.email
-                      : UsernameSelection.phoneNumber;
-                  // Return if username selection has not changed
-                  if (newUsernameSelection == state.usernameSelection) {
-                    return;
-                  }
-                  // Determine the new username value based off the new username selection
-                  // and the current user attributes
-                  final newUsername = newUsernameSelection ==
-                          UsernameSelection.email
-                      ? state.getAttribute(CognitoUserAttributeKey.email) ?? ''
-                      : state.getAttribute(
-                              CognitoUserAttributeKey.phoneNumber) ??
-                          '';
-                  // Clear user attributes
-                  state.authAttributes.clear();
-                  // Reset country code if phone is not being used as a username
-                  if (newUsernameSelection != UsernameSelection.phoneNumber) {
-                    state.country = countryCodes.first;
-                  }
-                  // Update the username & username selection
-                  state.username = newUsername;
-                  state.usernameSelection = newUsernameSelection;
-                },
-                children: [
-                  Text(emailTitle, key: keyEmailUsernameToggleButton),
-                  Text(phoneNumberTitle, key: keyPhoneUsernameToggleButton),
-                ],
-              );
-            }),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                const buttonCount = 2;
+                // borders are not duplicated between buttons - 2 buttons means 3 total borders
+                const borderCount = buttonCount + 1;
+                const bordersPerButton = borderCount / buttonCount;
+                final toggleButtonsTheme = Theme.of(context).toggleButtonsTheme;
+                final buttonBorderWidth = toggleButtonsTheme.borderWidth ?? 1.0;
+                // half of the total width, minus the with of the borders
+                final buttonWidth = (constraints.maxWidth / buttonCount) -
+                    (buttonBorderWidth * bordersPerButton);
+                final buttonMinHeight =
+                    toggleButtonsTheme.constraints?.minHeight ?? 36.0;
+                final buttonConstraints = BoxConstraints(
+                  minWidth: buttonWidth,
+                  maxWidth: buttonWidth,
+                  minHeight: buttonMinHeight,
+                );
+                return ToggleButtons(
+                  borderWidth: buttonBorderWidth,
+                  constraints: buttonConstraints,
+                  isSelected: [
+                    state.usernameSelection == UsernameSelection.email,
+                    state.usernameSelection == UsernameSelection.phoneNumber,
+                  ],
+                  onPressed: (int index) {
+                    final newUsernameSelection = index == 0
+                        ? UsernameSelection.email
+                        : UsernameSelection.phoneNumber;
+                    // Return if username selection has not changed
+                    if (newUsernameSelection == state.usernameSelection) {
+                      return;
+                    }
+                    // Determine the new username value based off the new username selection
+                    // and the current user attributes
+                    final newUsername = newUsernameSelection ==
+                            UsernameSelection.email
+                        ? state.getAttribute(CognitoUserAttributeKey.email) ??
+                            ''
+                        : state.getAttribute(
+                              CognitoUserAttributeKey.phoneNumber,
+                            ) ??
+                            '';
+                    // Clear user attributes
+                    state.authAttributes.clear();
+                    // Reset country code if phone is not being used as a username
+                    if (newUsernameSelection != UsernameSelection.phoneNumber) {
+                      state.country = countryCodes.first;
+                    }
+                    // Update the username & username selection
+                    state
+                      ..username = newUsername
+                      ..usernameSelection = newUsernameSelection;
+                  },
+                  children: [
+                    Text(emailTitle, key: keyEmailUsernameToggleButton),
+                    Text(phoneNumberTitle, key: keyPhoneUsernameToggleButton),
+                  ],
+                );
+              },
+            ),
             SizedBox(height: marginBottom),
           ],
         );
@@ -189,8 +192,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
   @override
   String? get labelText {
     final inputResolver = stringResolver.inputs;
-    String? labelText =
-        widget.title ?? titleKey.resolve(context, inputResolver);
+    final labelText = widget.title ?? titleKey.resolve(context, inputResolver);
     return labelText;
   }
 
@@ -200,18 +202,22 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
     final hintText = inputResolver.resolve(context, hintKey);
 
     void onChanged(String username) {
-      return this.onChanged(UsernameInput(
-        type: selectedUsernameType,
-        username: username,
-      ));
+      return this.onChanged(
+        UsernameInput(
+          type: selectedUsernameType,
+          username: username,
+        ),
+      );
     }
 
     String? validator(String? username) {
       final validator = widget.validatorOverride ?? this.validator;
-      return validator(UsernameInput(
-        type: selectedUsernameType,
-        username: username ?? '',
-      ));
+      return validator(
+        UsernameInput(
+          type: selectedUsernameType,
+          username: username ?? '',
+        ),
+      );
     }
 
     if (selectedUsernameType == UsernameType.phoneNumber) {

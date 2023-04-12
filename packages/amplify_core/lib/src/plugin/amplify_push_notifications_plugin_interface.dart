@@ -68,7 +68,7 @@ abstract class PushNotificationsPluginInterface extends AmplifyPluginInterface {
   }
 
   /// {@macro amplify_core.amplify_notifications_category.set_badge_count}
-  Future<void> setBadgeCount(int badgeCount) {
+  void setBadgeCount(int badgeCount) {
     throw UnimplementedError('setBadgeCount() has not been implemented');
   }
 }

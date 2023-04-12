@@ -3,11 +3,11 @@
 
 import 'dart:async';
 
+import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart'
+    deferred as message_localizations_en;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'message_localizations_en.dart' deferred as message_localizations_en;
 
 /// Callers can lookup localized strings with an instance of AuthenticatorMessageLocalizations
 /// returned by `AuthenticatorMessageLocalizations.of(context)`.
@@ -62,13 +62,15 @@ import 'message_localizations_en.dart' deferred as message_localizations_en;
 /// property.
 abstract class AuthenticatorMessageLocalizations {
   AuthenticatorMessageLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
   static AuthenticatorMessageLocalizations? of(BuildContext context) {
     return Localizations.of<AuthenticatorMessageLocalizations>(
-        context, AuthenticatorMessageLocalizations);
+      context,
+      AuthenticatorMessageLocalizations,
+    );
   }
 
   static const LocalizationsDelegate<AuthenticatorMessageLocalizations>
@@ -130,8 +132,10 @@ Future<AuthenticatorMessageLocalizations>
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return message_localizations_en.loadLibrary().then((dynamic _) =>
-          message_localizations_en.AuthenticatorMessageLocalizationsEn());
+      return message_localizations_en.loadLibrary().then(
+            (dynamic _) =>
+                message_localizations_en.AuthenticatorMessageLocalizationsEn(),
+          );
   }
 
   throw FlutterError(

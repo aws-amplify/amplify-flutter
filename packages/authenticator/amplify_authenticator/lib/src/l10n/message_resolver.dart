@@ -1,19 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/material.dart';
-
-import 'authenticator_localizations.dart';
 
 enum MessageResolverKeyType {
   codeSent,
 }
 
 class MessageResolverKey {
-  final MessageResolverKeyType type;
-  final String? destination;
-
   const MessageResolverKey._(this.type, this.destination);
 
   const MessageResolverKey.codeSent(String? destination)
@@ -21,6 +17,8 @@ class MessageResolverKey {
           MessageResolverKeyType.codeSent,
           destination,
         );
+  final MessageResolverKeyType type;
+  final String? destination;
 }
 
 /// The resolver class for messages
@@ -43,7 +41,7 @@ class MessageResolver extends Resolver<MessageResolverKey> {
   String resolve(BuildContext context, MessageResolverKey key) {
     switch (key.type) {
       case MessageResolverKeyType.codeSent:
-        var destination = key.destination;
+        final destination = key.destination;
         if (destination != null) {
           return codeSent(context, destination);
         }

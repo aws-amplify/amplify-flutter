@@ -18,11 +18,13 @@ Future<void> expectGoldenMatches(
   String? reason,
   dynamic skip = false, // true or a String
 }) {
-  final String goldenPath = path.join('goldens', goldenFileKey);
-  goldenFileComparator = AuthenticatorGoldenComparator(path.join(
-    (goldenFileComparator as LocalFileComparator).basedir.toString(),
-    goldenFileKey,
-  ));
+  final goldenPath = path.join('goldens', goldenFileKey);
+  goldenFileComparator = AuthenticatorGoldenComparator(
+    path.join(
+      (goldenFileComparator as LocalFileComparator).basedir.toString(),
+      goldenFileKey,
+    ),
+  );
   return expectLater(
     actual,
     matchesGoldenFile(goldenPath),
@@ -36,13 +38,13 @@ class AuthenticatorGoldenComparator extends LocalFileComparator {
 
   @override
   Future<bool> compare(Uint8List imageBytes, Uri golden) async {
-    final ComparisonResult result = await GoldenFileComparator.compareLists(
+    final result = await GoldenFileComparator.compareLists(
       imageBytes,
       await getGoldenBytes(golden),
     );
 
     if (!result.passed && result.diffPercent > _kGoldenDiffTolerance) {
-      final String error = await generateFailureOutput(result, golden, basedir);
+      final error = await generateFailureOutput(result, golden, basedir);
       throw FlutterError(error);
     }
     if (!result.passed) {

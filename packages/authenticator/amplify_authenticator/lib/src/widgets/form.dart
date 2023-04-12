@@ -59,20 +59,18 @@ import 'package:flutter/material.dart';
 class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   /// {@macro amplify_authenticator.authenticator_form_builder}
   const AuthenticatorForm({
-    Key? key,
+    super.key,
     required this.child,
   })  : fields = const [],
         actions = const [],
-        includeDefaultSocialProviders = false,
-        super(key: key);
+        includeDefaultSocialProviders = false;
 
   const AuthenticatorForm._({
-    Key? key,
+    super.key,
     required this.fields,
     required this.actions,
     this.includeDefaultSocialProviders = true,
-  })  : child = null,
-        super(key: key);
+  }) : child = null;
 
   /// The form fields which are independent of the Auth plugin configuration.
   final List<AuthenticatorFormField> fields;
@@ -92,8 +90,12 @@ class AuthenticatorForm extends AuthenticatorComponent<AuthenticatorForm> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<bool>(
-        'includeDefaultSocialProviders', includeDefaultSocialProviders));
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'includeDefaultSocialProviders',
+        includeDefaultSocialProviders,
+      ),
+    );
   }
 }
 
@@ -102,22 +104,24 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   AuthenticatorFormState();
 
   static AuthenticatorFormState of(BuildContext context) {
-    AuthenticatorFormState? state =
-        context.findAncestorStateOfType<AuthenticatorFormState>();
+    final state = context.findAncestorStateOfType<AuthenticatorFormState>();
     // ignore: prefer_asserts_with_message
     assert(() {
       if (state == null) {
-        FlutterError.presentError(FlutterErrorDetails(
+        FlutterError.presentError(
+          FlutterErrorDetails(
             exception: FlutterError.fromParts([
-          ErrorSummary('No AuthenticatorForm widget found.'),
-          ErrorDescription(
-            'All Form Field widgets from amplify_authenticator must be a descendant of a AuthenticatorForm widget.',
+              ErrorSummary('No AuthenticatorForm widget found.'),
+              ErrorDescription(
+                'All Form Field widgets from amplify_authenticator must be a descendant of a AuthenticatorForm widget.',
+              ),
+              ErrorDescription(
+                'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
+                'ensure that they are a descendant of a AuthenticatorForm widget.',
+              )
+            ]),
           ),
-          ErrorDescription(
-            'If you are using prebuilt Form Field widgets to create a custom Authenticator UI, '
-            'ensure that they are a descendant of a AuthenticatorForm widget.',
-          )
-        ])));
+        );
       }
       return true;
     }());
@@ -125,7 +129,10 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   }
 
   /// Additional fields defined at runtime.
-  List<AuthenticatorFormField> runtimeFields(BuildContext context) => const [];
+  List<AuthenticatorFormField> runtimeFields(
+    BuildContext context,
+  ) =>
+      const [];
 
   /// Additional actions defined at runtime.
   List<Widget> runtimeActions(BuildContext context) => const [];
@@ -191,8 +198,12 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<ValueNotifier<bool?>>(
-        'obscureTextToggleValue', obscureTextToggleValue));
+    properties.add(
+      DiagnosticsProperty<ValueNotifier<bool?>>(
+        'obscureTextToggleValue',
+        obscureTextToggleValue,
+      ),
+    );
   }
 }
 
@@ -205,10 +216,9 @@ class AuthenticatorFormState<T extends AuthenticatorForm>
 class SignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_up_form}
   SignUpForm({
-    Key? key,
+    super.key,
   })  : _includeDefaultFields = true,
         super._(
-          key: key,
           fields: [
             SignUpFormField.username(),
             SignUpFormField.password(),
@@ -221,12 +231,10 @@ class SignUpForm extends AuthenticatorForm {
 
   /// A custom Sign Up form.
   const SignUpForm.custom({
-    Key? key,
-    required List<SignUpFormField> fields,
+    super.key,
+    required List<SignUpFormField> super.fields,
   })  : _includeDefaultFields = false,
         super._(
-          key: key,
-          fields: fields,
           actions: const [
             SignUpButton(),
           ],
@@ -275,7 +283,7 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
         ?.awsPlugin
         ?.auth
         ?.default$;
-    final Set<CognitoUserAttributeKey> runtimeAttributes = {
+    final runtimeAttributes = <CognitoUserAttributeKey>{
       ...?authConfig?.signupAttributes,
       ...?authConfig?.verificationMechanisms,
     };
@@ -357,10 +365,9 @@ class _SignUpFormState extends AuthenticatorFormState<SignUpForm> {
 class SignInForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.sign_in_form}
   SignInForm({
-    Key? key,
-    bool includeDefaultSocialProviders = true,
+    super.key,
+    super.includeDefaultSocialProviders,
   }) : super._(
-          key: key,
           fields: [
             SignInFormField.username(),
             SignInFormField.password(),
@@ -369,22 +376,18 @@ class SignInForm extends AuthenticatorForm {
             SignInButton(),
             ForgotPasswordButton(),
           ],
-          includeDefaultSocialProviders: includeDefaultSocialProviders,
         );
 
   /// A custom Sign In form.
   const SignInForm.custom({
-    Key? key,
-    required List<SignInFormField> fields,
-    bool includeDefaultSocialProviders = true,
+    super.key,
+    required super.fields,
+    super.includeDefaultSocialProviders,
   }) : super._(
-          key: key,
-          fields: fields,
           actions: const [
             SignInButton(),
             ForgotPasswordButton(),
           ],
-          includeDefaultSocialProviders: includeDefaultSocialProviders,
         );
 
   @override
@@ -449,10 +452,9 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
 class ConfirmSignUpForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_up_form}
   ConfirmSignUpForm({
-    Key? key,
+    super.key,
   })  : resendCodeButton = null,
         super._(
-          key: key,
           fields: [
             ConfirmSignUpFormField.username(),
             ConfirmSignUpFormField.verificationCode(),
@@ -465,12 +467,10 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 
   /// A custom Confirm Sign Up form.
   const ConfirmSignUpForm.custom({
-    Key? key,
-    required List<ConfirmSignUpFormField> fields,
+    super.key,
+    required super.fields,
     this.resendCodeButton,
   }) : super._(
-          key: key,
-          fields: fields,
           actions: const [
             ConfirmSignUpButton(),
             BackToSignInButton(),
@@ -493,9 +493,8 @@ class ConfirmSignUpForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_custom_auth_form}
-  ConfirmSignInCustomAuthForm({Key? key})
+  ConfirmSignInCustomAuthForm({super.key})
       : super._(
-          key: key,
           fields: [
             ConfirmSignInFormField.customChallenge(),
           ],
@@ -518,9 +517,8 @@ class ConfirmSignInCustomAuthForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ConfirmSignInMFAForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_mfa_form}
-  ConfirmSignInMFAForm({Key? key})
+  ConfirmSignInMFAForm({super.key})
       : super._(
-          key: key,
           fields: [
             ConfirmSignInFormField.verificationCode(),
           ],
@@ -544,9 +542,8 @@ class ConfirmSignInMFAForm extends AuthenticatorForm {
 class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_sign_in_new_password_form}
   ConfirmSignInNewPasswordForm({
-    Key? key,
+    super.key,
   }) : super._(
-          key: key,
           fields: [
             ConfirmSignInFormField.newPassword(),
             ConfirmSignInFormField.confirmNewPassword(),
@@ -559,11 +556,9 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
 
   /// A custom Confirm Sign In with New Password form.
   const ConfirmSignInNewPasswordForm.custom({
-    Key? key,
-    required List<ConfirmSignInFormField> fields,
+    super.key,
+    required super.fields,
   }) : super._(
-          key: key,
-          fields: fields,
           actions: const [
             ConfirmSignInNewPasswordButton(),
             BackToSignInButton(),
@@ -582,9 +577,8 @@ class ConfirmSignInNewPasswordForm extends AuthenticatorForm {
 class ResetPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.send_code_form}
   ResetPasswordForm({
-    Key? key,
+    super.key,
   }) : super._(
-          key: key,
           fields: [
             SignInFormField.username(),
           ],
@@ -606,9 +600,8 @@ class ResetPasswordForm extends AuthenticatorForm {
 class ConfirmResetPasswordForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.reset_password_form}
   const ConfirmResetPasswordForm({
-    Key? key,
+    super.key,
   }) : super._(
-          key: key,
           fields: const [
             ResetPasswordFormField.verificationCode(),
             ResetPasswordFormField.newPassword(),
@@ -632,9 +625,8 @@ class ConfirmResetPasswordForm extends AuthenticatorForm {
 class VerifyUserForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.verify_user_form}
   VerifyUserForm({
-    Key? key,
+    super.key,
   }) : super._(
-          key: key,
           fields: [
             VerifyUserFormField.verifyAttribute(),
           ],
@@ -656,9 +648,8 @@ class VerifyUserForm extends AuthenticatorForm {
 class ConfirmVerifyUserForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.confirm_verify_user_form}
   ConfirmVerifyUserForm({
-    Key? key,
+    super.key,
   }) : super._(
-          key: key,
           fields: [
             VerifyUserFormField.confirmVerifyAttribute(),
           ],

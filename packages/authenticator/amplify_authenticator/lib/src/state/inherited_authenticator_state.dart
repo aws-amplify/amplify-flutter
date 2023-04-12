@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 
 class InheritedAuthenticatorState extends InheritedNotifier {
   const InheritedAuthenticatorState({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.state,
   }) : super(
-          key: key,
-          child: child,
           notifier: state,
         );
 

@@ -1,0 +1,17 @@
+name: amplify_integration_test
+description: Utilities for running Amplify integration tests.
+version: 0.1.0
+homepage: https://github.com/aws-amplify/amplify-flutter
+publish_to: none
+
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+
+dependencies:
+  amplify_auth_cognito_dart: ">=0.7.0 <0.8.0"
+  amplify_core: '>=1.0.0-next.6 <1.0.0-next.7'
+  amplify_test: any
+  stream_transform: ^2.0.0
+
+dev_dependencies:
+  amplify_lints: ^2.0.0

@@ -19,10 +19,9 @@ dev_dependencies:
   amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_datastore: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_integration_test: any
   amplify_lints: ^2.0.0
   amplify_storage_s3: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_test:
-    path: ../../../amplify_test
   flutter_test:
     sdk: flutter
   integration_test:

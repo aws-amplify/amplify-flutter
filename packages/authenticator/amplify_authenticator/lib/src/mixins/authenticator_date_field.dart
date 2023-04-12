@@ -35,7 +35,7 @@ mixin AuthenticatorDateField<FieldType extends Enum,
         ? inputResolver.resolve(context, widget.hintTextKey!)
         : widget.hintText!;
 
-    DateTime now = DateTime.now();
+    final now = DateTime.now();
     Future<void> pickTime() async {
       final date = await showDatePicker(
         context: context,

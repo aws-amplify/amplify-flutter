@@ -1,8 +1,11 @@
 package com.amazonaws.amplify.amplify_push_notifications
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Lifecycle
 import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.notifications.pushnotifications.NotificationContentProvider
 import com.amplifyframework.notifications.pushnotifications.NotificationPayload
@@ -12,6 +15,8 @@ import com.amplifyframework.pushnotifications.pinpoint.permissions.PushNotificat
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import io.flutter.embedding.engine.plugins.FlutterPlugin.FlutterPluginBinding
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.embedding.engine.plugins.lifecycle.FlutterLifecycleAdapter
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
@@ -41,27 +46,33 @@ class AmplifyPushNotificationsPluginTest {
     private val mockTask = mockk<Task<String>>()
     private lateinit var context: Context
     private val mockSharedPreferences = mockk<SharedPreferences>()
+    private val mockActivityBinding = mockk<ActivityPluginBinding>(relaxed = true)
+    private val mockResult =
+        mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
 
     @Before
     fun setUp() {
         context = mockk()
-
+        mockEventSink = mockk()
         val mockedBinaryMessenger = mockk<BinaryMessenger>()
-        mockkConstructor(EventChannel::class)
-        every { anyConstructed<EventChannel>().setStreamHandler(any()) } returns
-                StreamHandlers.initStreamHandlers(refresh = true)
-        StreamHandlers.initEventChannels(mockedBinaryMessenger)
+        val mockFlutterBinding = mockk<FlutterPluginBinding>()
+        val mockLifeCycle = mockk<Lifecycle>()
+        val mockActivity = mockk<Activity>()
 
-        mockkConstructor(PushNotificationPermission::class)
         mockkObject(NotificationPayload)
         mockkStatic(FirebaseMessaging::class)
         mockkStatic(NotificationPayload::toWritableMap)
         mockkStatic(PushNotificationPermission::class)
         mockkStatic(Task::class)
-        mockEventSink = mockk()
+        mockkStatic(FlutterLifecycleAdapter::class)
+        mockkStatic(::refreshToken)
         mockkConstructor(EventSink::class)
-        val mockFlutterBinding = mockk<FlutterPluginBinding>()
+        mockkConstructor(PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder::class)
+        mockkConstructor(EventChannel::class)
+        mockkConstructor(PushNotificationPermission::class)
 
+        every { anyConstructed<EventChannel>().setStreamHandler(any()) } returns
+                StreamHandlers.initStreamHandlers(refresh = true)
         every {
             context.getSharedPreferences(
                 PushNotificationPluginConstants.SHARED_PREFERENCES_KEY,
@@ -72,14 +83,29 @@ class AmplifyPushNotificationsPluginTest {
         every { FirebaseMessaging.getInstance().token } returns mockTask
         every { NotificationPayload.fromIntent(any()) } returns testPayload
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
-        amplifyPushNotificationsPlugin = AmplifyPushNotificationsPlugin()
-        every { mockFlutterBinding.binaryMessenger } returns mockk()
+        every { mockFlutterBinding.binaryMessenger } returns mockedBinaryMessenger
         every { mockFlutterBinding.binaryMessenger.setMessageHandler(any(), any()) } returns mockk()
         every { mockFlutterBinding.flutterEngine } returns mockk()
         every { mockFlutterBinding.applicationContext } returns context
-        mockkStatic(::refreshToken)
         every { refreshToken() } returns mockk()
+
+        every { FlutterLifecycleAdapter.getActivityLifecycle(any()) } returns mockLifeCycle
+        every { mockLifeCycle.addObserver(any()) } returns mockk()
+        every { mockActivityBinding.activity } returns mockActivity
+        every { mockActivity.intent } returns mockk()
+        every { mockResult.success(any()) } returns mockk()
+
+        every {
+            anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().setStatus(
+                any()
+            )
+        } returns mockk()
+        every { anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().build() } returns mockk()
+
+        amplifyPushNotificationsPlugin = AmplifyPushNotificationsPlugin()
+        StreamHandlers.initEventChannels(mockedBinaryMessenger)
         amplifyPushNotificationsPlugin.onAttachedToEngine(mockFlutterBinding)
+
     }
 
     @After
@@ -135,18 +161,77 @@ class AmplifyPushNotificationsPluginTest {
         assertNull(amplifyPushNotificationsPlugin.launchNotification)
     }
 
-    // TODO(Samaritan1011001): Add test cases to check possible permission values,
-    //  need a way to check particular permission type
+
     @Test
     fun `returns Granted permission status`() {
         every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns true
-        val mockResult =
-            mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
-        every { mockResult.success(any()) } returns mockk()
-        mockkConstructor(PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder::class)
+
         amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
         verify {
-            mockResult.success(any())
+            anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().setStatus(
+                PushNotificationsHostApiBindings.PermissionStatus.GRANTED
+            )
+        }
+    }
+
+    @Test
+    fun `returns ShouldExplainThenRequest permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+
+        mockkStatic(ActivityCompat::class)
+        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns true
+        every { NotificationPayload.fromIntent(any()) } returns null
+
+        amplifyPushNotificationsPlugin.onAttachedToActivity(mockActivityBinding)
+        amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+        verify {
+            anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().setStatus(
+                PushNotificationsHostApiBindings.PermissionStatus.SHOULD_EXPLAIN_THEN_REQUEST
+            )
+        }
+    }
+
+    @Test
+    fun `returns Denied permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+
+        mockkStatic(ActivityCompat::class)
+        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
+        every { NotificationPayload.fromIntent(any()) } returns null
+        every {
+            mockSharedPreferences.getBoolean(
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, false
+            )
+        } returns true
+
+        amplifyPushNotificationsPlugin.onAttachedToActivity(mockActivityBinding)
+        amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+        verify {
+            anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().setStatus(
+                PushNotificationsHostApiBindings.PermissionStatus.DENIED
+            )
+        }
+    }
+
+    @Test
+    fun `returns ShouldRequest permission status`() {
+        every { anyConstructed<PushNotificationPermission>().hasRequiredPermission } returns false
+
+        mockkStatic(ActivityCompat::class)
+        every { ActivityCompat.shouldShowRequestPermissionRationale(any(), any()) } returns false
+        every { NotificationPayload.fromIntent(any()) } returns null
+        every {
+            mockSharedPreferences.getBoolean(
+                PushNotificationPluginConstants.PREF_PREVIOUSLY_DENIED, false
+            )
+        } returns false
+
+        amplifyPushNotificationsPlugin.onAttachedToActivity(mockActivityBinding)
+        amplifyPushNotificationsPlugin.getPermissionStatus(mockResult)
+        verify {
+            anyConstructed<PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder>().setStatus(
+                PushNotificationsHostApiBindings.PermissionStatus.SHOULD_REQUEST
+            )
         }
     }
 

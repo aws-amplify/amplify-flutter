@@ -10,16 +10,16 @@ import 'package:flutter/material.dart';
 class AdaptiveFlex extends StatelessWidget {
   /// {@macro amplify_authenticator.adaptive_flex}}
   const AdaptiveFlex({
-    Key? key,
+    super.key,
     required this.children,
-  }) : super(key: key);
+  });
 
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-    final bool isDesktop =
+    final screenSize = MediaQuery.of(context).size;
+    final isDesktop =
         screenSize.width > AuthenticatorContainerConstants.mediumView;
 
     final Axis axis;

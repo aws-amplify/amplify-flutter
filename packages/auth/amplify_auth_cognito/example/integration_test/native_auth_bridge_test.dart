@@ -15,7 +15,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
+import 'utils/setup_utils.dart';
+
 void main() {
+  initTests();
+
   group(
     'NativeAuthBridge',
     skip: zIsWeb || !(Platform.isIOS || Platform.isAndroid),

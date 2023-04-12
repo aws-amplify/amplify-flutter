@@ -28,10 +28,8 @@ Future<void> amplifyBackgroundProcessing({
   @visibleForTesting AmplifyClass? amplify,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  amplifySecureStorage ??= AmplifySecureStorage(
-    config: AmplifySecureStorageConfig(
-      scope: 'amplifyPushNotifications',
-    ),
+  amplifySecureStorage ??= AmplifySecureStorage.factoryFrom()(
+    AmplifySecureStorageScope.awsPinpointPushNotificationsPlugin,
   );
   final amplifyconfigStr = await amplifySecureStorage.read(
     key: configSecureStorageKey,

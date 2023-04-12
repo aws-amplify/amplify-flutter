@@ -50,13 +50,12 @@
         "description": "User's gender.",
         "example": "male"
     },
-    "genders": "{gender, select, male{male}, female{female}, other{other}}",
+    "genders": "{gender, select, male{male} female{female} other{other}}",
     "@genders": {
         "placeholders": {
             "gender": {
-                "description": "The user's gender.",
-                "type": "Gender",
-                "example": "male"
+                "example": "male",
+                "description": "The user's gender."
             }
         }
     },
@@ -160,7 +159,6 @@
         "description": "Character(s) in a password.",
         "placeholders": {
             "characterType": {
-                "type": "PasswordPolicyCharacters",
                 "description": "The character class or type."
             }
         }

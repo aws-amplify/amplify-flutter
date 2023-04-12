@@ -17,5 +17,5 @@ class EventInfo {
   final String source;
 
   /// [properties] includes additional details on the event type being recorded.
-  final AnalyticsProperties properties;
+  final CustomProperties properties;
 }

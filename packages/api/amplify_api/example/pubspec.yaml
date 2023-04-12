@@ -26,10 +26,9 @@ dependency_overrides:
   async: ^2.10.0
 
 dev_dependencies:
+  amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_test:
-    path: ../../../amplify_test
   flutter_driver:
     sdk: flutter
   flutter_test:

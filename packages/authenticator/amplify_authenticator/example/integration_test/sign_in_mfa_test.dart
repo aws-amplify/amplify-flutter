@@ -6,7 +6,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_test/amplify_test.dart';
+import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -65,8 +65,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -102,8 +102,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -141,8 +141,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -184,7 +184,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
 
       // When I select my country code
       await signInPage.selectCountryCode();

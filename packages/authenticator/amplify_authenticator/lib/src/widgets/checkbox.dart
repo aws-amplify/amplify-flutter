@@ -12,8 +12,7 @@ import 'package:flutter/material.dart';
 class AuthenticatorCheckbox<T extends AuthenticatorCheckbox<T>>
     extends AuthenticatorComponent<T> {
   /// {@macro amplify_authenticator.authenticator_button}
-  const AuthenticatorCheckbox({Key? key, required this.labelKey})
-      : super(key: key);
+  const AuthenticatorCheckbox({super.key, required this.labelKey});
 
   /// The checkbox's label key.
   final InputResolverKey labelKey;
@@ -66,8 +65,8 @@ class _AuthenticatorCheckBoxState<T extends AuthenticatorCheckbox<T>>
 
 class RememberDeviceCheckbox
     extends AuthenticatorCheckbox<RememberDeviceCheckbox> {
-  const RememberDeviceCheckbox({Key? key})
-      : super(key: key, labelKey: InputResolverKey.rememberDevice);
+  const RememberDeviceCheckbox({super.key})
+      : super(labelKey: InputResolverKey.rememberDevice);
 
   @override
   AuthenticatorComponentState<RememberDeviceCheckbox> createState() =>

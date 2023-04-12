@@ -1,0 +1,5 @@
+targets:
+  $default:
+    builders:
+      code_excerpter|code_excerpter:
+        enabled: true

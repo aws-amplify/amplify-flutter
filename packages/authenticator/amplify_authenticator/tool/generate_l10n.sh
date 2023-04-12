@@ -37,11 +37,14 @@ for i in "${!TEMPLATES[@]}"; do
         --required-resource-attributes \
         --nullable-getter
 done
+
 # Clean up generated files
-flutter format $OUTPUT_DIR
+# NOTE: Further applications of `fix` and `format --fix` may be required
+# as changes from one could lead to required changes by the other.
+# TODO(dnys1): Implement do/while mechanism to auto-fix all issues 
+dart fix --apply
+dart format --fix $OUTPUT_DIR
 
 for i in "${!COUNTRY_OUTPUT_FILES[@]}"; do
-flutter format "${COUNTRY_OUTPUT_FILES[i]}"
+dart format --fix "${COUNTRY_OUTPUT_FILES[i]}"
 done
-
-dart fix --apply

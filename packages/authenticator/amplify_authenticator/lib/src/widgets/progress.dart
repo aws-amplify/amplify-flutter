@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class AmplifyProgressIndicator extends StatelessWidget {
   const AmplifyProgressIndicator({
-    Key? key,
+    super.key,
     this.primary = true,
-  }) : super(key: key);
+  });
 
   final bool primary;
 

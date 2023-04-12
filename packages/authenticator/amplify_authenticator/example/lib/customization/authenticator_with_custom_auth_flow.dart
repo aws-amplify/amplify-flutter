@@ -23,7 +23,7 @@ import '../main.dart';
 // [fieldHint] is displayed in the input field's hint.
 
 class AuthenticatorWithCustomAuthFlow extends StatelessWidget {
-  const AuthenticatorWithCustomAuthFlow({Key? key}) : super(key: key);
+  const AuthenticatorWithCustomAuthFlow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +81,9 @@ class AuthenticatorWithCustomAuthFlow extends StatelessWidget {
 
 class CustomConfirmSignInView extends StatelessWidget {
   const CustomConfirmSignInView({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final AuthenticatorState state;
 
@@ -102,8 +102,9 @@ class CustomConfirmSignInView extends StatelessWidget {
                 // custom challenge field
                 // Field Title and Field Hint can be set within the Lambda Code.
                 ConfirmSignInFormField.customChallenge(
-                    title: state.publicChallengeParams['fieldTitle'],
-                    hintText: state.publicChallengeParams['fieldHint']),
+                  title: state.publicChallengeParams['fieldTitle'],
+                  hintText: state.publicChallengeParams['fieldHint'],
+                ),
 
                 // prebuilt sign up button from amplify_authenticator package
                 const ConfirmSignInCustomButton(),
@@ -123,9 +124,9 @@ class CustomConfirmSignInView extends StatelessWidget {
 
 class CustomSignInView extends StatelessWidget {
   const CustomSignInView({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final AuthenticatorState state;
 
@@ -166,9 +167,9 @@ class CustomSignInView extends StatelessWidget {
 
 class NavigateToSignInButton extends StatelessWidget {
   const NavigateToSignInButton({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final AuthenticatorState state;
 
@@ -189,9 +190,9 @@ class NavigateToSignInButton extends StatelessWidget {
 
 class NavigateToSignUpButton extends StatelessWidget {
   const NavigateToSignUpButton({
-    Key? key,
+    super.key,
     required this.state,
-  }) : super(key: key);
+  });
 
   final AuthenticatorState state;
 

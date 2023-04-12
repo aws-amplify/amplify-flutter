@@ -3,12 +3,11 @@
 
 import 'dart:async';
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart'
+    deferred as input_localizations_en;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'input_localizations_en.dart' deferred as input_localizations_en;
 
 /// Callers can lookup localized strings with an instance of AuthenticatorInputLocalizations
 /// returned by `AuthenticatorInputLocalizations.of(context)`.
@@ -63,13 +62,15 @@ import 'input_localizations_en.dart' deferred as input_localizations_en;
 /// property.
 abstract class AuthenticatorInputLocalizations {
   AuthenticatorInputLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
   static AuthenticatorInputLocalizations? of(BuildContext context) {
     return Localizations.of<AuthenticatorInputLocalizations>(
-        context, AuthenticatorInputLocalizations);
+      context,
+      AuthenticatorInputLocalizations,
+    );
   }
 
   static const LocalizationsDelegate<AuthenticatorInputLocalizations> delegate =
@@ -165,8 +166,8 @@ abstract class AuthenticatorInputLocalizations {
   /// No description provided for @genders.
   ///
   /// In en, this message translates to:
-  /// **'{gender, select, male{male}, female{female}, other{other}}'**
-  String genders(Gender gender);
+  /// **'{gender, select, male{male} female{female} other{other}}'**
+  String genders(String gender);
 
   /// Given name(s) or first name(s) of the user.
   ///
@@ -244,14 +245,13 @@ abstract class AuthenticatorInputLocalizations {
   ///
   /// In en, this message translates to:
   /// **' {characterType, select, requiresUppercase{uppercase} requiresLowercase{lowercase} requiresNumbers{number} requiresSymbols{symbol} other{}}'**
-  String passwordRequirementsCharacterType(
-      PasswordPolicyCharacters characterType);
+  String passwordRequirementsCharacterType(String characterType);
 
   /// Password uppercase character requirement, displayed as a bullet point in list of unmet requirements.
   ///
   /// In en, this message translates to:
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
-  String passwordRequirementsAtLeast(num numCharacters, String characterType);
+  String passwordRequirementsAtLeast(int numCharacters, String characterType);
 
   /// Message for conflicting password and confirm password fields.
   ///
@@ -302,12 +302,15 @@ class _AuthenticatorInputLocalizationsDelegate
 }
 
 Future<AuthenticatorInputLocalizations> lookupAuthenticatorInputLocalizations(
-    Locale locale) {
+  Locale locale,
+) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return input_localizations_en.loadLibrary().then((dynamic _) =>
-          input_localizations_en.AuthenticatorInputLocalizationsEn());
+      return input_localizations_en.loadLibrary().then(
+            (dynamic _) =>
+                input_localizations_en.AuthenticatorInputLocalizationsEn(),
+          );
   }
 
   throw FlutterError(
