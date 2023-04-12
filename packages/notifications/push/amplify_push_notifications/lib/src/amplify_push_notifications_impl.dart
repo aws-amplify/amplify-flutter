@@ -314,7 +314,7 @@ abstract class AmplifyPushNotifications
     if (!_isConfigured) {
       throw _needsConfigurationException;
     }
-    _hostApi.setBadgeCount(badgeCount);
+    _hostApi.setBadgeCount(badgeCount).ignore();
   }
 
   Future<void> _registerBackgroundProcessorForAndroid() async {

@@ -68,10 +68,11 @@ void main() {
 
   group('Push Notifications config', () {
     setUp(() {
-      // Sending the token after a delay so that token.first in configure gets the token.
+      // TODO(Samaritan1011001): This delay should not be needed, debug why bufferedStream.peek won't trigger without this
+      // Sending the token after a delay so that bufferedStream.peek in configure gets the token.
       // This is only required for tests since StreamQueue used for buffered stream in impl
-      // listens to the channel before token.first call making it useless to emit event when listened.
-      // This delay is replicated throughout the tests so token.first can fire.
+      // listens to the channel before bufferedStream.peek call making it useless to emit event when listened.
+      // This delay is replicated throughout the tests so bufferedStream.peek can fire.
       Future.delayed(const Duration(microseconds: 1), () async {
         await testWidgetsFlutterBinding.defaultBinaryMessenger
             .handlePlatformMessage(
@@ -84,7 +85,6 @@ void main() {
     });
 
     tearDown(() {
-      plugin.reset();
       reset(mockServiceProviderClient);
       resetMockitoState();
     });
