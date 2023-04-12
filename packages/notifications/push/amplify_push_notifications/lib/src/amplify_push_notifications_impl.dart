@@ -29,10 +29,20 @@ const configSecureStorageKey = 'configSecureStorageKey';
 const tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
-const _notificationOpenedEventChannel = EventChannel(
+
+/// {@template amplify_push_notifications.config_storage}
+/// Notification opened event channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const notificationOpenedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/NOTIFICATION_OPENED',
 );
-const _foregroundNotificationEventChannel = EventChannel(
+
+/// {@template amplify_push_notifications.config_storage}
+/// Foreground Notification event channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const foregroundNotificationEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
 );
 
@@ -89,12 +99,12 @@ abstract class AmplifyPushNotifications
       return payload['token'] as String;
     }).distinct();
     _bufferedTokenStream = StreamQueue(_onTokenReceived);
-    _onForegroundNotificationReceived = _foregroundNotificationEventChannel
+    _onForegroundNotificationReceived = foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(PushNotificationMessage.fromJson);
 
-    _onNotificationOpened = _notificationOpenedEventChannel
+    _onNotificationOpened = notificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(PushNotificationMessage.fromJson);
@@ -215,6 +225,11 @@ abstract class AmplifyPushNotifications
     _attachEventChannelListeners();
     if (os.isAndroid) {
       await _registerBackgroundProcessorForAndroid();
+      // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
+      await _amplifySecureStorage.write(
+        key: configSecureStorageKey,
+        value: jsonEncode(config),
+      );
     }
 
     // Set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
@@ -231,11 +246,6 @@ abstract class AmplifyPushNotifications
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
 
-    // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
-    await _amplifySecureStorage.write(
-      key: configSecureStorageKey,
-      value: jsonEncode(config),
-    );
     _isConfigured = true;
   }
 
@@ -296,7 +306,7 @@ abstract class AmplifyPushNotifications
   }
 
   @override
-  Future<void> setBadgeCount(int badgeCount) async {
+  void setBadgeCount(int badgeCount) {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
       return;
@@ -304,7 +314,7 @@ abstract class AmplifyPushNotifications
     if (!_isConfigured) {
       throw _needsConfigurationException;
     }
-    await _hostApi.setBadgeCount(badgeCount);
+    _hostApi.setBadgeCount(badgeCount).ignore();
   }
 
   Future<void> _registerBackgroundProcessorForAndroid() async {

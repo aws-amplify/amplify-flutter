@@ -54,14 +54,6 @@ class AmplifyPushNotificationsFlutterApi
 
   void Function()? _onNullifyLaunchNotificationCallback;
 
-  /// {@template amplify_push_notifications.on_notification_received_in_background_callbacks}
-  /// Internal callbacks list getter exposed for testing purposes only.
-  /// {@endtemplate}
-  @visibleForTesting
-  List<OnRemoteMessageCallback>
-      get onNotificationReceivedInBackgroundCallbacks =>
-          UnmodifiableListView(_onNotificationReceivedInBackgroundCallbacks);
-
   /// {@template amplify_push_notifications.register_on_received_In_background_callback}
   /// Used to register callback function on iOS.
   /// {@endtemplate}
