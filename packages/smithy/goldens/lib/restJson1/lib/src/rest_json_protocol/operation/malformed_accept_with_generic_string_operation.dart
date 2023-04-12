@@ -9,13 +9,13 @@ import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.da
     as _i5;
 import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
     as _i4;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_generic_string_input.dart'
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_generic_string_output.dart'
     as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 class MalformedAcceptWithGenericStringOperation extends _i1.HttpOperation<
-    String, _i2.MalformedAcceptWithGenericStringInput, _i1.Unit, _i1.Unit> {
+    _i1.Unit, _i1.Unit, String, _i2.MalformedAcceptWithGenericStringOutput> {
   MalformedAcceptWithGenericStringOperation({
     required String region,
     Uri? baseUri,
@@ -28,14 +28,15 @@ class MalformedAcceptWithGenericStringOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<String, _i2.MalformedAcceptWithGenericStringInput,
-          _i1.Unit, _i1.Unit>> protocols = [
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, String,
+          _i2.MalformedAcceptWithGenericStringOutput>> protocols = [
     _i3.RestJson1Protocol(
       serializers: _i4.serializers,
       builderFactories: _i4.builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            const _i1.WithContentLength(),
+            const _i1.WithNoHeader('Content-Length'),
+            const _i1.WithNoHeader('Content-Type'),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
             const _i3.WithSdkInvocationId(),
             const _i3.WithSdkRequest(),
@@ -60,20 +61,21 @@ class MalformedAcceptWithGenericStringOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-          _i2.MalformedAcceptWithGenericStringInput input) =>
-      _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(_i1.Unit input) => _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/MalformedAcceptWithGenericString';
       });
   @override
-  int successCode([_i1.Unit? output]) => 200;
+  int successCode([_i2.MalformedAcceptWithGenericStringOutput? output]) => 200;
   @override
-  _i1.Unit buildOutput(
-    _i1.Unit payload,
+  _i2.MalformedAcceptWithGenericStringOutput buildOutput(
+    String? payload,
     _i6.AWSBaseHttpResponse response,
   ) =>
-      payload;
+      _i2.MalformedAcceptWithGenericStringOutput.fromResponse(
+        payload,
+        response,
+      );
   @override
   List<_i1.SmithyError> get errorTypes => const [];
   @override
@@ -85,8 +87,8 @@ class MalformedAcceptWithGenericStringOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i1.Unit> run(
-    _i2.MalformedAcceptWithGenericStringInput input, {
+  _i1.SmithyOperation<_i2.MalformedAcceptWithGenericStringOutput> run(
+    _i1.Unit input, {
     _i6.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {

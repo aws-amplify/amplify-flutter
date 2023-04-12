@@ -494,26 +494,37 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
       .replaceAll('\r', '\\r')
       .replaceAll('\n', '\\n');
 
+  Object? _escapeLiteral(HttpMessageTestCase testCase, Object? value) {
+    // Use String values for Longs which cannot be represented in JS, so
+    // that we can test their values properly in the Web.
+    if (value is int && value > _maxSafeJsInt) {
+      _skipOnWeb.add(testCase.id);
+      return value.toString();
+    }
+    if (value is String) {
+      return _escapeBody(value);
+    }
+    return value;
+  }
+
   /// Recursively checks parameters for:
   /// 1. Escapes string since the translation from IDL creates non-Dart-y strings.
   /// 2. Long ints so we know to skip the test on Web. We also call toString
   /// because the file will not even compile for Web otherwise.
   Map<String, Object?> _escapeParams(
-          HttpMessageTestCase testCase, Map<String, Object?> params) =>
+    HttpMessageTestCase testCase,
+    Map<String, Object?> params,
+  ) =>
       {...params}..updateAll((key, value) {
-          // Use String values for Longs which cannot be represented in JS, so
-          // that we can test their values properly in the Web.
-          if (value is int && value > _maxSafeJsInt) {
-            _skipOnWeb.add(testCase.id);
-            return value.toString();
-          }
-          if (value is String) {
-            return _escapeBody(value);
+          if (value is List) {
+            return value
+                .map((value) => _escapeLiteral(testCase, value))
+                .toList();
           }
           if (value is Map) {
             return _escapeParams(testCase, value.cast());
           }
-          return value;
+          return _escapeLiteral(testCase, value);
         });
 
   /// JS can handle int values up to 2^53 - 1.

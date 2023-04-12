@@ -38,10 +38,7 @@ void main() {
           params: {'content': 'hello, world'},
           vendorParamsShape: null,
           vendorParams: {},
-          headers: {
-            'Content-Type': 'application/octet-stream',
-            'Content-MD5': '5NfxtO0uQtFYmPSyewGdpA==',
-          },
+          headers: {'Content-Type': 'application/octet-stream'},
           forbidHeaders: ['x-amz-request-algorithm'],
           requireHeaders: [],
           tags: [],

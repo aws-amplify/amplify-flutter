@@ -93,7 +93,7 @@ void main() {
           forbidHeaders: [],
           requireHeaders: [],
           tags: [],
-          appliesTo: null,
+          appliesTo: _i2.AppliesTo.client,
           method: 'GET',
           uri: '/HttpPrefixHeaders',
           host: null,

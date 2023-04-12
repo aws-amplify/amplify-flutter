@@ -156,6 +156,17 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
                 .join(', ');
           }
         }
+        if (input.headerIntegerEnum != null) {
+          b.headers['X-IntegerEnum'] = input.headerIntegerEnum!.toString();
+        }
+        if (input.headerIntegerEnumList != null) {
+          if (input.headerIntegerEnumList!.isNotEmpty) {
+            b.headers['X-IntegerEnumList'] = input.headerIntegerEnumList!
+                .map((el) => el.toString())
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
+        }
       });
   @override
   int successCode([_i2.InputAndOutputWithHeadersIo? output]) => 200;

@@ -86,6 +86,11 @@ void main() {
               'Baz',
               'Bar',
             ],
+            'queryIntegerEnum': 1,
+            'queryIntegerEnumList': [
+              1,
+              2,
+            ],
           },
           vendorParamsShape: null,
           vendorParams: {},
@@ -133,6 +138,9 @@ void main() {
             'EnumList=Foo',
             'EnumList=Baz',
             'EnumList=Bar',
+            'IntegerEnum=1',
+            'IntegerEnumList=1',
+            'IntegerEnumList=2',
           ],
           forbidQueryParams: [],
           requireQueryParams: [],
@@ -427,6 +435,25 @@ class AllQueryStringTypesInputRestXmlSerializer
               value,
               specifiedType: const FullType(int),
             ) as int);
+          }
+          break;
+        case 'queryIntegerEnum':
+          if (value != null) {
+            result.queryIntegerEnum = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
+          break;
+        case 'queryIntegerEnumList':
+          if (value != null) {
+            result.queryIntegerEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i6.BuiltList<int>));
           }
           break;
         case 'queryIntegerList':

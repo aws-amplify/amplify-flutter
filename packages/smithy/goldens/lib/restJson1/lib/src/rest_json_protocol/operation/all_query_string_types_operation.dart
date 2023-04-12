@@ -198,6 +198,20 @@ class AllQueryStringTypesOperation extends _i1.HttpOperation<
             );
           }
         }
+        if (input.queryIntegerEnum != null) {
+          b.queryParameters.add(
+            'IntegerEnum',
+            input.queryIntegerEnum!.toString(),
+          );
+        }
+        if (input.queryIntegerEnumList != null) {
+          for (var value in input.queryIntegerEnumList!) {
+            b.queryParameters.add(
+              'IntegerEnumList',
+              value.toString(),
+            );
+          }
+        }
         if (input.queryParamsMapOfStringList != null) {
           for (var entry in input.queryParamsMapOfStringList!.toMap().entries) {
             for (var value in entry.value) {

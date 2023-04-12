@@ -302,7 +302,7 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
             VersionRange(
               min: lowerBound,
               includeMin: includeLowerBound,
-              max: latestVersion,
+              max: maxBy([latestVersion, upperBound], (v) => v),
               includeMax: includeUpperBound,
             ),
           );

@@ -12,6 +12,8 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
   @override
   final _i5.BuiltList<_i3.FooEnum>? enumList;
   @override
+  final _i5.BuiltList<int>? intEnumList;
+  @override
   final _i5.BuiltList<int>? integerList;
   @override
   final _i5.BuiltList<_i5.BuiltList<String>>? nestedStringList;
@@ -33,6 +35,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
   _$JsonListsInputOutput._(
       {this.booleanList,
       this.enumList,
+      this.intEnumList,
       this.integerList,
       this.nestedStringList,
       this.sparseStringList,
@@ -57,6 +60,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
     return other is JsonListsInputOutput &&
         booleanList == other.booleanList &&
         enumList == other.enumList &&
+        intEnumList == other.intEnumList &&
         integerList == other.integerList &&
         nestedStringList == other.nestedStringList &&
         sparseStringList == other.sparseStringList &&
@@ -71,6 +75,7 @@ class _$JsonListsInputOutput extends JsonListsInputOutput {
     var _$hash = 0;
     _$hash = $jc(_$hash, booleanList.hashCode);
     _$hash = $jc(_$hash, enumList.hashCode);
+    _$hash = $jc(_$hash, intEnumList.hashCode);
     _$hash = $jc(_$hash, integerList.hashCode);
     _$hash = $jc(_$hash, nestedStringList.hashCode);
     _$hash = $jc(_$hash, sparseStringList.hashCode);
@@ -98,6 +103,12 @@ class JsonListsInputOutputBuilder
       _$this._enumList ??= new _i5.ListBuilder<_i3.FooEnum>();
   set enumList(_i5.ListBuilder<_i3.FooEnum>? enumList) =>
       _$this._enumList = enumList;
+
+  _i5.ListBuilder<int>? _intEnumList;
+  _i5.ListBuilder<int> get intEnumList =>
+      _$this._intEnumList ??= new _i5.ListBuilder<int>();
+  set intEnumList(_i5.ListBuilder<int>? intEnumList) =>
+      _$this._intEnumList = intEnumList;
 
   _i5.ListBuilder<int>? _integerList;
   _i5.ListBuilder<int> get integerList =>
@@ -151,6 +162,7 @@ class JsonListsInputOutputBuilder
     if ($v != null) {
       _booleanList = $v.booleanList?.toBuilder();
       _enumList = $v.enumList?.toBuilder();
+      _intEnumList = $v.intEnumList?.toBuilder();
       _integerList = $v.integerList?.toBuilder();
       _nestedStringList = $v.nestedStringList?.toBuilder();
       _sparseStringList = $v.sparseStringList?.toBuilder();
@@ -184,6 +196,7 @@ class JsonListsInputOutputBuilder
           new _$JsonListsInputOutput._(
               booleanList: _booleanList?.build(),
               enumList: _enumList?.build(),
+              intEnumList: _intEnumList?.build(),
               integerList: _integerList?.build(),
               nestedStringList: _nestedStringList?.build(),
               sparseStringList: _sparseStringList?.build(),
@@ -198,6 +211,8 @@ class JsonListsInputOutputBuilder
         _booleanList?.build();
         _$failedField = 'enumList';
         _enumList?.build();
+        _$failedField = 'intEnumList';
+        _intEnumList?.build();
         _$failedField = 'integerList';
         _integerList?.build();
         _$failedField = 'nestedStringList';

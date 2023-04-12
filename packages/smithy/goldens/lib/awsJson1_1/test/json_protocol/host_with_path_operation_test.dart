@@ -37,7 +37,10 @@ void main() {
           params: {},
           vendorParamsShape: null,
           vendorParams: {},
-          headers: {},
+          headers: {
+            'Content-Type': 'application/x-amz-json-1.1',
+            'X-Amz-Target': 'JsonProtocol.HostWithPathOperation',
+          },
           forbidHeaders: [],
           requireHeaders: [],
           tags: [],

@@ -23,6 +23,9 @@ enum MyUnionType<T extends MyUnion> {
   /// The type for [MyUnionEnumValue].
   enumValue<MyUnionEnumValue>(r'enumValue'),
 
+  /// The type for [MyUnionIntEnumValue].
+  intEnumValue<MyUnionIntEnumValue>(r'intEnumValue'),
+
   /// The type for [MyUnionListValue].
   listValue<MyUnionListValue>(r'listValue'),
 
@@ -61,6 +64,8 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
 
   const factory MyUnion.enumValue(_i3.FooEnum enumValue) = MyUnionEnumValue;
 
+  const factory MyUnion.intEnumValue(int intEnumValue) = MyUnionIntEnumValue;
+
   factory MyUnion.listValue(List<String> listValue) = MyUnionListValue;
 
   factory MyUnion.mapValue(Map<String, String> mapValue) = MyUnionMapValue;
@@ -87,6 +92,7 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
   _i2.Uint8List? get blobValue => null;
   bool? get booleanValue => null;
   _i3.FooEnum? get enumValue => null;
+  int? get intEnumValue => null;
   _i5.BuiltList<String>? get listValue => null;
   _i5.BuiltMap<String, String>? get mapValue => null;
   int? get numberValue => null;
@@ -98,6 +104,7 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
   Object get value => (blobValue ??
       booleanValue ??
       enumValue ??
+      intEnumValue ??
       listValue ??
       mapValue ??
       numberValue ??
@@ -109,6 +116,7 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
     T Function(_i2.Uint8List)? blobValue,
     T Function(bool)? booleanValue,
     T Function(_i3.FooEnum)? enumValue,
+    T Function(int)? intEnumValue,
     T Function(_i5.BuiltList<String>)? listValue,
     T Function(_i5.BuiltMap<String, String>)? mapValue,
     T Function(int)? numberValue,
@@ -129,6 +137,9 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
     }
     if (this is MyUnionEnumValue) {
       return enumValue?.call((this as MyUnionEnumValue).enumValue);
+    }
+    if (this is MyUnionIntEnumValue) {
+      return intEnumValue?.call((this as MyUnionIntEnumValue).intEnumValue);
     }
     if (this is MyUnionListValue) {
       return listValue?.call((this as MyUnionListValue).listValue);
@@ -175,6 +186,12 @@ abstract class MyUnion extends _i1.SmithyUnion<MyUnion> {
       helper.add(
         r'enumValue',
         enumValue,
+      );
+    }
+    if (intEnumValue != null) {
+      helper.add(
+        r'intEnumValue',
+        intEnumValue,
       );
     }
     if (listValue != null) {
@@ -251,6 +268,18 @@ class MyUnionEnumValue extends MyUnion {
   MyUnionType get type => MyUnionType.enumValue;
   @override
   String get name => 'enumValue';
+}
+
+class MyUnionIntEnumValue extends MyUnion {
+  const MyUnionIntEnumValue(this.intEnumValue) : super._();
+
+  @override
+  final int intEnumValue;
+
+  @override
+  MyUnionType get type => MyUnionType.intEnumValue;
+  @override
+  String get name => 'intEnumValue';
 }
 
 class MyUnionListValue extends MyUnion {
@@ -356,6 +385,7 @@ class MyUnionAwsJson10Serializer
         MyUnionBlobValue,
         MyUnionBooleanValue,
         MyUnionEnumValue,
+        MyUnionIntEnumValue,
         MyUnionListValue,
         MyUnionMapValue,
         MyUnionNumberValue,
@@ -397,6 +427,11 @@ class MyUnionAwsJson10Serializer
           value,
           specifiedType: const FullType(_i3.FooEnum),
         ) as _i3.FooEnum));
+      case 'intEnumValue':
+        return MyUnionIntEnumValue((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
       case 'listValue':
         return MyUnionListValue._((serializers.deserialize(
           value,
@@ -464,6 +499,10 @@ class MyUnionAwsJson10Serializer
         enumValue: (_i3.FooEnum enumValue) => serializers.serialize(
           enumValue,
           specifiedType: const FullType(_i3.FooEnum),
+        ),
+        intEnumValue: (int intEnumValue) => serializers.serialize(
+          intEnumValue,
+          specifiedType: const FullType(int),
         ),
         listValue: (_i5.BuiltList<String> listValue) => serializers.serialize(
           listValue,

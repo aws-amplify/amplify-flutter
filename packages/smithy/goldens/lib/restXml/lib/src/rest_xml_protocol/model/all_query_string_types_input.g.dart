@@ -26,6 +26,10 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
   @override
   final int? queryInteger;
   @override
+  final int? queryIntegerEnum;
+  @override
+  final _i5.BuiltList<int>? queryIntegerEnumList;
+  @override
   final _i5.BuiltList<int>? queryIntegerList;
   @override
   final _i5.BuiltSet<int>? queryIntegerSet;
@@ -60,6 +64,8 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
       this.queryEnumList,
       this.queryFloat,
       this.queryInteger,
+      this.queryIntegerEnum,
+      this.queryIntegerEnumList,
       this.queryIntegerList,
       this.queryIntegerSet,
       this.queryLong,
@@ -94,6 +100,8 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
         queryEnumList == other.queryEnumList &&
         queryFloat == other.queryFloat &&
         queryInteger == other.queryInteger &&
+        queryIntegerEnum == other.queryIntegerEnum &&
+        queryIntegerEnumList == other.queryIntegerEnumList &&
         queryIntegerList == other.queryIntegerList &&
         queryIntegerSet == other.queryIntegerSet &&
         queryLong == other.queryLong &&
@@ -118,6 +126,8 @@ class _$AllQueryStringTypesInput extends AllQueryStringTypesInput {
     _$hash = $jc(_$hash, queryEnumList.hashCode);
     _$hash = $jc(_$hash, queryFloat.hashCode);
     _$hash = $jc(_$hash, queryInteger.hashCode);
+    _$hash = $jc(_$hash, queryIntegerEnum.hashCode);
+    _$hash = $jc(_$hash, queryIntegerEnumList.hashCode);
     _$hash = $jc(_$hash, queryIntegerList.hashCode);
     _$hash = $jc(_$hash, queryIntegerSet.hashCode);
     _$hash = $jc(_$hash, queryLong.hashCode);
@@ -179,6 +189,17 @@ class AllQueryStringTypesInputBuilder
   int? _queryInteger;
   int? get queryInteger => _$this._queryInteger;
   set queryInteger(int? queryInteger) => _$this._queryInteger = queryInteger;
+
+  int? _queryIntegerEnum;
+  int? get queryIntegerEnum => _$this._queryIntegerEnum;
+  set queryIntegerEnum(int? queryIntegerEnum) =>
+      _$this._queryIntegerEnum = queryIntegerEnum;
+
+  _i5.ListBuilder<int>? _queryIntegerEnumList;
+  _i5.ListBuilder<int> get queryIntegerEnumList =>
+      _$this._queryIntegerEnumList ??= new _i5.ListBuilder<int>();
+  set queryIntegerEnumList(_i5.ListBuilder<int>? queryIntegerEnumList) =>
+      _$this._queryIntegerEnumList = queryIntegerEnumList;
 
   _i5.ListBuilder<int>? _queryIntegerList;
   _i5.ListBuilder<int> get queryIntegerList =>
@@ -250,6 +271,8 @@ class AllQueryStringTypesInputBuilder
       _queryEnumList = $v.queryEnumList?.toBuilder();
       _queryFloat = $v.queryFloat;
       _queryInteger = $v.queryInteger;
+      _queryIntegerEnum = $v.queryIntegerEnum;
+      _queryIntegerEnumList = $v.queryIntegerEnumList?.toBuilder();
       _queryIntegerList = $v.queryIntegerList?.toBuilder();
       _queryIntegerSet = $v.queryIntegerSet?.toBuilder();
       _queryLong = $v.queryLong;
@@ -293,6 +316,8 @@ class AllQueryStringTypesInputBuilder
               queryEnumList: _queryEnumList?.build(),
               queryFloat: queryFloat,
               queryInteger: queryInteger,
+              queryIntegerEnum: queryIntegerEnum,
+              queryIntegerEnumList: _queryIntegerEnumList?.build(),
               queryIntegerList: _queryIntegerList?.build(),
               queryIntegerSet: _queryIntegerSet?.build(),
               queryLong: queryLong,
@@ -315,6 +340,8 @@ class AllQueryStringTypesInputBuilder
         _$failedField = 'queryEnumList';
         _queryEnumList?.build();
 
+        _$failedField = 'queryIntegerEnumList';
+        _queryIntegerEnumList?.build();
         _$failedField = 'queryIntegerList';
         _queryIntegerList?.build();
         _$failedField = 'queryIntegerSet';

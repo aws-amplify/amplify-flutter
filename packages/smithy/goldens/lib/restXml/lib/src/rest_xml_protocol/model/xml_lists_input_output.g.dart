@@ -22,6 +22,8 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
   @override
   final _i5.BuiltList<_i4.StructureListMember>? flattenedStructureList;
   @override
+  final _i5.BuiltList<int>? intEnumList;
+  @override
   final _i5.BuiltList<int>? integerList;
   @override
   final _i5.BuiltList<_i5.BuiltList<String>>? nestedStringList;
@@ -48,6 +50,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
       this.flattenedListWithMemberNamespace,
       this.flattenedListWithNamespace,
       this.flattenedStructureList,
+      this.intEnumList,
       this.integerList,
       this.nestedStringList,
       this.renamedListMembers,
@@ -78,6 +81,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
             other.flattenedListWithMemberNamespace &&
         flattenedListWithNamespace == other.flattenedListWithNamespace &&
         flattenedStructureList == other.flattenedStructureList &&
+        intEnumList == other.intEnumList &&
         integerList == other.integerList &&
         nestedStringList == other.nestedStringList &&
         renamedListMembers == other.renamedListMembers &&
@@ -97,6 +101,7 @@ class _$XmlListsInputOutput extends XmlListsInputOutput {
     _$hash = $jc(_$hash, flattenedListWithMemberNamespace.hashCode);
     _$hash = $jc(_$hash, flattenedListWithNamespace.hashCode);
     _$hash = $jc(_$hash, flattenedStructureList.hashCode);
+    _$hash = $jc(_$hash, intEnumList.hashCode);
     _$hash = $jc(_$hash, integerList.hashCode);
     _$hash = $jc(_$hash, nestedStringList.hashCode);
     _$hash = $jc(_$hash, renamedListMembers.hashCode);
@@ -161,6 +166,12 @@ class XmlListsInputOutputBuilder
           _i5.ListBuilder<_i4.StructureListMember>? flattenedStructureList) =>
       _$this._flattenedStructureList = flattenedStructureList;
 
+  _i5.ListBuilder<int>? _intEnumList;
+  _i5.ListBuilder<int> get intEnumList =>
+      _$this._intEnumList ??= new _i5.ListBuilder<int>();
+  set intEnumList(_i5.ListBuilder<int>? intEnumList) =>
+      _$this._intEnumList = intEnumList;
+
   _i5.ListBuilder<int>? _integerList;
   _i5.ListBuilder<int> get integerList =>
       _$this._integerList ??= new _i5.ListBuilder<int>();
@@ -219,6 +230,7 @@ class XmlListsInputOutputBuilder
           $v.flattenedListWithMemberNamespace?.toBuilder();
       _flattenedListWithNamespace = $v.flattenedListWithNamespace?.toBuilder();
       _flattenedStructureList = $v.flattenedStructureList?.toBuilder();
+      _intEnumList = $v.intEnumList?.toBuilder();
       _integerList = $v.integerList?.toBuilder();
       _nestedStringList = $v.nestedStringList?.toBuilder();
       _renamedListMembers = $v.renamedListMembers?.toBuilder();
@@ -258,6 +270,7 @@ class XmlListsInputOutputBuilder
                   _flattenedListWithMemberNamespace?.build(),
               flattenedListWithNamespace: _flattenedListWithNamespace?.build(),
               flattenedStructureList: _flattenedStructureList?.build(),
+              intEnumList: _intEnumList?.build(),
               integerList: _integerList?.build(),
               nestedStringList: _nestedStringList?.build(),
               renamedListMembers: _renamedListMembers?.build(),
@@ -282,6 +295,8 @@ class XmlListsInputOutputBuilder
         _flattenedListWithNamespace?.build();
         _$failedField = 'flattenedStructureList';
         _flattenedStructureList?.build();
+        _$failedField = 'intEnumList';
+        _intEnumList?.build();
         _$failedField = 'integerList';
         _integerList?.build();
         _$failedField = 'nestedStringList';

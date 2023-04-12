@@ -57,6 +57,11 @@ class MethodChannelAmplify extends AmplifyClassImpl {
         );
       } else if (plugin is APIPluginInterface) {
         await API.addPlugin(plugin, authProviderRepo: authProviderRepo);
+      } else if (plugin is PushNotificationsPluginInterface) {
+        await Notifications.Push.addPlugin(
+          plugin,
+          authProviderRepo: authProviderRepo,
+        );
       } else {
         throw PluginError(
           'The type of plugin ${plugin.runtimeType} is not yet supported '

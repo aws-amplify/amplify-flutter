@@ -207,6 +207,17 @@ class XmlListsInputOutputRestXmlSerializer
             ) as _i6.BuiltList<_i8.StructureListMember>));
           }
           break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i6.BuiltList<int>));
+          }
+          break;
         case 'integerList':
           if (value != null) {
             result.integerList.replace((serializers.deserialize(
