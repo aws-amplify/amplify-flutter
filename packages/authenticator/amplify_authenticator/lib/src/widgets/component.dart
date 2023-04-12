@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 abstract class StatelessAuthenticatorComponent extends StatelessWidget {
   /// {@macro amplify_authenticator.stateless_authenticator_component}
   const StatelessAuthenticatorComponent({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// A [StatelessWidget.build] replacement which injects inherited Authenticator
   /// components.
@@ -41,7 +41,7 @@ abstract class StatelessAuthenticatorComponent extends StatelessWidget {
 abstract class AuthenticatorComponent<T extends StatefulWidget>
     extends StatefulWidget {
   /// {@macro amplify_authenticator.authenticator_component}
-  const AuthenticatorComponent({Key? key}) : super(key: key);
+  const AuthenticatorComponent({super.key});
 
   @override
   AuthenticatorComponentState<T> createState();
@@ -73,10 +73,16 @@ abstract class AuthenticatorComponentState<T extends StatefulWidget>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthenticatorState>('state', state));
-    properties.add(DiagnosticsProperty<AuthStringResolver>(
-        'stringResolver', stringResolver));
-    properties.add(
-        DiagnosticsProperty<AmplifyConfig>('config', config.amplifyConfig));
+    properties
+      ..add(DiagnosticsProperty<AuthenticatorState>('state', state))
+      ..add(
+        DiagnosticsProperty<AuthStringResolver>(
+          'stringResolver',
+          stringResolver,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<AmplifyConfig>('config', config.amplifyConfig),
+      );
   }
 }

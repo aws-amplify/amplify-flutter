@@ -1,15 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'input_localizations.dart';
 
 /// The translations for English (`en`).
 class AuthenticatorInputLocalizationsEn
     extends AuthenticatorInputLocalizations {
-  AuthenticatorInputLocalizationsEn([String locale = 'en']) : super(locale);
+  AuthenticatorInputLocalizationsEn([super.locale = 'en']);
 
   @override
   String get username => 'Username';
@@ -45,10 +43,16 @@ class AuthenticatorInputLocalizationsEn
   String get gender => 'Gender';
 
   @override
-  String genders(Gender gender) {
-    return intl.Intl.select(
-        gender, {'male': 'male', 'female': 'female', 'other': 'other'},
-        desc: 'No description provided in @genders');
+  String genders(String gender) {
+    final temp0 = intl.Intl.selectLogic(
+      gender,
+      {
+        'male': 'male',
+        'female': 'female',
+        'other': 'other',
+      },
+    );
+    return temp0;
   }
 
   @override
@@ -101,32 +105,29 @@ class AuthenticatorInputLocalizationsEn
   String get passwordRequirementsPreamble => 'Password must include:';
 
   @override
-  String passwordRequirementsCharacterType(
-      PasswordPolicyCharacters characterType) {
-    final String selectString = intl.Intl.select(
-        characterType,
-        {
-          'requiresUppercase': 'uppercase',
-          'requiresLowercase': 'lowercase',
-          'requiresNumbers': 'number',
-          'requiresSymbols': 'symbol',
-          'other': ''
-        },
-        desc: 'Character(s) in a password.');
-
-    return ' $selectString';
+  String passwordRequirementsCharacterType(String characterType) {
+    final temp0 = intl.Intl.selectLogic(
+      characterType,
+      {
+        'requiresUppercase': 'uppercase',
+        'requiresLowercase': 'lowercase',
+        'requiresNumbers': 'number',
+        'requiresSymbols': 'symbol',
+        'other': '',
+      },
+    );
+    return ' $temp0';
   }
 
   @override
-  String passwordRequirementsAtLeast(num numCharacters, String characterType) {
-    final String pluralString = intl.Intl.pluralLogic(
+  String passwordRequirementsAtLeast(int numCharacters, String characterType) {
+    final temp0 = intl.Intl.pluralLogic(
       numCharacters,
       locale: localeName,
-      one: '1$characterType character',
       other: '$numCharacters$characterType characters',
+      one: '1$characterType character',
     );
-
-    return 'at least $pluralString';
+    return 'at least $temp0';
   }
 
   @override

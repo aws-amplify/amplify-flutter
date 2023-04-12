@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'country_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/country_localizations.dart';
 
 /// The translations for English (`en`).
 class AuthenticatorCountryLocalizationsEn
     extends AuthenticatorCountryLocalizations {
-  AuthenticatorCountryLocalizationsEn([String locale = 'en']) : super(locale);
+  AuthenticatorCountryLocalizationsEn([super.locale = 'en']);
 
   @override
   String get selectDialCode => 'Select your country dial code';

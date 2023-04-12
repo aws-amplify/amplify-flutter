@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'authenticator_localizations.dart';
-import 'resolver.dart';
 
 enum ButtonResolverKeyType {
   signIn,
@@ -28,6 +27,10 @@ enum ButtonResolverKeyType {
 }
 
 class ButtonResolverKey {
+  const ButtonResolverKey.signInWith(AuthProvider provider)
+      : this._(ButtonResolverKeyType.signInWith, provider: provider);
+  const ButtonResolverKey.backTo(AuthenticatorStep previousStep)
+      : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
   const ButtonResolverKey._(
     this.type, {
     this.provider,
@@ -49,8 +52,6 @@ class ButtonResolverKey {
       ButtonResolverKey._(ButtonResolverKeyType.lostCode);
   static const verify = ButtonResolverKey._(ButtonResolverKeyType.verify);
   static const signout = ButtonResolverKey._(ButtonResolverKeyType.signOut);
-  const ButtonResolverKey.signInWith(AuthProvider provider)
-      : this._(ButtonResolverKeyType.signInWith, provider: provider);
   static const noAccount = ButtonResolverKey._(ButtonResolverKeyType.noAccount);
   static const haveAccount =
       ButtonResolverKey._(ButtonResolverKeyType.haveAccount);
@@ -58,8 +59,6 @@ class ButtonResolverKey {
       ButtonResolverKey._(ButtonResolverKeyType.forgotPassword);
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
-  const ButtonResolverKey.backTo(AuthenticatorStep previousStep)
-      : this._(ButtonResolverKeyType.backTo, previousStep: previousStep);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
 
   @override
@@ -117,7 +116,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of button to sign in with a social provider
   String signInWith(BuildContext context, AuthProvider provider) {
-    return AuthenticatorLocalizations.buttonsOf(context).signInWith(provider);
+    return AuthenticatorLocalizations.buttonsOf(context)
+        .signInWith(provider.name);
   }
 
   /// Hint text for the 'Go to Sign Up' button
@@ -142,7 +142,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
 
   /// Label of button to return to the Sign In step.
   String backTo(BuildContext context, AuthenticatorStep previousStep) {
-    return AuthenticatorLocalizations.buttonsOf(context).backTo(previousStep);
+    return AuthenticatorLocalizations.buttonsOf(context)
+        .backTo(previousStep.name);
   }
 
   /// Label of button to skip the current step or action.

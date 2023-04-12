@@ -44,12 +44,13 @@ part 'form_fields/verify_user_form_field.dart';
 /// - [ConfirmSignUpFormField]
 /// - [VerifyUserFormField]
 /// {@endtemplate}
-abstract class AuthenticatorFormField<FieldType extends Enum, FieldValue>
+abstract class AuthenticatorFormField<FieldType extends Enum,
+        FieldValue extends Object>
     extends AuthenticatorComponent<
         AuthenticatorFormField<FieldType, FieldValue>> {
   /// {@macro amplify_authenticator.authenticator_form_field}
   const AuthenticatorFormField._({
-    Key? key,
+    super.key,
     required this.field,
     this.titleKey,
     this.hintTextKey,
@@ -58,8 +59,7 @@ abstract class AuthenticatorFormField<FieldType extends Enum, FieldValue>
     FormFieldValidator<FieldValue>? validator,
     this.requiredOverride,
     this.autofillHints,
-  })  : validatorOverride = validator,
-        super(key: key);
+  }) : validatorOverride = validator;
 
   /// Resolver key for the title
   final InputResolverKey? titleKey;
@@ -102,23 +102,29 @@ abstract class AuthenticatorFormField<FieldType extends Enum, FieldValue>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty('field', field));
-    properties.add(DiagnosticsProperty('titleKey', titleKey));
-    properties.add(DiagnosticsProperty('hintTextKey', hintTextKey));
-    properties.add(StringProperty('title', title));
-    properties.add(StringProperty('hintText', hintText));
-    properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
-        'validatorOverride', validatorOverride));
-    properties.add(IntProperty('priority', displayPriority));
-    properties.add(DiagnosticsProperty<bool>('required', required));
     properties
-        .add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride));
-    properties.add(EnumProperty<UsernameType?>('usernameType', usernameType));
-    properties.add(IterableProperty<String>('autofillHints', autofillHints));
+      ..add(EnumProperty('field', field))
+      ..add(DiagnosticsProperty('titleKey', titleKey))
+      ..add(DiagnosticsProperty('hintTextKey', hintTextKey))
+      ..add(StringProperty('title', title))
+      ..add(StringProperty('hintText', hintText))
+      ..add(
+        ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
+          'validatorOverride',
+          validatorOverride,
+        ),
+      )
+      ..add(IntProperty('priority', displayPriority))
+      ..add(DiagnosticsProperty<bool>('required', required))
+      ..add(DiagnosticsProperty<bool?>('requiredOverride', requiredOverride))
+      ..add(EnumProperty<UsernameType?>('usernameType', usernameType))
+      ..add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }
 
-abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
+abstract class AuthenticatorFormFieldState<
+        FieldType extends Enum,
+        FieldValue extends Object,
         T extends AuthenticatorFormField<FieldType, FieldValue>>
     extends AuthenticatorComponentState<T> {
   @nonVirtual
@@ -171,7 +177,7 @@ abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
   /// Text content for the form field's label
   String? get labelText {
     final inputResolver = stringResolver.inputs;
-    String? labelText =
+    var labelText =
         widget.title ?? widget.titleKey?.resolve(context, inputResolver);
     if (labelText != null) {
       labelText =
@@ -270,25 +276,35 @@ abstract class AuthenticatorFormFieldState<FieldType extends Enum, FieldValue,
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-        .add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType));
-    properties.add(DiagnosticsProperty<bool>('enabled', enabled));
-    properties.add(IntProperty('errorMaxLines', errorMaxLines));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText));
-    properties.add(ObjectFlagProperty<ValueChanged<FieldValue>?>.has(
-        'onChanged', onChanged));
-    properties.add(ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
-        'validator', validator));
-    properties
-        .add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue));
-    properties
-        .add(EnumProperty<UsernameConfigType>('usernameType', usernameType));
-    properties.add(EnumProperty<UsernameType>(
-        'selectedUsernameType', selectedUsernameType));
-    properties.add(IntProperty('maxLength', maxLength));
-    properties.add(DiagnosticsProperty<bool>('isOptional', isOptional));
-    properties.add(StringProperty('labelText', labelText));
-    properties.add(DiagnosticsProperty<double?>('marginBottom', marginBottom));
-    properties.add(DoubleProperty('labelGap', labelGap));
-    properties.add(IterableProperty<String>('autofillHints', autofillHints));
+      ..add(DiagnosticsProperty<TextInputType>('keyboardType', keyboardType))
+      ..add(DiagnosticsProperty<bool>('enabled', enabled))
+      ..add(IntProperty('errorMaxLines', errorMaxLines))
+      ..add(DiagnosticsProperty<bool>('obscureText', obscureText))
+      ..add(
+        ObjectFlagProperty<ValueChanged<FieldValue>?>.has(
+          'onChanged',
+          onChanged,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<FormFieldValidator<FieldValue>?>.has(
+          'validator',
+          validator,
+        ),
+      )
+      ..add(DiagnosticsProperty<FieldValue?>('initialValue', initialValue))
+      ..add(EnumProperty<UsernameConfigType>('usernameType', usernameType))
+      ..add(
+        EnumProperty<UsernameType>(
+          'selectedUsernameType',
+          selectedUsernameType,
+        ),
+      )
+      ..add(IntProperty('maxLength', maxLength))
+      ..add(DiagnosticsProperty<bool>('isOptional', isOptional))
+      ..add(StringProperty('labelText', labelText))
+      ..add(DiagnosticsProperty<double?>('marginBottom', marginBottom))
+      ..add(DoubleProperty('labelGap', labelGap))
+      ..add(IterableProperty<String>('autofillHints', autofillHints));
   }
 }

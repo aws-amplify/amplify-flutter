@@ -7,33 +7,25 @@ part of authenticator.form_field;
 /// {@template amplify_authenticator.sign_up_form_field}
 /// A prebuilt form field widget for use on the Sign Up step.
 /// {@endtemplate}
-abstract class SignUpFormField<FieldValue>
+abstract class SignUpFormField<FieldValue extends Object>
     extends AuthenticatorFormField<SignUpField, FieldValue> {
   /// {@macro amplify_authenticator.sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const SignUpFormField._({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<FieldValue>? validator,
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
+    super.validator,
     CognitoUserAttributeKey? customAttributeKey,
     bool? required,
-    Iterable<String>? autofillHints,
+    super.autofillHints,
   })  : _customAttributeKey = customAttributeKey,
         super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
           requiredOverride: required,
-          autofillHints: autofillHints,
         );
 
   /// {@template amplify_authenticator.username_form_field}
@@ -46,7 +38,7 @@ abstract class SignUpFormField<FieldValue>
   ///
   /// If your app is configured to use email or phone, the value provided for this widget
   /// will be saved as the user's email or phone number in addition to their username.
-  static SignUpFormField username({
+  static SignUpFormField<UsernameInput> username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
@@ -58,7 +50,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a password component.
-  static SignUpFormField password({
+  static SignUpFormField<String> password({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
@@ -73,7 +65,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a passwordConfirmation component.
-  static SignUpFormField passwordConfirmation({
+  static SignUpFormField<String> passwordConfirmation({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
@@ -88,7 +80,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates an address component.
-  static SignUpFormField address({
+  static SignUpFormField<String> address({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -105,7 +97,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a birthdate component.
-  static SignUpFormField birthdate({
+  static SignUpFormField<String> birthdate({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -122,7 +114,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates an email component.
-  static SignUpFormField email({
+  static SignUpFormField<String> email({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -139,7 +131,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a familyName component.
-  static SignUpFormField familyName({
+  static SignUpFormField<String> familyName({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -156,7 +148,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a gender component.
-  static SignUpFormField gender({
+  static SignUpFormField<String> gender({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -173,7 +165,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a givenName component.
-  static SignUpFormField givenName({
+  static SignUpFormField<String> givenName({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -190,7 +182,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a middleName component.
-  static SignUpFormField middleName({
+  static SignUpFormField<String> middleName({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -207,7 +199,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a name component.
-  static SignUpFormField name({
+  static SignUpFormField<String> name({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -224,7 +216,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a nickname component.
-  static SignUpFormField nickname({
+  static SignUpFormField<String> nickname({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -241,7 +233,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a phoneNumber component.
-  static SignUpFormField phoneNumber({
+  static SignUpFormField<String> phoneNumber({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -258,7 +250,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a preferredUsername component.
-  static SignUpFormField preferredUsername({
+  static SignUpFormField<String> preferredUsername({
     Key? key,
     FormFieldValidator<String>? validator,
     bool? required,
@@ -275,7 +267,7 @@ abstract class SignUpFormField<FieldValue>
       );
 
   /// Creates a custom attribute component.
-  static SignUpFormField custom({
+  static SignUpFormField<String> custom({
     Key? key,
     required String title,
     required CognitoUserAttributeKey attributeKey,
@@ -372,7 +364,7 @@ abstract class SignUpFormField<FieldValue>
   }
 }
 
-abstract class _SignUpFormFieldState<FieldValue>
+abstract class _SignUpFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<SignUpField, FieldValue,
         SignUpFormField<FieldValue>> {
   @override
@@ -491,27 +483,18 @@ abstract class _SignUpFormFieldState<FieldValue>
 
 class _SignUpTextField extends SignUpFormField<String> {
   const _SignUpTextField({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
     CognitoUserAttributeKey? attributeKey,
-    FormFieldValidator<String>? validator,
-    bool? required,
-    Iterable<String>? autofillHints,
+    super.validator,
+    super.required,
+    super.autofillHints,
   }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
           customAttributeKey: attributeKey,
-          required: required,
-          autofillHints: autofillHints,
         );
 
   @override
@@ -561,8 +544,9 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
       case SignUpField.email:
         if (selectedUsernameType == UsernameType.email) {
           return (email) {
-            state.email = email;
-            state.username = email;
+            state
+              ..email = email
+              ..username = email;
           };
         }
         return (v) => state.email = v;
@@ -698,16 +682,13 @@ class _SignUpTextFieldState extends _SignUpFormFieldState<String>
 
 class _SignUpUsernameField extends SignUpFormField<UsernameInput> {
   const _SignUpUsernameField({
-    Key? key,
-    FormFieldValidator<UsernameInput>? validator,
-    Iterable<String>? autofillHints,
+    super.key,
+    super.validator,
+    super.autofillHints,
   }) : super._(
-          key: key,
           field: SignUpField.username,
           titleKey: InputResolverKey.usernameTitle,
           hintTextKey: InputResolverKey.usernameHint,
-          validator: validator,
-          autofillHints: autofillHints,
         );
 
   @override
@@ -719,27 +700,16 @@ class _SignUpUsernameFieldState extends _SignUpFormFieldState<UsernameInput>
 
 class _SignUpPhoneField extends SignUpFormField<String> {
   const _SignUpPhoneField({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
     CognitoUserAttributeKey? attributeKey,
-    FormFieldValidator<String>? validator,
-    bool? required,
-    Iterable<String>? autofillHints,
+    super.validator,
+    super.required,
+    super.autofillHints,
   }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
           customAttributeKey: attributeKey,
-          required: required,
-          autofillHints: autofillHints,
         );
 
   @override
@@ -780,27 +750,16 @@ class _SignUpPhoneFieldState extends _SignUpTextFieldState
 
 class _SignUpDateField extends SignUpFormField<String> {
   const _SignUpDateField({
-    Key? key,
-    required SignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
     CognitoUserAttributeKey? attributeKey,
-    FormFieldValidator<String>? validator,
-    bool? required,
-    Iterable<String>? autofillHints,
+    super.validator,
+    super.required,
+    super.autofillHints,
   }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
           customAttributeKey: attributeKey,
-          required: required,
-          autofillHints: autofillHints,
         );
 
   @override

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class InheritedAuthBloc extends InheritedWidget {
   const InheritedAuthBloc({
-    Key? key,
+    super.key,
     required this.authBloc,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final StateMachineBloc authBloc;
 

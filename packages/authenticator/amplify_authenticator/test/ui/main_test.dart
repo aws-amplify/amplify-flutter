@@ -21,8 +21,9 @@ enum TestConfig {
   phoneNumber(phoneNumberConfig),
   usernameWithAttributes(usernameWithAttributesConfig);
 
-  final String config;
   const TestConfig(this.config);
+
+  final String config;
 }
 
 enum ScreenGeometry {
@@ -41,11 +42,11 @@ enum ScreenGeometry {
   // Geometry based off of an ultra HD monitor
   desktop(size: Size(2560, 1440), pixelRatio: 1);
 
+  const ScreenGeometry({required this.size, required this.pixelRatio});
+
   final Size size;
 
   final double pixelRatio;
-
-  const ScreenGeometry({required this.size, required this.pixelRatio});
 }
 
 enum TestTheme {

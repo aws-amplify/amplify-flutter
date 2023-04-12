@@ -12,27 +12,23 @@ class AuthLoad extends AuthEvent {
 }
 
 class AuthChangeScreen extends AuthEvent {
-  final AuthenticatorStep step;
-
   const AuthChangeScreen(this.step);
+  final AuthenticatorStep step;
 }
 
 class AuthSignIn extends AuthEvent {
-  final AuthSignInData data;
-
   const AuthSignIn(this.data);
+  final AuthSignInData data;
 }
 
 class AuthSignUp extends AuthEvent {
-  final AuthSignUpData data;
-
   const AuthSignUp(this.data);
+  final AuthSignUpData data;
 }
 
 class AuthConfirmSignUp extends AuthEvent {
-  final AuthConfirmSignUpData data;
-
   const AuthConfirmSignUp(this.data);
+  final AuthConfirmSignUpData data;
 }
 
 class AuthSignOut extends AuthEvent {
@@ -62,22 +58,19 @@ class AuthUpdatePassword extends AuthEvent {
 }
 
 class AuthConfirmSignIn extends AuthEvent {
+  const AuthConfirmSignIn(this.data, {required this.rememberDevice});
   final AuthConfirmSignInData data;
   final bool rememberDevice;
-
-  const AuthConfirmSignIn(this.data, {required this.rememberDevice});
 }
 
 class AuthSetUnverifiedAttributeKeys extends AuthEvent {
-  final AuthSetUnverifiedAttributeKeysData data;
-
   const AuthSetUnverifiedAttributeKeys(this.data);
+  final AuthSetUnverifiedAttributeKeysData data;
 }
 
 class AuthVerifyUser extends AuthEvent {
-  final AuthVerifyUserData data;
-
   const AuthVerifyUser(this.data);
+  final AuthVerifyUserData data;
 }
 
 class AuthSkipVerifyUser extends AuthEvent {
@@ -85,9 +78,8 @@ class AuthSkipVerifyUser extends AuthEvent {
 }
 
 class AuthConfirmVerifyUser extends AuthEvent {
-  final AuthConfirmVerifyUserData data;
-
   const AuthConfirmVerifyUser(this.data);
+  final AuthConfirmVerifyUserData data;
 }
 
 class AuthResendSignUpCode extends AuthEvent {

@@ -14,8 +14,12 @@ MaterialBanner createMaterialBanner(
 }) {
   final theme = Theme.of(context);
 
-  final colorsChoices = getColors(theme.bannerTheme.backgroundColor,
-      theme.bannerTheme.contentTextStyle?.color, type, theme);
+  final colorsChoices = getColors(
+    theme.bannerTheme.backgroundColor,
+    theme.bannerTheme.contentTextStyle?.color,
+    type,
+    theme,
+  );
 
   return MaterialBanner(
     key: keyAuthenticatorBanner,
@@ -55,8 +59,12 @@ SnackBar createSnackBar(
 }) {
   final theme = Theme.of(context);
 
-  final colorsChoices = getColors(theme.snackBarTheme.backgroundColor,
-      theme.snackBarTheme.contentTextStyle?.color, type, theme);
+  final colorsChoices = getColors(
+    theme.snackBarTheme.backgroundColor,
+    theme.snackBarTheme.contentTextStyle?.color,
+    type,
+    theme,
+  );
 
   // if contentTextStyle is null, colorScheme.surface is used as a fallback
   // since SnackBarThemeData.backgroundColor uses colorScheme.onSurface as a fall back
@@ -88,14 +96,17 @@ SnackBar createSnackBar(
 }
 
 class BannerColors {
+  BannerColors(this.background, this.foreground);
   Color? background;
   Color? foreground;
-
-  BannerColors(this.background, this.foreground);
 }
 
-BannerColors getColors(Color? customBackgroundColor,
-    Color? customForegroundColor, StatusType type, ThemeData theme) {
+BannerColors getColors(
+  Color? customBackgroundColor,
+  Color? customForegroundColor,
+  StatusType type,
+  ThemeData theme,
+) {
   // foreground and background colors are based on material standards for text legibility
   // if they are not provided by the theme. See https://material.io/design/color/text-legibility.html#text-backgrounds
 

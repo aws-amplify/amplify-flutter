@@ -13,20 +13,13 @@ class ResetPasswordFormField
   ///
   /// Either [titleKey] or [title] is required.
   const ResetPasswordFormField._({
-    Key? key,
-    required ResetPasswordField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   const ResetPasswordFormField.verificationCode({
     Key? key,

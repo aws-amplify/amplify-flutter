@@ -19,8 +19,8 @@ abstract class AuthenticatorButton<T extends AuthenticatorButton<T>>
     extends AuthenticatorComponent<T> {
   /// {@macro amplify_authenticator.authenticator_button}
   const AuthenticatorButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The button's `onPressed` callback.
   void onPressed(BuildContext context, AuthenticatorState state);
@@ -72,9 +72,14 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode));
-    properties.add(ObjectFlagProperty<ValueChanged<bool>>.has(
-        'focusChanged', focusChanged));
+    properties
+      ..add(DiagnosticsProperty<FocusNode>('focusNode', focusNode))
+      ..add(
+        ObjectFlagProperty<ValueChanged<bool>>.has(
+          'focusChanged',
+          focusChanged,
+        ),
+      );
   }
 }
 
@@ -84,7 +89,7 @@ abstract class AuthenticatorButtonState<T extends AuthenticatorButton<T>>
 abstract class AuthenticatorElevatedButton
     extends AuthenticatorButton<AuthenticatorElevatedButton> {
   /// {@macro amplify_authenticator.amplify_elevated_button}
-  const AuthenticatorElevatedButton({Key? key}) : super(key: key);
+  const AuthenticatorElevatedButton({super.key});
 
   @override
   Widget? get loadingIndicator => const AmplifyProgressIndicator();
@@ -244,7 +249,7 @@ class ConfirmSignInMFAButton extends AuthenticatorElevatedButton {
 /// {@endtemplate}
 class SignOutButton extends StatelessAuthenticatorComponent {
   /// {@macro amplify_authenticator.sign_out_button}
-  const SignOutButton({Key? key = keySignOutButton}) : super(key: key);
+  const SignOutButton({super.key = keySignOutButton});
 
   @override
   Widget builder(
@@ -252,7 +257,7 @@ class SignOutButton extends StatelessAuthenticatorComponent {
     AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
-    final ButtonResolver buttonResolver = stringResolver.buttons;
+    final buttonResolver = stringResolver.buttons;
 
     return ElevatedButton(
       onPressed: state.signOut,
@@ -268,12 +273,11 @@ class SignOutButton extends StatelessAuthenticatorComponent {
 /// A prebuilt button for navigating back to the Sign In step.
 /// {@endtemplate}
 class BackToSignInButton extends StatelessAuthenticatorComponent {
+  /// {@macro amplify_authenticator.back_to_sign_in_button}
+  const BackToSignInButton({super.key, this.abortSignIn = false});
+
   /// Resets the authentication flow
   final bool abortSignIn;
-
-  /// {@macro amplify_authenticator.back_to_sign_in_button}
-  const BackToSignInButton({Key? key, this.abortSignIn = false})
-      : super(key: key);
 
   @override
   Widget builder(
@@ -311,7 +315,7 @@ class BackToSignInButton extends StatelessAuthenticatorComponent {
 /// {@endtemplate}
 class LostCodeButton extends StatelessAuthenticatorComponent {
   /// {@macro amplify_authenticator.lost_code_button}
-  const LostCodeButton({Key? key}) : super(key: key);
+  const LostCodeButton({super.key});
 
   static const fontSize = 13.0;
 
@@ -321,10 +325,10 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
     AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
-    final ButtonResolver buttonResolver = stringResolver.buttons;
+    final buttonResolver = stringResolver.buttons;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
+      padding: const EdgeInsets.only(top: 4),
       child: Row(
         children: [
           Expanded(
@@ -354,7 +358,7 @@ class LostCodeButton extends StatelessAuthenticatorComponent {
 /// {@endtemplate}
 class ForgotPasswordButton extends StatelessAuthenticatorComponent {
   /// {@macro amplify_authenticator.forgot_password_button}
-  const ForgotPasswordButton({Key? key}) : super(key: key);
+  const ForgotPasswordButton({super.key});
 
   @override
   Widget builder(
@@ -489,7 +493,7 @@ class ConfirmVerifyUserButton extends AuthenticatorElevatedButton {
 /// {@endtemplate}
 class SkipVerifyUserButton extends StatelessAuthenticatorComponent {
   /// {@macro amplify_authenticator.confirm_verify_user_button}
-  const SkipVerifyUserButton({Key? key}) : super(key: key);
+  const SkipVerifyUserButton({super.key});
 
   @override
   Widget builder(

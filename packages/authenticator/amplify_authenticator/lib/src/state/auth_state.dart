@@ -28,9 +28,8 @@ class AuthenticatedState extends AuthState with AWSDebuggable {
 @immutable
 class UnauthenticatedState extends AuthState
     with AWSEquatable<UnauthenticatedState>, AWSDebuggable {
-  final AuthenticatorStep _step;
-
   const UnauthenticatedState({required AuthenticatorStep step}) : _step = step;
+  final AuthenticatorStep _step;
 
   AuthenticatorStep get step => _step;
 
@@ -68,10 +67,9 @@ class AttributeVerificationSent extends UnauthenticatedState {
 }
 
 class VerifyUserFlow extends UnauthenticatedState {
-  final List<CognitoUserAttributeKey> unverifiedAttributeKeys;
-
   const VerifyUserFlow({required this.unverifiedAttributeKeys})
       : super(step: AuthenticatorStep.verifyUser);
+  final List<CognitoUserAttributeKey> unverifiedAttributeKeys;
 
   @override
   List<Object?> get props => [step, unverifiedAttributeKeys];
@@ -81,11 +79,10 @@ class VerifyUserFlow extends UnauthenticatedState {
 }
 
 class ConfirmSignInCustom extends UnauthenticatedState {
-  final Map<String, String> publicParameters;
-
   const ConfirmSignInCustom({
     this.publicParameters = const <String, String>{},
   }) : super(step: AuthenticatorStep.confirmSignInCustomAuth);
+  final Map<String, String> publicParameters;
 
   @override
   List<Object?> get props => [step, publicParameters];
