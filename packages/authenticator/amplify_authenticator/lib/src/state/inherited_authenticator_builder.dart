@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class InheritedAuthenticatorBuilder extends InheritedWidget {
   const InheritedAuthenticatorBuilder({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.authenticatorBuilder,
-  }) : super(key: key, child: child);
+  });
 
   final AuthenticatorBuilder? authenticatorBuilder;
 
@@ -43,8 +43,12 @@ class InheritedAuthenticatorBuilder extends InheritedWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthenticatorBuilder>(
-        'authenticatorBuilder', authenticatorBuilder));
+    properties.add(
+      DiagnosticsProperty<AuthenticatorBuilder>(
+        'authenticatorBuilder',
+        authenticatorBuilder,
+      ),
+    );
   }
 }
 

@@ -16,9 +16,9 @@ import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
   const SocialSignInButtons({
-    Key? key,
+    super.key,
     required this.providers,
-  }) : super(key: key);
+  });
 
   final List<AuthProvider> providers;
 
@@ -28,40 +28,42 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
     AuthenticatorState state,
     AuthStringResolver stringResolver,
   ) {
-    return LayoutBuilder(builder: (context, constraints) {
-      // Perform a layout on each of the Text items to determine the maximum
-      // width, so that we can size all button labels to that width and align
-      // the logos in the column.
-      var maxWidth = 0.0;
-      for (var provider in providers) {
-        final text = stringResolver.buttons.resolve(
-          context,
-          ButtonResolverKey.signInWith(provider),
-        );
-        final style = Theme.of(context)
-                .outlinedButtonTheme
-                .style
-                ?.textStyle
-                ?.resolve({}) ??
-            Theme.of(context).textTheme.labelLarge;
-        final tp = TextPainter(
-          text: TextSpan(
-            text: text,
-            style: style,
-          ),
-          maxLines: 1,
-          textDirection: TextDirection.ltr,
-        )..layout(maxWidth: constraints.maxWidth);
-        maxWidth = max(maxWidth, tp.width);
-      }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Perform a layout on each of the Text items to determine the maximum
+        // width, so that we can size all button labels to that width and align
+        // the logos in the column.
+        var maxWidth = 0.0;
+        for (final provider in providers) {
+          final text = stringResolver.buttons.resolve(
+            context,
+            ButtonResolverKey.signInWith(provider),
+          );
+          final style = Theme.of(context)
+                  .outlinedButtonTheme
+                  .style
+                  ?.textStyle
+                  ?.resolve({}) ??
+              Theme.of(context).textTheme.labelLarge;
+          final tp = TextPainter(
+            text: TextSpan(
+              text: text,
+              style: style,
+            ),
+            maxLines: 1,
+            textDirection: TextDirection.ltr,
+          )..layout(maxWidth: constraints.maxWidth);
+          maxWidth = max(maxWidth, tp.width);
+        }
 
-      return Column(
-        children: <Widget>[
-          for (var provider in providers)
-            SocialSignInButton(provider: provider, maxWidth: maxWidth),
-        ].spacedBy(const SizedBox(height: 12)),
-      );
-    });
+        return Column(
+          children: <Widget>[
+            for (var provider in providers)
+              SocialSignInButton(provider: provider, maxWidth: maxWidth),
+          ].spacedBy(const SizedBox(height: 12)),
+        );
+      },
+    );
   }
 
   @override
@@ -77,10 +79,10 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
 class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   /// {@macro amplify_authenticator.social_sign_in_button}
   const SocialSignInButton({
-    Key? key,
+    super.key,
     required this.provider,
     this.maxWidth = double.infinity,
-  }) : super(key: key);
+  });
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
@@ -122,8 +124,9 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(EnumProperty<AuthProvider>('provider', provider));
-    properties.add(DoubleProperty('maxWidth', maxWidth));
+    properties
+      ..add(EnumProperty<AuthProvider>('provider', provider))
+      ..add(DoubleProperty('maxWidth', maxWidth));
   }
 }
 
@@ -132,7 +135,7 @@ class _SocialSignInButtonState
   static const _spacing = 5.0;
 
   Widget get icon {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     if (widget.provider == AuthProvider.google) {
       return SocialIcons.googleLogo;
     }
@@ -181,7 +184,7 @@ class _SocialSignInButtonState
       return foregroundColor;
     }
 
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return MaterialStateProperty.all(isDark ? Colors.white : Colors.black);
   }
 
@@ -198,31 +201,35 @@ class _SocialSignInButtonState
         onPressed: state.isBusy
             ? null
             : () => state.signInWithProvider(widget.provider),
-        child: LayoutBuilder(builder: (context, constraints) {
-          final padding = calculatePadding(constraints);
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: padding),
-            child: Row(
-              mainAxisAlignment: padding == 0
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: widget.provider.padding,
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: icon,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final padding = calculatePadding(constraints);
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: padding),
+              child: Row(
+                mainAxisAlignment: padding == 0
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: widget.provider.padding,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: icon,
+                    ),
                   ),
-                ),
-                const SizedBox(width: _spacing),
-                Text(resolver.resolve(
-                  context,
-                  ButtonResolverKey.signInWith(widget.provider),
-                )),
-              ],
-            ),
-          );
-        }),
+                  const SizedBox(width: _spacing),
+                  Text(
+                    resolver.resolve(
+                      context,
+                      ButtonResolverKey.signInWith(widget.provider),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

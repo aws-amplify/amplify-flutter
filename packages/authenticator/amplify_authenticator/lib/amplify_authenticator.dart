@@ -291,7 +291,7 @@ export 'src/widgets/form_field.dart'
 class Authenticator extends StatefulWidget {
   /// {@macro amplify_authenticator.authenticator}
   Authenticator({
-    Key? key,
+    super.key,
     this.signInForm,
     this.signUpForm,
     this.confirmSignInNewPasswordForm,
@@ -303,20 +303,19 @@ class Authenticator extends StatefulWidget {
     this.initialStep = AuthenticatorStep.signIn,
     this.authenticatorBuilder,
     this.padding = const EdgeInsets.all(32),
-  }) : super(key: key) {
-    // ignore: prefer_asserts_with_message
-    assert(() {
-      if (!validInitialAuthenticatorSteps.contains(initialStep)) {
-        throw FlutterError.fromParts([
-          ErrorSummary('Invalid initialStep'),
-          ErrorDescription(
-            'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
-          )
-        ]);
-      }
-      return true;
-    }());
-  }
+  }) :
+        // ignore: prefer_asserts_with_message
+        assert(() {
+          if (!validInitialAuthenticatorSteps.contains(initialStep)) {
+            throw FlutterError.fromParts([
+              ErrorSummary('Invalid initialStep'),
+              ErrorDescription(
+                'initialStep must be one of the following values: \n - ${validInitialAuthenticatorSteps.join('\n -')}',
+              )
+            ]);
+          }
+          return true;
+        }());
 
   /// Wraps user-defined navigators for integration with [MaterialApp] and
   /// [Navigator].
@@ -426,18 +425,36 @@ class Authenticator extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AuthStringResolver>(
-        'stringResolver', stringResolver));
-    properties.add(
-        ObjectFlagProperty<ExceptionHandler?>.has('onException', onException));
-    properties.add(EnumProperty<ExceptionBannerLocation>(
-        'exceptionBannerLocation', exceptionBannerLocation));
-    properties.add(DiagnosticsProperty<bool>(
-        'preferPrivateSession', preferPrivateSession));
-    properties.add(EnumProperty<AuthenticatorStep>('initialStep', initialStep));
-    properties.add(ObjectFlagProperty<AuthenticatorBuilder?>.has(
-        'authenticatorBuilder', authenticatorBuilder));
-    properties.add(DiagnosticsProperty<EdgeInsets>('padding', padding));
+    properties
+      ..add(
+        DiagnosticsProperty<AuthStringResolver>(
+          'stringResolver',
+          stringResolver,
+        ),
+      )
+      ..add(
+        ObjectFlagProperty<ExceptionHandler?>.has('onException', onException),
+      )
+      ..add(
+        EnumProperty<ExceptionBannerLocation>(
+          'exceptionBannerLocation',
+          exceptionBannerLocation,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<bool>(
+          'preferPrivateSession',
+          preferPrivateSession,
+        ),
+      )
+      ..add(EnumProperty<AuthenticatorStep>('initialStep', initialStep))
+      ..add(
+        ObjectFlagProperty<AuthenticatorBuilder?>.has(
+          'authenticatorBuilder',
+          authenticatorBuilder,
+        ),
+      )
+      ..add(DiagnosticsProperty<EdgeInsets>('padding', padding));
   }
 }
 
@@ -473,7 +490,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   void _subscribeToExceptions() {
     _exceptionSub = _stateMachineBloc.exceptions.listen((exception) {
-      var onException = widget.onException;
+      final onException = widget.onException;
       if (onException != null) {
         onException(exception);
       } else {
@@ -519,8 +536,8 @@ class _AuthenticatorState extends State<Authenticator> {
       return;
     }
     if (location == ExceptionBannerLocation.auto) {
-      final Size screenSize = MediaQuery.of(scaffoldMessengerContext).size;
-      final bool isDesktop =
+      final screenSize = MediaQuery.of(scaffoldMessengerContext).size;
+      final isDesktop =
           screenSize.width > AuthenticatorContainerConstants.smallView;
       location = isDesktop
           ? ExceptionBannerLocation.top
@@ -529,20 +546,24 @@ class _AuthenticatorState extends State<Authenticator> {
     if (location == ExceptionBannerLocation.top) {
       scaffoldMessengerState
         ..clearMaterialBanners()
-        ..showMaterialBanner(createMaterialBanner(
-          scaffoldMessengerContext,
-          type: type,
-          message: message,
-          actionCallback: scaffoldMessengerState.clearMaterialBanners,
-        ));
+        ..showMaterialBanner(
+          createMaterialBanner(
+            scaffoldMessengerContext,
+            type: type,
+            message: message,
+            actionCallback: scaffoldMessengerState.clearMaterialBanners,
+          ),
+        );
     } else {
       scaffoldMessengerState
         ..clearSnackBars()
-        ..showSnackBar(createSnackBar(
-          scaffoldMessengerContext,
-          type: type,
-          message: message,
-        ));
+        ..showSnackBar(
+          createSnackBar(
+            scaffoldMessengerContext,
+            type: type,
+            message: message,
+          ),
+        );
     }
   }
 
@@ -575,7 +596,7 @@ class _AuthenticatorState extends State<Authenticator> {
 
   List<String> missingConfigValues(AmplifyConfig? config) {
     final missingValues = <String>[];
-    var cognitoPlugin = config?.auth?.awsPlugin?.auth?.default$;
+    final cognitoPlugin = config?.auth?.awsPlugin?.auth?.default$;
     if (cognitoPlugin == null) {
       return const ['auth.plugins.Auth.Default'];
     }
@@ -656,10 +677,9 @@ class _AuthenticatorState extends State<Authenticator> {
 // AuthState.
 class _AuthStateBuilder extends StatelessWidget {
   const _AuthStateBuilder({
-    Key? key,
     required this.child,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Widget Function(AuthState, Widget) builder;
@@ -679,8 +699,7 @@ class _AuthStateBuilder extends StatelessWidget {
     }
 
     if (authState is! AuthenticatedState && authenticatorBuilder != null) {
-      final AuthenticatorState authenticatorState =
-          InheritedAuthenticatorState.of(
+      final authenticatorState = InheritedAuthenticatorState.of(
         context,
         listen: true,
       );
@@ -705,7 +724,7 @@ class _AuthStateBuilder extends StatelessWidget {
       builder: (context, AsyncSnapshot<AuthState> snapshot) {
         final authState = snapshot.data ?? const LoadingState();
 
-        final Widget authenticatorScreen = getAuthenticatorScreen(
+        final authenticatorScreen = getAuthenticatorScreen(
           context: context,
           authenticatorBuilder: authenticatorBuilder,
           authState: authState,
@@ -724,8 +743,11 @@ class _AuthStateBuilder extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        ObjectFlagProperty<Widget Function(AuthState state, Widget child)>.has(
-            'builder', builder));
+      ObjectFlagProperty<Widget Function(AuthState state, Widget child)>.has(
+        'builder',
+        builder,
+      ),
+    );
   }
 }
 
@@ -735,9 +757,8 @@ class _AuthStateBuilder extends StatelessWidget {
 /// the user's navigation and the Authenticator's.
 class _AuthenticatorBody extends StatelessWidget {
   const _AuthenticatorBody({
-    Key? key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -775,9 +796,9 @@ class _AuthenticatorBody extends StatelessWidget {
 class AuthenticatedView extends StatelessWidget {
   /// {@macro amplify_authenticator.authenticated_view}
   const AuthenticatedView({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 

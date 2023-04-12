@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'message_localizations.dart';
+import 'package:amplify_authenticator/src/l10n/generated/message_localizations.dart';
 
 /// The translations for English (`en`).
 class AuthenticatorMessageLocalizationsEn
     extends AuthenticatorMessageLocalizations {
-  AuthenticatorMessageLocalizationsEn([String locale = 'en']) : super(locale);
+  AuthenticatorMessageLocalizationsEn([super.locale = 'en']);
 
   @override
   String codeSent(String destination) {

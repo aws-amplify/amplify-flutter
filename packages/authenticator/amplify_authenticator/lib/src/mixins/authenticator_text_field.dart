@@ -19,7 +19,7 @@ mixin AuthenticatorTextField<FieldType extends Enum,
       valueListenable:
           AuthenticatorFormState.of(context).obscureTextToggleValue,
       builder: (BuildContext context, bool toggleObscureText, Widget? _) {
-        var obscureText = this.obscureText && toggleObscureText;
+        final obscureText = this.obscureText && toggleObscureText;
         return TextFormField(
           style: enabled
               ? null

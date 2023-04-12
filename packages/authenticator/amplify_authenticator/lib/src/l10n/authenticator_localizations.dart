@@ -1,19 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/l10n/generated/button_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/button_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/country_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/country_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/input_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/input_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/message_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/message_localizations_en.dart';
+import 'package:amplify_authenticator/src/l10n/generated/title_localizations.dart';
 import 'package:amplify_authenticator/src/l10n/generated/title_localizations_en.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'generated/button_localizations.dart';
-import 'generated/country_localizations.dart';
-import 'generated/input_localizations.dart';
-import 'generated/message_localizations.dart';
-import 'generated/title_localizations.dart';
 
 /// Reference class for all Authenticator localizations.
 abstract class AuthenticatorLocalizations {

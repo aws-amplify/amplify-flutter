@@ -7,33 +7,24 @@ part of authenticator.form_field;
 /// {@template amplify_authenticator.confirm_sign_up_form_field}
 /// A prebuilt form field widget for use on the Confirm Sign Up step.
 /// {@endtemplate}
-abstract class ConfirmSignUpFormField<FieldValue>
+abstract class ConfirmSignUpFormField<FieldValue extends Object>
     extends AuthenticatorFormField<ConfirmSignUpField, FieldValue> {
   /// {@macro amplify_authenticator.confirm_sign_up_form_field}
   ///
   /// Either [titleKey] or [title] is required.
   const ConfirmSignUpFormField._({
-    Key? key,
-    required ConfirmSignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<FieldValue>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   /// {@macro amplify_authenticator.username_form_field}
-  static ConfirmSignUpFormField username({
+  static ConfirmSignUpFormField<UsernameInput> username({
     Key? key,
     FormFieldValidator<UsernameInput>? validator,
     Iterable<String>? autofillHints,
@@ -48,7 +39,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
       );
 
   /// Creates a verificationCode component.
-  static ConfirmSignUpFormField verificationCode({
+  static ConfirmSignUpFormField<String> verificationCode({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
@@ -82,7 +73,7 @@ abstract class ConfirmSignUpFormField<FieldValue>
   }
 }
 
-abstract class _ConfirmSignUpFormFieldState<FieldValue>
+abstract class _ConfirmSignUpFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<ConfirmSignUpField, FieldValue,
         ConfirmSignUpFormField<FieldValue>> {
   @override
@@ -109,7 +100,7 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue>
   Widget? get companionWidget {
     switch (widget.field) {
       case ConfirmSignUpField.code:
-        var resendCodeButton =
+        final resendCodeButton =
             InheritedForms.of(context).confirmSignUpForm.resendCodeButton;
         return resendCodeButton ?? const LostCodeButton(key: keyLostCodeButton);
       default:
@@ -135,24 +126,13 @@ abstract class _ConfirmSignUpFormFieldState<FieldValue>
 
 class _ConfirmSignUpTextField extends ConfirmSignUpFormField<String> {
   const _ConfirmSignUpTextField({
-    Key? key,
-    required ConfirmSignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   @override
   _ConfirmSignUpTextFieldState createState() => _ConfirmSignUpTextFieldState();
@@ -214,24 +194,13 @@ class _ConfirmSignUpTextFieldState extends _ConfirmSignUpFormFieldState<String>
 class _ConfirmSignUpUsernameField
     extends ConfirmSignUpFormField<UsernameInput> {
   const _ConfirmSignUpUsernameField({
-    Key? key,
-    required ConfirmSignUpField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<UsernameInput>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   @override
   _ConfirmSignUpUsernameFieldState createState() =>

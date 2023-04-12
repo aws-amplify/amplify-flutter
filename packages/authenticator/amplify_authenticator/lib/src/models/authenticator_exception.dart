@@ -25,6 +25,7 @@ class AuthenticatorException extends AmplifyException {
       message = exception.message ?? _unknownMessage;
     } else {
       try {
+        // ignore: avoid_dynamic_calls
         message = (exception as dynamic).message as String;
       } on Object {
         message = _unknownMessage;
@@ -48,12 +49,6 @@ class AuthenticatorException extends AmplifyException {
 
   /// Whether to show a banner for this exception.
   final bool showBanner;
-
-  const AuthenticatorException.customAuth()
-      : this._(
-          'Custom auth flows are not supported yet in Authenticator',
-          showBanner: true,
-        );
 
   @override
   String toString() => underlyingException.toString();

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class InheritedStrings extends InheritedWidget {
   const InheritedStrings({
-    Key? key,
+    super.key,
     required this.resolver,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final AuthStringResolver resolver;
 

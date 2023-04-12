@@ -34,17 +34,17 @@ enum UsernameType {
 /// input.
 /// {@endtemplate}
 class UsernameInput {
-  /// {@macro amplify_authenticator.username_type}
-  final UsernameType type;
-
-  /// The username value.
-  final String username;
-
   /// {@macro amplify_authenticator.username_input}
   const UsernameInput({
     required this.type,
     required this.username,
   });
+
+  /// {@macro amplify_authenticator.username_type}
+  final UsernameType type;
+
+  /// The username value.
+  final String username;
 }
 
 /// {@template amplify_authenticator.username_input.username_selection}

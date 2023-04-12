@@ -148,15 +148,15 @@ $license
 import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
 
 class Country {
+  const Country(this.countryCode, this.value, this.key);
+  
   final String countryCode;
-
   final String value;
   final CountryResolverKey key;
-  const Country(this.countryCode, this.value, this.key);
 }
 
 /// List of country information
-const countryCodes = [\n
+const countryCodes = [
 ''');
 
   _countries.insert(

@@ -83,7 +83,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Set initial focus to window.
-        await tester.tapAt(const Offset(0, 0));
+        await tester.tapAt(Offset.zero);
 
         verifyNever(mockState.signIn);
         await signInWithKeyboard(tester);
@@ -111,7 +111,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Set initial focus to window.
-        await tester.tapAt(const Offset(0, 0));
+        await tester.tapAt(Offset.zero);
 
         verifyNever(mockState.signIn);
         await signInWithKeyboard(tester, submitViaTextField: true);
@@ -139,7 +139,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Set initial focus to window.
-        await tester.tapAt(const Offset(0, 0));
+        await tester.tapAt(Offset.zero);
 
         verifyNever(mockState.signIn);
         await signInWithKeyboard(tester, submitViaTextField: true);
@@ -188,7 +188,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Set initial focus to window.
-        await tester.tapAt(const Offset(0, 0));
+        await tester.tapAt(Offset.zero);
 
         // Move focus to last button in group.
         for (var i = 0; i < 10; i++) {

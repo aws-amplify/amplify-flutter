@@ -81,7 +81,7 @@ class AmplifyAuthService implements AuthService {
 
   @override
   Future<SignInResult> signIn(String username, String password) async {
-    final SignInResult result = await _withUserAgent(
+    final result = await _withUserAgent(
       () => Amplify.Auth.signIn(
         username: username,
         password: password,
@@ -275,29 +275,32 @@ class AmplifyAuthService implements AuthService {
   Future<GetAttributeVerificationStatusResult>
       getAttributeVerificationStatus() async {
     return _withUserAgent(() async {
-      final List<AuthUserAttribute> userAttributes =
-          await Amplify.Auth.fetchUserAttributes();
+      final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
-      var verifiableAttributes = userAttributes
+      final verifiableAttributes = userAttributes
           .map((e) => e.userAttributeKey)
           .cast<CognitoUserAttributeKey>()
-          .where((element) =>
-              element == CognitoUserAttributeKey.email ||
-              element == CognitoUserAttributeKey.phoneNumber)
+          .where(
+            (element) =>
+                element == CognitoUserAttributeKey.email ||
+                element == CognitoUserAttributeKey.phoneNumber,
+          )
           .toList();
 
       bool attributeIsVerified(CognitoUserAttributeKey userAttributeKey) {
         return userAttributes
-                .firstWhereOrNull((attr) =>
-                    attr.userAttributeKey.key ==
-                    '${userAttributeKey.key}_verified')
+                .firstWhereOrNull(
+                  (attr) =>
+                      attr.userAttributeKey.key ==
+                      '${userAttributeKey.key}_verified',
+                )
                 ?.value ==
             'true';
       }
 
-      var verifiedAttributes =
+      final verifiedAttributes =
           verifiableAttributes.where(attributeIsVerified).toList();
-      var unverifiedAttributes = verifiableAttributes
+      final unverifiedAttributes = verifiableAttributes
           .where((attribute) => !attributeIsVerified(attribute))
           .toList();
 
@@ -319,11 +322,10 @@ class AmplifyAuthService implements AuthService {
 }
 
 class GetAttributeVerificationStatusResult {
-  final List<CognitoUserAttributeKey> verifiedAttributes;
-  final List<CognitoUserAttributeKey> unverifiedAttributes;
-
   GetAttributeVerificationStatusResult({
     required this.verifiedAttributes,
     required this.unverifiedAttributes,
   });
+  final List<CognitoUserAttributeKey> verifiedAttributes;
+  final List<CognitoUserAttributeKey> unverifiedAttributes;
 }

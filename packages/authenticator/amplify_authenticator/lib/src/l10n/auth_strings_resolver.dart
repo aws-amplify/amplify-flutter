@@ -1,13 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/l10n/button_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/country_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/input_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/message_resolver.dart';
+import 'package:amplify_authenticator/src/l10n/title_resolver.dart';
 import 'package:flutter/material.dart';
-
-import 'button_resolver.dart';
-import 'country_resolver.dart';
-import 'input_resolver.dart';
-import 'message_resolver.dart';
-import 'title_resolver.dart';
 
 export 'button_resolver.dart';
 export 'country_resolver.dart';
@@ -23,6 +22,19 @@ export 'title_resolver.dart';
 /// {@endtemplate}
 @immutable
 class AuthStringResolver {
+  /// {@macro amplify_authenticator.auth_string_resolver}
+  const AuthStringResolver({
+    ButtonResolver? buttons,
+    CountryResolver? countries,
+    InputResolver? inputs,
+    MessageResolver? messages,
+    TitleResolver? titles,
+  })  : buttons = buttons ?? const ButtonResolver(),
+        countries = countries ?? const CountryResolver(),
+        inputs = inputs ?? const InputResolver(),
+        titles = titles ?? const TitleResolver(),
+        messages = messages ?? const MessageResolver();
+
   /// The resolver class for shared button Widgets
   final ButtonResolver buttons;
 
@@ -37,19 +49,6 @@ class AuthStringResolver {
 
   /// The resolver class for titles
   final MessageResolver messages;
-
-  /// {@macro amplify_authenticator.auth_string_resolver}
-  const AuthStringResolver({
-    ButtonResolver? buttons,
-    CountryResolver? countries,
-    InputResolver? inputs,
-    MessageResolver? messages,
-    TitleResolver? titles,
-  })  : buttons = buttons ?? const ButtonResolver(),
-        countries = countries ?? const CountryResolver(),
-        inputs = inputs ?? const InputResolver(),
-        titles = titles ?? const TitleResolver(),
-        messages = messages ?? const MessageResolver();
 
   @override
   bool operator ==(Object other) =>

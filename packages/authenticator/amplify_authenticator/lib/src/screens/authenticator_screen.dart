@@ -5,17 +5,16 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
 import 'package:amplify_authenticator/src/state/inherited_forms.dart';
+import 'package:amplify_authenticator/src/utils/breakpoint.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/breakpoint.dart';
-
 class AuthenticatorScreen extends StatelessAuthenticatorComponent {
   const AuthenticatorScreen({
-    Key? key,
+    super.key,
     required this.step,
-  }) : super(key: key);
+  });
 
   const AuthenticatorScreen.signUp({Key? key})
       : this(key: key, step: AuthenticatorStep.signUp);
@@ -66,11 +65,11 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
       case AuthenticatorStep.signUp:
         child = AnimatedSize(
           alignment: Alignment.topCenter,
+          duration: const Duration(milliseconds: 200),
           child: AuthenticatorTabView(
             tabs: signInUpTabs,
             initialIndex: step == AuthenticatorStep.signUp ? 1 : 0,
           ),
-          duration: const Duration(milliseconds: 200),
         );
         break;
       case AuthenticatorStep.confirmSignUp:
@@ -88,7 +87,7 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
     }
 
     if (isMobile) {
-      double mobileWidth = MediaQuery.of(context).size.width;
+      final mobileWidth = MediaQuery.of(context).size.width;
       containerWidth = mobileWidth;
 
       child = SingleChildScrollView(
@@ -135,9 +134,8 @@ class AuthenticatorScreen extends StatelessAuthenticatorComponent {
 
 class _FormWrapperView extends StatelessAuthenticatorComponent {
   const _FormWrapperView({
-    Key? key,
     required this.step,
-  }) : super(key: key);
+  });
 
   final AuthenticatorStep step;
 
@@ -187,10 +185,10 @@ class _FormWrapperView extends StatelessAuthenticatorComponent {
 class AuthenticatorTabView
     extends AuthenticatorComponent<AuthenticatorTabView> {
   const AuthenticatorTabView({
-    Key? key,
+    super.key,
     required this.tabs,
     this.initialIndex = 0,
-  }) : super(key: key);
+  });
 
   final List<AuthenticatorStep> tabs;
   final int initialIndex;
@@ -202,8 +200,9 @@ class AuthenticatorTabView
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IterableProperty<AuthenticatorStep>('tabs', tabs));
-    properties.add(IntProperty('initialIndex', initialIndex));
+    properties
+      ..add(IterableProperty<AuthenticatorStep>('tabs', tabs))
+      ..add(IntProperty('initialIndex', initialIndex));
   }
 }
 
@@ -237,7 +236,7 @@ class _AuthenticatorTabViewState
   }
 
   Color getTabLabelColor(BuildContext context) {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final labelColor = Theme.of(context).tabBarTheme.labelColor;
     final textColor = Theme.of(context).textTheme.bodySmall?.color;
     final fallbackColor = isDark ? Colors.white : Colors.black;

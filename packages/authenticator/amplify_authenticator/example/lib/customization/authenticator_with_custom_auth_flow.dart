@@ -102,8 +102,9 @@ class CustomConfirmSignInView extends StatelessWidget {
                 // custom challenge field
                 // Field Title and Field Hint can be set within the Lambda Code.
                 ConfirmSignInFormField.customChallenge(
-                    title: state.publicChallengeParams['fieldTitle'],
-                    hintText: state.publicChallengeParams['fieldHint'],),
+                  title: state.publicChallengeParams['fieldTitle'],
+                  hintText: state.publicChallengeParams['fieldHint'],
+                ),
 
                 // prebuilt sign up button from amplify_authenticator package
                 const ConfirmSignInCustomButton(),

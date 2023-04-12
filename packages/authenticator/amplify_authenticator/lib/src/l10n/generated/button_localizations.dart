@@ -3,12 +3,11 @@
 
 import 'dart:async';
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/generated/button_localizations_en.dart'
+    deferred as button_localizations_en;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'button_localizations_en.dart' deferred as button_localizations_en;
 
 /// Callers can lookup localized strings with an instance of AuthenticatorButtonLocalizations
 /// returned by `AuthenticatorButtonLocalizations.of(context)`.
@@ -63,13 +62,15 @@ import 'button_localizations_en.dart' deferred as button_localizations_en;
 /// property.
 abstract class AuthenticatorButtonLocalizations {
   AuthenticatorButtonLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 
   static AuthenticatorButtonLocalizations? of(BuildContext context) {
     return Localizations.of<AuthenticatorButtonLocalizations>(
-        context, AuthenticatorButtonLocalizations);
+      context,
+      AuthenticatorButtonLocalizations,
+    );
   }
 
   static const LocalizationsDelegate<AuthenticatorButtonLocalizations>
@@ -183,14 +184,14 @@ abstract class AuthenticatorButtonLocalizations {
   /// Label of button to return to the previous step
   ///
   /// In en, this message translates to:
-  /// **'Back to {previousStep, select, signUp{Sign Up}, signIn{Sign In}, confirmSignUp{Confirm Sign-up}, confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User}}'**
-  String backTo(AuthenticatorStep previousStep);
+  /// **'Back to {previousStep, select, signUp{Sign Up} signIn{Sign In} confirmSignUp{Confirm Sign-up} confirmSignInMfa{Confirm Sign-in} confirmSignInNewPassword{Confirm Sign-in} sendCode{Send Code} resetPassword{Reset Password} verifyUser{Verify User} confirmVerifyUser{Confirm Verify User} other{ERROR}}'**
+  String backTo(String previousStep);
 
   /// Label of button to sign in with a social provider
   ///
   /// In en, this message translates to:
-  /// **'Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple}}'**
-  String signInWith(AuthProvider provider);
+  /// **'Sign In with {provider, select, google{Google} facebook{Facebook} amazon{Amazon} apple{Apple} other{ERROR}}'**
+  String signInWith(String provider);
 }
 
 class _AuthenticatorButtonLocalizationsDelegate
@@ -211,12 +212,15 @@ class _AuthenticatorButtonLocalizationsDelegate
 }
 
 Future<AuthenticatorButtonLocalizations> lookupAuthenticatorButtonLocalizations(
-    Locale locale) {
+  Locale locale,
+) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
-      return button_localizations_en.loadLibrary().then((dynamic _) =>
-          button_localizations_en.AuthenticatorButtonLocalizationsEn());
+      return button_localizations_en.loadLibrary().then(
+            (dynamic _) =>
+                button_localizations_en.AuthenticatorButtonLocalizationsEn(),
+          );
   }
 
   throw FlutterError(

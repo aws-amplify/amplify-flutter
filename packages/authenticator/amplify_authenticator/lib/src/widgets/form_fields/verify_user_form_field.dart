@@ -7,30 +7,21 @@ part of authenticator.form_field;
 /// {@template amplify_authenticator.verify_user_form_field}
 /// A prebuilt [Radio] widget for use on the Verify User step.
 /// {@endtemplate}
-abstract class VerifyUserFormField<FieldValue>
+abstract class VerifyUserFormField<FieldValue extends Object>
     extends AuthenticatorFormField<VerifyAttributeField, FieldValue> {
   /// {@macro amplify_authenticator.verify_user_form_field}
   const VerifyUserFormField._({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<FieldValue>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.title,
+    super.hintText,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
-  static VerifyUserFormField verifyAttribute({
+  static VerifyUserFormField<CognitoUserAttributeKey> verifyAttribute({
     Key? key,
     FormFieldValidator<CognitoUserAttributeKey>? validator,
   }) =>
@@ -41,7 +32,7 @@ abstract class VerifyUserFormField<FieldValue>
       );
 
   /// Creates a password component.
-  static VerifyUserFormField confirmVerifyAttribute({
+  static VerifyUserFormField<String> confirmVerifyAttribute({
     Key? key,
     FormFieldValidator<String>? validator,
     Iterable<String>? autofillHints,
@@ -59,7 +50,7 @@ abstract class VerifyUserFormField<FieldValue>
   bool get required => true;
 }
 
-abstract class _VerifyUserFormFieldState<FieldValue>
+abstract class _VerifyUserFormFieldState<FieldValue extends Object>
     extends AuthenticatorFormFieldState<VerifyAttributeField, FieldValue,
         VerifyUserFormField<FieldValue>> {
   @override
@@ -70,24 +61,13 @@ abstract class _VerifyUserFormFieldState<FieldValue>
 
 class _VerifyUserTextField extends VerifyUserFormField<String> {
   const _VerifyUserTextField({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-          autofillHints: autofillHints,
-        );
+    super.key,
+    required super.field,
+    super.titleKey,
+    super.hintTextKey,
+    super.validator,
+    super.autofillHints,
+  }) : super._();
 
   @override
   _VerifyUserTextFieldState createState() => _VerifyUserTextFieldState();
@@ -137,22 +117,10 @@ class _VerifyUserTextFieldState extends _VerifyUserFormFieldState<String>
 class _VerifyUserRadioField
     extends VerifyUserFormField<CognitoUserAttributeKey> {
   const _VerifyUserRadioField({
-    Key? key,
-    required VerifyAttributeField field,
-    InputResolverKey? titleKey,
-    InputResolverKey? hintTextKey,
-    String? title,
-    String? hintText,
-    FormFieldValidator<CognitoUserAttributeKey>? validator,
-  }) : super._(
-          key: key,
-          field: field,
-          titleKey: titleKey,
-          hintTextKey: hintTextKey,
-          title: title,
-          hintText: hintText,
-          validator: validator,
-        );
+    super.key,
+    required super.field,
+    super.validator,
+  }) : super._();
 
   @override
   _VerifyAttributeFieldState createState() => _VerifyAttributeFieldState();
@@ -176,8 +144,7 @@ class _VerifyAttributeFieldState
     if (authState is! VerifyUserFlow) {
       throw StateError('Invalid verify attribute state: $authState');
     }
-    final List<CognitoUserAttributeKey> unverifiedKeys =
-        authState.unverifiedAttributeKeys;
+    final unverifiedKeys = authState.unverifiedAttributeKeys;
     selections = [
       if (unverifiedKeys.contains(CognitoUserAttributeKey.email))
         const InputSelection<InputResolverKey, CognitoUserAttributeKey>(

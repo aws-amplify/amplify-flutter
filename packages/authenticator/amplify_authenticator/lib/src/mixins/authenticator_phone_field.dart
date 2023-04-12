@@ -22,10 +22,12 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   @override
   late final List<InputSelection<CountryResolverKey, Country>> selections =
       countryCodes
-          .map((Country country) => InputSelection(
-                label: country.key,
-                value: country,
-              ))
+          .map(
+            (Country country) => InputSelection(
+              label: country.key,
+              value: country,
+            ),
+          )
           .toList();
 
   List<Country> get filteredCountries => countryCodes
@@ -42,7 +44,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
   }
 
   String displayPhoneNumber(String phoneNumber) {
-    var prefix = '+${state.country.value}';
+    final prefix = '+${state.country.value}';
     if (phoneNumber.startsWith(prefix)) {
       phoneNumber = phoneNumber.substring(prefix.length);
     }
@@ -55,7 +57,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
 
   @override
   Widget get prefix => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: InkWell(
           key: keySelectCountryCode,
           onTap: showCountryDialog,
@@ -71,7 +73,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
               const Flexible(
                 child: Icon(
                   Icons.arrow_drop_down,
-                  size: 15.0,
+                  size: 15,
                 ),
               ),
               const SizedBox(width: 5),
@@ -92,11 +94,11 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
             return Dialog(
               key: keyCountryDialog,
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 400.0),
+                constraints: const BoxConstraints(maxWidth: 400),
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(24),
                       child: Text(
                         _countriesResolver.resolve(
                           context,
@@ -128,7 +130,7 @@ mixin AuthenticatorPhoneFieldMixin<FieldType extends Enum,
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (context, index) {
-                          Country current = filteredCountries[index];
+                          final current = filteredCountries[index];
                           return SimpleDialogOption(
                             onPressed: () => Navigator.of(context).pop(current),
                             child: Text(

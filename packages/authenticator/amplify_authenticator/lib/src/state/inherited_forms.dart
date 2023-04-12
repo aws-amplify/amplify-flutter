@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class InheritedForms extends InheritedWidget {
   const InheritedForms({
-    Key? key,
+    super.key,
     required this.signInForm,
     required this.signUpForm,
     required this.confirmSignUpForm,
@@ -17,8 +17,8 @@ class InheritedForms extends InheritedWidget {
     required this.confirmSignInNewPasswordForm,
     required this.verifyUserForm,
     required this.confirmVerifyUserForm,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final SignInForm signInForm;
   final SignUpForm signUpForm;

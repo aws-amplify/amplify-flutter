@@ -1,15 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:amplify_authenticator/src/constants/authenticator_constants.dart';
 import 'package:flutter/widgets.dart';
-
-import '../constants/authenticator_constants.dart';
 
 enum Breakpoint {
   small(maxScreenSize: 0, verticalPadding: 0),
   medium(
-      maxScreenSize: AuthenticatorContainerConstants.mediumView,
-      verticalPadding: 16);
+    maxScreenSize: AuthenticatorContainerConstants.mediumView,
+    verticalPadding: 16,
+  );
 
   const Breakpoint({
     required this.maxScreenSize,

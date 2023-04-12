@@ -76,7 +76,7 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
   required AmplifyConfig? amplifyConfig,
   required InputResolver inputResolver,
 }) {
-  final PasswordProtectionSettings? passwordProtectionSettings = amplifyConfig
+  final passwordProtectionSettings = amplifyConfig
       ?.auth?.awsPlugin?.auth?.default$?.passwordProtectionSettings;
   return (BuildContext context) => (String? password) {
         if (password == null || password.isEmpty) {
@@ -89,21 +89,21 @@ FormFieldValidator<String> Function(BuildContext) validateNewPassword({
           return null;
         }
 
-        final List<PasswordPolicyCharacters> unmetReqs = [];
+        final unmetReqs = <PasswordPolicyCharacters>[];
 
-        int? minLength = passwordProtectionSettings.passwordPolicyMinLength;
-        bool meetsMinLengthRequirement =
+        final minLength = passwordProtectionSettings.passwordPolicyMinLength;
+        final meetsMinLengthRequirement =
             minLength == null || password.length >= minLength;
 
         final passwordPolicies =
             passwordProtectionSettings.passwordPolicyCharacters;
-        for (var policy in passwordPolicies) {
+        for (final policy in passwordPolicies) {
           if (!policy.meetsRequirement(password)) {
             unmetReqs.add(policy);
           }
         }
 
-        var error = inputResolver.resolve(
+        final error = inputResolver.resolve(
           context,
           InputResolverKey.passwordRequirementsUnmet(
             PasswordProtectionSettings(
@@ -130,7 +130,9 @@ FormFieldValidator<String> validatePasswordConfirmation(
       );
     } else if (getPassword() != passwordConfirmation.trim()) {
       return inputResolver.resolve(
-          context, InputResolverKey.passwordsDoNotMatch);
+        context,
+        InputResolverKey.passwordsDoNotMatch,
+      );
     }
     return null;
   };
@@ -191,7 +193,9 @@ FormFieldValidator<String> validateCode({
       );
     } else if (!_codeRegex.hasMatch(code)) {
       return inputResolver.resolve(
-          context, InputResolverKey.verificationCodeFormat);
+        context,
+        InputResolverKey.verificationCodeFormat,
+      );
     }
 
     return null;

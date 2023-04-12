@@ -52,7 +52,7 @@ class AuthenticatorState extends ChangeNotifier {
 
   /// The current step of the authentication flow (signIn, signUp, confirmSignUp, etc.)
   AuthenticatorStep get currentStep {
-    AuthState state = _authBloc.currentState;
+    final state = _authBloc.currentState;
     if (state is LoadingState) {
       return AuthenticatorStep.loading;
     } else if (state is UnauthenticatedState) {
@@ -298,7 +298,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    var confirm = AuthConfirmSignInData(
+    final confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
@@ -319,7 +319,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    var confirm = AuthConfirmSignInData(
+    final confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,
     );
@@ -339,7 +339,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    var confirm = AuthConfirmSignInData(
+    final confirm = AuthConfirmSignInData(
       confirmationValue: _newPassword.trim(),
       attributes: authAttributes,
     );
@@ -380,7 +380,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    AuthSignInData signIn = AuthUsernamePasswordSignInData(
+    final signIn = AuthUsernamePasswordSignInData(
       username: _username.trim(),
       password: _password.trim(),
     );
@@ -432,8 +432,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    AuthConfirmResetPasswordData confirmResetPasswordData =
-        AuthConfirmResetPasswordData(
+    final confirmResetPasswordData = AuthConfirmResetPasswordData(
       username: _username.trim(),
       confirmationCode: _confirmationCode.trim(),
       newPassword: _newPassword.trim(),
@@ -472,7 +471,8 @@ class AuthenticatorState extends ChangeNotifier {
   }
 
   Future<void> confirmVerifyUser(
-      CognitoUserAttributeKey userAttributeKey) async {
+    CognitoUserAttributeKey userAttributeKey,
+  ) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -480,8 +480,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    AuthConfirmVerifyUserData authConfirmVerifyUserData =
-        AuthConfirmVerifyUserData(
+    final authConfirmVerifyUserData = AuthConfirmVerifyUserData(
       userAttributeKey: userAttributeKey,
       code: _confirmationCode,
     );
@@ -502,7 +501,7 @@ class AuthenticatorState extends ChangeNotifier {
 
     TextInput.finishAutofillContext(shouldSave: true);
 
-    AuthVerifyUserData authVerifyUserData = AuthVerifyUserData(
+    final authVerifyUserData = AuthVerifyUserData(
       userAttributeKey: attributeKeyToVerify,
     );
 

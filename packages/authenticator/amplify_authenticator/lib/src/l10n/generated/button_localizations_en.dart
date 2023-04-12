@@ -1,15 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_authenticator/src/l10n/generated/button_localizations.dart';
 import 'package:intl/intl.dart' as intl;
-
-import 'button_localizations.dart';
 
 /// The translations for English (`en`).
 class AuthenticatorButtonLocalizationsEn
     extends AuthenticatorButtonLocalizations {
-  AuthenticatorButtonLocalizationsEn([String locale = 'en']) : super(locale);
+  AuthenticatorButtonLocalizationsEn([super.locale = 'en']);
 
   @override
   String get signIn => 'Sign In';
@@ -54,37 +52,37 @@ class AuthenticatorButtonLocalizationsEn
   String get signOut => 'Sign Out';
 
   @override
-  String backTo(AuthenticatorStep previousStep) {
-    final String selectString = intl.Intl.select(
-        previousStep,
-        {
-          'signUp': 'Sign Up',
-          'signIn': 'Sign In',
-          'confirmSignUp': 'Confirm Sign-up',
-          'confirmSignInMfa': 'Confirm Sign-in',
-          'confirmSignInNewPassword': 'Confirm Sign-in',
-          'sendCode': 'Send Code',
-          'resetPassword': 'Reset Password',
-          'verifyUser': 'Verify User',
-          'confirmVerifyUser': 'Confirm Verify User'
-        },
-        desc: 'Label of button to return to the previous step');
-
-    return 'Back to $selectString';
+  String backTo(String previousStep) {
+    final temp0 = intl.Intl.selectLogic(
+      previousStep,
+      {
+        'signUp': 'Sign Up',
+        'signIn': 'Sign In',
+        'confirmSignUp': 'Confirm Sign-up',
+        'confirmSignInMfa': 'Confirm Sign-in',
+        'confirmSignInNewPassword': 'Confirm Sign-in',
+        'sendCode': 'Send Code',
+        'resetPassword': 'Reset Password',
+        'verifyUser': 'Verify User',
+        'confirmVerifyUser': 'Confirm Verify User',
+        'other': 'ERROR',
+      },
+    );
+    return 'Back to $temp0';
   }
 
   @override
-  String signInWith(AuthProvider provider) {
-    final String selectString = intl.Intl.select(
-        provider,
-        {
-          'google': 'Google',
-          'facebook': 'Facebook',
-          'amazon': 'Amazon',
-          'apple': 'Apple'
-        },
-        desc: 'Label of button to sign in with a social provider');
-
-    return 'Sign In with $selectString';
+  String signInWith(String provider) {
+    final temp0 = intl.Intl.selectLogic(
+      provider,
+      {
+        'google': 'Google',
+        'facebook': 'Facebook',
+        'amazon': 'Amazon',
+        'apple': 'Apple',
+        'other': 'ERROR',
+      },
+    );
+    return 'Sign In with $temp0';
   }
 }
