@@ -155,13 +155,18 @@ scripts:
       fi
       
       pushd doc
+      # All `doc` packages should allow `flutter` dependencies even if they 
+      # are subpackages of a Dart-only package. For example, we want to use 
+      # `amplify_flutter` in the `amplify_core` docs.
+      flutter pub get
+      flutter pub run build_runner build
+      popd
+
       if [ "{{ package.flavor }}" == "flutter" ]; then
         PUB="flutter pub"
       else
         PUB="dart"
       fi
-      $PUB run build_runner build
-      popd
 
       $PUB run code_excerpt_updater \
         --fragment-dir-path=doc/.dart_tool/build/generated \
