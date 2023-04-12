@@ -7,4 +7,5 @@ interface KeyValueRepository {
     fun put(dataKey: String, value: String?)
     fun get(dataKey: String): String?
     fun remove(dataKey: String)
+    fun removeAll()
 }

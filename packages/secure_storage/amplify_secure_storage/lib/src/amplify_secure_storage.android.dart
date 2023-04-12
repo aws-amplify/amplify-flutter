@@ -27,4 +27,9 @@ class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {
   Future<void> delete({required String key}) {
     return _api.delete(config.defaultNamespace, key);
   }
+
+  @override
+  Future<void> removeAll() {
+    return _api.removeAll(config.defaultNamespace);
+  }
 }

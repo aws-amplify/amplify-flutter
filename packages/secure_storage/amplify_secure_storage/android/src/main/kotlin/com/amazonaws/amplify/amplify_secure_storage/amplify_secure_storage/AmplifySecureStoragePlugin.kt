@@ -61,6 +61,16 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
     }
   }
 
+  override fun removeAll(namespace: String, result: Messages.Result<Void>) {
+    try {
+      val repository = getOrCreateRepository(namespace)
+      repository.removeAll()
+      result.success(null)
+    } catch (e: Exception) {
+      result.error(e)
+    }
+  }
+
   private fun getOrCreateRepository(namespace: String): EncryptedKeyValueRepository {
     return if (repositories.containsKey(namespace)) {
       repositories[namespace]!!
