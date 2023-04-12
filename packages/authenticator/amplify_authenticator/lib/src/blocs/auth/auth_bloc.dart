@@ -211,8 +211,7 @@ class StateMachineBloc
           break;
         case AuthSignInStep.confirmSignInWithCustomChallenge:
           yield ConfirmSignInCustom(
-            publicParameters:
-                result.nextStep.additionalInfo ?? <String, String>{},
+            publicParameters: result.nextStep.additionalInfo,
           );
           break;
         case AuthSignInStep.confirmSignInWithNewPassword:
@@ -301,8 +300,7 @@ class StateMachineBloc
       case AuthSignInStep.confirmSignInWithCustomChallenge:
         _emit(
           ConfirmSignInCustom(
-            publicParameters:
-                result.nextStep.additionalInfo ?? <String, String>{},
+            publicParameters: result.nextStep.additionalInfo,
           ),
         );
         break;
