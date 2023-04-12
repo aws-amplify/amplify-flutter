@@ -11,9 +11,6 @@ import 'package:amplify_api_example/models/Post.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-// TODO: Nice to have
-// select auth mode
-
 /// Amplify Flutter GraphQL API Example
 /// In the example below, we demonstrate ways to interact with the API Category.
 /// Each method contains a unique operation for different use cases.
@@ -39,6 +36,8 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   late ModelIdentifier<Post>? _selectedPost;
   late ModelIdentifier<Comment>? _selectedComment;
 
+  APIAuthorizationType? _authorizationType = APIAuthorizationType.userPools;
+
   Blog? _blog;
   Post? _post;
 
@@ -50,7 +49,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     final subscriptionReq = ModelSubscriptions.onCreate(
       Blog.classType,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.subscribe(
@@ -70,7 +69,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     });
   }
 
-  /// Subscribe to new posts for a blog ID
+  /// Subscribe to new posts the last created blog ID
   /// Requires a blog to be created first
   Future<void> subscribeByID() async {
     if (_subscriptionByID != null) {
@@ -80,6 +79,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     final subscriptionReq = ModelSubscriptions.onCreate(
       Post.classType,
       where: Post.BLOG.eq(_blog!.id),
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.subscribe(
@@ -101,9 +101,10 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
   /// Get a list of blogs with model query helper
   Future<void> queryBlogs() async {
+    print(_authorizationType);
     final req = ModelQueries.list(
       Blog.classType,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.query(request: req);
@@ -117,7 +118,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     final req = ModelQueries.list(
       Post.classType,
       limit: 15,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
       where: Post.BLOG.eq(_blog!.id),
     );
 
@@ -173,7 +174,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     final req = ModelQueries.get(
       Blog.classType,
       _selectedBlog!,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.query(request: req);
@@ -187,7 +188,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     final req = ModelQueries.get(
       Post.classType,
       _selectedPost!,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.query(request: req);
@@ -217,7 +218,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     final req = GraphQLRequest<Comment>(
       document: document,
       variables: _selectedComment!.serializeAsMap(),
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
       // The response from this query will be a Comment
       // these two parameters are required to decode the response
       // into type safe model objects.
@@ -238,7 +239,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     final req = ModelMutations.create(
       _blog!,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.mutate(
@@ -257,7 +258,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
     final req = ModelMutations.create(
       _post!,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.mutate(
@@ -276,7 +277,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
         Comment(content: 'Example Comment - ${uuid()}', post: _post);
     final req = ModelMutations.create(
       comment,
-      authorizationMode: APIAuthorizationType.userPools,
+      authorizationMode: _authorizationType,
     );
 
     final operation = Amplify.API.mutate(
@@ -288,6 +289,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     handleResponse(response);
   }
 
+  // Cancel the last operation in flight
   void onCancelPressed() async {
     try {
       await _lastOperation?.cancel();
@@ -319,7 +321,6 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
 
   // Checks for errors and print the response on screen
   void handleSubscriptionEvents(GraphQLResponse<dynamic> event) {
-    print('subscription event received');
     if (event.hasErrors) {
       print('Error(s) received from subscription: ${event.errors}');
       return;
@@ -471,6 +472,63 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
               ],
             ),
             const Padding(padding: EdgeInsets.all(10)),
+
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                'Authorization Type',
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                Radio<APIAuthorizationType>(
+                  value: APIAuthorizationType.apiKey,
+                  groupValue: _authorizationType,
+                  onChanged: (APIAuthorizationType? value) {
+                    setState(() {
+                      _authorizationType = value;
+                    });
+                  },
+                ),
+                const Text(
+                  'API Key',
+                ),
+                Radio<APIAuthorizationType>(
+                  value: APIAuthorizationType.iam,
+                  groupValue: _authorizationType,
+                  onChanged: (APIAuthorizationType? value) {
+                    setState(() {
+                      _authorizationType = value;
+                    });
+                  },
+                ),
+                const Text('iam'),
+                Radio<APIAuthorizationType>(
+                  value: APIAuthorizationType.userPools,
+                  groupValue: _authorizationType,
+                  onChanged: (APIAuthorizationType? value) {
+                    setState(() {
+                      _authorizationType = value;
+                    });
+                  },
+                ),
+                const Text('User Pools'),
+                Radio<APIAuthorizationType>(
+                  value: APIAuthorizationType.none,
+                  groupValue: _authorizationType,
+                  onChanged: (APIAuthorizationType? value) {
+                    setState(() {
+                      _authorizationType = value;
+                    });
+                  },
+                ),
+                const Text('None'),
+              ],
+            ),
+
+            const Padding(padding: EdgeInsets.all(10)),
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
