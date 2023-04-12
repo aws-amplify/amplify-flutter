@@ -1,3 +1,19 @@
+## 1.0.0-next.8+1
+
+### Features
+- feat(notifications): implement push notification Flutter iOS module ([#2707](https://github.com/aws-amplify/amplify-flutter/pull/2707))
+- feat(notifications): killed state notification handling and Analytics integration ([#2747](https://github.com/aws-amplify/amplify-flutter/pull/2747))
+- feat(push): interfaces, category function and types added for push
+
+### Fixes
+- fix(core): formatting issues in notifications data types
+- fix(notifications): Analytics naming updates, Android test fixes and token received bug fix ([#2824](https://github.com/aws-amplify/amplify-flutter/pull/2824))
+- fix(notifications): analyzer reported issues
+- fix(notifications): correct rebased codebase
+- fix(notifications): killed state behavior correction, no longer calls lib/main.dart ([#2759](https://github.com/aws-amplify/amplify-flutter/pull/2759))
+- fix(notifications): the luanch notification should be nullified on some occasions
+- fix(notifications): type casting error and clean up example app ([#2817](https://github.com/aws-amplify/amplify-flutter/pull/2817))
+
 ## 1.0.0-next.8
 
 ### Breaking Changes
