@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications/amplify_push_notifications.dart';
@@ -23,13 +22,13 @@ import 'test_data/test_amplify_push_notifications_impl.dart';
 import 'util.dart';
 
 void testGlobalCallbackFunction(PushNotificationMessage pushMessage) {}
+Future<void> testBackgroundProcessor() async {}
 
 @GenerateMocks(
   [
     PushNotificationsHostApi,
     ServiceProviderClient,
     AmplifySecureStorage,
-    PluginUtilities,
     AmplifyPushNotificationsFlutterApi,
   ],
 )
@@ -84,6 +83,12 @@ void main() {
       });
     });
 
+    tearDown(() {
+      plugin.reset();
+      reset(mockServiceProviderClient);
+      resetMockitoState();
+    });
+
     test('should configure correctly', () async {
       when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
         (_) async => standardAndroidPushMessage,
@@ -96,7 +101,7 @@ void main() {
 
       verify(
         mockServiceProviderClient.recordNotificationEvent(
-          eventType: anyNamed('eventType'),
+          eventType: PinpointEventType.notificationOpened,
           notification: anyNamed('notification'),
         ),
       ).called(1);
@@ -113,13 +118,82 @@ void main() {
         authProviderRepo: authProviderRepo,
         config: config,
       );
-      verify(mockServiceProviderClient.registerDevice('123')).called(2);
+      verify(mockServiceProviderClient.registerDevice('123')).called(1);
 
       void tokenHandler(String token) {
         expect(token, '123');
       }
 
       plugin.onTokenReceived.listen(tokenHandler);
+    });
+
+    test('should register background processor on Android', () async {
+      await overrideOperatingSystem(
+        const OperatingSystem('android', ''),
+        () async {
+          when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+            (_) async => standardAndroidPushMessage,
+          );
+          plugin = TestAmplifyPushNotifications(
+            serviceProviderClient: mockServiceProviderClient,
+            backgroundProcessor: testBackgroundProcessor,
+            dependencyManager: dependencyManager,
+          );
+          await plugin.configure(
+            authProviderRepo: authProviderRepo,
+            config: config,
+          );
+
+          verify(mockPushNotificationsHostApi.registerCallbackFunction(any))
+              .called(1);
+        },
+      );
+    });
+
+    test('should invoke registered event listeners', () async {
+      when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+        (_) async => null,
+      );
+
+      plugin = TestAmplifyPushNotifications(
+        serviceProviderClient: mockServiceProviderClient,
+        backgroundProcessor: testBackgroundProcessor,
+        dependencyManager: dependencyManager,
+      );
+      await plugin.configure(
+        authProviderRepo: authProviderRepo,
+        config: config,
+      );
+
+      await testWidgetsFlutterBinding.defaultBinaryMessenger
+          .handlePlatformMessage(
+        notificationOpenedEventChannel.name,
+        notificationOpenedEventChannel.codec
+            .encodeSuccessEnvelope(standardAndroidPushMessage),
+        (_) {},
+      );
+
+      verify(
+        mockServiceProviderClient.recordNotificationEvent(
+          eventType: PinpointEventType.notificationOpened,
+          notification: anyNamed('notification'),
+        ),
+      ).called(1);
+
+      await testWidgetsFlutterBinding.defaultBinaryMessenger
+          .handlePlatformMessage(
+        foregroundNotificationEventChannel.name,
+        foregroundNotificationEventChannel.codec
+            .encodeSuccessEnvelope(standardAndroidPushMessage),
+        (_) {},
+      );
+
+      verify(
+        mockServiceProviderClient.recordNotificationEvent(
+          eventType: PinpointEventType.foregroundMessageReceived,
+          notification: anyNamed('notification'),
+        ),
+      ).called(1);
     });
   });
   group('Config failure cases', () {
@@ -191,7 +265,7 @@ void main() {
       );
     });
   });
-  test('should fail configure when registering device is unsuccessfull',
+  test('should fail configure when registering device is unsuccessful',
       () async {
     plugin = TestAmplifyPushNotifications(
       serviceProviderClient: mockServiceProviderClient,
@@ -458,6 +532,37 @@ void main() {
           ),
         ).called(1);
       },
+    );
+  });
+
+  test('get launchNotification is consumable', () async {
+    Future.delayed(const Duration(microseconds: 1), () async {
+      await testWidgetsFlutterBinding.defaultBinaryMessenger
+          .handlePlatformMessage(
+        tokenReceivedEventChannel.name,
+        tokenReceivedEventChannel.codec
+            .encodeSuccessEnvelope(<String, dynamic>{'token': '123'}),
+        (_) {},
+      );
+    });
+    when(mockPushNotificationsHostApi.getLaunchNotification()).thenAnswer(
+      (_) async => standardAndroidPushMessage,
+    );
+
+    await plugin.configure(
+      authProviderRepo: authProviderRepo,
+      config: config,
+    );
+
+    expect(
+      plugin.launchNotification?.title,
+      equals(
+        PushNotificationMessage.fromJson(standardAndroidPushMessage).title,
+      ),
+    );
+    expect(
+      plugin.launchNotification,
+      isNull,
     );
   });
 }

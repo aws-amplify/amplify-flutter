@@ -29,10 +29,20 @@ const configSecureStorageKey = 'configSecureStorageKey';
 const tokenReceivedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/TOKEN_RECEIVED',
 );
-const _notificationOpenedEventChannel = EventChannel(
+
+/// {@template amplify_push_notifications.config_storage}
+/// Notification opened event channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const notificationOpenedEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/NOTIFICATION_OPENED',
 );
-const _foregroundNotificationEventChannel = EventChannel(
+
+/// {@template amplify_push_notifications.config_storage}
+/// Foreground Notification event channel made public for testing purposes.
+/// {@endtemplate}
+@visibleForTesting
+const foregroundNotificationEventChannel = EventChannel(
   'com.amazonaws.amplify/push_notification/event/FOREGROUND_MESSAGE_RECEIVED',
 );
 
@@ -89,12 +99,12 @@ abstract class AmplifyPushNotifications
       return payload['token'] as String;
     }).distinct();
     _bufferedTokenStream = StreamQueue(_onTokenReceived);
-    _onForegroundNotificationReceived = _foregroundNotificationEventChannel
+    _onForegroundNotificationReceived = foregroundNotificationEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(PushNotificationMessage.fromJson);
 
-    _onNotificationOpened = _notificationOpenedEventChannel
+    _onNotificationOpened = notificationOpenedEventChannel
         .receiveBroadcastStream()
         .cast<Map<Object?, Object?>>()
         .map(PushNotificationMessage.fromJson);
