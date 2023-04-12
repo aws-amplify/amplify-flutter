@@ -47,6 +47,8 @@ Future<void> _handleSignUpResult(SignUpResult result) async {
 // #enddocregion handle-signup
 
 // #docregion signup
+/// Signs a user up with a username, password, and email. The required
+/// attributes may be different depending on your app's configuration.
 Future<void> signUpUser({
   required String username,
   required String password,

@@ -49,6 +49,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@template amplify_core.amplify_auth_category.sign_up}
   /// Create a new user with the given [username] and [password].
   ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/#register-a-user).
+  ///
+  /// ## Examples
+  ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
   /// import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -57,6 +65,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="signup"?>
   /// ```dart
+  /// /// Signs a user up with a username, password, and email. The required
+  /// /// attributes may be different depending on your app's configuration.
   /// Future<void> signUpUser({
   ///   required String username,
   ///   required String password,
@@ -102,14 +112,18 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   ///
+  /// <?code-excerpt "doc/lib/auth.dart" region="handle-code"?>
+  /// ```dart
+  /// void _handleCodeDelivery(AuthCodeDeliveryDetails codeDeliveryDetails) {
+  ///   safePrint(
+  ///     'A confirmation code has been sent to ${codeDeliveryDetails.destination}. '
+  ///     'Please check your ${codeDeliveryDetails.deliveryMedium.name} for the code.',
+  ///   );
+  /// }
+  /// ```
+  ///
   /// If you need to resend the sign up code at any point in the sign up process,
   /// call [resendSignUpCode].
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/#register-a-user).
   /// {@endtemplate}
   Future<SignUpResult> signUp({
     required String username,
@@ -125,6 +139,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@template amplify_core.amplify_auth_category.confirm_sign_up}
   /// Confirm the current sign up for [username] with the [confirmationCode]
   /// provided by the user.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/#register-a-user).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -180,12 +202,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   );
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/#register-a-user).
   /// {@endtemplate}
   Future<SignUpResult> confirmSignUp({
     required String username,
@@ -204,6 +220,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// [username] must be the same as the value passed to [signUp] and is either an
   /// identifier chosen by the user or their email/phone number, depending on the
   /// configuration.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -238,9 +259,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   );
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
   /// {@endtemplate}
   Future<ResendSignUpCodeResult> resendSignUpCode({
     required String username,
@@ -253,6 +271,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
   /// Initiate sign in for user with [username] and optional [password].
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// For Cognito flows, including a [password] will initiate an SRP sign-in,
   /// while excluding the [password] will initiate a custom auth sign-in.
@@ -430,12 +456,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/).
   /// {@endtemplate}
   Future<SignInResult> signIn({
     required String username,
@@ -451,6 +471,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@template amplify_core.amplify_auth_category.confirm_sign_in}
   /// Confirm the current sign in with the [confirmationValue] provided by the
   /// user.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// ## Examples
   ///
   /// For example, to confirm a sign in requring MFA:
   ///
@@ -486,13 +511,7 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
   /// See [signIn] for examples of all confirmation flows.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signin/q/platform/flutter/).
   /// {@endtemplate}
   Future<SignInResult> confirmSignIn({
     required String confirmationValue,
@@ -505,6 +524,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
   /// Sign the user out of the current device.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signOut/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -553,12 +580,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/signOut/q/platform/flutter/).
   /// {@endtemplate}
   Future<SignOutResult> signOut({
     SignOutOptions? options,
@@ -569,6 +590,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// Update the password of the current user.
   ///
   /// **NOTE**: There must be a user signed in to perform this action.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#change-password).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -592,12 +621,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#change-password).
   /// {@endtemplate}
   Future<UpdatePasswordResult> updatePassword({
     required String oldPassword,
@@ -616,6 +639,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// [username] must be the same as the value used when signing in and is either an
   /// identifier chosen by the user or their email/phone number, depending on the
   /// configuration.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#reset-password).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -688,12 +719,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#reset-password).
   /// {@endtemplate}
   Future<ResetPasswordResult> resetPassword({
     required String username,
@@ -711,6 +736,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// [username] must be the same as the value used when signing in and is either an
   /// identifier chosen by the user or their email/phone number, depending on the
   /// configuration.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#reset-password).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -737,12 +770,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/password_management/q/platform/flutter/#reset-password).
   /// {@endtemplate}
   Future<ResetPasswordResult> confirmResetPassword({
     required String username,
@@ -759,6 +786,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.get_current_user}
   /// Retrieves the current active user.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter/#check-the-current-auth-session).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -778,12 +813,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/getting-started/q/platform/flutter/#check-the-current-auth-session).
   /// {@endtemplate}
   Future<AuthUser> getCurrentUser({
     GetCurrentUserOptions? options,
@@ -792,6 +821,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.fetch_user_attributes}
   /// Fetch all user attributes associated with the current user.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#fetch-the-current-users-attributes).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -812,12 +849,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#fetch-the-current-users-attributes).
   /// {@endtemplate}
   Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
@@ -826,6 +857,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
   /// Fetch the current auth session.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/access_credentials/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -863,12 +902,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/access_credentials/q/platform/flutter/).
   /// {@endtemplate}
   Future<AuthSession> fetchAuthSession({
     FetchAuthSessionOptions? options,
@@ -882,6 +915,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// If no [provider] is supplied, the default login page will be shown. By
   /// specifying a [provider], the webpage will open directly to the provider's
   /// login page.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/social/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -902,12 +943,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/social/q/platform/flutter/).
   /// {@endtemplate}
   Future<SignInResult> signInWithWebUI({
     AuthProvider? provider,
@@ -922,6 +957,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// Updates a single user attribute.
   ///
   /// > To update multiple attributes, use [updateUserAttributes] instead.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#update-user-attribute).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -967,12 +1010,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// ```
   ///
   /// Then call [confirmUserAttribute] with the delivered confirmation code.
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#update-user-attribute).
   /// {@endtemplate}
   Future<UpdateUserAttributeResult> updateUserAttribute({
     required AuthUserAttributeKey userAttributeKey,
@@ -987,6 +1024,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.update_user_attributes}
   /// Updates multiple user attributes at once.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#update-user-attribute).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1027,12 +1072,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#update-user-attribute).
   /// {@endtemplate}
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
       updateUserAttributes({
@@ -1047,6 +1086,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// {@template amplify_core.amplify_auth_category.confirm_user_attribute}
   /// Confirms a user attribute update initiated with either [updateUserAttribute]
   /// or [updateUserAttributes].
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#verify-user-attribute).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1067,12 +1114,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#verify-user-attribute).
   /// {@endtemplate}
   Future<ConfirmUserAttributeResult> confirmUserAttribute({
     required AuthUserAttributeKey userAttributeKey,
@@ -1091,6 +1132,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///
   /// If a confirmation code sent as the result of a [updateUserAttribute] or [updateUserAttributes]
   /// call expires, you can use this API to request a new one.
+  ///
+  /// Optionally accepts plugin [options] which allow customizing provider-specific
+  /// behavior, e.g. the Cognito User Pool.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#resend-verification-code).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1125,12 +1174,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   );
   /// }
   /// ```
-  ///
-  /// Optionally accepts plugin [options] which allow customizing provider-specific
-  /// behavior, e.g. the Cognito User Pool.
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/user-attributes/q/platform/flutter/#resend-verification-code).
   /// {@endtemplate}
   Future<ResendUserAttributeConfirmationCodeResult>
       resendUserAttributeConfirmationCode({
@@ -1144,6 +1187,11 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
   /// Remembers the current device.
+  ///
+  /// For more information about device tracking, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1162,14 +1210,16 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// For more information about device tracking, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
   /// {@endtemplate}
   Future<void> rememberDevice() => defaultPlugin.rememberDevice();
 
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets the current device.
+  ///
+  /// For more information about device tracking, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1203,15 +1253,17 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// For more information about device tracking, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
   /// {@endtemplate}
   Future<void> forgetDevice([AuthDevice? device]) =>
       defaultPlugin.forgetDevice(device);
 
   /// {@template amplify_core.amplify_auth_category.fetch_devices}
   /// Retrieves all tracked devices for the current user.
+  ///
+  /// For more information about device tracking, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1232,14 +1284,16 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// For more information about device tracking, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/device_features/q/platform/flutter/).
   /// {@endtemplate}
   Future<List<AuthDevice>> fetchDevices() => defaultPlugin.fetchDevices();
 
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
+  ///
+  /// For more information, see the
+  /// [Amplify docs](https://docs.amplify.aws/lib/auth/delete_user/q/platform/flutter/).
+  ///
+  /// ## Examples
   ///
   /// <?code-excerpt "doc/lib/auth.dart" region="imports"?>
   /// ```dart
@@ -1258,9 +1312,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///   }
   /// }
   /// ```
-  ///
-  /// For more information, see the
-  /// [Amplify docs](https://docs.amplify.aws/lib/auth/delete_user/q/platform/flutter/).
   /// {@endtemplate}
   Future<void> deleteUser() => defaultPlugin.deleteUser();
 }
