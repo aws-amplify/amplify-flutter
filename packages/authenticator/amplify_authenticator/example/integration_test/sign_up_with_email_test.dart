@@ -31,8 +31,8 @@ void main() {
 
     // Scenario: Login mechanism set to "email"
     testWidgets('Login mechanism set to "email"', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -60,9 +60,9 @@ void main() {
 
     // Scenario: Sign up a new email & password
     testWidgets('Sign up a new email & password', (tester) async {
-      SignUpPage signUpPage = SignUpPage(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      final signUpPage = SignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       await loadAuthenticator(tester: tester);
 
@@ -77,10 +77,6 @@ void main() {
       );
 
       await signInPage.navigateToSignUp();
-
-      // TODO: Clarify requirements
-      // Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-      // with fixture "sign-up-with-email"
 
       final username = generateEmail();
       final password = generatePassword();
@@ -103,14 +99,5 @@ void main() {
 
       await tester.bloc.close();
     });
-
-    // Scenario: Username field autocompletes username
-    // TODO: Clarify requirements
-    // testWidgets('Email field autocompletes username', (tester) async {});
-
-    // Scenario: Password fields autocomplete "new-password"
-    // TODO: Clarify requirements
-    // testWidgets('Then "Password" field autocompletes "new-password"',
-    //     (tester) async {});
   });
 }

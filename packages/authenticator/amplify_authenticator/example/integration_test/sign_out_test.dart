@@ -50,7 +50,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
 
       // When I sign in with "username" and "password"
       await signInPage.signIn(username: username, password: password);

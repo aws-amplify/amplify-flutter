@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 // A custom authenticator widget that adds an onboarding view
 class AuthenticatorWithOnboarding extends StatelessWidget {
-  const AuthenticatorWithOnboarding({Key? key}) : super(key: key);
+  const AuthenticatorWithOnboarding({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +57,10 @@ class AuthenticatorWithOnboarding extends StatelessWidget {
 // An onboarding widget to display to unauthenticated users on initial app launch
 class OnboardingView extends StatelessWidget {
   const OnboardingView({
-    Key? key,
+    super.key,
     required this.navigateToSignIn,
     required this.navigateToSignUp,
-  }) : super(key: key);
+  });
 
   final void Function() navigateToSignIn;
   final void Function() navigateToSignUp;

@@ -94,7 +94,7 @@ void main() {
         ]),
       );
 
-      final SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"

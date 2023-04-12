@@ -42,7 +42,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "UNKNOWN"
@@ -77,8 +77,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignUpPage confirmSignUpPage = ConfirmSignUpPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignUpPage = ConfirmSignUpPage(tester: tester);
 
       final otpResult = await getOtpCode(UserAttribute.email(email));
 
@@ -146,7 +146,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
@@ -195,7 +195,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "email" with status "CONFIRMED"
@@ -247,8 +247,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername(label: 'Email');
 
       // When I type my "username"

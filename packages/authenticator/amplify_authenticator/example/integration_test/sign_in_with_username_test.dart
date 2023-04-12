@@ -34,7 +34,7 @@ void main() {
     // Scenario: Sign in with unknown credentials
     testWidgets('Sign in with unknown credentials', (tester) async {
       await loadAuthenticator(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
       expect(
@@ -72,7 +72,7 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
       expect(
@@ -113,7 +113,7 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       signInPage.expectUsername();
 
       expect(
@@ -156,8 +156,8 @@ void main() {
       addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester);
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
       signInPage.expectUsername();
 
       expect(
@@ -199,7 +199,7 @@ void main() {
         addTearDown(() => deleteUser(cognitoUsername));
 
         await loadAuthenticator(tester: tester);
-        SignInPage signInPage = SignInPage(tester: tester);
+        final signInPage = SignInPage(tester: tester);
         signInPage.expectUsername();
 
         expect(
