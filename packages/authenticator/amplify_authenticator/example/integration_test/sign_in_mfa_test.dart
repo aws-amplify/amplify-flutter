@@ -65,8 +65,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -102,8 +102,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -141,8 +141,8 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
-      ConfirmSignInPage confirmSignInPage = ConfirmSignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
       signInPage.expectUsername(label: 'Phone Number');
 
@@ -184,7 +184,7 @@ void main() {
         ]),
       );
 
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
 
       // When I select my country code
       await signInPage.selectCountryCode();

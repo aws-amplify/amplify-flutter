@@ -28,8 +28,8 @@ void main() {
 
     // Scenario: Redirect to "Verify" page
     testWidgets('Redirect to "Verify" page', (tester) async {
-      SignInPage signInPage = SignInPage(tester: tester);
-      VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final verifyUserPage = VerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -74,8 +74,8 @@ void main() {
 
     // Scenario: Skip verify account
     testWidgets('Skip verify account', (tester) async {
-      SignInPage signInPage = SignInPage(tester: tester);
-      VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
+      final verifyUserPage = VerifyUserPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -131,9 +131,9 @@ void main() {
 
     // Scenario: Redirect to "Confirm Verify" page
     testWidgets('Redirect to "Confirm Verify" page', (tester) async {
-      SignInPage signInPage = SignInPage(tester: tester);
-      VerifyUserPage verifyUserPage = VerifyUserPage(tester: tester);
-      ConfirmVerifyUserPage confirmVerifyUserPage = ConfirmVerifyUserPage(
+      final signInPage = SignInPage(tester: tester);
+      final verifyUserPage = VerifyUserPage(tester: tester);
+      final confirmVerifyUserPage = ConfirmVerifyUserPage(
         tester: tester,
       );
       await loadAuthenticator(tester: tester);
@@ -299,7 +299,7 @@ void main() {
 
     testWidgets('Auth.signIn does not redirect to "Verify" page',
         (tester) async {
-      SignInPage signInPage = SignInPage(tester: tester);
+      final signInPage = SignInPage(tester: tester);
       await loadAuthenticator(tester: tester);
 
       expect(
