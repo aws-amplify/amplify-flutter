@@ -109,6 +109,5 @@ class PushNotificationsCategory
   ///
   /// This method takes effect only on iOS.
   /// {@endtemplate}
-  Future<void> setBadgeCount(int badgeCount) =>
-      defaultPlugin.setBadgeCount(badgeCount);
+  void setBadgeCount(int badgeCount) => defaultPlugin.setBadgeCount(badgeCount);
 }

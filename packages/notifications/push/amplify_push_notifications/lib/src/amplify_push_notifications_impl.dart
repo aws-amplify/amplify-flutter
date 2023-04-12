@@ -225,6 +225,11 @@ abstract class AmplifyPushNotifications
     _attachEventChannelListeners();
     if (os.isAndroid) {
       await _registerBackgroundProcessorForAndroid();
+      // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
+      await _amplifySecureStorage.write(
+        key: configSecureStorageKey,
+        value: jsonEncode(config),
+      );
     }
 
     // Set the service provider so Analytics can be recorded when notification arrives in Background/Killed state
@@ -241,11 +246,6 @@ abstract class AmplifyPushNotifications
       _recordAnalyticsForLaunchNotification(launchNotification);
     }
 
-    // Config is securely stored to be used to re-configure Amplify in the background processor function when the app is killed
-    await _amplifySecureStorage.write(
-      key: configSecureStorageKey,
-      value: jsonEncode(config),
-    );
     _isConfigured = true;
   }
 
@@ -306,7 +306,7 @@ abstract class AmplifyPushNotifications
   }
 
   @override
-  Future<void> setBadgeCount(int badgeCount) async {
+  void setBadgeCount(int badgeCount) {
     if (!os.isIOS) {
       _logger.error('Not supported on this platform');
       return;
@@ -314,7 +314,7 @@ abstract class AmplifyPushNotifications
     if (!_isConfigured) {
       throw _needsConfigurationException;
     }
-    await _hostApi.setBadgeCount(badgeCount);
+    _hostApi.setBadgeCount(badgeCount);
   }
 
   Future<void> _registerBackgroundProcessorForAndroid() async {

@@ -407,7 +407,7 @@ void main() {
             authProviderRepo: authProviderRepo,
             config: config,
           );
-          await plugin.setBadgeCount(42);
+          plugin.setBadgeCount(42);
           verify(
             mockPushNotificationsHostApi.setBadgeCount(42),
           ).called(1);
