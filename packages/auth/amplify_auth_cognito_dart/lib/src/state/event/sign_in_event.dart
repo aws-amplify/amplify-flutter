@@ -90,11 +90,6 @@ class SignInInitiate extends SignInEvent {
 
   @override
   PreconditionException? checkPrecondition(SignInState currentState) {
-    if (currentState.type != SignInStateType.notStarted) {
-      return const AuthPreconditionException(
-        'Auth flow has already been initiated',
-      );
-    }
     return null;
   }
 }
