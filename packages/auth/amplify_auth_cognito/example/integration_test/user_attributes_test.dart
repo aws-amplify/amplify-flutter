@@ -7,7 +7,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
@@ -18,8 +17,7 @@ extension on List<AuthUserAttribute> {
 }
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  initTests();
 
   group('User Attributes', () {
     for (final environmentName in userPoolEnvironments) {

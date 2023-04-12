@@ -6,14 +6,13 @@ import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
 import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  initTests();
+
   final logger = AWSLogger().createChild('CustomAuth');
 
   group('custom auth', () {
