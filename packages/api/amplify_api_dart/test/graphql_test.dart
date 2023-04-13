@@ -67,6 +67,7 @@ const _errorExtensions = {
   'b': {'c': 'd'}
 };
 const _errorType = 'DynamoDB:ConditionalCheckFailedException';
+const _errorInfo = {'a': 'b'};
 const _expectedErrorResponseBody = {
   'data': null,
   'errors': [
@@ -76,6 +77,7 @@ const _expectedErrorResponseBody = {
       'path': _errorPath,
       'extensions': _errorExtensions,
       'errorType': _errorType,
+      'errorInfo': _errorInfo,
     },
   ]
 };
@@ -556,6 +558,7 @@ void main() {
         path: <dynamic>[..._errorPath],
         extensions: <String, dynamic>{..._errorExtensions},
         errorType: _errorType,
+        errorInfo: _errorInfo,
       );
 
       expect(res.data, equals(null));
