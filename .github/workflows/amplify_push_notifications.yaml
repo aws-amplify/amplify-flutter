@@ -7,15 +7,27 @@ on:
       - stable
   pull_request:
     paths:
-      - 'packages/notifications/push/amplify_push_notifications/**/*.dart'
-      - 'packages/notifications/push/amplify_push_notifications/**/*.yaml'
-      - 'packages/notifications/push/amplify_push_notifications/lib/**/*'
-      - 'packages/notifications/push/amplify_push_notifications/test/**/*'
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/flutter_vm.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/amplify_push_notifications.yaml'
+      - 'packages/notifications/push/amplify_push_notifications/**/*.dart'
+      - 'packages/notifications/push/amplify_push_notifications/**/*.yaml'
+      - 'packages/notifications/push/amplify_push_notifications/lib/**/*'
+      - 'packages/notifications/push/amplify_push_notifications/test/**/*'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

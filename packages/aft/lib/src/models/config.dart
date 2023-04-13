@@ -206,7 +206,7 @@ class PackageInfo
 
   /// Whether the package is an example package.
   bool get isExample {
-    return p.basename(path) == 'example';
+    return p.basename(path) == 'example' || name == 'doc';
   }
 
   /// Whether the package is a test package.

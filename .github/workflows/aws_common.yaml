@@ -7,16 +7,16 @@ on:
       - stable
   pull_request:
     paths:
-      - 'packages/aws_common/**/*.dart'
-      - 'packages/aws_common/**/*.yaml'
-      - 'packages/aws_common/lib/**/*'
-      - 'packages/aws_common/test/**/*'
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/aws_common.yaml'
+      - 'packages/aws_common/**/*.dart'
+      - 'packages/aws_common/**/*.yaml'
+      - 'packages/aws_common/lib/**/*'
+      - 'packages/aws_common/test/**/*'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
