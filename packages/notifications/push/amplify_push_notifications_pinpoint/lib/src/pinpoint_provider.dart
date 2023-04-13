@@ -13,6 +13,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analyt
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
+import 'package:amplify_push_notifications_pinpoint/src/version.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 
@@ -37,6 +38,20 @@ class PinpointProvider implements ServiceProviderClient {
   static const _androidCampaignTreatmentIdKey =
       'pinpoint.campaign.treatment_id';
   bool _isInitialized = false;
+
+  static final _userAgent =
+      'amplify-flutter/${packageVersion.split('+').first}/pushnotifications';
+
+  static R _withUserAgent<R>(R Function() fn) {
+    print('UserAgent: $_userAgent');
+    final globalUserAgent =
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        Amplify.dependencies.getOrCreate<AmplifyUserAgent>();
+    return globalUserAgent.runWith(
+      updates: (ua) => ua.addComponent(_userAgent),
+      fn,
+    );
+  }
 
   @override
   Future<void> init({
@@ -101,9 +116,12 @@ class PinpointProvider implements ServiceProviderClient {
               'Make sure Pinpoint service provider client is initialized before using this method.',
         );
       }
-      await _analyticsClient.endpointClient.setUser(
-        userId,
-        userProfile,
+
+      await _withUserAgent(
+        () async => _analyticsClient.endpointClient.setUser(
+          userId,
+          userProfile,
+        ),
       );
     } on Exception catch (e) {
       throw PushNotificationException(
@@ -135,9 +153,12 @@ class PinpointProvider implements ServiceProviderClient {
       }
 
       final eventInfo = constructEventInfo(notification: notification);
-      await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.source}.${eventType.name}',
-        properties: eventInfo.properties,
+
+      await _withUserAgent(
+        () async => _analyticsClient.eventClient.recordEvent(
+          eventType: '${eventInfo.source}.${eventType.name}',
+          properties: eventInfo.properties,
+        ),
       );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
@@ -157,7 +178,9 @@ class PinpointProvider implements ServiceProviderClient {
       final channelType = _getChannelType();
       _analyticsClient.endpointClient.channelType = channelType;
       _analyticsClient.endpointClient.optOut = 'NONE';
-      await _analyticsClient.endpointClient.updateEndpoint();
+      await _withUserAgent(
+        () async => _analyticsClient.endpointClient.updateEndpoint(),
+      );
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }

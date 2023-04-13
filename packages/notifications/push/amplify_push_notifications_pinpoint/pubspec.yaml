@@ -22,9 +22,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  amplify_test:
-    path: ../../../test/amplify_test
-  build_runner: ^2.0.0
+  amplify_test: any
+  build_runner: ^2.3.3
+  build_version: ^2.1.1
   built_value_generator: 8.4.4
   flutter_test:
     sdk: flutter
