@@ -19,6 +19,7 @@ class GraphQLResponseError {
     this.locations,
     this.path,
     this.extensions,
+    this.errorType,
   });
 
   factory GraphQLResponseError.fromJson(Map<String, dynamic> json) {
@@ -34,6 +35,7 @@ class GraphQLResponseError {
           .toList(),
       path: json['path'] as List?,
       extensions: (json['extensions'] as Map?)?.cast<String, dynamic>(),
+      errorType: json['errorType'] as String?,
     );
   }
 
@@ -49,12 +51,16 @@ class GraphQLResponseError {
   /// Additional context.
   final Map<String, dynamic>? extensions;
 
+  /// The type of error.
+  final String? errorType;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'message': message,
         if (locations != null)
           'locations': locations?.map((e) => e.toJson()).toList(),
         if (path != null) 'path': path,
         if (extensions != null) 'extensions': extensions,
+        if (errorType != null) 'errorType': errorType,
       };
 
   @override
@@ -62,12 +68,13 @@ class GraphQLResponseError {
       identical(this, other) ||
       other is GraphQLResponseError &&
           const DeepCollectionEquality().equals(
-            [message, locations, path, extensions],
+            [message, locations, path, extensions, errorType],
             [
               other.message,
               other.locations,
               other.path,
               other.extensions,
+              other.errorType,
             ],
           );
 
@@ -77,6 +84,7 @@ class GraphQLResponseError {
         locations,
         path,
         extensions,
+        errorType,
       ]);
 
   @override
