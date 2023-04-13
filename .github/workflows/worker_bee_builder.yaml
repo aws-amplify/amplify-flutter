@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
       - 'packages/worker_bee/worker_bee_builder/**/*.dart'
