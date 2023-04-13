@@ -1,6 +1,5 @@
 name: amplify_test
 description: Test utilities for Amplify packages
-version: 0.0.1
 homepage: https://github.com/aws-amplify/amplify-flutter
 publish_to: none
 

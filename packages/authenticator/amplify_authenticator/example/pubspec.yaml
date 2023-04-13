@@ -45,10 +45,12 @@ dev_dependencies:
   amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_authenticator_test:
     path: ../../amplify_authenticator_test
-  amplify_integration_test: any
+  amplify_integration_test:
+    path: ../../../test/amplify_integration_test
   amplify_lints:
     path: ../../../amplify_lints
-  amplify_test: any
+  amplify_test:
+    path: ../../../test/amplify_test
   aws_common: any
   flutter_driver:
     sdk: flutter
