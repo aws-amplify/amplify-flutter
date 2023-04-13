@@ -1,3 +1,15 @@
+## 1.0.0-next.8+1
+
+### Features
+- feat(notifications): implement push notification Flutter iOS module ([#2707](https://github.com/aws-amplify/amplify-flutter/pull/2707))
+- feat(notifications): killed state notification handling and Analytics integration ([#2747](https://github.com/aws-amplify/amplify-flutter/pull/2747))
+- feat(push): interfaces, category function and types added for push
+
+### Fixes
+- fix(auth): Cancel sign in ([#2840](https://github.com/aws-amplify/amplify-flutter/pull/2840))
+- fix(core): formatting issues in notifications data types
+- fix(notifications): Analytics naming updates, Android test fixes and token received bug fix ([#2824](https://github.com/aws-amplify/amplify-flutter/pull/2824))
+
 ## 1.0.0-next.8
 
 ### Breaking Changes

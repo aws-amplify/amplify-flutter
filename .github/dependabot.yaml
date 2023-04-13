@@ -8,6 +8,10 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "infra/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/aft/"
     schedule:
       interval: "daily"
@@ -32,18 +36,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/authenticator/amplify_authenticator/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/authenticator/amplify_authenticator/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/authenticator/amplify_authenticator/example/.dart_tool/flutter_gen/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/amplify_core/"
     schedule:
       interval: "daily"
@@ -64,6 +56,14 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "packages/amplify_native_legacy_wrapper/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/amplify_native_legacy_wrapper/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/amplify_test/"
     schedule:
       interval: "daily"
@@ -76,19 +76,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_pinpoint_android/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_pinpoint_android/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_pinpoint_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/analytics/amplify_analytics_pinpoint_ios/example/"
+    directory: "packages/analytics/amplify_analytics_pinpoint_dart/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -105,6 +93,10 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/api/amplify_api_android/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/api/amplify_api_dart/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -144,7 +136,23 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
+    directory: "packages/authenticator/amplify_authenticator/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/authenticator/amplify_authenticator/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/authenticator/amplify_authenticator_test/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
     directory: "packages/aws_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/aws_sdk/smoke_test/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -153,6 +161,22 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/aws_signature_v4/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common_dart/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "packages/common/amplify_db_common_dart/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -256,19 +280,11 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/storage/amplify_storage_s3_android/"
+    directory: "packages/storage/amplify_storage_s3_dart/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/storage/amplify_storage_s3_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/common/amplify_db_common/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/common/amplify_db_common/example/"
+    directory: "packages/storage/amplify_storage_s3_dart/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
@@ -289,5 +305,29 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "packages/worker_bee/worker_bee_builder/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/dart-package/__brick__/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/dart-package/__brick__/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/dart-package/hooks/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/flutter-package/__brick__/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/flutter-package/__brick__/example/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "templates/flutter-package/hooks/"
     schedule:
       interval: "daily"

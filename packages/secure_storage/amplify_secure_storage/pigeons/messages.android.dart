@@ -31,4 +31,8 @@ abstract class AmplifySecureStorageApi {
   @async
   @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   void delete(String namespace, String key);
+
+  @async
+  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
+  void removeAll(String namespace);
 }

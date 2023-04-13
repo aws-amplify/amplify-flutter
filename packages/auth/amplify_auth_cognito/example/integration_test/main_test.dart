@@ -24,6 +24,7 @@ import 'sign_up_test.dart' as sign_up_tests;
 import 'update_password_test.dart' as update_password_tests;
 import 'user_attributes_test.dart' as user_attributes_tests;
 import 'utils/setup_utils.dart';
+import 'version_upgrade_test.dart' as version_upgrade_tests;
 
 void main() async {
   initTests();
@@ -49,5 +50,6 @@ void main() async {
     sign_up_tests.main();
     update_password_tests.main();
     user_attributes_tests.main();
+    version_upgrade_tests.main();
   });
 }

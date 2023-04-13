@@ -1,3 +1,8 @@
+## 0.9.0+1
+
+### Fixes
+- fix(auth): Cancel sign in ([#2840](https://github.com/aws-amplify/amplify-flutter/pull/2840))
+
 ## 0.9.0
 
 ### Breaking Changes
