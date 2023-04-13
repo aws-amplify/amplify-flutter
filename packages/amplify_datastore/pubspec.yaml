@@ -20,7 +20,8 @@ dependencies:
   async: ^2.10.0
 
 dev_dependencies:
-  amplify_test: any
+  amplify_test:
+    path: ../test/amplify_test
   flutter_test:
     sdk: flutter
   fake_async: ^1.2.0
