@@ -270,6 +270,15 @@ class MockAmplifySecureStorage extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+  @override
+  _i5.Future<void> removeAll() => (super.noSuchMethod(
+        Invocation.method(
+          #removeAll,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
 }
 
 /// A class which mocks [AmplifyPushNotificationsFlutterApi].
