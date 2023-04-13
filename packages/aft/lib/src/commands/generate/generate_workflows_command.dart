@@ -86,7 +86,6 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
       - '$repoRelativePath/**/*.dart'
