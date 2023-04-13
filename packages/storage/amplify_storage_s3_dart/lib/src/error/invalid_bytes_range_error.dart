@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// {@template amplify_storage_s3_dart.invalid_bytes_range_error}
+/// Error thrown on invalid bytes range.
+/// {@endtemplate}
 class InvalidBytesRangeError extends Error {
   /// {@macro amplify_storage_s3_dart.invalid_bytes_range_error}
   InvalidBytesRangeError(

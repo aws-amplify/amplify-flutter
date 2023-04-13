@@ -5,7 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 's3_copy_plugin_options.g.dart';
 
-// {@template storage.amplify_storage_s3.copy_plugin_options}
+/// {@template storage.amplify_storage_s3.copy_plugin_options}
 /// The configurable parameters invoking the Storage S3 plugin `copy` API.
 /// {@endtemplate}
 @zAmplifySerializable
