@@ -43,7 +43,6 @@ class PinpointProvider implements ServiceProviderClient {
       'amplify-flutter/${packageVersion.split('+').first}/pushnotifications';
 
   static R _withUserAgent<R>(R Function() fn) {
-    print('UserAgent: $_userAgent');
     final globalUserAgent =
         // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
         Amplify.dependencies.getOrCreate<AmplifyUserAgent>();
@@ -117,11 +116,12 @@ class PinpointProvider implements ServiceProviderClient {
         );
       }
 
+      await _analyticsClient.endpointClient.setUser(
+        userId,
+        userProfile,
+      );
       await _withUserAgent(
-        () async => _analyticsClient.endpointClient.setUser(
-          userId,
-          userProfile,
-        ),
+        () async => _analyticsClient.endpointClient.updateEndpoint(),
       );
     } on Exception catch (e) {
       throw PushNotificationException(
