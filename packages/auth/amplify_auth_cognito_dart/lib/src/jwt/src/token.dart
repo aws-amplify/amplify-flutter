@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:convert';
+
 import 'package:amplify_auth_cognito_dart/src/jwt/src/claims.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/src/header.dart';
 import 'package:amplify_auth_cognito_dart/src/jwt/src/util.dart';
@@ -82,6 +84,13 @@ class JsonWebToken with AWSEquatable<JsonWebToken>, AWSSerializable {
 
   @override
   String toJson() => raw;
+
+  @override
+  String toString() => prettyPrintJson({
+        'header': header.toJson(),
+        'claims': claims.toJson(),
+        'signature': base64Encode(signature),
+      });
 
   /// Encodes the JWT to a `.`-delimited string.
   String encode() => '${header.encodeBase64()}.'
