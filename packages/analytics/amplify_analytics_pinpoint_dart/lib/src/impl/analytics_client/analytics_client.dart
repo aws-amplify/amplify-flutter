@@ -49,7 +49,7 @@ class AnalyticsClient {
   }) async {
     final pinpointClient = PinpointClient(
       // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-      client: AmplifyClass.instance?.dependencies.get<AWSHttpClient>(),
+      client: Amplify.dependencies.getOrCreate<AmplifyHttpClient>(),
       region: region,
       credentialsProvider: authProvider,
     );
