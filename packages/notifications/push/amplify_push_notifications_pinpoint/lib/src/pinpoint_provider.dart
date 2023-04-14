@@ -39,7 +39,7 @@ class PinpointProvider implements ServiceProviderClient {
       'pinpoint.campaign.treatment_id';
   bool _isInitialized = false;
 
-  static final _userAgent =
+  static final userAgent =
       'amplify-flutter/${packageVersion.split('+').first}/pushnotifications';
 
   static R _withUserAgent<R>(R Function() fn) {
@@ -47,7 +47,7 @@ class PinpointProvider implements ServiceProviderClient {
         // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
         Amplify.dependencies.getOrCreate<AmplifyUserAgent>();
     return globalUserAgent.runWith(
-      updates: (ua) => ua.addComponent(_userAgent),
+      updates: (ua) => ua.addComponent(userAgent),
       fn,
     );
   }

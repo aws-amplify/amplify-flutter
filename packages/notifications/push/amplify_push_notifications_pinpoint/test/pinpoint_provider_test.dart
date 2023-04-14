@@ -70,7 +70,7 @@ void main() {
       );
     });
 
-    test('identifyUser should throw exception if the underneath call throws',
+    test('identifyUser should throw exception if the underlying call throws',
         () async {
       when(mockAmplifyAuthProviderRepository.getAuthProvider(any))
           .thenReturn(awsIamAmplifyAuthProvider);
