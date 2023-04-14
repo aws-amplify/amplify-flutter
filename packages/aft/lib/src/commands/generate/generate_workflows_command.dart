@@ -71,11 +71,36 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         if (needsNativeTest) nativeWorkflow,
         if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
       ];
+
+      // Collect all the paths for which this workflow will run. This includes
+      // paths in the package itself plus any modifications in transitive
+      // dependencies which could impact this.
       final workflowPaths = [
         if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
         p.relative(workflowFilepath, from: rootDir.path),
-      ].map((path) => "      - '$path'").join('\n');
+        '$repoRelativePath/**/*.dart',
+        '$repoRelativePath/**/*.yaml',
+        '$repoRelativePath/lib/**/*',
+        '$repoRelativePath/test/**/*',
+      ];
+      dfs(
+        repo.packageGraph,
+        root: package,
+        (dependent) {
+          if (dependent == package || !dependent.isDevelopmentPackage) {
+            return;
+          }
+          final repoRelativePath = p.relative(
+            dependent.path,
+            from: rootDir.path,
+          );
+          workflowPaths.addAll([
+            '$repoRelativePath/pubspec.yaml',
+            '$repoRelativePath/lib/**/*.dart',
+          ]);
+        },
+      );
 
       final workflowContents = StringBuffer(
         '''
@@ -86,14 +111,9 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
-      - '$repoRelativePath/**/*.dart'
-      - '$repoRelativePath/**/*.yaml'
-      - '$repoRelativePath/lib/**/*'
-      - '$repoRelativePath/test/**/*'
-$workflowPaths
+${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

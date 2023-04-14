@@ -5,15 +5,40 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_api.yaml'
       - 'packages/api/amplify_api/**/*.dart'
       - 'packages/api/amplify_api/**/*.yaml'
       - 'packages/api/amplify_api/lib/**/*'
       - 'packages/api/amplify_api/test/**/*'
-      - '.github/workflows/flutter_vm.yaml'
-      - '.github/workflows/amplify_api.yaml'
+      - 'packages/api/amplify_api_android/pubspec.yaml'
+      - 'packages/api/amplify_api_android/lib/**/*.dart'
+      - 'packages/api/amplify_api_dart/pubspec.yaml'
+      - 'packages/api/amplify_api_dart/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/api/amplify_api_ios/pubspec.yaml'
+      - 'packages/api/amplify_api_ios/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter/pubspec.yaml'
+      - 'packages/amplify/amplify_flutter/lib/**/*.dart'
+      - 'packages/amplify_datastore_plugin_interface/pubspec.yaml'
+      - 'packages/amplify_datastore_plugin_interface/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter_android/pubspec.yaml'
+      - 'packages/amplify/amplify_flutter_android/lib/**/*.dart'
+      - 'packages/amplify/amplify_flutter_ios/pubspec.yaml'
+      - 'packages/amplify/amplify_flutter_ios/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage/lib/**/*.dart'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
