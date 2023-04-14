@@ -4,14 +4,12 @@
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_client.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
-import 'package:meta/meta.dart';
 
 /// {@template amplify_analytics_pinpoint_dart.analytics_client}
 /// A builder class that constructs and exposes the [eventClient] and [endpointClient] for interacting with Pinpoint.
@@ -41,13 +39,21 @@ class AnalyticsClient {
   final DeviceContextInfoProvider? _deviceContextInfoProvider;
   final EndpointInfoStoreManager _endpointInfoStoreManager;
 
-  /// Allows mocking of [PinpointClient] for unit tests
-  @visibleForTesting
-  Future<void> initWithClient({
+  /// Async initialize the [eventClient] and [endpointClient].
+  /// Requires missing values typically provided in plugin configure.
+  Future<void> init({
     required String pinpointAppId,
-    required PinpointClient pinpointClient,
+    required String region,
+    required AWSCredentialsProvider authProvider,
     QueuedItemStore? eventStore,
   }) async {
+    final pinpointClient = PinpointClient(
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+      client: AmplifyClass.instance?.dependencies.get<AWSHttpClient>(),
+      region: region,
+      credentialsProvider: authProvider,
+    );
+
     final deviceContextInfo =
         await _deviceContextInfoProvider?.getDeviceInfoDetails();
 
@@ -66,25 +72,6 @@ class AnalyticsClient {
       endpointClient: endpointClient,
       eventStore: eventStore,
       deviceContextInfo: deviceContextInfo,
-    );
-  }
-
-  /// Async initialize the [eventClient] and [endpointClient].
-  /// Requires missing values typically provided in plugin configure.
-  Future<void> init({
-    required String pinpointAppId,
-    required String region,
-    required AWSCredentialsProvider authProvider,
-    DartQueuedItemStore? eventStore,
-  }) async {
-    final pinpointClient = PinpointClient(
-      region: region,
-      credentialsProvider: authProvider,
-    );
-    await initWithClient(
-      pinpointAppId: pinpointAppId,
-      pinpointClient: pinpointClient,
-      eventStore: eventStore,
     );
   }
 

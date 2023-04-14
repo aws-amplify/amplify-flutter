@@ -5,6 +5,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analyt
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_global_fields_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoint_client/endpoint_info_store_manager.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/index_db/in_memory_queued_item_store.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:test/test.dart';
 
 import 'common/mock_secure_storage.dart';
@@ -14,6 +15,7 @@ import 'common/mocktail_mocks.dart';
 void main() {
   group('Multiple AnalyticsClients ', () {
     const analyticsPinpointAppId = 'analyticsPinpointAppId';
+    const analyticsRegion = 'region';
     const notificationsPinpointAppId = 'notificationsPinpointAppId';
 
     late final MockSecureStorage store;
@@ -27,27 +29,25 @@ void main() {
     setUpAll(() async {
       store = MockSecureStorage();
 
-      final analyticsPinpointClient = MockPinpointClient();
       analyticsEventStore = InMemoryQueuedItemStore();
-
       analyticsClient = AnalyticsClient(
         endpointStorage: store,
       );
-      await analyticsClient.initWithClient(
+      await analyticsClient.init(
         pinpointAppId: analyticsPinpointAppId,
-        pinpointClient: analyticsPinpointClient,
+        region: analyticsRegion,
+        authProvider: MockIamAuthProvider(),
         eventStore: analyticsEventStore,
       );
 
-      final notificationsPinpointClient = MockPinpointClient();
       notificationsEventStore = InMemoryQueuedItemStore();
-
       notificationsClient = AnalyticsClient(
         endpointStorage: store,
       );
-      await notificationsClient.initWithClient(
+      await notificationsClient.init(
         pinpointAppId: notificationsPinpointAppId,
-        pinpointClient: notificationsPinpointClient,
+        region: analyticsRegion,
+        authProvider: MockIamAuthProvider(),
         eventStore: notificationsEventStore,
       );
     });
