@@ -13,7 +13,6 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/analyt
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_push_notifications_pinpoint/src/event_info_type.dart';
-import 'package:amplify_push_notifications_pinpoint/src/version.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:flutter/widgets.dart';
 
@@ -39,8 +38,9 @@ class PinpointProvider implements ServiceProviderClient {
       'pinpoint.campaign.treatment_id';
   bool _isInitialized = false;
 
-  static final userAgent =
-      'amplify-flutter/${packageVersion.split('+').first}/pushnotifications';
+  /// UserAgent string for Push Notifications made public for testing
+  @visibleForTesting
+  static const userAgent = 'pushnotifications';
 
   static R _withUserAgent<R>(R Function() fn) {
     final globalUserAgent =
