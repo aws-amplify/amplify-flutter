@@ -1,7 +1,6 @@
 ![AWS Amplify](https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png)
 
 [![discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
-[![CircleCI](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/main.svg?style=shield)](https://circleci.com/gh/aws-amplify/amplify-flutter/tree/main)
 
 ## Amplify Flutter
 
@@ -10,10 +9,7 @@ AWS Amplify provides a declarative and easy-to-use interface across different ca
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
-- [Example Application](https://github.com/aws-amplify/amplify-flutter/tree/main/example)
-- [Roadmap/Provide Feedback](https://github.com/aws-amplify/amplify-flutter/issues/5)
-
-⚠️ **For breaking changes from the developer preview versions please refer to this [issue](https://github.com/aws-amplify/amplify-flutter/issues/274) for migration details.**
+- TODO: Link to launch blog
 
 ## Supported Amplify Categories
 
@@ -53,7 +49,13 @@ We are iterating and looking for feedback and collaboration, so please [**let us
   <img src="https://img.shields.io/pub/v/amplify_api.svg">
 </a>
 
-## Category / Platform Support (Developer Preview)
+- [x] [**Notifications**](https://docs.amplify.aws/lib/push-notifications/getting-started/q/platform/flutter): Trigger push notifications to your app and record metrics in Pinpoint when users receive or open notifications.
+
+<a href="https://pub.dev/packages/amplify_push_notifications_pinpoint" target="_blank">
+  <img src="https://img.shields.io/pub/v/amplify_push_notifications_pinpoint.svg">
+</a>
+
+## Category / Platform Support
 
 | Category       | Android | iOS | Web | Windows | MacOS | Linux |
 | -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
@@ -63,12 +65,7 @@ We are iterating and looking for feedback and collaboration, so please [**let us
 | Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
 | DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 | Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-
-### To Be Implemented
-
-- [ ] Predictions
-- [ ] Geo
-- [ ] Storage Hub Events (Listening to the Amplify Storage events)
+| Notifications  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
 
 ## Documentation
 
@@ -92,28 +89,33 @@ Amplify for Flutter is an open-source project and welcomes contributions from th
 - Install Amplify in a Flutter project
 - Add basic Amplify functionality to your project using one of the supported categories
 
-1. `git clone git@github.com:aws-amplify/amplify-flutter.git`
+1. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running `flutter create <project-name>` in your terminal.
 
-2. Open your Flutter project. If you do not have an active Flutter project, you can create one after installing the [Flutter development tooling](https://flutter.dev/docs/get-started/install) and running `flutter create <project-name>` in your terminal.
-
-3. Using the Amplify CLI, run `amplify init` from the root of your project:
+2. Using the Amplify CLI, run `amplify init` from the root of your project:
 
 See [Amplify CLI Installation](https://docs.amplify.aws/lib/project-setup/prereq/q/platform/flutter#install-and-configure-the-amplify-cli)
 
 ```bash
 ==> amplify init
 Note: It is recommended to run this command from the root of your app directory
-? Enter a name for the project helloAmplify
-? Enter a name for the environment dev
-? Choose your default editor: Visual Studio Code
-? Choose the type of app that you\'re building flutter
-Please tell us about your project
-Only the following resource types are supported:
- * Auth
- * Analytics
- * Storage
- * API
-? Where do you want to store your configuration file? ./lib/
+? Enter a name for the project <project-name>
+The following configuration will be applied:
+
+Project information
+| Name: <project-name>
+| Environment: dev
+| Default editor: Visual Studio Code
+| App type: flutter
+| Configuration file location: ./lib/
+
+? Initialize the project with the above configuration? Yes
+Using default provider  awscloudformation
+? Select the authentication method you want to use: AWS profile
+
+For more information on AWS Profiles, see:
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
+
+? Please choose the profile you want to use default
 ```
 
 4. Add Amplify categories (choose defaults for this example):
@@ -135,14 +137,12 @@ Only the following resource types are supported:
 
 ```yaml
 dependencies:
+  amplify_analytics_pinpoint: ^1.0.0
+  amplify_auth_cognito: ^1.0.0
+  amplify_authenticator: ^1.0.0
+  amplify_flutter: ^1.0.0
   flutter:
     sdk: flutter
-  amplify_flutter:
-    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_flutter
-  amplify_analytics_pinpoint:
-    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_analytics_pinpoint
-  amplify_auth_cognito:
-    path: /{path to your local amplify-flutter}/amplify-flutter/packages/amplify_auth_cognito
 ```
 
 7. From the terminal run
@@ -154,105 +154,96 @@ flutter pub get
 8. In your main.dart file, add:
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/material.dart';
 
 import 'amplifyconfiguration.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _amplifyConfigured = false;
+  var _amplifyConfigured = false;
 
   @override
   void initState() {
     super.initState();
+    _configureAmplify();
   }
 
-  void _configureAmplify() async {
-    if (!mounted) return;
-
+  Future<void> _configureAmplify() async {
     // Add Pinpoint and Cognito Plugins
-    Amplify.addPlugin(AmplifyAuthCognito());
-    Amplify.addPlugin(AmplifyAnalyticsPinpoint());
+    await Amplify.addPlugin(AmplifyAuthCognito());
+    await Amplify.addPlugin(AmplifyAnalyticsPinpoint());
 
     // Once Plugins are added, configure Amplify
-    try {
-      await Amplify.configure(amplifyconfig);
-      setState(() {
-        _amplifyConfigured = true;
-      });
-    } on AmplifyAlreadyConfiguredException {
-      print(
-          "Amplify was already configured. Looks like app restarted on android.");
-    }
-
+    await Amplify.configure(amplifyconfig);
+    setState(() {
+      _amplifyConfigured = true;
+    });
   }
 
   // Send an event to Pinpoint
-  void _recordEvent() async {
-    AnalyticsEvent event = AnalyticsEvent('test');
-    event.properties.addBoolProperty('boolKey', true);
-    event.properties.addDoubleProperty('doubleKey', 10.0);
-    event.properties.addIntProperty('intKey', 10);
-    event.properties.addStringProperty('stringKey', 'stringValue');
-    Amplify.Analytics.recordEvent(event: event);
+  Future<void> _recordEvent() async {
+    final event = AnalyticsEvent('test');
+    event.customProperties.addBoolProperty('boolKey', true);
+    event.customProperties.addDoubleProperty('doubleKey', 10);
+    event.customProperties.addIntProperty('intKey', 10);
+    event.customProperties.addStringProperty('stringKey', 'stringValue');
+    await Amplify.Analytics.recordEvent(event: event);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Authenticator(
+      child: MaterialApp(
+        builder: Authenticator.builder(),
+        home: Scaffold(
           appBar: AppBar(
-            title: const Text('Amplify example app'),
+            title: const Text('Amplify Example App'),
           ),
-          body: ListView(padding: EdgeInsets.all(10.0), children: <Widget>[
-            Center(
-              child: Column (
-                children: [
-                  const Padding(padding: EdgeInsets.all(5.0)),
-                  ElevatedButton(
-                    onPressed: _amplifyConfigured ? null : _configureAmplify,
-                    child: const Text('configure Amplify')
-                  ),
-                  ElevatedButton(
-                    onPressed: _amplifyConfigured ? _recordEvent : null,
-                    child: const Text('record event')
-                  )
-                ]
+          body: Center(
+            child: Column(children: [
+              const Padding(padding: EdgeInsets.all(5)),
+              ElevatedButton(
+                onPressed: _amplifyConfigured ? null : _configureAmplify,
+                child: const Text('Configure Amplify'),
               ),
-            )
-          ])
-      )
+              ElevatedButton(
+                onPressed: _amplifyConfigured ? _recordEvent : null,
+                child: const Text('Record Event'),
+              ),
+            ]),
+          ),
+        ),
+      ),
     );
   }
 }
 ```
 
-For iOS builds complete the following steps (from the root of your project):
+9. Before you can run the app, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/) guide to make sure you've completed the necessary steps.
 
-- `rm ios/Podfile`
-- `flutter build ios`
-- Modify the `ios/Podfile` and replace the second line with: `platform :ios, '11.0'`.
+10. Run `flutter run` to launch your app on the connected device.
 
-This ensures that your Flutter project is running the same ios version that the Amplify plugins are built on.
+11. Once the app is loaded, tap on **Configure Amplify**, then on **Record Event** a few times.
 
-9. From the root of your project, execute `flutter run` in the terminal.
+12. To see the events you recoded, run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
 
-> Make sure that an Android or iOS device is already running; this can be a virtual device started from Android Studio.
+Congratulations, you've built your first Amplify app! 🎉 
 
-Click **Configure Amplify**, then **Record Event**. From the terminal (in the root of your project) run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
-
-For further documentation and Amplify Category API usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/flutter).
+For further documentation and Amplify Category usage, see the [documentation](https://docs.amplify.aws/lib/q/platform/flutter).
 
 ---
 
