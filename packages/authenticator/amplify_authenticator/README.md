@@ -4,7 +4,7 @@ The Amplify Flutter Authenticator simplifies the process of authenticating users
 
 ## Example
 
-See the [example](https://github.com/aws-amplify/amplify-flutter/tree/next/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
+See the [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
 
 ## Getting Started
 
@@ -96,25 +96,25 @@ Please refer to the [official documentation](https://api.flutter.dev/flutter/mat
 
 ### AutoFillHints Platform Support
 
-The following `AutoFillHints` have been implemented for the `Authenticator` package. 
+The following `AutoFillHints` have been implemented for the `Authenticator` package.
 
-| AutoFillHint | iOS | Android | Web |
-| ------------ | :-: | :-----: | :-: |
-| birthday | ❌ |	✅ |	✅ |
-| countryName | ✅ |	✅ |	✅ |
-| email | ✅ |	✅ |	✅ |
-| familyName | ✅ |	✅ |	✅ |
-| fullStreetAddress | ✅ |	✅ |	✅ |
-| gender | ❌ |	✅ |	✅ |
-| givenName | ✅ |	✅ |	✅ |
-| middleName | ✅ |	✅ |	✅ |
-| name | ✅ |	✅ |	✅ |
-| newPassword | ✅ |	✅ |	✅ |
-| newUsername | ❌ |	✅ |	❌ |
-| nickname | ✅ |	❌ |	✅ |
-| oneTimeCode | ✅ |	✅ |	✅ |
-| password | ✅ |	✅ |	✅ |
-| telephoneNumber | ✅ |	✅ |	✅ |
-| username | ✅ |	✅ |	✅ |
+| AutoFillHint      | iOS | Android | Web |
+| ----------------- | :-: | :-----: | :-: |
+| birthday          | ❌  |   ✅    | ✅  |
+| countryName       | ✅  |   ✅    | ✅  |
+| email             | ✅  |   ✅    | ✅  |
+| familyName        | ✅  |   ✅    | ✅  |
+| fullStreetAddress | ✅  |   ✅    | ✅  |
+| gender            | ❌  |   ✅    | ✅  |
+| givenName         | ✅  |   ✅    | ✅  |
+| middleName        | ✅  |   ✅    | ✅  |
+| name              | ✅  |   ✅    | ✅  |
+| newPassword       | ✅  |   ✅    | ✅  |
+| newUsername       | ❌  |   ✅    | ❌  |
+| nickname          | ✅  |   ❌    | ✅  |
+| oneTimeCode       | ✅  |   ✅    | ✅  |
+| password          | ✅  |   ✅    | ✅  |
+| telephoneNumber   | ✅  |   ✅    | ✅  |
+| username          | ✅  |   ✅    | ✅  |
 
 Supported Hints are automatically translated to their platform-specific equivalent. Otherwise, the hint string will be used as-is.

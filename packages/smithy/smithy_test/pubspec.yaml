@@ -1,7 +1,7 @@
 name: smithy_test
 description: Test utilities for Smithy packages.
 version: 0.1.0
-repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/smithy/smithy_test
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/smithy/smithy_test
 publish_to: none
 
 environment:
