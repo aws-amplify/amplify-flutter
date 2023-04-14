@@ -169,11 +169,7 @@ jobs:
         }
       }
 
-      if (setExitIfChanged) {
-        exitIfChanged(workflowFile, workflowContents.toString());
-      }
-
-      workflowFile.writeAsStringSync(workflowContents.toString());
+      writeWorkflowFile(workflowFile, workflowContents.toString());
 
       await generateAndroidUnitTestWorkflow(
         package: package,
@@ -265,11 +261,7 @@ jobs:
       package-name: ${package.name}
 ''';
 
-    if (setExitIfChanged) {
-      exitIfChanged(androidWorkflowFile, androidWorkflowContents);
-    }
-
-    androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
+    writeWorkflowFile(androidWorkflowFile, androidWorkflowContents);
   }
 
   /// If a package has iOS unit tests, generate a separate workflow for them.
@@ -354,20 +346,20 @@ jobs:
       package-name: $packageNameToTest
 ''';
 
-    if (setExitIfChanged) {
-      exitIfChanged(iosWorkflowFile, iosWorkflowContents);
-    }
-
-    iosWorkflowFile.writeAsStringSync(iosWorkflowContents);
+    writeWorkflowFile(iosWorkflowFile, iosWorkflowContents);
   }
 
-  void exitIfChanged(File workflowFile, String content) {
+  void writeWorkflowFile(File workflowFile, String content) {
+    if (!workflowFile.existsSync()) {
+      workflowFile.createSync();
+    }
     final currentContent = workflowFile.readAsStringSync();
-    if (currentContent != content) {
+    if (currentContent != content && setExitIfChanged) {
       logger
         ..error('Workflows are not up to date.')
         ..error('Run `aft generate workflows` to regenerate them.');
       exit(1);
     }
+    workflowFile.writeAsStringSync(content);
   }
 }
