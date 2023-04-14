@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_endpoint_request.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_endpoint_response.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/get_in_app_messages_request.dart';
@@ -10,9 +13,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/updat
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/update_endpoints_batch_response.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
 import 'package:amplify_core/amplify_core.dart';
-
-// ignore: implementation_imports
-import 'package:smithy/src/operation.dart';
+import 'package:smithy/smithy.dart';
 
 /// {@template amplify_analytics_pinpoint.sdk.wrapped_pinpoint_client}
 /// A wrapped [PinpointClient] which allows mockable HttpClient
