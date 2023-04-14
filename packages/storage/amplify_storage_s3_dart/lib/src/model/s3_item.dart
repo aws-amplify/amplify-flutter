@@ -6,10 +6,17 @@ import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:meta/meta.dart';
 
+part 's3_item.g.dart';
+
 /// {@template storage.amplify_storage_s3.storage_s3_item}
 /// An object in a S3 bucket.
 /// {@endtemplate}
-class S3Item extends StorageItem {
+@zAmplifySerializable
+class S3Item extends StorageItem
+    with
+        AWSEquatable<S3Item>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable {
   /// {@macro storage.amplify_storage_s3.storage_s3_item}
   S3Item({
     required super.key,
@@ -33,6 +40,9 @@ class S3Item extends StorageItem {
             metadata: decodeMetadata(storageItem.metadata),
           );
   }
+
+  /// {@macro storage.amplify_storage_s3.storage_s3_item}
+  factory S3Item.fromJson(Map<String, Object?> json) => _$S3ItemFromJson(json);
 
   /// Creates a [S3Item] from [s3.S3Object] provided by S3 Client.
   @internal
@@ -114,4 +124,21 @@ class S3Item extends StorageItem {
 
   /// Content type of the [S3Item].
   final String? contentType;
+
+  @override
+  List<Object?> get props => [
+        key,
+        size,
+        lastModified,
+        eTag,
+        metadata,
+        versionId,
+        contentType,
+      ];
+
+  @override
+  String get runtimeTypeName => 'S3Item';
+
+  @override
+  Map<String, Object?> toJson() => _$S3ItemToJson(this);
 }
