@@ -9,12 +9,22 @@ import 'package:path/path.dart' as p;
 /// Command for generating GitHub Actions workflows for all packages in the
 /// repo.
 class GenerateWorkflowsCommand extends AmplifyCommand {
+  GenerateWorkflowsCommand() {
+    argParser.addFlag(
+      'set-exit-if-changed',
+      defaultsTo: false,
+      help: 'Return exit code 1 if there are any workflow changes.',
+    );
+  }
+
   @override
   String get name => 'workflows';
 
   @override
   String get description =>
       'Generate GitHub Actions workflows for repo packages';
+
+  late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
   @override
   Future<void> run() async {
@@ -158,6 +168,11 @@ jobs:
           );
         }
       }
+
+      if (setExitIfChanged) {
+        exitIfChanged(workflowFile, workflowContents.toString());
+      }
+
       workflowFile.writeAsStringSync(workflowContents.toString());
 
       await generateAndroidUnitTestWorkflow(
@@ -250,6 +265,10 @@ jobs:
       package-name: ${package.name}
 ''';
 
+    if (setExitIfChanged) {
+      exitIfChanged(androidWorkflowFile, androidWorkflowContents);
+    }
+
     androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
   }
 
@@ -335,6 +354,20 @@ jobs:
       package-name: $packageNameToTest
 ''';
 
+    if (setExitIfChanged) {
+      exitIfChanged(iosWorkflowFile, iosWorkflowContents);
+    }
+
     iosWorkflowFile.writeAsStringSync(iosWorkflowContents);
+  }
+
+  void exitIfChanged(File workflowFile, String content) {
+    final currentContent = workflowFile.readAsStringSync();
+    if (currentContent != content) {
+      logger
+        ..error('Workflows are not up to date.')
+        ..error('Run `aft generate workflows` to regenerate them.');
+      exit(1);
+    }
   }
 }
