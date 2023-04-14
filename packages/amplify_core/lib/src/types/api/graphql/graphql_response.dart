@@ -30,4 +30,13 @@ class GraphQLResponse<T> {
 
   /// Whether errors are present in the response.
   bool get hasErrors => errors.isNotEmpty;
+
+  @override
+  String toString() {
+    if (hasErrors) {
+      final errors = this.errors.map((error) => error.toJson()).toList();
+      return 'GraphQLResponse<$T> error: ${prettyPrintJson(errors)}';
+    }
+    return 'GraphQLResponse<$T> success: ${prettyPrintJson(data)}';
+  }
 }
