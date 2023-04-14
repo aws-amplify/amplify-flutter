@@ -15,9 +15,9 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'Amplify', '1.29.1'
-  s.dependency 'AWSPluginsCore', '1.29.1'
-  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.29.1'
+  s.dependency 'Amplify', '1.29.2'
+  s.dependency 'AWSPluginsCore', '1.29.2'
+  s.dependency 'AmplifyPlugins/AWSCognitoAuthPlugin', '1.29.2'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.
