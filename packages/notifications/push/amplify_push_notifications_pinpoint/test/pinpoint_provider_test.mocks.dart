@@ -11,13 +11,9 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/endpoi
     as _i4;
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/event_client.dart'
     as _i5;
-import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/dart_queued_item_store.dart'
-    as _i11;
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart'
-    as _i10;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart' as _i6;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart'
     as _i9;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/pinpoint.dart' as _i6;
 import 'package:amplify_core/amplify_core.dart' as _i3;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -216,30 +212,11 @@ class MockAnalyticsClient extends _i1.Mock implements _i8.AnalyticsClient {
         returnValueForMissingStub: null,
       );
   @override
-  _i7.Future<void> initWithClient({
-    required String? pinpointAppId,
-    required _i9.PinpointClient? pinpointClient,
-    _i10.QueuedItemStore? eventStore,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #initWithClient,
-          [],
-          {
-            #pinpointAppId: pinpointAppId,
-            #pinpointClient: pinpointClient,
-            #eventStore: eventStore,
-          },
-        ),
-        returnValue: _i7.Future<void>.value(),
-        returnValueForMissingStub: _i7.Future<void>.value(),
-      ) as _i7.Future<void>);
-  @override
   _i7.Future<void> init({
     required String? pinpointAppId,
     required String? region,
     required _i3.AWSCredentialsProvider? authProvider,
-    _i11.DartQueuedItemStore? eventStore,
+    _i9.QueuedItemStore? eventStore,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
