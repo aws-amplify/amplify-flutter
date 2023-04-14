@@ -20,7 +20,6 @@ jobs:
           # Minimum supported Dart version
           - '2.18.0'
           - stable
-          - beta
         browser:
           - chrome
           - firefox
@@ -61,11 +60,6 @@ jobs:
         uses: ./.github/composite_actions/setup_firefox
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update constraints
-        if: matrix.sdk == 'beta'
-        shell: bash
-        run: aft --config=aft.beta.yaml constraints apply
 
       - name: Bootstrap
         id: bootstrap
