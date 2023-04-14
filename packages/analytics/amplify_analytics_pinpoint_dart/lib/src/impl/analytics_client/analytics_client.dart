@@ -7,7 +7,7 @@ import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_
 import 'package:amplify_analytics_pinpoint_dart/src/impl/analytics_client/event_client/queued_item_store/queued_item_store.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/device_context_info_provider.dart';
 import 'package:amplify_analytics_pinpoint_dart/src/impl/flutter_provider_interfaces/legacy_native_data_provider.dart';
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/pinpoint_client.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/sdk_bridge.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
@@ -47,9 +47,7 @@ class AnalyticsClient {
     required AWSCredentialsProvider authProvider,
     QueuedItemStore? eventStore,
   }) async {
-    final pinpointClient = PinpointClient(
-      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-      client: Amplify.dependencies.getOrCreate<AmplifyHttpClient>(),
+    final pinpointClient = WrappedPinpointClient(
       region: region,
       credentialsProvider: authProvider,
     );
