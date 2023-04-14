@@ -1,6 +1,6 @@
 name: amplify_push_notifications
 description: Core Push Notifications Flutter package
-version: 1.0.0-next.0
+version: 1.0.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
@@ -9,7 +9,7 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_core: ">=1.0.0-next.8+1 <1.0.0-next.9"
+  amplify_core: ">=1.0.0 <1.1.0"
   amplify_secure_storage: ">=0.3.0+1 <0.4.0"
   async: ^2.10.0
   flutter:
@@ -21,7 +21,7 @@ dev_dependencies:
   amplify_lints: ^2.0.0
   amplify_test:
     path: ../../../test/amplify_test
-  aws_signature_v4: ">=0.3.1+5 <0.4.0"
+  aws_signature_v4: ">=0.3.1+6 <0.4.0"
   build_runner: ^2.0.0
   build_test: ^2.1.5
   flutter_test:
