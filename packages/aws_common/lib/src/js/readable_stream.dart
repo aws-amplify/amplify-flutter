@@ -1,6 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// TODO(dnys1): Remove when migrated to Dart 3
+// @dart=2.18
+
 @JS()
 library aws_common.js.readable_stream;
 
