@@ -49,7 +49,6 @@ class AmplifyPushNotificationsPlugin(
     /**
      * The scope in which to spawn tasks which should not be awaited from the main thread.
      */
-//    private val scope = CoroutineScope(dispatcher)
     private val scope =
         CoroutineScope(dispatcher) + CoroutineName("amplify_flutter.PushNotifications")
     /**
