@@ -116,6 +116,7 @@ class PinpointProvider implements ServiceProviderClient {
         );
       }
 
+      // setUser does not have any underlying network calls, hence not running it _withUserAgent
       await _analyticsClient.endpointClient.setUser(
         userId,
         userProfile,
