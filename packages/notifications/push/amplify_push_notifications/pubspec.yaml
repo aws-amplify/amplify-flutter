@@ -1,5 +1,5 @@
 name: amplify_push_notifications
-description: Core Push Notifications Flutter package
+description: The Amplify Flutter Push Notifications package implementing features agnostic of an AWS Service such as Pinpoint.
 version: 1.0.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues

@@ -1,5 +1,5 @@
 name: amplify_push_notifications_pinpoint
-description: Push Notifications Pinpoint Flutter plugin
+description: The Amplify Flutter Push Notifications category plugin using the AWS Pinpoint provider.
 version: 1.0.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -7,6 +7,11 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 environment:
   sdk: ">=2.18.0 <4.0.0"
   flutter: ">=3.3.0"
+
+# Helps `pana` since it does not detect Android support.
+platforms:
+  ios:
+  android:
 
 dependencies:
   amplify_analytics_pinpoint: ">=1.0.0 <1.1.0"
