@@ -14,8 +14,12 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  amplify_integration_test: any
   amplify_lints: ^1.0.0
+  aws_common: any
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 flutter:
