@@ -9,7 +9,6 @@ import androidx.lifecycle.Lifecycle
 import com.amplifyframework.annotations.InternalAmplifyApi
 import com.amplifyframework.notifications.pushnotifications.NotificationContentProvider
 import com.amplifyframework.notifications.pushnotifications.NotificationPayload
-import com.amplifyframework.pushnotifications.pinpoint.permissions.PermissionRequestResult
 import com.amplifyframework.pushnotifications.pinpoint.permissions.PermissionRequestResult.*
 import com.amplifyframework.pushnotifications.pinpoint.permissions.PushNotificationPermission
 import com.google.android.gms.tasks.Task
@@ -22,6 +21,7 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -49,13 +49,13 @@ class AmplifyPushNotificationsPluginTest {
     private val mockActivityBinding = mockk<ActivityPluginBinding>(relaxed = true)
     private val mockResult =
         mockk<PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>>()
+    private val mockFlutterBinding = mockk<FlutterPluginBinding>()
 
     @Before
     fun setUp() {
         context = mockk()
         mockEventSink = mockk()
         val mockedBinaryMessenger = mockk<BinaryMessenger>()
-        val mockFlutterBinding = mockk<FlutterPluginBinding>()
         val mockLifeCycle = mockk<Lifecycle>()
         val mockActivity = mockk<Activity>()
 
@@ -237,10 +237,13 @@ class AmplifyPushNotificationsPluginTest {
 
     @Test
     fun `requests permission`() = runTest {
-        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns PermissionRequestResult.Granted
+        coEvery { anyConstructed<PushNotificationPermission>().requestPermission() } returns Granted
         val mockResult = mockk<PushNotificationsHostApiBindings.Result<Boolean>>()
         every { mockResult.success(any()) } returns mockk()
-        amplifyPushNotificationsPlugin.requestPermissions(mockk(), mockResult)
+        val dispatcher = StandardTestDispatcher(testScheduler)
+        val pluginWithDispatcher  = AmplifyPushNotificationsPlugin(dispatcher)
+        pluginWithDispatcher.onAttachedToEngine(mockFlutterBinding)
+        pluginWithDispatcher.requestPermissions(mockk(), mockResult)
         advanceUntilIdle()
         verify { mockResult.success(true) }
     }
@@ -260,7 +263,10 @@ class AmplifyPushNotificationsPluginTest {
         )
         val mockResult = mockk<PushNotificationsHostApiBindings.Result<Boolean>>()
         every { mockResult.success(any()) } returns mockk()
-        amplifyPushNotificationsPlugin.requestPermissions(mockk(), mockResult)
+        val dispatcher = StandardTestDispatcher(testScheduler)
+        val pluginWithDispatcher  = AmplifyPushNotificationsPlugin(dispatcher)
+        pluginWithDispatcher.onAttachedToEngine(mockFlutterBinding)
+        pluginWithDispatcher.requestPermissions(mockk(), mockResult)
         advanceUntilIdle()
         verify {
             mockResult.success(false)

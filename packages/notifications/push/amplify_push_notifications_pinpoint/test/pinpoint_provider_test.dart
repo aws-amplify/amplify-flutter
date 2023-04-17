@@ -70,6 +70,45 @@ void main() {
       );
     });
 
+    test('identifyUser should throw exception if the underlying call throws',
+        () async {
+      when(mockAmplifyAuthProviderRepository.getAuthProvider(any))
+          .thenReturn(awsIamAmplifyAuthProvider);
+      when(
+        mockAnalyticsClient.init(
+          pinpointAppId: anyNamed('pinpointAppId'),
+          region: anyNamed('region'),
+          authProvider: anyNamed('authProvider'),
+        ),
+      ).thenAnswer((realInvocation) async {});
+
+      final mockEndpointClient = MockEndpointClient();
+
+      when(
+        mockAnalyticsClient.endpointClient,
+      ).thenReturn(mockEndpointClient);
+
+      await pinpointProvider.init(
+        config: notificationsPinpointConfig,
+        authProviderRepo: mockAmplifyAuthProviderRepository,
+        analyticsClient: mockAnalyticsClient,
+      );
+      when(mockEndpointClient.setUser(any, any)).thenThrow(Exception());
+      expect(
+        pinpointProvider.identifyUser(
+          userId: 'userId',
+          userProfile: MockUserProfile(),
+        ),
+        throwsA(
+          isA<PushNotificationException>().having(
+            (e) => e.message,
+            'Unable to identify user',
+            contains('Unable to identify user.'),
+          ),
+        ),
+      );
+    });
+
     test(
         'constructEventInfo should return journey data when there is journey details in the payload',
         () async {
@@ -135,13 +174,10 @@ void main() {
         mockAnalyticsClient.endpointClient,
       ).thenReturn(mockEndpointClient);
 
-      expect(
-        pinpointProvider.init(
-          config: notificationsPinpointConfig,
-          authProviderRepo: mockAmplifyAuthProviderRepository,
-          analyticsClient: mockAnalyticsClient,
-        ),
-        completes,
+      await pinpointProvider.init(
+        config: notificationsPinpointConfig,
+        authProviderRepo: mockAmplifyAuthProviderRepository,
+        analyticsClient: mockAnalyticsClient,
       );
 
       expect(
