@@ -144,6 +144,7 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
         preSignUp: autoConfirmTrigger,
       },
     });
+    this.createUserCleanupJob(userPool);
 
     const userPoolClient = userPool.addClient("UserPoolClient", {
       authFlows: {
@@ -212,13 +213,11 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
                       `${prefixes[StorageAccessLevel.public]}*`,
                       `${prefixes[StorageAccessLevel.protected]}`,
                       `${prefixes[StorageAccessLevel.protected]}*`,
-                      `${
-                        prefixOverrides?.[StorageAccessLevel.protected] ??
-                        "protected"
+                      `${prefixOverrides?.[StorageAccessLevel.protected] ??
+                      "protected"
                       }/`,
-                      `${
-                        prefixOverrides?.[StorageAccessLevel.protected] ??
-                        "protected"
+                      `${prefixOverrides?.[StorageAccessLevel.protected] ??
+                      "protected"
                       }/*`,
                     ].filter((val) => val !== "")
                   )
@@ -256,8 +255,7 @@ class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<
           new iam.PolicyStatement({
             actions: ["s3:GetObject"],
             resources: [
-              `${bucket.bucketArn}/${
-                prefixOverrides?.[StorageAccessLevel.protected] ?? "protected"
+              `${bucket.bucketArn}/${prefixOverrides?.[StorageAccessLevel.protected] ?? "protected"
               }/*`,
             ],
           }),

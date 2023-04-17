@@ -108,7 +108,7 @@ export interface AuthFullEnvironmentProps {
    * @default true
    */
   allowUnauthenticatedIdentities?: boolean;
-  
+
   /**
    * Whether to issue a client secret to the user pool client.
    * 
@@ -365,6 +365,7 @@ class AuthIntegrationTestStackEnvironment extends IntegrationTestStackEnvironmen
       customSenderKmsKey,
       deviceTracking: props.deviceTracking,
     });
+    this.createUserCleanupJob(userPool);
 
     let oAuth: cognito.OAuthSettings | undefined;
     let webDomain: cognito.UserPoolDomain | undefined;
