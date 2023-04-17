@@ -90,6 +90,7 @@ void main() {
           userAttributes: {CognitoUserAttributeKey.email: email},
         ),
       );
+      addTearDown(() => deleteUser(email));
 
       signInPage.expectUsername(label: 'Email');
 
