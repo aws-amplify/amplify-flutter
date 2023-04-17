@@ -8,8 +8,8 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_authenticator: ">=1.0.0-next.5+1 <1.0.0-next.6"
-  amplify_flutter: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_authenticator: any
+  amplify_flutter: any
   amplify_integration_test:
     path: ../../test/amplify_integration_test
   flutter:

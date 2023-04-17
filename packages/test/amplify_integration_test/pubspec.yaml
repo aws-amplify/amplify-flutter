@@ -7,11 +7,11 @@ environment:
   sdk: '>=2.18.0 <4.0.0'
 
 dependencies:
-  amplify_auth_cognito_dart: ">=0.9.0+1 <0.10.0"
-  amplify_core: ">=1.0.0-next.8+1 <1.0.0-next.9"
+  amplify_auth_cognito_dart: any
+  amplify_core: any
   amplify_test:
     path: ../amplify_test
   stream_transform: ^2.0.0
 
 dev_dependencies:
-  amplify_lints: ^2.0.0
+  amplify_lints: any
