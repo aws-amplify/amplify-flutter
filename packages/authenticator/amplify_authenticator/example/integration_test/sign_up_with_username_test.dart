@@ -112,6 +112,8 @@ void main() {
       await signInPage.navigateToSignUp();
 
       final username = generateUsername();
+      addTearDown(() => deleteUser(username));
+
       final password = generatePassword();
       final email = generateEmail();
 

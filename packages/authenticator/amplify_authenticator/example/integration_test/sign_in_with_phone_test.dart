@@ -84,6 +84,8 @@ void main() {
           },
         ),
       );
+      addTearDown(() => deleteUser(phoneNumber.toE164()));
+
       await loadAuthenticator(tester: tester);
 
       expect(
