@@ -38,6 +38,20 @@ class PinpointProvider implements ServiceProviderClient {
       'pinpoint.campaign.treatment_id';
   bool _isInitialized = false;
 
+  /// UserAgent string for Push Notifications made public for testing
+  @visibleForTesting
+  static const userAgent = 'pushnotifications';
+
+  static R _withUserAgent<R>(R Function() fn) {
+    final globalUserAgent =
+        // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+        Amplify.dependencies.getOrCreate<AmplifyUserAgent>();
+    return globalUserAgent.runWith(
+      updates: (ua) => ua.addComponent(userAgent),
+      fn,
+    );
+  }
+
   @override
   Future<void> init({
     required NotificationsPinpointPluginConfig config,
@@ -101,9 +115,14 @@ class PinpointProvider implements ServiceProviderClient {
               'Make sure Pinpoint service provider client is initialized before using this method.',
         );
       }
+
+      // setUser does not have any underlying network calls, hence not running it _withUserAgent
       await _analyticsClient.endpointClient.setUser(
         userId,
         userProfile,
+      );
+      await _withUserAgent(
+        () async => _analyticsClient.endpointClient.updateEndpoint(),
       );
     } on Exception catch (e) {
       throw PushNotificationException(
@@ -135,9 +154,12 @@ class PinpointProvider implements ServiceProviderClient {
       }
 
       final eventInfo = constructEventInfo(notification: notification);
-      await _analyticsClient.eventClient.recordEvent(
-        eventType: '${eventInfo.source}.${eventType.name}',
-        properties: eventInfo.properties,
+
+      await _withUserAgent(
+        () async => _analyticsClient.eventClient.recordEvent(
+          eventType: '${eventInfo.source}.${eventType.name}',
+          properties: eventInfo.properties,
+        ),
       );
     } on Exception catch (e) {
       _logger.error('Unable to record event: $e');
@@ -157,7 +179,9 @@ class PinpointProvider implements ServiceProviderClient {
       final channelType = _getChannelType();
       _analyticsClient.endpointClient.channelType = channelType;
       _analyticsClient.endpointClient.optOut = 'NONE';
-      await _analyticsClient.endpointClient.updateEndpoint();
+      await _withUserAgent(
+        () async => _analyticsClient.endpointClient.updateEndpoint(),
+      );
     } on AWSHttpException catch (e) {
       _logger.error('Network problem when registering device: ', e);
     }
