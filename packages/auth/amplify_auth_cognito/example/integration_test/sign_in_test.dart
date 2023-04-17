@@ -91,7 +91,7 @@ void main() {
             username: username,
             password: password,
           );
-          expect(result.nextStep.additionalInfo, isNull);
+          expect(result.nextStep.additionalInfo, isEmpty);
         });
 
         asyncTest(
