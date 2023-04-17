@@ -5,15 +5,14 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_native_legacy_wrapper.yaml'
       - 'packages/amplify_native_legacy_wrapper/**/*.dart'
       - 'packages/amplify_native_legacy_wrapper/**/*.yaml'
       - 'packages/amplify_native_legacy_wrapper/lib/**/*'
       - 'packages/amplify_native_legacy_wrapper/test/**/*'
-      - '.github/workflows/flutter_vm.yaml'
-      - '.github/workflows/amplify_native_legacy_wrapper.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

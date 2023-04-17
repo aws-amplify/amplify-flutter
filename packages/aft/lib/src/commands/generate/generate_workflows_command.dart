@@ -9,12 +9,22 @@ import 'package:path/path.dart' as p;
 /// Command for generating GitHub Actions workflows for all packages in the
 /// repo.
 class GenerateWorkflowsCommand extends AmplifyCommand {
+  GenerateWorkflowsCommand() {
+    argParser.addFlag(
+      'set-exit-if-changed',
+      defaultsTo: false,
+      help: 'Return exit code 1 if there are any workflow changes.',
+    );
+  }
+
   @override
   String get name => 'workflows';
 
   @override
   String get description =>
       'Generate GitHub Actions workflows for repo packages';
+
+  late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
   @override
   Future<void> run() async {
@@ -71,11 +81,36 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         if (needsNativeTest) nativeWorkflow,
         if (needsWebTest) ...[ddcWorkflow, dart2JsWorkflow],
       ];
+
+      // Collect all the paths for which this workflow will run. This includes
+      // paths in the package itself plus any modifications in transitive
+      // dependencies which could impact this.
       final workflowPaths = [
         if (needsWebTest) '.github/composite_actions/setup_firefox/action.yaml',
         ...workflows.map((workflow) => '.github/workflows/$workflow'),
         p.relative(workflowFilepath, from: rootDir.path),
-      ].map((path) => "      - '$path'").join('\n');
+        '$repoRelativePath/**/*.dart',
+        '$repoRelativePath/**/*.yaml',
+        '$repoRelativePath/lib/**/*',
+        '$repoRelativePath/test/**/*',
+      ];
+      dfs(
+        repo.packageGraph,
+        root: package,
+        (dependent) {
+          if (dependent == package || !dependent.isDevelopmentPackage) {
+            return;
+          }
+          final repoRelativePath = p.relative(
+            dependent.path,
+            from: rootDir.path,
+          );
+          workflowPaths.addAll([
+            '$repoRelativePath/pubspec.yaml',
+            '$repoRelativePath/lib/**/*.dart',
+          ]);
+        },
+      );
 
       final workflowContents = StringBuffer(
         '''
@@ -86,14 +121,9 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
-      - '$repoRelativePath/**/*.dart'
-      - '$repoRelativePath/**/*.yaml'
-      - '$repoRelativePath/lib/**/*'
-      - '$repoRelativePath/test/**/*'
-$workflowPaths
+${workflowPaths.map((path) => "      - '$path'").join('\n')}
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -138,7 +168,8 @@ jobs:
           );
         }
       }
-      workflowFile.writeAsStringSync(workflowContents.toString());
+
+      writeWorkflowFile(workflowFile, workflowContents.toString());
 
       await generateAndroidUnitTestWorkflow(
         package: package,
@@ -230,7 +261,7 @@ jobs:
       package-name: ${package.name}
 ''';
 
-    androidWorkflowFile.writeAsStringSync(androidWorkflowContents);
+    writeWorkflowFile(androidWorkflowFile, androidWorkflowContents);
   }
 
   /// If a package has iOS unit tests, generate a separate workflow for them.
@@ -315,6 +346,20 @@ jobs:
       package-name: $packageNameToTest
 ''';
 
-    iosWorkflowFile.writeAsStringSync(iosWorkflowContents);
+    writeWorkflowFile(iosWorkflowFile, iosWorkflowContents);
+  }
+
+  void writeWorkflowFile(File workflowFile, String content) {
+    if (!workflowFile.existsSync()) {
+      workflowFile.createSync();
+    }
+    final currentContent = workflowFile.readAsStringSync();
+    if (currentContent != content && setExitIfChanged) {
+      logger
+        ..error('Workflows are not up to date.')
+        ..error('Run `aft generate workflows` to regenerate them.');
+      exit(1);
+    }
+    workflowFile.writeAsStringSync(content);
   }
 }

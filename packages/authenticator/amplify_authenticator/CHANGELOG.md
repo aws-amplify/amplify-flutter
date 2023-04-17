@@ -1,3 +1,24 @@
+## 1.0.0
+
+We are thrilled to release version 1.0 of the Amplify Flutter libraries!
+
+This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
+applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
+
+If you've been using v0 in production, you can now safely migrate to v1. Check out our 
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+more information.
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+[Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### Bug Fixes
+
+The following issues have been fixed in this release:
+
+- When working offline, id/access/refresh token expiration time is not honored. ([#2398](https://github.com/aws-amplify/amplify-flutter/issues/2398))
+- NotAuthorizedException exception message are different on android and iOS ([#2231](https://github.com/aws-amplify/amplify-flutter/issues/2231))
+
 ## 1.0.0-next.5+2
 
 - Minor bug fixes and improvements

@@ -1,15 +1,15 @@
 name: {{name}}
 description: A starting point for Amplify Flutter packages.
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/next/{{{path}}}
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/{{{path}}}
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: '{{{dartSdkConstraint}}}'
-  flutter: '{{{flutterSdkConstraint}}}'
+  sdk: "{{{dartSdkConstraint}}}"
+  flutter: "{{{flutterSdkConstraint}}}"
 
 dependencies:
-  amplify_flutter: '{{{amplifyFlutterConstraint}}}'
+  amplify_flutter: "{{{amplifyFlutterConstraint}}}"
 
 dev_dependencies:
   amplify_lints: ^2.0.0

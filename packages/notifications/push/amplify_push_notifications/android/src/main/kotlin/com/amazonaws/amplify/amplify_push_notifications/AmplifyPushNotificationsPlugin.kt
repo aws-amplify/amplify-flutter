@@ -29,15 +29,11 @@ private const val TAG = "AmplifyPushNotificationsPlugin"
 
 /** AmplifyPushNotificationsPlugin */
 @InternalAmplifyApi
-open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
+class AmplifyPushNotificationsPlugin(
+    dispatcher: CoroutineDispatcher = Dispatchers.Main
+) : FlutterPlugin, ActivityAware,
     PluginRegistry.NewIntentListener, PushNotificationsHostApi {
     companion object {
-        /**
-         * The scope in which to spawn tasks which should not be awaited from the main thread.
-         */
-        val scope =
-            CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.PushNotifications")
-
         /**
          * Flutter API interface.
          */
@@ -50,6 +46,11 @@ open class AmplifyPushNotificationsPlugin : FlutterPlugin, ActivityAware,
         var launchNotification: MutableMap<Any, Any?>? = null
     }
 
+    /**
+     * The scope in which to spawn tasks which should not be awaited from the main thread.
+     */
+    private val scope =
+        CoroutineScope(dispatcher) + CoroutineName("amplify_flutter.PushNotifications")
     /**
      * The user's main activity.
      */

@@ -1,6 +1,6 @@
 name: amplify_push_notifications_pinpoint
-description: Push Notifications Pinpoint Flutter plugin
-version: 1.0.0-next.0
+description: The Amplify Flutter Push Notifications category plugin using the AWS Pinpoint provider.
+version: 1.0.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
@@ -8,13 +8,18 @@ environment:
   sdk: ">=2.18.0 <4.0.0"
   flutter: ">=3.3.0"
 
+# Helps `pana` since it does not detect Android support.
+platforms:
+  ios:
+  android:
+
 dependencies:
-  amplify_analytics_pinpoint: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_analytics_pinpoint_dart: ">=0.2.0+1 <0.3.0"
-  amplify_auth_cognito: ">=1.0.0-next.8 <1.0.0-next.9"
-  amplify_core: ">=1.0.0-next.8+1 <1.0.0-next.9"
-  amplify_flutter: ">=1.0.0-next.8+1 <1.0.0-next.9"
-  amplify_push_notifications: ">=1.0.0-next.0 <1.0.0-next.1"
+  amplify_analytics_pinpoint: ">=1.0.0 <1.1.0"
+  amplify_analytics_pinpoint_dart: ">=0.2.0+2 <0.3.0"
+  amplify_auth_cognito: ">=1.0.0 <1.1.0"
+  amplify_core: ">=1.0.0 <1.1.0"
+  amplify_flutter: ">=1.0.0 <1.1.0"
+  amplify_push_notifications: ">=1.0.0 <1.1.0"
   amplify_secure_storage: ">=0.3.0+1 <0.4.0"
   flutter:
     sdk: flutter
@@ -22,8 +27,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  amplify_test: any
-  build_runner: ^2.0.0
+  amplify_test:
+    path: ../../../test/amplify_test
+  build_runner: ^2.3.3
   built_value_generator: 8.4.4
   flutter_test:
     sdk: flutter

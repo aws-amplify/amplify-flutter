@@ -14,6 +14,7 @@ import 'common/mocktail_mocks.dart';
 void main() {
   group('Multiple AnalyticsClients ', () {
     const analyticsPinpointAppId = 'analyticsPinpointAppId';
+    const analyticsRegion = 'region';
     const notificationsPinpointAppId = 'notificationsPinpointAppId';
 
     late final MockSecureStorage store;
@@ -27,27 +28,25 @@ void main() {
     setUpAll(() async {
       store = MockSecureStorage();
 
-      final analyticsPinpointClient = MockPinpointClient();
       analyticsEventStore = InMemoryQueuedItemStore();
-
       analyticsClient = AnalyticsClient(
         endpointStorage: store,
       );
-      await analyticsClient.initWithClient(
+      await analyticsClient.init(
         pinpointAppId: analyticsPinpointAppId,
-        pinpointClient: analyticsPinpointClient,
+        region: analyticsRegion,
+        authProvider: MockIamAuthProvider(),
         eventStore: analyticsEventStore,
       );
 
-      final notificationsPinpointClient = MockPinpointClient();
       notificationsEventStore = InMemoryQueuedItemStore();
-
       notificationsClient = AnalyticsClient(
         endpointStorage: store,
       );
-      await notificationsClient.initWithClient(
+      await notificationsClient.init(
         pinpointAppId: notificationsPinpointAppId,
-        pinpointClient: notificationsPinpointClient,
+        region: analyticsRegion,
+        authProvider: MockIamAuthProvider(),
         eventStore: notificationsEventStore,
       );
     });

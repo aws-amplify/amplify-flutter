@@ -8,8 +8,8 @@ To get started using the signer, add it as a dependency in your `pubspec.yaml` a
 
 ```yaml
 dependencies:
-  aws_common: ^0.1.0
-  aws_signature_v4: ^0.1.0
+  aws_common: ^0.3.0
+  aws_signature_v4: ^0.3.0
 ```
 
 ```dart

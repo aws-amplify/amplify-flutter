@@ -5,15 +5,20 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
+      - '.github/workflows/flutter_vm.yaml'
+      - '.github/workflows/amplify_secure_storage.yaml'
       - 'packages/secure_storage/amplify_secure_storage/**/*.dart'
       - 'packages/secure_storage/amplify_secure_storage/**/*.yaml'
       - 'packages/secure_storage/amplify_secure_storage/lib/**/*'
       - 'packages/secure_storage/amplify_secure_storage/test/**/*'
-      - '.github/workflows/flutter_vm.yaml'
-      - '.github/workflows/amplify_secure_storage.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/pubspec.yaml'
+      - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

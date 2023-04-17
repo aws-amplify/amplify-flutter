@@ -1,10 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_flutter/src/amplify_impl.dart';
-import 'package:amplify_test/test_models/ModelProvider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -17,6 +15,8 @@ final throwsPluginNotAddedError = throwsA(
     contains('plugin has not been added to Amplify'),
   ),
 );
+
+class MockPlugin extends AuthPluginInterface {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -120,44 +120,24 @@ void main() {
   test('adding multiple plugins using addPlugins method doesn\'t throw',
       () async {
     await amplify.addPlugins([
-      AmplifyDataStore(modelProvider: ModelProvider.instance),
-      AmplifyDataStore(modelProvider: ModelProvider.instance),
+      MockPlugin(),
+      MockPlugin(),
     ]);
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
   test('adding single plugins using addPlugin method doesn\'t throw', () async {
-    await amplify
-        .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance));
+    await amplify.addPlugin(MockPlugin());
     await amplify.configure(validJsonConfiguration);
     expect(amplify.isConfigured, true);
   });
 
-  test('adding multiple plugins from same Analytic category throws exception',
-      () async {
-    await amplify
-        .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance));
-    expect(
-      amplify
-          .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance)),
-      throwsA(
-        isA<PluginError>().having(
-          (e) => e.toString(),
-          'toString',
-          contains('DataStore plugin has already been added'),
-        ),
-      ),
-    );
-  });
-
   test('adding plugins after configure throws an exception', () async {
-    await amplify
-        .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance));
+    await amplify.addPlugin(MockPlugin());
     await amplify.configure(validJsonConfiguration);
     try {
-      await amplify
-          .addPlugin(AmplifyDataStore(modelProvider: ModelProvider.instance));
+      await amplify.addPlugin(MockPlugin());
     } catch (e) {
       expect(e, amplifyAlreadyConfiguredForAddPluginException);
       expect(amplify.isConfigured, true);

@@ -1,3 +1,17 @@
+## 1.0.0
+
+We are thrilled to release version 1.0 of the Amplify Flutter libraries!
+
+This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
+applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
+
+If you've been using v0 in production, you can now safely migrate to v1. Check out our 
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+more information.
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+[Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
 ## 1.0.0-next.8+1
 
 ### Features

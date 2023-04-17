@@ -2,12 +2,12 @@ name: doc
 description: Docs examples for the `amplify_core` package.
 version: 0.1.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify_core/doc
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_core/doc
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
   amplify_analytics_pinpoint: any

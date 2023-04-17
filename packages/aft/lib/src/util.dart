@@ -90,8 +90,10 @@ void sortPackagesTopologically<T>(
   final packageNames = pubspecs.map((el) => el.name).toList();
   final directGraph = <String, List<String>>{
     for (final package in pubspecs)
-      package.name:
-          package.dependencies.keys.where(packageNames.contains).toList(),
+      package.name: [
+        ...package.dependencies.keys.where(packageNames.contains),
+        ...package.devDependencies.keys.where(packageNames.contains),
+      ],
   };
   final transitiveGraph = <String, Set<String>>{
     for (final package in pubspecs) package.name: {},

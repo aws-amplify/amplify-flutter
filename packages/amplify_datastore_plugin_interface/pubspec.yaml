@@ -1,8 +1,8 @@
 name: amplify_datastore_plugin_interface
 description: The platform interface for the DataStore module of Amplify Flutter.
-version: 1.0.0-next.8+1
+version: 1.0.0
 homepage: https://docs.amplify.aws/lib/q/platform/flutter/
-repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/amplify_datastore_plugin_interface
+repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/amplify_datastore_plugin_interface
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
@@ -10,13 +10,14 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
-  amplify_core: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_core: ">=1.0.0 <1.1.0"
   collection: ^1.15.0
   flutter:
     sdk: flutter
   meta: ^1.7.0
 
 dev_dependencies:
-  amplify_test: any
+  amplify_test:
+    path: ../test/amplify_test
   flutter_test:
     sdk: flutter

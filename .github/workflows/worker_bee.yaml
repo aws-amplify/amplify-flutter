@@ -5,15 +5,16 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/worker_bee.yaml'
       - 'packages/worker_bee/worker_bee/**/*.dart'
       - 'packages/worker_bee/worker_bee/**/*.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*'
       - 'packages/worker_bee/worker_bee/test/**/*'
-      - '.github/workflows/dart_vm.yaml'
-      - '.github/workflows/worker_bee.yaml'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

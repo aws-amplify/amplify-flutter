@@ -2,15 +2,9 @@
 
 The Amplify Flutter Authenticator simplifies the process of authenticating users by providing a fully-customizable flow which just works. Simply wrap your app's authenticated route in an Authenticator component and the process of authenticating users and managing login sessions is handled for you.
 
-## Developer Preview
-
-The Amplify Flutter libraries are being rewritten in Dart. This version is part of our developer preview for all platforms and is **not** intended for production usage. Please follow our [Web](https://github.com/aws-amplify/amplify-flutter/issues/234) and [Desktop](https://github.com/aws-amplify/amplify-flutter/issues/133) support tickets to monitor the status of supported categories. We will be releasing Web and Desktop support for all Amplify categories incrementally.
-
-For production use cases please use the latest, non-tagged versions of amplify-flutter packages from `pub.dev`. They offer a stable, production-ready experience for Android and iOS.
-
 ## Example
 
-See the [example](https://github.com/aws-amplify/amplify-flutter/tree/next/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
+See the [example](https://github.com/aws-amplify/amplify-flutter/tree/main/packages/authenticator/amplify_authenticator/example) which showcases many of the customizations available.
 
 ## Getting Started
 
@@ -18,9 +12,9 @@ To get started, add the Authenticator to a project which has the [Auth category]
 
 ```yaml
 dependencies:
-  amplify_auth_cognito: ^0.4.2
-  amplify_authenticator: ^0.1.0
-  amplify_flutter: ^0.4.2
+  amplify_auth_cognito: ^1.0.0
+  amplify_authenticator: ^1.0.0
+  amplify_flutter: ^1.0.0
 ```
 
 Then, wrap your app's logged in component with an `Authenticator` widget, and you're good to go. You can use the `SignOutButton` to sign out the user from anywhere in your app.
@@ -102,25 +96,25 @@ Please refer to the [official documentation](https://api.flutter.dev/flutter/mat
 
 ### AutoFillHints Platform Support
 
-The following `AutoFillHints` have been implemented for the `Authenticator` package. 
+The following `AutoFillHints` have been implemented for the `Authenticator` package.
 
-| AutoFillHint | iOS | Android | Web |
-| ------------ | :-: | :-----: | :-: |
-| birthday | ❌ |	✅ |	✅ |
-| countryName | ✅ |	✅ |	✅ |
-| email | ✅ |	✅ |	✅ |
-| familyName | ✅ |	✅ |	✅ |
-| fullStreetAddress | ✅ |	✅ |	✅ |
-| gender | ❌ |	✅ |	✅ |
-| givenName | ✅ |	✅ |	✅ |
-| middleName | ✅ |	✅ |	✅ |
-| name | ✅ |	✅ |	✅ |
-| newPassword | ✅ |	✅ |	✅ |
-| newUsername | ❌ |	✅ |	❌ |
-| nickname | ✅ |	❌ |	✅ |
-| oneTimeCode | ✅ |	✅ |	✅ |
-| password | ✅ |	✅ |	✅ |
-| telephoneNumber | ✅ |	✅ |	✅ |
-| username | ✅ |	✅ |	✅ |
+| AutoFillHint      | iOS | Android | Web |
+| ----------------- | :-: | :-----: | :-: |
+| birthday          | ❌  |   ✅    | ✅  |
+| countryName       | ✅  |   ✅    | ✅  |
+| email             | ✅  |   ✅    | ✅  |
+| familyName        | ✅  |   ✅    | ✅  |
+| fullStreetAddress | ✅  |   ✅    | ✅  |
+| gender            | ❌  |   ✅    | ✅  |
+| givenName         | ✅  |   ✅    | ✅  |
+| middleName        | ✅  |   ✅    | ✅  |
+| name              | ✅  |   ✅    | ✅  |
+| newPassword       | ✅  |   ✅    | ✅  |
+| newUsername       | ❌  |   ✅    | ❌  |
+| nickname          | ✅  |   ❌    | ✅  |
+| oneTimeCode       | ✅  |   ✅    | ✅  |
+| password          | ✅  |   ✅    | ✅  |
+| telephoneNumber   | ✅  |   ✅    | ✅  |
+| username          | ✅  |   ✅    | ✅  |
 
 Supported Hints are automatically translated to their platform-specific equivalent. Otherwise, the hint string will be used as-is.

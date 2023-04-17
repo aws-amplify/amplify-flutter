@@ -5,19 +5,20 @@ on:
     branches:
       - main
       - stable
-      - next
   pull_request:
     paths:
-      - 'packages/aws_signature_v4/**/*.dart'
-      - 'packages/aws_signature_v4/**/*.yaml'
-      - 'packages/aws_signature_v4/lib/**/*'
-      - 'packages/aws_signature_v4/test/**/*'
       - '.github/composite_actions/setup_firefox/action.yaml'
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
       - '.github/workflows/dart_ddc.yaml'
       - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/aws_signature_v4.yaml'
+      - 'packages/aws_signature_v4/**/*.dart'
+      - 'packages/aws_signature_v4/**/*.yaml'
+      - 'packages/aws_signature_v4/lib/**/*'
+      - 'packages/aws_signature_v4/test/**/*'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
