@@ -1,9 +1,10 @@
 ## 1.0.0-supports-only-mobile.0
 
-Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports. However,
-DataStore has not been migrated to our full Dart implementation at this time. 
-
-We are working on a path forward to supporting the offline first experiences on web and desktop in the future.
+Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports. 
+When interacting with GraphQL APIs, use the API category for all platforms or DataStore for iOS and Android. 
+This is because we retained DataStore on the original Android & iOS implementation. We’re 
+looking to bring data synchronization and offline-first experiences to the web and desktop in the 
+future and would love to get your feedback on [this GitHub issue](https://github.com/aws-amplify/amplify-flutter/issues/234).
 
 As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and
 [Discord](https://discord.gg/jWVbPfC) to answer any questions you may have.
