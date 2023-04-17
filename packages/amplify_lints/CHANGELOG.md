@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Update repository URL
+
 ## 2.0.2
 
 - Enforce `implementation_imports` to align with `package:lints`
