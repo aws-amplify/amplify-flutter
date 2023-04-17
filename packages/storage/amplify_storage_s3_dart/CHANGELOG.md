@@ -1,3 +1,8 @@
+## 0.2.0+2
+
+### Fixes
+- fix(storage): API doc errors
+
 ## 0.2.0+1
 
 - Minor bug fixes and improvements

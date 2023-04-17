@@ -1,3 +1,36 @@
+## 1.0.0
+
+We are thrilled to release version 1.0 of the Amplify Flutter libraries!
+
+This release introduces a full rewrite of the Amplify libraries in Dart, allowing you to build AWS cloud-connected
+applications on every platform Flutter supports (iOS, Android, Web, macOS, Windows, and Linux).
+
+If you've been using v0 in production, you can now safely migrate to v1. Check out our 
+[migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for 
+more information.
+
+As always, you can find us on [GitHub](https://github.com/aws-amplify/amplify-flutter/) and 
+[Discord](https://discord.gg/jWVbPfC) to answer any questions.
+
+### New Features in the API category
+
+* `GraphQLRequest` now has an `authorizationMode` property so callers can specify the authorization mode directly.
+* `GraphQLRequest` now has a `headers` property to specify HTTP headers.
+* GraphQL subscriptions will automatically reconnect when losing internet, or when changing from Wi-fi to cellular data or vice versa.
+* GraphQL model helpers now support [custom primary keys](https://docs.amplify.aws/cli/graphql/data-modeling/#configure-a-primary-key).
+* GraphQL subscription model helpers (`ModelSubscriptions`) now support a `where` clause to use server-side subscription filters via model helpers.
+
+### Bug Fixes
+
+The following issues have been fixed in this release:
+
+- Custom primary key support ([#1426](https://github.com/aws-amplify/amplify-flutter/issues/1426))
+- api Model helpers should not pass null fields ([#2492](https://github.com/aws-amplify/amplify-flutter/issues/2492))
+- Authentication Type For Api ([#1557](https://github.com/aws-amplify/amplify-flutter/issues/1557))
+- Adding Headers to Outgoing Requests ([#1217](https://github.com/aws-amplify/amplify-flutter/issues/1217))
+- Custom HTTP Interceptors ([#798](https://github.com/aws-amplify/amplify-flutter/issues/798))
+- Cannot perform DELETE action with body from android device ([#1569](https://github.com/aws-amplify/amplify-flutter/issues/1569))
+
 ## 1.0.0-next.8+1
 
 - Minor bug fixes and improvements
