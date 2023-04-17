@@ -17,3 +17,7 @@ A core package containing base types, utilities shared across the amplify-flutte
 ## Getting Started
 
 ### Visit our [Web Site](https://docs.amplify.aws/) to learn more about AWS Amplify.
+
+## Upgrade from V0
+
+### Check out the [migration guide](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/) for instructions on how to upgrade.
