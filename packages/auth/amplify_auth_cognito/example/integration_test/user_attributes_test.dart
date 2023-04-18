@@ -12,8 +12,10 @@ import 'utils/setup_utils.dart';
 import 'utils/test_utils.dart';
 
 extension on List<AuthUserAttribute> {
-  String? valueOf(AuthUserAttributeKey key) =>
-      singleWhereOrNull((el) => el.userAttributeKey == key)?.value;
+  String? valueOf(AuthUserAttributeKey authUserAttributeKey) =>
+      singleWhereOrNull(
+        (el) => el.userAttributeKey.key == authUserAttributeKey.key,
+      )?.value;
 }
 
 void main() {
@@ -46,15 +48,15 @@ void main() {
             verifyAttributes: true,
             attributes: [
               AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.name,
+                userAttributeKey: AuthUserAttributeKey.name,
                 value: name,
               ),
               AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.email,
+                userAttributeKey: AuthUserAttributeKey.email,
                 value: email,
               ),
               AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                userAttributeKey: AuthUserAttributeKey.phoneNumber,
                 value: phoneNumber,
               )
             ],
@@ -77,15 +79,15 @@ void main() {
             final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.email),
+              userAttributes.valueOf(AuthUserAttributeKey.email),
               email,
             );
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.phoneNumber),
+              userAttributes.valueOf(AuthUserAttributeKey.phoneNumber),
               phoneNumber,
             );
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.name),
+              userAttributes.valueOf(AuthUserAttributeKey.name),
               name,
             );
           });
@@ -95,7 +97,7 @@ void main() {
           asyncTest('should update a single users attribute', (_) async {
             final updatedName = generateNameAttribute();
             final res = await Amplify.Auth.updateUserAttribute(
-              userAttributeKey: CognitoUserAttributeKey.name,
+              userAttributeKey: AuthUserAttributeKey.name,
               value: updatedName,
             );
             expect(
@@ -105,9 +107,9 @@ void main() {
 
             final userAttributes = await Amplify.Auth.fetchUserAttributes();
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.name),
+              userAttributes.valueOf(AuthUserAttributeKey.name),
               updatedName,
-              reason: 'Attribute shoud be updated',
+              reason: 'Attribute should be updated',
             );
           });
 
@@ -133,7 +135,7 @@ void main() {
               const invalidEmailAddress = 'invalidEmailFormat.com';
               await expectLater(
                 Amplify.Auth.updateUserAttribute(
-                  userAttributeKey: CognitoUserAttributeKey.email,
+                  userAttributeKey: AuthUserAttributeKey.email,
                   value: invalidEmailAddress,
                 ),
                 throwsA(isA<InvalidParameterException>()),
@@ -149,11 +151,11 @@ void main() {
             await Amplify.Auth.updateUserAttributes(
               attributes: [
                 AuthUserAttribute(
-                  userAttributeKey: CognitoUserAttributeKey.name,
+                  userAttributeKey: AuthUserAttributeKey.name,
                   value: updatedName,
                 ),
                 AuthUserAttribute(
-                  userAttributeKey: CognitoUserAttributeKey.givenName,
+                  userAttributeKey: AuthUserAttributeKey.givenName,
                   value: updatedGivenName,
                 ),
               ],
@@ -161,14 +163,14 @@ void main() {
 
             final userAttributes = await Amplify.Auth.fetchUserAttributes();
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.name),
+              userAttributes.valueOf(AuthUserAttributeKey.name),
               updatedName,
-              reason: 'Attribute shoud be updated',
+              reason: 'Attribute should be updated',
             );
             expect(
-              userAttributes.valueOf(CognitoUserAttributeKey.givenName),
+              userAttributes.valueOf(AuthUserAttributeKey.givenName),
               updatedGivenName,
-              reason: 'Attribute shoud be updated',
+              reason: 'Attribute should be updated',
             );
           });
 
@@ -178,7 +180,7 @@ void main() {
             (_) async {
               // set initial state
               await Amplify.Auth.updateUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.name,
+                userAttributeKey: AuthUserAttributeKey.name,
                 value: name,
               );
 
@@ -188,7 +190,7 @@ void main() {
                 Amplify.Auth.updateUserAttributes(
                   attributes: [
                     AuthUserAttribute(
-                      userAttributeKey: CognitoUserAttributeKey.name,
+                      userAttributeKey: AuthUserAttributeKey.name,
                       value: updatedName,
                     ),
                     AuthUserAttribute(
@@ -204,9 +206,9 @@ void main() {
 
               final userAttributes = await Amplify.Auth.fetchUserAttributes();
               expect(
-                userAttributes.valueOf(CognitoUserAttributeKey.name),
+                userAttributes.valueOf(AuthUserAttributeKey.name),
                 name,
-                reason: 'Attribute shoud not be updated',
+                reason: 'Attribute should not be updated',
               );
             },
           );

@@ -97,7 +97,7 @@ void main() {
             enableMfa: true,
             attributes: [
               AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+                userAttributeKey: AuthUserAttributeKey.phoneNumber,
                 value: username,
               ),
             ],
