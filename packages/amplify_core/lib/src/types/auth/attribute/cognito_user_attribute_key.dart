@@ -216,3 +216,13 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
   @override
   String get runtimeTypeName => 'CognitoUserAttributeKey';
 }
+
+extension ToCognitoUserAttributeKey on AuthUserAttributeKey {
+  CognitoUserAttributeKey toCognitoUserAttributeKey() {
+    if (this is CognitoUserAttributeKey) {
+      return this as CognitoUserAttributeKey;
+    } else {
+      return CognitoUserAttributeKey.parse(key);
+    }
+  }
+}
