@@ -75,7 +75,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],

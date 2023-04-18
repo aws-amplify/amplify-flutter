@@ -72,7 +72,7 @@ void main() {
           attributes: [
             if (emailAlias)
               AuthUserAttribute(
-                userAttributeKey: CognitoUserAttributeKey.email,
+                userAttributeKey: AuthUserAttributeKey.email,
                 value: username!,
               ),
           ],

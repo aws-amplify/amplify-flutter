@@ -80,7 +80,7 @@ void main() {
         password: password,
         options: SignUpOptions(
           userAttributes: {
-            CognitoUserAttributeKey.email: email,
+            AuthUserAttributeKey.email: email,
           },
         ),
       );
@@ -128,7 +128,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],
@@ -179,7 +179,7 @@ void main() {
         password,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],
