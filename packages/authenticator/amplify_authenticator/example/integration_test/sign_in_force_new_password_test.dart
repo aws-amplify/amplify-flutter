@@ -43,7 +43,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],

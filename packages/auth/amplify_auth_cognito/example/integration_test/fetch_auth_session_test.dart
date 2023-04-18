@@ -315,7 +315,7 @@ void main() {
           );
 
           await Amplify.Auth.updateUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.address,
+            userAttributeKey: AuthUserAttributeKey.address,
             value: '1 Main St',
           );
 

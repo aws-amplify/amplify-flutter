@@ -38,8 +38,8 @@ class UserAttributeComponent extends StatefulComponent {
           id: attr.userAttributeKey.toString(),
           labelText: attr.userAttributeKey.toString(),
           onChanged: (value) {
-            _modifiedAttributes[
-                attr.userAttributeKey as CognitoUserAttributeKey] = value ?? '';
+            _modifiedAttributes[attr.userAttributeKey
+                .toCognitoUserAttributeKey()] = value ?? '';
           },
         ),
       );

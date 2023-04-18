@@ -9,7 +9,7 @@ AWS Amplify provides a declarative and easy-to-use interface across different ca
 We are iterating and looking for feedback and collaboration, so please [**let us know your feedback**](https://github.com/aws-amplify/amplify-flutter/issues/5) on our direction and roadmap.
 
 - [Getting Started Guide](https://docs.amplify.aws/start/getting-started/setup/q/integration/flutter)
-- TODO: Link to launch blog
+- [Upgrade from v0](https://docs.amplify.aws/lib/project-setup/upgrade-guide/q/platform/flutter/)
 
 ## Supported Amplify Categories
 
