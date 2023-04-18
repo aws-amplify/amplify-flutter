@@ -104,7 +104,7 @@ Future<String> adminCreateUser(
     'autoConfirm': autoConfirm,
     'email': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == AuthUserAttributeKey.email,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
           orElse: () => AuthUserAttribute(
             userAttributeKey: AuthUserAttributeKey.email,
             value: generateEmail(),
@@ -114,7 +114,7 @@ Future<String> adminCreateUser(
     'enableMFA': enableMfa,
     'givenName': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == AuthUserAttributeKey.givenName,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
           orElse: () => const AuthUserAttribute(
             userAttributeKey: AuthUserAttributeKey.givenName,
             value: 'default_given_name',
@@ -123,7 +123,7 @@ Future<String> adminCreateUser(
         .value,
     'name': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == AuthUserAttributeKey.name,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
           orElse: () => const AuthUserAttribute(
             userAttributeKey: AuthUserAttributeKey.name,
             value: 'default_name',
@@ -132,7 +132,8 @@ Future<String> adminCreateUser(
         .value,
     'phoneNumber': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == AuthUserAttributeKey.phoneNumber,
+          (el) =>
+              el.userAttributeKey.key == AuthUserAttributeKey.phoneNumber.key,
           orElse: () => AuthUserAttribute(
             userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: generatePhoneNumber(),
@@ -211,10 +212,10 @@ Future<OtpResult> getOtpCode(UserAttribute userAttribute) async {
           case UserAttributeType.username:
             return event.username == userAttribute.value;
           case UserAttributeType.email:
-            return event.userAttributes[AuthUserAttributeKey.email] ==
+            return event.userAttributes[CognitoUserAttributeKey.email] ==
                 userAttribute.value;
           case UserAttributeType.phone:
-            return event.userAttributes[AuthUserAttributeKey.phoneNumber] ==
+            return event.userAttributes[CognitoUserAttributeKey.phoneNumber] ==
                 userAttribute.value;
         }
       })
