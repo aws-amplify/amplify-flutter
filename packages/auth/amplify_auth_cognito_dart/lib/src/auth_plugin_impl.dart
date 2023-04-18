@@ -725,7 +725,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       final nextStep = isUpdated
           ? AuthUpdateAttributeStep.done
           : AuthUpdateAttributeStep.confirmAttributeWithCode;
-      result[attribute.userAttributeKey as CognitoUserAttributeKey] =
+      result[attribute.userAttributeKey.toCognitoUserAttributeKey()] =
           UpdateUserAttributeResult(
         isUpdated: isUpdated,
         nextStep: AuthNextUpdateAttributeStep(
