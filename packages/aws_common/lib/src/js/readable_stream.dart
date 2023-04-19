@@ -61,8 +61,7 @@ class UnderlyingSource {
     FutureOr<void> Function([
       String? reason,
       ReadableStreamController? controller,
-    ])?
-        cancel,
+    ])? cancel,
 
     /// This property controls what type of readable stream is being dealt with.
     ReadableStreamType type = ReadableStreamType.default$,
@@ -104,8 +103,7 @@ UnderlyingSource createUnderlyingSource({
   FutureOr<void> Function([
     String? reason,
     ReadableStreamController? controller,
-  ])?
-      cancel,
+  ])? cancel,
   ReadableStreamType type = ReadableStreamType.default$,
   int? autoAllocateChunkSize,
 }) {
@@ -326,7 +324,7 @@ extension PropsReadableStreamChunk on ReadableStreamChunk {
 /// {@template aws_common.js.readable_stream_view}
 /// Wraps a [ReadableStream] as a Dart [Stream].
 /// {@endtemplate}
-class ReadableStreamView extends StreamView<List<int>> {
+final class ReadableStreamView extends StreamView<List<int>> {
   /// {@macro aws_common.js.readable_stream_view}
   factory ReadableStreamView(ReadableStream stream) {
     // False positives. These are closed in `_pipeFrom`.
