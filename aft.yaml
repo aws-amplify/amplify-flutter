@@ -6,8 +6,9 @@
 # Application of these values can be verified/updated with the `aft`
 # tool.
 dependencies:
-  async: ^2.9.0
-  build_runner: ^2.0.0
+  async: ^2.10.0
+  build_runner: ^2.4.0
+  build_web_compilers: ^4.0.0
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.4
   code_builder: 4.4.0
@@ -23,11 +24,12 @@ dependencies:
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
   xml: ">=6.1.0 <=6.2.2"
+  test: ^1.22.1
 
 # The current constraints for SDKs and OSs.
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.0.0-0 <4.0.0"
+  flutter: ">=3.10.0-0"
   android:
     minSdkVersion: "24"
   ios:

@@ -3,7 +3,7 @@ description: Smoke test testbed for the AWS SDK for Dart
 publish_to: none
 
 environment: 
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   aws_common: ">=0.4.0 <0.5.0"
@@ -17,6 +17,6 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   built_value_generator: 8.4.4
-  test: ^1.19.0
+  test: ^1.22.1

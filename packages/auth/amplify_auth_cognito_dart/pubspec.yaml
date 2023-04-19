@@ -6,13 +6,13 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/next/packages/au
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   amplify_analytics_pinpoint_dart: ">=0.2.0+2 <0.3.0"
   amplify_core: ">=1.0.0 <1.1.0"
   amplify_secure_storage_dart: ">=0.3.0+2 <0.4.0"
-  async: ^2.9.0
+  async: ^2.10.0
   aws_common: ">=0.4.2+3 <0.5.0"
   aws_signature_v4: ">=0.3.1+6 <0.4.0"
   built_collection: ^5.0.0
@@ -37,15 +37,15 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=2.0.2 <2.1.0"
   build: ^2.2.0
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   build_verify: ^3.0.0
-  build_web_compilers: ^3.2.2
+  build_web_compilers: ^4.0.0
   built_value_generator: 8.4.4
   json_serializable: 6.6.1
   mockito: ^5.0.0
   smithy_codegen:
     path: ../../smithy/smithy_codegen
-  test: ^1.16.0
+  test: ^1.22.1
   worker_bee_builder: ">=0.1.4+4 <0.2.0"
 
 flutter:

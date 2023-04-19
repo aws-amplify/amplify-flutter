@@ -7,8 +7,8 @@ issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 publish_to: none
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ">=3.0.0-0 <4.0.0"
+  flutter: ">=3.10.0-0"
 
 dependencies:
   amplify_analytics_pinpoint: any
@@ -22,11 +22,9 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ^2.0.0
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   code_excerpter:
     git:
       url: https://github.com/dart-lang/site-shared
-      # TODO(dnys1): Remove when Dart is bumped to >=2.19
-      ref: 0fe3c62c70c0e8c4f1a051a5dec3bbc4eb6c8e57
       path: packages/code_excerpter
-  test: ^1.16.0
+  test: ^1.22.1
