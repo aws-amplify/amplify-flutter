@@ -1,9 +1,14 @@
 name: "Install Non-Platform Dependencies"
 description: "Installs non-platform dependencies: Flutter, melos, aft"
 inputs:
+  flutter-channel:
+    required: false
+    description: The Flutter channel to user when running tests. Defaults to "stable".
+    # TODO: Update to `stable` with Dart 3
+    default: beta
   flutter-version:
     required: false
-    description: The version of Flutter to run tests against. Defaults to "stable".
+    description: The specific version of Flutter to run tests against.
 
 runs:
   using: "composite"
@@ -11,19 +16,19 @@ runs:
     - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
       with:
         cache: true
-        channel: "beta"
+        channel: ${{ inputs.flutter-channel }}
         flutter-version: ${{ inputs.flutter-version }}
-
-    - name: Install Melos
-      run: |
-        flutter pub global activate melos 2.8.0
-      shell: bash
 
     #  Install aft from path, links packages and runs build runner where needed.
     - name: Partial aft bootstrap
+      env:
+        FLUTTER_CHANNEL: ${{ inputs.flutter-channel }}
       run: |
         git submodule update --init
         flutter pub global activate -spath packages/aft
+        if [[ "$FLUTTER_CHANNEL" == "stable" ]]; then
+          flutter pub global run aft --config=aft.legacy.yaml constraints apply
+        fi
         flutter pub global run aft link
         flutter pub global run melos exec -c 1 --scope="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
       shell: bash

@@ -1,7 +1,7 @@
 name: Amplify Integration Tests
 on:
   push:
-    branches: 
+    branches:
       - main
       - stable
       - feat/**
@@ -210,7 +210,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
-          flutter-version: "3.3.0"
+          flutter-channel: stable
+          flutter-version: "3.3.10"
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
