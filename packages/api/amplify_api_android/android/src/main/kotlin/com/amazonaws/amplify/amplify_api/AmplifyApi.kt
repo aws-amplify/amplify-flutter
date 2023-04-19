@@ -3,13 +3,11 @@
 
 package com.amazonaws.amplify.amplify_api
 
-import androidx.annotation.NonNull
 import com.amazonaws.amplify.amplify_api.auth.FlutterAuthProviders
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.core.Amplify
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodChannel
 
 /** AmplifyApiPlugin */
 class AmplifyApi : FlutterPlugin, NativeApiPluginBindings.NativeApiBridge {
@@ -34,7 +32,7 @@ class AmplifyApi : FlutterPlugin, NativeApiPluginBindings.NativeApiBridge {
 
     private val logger = Amplify.Logging.forNamespace("amplify:flutter:api")
 
-    override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
 
         nativePlugin = NativeApiPluginBindings.NativeApiPlugin(flutterPluginBinding.binaryMessenger)
         NativeApiPluginBindings.NativeApiBridge.setup(
@@ -43,7 +41,7 @@ class AmplifyApi : FlutterPlugin, NativeApiPluginBindings.NativeApiBridge {
         )
     }
 
-    override fun onDetachedFromEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         nativePlugin = null
         NativeApiPluginBindings.NativeApiBridge.setup(
             flutterPluginBinding.binaryMessenger,

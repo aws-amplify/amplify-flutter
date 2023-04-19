@@ -8,7 +8,6 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.annotation.NonNull
 import com.amazonaws.amplify.exception.ExceptionUtil.Companion.createSerializedError
 import com.amazonaws.amplify.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amplifyframework.AmplifyException
@@ -23,7 +22,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
@@ -43,7 +41,7 @@ class Amplify(
     private val coroutineScope = CoroutineScope(CoroutineName("AmplifyFlutterPlugin"))
 
     override fun onAttachedToEngine(
-        @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
+        flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     ) {
         channel = MethodChannel(
             flutterPluginBinding.binaryMessenger,
@@ -54,15 +52,7 @@ class Amplify(
         Log.i("Amplify Flutter", "Added Core plugin")
     }
 
-    companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "com.amazonaws.amplify/amplify")
-            Log.i("Amplify Flutter", "Added Core plugin")
-        }
-    }
-
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
+    override fun onMethodCall(call: MethodCall, _result: Result) {
         val result = AtomicResult(_result, call.method)
 
         when (call.method) {
@@ -88,8 +78,8 @@ class Amplify(
     }
 
     private fun prepareAnalyticsError(
-        @NonNull flutterResult: Result,
-        @NonNull exception: AnalyticsException
+        flutterResult: Result,
+        exception: AnalyticsException
     ) {
         Handler(Looper.getMainLooper()).post {
             postExceptionToFlutterChannel(
@@ -116,14 +106,14 @@ class Amplify(
         onAttachedToActivity(binding)
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
     }
 
     private fun onConfigure(
-        @NonNull result: Result,
-        @NonNull version: String,
-        @NonNull config: String
+        result: Result,
+        version: String,
+        config: String
     ) {
         coroutineScope.launch(dispatcher) {
             try {

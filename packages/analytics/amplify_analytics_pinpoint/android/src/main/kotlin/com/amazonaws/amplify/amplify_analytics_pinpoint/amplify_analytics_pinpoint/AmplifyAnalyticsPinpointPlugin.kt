@@ -5,7 +5,6 @@ package com.amazonaws.amplify.amplify_analytics_pinpoint.amplify_analytics_pinpo
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataProvider {
@@ -18,12 +17,12 @@ class AmplifyAnalyticsPinpointPlugin: FlutterPlugin, Messages.PigeonLegacyDataPr
         private const val UNIQUE_ID_KEY = "UniqueId";
     }
 
-    override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         context = binding.applicationContext
         Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, this)
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         Messages.PigeonLegacyDataProvider.setup(binding.binaryMessenger, null)
         context = null
     }

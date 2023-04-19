@@ -79,6 +79,8 @@ void main() {
       await signInPage.navigateToSignUp();
 
       final username = generateEmail();
+      addTearDown(() => deleteUser(username));
+
       final password = generatePassword();
 
       // When I type a new "email"

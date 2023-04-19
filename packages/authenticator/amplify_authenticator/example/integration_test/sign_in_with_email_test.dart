@@ -90,6 +90,7 @@ void main() {
           userAttributes: {AuthUserAttributeKey.email: email},
         ),
       );
+      addTearDown(() => deleteUser(email));
 
       signInPage.expectUsername(label: 'Email');
 

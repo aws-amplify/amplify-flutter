@@ -5,8 +5,12 @@ import * as cdk from "aws-cdk-lib";
 import { Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
 import { Construct } from "constructs";
 import { StorageAccessLevel } from "./storage/stack";
+import { Runtime } from "aws-cdk-lib/aws-lambda";
 
 /**
  * Shared properties for nested stack environments.
@@ -136,6 +140,30 @@ export abstract class IntegrationTestStackEnvironment<
    * The Amplify configuration description for this environment.
    */
   public config: AmplifyConfig;
+
+  /**
+   * Creates a cron-scheduled Lambda which cleans up user pool users
+   * every day.
+   * 
+   * @param userPool The user pool to clean up.
+   */
+  protected createUserCleanupJob(userPool: cognito.IUserPool) {
+    const lambda = new lambda_nodejs.NodejsFunction(this, 'cleanup-users', {
+      entry: './lib/cleanup-users.ts',
+      runtime: Runtime.NODEJS_18_X,
+      environment: {
+        USER_POOL_ID: userPool.userPoolId,
+      },
+      timeout: cdk.Duration.minutes(5),
+    });
+    userPool.grant(lambda, "cognito-idp:ListUsers", "cognito-idp:AdminDeleteUser");
+
+    const cronRule = new events.Rule(this, 'cleanup-users-rule', {
+      // Run daily at midnight
+      schedule: events.Schedule.expression('cron(0 0 ? * MON-FRI *)'),
+    });
+    cronRule.addTarget(new targets.LambdaFunction(lambda));
+  }
 }
 
 /**

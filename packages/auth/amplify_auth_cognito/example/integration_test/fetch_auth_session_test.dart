@@ -15,6 +15,8 @@ void main() {
   initTests();
 
   group('fetchAuthSession', () {
+    tearDown(signOutUser);
+
     group('unauthenticated access enabled', () {
       group('no user pool', () {
         setUpAll(() async {
@@ -329,6 +331,81 @@ void main() {
             await getCustomAttributes(forceRefresh: true),
             contains('address'),
             reason: 'Token is updated via force refresh',
+          );
+        });
+
+        asyncTest('force refresh reflects updated email', (_) async {
+          final username = generateUsername();
+          final password = generatePassword();
+          final originalEmail = generateEmail();
+
+          final cognitoUsername = await adminCreateUser(
+            username,
+            password,
+            autoConfirm: true,
+            verifyAttributes: true,
+            attributes: [
+              AuthUserAttribute(
+                userAttributeKey: AuthUserAttributeKey.email,
+                value: originalEmail,
+              ),
+            ],
+          );
+          addTearDown(() => deleteUser(cognitoUsername));
+
+          final res = await Amplify.Auth.signIn(
+            username: username,
+            password: password,
+          );
+          expect(res.nextStep.signInStep, AuthSignInStep.done);
+
+          expect(
+            await getCustomAttributes(),
+            containsPair('email', originalEmail),
+            reason: 'Original email is present in token',
+          );
+
+          final newEmail = generateEmail();
+          final verificationCode = await getOtpCode(
+            UserAttribute.email(newEmail),
+          );
+
+          final attributeRes = await Amplify.Auth.updateUserAttribute(
+            userAttributeKey: AuthUserAttributeKey.email,
+            value: newEmail,
+          );
+          expect(
+            attributeRes.nextStep.updateAttributeStep,
+            AuthUpdateAttributeStep.confirmAttributeWithCode,
+          );
+
+          expect(
+            await getCustomAttributes(),
+            containsPair('email', originalEmail),
+            reason: 'Tokens are not yet refreshed',
+          );
+
+          expect(
+            await getCustomAttributes(forceRefresh: true),
+            allOf([
+              containsPair('email', newEmail),
+              containsPair('email_verified', false),
+            ]),
+            reason: 'New email is not yet confirmed',
+          );
+
+          await Amplify.Auth.confirmUserAttribute(
+            userAttributeKey: AuthUserAttributeKey.email,
+            confirmationCode: await verificationCode.code,
+          );
+
+          expect(
+            await getCustomAttributes(forceRefresh: true),
+            allOf([
+              containsPair('email', newEmail),
+              containsPair('email_verified', true),
+            ]),
+            reason: 'New email is confirmed',
           );
         });
       });
