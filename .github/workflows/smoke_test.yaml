@@ -6,12 +6,12 @@ on:
       - stable
       - next
     paths:
-      - 'packages/aws_sdk/**/*.dart'
-      - 'packages/smithy/**/*.dart'
+      - "packages/aws_sdk/**/*.dart"
+      - "packages/smithy/**/*.dart"
   pull_request:
     paths:
-      - 'packages/aws_sdk/**/*.dart'
-      - 'packages/smithy/**/*.dart'
+      - "packages/aws_sdk/**/*.dart"
+      - "packages/smithy/**/*.dart"
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@196f54580e9eee2797c57e85e289339f85e6779d # main
         with:
-          sdk: stable
+          sdk: beta
 
       - name: Link Packages
         run: |
