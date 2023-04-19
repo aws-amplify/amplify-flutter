@@ -246,7 +246,7 @@ final class AmplifyPushNotificationsPluginTest: XCTestCase {
         fakeUIApplicationState = UIApplication.State.background
 
         class MockPushNotificationsFlutterApi: PushNotificationsFlutterApi {
-            override func onNotificationReceivedInBackground(withPayload payload: [AnyHashable : Any], completion: @escaping (Error?) -> Void) {
+            override func onNotificationReceivedInBackground(withPayload payload: [AnyHashable : Any], completion: @escaping (FlutterError?) -> Void) {
                 hasOnNotificationReceivedInBackgroundBeenCalled = true
                 XCTAssertTrue(
                     NSDictionary(dictionary: payload).isEqual(to: expectedNotification)
