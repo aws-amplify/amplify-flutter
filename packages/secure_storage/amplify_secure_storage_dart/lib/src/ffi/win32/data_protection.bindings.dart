@@ -37,23 +37,23 @@ int CryptProtectData(
 
 final _CryptProtectData = _crypt32.lookupFunction<
     Int32 Function(
-  Pointer<DATA_BLOB> data,
-  Pointer<Utf16> description,
-  Pointer<DATA_BLOB> entropy,
-  Pointer reserved,
-  Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
-  Uint32 flags,
-  Pointer<DATA_BLOB> encryptedData,
-),
+      Pointer<DATA_BLOB> data,
+      Pointer<Utf16> description,
+      Pointer<DATA_BLOB> entropy,
+      Pointer reserved,
+      Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
+      Uint32 flags,
+      Pointer<DATA_BLOB> encryptedData,
+    ),
     int Function(
-  Pointer<DATA_BLOB> data,
-  Pointer<Utf16> description,
-  Pointer<DATA_BLOB> entropy,
-  Pointer reserved,
-  Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
-  int flags,
-  Pointer<DATA_BLOB> encryptedData,
-)>('CryptProtectData');
+      Pointer<DATA_BLOB> data,
+      Pointer<Utf16> description,
+      Pointer<DATA_BLOB> entropy,
+      Pointer reserved,
+      Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
+      int flags,
+      Pointer<DATA_BLOB> encryptedData,
+    )>('CryptProtectData');
 
 /// decrypts and does an integrity check of the data in a DATA_BLOB structure.
 ///
@@ -83,25 +83,25 @@ int CryptUnprotectData(
 
 final _CryptUnprotectData = _crypt32.lookupFunction<
     Int32 Function(
-  Pointer<DATA_BLOB> data,
-  Pointer<Utf16> description,
-  Pointer<DATA_BLOB> entropy,
-  Pointer reserved,
-  Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
-  Uint32 flags,
-  Pointer<DATA_BLOB> unencryptedData,
-),
+      Pointer<DATA_BLOB> data,
+      Pointer<Utf16> description,
+      Pointer<DATA_BLOB> entropy,
+      Pointer reserved,
+      Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
+      Uint32 flags,
+      Pointer<DATA_BLOB> unencryptedData,
+    ),
     int Function(
-  Pointer<DATA_BLOB> data,
-  Pointer<Utf16> description,
-  Pointer<DATA_BLOB> entropy,
-  Pointer reserved,
-  Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
-  int flags,
-  Pointer<DATA_BLOB> unencryptedData,
-)>('CryptUnprotectData');
+      Pointer<DATA_BLOB> data,
+      Pointer<Utf16> description,
+      Pointer<DATA_BLOB> entropy,
+      Pointer reserved,
+      Pointer<CRYPTPROTECT_PROMPTSTRUCT> promptStructure,
+      int flags,
+      Pointer<DATA_BLOB> unencryptedData,
+    )>('CryptUnprotectData');
 
-class DATA_BLOB extends Struct {
+final class DATA_BLOB extends Struct {
   /// The count, in bytes, of data.
   @Uint32()
   external int cbData;
@@ -110,7 +110,7 @@ class DATA_BLOB extends Struct {
   external Pointer<Uint8> pbData;
 }
 
-class CRYPTPROTECT_PROMPTSTRUCT extends Struct {
+final class CRYPTPROTECT_PROMPTSTRUCT extends Struct {
   @Uint32()
   external int cbSize;
 
