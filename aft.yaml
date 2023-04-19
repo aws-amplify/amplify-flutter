@@ -10,14 +10,15 @@ dependencies:
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.4
   code_builder: 4.4.0
-  dart_style: ">=2.2.0 <2.3.0"
-  drift: ">=2.4.0 <2.6.0"
+  # TODO(dnys1): Bump when SDK is >=2.19
+  dart_style: 2.2.5
+  drift: ">=2.4.0 <2.7.0"
   flutter_plugin_android_lifecycle: ^2.0.9
   json_annotation: ">=4.8.0 <4.9.0"
   json_serializable: 6.6.1
   intl: ">=0.17.0 <1.0.0"
   mime: ^1.0.0
-  pigeon: ^7.1.5
+  pigeon: ^9.2.4
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
   xml: ">=6.1.0 <=6.2.2"
@@ -153,7 +154,7 @@ scripts:
         echo "No documentation examples for {{ package.name }}" >&2
         exit 0
       fi
-      
+
       pushd doc
       # All `doc` packages should allow `flutter` dependencies even if they 
       # are subpackages of a Dart-only package. For example, we want to use 
