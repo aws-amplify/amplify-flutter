@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +16,7 @@ class GraphQLQueryExamples extends StatelessWidget {
     this.blog,
   });
 
-  final APIAuthorizationType? authMode;
+  final APIAuthorizationType authMode;
   final Blog? blog;
   final void Function(String) setResults;
 
@@ -96,27 +99,20 @@ class GraphQLQueryExamples extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
-              onPressed: Amplify.isConfigured ? queryBlogs : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              child: const Text('Blogs'),
+            apiButton(
+              onPressed: queryBlogs,
+              btnColor: Colors.green,
+              text: 'Blogs',
             ),
-            ElevatedButton(
-              onPressed:
-                  Amplify.isConfigured && blog != null ? queryPostsById : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              child: const Text('Posts by BlogID'),
+            apiButton(
+              onPressed: blog != null ? queryPostsById : null,
+              btnColor: Colors.green,
+              text: 'Posts by BlogID',
             ),
-            ElevatedButton(
-              onPressed: Amplify.isConfigured ? queryComments : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              child: const Text('Comments'),
+            apiButton(
+              onPressed: queryComments,
+              btnColor: Colors.green,
+              text: 'Comments',
             ),
           ],
         ),

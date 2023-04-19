@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +10,10 @@ class GraphQLAuthMode extends StatelessWidget {
     super.key,
     required this.setAuthType,
     this.authMode = APIAuthorizationType.userPools,
-    this.authTypes = const [
-      APIAuthorizationType.userPools,
-      APIAuthorizationType.iam,
-      APIAuthorizationType.apiKey,
-      APIAuthorizationType.none,
-    ],
+    this.authTypes = APIAuthorizationType.values,
   });
 
-  final APIAuthorizationType? authMode;
+  final APIAuthorizationType authMode;
   final void Function(APIAuthorizationType) setAuthType;
 
   final List<APIAuthorizationType> authTypes;
@@ -32,6 +30,7 @@ class GraphQLAuthMode extends StatelessWidget {
         DropdownButton<APIAuthorizationType>(
           value: authMode,
           icon: const Icon(Icons.arrow_downward),
+          isExpanded: true,
           elevation: 16,
           onChanged: (APIAuthorizationType? value) {
             setAuthType(value!);

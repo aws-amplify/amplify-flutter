@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'dart:async';
 
 import 'package:amplify_api/amplify_api.dart';
@@ -22,7 +25,7 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
     this.authMode = APIAuthorizationType.userPools,
   });
 
-  final APIAuthorizationType? authMode;
+  final APIAuthorizationType authMode;
   final Blog? blog;
   final Post? post;
   final StreamSubscription<GraphQLResponse<Blog>>? subscription;
@@ -102,31 +105,24 @@ class GraphQLSubscriptionsExamples extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
-              onPressed: Amplify.isConfigured && subscription == null
-                  ? subscribe
-                  : null,
-              child: const Text('Blogs'),
+            apiButton(
+              onPressed: subscription == null ? subscribe : null,
+              text: 'Blogs',
             ),
-            ElevatedButton(
-              onPressed: Amplify.isConfigured &&
-                      subscriptionByID == null &&
-                      blog != null
+            apiButton(
+              onPressed: subscriptionByID == null && blog != null
                   ? subscribeByID
                   : null,
-              child: const Text(
-                'Posts By BlogID',
-                maxLines: 1,
-              ),
+              text: 'Posts By BlogID',
             ),
-            ElevatedButton(
+            apiButton(
               onPressed: unsubscribe != null
                   ? () {
                       unsubscribe!.call();
                       setUnsubscribe!(null);
                     }
                   : null,
-              child: const Text('Unsubscribe'),
+              text: 'Unsubscribe',
             ),
           ],
         ),

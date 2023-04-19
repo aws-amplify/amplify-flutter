@@ -1,5 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Checks for errors and print the response on screen
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/material.dart';
 
 String handleResponse(
   GraphQLResponse<Model> response,
@@ -28,4 +32,18 @@ void handleSubscriptionEvents(GraphQLResponse<dynamic> event) {
   final result = 'Subscription event data received: $prettyData';
 
   safePrint(result);
+}
+
+Widget apiButton({
+  required String text,
+  void Function()? onPressed,
+  Color btnColor = Colors.blue,
+}) {
+  return ElevatedButton(
+    onPressed: Amplify.isConfigured ? onPressed : null,
+    style: ElevatedButton.styleFrom(
+      backgroundColor: btnColor,
+    ),
+    child: Text(text),
+  );
 }

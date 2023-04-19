@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +39,6 @@ class GraphQLCreateExamples extends StatelessWidget {
     final operation = Amplify.API.mutate(
       request: req,
     );
-    // _lastOperation = operation;
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -55,7 +57,6 @@ class GraphQLCreateExamples extends StatelessWidget {
     final operation = Amplify.API.mutate(
       request: req,
     );
-    // _lastOperation = operation;
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -73,7 +74,6 @@ class GraphQLCreateExamples extends StatelessWidget {
     final operation = Amplify.API.mutate(
       request: req,
     );
-    // _lastOperation = operation;
 
     final response = await operation.response;
     setResults(handleResponse(response));
@@ -91,29 +91,20 @@ class GraphQLCreateExamples extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              onPressed: Amplify.isConfigured ? createBlog : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-              ),
-              child: const Text('Blog'),
+            apiButton(
+              onPressed: createBlog,
+              text: 'Blog',
+              btnColor: Colors.amber,
             ),
-            ElevatedButton(
-              onPressed:
-                  Amplify.isConfigured && blog != null ? createPost : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-              ),
-              child: const Text('Post'),
+            apiButton(
+              onPressed: blog != null ? createPost : null,
+              text: 'Post',
+              btnColor: Colors.amber,
             ),
-            ElevatedButton(
-              onPressed: Amplify.isConfigured && blog != null && post != null
-                  ? createComment
-                  : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-              ),
-              child: const Text('Comment'),
+            apiButton(
+              onPressed: blog != null && post != null ? createComment : null,
+              text: 'Comment',
+              btnColor: Colors.amber,
             ),
           ],
         ),

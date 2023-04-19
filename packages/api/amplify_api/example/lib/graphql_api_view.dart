@@ -36,7 +36,7 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   ModelIdentifier? _selectedPost;
   ModelIdentifier? _selectedComment;
 
-  APIAuthorizationType? _authorizationType = APIAuthorizationType.userPools;
+  APIAuthorizationType _authorizationType = APIAuthorizationType.userPools;
 
   Blog? _blog;
   Post? _post;
@@ -102,6 +102,12 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
             GraphQLAuthMode(
               authMode: _authorizationType,
               setAuthType: (val) => setState(() => _authorizationType = val),
+              authTypes: const [
+                APIAuthorizationType.userPools,
+                APIAuthorizationType.iam,
+                APIAuthorizationType.apiKey,
+                APIAuthorizationType.none,
+              ],
             ),
           ],
         ),

@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +21,7 @@ class GraphQLGetByIdExamples extends StatelessWidget {
     this.authMode = APIAuthorizationType.userPools,
   });
 
-  final APIAuthorizationType? authMode;
+  final APIAuthorizationType authMode;
   final ModelIdentifier? blogID;
   final ModelIdentifier? postID;
   final ModelIdentifier? commentID;
@@ -117,9 +120,9 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setBlogID(BlogModelIdentifier(id: newValue));
           },
         ),
-        ElevatedButton(
-          onPressed: Amplify.isConfigured ? getBlog : null,
-          child: const Text('Get Blog'),
+        apiButton(
+          onPressed: getBlog,
+          text: 'Get Blog',
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -131,9 +134,9 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setPostID(PostModelIdentifier(id: newValue));
           },
         ),
-        ElevatedButton(
-          onPressed: Amplify.isConfigured ? getPost : null,
-          child: const Text('Get Post'),
+        apiButton(
+          onPressed: getPost,
+          text: 'Get Post',
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -145,9 +148,9 @@ class GraphQLGetByIdExamples extends StatelessWidget {
             setCommentID(CommentModelIdentifier(id: newValue));
           },
         ),
-        ElevatedButton(
-          onPressed: Amplify.isConfigured ? getComment : null,
-          child: const Text('Get Comment'),
+        apiButton(
+          onPressed: getComment,
+          text: 'Get Comment',
         ),
       ],
     );
