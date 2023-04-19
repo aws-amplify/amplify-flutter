@@ -4,13 +4,13 @@
 import * as cdk from "aws-cdk-lib";
 import { Fn, RemovalPolicy } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as s3 from "aws-cdk-lib/aws-s3";
-import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as targets from 'aws-cdk-lib/aws-events-targets';
+import { Runtime } from "aws-cdk-lib/aws-lambda";
+import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as s3 from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { StorageAccessLevel } from "./storage/stack";
-import { Runtime } from "aws-cdk-lib/aws-lambda";
 
 /**
  * Shared properties for nested stack environments.
@@ -155,12 +155,13 @@ export abstract class IntegrationTestStackEnvironment<
         USER_POOL_ID: userPool.userPoolId,
       },
       timeout: cdk.Duration.minutes(5),
+      memorySize: 512,
     });
     userPool.grant(lambda, "cognito-idp:ListUsers", "cognito-idp:AdminDeleteUser");
 
     const cronRule = new events.Rule(this, 'cleanup-users-rule', {
       // Run daily at midnight
-      schedule: events.Schedule.expression('cron(0 0 ? * MON-FRI *)'),
+      schedule: events.Schedule.expression('cron(0 0 ? * * *)'),
     });
     cronRule.addTarget(new targets.LambdaFunction(lambda));
   }
