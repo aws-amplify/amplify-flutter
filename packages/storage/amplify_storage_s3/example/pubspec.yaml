@@ -16,7 +16,7 @@ dependencies:
   amplify_storage_s3: ">=1.0.0-next.8 <1.0.0-next.9"
   flutter:
     sdk: flutter
-  go_router: ^5.0.5
+  go_router: ^6.5.7
 
 dev_dependencies:
   amplify_integration_test: any
