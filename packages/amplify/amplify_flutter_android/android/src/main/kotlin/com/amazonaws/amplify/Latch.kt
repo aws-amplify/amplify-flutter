@@ -21,8 +21,7 @@ object Latch {
      * @throws RuntimeException If the latch doesn't count down in the allotted timeout
      */
     fun await(latch: CountDownLatch, waitTimeMs: Long) {
-        val didCountDown: Boolean
-        didCountDown = try {
+        val didCountDown: Boolean = try {
             latch.await(waitTimeMs, TimeUnit.MILLISECONDS)
         } catch (interruptedException: InterruptedException) {
             throw RuntimeException(
