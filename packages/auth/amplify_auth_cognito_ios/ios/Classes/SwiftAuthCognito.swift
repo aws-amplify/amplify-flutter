@@ -9,6 +9,8 @@ import amplify_flutter_ios
 
 extension NativeAuthUser: AuthUser { }
 
+extension FlutterError: Error { }
+
 public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, NativeAuthBridge {
     
     /// Shim for [AuthCategoryPlugin] to allow Dart Auth to fulfill the contract of the native Auth plugin in
@@ -147,10 +149,10 @@ public class SwiftAuthCognito: NSObject, FlutterPlugin, AuthCategoryPlugin, Nati
             request: AuthFetchSessionRequest(options: options ?? AuthFetchSessionRequest.Options()),
             resultListener: listener
         )
-        nativeAuthPlugin.fetchAuthSession() { session, error in
+        nativeAuthPlugin.fetchAuthSession { session, error in
             guard let session = session else {
                 let authError: AuthError = .unknown(
-                    error?.localizedDescription ?? "Could not complete native request",
+                    error?.description ?? "Could not complete native request",
                     error
                 )
                 operation.dispatch(result: .failure(authError))
