@@ -19,7 +19,7 @@ final throwsPluginNotAddedError = throwsA(
 class MockPlugin extends AuthPluginInterface {}
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
   Amplify = MethodChannelAmplify();
 
   const MethodChannel channel = MethodChannel('com.amazonaws.amplify/amplify');
@@ -46,16 +46,20 @@ void main() {
   late AmplifyClass amplify;
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (!platformConfigured) {
-        return true;
-      } else {
-        throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
-      }
-    });
-    dataStoreChannel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return true;
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      channel,
+      (MethodCall methodCall) async {
+        if (!platformConfigured) {
+          return true;
+        } else {
+          throw PlatformException(code: 'AmplifyAlreadyConfiguredException');
+        }
+      },
+    );
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      dataStoreChannel,
+      (MethodCall methodCall) async => true,
+    );
     // We want to instantiate a new instance for each test so we start
     // with a fresh state as `Amplify` singleton holds a state.
     amplify = MethodChannelAmplify();
@@ -68,8 +72,9 @@ void main() {
   });
 
   tearDown(() {
-    channel.setMockMethodCallHandler(null);
-    dataStoreChannel.setMockMethodCallHandler(null);
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    binding.defaultBinaryMessenger
+        .setMockMethodCallHandler(dataStoreChannel, null);
   });
 
   test('before calling configure, isConfigure should be false', () {
@@ -82,9 +87,12 @@ void main() {
   });
 
   test('Failed configure should result in isConfigure to be false', () async {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      throw Exception(); // configuration failed
-    });
+    binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      channel,
+      (MethodCall methodCall) async {
+        throw Exception(); // configuration failed
+      },
+    );
     await expectLater(
       amplify.configure(validJsonConfiguration),
       throwsPluginError,
