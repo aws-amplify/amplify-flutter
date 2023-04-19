@@ -52,8 +52,7 @@ abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is FooUnionInteger) {
       return integer?.call((this as FooUnionInteger).integer);

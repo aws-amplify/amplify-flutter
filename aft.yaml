@@ -12,8 +12,7 @@ dependencies:
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.4
   code_builder: 4.4.0
-  # TODO(dnys1): Bump when SDK is >=2.19
-  dart_style: 2.2.5
+  dart_style: 2.3.0
   drift: ">=2.4.0 <2.7.0"
   flutter_plugin_android_lifecycle: ^2.0.9
   json_annotation: ">=4.8.0 <4.9.0"

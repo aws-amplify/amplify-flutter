@@ -54,8 +54,7 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is EnumUnionFirst) {
       return first?.call((this as EnumUnionFirst).first);

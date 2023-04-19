@@ -160,8 +160,7 @@ abstract class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is AttributeValueB) {
       return b?.call((this as AttributeValueB).b);

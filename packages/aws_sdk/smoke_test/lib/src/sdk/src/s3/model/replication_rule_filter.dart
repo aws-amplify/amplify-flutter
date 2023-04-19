@@ -80,8 +80,7 @@ abstract class ReplicationRuleFilter
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is ReplicationRuleFilterAnd) {
       return and?.call((this as ReplicationRuleFilterAnd).and);

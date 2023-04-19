@@ -79,8 +79,7 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is MetricsFilterAccessPointArn) {
       return accessPointArn

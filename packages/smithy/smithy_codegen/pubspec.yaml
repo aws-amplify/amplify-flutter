@@ -17,7 +17,7 @@ dependencies:
   code_builder: 4.4.0
   collection: ^1.15.0
   crclib: ^3.0.0
-  dart_style: 2.2.5
+  dart_style: 2.3.0
   fixnum: ^1.0.0
   grpc: ^3.0.2
   html2md: ^1.2.5

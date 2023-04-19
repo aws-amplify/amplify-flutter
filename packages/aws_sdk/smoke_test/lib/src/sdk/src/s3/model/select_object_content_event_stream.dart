@@ -94,8 +94,7 @@ abstract class SelectObjectContentEventStream
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is SelectObjectContentEventStreamCont) {
       return cont?.call((this as SelectObjectContentEventStreamCont).cont);

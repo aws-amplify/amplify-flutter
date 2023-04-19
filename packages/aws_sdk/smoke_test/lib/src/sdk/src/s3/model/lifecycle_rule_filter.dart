@@ -98,8 +98,7 @@ abstract class LifecycleRuleFilter
     T Function(
       String,
       Object,
-    )?
-        sdkUnknown,
+    )? sdkUnknown,
   }) {
     if (this is LifecycleRuleFilterAnd) {
       return and?.call((this as LifecycleRuleFilterAnd).and);
