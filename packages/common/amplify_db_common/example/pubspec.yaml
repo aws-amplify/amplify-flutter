@@ -15,12 +15,12 @@ dependencies:
 # Needed to support both Flutter 3.3 + 3.7 in CI.
 # TODO(dnys1): Remove when Flutter 3.3 is no longer supported
 dependency_overrides:
-  async: ^2.10.0
+  async: ^2.9.0
 
 dev_dependencies:
   amplify_lints: ^2.0.0
   drift_dev: ^2.2.0+1
-  build_runner: ^2.2.1
+  build_runner: ^2.0.0
   flutter_test:
     sdk: flutter
   integration_test:

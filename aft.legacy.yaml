@@ -1,0 +1,4 @@
+# Only used to avoid conflicts when running tests against Flutter 3.3.
+# For dev work, we should use the latest.
+dependencies:
+  pigeon: ^7.0.0

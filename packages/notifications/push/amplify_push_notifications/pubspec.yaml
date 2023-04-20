@@ -11,7 +11,7 @@ environment:
 dependencies:
   amplify_core: ">=1.0.0 <1.1.0"
   amplify_secure_storage: ">=0.3.0+1 <0.4.0"
-  async: ^2.10.0
+  async: ^2.9.0
   flutter:
     sdk: flutter
   os_detect: ^2.0.0

@@ -20,7 +20,7 @@ dev_dependencies:
   amplify_lints:
     path: ../../../amplify_lints
   browser_launcher: ^1.1.1
-  build_runner: ^2.1.4
+  build_runner: ^2.0.0
   build_web_compilers: ^3.2.1
   checks: ^0.2.0
   cli_script: ^0.3.0

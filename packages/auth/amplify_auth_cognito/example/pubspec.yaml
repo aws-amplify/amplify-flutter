@@ -21,9 +21,10 @@ dependencies:
 # Needed to support both Flutter 3.3 + 3.7 in CI.
 # TODO(dnys1): Remove when Flutter 3.3 is no longer supported
 dependency_overrides:
-  async: ^2.10.0
+  matcher: ^0.12.10
   meta: ^1.9.0
   test_api: ^0.4.0
+  test_core: ^0.4.0
 
 dev_dependencies:
   amplify_auth_cognito_dart: ">=0.9.0 <0.10.0"
@@ -31,7 +32,7 @@ dev_dependencies:
   amplify_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
-  async: ^2.10.0
+  async: ^2.9.0
   aws_signature_v4: ">=0.3.1+2 <0.4.0"
   checks: ^0.2.0
   collection: any

@@ -11,7 +11,7 @@ runs:
     - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
       with:
         cache: true
-        channel: 'stable'
+        channel: "stable"
         flutter-version: ${{ inputs.flutter-version }}
 
     - name: Install Melos
@@ -24,7 +24,9 @@ runs:
       run: |
         git submodule update --init
         flutter pub global activate -spath packages/aft
+        if [[ "${{ inputs.flutter-version }}" == "3.3.0" ]]; then
+          flutter pub global run aft constraints apply --config=aft.legacy.yaml
+        fi
         flutter pub global run aft link
         flutter pub global run melos exec -c 1 --scope="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
       shell: bash
-

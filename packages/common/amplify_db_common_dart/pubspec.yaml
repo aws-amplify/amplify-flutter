@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   amplify_core: ">=1.0.0 <1.1.0"
-  async: ^2.10.0
+  async: ^2.9.0
   aws_common: ">=0.4.2+4 <0.5.0"
   drift: ">=2.4.0 <2.7.0"
   meta: ^1.7.0
@@ -19,7 +19,7 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
-  build_runner: ^2.2.1
+  build_runner: ^2.0.0
   build_test: ^2.0.0
   build_web_compilers: ^3.2.3
   drift_dev: ^2.0.0
