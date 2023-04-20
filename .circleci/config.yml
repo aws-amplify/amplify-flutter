@@ -96,7 +96,7 @@ orbs:
         steps:
           - run-with-retry:
               label: Setting up dependences
-              command: flutter pub add amplify_flutter && flutter pub add amplify_datastore && flutter pub add amplify_storage_s3 && flutter pub add amplify_analytics_pinpoint && flutter pub add amplify_auth_cognito && flutter pub add amplify_api
+              command: flutter pub add amplify_flutter amplify_datastore:^1.0.0-supports-only-mobile.0 amplify_storage_s3 amplify_analytics_pinpoint amplify_auth_cognito amplify_api
               no_output_timeout: 5m
           - run:
               name: Adding integration_test package
