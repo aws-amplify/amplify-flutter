@@ -129,7 +129,7 @@ orbs:
           - aws-cli/setup:
               role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
               role-arn: ${AWS_ROLE_ARN}
-              session-duration: '2000'
+              session-duration: "2000"
           - install-flutter:
               flutter_branch: << parameters.flutter-version >>
           - run:
@@ -172,7 +172,7 @@ orbs:
           - aws-cli/setup:
               role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
               role-arn: ${AWS_ROLE_ARN}
-              session-duration: '2000'
+              session-duration: "2000"
           - run:
               name: Install gnu-sed
               command: brew install gnu-sed
@@ -207,18 +207,18 @@ workflows:
   canaries:
     when:
       and:
-        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ "Canaries", << pipeline.schedule.name >> ]
+        - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+        - equal: ["Canaries", << pipeline.schedule.name >>]
     jobs:
       - getting-started-smoke-test/flutter-android:
           context:
             - cloudwatch-monitoring
           matrix:
             parameters:
-              flutter-version: [ "stable", "beta" ]
+              flutter-version: ["stable", "beta", "3.3.0"]
       - getting-started-smoke-test/flutter-ios:
           context:
             - cloudwatch-monitoring
           matrix:
             parameters:
-              flutter-version: [ "stable", "beta" ]
+              flutter-version: ["stable", "beta", "3.3.0"]
