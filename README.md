@@ -145,13 +145,19 @@ dependencies:
     sdk: flutter
 ```
 
-7. From the terminal run
+7. Open ios/Podfile file, add:
+
+```Podfile
+platform :ios, '13.0'
+```
+
+8. From the terminal run
 
 ```bash
 flutter pub get
 ```
 
-8. In your main.dart file, add:
+9. In your main.dart file, add:
 
 ```dart
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
@@ -233,13 +239,13 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-9. Before you can run the app, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/) guide to make sure you've completed the necessary steps.
+10. Before you can run the app, some extra configuration may be required for each platform. Check out the [Platform Setup](https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/) guide to make sure you've completed the necessary steps.
 
-10. Run `flutter run` to launch your app on the connected device.
+11. Run `flutter run` to launch your app on the connected device.
 
-11. Once the app is loaded, tap on **Configure Amplify**, then on **Record Event** a few times.
+12. Once the app is loaded, tap on **Configure Amplify**, then on **Record Event** a few times.
 
-12. To see the events you recoded, run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
+13. To see the events you recoded, run `amplify console analytics`. This will open the Amazon Pinpoint console for your project in your default web browser. Within about a minute you should start seeing the events populating in the Events section of then Pinpoint console.
 
 Congratulations, you've built your first Amplify app! 🎉 
 
