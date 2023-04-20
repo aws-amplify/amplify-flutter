@@ -46,7 +46,7 @@ jobs:
       - name: Update constraints
         if: matrix.flutter-version == '3.3.0'
         shell: bash
-        run: aft --config=aft.legacy.yaml constraints apply
+        run: aft --config=aft.legacy.yaml constraints apply --exclude=aft
 
       - name: Bootstrap
         id: bootstrap
