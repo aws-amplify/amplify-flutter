@@ -39,7 +39,7 @@ dependency_overrides:
     path: ../../../secure_storage/amplify_secure_storage_dart
   # Needed to support both Flutter 3.3 + 3.7 in CI.
   # TODO(dnys1): Remove when Flutter 3.3 is no longer supported
-  async: ^2.10.0
+  async: ^2.9.0
   aws_common:
     path: ../../../aws_common
   aws_signature_v4:

@@ -13,5 +13,5 @@ dependencies:
 dev_dependencies:
   amplify_lints:
     path: ../../amplify_lints
-  build_runner: ^2.1.4
+  build_runner: ^2.0.0
   build_web_compilers: ^3.2.1

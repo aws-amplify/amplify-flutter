@@ -36,11 +36,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-# Needed to support both Flutter 3.3 + 3.7 in CI.
-# TODO(dnys1): Remove when Flutter 3.3 is no longer supported
-dependency_overrides:
-  async: ^2.10.0
-
 dev_dependencies:
   amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
   amplify_authenticator_test:
