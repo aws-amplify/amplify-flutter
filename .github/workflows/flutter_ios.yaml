@@ -56,7 +56,7 @@ jobs:
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
-        run: aft bootstrap
+        run: aft bootstrap --fail-fast
 
       - name: Run iOS unit tests
         run: |

@@ -64,7 +64,7 @@ jobs:
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
-        run: aft bootstrap
+        run: aft bootstrap --fail-fast
 
       - name: Setup Package
         if: "always() && steps.bootstrap.conclusion == 'success'"
