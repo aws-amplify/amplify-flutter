@@ -4,6 +4,7 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/glob_options.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -46,7 +47,7 @@ class ConstraintsCommand extends AmplifyCommand {
   String get name => 'constraints';
 }
 
-class _ConstraintsSubcommand extends AmplifyCommand {
+class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
   _ConstraintsSubcommand(this.action);
 
   final _ConstraintsAction action;
