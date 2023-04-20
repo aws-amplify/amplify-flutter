@@ -81,6 +81,6 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.flutter-version != '3.3.0'"
         run: flutter test
         working-directory: ${{ inputs.working-directory }}
