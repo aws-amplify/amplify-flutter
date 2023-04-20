@@ -35,7 +35,7 @@ dev_dependencies:
   build_version: ^2.1.1
   flutter_test:
     sdk: flutter
-  golden_toolkit: ^0.13.0
+  golden_toolkit: ">=0.13.0 <0.16.0"
   mocktail: ^0.3.0
   path: any
 
