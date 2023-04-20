@@ -2,3 +2,4 @@
 # For dev work, we should use the latest.
 dependencies:
   pigeon: ^7.0.0
+  test: <1.22.0
