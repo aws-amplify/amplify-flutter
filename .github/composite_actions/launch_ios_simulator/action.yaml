@@ -1,0 +1,24 @@
+name: Launch iOS simulator
+description: Launches an iOS simulator and caches it for further action runs
+inputs:
+  ios-version:
+    description: The iOS version
+    default: "16"
+
+runs:
+  using: "composite"
+  steps:
+    - name: List runtimes
+      shell: bash
+      run: xcrun simctl list runtimes -j
+
+    - name: Create Simulator
+      shell: bash
+      run: |
+        RUNTIME=$(xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.name | startswith("iOS ${{ inputs.ios-version }}.")) | .identifier' | head -n 1)
+        if [[ -z "$RUNTIME" ]]; then
+          echo "No runtime found for $RUNTIME" >&2
+          exit 1
+        fi
+        xcrun simctl create test "iPhone 11" "$RUNTIME"
+        xcrun simctl boot test

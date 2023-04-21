@@ -1,0 +1,50 @@
+name: Launch Android emulator
+description: Launches an Android emulator and caches it for further action runs
+inputs:
+  api-level:
+    description: The Android API level
+    default: "33"
+  target:
+    description: The Android image type
+    default: google_apis
+  arch:
+    description: The CPU architecture
+    default: x86_64
+  script:
+    description: The script to run once the emulator is booted
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Cache AVD
+      id: avd-cache
+      uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11
+      with:
+        path: |
+          ~/.android/avd/*
+          ~/.android/adb*
+        key: avd-${{ inputs.api-level }}-${{ inputs.arch }}-${{ inputs.target }}
+
+    - name: Create AVD and generate snapshot
+      if: steps.avd-cache.outputs.cache-hit != 'true'
+      uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+      with:
+        api-level: ${{ inputs.api-level }}
+        target: ${{ inputs.target }}
+        arch: ${{ inputs.arch }}
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
+        script: echo "Generated AVD snapshot for caching."
+
+    - name: Launch AVD
+      uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+      with:
+        api-level: ${{ inputs.api-level }}
+        target: ${{ inputs.target }}
+        arch: ${{ inputs.arch }}
+        # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
+        emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
+        # set screen timeout to 1 hour
+        script: |
+          adb shell settings put system screen_off_timeout 3600000
+          ${{ inputs.script }}

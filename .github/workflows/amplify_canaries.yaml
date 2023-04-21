@@ -1,0 +1,107 @@
+name: Amplify Canaries
+on:
+  push:
+  schedule:
+    # every 4 hours
+    - cron: "* */4 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        flutter-channel:
+          - stable
+          - beta
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+        with:
+          channel: ${{ matrix.flutter-channel }}
+
+      - name: Build Canary App
+        id: build-canary
+        run: build-support/setup_canary_app.sh
+
+      - name: Run Canary
+        timeout-minutes: 45
+        uses: ./.github/composite_actions/launch_android_emulator
+        with:
+          script: |
+            cd ${{ steps.build-canary.outputs.projectDir }}
+            flutter test -d emulator-5554 integration_test/main_test.dart
+
+  ios-latest:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+        with:
+          persist-credentials: false
+
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
+        with:
+          ios-version: 16
+
+      - name: Build Canary App
+        id: build-canary
+        run: build-support/setup_canary_app.sh
+
+      - name: Run iOS integration tests
+        timeout-minutes: 45
+        working-directory: ${{ steps.build-canary.outputs.projectDir }}
+        run: flutter test -d test integration_test/main_test.dart
+
+  ios-legacy:
+    runs-on: macos-11 # Has iOS 13 installed
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+        with:
+          persist-credentials: false
+
+      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
+        with:
+          ios-version: 13
+
+      - name: Build Canary App
+        id: build-canary
+        run: build-support/setup_canary_app.sh
+
+      - name: Run iOS integration tests
+        timeout-minutes: 45
+        working-directory: ${{ steps.build-canary.outputs.projectDir }}
+        run: flutter test -d test integration_test/main_test.dart
