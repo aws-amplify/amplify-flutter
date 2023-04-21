@@ -13,7 +13,7 @@ dependencies:
   amplify_auth_cognito: ">=1.0.0 <1.1.0"
   amplify_core: ">=1.0.0 <1.1.0"
   amplify_flutter: ">=1.0.0 <1.1.0"
-  async: ^2.10.0
+  async: ^2.9.0
   aws_common: ">=0.4.2+4 <0.5.0"
   collection: ^1.15.0
   flutter:
@@ -31,12 +31,12 @@ dev_dependencies:
   amplify_integration_test:
     path: ../../test/amplify_integration_test
   amplify_lints: ">=2.0.3 <2.1.0"
-  build_runner: ^2.3.3
+  build_runner: ^2.0.0
   build_version: ^2.1.1
   flutter_test:
     sdk: flutter
   golden_toolkit: ^0.13.0
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
   path: any
 
 flutter:

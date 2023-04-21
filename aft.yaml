@@ -6,7 +6,8 @@
 # Application of these values can be verified/updated with the `aft`
 # tool.
 dependencies:
-  async: ^2.10.0
+  async: ^2.9.0
+  build_runner: ^2.0.0
   built_value: ">=8.4.0 <8.5.0"
   built_value_generator: 8.4.4
   code_builder: 4.4.0

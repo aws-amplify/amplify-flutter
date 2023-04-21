@@ -4,11 +4,12 @@
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/fail_fast_option.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:path/path.dart' as path;
 
 /// Command to bootstrap/link Dart/Flutter packages in the repo.
-class BootstrapCommand extends AmplifyCommand with GlobOptions {
+class BootstrapCommand extends AmplifyCommand with GlobOptions, FailFastOption {
   BootstrapCommand() {
     argParser
       ..addFlag(

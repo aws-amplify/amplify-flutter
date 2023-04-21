@@ -129,6 +129,7 @@ void main() {
         matchesPackagePaths([
           'packages/amplify/amplify_flutter/example',
           'packages/amplify/amplify_flutter_ios/example',
+          'packages/amplify_core/doc',
           'packages/amplify_datastore/example',
           'packages/amplify_native_legacy_wrapper/example',
           'packages/analytics/amplify_analytics_pinpoint/example',
