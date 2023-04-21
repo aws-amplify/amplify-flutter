@@ -60,69 +60,75 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(5),
-      children: <Widget>[
-        Column(
-          children: [
-            GraphQLQueryExamples(
-              setResults: setResults,
-              authMode: _authorizationType,
-              blog: _blog,
-            ),
-            const SizedBox(height: 10),
-            GraphQLCreateExamples(
-              setResults: setResults,
-              authMode: _authorizationType,
-              blog: _blog,
-              post: _post,
-              setBlog: (Blog blog) => setState(() => _blog = blog),
-              setPost: (Post post) => setState(() => _post = post),
-            ),
-            const SizedBox(height: 10),
-            GraphQLSubscriptionsExamples(
-              authMode: _authorizationType,
-              blog: _blog,
-              post: _post,
-              setResults: setResults,
-              subscription: _subscription,
-              subscriptionByID: _subscriptionByID,
-              unsubscribe: _unsubscribe,
-              setUnsubscribe: (val) => setState(() {
-                _unsubscribe = val;
-                if (_unsubscribe == null) {
-                  _subscription = null;
-                  _subscriptionByID = null;
-                }
-              }),
-              setSubscription: (sub) => setState(() => _subscription = sub),
-              setSubscriptionByID: (sub) =>
-                  setState(() => _subscriptionByID = sub),
-            ),
-            const SizedBox(height: 10),
-            GraphQLAuthMode(
-              authMode: _authorizationType,
-              setAuthType: (val) => setState(() => _authorizationType = val),
-              authTypes: const [
-                APIAuthorizationType.userPools,
-                APIAuthorizationType.iam,
-                APIAuthorizationType.apiKey,
-                APIAuthorizationType.none,
+      children: [
+        Align(
+          child: Container(
+            constraints: const BoxConstraints(minWidth: 100, maxWidth: 500),
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              children: [
+                GraphQLQueryExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blog: _blog,
+                ),
+                const SizedBox(height: 10),
+                GraphQLCreateExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blog: _blog,
+                  post: _post,
+                  setBlog: (Blog blog) => setState(() => _blog = blog),
+                  setPost: (Post post) => setState(() => _post = post),
+                ),
+                const SizedBox(height: 10),
+                GraphQLSubscriptionsExamples(
+                  authMode: _authorizationType,
+                  blog: _blog,
+                  post: _post,
+                  setResults: setResults,
+                  subscription: _subscription,
+                  subscriptionByID: _subscriptionByID,
+                  unsubscribe: _unsubscribe,
+                  setUnsubscribe: (val) => setState(() {
+                    _unsubscribe = val;
+                    if (_unsubscribe == null) {
+                      _subscription = null;
+                      _subscriptionByID = null;
+                    }
+                  }),
+                  setSubscription: (sub) => setState(() => _subscription = sub),
+                  setSubscriptionByID: (sub) =>
+                      setState(() => _subscriptionByID = sub),
+                ),
+                const SizedBox(height: 10),
+                GraphQLAuthMode(
+                  authMode: _authorizationType,
+                  setAuthType: (val) =>
+                      setState(() => _authorizationType = val),
+                  authTypes: const [
+                    APIAuthorizationType.userPools,
+                    APIAuthorizationType.iam,
+                    APIAuthorizationType.apiKey,
+                    APIAuthorizationType.none,
+                  ],
+                ),
+                const SizedBox(height: 10),
+                GraphQLGetByIdExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blogID: _selectedBlog,
+                  postID: _selectedPost,
+                  commentID: _selectedComment,
+                  setBlogID: (val) => setState(() => _selectedBlog = val),
+                  setPostID: (val) => setState(() => _selectedPost = val),
+                  setCommentID: (val) => setState(() => _selectedComment = val),
+                ),
+                const SizedBox(height: 10),
               ],
             ),
-          ],
+          ),
         ),
-        const SizedBox(height: 10),
-        GraphQLGetByIdExamples(
-          setResults: setResults,
-          authMode: _authorizationType,
-          blogID: _selectedBlog,
-          postID: _selectedPost,
-          commentID: _selectedComment,
-          setBlogID: (val) => setState(() => _selectedBlog = val),
-          setPostID: (val) => setState(() => _selectedPost = val),
-          setCommentID: (val) => setState(() => _selectedComment = val),
-        ),
-        const SizedBox(height: 10),
         const Divider(
           color: Colors.black,
         ),
