@@ -26,7 +26,7 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
-  build_runner: ^2.1.7
+  build_runner: ^2.0.0
   built_value_generator: 8.4.4
   file: ^6.1.2
   glob: ^2.0.2
