@@ -10,11 +10,13 @@ environment:
 
 dependencies:
   archive: ^3.3.7
+  args: ^2.4.0
   async: ^2.9.0
   aws_common: any
   collection: ^1.15.0
   drift: ^2.7.0
   file: ^6.1.4
+  git: ^2.2.0
   json_annotation: ">=4.8.0 <4.9.0"
   meta: ^1.7.0
   path: ^1.8.0
