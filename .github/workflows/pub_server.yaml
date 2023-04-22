@@ -1,0 +1,35 @@
+# Generated with aft. To update, run: `aft generate workflows`
+name: pub_server
+on:
+  push:
+    branches:
+      - main
+      - stable
+  pull_request:
+    paths:
+      - '.github/workflows/dart_vm.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/pub_server.yaml'
+      - 'packages/test/pub_server/**/*.dart'
+      - 'packages/test/pub_server/**/*.yaml'
+      - 'packages/test/pub_server/lib/**/*'
+      - 'packages/test/pub_server/test/**/*'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at 00:00
+defaults:
+  run:
+    shell: bash
+permissions: read-all
+
+jobs:
+  test:
+    uses: ./.github/workflows/dart_vm.yaml
+    with:
+      working-directory: packages/test/pub_server
+  native_test:
+    needs: test
+    uses: ./.github/workflows/dart_native.yaml
+    with:
+      working-directory: packages/test/pub_server
