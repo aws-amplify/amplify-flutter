@@ -13,7 +13,7 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 ///
 /// Use [PubLauncher.git] or [PubLauncher.local] to create a launcher.
 class PubLauncher {
-  const PubLauncher._(
+  const PubLauncher(
     this.pubServerUri,
     this.packages,
   );
@@ -94,7 +94,7 @@ class PubLauncher {
     await gitDir.runCommand(['checkout', gitRef]);
     _logger.info('Checked out $gitRef');
 
-    return PubLauncher._(pubServer, await _collectPackages(tmpDir.path));
+    return PubLauncher(pubServer, await _collectPackages(tmpDir.path));
   }
 
   /// Creates a launcher for the given [path].
@@ -103,7 +103,7 @@ class PubLauncher {
     required String path,
   }) async {
     _ensureLocalServer(pubServer);
-    return PubLauncher._(pubServer, await _collectPackages(path));
+    return PubLauncher(pubServer, await _collectPackages(path));
   }
 
   /// The pub server to publish to.
@@ -116,7 +116,7 @@ class PubLauncher {
   ///
   /// Override this method to run custom pre-publish tasks.
   @visibleForOverriding
-  Future<void> prePublish() async {}
+  Future<void> prePublish(LocalPackage package) async {}
 
   /// The list of [packages], in order of publishing priority.
   ///
@@ -128,7 +128,7 @@ class PubLauncher {
   ///
   /// Override this method to run custom publish tasks.
   @visibleForOverriding
-  Future<void> publishPackage(LocalPackage package) async {
+  Future<void> publish(LocalPackage package) async {
     _logger.info('Publishing ${package.name}...');
     final result = await Process.run(
       package.flavor == PackageFlavor.flutter ? 'flutter' : 'dart',
@@ -152,11 +152,12 @@ class PubLauncher {
 
   /// Runs the launcher.
   Future<void> run() async {
-    _logger.info('Running pre-publish tasks...');
-    await prePublish();
     _logger.info('Publishing packages...');
     for (final package in sortedPackages) {
-      await publishPackage(package);
+      _logger.info('Running pre-publish tasks for package ${package.name}...');
+      await prePublish(package);
+      _logger.info('Publishing package ${package.name}...');
+      await publish(package);
     }
     _logger.info('Successfully published all packages to $pubServerUri');
   }

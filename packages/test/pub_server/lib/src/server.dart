@@ -22,11 +22,18 @@ import 'package:shelf_router/shelf_router.dart';
 part 'server.g.dart';
 
 class PubServer {
-  PubServer({
+  PubServer._({
     required this.db,
     required this.dataDir,
-    this.fs = const LocalFileSystem(),
+    required this.fs,
   });
+
+  factory PubServer.prod({String? dataDir}) {
+    const fs = LocalFileSystem();
+    dataDir ??= fs.systemTempDirectory.createTempSync('pub_server_').path;
+    final db = PubDatabase.prod(dataDir);
+    return PubServer._(db: db, dataDir: dataDir, fs: fs);
+  }
 
   PubServer.test()
       : db = PubDatabase.test(),
@@ -34,7 +41,7 @@ class PubServer {
         dataDir = '';
 
   static final _pubUri = Uri.parse('https://pub.dev/');
-  static final _logger = AWSLogger().createChild('PubLocalServer');
+  static final _logger = AWSLogger().createChild('PubServer');
 
   final PubDatabase db;
   final FileSystem fs;
