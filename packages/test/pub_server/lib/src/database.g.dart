@@ -18,20 +18,8 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
   late final GeneratedColumn<String> latest = GeneratedColumn<String>(
       'latest', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _updatedAtMeta =
-      const VerificationMeta('updatedAt');
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-      'updated_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [name, latest, createdAt, updatedAt];
+  List<GeneratedColumn> get $columns => [name, latest];
   @override
   String get aliasedName => _alias ?? 'packages';
   @override
@@ -53,18 +41,6 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
     } else if (isInserting) {
       context.missing(_latestMeta);
     }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
     return context;
   }
 
@@ -78,10 +54,6 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       latest: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}latest'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
-      updatedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -94,20 +66,12 @@ class $PackagesTable extends Packages with TableInfo<$PackagesTable, Package> {
 class Package extends DataClass implements Insertable<Package> {
   final String name;
   final String latest;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  const Package(
-      {required this.name,
-      required this.latest,
-      required this.createdAt,
-      required this.updatedAt});
+  const Package({required this.name, required this.latest});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['name'] = Variable<String>(name);
     map['latest'] = Variable<String>(latest);
-    map['created_at'] = Variable<DateTime>(createdAt);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -115,8 +79,6 @@ class Package extends DataClass implements Insertable<Package> {
     return PackagesCompanion(
       name: Value(name),
       latest: Value(latest),
-      createdAt: Value(createdAt),
-      updatedAt: Value(updatedAt),
     );
   }
 
@@ -126,8 +88,6 @@ class Package extends DataClass implements Insertable<Package> {
     return Package(
       name: serializer.fromJson<String>(json['name']),
       latest: serializer.fromJson<String>(json['latest']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
   @override
@@ -136,95 +96,64 @@ class Package extends DataClass implements Insertable<Package> {
     return <String, dynamic>{
       'name': serializer.toJson<String>(name),
       'latest': serializer.toJson<String>(latest),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
-  Package copyWith(
-          {String? name,
-          String? latest,
-          DateTime? createdAt,
-          DateTime? updatedAt}) =>
-      Package(
+  Package copyWith({String? name, String? latest}) => Package(
         name: name ?? this.name,
         latest: latest ?? this.latest,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
       );
   @override
   String toString() {
     return (StringBuffer('Package(')
           ..write('name: $name, ')
-          ..write('latest: $latest, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('latest: $latest')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(name, latest, createdAt, updatedAt);
+  int get hashCode => Object.hash(name, latest);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Package &&
           other.name == this.name &&
-          other.latest == this.latest &&
-          other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt);
+          other.latest == this.latest);
 }
 
 class PackagesCompanion extends UpdateCompanion<Package> {
   final Value<String> name;
   final Value<String> latest;
-  final Value<DateTime> createdAt;
-  final Value<DateTime> updatedAt;
   final Value<int> rowid;
   const PackagesCompanion({
     this.name = const Value.absent(),
     this.latest = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PackagesCompanion.insert({
     required String name,
     required String latest,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     this.rowid = const Value.absent(),
   })  : name = Value(name),
-        latest = Value(latest),
-        createdAt = Value(createdAt),
-        updatedAt = Value(updatedAt);
+        latest = Value(latest);
   static Insertable<Package> custom({
     Expression<String>? name,
     Expression<String>? latest,
-    Expression<DateTime>? createdAt,
-    Expression<DateTime>? updatedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (name != null) 'name': name,
       if (latest != null) 'latest': latest,
-      if (createdAt != null) 'created_at': createdAt,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
   PackagesCompanion copyWith(
-      {Value<String>? name,
-      Value<String>? latest,
-      Value<DateTime>? createdAt,
-      Value<DateTime>? updatedAt,
-      Value<int>? rowid}) {
+      {Value<String>? name, Value<String>? latest, Value<int>? rowid}) {
     return PackagesCompanion(
       name: name ?? this.name,
       latest: latest ?? this.latest,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -238,12 +167,6 @@ class PackagesCompanion extends UpdateCompanion<Package> {
     if (latest.present) {
       map['latest'] = Variable<String>(latest.value);
     }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -255,8 +178,6 @@ class PackagesCompanion extends UpdateCompanion<Package> {
     return (StringBuffer('PackagesCompanion(')
           ..write('name: $name, ')
           ..write('latest: $latest, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -304,29 +225,9 @@ class $PackageVersionsTable extends PackageVersions
   late final GeneratedColumn<String> changelog = GeneratedColumn<String>(
       'changelog', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdAtMeta =
-      const VerificationMeta('createdAt');
   @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-      'created_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _updatedAtMeta =
-      const VerificationMeta('updatedAt');
-  @override
-  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
-      'updated_at', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        package,
-        version,
-        archiveUrl,
-        pubspec,
-        readme,
-        changelog,
-        createdAt,
-        updatedAt
-      ];
+  List<GeneratedColumn> get $columns =>
+      [package, version, archiveUrl, pubspec, readme, changelog];
   @override
   String get aliasedName => _alias ?? 'package_versions';
   @override
@@ -374,18 +275,6 @@ class $PackageVersionsTable extends PackageVersions
     } else if (isInserting) {
       context.missing(_changelogMeta);
     }
-    if (data.containsKey('created_at')) {
-      context.handle(_createdAtMeta,
-          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
-    }
-    if (data.containsKey('updated_at')) {
-      context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
-    } else if (isInserting) {
-      context.missing(_updatedAtMeta);
-    }
     return context;
   }
 
@@ -407,10 +296,6 @@ class $PackageVersionsTable extends PackageVersions
           .read(DriftSqlType.string, data['${effectivePrefix}readme'])!,
       changelog: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}changelog'])!,
-      createdAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
-      updatedAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
     );
   }
 
@@ -427,17 +312,13 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
   final String pubspec;
   final String readme;
   final String changelog;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   const PackageVersion(
       {required this.package,
       required this.version,
       required this.archiveUrl,
       required this.pubspec,
       required this.readme,
-      required this.changelog,
-      required this.createdAt,
-      required this.updatedAt});
+      required this.changelog});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -447,8 +328,6 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     map['pubspec'] = Variable<String>(pubspec);
     map['readme'] = Variable<String>(readme);
     map['changelog'] = Variable<String>(changelog);
-    map['created_at'] = Variable<DateTime>(createdAt);
-    map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -460,8 +339,6 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       pubspec: Value(pubspec),
       readme: Value(readme),
       changelog: Value(changelog),
-      createdAt: Value(createdAt),
-      updatedAt: Value(updatedAt),
     );
   }
 
@@ -475,8 +352,6 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       pubspec: serializer.fromJson<String>(json['pubspec']),
       readme: serializer.fromJson<String>(json['readme']),
       changelog: serializer.fromJson<String>(json['changelog']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
   @override
@@ -489,8 +364,6 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       'pubspec': serializer.toJson<String>(pubspec),
       'readme': serializer.toJson<String>(readme),
       'changelog': serializer.toJson<String>(changelog),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
@@ -500,9 +373,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           String? archiveUrl,
           String? pubspec,
           String? readme,
-          String? changelog,
-          DateTime? createdAt,
-          DateTime? updatedAt}) =>
+          String? changelog}) =>
       PackageVersion(
         package: package ?? this.package,
         version: version ?? this.version,
@@ -510,8 +381,6 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
         pubspec: pubspec ?? this.pubspec,
         readme: readme ?? this.readme,
         changelog: changelog ?? this.changelog,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
       );
   @override
   String toString() {
@@ -521,16 +390,14 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           ..write('archiveUrl: $archiveUrl, ')
           ..write('pubspec: $pubspec, ')
           ..write('readme: $readme, ')
-          ..write('changelog: $changelog, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('changelog: $changelog')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(package, version, archiveUrl, pubspec, readme,
-      changelog, createdAt, updatedAt);
+  int get hashCode =>
+      Object.hash(package, version, archiveUrl, pubspec, readme, changelog);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -540,9 +407,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           other.archiveUrl == this.archiveUrl &&
           other.pubspec == this.pubspec &&
           other.readme == this.readme &&
-          other.changelog == this.changelog &&
-          other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt);
+          other.changelog == this.changelog);
 }
 
 class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
@@ -552,8 +417,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
   final Value<String> pubspec;
   final Value<String> readme;
   final Value<String> changelog;
-  final Value<DateTime> createdAt;
-  final Value<DateTime> updatedAt;
   final Value<int> rowid;
   const PackageVersionsCompanion({
     this.package = const Value.absent(),
@@ -562,8 +425,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     this.pubspec = const Value.absent(),
     this.readme = const Value.absent(),
     this.changelog = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.updatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PackageVersionsCompanion.insert({
@@ -573,17 +434,13 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     required String pubspec,
     required String readme,
     required String changelog,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     this.rowid = const Value.absent(),
   })  : package = Value(package),
         version = Value(version),
         archiveUrl = Value(archiveUrl),
         pubspec = Value(pubspec),
         readme = Value(readme),
-        changelog = Value(changelog),
-        createdAt = Value(createdAt),
-        updatedAt = Value(updatedAt);
+        changelog = Value(changelog);
   static Insertable<PackageVersion> custom({
     Expression<String>? package,
     Expression<String>? version,
@@ -591,8 +448,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     Expression<String>? pubspec,
     Expression<String>? readme,
     Expression<String>? changelog,
-    Expression<DateTime>? createdAt,
-    Expression<DateTime>? updatedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -602,8 +457,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       if (pubspec != null) 'pubspec': pubspec,
       if (readme != null) 'readme': readme,
       if (changelog != null) 'changelog': changelog,
-      if (createdAt != null) 'created_at': createdAt,
-      if (updatedAt != null) 'updated_at': updatedAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -615,8 +468,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       Value<String>? pubspec,
       Value<String>? readme,
       Value<String>? changelog,
-      Value<DateTime>? createdAt,
-      Value<DateTime>? updatedAt,
       Value<int>? rowid}) {
     return PackageVersionsCompanion(
       package: package ?? this.package,
@@ -625,8 +476,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       pubspec: pubspec ?? this.pubspec,
       readme: readme ?? this.readme,
       changelog: changelog ?? this.changelog,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -652,12 +501,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     if (changelog.present) {
       map['changelog'] = Variable<String>(changelog.value);
     }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    if (updatedAt.present) {
-      map['updated_at'] = Variable<DateTime>(updatedAt.value);
-    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -673,8 +516,6 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
           ..write('pubspec: $pubspec, ')
           ..write('readme: $readme, ')
           ..write('changelog: $changelog, ')
-          ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

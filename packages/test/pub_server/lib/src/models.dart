@@ -60,13 +60,6 @@ class GetVersionResponse {
   factory GetVersionResponse.fromJson(Map<String, dynamic> json) =>
       _$GetVersionResponseFromJson(json);
 
-  factory GetVersionResponse.fromVersion(PubPackageVersion version) {
-    return GetVersionResponse(
-      name: version.package,
-      version: VersionResponse.fromVersion(version),
-    );
-  }
-
   final String name;
   final VersionResponse version;
 
@@ -98,7 +91,7 @@ class PubPackage {
     required this.versions,
   });
 
-  factory PubPackage.fromDb(PackageWithVersions package) {
+  factory PubPackage.fromDb(DatabasePackage package) {
     return PubPackage(
       name: package.package.name,
       latest: PubPackageVersion.fromDb(package.latest),
@@ -119,8 +112,6 @@ class PubPackageVersion {
     required this.pubspec,
     required this.changelog,
     required this.readme,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
   PubPackageVersion.fromDb(PackageVersion version)
@@ -129,9 +120,7 @@ class PubPackageVersion {
         archiveUrl = version.archiveUrl,
         pubspec = (loadYaml(version.pubspec) as YamlMap).cast(),
         changelog = version.changelog,
-        readme = version.readme,
-        createdAt = version.createdAt,
-        updatedAt = version.updatedAt;
+        readme = version.readme;
 
   final String package;
   final Version version;
@@ -139,6 +128,4 @@ class PubPackageVersion {
   final Map<String, Object?> pubspec;
   final String? changelog;
   final String? readme;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 }

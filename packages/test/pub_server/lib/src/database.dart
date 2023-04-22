@@ -40,7 +40,6 @@ class PubDatabase extends _$PubDatabase {
     required String readme,
     required String changelog,
   }) async {
-    final now = DateTime.now();
     await transaction(() async {
       final existingPackage = await (select(packages)
             ..where((p) => p.name.equals(name)))
@@ -50,8 +49,6 @@ class PubDatabase extends _$PubDatabase {
           PackagesCompanion.insert(
             name: name,
             latest: version.toString(),
-            createdAt: now,
-            updatedAt: now,
           ),
         );
       }
@@ -63,32 +60,26 @@ class PubDatabase extends _$PubDatabase {
           pubspec: pubspecYaml,
           readme: readme,
           changelog: changelog,
-          createdAt: now,
-          updatedAt: now,
         ),
       );
     });
   }
 
   Future<PubPackage?> getPackage(String packageName) async {
-    final rows = await (select(packages)
+    final package = await (select(packages)
           ..where((p) => p.name.equals(packageName)))
-        .join([
-      leftOuterJoin(
-        packageVersions,
-        packageVersions.package.equalsExp(packages.name),
-      )
-    ]).get();
-    if (rows.isEmpty) {
+        .getSingleOrNull();
+    if (package == null) {
       return null;
     }
-    final package = rows.first.readTable(packages);
-    final versions = rows.map((r) => r.readTable(packageVersions)).toList()
-      ..sort((a, b) {
-        return -Version.parse(a.version).compareTo(Version.parse(b.version));
-      });
+    final versions = await (select(packageVersions)
+          ..where((row) => row.package.equals(packageName)))
+        .get();
+    versions.sort((a, b) {
+      return -Version.parse(a.version).compareTo(Version.parse(b.version));
+    });
     final latest = versions.first;
-    final packageWithVersions = PackageWithVersions(package, latest, versions);
+    final packageWithVersions = DatabasePackage(package, latest, versions);
     return PubPackage.fromDb(packageWithVersions);
   }
 
@@ -99,8 +90,6 @@ class PubDatabase extends _$PubDatabase {
 class Packages extends Table {
   TextColumn get name => text()();
   TextColumn get latest => text()();
-  DateTimeColumn get createdAt => dateTime()();
-  DateTimeColumn get updatedAt => dateTime()();
 
   @override
   Set<Column<Object>> get primaryKey => {name};
@@ -113,15 +102,13 @@ class PackageVersions extends Table {
   TextColumn get pubspec => text()();
   TextColumn get readme => text()();
   TextColumn get changelog => text()();
-  DateTimeColumn get createdAt => dateTime()();
-  DateTimeColumn get updatedAt => dateTime()();
 
   @override
   Set<Column<Object>> get primaryKey => {package, version};
 }
 
-class PackageWithVersions {
-  const PackageWithVersions(this.package, this.latest, this.versions);
+class DatabasePackage {
+  const DatabasePackage(this.package, this.latest, this.versions);
 
   final Package package;
   final PackageVersion latest;

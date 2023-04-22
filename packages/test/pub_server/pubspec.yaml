@@ -14,7 +14,7 @@ dependencies:
   async: ^2.9.0
   aws_common: any
   collection: ^1.15.0
-  drift: ^2.7.0
+  drift: ">=2.4.0 <2.7.0"
   file: ^6.1.4
   git: ^2.2.0
   json_annotation: ">=4.8.0 <4.9.0"
@@ -31,7 +31,7 @@ dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   build_runner: ^2.0.0
   build_test: ^2.1.5
-  drift_dev: ^2.7.0
+  drift_dev: ^2.4.0
   json_serializable: 6.6.1
   shelf_router_generator: ^1.0.5
   test: ^1.16.0

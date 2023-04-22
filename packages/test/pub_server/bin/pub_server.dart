@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:pub_server/src/database.dart';
 import 'package:pub_server/src/launcher.dart';
 import 'package:pub_server/src/server.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -43,6 +42,12 @@ Future<void> main(List<String> args) async {
       help: 'Enables verbose logging.',
       negatable: false,
       defaultsTo: false,
+    )
+    ..addOption(
+      'port',
+      abbr: 'p',
+      defaultsTo: '0',
+      help: 'The port to serve on.',
     );
 
   final argResults = argParser.parse(args);
@@ -70,15 +75,17 @@ Future<void> main(List<String> args) async {
   if (dataDir.isEmpty) {
     dataDir = Directory.systemTemp.createTempSync('pub-local').path;
   }
-  final db = PubDatabase.prod(dataDir);
-  final server = PubServer(
-    db: db,
+  final server = PubServer.prod(
     dataDir: dataDir,
   );
+  var port = int.parse(argResults['port'] as String);
+  if (port == 0) {
+    port = const int.fromEnvironment('PORT', defaultValue: 0);
+  }
   final ioServer = await io.serve(
     server.handler,
     InternetAddress.anyIPv4,
-    const int.fromEnvironment('PORT', defaultValue: 0),
+    port,
   );
   final serverAddress = Uri.parse('http://localhost:${ioServer.port}');
 

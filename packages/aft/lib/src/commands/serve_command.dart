@@ -22,13 +22,7 @@ class ServeCommand extends AmplifyCommand with GlobOptions, PublishHelpers {
   }
 
   /// The port to serve on.
-  late final int port = () {
-    const fromEnv = int.fromEnvironment('PORT', defaultValue: 0);
-    if (fromEnv != 0) {
-      return fromEnv;
-    }
-    return int.parse(argResults!['port'] as String);
-  }();
+  late final int port = int.parse(argResults!['port'] as String);
 
   @override
   bool get force => true;
