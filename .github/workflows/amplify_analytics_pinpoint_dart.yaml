@@ -50,7 +50,6 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/analytics/amplify_analytics_pinpoint_dart
-      skip-on-windows: true
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml

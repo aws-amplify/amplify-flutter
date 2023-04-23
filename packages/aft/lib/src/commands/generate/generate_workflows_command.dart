@@ -66,14 +66,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
           isDartPackage ? 'dart_vm.yaml' : 'flutter_vm.yaml';
       final needsNativeTest =
           isDartPackage && package.unitTestDirectory != null;
-      // Packages which use DB Common (SQLite) will not work on Windows until
-      // native assets are supported.
-      // TODO(dnys1): https://github.com/dart-lang/sdk/issues/50565
-      final skipOnWindows = const [
-        'amplify_db_common_dart',
-        'amplify_analytics_pinpoint_dart',
-        'amplify_storage_s3_dart',
-      ].contains(package.name);
       final needsWebTest =
           package.pubspecInfo.pubspec.devDependencies.containsKey('build_test');
       final workflows = [
@@ -147,7 +139,6 @@ jobs:
     uses: ./.github/workflows/$nativeWorkflow
     with:
       working-directory: $repoRelativePath
-      skip-on-windows: $skipOnWindows
 ''',
         );
 

@@ -40,7 +40,6 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/api/amplify_api_dart
-      skip-on-windows: false
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
