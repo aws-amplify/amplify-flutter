@@ -10,7 +10,7 @@ part 'models.g.dart';
 
 const serializable = JsonSerializable(
   explicitToJson: true,
-  converters: [VersionSerializer()],
+  converters: [VersionSerializer(), DateTimeSerializer()],
   fieldRename: FieldRename.snake,
 );
 
@@ -24,12 +24,23 @@ class VersionSerializer implements JsonConverter<Version, String> {
   String toJson(Version object) => object.toString();
 }
 
+class DateTimeSerializer implements JsonConverter<DateTime, String> {
+  const DateTimeSerializer();
+
+  @override
+  DateTime fromJson(String json) => DateTime.parse(json);
+
+  @override
+  String toJson(DateTime object) => object.toIso8601String();
+}
+
 @serializable
 class VersionResponse {
   VersionResponse({
     required this.version,
     required this.archiveUrl,
     required this.pubspec,
+    required this.published,
   });
 
   factory VersionResponse.fromJson(Map<String, dynamic> json) =>
@@ -40,12 +51,14 @@ class VersionResponse {
       version: version.version,
       archiveUrl: version.archiveUrl,
       pubspec: version.pubspec,
+      published: version.published,
     );
   }
 
   final String archiveUrl;
   final Map<String, Object?> pubspec;
   final Version version;
+  final DateTime published;
 
   Map<String, dynamic> toJson() => _$VersionResponseToJson(this);
 }
@@ -112,6 +125,7 @@ class PubPackageVersion {
     required this.pubspec,
     required this.changelog,
     required this.readme,
+    required this.published,
   });
 
   PubPackageVersion.fromDb(PackageVersion version)
@@ -120,7 +134,8 @@ class PubPackageVersion {
         archiveUrl = version.archiveUrl,
         pubspec = (loadYaml(version.pubspec) as YamlMap).cast(),
         changelog = version.changelog,
-        readme = version.readme;
+        readme = version.readme,
+        published = version.published;
 
   final String package;
   final Version version;
@@ -128,4 +143,5 @@ class PubPackageVersion {
   final Map<String, Object?> pubspec;
   final String? changelog;
   final String? readme;
+  final DateTime published;
 }

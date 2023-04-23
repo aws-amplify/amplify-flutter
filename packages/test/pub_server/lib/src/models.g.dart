@@ -11,6 +11,8 @@ VersionResponse _$VersionResponseFromJson(Map<String, dynamic> json) =>
       version: const VersionSerializer().fromJson(json['version'] as String),
       archiveUrl: json['archive_url'] as String,
       pubspec: json['pubspec'] as Map<String, dynamic>,
+      published:
+          const DateTimeSerializer().fromJson(json['published'] as String),
     );
 
 Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
@@ -18,6 +20,7 @@ Map<String, dynamic> _$VersionResponseToJson(VersionResponse instance) =>
       'archive_url': instance.archiveUrl,
       'pubspec': instance.pubspec,
       'version': const VersionSerializer().toJson(instance.version),
+      'published': const DateTimeSerializer().toJson(instance.published),
     };
 
 GetVersionResponse _$GetVersionResponseFromJson(Map<String, dynamic> json) =>

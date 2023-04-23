@@ -225,9 +225,15 @@ class $PackageVersionsTable extends PackageVersions
   late final GeneratedColumn<String> changelog = GeneratedColumn<String>(
       'changelog', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _publishedMeta =
+      const VerificationMeta('published');
+  @override
+  late final GeneratedColumn<DateTime> published = GeneratedColumn<DateTime>(
+      'published', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [package, version, archiveUrl, pubspec, readme, changelog];
+      [package, version, archiveUrl, pubspec, readme, changelog, published];
   @override
   String get aliasedName => _alias ?? 'package_versions';
   @override
@@ -275,6 +281,12 @@ class $PackageVersionsTable extends PackageVersions
     } else if (isInserting) {
       context.missing(_changelogMeta);
     }
+    if (data.containsKey('published')) {
+      context.handle(_publishedMeta,
+          published.isAcceptableOrUnknown(data['published']!, _publishedMeta));
+    } else if (isInserting) {
+      context.missing(_publishedMeta);
+    }
     return context;
   }
 
@@ -296,6 +308,8 @@ class $PackageVersionsTable extends PackageVersions
           .read(DriftSqlType.string, data['${effectivePrefix}readme'])!,
       changelog: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}changelog'])!,
+      published: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}published'])!,
     );
   }
 
@@ -312,13 +326,15 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
   final String pubspec;
   final String readme;
   final String changelog;
+  final DateTime published;
   const PackageVersion(
       {required this.package,
       required this.version,
       required this.archiveUrl,
       required this.pubspec,
       required this.readme,
-      required this.changelog});
+      required this.changelog,
+      required this.published});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -328,6 +344,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
     map['pubspec'] = Variable<String>(pubspec);
     map['readme'] = Variable<String>(readme);
     map['changelog'] = Variable<String>(changelog);
+    map['published'] = Variable<DateTime>(published);
     return map;
   }
 
@@ -339,6 +356,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       pubspec: Value(pubspec),
       readme: Value(readme),
       changelog: Value(changelog),
+      published: Value(published),
     );
   }
 
@@ -352,6 +370,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       pubspec: serializer.fromJson<String>(json['pubspec']),
       readme: serializer.fromJson<String>(json['readme']),
       changelog: serializer.fromJson<String>(json['changelog']),
+      published: serializer.fromJson<DateTime>(json['published']),
     );
   }
   @override
@@ -364,6 +383,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
       'pubspec': serializer.toJson<String>(pubspec),
       'readme': serializer.toJson<String>(readme),
       'changelog': serializer.toJson<String>(changelog),
+      'published': serializer.toJson<DateTime>(published),
     };
   }
 
@@ -373,7 +393,8 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           String? archiveUrl,
           String? pubspec,
           String? readme,
-          String? changelog}) =>
+          String? changelog,
+          DateTime? published}) =>
       PackageVersion(
         package: package ?? this.package,
         version: version ?? this.version,
@@ -381,6 +402,7 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
         pubspec: pubspec ?? this.pubspec,
         readme: readme ?? this.readme,
         changelog: changelog ?? this.changelog,
+        published: published ?? this.published,
       );
   @override
   String toString() {
@@ -390,14 +412,15 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           ..write('archiveUrl: $archiveUrl, ')
           ..write('pubspec: $pubspec, ')
           ..write('readme: $readme, ')
-          ..write('changelog: $changelog')
+          ..write('changelog: $changelog, ')
+          ..write('published: $published')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(package, version, archiveUrl, pubspec, readme, changelog);
+  int get hashCode => Object.hash(
+      package, version, archiveUrl, pubspec, readme, changelog, published);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -407,7 +430,8 @@ class PackageVersion extends DataClass implements Insertable<PackageVersion> {
           other.archiveUrl == this.archiveUrl &&
           other.pubspec == this.pubspec &&
           other.readme == this.readme &&
-          other.changelog == this.changelog);
+          other.changelog == this.changelog &&
+          other.published == this.published);
 }
 
 class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
@@ -417,6 +441,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
   final Value<String> pubspec;
   final Value<String> readme;
   final Value<String> changelog;
+  final Value<DateTime> published;
   final Value<int> rowid;
   const PackageVersionsCompanion({
     this.package = const Value.absent(),
@@ -425,6 +450,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     this.pubspec = const Value.absent(),
     this.readme = const Value.absent(),
     this.changelog = const Value.absent(),
+    this.published = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PackageVersionsCompanion.insert({
@@ -434,13 +460,15 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     required String pubspec,
     required String readme,
     required String changelog,
+    required DateTime published,
     this.rowid = const Value.absent(),
   })  : package = Value(package),
         version = Value(version),
         archiveUrl = Value(archiveUrl),
         pubspec = Value(pubspec),
         readme = Value(readme),
-        changelog = Value(changelog);
+        changelog = Value(changelog),
+        published = Value(published);
   static Insertable<PackageVersion> custom({
     Expression<String>? package,
     Expression<String>? version,
@@ -448,6 +476,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     Expression<String>? pubspec,
     Expression<String>? readme,
     Expression<String>? changelog,
+    Expression<DateTime>? published,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -457,6 +486,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       if (pubspec != null) 'pubspec': pubspec,
       if (readme != null) 'readme': readme,
       if (changelog != null) 'changelog': changelog,
+      if (published != null) 'published': published,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -468,6 +498,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       Value<String>? pubspec,
       Value<String>? readme,
       Value<String>? changelog,
+      Value<DateTime>? published,
       Value<int>? rowid}) {
     return PackageVersionsCompanion(
       package: package ?? this.package,
@@ -476,6 +507,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
       pubspec: pubspec ?? this.pubspec,
       readme: readme ?? this.readme,
       changelog: changelog ?? this.changelog,
+      published: published ?? this.published,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -501,6 +533,9 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
     if (changelog.present) {
       map['changelog'] = Variable<String>(changelog.value);
     }
+    if (published.present) {
+      map['published'] = Variable<DateTime>(published.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -516,6 +551,7 @@ class PackageVersionsCompanion extends UpdateCompanion<PackageVersion> {
           ..write('pubspec: $pubspec, ')
           ..write('readme: $readme, ')
           ..write('changelog: $changelog, ')
+          ..write('published: $published, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

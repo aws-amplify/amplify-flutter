@@ -24,11 +24,6 @@ Router _$PubServerRouter(PubServer service) {
     service.newVersion,
   );
   router.add(
-    'GET',
-    r'/packages/<name>/versions/<version>.tar.gz',
-    service.download,
-  );
-  router.add(
     'POST',
     r'/api/packages/versions/newUpload',
     service.upload,
@@ -37,6 +32,11 @@ Router _$PubServerRouter(PubServer service) {
     'GET',
     r'/api/packages/versions/newUploadFinish',
     service.uploadFinish,
+  );
+  router.add(
+    'GET',
+    r'/packages/<name>/versions/<version>.tar.gz',
+    service.download,
   );
   return router;
 }

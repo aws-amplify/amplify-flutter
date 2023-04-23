@@ -64,6 +64,7 @@ class PubDatabase extends _$PubDatabase {
           pubspec: pubspecYaml,
           readme: readme,
           changelog: changelog,
+          published: DateTime.now(),
         ),
       );
     });
@@ -109,6 +110,7 @@ class PackageVersions extends Table {
   TextColumn get pubspec => text()();
   TextColumn get readme => text()();
   TextColumn get changelog => text()();
+  DateTimeColumn get published => dateTime()();
 
   @override
   Set<Column<Object>> get primaryKey => {package, version};
