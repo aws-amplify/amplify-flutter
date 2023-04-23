@@ -21,6 +21,10 @@ import 'package:shelf_router/shelf_router.dart';
 
 part 'server.g.dart';
 
+/// A minimal implementation of the pub.dev API.
+///
+/// This follows the API documented at
+/// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md
 class PubServer {
   PubServer._({
     required this.db,
@@ -28,6 +32,9 @@ class PubServer {
     required this.fs,
   });
 
+  /// Creates a new [PubServer] with a temporary directory for data.
+  ///
+  /// The [dataDir] parameter can be used to specify a custom data directory.
   factory PubServer.prod({String? dataDir}) {
     const fs = LocalFileSystem();
     dataDir ??= fs.systemTempDirectory.createTempSync('pub_server_').path;
@@ -35,6 +42,7 @@ class PubServer {
     return PubServer._(db: db, dataDir: dataDir, fs: fs);
   }
 
+  /// Creates a new [PubServer] with an in-memory file system and database.
   PubServer.test()
       : db = PubDatabase.test(),
         fs = MemoryFileSystem.test(),
@@ -43,8 +51,13 @@ class PubServer {
   static final _pubUri = Uri.parse('https://pub.dev/');
   static final _logger = AWSLogger().createChild('PubServer');
 
+  /// The database used to store package information.
   final PubDatabase db;
+
+  /// A file system abstraction for accessing package data.
   final FileSystem fs;
+
+  /// The directory where package data is stored.
   final String dataDir;
 
   Future<File?> _openFile(String path) async {
@@ -62,6 +75,19 @@ class PubServer {
     return Response.found(redirect);
   }
 
+  /// Returns a JSON response with the given [body].
+  static Response _okJson(Object? body) {
+    return Response.ok(
+      HttpPayload.json(body),
+      headers: {
+        AWSHeaders.contentType: 'application/vnd.pub.v2+json',
+      },
+    );
+  }
+
+  /// Lists all versions of a package.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#list-all-versions-of-a-package
   @Route.get('/api/packages/<name>')
   Future<Response> getVersions(Request request, String name) async {
     final package = await db.getPackage(name);
@@ -73,11 +99,12 @@ class PubServer {
       latest: VersionResponse.fromVersion(package.latest),
       versions: package.versions.map(VersionResponse.fromVersion).toList(),
     );
-    return Response.ok(
-      HttpPayload.json(response),
-    );
+    return _okJson(response);
   }
 
+  /// Returns information about a specific package version.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#deprecated-inspect-a-specific-version-of-a-package
   @Route.get('/api/packages/<name>/versions/<version>')
   Future<Response> getVersion(
     Request request,
@@ -98,52 +125,25 @@ class PubServer {
       name: name,
       version: VersionResponse.fromVersion(versionInfo),
     );
-    return Response.ok(
-      HttpPayload.json(response),
-    );
+    return _okJson(response);
   }
 
+  /// Starts the upload of a new package version.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#publishing-packages
   @Route.get('/api/packages/versions/new')
   Future<Response> newVersion(Request request) async {
-    return Response.ok(
-      HttpPayload.json({
-        'url': request.requestedUri
-            .resolve('/api/packages/versions/newUpload')
-            .toString(),
-        'fields': <String, Object?>{},
-      }),
-    );
+    return _okJson({
+      'url': request.requestedUri
+          .resolve('/api/packages/versions/newUpload')
+          .toString(),
+      'fields': <String, Object?>{},
+    });
   }
 
-  @Route.get('/packages/<name>/versions/<version>.tar.gz')
-  Future<Response> download(
-    Request request,
-    String name,
-    String version,
-  ) async {
-    final package = await db.getPackage(name);
-    if (package == null) {
-      return _redirectToPub(request);
-    }
-    final versionInfo = package.versions.firstWhereOrNull(
-      (v) => v.version == Version.parse(version),
-    );
-    if (versionInfo == null) {
-      return Response.notFound('Version not found');
-    }
-    final file = await _openFile('$name/$version.tar.gz');
-    if (file == null) {
-      return _redirectToPub(request);
-    }
-    return Response.ok(
-      file.openRead(),
-      headers: {
-        'Content-Type': 'application/octet-stream',
-        'Content-Length': (await file.length()).toString(),
-      },
-    );
-  }
-
+  /// Uploads a new package version using a multipart form.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#publishing-packages
   @Route.post('/api/packages/versions/newUpload')
   Future<Response> upload(Request request) async {
     if (!request.isMultipartForm) {
@@ -221,7 +221,7 @@ class PubServer {
       );
     }
 
-    await db.upsertPackage(
+    await db.upsertPackageVersion(
       name: pubspec.name,
       version: version,
       archiveUrl: request.requestedUri
@@ -231,21 +231,61 @@ class PubServer {
       readme: readme,
       changelog: changelog,
     );
-    return Response.found(
-      request.requestedUri
-          .resolve('/api/packages/versions/newUploadFinish')
-          .toString(),
+    return Response(
+      204,
+      headers: {
+        AWSHeaders.location: request.requestedUri
+            .resolve('/api/packages/versions/newUploadFinish')
+            .toString(),
+      },
     );
   }
 
+  /// Finalizes the upload of a new package version.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#publishing-packages
   @Route.get('/api/packages/versions/newUploadFinish')
   Future<Response> uploadFinish(Request request) async {
+    return _okJson({
+      'success': {
+        'message': 'Package uploaded successfully.',
+      },
+    });
+  }
+
+  /// Downloads a package version.
+  ///
+  /// https://github.com/dart-lang/pub/blob/master/doc/repository-spec-v2.md#deprecated-download-a-specific-version-of-a-package
+  ///
+  /// While the spec says that this endpoint is deprecated, it is leveraged as
+  /// the `archive_url` returned by other endpoints, thus serving as the
+  /// canonical source for package versions.
+  @Route.get('/packages/<name>/versions/<version>.tar.gz')
+  Future<Response> download(
+    Request request,
+    String name,
+    String version,
+  ) async {
+    final package = await db.getPackage(name);
+    if (package == null) {
+      return _redirectToPub(request);
+    }
+    final versionInfo = package.versions.firstWhereOrNull(
+      (v) => v.version == Version.parse(version),
+    );
+    if (versionInfo == null) {
+      return Response.notFound('Version not found');
+    }
+    final file = await _openFile('$name/$version.tar.gz');
+    if (file == null) {
+      return _redirectToPub(request);
+    }
     return Response.ok(
-      HttpPayload.json({
-        'success': {
-          'message': 'Package uploaded successfully.',
-        },
-      }),
+      file.openRead(),
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Content-Length': (await file.length()).toString(),
+      },
     );
   }
 

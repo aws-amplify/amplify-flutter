@@ -20,6 +20,11 @@ class PubLauncher {
 
   static final _logger = AWSLogger().createChild('PubLauncher');
 
+  /// For now, enforce local pub servers which prevents accidental publishing
+  /// to the real pub.dev.
+  ///
+  /// In the future, we can consider supporting remote pub servers under our
+  /// control.
   static void _ensureLocalServer(Uri pubServer) {
     if (pubServer.host != 'localhost') {
       throw ArgumentError.value(

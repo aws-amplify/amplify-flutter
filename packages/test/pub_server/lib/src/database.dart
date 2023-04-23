@@ -11,20 +11,23 @@ import 'package:pub_server/src/models.dart';
 
 part 'database.g.dart';
 
+/// A database for storing package information.
 @DriftDatabase(tables: [Packages, PackageVersions])
 class PubDatabase extends _$PubDatabase {
-  PubDatabase(super.e);
+  PubDatabase._(super.e);
 
+  /// Creates a new [PubDatabase] with an in-memory database.
   factory PubDatabase.test() {
-    return PubDatabase(
+    return PubDatabase._(
       LazyDatabase(() async {
-        return NativeDatabase.memory(logStatements: true);
+        return NativeDatabase.memory();
       }),
     );
   }
 
+  /// Creates a new [PubDatabase] with a database in the given [dataDir].
   factory PubDatabase.prod(String dataDir) {
-    return PubDatabase(
+    return PubDatabase._(
       LazyDatabase(() async {
         final file = File(p.join(dataDir, 'pub-local.db'));
         return NativeDatabase(file);
@@ -32,7 +35,8 @@ class PubDatabase extends _$PubDatabase {
     );
   }
 
-  Future<void> upsertPackage({
+  /// Inserts or updates the package with the given [name] and [version].
+  Future<void> upsertPackageVersion({
     required String name,
     required Version version,
     required String archiveUrl,
@@ -65,6 +69,7 @@ class PubDatabase extends _$PubDatabase {
     });
   }
 
+  /// Returns the package with the given [packageName].
   Future<PubPackage?> getPackage(String packageName) async {
     final package = await (select(packages)
           ..where((p) => p.name.equals(packageName)))
@@ -87,6 +92,7 @@ class PubDatabase extends _$PubDatabase {
   int get schemaVersion => 1;
 }
 
+/// The table for packages.
 class Packages extends Table {
   TextColumn get name => text()();
   TextColumn get latest => text()();
@@ -95,6 +101,7 @@ class Packages extends Table {
   Set<Column<Object>> get primaryKey => {name};
 }
 
+/// The table for package-versions.
 class PackageVersions extends Table {
   TextColumn get package => text()();
   TextColumn get version => text()();
@@ -107,6 +114,7 @@ class PackageVersions extends Table {
   Set<Column<Object>> get primaryKey => {package, version};
 }
 
+/// A package with its versions in database form.
 class DatabasePackage {
   const DatabasePackage(this.package, this.latest, this.versions);
 
