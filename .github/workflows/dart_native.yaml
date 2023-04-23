@@ -59,12 +59,16 @@ jobs:
       # This is needed to support running tests which depend on db_common.
       - name: Install SQLite
         if: runner.os == 'Windows'
-        shell: bash
         run: |
           # Should match `packages/common/amplify_db_common/windows/CMakeLists.txt`
-          curl -sLo sqlite.zip https://www.sqlite.org/2022/sqlite-dll-win64-x64-3400000.zip
-          unzip sqlite.zip
-          echo "$PWD" >> "$GITHUB_PATH"
+          $uri = "https://www.sqlite.org/2022/sqlite-dll-win64-x64-3400000.zip"
+          $outFile = "sqlite.zip"
+          $out = ".\sqlite"
+          Invoke-WebRequest -Uri $uri -OutFile $outFile
+          Expand-Archive -LiteralPath $outFile -DestinationPath $out
+          $absoluteOut = Resolve-Path -Path $out
+          Add-Content $env:GITHUB_PATH $absoluteOut
+          Get-Content $env:GITHUB_PATH
 
       - name: Bootstrap
         id: bootstrap
