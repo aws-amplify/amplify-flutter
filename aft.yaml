@@ -22,7 +22,7 @@ dependencies:
   pigeon: ^9.2.4
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
-  xml: ">=6.1.0 <=6.2.2"
+  xml: ">=6.1.0 <=6.3.0"
 
 # The current constraints for SDKs and OSs.
 environment:

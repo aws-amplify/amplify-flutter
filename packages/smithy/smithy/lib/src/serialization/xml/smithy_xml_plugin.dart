@@ -220,6 +220,9 @@ class SmithyXmlPlugin implements SerializerPlugin {
       }
       return els;
     } else if (node is XmlText) {
+      // TODO(dnys1): Remove when Dart bumped to >=2.19
+      // and `xml` bumped to >=6.3.0
+      // ignore: deprecated_member_use
       return node.text;
     }
     throw ArgumentError('Invalid type: ${node.runtimeType}');
