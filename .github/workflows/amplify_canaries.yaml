@@ -26,6 +26,10 @@ jobs:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
           persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
 
       # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
@@ -73,6 +77,10 @@ jobs:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
         with:
           persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
 
       - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
@@ -116,6 +124,10 @@ jobs:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
         with:
           persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
 
       - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
