@@ -46,10 +46,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   /// for that endpoint.
   final Map<String, WebSocketBloc> _webSocketBlocPool = {};
 
-  /// The registered [APIAuthProvider] instances.
-  @protected
-  final Map<APIAuthorizationType, APIAuthProvider> authProviders = {};
-
   final StreamController<ApiHubEvent> _hubEventController =
       StreamController<ApiHubEvent>.broadcast();
 
@@ -219,11 +215,6 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
 
   @override
   final ModelProviderInterface? modelProvider;
-
-  @override
-  void registerAuthProvider(APIAuthProvider authProvider) {
-    authProviders[authProvider.type] = authProvider;
-  }
 
   // ====== GraphQL ======
 
