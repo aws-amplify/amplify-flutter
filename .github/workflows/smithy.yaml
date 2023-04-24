@@ -33,4 +33,3 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/smithy
-      skip-on-windows: false

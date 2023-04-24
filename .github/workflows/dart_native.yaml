@@ -7,10 +7,6 @@ on:
         description: The working directory relative to the repo root
         required: true
         type: string
-      skip-on-windows:
-        description: Whether the current package cannot be tested on Windows
-        required: true
-        type: boolean
 
 jobs:
   native_test:
@@ -60,6 +56,20 @@ jobs:
           dart pub global activate -spath packages/aft
           ( cd packages/aft/external/libgit2dart; git reset --hard HEAD )
 
+      # This is needed to support running tests which depend on db_common.
+      - name: Install SQLite
+        if: runner.os == 'Windows'
+        run: |
+          # Should match `packages/common/amplify_db_common/windows/CMakeLists.txt`
+          $uri = "https://www.sqlite.org/2022/sqlite-dll-win64-x64-3400000.zip"
+          $outFile = "sqlite.zip"
+          $out = ".\sqlite"
+          Invoke-WebRequest -Uri $uri -OutFile $outFile
+          Expand-Archive -LiteralPath $outFile -DestinationPath $out
+          $absoluteOut = Resolve-Path -Path $out
+          Add-Content $env:GITHUB_PATH $absoluteOut
+          Get-Content $env:GITHUB_PATH
+
       - name: Bootstrap
         id: bootstrap
         timeout-minutes: 20
@@ -75,6 +85,6 @@ jobs:
           fi
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && (runner.os != 'Windows' || !inputs.skip-on-windows)"
+        if: "always() && steps.bootstrap.conclusion == 'success'"
         run: dart test --exclude-tags=build
         working-directory: ${{ inputs.working-directory }}

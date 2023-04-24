@@ -42,7 +42,6 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/smithy/goldens/lib/restXml
-      skip-on-windows: false
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
