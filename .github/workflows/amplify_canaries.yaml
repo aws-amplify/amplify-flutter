@@ -19,9 +19,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        flutter-channel:
-          - stable
-          - beta
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
@@ -30,16 +30,14 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
       - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
-
-      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
-        with:
-          channel: ${{ matrix.flutter-channel }}
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -81,8 +79,6 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
-
-      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
           flutter-version: ${{ matrix.flutter-version }}
 
@@ -128,8 +124,6 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
-
-      - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
           flutter-version: ${{ matrix.flutter-version }}
 
