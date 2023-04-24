@@ -30,6 +30,7 @@ class Todo extends Model {
   final String id;
   final String? _name;
   final String? _description;
+  final String? _owner;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -63,6 +64,19 @@ class Todo extends Model {
     return _description;
   }
   
+  String get owner {
+    try {
+      return _owner!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -71,13 +85,14 @@ class Todo extends Model {
     return _updatedAt;
   }
   
-  const Todo._internal({required this.id, required name, description, createdAt, updatedAt}): _name = name, _description = description, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Todo._internal({required this.id, required name, description, required owner, createdAt, updatedAt}): _name = name, _description = description, _owner = owner, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Todo({String? id, required String name, String? description}) {
+  factory Todo({String? id, required String name, String? description, required String owner}) {
     return Todo._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
-      description: description);
+      description: description,
+      owner: owner);
   }
   
   bool equals(Object other) {
@@ -90,7 +105,8 @@ class Todo extends Model {
     return other is Todo &&
       id == other.id &&
       _name == other._name &&
-      _description == other._description;
+      _description == other._description &&
+      _owner == other._owner;
   }
   
   @override
@@ -104,6 +120,7 @@ class Todo extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("description=" + "$_description" + ", ");
+    buffer.write("owner=" + "$_owner" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -111,35 +128,52 @@ class Todo extends Model {
     return buffer.toString();
   }
   
-  Todo copyWith({String? name, String? description}) {
+  Todo copyWith({String? name, String? description, String? owner}) {
     return Todo._internal(
       id: id,
       name: name ?? this.name,
-      description: description ?? this.description);
+      description: description ?? this.description,
+      owner: owner ?? this.owner);
   }
   
   Todo.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _name = json['name'],
       _description = json['description'],
+      _owner = json['owner'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'description': _description, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'description': _description, 'owner': _owner, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'description': _description, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'description': _description, 'owner': _owner, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<TodoModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<TodoModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
+  static final QueryField OWNER = QueryField(fieldName: "owner");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Todo";
     modelSchemaDefinition.pluralName = "Todos";
+    
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.OWNER,
+        ownerField: "owner",
+        identityClaim: "cognito:username",
+        provider: AuthRuleProvider.USERPOOLS,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
@@ -152,6 +186,12 @@ class Todo extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Todo.DESCRIPTION,
       isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Todo.OWNER,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     

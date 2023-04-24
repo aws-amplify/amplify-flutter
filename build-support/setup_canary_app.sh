@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# clean
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
 PROJECT_DIR=$(mktemp -d)
 cd $PROJECT_DIR
 
@@ -30,3 +30,4 @@ sed -i'' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile && cat ./ios/
 if [[ -n "$CI" ]]; then
     echo "projectDir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
 fi
+echo $PROJECT_DIR

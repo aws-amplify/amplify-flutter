@@ -64,3 +64,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+team-provider-info.json
+amplifyconfiguration.dart

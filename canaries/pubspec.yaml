@@ -9,6 +9,7 @@ dependencies:
   amplify_analytics_pinpoint: ^1.0.0
   amplify_api: ^1.0.0
   amplify_auth_cognito: ^1.0.0
+  amplify_authenticator: ^1.0.0
   amplify_datastore: ^1.0.0-supports-only-mobile.0
   amplify_flutter: ^1.0.0
   amplify_storage_s3: ^1.0.0
@@ -21,3 +22,6 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
+
+flutter:
+  uses-material-design: true

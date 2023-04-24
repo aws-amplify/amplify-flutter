@@ -12,7 +12,12 @@ concurrency:
 jobs:
   android:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     strategy:
+      fail-fast: false
       matrix:
         flutter-channel:
           - stable
@@ -32,6 +37,14 @@ jobs:
         with:
           channel: ${{ matrix.flutter-channel }}
 
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
       - name: Build Canary App
         id: build-canary
         run: build-support/setup_canary_app.sh
@@ -46,6 +59,10 @@ jobs:
 
   ios-latest:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -60,6 +77,14 @@ jobs:
       - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
           flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
@@ -77,6 +102,10 @@ jobs:
 
   ios-legacy:
     runs-on: macos-11 # Has iOS 13 installed
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -91,6 +120,14 @@ jobs:
       - uses: subosito/flutter-action@d8687e6979e8ef66d2b2970e2c92c1d8e801d7bf # 2.4.0
         with:
           flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
