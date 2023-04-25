@@ -43,7 +43,6 @@ scripts:
   test:unit:android:
     run: |
       melos run test:unit:android:plugin amplify_analytics_pinpoint_android && \
-      melos run test:unit:android:plugin amplify_api_android $PWD && \
       melos run test:unit:android:plugin amplify_auth_cognito_android $PWD && \
       melos run test:unit:android:plugin amplify_core $PWD && \
       melos run test:unit:android:plugin amplify_datastore $PWD && \
@@ -52,7 +51,6 @@ scripts:
   test:unit:ios:
     run: |
       melos run test:unit:ios:plugin amplify_analytics_pinpoint_ios && \
-      melos run test:unit:ios:plugin amplify_api_ios $PWD && \
       melos run test:unit:ios:plugin amplify_auth_cognito $PWD && \
       melos run test:unit:ios:plugin amplify_datastore $PWD && \
       melos run test:unit:ios:plugin amplify_flutter_ios $PWD && exit 0
@@ -82,17 +80,6 @@ scripts:
     select-package:
       scope:
         - amplify_analytics_pinpoint_android_example
-
-  # API
-  lint:android:amplify_api:
-    run: |
-      melos exec -c 1 --fail-fast -- \
-        bash "$PWD/build-support/lint_android.sh"
-    description: >
-      Lints Android (Kotlin) files against global rules and fails if there are any errors.
-    select-package:
-      scope:
-        - amplify_api_android_example
 
   # AUTH
   lint:android:amplify_auth_cognito:

@@ -88,23 +88,7 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api_android/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api_android/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/api/amplify_api_dart/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/api/amplify_api_ios/example/"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"

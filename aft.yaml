@@ -57,8 +57,6 @@ components:
       - amplify_datastore_plugin_interface
       - amplify_analytics_pinpoint
       - amplify_api
-      - amplify_api_android
-      - amplify_api_ios
       - amplify_auth_cognito
       - amplify_auth_cognito_android
       - amplify_auth_cognito_ios
