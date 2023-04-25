@@ -10,15 +10,19 @@ runs:
   steps:
     - name: List runtimes
       shell: bash
-      run: xcrun simctl list runtimes -j
+      run: |
+        xcrun simctl list runtimes -j
+        xcversion simulators --verbose
 
     - name: Create Simulator
       shell: bash
       run: |
-        RUNTIME=$(xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.name | startswith("iOS ${{ inputs.ios-version }}.")) | .identifier' | head -n 1)
-        if [[ -z "$RUNTIME" ]]; then
-          echo "No runtime found for $RUNTIME" >&2
-          exit 1
+        get_runtime() {
+          xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.name | startswith("iOS ${{ inputs.ios-version }}.")) | .identifier' | head -n 1
+        }
+        if [[ -z "$(get_runtime)" ]]; then
+          echo "No runtime found for iOS ${{ inputs.ios-version }}" >&2
+          xcversion simulators --install='iOS ${{ inputs.ios-version }}' --verbose
         fi
-        xcrun simctl create test "iPhone 11" "$RUNTIME"
+        xcrun simctl create test "iPhone 11" "$(get_runtime)"
         xcrun simctl boot test
