@@ -21,6 +21,7 @@ flutter pub upgrade --major-versions
 
 # copy template files to newly generated app
 cp -r $ROOT_DIR/canaries/lib .
+cp $ROOT_DIR/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
 sed -i'' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle && cat ./android/app/build.gradle
