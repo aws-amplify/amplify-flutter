@@ -96,7 +96,7 @@ orbs:
         steps:
           - run-with-retry:
               label: Setting up dependences
-              command: flutter pub add amplify_flutter && flutter pub add amplify_datastore && flutter pub add amplify_storage_s3 && flutter pub add amplify_analytics_pinpoint && flutter pub add amplify_auth_cognito && flutter pub add amplify_api
+              command: flutter pub add amplify_flutter amplify_datastore:^1.0.0-supports-only-mobile.0 amplify_storage_s3 amplify_analytics_pinpoint amplify_auth_cognito amplify_api
               no_output_timeout: 5m
           - run:
               name: Adding integration_test package
@@ -129,7 +129,7 @@ orbs:
           - aws-cli/setup:
               role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
               role-arn: ${AWS_ROLE_ARN}
-              session-duration: '2000'
+              session-duration: "2000"
           - install-flutter:
               flutter_branch: << parameters.flutter-version >>
           - run:
@@ -172,7 +172,7 @@ orbs:
           - aws-cli/setup:
               role-session-name: ${CIRCLE_WORKFLOW_JOB_ID}
               role-arn: ${AWS_ROLE_ARN}
-              session-duration: '2000'
+              session-duration: "2000"
           - run:
               name: Install gnu-sed
               command: brew install gnu-sed
@@ -207,18 +207,18 @@ workflows:
   canaries:
     when:
       and:
-        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ "Canaries", << pipeline.schedule.name >> ]
+        - equal: [scheduled_pipeline, << pipeline.trigger_source >>]
+        - equal: ["Canaries", << pipeline.schedule.name >>]
     jobs:
       - getting-started-smoke-test/flutter-android:
           context:
             - cloudwatch-monitoring
           matrix:
             parameters:
-              flutter-version: [ "stable", "beta" ]
+              flutter-version: ["stable", "beta", "3.3.0"]
       - getting-started-smoke-test/flutter-ios:
           context:
             - cloudwatch-monitoring
           matrix:
             parameters:
-              flutter-version: [ "stable", "beta" ]
+              flutter-version: ["stable", "beta", "3.3.0"]

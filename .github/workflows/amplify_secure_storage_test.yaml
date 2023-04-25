@@ -40,7 +40,6 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/secure_storage/amplify_secure_storage_test
-      skip-on-windows: false
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml

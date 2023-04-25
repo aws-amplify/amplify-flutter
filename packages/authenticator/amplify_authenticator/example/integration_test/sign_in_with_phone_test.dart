@@ -80,10 +80,12 @@ void main() {
         password: password,
         options: SignUpOptions(
           userAttributes: {
-            CognitoUserAttributeKey.email: email,
+            AuthUserAttributeKey.email: email,
           },
         ),
       );
+      addTearDown(() => deleteUser(phoneNumber.toE164()));
+
       await loadAuthenticator(tester: tester);
 
       expect(
@@ -128,7 +130,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],
@@ -179,7 +181,7 @@ void main() {
         password,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],

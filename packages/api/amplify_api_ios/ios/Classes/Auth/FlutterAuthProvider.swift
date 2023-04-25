@@ -39,7 +39,6 @@ class FlutterAuthProviders: APIAuthProviderFactory {
                     if let resultToken = resultToken {
                         token = .success(resultToken)
                     } else {
-                        let error = error as? FlutterError
                         token = .failure(APIError.operationError(
                             "Unable to retrieve token for \(type)",
                             """

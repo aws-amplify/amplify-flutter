@@ -52,7 +52,7 @@ class _DeepEqualityMatcher extends Matcher {
 /// Tests
 class _BaseEquality implements Equality<Object?> {
   const _BaseEquality();
-  static const _base = DefaultEquality();
+  static const _base = DefaultEquality<Object?>();
 
   @override
   bool equals(Object? e1, Object? e2) {

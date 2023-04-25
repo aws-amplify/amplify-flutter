@@ -67,11 +67,11 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     SignUpOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[username];
+    var user = _users[username];
     if (user != null) {
       throw usernameExistsException;
     } else {
-      MockCognitoUser newUser = MockCognitoUser(
+      var newUser = MockCognitoUser(
         username: username,
         password: password,
         email: options?.userAttributes['email'],
@@ -111,7 +111,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     ResendSignUpCodeOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[username];
+    var user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
@@ -125,7 +125,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     SignInOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[username];
+    var user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
@@ -174,7 +174,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     ResetPasswordOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[username];
+    var user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
@@ -195,14 +195,14 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     ConfirmResetPasswordOptions? options,
   }) async {
     await Future<void>.delayed(delay);
-    MockCognitoUser? user = _users[username];
+    var user = _users[username];
     if (user == null) {
       throw userNotFoundException;
     }
     if (confirmationCode != verificationCode) {
       throw codeMismatchException;
     }
-    MockCognitoUser updatedUser = user.copyWith(password: newPassword);
+    var updatedUser = user.copyWith(password: newPassword);
     _users[username] = updatedUser;
     _currentUser = updatedUser;
     return const CognitoResetPasswordResult(
@@ -276,26 +276,26 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
     return [
       if (_currentUser!.email != null) ...[
         AuthUserAttribute(
-          userAttributeKey: CognitoUserAttributeKey.email,
+          userAttributeKey: AuthUserAttributeKey.email,
           value: _currentUser!.email!,
         ),
         const AuthUserAttribute(
-          userAttributeKey: CognitoUserAttributeKey.emailVerified,
+          userAttributeKey: AuthUserAttributeKey.emailVerified,
           value: 'true',
         ),
       ],
       if (_currentUser!.phoneNumber != null) ...[
         AuthUserAttribute(
-          userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+          userAttributeKey: AuthUserAttributeKey.phoneNumber,
           value: _currentUser!.phoneNumber!,
         ),
         const AuthUserAttribute(
-          userAttributeKey: CognitoUserAttributeKey.phoneNumberVerified,
+          userAttributeKey: AuthUserAttributeKey.phoneNumberVerified,
           value: 'true',
         ),
       ],
       AuthUserAttribute(
-        userAttributeKey: const CognitoUserAttributeKey.custom('sub'),
+        userAttributeKey: AuthUserAttributeKey.sub,
         value: _currentUser!.sub,
       ),
     ];
@@ -391,11 +391,13 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface
 }
 
 class MockCognitoUser {
-  final String sub;
-  final String username;
-  final String password;
-  final String? email;
-  final String? phoneNumber;
+  const MockCognitoUser._({
+    required this.sub,
+    required this.username,
+    required this.password,
+    required this.phoneNumber,
+    required this.email,
+  });
 
   factory MockCognitoUser({
     required String username,
@@ -411,14 +413,11 @@ class MockCognitoUser {
       phoneNumber: phoneNumber,
     );
   }
-
-  const MockCognitoUser._({
-    required this.sub,
-    required this.username,
-    required this.password,
-    required this.phoneNumber,
-    required this.email,
-  });
+  final String sub;
+  final String username;
+  final String password;
+  final String? email;
+  final String? phoneNumber;
 
   CognitoUserPoolTokens get userPoolTokens {
     final accessToken = JsonWebToken(

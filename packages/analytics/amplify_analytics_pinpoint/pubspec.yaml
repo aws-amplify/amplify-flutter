@@ -35,7 +35,7 @@ dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   flutter_test:
     sdk: flutter
-  pigeon: ^7.1.5
+  pigeon: ^9.2.4
 
 flutter:
   plugin:

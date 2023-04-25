@@ -40,7 +40,7 @@ class TestUser {
       username: _username,
       password: _password,
       options: SignUpOptions(
-        userAttributes: {CognitoUserAttributeKey.email: testEmail},
+        userAttributes: {AuthUserAttributeKey.email: testEmail},
       ),
     );
     if (!result.isSignUpComplete) {

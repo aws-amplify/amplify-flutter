@@ -278,8 +278,7 @@ class AmplifyAuthService implements AuthService {
       final userAttributes = await Amplify.Auth.fetchUserAttributes();
 
       final verifiableAttributes = userAttributes
-          .map((e) => e.userAttributeKey)
-          .cast<CognitoUserAttributeKey>()
+          .map((e) => e.userAttributeKey.toCognitoUserAttributeKey())
           .where(
             (element) =>
                 element == CognitoUserAttributeKey.email ||

@@ -84,6 +84,8 @@ void main() {
           final po = SignUpPage(tester: tester);
 
           final username = generateEmail();
+          addTearDown(() => deleteUser(username));
+
           final password = generatePassword();
 
           // When I type a new "email"
@@ -94,18 +96,6 @@ void main() {
 
           // And I confirm my password
           await po.enterPasswordConfirmation(password);
-
-          // And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }'
-          // with fixture "sign-up-with-email-with-lambda-trigger"
-          noOp();
-
-          // And I mock 'Amplify.Auth.signIn' with fixture
-          // "Auth.signIn-verified-email"
-          noOp();
-
-          // And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture
-          // "Auth.currentAuthenticatedUser-verified-email"
-          noOp();
 
           // And I click the "Create Account" button
           await po.submitSignUp();

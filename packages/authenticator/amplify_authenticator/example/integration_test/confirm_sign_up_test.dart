@@ -50,6 +50,8 @@ void main() {
         );
 
         final username = generateEmail();
+        addTearDown(() => deleteUser(username));
+
         final password = generatePassword();
 
         await signInPage.navigateToSignUp();
@@ -103,6 +105,8 @@ void main() {
       );
 
       final username = generateEmail();
+      addTearDown(() => deleteUser(username));
+
       final password = generatePassword();
       final otpResult = await getOtpCode(UserAttribute.email(username));
 

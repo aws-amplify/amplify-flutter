@@ -50,7 +50,7 @@ void main() {
         autoConfirm: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],
@@ -86,8 +86,8 @@ void main() {
             (state) => state.unverifiedAttributeKeys,
             'unverifiedAttributeKeys',
             unorderedEquals([
-              CognitoUserAttributeKey.email,
-              CognitoUserAttributeKey.phoneNumber,
+              AuthUserAttributeKey.email,
+              AuthUserAttributeKey.phoneNumber,
             ]),
           ),
           isA<AuthenticatedState>(),
@@ -104,7 +104,7 @@ void main() {
         autoConfirm: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],
@@ -146,14 +146,14 @@ void main() {
             (state) => state.unverifiedAttributeKeys,
             'unverifiedAttributeKeys',
             unorderedEquals([
-              CognitoUserAttributeKey.email,
-              CognitoUserAttributeKey.phoneNumber,
+              AuthUserAttributeKey.email,
+              AuthUserAttributeKey.phoneNumber,
             ]),
           ),
           isA<AttributeVerificationSent>().having(
             (state) => state.userAttributeKey,
             'userAttributeKey',
-            CognitoUserAttributeKey.email,
+            AuthUserAttributeKey.email,
           ),
           isA<AuthenticatedState>(),
           emitsDone,
@@ -169,7 +169,7 @@ void main() {
         autoConfirm: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],
@@ -226,14 +226,14 @@ void main() {
             (state) => state.unverifiedAttributeKeys,
             'unverifiedAttributeKeys',
             unorderedEquals([
-              CognitoUserAttributeKey.email,
-              CognitoUserAttributeKey.phoneNumber,
+              AuthUserAttributeKey.email,
+              AuthUserAttributeKey.phoneNumber,
             ]),
           ),
           isA<AttributeVerificationSent>().having(
             (state) => state.userAttributeKey,
             'userAttributeKey',
-            CognitoUserAttributeKey.phoneNumber,
+            AuthUserAttributeKey.phoneNumber,
           ),
           isA<AuthenticatedState>(),
           emitsDone,
@@ -250,11 +250,11 @@ void main() {
         autoConfirm: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: phoneNumber.toE164(),
           ),
         ],
@@ -320,7 +320,7 @@ void main() {
         autoConfirm: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],

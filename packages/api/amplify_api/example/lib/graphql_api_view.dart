@@ -3,8 +3,19 @@
 
 import 'dart:async';
 
+import 'package:amplify_api_example/models/Blog.dart';
+import 'package:amplify_api_example/models/Post.dart';
+import 'package:amplify_api_example/widgets/auth_mode.dart';
+import 'package:amplify_api_example/widgets/create.dart';
+import 'package:amplify_api_example/widgets/get_by_id.dart';
+import 'package:amplify_api_example/widgets/query.dart';
+import 'package:amplify_api_example/widgets/subscribe.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+
+/// Amplify Flutter GraphQL API Example
+/// In the example below, we demonstrate ways to interact with the API Category.
+/// Each method contains a unique operation for different use cases.
 
 class GraphQLApiView extends StatefulWidget {
   const GraphQLApiView({super.key, this.isAmplifyConfigured = false});
@@ -16,111 +27,21 @@ class GraphQLApiView extends StatefulWidget {
 
 class _GraphQLApiViewState extends State<GraphQLApiView> {
   String _result = '';
-  StreamSubscription<GraphQLResponse<String>>? _subscription;
+  StreamSubscription<GraphQLResponse<Blog>>? _subscription;
+  StreamSubscription<GraphQLResponse<Post>>? _subscriptionByID;
   void Function()? _unsubscribe;
-  GraphQLOperation<String>? _lastOperation;
+  GraphQLOperation<dynamic>? _lastOperation;
 
-  final subscriptionReq = GraphQLRequest<String>(
-    document: '''subscription MySubscription {
-    onCreateBlog {
-      id
-      name
-      createdAt
-    }
-  }''',
-  );
+  ModelIdentifier? _selectedBlog;
+  ModelIdentifier? _selectedPost;
+  ModelIdentifier? _selectedComment;
 
-  Future<void> subscribe() async {
-    if (_subscription != null) {
-      return;
-    }
+  APIAuthorizationType _authorizationType = APIAuthorizationType.userPools;
 
-    final operation = Amplify.API.subscribe(
-      subscriptionReq,
-      onEstablished: () => print('Subscription established'),
-    );
+  Blog? _blog;
+  Post? _post;
 
-    final streamSubscription = operation.listen(
-      (event) {
-        if (event.hasErrors) {
-          print('Error(s) received from subscription: ${event.errors}');
-          return;
-        }
-        final data = 'Subscription event data received: ${event.data}';
-        print(data);
-        setState(() {
-          _result = data;
-        });
-      },
-      onError: (Object error) => print(
-        'Error in GraphQL subscription: $error',
-      ),
-    );
-    setState(() {
-      _subscription = streamSubscription;
-      _unsubscribe = streamSubscription.cancel;
-    });
-  }
-
-  Future<void> query() async {
-    const graphQLDocument = '''query MyQuery {
-      listBlogs {
-        items {
-          id
-          name
-          createdAt
-        }
-      }
-    }''';
-
-    final operation = Amplify.API
-        .query<String>(request: GraphQLRequest(document: graphQLDocument));
-    _lastOperation = operation;
-
-    final response = await operation.response;
-    final data = response.data;
-    if (data == null) {
-      print('errors: ${response.errors}');
-      return;
-    }
-
-    print('Result data: $data');
-    setState(() {
-      _result = data;
-    });
-  }
-
-  Future<void> mutate() async {
-    const graphQLDocument = r'''mutation MyMutation($name: String!) {
-      createBlog(input: {name: $name}) {
-        id
-        name
-        createdAt
-      }
-    }''';
-
-    final operation = Amplify.API.mutate(
-      request: GraphQLRequest<String>(
-        document: graphQLDocument,
-        variables: <String, dynamic>{'name': 'Test App Blog'},
-        authorizationMode: APIAuthorizationType.userPools,
-      ),
-    );
-    _lastOperation = operation;
-
-    final response = await operation.response;
-    final data = response.data;
-    if (data == null) {
-      print('errors: ${response.errors}');
-      return;
-    }
-
-    print('Result data: $data');
-    setState(() {
-      _result = data;
-    });
-  }
-
+  // Cancel the last operation in flight
   void onCancelPressed() async {
     try {
       await _lastOperation?.cancel();
@@ -130,59 +51,101 @@ class _GraphQLApiViewState extends State<GraphQLApiView> {
     }
   }
 
+  void setResults(String val) {
+    setState(() {
+      _result = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(5),
-      children: <Widget>[
-        const Padding(padding: EdgeInsets.all(10)),
-        Center(
-          child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured ? query : null,
-            child: const Text('Run Query'),
-          ),
-        ),
-        const Padding(padding: EdgeInsets.all(10)),
-        Center(
-          child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured ? mutate : null,
-            child: const Text('Run Mutation'),
-          ),
-        ),
-        const Padding(padding: EdgeInsets.all(10)),
-        Center(
-          child: ElevatedButton(
-            onPressed: widget.isAmplifyConfigured && _subscription == null
-                ? subscribe
-                : null,
-            child: const Text('Subscribe'),
-          ),
-        ),
-        const Padding(padding: EdgeInsets.all(10)),
-        Center(
-          child: ElevatedButton(
-            onPressed: _subscription != null
-                ? () => setState(() {
-                      _unsubscribe?.call();
-                      _unsubscribe = null;
+      children: [
+        Align(
+          child: Container(
+            constraints: const BoxConstraints(minWidth: 100, maxWidth: 500),
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              children: [
+                GraphQLQueryExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blog: _blog,
+                ),
+                const SizedBox(height: 10),
+                GraphQLCreateExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blog: _blog,
+                  post: _post,
+                  setBlog: (Blog blog) => setState(() => _blog = blog),
+                  setPost: (Post post) => setState(() => _post = post),
+                ),
+                const SizedBox(height: 10),
+                GraphQLSubscriptionsExamples(
+                  authMode: _authorizationType,
+                  blog: _blog,
+                  post: _post,
+                  setResults: setResults,
+                  subscription: _subscription,
+                  subscriptionByID: _subscriptionByID,
+                  unsubscribe: _unsubscribe,
+                  setUnsubscribe: (val) => setState(() {
+                    _unsubscribe = val;
+                    if (_unsubscribe == null) {
                       _subscription = null;
-                    })
-                : null,
-            child: const Text('Unsubscribe'),
+                      _subscriptionByID = null;
+                    }
+                  }),
+                  setSubscription: (sub) => setState(() => _subscription = sub),
+                  setSubscriptionByID: (sub) =>
+                      setState(() => _subscriptionByID = sub),
+                ),
+                const SizedBox(height: 10),
+                GraphQLAuthMode(
+                  authMode: _authorizationType,
+                  setAuthType: (val) =>
+                      setState(() => _authorizationType = val),
+                  authTypes: const [
+                    APIAuthorizationType.userPools,
+                    APIAuthorizationType.iam,
+                    APIAuthorizationType.apiKey,
+                    APIAuthorizationType.none,
+                  ],
+                ),
+                const SizedBox(height: 10),
+                GraphQLGetByIdExamples(
+                  setResults: setResults,
+                  authMode: _authorizationType,
+                  blogID: _selectedBlog,
+                  postID: _selectedPost,
+                  commentID: _selectedComment,
+                  setBlogID: (val) => setState(() => _selectedBlog = val),
+                  setPostID: (val) => setState(() => _selectedPost = val),
+                  setCommentID: (val) => setState(() => _selectedComment = val),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
-        const Padding(padding: EdgeInsets.all(5)),
-        Center(
-          child: ElevatedButton(
-            onPressed: _lastOperation != null &&
-                    _lastOperation!.operation.isCompleted &&
-                    _lastOperation!.operation.isCanceled
-                ? onCancelPressed
-                : null,
-            child: const Text('Cancel Operation'),
+        const Divider(
+          color: Colors.black,
+        ),
+        const Text(
+          'Results',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 20,
           ),
         ),
-        Text('Result: \n$_result\n'),
+        const SizedBox(height: 10),
+        Text(
+          '\n$_result\n',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
       ],
     );
   }

@@ -104,9 +104,9 @@ Future<String> adminCreateUser(
     'autoConfirm': autoConfirm,
     'email': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == CognitoUserAttributeKey.email,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
           orElse: () => AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: generateEmail(),
           ),
         )
@@ -114,27 +114,28 @@ Future<String> adminCreateUser(
     'enableMFA': enableMfa,
     'givenName': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == CognitoUserAttributeKey.givenName,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
           orElse: () => const AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.givenName,
+            userAttributeKey: AuthUserAttributeKey.givenName,
             value: 'default_given_name',
           ),
         )
         .value,
     'name': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == CognitoUserAttributeKey.name,
+          (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
           orElse: () => const AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.name,
+            userAttributeKey: AuthUserAttributeKey.name,
             value: 'default_name',
           ),
         )
         .value,
     'phoneNumber': attributes
         .firstWhere(
-          (el) => el.userAttributeKey == CognitoUserAttributeKey.phoneNumber,
+          (el) =>
+              el.userAttributeKey.key == AuthUserAttributeKey.phoneNumber.key,
           orElse: () => AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.phoneNumber,
+            userAttributeKey: AuthUserAttributeKey.phoneNumber,
             value: generatePhoneNumber(),
           ),
         )

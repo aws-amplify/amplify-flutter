@@ -31,8 +31,8 @@ void main() {
             password: password,
             options: SignUpOptions(
               userAttributes: {
-                CognitoUserAttributeKey.email: generateEmail(),
-                CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                AuthUserAttributeKey.email: generateEmail(),
+                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
               },
             ),
           ) as CognitoSignUpResult;
@@ -64,8 +64,8 @@ void main() {
             const invalidPassword = '123';
             final options = SignUpOptions(
               userAttributes: {
-                CognitoUserAttributeKey.email: generateEmail(),
-                CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                AuthUserAttributeKey.email: generateEmail(),
+                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
               },
             );
             await expectLater(
@@ -90,8 +90,8 @@ void main() {
             final userOnePassword = generatePassword();
             final userOneOptions = SignUpOptions(
               userAttributes: {
-                CognitoUserAttributeKey.email: generateEmail(),
-                CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                AuthUserAttributeKey.email: generateEmail(),
+                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
               },
             );
             await Amplify.Auth.signUp(
@@ -104,8 +104,8 @@ void main() {
             final userTwoPassword = generatePassword();
             final userTwoOptions = SignUpOptions(
               userAttributes: {
-                CognitoUserAttributeKey.email: generateEmail(),
-                CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                AuthUserAttributeKey.email: generateEmail(),
+                AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
               },
             );
             await expectLater(

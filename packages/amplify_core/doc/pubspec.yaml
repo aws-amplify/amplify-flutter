@@ -8,6 +8,7 @@ publish_to: none
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   amplify_analytics_pinpoint: any
@@ -16,6 +17,8 @@ dependencies:
   amplify_datastore: any
   amplify_flutter: any
   amplify_storage_s3: any
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   amplify_lints: ^2.0.0

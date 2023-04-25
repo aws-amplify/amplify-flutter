@@ -43,4 +43,3 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/storage/amplify_storage_s3_dart
-      skip-on-windows: true
