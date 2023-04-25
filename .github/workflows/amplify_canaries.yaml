@@ -47,16 +47,12 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Build Canary App
-        id: build-canary
-        run: build-support/setup_canary_app.sh
-
       - name: Run Canary
         timeout-minutes: 45
         uses: ./.github/composite_actions/launch_android_emulator
         with:
           script: |
-            cd ${{ steps.build-canary.outputs.projectDir }}
+            cd canaries
             flutter test -d emulator-5554 integration_test/main_test.dart
 
   ios-latest:
@@ -95,13 +91,9 @@ jobs:
         with:
           ios-version: 16
 
-      - name: Build Canary App
-        id: build-canary
-        run: build-support/setup_canary_app.sh
-
       - name: Run iOS integration tests
         timeout-minutes: 45
-        working-directory: ${{ steps.build-canary.outputs.projectDir }}
+        working-directory: canaries
         run: flutter test -d test integration_test/main_test.dart
 
   ios-legacy:
@@ -140,11 +132,7 @@ jobs:
         with:
           ios-version: 13
 
-      - name: Build Canary App
-        id: build-canary
-        run: build-support/setup_canary_app.sh
-
       - name: Run iOS integration tests
         timeout-minutes: 45
-        working-directory: ${{ steps.build-canary.outputs.projectDir }}
+        working-directory: canaries
         run: flutter test -d test integration_test/main_test.dart
