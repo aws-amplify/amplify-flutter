@@ -52,8 +52,10 @@ jobs:
         uses: ./.github/composite_actions/launch_android_emulator
         with:
           script: |
-            cd canaries
-            flutter test -d emulator-5554 integration_test/main_test.dart
+            env
+            cd "${GITHUB_WORKSPACE}/canaries"
+            ls
+            flutter test -d test integration_test/main_test.dart
 
   ios-latest:
     runs-on: macos-latest
