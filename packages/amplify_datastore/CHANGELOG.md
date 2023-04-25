@@ -1,3 +1,8 @@
+## 1.0.0-supports-only-mobile.0+1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+
 ## 1.0.0-supports-only-mobile.0
 
 Version 1 of the Amplify libraries have been released to support all the platforms Flutter supports. 

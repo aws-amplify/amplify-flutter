@@ -1,3 +1,8 @@
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+
 ## 1.0.0
 
 We are thrilled to release version 1.0 of the Amplify Flutter libraries!

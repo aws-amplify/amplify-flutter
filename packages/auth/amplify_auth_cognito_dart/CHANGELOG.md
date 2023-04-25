@@ -1,3 +1,9 @@
+## 0.9.0+3
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+- fix: convert AuthUserAttributeKey in updateUserAttributes
+
 ## 0.9.0+2
 
 - Minor bug fixes and improvements
