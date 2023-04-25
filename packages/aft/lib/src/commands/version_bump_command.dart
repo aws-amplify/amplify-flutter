@@ -110,6 +110,7 @@ class VersionBumpCommand extends AmplifyCommand
         if (!needsBuildRunner) {
           continue;
         }
+        await runPub(package.flavor, ['get'], package);
         await runBuildRunner(
           package,
           logger: logger,
