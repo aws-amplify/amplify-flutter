@@ -10,33 +10,35 @@ const { USER_POOL_ID } = process.env;
 export const handler: lambda.Handler = async (event) => {
     console.log(`Got event: ${JSON.stringify(event, null, 2)}`);
 
-    const users: UserType[] = [];
     try {
         console.log('Listing users...');
 
-        let nextToken: string | undefined;
-        do {
+        while (true) {
             const usersResp = await CLIENT.listUsers({
                 UserPoolId: USER_POOL_ID!,
-                PaginationToken: nextToken,
             });
-            for (const user of usersResp.Users ?? []) {
-                users.push(user);
+            const users: UserType[] = usersResp.Users ?? [];
+            if (users.length === 0) {
+                break;
             }
-            nextToken = usersResp.PaginationToken;
-        } while (nextToken);
+
+            console.log(`Got users: ${JSON.stringify(users, null, 2)}`);
+            await Promise.all(
+                users.map(async (user) => {
+                    console.log(`Deleting user: ${user.Username}`);
+                    await CLIENT.adminDeleteUser({
+                        UserPoolId: USER_POOL_ID!,
+                        Username: user.Username!,
+                    });
+                }),
+            );
+
+            // Prevents `TooManyRequestsException`
+            console.log('Waiting 5 seconds...');
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+        }
     } catch (e) {
-        console.error(`Error listing users: ${e}`);
+        console.error(`Error deleting users: ${e}`);
         return;
-    }
-
-    console.log(`Got users: ${JSON.stringify(users, null, 2)}`);
-
-    for (const user of users) {
-        console.log(`Deleting user: ${user.Username}`);
-        await CLIENT.adminDeleteUser({
-            UserPoolId: USER_POOL_ID!,
-            Username: user.Username!,
-        });
     }
 };
