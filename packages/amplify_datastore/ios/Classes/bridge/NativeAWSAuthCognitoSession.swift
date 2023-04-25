@@ -16,7 +16,7 @@ struct NativeAWSAuthCognitoSession: AuthSession,
     let cognitoTokensResult: Result<AuthCognitoTokens, AuthError>
     
     init(from session: NativeAuthSession) {
-        self.isSignedIn = session.isSignedIn.boolValue
+        self.isSignedIn = session.isSignedIn
         self.userSubResult = session.userSub != nil ?
             .success(session.userSub!) :
             .failure(.unknown("Could not retrieve user sub", nil))

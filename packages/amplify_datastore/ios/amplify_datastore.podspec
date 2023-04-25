@@ -16,6 +16,7 @@ The DataStore module for Amplify Flutter.
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'Amplify', '1.29.2'
+  s.dependency 'AmplifyPlugins/AWSAPIPlugin', '1.29.2'
   s.dependency 'AmplifyPlugins/AWSDataStorePlugin', '1.29.2'
   s.dependency 'amplify_flutter_ios'
   s.platform = :ios, '13.0'

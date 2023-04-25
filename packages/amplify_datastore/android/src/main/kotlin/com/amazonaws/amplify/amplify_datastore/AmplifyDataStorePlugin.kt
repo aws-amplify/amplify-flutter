@@ -3,6 +3,11 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import NativeApiBridge
+import NativeApiPlugin
+import NativeAuthBridge
+import NativeAuthPlugin
+import NativeAuthUser
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
@@ -22,7 +27,10 @@ import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AuthModeStrategyType
+import com.amplifyframework.api.aws.AuthorizationType
+import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.CustomTypeSchema
@@ -53,7 +61,7 @@ import kotlin.collections.HashMap
 typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
 
 /** AmplifyDataStorePlugin */
-class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
+class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridge, NativeApiBridge {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var observeCancelable: Cancelable
@@ -64,6 +72,25 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
     private val uiThreadHandler = Handler(Looper.getMainLooper())
     private val LOG = Amplify.Logging.forNamespace("amplify:flutter:datastore")
     private var isSettingUpObserve = AtomicBoolean()
+    private var nativeAuthPlugin: NativeAuthPlugin? = null
+    private var nativeApiPlugin: NativeApiPlugin? = null
+
+    /**
+     * The local cache of the current Dart user.
+     */
+    private var currentUser: AuthUser? = null
+
+    private companion object {
+        /**
+         * API authorization providers configured during the `addPlugin` call.
+         *
+         * The auth providers require a reference to the active method channel to be able to
+         * communicate back to Dart code. If the app is moved to the background and resumed,
+         * the `Amplify.addPlugin` call does not re-configure auth providers, so these must
+         * be instantiated only once but still maintain a reference to the active method channel.
+         */
+        var flutterAuthProviders: FlutterAuthProviders? = null
+    }
 
     val modelProvider = FlutterModelProvider.instance
 
@@ -100,7 +127,24 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
             "com.amazonaws.amplify/datastore_hub_events"
         )
         hubEventChannel.setStreamHandler(dataStoreHubEventStreamHandler)
+
+        nativeAuthPlugin = NativeAuthPlugin(flutterPluginBinding.binaryMessenger)
+        NativeAuthBridge.setUp(flutterPluginBinding.binaryMessenger, this)
+
+        nativeApiPlugin = NativeApiPlugin(flutterPluginBinding.binaryMessenger)
+        NativeApiBridge.setUp(flutterPluginBinding.binaryMessenger, this)
+
         LOG.info("Initiated DataStore plugin")
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
+
+        nativeAuthPlugin = null
+        NativeAuthBridge.setUp(binding.binaryMessenger, null)
+
+        nativeApiPlugin = null
+        NativeApiBridge.setUp(binding.binaryMessenger, null)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
@@ -475,10 +519,6 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
         )
     }
 
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        channel.setMethodCallHandler(null)
-    }
-
     private fun checkArguments(@NonNull args: Any): Map<String, Any> {
         if (args !is Map<*, *>) {
             throw java.lang.Exception("Flutter method call arguments are not a map.")
@@ -768,6 +808,48 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler {
                                        onDecision ->
                 onDecision.accept(DataStoreConflictHandler.ConflictResolutionDecision.applyRemote())
             }
+        }
+    }
+
+    override fun addAuthPlugin(callback: (kotlin.Result<Unit>) -> Unit) {
+        try {
+            Amplify.addPlugin(NativeAuthPluginWrapper { nativeAuthPlugin })
+            LOG.info("Added Auth plugin")
+            callback(kotlin.Result.success(Unit))
+        } catch (e: Exception) {
+            LOG.error(e.message)
+            callback(kotlin.Result.failure(e))
+        }
+    }
+
+    override fun updateCurrentUser(user: NativeAuthUser?) {
+        currentUser = if (user != null) {
+            AuthUser(user.userId, user.username)
+        } else {
+            null
+        }
+    }
+
+    override fun addApiPlugin(
+        authProvidersList: List<String>,
+        callback: (kotlin.Result<Unit>) -> Unit
+    ) {
+        try {
+            val authProviders = authProvidersList.map { AuthorizationType.valueOf(it) }
+            if (flutterAuthProviders == null) {
+                flutterAuthProviders = FlutterAuthProviders(authProviders, nativeApiPlugin!!)
+            }
+            Amplify.addPlugin(
+                AWSApiPlugin
+                    .builder()
+                    .apiAuthProviders(flutterAuthProviders!!.factory)
+                    .build()
+            )
+            LOG.info("Added API plugin")
+            callback(kotlin.Result.success(Unit))
+        } catch (e: Exception) {
+            LOG.error(e.message)
+            callback(kotlin.Result.failure(e))
         }
     }
 }

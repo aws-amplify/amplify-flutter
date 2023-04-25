@@ -61,424 +61,6 @@ public class NativeAuthPluginBindingsPigeon {
   }
 
   /** Generated class from Pigeon that represents data sent in messages. */
-  public static final class NativeAuthSession {
-    private @NonNull Boolean isSignedIn;
-
-    public @NonNull Boolean getIsSignedIn() {
-      return isSignedIn;
-    }
-
-    public void setIsSignedIn(@NonNull Boolean setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"isSignedIn\" is null.");
-      }
-      this.isSignedIn = setterArg;
-    }
-
-    private @Nullable String userSub;
-
-    public @Nullable String getUserSub() {
-      return userSub;
-    }
-
-    public void setUserSub(@Nullable String setterArg) {
-      this.userSub = setterArg;
-    }
-
-    private @Nullable NativeUserPoolTokens userPoolTokens;
-
-    public @Nullable NativeUserPoolTokens getUserPoolTokens() {
-      return userPoolTokens;
-    }
-
-    public void setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
-      this.userPoolTokens = setterArg;
-    }
-
-    private @Nullable String identityId;
-
-    public @Nullable String getIdentityId() {
-      return identityId;
-    }
-
-    public void setIdentityId(@Nullable String setterArg) {
-      this.identityId = setterArg;
-    }
-
-    private @Nullable NativeAWSCredentials awsCredentials;
-
-    public @Nullable NativeAWSCredentials getAwsCredentials() {
-      return awsCredentials;
-    }
-
-    public void setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
-      this.awsCredentials = setterArg;
-    }
-
-    /** Constructor is non-public to enforce null safety; use Builder. */
-    NativeAuthSession() {}
-
-    public static final class Builder {
-
-      private @Nullable Boolean isSignedIn;
-
-      public @NonNull Builder setIsSignedIn(@NonNull Boolean setterArg) {
-        this.isSignedIn = setterArg;
-        return this;
-      }
-
-      private @Nullable String userSub;
-
-      public @NonNull Builder setUserSub(@Nullable String setterArg) {
-        this.userSub = setterArg;
-        return this;
-      }
-
-      private @Nullable NativeUserPoolTokens userPoolTokens;
-
-      public @NonNull Builder setUserPoolTokens(@Nullable NativeUserPoolTokens setterArg) {
-        this.userPoolTokens = setterArg;
-        return this;
-      }
-
-      private @Nullable String identityId;
-
-      public @NonNull Builder setIdentityId(@Nullable String setterArg) {
-        this.identityId = setterArg;
-        return this;
-      }
-
-      private @Nullable NativeAWSCredentials awsCredentials;
-
-      public @NonNull Builder setAwsCredentials(@Nullable NativeAWSCredentials setterArg) {
-        this.awsCredentials = setterArg;
-        return this;
-      }
-
-      public @NonNull NativeAuthSession build() {
-        NativeAuthSession pigeonReturn = new NativeAuthSession();
-        pigeonReturn.setIsSignedIn(isSignedIn);
-        pigeonReturn.setUserSub(userSub);
-        pigeonReturn.setUserPoolTokens(userPoolTokens);
-        pigeonReturn.setIdentityId(identityId);
-        pigeonReturn.setAwsCredentials(awsCredentials);
-        return pigeonReturn;
-      }
-    }
-
-    @NonNull
-    ArrayList<Object> toList() {
-      ArrayList<Object> toListResult = new ArrayList<Object>(5);
-      toListResult.add(isSignedIn);
-      toListResult.add(userSub);
-      toListResult.add((userPoolTokens == null) ? null : userPoolTokens.toList());
-      toListResult.add(identityId);
-      toListResult.add((awsCredentials == null) ? null : awsCredentials.toList());
-      return toListResult;
-    }
-
-    static @NonNull NativeAuthSession fromList(@NonNull ArrayList<Object> list) {
-      NativeAuthSession pigeonResult = new NativeAuthSession();
-      Object isSignedIn = list.get(0);
-      pigeonResult.setIsSignedIn((Boolean) isSignedIn);
-      Object userSub = list.get(1);
-      pigeonResult.setUserSub((String) userSub);
-      Object userPoolTokens = list.get(2);
-      pigeonResult.setUserPoolTokens((userPoolTokens == null) ? null : NativeUserPoolTokens.fromList((ArrayList<Object>) userPoolTokens));
-      Object identityId = list.get(3);
-      pigeonResult.setIdentityId((String) identityId);
-      Object awsCredentials = list.get(4);
-      pigeonResult.setAwsCredentials((awsCredentials == null) ? null : NativeAWSCredentials.fromList((ArrayList<Object>) awsCredentials));
-      return pigeonResult;
-    }
-  }
-
-  /** Generated class from Pigeon that represents data sent in messages. */
-  public static final class NativeAuthUser {
-    private @NonNull String userId;
-
-    public @NonNull String getUserId() {
-      return userId;
-    }
-
-    public void setUserId(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"userId\" is null.");
-      }
-      this.userId = setterArg;
-    }
-
-    private @NonNull String username;
-
-    public @NonNull String getUsername() {
-      return username;
-    }
-
-    public void setUsername(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"username\" is null.");
-      }
-      this.username = setterArg;
-    }
-
-    /** Constructor is non-public to enforce null safety; use Builder. */
-    NativeAuthUser() {}
-
-    public static final class Builder {
-
-      private @Nullable String userId;
-
-      public @NonNull Builder setUserId(@NonNull String setterArg) {
-        this.userId = setterArg;
-        return this;
-      }
-
-      private @Nullable String username;
-
-      public @NonNull Builder setUsername(@NonNull String setterArg) {
-        this.username = setterArg;
-        return this;
-      }
-
-      public @NonNull NativeAuthUser build() {
-        NativeAuthUser pigeonReturn = new NativeAuthUser();
-        pigeonReturn.setUserId(userId);
-        pigeonReturn.setUsername(username);
-        return pigeonReturn;
-      }
-    }
-
-    @NonNull
-    ArrayList<Object> toList() {
-      ArrayList<Object> toListResult = new ArrayList<Object>(2);
-      toListResult.add(userId);
-      toListResult.add(username);
-      return toListResult;
-    }
-
-    static @NonNull NativeAuthUser fromList(@NonNull ArrayList<Object> list) {
-      NativeAuthUser pigeonResult = new NativeAuthUser();
-      Object userId = list.get(0);
-      pigeonResult.setUserId((String) userId);
-      Object username = list.get(1);
-      pigeonResult.setUsername((String) username);
-      return pigeonResult;
-    }
-  }
-
-  /** Generated class from Pigeon that represents data sent in messages. */
-  public static final class NativeUserPoolTokens {
-    private @NonNull String accessToken;
-
-    public @NonNull String getAccessToken() {
-      return accessToken;
-    }
-
-    public void setAccessToken(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"accessToken\" is null.");
-      }
-      this.accessToken = setterArg;
-    }
-
-    private @NonNull String refreshToken;
-
-    public @NonNull String getRefreshToken() {
-      return refreshToken;
-    }
-
-    public void setRefreshToken(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"refreshToken\" is null.");
-      }
-      this.refreshToken = setterArg;
-    }
-
-    private @NonNull String idToken;
-
-    public @NonNull String getIdToken() {
-      return idToken;
-    }
-
-    public void setIdToken(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"idToken\" is null.");
-      }
-      this.idToken = setterArg;
-    }
-
-    /** Constructor is non-public to enforce null safety; use Builder. */
-    NativeUserPoolTokens() {}
-
-    public static final class Builder {
-
-      private @Nullable String accessToken;
-
-      public @NonNull Builder setAccessToken(@NonNull String setterArg) {
-        this.accessToken = setterArg;
-        return this;
-      }
-
-      private @Nullable String refreshToken;
-
-      public @NonNull Builder setRefreshToken(@NonNull String setterArg) {
-        this.refreshToken = setterArg;
-        return this;
-      }
-
-      private @Nullable String idToken;
-
-      public @NonNull Builder setIdToken(@NonNull String setterArg) {
-        this.idToken = setterArg;
-        return this;
-      }
-
-      public @NonNull NativeUserPoolTokens build() {
-        NativeUserPoolTokens pigeonReturn = new NativeUserPoolTokens();
-        pigeonReturn.setAccessToken(accessToken);
-        pigeonReturn.setRefreshToken(refreshToken);
-        pigeonReturn.setIdToken(idToken);
-        return pigeonReturn;
-      }
-    }
-
-    @NonNull
-    ArrayList<Object> toList() {
-      ArrayList<Object> toListResult = new ArrayList<Object>(3);
-      toListResult.add(accessToken);
-      toListResult.add(refreshToken);
-      toListResult.add(idToken);
-      return toListResult;
-    }
-
-    static @NonNull NativeUserPoolTokens fromList(@NonNull ArrayList<Object> list) {
-      NativeUserPoolTokens pigeonResult = new NativeUserPoolTokens();
-      Object accessToken = list.get(0);
-      pigeonResult.setAccessToken((String) accessToken);
-      Object refreshToken = list.get(1);
-      pigeonResult.setRefreshToken((String) refreshToken);
-      Object idToken = list.get(2);
-      pigeonResult.setIdToken((String) idToken);
-      return pigeonResult;
-    }
-  }
-
-  /** Generated class from Pigeon that represents data sent in messages. */
-  public static final class NativeAWSCredentials {
-    private @NonNull String accessKeyId;
-
-    public @NonNull String getAccessKeyId() {
-      return accessKeyId;
-    }
-
-    public void setAccessKeyId(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"accessKeyId\" is null.");
-      }
-      this.accessKeyId = setterArg;
-    }
-
-    private @NonNull String secretAccessKey;
-
-    public @NonNull String getSecretAccessKey() {
-      return secretAccessKey;
-    }
-
-    public void setSecretAccessKey(@NonNull String setterArg) {
-      if (setterArg == null) {
-        throw new IllegalStateException("Nonnull field \"secretAccessKey\" is null.");
-      }
-      this.secretAccessKey = setterArg;
-    }
-
-    private @Nullable String sessionToken;
-
-    public @Nullable String getSessionToken() {
-      return sessionToken;
-    }
-
-    public void setSessionToken(@Nullable String setterArg) {
-      this.sessionToken = setterArg;
-    }
-
-    private @Nullable String expirationIso8601Utc;
-
-    public @Nullable String getExpirationIso8601Utc() {
-      return expirationIso8601Utc;
-    }
-
-    public void setExpirationIso8601Utc(@Nullable String setterArg) {
-      this.expirationIso8601Utc = setterArg;
-    }
-
-    /** Constructor is non-public to enforce null safety; use Builder. */
-    NativeAWSCredentials() {}
-
-    public static final class Builder {
-
-      private @Nullable String accessKeyId;
-
-      public @NonNull Builder setAccessKeyId(@NonNull String setterArg) {
-        this.accessKeyId = setterArg;
-        return this;
-      }
-
-      private @Nullable String secretAccessKey;
-
-      public @NonNull Builder setSecretAccessKey(@NonNull String setterArg) {
-        this.secretAccessKey = setterArg;
-        return this;
-      }
-
-      private @Nullable String sessionToken;
-
-      public @NonNull Builder setSessionToken(@Nullable String setterArg) {
-        this.sessionToken = setterArg;
-        return this;
-      }
-
-      private @Nullable String expirationIso8601Utc;
-
-      public @NonNull Builder setExpirationIso8601Utc(@Nullable String setterArg) {
-        this.expirationIso8601Utc = setterArg;
-        return this;
-      }
-
-      public @NonNull NativeAWSCredentials build() {
-        NativeAWSCredentials pigeonReturn = new NativeAWSCredentials();
-        pigeonReturn.setAccessKeyId(accessKeyId);
-        pigeonReturn.setSecretAccessKey(secretAccessKey);
-        pigeonReturn.setSessionToken(sessionToken);
-        pigeonReturn.setExpirationIso8601Utc(expirationIso8601Utc);
-        return pigeonReturn;
-      }
-    }
-
-    @NonNull
-    ArrayList<Object> toList() {
-      ArrayList<Object> toListResult = new ArrayList<Object>(4);
-      toListResult.add(accessKeyId);
-      toListResult.add(secretAccessKey);
-      toListResult.add(sessionToken);
-      toListResult.add(expirationIso8601Utc);
-      return toListResult;
-    }
-
-    static @NonNull NativeAWSCredentials fromList(@NonNull ArrayList<Object> list) {
-      NativeAWSCredentials pigeonResult = new NativeAWSCredentials();
-      Object accessKeyId = list.get(0);
-      pigeonResult.setAccessKeyId((String) accessKeyId);
-      Object secretAccessKey = list.get(1);
-      pigeonResult.setSecretAccessKey((String) secretAccessKey);
-      Object sessionToken = list.get(2);
-      pigeonResult.setSessionToken((String) sessionToken);
-      Object expirationIso8601Utc = list.get(3);
-      pigeonResult.setExpirationIso8601Utc((String) expirationIso8601Utc);
-      return pigeonResult;
-    }
-  }
-
-  /** Generated class from Pigeon that represents data sent in messages. */
   public static final class LegacyCredentialStoreData {
     private @Nullable String identityId;
 
@@ -674,43 +256,6 @@ public class NativeAuthPluginBindingsPigeon {
 
     void error(@NonNull Throwable error);
   }
-
-  private static class NativeAuthPluginCodec extends StandardMessageCodec {
-    public static final NativeAuthPluginCodec INSTANCE = new NativeAuthPluginCodec();
-
-    private NativeAuthPluginCodec() {}
-
-    @Override
-    protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
-      switch (type) {
-        case (byte) 128:
-          return NativeAWSCredentials.fromList((ArrayList<Object>) readValue(buffer));
-        case (byte) 129:
-          return NativeAuthSession.fromList((ArrayList<Object>) readValue(buffer));
-        case (byte) 130:
-          return NativeUserPoolTokens.fromList((ArrayList<Object>) readValue(buffer));
-        default:
-          return super.readValueOfType(type, buffer);
-      }
-    }
-
-    @Override
-    protected void writeValue(@NonNull ByteArrayOutputStream stream, Object value) {
-      if (value instanceof NativeAWSCredentials) {
-        stream.write(128);
-        writeValue(stream, ((NativeAWSCredentials) value).toList());
-      } else if (value instanceof NativeAuthSession) {
-        stream.write(129);
-        writeValue(stream, ((NativeAuthSession) value).toList());
-      } else if (value instanceof NativeUserPoolTokens) {
-        stream.write(130);
-        writeValue(stream, ((NativeUserPoolTokens) value).toList());
-      } else {
-        super.writeValue(stream, value);
-      }
-    }
-  }
-
   /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
   public static class NativeAuthPlugin {
     private final @NonNull BinaryMessenger binaryMessenger;
@@ -726,7 +271,7 @@ public class NativeAuthPluginBindingsPigeon {
     }
     /** The codec used by NativeAuthPlugin. */
     static @NonNull MessageCodec<Object> getCodec() {
-      return NativeAuthPluginCodec.INSTANCE;
+      return new StandardMessageCodec();
     }
     /**
      * Exchanges the route parameters used to launch the app, i.e. if the app
@@ -741,18 +286,6 @@ public class NativeAuthPluginBindingsPigeon {
           new ArrayList<Object>(Collections.singletonList(paramsArg)),
           channelReply -> callback.reply(null));
     }
-    public void fetchAuthSession(@NonNull Reply<NativeAuthSession> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.NativeAuthPlugin.fetchAuthSession", getCodec());
-      channel.send(
-          null,
-          channelReply -> {
-            @SuppressWarnings("ConstantConditions")
-            NativeAuthSession output = (NativeAuthSession) channelReply;
-            callback.reply(output);
-          });
-    }
   }
 
   private static class NativeAuthBridgeCodec extends StandardMessageCodec {
@@ -765,8 +298,6 @@ public class NativeAuthPluginBindingsPigeon {
       switch (type) {
         case (byte) 128:
           return LegacyCredentialStoreData.fromList((ArrayList<Object>) readValue(buffer));
-        case (byte) 129:
-          return NativeAuthUser.fromList((ArrayList<Object>) readValue(buffer));
         default:
           return super.readValueOfType(type, buffer);
       }
@@ -777,9 +308,6 @@ public class NativeAuthPluginBindingsPigeon {
       if (value instanceof LegacyCredentialStoreData) {
         stream.write(128);
         writeValue(stream, ((LegacyCredentialStoreData) value).toList());
-      } else if (value instanceof NativeAuthUser) {
-        stream.write(129);
-        writeValue(stream, ((NativeAuthUser) value).toList());
       } else {
         super.writeValue(stream, value);
       }
@@ -788,13 +316,6 @@ public class NativeAuthPluginBindingsPigeon {
 
   /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
   public interface NativeAuthBridge {
-    /**
-     * Adds the native platform/plugin.
-     *
-     * On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-     * implementation.
-     */
-    void addPlugin(@NonNull Result<Void> result);
     /**
      * Sign in by presenting [url] and waiting for a response to a URL with
      * [callbackUrlScheme].
@@ -813,8 +334,6 @@ public class NativeAuthPluginBindingsPigeon {
 
     @NonNull 
     String getBundleId();
-    /** Updates the native cache of the current user. */
-    void updateCurrentUser(@Nullable NativeAuthUser user);
     /** Fetch legacy credentials stored by native SDKs. */
     void getLegacyCredentials(@Nullable String identityPoolId, @Nullable String appClientId, @NonNull Result<LegacyCredentialStoreData> result);
     /** Clears the legacy credential store data. */
@@ -826,33 +345,6 @@ public class NativeAuthPluginBindingsPigeon {
     }
     /**Sets up an instance of `NativeAuthBridge` to handle messages through the `binaryMessenger`. */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable NativeAuthBridge api) {
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.addPlugin", getCodec());
-        if (api != null) {
-          channel.setMessageHandler(
-              (message, reply) -> {
-                ArrayList<Object> wrapped = new ArrayList<Object>();
-                Result<Void> resultCallback =
-                    new Result<Void>() {
-                      public void success(Void result) {
-                        wrapped.add(0, null);
-                        reply.reply(wrapped);
-                      }
-
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
-
-                api.addPlugin(resultCallback);
-              });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
       {
         BasicMessageChannel<Object> channel =
             new BasicMessageChannel<>(
@@ -950,30 +442,6 @@ public class NativeAuthPluginBindingsPigeon {
                 try {
                   String output = api.getBundleId();
                   wrapped.add(0, output);
-                }
- catch (Throwable exception) {
-                  ArrayList<Object> wrappedError = wrapError(exception);
-                  wrapped = wrappedError;
-                }
-                reply.reply(wrapped);
-              });
-        } else {
-          channel.setMessageHandler(null);
-        }
-      }
-      {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.NativeAuthBridge.updateCurrentUser", getCodec());
-        if (api != null) {
-          channel.setMessageHandler(
-              (message, reply) -> {
-                ArrayList<Object> wrapped = new ArrayList<Object>();
-                ArrayList<Object> args = (ArrayList<Object>) message;
-                NativeAuthUser userArg = (NativeAuthUser) args.get(0);
-                try {
-                  api.updateCurrentUser(userArg);
-                  wrapped.add(0, null);
                 }
  catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
