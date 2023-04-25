@@ -6,6 +6,9 @@ import 'dart:async';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
 import 'package:amplify_datastore/src/method_channel_datastore.dart';
+import 'package:amplify_datastore/src/native_plugin.g.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
 export 'package:amplify_core/src/types/datastore/datastore_types.dart'
@@ -51,6 +54,87 @@ class AmplifyDataStore extends DataStorePluginInterface {
 
   StreamController<DataStoreHubEvent> get streamController {
     return streamWrapper.datastoreStreamController;
+  }
+
+  @override
+  Future<void> configure({
+    AmplifyConfig? config,
+    required AmplifyAuthProviderRepository authProviderRepo,
+  }) async {
+    final authPlugin = Amplify.Auth.plugins.firstOrNull;
+
+    if (authPlugin != null) {
+      // Configure this plugin to act as a native iOS/Android plugin.
+      final nativePlugin = _NativeAmplifyAuthCognito();
+      NativeAuthPlugin.setup(nativePlugin);
+      final nativeBridge = NativeAuthBridge();
+      try {
+        await nativeBridge.addAuthPlugin();
+      } on PlatformException catch (e) {
+        if (e.code.contains('AmplifyAlreadyConfiguredException') ||
+            e.code.contains('AlreadyConfiguredException')) {
+          throw const AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+          );
+        }
+        throw ConfigurationError(
+          e.message ?? 'An unknown error occurred',
+          underlyingException: e,
+        );
+      }
+      // Update the native cache for the current user on hub events.
+      Future<void> updateCurrentUser(AuthUser? currentUser) async {
+        NativeAuthUser? nativeUser;
+        if (currentUser != null) {
+          nativeUser = NativeAuthUser(
+            userId: currentUser.userId,
+            username: currentUser.username,
+          );
+        }
+        await nativeBridge.updateCurrentUser(nativeUser);
+      }
+
+      try {
+        final currentUser = await Amplify.Auth.getCurrentUser();
+        await updateCurrentUser(currentUser);
+      } on Exception {
+        await updateCurrentUser(null);
+      }
+      Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
+        updateCurrentUser(event.payload);
+      });
+    }
+
+    final apiPlugin = Amplify.API.plugins.firstOrNull;
+
+    if (apiPlugin != null) {
+      // ignore: invalid_use_of_protected_member
+      final authProviders = apiPlugin.authProviders;
+      final nativePlugin = _NativeAmplifyApi(authProviders);
+      NativeApiPlugin.setup(nativePlugin);
+
+      final nativeBridge = NativeApiBridge();
+      try {
+        final authProvidersList =
+            authProviders.keys.map((key) => key.rawValue).toList();
+        await nativeBridge.addApiPlugin(authProvidersList);
+      } on PlatformException catch (e) {
+        if (e.code.contains('AmplifyAlreadyConfiguredException') ||
+            e.code.contains('AlreadyConfiguredException')) {
+          throw const AmplifyAlreadyConfiguredException(
+            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
+            recoverySuggestion:
+                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+          );
+        }
+        throw ConfigurationError(
+          e.message ?? 'An unknown error occurred',
+          underlyingException: e,
+        );
+      }
+    }
   }
 
   @override
@@ -138,4 +222,77 @@ class AmplifyDataStore extends DataStorePluginInterface {
       throttleOptions: throttleOptions,
     );
   }
+}
+
+class _NativeAmplifyAuthCognito
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeAuthPlugin {
+  _NativeAmplifyAuthCognito();
+
+  @override
+  Future<NativeAuthSession> fetchAuthSession() async {
+    try {
+      // authSession cannot be typed properly without depending on amplify_auth_cognito
+      final authSession = await Amplify.Auth.fetchAuthSession() as dynamic;
+      final nativeAuthSession = NativeAuthSession(
+        isSignedIn: authSession.isSignedIn,
+        userSub: authSession.userSubResult.valueOrNull,
+        identityId: authSession.identityIdResult.valueOrNull,
+      );
+      final userPoolTokens = authSession.userPoolTokensResult.valueOrNull;
+      if (userPoolTokens != null) {
+        nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
+          accessToken: userPoolTokens.accessToken.raw,
+          refreshToken: userPoolTokens.refreshToken,
+          idToken: userPoolTokens.idToken.raw,
+        );
+      }
+      final awsCredentials = authSession.credentialsResult.valueOrNull;
+      if (awsCredentials != null) {
+        nativeAuthSession.awsCredentials = NativeAWSCredentials(
+          accessKeyId: awsCredentials.accessKeyId,
+          secretAccessKey: awsCredentials.secretAccessKey,
+          sessionToken: awsCredentials.sessionToken,
+          expirationIso8601Utc:
+              awsCredentials.expiration?.toUtc().toIso8601String(),
+        );
+      }
+      return nativeAuthSession;
+    } on Exception catch (e) {
+      logger.error('Error fetching session for native plugin', e);
+    }
+    return NativeAuthSession(isSignedIn: false);
+  }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyAuthCognito';
+}
+
+class _NativeAmplifyApi
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements NativeApiPlugin {
+  _NativeAmplifyApi(this._authProviders);
+
+  /// The registered [APIAuthProvider] instances.
+  final Map<APIAuthorizationType<AmplifyAuthProvider>, APIAuthProvider>
+      _authProviders;
+
+  @override
+  Future<String?> getLatestAuthToken(String providerName) {
+    final provider = APIAuthorizationTypeX.from(providerName);
+    if (provider == null) {
+      throw PlatformException(code: 'BAD_ARGUMENTS');
+    }
+    final authProvider = _authProviders[provider];
+    if (authProvider == null) {
+      throw PlatformException(
+        code: 'NO_PROVIDER',
+        message: 'No provider found for $authProvider',
+      );
+    }
+    return authProvider.getLatestAuthToken();
+  }
+
+  @override
+  String get runtimeTypeName => '_NativeAmplifyApi';
 }

@@ -1,8 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.amazonaws.amplify.amplify_auth_cognito
+package com.amazonaws.amplify.amplify_datastore
 
+import NativeAuthPlugin
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -51,8 +52,8 @@ import org.json.JSONObject
  * other categories like API/Storage. For the subset of methods needed to fulfill the requirements
  * of those categories, we bridge to the Dart plugin using a Flutter MethodChannel via `pigeon`.
  */
-class NativeAuthPlugin(
-    private val nativeAuthPlugin: () -> NativeAuthPluginBindingsPigeon.NativeAuthPlugin?
+class NativeAuthPluginWrapper(
+    private val nativeAuthPlugin: () -> NativeAuthPlugin?
 ) : AuthPlugin<AWSCognitoAuthService>() {
 
     override fun getPluginKey(): String = "awsCognitoAuthPlugin"

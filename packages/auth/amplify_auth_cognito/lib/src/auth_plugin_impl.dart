@@ -27,7 +27,6 @@ import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
 import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:flutter/services.dart';
 
 /// {@template amplify_auth_cognito.amplify_auth_cognito}
 /// The AWS Cognito implementation of the Amplify Auth category.
@@ -62,7 +61,7 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     }
 
     // Configure this plugin to act as a native iOS/Android plugin.
-    final nativePlugin = _NativeAmplifyAuthCognito(this, stateMachine);
+    final nativePlugin = _NativeAmplifyAuthCognito(stateMachine);
     NativeAuthPlugin.setup(nativePlugin);
 
     final nativeBridge = NativeAuthBridge();
@@ -72,22 +71,6 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
     stateMachine.addInstance<LegacyCredentialProvider>(
       legacyCredentialProvider,
     );
-    try {
-      await nativeBridge.addPlugin();
-    } on PlatformException catch (e) {
-      if (e.code.contains('AmplifyAlreadyConfiguredException') ||
-          e.code.contains('AlreadyConfiguredException')) {
-        throw const AmplifyAlreadyConfiguredException(
-          AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-          recoverySuggestion:
-              AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
-        );
-      }
-      throw ConfigurationError(
-        e.message ?? 'An unknown error occurred',
-        underlyingException: e,
-      );
-    }
   }
 
   @override
@@ -104,31 +87,6 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
       config: config,
       authProviderRepo: authProviderRepo,
     );
-
-    // Update the native cache for the current user on hub events.
-    final nativeBridge = stateMachine.get<NativeAuthBridge>();
-    if (nativeBridge != null) {
-      Future<void> updateCurrentUser(AuthUser? currentUser) async {
-        NativeAuthUser? nativeUser;
-        if (currentUser != null) {
-          nativeUser = NativeAuthUser(
-            userId: currentUser.userId,
-            username: currentUser.username,
-          );
-        }
-        await nativeBridge.updateCurrentUser(nativeUser);
-      }
-
-      try {
-        final currentUser = await getCurrentUser();
-        await updateCurrentUser(currentUser);
-      } on Exception {
-        await updateCurrentUser(null);
-      }
-      Amplify.Hub.listen(HubChannel.Auth, (AuthHubEvent event) {
-        updateCurrentUser(event.payload);
-      });
-    }
   }
 
   @override
@@ -172,43 +130,8 @@ class AmplifyAuthCognito extends AmplifyAuthCognitoDart with AWSDebuggable {
 class _NativeAmplifyAuthCognito
     with AWSDebuggable, AmplifyLoggerMixin
     implements NativeAuthPlugin {
-  _NativeAmplifyAuthCognito(this._basePlugin, this._stateMachine);
-  final AmplifyAuthCognito _basePlugin;
+  _NativeAmplifyAuthCognito(this._stateMachine);
   final CognitoAuthStateMachine _stateMachine;
-
-  @override
-  Future<NativeAuthSession> fetchAuthSession() async {
-    try {
-      final authSession = await _basePlugin.fetchAuthSession();
-      final nativeAuthSession = NativeAuthSession(
-        isSignedIn: authSession.isSignedIn,
-        userSub: authSession.userSubResult.valueOrNull,
-        identityId: authSession.identityIdResult.valueOrNull,
-      );
-      final userPoolTokens = authSession.userPoolTokensResult.valueOrNull;
-      if (userPoolTokens != null) {
-        nativeAuthSession.userPoolTokens = NativeUserPoolTokens(
-          accessToken: userPoolTokens.accessToken.raw,
-          refreshToken: userPoolTokens.refreshToken,
-          idToken: userPoolTokens.idToken.raw,
-        );
-      }
-      final awsCredentials = authSession.credentialsResult.valueOrNull;
-      if (awsCredentials != null) {
-        nativeAuthSession.awsCredentials = NativeAWSCredentials(
-          accessKeyId: awsCredentials.accessKeyId,
-          secretAccessKey: awsCredentials.secretAccessKey,
-          sessionToken: awsCredentials.sessionToken,
-          expirationIso8601Utc:
-              awsCredentials.expiration?.toUtc().toIso8601String(),
-        );
-      }
-      return nativeAuthSession;
-    } on Exception catch (e) {
-      logger.error('Error fetching session for native plugin', e);
-    }
-    return NativeAuthSession(isSignedIn: false);
-  }
 
   @override
   void exchange(Map<String?, String?> params) {

@@ -72,7 +72,6 @@ android {
 dependencies {
     api amplifyFlutter
 
-    implementation 'com.amplifyframework:aws-auth-cognito:2.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'androidx.browser:browser:1.4.0'
 

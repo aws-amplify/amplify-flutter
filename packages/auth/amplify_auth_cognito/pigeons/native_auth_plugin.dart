@@ -32,20 +32,10 @@ abstract class NativeAuthPlugin {
   /// was closed and a redirect happened to the custom URI scheme (iOS) or an
   /// intent was launched with the redirect parameters (Android).
   void exchange(Map<String, String> params);
-
-  @async
-  NativeAuthSession fetchAuthSession();
 }
 
 @HostApi()
 abstract class NativeAuthBridge {
-  /// Adds the native platform/plugin.
-  ///
-  /// On iOS/Android, this calls `Amplify.addPlugin` with the [NativeAuthPlugin]
-  /// implementation.
-  @async
-  void addPlugin();
-
   /// Sign in by presenting [url] and waiting for a response to a URL with
   /// [callbackUrlScheme].
   ///
@@ -72,9 +62,6 @@ abstract class NativeAuthBridge {
   Map<String, String> getValidationData();
 
   String getBundleId();
-
-  /// Updates the native cache of the current user.
-  void updateCurrentUser(NativeAuthUser? user);
 
   /// Fetch legacy credentials stored by native SDKs.
   @async

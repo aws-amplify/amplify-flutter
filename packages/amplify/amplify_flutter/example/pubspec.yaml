@@ -17,10 +17,6 @@ dependencies:
     sdk: flutter
 
 dependency_overrides:
-  amplify_api_android:
-    path: ../../../api/amplify_api_android
-  amplify_api_ios:
-    path: ../../../api/amplify_api_ios
   amplify_auth_cognito_android:
     path: ../../../auth/amplify_auth_cognito_android
   amplify_auth_cognito_ios:
