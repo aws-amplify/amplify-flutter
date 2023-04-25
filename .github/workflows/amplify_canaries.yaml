@@ -10,6 +10,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  verify:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Build Canary (iOS)
+        run: build-support/build_canary.sh ios --no-codesign
+
+      - name: Build Canary (Android)
+        run: build-support/build_canary.sh apk
+
   android:
     runs-on: macos-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -52,10 +76,7 @@ jobs:
         uses: ./.github/composite_actions/launch_android_emulator
         with:
           script: |
-            env
-            cd "${GITHUB_WORKSPACE}/canaries"
-            ls
-            flutter test -d test integration_test/main_test.dart
+            cd canaries && flutter test -d test integration_test/main_test.dart
 
   ios-latest:
     runs-on: macos-latest
@@ -91,7 +112,7 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
-          ios-version: 16
+          ios-version: "16"
 
       - name: Run iOS integration tests
         timeout-minutes: 45
@@ -132,7 +153,7 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
-          ios-version: 13
+          ios-version: "13.7"
 
       - name: Run iOS integration tests
         timeout-minutes: 45

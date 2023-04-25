@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: |
         get_runtime() {
-          xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.name | startswith("iOS ${{ inputs.ios-version }}.")) | .identifier' | head -n 1
+          xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.name | startswith("iOS ${{ inputs.ios-version }}")) | .identifier' | head -n 1
         }
         if [[ -z "$(get_runtime)" ]]; then
           echo "No runtime found for iOS ${{ inputs.ios-version }}" >&2
