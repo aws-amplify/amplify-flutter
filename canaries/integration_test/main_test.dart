@@ -51,6 +51,13 @@ void main() {
       Amplify.API.mutate(request: mutation).response,
       throwsA(isA<ApiException>()),
     );
+
+    // Perform DataStore operation (local save)
+    final dsTodo = Todo(name: 'test', owner: 'test');
+    await expectLater(
+      Amplify.DataStore.save(dsTodo),
+      completes,
+    );
   }
 
   Future<void> performAuthenticatedActions() async {
@@ -83,6 +90,19 @@ void main() {
     final response = await Amplify.API.mutate(request: mutation).response;
     expect(response.hasErrors, isFalse);
     expect(response.data, todo);
+
+    // Perform DataStore operation
+    final dsTodo = Todo(name: 'test', owner: username);
+    final subscription = Amplify.DataStore.observe(Todo.classType);
+    final expectation = expectLater(
+      subscription,
+      emitsThrough(
+        isA<SubscriptionEvent<Todo>>()
+            .having((event) => event.item.name, 'name', 'test'),
+      ),
+    );
+    await Amplify.DataStore.save(dsTodo);
+    await expectation;
   }
 
   testWidgets('canary', (tester) async {
