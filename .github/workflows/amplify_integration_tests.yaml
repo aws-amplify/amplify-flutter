@@ -116,7 +116,7 @@ jobs:
       - name: Run integration tests
         timeout-minutes: 30
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh
+          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh -d test
 
   web:
     runs-on: ubuntu-latest

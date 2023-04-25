@@ -10,7 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify:
+  # Ensure an app pulling in published Amplify libraries can build properly
+  build:
     runs-on: macos-latest
     strategy:
       fail-fast: false
@@ -115,7 +116,7 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
-          ios-version: ${{ matrix-ios-version }}
+          ios-version: ${{ matrix.ios-version }}
 
       - name: Run iOS integration tests
         timeout-minutes: 45
