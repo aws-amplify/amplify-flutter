@@ -67,6 +67,8 @@ android {
             includeAndroidResources = true
         }
     }
+
+    namespace 'com.amazonaws.amplify.amplify_datastore'
 }
 
 dependencies {
