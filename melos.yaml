@@ -125,17 +125,6 @@ scripts:
       scope:
         - amplify_storage_s3_example
 
-  # AMPLIFY_FLUTTER
-  lint:android:amplify_flutter:
-    run: |
-      melos exec -c 1 --fail-fast -- \
-        bash "$PWD/build-support/lint_android.sh"
-    description: >
-      Lints Android (Kotlin) files against global rules and fails if there are any errors.
-    select-package:
-      scope:
-        - amplify_flutter_android_example
-
   test:integration:
     run: melos run test:integration:android --no-select && melos run test:integration:ios --no-select
     description:

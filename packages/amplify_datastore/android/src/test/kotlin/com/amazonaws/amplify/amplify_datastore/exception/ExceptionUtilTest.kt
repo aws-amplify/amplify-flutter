@@ -15,11 +15,11 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class ExceptionUtilTest {
 
-    lateinit var util: com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil
+    private lateinit var util: ExceptionUtil
 
     @Before
     fun setup() {
-        util = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil()
+        util = ExceptionUtil()
     }
 
     @Test
@@ -33,7 +33,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -53,7 +53,7 @@ class ExceptionUtilTest {
             AmplifyException("test message", "test recovery")
 
         // Make the call
-        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -77,7 +77,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -102,7 +102,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -126,7 +126,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(graphqlException)
+        val actualMap = ExceptionUtil.createSerializedError(graphqlException)
 
         // Verify the results
         assertEquals(
