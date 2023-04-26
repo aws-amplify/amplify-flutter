@@ -3,7 +3,7 @@
 
 import XCTest
 import Flutter
-@testable import amplify_auth_cognito_ios
+@testable import amplify_datastore
 
 class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
     
@@ -14,7 +14,7 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
     
     let isSignedIn: Bool
     
-    lazy var codec = NativeAuthPluginGetCodec()
+    lazy var codec = NativeAuthPluginCodec.shared
     
     func send(onChannel channel: String, message: Data?) { }
     
@@ -23,8 +23,8 @@ class MockBinaryMessenger: NSObject, FlutterBinaryMessenger {
         message: Data?,
         binaryReply callback: FlutterBinaryReply? = nil
     ) {
-        let authSession = NativeAuthSession.makeWithIsSigned(
-            in: NSNumber(booleanLiteral: isSignedIn),
+        let authSession = NativeAuthSession(
+            isSignedIn: isSignedIn,
             userSub: nil,
             userPoolTokens: nil,
             identityId: nil,
@@ -51,13 +51,10 @@ class NativeAuthPluginTests: XCTestCase {
         let binaryMessenger = MockBinaryMessenger(isSignedIn: isSignedIn)
         let nativePlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
         let expectation = expectation(description: "fetchAuthSession completes")
-        nativePlugin.fetchAuthSession() {
-            session, error in
+        nativePlugin.fetchAuthSession { session in
             defer { expectation.fulfill() }
-            
-            XCTAssertNil(error)
             XCTAssertNotNil(session)
-            XCTAssertEqual(session?.isSignedIn, NSNumber(booleanLiteral: isSignedIn))
+            XCTAssertEqual(session.isSignedIn, isSignedIn)
         }
         waitForExpectations(timeout: 1)
     }
