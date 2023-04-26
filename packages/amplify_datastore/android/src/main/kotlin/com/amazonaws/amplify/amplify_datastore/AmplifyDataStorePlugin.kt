@@ -164,6 +164,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
 
         nativeApiPlugin = null
         NativeApiBridge.setUp(binding.binaryMessenger, null)
+
+        NativeAmplifyBridge.setUp(binding.binaryMessenger, null)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull _result: Result) {
