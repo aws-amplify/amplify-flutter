@@ -64,6 +64,8 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+
+    namespace 'com.amazonaws.amplify.amplify_api'
 }
 
 dependencies {

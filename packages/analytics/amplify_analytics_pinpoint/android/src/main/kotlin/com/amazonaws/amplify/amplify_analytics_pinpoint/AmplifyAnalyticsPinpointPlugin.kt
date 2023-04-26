@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.amazonaws.amplify.amplify_analytics_pinpoint.amplify_analytics_pinpoint
+package com.amazonaws.amplify.amplify_analytics_pinpoint
 
 import android.content.Context
 import android.content.SharedPreferences

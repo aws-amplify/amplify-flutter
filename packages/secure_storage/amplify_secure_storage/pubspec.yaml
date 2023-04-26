@@ -30,7 +30,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
+        package: com.amazonaws.amplify.amplify_secure_storage
         pluginClass: AmplifySecureStoragePlugin
       ios:
         pluginClass: AmplifySecureStoragePlugin

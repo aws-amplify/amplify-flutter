@@ -61,6 +61,8 @@ android {
             includeAndroidResources = true
         }
     }
+
+    namespace 'com.amazonaws.amplify.amplify'
 }
 
 dependencies {

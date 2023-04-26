@@ -58,6 +58,8 @@ android {
             includeAndroidResources = true
         }
     }
+
+    namespace 'com.amazonaws.amplify.amplify_push_notifications'
 }
 
 // Logic for finding sibling plugins, from `flutter_tools/gradle/flutter.gradle`

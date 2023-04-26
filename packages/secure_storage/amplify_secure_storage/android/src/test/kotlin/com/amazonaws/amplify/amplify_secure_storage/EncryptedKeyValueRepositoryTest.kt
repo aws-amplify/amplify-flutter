@@ -1,4 +1,7 @@
-package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+package com.amazonaws.amplify.amplify_secure_storage
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
