@@ -232,6 +232,36 @@ class NativeApiPlugin {
     }
   }
 }
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol NativeAmplifyBridge {
+  func configure(version: String, config: String, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class NativeAmplifyBridgeSetup {
+  /// The codec used by NativeAmplifyBridge.
+  /// Sets up an instance of `NativeAmplifyBridge` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: NativeAmplifyBridge?) {
+    let configureChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.NativeAmplifyBridge.configure", binaryMessenger: binaryMessenger)
+    if let api = api {
+      configureChannel.setMessageHandler { message, reply in
+        let args = message as! [Any]
+        let versionArg = args[0] as! String
+        let configArg = args[1] as! String
+        api.configure(version: versionArg, config: configArg) { result in
+          switch result {
+            case .success:
+              reply(wrapResult(nil))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      configureChannel.setMessageHandler(nil)
+    }
+  }
+}
 private class NativeAuthBridgeCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {

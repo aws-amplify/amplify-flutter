@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_datastore/src/amplify_datastore_stream_controller.dart';
@@ -61,8 +62,11 @@ class AmplifyDataStore extends DataStorePluginInterface {
     AmplifyConfig? config,
     required AmplifyAuthProviderRepository authProviderRepo,
   }) async {
-    final authPlugin = Amplify.Auth.plugins.firstOrNull;
+    if (config == null) {
+      throw ConfigurationError('No Amplify config provided');
+    }
 
+    final authPlugin = Amplify.Auth.plugins.firstOrNull;
     if (authPlugin != null) {
       // Configure this plugin to act as a native iOS/Android plugin.
       final nativePlugin = _NativeAmplifyAuthCognito();
@@ -108,7 +112,6 @@ class AmplifyDataStore extends DataStorePluginInterface {
     }
 
     final apiPlugin = Amplify.API.plugins.firstOrNull;
-
     if (apiPlugin != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
@@ -132,6 +135,31 @@ class AmplifyDataStore extends DataStorePluginInterface {
         throw ConfigurationError(
           e.message ?? 'An unknown error occurred',
           underlyingException: e,
+        );
+      }
+    }
+
+    try {
+      final nativeBridge = NativeAmplifyBridge();
+      await nativeBridge.configure(
+        Amplify.version,
+        jsonEncode(config.toJson()),
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'AmplifyException') {
+        throw AmplifyException.fromMap(
+          Map<String, String>.from(e.details as Map),
+        );
+      } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+        return;
+      } else {
+        // This shouldn't happen. All exceptions coming from platform for
+        // amplify_flutter should have a known code. Throw an unknown error.
+        throw PluginError(
+          AmplifyExceptionMessages.missingExceptionMessage,
+          recoverySuggestion:
+              AmplifyExceptionMessages.missingRecoverySuggestion,
+          underlyingException: e.toString(),
         );
       }
     }

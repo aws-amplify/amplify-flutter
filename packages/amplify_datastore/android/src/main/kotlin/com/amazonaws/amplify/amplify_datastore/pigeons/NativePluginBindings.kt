@@ -230,6 +230,41 @@ class NativeApiPlugin(private val binaryMessenger: BinaryMessenger) {
     }
   }
 }
+/** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+interface NativeAmplifyBridge {
+  fun configure(version: String, config: String, callback: (Result<Unit>) -> Unit)
+
+  companion object {
+    /** The codec used by NativeAmplifyBridge. */
+    val codec: MessageCodec<Any?> by lazy {
+      StandardMessageCodec()
+    }
+    /** Sets up an instance of `NativeAmplifyBridge` to handle messages through the `binaryMessenger`. */
+    @Suppress("UNCHECKED_CAST")
+    fun setUp(binaryMessenger: BinaryMessenger, api: NativeAmplifyBridge?) {
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.NativeAmplifyBridge.configure", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val versionArg = args[0] as String
+            val configArg = args[1] as String
+            api.configure(versionArg, configArg) { result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                reply.reply(wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+    }
+  }
+}
 @Suppress("UNCHECKED_CAST")
 private object NativeAuthBridgeCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {

@@ -4,7 +4,6 @@
 import Foundation
 import Amplify
 import AmplifyPlugins
-import amplify_flutter_ios
 
 class FlutterDataStoreErrorHandler {
     static func handleDataStoreError(error: DataStoreError, flutterResult: FlutterResult) {

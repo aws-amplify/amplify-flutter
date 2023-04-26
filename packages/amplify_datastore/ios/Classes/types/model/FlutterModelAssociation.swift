@@ -3,7 +3,6 @@
 
 import Foundation
 import Amplify
-import amplify_flutter_ios
 
 public struct FlutterModelAssociation {
     private let associationType: String

@@ -27,6 +27,12 @@ abstract class NativeApiPlugin {
 }
 
 @HostApi()
+abstract class NativeAmplifyBridge {
+  @async
+  void configure(String version, String config);
+}
+
+@HostApi()
 abstract class NativeAuthBridge {
   @async
   void addAuthPlugin();

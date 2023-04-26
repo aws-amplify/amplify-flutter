@@ -3,7 +3,6 @@
 
 import Flutter
 import UIKit
-import amplify_flutter_ios
 
 extension FlutterError: Error { }
 

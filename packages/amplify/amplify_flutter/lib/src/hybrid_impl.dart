@@ -14,8 +14,6 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
   /// {@macro amplify_flutter.amplify_hybrid_impl}
   AmplifyHybridImpl() : super.protected();
 
-  final _methodChannelAmplify = MethodChannelAmplify();
-
   @override
   Future<void> configurePlatform(String config) async {
     final amplifyConfig = AmplifyConfig.fromJson(
@@ -37,7 +35,6 @@ class AmplifyHybridImpl extends AmplifyClassImpl {
       ),
       eagerError: true,
     );
-    await _methodChannelAmplify.configurePlatform(config);
   }
 
   @override
