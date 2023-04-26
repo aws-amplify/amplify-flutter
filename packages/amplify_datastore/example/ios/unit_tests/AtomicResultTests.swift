@@ -3,7 +3,7 @@
 
 import XCTest
 import Flutter
-@testable import amplify_flutter_ios
+@testable import amplify_datastore
 
 class AtomicResultTests: XCTestCase {
     

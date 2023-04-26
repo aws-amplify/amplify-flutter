@@ -5,7 +5,6 @@ import Flutter
 import UIKit
 import Amplify
 import AWSPluginsCore
-import amplify_flutter_ios
 
 extension NativeAuthUser: AuthUser { }
 

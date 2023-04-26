@@ -81,11 +81,16 @@ dependencies {
     implementation "com.amplifyframework:aws-api:2.4.1"
     implementation "com.amplifyframework:aws-datastore:2.4.1"
     implementation "com.amplifyframework:aws-api-appsync:2.4.1"
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
     testImplementation 'org.mockito:mockito-inline:3.11.2'
     testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'com.google.code.gson:gson:2.8.9'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+
     // Tests must be updated if bumped
     //noinspection GradleDependency
     testImplementation 'org.robolectric:robolectric:4.3.1'

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Flutter
-import amplify_flutter_ios
 import AmplifyUtilsNotifications
 
 public class AmplifyPushNotificationsPlugin: NSObject, FlutterPlugin, PushNotificationsHostApi {

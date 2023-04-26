@@ -8,9 +8,8 @@ import AmplifyPlugins
 import AWSPluginsCore
 import AWSCore
 import Combine
-import amplify_flutter_ios
 
-public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAuthBridge, NativeApiBridge {
+public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
     private let bridge: DataStoreBridge
     private let modelSchemaRegistry: FlutterSchemaRegistry
     private let customTypeSchemaRegistry: FlutterSchemaRegistry
@@ -48,6 +47,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAuthBri
         NativeAuthBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
         nativeApiPlugin = NativeApiPlugin(binaryMessenger: registrar.messenger())
         NativeApiBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
+        NativeAmplifyBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
     
     func addAuthPlugin(completion: @escaping (Result<Void, Error>) -> Void) {
@@ -127,6 +127,71 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAuthBri
         }
     }
     
+    func configure(version: String, config: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        do {
+            guard let data = config.data(using: .utf8) else {
+                throw ConfigurationError.unableToDecode(
+                    "Invalid UTF-8",
+                    "Please check the encoding of your configuration",
+                    nil
+                )
+            }
+            let amplifyConfiguration = try JSONDecoder().decode(AmplifyConfiguration.self,
+                                                                from: data)
+            AmplifyAWSServiceConfiguration.addUserAgentPlatform(.flutter, version: version)
+            try Amplify.configure(amplifyConfiguration)
+            return completion(.success(()))
+        } catch let error as ConfigurationError {
+            switch error {
+            case .amplifyAlreadyConfigured:
+                let flutterError = FlutterError(
+                    code: "AmplifyAlreadyConfiguredException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            default:
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            }
+        } catch let error as PluginError {
+            switch error {
+            case .pluginConfigurationError(let errorDescription, _, _):
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: """
+                    Please check your pubspec.yaml if you are depending on \
+                    an amplify plugin and not using in your app. \
+                    Underlying error message: \(errorDescription). \
+                                        
+                    Remove amplify plugins from your pubspec.yaml that you are not using in your app.
+                    """,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            default:
+                let flutterError = FlutterError(
+                    code: "AmplifyException",
+                    message: error.localizedDescription,
+                    details: nil
+                )
+                return completion(.failure(flutterError))
+            }
+        } catch {
+            let flutterError = FlutterError(
+                code: "AmplifyException",
+                message: "Failed to parse the configuration.",
+                details: nil
+            )
+            return completion(.failure(flutterError))
+        }
+    }
+    
+
     func updateCurrentUser(user: NativeAuthUser?) throws {
         cognitoPlugin!.currentUser = user
     }

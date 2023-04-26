@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.amazonaws.amplify.exception
+package com.amazonaws.amplify.amplify_datastore.exception
 
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.graphql.GraphQLResponse
@@ -15,11 +15,11 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class ExceptionUtilTest {
 
-    lateinit var util: ExceptionUtil
+    lateinit var util: com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil
 
     @Before
     fun setup() {
-        util = ExceptionUtil()
+        util = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil()
     }
 
     @Test
@@ -33,7 +33,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -53,7 +53,7 @@ class ExceptionUtilTest {
             AmplifyException("test message", "test recovery")
 
         // Make the call
-        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -77,7 +77,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -102,7 +102,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = ExceptionUtil.createSerializedError(exceptionWithCause)
+        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(exceptionWithCause)
 
         // Verify the results
         assertEquals(
@@ -126,7 +126,7 @@ class ExceptionUtilTest {
             )
 
         // Make the call
-        val actualMap = ExceptionUtil.createSerializedError(graphqlException)
+        val actualMap = com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.createSerializedError(graphqlException)
 
         // Verify the results
         assertEquals(

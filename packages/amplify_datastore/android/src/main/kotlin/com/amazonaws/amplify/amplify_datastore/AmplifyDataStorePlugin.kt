@@ -3,35 +3,40 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
+import FlutterError
+import NativeAmplifyBridge
 import NativeApiBridge
 import NativeApiPlugin
 import NativeAuthBridge
 import NativeAuthPlugin
 import NativeAuthUser
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
-import com.amazonaws.amplify.AtomicResult
-import com.amazonaws.amplify.cast
-import com.amazonaws.amplify.exception.ExceptionMessages
-import com.amazonaws.amplify.exception.ExceptionUtil.Companion.createSerializedError
-import com.amazonaws.amplify.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
-import com.amazonaws.amplify.exception.ExceptionUtil.Companion.handleAddPluginException
-import com.amazonaws.amplify.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
+import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.createSerializedError
+import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
+import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.handleAddPluginException
+import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterCustomTypeSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSubscriptionEvent
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryOptionsBuilder
 import com.amazonaws.amplify.amplify_datastore.types.query.QueryPredicateBuilder
+import com.amazonaws.amplify.amplify_datastore.util.AtomicResult
+import com.amazonaws.amplify.amplify_datastore.util.cast
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToList
 import com.amazonaws.amplify.amplify_datastore.util.safeCastToMap
+import com.amplifyframework.AmplifyException
 import com.amplifyframework.api.aws.AWSApiPlugin
 import com.amplifyframework.api.aws.AuthModeStrategyType
 import com.amplifyframework.api.aws.AuthorizationType
 import com.amplifyframework.auth.AuthUser
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.core.AmplifyConfiguration
 import com.amplifyframework.core.async.Cancelable
 import com.amplifyframework.core.model.CustomTypeSchema
 import com.amplifyframework.core.model.Model
@@ -46,12 +51,20 @@ import com.amplifyframework.datastore.DataStoreConfiguration
 import com.amplifyframework.datastore.DataStoreConflictHandler
 import com.amplifyframework.datastore.DataStoreErrorHandler
 import com.amplifyframework.datastore.DataStoreException
+import com.amplifyframework.util.UserAgent
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.util.Locale
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -61,7 +74,7 @@ import kotlin.collections.HashMap
 typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
 
 /** AmplifyDataStorePlugin */
-class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridge, NativeApiBridge {
+class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var observeCancelable: Cancelable
@@ -74,6 +87,9 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridg
     private var isSettingUpObserve = AtomicBoolean()
     private var nativeAuthPlugin: NativeAuthPlugin? = null
     private var nativeApiPlugin: NativeApiPlugin? = null
+    private val coroutineScope = CoroutineScope(CoroutineName("AmplifyFlutterPlugin"))
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private lateinit var context: Context
 
     /**
      * The local cache of the current Dart user.
@@ -111,6 +127,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridg
     override fun onAttachedToEngine(
         @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
     ) {
+        context = flutterPluginBinding.applicationContext
         channel = MethodChannel(
             flutterPluginBinding.binaryMessenger,
             "com.amazonaws.amplify/datastore"
@@ -133,6 +150,8 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridg
 
         nativeApiPlugin = NativeApiPlugin(flutterPluginBinding.binaryMessenger)
         NativeApiBridge.setUp(flutterPluginBinding.binaryMessenger, this)
+
+        NativeAmplifyBridge.setUp(flutterPluginBinding.binaryMessenger, this)
 
         LOG.info("Initiated DataStore plugin")
     }
@@ -850,6 +869,37 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAuthBridg
         } catch (e: Exception) {
             LOG.error(e.message)
             callback(kotlin.Result.failure(e))
+        }
+    }
+
+    override fun configure(
+        version: String,
+        config: String,
+        callback: (kotlin.Result<Unit>) -> Unit
+    ) {
+        coroutineScope.launch(dispatcher) {
+            try {
+                val configuration = AmplifyConfiguration.builder(JSONObject(config))
+                    .addPlatform(UserAgent.Platform.FLUTTER, version)
+                    .devMenuEnabled(false)
+                    .build()
+                Amplify.configure(configuration, context)
+                withContext(Dispatchers.Main) {
+                    callback(kotlin.Result.success(Unit))
+                }
+            } catch (e: Amplify.AlreadyConfiguredException) {
+                val flutterError = FlutterError(
+                    "AmplifyAlreadyConfiguredException",
+                    e.toString()
+                )
+                callback(kotlin.Result.failure(flutterError))
+            } catch (e: AmplifyException) {
+                val flutterError = FlutterError(
+                    "AmplifyException",
+                    e.toString()
+                )
+                callback(kotlin.Result.failure(flutterError))
+            }
         }
     }
 }

@@ -1,11 +1,8 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-package com.amazonaws.amplify
+package com.amazonaws.amplify.amplify_datastore
 
+import com.amazonaws.amplify.amplify_datastore.util.AtomicResult
 import io.flutter.plugin.common.MethodChannel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,34 +18,32 @@ class AtomicResultTest {
     @get:Rule
     var coroutinesTestRule = CoroutineTestRule()
 
-    private val testScope = TestCoroutineScope(coroutinesTestRule.testDispatcher)
-
     @Mock
     private lateinit var mockResult: MethodChannel.Result
 
     @Test
-    fun successIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun successIsForwarded(): Unit = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "successIsForwarded")
         atomicResult.success(null)
         verify(mockResult).success(null)
     }
 
     @Test
-    fun errorIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun errorIsForwarded(): Unit = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "errorIsForwarded")
         atomicResult.error("", null, null)
         verify(mockResult).error("", null, null)
     }
 
     @Test
-    fun notImplementedIsForwarded() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun notImplementedIsForwarded(): Unit = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "notImplementedIsForwarded")
         atomicResult.notImplemented()
         verify(mockResult).notImplemented()
     }
 
     @Test
-    fun multipleSynchronousRepliesAreNotSent() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun multipleSynchronousRepliesAreNotSent(): Unit = coroutinesTestRule.testDispatcher.runBlockingTest {
         val atomicResult = AtomicResult(mockResult, "multipleSynchronousRepliesAreNotSent")
         atomicResult.success(null)
         atomicResult.success(null)
