@@ -49,10 +49,6 @@ on:
       - 'packages/amplify/amplify_flutter/lib/**/*.dart'
       - 'packages/amplify_datastore_plugin_interface/pubspec.yaml'
       - 'packages/amplify_datastore_plugin_interface/lib/**/*.dart'
-      - 'packages/amplify/amplify_flutter_android/pubspec.yaml'
-      - 'packages/amplify/amplify_flutter_android/lib/**/*.dart'
-      - 'packages/amplify/amplify_flutter_ios/pubspec.yaml'
-      - 'packages/amplify/amplify_flutter_ios/lib/**/*.dart'
       - 'packages/notifications/push/amplify_push_notifications/pubspec.yaml'
       - 'packages/notifications/push/amplify_push_notifications/lib/**/*.dart'
   schedule:

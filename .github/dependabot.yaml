@@ -24,18 +24,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter_android/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter_ios/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
-    directory: "packages/amplify/amplify_flutter_ios/example/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "pub"
     directory: "packages/amplify_core/"
     schedule:
       interval: "daily"
