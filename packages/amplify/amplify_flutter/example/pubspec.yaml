@@ -25,10 +25,6 @@ dependency_overrides:
     path: ../../../amplify_core
   amplify_flutter:
     path: ../
-  amplify_flutter_android:
-    path: ../../amplify_flutter_android
-  amplify_flutter_ios:
-    path: ../../amplify_flutter_ios
   amplify_secure_storage:
     path: ../../../secure_storage/amplify_secure_storage
   amplify_secure_storage_dart:

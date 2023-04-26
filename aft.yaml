@@ -50,8 +50,6 @@ components:
     summary: amplify_flutter
     packages:
       - amplify_flutter
-      - amplify_flutter_ios
-      - amplify_flutter_android
       - amplify_core
       - amplify_datastore
       - amplify_datastore_plugin_interface

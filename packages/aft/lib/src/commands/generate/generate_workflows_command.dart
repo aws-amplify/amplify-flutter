@@ -35,7 +35,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         continue;
       }
       // Packages without a `lib/` folder generally contain only native code,
-      // e.g. `amplify_flutter_android`. These packages are tested via their
+      // e.g. `amplify_auth_cognito_android`. These packages are tested via their
       // parent package, e.g. `amplify_flutter`, and do not require a workflow
       // of their own.
       final libDir = Directory(p.join(package.path, 'lib'));
