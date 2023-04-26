@@ -87,9 +87,10 @@ void main() {
         username: email,
         password: password,
         options: SignUpOptions(
-          userAttributes: {CognitoUserAttributeKey.email: email},
+          userAttributes: {AuthUserAttributeKey.email: email},
         ),
       );
+      addTearDown(() => deleteUser(email));
 
       signInPage.expectUsername(label: 'Email');
 
@@ -128,7 +129,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],
@@ -176,7 +177,7 @@ void main() {
         verifyAttributes: true,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],
@@ -229,7 +230,7 @@ void main() {
         password,
         attributes: [
           AuthUserAttribute(
-            userAttributeKey: CognitoUserAttributeKey.email,
+            userAttributeKey: AuthUserAttributeKey.email,
             value: username,
           ),
         ],

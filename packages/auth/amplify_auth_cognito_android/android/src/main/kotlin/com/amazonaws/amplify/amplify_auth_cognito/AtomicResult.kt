@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Thread-safe [NativeAuthPluginBindings.Result] wrapper which prevents multiple replies and
+ * Thread-safe [NativeAuthPluginBindingsPigeon.Result] wrapper which prevents multiple replies and
  * automatically posts results to the main thread.
  */
 class AtomicResult<T>(
@@ -45,7 +45,7 @@ class AtomicResult<T>(
         }
     }
 
-    override fun error(error: Throwable?) {
+    override fun error(error: Throwable) {
         if (isSent.getAndSet(true)) {
             Log.w(
                 "AmplifyHostedUiPlugin($operation)",

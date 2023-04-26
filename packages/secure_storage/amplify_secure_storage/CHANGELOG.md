@@ -1,3 +1,9 @@
+## 0.3.0+4
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+- fix: remove AndroidKeysetManager log, upgrade to google/tink 1.8.0
+
 ## 0.3.0+3
 
 - Minor bug fixes and improvements

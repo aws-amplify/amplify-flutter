@@ -35,8 +35,8 @@ void main() {
               password: password,
               options: SignUpOptions(
                 userAttributes: {
-                  CognitoUserAttributeKey.email: generateEmail(),
-                  CognitoUserAttributeKey.phoneNumber: generatePhoneNumber(),
+                  AuthUserAttributeKey.email: generateEmail(),
+                  AuthUserAttributeKey.phoneNumber: generatePhoneNumber(),
                 },
               ),
             ) as CognitoSignUpResult;

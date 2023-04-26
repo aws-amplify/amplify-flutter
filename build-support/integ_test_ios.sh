@@ -53,7 +53,7 @@ if [ ! -e $TARGET ]; then
 fi
 
 if [ -n $CI ]; then
-    flutter pub get
+    flutter pub upgrade
 fi
 
 # Use xcodebuild if 'RunnerTests' scheme exists, else `flutter test`

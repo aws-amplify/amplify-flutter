@@ -36,7 +36,6 @@ jobs:
     uses: ./.github/workflows/dart_native.yaml
     with:
       working-directory: packages/aws_signature_v4
-      skip-on-windows: false
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml

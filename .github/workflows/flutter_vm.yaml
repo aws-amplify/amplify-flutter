@@ -18,6 +18,10 @@ jobs:
       matrix:
         sdk:
           - stable
+        flutter-version:
+          - ""
+          # Minimum supported version
+          - "3.3.0"
     steps:
       - name: Git Checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
@@ -35,10 +39,15 @@ jobs:
       - name: Setup aft
         run: flutter pub global activate -spath packages/aft
 
+      - name: Update constraints
+        if: matrix.flutter-version == '3.3.0'
+        shell: bash
+        run: aft --config=aft.legacy.yaml constraints apply --exclude=aft
+
       - name: Bootstrap
         id: bootstrap
-        timeout-minutes: 10
-        run: aft bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success'"
@@ -72,6 +81,6 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
-        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true'"
+        if: "always() && steps.bootstrap.conclusion == 'success' && steps.testCheck.outputs.hasTests == 'true' && matrix.flutter-version != '3.3.0'"
         run: flutter test
         working-directory: ${{ inputs.working-directory }}

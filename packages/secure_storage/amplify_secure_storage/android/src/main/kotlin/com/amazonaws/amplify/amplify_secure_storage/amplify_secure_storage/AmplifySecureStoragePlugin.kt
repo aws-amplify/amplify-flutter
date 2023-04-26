@@ -4,7 +4,6 @@
 package com.amazonaws.amplify.amplify_secure_storage.amplify_secure_storage
 
 import android.content.Context
-import androidx.annotation.NonNull
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
@@ -18,12 +17,12 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
    */
   private val repositories = mutableMapOf<String, EncryptedKeyValueRepository>()
 
-  override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     context = binding.applicationContext
     Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, this)
   }
 
-  override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, null)
   }
 

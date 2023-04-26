@@ -18,7 +18,7 @@ jobs:
       matrix:
         sdk:
           # Minimum supported Dart version
-          - '2.18.0'
+          - "2.18.0"
           - stable
     steps:
       - name: Cache Pub dependencies
@@ -54,8 +54,8 @@ jobs:
 
       - name: Bootstrap
         id: bootstrap
-        timeout-minutes: 10
-        run: aft bootstrap
+        timeout-minutes: 20
+        run: aft bootstrap --fail-fast
 
       - name: Check Formatting
         if: "always() && steps.bootstrap.conclusion == 'success' && matrix.sdk == 'stable'"

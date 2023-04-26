@@ -5,7 +5,6 @@ package com.amazonaws.amplify.exception
 
 import android.os.Handler
 import android.os.Looper
-import androidx.annotation.NonNull
 import com.amplifyframework.AmplifyException
 import com.amplifyframework.core.Amplify
 import com.google.gson.GsonBuilder
@@ -20,7 +19,7 @@ class ExceptionUtil {
     companion object {
         @JvmStatic
         fun postExceptionToFlutterChannel(
-            @NonNull result: Result,
+            result: Result,
             errorCode: String,
             details: Map<String, Any?>
         ) {
@@ -34,7 +33,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun createSerializedError(@NonNull e: AmplifyException): Map<String, Any?> {
+        fun createSerializedError(e: AmplifyException): Map<String, Any?> {
             val gsonBuilder = GsonBuilder()
             gsonBuilder.registerTypeAdapter(Throwable::class.java, ThrowableSerializer())
             val gson = gsonBuilder.create()
@@ -57,7 +56,7 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun createSerializedUnrecognizedError(@NonNull e: Exception): Map<String, Any?> {
+        fun createSerializedUnrecognizedError(e: Exception): Map<String, Any?> {
             return createSerializedError(ExceptionMessages.missingExceptionMessage, null, e.toString())
         }
 
@@ -78,13 +77,12 @@ class ExceptionUtil {
         }
 
         @JvmStatic
-        fun handleAddPluginException(@NonNull pluginName: String, @NonNull e: Exception, @NonNull flutterResult: Result) {
-            var errorDetails: Map<String, Any?>
+        fun handleAddPluginException(pluginName: String, e: Exception, flutterResult: Result) {
             var errorCode = pluginName + "Exception"
             if (e is Amplify.AlreadyConfiguredException) {
                 errorCode = "AmplifyAlreadyConfiguredException"
             }
-            errorDetails = when (e) {
+            val errorDetails: Map<String, Any?> = when (e) {
                 is AmplifyException -> createSerializedError(e)
                 else -> createSerializedUnrecognizedError(e)
             }

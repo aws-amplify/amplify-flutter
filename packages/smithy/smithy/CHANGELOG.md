@@ -1,3 +1,8 @@
+## 0.4.0+8
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+
 ## 0.4.0+7
 
 - Minor bug fixes and improvements

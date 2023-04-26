@@ -1,6 +1,6 @@
 name: smithy
 description: Smithy client runtime for Dart with common utilities for I/O and serialization.
-version: 0.4.0+7
+version: 0.4.0+8
 homepage: https://github.com/aws-amplify/amplify-flutter/tree/main
 repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/smithy/smithy
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
@@ -9,8 +9,8 @@ environment:
   sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
-  async: ^2.10.0
-  aws_common: ">=0.4.2+4 <0.5.0"
+  async: ^2.9.0
+  aws_common: ">=0.4.2+5 <0.5.0"
   built_collection: ^5.0.0
   built_value: ">=8.4.0 <8.5.0"
   collection: ^1.15.0

@@ -100,6 +100,8 @@ void main() {
       await signInPage.navigateToSignUp();
 
       final phoneNumber = generateUSPhoneNumber();
+      addTearDown(() => deleteUser(phoneNumber.toE164()));
+
       final password = generatePassword();
       final email = generateEmail();
 
@@ -146,6 +148,8 @@ void main() {
       await signInPage.navigateToSignUp();
 
       final phoneNumber = generateFrenchPhoneNumber();
+      addTearDown(() => deleteUser(phoneNumber.toE164()));
+
       final password = generatePassword();
       final email = generateEmail();
 

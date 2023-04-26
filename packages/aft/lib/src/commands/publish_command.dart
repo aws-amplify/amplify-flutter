@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:aft/aft.dart';
 import 'package:aft/src/options/glob_options.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:collection/collection.dart';
 import 'package:graphs/graphs.dart';
 import 'package:path/path.dart' as p;
 
@@ -57,8 +58,14 @@ class PublishCommand extends AmplifyCommand with GlobOptions {
 
     try {
       final versionInfo = await resolveVersionInfo(package.name);
-      final publishedVersion =
-          versionInfo?.latestPrerelease ?? versionInfo?.latestVersion;
+      final publishedVersion = maxBy(
+        [
+          if (versionInfo?.latestPrerelease != null)
+            versionInfo?.latestPrerelease!,
+          if (versionInfo?.latestVersion != null) versionInfo?.latestVersion!,
+        ],
+        (v) => v,
+      );
       if (publishedVersion == null) {
         logger.info('No published info for package ${package.name}');
         return package;
