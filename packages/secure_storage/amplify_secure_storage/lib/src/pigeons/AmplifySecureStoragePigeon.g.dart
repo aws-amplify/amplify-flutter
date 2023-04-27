@@ -11,11 +11,13 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
-class AmplifySecureStorageApi {
-  /// Constructor for [AmplifySecureStorageApi].  The [binaryMessenger] named argument is
+/// A pigeon for interacting with the native AmplifySecureStorage implementation
+/// on Android.
+class AmplifySecureStoragePigeon {
+  /// Constructor for [AmplifySecureStoragePigeon].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  AmplifySecureStorageApi({BinaryMessenger? binaryMessenger})
+  AmplifySecureStoragePigeon({BinaryMessenger? binaryMessenger})
       : _binaryMessenger = binaryMessenger;
   final BinaryMessenger? _binaryMessenger;
 
@@ -23,7 +25,7 @@ class AmplifySecureStorageApi {
 
   Future<String?> read(String arg_namespace, String arg_key) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.AmplifySecureStorageApi.read', codec,
+        'dev.flutter.pigeon.AmplifySecureStoragePigeon.read', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_namespace, arg_key]) as List<Object?>?;
@@ -46,7 +48,7 @@ class AmplifySecureStorageApi {
   Future<void> write(
       String arg_namespace, String arg_key, String? arg_value) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.AmplifySecureStorageApi.write', codec,
+        'dev.flutter.pigeon.AmplifySecureStoragePigeon.write', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList = await channel
         .send(<Object?>[arg_namespace, arg_key, arg_value]) as List<Object?>?;
@@ -68,7 +70,7 @@ class AmplifySecureStorageApi {
 
   Future<void> delete(String arg_namespace, String arg_key) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.AmplifySecureStorageApi.delete', codec,
+        'dev.flutter.pigeon.AmplifySecureStoragePigeon.delete', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_namespace, arg_key]) as List<Object?>?;
@@ -90,7 +92,7 @@ class AmplifySecureStorageApi {
 
   Future<void> removeAll(String arg_namespace) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.AmplifySecureStorageApi.removeAll', codec,
+        'dev.flutter.pigeon.AmplifySecureStoragePigeon.removeAll', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_namespace]) as List<Object?>?;

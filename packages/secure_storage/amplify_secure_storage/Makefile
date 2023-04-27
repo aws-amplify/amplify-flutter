@@ -1,13 +1,13 @@
 .PHONY: pigeons
-.PHONY: pigeons_android
+.PHONY: pigeons_secure_storage
 .PHONY: pigeons_ios
 .PHONY: pigeons_macos
 
-pigeons: pigeons_android pigeons_ios pigeons_macos
+pigeons: pigeons_secure_storage pigeons_ios pigeons_macos
 
-pigeons_android:
-	dart run pigeon --input pigeons/messages.android.dart
-	dart format --fix lib/src/messages.android.g.dart
+pigeons_secure_storage:
+	dart run pigeon --input pigeons/AmplifySecureStorage.dart
+	dart format --fix lib/src/pigeons/AmplifySecureStoragePigeon.g.dart
 
 pigeons_ios:
 	dart run pigeon --input pigeons/messages.ios.dart
