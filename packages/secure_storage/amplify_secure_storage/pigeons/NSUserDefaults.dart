@@ -9,14 +9,15 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/messages.cupertino.g.dart',
-    objcHeaderOut: '../amplify_secure_storage/ios/Classes/pigeons/Messages.h',
-    objcSourceOut: '../amplify_secure_storage/ios/Classes/pigeons/Messages.m',
+    dartOut: 'lib/src/pigeons/NSUserDefaultsPigeon.g.dart',
+    swiftOut: 'ios/Classes/pigeons/NSUserDefaultsPigeon.swift',
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
+
+/// A pigeon for interacting with the NSUserDefaults API on iOS and macOS.
 @HostApi()
-abstract class NSUserDefaultsAPI {
+abstract class NSUserDefaultsPigeon {
   @async
   @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   void setBool(String key, bool value);
