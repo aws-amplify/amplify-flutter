@@ -9,7 +9,7 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/pigeons/NSUserDefaultsPigeon.g.dart',
+    dartOut: 'lib/src/pigeons/ns_user_defaults_pigeon.g.dart',
     swiftOut: 'ios/Classes/pigeons/NSUserDefaultsPigeon.swift',
     copyrightHeader: 'pigeons/copyright.txt',
   ),

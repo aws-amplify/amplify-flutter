@@ -7,7 +7,7 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/pigeons/AmplifySecureStoragePigeon.g.dart',
+    dartOut: 'lib/src/pigeons/amplify_secure_storage_pigeon.g.dart',
     kotlinOut:
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_secure_storage/pigeons/AmplifySecureStoragePigeon.kt',
     copyrightHeader: 'pigeons/copyright.txt',

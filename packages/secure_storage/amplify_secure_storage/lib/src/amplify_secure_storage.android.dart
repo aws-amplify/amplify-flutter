@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:amplify_secure_storage/src/pigeons/AmplifySecureStoragePigeon.g.dart';
+import 'package:amplify_secure_storage/src/pigeons/amplify_secure_storage_pigeon.g.dart';
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 
 class AmplifySecureStorageAndroid extends AmplifySecureStorageInterface {

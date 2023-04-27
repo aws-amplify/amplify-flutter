@@ -6,7 +6,7 @@
 import 'dart:io';
 
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
-import 'package:amplify_secure_storage/src/pigeons/NSUserDefaultsPigeon.g.dart';
+import 'package:amplify_secure_storage/src/pigeons/ns_user_defaults_pigeon.g.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
