@@ -75,34 +75,6 @@ abstract class NativeAuthBridge {
   void clearLegacyCredentials();
 }
 
-class NativeAuthSession {
-  late bool isSignedIn;
-
-  String? userSub;
-  NativeUserPoolTokens? userPoolTokens;
-
-  String? identityId;
-  NativeAWSCredentials? awsCredentials;
-}
-
-class NativeAuthUser {
-  late String userId;
-  late String username;
-}
-
-class NativeUserPoolTokens {
-  late String accessToken;
-  late String refreshToken;
-  late String idToken;
-}
-
-class NativeAWSCredentials {
-  late String accessKeyId;
-  late String secretAccessKey;
-  String? sessionToken;
-  String? expirationIso8601Utc;
-}
-
 class LegacyCredentialStoreData {
   String? identityId;
   String? accessKeyId;
