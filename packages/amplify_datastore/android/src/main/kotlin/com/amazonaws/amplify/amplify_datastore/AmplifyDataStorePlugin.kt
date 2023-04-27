@@ -844,11 +844,7 @@ class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBr
     }
 
     override fun updateCurrentUser(user: NativeAuthUser?) {
-        currentUser = if (user != null) {
-            AuthUser(user.userId, user.username)
-        } else {
-            null
-        }
+        currentUser = user?.let { AuthUser(it.userId, it.username) }
     }
 
     override fun addApiPlugin(

@@ -67,4 +67,7 @@ addlicense -l apache \
     -ignore "**/windows/runner/**" \
     -ignore "**/windows/flutter/**" \
     -ignore "**/amplify/**" \
+    -ignore "**/*-Bridging-Header.h" \
+    -ignore "**/*Plugin.h" \
+    -ignore "**/*Plugin.m" \
     $@ $PWD
