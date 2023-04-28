@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@aws-cdk/aws-cognito-identitypool-alpha':
+    specifier: 2.77.0-alpha.0
+    version: 2.77.0-alpha.0(aws-cdk-lib@2.77.0)(constructs@10.2.9)
   '@aws-crypto/client-node':
     specifier: ^3.2.0
     version: 3.2.0
@@ -75,6 +78,17 @@ packages:
 
   /@aws-cdk/asset-node-proxy-agent-v5@2.0.129:
     resolution: {integrity: sha512-CVoB2u0wI0cK2JyWWiKLIYBMF+RUG1o5mHidF/lXtVSzvHFYPxAFjZVz9XYg2tZSMaV6QVNijy4Z6ljp9/tRhg==}
+    dev: false
+
+  /@aws-cdk/aws-cognito-identitypool-alpha@2.77.0-alpha.0(aws-cdk-lib@2.77.0)(constructs@10.2.9):
+    resolution: {integrity: sha512-LB7TBZxWEwBlKTHMENoWHujSVEFEZubyYXM7MO7DAP0921zpeiKVdHk/bMqPe31QIn6UqpeO/lJqvvUK3l05OQ==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      aws-cdk-lib: 2.77.0
+      constructs: ^10.0.0
+    dependencies:
+      aws-cdk-lib: 2.77.0(constructs@10.2.9)
+      constructs: 10.2.9
     dev: false
 
   /@aws-crypto/cache-material@3.2.0:
