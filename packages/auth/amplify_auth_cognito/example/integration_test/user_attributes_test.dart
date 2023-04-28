@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
 
 extension on List<AuthUserAttribute> {
   String? valueOf(AuthUserAttributeKey authUserAttributeKey) =>
@@ -19,7 +18,7 @@ extension on List<AuthUserAttribute> {
 }
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('User Attributes', () {
     for (final environmentName in userPoolEnvironments) {
@@ -31,8 +30,8 @@ void main() {
         late String name;
 
         setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments[environmentName]!,
+          await testRunner.configure(
+            environmentName: environmentName,
           );
 
           username = generateUsername();

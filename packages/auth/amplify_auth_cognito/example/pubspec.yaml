@@ -26,6 +26,7 @@ dev_dependencies:
   amplify_auth_cognito_dart: any
   amplify_auth_cognito_test: any
   amplify_integration_test: any
+  amplify_auth_integration_test: any
   amplify_lints:
     path: ../../../amplify_lints
   async: ^2.10.0

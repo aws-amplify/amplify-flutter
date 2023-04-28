@@ -13,7 +13,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
@@ -24,14 +23,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 // ignore: implementation_imports
 import 'package:webview_flutter_wkwebview/src/foundation/foundation.dart';
 
-import 'utils/setup_utils.dart';
+import 'test_runner.dart';
 
 final AWSLogger _logger = AWSLogger().createChild('HostedUI');
 
 // This test verifies the non-native logic of the Hosted UI flow on iOS and
 // Android using an embedded WebView.
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group(
     'Hosted UI',
@@ -42,8 +41,8 @@ void main() {
       late String password;
 
       setUp(() async {
-        await configureAuth(
-          config: amplifyEnvironments['hosted-ui']!,
+        await testRunner.configure(
+          environmentName: 'hosted-ui',
         );
         plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
         stateMachine = plugin.stateMachine;

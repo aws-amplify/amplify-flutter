@@ -6,13 +6,13 @@ import 'dart:io';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'utils/test_utils.dart';
 import 'utils/validation_utils.dart';
 
 final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
