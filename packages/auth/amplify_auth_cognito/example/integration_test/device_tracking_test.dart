@@ -119,13 +119,13 @@ void main() {
     for (final environmentName in deviceOptInEnvironments) {
       group('Opt-In', () {
         group(environmentName, () {
-          setUpAll(() async {
+          setUp(() async {
             await testRunner.configure(
               environmentName: environmentName,
             );
-          });
 
-          setUp(signIn);
+            await signIn();
+          });
 
           asyncTest('device is not automatically remembered', (_) async {
             expect(await getDeviceState(), DeviceState.tracked);
@@ -177,13 +177,13 @@ void main() {
     group(
       'Opt-In (MFA)',
       () {
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: 'device-tracking-opt-in',
           );
-        });
 
-        setUp(() => signIn(enableMfa: true));
+          await signIn(enableMfa: true);
+        });
 
         asyncTest('cannot bypass MFA when device is not remembered', (_) async {
           await signOutUser();
@@ -228,13 +228,13 @@ void main() {
     );
 
     group('Always', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'device-tracking-always',
         );
-      });
 
-      setUp(signIn);
+        await signIn();
+      });
 
       asyncTest('device is automatically remembered', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
@@ -275,13 +275,13 @@ void main() {
     });
 
     group('Always (MFA)', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'device-tracking-always',
         );
-      });
 
-      setUp(() => signIn(enableMfa: true));
+        await signIn(enableMfa: true);
+      });
 
       asyncTest('can bypass MFA when device is always remembered', (_) async {
         await signOutUser();
@@ -310,13 +310,13 @@ void main() {
     });
 
     group('Always (Email Alias)', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'device-tracking-email-alias',
         );
-      });
 
-      setUp(() => signIn(emailAlias: true));
+        await signIn(emailAlias: true);
+      });
 
       asyncTest('device is automatically remembered', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);
@@ -357,13 +357,13 @@ void main() {
     });
 
     group('Always (Email Alias / MFA)', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'device-tracking-email-alias',
         );
-      });
 
-      setUp(() => signIn(emailAlias: true, enableMfa: true));
+        await signIn(emailAlias: true, enableMfa: true);
+      });
 
       asyncTest('device is automatically remembered', (_) async {
         expect(await getDeviceState(), DeviceState.remembered);

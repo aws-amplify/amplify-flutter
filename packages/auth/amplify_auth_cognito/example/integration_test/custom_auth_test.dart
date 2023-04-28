@@ -28,15 +28,11 @@ void main() {
         ),
       );
 
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'custom-auth-without-srp',
         );
-      });
 
-      tearDownAll(Amplify.reset);
-
-      setUp(() async {
         username = generateUsername();
         password = generatePassword();
 
@@ -257,15 +253,11 @@ void main() {
         ),
       );
 
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'custom-auth-with-srp',
         );
-      });
 
-      tearDownAll(Amplify.reset);
-
-      setUp(() async {
         username = generateUsername();
         password = generatePassword();
 

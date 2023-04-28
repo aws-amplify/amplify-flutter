@@ -18,14 +18,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
 
+AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
+      AmplifyAuthCognito.pluginKey,
+    );
+
 void main() {
   testRunner.setupTests();
 
   group('federateToIdentityPool', () {
-    late final cognitoPlugin = Amplify.Auth.getPlugin(
-      AmplifyAuthCognito.pluginKey,
-    );
-
     // We test federated sign-in using Cognito. The combination of calling
     // `federateWithIdentityPool` with `AuthProvider.custom` allows testing
     // the critical code paths related to federated sign-in, even though on
@@ -78,7 +78,7 @@ void main() {
       } catch (_) {}
     }
 
-    setUpAll(() async {
+    setUp(() async {
       await testRunner.configure();
       await adminCreateUser(
         username,
@@ -87,13 +87,6 @@ void main() {
         verifyAttributes: true,
       );
 
-      await clearFederation();
-      await signOutUser();
-    });
-
-    tearDownAll(Amplify.reset);
-
-    tearDown(() async {
       await clearFederation();
       await signOutUser();
     });

@@ -10,6 +10,7 @@ import 'package:amplify_auth_cognito/src/flows/hosted_ui/hosted_ui_platform_flut
 import 'package:amplify_auth_cognito/src/native_auth_plugin.g.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_test/amplify_auth_cognito_test.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -41,9 +42,7 @@ void main() {
         platform = HostedUiPlatformImpl(dependencyManager);
       });
 
-      tearDown(Amplify.reset);
-
-      test('signInWithUrl', () async {
+      asyncTest('signInWithUrl', (_) async {
         const options = CognitoSignInWithWebUIPluginOptions(
           isPreferPrivateSession: true,
           browserPackageName: browserPackage,
@@ -71,7 +70,7 @@ void main() {
         await platform.signIn(options: options);
       });
 
-      test('signOutWithUrl', () async {
+      asyncTest('signOutWithUrl', (_) async {
         const options = CognitoSignInWithWebUIPluginOptions(
           isPreferPrivateSession: true,
           browserPackageName: browserPackage,

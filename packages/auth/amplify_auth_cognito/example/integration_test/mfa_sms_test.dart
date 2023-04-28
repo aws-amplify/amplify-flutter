@@ -14,14 +14,8 @@ void main() {
   group(
     'MFA (SMS)',
     () {
-      setUpAll(() async {
-        await testRunner.configure();
-      });
-
-      tearDownAll(Amplify.reset);
-
       setUp(() async {
-        await signOutUser();
+        await testRunner.configure();
       });
 
       asyncTest('can sign in with SMS MFA', (_) async {

@@ -19,13 +19,11 @@ void main() {
         late String password;
         late OtpResult otpResult;
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );
-        });
 
-        setUp(() async {
           username = generateUsername();
           password = generatePassword();
 

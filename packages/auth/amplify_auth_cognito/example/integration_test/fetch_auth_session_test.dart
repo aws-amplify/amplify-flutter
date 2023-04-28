@@ -16,13 +16,13 @@ void main() {
   group('fetchAuthSession', () {
     group('unauthenticated access enabled', () {
       group('no user pool', () {
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: 'identity-pool-only',
           );
         });
 
-        test('allows retrieving credentials', () async {
+        asyncTest('allows retrieving credentials', (_) async {
           final session =
               await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
           expect(session.isSignedIn, isFalse);
@@ -42,7 +42,7 @@ void main() {
       group('with user pool', () {
         final username = generateUsername();
         final password = generatePassword();
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure();
 
           await adminCreateUser(
@@ -51,11 +51,7 @@ void main() {
             autoConfirm: true,
             verifyAttributes: true,
           );
-        });
 
-        tearDownAll(Amplify.reset);
-
-        setUp(() async {
           await signOutUser();
           final res = await Amplify.Auth.signIn(
             username: username,
@@ -108,7 +104,7 @@ void main() {
     });
 
     group('unauthenticated access disabled', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'authenticated-users-only',
         );
@@ -136,11 +132,11 @@ void main() {
         );
       }
 
-      test('prevents retrieving unauthenticated credentials', () async {
+      asyncTest('prevents retrieving unauthenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
       });
 
-      test('allows retrieving authenticated credentials', () async {
+      asyncTest('allows retrieving authenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
 
         final username = generateUsername();
@@ -186,13 +182,11 @@ void main() {
     });
 
     group('user pool-only', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'user-pool-only',
         );
       });
-
-      tearDown(signOutUser);
 
       Future<void> retrieveUnauthenticatedCredentials() async {
         final session =
@@ -216,11 +210,11 @@ void main() {
         );
       }
 
-      test('prevents retrieving unauthenticated credentials', () async {
+      asyncTest('prevents retrieving unauthenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
       });
 
-      test('prevents retrieving authenticated credentials', () async {
+      asyncTest('prevents retrieving authenticated credentials', (_) async {
         await retrieveUnauthenticatedCredentials();
 
         final username = generateUsername();
@@ -277,7 +271,7 @@ void main() {
           return idToken.claims.customClaims;
         }
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );

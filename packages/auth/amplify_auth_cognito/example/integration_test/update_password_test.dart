@@ -18,13 +18,11 @@ void main() {
         late String username;
         late String password;
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );
-        });
 
-        setUp(() async {
           username = generateUsername();
           password = generatePassword();
 
