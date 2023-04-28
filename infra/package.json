@@ -12,12 +12,12 @@
     "destroy": "cdk destroy --profile=${AWS_PROFILE:=default}"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.112",
-    "@types/babel__traverse": "^7.18.3",
+    "@types/aws-lambda": "^8.10.114",
+    "@types/babel__traverse": "^7.18.5",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.16",
-    "@types/prettier": "2.6.0",
-    "aws-cdk": "2.69.0",
+    "@types/node": "^18.16.2",
+    "@types/prettier": "^2.7.2",
+    "aws-cdk": "2.77.0",
     "esbuild": "^0.15.18",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.5",
@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@aws-crypto/client-node": "^3.2.0",
-    "@aws-sdk/client-cognito-identity-provider": "^3.290.0",
-    "aws-cdk-lib": "2.69.0",
-    "constructs": "^10.1.277",
+    "@aws-sdk/client-cognito-identity-provider": "^3.321.1",
+    "aws-cdk-lib": "2.77.0",
+    "constructs": "^10.2.9",
     "node-fetch": "^3.3.1",
     "source-map-support": "^0.5.21"
   }
