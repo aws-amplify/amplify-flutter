@@ -8,32 +8,26 @@ import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group('sign-in-sms-mfa', () {
     late PhoneNumber phoneNumber;
     late String password;
 
     // Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa.feature"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-phone',
       );
-    });
 
-    setUp(() async {
       phoneNumber = generateUSPhoneNumber();
       password = generatePassword();
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         phoneNumber.toE164(),
         password,
         autoConfirm: true,
@@ -46,10 +40,7 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
     });
-
-    tearDown(signOut);
 
     // Scenario: Sign in using a valid phone number and SMS MFA
     testWidgets('Sign in using a valid phone number and SMS MFA',

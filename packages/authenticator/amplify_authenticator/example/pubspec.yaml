@@ -38,6 +38,7 @@ dependencies:
 
 dev_dependencies:
   amplify_api: ">=1.0.0-next.8 <1.0.0-next.9"
+  amplify_auth_integration_test: any
   amplify_authenticator_test:
     path: ../../amplify_authenticator_test
   amplify_integration_test:
