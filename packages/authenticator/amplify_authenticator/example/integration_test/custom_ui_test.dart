@@ -7,15 +7,12 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   final authenticator = Authenticator(
     authenticatorBuilder: (context, state) {
@@ -56,19 +53,17 @@ void main() {
 
   group('custom ui', () {
     // Given I'm running the example "ui/components/authenticator/sign-in-with-email.feature"
-    setUpAll(() async {
-      await loadConfiguration(
+    setUp(() async {
+      await testRunner.configure(
         environmentName: 'sign-in-with-email',
       );
     });
-
-    tearDown(signOut);
 
     // Scenario: Sign in then sign out
     testWidgets('Sign in then sign out', (tester) async {
       final username = generateEmail();
       final password = generatePassword();
-      final cognitoUsername = await adminCreateUser(
+      await adminCreateUser(
         username,
         password,
         autoConfirm: true,
@@ -80,7 +75,6 @@ void main() {
           ),
         ],
       );
-      addTearDown(() => deleteUser(cognitoUsername));
 
       await loadAuthenticator(tester: tester, authenticator: authenticator);
 

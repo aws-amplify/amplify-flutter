@@ -34,7 +34,7 @@ class AuthTestRunner {
   /// Initializes the testing framework.
   void setupTests() {
     AWSLogger().logLevel = LogLevel.verbose;
-    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+    final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     // Required demangler since we use `package:stack_trace` in Auth code
     // but flutter_test expects normal stack traces.
     FlutterError.demangleStackTrace = (StackTrace stack) {
@@ -46,6 +46,8 @@ class AuthTestRunner {
       }
       return stack;
     };
+    // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
+    binding.deferFirstFrame();
   }
 
   /// Configures Amplify for the given [environmentName].
@@ -69,11 +71,12 @@ class AuthTestRunner {
         ),
     ]);
     await Amplify.configure(config);
+    await Amplify.Auth.signOut();
     addTearDown(
       Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey).close,
     );
     addTearDown(Amplify.reset);
-    addTearDown(signOutUser);
+    addTearDown(deleteTestUser);
   }
 
   /// Whether a test for [environmentName] should be skipped.
@@ -92,4 +95,14 @@ Future<void> signOutUser() async {
   } on Exception {
     // Ignore a signOut error because we only care when someone signed in.
   }
+}
+
+/// Deletes the user created in the running test.
+Future<void> deleteTestUser() async {
+  try {
+    await Amplify.Auth.deleteUser();
+  } on Object {
+    // OK
+  }
+  await signOutUser();
 }

@@ -2,36 +2,29 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator_test/amplify_authenticator_test.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
-import 'config.dart';
+import 'test_runner.dart';
 import 'utils/test_utils.dart';
 
 // This test follows the Amplify UI feature "sign-up-with-email-with-lambda-trigger"
 // https://github.com/aws-amplify/amplify-ui/blob/main/packages/e2e/features/ui/components/authenticator/sign-up-with-email-with-lambda-trigger.feature
 
 void main() {
-  AWSLogger().logLevel = LogLevel.verbose;
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  // resolves issue on iOS. See: https://github.com/flutter/flutter/issues/89651
-  binding.deferFirstFrame();
+  testRunner.setupTests();
 
   group(
     'Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmation',
     () {
       // Background
-      setUpAll(() async {
+      setUp(() async {
         // Given I'm running the example
         // "ui/components/authenticator/sign-up-with-email-lambda"
-        await loadConfiguration(
+        await testRunner.configure(
           environmentName: 'sign-in-with-email-lambda-trigger',
         );
       });
-
-      tearDown(deleteTestUser);
 
       // Scenario: Login mechanism set to "email"
       testWidgets(
@@ -84,8 +77,6 @@ void main() {
           final po = SignUpPage(tester: tester);
 
           final username = generateEmail();
-          addTearDown(() => deleteUser(username));
-
           final password = generatePassword();
 
           // When I type a new "email"
