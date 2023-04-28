@@ -23,7 +23,7 @@ let created: QueryField = field("created")
 var eventSentExp: XCTestExpectation?
 
 class DataStorePluginUnitTests: XCTestCase {
-    var pluginUnderTest: SwiftAmplifyDataStorePlugin = .init()
+    var pluginUnderTest: SwiftAmplifyDataStorePlugin = .init(binaryMessenger: binaryMessenger)
     var modelSchemaRegistry = FlutterSchemaRegistry()
     var customTypeSchemaRegistry = FlutterSchemaRegistry()
 
@@ -64,7 +64,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
         pluginUnderTest.onQuery(
             args: try readJsonMap(filePath: "model_name_with_all_query_parameters") as [String: Any],
             flutterResult: { results in
@@ -108,7 +108,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
         pluginUnderTest.onQuery(
             args: try readJsonMap(filePath: "only_model_name") as [String: Any],
             flutterResult: { results in
@@ -141,7 +141,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onDelete(
             args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
@@ -168,7 +168,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onDelete(
             args: try readJsonMap(filePath: "instance_no_predicate") as [String: Any],
@@ -211,7 +211,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge = MockDataStoreBridge()
         let streamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
             XCTAssertTrue(result as! Bool)
@@ -251,7 +251,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge = MockDataStoreBridge()
         let streamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
             XCTAssertTrue(result as! Bool)
@@ -288,7 +288,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge = MockDataStoreBridge()
         let streamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
             XCTAssertTrue(result as! Bool)
@@ -316,7 +316,7 @@ class DataStorePluginUnitTests: XCTestCase {
         let dataStoreBridge = MockDataStoreBridge()
         let streamHandler = MockStreamHandler()
 
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, dataStoreObserveEventStreamHandler: streamHandler, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSetUpObserve(flutterResult: { result in
             XCTAssertFalse(result as! Bool)
@@ -333,7 +333,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onClear(
             flutterResult: {result in
@@ -352,7 +352,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onClear(
             flutterResult: { result in
@@ -377,7 +377,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onStart(
             flutterResult: {result in
@@ -394,7 +394,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onStart(
             flutterResult: { result in
@@ -419,7 +419,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onStop(
             flutterResult: {result in
@@ -436,7 +436,7 @@ class DataStorePluginUnitTests: XCTestCase {
             }
         }
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onStop(
             flutterResult: { result in
@@ -471,7 +471,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSave(
             args: testArgs,
@@ -499,7 +499,7 @@ class DataStorePluginUnitTests: XCTestCase {
         }
 
         let dataStoreBridge = MockDataStoreBridge()
-        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+        pluginUnderTest = SwiftAmplifyDataStorePlugin(bridge: dataStoreBridge, modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSave(
             args: testArgs,
@@ -518,7 +518,7 @@ class DataStorePluginUnitTests: XCTestCase {
 
     func test_save_with_malformed_error() throws {
         pluginUnderTest = SwiftAmplifyDataStorePlugin(
-            bridge: DataStoreBridge(), modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry)
+            bridge: DataStoreBridge(), modelSchemaRegistry: modelSchemaRegistry, customTypeSchemasRegistry: customTypeSchemaRegistry, binaryMessenger: binaryMessenger)
 
         pluginUnderTest.onSave(
             args: [:],

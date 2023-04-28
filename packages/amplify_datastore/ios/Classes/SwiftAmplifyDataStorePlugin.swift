@@ -17,43 +17,46 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     private let dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler?
     private var channel: FlutterMethodChannel?
     private var observeSubscription: AnyCancellable?
-    private static var nativeAuthPlugin: NativeAuthPlugin?
-    static var nativeApiPlugin: NativeApiPlugin?
-    private var cognitoPlugin: CognitoPlugin?
+    private let nativeAuthPlugin: NativeAuthPlugin
+    private let nativeApiPlugin: NativeApiPlugin
+    private let cognitoPlugin: CognitoPlugin
     
 
     init(bridge: DataStoreBridge = DataStoreBridge(),
          modelSchemaRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          customTypeSchemasRegistry: FlutterSchemaRegistry = FlutterSchemaRegistry(),
          dataStoreObserveEventStreamHandler: DataStoreObserveEventStreamHandler = DataStoreObserveEventStreamHandler(),
-         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler())
+         dataStoreHubEventStreamHandler: DataStoreHubEventStreamHandler = DataStoreHubEventStreamHandler(),
+         binaryMessenger: FlutterBinaryMessenger)
     {
         self.bridge = bridge
         self.modelSchemaRegistry = modelSchemaRegistry
         self.customTypeSchemaRegistry = customTypeSchemasRegistry
         self.dataStoreObserveEventStreamHandler = dataStoreObserveEventStreamHandler
         self.dataStoreHubEventStreamHandler = dataStoreHubEventStreamHandler
+        nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: binaryMessenger)
+        cognitoPlugin = CognitoPlugin(nativeAuthPlugin: nativeAuthPlugin)
+        nativeApiPlugin = NativeApiPlugin(binaryMessenger: binaryMessenger)
     }
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let instance = SwiftAmplifyDataStorePlugin()
-        let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: registrar.messenger())
-        let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: registrar.messenger())
-        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: registrar.messenger())
+        let binaryMessenger = registrar.messenger()
+        let instance = SwiftAmplifyDataStorePlugin(binaryMessenger: binaryMessenger)
+        let observeChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_observe_events", binaryMessenger: binaryMessenger)
+        let hubChannel = FlutterEventChannel(name: "com.amazonaws.amplify/datastore_hub_events", binaryMessenger: binaryMessenger)
+        instance.channel = FlutterMethodChannel(name: "com.amazonaws.amplify/datastore", binaryMessenger: binaryMessenger)
         observeChannel.setStreamHandler(instance.dataStoreObserveEventStreamHandler)
         hubChannel.setStreamHandler(instance.dataStoreHubEventStreamHandler)
         registrar.addMethodCallDelegate(instance, channel: instance.channel!)
-        nativeAuthPlugin = NativeAuthPlugin(binaryMessenger: registrar.messenger())
-        NativeAuthBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
-        nativeApiPlugin = NativeApiPlugin(binaryMessenger: registrar.messenger())
-        NativeApiBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
-        NativeAmplifyBridgeSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
+        NativeAuthBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
+        NativeApiBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
+        NativeAmplifyBridgeSetup.setUp(binaryMessenger: binaryMessenger, api: instance)
     }
     
     func addAuthPlugin(completion: @escaping (Result<Void, Error>) -> Void) {
         do {
-            cognitoPlugin = CognitoPlugin(nativeAuthPlugin: SwiftAmplifyDataStorePlugin.nativeAuthPlugin!)
-            try Amplify.add(plugin: cognitoPlugin!)
+            
+            try Amplify.add(plugin: cognitoPlugin)
             return completion(.success(()))
         } catch let configError as ConfigurationError {
             var errorCode = "AuthException"
@@ -87,7 +90,12 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
             }
             try Amplify.add(
                 plugin: AWSAPIPlugin(
-                    apiAuthProviderFactory: FlutterAuthProviders(authProviders)))
+                    apiAuthProviderFactory: FlutterAuthProviders(
+                        authProviders: authProviders,
+                        nativeApiPlugin: nativeApiPlugin
+                    )
+                )
+            )
             return completion(.success(()))
         } catch let apiError as APIError {
             let flutterError = FlutterError(
@@ -193,7 +201,7 @@ public class SwiftAmplifyDataStorePlugin: NSObject, FlutterPlugin, NativeAmplify
     
 
     func updateCurrentUser(user: NativeAuthUser?) throws {
-        cognitoPlugin!.currentUser = user
+        cognitoPlugin.currentUser = user
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
