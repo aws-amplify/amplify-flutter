@@ -12,19 +12,20 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'test_runner.dart';
 
+AmplifyAuthCognito get cognitoPlugin => Amplify.Auth.getPlugin(
+      AmplifyAuthCognito.pluginKey,
+    );
+
 void main() {
   testRunner.setupTests();
 
   group('signOut', () {
     for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
-        late final cognitoPlugin = Amplify.Auth.getPlugin(
-          AmplifyAuthCognito.pluginKey,
-        );
         late String username;
         late String password;
-        late final AWSHttpClient client;
-        late final cognito_idp.CognitoIdentityProviderClient cognitoClient;
+        late AWSHttpClient client;
+        late cognito_idp.CognitoIdentityProviderClient cognitoClient;
 
         Future<void> check(String accessToken, {required bool isValid}) async {
           await expectLater(
@@ -37,7 +38,7 @@ void main() {
           );
         }
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );
@@ -50,9 +51,7 @@ void main() {
             region: authConfig.region,
           );
           addTearDown(client.close);
-        });
 
-        setUp(() async {
           await signOutUser();
 
           username = generateUsername();

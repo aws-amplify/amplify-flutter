@@ -11,14 +11,14 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:amplify_native_legacy_wrapper/amplify_native_legacy_wrapper.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
 
+import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
 final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  testRunner.setupTests();
 
   group(
     'should migrate a user session from the legacy plugin',
@@ -26,9 +26,9 @@ void main() {
     () {
       final legacyPlugin = AmplifyNativeLegacyWrapper();
 
-      late final String username;
-      late final String cognitoUsername;
-      late final String password;
+      late String username;
+      late String cognitoUsername;
+      late String password;
 
       setUp(() async {
         // configure Amplify and legacy plugin, and ensure no users are signed in.
@@ -80,7 +80,7 @@ Future<void> configureAmplify(String config) async {
   if (Amplify.isConfigured) {
     await Amplify.reset();
   }
-  await Amplify.addPlugins([AmplifyAPI(), AmplifyAuthCognito()]);
+  await Amplify.addPlugins([AmplifyAPI(), AmplifyAuthTestPlugin()]);
   await Amplify.configure(config);
 }
 

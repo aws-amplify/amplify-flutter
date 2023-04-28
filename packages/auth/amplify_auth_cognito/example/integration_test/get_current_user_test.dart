@@ -20,7 +20,7 @@ void main() {
           final username = generateUsername();
           final password = generatePassword();
 
-          setUpAll(() async {
+          setUp(() async {
             await testRunner.configure(
               environmentName: environmentName,
             );
@@ -31,9 +31,6 @@ void main() {
               autoConfirm: true,
               verifyAttributes: true,
             );
-          });
-
-          setUp(() async {
             await signOutUser();
             await Amplify.Auth.signIn(
               username: username,
@@ -76,15 +73,11 @@ void main() {
         late String username;
         late String password;
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: 'sign-in-with-phone',
           );
-        });
 
-        tearDownAll(Amplify.reset);
-
-        setUp(() async {
           username = generatePhoneNumber();
           password = generatePassword();
           final cognitoUsername = await adminCreateUser(

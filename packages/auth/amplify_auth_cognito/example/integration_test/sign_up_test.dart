@@ -15,7 +15,7 @@ void main() {
   group('signUp', () {
     for (final environmentName in userPoolEnvironments) {
       group(environmentName, () {
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );
@@ -121,7 +121,7 @@ void main() {
     }
 
     group('identity pool-only', () {
-      setUpAll(() async {
+      setUp(() async {
         await testRunner.configure(
           environmentName: 'identity-pool-only',
         );

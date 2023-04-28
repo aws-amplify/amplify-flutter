@@ -18,7 +18,7 @@ void main() {
     final username = generateUsername();
     final password = generatePassword();
 
-    setUpAll(() async {
+    setUp(() async {
       await testRunner.configure();
 
       await adminCreateUser(
@@ -30,8 +30,6 @@ void main() {
 
       await signOutUser();
     });
-
-    tearDownAll(Amplify.reset);
 
     Matcher hasEventName(String name) =>
         isA<AuthHubEvent>().having((e) => e.eventName, 'eventName', name);

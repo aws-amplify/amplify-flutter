@@ -17,7 +17,7 @@ void main() {
     () {
       for (final environmentName in userPoolEnvironments) {
         group(environmentName, () {
-          setUpAll(() async {
+          setUp(() async {
             await testRunner.configure(
               environmentName: environmentName,
             );

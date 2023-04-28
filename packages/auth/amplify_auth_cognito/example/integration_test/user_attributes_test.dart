@@ -29,7 +29,7 @@ void main() {
         late String phoneNumber;
         late String name;
 
-        setUpAll(() async {
+        setUp(() async {
           await testRunner.configure(
             environmentName: environmentName,
           );
