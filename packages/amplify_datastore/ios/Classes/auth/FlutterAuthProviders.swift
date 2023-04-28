@@ -11,9 +11,11 @@ import Flutter
 class FlutterAuthProviders: APIAuthProviderFactory {
     /// Thread to perform wait activities on.
     private static let queue = DispatchQueue(label: "FlutterAuthProviders")
+    
+    private var nativeApiPlugin: NativeApiPlugin
 
     /// Retrieves the latest token for `type` by calling into Flutter via the plugin's method channel.
-    static func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
+    func getToken(for type: AWSAuthorizationType) -> Result<String, Error> {
         
         let unknownError: Result<String, Error> = .failure(
             APIError.unknown("Token could not be retrieved",
@@ -27,11 +29,11 @@ class FlutterAuthProviders: APIAuthProviderFactory {
         }
 
         var token: Result<String, Error>?
-        queue.sync {
+        FlutterAuthProviders.queue.sync {
             let completer = DispatchSemaphore(value: 0)
 
             DispatchQueue.main.async {
-                SwiftAmplifyDataStorePlugin.nativeApiPlugin!.getLatestAuthToken(providerName: type.rawValue) { resultToken in
+                self.nativeApiPlugin.getLatestAuthToken(providerName: type.rawValue) { resultToken in
                     defer { completer.signal() }
                     
                     if let resultToken = resultToken {
@@ -64,30 +66,32 @@ class FlutterAuthProviders: APIAuthProviderFactory {
 
     private let authProviders: Set<AWSAuthorizationType>
 
-    init(_ authProviders: [AWSAuthorizationType]) {
+    init(authProviders: [AWSAuthorizationType], nativeApiPlugin: NativeApiPlugin) {
         self.authProviders = Set(authProviders)
+        self.nativeApiPlugin = nativeApiPlugin
     }
 
     override func oidcAuthProvider() -> AmplifyOIDCAuthProvider? {
         guard authProviders.contains(.openIDConnect) else {
             return nil
         }
-        return FlutterAuthProvider(type: .openIDConnect)
+        return FlutterAuthProvider(flutterAuthProviders: self, type: .openIDConnect)
     }
 
     override func functionAuthProvider() -> AmplifyFunctionAuthProvider? {
         guard authProviders.contains(.function) else {
             return nil
         }
-        return FlutterAuthProvider(type: .function)
+        return FlutterAuthProvider(flutterAuthProviders: self, type: .function)
     }
 }
 
 /// A provider which manages token retrieval for its [AWSAuthorizationType].
 struct FlutterAuthProvider: AmplifyOIDCAuthProvider, AmplifyFunctionAuthProvider {
+    let flutterAuthProviders: FlutterAuthProviders
     let type: AWSAuthorizationType
 
     func getLatestAuthToken() -> Result<String, Error> {
-        return FlutterAuthProviders.getToken(for: type)
+        return flutterAuthProviders.getToken(for: type)
     }
 }
