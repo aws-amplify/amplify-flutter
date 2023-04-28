@@ -32,13 +32,12 @@ void main() {
 
           otpResult = await getOtpCode(UserAttribute.username(username));
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             enableMfa: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final signInRes = await Amplify.Auth.signIn(
             username: username,
@@ -50,8 +49,6 @@ void main() {
             AuthSignInStep.confirmSignInWithNewPassword,
           );
         });
-
-        tearDown(signOutUser);
 
         asyncTest('confirming signs in user', (_) async {
           final newPassword = generatePassword();

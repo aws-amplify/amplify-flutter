@@ -15,8 +15,6 @@ void main() {
   initTests();
 
   group('fetchAuthSession', () {
-    tearDown(signOutUser);
-
     group('unauthenticated access enabled', () {
       group('no user pool', () {
         setUpAll(() async {
@@ -24,8 +22,6 @@ void main() {
             config: amplifyEnvironments['identity-pool-only']!,
           );
         });
-
-        tearDown(signOutUser);
 
         test('allows retrieving credentials', () async {
           final session =
@@ -119,8 +115,6 @@ void main() {
         );
       });
 
-      tearDown(signOutUser);
-
       Future<void> retrieveUnauthenticatedCredentials() async {
         final session =
             await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
@@ -153,13 +147,12 @@ void main() {
         final username = generateUsername();
         final password = generatePassword();
 
-        final cognitoUsername = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           verifyAttributes: true,
           autoConfirm: true,
         );
-        addTearDown(() => deleteUser(cognitoUsername));
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -234,13 +227,12 @@ void main() {
         final username = generateUsername();
         final password = generatePassword();
 
-        final cognitoUsername = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           verifyAttributes: true,
           autoConfirm: true,
         );
-        addTearDown(() => deleteUser(cognitoUsername));
 
         final signInRes = await Amplify.Auth.signIn(
           username: username,
@@ -296,13 +288,12 @@ void main() {
           final username = generateUsername();
           final password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final res = await Amplify.Auth.signIn(
             username: username,
@@ -339,7 +330,7 @@ void main() {
           final password = generatePassword();
           final originalEmail = generateEmail();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
@@ -351,7 +342,6 @@ void main() {
               ),
             ],
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final res = await Amplify.Auth.signIn(
             username: username,

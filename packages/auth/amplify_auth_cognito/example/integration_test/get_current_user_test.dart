@@ -26,13 +26,12 @@ void main() {
               config: amplifyEnvironments[environmentName]!,
             );
 
-            final cognitoUsername = await adminCreateUser(
+            await adminCreateUser(
               username,
               password,
               autoConfirm: true,
               verifyAttributes: true,
             );
-            addTearDown(() => deleteUser(cognitoUsername));
           });
 
           setUp(() async {
@@ -102,7 +101,6 @@ void main() {
               ),
             ],
           );
-          addTearDown(() => deleteUser(username));
 
           final code = await getOtpCode(
             UserAttribute.username(cognitoUsername),

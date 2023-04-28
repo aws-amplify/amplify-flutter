@@ -50,8 +50,6 @@ void main() {
         );
 
         final email = generateEmail();
-        addTearDown(() => deleteUser(email));
-
         final phoneNumber = generateUSPhoneNumber();
         final password = generatePassword();
 
@@ -126,7 +124,6 @@ void main() {
 
         // And I type my phone number as a username
         await signUpPage.enterUsername(phoneNumber.withOutCountryCode());
-        addTearDown(() => deleteUser(phoneNumber.toE164()));
 
         // And I type my password
         await signUpPage.enterPassword(password);

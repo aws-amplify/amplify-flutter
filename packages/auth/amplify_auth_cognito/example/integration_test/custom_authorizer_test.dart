@@ -49,15 +49,6 @@ void main() {
           group(supportedProtocols.name, () {
             late AWSHttpClient client;
 
-            Future<void> deleteAndSignOut() async {
-              try {
-                await Amplify.Auth.deleteUser();
-              } on Exception {
-                // no-op
-              }
-              await signOutUser();
-            }
-
             setUp(() async {
               client = AWSHttpClient()..supportedProtocols = supportedProtocols;
               addTearDown(client.close);
@@ -68,7 +59,7 @@ void main() {
                 ],
                 baseClient: client,
               );
-              addTearDown(deleteAndSignOut);
+              addTearDown(Amplify.Auth.deleteUser);
             });
 
             asyncTest('can invoke with HTTP client', (_) async {
@@ -212,7 +203,6 @@ void main() {
                     config: configJson,
                     baseClient: client,
                   );
-                  addTearDown(signOutUser);
                 });
 
                 asyncTest('can invoke with HTTP client', (_) async {

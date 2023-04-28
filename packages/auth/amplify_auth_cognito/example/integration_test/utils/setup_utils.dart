@@ -12,6 +12,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:stack_trace/stack_trace.dart';
 
+import 'test_auth_plugin.dart';
+
 /// Environments with a user pool and username-based sign in.
 const userPoolEnvironments = ['main', 'user-pool-only', 'with-client-secret'];
 
@@ -44,11 +46,7 @@ Future<void> configureAuth({
   List<APIAuthProvider> apiAuthProviders = const [],
   AWSHttpClient? baseClient,
 }) async {
-  final authPlugin = AmplifyAuthCognito(
-    secureStorageFactory: AmplifySecureStorage.factoryFrom(
-      macOSOptions: MacOSSecureStorageOptions(useDataProtection: false),
-    ),
-  );
+  final authPlugin = AmplifyAuthTestPlugin();
   final hasApiPlugin = AmplifyConfig.fromJson(
         jsonDecode(config) as Map<String, dynamic>,
       ).api?.awsPlugin !=
@@ -84,13 +82,4 @@ Future<void> signOutUser() async {
   } on Exception {
     // Ignore a signOut error because we only care when someone signed in.
   }
-}
-
-Future<void> deleteTestUser() async {
-  try {
-    await Amplify.Auth.deleteUser();
-  } on Object {
-    // OK
-  }
-  await signOutUser();
 }

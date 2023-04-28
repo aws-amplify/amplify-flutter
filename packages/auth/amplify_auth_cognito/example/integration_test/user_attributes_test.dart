@@ -41,7 +41,7 @@ void main() {
           phoneNumber = generatePhoneNumber();
           name = generateNameAttribute();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
@@ -61,7 +61,6 @@ void main() {
               )
             ],
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           final res = await Amplify.Auth.signIn(
             username: username,

@@ -49,11 +49,6 @@ void main() {
         );
       });
 
-      tearDown(() async {
-        await signOutUser();
-        await deleteUser(username);
-      });
-
       asyncTest(
         'signIn should return data from the auth challenge lambda',
         (_) async {
@@ -281,11 +276,6 @@ void main() {
           autoConfirm: true,
           verifyAttributes: true,
         );
-      });
-
-      tearDown(() async {
-        await signOutUser();
-        await deleteUser(username);
       });
 
       asyncTest(
