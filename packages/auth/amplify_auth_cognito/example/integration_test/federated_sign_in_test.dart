@@ -11,15 +11,15 @@ import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
 // ignore: invalid_use_of_internal_member
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('federateToIdentityPool', () {
     late final cognitoPlugin = Amplify.Auth.getPlugin(
@@ -79,7 +79,7 @@ void main() {
     }
 
     setUpAll(() async {
-      await configureAuth();
+      await testRunner.configure();
       await adminCreateUser(
         username,
         password,

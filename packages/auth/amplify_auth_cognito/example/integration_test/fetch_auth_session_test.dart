@@ -2,24 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
+import 'package:amplify_auth_integration_test/amplify_auth_integration_test.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'utils/setup_utils.dart';
-import 'utils/test_utils.dart';
+import 'test_runner.dart';
 import 'utils/validation_utils.dart';
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group('fetchAuthSession', () {
     group('unauthenticated access enabled', () {
       group('no user pool', () {
         setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments['identity-pool-only']!,
+          await testRunner.configure(
+            environmentName: 'identity-pool-only',
           );
         });
 
@@ -44,7 +43,7 @@ void main() {
         final username = generateUsername();
         final password = generatePassword();
         setUpAll(() async {
-          await configureAuth();
+          await testRunner.configure();
 
           await adminCreateUser(
             username,
@@ -110,8 +109,8 @@ void main() {
 
     group('unauthenticated access disabled', () {
       setUpAll(() async {
-        await configureAuth(
-          config: amplifyEnvironments['authenticated-users-only']!,
+        await testRunner.configure(
+          environmentName: 'authenticated-users-only',
         );
       });
 
@@ -188,8 +187,8 @@ void main() {
 
     group('user pool-only', () {
       setUpAll(() async {
-        await configureAuth(
-          config: amplifyEnvironments['user-pool-only']!,
+        await testRunner.configure(
+          environmentName: 'user-pool-only',
         );
       });
 
@@ -279,8 +278,8 @@ void main() {
         }
 
         setUpAll(() async {
-          await configureAuth(
-            config: amplifyEnvironments[environmentName]!,
+          await testRunner.configure(
+            environmentName: environmentName,
           );
         });
 

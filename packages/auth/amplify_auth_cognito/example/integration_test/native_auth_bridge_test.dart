@@ -15,10 +15,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
-import 'utils/setup_utils.dart';
+import 'test_runner.dart';
 
 void main() {
-  initTests();
+  testRunner.setupTests();
 
   group(
     'NativeAuthBridge',

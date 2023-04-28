@@ -7,15 +7,15 @@ import 'package:amplify_integration_test/amplify_integration_test.dart'
     as integ;
 import 'package:flutter_test/flutter_test.dart';
 
-import 'setup_utils.dart';
-
+/// {@template amplify_auth_integration_test.amplify_auth_test_plugin}
 /// A wrapper for [AmplifyAuthCognito] which automatically deletes users
-/// created using [signUp] and automatically signs out users which signed
-/// in during the test.
+/// created using [signUp].
 ///
 /// This prevents having to remember to manually delete users when creating them,
 /// which is error prone and can lead to elevated Cognito costs.
+/// {@endtemplate}
 class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
+  /// {@macro amplify_auth_integration_test.amplify_auth_test_plugin}
   AmplifyAuthTestPlugin()
       : super(
           secureStorageFactory: AmplifySecureStorage.factoryFrom(
@@ -31,24 +31,11 @@ class AmplifyAuthTestPlugin extends AmplifyAuthCognito {
   }) {
     addTearDown(
       () => integ.deleteUser(username).onError(
+            // This is expected in environments which do not have an admin GraphQL API.
             (e, st) => logger.debug('Error deleting user ($username):', e, st),
           ),
     );
     return super.signUp(
-      username: username,
-      password: password,
-      options: options,
-    );
-  }
-
-  @override
-  Future<CognitoSignInResult> signIn({
-    required String username,
-    String? password,
-    SignInOptions? options,
-  }) {
-    addTearDown(signOutUser);
-    return super.signIn(
       username: username,
       password: password,
       options: options,
