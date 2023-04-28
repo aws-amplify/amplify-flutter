@@ -50,18 +50,11 @@ void main() {
 
         username = generateUsername();
         password = generatePassword();
-        final cognitoUsername = await adminCreateUser(
+        await adminCreateUser(
           username,
           password,
           autoConfirm: true,
         );
-        addTearDown(() => deleteUser(cognitoUsername));
-
-        _logger.debug('Created user with username: $cognitoUsername');
-      });
-
-      tearDown(() async {
-        await Amplify.reset();
       });
 
       Future<void> signIn(WidgetTester tester) async {

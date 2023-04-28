@@ -29,13 +29,12 @@ void main() {
           username = generateUsername();
           password = generatePassword();
 
-          final cognitoUsername = await adminCreateUser(
+          await adminCreateUser(
             username,
             password,
             autoConfirm: true,
             verifyAttributes: true,
           );
-          addTearDown(() => deleteUser(cognitoUsername));
 
           await signOutUser();
 

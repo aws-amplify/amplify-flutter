@@ -84,15 +84,13 @@ Future<void> configureAmplify(String config) async {
   await Amplify.configure(config);
 }
 
-Future<String> createUser(String username, String password) async {
-  final cognitoUserName = await adminCreateUser(
+Future<String> createUser(String username, String password) {
+  return adminCreateUser(
     username,
     password,
     autoConfirm: true,
     verifyAttributes: true,
   );
-  addTearDown(() => deleteUser(cognitoUserName));
-  return cognitoUserName;
 }
 
 /// Clears the Amplify vLatest credential store, including the "version" key

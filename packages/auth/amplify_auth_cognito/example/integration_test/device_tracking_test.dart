@@ -86,7 +86,6 @@ void main() {
           );
         }
         addTearDown(() async {
-          await deleteUser(cognitoUsername);
           username = null;
           password = null;
         });

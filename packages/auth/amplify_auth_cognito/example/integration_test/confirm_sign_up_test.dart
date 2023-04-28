@@ -24,8 +24,6 @@ void main() {
             );
           });
 
-          tearDown(deleteTestUser);
-
           Future<void> signUpWithoutConfirming(
             String username,
             String password,
