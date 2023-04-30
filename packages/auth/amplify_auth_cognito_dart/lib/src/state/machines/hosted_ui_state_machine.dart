@@ -38,6 +38,9 @@ class HostedUiStateMachine
   /// The platform-specific behavior.
   late final HostedUiPlatform _platform = getOrCreate();
 
+  /// The configured identity pool.
+  CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
+
   @override
   Future<void> resolve(HostedUiEvent event) async {
     switch (event.type) {
@@ -192,6 +195,16 @@ class HostedUiStateMachine
         signInDetails: signInDetails,
       ),
     );
+
+    // Clear anonymous credentials, if there were any, and fetch authenticated
+    // credentials.
+    if (_identityPoolConfig != null) {
+      await manager.clearCredentials(
+        CognitoIdentityPoolKeys(_identityPoolConfig!),
+      );
+
+      await manager.loadSession();
+    }
 
     final idToken = event.tokens.idToken;
     final userId = idToken.userId;
