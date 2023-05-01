@@ -171,6 +171,28 @@ jobs:
         repoRelativePath: repoRelativePath,
       );
     }
+
+    // Check if workflow generation caused `git diff` to change.
+    if (setExitIfChanged) {
+      final gitDiff = await Process.start(
+        'git',
+        ['diff', '--relative', '--', '.github/workflows'],
+        workingDirectory: rootDir.path,
+      );
+
+      final gitDiffOutput = StringBuffer();
+      gitDiff
+        ..captureStdout()
+        ..captureStdout(sink: gitDiffOutput.write)
+        ..captureStderr()
+        ..captureStderr(sink: gitDiffOutput.write);
+      if (await gitDiff.exitCode != 0 || gitDiffOutput.isNotEmpty) {
+        logger
+          ..error('Workflows are not up to date.')
+          ..error('Run `aft generate workflows` to regenerate them.');
+        exit(1);
+      }
+    }
   }
 
   /// If a package has Android unit tests, generate a separate workflow for them.
@@ -343,13 +365,6 @@ jobs:
   void writeWorkflowFile(File workflowFile, String content) {
     if (!workflowFile.existsSync()) {
       workflowFile.createSync();
-    }
-    final currentContent = workflowFile.readAsStringSync();
-    if (currentContent != content && setExitIfChanged) {
-      logger
-        ..error('Workflows are not up to date.')
-        ..error('Run `aft generate workflows` to regenerate them.');
-      exit(1);
     }
     workflowFile.writeAsStringSync(content);
   }
