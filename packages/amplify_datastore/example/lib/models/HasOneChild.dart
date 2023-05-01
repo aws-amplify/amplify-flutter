@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -10,10 +22,11 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
-/// This is an auto generated class representing the HasOneChild type in your schema.
+
+/** This is an auto generated class representing the HasOneChild type in your schema. */
 @immutable
 class HasOneChild extends Model {
-  static const classType = _HasOneChildModelType();
+  static const classType = const _HasOneChildModelType();
   final String id;
   final String? _name;
   final TemporalDateTime? _createdAt;
@@ -21,161 +34,121 @@ class HasOneChild extends Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
   @override
-  String getId() => id;
-
-  HasOneChildModelIdentifier get modelIdentifier {
-    return HasOneChildModelIdentifier(id: id);
+  String getId() {
+    return id;
   }
-
+  
   String? get name {
     return _name;
   }
-
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const HasOneChild._internal({required this.id, name, createdAt, updatedAt})
-      : _name = name,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
+  
+  const HasOneChild._internal({required this.id, name, createdAt, updatedAt}): _name = name, _createdAt = createdAt, _updatedAt = updatedAt;
+  
   factory HasOneChild({String? id, String? name}) {
     return HasOneChild._internal(
-        id: id == null ? UUID.getUUID() : id, name: name);
+      id: id == null ? UUID.getUUID() : id,
+      name: name);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is HasOneChild && id == other.id && _name == other._name;
+    return other is HasOneChild &&
+      id == other.id &&
+      _name == other._name;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
-    var buffer = StringBuffer();
-
+    var buffer = new StringBuffer();
+    
     buffer.write("HasOneChild {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  HasOneChild copyWith({String? name}) {
-    return HasOneChild._internal(id: id, name: name ?? this.name);
+  
+  HasOneChild copyWith({String? id, String? name}) {
+    return HasOneChild._internal(
+      id: id ?? this.id,
+      name: name ?? this.name);
   }
-
-  HasOneChild.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _name = json['name'],
-        _createdAt = json['createdAt'] != null
-            ? TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  HasOneChild.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _name = json['name'],
+      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': _name,
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
+    'id': id, 'name': _name, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
+  Map<String, Object?> toMap() => {
+    'id': id, 'name': _name, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+  };
 
-  static final QueryModelIdentifier<HasOneChildModelIdentifier>
-      MODEL_IDENTIFIER = QueryModelIdentifier<HasOneChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
-  static var schema =
-      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "HasOneChild";
     modelSchemaDefinition.pluralName = "HasOneChildren";
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: HasOneChild.NAME,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
+      key: HasOneChild.NAME,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'createdAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
-
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-        fieldName: 'updatedAt',
-        isRequired: false,
-        isReadOnly: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
 class _HasOneChildModelType extends ModelType<HasOneChild> {
   const _HasOneChildModelType();
-
+  
   @override
   HasOneChild fromJson(Map<String, dynamic> jsonData) {
     return HasOneChild.fromJson(jsonData);
   }
-}
-
-/// This is an auto generated class representing the model identifier
-/// of [HasOneChild] in your schema.
-@immutable
-class HasOneChildModelIdentifier implements ModelIdentifier<HasOneChild> {
-  final String id;
-
-  /// Create an instance of HasOneChildModelIdentifier using [id] the primary key.
-  const HasOneChildModelIdentifier({required this.id});
-
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
-  @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
-  @override
-  String serializeAsString() => serializeAsMap().values.join('#');
-
-  @override
-  String toString() => 'HasOneChildModelIdentifier(id: $id)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is HasOneChildModelIdentifier && id == other.id;
+  String modelName() {
+    return 'HasOneChild';
   }
-
-  @override
-  int get hashCode => id.hashCode;
 }
