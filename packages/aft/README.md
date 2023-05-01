@@ -31,7 +31,7 @@ When developing `aft`, some commands will require the `libgit2` library for inte
 $ brew install libgit2
 ```
 
-> Note: If you encounter a dependcey error after install for libgit2dart, run `git submodule update --init`.
+> Note: If you encounter a dependency error after install for libgit2dart, run `git submodule update --init`.
 
 ```sh
 # Linux
