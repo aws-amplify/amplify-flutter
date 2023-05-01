@@ -3,14 +3,16 @@ description: "Downloads Amplify configurations after getting temporary AWS crede
 inputs:
   aws-region:
     required: true
+    description: The AWS region
   role-to-assume:
     required: true
-  # scope for melos, e.g. "amplify_api_example"
+    description: The role to assume in the STS session
   scope:
     required: true
-  # ARN of secret from AWS Secrets Manger which is a JSON object of app IDs / s3 bucket ARNs
+    description: scope for melos, e.g. "amplify_api_example"
   secret-identifier:
     required: true
+    description: ARN of secret from AWS Secrets Manger which is a JSON object of app IDs / s3 bucket ARNs
 
 runs:
   using: "composite"
@@ -25,7 +27,7 @@ runs:
     - name: Create AWS profile
       run: ./build-support/create_integration_test_profile.sh
       shell: bash
-    
+
     - name: Get Amplify App IDs / bucket ARNs from Secrets Manager
       uses: aws-actions/aws-secretsmanager-get-secrets@bafac38d78b5f679d35ef3f36f9842a63de59564 # 1.0.0
       with:
@@ -39,11 +41,10 @@ runs:
       shell: bash
 
     - name: Undo any codegen changes from amplify pull
-      run: |    
+      run: |
         flutter pub global run melos exec --scope=${{ inputs.scope }} "[ -d "lib/models" ] && git checkout lib/models/ || exit 0"
       shell: bash
 
     - name: Delete AWS profile
       run: rm -rf ~/.aws
       shell: bash
-

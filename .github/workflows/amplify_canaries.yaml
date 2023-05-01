@@ -1,0 +1,131 @@
+name: Amplify Canaries
+on:
+  schedule:
+    # 6am pacific time daily, only runs on default branch
+    - cron: "0 13 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Ensure an app pulling in published Amplify libraries can build properly
+  build:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
+      - name: Build Canary (iOS)
+        run: build-support/build_canary.sh ios --no-codesign
+
+      - name: Build Canary (Android)
+        run: build-support/build_canary.sh apk
+
+  e2e-android:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      # Flutter requires Java 11 to build android apps with Gradle.
+      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+        with:
+          distribution: "corretto" # Amazon Corretto Build of OpenJDK
+          java-version: "11"
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Run Canary
+        timeout-minutes: 45
+        uses: ./.github/composite_actions/launch_android_emulator
+        with:
+          script: |
+            cd canaries && flutter test -d emulator-5554 integration_test/main_test.dart
+
+  e2e-ios:
+    runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter-version:
+          - "any" # latest
+          - "3.3.0"
+        ios-version:
+          - "13.7"
+          - "16"
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+        with:
+          persist-credentials: false
+          submodules: true
+
+      - name: Install dependencies
+        uses: ./.github/composite_actions/install_dependencies
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+
+      - name: Fetch Amplify backend configurations
+        uses: ./.github/composite_actions/fetch_backends
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          scope: amplified_todo
+          secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
+
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
+        with:
+          ios-version: ${{ matrix.ios-version }}
+
+      - name: Run iOS integration tests
+        timeout-minutes: 45
+        working-directory: canaries
+        run: |
+          flutter build ios --simulator --target=integration_test/main_test.dart
+          flutter test -d test integration_test/main_test.dart
