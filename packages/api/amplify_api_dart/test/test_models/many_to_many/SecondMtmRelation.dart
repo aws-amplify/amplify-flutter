@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -12,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'MtmModelProvider.dart';
 
-/// This is an auto generated class representing the SecondMtmRelation type in your schema.
+/** This is an auto generated class representing the SecondMtmRelation type in your schema. */
 @immutable
 class SecondMtmRelation extends Model {
-  static const classType = _SecondMtmRelationModelType();
+  static const classType = const _SecondMtmRelationModelType();
   final String id;
   final ManyToManyPrimary? _manyToManyPrimary;
   final ManyToManySecondary? _manyToManySecondary;
@@ -38,7 +50,7 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManyPrimary!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -51,7 +63,7 @@ class SecondMtmRelation extends Model {
     try {
       return _manyToManySecondary!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -107,7 +119,7 @@ class SecondMtmRelation extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("SecondMtmRelation {");
     buffer.write("id=" + "$id" + ", ");
@@ -140,16 +152,14 @@ class SecondMtmRelation extends Model {
 
   SecondMtmRelation.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _manyToManyPrimary =
-            json['manyToManyPrimary']?['serializedData'] != null
-                ? ManyToManyPrimary.fromJson(Map<String, dynamic>.from(
-                    json['manyToManyPrimary']['serializedData']))
-                : null,
-        _manyToManySecondary =
-            json['manyToManySecondary']?['serializedData'] != null
-                ? ManyToManySecondary.fromJson(Map<String, dynamic>.from(
-                    json['manyToManySecondary']['serializedData']))
-                : null,
+        _manyToManyPrimary = json['manyToManyPrimary'] != null
+            ? ManyToManyPrimary.fromJson(
+                new Map<String, dynamic>.from(json['manyToManyPrimary']))
+            : null,
+        _manyToManySecondary = json['manyToManySecondary'] != null
+            ? ManyToManySecondary.fromJson(
+                new Map<String, dynamic>.from(json['manyToManySecondary']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -240,14 +250,16 @@ class _SecondMtmRelationModelType extends ModelType<SecondMtmRelation> {
   }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [SecondMtmRelation] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [SecondMtmRelation] in your schema.
+ */
 @immutable
 class SecondMtmRelationModelIdentifier
     implements ModelIdentifier<SecondMtmRelation> {
   final String id;
 
-  /// Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key.
+  /** Create an instance of SecondMtmRelationModelIdentifier using [id] the primary key. */
   const SecondMtmRelationModelIdentifier({required this.id});
 
   @override

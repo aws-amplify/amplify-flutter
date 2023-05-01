@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -13,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Blog type in your schema.
+/** This is an auto generated class representing the Blog type in your schema. */
 @immutable
 class Blog extends Model {
-  static const classType = _BlogModelType();
+  static const classType = const _BlogModelType();
   final String id;
   final String? _name;
   final List<Post>? _posts;
@@ -39,7 +51,7 @@ class Blog extends Model {
     try {
       return _name!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -92,7 +104,7 @@ class Blog extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
@@ -115,11 +127,10 @@ class Blog extends Model {
   Blog.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
-        _posts = json['posts'] is List
-            ? (json['posts'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Post.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+        _posts = json['posts'] != null
+            ? (json['posts']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => Post.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -137,14 +148,21 @@ class Blog extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'posts': _posts,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<BlogModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<BlogModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField POSTS = QueryField(
       fieldName: "posts",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Blog";
@@ -160,7 +178,7 @@ class Blog extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Blog.POSTS,
         isRequired: false,
-        ofModelName: (Post).toString(),
+        ofModelName: 'Post',
         associatedKey: Post.BLOG));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -184,15 +202,22 @@ class _BlogModelType extends ModelType<Blog> {
   Blog fromJson(Map<String, dynamic> jsonData) {
     return Blog.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Blog';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [Blog] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Blog] in your schema.
+ */
 @immutable
 class BlogModelIdentifier implements ModelIdentifier<Blog> {
   final String id;
 
-  /// Create an instance of BlogModelIdentifier using [id] the primary key.
+  /** Create an instance of BlogModelIdentifier using [id] the primary key. */
   const BlogModelIdentifier({required this.id});
 
   @override
