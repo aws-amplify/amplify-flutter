@@ -570,6 +570,14 @@ class JsonTimestampsInputOutputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'normal':
+          if (value != null) {
+            result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
         case 'dateTime':
           if (value != null) {
             result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
@@ -617,14 +625,6 @@ class JsonTimestampsInputOutputRestJson1Serializer
           if (value != null) {
             result.httpDateOnTarget =
                 _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'normal':
-          if (value != null) {
-            result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
               serializers,
               value,
             );

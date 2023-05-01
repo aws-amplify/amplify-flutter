@@ -131,6 +131,14 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'foo':
+          if (value != null) {
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'blob':
           if (value != null) {
             result.blob = (serializers.deserialize(
@@ -145,14 +153,6 @@ class StreamingTraitsRequireLengthInputRestJson1Serializer extends _i4
                 ],
               ),
             ) as _i6.Stream<List<int>>);
-          }
-          break;
-        case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }

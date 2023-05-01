@@ -21,12 +21,12 @@ abstract class DeleteUsagePlanKeyRequest
         _i1.HasPayload<DeleteUsagePlanKeyRequestPayload> {
   /// The DELETE request to delete a usage plan key and remove the underlying API key from the associated usage plan.
   factory DeleteUsagePlanKeyRequest({
-    required String keyId,
     required String usagePlanId,
+    required String keyId,
   }) {
     return _$DeleteUsagePlanKeyRequest._(
-      keyId: keyId,
       usagePlanId: usagePlanId,
+      keyId: keyId,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class DeleteUsagePlanKeyRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteUsagePlanKeyRequestBuilder b) {}
 
-  /// The Id of the UsagePlanKey resource to be deleted.
-  String get keyId;
-
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-deleted UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
+
+  /// The Id of the UsagePlanKey resource to be deleted.
+  String get keyId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +82,19 @@ abstract class DeleteUsagePlanKeyRequest
       DeleteUsagePlanKeyRequestPayload();
   @override
   List<Object?> get props => [
-        keyId,
         usagePlanId,
+        keyId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteUsagePlanKeyRequest');
     helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
       'usagePlanId',
       usagePlanId,
+    );
+    helper.add(
+      'keyId',
+      keyId,
     );
     return helper.toString();
   }

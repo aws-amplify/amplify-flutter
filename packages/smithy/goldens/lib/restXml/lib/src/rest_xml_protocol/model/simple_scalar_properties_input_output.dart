@@ -20,28 +20,28 @@ abstract class SimpleScalarPropertiesInputOutput
             SimpleScalarPropertiesInputOutputBuilder>,
         _i1.HasPayload<SimpleScalarPropertiesInputOutputPayload> {
   factory SimpleScalarPropertiesInputOutput({
-    int? byteValue,
-    double? doubleValue,
-    bool? falseBooleanValue,
-    double? floatValue,
     String? foo,
-    int? integerValue,
-    _i3.Int64? longValue,
-    int? shortValue,
     String? stringValue,
     bool? trueBooleanValue,
+    bool? falseBooleanValue,
+    int? byteValue,
+    int? shortValue,
+    int? integerValue,
+    _i3.Int64? longValue,
+    double? floatValue,
+    double? doubleValue,
   }) {
     return _$SimpleScalarPropertiesInputOutput._(
-      byteValue: byteValue,
-      doubleValue: doubleValue,
-      falseBooleanValue: falseBooleanValue,
-      floatValue: floatValue,
       foo: foo,
-      integerValue: integerValue,
-      longValue: longValue,
-      shortValue: shortValue,
       stringValue: stringValue,
       trueBooleanValue: trueBooleanValue,
+      falseBooleanValue: falseBooleanValue,
+      byteValue: byteValue,
+      shortValue: shortValue,
+      integerValue: integerValue,
+      longValue: longValue,
+      floatValue: floatValue,
+      doubleValue: doubleValue,
     );
   }
 
@@ -97,16 +97,16 @@ abstract class SimpleScalarPropertiesInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
-  int? get byteValue;
-  double? get doubleValue;
-  bool? get falseBooleanValue;
-  double? get floatValue;
   String? get foo;
-  int? get integerValue;
-  _i3.Int64? get longValue;
-  int? get shortValue;
   String? get stringValue;
   bool? get trueBooleanValue;
+  bool? get falseBooleanValue;
+  int? get byteValue;
+  int? get shortValue;
+  int? get integerValue;
+  _i3.Int64? get longValue;
+  double? get floatValue;
+  double? get doubleValue;
   @override
   SimpleScalarPropertiesInputOutputPayload getPayload() =>
       SimpleScalarPropertiesInputOutputPayload((b) {
@@ -122,40 +122,44 @@ abstract class SimpleScalarPropertiesInputOutput
       });
   @override
   List<Object?> get props => [
-        byteValue,
-        doubleValue,
-        falseBooleanValue,
-        floatValue,
         foo,
-        integerValue,
-        longValue,
-        shortValue,
         stringValue,
         trueBooleanValue,
+        falseBooleanValue,
+        byteValue,
+        shortValue,
+        integerValue,
+        longValue,
+        floatValue,
+        doubleValue,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput');
     helper.add(
-      'byteValue',
-      byteValue,
+      'foo',
+      foo,
     );
     helper.add(
-      'doubleValue',
-      doubleValue,
+      'stringValue',
+      stringValue,
+    );
+    helper.add(
+      'trueBooleanValue',
+      trueBooleanValue,
     );
     helper.add(
       'falseBooleanValue',
       falseBooleanValue,
     );
     helper.add(
-      'floatValue',
-      floatValue,
+      'byteValue',
+      byteValue,
     );
     helper.add(
-      'foo',
-      foo,
+      'shortValue',
+      shortValue,
     );
     helper.add(
       'integerValue',
@@ -166,16 +170,12 @@ abstract class SimpleScalarPropertiesInputOutput
       longValue,
     );
     helper.add(
-      'shortValue',
-      shortValue,
+      'floatValue',
+      floatValue,
     );
     helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
+      'doubleValue',
+      doubleValue,
     );
     return helper.toString();
   }

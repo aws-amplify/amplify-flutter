@@ -16,12 +16,12 @@ abstract class RetryConfig
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
   factory RetryConfig({
-    int? maxAttempts,
     _i2.RetryMode? mode,
+    int? maxAttempts,
   }) {
     return _$RetryConfig._(
-      maxAttempts: maxAttempts,
       mode: mode,
+      maxAttempts: maxAttempts,
     );
   }
 
@@ -37,25 +37,25 @@ abstract class RetryConfig
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RetryConfigBuilder b) {}
-  int? get maxAttempts;
 
   /// Controls the strategy used for retries.
   _i2.RetryMode? get mode;
+  int? get maxAttempts;
   @override
   List<Object?> get props => [
-        maxAttempts,
         mode,
+        maxAttempts,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RetryConfig');
     helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
-    helper.add(
       'mode',
       mode,
+    );
+    helper.add(
+      'maxAttempts',
+      maxAttempts,
     );
     return helper.toString();
   }
@@ -90,20 +90,20 @@ class RetryConfigAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'mode':
           if (value != null) {
             result.mode = (serializers.deserialize(
               value,
               specifiedType: const FullType(_i2.RetryMode),
             ) as _i2.RetryMode);
+          }
+          break;
+        case 'max_attempts':
+          if (value != null) {
+            result.maxAttempts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -120,20 +120,20 @@ class RetryConfigAwsJson10Serializer
   }) {
     final payload = (object as RetryConfig);
     final result = <Object?>[];
-    if (payload.maxAttempts != null) {
-      result
-        ..add('max_attempts')
-        ..add(serializers.serialize(
-          payload.maxAttempts!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.mode != null) {
       result
         ..add('mode')
         ..add(serializers.serialize(
           payload.mode!,
           specifiedType: const FullType(_i2.RetryMode),
+        ));
+    }
+    if (payload.maxAttempts != null) {
+      result
+        ..add('max_attempts')
+        ..add(serializers.serialize(
+          payload.maxAttempts!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

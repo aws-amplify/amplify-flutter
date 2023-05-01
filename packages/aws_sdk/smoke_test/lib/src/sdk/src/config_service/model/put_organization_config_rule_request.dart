@@ -8,11 +8,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_custom_policy_rule_metadata.dart'
-    as _i3;
+    as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_custom_rule_metadata.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/config_service/model/organization_managed_rule_metadata.dart'
-    as _i5;
+    as _i3;
 
 part 'put_organization_config_rule_request.g.dart';
 
@@ -24,21 +24,21 @@ abstract class PutOrganizationConfigRuleRequest
         Built<PutOrganizationConfigRuleRequest,
             PutOrganizationConfigRuleRequestBuilder> {
   factory PutOrganizationConfigRuleRequest({
-    List<String>? excludedAccounts,
     required String organizationConfigRuleName,
-    _i3.OrganizationCustomPolicyRuleMetadata?
-        organizationCustomPolicyRuleMetadata,
+    _i3.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata,
     _i4.OrganizationCustomRuleMetadata? organizationCustomRuleMetadata,
-    _i5.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata,
+    List<String>? excludedAccounts,
+    _i5.OrganizationCustomPolicyRuleMetadata?
+        organizationCustomPolicyRuleMetadata,
   }) {
     return _$PutOrganizationConfigRuleRequest._(
+      organizationConfigRuleName: organizationConfigRuleName,
+      organizationManagedRuleMetadata: organizationManagedRuleMetadata,
+      organizationCustomRuleMetadata: organizationCustomRuleMetadata,
       excludedAccounts:
           excludedAccounts == null ? null : _i6.BuiltList(excludedAccounts),
-      organizationConfigRuleName: organizationConfigRuleName,
       organizationCustomPolicyRuleMetadata:
           organizationCustomPolicyRuleMetadata,
-      organizationCustomRuleMetadata: organizationCustomRuleMetadata,
-      organizationManagedRuleMetadata: organizationManagedRuleMetadata,
     );
   }
 
@@ -62,54 +62,54 @@ abstract class PutOrganizationConfigRuleRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutOrganizationConfigRuleRequestBuilder b) {}
 
-  /// A comma-separated list of accounts that you want to exclude from an organization Config rule.
-  _i6.BuiltList<String>? get excludedAccounts;
-
   /// The name that you assign to an organization Config rule.
   String get organizationConfigRuleName;
 
-  /// An `OrganizationCustomPolicyRuleMetadata` object. This object specifies metadata for your organization's Config Custom Policy rule. The metadata includes the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config to evaluate Amazon Web Services resources against a rule.
-  _i3.OrganizationCustomPolicyRuleMetadata?
-      get organizationCustomPolicyRuleMetadata;
+  /// An `OrganizationManagedRuleMetadata` object. This object specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  _i3.OrganizationManagedRuleMetadata? get organizationManagedRuleMetadata;
 
   /// An `OrganizationCustomRuleMetadata` object. This object specifies organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   _i4.OrganizationCustomRuleMetadata? get organizationCustomRuleMetadata;
 
-  /// An `OrganizationManagedRuleMetadata` object. This object specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
-  _i5.OrganizationManagedRuleMetadata? get organizationManagedRuleMetadata;
+  /// A comma-separated list of accounts that you want to exclude from an organization Config rule.
+  _i6.BuiltList<String>? get excludedAccounts;
+
+  /// An `OrganizationCustomPolicyRuleMetadata` object. This object specifies metadata for your organization's Config Custom Policy rule. The metadata includes the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config to evaluate Amazon Web Services resources against a rule.
+  _i5.OrganizationCustomPolicyRuleMetadata?
+      get organizationCustomPolicyRuleMetadata;
   @override
   PutOrganizationConfigRuleRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        excludedAccounts,
         organizationConfigRuleName,
-        organizationCustomPolicyRuleMetadata,
-        organizationCustomRuleMetadata,
         organizationManagedRuleMetadata,
+        organizationCustomRuleMetadata,
+        excludedAccounts,
+        organizationCustomPolicyRuleMetadata,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutOrganizationConfigRuleRequest');
     helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
       'organizationConfigRuleName',
       organizationConfigRuleName,
     );
     helper.add(
-      'organizationCustomPolicyRuleMetadata',
-      organizationCustomPolicyRuleMetadata,
+      'organizationManagedRuleMetadata',
+      organizationManagedRuleMetadata,
     );
     helper.add(
       'organizationCustomRuleMetadata',
       organizationCustomRuleMetadata,
     );
     helper.add(
-      'organizationManagedRuleMetadata',
-      organizationManagedRuleMetadata,
+      'excludedAccounts',
+      excludedAccounts,
+    );
+    helper.add(
+      'organizationCustomPolicyRuleMetadata',
+      organizationCustomPolicyRuleMetadata,
     );
     return helper.toString();
   }
@@ -145,31 +145,20 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ExcludedAccounts':
-          if (value != null) {
-            result.excludedAccounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
         case 'OrganizationConfigRuleName':
           result.organizationConfigRuleName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'OrganizationCustomPolicyRuleMetadata':
+        case 'OrganizationManagedRuleMetadata':
           if (value != null) {
-            result.organizationCustomPolicyRuleMetadata
+            result.organizationManagedRuleMetadata
                 .replace((serializers.deserialize(
               value,
               specifiedType:
-                  const FullType(_i3.OrganizationCustomPolicyRuleMetadata),
-            ) as _i3.OrganizationCustomPolicyRuleMetadata));
+                  const FullType(_i3.OrganizationManagedRuleMetadata),
+            ) as _i3.OrganizationManagedRuleMetadata));
           }
           break;
         case 'OrganizationCustomRuleMetadata':
@@ -181,14 +170,25 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
             ) as _i4.OrganizationCustomRuleMetadata));
           }
           break;
-        case 'OrganizationManagedRuleMetadata':
+        case 'ExcludedAccounts':
           if (value != null) {
-            result.organizationManagedRuleMetadata
+            result.excludedAccounts.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i6.BuiltList<String>));
+          }
+          break;
+        case 'OrganizationCustomPolicyRuleMetadata':
+          if (value != null) {
+            result.organizationCustomPolicyRuleMetadata
                 .replace((serializers.deserialize(
               value,
               specifiedType:
-                  const FullType(_i5.OrganizationManagedRuleMetadata),
-            ) as _i5.OrganizationManagedRuleMetadata));
+                  const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
+            ) as _i5.OrganizationCustomPolicyRuleMetadata));
           }
           break;
       }
@@ -211,6 +211,22 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.organizationManagedRuleMetadata != null) {
+      result
+        ..add('OrganizationManagedRuleMetadata')
+        ..add(serializers.serialize(
+          payload.organizationManagedRuleMetadata!,
+          specifiedType: const FullType(_i3.OrganizationManagedRuleMetadata),
+        ));
+    }
+    if (payload.organizationCustomRuleMetadata != null) {
+      result
+        ..add('OrganizationCustomRuleMetadata')
+        ..add(serializers.serialize(
+          payload.organizationCustomRuleMetadata!,
+          specifiedType: const FullType(_i4.OrganizationCustomRuleMetadata),
+        ));
+    }
     if (payload.excludedAccounts != null) {
       result
         ..add('ExcludedAccounts')
@@ -228,23 +244,7 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.organizationCustomPolicyRuleMetadata!,
           specifiedType:
-              const FullType(_i3.OrganizationCustomPolicyRuleMetadata),
-        ));
-    }
-    if (payload.organizationCustomRuleMetadata != null) {
-      result
-        ..add('OrganizationCustomRuleMetadata')
-        ..add(serializers.serialize(
-          payload.organizationCustomRuleMetadata!,
-          specifiedType: const FullType(_i4.OrganizationCustomRuleMetadata),
-        ));
-    }
-    if (payload.organizationManagedRuleMetadata != null) {
-      result
-        ..add('OrganizationManagedRuleMetadata')
-        ..add(serializers.serialize(
-          payload.organizationManagedRuleMetadata!,
-          specifiedType: const FullType(_i5.OrganizationManagedRuleMetadata),
+              const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
         ));
     }
     return result;

@@ -273,6 +273,39 @@ class XmlListsInputOutputRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'stringList':
+          if (value != null) {
+            result.stringList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i6.BuiltList<String>));
+          }
+          break;
+        case 'stringSet':
+          if (value != null) {
+            result.stringSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltSet,
+                [FullType(String)],
+              ),
+            ) as _i6.BuiltSet<String>));
+          }
+          break;
+        case 'integerList':
+          if (value != null) {
+            result.integerList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i6.BuiltList<int>));
+          }
+          break;
         case 'booleanList':
           if (value != null) {
             result.booleanList.replace((serializers.deserialize(
@@ -284,6 +317,17 @@ class XmlListsInputOutputRestXmlSerializer
             ) as _i6.BuiltList<bool>));
           }
           break;
+        case 'timestampList':
+          if (value != null) {
+            result.timestampList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(DateTime)],
+              ),
+            ) as _i6.BuiltList<DateTime>));
+          }
+          break;
         case 'enumList':
           if (value != null) {
             result.enumList.replace((serializers.deserialize(
@@ -293,6 +337,44 @@ class XmlListsInputOutputRestXmlSerializer
                 [FullType(_i7.FooEnum)],
               ),
             ) as _i6.BuiltList<_i7.FooEnum>));
+          }
+          break;
+        case 'intEnumList':
+          if (value != null) {
+            result.intEnumList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(int)],
+              ),
+            ) as _i6.BuiltList<int>));
+          }
+          break;
+        case 'nestedStringList':
+          if (value != null) {
+            result.nestedStringList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [
+                  FullType(
+                    _i6.BuiltList,
+                    [FullType(String)],
+                  )
+                ],
+              ),
+            ) as _i6.BuiltList<_i6.BuiltList<String>>));
+          }
+          break;
+        case 'renamedListMembers':
+          if (value != null) {
+            result.renamedListMembers.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i6.BuiltList<String>));
           }
           break;
         case 'flattenedList':
@@ -340,88 +422,6 @@ class XmlListsInputOutputRestXmlSerializer
             ) as _i6.BuiltList<String>));
           }
           break;
-        case 'flattenedStructureList':
-          if (value != null) {
-            result.flattenedStructureList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i8.StructureListMember)],
-              ),
-            ) as _i6.BuiltList<_i8.StructureListMember>));
-          }
-          break;
-        case 'intEnumList':
-          if (value != null) {
-            result.intEnumList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
-        case 'integerList':
-          if (value != null) {
-            result.integerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i6.BuiltList<int>));
-          }
-          break;
-        case 'nestedStringList':
-          if (value != null) {
-            result.nestedStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [
-                  FullType(
-                    _i6.BuiltList,
-                    [FullType(String)],
-                  )
-                ],
-              ),
-            ) as _i6.BuiltList<_i6.BuiltList<String>>));
-          }
-          break;
-        case 'renamedListMembers':
-          if (value != null) {
-            result.renamedListMembers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'stringList':
-          if (value != null) {
-            result.stringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
-        case 'stringSet':
-          if (value != null) {
-            result.stringSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSet,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltSet<String>));
-          }
-          break;
         case 'structureList':
           if (value != null) {
             result.structureList.replace((serializers.deserialize(
@@ -433,15 +433,15 @@ class XmlListsInputOutputRestXmlSerializer
             ) as _i6.BuiltList<_i8.StructureListMember>));
           }
           break;
-        case 'timestampList':
+        case 'flattenedStructureList':
           if (value != null) {
-            result.timestampList.replace((serializers.deserialize(
+            result.flattenedStructureList.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i6.BuiltList,
-                [FullType(DateTime)],
+                [FullType(_i8.StructureListMember)],
               ),
-            ) as _i6.BuiltList<DateTime>));
+            ) as _i6.BuiltList<_i8.StructureListMember>));
           }
           break;
       }

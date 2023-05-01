@@ -18,16 +18,16 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
         Built<DescribeOrganizationConfigRuleStatusesRequest,
             DescribeOrganizationConfigRuleStatusesRequestBuilder> {
   factory DescribeOrganizationConfigRuleStatusesRequest({
+    List<String>? organizationConfigRuleNames,
     int? limit,
     String? nextToken,
-    List<String>? organizationConfigRuleNames,
   }) {
     return _$DescribeOrganizationConfigRuleStatusesRequest._(
-      limit: limit,
-      nextToken: nextToken,
       organizationConfigRuleNames: organizationConfigRuleNames == null
           ? null
           : _i3.BuiltList(organizationConfigRuleNames),
+      limit: limit,
+      nextToken: nextToken,
     );
   }
 
@@ -51,26 +51,30 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConfigRuleStatusesRequestBuilder b) {}
 
+  /// The names of organization Config rules for which you want status details. If you do not specify any names, Config returns details for all your organization Config rules.
+  _i3.BuiltList<String>? get organizationConfigRuleNames;
+
   /// The maximum number of `OrganizationConfigRuleStatuses` returned on each page. If you do no specify a number, Config uses the default. The default is 100.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The names of organization Config rules for which you want status details. If you do not specify any names, Config returns details for all your organization Config rules.
-  _i3.BuiltList<String>? get organizationConfigRuleNames;
   @override
   DescribeOrganizationConfigRuleStatusesRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConfigRuleNames,
         limit,
         nextToken,
-        organizationConfigRuleNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConfigRuleStatusesRequest');
+    helper.add(
+      'organizationConfigRuleNames',
+      organizationConfigRuleNames,
+    );
     helper.add(
       'limit',
       limit,
@@ -78,10 +82,6 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConfigRuleNames',
-      organizationConfigRuleNames,
     );
     return helper.toString();
   }
@@ -118,6 +118,17 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'OrganizationConfigRuleNames':
+          if (value != null) {
+            result.organizationConfigRuleNames.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i3.BuiltList<String>));
+          }
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -134,17 +145,6 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'OrganizationConfigRuleNames':
-          if (value != null) {
-            result.organizationConfigRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
       }
     }
 
@@ -159,6 +159,17 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
   }) {
     final payload = (object as DescribeOrganizationConfigRuleStatusesRequest);
     final result = <Object?>[];
+    if (payload.organizationConfigRuleNames != null) {
+      result
+        ..add('OrganizationConfigRuleNames')
+        ..add(serializers.serialize(
+          payload.organizationConfigRuleNames!,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(String)],
+          ),
+        ));
+    }
     if (payload.limit != null) {
       result
         ..add('Limit')
@@ -173,17 +184,6 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConfigRuleNames != null) {
-      result
-        ..add('OrganizationConfigRuleNames')
-        ..add(serializers.serialize(
-          payload.organizationConfigRuleNames!,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
-          ),
         ));
     }
     return result;

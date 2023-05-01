@@ -8,8 +8,8 @@ import 'package:smithy/smithy.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
 import 'package:smithy_codegen/src/generator/serialization/serializer_config.dart';
-import 'package:smithy_codegen/src/generator/serialization/structure_rest_xml_serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/serialization/structure_serializer_generator.dart';
+import 'package:smithy_codegen/src/generator/serialization/structure_xml_serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/model/route_style.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
@@ -32,6 +32,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         return DartTypes.smithyAws.restJson1Protocol;
       case RestXmlTrait:
         return DartTypes.smithyAws.restXmlProtocol;
+      case AwsQueryTrait:
+        return DartTypes.smithyAws.awsQueryProtocol;
       default:
         throw UnsupportedError(
           'No protocol found for $runtimeType ($shapeId).',
@@ -44,11 +46,11 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     StructureShape shape,
     CodegenContext context,
   ) {
-    if (this is RestXmlTrait) {
-      return StructureRestXmlSerializerGenerator(
+    if (this is RestXmlTrait || this is AwsQueryTrait) {
+      return StructureXmlSerializerGenerator(
         shape,
         context,
-        this as RestXmlTrait,
+        this,
         config: serializerConfig,
       );
     }
@@ -69,6 +71,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         return const SerializerConfig.awsJson();
       case RestJson1Trait:
         return const SerializerConfig.restJson1();
+      case AwsQueryTrait:
+        return const SerializerConfig.awsQuery();
       default:
         return const SerializerConfig();
     }
@@ -151,6 +155,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         }
         break;
       case RestXmlTrait:
+      case AwsQueryTrait:
       default:
     }
 
@@ -273,6 +278,28 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     if (this_ is RestXmlTrait) {
       parameters['noErrorWrapping'] = literalBool(this_.noErrorWrapping);
     }
+    if (this_ is AwsQueryTrait) {
+      // Values must be included for AWS Query
+      // https://smithy.io/2.0/aws/protocols/aws-query-protocol.html#request-serialization
+      parameters['action'] = literalString(shape.shapeId.shape);
+      parameters['version'] = literalString(context.service!.version!);
+
+      final awsQueryErrors = <ShapeId, AwsQueryErrorTrait>{};
+      for (final error in shape.errors) {
+        final errorShape = context.shapeFor(error.target);
+        final errorTrait = errorShape.getTrait<AwsQueryErrorTrait>();
+        if (errorTrait != null) {
+          awsQueryErrors[error.target] = errorTrait;
+        }
+      }
+      if (awsQueryErrors.isNotEmpty) {
+        parameters['awsQueryErrors'] = literalConstList(
+          awsQueryErrors.entries
+              .map((e) => e.value.instantiatedFor(e.key))
+              .toList(),
+        );
+      }
+    }
 
     return parameters;
   }
@@ -285,6 +312,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         return RouteConfiguration.rest;
       case AwsJson1_0Trait:
       case AwsJson1_1Trait:
+      case AwsQueryTrait:
         return RouteConfiguration.rpc;
     }
     throw StateError('Unknown type: $runtimeType');
@@ -305,4 +333,13 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         return null;
     }
   }
+}
+
+extension on AwsQueryErrorTrait {
+  Expression instantiatedFor(ShapeId error) =>
+      DartTypes.smithyAws.awsQueryError.newInstance([], {
+        'shape': literalString(error.shape),
+        'code': literalString(code),
+        'httpResponseCode': literalNum(httpResponseCode),
+      });
 }

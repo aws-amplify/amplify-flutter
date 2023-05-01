@@ -21,15 +21,15 @@ abstract class PutRemediationExceptionsRequest
             PutRemediationExceptionsRequestBuilder> {
   factory PutRemediationExceptionsRequest({
     required String configRuleName,
-    DateTime? expirationTime,
-    String? message,
     required List<_i3.RemediationExceptionResourceKey> resourceKeys,
+    String? message,
+    DateTime? expirationTime,
   }) {
     return _$PutRemediationExceptionsRequest._(
       configRuleName: configRuleName,
-      expirationTime: expirationTime,
-      message: message,
       resourceKeys: _i4.BuiltList(resourceKeys),
+      message: message,
+      expirationTime: expirationTime,
     );
   }
 
@@ -56,22 +56,22 @@ abstract class PutRemediationExceptionsRequest
   /// The name of the Config rule for which you want to create remediation exception.
   String get configRuleName;
 
-  /// The exception is automatically deleted after the expiration date.
-  DateTime? get expirationTime;
+  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
+  _i4.BuiltList<_i3.RemediationExceptionResourceKey> get resourceKeys;
 
   /// The message contains an explanation of the exception.
   String? get message;
 
-  /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
-  _i4.BuiltList<_i3.RemediationExceptionResourceKey> get resourceKeys;
+  /// The exception is automatically deleted after the expiration date.
+  DateTime? get expirationTime;
   @override
   PutRemediationExceptionsRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleName,
-        expirationTime,
-        message,
         resourceKeys,
+        message,
+        expirationTime,
       ];
   @override
   String toString() {
@@ -82,16 +82,16 @@ abstract class PutRemediationExceptionsRequest
       configRuleName,
     );
     helper.add(
-      'expirationTime',
-      expirationTime,
+      'resourceKeys',
+      resourceKeys,
     );
     helper.add(
       'message',
       message,
     );
     helper.add(
-      'resourceKeys',
-      resourceKeys,
+      'expirationTime',
+      expirationTime,
     );
     return helper.toString();
   }
@@ -133,13 +133,14 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ExpirationTime':
-          if (value != null) {
-            result.expirationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
+        case 'ResourceKeys':
+          result.resourceKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.RemediationExceptionResourceKey)],
+            ),
+          ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
           break;
         case 'Message':
           if (value != null) {
@@ -149,14 +150,13 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'ResourceKeys':
-          result.resourceKeys.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.RemediationExceptionResourceKey)],
-            ),
-          ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
+        case 'ExpirationTime':
+          if (value != null) {
+            result.expirationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
           break;
       }
     }
@@ -186,20 +186,20 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
         ),
       ),
     ];
-    if (payload.expirationTime != null) {
-      result
-        ..add('ExpirationTime')
-        ..add(serializers.serialize(
-          payload.expirationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
           payload.message!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.expirationTime != null) {
+      result
+        ..add('ExpirationTime')
+        ..add(serializers.serialize(
+          payload.expirationTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

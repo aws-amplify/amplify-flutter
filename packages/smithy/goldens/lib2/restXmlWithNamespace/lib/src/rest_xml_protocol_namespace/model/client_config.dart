@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/retry_config.dart'
-    as _i2;
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/s3_config.dart'
     as _i3;
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/s3_config.dart'
+    as _i2;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'client_config.g.dart';
@@ -20,21 +20,21 @@ abstract class ClientConfig
   /// Configuration that is set on the constructed client.
   factory ClientConfig({
     String? awsAccessKeyId,
-    String? awsProfile,
     String? awsSecretAccessKey,
     String? awsSessionToken,
     String? region,
-    _i2.RetryConfig? retryConfig,
-    _i3.S3Config? s3,
+    _i2.S3Config? s3,
+    _i3.RetryConfig? retryConfig,
+    String? awsProfile,
   }) {
     return _$ClientConfig._(
       awsAccessKeyId: awsAccessKeyId,
-      awsProfile: awsProfile,
       awsSecretAccessKey: awsSecretAccessKey,
       awsSessionToken: awsSessionToken,
       region: region,
-      retryConfig: retryConfig,
       s3: s3,
+      retryConfig: retryConfig,
+      awsProfile: awsProfile,
     );
   }
 
@@ -51,25 +51,25 @@ abstract class ClientConfig
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ClientConfigBuilder b) {}
   String? get awsAccessKeyId;
-  String? get awsProfile;
   String? get awsSecretAccessKey;
   String? get awsSessionToken;
   String? get region;
 
-  /// Configuration specific to retries.
-  _i2.RetryConfig? get retryConfig;
-
   /// Configuration specific to S3.
-  _i3.S3Config? get s3;
+  _i2.S3Config? get s3;
+
+  /// Configuration specific to retries.
+  _i3.RetryConfig? get retryConfig;
+  String? get awsProfile;
   @override
   List<Object?> get props => [
         awsAccessKeyId,
-        awsProfile,
         awsSecretAccessKey,
         awsSessionToken,
         region,
-        retryConfig,
         s3,
+        retryConfig,
+        awsProfile,
       ];
   @override
   String toString() {
@@ -77,10 +77,6 @@ abstract class ClientConfig
     helper.add(
       'awsAccessKeyId',
       awsAccessKeyId,
-    );
-    helper.add(
-      'awsProfile',
-      awsProfile,
     );
     helper.add(
       'awsSecretAccessKey',
@@ -95,12 +91,16 @@ abstract class ClientConfig
       region,
     );
     helper.add(
+      's3',
+      s3,
+    );
+    helper.add(
       'retryConfig',
       retryConfig,
     );
     helper.add(
-      's3',
-      s3,
+      'awsProfile',
+      awsProfile,
     );
     return helper.toString();
   }
@@ -179,16 +179,16 @@ class ClientConfigRestXmlSerializer
           if (value != null) {
             result.retryConfig.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.RetryConfig),
-            ) as _i2.RetryConfig));
+              specifiedType: const FullType(_i3.RetryConfig),
+            ) as _i3.RetryConfig));
           }
           break;
         case 's3':
           if (value != null) {
             result.s3.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.S3Config),
-            ) as _i3.S3Config));
+              specifiedType: const FullType(_i2.S3Config),
+            ) as _i2.S3Config));
           }
           break;
       }
@@ -255,7 +255,7 @@ class ClientConfigRestXmlSerializer
         ..add(const _i4.XmlElementName('retry_config'))
         ..add(serializers.serialize(
           payload.retryConfig!,
-          specifiedType: const FullType(_i2.RetryConfig),
+          specifiedType: const FullType(_i3.RetryConfig),
         ));
     }
     if (payload.s3 != null) {
@@ -263,7 +263,7 @@ class ClientConfigRestXmlSerializer
         ..add(const _i4.XmlElementName('s3'))
         ..add(serializers.serialize(
           payload.s3!,
-          specifiedType: const FullType(_i3.S3Config),
+          specifiedType: const FullType(_i2.S3Config),
         ));
     }
     return result;

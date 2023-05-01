@@ -18,13 +18,13 @@ abstract class NestedXmlMapsInputOutput
     implements
         Built<NestedXmlMapsInputOutput, NestedXmlMapsInputOutputBuilder> {
   factory NestedXmlMapsInputOutput({
-    Map<String, Map<String, _i3.FooEnum>>? flatNestedMap,
     Map<String, Map<String, _i3.FooEnum>>? nestedMap,
+    Map<String, Map<String, _i3.FooEnum>>? flatNestedMap,
   }) {
     return _$NestedXmlMapsInputOutput._(
-      flatNestedMap: flatNestedMap == null
+      nestedMap: nestedMap == null
           ? null
-          : _i4.BuiltMap(flatNestedMap.map((
+          : _i4.BuiltMap(nestedMap.map((
               key,
               value,
             ) =>
@@ -32,9 +32,9 @@ abstract class NestedXmlMapsInputOutput
                 key,
                 _i4.BuiltMap(value),
               ))),
-      nestedMap: nestedMap == null
+      flatNestedMap: flatNestedMap == null
           ? null
-          : _i4.BuiltMap(nestedMap.map((
+          : _i4.BuiltMap(flatNestedMap.map((
               key,
               value,
             ) =>
@@ -71,25 +71,25 @@ abstract class NestedXmlMapsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NestedXmlMapsInputOutputBuilder b) {}
-  _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get flatNestedMap;
   _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get nestedMap;
+  _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get flatNestedMap;
   @override
   NestedXmlMapsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
-        flatNestedMap,
         nestedMap,
+        flatNestedMap,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput');
     helper.add(
-      'flatNestedMap',
-      flatNestedMap,
-    );
-    helper.add(
       'nestedMap',
       nestedMap,
+    );
+    helper.add(
+      'flatNestedMap',
+      flatNestedMap,
     );
     return helper.toString();
   }
@@ -131,7 +131,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
                 const _i1.XmlBuiltMapSerializer(flattenedKey: 'flatNestedMap')
                     .deserialize(
                       serializers,
-                      (value as Iterable<Object?>),
+                      value is String ? const [] : (value as Iterable<Object?>),
                       specifiedType: const FullType(
                         _i4.BuiltMap,
                         [
@@ -155,7 +155,7 @@ class NestedXmlMapsInputOutputRestXmlSerializer
             result.nestedMap
                 .replace(const _i1.XmlBuiltMapSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltMap,
                 [

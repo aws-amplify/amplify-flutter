@@ -21,12 +21,12 @@ abstract class GetUsagePlanKeyRequest
         _i1.HasPayload<GetUsagePlanKeyRequestPayload> {
   /// The GET request to get a usage plan key of a given key identifier.
   factory GetUsagePlanKeyRequest({
-    required String keyId,
     required String usagePlanId,
+    required String keyId,
   }) {
     return _$GetUsagePlanKeyRequest._(
-      keyId: keyId,
       usagePlanId: usagePlanId,
+      keyId: keyId,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class GetUsagePlanKeyRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsagePlanKeyRequestBuilder b) {}
 
-  /// The key Id of the to-be-retrieved UsagePlanKey resource representing a plan customer.
-  String get keyId;
-
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-retrieved UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
+
+  /// The key Id of the to-be-retrieved UsagePlanKey resource representing a plan customer.
+  String get keyId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -81,19 +81,19 @@ abstract class GetUsagePlanKeyRequest
   GetUsagePlanKeyRequestPayload getPayload() => GetUsagePlanKeyRequestPayload();
   @override
   List<Object?> get props => [
-        keyId,
         usagePlanId,
+        keyId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUsagePlanKeyRequest');
     helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
       'usagePlanId',
       usagePlanId,
+    );
+    helper.add(
+      'keyId',
+      keyId,
     );
     return helper.toString();
   }

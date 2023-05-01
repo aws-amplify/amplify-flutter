@@ -307,6 +307,14 @@ class NullOperationInputOutputAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'string':
+          if (value != null) {
+            result.string = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'sparseStringList':
           if (value != null) {
             result.sparseStringList.replace((serializers.deserialize(
@@ -330,14 +338,6 @@ class NullOperationInputOutputAwsJson11Serializer
                 ],
               ),
             ) as _i7.BuiltMap<String, String?>));
-          }
-          break;
-        case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }

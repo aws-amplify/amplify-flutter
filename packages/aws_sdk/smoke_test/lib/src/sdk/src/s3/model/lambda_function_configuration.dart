@@ -20,16 +20,16 @@ abstract class LambdaFunctionConfiguration
         Built<LambdaFunctionConfiguration, LambdaFunctionConfigurationBuilder> {
   /// A container for specifying the configuration for Lambda notifications.
   factory LambdaFunctionConfiguration({
-    required List<_i2.Event> events,
-    _i3.NotificationConfigurationFilter? filter,
     String? id,
     required String lambdaFunctionArn,
+    required List<_i2.Event> events,
+    _i3.NotificationConfigurationFilter? filter,
   }) {
     return _$LambdaFunctionConfiguration._(
-      events: _i4.BuiltList(events),
-      filter: filter,
       id: id,
       lambdaFunctionArn: lambdaFunctionArn,
+      events: _i4.BuiltList(events),
+      filter: filter,
     );
   }
 
@@ -47,35 +47,27 @@ abstract class LambdaFunctionConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LambdaFunctionConfigurationBuilder b) {}
 
-  /// The Amazon S3 bucket event for which to invoke the Lambda function. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i4.BuiltList<_i2.Event> get events;
-
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i3.NotificationConfigurationFilter? get filter;
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 
   /// The Amazon Resource Name (ARN) of the Lambda function that Amazon S3 invokes when the specified event type occurs.
   String get lambdaFunctionArn;
+
+  /// The Amazon S3 bucket event for which to invoke the Lambda function. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i4.BuiltList<_i2.Event> get events;
+
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
-        events,
-        filter,
         id,
         lambdaFunctionArn,
+        events,
+        filter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LambdaFunctionConfiguration');
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
     helper.add(
       'id',
       id,
@@ -83,6 +75,14 @@ abstract class LambdaFunctionConfiguration
     helper.add(
       'lambdaFunctionArn',
       lambdaFunctionArn,
+    );
+    helper.add(
+      'events',
+      events,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     return helper.toString();
   }

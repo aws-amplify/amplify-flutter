@@ -15,18 +15,18 @@ abstract class StoredQuery
     implements Built<StoredQuery, StoredQueryBuilder> {
   /// Provides the details of a stored query.
   factory StoredQuery({
+    String? queryId,
+    String? queryArn,
+    required String queryName,
     String? description,
     String? expression,
-    String? queryArn,
-    String? queryId,
-    required String queryName,
   }) {
     return _$StoredQuery._(
+      queryId: queryId,
+      queryArn: queryArn,
+      queryName: queryName,
       description: description,
       expression: expression,
-      queryArn: queryArn,
-      queryId: queryId,
-      queryName: queryName,
     );
   }
 
@@ -43,31 +43,43 @@ abstract class StoredQuery
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StoredQueryBuilder b) {}
 
+  /// The ID of the query.
+  String? get queryId;
+
+  /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
+  String? get queryArn;
+
+  /// The name of the query.
+  String get queryName;
+
   /// A unique description for the query.
   String? get description;
 
   /// The expression of the query. For example, `SELECT resourceId, resourceType, supplementaryConfiguration.BucketVersioningConfiguration.status WHERE resourceType = 'AWS::S3::Bucket' AND supplementaryConfiguration.BucketVersioningConfiguration.status = 'Off'.`
   String? get expression;
-
-  /// Amazon Resource Name (ARN) of the query. For example, arn:partition:service:region:account-id:resource-type/resource-name/resource-id.
-  String? get queryArn;
-
-  /// The ID of the query.
-  String? get queryId;
-
-  /// The name of the query.
-  String get queryName;
   @override
   List<Object?> get props => [
+        queryId,
+        queryArn,
+        queryName,
         description,
         expression,
-        queryArn,
-        queryId,
-        queryName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StoredQuery');
+    helper.add(
+      'queryId',
+      queryId,
+    );
+    helper.add(
+      'queryArn',
+      queryArn,
+    );
+    helper.add(
+      'queryName',
+      queryName,
+    );
     helper.add(
       'description',
       description,
@@ -75,18 +87,6 @@ abstract class StoredQuery
     helper.add(
       'expression',
       expression,
-    );
-    helper.add(
-      'queryArn',
-      queryArn,
-    );
-    helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
-      'queryName',
-      queryName,
     );
     return helper.toString();
   }
@@ -121,6 +121,28 @@ class StoredQueryAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'QueryId':
+          if (value != null) {
+            result.queryId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'QueryArn':
+          if (value != null) {
+            result.queryArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'QueryName':
+          result.queryName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'Description':
           if (value != null) {
             result.description = (serializers.deserialize(
@@ -136,28 +158,6 @@ class StoredQueryAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'QueryArn':
-          if (value != null) {
-            result.queryArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryId':
-          if (value != null) {
-            result.queryId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryName':
-          result.queryName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -179,6 +179,22 @@ class StoredQueryAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.queryId != null) {
+      result
+        ..add('QueryId')
+        ..add(serializers.serialize(
+          payload.queryId!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.queryArn != null) {
+      result
+        ..add('QueryArn')
+        ..add(serializers.serialize(
+          payload.queryArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.description != null) {
       result
         ..add('Description')
@@ -192,22 +208,6 @@ class StoredQueryAwsJson11Serializer
         ..add('Expression')
         ..add(serializers.serialize(
           payload.expression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryArn != null) {
-      result
-        ..add('QueryArn')
-        ..add(serializers.serialize(
-          payload.queryArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryId != null) {
-      result
-        ..add('QueryId')
-        ..add(serializers.serialize(
-          payload.queryId!,
           specifiedType: const FullType(String),
         ));
     }

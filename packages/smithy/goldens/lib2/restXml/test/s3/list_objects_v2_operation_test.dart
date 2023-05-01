@@ -7,15 +7,15 @@ import 'package:aws_signature_v4/aws_signature_v4.dart' as _i10;
 import 'package:built_collection/built_collection.dart' as _i15;
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/s3/model/aws_config.dart' as _i8;
-import 'package:rest_xml_v2/src/s3/model/client_config.dart' as _i21;
-import 'package:rest_xml_v2/src/s3/model/common_prefix.dart' as _i16;
+import 'package:rest_xml_v2/src/s3/model/client_config.dart' as _i23;
+import 'package:rest_xml_v2/src/s3/model/common_prefix.dart' as _i17;
 import 'package:rest_xml_v2/src/s3/model/encoding_type.dart' as _i2;
-import 'package:rest_xml_v2/src/s3/model/environment_config.dart' as _i23;
+import 'package:rest_xml_v2/src/s3/model/environment_config.dart' as _i21;
 import 'package:rest_xml_v2/src/s3/model/file_config_settings.dart' as _i22;
 import 'package:rest_xml_v2/src/s3/model/list_objects_v2_output.dart' as _i14;
 import 'package:rest_xml_v2/src/s3/model/list_objects_v2_request.dart' as _i13;
 import 'package:rest_xml_v2/src/s3/model/no_such_bucket.dart' as _i19;
-import 'package:rest_xml_v2/src/s3/model/object.dart' as _i17;
+import 'package:rest_xml_v2/src/s3/model/object.dart' as _i16;
 import 'package:rest_xml_v2/src/s3/model/object_storage_class.dart' as _i6;
 import 'package:rest_xml_v2/src/s3/model/operation_config.dart' as _i24;
 import 'package:rest_xml_v2/src/s3/model/owner.dart' as _i18;
@@ -686,14 +686,6 @@ class ListObjectsV2RequestRestXmlSerializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Delimiter':
           if (value != null) {
             result.delimiter = (serializers.deserialize(
@@ -708,22 +700,6 @@ class ListObjectsV2RequestRestXmlSerializer
               value,
               specifiedType: const FullType(_i2.EncodingType),
             ) as _i2.EncodingType);
-          }
-          break;
-        case 'ExpectedBucketOwner':
-          if (value != null) {
-            result.expectedBucketOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'FetchOwner':
-          if (value != null) {
-            result.fetchOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
           }
           break;
         case 'MaxKeys':
@@ -742,6 +718,30 @@ class ListObjectsV2RequestRestXmlSerializer
             ) as String);
           }
           break;
+        case 'ContinuationToken':
+          if (value != null) {
+            result.continuationToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'FetchOwner':
+          if (value != null) {
+            result.fetchOwner = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'StartAfter':
+          if (value != null) {
+            result.startAfter = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'RequestPayer':
           if (value != null) {
             result.requestPayer = (serializers.deserialize(
@@ -750,9 +750,9 @@ class ListObjectsV2RequestRestXmlSerializer
             ) as _i3.RequestPayer);
           }
           break;
-        case 'StartAfter':
+        case 'ExpectedBucketOwner':
           if (value != null) {
-            result.startAfter = (serializers.deserialize(
+            result.expectedBucketOwner = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -800,15 +800,12 @@ class ListObjectsV2OutputRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CommonPrefixes':
+        case 'IsTruncated':
           if (value != null) {
-            result.commonPrefixes.replace((serializers.deserialize(
+            result.isTruncated = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i15.BuiltList,
-                [FullType(_i16.CommonPrefix)],
-              ),
-            ) as _i15.BuiltList<_i16.CommonPrefix>));
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'Contents':
@@ -817,14 +814,22 @@ class ListObjectsV2OutputRestXmlSerializer
               value,
               specifiedType: const FullType(
                 _i15.BuiltList,
-                [FullType(_i17.S3Object)],
+                [FullType(_i16.S3Object)],
               ),
-            ) as _i15.BuiltList<_i17.S3Object>));
+            ) as _i15.BuiltList<_i16.S3Object>));
           }
           break;
-        case 'ContinuationToken':
+        case 'Name':
           if (value != null) {
-            result.continuationToken = (serializers.deserialize(
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'Prefix':
+          if (value != null) {
+            result.prefix = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -838,20 +843,31 @@ class ListObjectsV2OutputRestXmlSerializer
             ) as String);
           }
           break;
+        case 'MaxKeys':
+          if (value != null) {
+            result.maxKeys = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
+          break;
+        case 'CommonPrefixes':
+          if (value != null) {
+            result.commonPrefixes.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i15.BuiltList,
+                [FullType(_i17.CommonPrefix)],
+              ),
+            ) as _i15.BuiltList<_i17.CommonPrefix>));
+          }
+          break;
         case 'EncodingType':
           if (value != null) {
             result.encodingType = (serializers.deserialize(
               value,
               specifiedType: const FullType(_i2.EncodingType),
             ) as _i2.EncodingType);
-          }
-          break;
-        case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
           }
           break;
         case 'KeyCount':
@@ -862,17 +878,9 @@ class ListObjectsV2OutputRestXmlSerializer
             ) as int);
           }
           break;
-        case 'MaxKeys':
+        case 'ContinuationToken':
           if (value != null) {
-            result.maxKeys = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
+            result.continuationToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -881,14 +889,6 @@ class ListObjectsV2OutputRestXmlSerializer
         case 'NextContinuationToken':
           if (value != null) {
             result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -919,11 +919,11 @@ class ListObjectsV2OutputRestXmlSerializer
 }
 
 class ObjectRestXmlSerializer
-    extends _i12.StructuredSmithySerializer<_i17.S3Object> {
+    extends _i12.StructuredSmithySerializer<_i16.S3Object> {
   const ObjectRestXmlSerializer() : super('Object');
 
   @override
-  Iterable<Type> get types => const [_i17.S3Object];
+  Iterable<Type> get types => const [_i16.S3Object];
   @override
   Iterable<_i12.ShapeId> get supportedProtocols => const [
         _i12.ShapeId(
@@ -932,26 +932,18 @@ class ObjectRestXmlSerializer
         )
       ];
   @override
-  _i17.S3Object deserialize(
+  _i16.S3Object deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i17.S3ObjectBuilder();
+    final result = _i16.S3ObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Key':
           if (value != null) {
             result.key = (serializers.deserialize(
@@ -969,12 +961,12 @@ class ObjectRestXmlSerializer
             );
           }
           break;
-        case 'Owner':
+        case 'ETag':
           if (value != null) {
-            result.owner.replace((serializers.deserialize(
+            result.eTag = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i18.Owner),
-            ) as _i18.Owner));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'Size':
@@ -991,6 +983,14 @@ class ObjectRestXmlSerializer
               value,
               specifiedType: const FullType(_i6.ObjectStorageClass),
             ) as _i6.ObjectStorageClass);
+          }
+          break;
+        case 'Owner':
+          if (value != null) {
+            result.owner.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i18.Owner),
+            ) as _i18.Owner));
           }
           break;
       }
@@ -1068,11 +1068,11 @@ class OwnerRestXmlSerializer
 }
 
 class CommonPrefixRestXmlSerializer
-    extends _i12.StructuredSmithySerializer<_i16.CommonPrefix> {
+    extends _i12.StructuredSmithySerializer<_i17.CommonPrefix> {
   const CommonPrefixRestXmlSerializer() : super('CommonPrefix');
 
   @override
-  Iterable<Type> get types => const [_i16.CommonPrefix];
+  Iterable<Type> get types => const [_i17.CommonPrefix];
   @override
   Iterable<_i12.ShapeId> get supportedProtocols => const [
         _i12.ShapeId(
@@ -1081,12 +1081,12 @@ class CommonPrefixRestXmlSerializer
         )
       ];
   @override
-  _i16.CommonPrefix deserialize(
+  _i17.CommonPrefix deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i16.CommonPrefixBuilder();
+    final result = _i17.CommonPrefixBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -1233,12 +1233,12 @@ class ScopedConfigSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'client':
+        case 'environment':
           if (value != null) {
-            result.client.replace((serializers.deserialize(
+            result.environment.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i21.ClientConfig),
-            ) as _i21.ClientConfig));
+              specifiedType: const FullType(_i21.EnvironmentConfig),
+            ) as _i21.EnvironmentConfig));
           }
           break;
         case 'configFile':
@@ -1269,12 +1269,12 @@ class ScopedConfigSerializer
             ) as _i15.BuiltMap<String, _i22.FileConfigSettings>));
           }
           break;
-        case 'environment':
+        case 'client':
           if (value != null) {
-            result.environment.replace((serializers.deserialize(
+            result.client.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i23.EnvironmentConfig),
-            ) as _i23.EnvironmentConfig));
+              specifiedType: const FullType(_i23.ClientConfig),
+            ) as _i23.ClientConfig));
           }
           break;
         case 'operation':
@@ -1302,11 +1302,11 @@ class ScopedConfigSerializer
 }
 
 class EnvironmentConfigSerializer
-    extends _i12.StructuredSmithySerializer<_i23.EnvironmentConfig> {
+    extends _i12.StructuredSmithySerializer<_i21.EnvironmentConfig> {
   const EnvironmentConfigSerializer() : super('EnvironmentConfig');
 
   @override
-  Iterable<Type> get types => const [_i23.EnvironmentConfig];
+  Iterable<Type> get types => const [_i21.EnvironmentConfig];
   @override
   Iterable<_i12.ShapeId> get supportedProtocols => const [
         _i12.ShapeId(
@@ -1315,12 +1315,12 @@ class EnvironmentConfigSerializer
         )
       ];
   @override
-  _i23.EnvironmentConfig deserialize(
+  _i21.EnvironmentConfig deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i23.EnvironmentConfigBuilder();
+    final result = _i21.EnvironmentConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -1335,17 +1335,17 @@ class EnvironmentConfigSerializer
             ) as String);
           }
           break;
-        case 'AWS_DEFAULT_REGION':
+        case 'AWS_SECRET_ACCESS_KEY':
           if (value != null) {
-            result.awsDefaultRegion = (serializers.deserialize(
+            result.awsSecretAccessKey = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'AWS_PROFILE':
+        case 'AWS_DEFAULT_REGION':
           if (value != null) {
-            result.awsProfile = (serializers.deserialize(
+            result.awsDefaultRegion = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -1359,17 +1359,17 @@ class EnvironmentConfigSerializer
             ) as _i4.RetryMode);
           }
           break;
-        case 'AWS_SECRET_ACCESS_KEY':
+        case 'AWS_SESSION_TOKEN':
           if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(
+            result.awsSessionToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'AWS_SESSION_TOKEN':
+        case 'AWS_PROFILE':
           if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(
+            result.awsProfile = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -1441,20 +1441,20 @@ class FileConfigSettingsSerializer
             ) as String);
           }
           break;
-        case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'region':
           if (value != null) {
             result.region = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 's3':
+          if (value != null) {
+            result.s3.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i25.S3Config),
+            ) as _i25.S3Config));
           }
           break;
         case 'retry_mode':
@@ -1465,12 +1465,12 @@ class FileConfigSettingsSerializer
             ) as _i4.RetryMode);
           }
           break;
-        case 's3':
+        case 'max_attempts':
           if (value != null) {
-            result.s3.replace((serializers.deserialize(
+            result.maxAttempts = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i25.S3Config),
-            ) as _i25.S3Config));
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -1556,11 +1556,11 @@ class S3ConfigSerializer
 }
 
 class ClientConfigSerializer
-    extends _i12.StructuredSmithySerializer<_i21.ClientConfig> {
+    extends _i12.StructuredSmithySerializer<_i23.ClientConfig> {
   const ClientConfigSerializer() : super('ClientConfig');
 
   @override
-  Iterable<Type> get types => const [_i21.ClientConfig];
+  Iterable<Type> get types => const [_i23.ClientConfig];
   @override
   Iterable<_i12.ShapeId> get supportedProtocols => const [
         _i12.ShapeId(
@@ -1569,12 +1569,12 @@ class ClientConfigSerializer
         )
       ];
   @override
-  _i21.ClientConfig deserialize(
+  _i23.ClientConfig deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i21.ClientConfigBuilder();
+    final result = _i23.ClientConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -1584,14 +1584,6 @@ class ClientConfigSerializer
         case 'aws_access_key_id':
           if (value != null) {
             result.awsAccessKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'aws_profile':
-          if (value != null) {
-            result.awsProfile = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -1621,6 +1613,14 @@ class ClientConfigSerializer
             ) as String);
           }
           break;
+        case 's3':
+          if (value != null) {
+            result.s3.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i25.S3Config),
+            ) as _i25.S3Config));
+          }
+          break;
         case 'retry_config':
           if (value != null) {
             result.retryConfig.replace((serializers.deserialize(
@@ -1629,12 +1629,12 @@ class ClientConfigSerializer
             ) as _i26.RetryConfig));
           }
           break;
-        case 's3':
+        case 'aws_profile':
           if (value != null) {
-            result.s3.replace((serializers.deserialize(
+            result.awsProfile = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i25.S3Config),
-            ) as _i25.S3Config));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -1679,20 +1679,20 @@ class RetryConfigSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'mode':
           if (value != null) {
             result.mode = (serializers.deserialize(
               value,
               specifiedType: const FullType(_i4.RetryMode),
             ) as _i4.RetryMode);
+          }
+          break;
+        case 'max_attempts':
+          if (value != null) {
+            result.maxAttempts = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }

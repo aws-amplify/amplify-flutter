@@ -16,28 +16,28 @@ abstract class ApiKey
     implements Built<ApiKey, ApiKeyBuilder> {
   /// A resource that can be distributed to callers for executing Method resources that require an API key. API keys can be mapped to any Stage on any RestApi, which indicates that the callers with the API key can make requests to that stage.
   factory ApiKey({
-    DateTime? createdDate,
+    String? id,
+    String? value,
+    String? name,
     String? customerId,
     String? description,
     bool? enabled,
-    String? id,
+    DateTime? createdDate,
     DateTime? lastUpdatedDate,
-    String? name,
     List<String>? stageKeys,
     Map<String, String>? tags,
-    String? value,
   }) {
     return _$ApiKey._(
-      createdDate: createdDate,
+      id: id,
+      value: value,
+      name: name,
       customerId: customerId,
       description: description,
       enabled: enabled,
-      id: id,
+      createdDate: createdDate,
       lastUpdatedDate: lastUpdatedDate,
-      name: name,
       stageKeys: stageKeys == null ? null : _i2.BuiltList(stageKeys),
       tags: tags == null ? null : _i2.BuiltMap(tags),
-      value: value,
     );
   }
 
@@ -60,8 +60,14 @@ abstract class ApiKey
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ApiKeyBuilder b) {}
 
-  /// The timestamp when the API Key was created.
-  DateTime? get createdDate;
+  /// The identifier of the API Key.
+  String? get id;
+
+  /// The value of the API Key.
+  String? get value;
+
+  /// The name of the API Key.
+  String? get name;
 
   /// An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
   String? get customerId;
@@ -72,42 +78,44 @@ abstract class ApiKey
   /// Specifies whether the API Key can be used by callers.
   bool? get enabled;
 
-  /// The identifier of the API Key.
-  String? get id;
+  /// The timestamp when the API Key was created.
+  DateTime? get createdDate;
 
   /// The timestamp when the API Key was last updated.
   DateTime? get lastUpdatedDate;
-
-  /// The name of the API Key.
-  String? get name;
 
   /// A list of Stage resources that are associated with the ApiKey resource.
   _i2.BuiltList<String>? get stageKeys;
 
   /// The collection of tags. Each tag element is associated with a given resource.
   _i2.BuiltMap<String, String>? get tags;
-
-  /// The value of the API Key.
-  String? get value;
   @override
   List<Object?> get props => [
-        createdDate,
+        id,
+        value,
+        name,
         customerId,
         description,
         enabled,
-        id,
+        createdDate,
         lastUpdatedDate,
-        name,
         stageKeys,
         tags,
-        value,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ApiKey');
     helper.add(
-      'createdDate',
-      createdDate,
+      'id',
+      id,
+    );
+    helper.add(
+      'value',
+      value,
+    );
+    helper.add(
+      'name',
+      name,
     );
     helper.add(
       'customerId',
@@ -122,16 +130,12 @@ abstract class ApiKey
       enabled,
     );
     helper.add(
-      'id',
-      id,
+      'createdDate',
+      createdDate,
     );
     helper.add(
       'lastUpdatedDate',
       lastUpdatedDate,
-    );
-    helper.add(
-      'name',
-      name,
     );
     helper.add(
       'stageKeys',
@@ -140,10 +144,6 @@ abstract class ApiKey
     helper.add(
       'tags',
       tags,
-    );
-    helper.add(
-      'value',
-      value,
     );
     return helper.toString();
   }

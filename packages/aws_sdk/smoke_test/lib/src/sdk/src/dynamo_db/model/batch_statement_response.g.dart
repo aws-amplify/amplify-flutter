@@ -10,15 +10,15 @@ class _$BatchStatementResponse extends BatchStatementResponse {
   @override
   final _i2.BatchStatementError? error;
   @override
-  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
-  @override
   final String? tableName;
+  @override
+  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
 
   factory _$BatchStatementResponse(
           [void Function(BatchStatementResponseBuilder)? updates]) =>
       (new BatchStatementResponseBuilder()..update(updates))._build();
 
-  _$BatchStatementResponse._({this.error, this.item, this.tableName})
+  _$BatchStatementResponse._({this.error, this.tableName, this.item})
       : super._();
 
   @override
@@ -35,16 +35,16 @@ class _$BatchStatementResponse extends BatchStatementResponse {
     if (identical(other, this)) return true;
     return other is BatchStatementResponse &&
         error == other.error &&
-        item == other.item &&
-        tableName == other.tableName;
+        tableName == other.tableName &&
+        item == other.item;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, error.hashCode);
-    _$hash = $jc(_$hash, item.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, item.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,15 +59,15 @@ class BatchStatementResponseBuilder
       _$this._error ??= new _i2.BatchStatementErrorBuilder();
   set error(_i2.BatchStatementErrorBuilder? error) => _$this._error = error;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
   _i4.MapBuilder<String, _i3.AttributeValue>? _item;
   _i4.MapBuilder<String, _i3.AttributeValue> get item =>
       _$this._item ??= new _i4.MapBuilder<String, _i3.AttributeValue>();
   set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
       _$this._item = item;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
 
   BatchStatementResponseBuilder() {
     BatchStatementResponse._init(this);
@@ -77,8 +77,8 @@ class BatchStatementResponseBuilder
     final $v = _$v;
     if ($v != null) {
       _error = $v.error?.toBuilder();
-      _item = $v.item?.toBuilder();
       _tableName = $v.tableName;
+      _item = $v.item?.toBuilder();
       _$v = null;
     }
     return this;
@@ -104,13 +104,14 @@ class BatchStatementResponseBuilder
       _$result = _$v ??
           new _$BatchStatementResponse._(
               error: _error?.build(),
-              item: _item?.build(),
-              tableName: tableName);
+              tableName: tableName,
+              item: _item?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'error';
         _error?.build();
+
         _$failedField = 'item';
         _item?.build();
       } catch (e) {

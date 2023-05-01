@@ -18,12 +18,12 @@ abstract class AggregateComplianceCount
         Built<AggregateComplianceCount, AggregateComplianceCountBuilder> {
   /// Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
   factory AggregateComplianceCount({
-    _i2.ComplianceSummary? complianceSummary,
     String? groupName,
+    _i2.ComplianceSummary? complianceSummary,
   }) {
     return _$AggregateComplianceCount._(
-      complianceSummary: complianceSummary,
       groupName: groupName,
+      complianceSummary: complianceSummary,
     );
   }
 
@@ -41,26 +41,26 @@ abstract class AggregateComplianceCount
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateComplianceCountBuilder b) {}
 
-  /// The number of compliant and noncompliant Config rules.
-  _i2.ComplianceSummary? get complianceSummary;
-
   /// The 12-digit account ID or region based on the GroupByKey value.
   String? get groupName;
+
+  /// The number of compliant and noncompliant Config rules.
+  _i2.ComplianceSummary? get complianceSummary;
   @override
   List<Object?> get props => [
-        complianceSummary,
         groupName,
+        complianceSummary,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AggregateComplianceCount');
     helper.add(
-      'complianceSummary',
-      complianceSummary,
-    );
-    helper.add(
       'groupName',
       groupName,
+    );
+    helper.add(
+      'complianceSummary',
+      complianceSummary,
     );
     return helper.toString();
   }
@@ -96,20 +96,20 @@ class AggregateComplianceCountAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceSummary),
-            ) as _i2.ComplianceSummary));
-          }
-          break;
         case 'GroupName':
           if (value != null) {
             result.groupName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ComplianceSummary':
+          if (value != null) {
+            result.complianceSummary.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ComplianceSummary),
+            ) as _i2.ComplianceSummary));
           }
           break;
       }
@@ -126,20 +126,20 @@ class AggregateComplianceCountAwsJson11Serializer
   }) {
     final payload = (object as AggregateComplianceCount);
     final result = <Object?>[];
-    if (payload.complianceSummary != null) {
-      result
-        ..add('ComplianceSummary')
-        ..add(serializers.serialize(
-          payload.complianceSummary!,
-          specifiedType: const FullType(_i2.ComplianceSummary),
-        ));
-    }
     if (payload.groupName != null) {
       result
         ..add('GroupName')
         ..add(serializers.serialize(
           payload.groupName!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.complianceSummary != null) {
+      result
+        ..add('ComplianceSummary')
+        ..add(serializers.serialize(
+          payload.complianceSummary!,
+          specifiedType: const FullType(_i2.ComplianceSummary),
         ));
     }
     return result;

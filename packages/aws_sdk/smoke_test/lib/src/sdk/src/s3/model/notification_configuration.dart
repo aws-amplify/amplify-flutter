@@ -8,13 +8,13 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/s3/model/event_bridge_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/lambda_function_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/queue_configuration.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/topic_configuration.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/lambda_function_configuration.dart'
+    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/queue_configuration.dart'
+    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/topic_configuration.dart'
+    as _i2;
 
 part 'notification_configuration.g.dart';
 
@@ -25,22 +25,22 @@ abstract class NotificationConfiguration
         Built<NotificationConfiguration, NotificationConfigurationBuilder> {
   /// A container for specifying the notification configuration of the bucket. If this element is empty, notifications are turned off for the bucket.
   factory NotificationConfiguration({
-    _i2.EventBridgeConfiguration? eventBridgeConfiguration,
-    List<_i3.LambdaFunctionConfiguration>? lambdaFunctionConfigurations,
-    List<_i4.QueueConfiguration>? queueConfigurations,
-    List<_i5.TopicConfiguration>? topicConfigurations,
+    List<_i2.TopicConfiguration>? topicConfigurations,
+    List<_i3.QueueConfiguration>? queueConfigurations,
+    List<_i4.LambdaFunctionConfiguration>? lambdaFunctionConfigurations,
+    _i5.EventBridgeConfiguration? eventBridgeConfiguration,
   }) {
     return _$NotificationConfiguration._(
-      eventBridgeConfiguration: eventBridgeConfiguration,
-      lambdaFunctionConfigurations: lambdaFunctionConfigurations == null
-          ? null
-          : _i6.BuiltList(lambdaFunctionConfigurations),
-      queueConfigurations: queueConfigurations == null
-          ? null
-          : _i6.BuiltList(queueConfigurations),
       topicConfigurations: topicConfigurations == null
           ? null
           : _i6.BuiltList(topicConfigurations),
+      queueConfigurations: queueConfigurations == null
+          ? null
+          : _i6.BuiltList(queueConfigurations),
+      lambdaFunctionConfigurations: lambdaFunctionConfigurations == null
+          ? null
+          : _i6.BuiltList(lambdaFunctionConfigurations),
+      eventBridgeConfiguration: eventBridgeConfiguration,
     );
   }
 
@@ -65,43 +65,43 @@ abstract class NotificationConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NotificationConfigurationBuilder b) {}
 
-  /// Enables delivery of events to Amazon EventBridge.
-  _i2.EventBridgeConfiguration? get eventBridgeConfiguration;
-
-  /// Describes the Lambda functions to invoke and the events for which to invoke them.
-  _i6.BuiltList<_i3.LambdaFunctionConfiguration>?
-      get lambdaFunctionConfigurations;
+  /// The topic to which notifications are sent and the events for which notifications are generated.
+  _i6.BuiltList<_i2.TopicConfiguration>? get topicConfigurations;
 
   /// The Amazon Simple Queue Service queues to publish messages to and the events for which to publish messages.
-  _i6.BuiltList<_i4.QueueConfiguration>? get queueConfigurations;
+  _i6.BuiltList<_i3.QueueConfiguration>? get queueConfigurations;
 
-  /// The topic to which notifications are sent and the events for which notifications are generated.
-  _i6.BuiltList<_i5.TopicConfiguration>? get topicConfigurations;
+  /// Describes the Lambda functions to invoke and the events for which to invoke them.
+  _i6.BuiltList<_i4.LambdaFunctionConfiguration>?
+      get lambdaFunctionConfigurations;
+
+  /// Enables delivery of events to Amazon EventBridge.
+  _i5.EventBridgeConfiguration? get eventBridgeConfiguration;
   @override
   List<Object?> get props => [
-        eventBridgeConfiguration,
-        lambdaFunctionConfigurations,
-        queueConfigurations,
         topicConfigurations,
+        queueConfigurations,
+        lambdaFunctionConfigurations,
+        eventBridgeConfiguration,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NotificationConfiguration');
     helper.add(
-      'eventBridgeConfiguration',
-      eventBridgeConfiguration,
-    );
-    helper.add(
-      'lambdaFunctionConfigurations',
-      lambdaFunctionConfigurations,
+      'topicConfigurations',
+      topicConfigurations,
     );
     helper.add(
       'queueConfigurations',
       queueConfigurations,
     );
     helper.add(
-      'topicConfigurations',
-      topicConfigurations,
+      'lambdaFunctionConfigurations',
+      lambdaFunctionConfigurations,
+    );
+    helper.add(
+      'eventBridgeConfiguration',
+      eventBridgeConfiguration,
     );
     return helper.toString();
   }
@@ -141,32 +141,32 @@ class NotificationConfigurationRestXmlSerializer
           if (value != null) {
             result.eventBridgeConfiguration.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.EventBridgeConfiguration),
-            ) as _i2.EventBridgeConfiguration));
+              specifiedType: const FullType(_i5.EventBridgeConfiguration),
+            ) as _i5.EventBridgeConfiguration));
           }
           break;
         case 'CloudFunctionConfiguration':
           if (value != null) {
             result.lambdaFunctionConfigurations.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.LambdaFunctionConfiguration),
-            ) as _i3.LambdaFunctionConfiguration));
+              specifiedType: const FullType(_i4.LambdaFunctionConfiguration),
+            ) as _i4.LambdaFunctionConfiguration));
           }
           break;
         case 'QueueConfiguration':
           if (value != null) {
             result.queueConfigurations.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.QueueConfiguration),
-            ) as _i4.QueueConfiguration));
+              specifiedType: const FullType(_i3.QueueConfiguration),
+            ) as _i3.QueueConfiguration));
           }
           break;
         case 'TopicConfiguration':
           if (value != null) {
             result.topicConfigurations.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.TopicConfiguration),
-            ) as _i5.TopicConfiguration));
+              specifiedType: const FullType(_i2.TopicConfiguration),
+            ) as _i2.TopicConfiguration));
           }
           break;
       }
@@ -193,7 +193,7 @@ class NotificationConfigurationRestXmlSerializer
         ..add(const _i7.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
           payload.eventBridgeConfiguration!,
-          specifiedType: const FullType(_i2.EventBridgeConfiguration),
+          specifiedType: const FullType(_i5.EventBridgeConfiguration),
         ));
     }
     if (payload.lambdaFunctionConfigurations != null) {
@@ -204,7 +204,7 @@ class NotificationConfigurationRestXmlSerializer
         payload.lambdaFunctionConfigurations!,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
-          [FullType(_i3.LambdaFunctionConfiguration)],
+          [FullType(_i4.LambdaFunctionConfiguration)],
         ),
       ));
     }
@@ -216,7 +216,7 @@ class NotificationConfigurationRestXmlSerializer
         payload.queueConfigurations!,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
-          [FullType(_i4.QueueConfiguration)],
+          [FullType(_i3.QueueConfiguration)],
         ),
       ));
     }
@@ -228,7 +228,7 @@ class NotificationConfigurationRestXmlSerializer
         payload.topicConfigurations!,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
-          [FullType(_i5.TopicConfiguration)],
+          [FullType(_i2.TopicConfiguration)],
         ),
       ));
     }

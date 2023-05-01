@@ -10,7 +10,8 @@ class XmlBuiltMapSerializer implements StructuredSerializer<BuiltMap> {
     this.keyName = 'key',
     this.valueName = 'value',
     this.flattenedKey,
-  });
+    XmlIndexer? indexer,
+  }) : indexer = indexer ?? XmlIndexer.none;
 
   @override
   Iterable<Type> get types =>
@@ -19,6 +20,7 @@ class XmlBuiltMapSerializer implements StructuredSerializer<BuiltMap> {
   final String keyName;
   final String valueName;
   final String? flattenedKey;
+  final XmlIndexer indexer;
 
   @override
   final String wireName = 'map';
@@ -37,18 +39,23 @@ class XmlBuiltMapSerializer implements StructuredSerializer<BuiltMap> {
         ? FullType.unspecified
         : specifiedType.parameters[1];
 
+    var index = 0;
     final result = <Object?>[];
-    for (final key in builtMap.keys) {
+    builtMap.forEach((key, Object? value) {
       final innerResult = <Object?>[];
-      innerResult.add(XmlElementName(keyName));
-      innerResult.add(serializers.serialize(key, specifiedType: keyType));
-      final value = builtMap[key] as Object?;
-      innerResult.add(XmlElementName(valueName));
+      final elementKeyName = indexer.elementName(keyName, index);
+      innerResult
+        ..add(XmlElementName(elementKeyName))
+        ..add(serializers.serialize(key, specifiedType: keyType));
+      final elementValueName = indexer.elementName(valueName, index);
       final Object? serializedValue =
           serializers.serialize(value, specifiedType: valueType);
-      innerResult.add(serializedValue);
+      innerResult
+        ..add(XmlElementName(elementValueName))
+        ..add(serializedValue);
       result.addAll([flattenedKey ?? 'entry', innerResult]);
-    }
+      index++;
+    });
     return result;
   }
 

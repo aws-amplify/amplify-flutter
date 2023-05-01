@@ -20,13 +20,13 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
             StreamingTraitsWithMediaTypeInputOutputBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
   factory StreamingTraitsWithMediaTypeInputOutput({
-    _i2.Stream<List<int>>? blob,
     String? foo,
+    _i2.Stream<List<int>>? blob,
   }) {
     blob ??= const _i2.Stream.empty();
     return _$StreamingTraitsWithMediaTypeInputOutput._(
-      blob: blob,
       foo: foo,
+      blob: blob,
     );
   }
 
@@ -69,26 +69,26 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
     b.blob = const _i2.Stream.empty();
   }
 
-  _i2.Stream<List<int>>? get blob;
   String? get foo;
+  _i2.Stream<List<int>>? get blob;
   @override
   _i2.Stream<List<int>>? getPayload() => blob;
   @override
   List<Object?> get props => [
-        blob,
         foo,
+        blob,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('StreamingTraitsWithMediaTypeInputOutput');
     helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'blob',
+      blob,
     );
     return helper.toString();
   }

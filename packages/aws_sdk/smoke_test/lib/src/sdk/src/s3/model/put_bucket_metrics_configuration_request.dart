@@ -22,15 +22,15 @@ abstract class PutBucketMetricsConfigurationRequest
         _i1.HasPayload<_i2.MetricsConfiguration> {
   factory PutBucketMetricsConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
     required _i2.MetricsConfiguration metricsConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketMetricsConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
       metricsConfiguration: metricsConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -69,14 +69,14 @@ abstract class PutBucketMetricsConfigurationRequest
   /// The name of the bucket for which the metrics configuration is set.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID used to identify the metrics configuration.
   String get id;
 
   /// Specifies the metrics configuration.
   _i2.MetricsConfiguration get metricsConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -94,9 +94,9 @@ abstract class PutBucketMetricsConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         id,
         metricsConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -107,16 +107,16 @@ abstract class PutBucketMetricsConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
     );
     helper.add(
       'metricsConfiguration',
       metricsConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

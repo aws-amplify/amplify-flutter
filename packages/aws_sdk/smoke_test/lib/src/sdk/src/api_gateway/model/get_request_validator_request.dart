@@ -21,12 +21,12 @@ abstract class GetRequestValidatorRequest
         _i1.HasPayload<GetRequestValidatorRequestPayload> {
   /// Gets a RequestValidator of a given RestApi.
   factory GetRequestValidatorRequest({
-    required String requestValidatorId,
     required String restApiId,
+    required String requestValidatorId,
   }) {
     return _$GetRequestValidatorRequest._(
-      requestValidatorId: requestValidatorId,
       restApiId: restApiId,
+      requestValidatorId: requestValidatorId,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class GetRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRequestValidatorRequestBuilder b) {}
 
-  /// The identifier of the RequestValidator to be retrieved.
-  String get requestValidatorId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the RequestValidator to be retrieved.
+  String get requestValidatorId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +82,19 @@ abstract class GetRequestValidatorRequest
       GetRequestValidatorRequestPayload();
   @override
   List<Object?> get props => [
-        requestValidatorId,
         restApiId,
+        requestValidatorId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRequestValidatorRequest');
     helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'requestValidatorId',
+      requestValidatorId,
     );
     return helper.toString();
   }

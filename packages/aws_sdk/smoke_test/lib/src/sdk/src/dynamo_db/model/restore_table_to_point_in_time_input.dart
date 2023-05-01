@@ -28,18 +28,23 @@ abstract class RestoreTableToPointInTimeInput
         Built<RestoreTableToPointInTimeInput,
             RestoreTableToPointInTimeInputBuilder> {
   factory RestoreTableToPointInTimeInput({
+    String? sourceTableArn,
+    String? sourceTableName,
+    required String targetTableName,
+    bool? useLatestRestorableTime,
+    DateTime? restoreDateTime,
     _i3.BillingMode? billingModeOverride,
     List<_i4.GlobalSecondaryIndex>? globalSecondaryIndexOverride,
     List<_i5.LocalSecondaryIndex>? localSecondaryIndexOverride,
     _i6.ProvisionedThroughput? provisionedThroughputOverride,
-    DateTime? restoreDateTime,
-    String? sourceTableArn,
-    String? sourceTableName,
     _i7.SseSpecification? sseSpecificationOverride,
-    required String targetTableName,
-    bool? useLatestRestorableTime,
   }) {
     return _$RestoreTableToPointInTimeInput._(
+      sourceTableArn: sourceTableArn,
+      sourceTableName: sourceTableName,
+      targetTableName: targetTableName,
+      useLatestRestorableTime: useLatestRestorableTime,
+      restoreDateTime: restoreDateTime,
       billingModeOverride: billingModeOverride,
       globalSecondaryIndexOverride: globalSecondaryIndexOverride == null
           ? null
@@ -48,12 +53,7 @@ abstract class RestoreTableToPointInTimeInput
           ? null
           : _i8.BuiltList(localSecondaryIndexOverride),
       provisionedThroughputOverride: provisionedThroughputOverride,
-      restoreDateTime: restoreDateTime,
-      sourceTableArn: sourceTableArn,
-      sourceTableName: sourceTableName,
       sseSpecificationOverride: sseSpecificationOverride,
-      targetTableName: targetTableName,
-      useLatestRestorableTime: useLatestRestorableTime,
     );
   }
 
@@ -77,6 +77,21 @@ abstract class RestoreTableToPointInTimeInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestoreTableToPointInTimeInputBuilder b) {}
 
+  /// The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
+  String? get sourceTableArn;
+
+  /// Name of the source table that is being restored.
+  String? get sourceTableName;
+
+  /// The name of the new table to which it must be restored to.
+  String get targetTableName;
+
+  /// Restore the table to the latest possible time. `LatestRestorableDateTime` is typically 5 minutes before the current time.
+  bool? get useLatestRestorableTime;
+
+  /// Time in the past to restore the table to.
+  DateTime? get restoreDateTime;
+
   /// The billing mode of the restored table.
   _i3.BillingMode? get billingModeOverride;
 
@@ -89,42 +104,47 @@ abstract class RestoreTableToPointInTimeInput
   /// Provisioned throughput settings for the restored table.
   _i6.ProvisionedThroughput? get provisionedThroughputOverride;
 
-  /// Time in the past to restore the table to.
-  DateTime? get restoreDateTime;
-
-  /// The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
-  String? get sourceTableArn;
-
-  /// Name of the source table that is being restored.
-  String? get sourceTableName;
-
   /// The new server-side encryption settings for the restored table.
   _i7.SseSpecification? get sseSpecificationOverride;
-
-  /// The name of the new table to which it must be restored to.
-  String get targetTableName;
-
-  /// Restore the table to the latest possible time. `LatestRestorableDateTime` is typically 5 minutes before the current time.
-  bool? get useLatestRestorableTime;
   @override
   RestoreTableToPointInTimeInput getPayload() => this;
   @override
   List<Object?> get props => [
+        sourceTableArn,
+        sourceTableName,
+        targetTableName,
+        useLatestRestorableTime,
+        restoreDateTime,
         billingModeOverride,
         globalSecondaryIndexOverride,
         localSecondaryIndexOverride,
         provisionedThroughputOverride,
-        restoreDateTime,
-        sourceTableArn,
-        sourceTableName,
         sseSpecificationOverride,
-        targetTableName,
-        useLatestRestorableTime,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('RestoreTableToPointInTimeInput');
+    helper.add(
+      'sourceTableArn',
+      sourceTableArn,
+    );
+    helper.add(
+      'sourceTableName',
+      sourceTableName,
+    );
+    helper.add(
+      'targetTableName',
+      targetTableName,
+    );
+    helper.add(
+      'useLatestRestorableTime',
+      useLatestRestorableTime,
+    );
+    helper.add(
+      'restoreDateTime',
+      restoreDateTime,
+    );
     helper.add(
       'billingModeOverride',
       billingModeOverride,
@@ -142,28 +162,8 @@ abstract class RestoreTableToPointInTimeInput
       provisionedThroughputOverride,
     );
     helper.add(
-      'restoreDateTime',
-      restoreDateTime,
-    );
-    helper.add(
-      'sourceTableArn',
-      sourceTableArn,
-    );
-    helper.add(
-      'sourceTableName',
-      sourceTableName,
-    );
-    helper.add(
       'sseSpecificationOverride',
       sseSpecificationOverride,
-    );
-    helper.add(
-      'targetTableName',
-      targetTableName,
-    );
-    helper.add(
-      'useLatestRestorableTime',
-      useLatestRestorableTime,
     );
     return helper.toString();
   }
@@ -199,6 +199,44 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'SourceTableArn':
+          if (value != null) {
+            result.sourceTableArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'SourceTableName':
+          if (value != null) {
+            result.sourceTableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'TargetTableName':
+          result.targetTableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'UseLatestRestorableTime':
+          if (value != null) {
+            result.useLatestRestorableTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'RestoreDateTime':
+          if (value != null) {
+            result.restoreDateTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
         case 'BillingModeOverride':
           if (value != null) {
             result.billingModeOverride = (serializers.deserialize(
@@ -239,50 +277,12 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
             ) as _i6.ProvisionedThroughput));
           }
           break;
-        case 'RestoreDateTime':
-          if (value != null) {
-            result.restoreDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'SourceTableArn':
-          if (value != null) {
-            result.sourceTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SourceTableName':
-          if (value != null) {
-            result.sourceTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'SSESpecificationOverride':
           if (value != null) {
             result.sseSpecificationOverride.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(_i7.SseSpecification),
             ) as _i7.SseSpecification));
-          }
-          break;
-        case 'TargetTableName':
-          result.targetTableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'UseLatestRestorableTime':
-          if (value != null) {
-            result.useLatestRestorableTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
           }
           break;
       }
@@ -305,6 +305,38 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.sourceTableArn != null) {
+      result
+        ..add('SourceTableArn')
+        ..add(serializers.serialize(
+          payload.sourceTableArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.sourceTableName != null) {
+      result
+        ..add('SourceTableName')
+        ..add(serializers.serialize(
+          payload.sourceTableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.useLatestRestorableTime != null) {
+      result
+        ..add('UseLatestRestorableTime')
+        ..add(serializers.serialize(
+          payload.useLatestRestorableTime!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.restoreDateTime != null) {
+      result
+        ..add('RestoreDateTime')
+        ..add(serializers.serialize(
+          payload.restoreDateTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
     if (payload.billingModeOverride != null) {
       result
         ..add('BillingModeOverride')
@@ -343,44 +375,12 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
           specifiedType: const FullType(_i6.ProvisionedThroughput),
         ));
     }
-    if (payload.restoreDateTime != null) {
-      result
-        ..add('RestoreDateTime')
-        ..add(serializers.serialize(
-          payload.restoreDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.sourceTableArn != null) {
-      result
-        ..add('SourceTableArn')
-        ..add(serializers.serialize(
-          payload.sourceTableArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.sourceTableName != null) {
-      result
-        ..add('SourceTableName')
-        ..add(serializers.serialize(
-          payload.sourceTableName!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.sseSpecificationOverride != null) {
       result
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
           payload.sseSpecificationOverride!,
           specifiedType: const FullType(_i7.SseSpecification),
-        ));
-    }
-    if (payload.useLatestRestorableTime != null) {
-      result
-        ..add('UseLatestRestorableTime')
-        ..add(serializers.serialize(
-          payload.useLatestRestorableTime!,
-          specifiedType: const FullType(bool),
         ));
     }
     return result;

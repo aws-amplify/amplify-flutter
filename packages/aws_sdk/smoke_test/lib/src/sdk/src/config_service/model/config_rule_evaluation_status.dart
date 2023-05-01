@@ -20,38 +20,38 @@ abstract class ConfigRuleEvaluationStatus
   ///
   /// This action does not return status information about Config Custom Lambda rules.
   factory ConfigRuleEvaluationStatus({
+    String? configRuleName,
     String? configRuleArn,
     String? configRuleId,
-    String? configRuleName,
+    DateTime? lastSuccessfulInvocationTime,
+    DateTime? lastFailedInvocationTime,
+    DateTime? lastSuccessfulEvaluationTime,
+    DateTime? lastFailedEvaluationTime,
     DateTime? firstActivatedTime,
-    bool? firstEvaluationStarted,
     DateTime? lastDeactivatedTime,
+    String? lastErrorCode,
+    String? lastErrorMessage,
+    bool? firstEvaluationStarted,
     String? lastDebugLogDeliveryStatus,
     String? lastDebugLogDeliveryStatusReason,
     DateTime? lastDebugLogDeliveryTime,
-    String? lastErrorCode,
-    String? lastErrorMessage,
-    DateTime? lastFailedEvaluationTime,
-    DateTime? lastFailedInvocationTime,
-    DateTime? lastSuccessfulEvaluationTime,
-    DateTime? lastSuccessfulInvocationTime,
   }) {
     return _$ConfigRuleEvaluationStatus._(
+      configRuleName: configRuleName,
       configRuleArn: configRuleArn,
       configRuleId: configRuleId,
-      configRuleName: configRuleName,
+      lastSuccessfulInvocationTime: lastSuccessfulInvocationTime,
+      lastFailedInvocationTime: lastFailedInvocationTime,
+      lastSuccessfulEvaluationTime: lastSuccessfulEvaluationTime,
+      lastFailedEvaluationTime: lastFailedEvaluationTime,
       firstActivatedTime: firstActivatedTime,
-      firstEvaluationStarted: firstEvaluationStarted,
       lastDeactivatedTime: lastDeactivatedTime,
+      lastErrorCode: lastErrorCode,
+      lastErrorMessage: lastErrorMessage,
+      firstEvaluationStarted: firstEvaluationStarted,
       lastDebugLogDeliveryStatus: lastDebugLogDeliveryStatus,
       lastDebugLogDeliveryStatusReason: lastDebugLogDeliveryStatusReason,
       lastDebugLogDeliveryTime: lastDebugLogDeliveryTime,
-      lastErrorCode: lastErrorCode,
-      lastErrorMessage: lastErrorMessage,
-      lastFailedEvaluationTime: lastFailedEvaluationTime,
-      lastFailedInvocationTime: lastFailedInvocationTime,
-      lastSuccessfulEvaluationTime: lastSuccessfulEvaluationTime,
-      lastSuccessfulInvocationTime: lastSuccessfulInvocationTime,
     );
   }
 
@@ -71,17 +71,38 @@ abstract class ConfigRuleEvaluationStatus
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleEvaluationStatusBuilder b) {}
 
+  /// The name of the Config rule.
+  String? get configRuleName;
+
   /// The Amazon Resource Name (ARN) of the Config rule.
   String? get configRuleArn;
 
   /// The ID of the Config rule.
   String? get configRuleId;
 
-  /// The name of the Config rule.
-  String? get configRuleName;
+  /// The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
+  DateTime? get lastSuccessfulInvocationTime;
+
+  /// The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
+  DateTime? get lastFailedInvocationTime;
+
+  /// The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
+  DateTime? get lastSuccessfulEvaluationTime;
+
+  /// The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
+  DateTime? get lastFailedEvaluationTime;
 
   /// The time that you first activated the Config rule.
   DateTime? get firstActivatedTime;
+
+  /// The time that you last turned off the Config rule.
+  DateTime? get lastDeactivatedTime;
+
+  /// The error code that Config returned when the rule last failed.
+  String? get lastErrorCode;
+
+  /// The error message that Config returned when the rule last failed.
+  String? get lastErrorMessage;
 
   /// Indicates whether Config has evaluated your resources against the rule at least once.
   ///
@@ -89,9 +110,6 @@ abstract class ConfigRuleEvaluationStatus
   ///
   /// *   `false` \- Config has not finished evaluating your Amazon Web Services resources against the rule at least once.
   bool? get firstEvaluationStarted;
-
-  /// The time that you last turned off the Config rule.
-  DateTime? get lastDeactivatedTime;
 
   /// The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either `Successful` or `Failed`.
   String? get lastDebugLogDeliveryStatus;
@@ -101,45 +119,31 @@ abstract class ConfigRuleEvaluationStatus
 
   /// The time Config last attempted to deliver a debug log for your Config Custom Policy rules.
   DateTime? get lastDebugLogDeliveryTime;
-
-  /// The error code that Config returned when the rule last failed.
-  String? get lastErrorCode;
-
-  /// The error message that Config returned when the rule last failed.
-  String? get lastErrorMessage;
-
-  /// The time that Config last failed to evaluate your Amazon Web Services resources against the rule.
-  DateTime? get lastFailedEvaluationTime;
-
-  /// The time that Config last failed to invoke the Config rule to evaluate your Amazon Web Services resources.
-  DateTime? get lastFailedInvocationTime;
-
-  /// The time that Config last successfully evaluated your Amazon Web Services resources against the rule.
-  DateTime? get lastSuccessfulEvaluationTime;
-
-  /// The time that Config last successfully invoked the Config rule to evaluate your Amazon Web Services resources.
-  DateTime? get lastSuccessfulInvocationTime;
   @override
   List<Object?> get props => [
+        configRuleName,
         configRuleArn,
         configRuleId,
-        configRuleName,
+        lastSuccessfulInvocationTime,
+        lastFailedInvocationTime,
+        lastSuccessfulEvaluationTime,
+        lastFailedEvaluationTime,
         firstActivatedTime,
-        firstEvaluationStarted,
         lastDeactivatedTime,
+        lastErrorCode,
+        lastErrorMessage,
+        firstEvaluationStarted,
         lastDebugLogDeliveryStatus,
         lastDebugLogDeliveryStatusReason,
         lastDebugLogDeliveryTime,
-        lastErrorCode,
-        lastErrorMessage,
-        lastFailedEvaluationTime,
-        lastFailedInvocationTime,
-        lastSuccessfulEvaluationTime,
-        lastSuccessfulInvocationTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigRuleEvaluationStatus');
+    helper.add(
+      'configRuleName',
+      configRuleName,
+    );
     helper.add(
       'configRuleArn',
       configRuleArn,
@@ -149,20 +153,40 @@ abstract class ConfigRuleEvaluationStatus
       configRuleId,
     );
     helper.add(
-      'configRuleName',
-      configRuleName,
+      'lastSuccessfulInvocationTime',
+      lastSuccessfulInvocationTime,
+    );
+    helper.add(
+      'lastFailedInvocationTime',
+      lastFailedInvocationTime,
+    );
+    helper.add(
+      'lastSuccessfulEvaluationTime',
+      lastSuccessfulEvaluationTime,
+    );
+    helper.add(
+      'lastFailedEvaluationTime',
+      lastFailedEvaluationTime,
     );
     helper.add(
       'firstActivatedTime',
       firstActivatedTime,
     );
     helper.add(
-      'firstEvaluationStarted',
-      firstEvaluationStarted,
-    );
-    helper.add(
       'lastDeactivatedTime',
       lastDeactivatedTime,
+    );
+    helper.add(
+      'lastErrorCode',
+      lastErrorCode,
+    );
+    helper.add(
+      'lastErrorMessage',
+      lastErrorMessage,
+    );
+    helper.add(
+      'firstEvaluationStarted',
+      firstEvaluationStarted,
     );
     helper.add(
       'lastDebugLogDeliveryStatus',
@@ -175,30 +199,6 @@ abstract class ConfigRuleEvaluationStatus
     helper.add(
       'lastDebugLogDeliveryTime',
       lastDebugLogDeliveryTime,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastFailedEvaluationTime',
-      lastFailedEvaluationTime,
-    );
-    helper.add(
-      'lastFailedInvocationTime',
-      lastFailedInvocationTime,
-    );
-    helper.add(
-      'lastSuccessfulEvaluationTime',
-      lastSuccessfulEvaluationTime,
-    );
-    helper.add(
-      'lastSuccessfulInvocationTime',
-      lastSuccessfulInvocationTime,
     );
     return helper.toString();
   }
@@ -234,6 +234,14 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigRuleName':
+          if (value != null) {
+            result.configRuleName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ConfigRuleArn':
           if (value != null) {
             result.configRuleArn = (serializers.deserialize(
@@ -250,12 +258,36 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'ConfigRuleName':
+        case 'LastSuccessfulInvocationTime':
           if (value != null) {
-            result.configRuleName = (serializers.deserialize(
+            result.lastSuccessfulInvocationTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'LastFailedInvocationTime':
+          if (value != null) {
+            result.lastFailedInvocationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'LastSuccessfulEvaluationTime':
+          if (value != null) {
+            result.lastSuccessfulEvaluationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'LastFailedEvaluationTime':
+          if (value != null) {
+            result.lastFailedEvaluationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'FirstActivatedTime':
@@ -266,20 +298,36 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
             ) as DateTime);
           }
           break;
-        case 'FirstEvaluationStarted':
-          if (value != null) {
-            result.firstEvaluationStarted = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
         case 'LastDeactivatedTime':
           if (value != null) {
             result.lastDeactivatedTime = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
+          }
+          break;
+        case 'LastErrorCode':
+          if (value != null) {
+            result.lastErrorCode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'LastErrorMessage':
+          if (value != null) {
+            result.lastErrorMessage = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'FirstEvaluationStarted':
+          if (value != null) {
+            result.firstEvaluationStarted = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
           }
           break;
         case 'LastDebugLogDeliveryStatus':
@@ -306,54 +354,6 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
             ) as DateTime);
           }
           break;
-        case 'LastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'LastFailedEvaluationTime':
-          if (value != null) {
-            result.lastFailedEvaluationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'LastFailedInvocationTime':
-          if (value != null) {
-            result.lastFailedInvocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'LastSuccessfulEvaluationTime':
-          if (value != null) {
-            result.lastSuccessfulEvaluationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'LastSuccessfulInvocationTime':
-          if (value != null) {
-            result.lastSuccessfulInvocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
       }
     }
 
@@ -368,6 +368,14 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
   }) {
     final payload = (object as ConfigRuleEvaluationStatus);
     final result = <Object?>[];
+    if (payload.configRuleName != null) {
+      result
+        ..add('ConfigRuleName')
+        ..add(serializers.serialize(
+          payload.configRuleName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.configRuleArn != null) {
       result
         ..add('ConfigRuleArn')
@@ -384,12 +392,36 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleName != null) {
+    if (payload.lastSuccessfulInvocationTime != null) {
       result
-        ..add('ConfigRuleName')
+        ..add('LastSuccessfulInvocationTime')
         ..add(serializers.serialize(
-          payload.configRuleName!,
-          specifiedType: const FullType(String),
+          payload.lastSuccessfulInvocationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastFailedInvocationTime != null) {
+      result
+        ..add('LastFailedInvocationTime')
+        ..add(serializers.serialize(
+          payload.lastFailedInvocationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastSuccessfulEvaluationTime != null) {
+      result
+        ..add('LastSuccessfulEvaluationTime')
+        ..add(serializers.serialize(
+          payload.lastSuccessfulEvaluationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastFailedEvaluationTime != null) {
+      result
+        ..add('LastFailedEvaluationTime')
+        ..add(serializers.serialize(
+          payload.lastFailedEvaluationTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.firstActivatedTime != null) {
@@ -400,20 +432,36 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.firstEvaluationStarted != null) {
-      result
-        ..add('FirstEvaluationStarted')
-        ..add(serializers.serialize(
-          payload.firstEvaluationStarted!,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (payload.lastDeactivatedTime != null) {
       result
         ..add('LastDeactivatedTime')
         ..add(serializers.serialize(
           payload.lastDeactivatedTime!,
           specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastErrorCode != null) {
+      result
+        ..add('LastErrorCode')
+        ..add(serializers.serialize(
+          payload.lastErrorCode!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.lastErrorMessage != null) {
+      result
+        ..add('LastErrorMessage')
+        ..add(serializers.serialize(
+          payload.lastErrorMessage!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.firstEvaluationStarted != null) {
+      result
+        ..add('FirstEvaluationStarted')
+        ..add(serializers.serialize(
+          payload.firstEvaluationStarted!,
+          specifiedType: const FullType(bool),
         ));
     }
     if (payload.lastDebugLogDeliveryStatus != null) {
@@ -437,54 +485,6 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ..add('LastDebugLogDeliveryTime')
         ..add(serializers.serialize(
           payload.lastDebugLogDeliveryTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastErrorCode != null) {
-      result
-        ..add('LastErrorCode')
-        ..add(serializers.serialize(
-          payload.lastErrorCode!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastErrorMessage != null) {
-      result
-        ..add('LastErrorMessage')
-        ..add(serializers.serialize(
-          payload.lastErrorMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.lastFailedEvaluationTime != null) {
-      result
-        ..add('LastFailedEvaluationTime')
-        ..add(serializers.serialize(
-          payload.lastFailedEvaluationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastFailedInvocationTime != null) {
-      result
-        ..add('LastFailedInvocationTime')
-        ..add(serializers.serialize(
-          payload.lastFailedInvocationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastSuccessfulEvaluationTime != null) {
-      result
-        ..add('LastSuccessfulEvaluationTime')
-        ..add(serializers.serialize(
-          payload.lastSuccessfulEvaluationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastSuccessfulInvocationTime != null) {
-      result
-        ..add('LastSuccessfulInvocationTime')
-        ..add(serializers.serialize(
-          payload.lastSuccessfulInvocationTime!,
           specifiedType: const FullType(DateTime),
         ));
     }

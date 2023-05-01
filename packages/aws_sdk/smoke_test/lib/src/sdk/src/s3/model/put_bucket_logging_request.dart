@@ -23,15 +23,15 @@ abstract class PutBucketLoggingRequest
   factory PutBucketLoggingRequest({
     required String bucket,
     required _i2.BucketLoggingStatus bucketLoggingStatus,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketLoggingRequest._(
       bucket: bucket,
       bucketLoggingStatus: bucketLoggingStatus,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
       expectedBucketOwner: expectedBucketOwner,
     );
   }
@@ -78,15 +78,15 @@ abstract class PutBucketLoggingRequest
   /// Container for logging status information.
   _i2.BucketLoggingStatus get bucketLoggingStatus;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The MD5 hash of the `PutBucketLogging` request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
+
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -108,8 +108,8 @@ abstract class PutBucketLoggingRequest
   List<Object?> get props => [
         bucket,
         bucketLoggingStatus,
-        checksumAlgorithm,
         contentMd5,
+        checksumAlgorithm,
         expectedBucketOwner,
       ];
   @override
@@ -124,12 +124,12 @@ abstract class PutBucketLoggingRequest
       bucketLoggingStatus,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'expectedBucketOwner',

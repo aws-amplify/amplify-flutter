@@ -19,14 +19,14 @@ abstract class PublicAccessBlockConfiguration
   /// The PublicAccessBlock configuration that you want to apply to this Amazon S3 bucket. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status) in the _Amazon S3 User Guide_.
   factory PublicAccessBlockConfiguration({
     bool? blockPublicAcls,
-    bool? blockPublicPolicy,
     bool? ignorePublicAcls,
+    bool? blockPublicPolicy,
     bool? restrictPublicBuckets,
   }) {
     return _$PublicAccessBlockConfiguration._(
       blockPublicAcls: blockPublicAcls,
-      blockPublicPolicy: blockPublicPolicy,
       ignorePublicAcls: ignorePublicAcls,
+      blockPublicPolicy: blockPublicPolicy,
       restrictPublicBuckets: restrictPublicBuckets,
     );
   }
@@ -57,15 +57,15 @@ abstract class PublicAccessBlockConfiguration
   /// Enabling this setting doesn't affect existing policies or ACLs.
   bool? get blockPublicAcls;
 
-  /// Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.
-  ///
-  /// Enabling this setting doesn't affect existing bucket policies.
-  bool? get blockPublicPolicy;
-
   /// Specifies whether Amazon S3 should ignore public ACLs for this bucket and objects in this bucket. Setting this element to `TRUE` causes Amazon S3 to ignore all public ACLs on this bucket and objects in this bucket.
   ///
   /// Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set.
   bool? get ignorePublicAcls;
+
+  /// Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to `TRUE` causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.
+  ///
+  /// Enabling this setting doesn't affect existing bucket policies.
+  bool? get blockPublicPolicy;
 
   /// Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to `TRUE` restricts access to this bucket to only Amazon Web Service principals and authorized users within this account if the bucket has a public policy.
   ///
@@ -74,8 +74,8 @@ abstract class PublicAccessBlockConfiguration
   @override
   List<Object?> get props => [
         blockPublicAcls,
-        blockPublicPolicy,
         ignorePublicAcls,
+        blockPublicPolicy,
         restrictPublicBuckets,
       ];
   @override
@@ -87,12 +87,12 @@ abstract class PublicAccessBlockConfiguration
       blockPublicAcls,
     );
     helper.add(
-      'blockPublicPolicy',
-      blockPublicPolicy,
-    );
-    helper.add(
       'ignorePublicAcls',
       ignorePublicAcls,
+    );
+    helper.add(
+      'blockPublicPolicy',
+      blockPublicPolicy,
     );
     helper.add(
       'restrictPublicBuckets',

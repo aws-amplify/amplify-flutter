@@ -13,14 +13,14 @@ abstract class RevokeTokenRequest
     with _i1.HttpInput<RevokeTokenRequest>, _i2.AWSEquatable<RevokeTokenRequest>
     implements Built<RevokeTokenRequest, RevokeTokenRequestBuilder> {
   factory RevokeTokenRequest({
+    required String token,
     required String clientId,
     String? clientSecret,
-    required String token,
   }) {
     return _$RevokeTokenRequest._(
+      token: token,
       clientId: clientId,
       clientSecret: clientSecret,
-      token: token,
     );
   }
 
@@ -44,35 +44,35 @@ abstract class RevokeTokenRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RevokeTokenRequestBuilder b) {}
 
+  /// The refresh token that you want to revoke.
+  String get token;
+
   /// The client ID for the token that you want to revoke.
   String get clientId;
 
   /// The secret for the client ID. This is required only if the client ID has a secret.
   String? get clientSecret;
-
-  /// The refresh token that you want to revoke.
-  String get token;
   @override
   RevokeTokenRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        token,
         clientId,
         clientSecret,
-        token,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RevokeTokenRequest');
+    helper.add(
+      'token',
+      '***SENSITIVE***',
+    );
     helper.add(
       'clientId',
       '***SENSITIVE***',
     );
     helper.add(
       'clientSecret',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'token',
       '***SENSITIVE***',
     );
     return helper.toString();
@@ -108,6 +108,12 @@ class RevokeTokenRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Token':
+          result.token = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ClientId':
           result.clientId = (serializers.deserialize(
             value!,
@@ -121,12 +127,6 @@ class RevokeTokenRequestAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'Token':
-          result.token = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -142,14 +142,14 @@ class RevokeTokenRequestAwsJson11Serializer
   }) {
     final payload = (object as RevokeTokenRequest);
     final result = <Object?>[
-      'ClientId',
-      serializers.serialize(
-        payload.clientId,
-        specifiedType: const FullType(String),
-      ),
       'Token',
       serializers.serialize(
         payload.token,
+        specifiedType: const FullType(String),
+      ),
+      'ClientId',
+      serializers.serialize(
+        payload.clientId,
         specifiedType: const FullType(String),
       ),
     ];

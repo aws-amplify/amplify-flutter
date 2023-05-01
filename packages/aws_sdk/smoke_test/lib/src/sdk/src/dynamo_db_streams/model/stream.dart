@@ -16,13 +16,13 @@ abstract class Stream
   /// Represents all of the data describing a particular stream.
   factory Stream({
     String? streamArn,
-    String? streamLabel,
     String? tableName,
+    String? streamLabel,
   }) {
     return _$Stream._(
       streamArn: streamArn,
-      streamLabel: streamLabel,
       tableName: tableName,
+      streamLabel: streamLabel,
     );
   }
 
@@ -41,6 +41,9 @@ abstract class Stream
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
 
+  /// The DynamoDB table with which the stream is associated.
+  String? get tableName;
+
   /// A timestamp, in ISO 8601 format, for this stream.
   ///
   /// Note that `LatestStreamLabel` is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:
@@ -51,14 +54,11 @@ abstract class Stream
   ///
   /// *   the `StreamLabel`
   String? get streamLabel;
-
-  /// The DynamoDB table with which the stream is associated.
-  String? get tableName;
   @override
   List<Object?> get props => [
         streamArn,
-        streamLabel,
         tableName,
+        streamLabel,
       ];
   @override
   String toString() {
@@ -68,12 +68,12 @@ abstract class Stream
       streamArn,
     );
     helper.add(
-      'streamLabel',
-      streamLabel,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'streamLabel',
+      streamLabel,
     );
     return helper.toString();
   }
@@ -115,17 +115,17 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
             ) as String);
           }
           break;
-        case 'StreamLabel':
+        case 'TableName':
           if (value != null) {
-            result.streamLabel = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'TableName':
+        case 'StreamLabel':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.streamLabel = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -153,19 +153,19 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamLabel != null) {
-      result
-        ..add('StreamLabel')
-        ..add(serializers.serialize(
-          payload.streamLabel!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
           payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.streamLabel != null) {
+      result
+        ..add('StreamLabel')
+        ..add(serializers.serialize(
+          payload.streamLabel!,
           specifiedType: const FullType(String),
         ));
     }

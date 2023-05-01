@@ -16,15 +16,15 @@ abstract class UsagePlanKey
   /// Represents a usage plan key to identify a plan customer.
   factory UsagePlanKey({
     String? id,
-    String? name,
     String? type,
     String? value,
+    String? name,
   }) {
     return _$UsagePlanKey._(
       id: id,
-      name: name,
       type: type,
       value: value,
+      name: name,
     );
   }
 
@@ -51,20 +51,20 @@ abstract class UsagePlanKey
   /// The Id of a usage plan key.
   String? get id;
 
-  /// The name of a usage plan key.
-  String? get name;
-
   /// The type of a usage plan key. Currently, the valid key type is `API_KEY`.
   String? get type;
 
   /// The value of a usage plan key.
   String? get value;
+
+  /// The name of a usage plan key.
+  String? get name;
   @override
   List<Object?> get props => [
         id,
-        name,
         type,
         value,
+        name,
       ];
   @override
   String toString() {
@@ -74,16 +74,16 @@ abstract class UsagePlanKey
       id,
     );
     helper.add(
-      'name',
-      name,
-    );
-    helper.add(
       'type',
       type,
     );
     helper.add(
       'value',
       value,
+    );
+    helper.add(
+      'name',
+      name,
     );
     return helper.toString();
   }

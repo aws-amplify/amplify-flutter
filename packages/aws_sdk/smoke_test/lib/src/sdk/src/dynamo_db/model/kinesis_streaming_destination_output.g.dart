@@ -9,11 +9,11 @@ part of smoke_test.dynamo_db.model.kinesis_streaming_destination_output;
 class _$KinesisStreamingDestinationOutput
     extends KinesisStreamingDestinationOutput {
   @override
-  final _i2.DestinationStatus? destinationStatus;
+  final String? tableName;
   @override
   final String? streamArn;
   @override
-  final String? tableName;
+  final _i2.DestinationStatus? destinationStatus;
 
   factory _$KinesisStreamingDestinationOutput(
           [void Function(KinesisStreamingDestinationOutputBuilder)? updates]) =>
@@ -21,7 +21,7 @@ class _$KinesisStreamingDestinationOutput
           ._build();
 
   _$KinesisStreamingDestinationOutput._(
-      {this.destinationStatus, this.streamArn, this.tableName})
+      {this.tableName, this.streamArn, this.destinationStatus})
       : super._();
 
   @override
@@ -37,17 +37,17 @@ class _$KinesisStreamingDestinationOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is KinesisStreamingDestinationOutput &&
-        destinationStatus == other.destinationStatus &&
+        tableName == other.tableName &&
         streamArn == other.streamArn &&
-        tableName == other.tableName;
+        destinationStatus == other.destinationStatus;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, destinationStatus.hashCode);
-    _$hash = $jc(_$hash, streamArn.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, streamArn.hashCode);
+    _$hash = $jc(_$hash, destinationStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,18 +59,18 @@ class KinesisStreamingDestinationOutputBuilder
             KinesisStreamingDestinationOutputBuilder> {
   _$KinesisStreamingDestinationOutput? _$v;
 
-  _i2.DestinationStatus? _destinationStatus;
-  _i2.DestinationStatus? get destinationStatus => _$this._destinationStatus;
-  set destinationStatus(_i2.DestinationStatus? destinationStatus) =>
-      _$this._destinationStatus = destinationStatus;
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
 
   String? _streamArn;
   String? get streamArn => _$this._streamArn;
   set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  _i2.DestinationStatus? _destinationStatus;
+  _i2.DestinationStatus? get destinationStatus => _$this._destinationStatus;
+  set destinationStatus(_i2.DestinationStatus? destinationStatus) =>
+      _$this._destinationStatus = destinationStatus;
 
   KinesisStreamingDestinationOutputBuilder() {
     KinesisStreamingDestinationOutput._init(this);
@@ -79,9 +79,9 @@ class KinesisStreamingDestinationOutputBuilder
   KinesisStreamingDestinationOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _destinationStatus = $v.destinationStatus;
-      _streamArn = $v.streamArn;
       _tableName = $v.tableName;
+      _streamArn = $v.streamArn;
+      _destinationStatus = $v.destinationStatus;
       _$v = null;
     }
     return this;
@@ -105,9 +105,9 @@ class KinesisStreamingDestinationOutputBuilder
   _$KinesisStreamingDestinationOutput _build() {
     final _$result = _$v ??
         new _$KinesisStreamingDestinationOutput._(
-            destinationStatus: destinationStatus,
+            tableName: tableName,
             streamArn: streamArn,
-            tableName: tableName);
+            destinationStatus: destinationStatus);
     replace(_$result);
     return _$result;
   }

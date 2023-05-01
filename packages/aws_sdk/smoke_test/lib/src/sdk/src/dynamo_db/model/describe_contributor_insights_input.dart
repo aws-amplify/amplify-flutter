@@ -17,12 +17,12 @@ abstract class DescribeContributorInsightsInput
         Built<DescribeContributorInsightsInput,
             DescribeContributorInsightsInputBuilder> {
   factory DescribeContributorInsightsInput({
-    String? indexName,
     required String tableName,
+    String? indexName,
   }) {
     return _$DescribeContributorInsightsInput._(
-      indexName: indexName,
       tableName: tableName,
+      indexName: indexName,
     );
   }
 
@@ -46,29 +46,29 @@ abstract class DescribeContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeContributorInsightsInputBuilder b) {}
 
-  /// The name of the global secondary index to describe, if applicable.
-  String? get indexName;
-
   /// The name of the table to describe.
   String get tableName;
+
+  /// The name of the global secondary index to describe, if applicable.
+  String? get indexName;
   @override
   DescribeContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        indexName,
         tableName,
+        indexName,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeContributorInsightsInput');
     helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'indexName',
+      indexName,
     );
     return helper.toString();
   }
@@ -104,6 +104,12 @@ class DescribeContributorInsightsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'IndexName':
           if (value != null) {
             result.indexName = (serializers.deserialize(
@@ -111,12 +117,6 @@ class DescribeContributorInsightsInputAwsJson10Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/replica_modifications.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/sse_kms_encrypted_objects.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/sse_kms_encrypted_objects.dart'
+    as _i2;
 
 part 'source_selection_criteria.g.dart';
 
@@ -19,12 +19,12 @@ abstract class SourceSelectionCriteria
     implements Built<SourceSelectionCriteria, SourceSelectionCriteriaBuilder> {
   /// A container that describes additional filters for identifying the source objects that you want to replicate. You can choose to enable or disable the replication of these objects. Currently, Amazon S3 supports only the filter that you can specify for objects created with server-side encryption using a customer managed key stored in Amazon Web Services Key Management Service (SSE-KMS).
   factory SourceSelectionCriteria({
-    _i2.ReplicaModifications? replicaModifications,
-    _i3.SseKmsEncryptedObjects? sseKmsEncryptedObjects,
+    _i2.SseKmsEncryptedObjects? sseKmsEncryptedObjects,
+    _i3.ReplicaModifications? replicaModifications,
   }) {
     return _$SourceSelectionCriteria._(
-      replicaModifications: replicaModifications,
       sseKmsEncryptedObjects: sseKmsEncryptedObjects,
+      replicaModifications: replicaModifications,
     );
   }
 
@@ -42,28 +42,28 @@ abstract class SourceSelectionCriteria
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SourceSelectionCriteriaBuilder b) {}
 
+  /// A container for filter information for the selection of Amazon S3 objects encrypted with Amazon Web Services KMS. If you include `SourceSelectionCriteria` in the replication configuration, this element is required.
+  _i2.SseKmsEncryptedObjects? get sseKmsEncryptedObjects;
+
   /// A filter that you can specify for selections for modifications on replicas. Amazon S3 doesn't replicate replica modifications by default. In the latest version of replication configuration (when `Filter` is specified), you can specify this element and set the status to `Enabled` to replicate modifications on replicas.
   ///
   /// If you don't specify the `Filter` element, Amazon S3 assumes that the replication configuration is the earlier version, V1. In the earlier version, this element is not allowed
-  _i2.ReplicaModifications? get replicaModifications;
-
-  /// A container for filter information for the selection of Amazon S3 objects encrypted with Amazon Web Services KMS. If you include `SourceSelectionCriteria` in the replication configuration, this element is required.
-  _i3.SseKmsEncryptedObjects? get sseKmsEncryptedObjects;
+  _i3.ReplicaModifications? get replicaModifications;
   @override
   List<Object?> get props => [
-        replicaModifications,
         sseKmsEncryptedObjects,
+        replicaModifications,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SourceSelectionCriteria');
     helper.add(
-      'replicaModifications',
-      replicaModifications,
-    );
-    helper.add(
       'sseKmsEncryptedObjects',
       sseKmsEncryptedObjects,
+    );
+    helper.add(
+      'replicaModifications',
+      replicaModifications,
     );
     return helper.toString();
   }
@@ -103,16 +103,16 @@ class SourceSelectionCriteriaRestXmlSerializer
           if (value != null) {
             result.replicaModifications.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ReplicaModifications),
-            ) as _i2.ReplicaModifications));
+              specifiedType: const FullType(_i3.ReplicaModifications),
+            ) as _i3.ReplicaModifications));
           }
           break;
         case 'SseKmsEncryptedObjects':
           if (value != null) {
             result.sseKmsEncryptedObjects.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.SseKmsEncryptedObjects),
-            ) as _i3.SseKmsEncryptedObjects));
+              specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
+            ) as _i2.SseKmsEncryptedObjects));
           }
           break;
       }
@@ -139,7 +139,7 @@ class SourceSelectionCriteriaRestXmlSerializer
         ..add(const _i4.XmlElementName('ReplicaModifications'))
         ..add(serializers.serialize(
           payload.replicaModifications!,
-          specifiedType: const FullType(_i2.ReplicaModifications),
+          specifiedType: const FullType(_i3.ReplicaModifications),
         ));
     }
     if (payload.sseKmsEncryptedObjects != null) {
@@ -147,7 +147,7 @@ class SourceSelectionCriteriaRestXmlSerializer
         ..add(const _i4.XmlElementName('SseKmsEncryptedObjects'))
         ..add(serializers.serialize(
           payload.sseKmsEncryptedObjects!,
-          specifiedType: const FullType(_i3.SseKmsEncryptedObjects),
+          specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
         ));
     }
     return result;

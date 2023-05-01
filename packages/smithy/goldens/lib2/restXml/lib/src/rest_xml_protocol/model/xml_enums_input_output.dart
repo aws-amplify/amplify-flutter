@@ -21,16 +21,16 @@ abstract class XmlEnumsInputOutput
     _i3.FooEnum? fooEnum2,
     _i3.FooEnum? fooEnum3,
     List<_i3.FooEnum>? fooEnumList,
-    Map<String, _i3.FooEnum>? fooEnumMap,
     Set<_i3.FooEnum>? fooEnumSet,
+    Map<String, _i3.FooEnum>? fooEnumMap,
   }) {
     return _$XmlEnumsInputOutput._(
       fooEnum1: fooEnum1,
       fooEnum2: fooEnum2,
       fooEnum3: fooEnum3,
       fooEnumList: fooEnumList == null ? null : _i4.BuiltList(fooEnumList),
-      fooEnumMap: fooEnumMap == null ? null : _i4.BuiltMap(fooEnumMap),
       fooEnumSet: fooEnumSet == null ? null : _i4.BuiltSet(fooEnumSet),
+      fooEnumMap: fooEnumMap == null ? null : _i4.BuiltMap(fooEnumMap),
     );
   }
 
@@ -64,8 +64,8 @@ abstract class XmlEnumsInputOutput
   _i3.FooEnum? get fooEnum2;
   _i3.FooEnum? get fooEnum3;
   _i4.BuiltList<_i3.FooEnum>? get fooEnumList;
-  _i4.BuiltMap<String, _i3.FooEnum>? get fooEnumMap;
   _i4.BuiltSet<_i3.FooEnum>? get fooEnumSet;
+  _i4.BuiltMap<String, _i3.FooEnum>? get fooEnumMap;
   @override
   XmlEnumsInputOutput getPayload() => this;
   @override
@@ -74,8 +74,8 @@ abstract class XmlEnumsInputOutput
         fooEnum2,
         fooEnum3,
         fooEnumList,
-        fooEnumMap,
         fooEnumSet,
+        fooEnumMap,
       ];
   @override
   String toString() {
@@ -97,12 +97,12 @@ abstract class XmlEnumsInputOutput
       fooEnumList,
     );
     helper.add(
-      'fooEnumMap',
-      fooEnumMap,
-    );
-    helper.add(
       'fooEnumSet',
       fooEnumSet,
+    );
+    helper.add(
+      'fooEnumMap',
+      fooEnumMap,
     );
     return helper.toString();
   }
@@ -166,7 +166,7 @@ class XmlEnumsInputOutputRestXmlSerializer
             result.fooEnumList
                 .replace((const _i1.XmlBuiltListSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltList,
                 [FullType(_i3.FooEnum)],
@@ -179,7 +179,7 @@ class XmlEnumsInputOutputRestXmlSerializer
             result.fooEnumMap
                 .replace(const _i1.XmlBuiltMapSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltMap,
                 [
@@ -195,7 +195,7 @@ class XmlEnumsInputOutputRestXmlSerializer
             result.fooEnumSet
                 .replace((const _i1.XmlBuiltSetSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltSet,
                 [FullType(_i3.FooEnum)],

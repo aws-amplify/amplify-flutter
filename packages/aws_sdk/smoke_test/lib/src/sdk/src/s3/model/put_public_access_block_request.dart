@@ -21,17 +21,17 @@ abstract class PutPublicAccessBlockRequest
         _i1.HasPayload<_i2.PublicAccessBlockConfiguration> {
   factory PutPublicAccessBlockRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
-    String? expectedBucketOwner,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     required _i2.PublicAccessBlockConfiguration publicAccessBlockConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutPublicAccessBlockRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
+      checksumAlgorithm: checksumAlgorithm,
       publicAccessBlockConfiguration: publicAccessBlockConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -74,21 +74,21 @@ abstract class PutPublicAccessBlockRequest
   /// The name of the Amazon S3 bucket whose `PublicAccessBlock` configuration you want to set.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The MD5 hash of the `PutPublicAccessBlock` request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The `PublicAccessBlock` configuration that you want to apply to this Amazon S3 bucket. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status) in the _Amazon S3 User Guide_.
   _i2.PublicAccessBlockConfiguration get publicAccessBlockConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -107,10 +107,10 @@ abstract class PutPublicAccessBlockRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
         contentMd5,
-        expectedBucketOwner,
+        checksumAlgorithm,
         publicAccessBlockConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -120,20 +120,20 @@ abstract class PutPublicAccessBlockRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'publicAccessBlockConfiguration',
       publicAccessBlockConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/copy_part_result.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i5;
+    as _i4;
 
 part 'upload_part_copy_output.g.dart';
 
@@ -19,24 +19,24 @@ abstract class UploadPartCopyOutput
         Built<UploadPartCopyOutput, UploadPartCopyOutputBuilder>,
         _i2.HasPayload<_i3.CopyPartResult> {
   factory UploadPartCopyOutput({
-    bool? bucketKeyEnabled,
-    _i3.CopyPartResult? copyPartResult,
     String? copySourceVersionId,
-    _i4.RequestCharged? requestCharged,
-    _i5.ServerSideEncryption? serverSideEncryption,
+    _i3.CopyPartResult? copyPartResult,
+    _i4.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
+    bool? bucketKeyEnabled,
+    _i5.RequestCharged? requestCharged,
   }) {
     return _$UploadPartCopyOutput._(
-      bucketKeyEnabled: bucketKeyEnabled,
-      copyPartResult: copyPartResult,
       copySourceVersionId: copySourceVersionId,
-      requestCharged: requestCharged,
+      copyPartResult: copyPartResult,
       serverSideEncryption: serverSideEncryption,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
       ssekmsKeyId: ssekmsKeyId,
+      bucketKeyEnabled: bucketKeyEnabled,
+      requestCharged: requestCharged,
     );
   }
 
@@ -60,7 +60,7 @@ abstract class UploadPartCopyOutput
               response.headers['x-amz-copy-source-version-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i5.ServerSideEncryption.values
+          b.serverSideEncryption = _i4.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -87,7 +87,7 @@ abstract class UploadPartCopyOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = _i5.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -99,20 +99,14 @@ abstract class UploadPartCopyOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartCopyOutputBuilder b) {}
 
-  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  /// The version of the source object that was copied, if you have enabled versioning on the source bucket.
+  String? get copySourceVersionId;
 
   /// Container for all response elements.
   _i3.CopyPartResult? get copyPartResult;
 
-  /// The version of the source object that was copied, if you have enabled versioning on the source bucket.
-  String? get copySourceVersionId;
-
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
-
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i5.ServerSideEncryption? get serverSideEncryption;
+  _i4.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -122,37 +116,35 @@ abstract class UploadPartCopyOutput
 
   /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
+
+  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  bool? get bucketKeyEnabled;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i5.RequestCharged? get requestCharged;
   @override
   _i3.CopyPartResult? getPayload() => copyPartResult ?? _i3.CopyPartResult();
   @override
   List<Object?> get props => [
-        bucketKeyEnabled,
-        copyPartResult,
         copySourceVersionId,
-        requestCharged,
+        copyPartResult,
         serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
         ssekmsKeyId,
+        bucketKeyEnabled,
+        requestCharged,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartCopyOutput');
     helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'copyPartResult',
-      copyPartResult,
-    );
-    helper.add(
       'copySourceVersionId',
       copySourceVersionId,
     );
     helper.add(
-      'requestCharged',
-      requestCharged,
+      'copyPartResult',
+      copyPartResult,
     );
     helper.add(
       'serverSideEncryption',
@@ -169,6 +161,14 @@ abstract class UploadPartCopyOutput
     helper.add(
       'ssekmsKeyId',
       '***SENSITIVE***',
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
     );
     return helper.toString();
   }

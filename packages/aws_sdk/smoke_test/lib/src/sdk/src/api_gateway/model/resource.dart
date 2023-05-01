@@ -19,15 +19,15 @@ abstract class Resource
   factory Resource({
     String? id,
     String? parentId,
-    String? path,
     String? pathPart,
+    String? path,
     Map<String, _i2.Method>? resourceMethods,
   }) {
     return _$Resource._(
       id: id,
       parentId: parentId,
-      path: path,
       pathPart: pathPart,
+      path: path,
       resourceMethods:
           resourceMethods == null ? null : _i3.BuiltMap(resourceMethods),
     );
@@ -58,11 +58,11 @@ abstract class Resource
   /// The parent resource's identifier.
   String? get parentId;
 
-  /// The full path for this resource.
-  String? get path;
-
   /// The last path segment for this resource.
   String? get pathPart;
+
+  /// The full path for this resource.
+  String? get path;
 
   /// Gets an API resource's method of a given HTTP verb.
   _i3.BuiltMap<String, _i2.Method>? get resourceMethods;
@@ -70,8 +70,8 @@ abstract class Resource
   List<Object?> get props => [
         id,
         parentId,
-        path,
         pathPart,
+        path,
         resourceMethods,
       ];
   @override
@@ -86,12 +86,12 @@ abstract class Resource
       parentId,
     );
     helper.add(
-      'path',
-      path,
-    );
-    helper.add(
       'pathPart',
       pathPart,
+    );
+    helper.add(
+      'path',
+      path,
     );
     helper.add(
       'resourceMethods',

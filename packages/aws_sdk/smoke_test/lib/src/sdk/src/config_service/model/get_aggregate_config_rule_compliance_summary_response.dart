@@ -19,15 +19,15 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
         Built<GetAggregateConfigRuleComplianceSummaryResponse,
             GetAggregateConfigRuleComplianceSummaryResponseBuilder> {
   factory GetAggregateConfigRuleComplianceSummaryResponse({
-    List<_i2.AggregateComplianceCount>? aggregateComplianceCounts,
     String? groupByKey,
+    List<_i2.AggregateComplianceCount>? aggregateComplianceCounts,
     String? nextToken,
   }) {
     return _$GetAggregateConfigRuleComplianceSummaryResponse._(
+      groupByKey: groupByKey,
       aggregateComplianceCounts: aggregateComplianceCounts == null
           ? null
           : _i3.BuiltList(aggregateComplianceCounts),
-      groupByKey: groupByKey,
       nextToken: nextToken,
     );
   }
@@ -52,18 +52,18 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAggregateConfigRuleComplianceSummaryResponseBuilder b) {}
 
-  /// Returns a list of AggregateComplianceCounts object.
-  _i3.BuiltList<_i2.AggregateComplianceCount>? get aggregateComplianceCounts;
-
   /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
   String? get groupByKey;
+
+  /// Returns a list of AggregateComplianceCounts object.
+  _i3.BuiltList<_i2.AggregateComplianceCount>? get aggregateComplianceCounts;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
   @override
   List<Object?> get props => [
-        aggregateComplianceCounts,
         groupByKey,
+        aggregateComplianceCounts,
         nextToken,
       ];
   @override
@@ -71,12 +71,12 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
     final helper = newBuiltValueToStringHelper(
         'GetAggregateConfigRuleComplianceSummaryResponse');
     helper.add(
-      'aggregateComplianceCounts',
-      aggregateComplianceCounts,
-    );
-    helper.add(
       'groupByKey',
       groupByKey,
+    );
+    helper.add(
+      'aggregateComplianceCounts',
+      aggregateComplianceCounts,
     );
     helper.add(
       'nextToken',
@@ -117,6 +117,14 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'GroupByKey':
+          if (value != null) {
+            result.groupByKey = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'AggregateComplianceCounts':
           if (value != null) {
             result.aggregateComplianceCounts.replace((serializers.deserialize(
@@ -126,14 +134,6 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
                 [FullType(_i2.AggregateComplianceCount)],
               ),
             ) as _i3.BuiltList<_i2.AggregateComplianceCount>));
-          }
-          break;
-        case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
         case 'NextToken':
@@ -158,6 +158,14 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
   }) {
     final payload = (object as GetAggregateConfigRuleComplianceSummaryResponse);
     final result = <Object?>[];
+    if (payload.groupByKey != null) {
+      result
+        ..add('GroupByKey')
+        ..add(serializers.serialize(
+          payload.groupByKey!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.aggregateComplianceCounts != null) {
       result
         ..add('AggregateComplianceCounts')
@@ -167,14 +175,6 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceCount)],
           ),
-        ));
-    }
-    if (payload.groupByKey != null) {
-      result
-        ..add('GroupByKey')
-        ..add(serializers.serialize(
-          payload.groupByKey!,
-          specifiedType: const FullType(String),
         ));
     }
     if (payload.nextToken != null) {

@@ -18,35 +18,35 @@ abstract class RestApi
     with _i1.AWSEquatable<RestApi>
     implements Built<RestApi, RestApiBuilder> {
   factory RestApi({
-    _i2.ApiKeySourceType? apiKeySource,
-    List<String>? binaryMediaTypes,
-    DateTime? createdDate,
-    String? description,
-    bool? disableExecuteApiEndpoint,
-    _i3.EndpointConfiguration? endpointConfiguration,
     String? id,
-    int? minimumCompressionSize,
     String? name,
-    String? policy,
-    Map<String, String>? tags,
+    String? description,
+    DateTime? createdDate,
     String? version,
     List<String>? warnings,
+    List<String>? binaryMediaTypes,
+    int? minimumCompressionSize,
+    _i2.ApiKeySourceType? apiKeySource,
+    _i3.EndpointConfiguration? endpointConfiguration,
+    String? policy,
+    Map<String, String>? tags,
+    bool? disableExecuteApiEndpoint,
   }) {
     return _$RestApi._(
-      apiKeySource: apiKeySource,
-      binaryMediaTypes:
-          binaryMediaTypes == null ? null : _i4.BuiltList(binaryMediaTypes),
-      createdDate: createdDate,
-      description: description,
-      disableExecuteApiEndpoint: disableExecuteApiEndpoint,
-      endpointConfiguration: endpointConfiguration,
       id: id,
-      minimumCompressionSize: minimumCompressionSize,
       name: name,
-      policy: policy,
-      tags: tags == null ? null : _i4.BuiltMap(tags),
+      description: description,
+      createdDate: createdDate,
       version: version,
       warnings: warnings == null ? null : _i4.BuiltList(warnings),
+      binaryMediaTypes:
+          binaryMediaTypes == null ? null : _i4.BuiltList(binaryMediaTypes),
+      minimumCompressionSize: minimumCompressionSize,
+      apiKeySource: apiKeySource,
+      endpointConfiguration: endpointConfiguration,
+      policy: policy,
+      tags: tags == null ? null : _i4.BuiltMap(tags),
+      disableExecuteApiEndpoint: disableExecuteApiEndpoint,
     );
   }
 
@@ -60,73 +60,77 @@ abstract class RestApi
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RestApiBuilder b) {}
-  _i2.ApiKeySourceType? get apiKeySource;
-  _i4.BuiltList<String>? get binaryMediaTypes;
-  DateTime? get createdDate;
-  String? get description;
-  bool? get disableExecuteApiEndpoint;
-  _i3.EndpointConfiguration? get endpointConfiguration;
   String? get id;
-  int? get minimumCompressionSize;
   String? get name;
-  String? get policy;
-  _i4.BuiltMap<String, String>? get tags;
+  String? get description;
+  DateTime? get createdDate;
   String? get version;
   _i4.BuiltList<String>? get warnings;
+  _i4.BuiltList<String>? get binaryMediaTypes;
+  int? get minimumCompressionSize;
+  _i2.ApiKeySourceType? get apiKeySource;
+  _i3.EndpointConfiguration? get endpointConfiguration;
+  String? get policy;
+  _i4.BuiltMap<String, String>? get tags;
+  bool? get disableExecuteApiEndpoint;
   @override
   List<Object?> get props => [
-        apiKeySource,
-        binaryMediaTypes,
-        createdDate,
-        description,
-        disableExecuteApiEndpoint,
-        endpointConfiguration,
         id,
-        minimumCompressionSize,
         name,
-        policy,
-        tags,
+        description,
+        createdDate,
         version,
         warnings,
+        binaryMediaTypes,
+        minimumCompressionSize,
+        apiKeySource,
+        endpointConfiguration,
+        policy,
+        tags,
+        disableExecuteApiEndpoint,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RestApi');
     helper.add(
-      'apiKeySource',
-      apiKeySource,
+      'id',
+      id,
     );
     helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
+      'name',
+      name,
     );
     helper.add(
       'description',
       description,
     );
     helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
+      'createdDate',
+      createdDate,
     );
     helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
+      'version',
+      version,
     );
     helper.add(
-      'id',
-      id,
+      'warnings',
+      warnings,
+    );
+    helper.add(
+      'binaryMediaTypes',
+      binaryMediaTypes,
     );
     helper.add(
       'minimumCompressionSize',
       minimumCompressionSize,
     );
     helper.add(
-      'name',
-      name,
+      'apiKeySource',
+      apiKeySource,
+    );
+    helper.add(
+      'endpointConfiguration',
+      endpointConfiguration,
     );
     helper.add(
       'policy',
@@ -137,12 +141,8 @@ abstract class RestApi
       tags,
     );
     helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'warnings',
-      warnings,
+      'disableExecuteApiEndpoint',
+      disableExecuteApiEndpoint,
     );
     return helper.toString();
   }

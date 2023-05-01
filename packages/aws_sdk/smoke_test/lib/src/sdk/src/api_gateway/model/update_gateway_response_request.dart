@@ -9,9 +9,9 @@ import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i6;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
+    as _i4;
 
 part 'update_gateway_response_request.g.dart';
 
@@ -26,15 +26,15 @@ abstract class UpdateGatewayResponseRequest
         _i1.HasPayload<UpdateGatewayResponseRequestPayload> {
   /// Updates a GatewayResponse of a specified response type on the given RestApi.
   factory UpdateGatewayResponseRequest({
-    List<_i3.PatchOperation>? patchOperations,
-    required _i4.GatewayResponseType responseType,
     required String restApiId,
+    required _i3.GatewayResponseType responseType,
+    List<_i4.PatchOperation>? patchOperations,
   }) {
     return _$UpdateGatewayResponseRequest._(
+      restApiId: restApiId,
+      responseType: responseType,
       patchOperations:
           patchOperations == null ? null : _i5.BuiltList(patchOperations),
-      responseType: responseType,
-      restApiId: restApiId,
     );
   }
 
@@ -59,7 +59,7 @@ abstract class UpdateGatewayResponseRequest
         }
         if (labels['responseType'] != null) {
           b.responseType =
-              _i4.GatewayResponseType.values.byValue(labels['responseType']!);
+              _i3.GatewayResponseType.values.byValue(labels['responseType']!);
         }
       });
 
@@ -70,14 +70,14 @@ abstract class UpdateGatewayResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateGatewayResponseRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i5.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The response type of the associated GatewayResponse.
-  _i4.GatewayResponseType get responseType;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The response type of the associated GatewayResponse.
+  _i3.GatewayResponseType get responseType;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i5.BuiltList<_i4.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -101,24 +101,24 @@ abstract class UpdateGatewayResponseRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
-        responseType,
         restApiId,
+        responseType,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateGatewayResponseRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'responseType',
       responseType,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }
@@ -141,7 +141,7 @@ abstract class UpdateGatewayResponseRequestPayload
   static void _init(UpdateGatewayResponseRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i5.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i5.BuiltList<_i4.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
@@ -194,9 +194,9 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
               value,
               specifiedType: const FullType(
                 _i5.BuiltList,
-                [FullType(_i3.PatchOperation)],
+                [FullType(_i4.PatchOperation)],
               ),
-            ) as _i5.BuiltList<_i3.PatchOperation>));
+            ) as _i5.BuiltList<_i4.PatchOperation>));
           }
           break;
       }
@@ -222,7 +222,7 @@ class UpdateGatewayResponseRequestRestJson1Serializer extends _i1
           payload.patchOperations!,
           specifiedType: const FullType(
             _i5.BuiltList,
-            [FullType(_i3.PatchOperation)],
+            [FullType(_i4.PatchOperation)],
           ),
         ));
     }

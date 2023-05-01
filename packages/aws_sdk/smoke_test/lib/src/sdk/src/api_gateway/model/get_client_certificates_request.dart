@@ -22,12 +22,12 @@ abstract class GetClientCertificatesRequest
         _i1.HasPayload<GetClientCertificatesRequestPayload> {
   /// A request to get information about a collection of ClientCertificate resources.
   factory GetClientCertificatesRequest({
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetClientCertificatesRequest._(
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -59,29 +59,29 @@ abstract class GetClientCertificatesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetClientCertificatesRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
-
   /// The current pagination position in the paged result set.
   String? get position;
+
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   GetClientCertificatesRequestPayload getPayload() =>
       GetClientCertificatesRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetClientCertificatesRequest');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }

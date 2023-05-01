@@ -8,11 +8,11 @@ import 'package:smithy/smithy.dart' as _i1;
 
 /// The discrete values of [FooUnion].
 enum FooUnionType<T extends FooUnion> {
-  /// The type for [FooUnionInteger].
-  integer<FooUnionInteger>(r'integer'),
-
   /// The type for [FooUnionString].
   string<FooUnionString>(r'string'),
+
+  /// The type for [FooUnionInteger].
+  integer<FooUnionInteger>(r'integer'),
 
   /// The type for an unknown value.
   sdkUnknown<FooUnionSdkUnknown>('sdkUnknown');
@@ -27,9 +27,9 @@ enum FooUnionType<T extends FooUnion> {
 abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
   const FooUnion._();
 
-  const factory FooUnion.integer(int integer) = FooUnionInteger;
-
   const factory FooUnion.string(String string) = FooUnionString;
+
+  const factory FooUnion.integer(int integer) = FooUnionInteger;
 
   const factory FooUnion.sdkUnknown(
     String name,
@@ -40,26 +40,26 @@ abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
     FooUnionRestJson1Serializer()
   ];
 
-  int? get integer => null;
   String? get string => null;
+  int? get integer => null;
   FooUnionType get type;
   @override
-  Object get value => (integer ?? string)!;
+  Object get value => (string ?? integer)!;
   @override
   T? when<T>({
-    T Function(int)? integer,
     T Function(String)? string,
+    T Function(int)? integer,
     T Function(
       String,
       Object,
     )?
         sdkUnknown,
   }) {
-    if (this is FooUnionInteger) {
-      return integer?.call((this as FooUnionInteger).integer);
-    }
     if (this is FooUnionString) {
       return string?.call((this as FooUnionString).string);
+    }
+    if (this is FooUnionInteger) {
+      return integer?.call((this as FooUnionInteger).integer);
     }
     return sdkUnknown?.call(
       name,
@@ -70,32 +70,20 @@ abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'FooUnion');
-    if (integer != null) {
-      helper.add(
-        r'integer',
-        integer,
-      );
-    }
     if (string != null) {
       helper.add(
         r'string',
         string,
       );
     }
+    if (integer != null) {
+      helper.add(
+        r'integer',
+        integer,
+      );
+    }
     return helper.toString();
   }
-}
-
-class FooUnionInteger extends FooUnion {
-  const FooUnionInteger(this.integer) : super._();
-
-  @override
-  final int integer;
-
-  @override
-  FooUnionType get type => FooUnionType.integer;
-  @override
-  String get name => 'integer';
 }
 
 class FooUnionString extends FooUnion {
@@ -108,6 +96,18 @@ class FooUnionString extends FooUnion {
   FooUnionType get type => FooUnionType.string;
   @override
   String get name => 'string';
+}
+
+class FooUnionInteger extends FooUnion {
+  const FooUnionInteger(this.integer) : super._();
+
+  @override
+  final int integer;
+
+  @override
+  FooUnionType get type => FooUnionType.integer;
+  @override
+  String get name => 'integer';
 }
 
 class FooUnionSdkUnknown extends FooUnion {
@@ -133,8 +133,8 @@ class FooUnionRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         FooUnion,
-        FooUnionInteger,
         FooUnionString,
+        FooUnionInteger,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -155,16 +155,16 @@ class FooUnionRestJson1Serializer
     iterator.moveNext();
     final value = iterator.current as Object;
     switch (key) {
-      case 'integer':
-        return FooUnionInteger((serializers.deserialize(
-          value,
-          specifiedType: const FullType(int),
-        ) as int));
       case 'string':
         return FooUnionString((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
+      case 'integer':
+        return FooUnionInteger((serializers.deserialize(
+          value,
+          specifiedType: const FullType(int),
+        ) as int));
     }
     return FooUnion.sdkUnknown(
       key,
@@ -182,13 +182,13 @@ class FooUnionRestJson1Serializer
     return [
       object.name,
       object.when<Object?>(
-        integer: (int integer) => serializers.serialize(
-          integer,
-          specifiedType: const FullType(int),
-        ),
         string: (String string) => serializers.serialize(
           string,
           specifiedType: const FullType(String),
+        ),
+        integer: (int integer) => serializers.serialize(
+          integer,
+          specifiedType: const FullType(int),
         ),
         sdkUnknown: (
           String _,

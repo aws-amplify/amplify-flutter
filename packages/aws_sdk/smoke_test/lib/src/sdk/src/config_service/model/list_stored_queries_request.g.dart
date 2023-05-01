@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.list_stored_queries_request;
 
 class _$ListStoredQueriesRequest extends ListStoredQueriesRequest {
   @override
-  final int? maxResults;
-  @override
   final String? nextToken;
+  @override
+  final int? maxResults;
 
   factory _$ListStoredQueriesRequest(
           [void Function(ListStoredQueriesRequestBuilder)? updates]) =>
       (new ListStoredQueriesRequestBuilder()..update(updates))._build();
 
-  _$ListStoredQueriesRequest._({this.maxResults, this.nextToken}) : super._();
+  _$ListStoredQueriesRequest._({this.nextToken, this.maxResults}) : super._();
 
   @override
   ListStoredQueriesRequest rebuild(
@@ -31,15 +31,15 @@ class _$ListStoredQueriesRequest extends ListStoredQueriesRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListStoredQueriesRequest &&
-        maxResults == other.maxResults &&
-        nextToken == other.nextToken;
+        nextToken == other.nextToken &&
+        maxResults == other.maxResults;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,13 +50,13 @@ class ListStoredQueriesRequestBuilder
         Builder<ListStoredQueriesRequest, ListStoredQueriesRequestBuilder> {
   _$ListStoredQueriesRequest? _$v;
 
-  int? _maxResults;
-  int? get maxResults => _$this._maxResults;
-  set maxResults(int? maxResults) => _$this._maxResults = maxResults;
-
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
+  int? _maxResults;
+  int? get maxResults => _$this._maxResults;
+  set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
   ListStoredQueriesRequestBuilder() {
     ListStoredQueriesRequest._init(this);
@@ -65,8 +65,8 @@ class ListStoredQueriesRequestBuilder
   ListStoredQueriesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _maxResults = $v.maxResults;
       _nextToken = $v.nextToken;
+      _maxResults = $v.maxResults;
       _$v = null;
     }
     return this;
@@ -89,7 +89,7 @@ class ListStoredQueriesRequestBuilder
   _$ListStoredQueriesRequest _build() {
     final _$result = _$v ??
         new _$ListStoredQueriesRequest._(
-            maxResults: maxResults, nextToken: nextToken);
+            nextToken: nextToken, maxResults: maxResults);
     replace(_$result);
     return _$result;
   }

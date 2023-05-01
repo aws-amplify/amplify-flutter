@@ -659,20 +659,20 @@ class ComplexErrorRestJson1Serializer
             ) as String);
           }
           break;
-        case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.ComplexNestedErrorData),
-            ) as _i9.ComplexNestedErrorData));
-          }
-          break;
         case 'TopLevel':
           if (value != null) {
             result.topLevel = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'Nested':
+          if (value != null) {
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i9.ComplexNestedErrorData),
+            ) as _i9.ComplexNestedErrorData));
           }
           break;
       }

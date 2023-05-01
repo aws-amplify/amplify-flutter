@@ -16,13 +16,13 @@ abstract class DocumentTypeInputOutput
         _i2.AWSEquatable<DocumentTypeInputOutput>
     implements Built<DocumentTypeInputOutput, DocumentTypeInputOutputBuilder> {
   factory DocumentTypeInputOutput({
-    Object? documentValue,
     String? stringValue,
+    Object? documentValue,
   }) {
     return _$DocumentTypeInputOutput._(
+      stringValue: stringValue,
       documentValue:
           documentValue == null ? null : _i3.JsonObject(documentValue),
-      stringValue: stringValue,
     );
   }
 
@@ -52,25 +52,25 @@ abstract class DocumentTypeInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentTypeInputOutputBuilder b) {}
-  _i3.JsonObject? get documentValue;
   String? get stringValue;
+  _i3.JsonObject? get documentValue;
   @override
   DocumentTypeInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
-        documentValue,
         stringValue,
+        documentValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentTypeInputOutput');
     helper.add(
-      'documentValue',
-      documentValue,
-    );
-    helper.add(
       'stringValue',
       stringValue,
+    );
+    helper.add(
+      'documentValue',
+      documentValue,
     );
     return helper.toString();
   }

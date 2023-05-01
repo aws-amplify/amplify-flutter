@@ -18,19 +18,19 @@ abstract class EnvironmentConfig
   /// Config settings that can be set as environment variables.
   factory EnvironmentConfig({
     String? awsAccessKeyId,
-    String? awsDefaultRegion,
-    String? awsProfile,
-    _i2.RetryMode? awsRetryMode,
     String? awsSecretAccessKey,
+    String? awsDefaultRegion,
+    _i2.RetryMode? awsRetryMode,
     String? awsSessionToken,
+    String? awsProfile,
   }) {
     return _$EnvironmentConfig._(
       awsAccessKeyId: awsAccessKeyId,
-      awsDefaultRegion: awsDefaultRegion,
-      awsProfile: awsProfile,
-      awsRetryMode: awsRetryMode,
       awsSecretAccessKey: awsSecretAccessKey,
+      awsDefaultRegion: awsDefaultRegion,
+      awsRetryMode: awsRetryMode,
       awsSessionToken: awsSessionToken,
+      awsProfile: awsProfile,
     );
   }
 
@@ -47,21 +47,21 @@ abstract class EnvironmentConfig
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EnvironmentConfigBuilder b) {}
   String? get awsAccessKeyId;
+  String? get awsSecretAccessKey;
   String? get awsDefaultRegion;
-  String? get awsProfile;
 
   /// Controls the strategy used for retries.
   _i2.RetryMode? get awsRetryMode;
-  String? get awsSecretAccessKey;
   String? get awsSessionToken;
+  String? get awsProfile;
   @override
   List<Object?> get props => [
         awsAccessKeyId,
-        awsDefaultRegion,
-        awsProfile,
-        awsRetryMode,
         awsSecretAccessKey,
+        awsDefaultRegion,
+        awsRetryMode,
         awsSessionToken,
+        awsProfile,
       ];
   @override
   String toString() {
@@ -71,24 +71,24 @@ abstract class EnvironmentConfig
       awsAccessKeyId,
     );
     helper.add(
-      'awsDefaultRegion',
-      awsDefaultRegion,
+      'awsSecretAccessKey',
+      awsSecretAccessKey,
     );
     helper.add(
-      'awsProfile',
-      awsProfile,
+      'awsDefaultRegion',
+      awsDefaultRegion,
     );
     helper.add(
       'awsRetryMode',
       awsRetryMode,
     );
     helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
       'awsSessionToken',
       awsSessionToken,
+    );
+    helper.add(
+      'awsProfile',
+      awsProfile,
     );
     return helper.toString();
   }
@@ -131,17 +131,17 @@ class EnvironmentConfigAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'AWS_DEFAULT_REGION':
+        case 'AWS_SECRET_ACCESS_KEY':
           if (value != null) {
-            result.awsDefaultRegion = (serializers.deserialize(
+            result.awsSecretAccessKey = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'AWS_PROFILE':
+        case 'AWS_DEFAULT_REGION':
           if (value != null) {
-            result.awsProfile = (serializers.deserialize(
+            result.awsDefaultRegion = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -155,17 +155,17 @@ class EnvironmentConfigAwsJson11Serializer
             ) as _i2.RetryMode);
           }
           break;
-        case 'AWS_SECRET_ACCESS_KEY':
+        case 'AWS_SESSION_TOKEN':
           if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(
+            result.awsSessionToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'AWS_SESSION_TOKEN':
+        case 'AWS_PROFILE':
           if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(
+            result.awsProfile = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -193,19 +193,19 @@ class EnvironmentConfigAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
+    if (payload.awsSecretAccessKey != null) {
+      result
+        ..add('AWS_SECRET_ACCESS_KEY')
+        ..add(serializers.serialize(
+          payload.awsSecretAccessKey!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.awsDefaultRegion != null) {
       result
         ..add('AWS_DEFAULT_REGION')
         ..add(serializers.serialize(
           payload.awsDefaultRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.awsProfile != null) {
-      result
-        ..add('AWS_PROFILE')
-        ..add(serializers.serialize(
-          payload.awsProfile!,
           specifiedType: const FullType(String),
         ));
     }
@@ -217,19 +217,19 @@ class EnvironmentConfigAwsJson11Serializer
           specifiedType: const FullType(_i2.RetryMode),
         ));
     }
-    if (payload.awsSecretAccessKey != null) {
-      result
-        ..add('AWS_SECRET_ACCESS_KEY')
-        ..add(serializers.serialize(
-          payload.awsSecretAccessKey!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.awsSessionToken != null) {
       result
         ..add('AWS_SESSION_TOKEN')
         ..add(serializers.serialize(
           payload.awsSessionToken!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.awsProfile != null) {
+      result
+        ..add('AWS_PROFILE')
+        ..add(serializers.serialize(
+          payload.awsProfile!,
           specifiedType: const FullType(String),
         ));
     }

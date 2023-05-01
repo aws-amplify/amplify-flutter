@@ -11,9 +11,9 @@ class _$DescribeConfigRuleEvaluationStatusRequest
   @override
   final _i3.BuiltList<String>? configRuleNames;
   @override
-  final int? limit;
-  @override
   final String? nextToken;
+  @override
+  final int? limit;
 
   factory _$DescribeConfigRuleEvaluationStatusRequest(
           [void Function(DescribeConfigRuleEvaluationStatusRequestBuilder)?
@@ -22,7 +22,7 @@ class _$DescribeConfigRuleEvaluationStatusRequest
           ._build();
 
   _$DescribeConfigRuleEvaluationStatusRequest._(
-      {this.configRuleNames, this.limit, this.nextToken})
+      {this.configRuleNames, this.nextToken, this.limit})
       : super._();
 
   @override
@@ -40,16 +40,16 @@ class _$DescribeConfigRuleEvaluationStatusRequest
     if (identical(other, this)) return true;
     return other is DescribeConfigRuleEvaluationStatusRequest &&
         configRuleNames == other.configRuleNames &&
-        limit == other.limit &&
-        nextToken == other.nextToken;
+        nextToken == other.nextToken &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, configRuleNames.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,13 +67,13 @@ class DescribeConfigRuleEvaluationStatusRequestBuilder
   set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   DescribeConfigRuleEvaluationStatusRequestBuilder() {
     DescribeConfigRuleEvaluationStatusRequest._init(this);
@@ -83,8 +83,8 @@ class DescribeConfigRuleEvaluationStatusRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _configRuleNames = $v.configRuleNames?.toBuilder();
-      _limit = $v.limit;
       _nextToken = $v.nextToken;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -112,8 +112,8 @@ class DescribeConfigRuleEvaluationStatusRequestBuilder
       _$result = _$v ??
           new _$DescribeConfigRuleEvaluationStatusRequest._(
               configRuleNames: _configRuleNames?.build(),
-              limit: limit,
-              nextToken: nextToken);
+              nextToken: nextToken,
+              limit: limit);
     } catch (_) {
       late String _$failedField;
       try {

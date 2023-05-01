@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db.model.batch_statement_request;
 
 class _$BatchStatementRequest extends BatchStatementRequest {
   @override
-  final bool? consistentRead;
+  final String statement;
   @override
   final _i3.BuiltList<_i2.AttributeValue>? parameters;
   @override
-  final String statement;
+  final bool? consistentRead;
 
   factory _$BatchStatementRequest(
           [void Function(BatchStatementRequestBuilder)? updates]) =>
       (new BatchStatementRequestBuilder()..update(updates))._build();
 
   _$BatchStatementRequest._(
-      {this.consistentRead, this.parameters, required this.statement})
+      {required this.statement, this.parameters, this.consistentRead})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         statement, r'BatchStatementRequest', 'statement');
@@ -38,17 +38,17 @@ class _$BatchStatementRequest extends BatchStatementRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is BatchStatementRequest &&
-        consistentRead == other.consistentRead &&
+        statement == other.statement &&
         parameters == other.parameters &&
-        statement == other.statement;
+        consistentRead == other.consistentRead;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, consistentRead.hashCode);
-    _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jc(_$hash, statement.hashCode);
+    _$hash = $jc(_$hash, parameters.hashCode);
+    _$hash = $jc(_$hash, consistentRead.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,10 +58,9 @@ class BatchStatementRequestBuilder
     implements Builder<BatchStatementRequest, BatchStatementRequestBuilder> {
   _$BatchStatementRequest? _$v;
 
-  bool? _consistentRead;
-  bool? get consistentRead => _$this._consistentRead;
-  set consistentRead(bool? consistentRead) =>
-      _$this._consistentRead = consistentRead;
+  String? _statement;
+  String? get statement => _$this._statement;
+  set statement(String? statement) => _$this._statement = statement;
 
   _i3.ListBuilder<_i2.AttributeValue>? _parameters;
   _i3.ListBuilder<_i2.AttributeValue> get parameters =>
@@ -69,9 +68,10 @@ class BatchStatementRequestBuilder
   set parameters(_i3.ListBuilder<_i2.AttributeValue>? parameters) =>
       _$this._parameters = parameters;
 
-  String? _statement;
-  String? get statement => _$this._statement;
-  set statement(String? statement) => _$this._statement = statement;
+  bool? _consistentRead;
+  bool? get consistentRead => _$this._consistentRead;
+  set consistentRead(bool? consistentRead) =>
+      _$this._consistentRead = consistentRead;
 
   BatchStatementRequestBuilder() {
     BatchStatementRequest._init(this);
@@ -80,9 +80,9 @@ class BatchStatementRequestBuilder
   BatchStatementRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _consistentRead = $v.consistentRead;
-      _parameters = $v.parameters?.toBuilder();
       _statement = $v.statement;
+      _parameters = $v.parameters?.toBuilder();
+      _consistentRead = $v.consistentRead;
       _$v = null;
     }
     return this;
@@ -107,10 +107,10 @@ class BatchStatementRequestBuilder
     try {
       _$result = _$v ??
           new _$BatchStatementRequest._(
-              consistentRead: consistentRead,
-              parameters: _parameters?.build(),
               statement: BuiltValueNullFieldError.checkNotNull(
-                  statement, r'BatchStatementRequest', 'statement'));
+                  statement, r'BatchStatementRequest', 'statement'),
+              parameters: _parameters?.build(),
+              consistentRead: consistentRead);
     } catch (_) {
       late String _$failedField;
       try {

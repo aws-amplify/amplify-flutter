@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.update_deployment_request;
 
 class _$UpdateDeploymentRequest extends UpdateDeploymentRequest {
   @override
+  final String restApiId;
+  @override
   final String deploymentId;
   @override
   final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
-  final String restApiId;
 
   factory _$UpdateDeploymentRequest(
           [void Function(UpdateDeploymentRequestBuilder)? updates]) =>
       (new UpdateDeploymentRequestBuilder()..update(updates))._build();
 
   _$UpdateDeploymentRequest._(
-      {required this.deploymentId,
-      this.patchOperations,
-      required this.restApiId})
+      {required this.restApiId,
+      required this.deploymentId,
+      this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        deploymentId, r'UpdateDeploymentRequest', 'deploymentId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateDeploymentRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        deploymentId, r'UpdateDeploymentRequest', 'deploymentId');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateDeploymentRequest extends UpdateDeploymentRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateDeploymentRequest &&
+        restApiId == other.restApiId &&
         deploymentId == other.deploymentId &&
-        patchOperations == other.patchOperations &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, deploymentId.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,10 @@ class UpdateDeploymentRequestBuilder
     implements
         Builder<UpdateDeploymentRequest, UpdateDeploymentRequestBuilder> {
   _$UpdateDeploymentRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _deploymentId;
   String? get deploymentId => _$this._deploymentId;
@@ -73,10 +77,6 @@ class UpdateDeploymentRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   UpdateDeploymentRequestBuilder() {
     UpdateDeploymentRequest._init(this);
   }
@@ -84,9 +84,9 @@ class UpdateDeploymentRequestBuilder
   UpdateDeploymentRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _deploymentId = $v.deploymentId;
       _patchOperations = $v.patchOperations?.toBuilder();
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -111,11 +111,11 @@ class UpdateDeploymentRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateDeploymentRequest._(
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateDeploymentRequest', 'restApiId'),
               deploymentId: BuiltValueNullFieldError.checkNotNull(
                   deploymentId, r'UpdateDeploymentRequest', 'deploymentId'),
-              patchOperations: _patchOperations?.build(),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateDeploymentRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

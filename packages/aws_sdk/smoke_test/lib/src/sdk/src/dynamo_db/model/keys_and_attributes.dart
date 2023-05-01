@@ -22,21 +22,21 @@ abstract class KeysAndAttributes
   ///
   /// For each primary key, you must provide _all_ of the key attributes. For example, with a simple primary key, you only need to provide the partition key. For a composite primary key, you must provide _both_ the partition key and the sort key.
   factory KeysAndAttributes({
+    required List<Map<String, _i2.AttributeValue>> keys,
     List<String>? attributesToGet,
     bool? consistentRead,
-    Map<String, String>? expressionAttributeNames,
-    required List<Map<String, _i2.AttributeValue>> keys,
     String? projectionExpression,
+    Map<String, String>? expressionAttributeNames,
   }) {
     return _$KeysAndAttributes._(
+      keys: _i3.BuiltList(keys.map((el) => _i3.BuiltMap(el))),
       attributesToGet:
           attributesToGet == null ? null : _i3.BuiltList(attributesToGet),
       consistentRead: consistentRead,
+      projectionExpression: projectionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
           : _i3.BuiltMap(expressionAttributeNames),
-      keys: _i3.BuiltList(keys.map((el) => _i3.BuiltMap(el))),
-      projectionExpression: projectionExpression,
     );
   }
 
@@ -55,11 +55,21 @@ abstract class KeysAndAttributes
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KeysAndAttributesBuilder b) {}
 
+  /// The primary key attribute values that define the items and the attributes associated with the items.
+  _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> get keys;
+
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [Legacy Conditional Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.BuiltList<String>? get attributesToGet;
 
   /// The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
   bool? get consistentRead;
+
+  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the `ProjectionExpression` must be separated by commas.
+  ///
+  /// If no attribute names are specified, then all attributes will be returned. If any of the requested attributes are not found, they will not appear in the result.
+  ///
+  /// For more information, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
+  String? get projectionExpression;
 
   /// One or more substitution tokens for attribute names in an expression. The following are some use cases for using `ExpressionAttributeNames`:
   ///
@@ -89,27 +99,21 @@ abstract class KeysAndAttributes
   ///
   /// For more information on expression attribute names, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.BuiltMap<String, String>? get expressionAttributeNames;
-
-  /// The primary key attribute values that define the items and the attributes associated with the items.
-  _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> get keys;
-
-  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the `ProjectionExpression` must be separated by commas.
-  ///
-  /// If no attribute names are specified, then all attributes will be returned. If any of the requested attributes are not found, they will not appear in the result.
-  ///
-  /// For more information, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  String? get projectionExpression;
   @override
   List<Object?> get props => [
+        keys,
         attributesToGet,
         consistentRead,
-        expressionAttributeNames,
-        keys,
         projectionExpression,
+        expressionAttributeNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('KeysAndAttributes');
+    helper.add(
+      'keys',
+      keys,
+    );
     helper.add(
       'attributesToGet',
       attributesToGet,
@@ -119,16 +123,12 @@ abstract class KeysAndAttributes
       consistentRead,
     );
     helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'keys',
-      keys,
-    );
-    helper.add(
       'projectionExpression',
       projectionExpression,
+    );
+    helper.add(
+      'expressionAttributeNames',
+      expressionAttributeNames,
     );
     return helper.toString();
   }
@@ -163,6 +163,23 @@ class KeysAndAttributesAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Keys':
+          result.keys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [
+                FullType(
+                  _i3.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.AttributeValue),
+                  ],
+                )
+              ],
+            ),
+          ) as _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>>));
+          break;
         case 'AttributesToGet':
           if (value != null) {
             result.attributesToGet.replace((serializers.deserialize(
@@ -182,6 +199,14 @@ class KeysAndAttributesAwsJson10Serializer
             ) as bool);
           }
           break;
+        case 'ProjectionExpression':
+          if (value != null) {
+            result.projectionExpression = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ExpressionAttributeNames':
           if (value != null) {
             result.expressionAttributeNames.replace((serializers.deserialize(
@@ -194,31 +219,6 @@ class KeysAndAttributesAwsJson10Serializer
                 ],
               ),
             ) as _i3.BuiltMap<String, String>));
-          }
-          break;
-        case 'Keys':
-          result.keys.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i3.BuiltList,
-              [
-                FullType(
-                  _i3.BuiltMap,
-                  [
-                    FullType(String),
-                    FullType(_i2.AttributeValue),
-                  ],
-                )
-              ],
-            ),
-          ) as _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>>));
-          break;
-        case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -271,6 +271,14 @@ class KeysAndAttributesAwsJson10Serializer
           specifiedType: const FullType(bool),
         ));
     }
+    if (payload.projectionExpression != null) {
+      result
+        ..add('ProjectionExpression')
+        ..add(serializers.serialize(
+          payload.projectionExpression!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
@@ -283,14 +291,6 @@ class KeysAndAttributesAwsJson10Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.projectionExpression != null) {
-      result
-        ..add('ProjectionExpression')
-        ..add(serializers.serialize(
-          payload.projectionExpression!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

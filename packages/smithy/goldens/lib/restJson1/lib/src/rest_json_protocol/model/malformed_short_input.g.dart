@@ -10,11 +10,11 @@ class _$MalformedShortInput extends MalformedShortInput {
   @override
   final int? shortInBody;
   @override
-  final int? shortInHeader;
-  @override
   final int shortInPath;
   @override
   final int? shortInQuery;
+  @override
+  final int? shortInHeader;
 
   factory _$MalformedShortInput(
           [void Function(MalformedShortInputBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$MalformedShortInput extends MalformedShortInput {
 
   _$MalformedShortInput._(
       {this.shortInBody,
-      this.shortInHeader,
       required this.shortInPath,
-      this.shortInQuery})
+      this.shortInQuery,
+      this.shortInHeader})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         shortInPath, r'MalformedShortInput', 'shortInPath');
@@ -44,18 +44,18 @@ class _$MalformedShortInput extends MalformedShortInput {
     if (identical(other, this)) return true;
     return other is MalformedShortInput &&
         shortInBody == other.shortInBody &&
-        shortInHeader == other.shortInHeader &&
         shortInPath == other.shortInPath &&
-        shortInQuery == other.shortInQuery;
+        shortInQuery == other.shortInQuery &&
+        shortInHeader == other.shortInHeader;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, shortInBody.hashCode);
-    _$hash = $jc(_$hash, shortInHeader.hashCode);
     _$hash = $jc(_$hash, shortInPath.hashCode);
     _$hash = $jc(_$hash, shortInQuery.hashCode);
+    _$hash = $jc(_$hash, shortInHeader.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,11 +69,6 @@ class MalformedShortInputBuilder
   int? get shortInBody => _$this._shortInBody;
   set shortInBody(int? shortInBody) => _$this._shortInBody = shortInBody;
 
-  int? _shortInHeader;
-  int? get shortInHeader => _$this._shortInHeader;
-  set shortInHeader(int? shortInHeader) =>
-      _$this._shortInHeader = shortInHeader;
-
   int? _shortInPath;
   int? get shortInPath => _$this._shortInPath;
   set shortInPath(int? shortInPath) => _$this._shortInPath = shortInPath;
@@ -81,6 +76,11 @@ class MalformedShortInputBuilder
   int? _shortInQuery;
   int? get shortInQuery => _$this._shortInQuery;
   set shortInQuery(int? shortInQuery) => _$this._shortInQuery = shortInQuery;
+
+  int? _shortInHeader;
+  int? get shortInHeader => _$this._shortInHeader;
+  set shortInHeader(int? shortInHeader) =>
+      _$this._shortInHeader = shortInHeader;
 
   MalformedShortInputBuilder() {
     MalformedShortInput._init(this);
@@ -90,9 +90,9 @@ class MalformedShortInputBuilder
     final $v = _$v;
     if ($v != null) {
       _shortInBody = $v.shortInBody;
-      _shortInHeader = $v.shortInHeader;
       _shortInPath = $v.shortInPath;
       _shortInQuery = $v.shortInQuery;
+      _shortInHeader = $v.shortInHeader;
       _$v = null;
     }
     return this;
@@ -116,10 +116,10 @@ class MalformedShortInputBuilder
     final _$result = _$v ??
         new _$MalformedShortInput._(
             shortInBody: shortInBody,
-            shortInHeader: shortInHeader,
             shortInPath: BuiltValueNullFieldError.checkNotNull(
                 shortInPath, r'MalformedShortInput', 'shortInPath'),
-            shortInQuery: shortInQuery);
+            shortInQuery: shortInQuery,
+            shortInHeader: shortInHeader);
     replace(_$result);
     return _$result;
   }

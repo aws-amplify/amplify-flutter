@@ -5,10 +5,10 @@ library smoke_test.dynamo_db.model.global_table_global_secondary_index_settings_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
-    as _i2;
+    as _i3;
 
 part 'global_table_global_secondary_index_settings_update.g.dart';
 
@@ -22,15 +22,15 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
   /// Represents the settings of a global secondary index for a global table that will be modified.
   factory GlobalTableGlobalSecondaryIndexSettingsUpdate({
     required String indexName,
-    _i2.AutoScalingSettingsUpdate?
+    _i2.Int64? provisionedWriteCapacityUnits,
+    _i3.AutoScalingSettingsUpdate?
         provisionedWriteCapacityAutoScalingSettingsUpdate,
-    _i3.Int64? provisionedWriteCapacityUnits,
   }) {
     return _$GlobalTableGlobalSecondaryIndexSettingsUpdate._(
       indexName: indexName,
+      provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
       provisionedWriteCapacityAutoScalingSettingsUpdate:
           provisionedWriteCapacityAutoScalingSettingsUpdate,
-      provisionedWriteCapacityUnits: provisionedWriteCapacityUnits,
     );
   }
 
@@ -51,17 +51,17 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
   /// The name of the global secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
 
-  /// Auto scaling settings for managing a global secondary index's write capacity units.
-  _i2.AutoScalingSettingsUpdate?
-      get provisionedWriteCapacityAutoScalingSettingsUpdate;
-
   /// The maximum number of writes consumed per second before DynamoDB returns a `ThrottlingException.`
-  _i3.Int64? get provisionedWriteCapacityUnits;
+  _i2.Int64? get provisionedWriteCapacityUnits;
+
+  /// Auto scaling settings for managing a global secondary index's write capacity units.
+  _i3.AutoScalingSettingsUpdate?
+      get provisionedWriteCapacityAutoScalingSettingsUpdate;
   @override
   List<Object?> get props => [
         indexName,
-        provisionedWriteCapacityAutoScalingSettingsUpdate,
         provisionedWriteCapacityUnits,
+        provisionedWriteCapacityAutoScalingSettingsUpdate,
       ];
   @override
   String toString() {
@@ -72,12 +72,12 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
       indexName,
     );
     helper.add(
-      'provisionedWriteCapacityAutoScalingSettingsUpdate',
-      provisionedWriteCapacityAutoScalingSettingsUpdate,
-    );
-    helper.add(
       'provisionedWriteCapacityUnits',
       provisionedWriteCapacityUnits,
+    );
+    helper.add(
+      'provisionedWriteCapacityAutoScalingSettingsUpdate',
+      provisionedWriteCapacityAutoScalingSettingsUpdate,
     );
     return helper.toString();
   }
@@ -120,21 +120,21 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'ProvisionedWriteCapacityUnits':
+          if (value != null) {
+            result.provisionedWriteCapacityUnits = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
+          break;
         case 'ProvisionedWriteCapacityAutoScalingSettingsUpdate':
           if (value != null) {
             result.provisionedWriteCapacityAutoScalingSettingsUpdate
                 .replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
-            ) as _i2.AutoScalingSettingsUpdate));
-          }
-          break;
-        case 'ProvisionedWriteCapacityUnits':
-          if (value != null) {
-            result.provisionedWriteCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
+              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+            ) as _i3.AutoScalingSettingsUpdate));
           }
           break;
       }
@@ -157,20 +157,20 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.provisionedWriteCapacityAutoScalingSettingsUpdate != null) {
-      result
-        ..add('ProvisionedWriteCapacityAutoScalingSettingsUpdate')
-        ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingSettingsUpdate!,
-          specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
-        ));
-    }
     if (payload.provisionedWriteCapacityUnits != null) {
       result
         ..add('ProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
           payload.provisionedWriteCapacityUnits!,
-          specifiedType: const FullType(_i3.Int64),
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
+    if (payload.provisionedWriteCapacityAutoScalingSettingsUpdate != null) {
+      result
+        ..add('ProvisionedWriteCapacityAutoScalingSettingsUpdate')
+        ..add(serializers.serialize(
+          payload.provisionedWriteCapacityAutoScalingSettingsUpdate!,
+          specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }
     return result;

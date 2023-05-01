@@ -15,20 +15,20 @@ abstract class ListBackupsInput
     with _i1.HttpInput<ListBackupsInput>, _i2.AWSEquatable<ListBackupsInput>
     implements Built<ListBackupsInput, ListBackupsInputBuilder> {
   factory ListBackupsInput({
-    _i3.BackupTypeFilter? backupType,
-    String? exclusiveStartBackupArn,
-    int? limit,
     String? tableName,
+    int? limit,
     DateTime? timeRangeLowerBound,
     DateTime? timeRangeUpperBound,
+    String? exclusiveStartBackupArn,
+    _i3.BackupTypeFilter? backupType,
   }) {
     return _$ListBackupsInput._(
-      backupType: backupType,
-      exclusiveStartBackupArn: exclusiveStartBackupArn,
-      limit: limit,
       tableName: tableName,
+      limit: limit,
       timeRangeLowerBound: timeRangeLowerBound,
       timeRangeUpperBound: timeRangeUpperBound,
+      exclusiveStartBackupArn: exclusiveStartBackupArn,
+      backupType: backupType,
     );
   }
 
@@ -51,6 +51,21 @@ abstract class ListBackupsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListBackupsInputBuilder b) {}
 
+  /// The backups from the table specified by `TableName` are listed.
+  String? get tableName;
+
+  /// Maximum number of backups to return at once.
+  int? get limit;
+
+  /// Only backups created after this time are listed. `TimeRangeLowerBound` is inclusive.
+  DateTime? get timeRangeLowerBound;
+
+  /// Only backups created before this time are listed. `TimeRangeUpperBound` is exclusive.
+  DateTime? get timeRangeUpperBound;
+
+  /// `LastEvaluatedBackupArn` is the Amazon Resource Name (ARN) of the backup last evaluated when the current page of results was returned, inclusive of the current page of results. This value may be specified as the `ExclusiveStartBackupArn` of a new `ListBackups` operation in order to fetch the next page of results.
+  String? get exclusiveStartBackupArn;
+
   /// The backups from the table specified by `BackupType` are listed.
   ///
   /// Where `BackupType` can be:
@@ -61,50 +76,27 @@ abstract class ListBackupsInput
   ///
   /// *   `ALL` \- All types of on-demand backups (USER and SYSTEM).
   _i3.BackupTypeFilter? get backupType;
-
-  /// `LastEvaluatedBackupArn` is the Amazon Resource Name (ARN) of the backup last evaluated when the current page of results was returned, inclusive of the current page of results. This value may be specified as the `ExclusiveStartBackupArn` of a new `ListBackups` operation in order to fetch the next page of results.
-  String? get exclusiveStartBackupArn;
-
-  /// Maximum number of backups to return at once.
-  int? get limit;
-
-  /// The backups from the table specified by `TableName` are listed.
-  String? get tableName;
-
-  /// Only backups created after this time are listed. `TimeRangeLowerBound` is inclusive.
-  DateTime? get timeRangeLowerBound;
-
-  /// Only backups created before this time are listed. `TimeRangeUpperBound` is exclusive.
-  DateTime? get timeRangeUpperBound;
   @override
   ListBackupsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        backupType,
-        exclusiveStartBackupArn,
-        limit,
         tableName,
+        limit,
         timeRangeLowerBound,
         timeRangeUpperBound,
+        exclusiveStartBackupArn,
+        backupType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListBackupsInput');
     helper.add(
-      'backupType',
-      backupType,
-    );
-    helper.add(
-      'exclusiveStartBackupArn',
-      exclusiveStartBackupArn,
+      'tableName',
+      tableName,
     );
     helper.add(
       'limit',
       limit,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     helper.add(
       'timeRangeLowerBound',
@@ -113,6 +105,14 @@ abstract class ListBackupsInput
     helper.add(
       'timeRangeUpperBound',
       timeRangeUpperBound,
+    );
+    helper.add(
+      'exclusiveStartBackupArn',
+      exclusiveStartBackupArn,
+    );
+    helper.add(
+      'backupType',
+      backupType,
     );
     return helper.toString();
   }
@@ -147,17 +147,9 @@ class ListBackupsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'BackupType':
+        case 'TableName':
           if (value != null) {
-            result.backupType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BackupTypeFilter),
-            ) as _i3.BackupTypeFilter);
-          }
-          break;
-        case 'ExclusiveStartBackupArn':
-          if (value != null) {
-            result.exclusiveStartBackupArn = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -169,14 +161,6 @@ class ListBackupsInputAwsJson10Serializer
               value,
               specifiedType: const FullType(int),
             ) as int);
-          }
-          break;
-        case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
         case 'TimeRangeLowerBound':
@@ -195,6 +179,22 @@ class ListBackupsInputAwsJson10Serializer
             ) as DateTime);
           }
           break;
+        case 'ExclusiveStartBackupArn':
+          if (value != null) {
+            result.exclusiveStartBackupArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'BackupType':
+          if (value != null) {
+            result.backupType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.BackupTypeFilter),
+            ) as _i3.BackupTypeFilter);
+          }
+          break;
       }
     }
 
@@ -209,19 +209,11 @@ class ListBackupsInputAwsJson10Serializer
   }) {
     final payload = (object as ListBackupsInput);
     final result = <Object?>[];
-    if (payload.backupType != null) {
+    if (payload.tableName != null) {
       result
-        ..add('BackupType')
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.backupType!,
-          specifiedType: const FullType(_i3.BackupTypeFilter),
-        ));
-    }
-    if (payload.exclusiveStartBackupArn != null) {
-      result
-        ..add('ExclusiveStartBackupArn')
-        ..add(serializers.serialize(
-          payload.exclusiveStartBackupArn!,
+          payload.tableName!,
           specifiedType: const FullType(String),
         ));
     }
@@ -231,14 +223,6 @@ class ListBackupsInputAwsJson10Serializer
         ..add(serializers.serialize(
           payload.limit!,
           specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
-        ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
         ));
     }
     if (payload.timeRangeLowerBound != null) {
@@ -255,6 +239,22 @@ class ListBackupsInputAwsJson10Serializer
         ..add(serializers.serialize(
           payload.timeRangeUpperBound!,
           specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.exclusiveStartBackupArn != null) {
+      result
+        ..add('ExclusiveStartBackupArn')
+        ..add(serializers.serialize(
+          payload.exclusiveStartBackupArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.backupType != null) {
+      result
+        ..add('BackupType')
+        ..add(serializers.serialize(
+          payload.backupType!,
+          specifiedType: const FullType(_i3.BackupTypeFilter),
         ));
     }
     return result;

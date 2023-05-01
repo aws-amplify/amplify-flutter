@@ -32,7 +32,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
   /// In general, this is members of the payload ([payloadMembers]).
   /// However, for test cases, we want to deserialize *all* members.
   List<MemberShape> get serializedMembers =>
-      config.usePayload ? payloadMembers : sortedMembers;
+      config.usePayload ? payloadMembers : members;
 
   @override
   bool get isStructuredSerializer =>

@@ -21,12 +21,12 @@ abstract class TestBodyStructureInputOutput
             TestBodyStructureInputOutputBuilder>,
         _i1.HasPayload<TestBodyStructureInputOutputPayload> {
   factory TestBodyStructureInputOutput({
-    _i3.TestConfig? testConfig,
     String? testId,
+    _i3.TestConfig? testConfig,
   }) {
     return _$TestBodyStructureInputOutput._(
-      testConfig: testConfig,
       testId: testId,
+      testConfig: testConfig,
     );
   }
 
@@ -70,8 +70,8 @@ abstract class TestBodyStructureInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestBodyStructureInputOutputBuilder b) {}
-  _i3.TestConfig? get testConfig;
   String? get testId;
+  _i3.TestConfig? get testConfig;
   @override
   TestBodyStructureInputOutputPayload getPayload() =>
       TestBodyStructureInputOutputPayload((b) {
@@ -81,19 +81,19 @@ abstract class TestBodyStructureInputOutput
       });
   @override
   List<Object?> get props => [
-        testConfig,
         testId,
+        testConfig,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput');
     helper.add(
-      'testConfig',
-      testConfig,
-    );
-    helper.add(
       'testId',
       testId,
+    );
+    helper.add(
+      'testConfig',
+      testConfig,
     );
     return helper.toString();
   }

@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.put_configuration_aggregator_request;
 class _$PutConfigurationAggregatorRequest
     extends PutConfigurationAggregatorRequest {
   @override
-  final _i6.BuiltList<_i3.AccountAggregationSource>? accountAggregationSources;
-  @override
   final String configurationAggregatorName;
+  @override
+  final _i6.BuiltList<_i3.AccountAggregationSource>? accountAggregationSources;
   @override
   final _i4.OrganizationAggregationSource? organizationAggregationSource;
   @override
@@ -23,8 +23,8 @@ class _$PutConfigurationAggregatorRequest
           ._build();
 
   _$PutConfigurationAggregatorRequest._(
-      {this.accountAggregationSources,
-      required this.configurationAggregatorName,
+      {required this.configurationAggregatorName,
+      this.accountAggregationSources,
       this.organizationAggregationSource,
       this.tags})
       : super._() {
@@ -45,8 +45,8 @@ class _$PutConfigurationAggregatorRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutConfigurationAggregatorRequest &&
-        accountAggregationSources == other.accountAggregationSources &&
         configurationAggregatorName == other.configurationAggregatorName &&
+        accountAggregationSources == other.accountAggregationSources &&
         organizationAggregationSource == other.organizationAggregationSource &&
         tags == other.tags;
   }
@@ -54,8 +54,8 @@ class _$PutConfigurationAggregatorRequest
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accountAggregationSources.hashCode);
     _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
+    _$hash = $jc(_$hash, accountAggregationSources.hashCode);
     _$hash = $jc(_$hash, organizationAggregationSource.hashCode);
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jf(_$hash);
@@ -69,6 +69,12 @@ class PutConfigurationAggregatorRequestBuilder
             PutConfigurationAggregatorRequestBuilder> {
   _$PutConfigurationAggregatorRequest? _$v;
 
+  String? _configurationAggregatorName;
+  String? get configurationAggregatorName =>
+      _$this._configurationAggregatorName;
+  set configurationAggregatorName(String? configurationAggregatorName) =>
+      _$this._configurationAggregatorName = configurationAggregatorName;
+
   _i6.ListBuilder<_i3.AccountAggregationSource>? _accountAggregationSources;
   _i6.ListBuilder<_i3.AccountAggregationSource> get accountAggregationSources =>
       _$this._accountAggregationSources ??=
@@ -77,12 +83,6 @@ class PutConfigurationAggregatorRequestBuilder
           _i6.ListBuilder<_i3.AccountAggregationSource>?
               accountAggregationSources) =>
       _$this._accountAggregationSources = accountAggregationSources;
-
-  String? _configurationAggregatorName;
-  String? get configurationAggregatorName =>
-      _$this._configurationAggregatorName;
-  set configurationAggregatorName(String? configurationAggregatorName) =>
-      _$this._configurationAggregatorName = configurationAggregatorName;
 
   _i4.OrganizationAggregationSourceBuilder? _organizationAggregationSource;
   _i4.OrganizationAggregationSourceBuilder get organizationAggregationSource =>
@@ -105,8 +105,8 @@ class PutConfigurationAggregatorRequestBuilder
   PutConfigurationAggregatorRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accountAggregationSources = $v.accountAggregationSources?.toBuilder();
       _configurationAggregatorName = $v.configurationAggregatorName;
+      _accountAggregationSources = $v.accountAggregationSources?.toBuilder();
       _organizationAggregationSource =
           $v.organizationAggregationSource?.toBuilder();
       _tags = $v.tags?.toBuilder();
@@ -135,12 +135,12 @@ class PutConfigurationAggregatorRequestBuilder
     try {
       _$result = _$v ??
           new _$PutConfigurationAggregatorRequest._(
-              accountAggregationSources: _accountAggregationSources?.build(),
               configurationAggregatorName:
                   BuiltValueNullFieldError.checkNotNull(
                       configurationAggregatorName,
                       r'PutConfigurationAggregatorRequest',
                       'configurationAggregatorName'),
+              accountAggregationSources: _accountAggregationSources?.build(),
               organizationAggregationSource:
                   _organizationAggregationSource?.build(),
               tags: _tags?.build());
@@ -149,7 +149,6 @@ class PutConfigurationAggregatorRequestBuilder
       try {
         _$failedField = 'accountAggregationSources';
         _accountAggregationSources?.build();
-
         _$failedField = 'organizationAggregationSource';
         _organizationAggregationSource?.build();
         _$failedField = 'tags';

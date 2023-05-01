@@ -15,13 +15,13 @@ abstract class S3BucketSource
     implements Built<S3BucketSource, S3BucketSourceBuilder> {
   /// The S3 bucket that is being imported from.
   factory S3BucketSource({
-    required String s3Bucket,
     String? s3BucketOwner,
+    required String s3Bucket,
     String? s3KeyPrefix,
   }) {
     return _$S3BucketSource._(
-      s3Bucket: s3Bucket,
       s3BucketOwner: s3BucketOwner,
+      s3Bucket: s3Bucket,
       s3KeyPrefix: s3KeyPrefix,
     );
   }
@@ -39,30 +39,30 @@ abstract class S3BucketSource
   @BuiltValueHook(initializeBuilder: true)
   static void _init(S3BucketSourceBuilder b) {}
 
-  /// The S3 bucket that is being imported from.
-  String get s3Bucket;
-
   /// The account number of the S3 bucket that is being imported from. If the bucket is owned by the requester this is optional.
   String? get s3BucketOwner;
+
+  /// The S3 bucket that is being imported from.
+  String get s3Bucket;
 
   /// The key prefix shared by all S3 Objects that are being imported.
   String? get s3KeyPrefix;
   @override
   List<Object?> get props => [
-        s3Bucket,
         s3BucketOwner,
+        s3Bucket,
         s3KeyPrefix,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3BucketSource');
     helper.add(
-      's3Bucket',
-      s3Bucket,
-    );
-    helper.add(
       's3BucketOwner',
       s3BucketOwner,
+    );
+    helper.add(
+      's3Bucket',
+      s3Bucket,
     );
     helper.add(
       's3KeyPrefix',
@@ -101,12 +101,6 @@ class S3BucketSourceAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'S3Bucket':
-          result.s3Bucket = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'S3BucketOwner':
           if (value != null) {
             result.s3BucketOwner = (serializers.deserialize(
@@ -114,6 +108,12 @@ class S3BucketSourceAwsJson10Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
+          break;
+        case 'S3Bucket':
+          result.s3Bucket = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'S3KeyPrefix':
           if (value != null) {

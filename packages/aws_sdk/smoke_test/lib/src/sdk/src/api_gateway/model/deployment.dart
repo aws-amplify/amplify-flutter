@@ -18,12 +18,15 @@ abstract class Deployment
     implements Built<Deployment, DeploymentBuilder> {
   /// An immutable representation of a RestApi resource that can be called by users using Stages. A deployment must be associated with a Stage for it to be callable over the Internet.
   factory Deployment({
-    Map<String, Map<String, _i2.MethodSnapshot>>? apiSummary,
-    DateTime? createdDate,
-    String? description,
     String? id,
+    String? description,
+    DateTime? createdDate,
+    Map<String, Map<String, _i2.MethodSnapshot>>? apiSummary,
   }) {
     return _$Deployment._(
+      id: id,
+      description: description,
+      createdDate: createdDate,
       apiSummary: apiSummary == null
           ? null
           : _i3.BuiltMap(apiSummary.map((
@@ -34,9 +37,6 @@ abstract class Deployment
                 key,
                 _i3.BuiltMap(value),
               ))),
-      createdDate: createdDate,
-      description: description,
-      id: id,
     );
   }
 
@@ -60,43 +60,43 @@ abstract class Deployment
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeploymentBuilder b) {}
 
-  /// A summary of the RestApi at the date and time that the deployment resource was created.
-  _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
-      get apiSummary;
-
-  /// The date and time that the deployment resource was created.
-  DateTime? get createdDate;
+  /// The identifier for the deployment resource.
+  String? get id;
 
   /// The description for the deployment resource.
   String? get description;
 
-  /// The identifier for the deployment resource.
-  String? get id;
+  /// The date and time that the deployment resource was created.
+  DateTime? get createdDate;
+
+  /// A summary of the RestApi at the date and time that the deployment resource was created.
+  _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
+      get apiSummary;
   @override
   List<Object?> get props => [
-        apiSummary,
-        createdDate,
-        description,
         id,
+        description,
+        createdDate,
+        apiSummary,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Deployment');
     helper.add(
-      'apiSummary',
-      apiSummary,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
+      'id',
+      id,
     );
     helper.add(
       'description',
       description,
     );
     helper.add(
-      'id',
-      id,
+      'createdDate',
+      createdDate,
+    );
+    helper.add(
+      'apiSummary',
+      apiSummary,
     );
     return helper.toString();
   }

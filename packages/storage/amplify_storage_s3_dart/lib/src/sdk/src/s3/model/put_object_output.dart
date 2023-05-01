@@ -3,9 +3,9 @@
 library amplify_storage_s3_dart.s3.model.put_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
     as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
+    as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -21,36 +21,36 @@ abstract class PutObjectOutput
         _i2.EmptyPayload,
         _i2.HasPayload<PutObjectOutputPayload> {
   factory PutObjectOutput({
-    bool? bucketKeyEnabled,
+    String? expiration,
+    String? eTag,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    String? eTag,
-    String? expiration,
-    _i3.RequestCharged? requestCharged,
-    _i4.ServerSideEncryption? serverSideEncryption,
+    _i3.ServerSideEncryption? serverSideEncryption,
+    String? versionId,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
-    String? ssekmsEncryptionContext,
     String? ssekmsKeyId,
-    String? versionId,
+    String? ssekmsEncryptionContext,
+    bool? bucketKeyEnabled,
+    _i4.RequestCharged? requestCharged,
   }) {
     return _$PutObjectOutput._(
-      bucketKeyEnabled: bucketKeyEnabled,
+      expiration: expiration,
+      eTag: eTag,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      eTag: eTag,
-      expiration: expiration,
-      requestCharged: requestCharged,
       serverSideEncryption: serverSideEncryption,
+      versionId: versionId,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      ssekmsEncryptionContext: ssekmsEncryptionContext,
       ssekmsKeyId: ssekmsKeyId,
-      versionId: versionId,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      bucketKeyEnabled: bucketKeyEnabled,
+      requestCharged: requestCharged,
     );
   }
 
@@ -84,7 +84,7 @@ abstract class PutObjectOutput
           b.checksumSha256 = response.headers['x-amz-checksum-sha256']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i4.ServerSideEncryption.values
+          b.serverSideEncryption = _i3.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response.headers['x-amz-version-id'] != null) {
@@ -118,7 +118,7 @@ abstract class PutObjectOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = _i4.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -130,8 +130,11 @@ abstract class PutObjectOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectOutputBuilder b) {}
 
-  /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  /// If the expiration is configured for the object (see [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration. The value of the `rule-id` is URL-encoded.
+  String? get expiration;
+
+  /// Entity tag for the uploaded object.
+  String? get eTag;
 
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -145,17 +148,11 @@ abstract class PutObjectOutput
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// Entity tag for the uploaded object.
-  String? get eTag;
-
-  /// If the expiration is configured for the object (see [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration. The value of the `rule-id` is URL-encoded.
-  String? get expiration;
-
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
-
   /// If you specified server-side encryption either with an Amazon Web Services KMS key or Amazon S3-managed encryption key in your PUT request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used to encrypt the object.
-  _i4.ServerSideEncryption? get serverSideEncryption;
+  _i3.ServerSideEncryption? get serverSideEncryption;
+
+  /// Version of the object.
+  String? get versionId;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -163,39 +160,46 @@ abstract class PutObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
-  String? get ssekmsEncryptionContext;
-
   /// If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// Version of the object.
-  String? get versionId;
+  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  String? get ssekmsEncryptionContext;
+
+  /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  bool? get bucketKeyEnabled;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i4.RequestCharged? get requestCharged;
   @override
   PutObjectOutputPayload getPayload() => PutObjectOutputPayload();
   @override
   List<Object?> get props => [
-        bucketKeyEnabled,
+        expiration,
+        eTag,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        eTag,
-        expiration,
-        requestCharged,
         serverSideEncryption,
+        versionId,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
-        ssekmsEncryptionContext,
         ssekmsKeyId,
-        versionId,
+        ssekmsEncryptionContext,
+        bucketKeyEnabled,
+        requestCharged,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutObjectOutput');
     helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
+      'expiration',
+      expiration,
+    );
+    helper.add(
+      'eTag',
+      eTag,
     );
     helper.add(
       'checksumCrc32',
@@ -214,20 +218,12 @@ abstract class PutObjectOutput
       checksumSha256,
     );
     helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
       'serverSideEncryption',
       serverSideEncryption,
+    );
+    helper.add(
+      'versionId',
+      versionId,
     );
     helper.add(
       'sseCustomerAlgorithm',
@@ -238,16 +234,20 @@ abstract class PutObjectOutput
       sseCustomerKeyMd5,
     );
     helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
       'ssekmsKeyId',
       '***SENSITIVE***',
     );
     helper.add(
-      'versionId',
-      versionId,
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
     );
     return helper.toString();
   }

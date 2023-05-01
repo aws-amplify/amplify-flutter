@@ -16,14 +16,14 @@ abstract class ListTagsForResourceRequest
     implements
         Built<ListTagsForResourceRequest, ListTagsForResourceRequestBuilder> {
   factory ListTagsForResourceRequest({
+    required String resourceArn,
     int? limit,
     String? nextToken,
-    required String resourceArn,
   }) {
     return _$ListTagsForResourceRequest._(
+      resourceArn: resourceArn,
       limit: limit,
       nextToken: nextToken,
-      resourceArn: resourceArn,
     );
   }
 
@@ -47,25 +47,29 @@ abstract class ListTagsForResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsForResourceRequestBuilder b) {}
 
+  /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
+  String get resourceArn;
+
   /// The maximum number of tags returned on each page. The limit maximum is 50. You cannot specify a number greater than 50. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
-  String get resourceArn;
   @override
   ListTagsForResourceRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        resourceArn,
         limit,
         nextToken,
-        resourceArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsForResourceRequest');
+    helper.add(
+      'resourceArn',
+      resourceArn,
+    );
     helper.add(
       'limit',
       limit,
@@ -73,10 +77,6 @@ abstract class ListTagsForResourceRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceArn',
-      resourceArn,
     );
     return helper.toString();
   }
@@ -112,6 +112,12 @@ class ListTagsForResourceRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ResourceArn':
+          result.resourceArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -127,12 +133,6 @@ class ListTagsForResourceRequestAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'ResourceArn':
-          result.resourceArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

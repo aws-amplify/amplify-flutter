@@ -23,16 +23,16 @@ abstract class ImportDocumentationPartsRequest
         _i1.HasPayload<_i2.Uint8List> {
   /// Import documentation parts from an external (e.g., OpenAPI) definition file.
   factory ImportDocumentationPartsRequest({
-    required _i2.Uint8List body,
-    bool? failOnWarnings,
-    _i4.PutMode? mode,
     required String restApiId,
+    _i4.PutMode? mode,
+    bool? failOnWarnings,
+    required _i2.Uint8List body,
   }) {
     return _$ImportDocumentationPartsRequest._(
-      body: body,
-      failOnWarnings: failOnWarnings,
-      mode: mode,
       restApiId: restApiId,
+      mode: mode,
+      failOnWarnings: failOnWarnings,
+      body: body,
     );
   }
 
@@ -69,17 +69,17 @@ abstract class ImportDocumentationPartsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportDocumentationPartsRequestBuilder b) {}
 
-  /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
-  _i2.Uint8List get body;
-
-  /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// A query parameter to indicate whether to overwrite (`OVERWRITE`) any existing DocumentationParts definition or to merge (`MERGE`) the new definition into the existing one. The default value is `MERGE`.
   _i4.PutMode? get mode;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
+  bool? get failOnWarnings;
+
+  /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
+  _i2.Uint8List get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,30 +96,30 @@ abstract class ImportDocumentationPartsRequest
   _i2.Uint8List getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        failOnWarnings,
-        mode,
         restApiId,
+        mode,
+        failOnWarnings,
+        body,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ImportDocumentationPartsRequest');
     helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'mode',
       mode,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'failOnWarnings',
+      failOnWarnings,
+    );
+    helper.add(
+      'body',
+      body,
     );
     return helper.toString();
   }

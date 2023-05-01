@@ -9,9 +9,9 @@ import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_replication_group_member_action.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_replication_group_member_action.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_replication_group_member_action.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_replication_group_member_action.dart'
+    as _i3;
 
 part 'replication_group_update.g.dart';
 
@@ -40,13 +40,13 @@ abstract class ReplicationGroupUpdate
   /// When you manually remove a table or global table replica, you do not automatically remove any associated scalable targets, scaling policies, or CloudWatch alarms.
   factory ReplicationGroupUpdate({
     _i2.CreateReplicationGroupMemberAction? create,
-    _i3.DeleteReplicationGroupMemberAction? delete,
-    _i4.UpdateReplicationGroupMemberAction? update_,
+    _i3.UpdateReplicationGroupMemberAction? update_,
+    _i4.DeleteReplicationGroupMemberAction? delete,
   }) {
     return _$ReplicationGroupUpdate._(
       create: create,
-      delete: delete,
       update_: update_,
+      delete: delete,
     );
   }
 
@@ -76,16 +76,16 @@ abstract class ReplicationGroupUpdate
   /// The parameters required for creating a replica for the table.
   _i2.CreateReplicationGroupMemberAction? get create;
 
-  /// The parameters required for deleting a replica for the table.
-  _i3.DeleteReplicationGroupMemberAction? get delete;
-
   /// The parameters required for updating a replica for the table.
-  _i4.UpdateReplicationGroupMemberAction? get update_;
+  _i3.UpdateReplicationGroupMemberAction? get update_;
+
+  /// The parameters required for deleting a replica for the table.
+  _i4.DeleteReplicationGroupMemberAction? get delete;
   @override
   List<Object?> get props => [
         create,
-        delete,
         update_,
+        delete,
       ];
   @override
   String toString() {
@@ -95,12 +95,12 @@ abstract class ReplicationGroupUpdate
       create,
     );
     helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
       'update_',
       update_,
+    );
+    helper.add(
+      'delete',
+      delete,
     );
     return helper.toString();
   }
@@ -145,22 +145,22 @@ class ReplicationGroupUpdateAwsJson10Serializer
             ) as _i2.CreateReplicationGroupMemberAction));
           }
           break;
-        case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.DeleteReplicationGroupMemberAction),
-            ) as _i3.DeleteReplicationGroupMemberAction));
-          }
-          break;
         case 'Update':
           if (value != null) {
             result.update_.replace((serializers.deserialize(
               value,
               specifiedType:
-                  const FullType(_i4.UpdateReplicationGroupMemberAction),
-            ) as _i4.UpdateReplicationGroupMemberAction));
+                  const FullType(_i3.UpdateReplicationGroupMemberAction),
+            ) as _i3.UpdateReplicationGroupMemberAction));
+          }
+          break;
+        case 'Delete':
+          if (value != null) {
+            result.delete.replace((serializers.deserialize(
+              value,
+              specifiedType:
+                  const FullType(_i4.DeleteReplicationGroupMemberAction),
+            ) as _i4.DeleteReplicationGroupMemberAction));
           }
           break;
       }
@@ -185,20 +185,20 @@ class ReplicationGroupUpdateAwsJson10Serializer
           specifiedType: const FullType(_i2.CreateReplicationGroupMemberAction),
         ));
     }
-    if (payload.delete != null) {
-      result
-        ..add('Delete')
-        ..add(serializers.serialize(
-          payload.delete!,
-          specifiedType: const FullType(_i3.DeleteReplicationGroupMemberAction),
-        ));
-    }
     if (payload.update_ != null) {
       result
         ..add('Update')
         ..add(serializers.serialize(
           payload.update_!,
-          specifiedType: const FullType(_i4.UpdateReplicationGroupMemberAction),
+          specifiedType: const FullType(_i3.UpdateReplicationGroupMemberAction),
+        ));
+    }
+    if (payload.delete != null) {
+      result
+        ..add('Delete')
+        ..add(serializers.serialize(
+          payload.delete!,
+          specifiedType: const FullType(_i4.DeleteReplicationGroupMemberAction),
         ));
     }
     return result;

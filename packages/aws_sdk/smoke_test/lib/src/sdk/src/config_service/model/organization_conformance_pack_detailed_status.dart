@@ -22,18 +22,18 @@ abstract class OrganizationConformancePackDetailedStatus
   factory OrganizationConformancePackDetailedStatus({
     required String accountId,
     required String conformancePackName,
+    required _i2.OrganizationResourceDetailedStatus status,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
-    required _i2.OrganizationResourceDetailedStatus status,
   }) {
     return _$OrganizationConformancePackDetailedStatus._(
       accountId: accountId,
       conformancePackName: conformancePackName,
+      status: status,
       errorCode: errorCode,
       errorMessage: errorMessage,
       lastUpdateTime: lastUpdateTime,
-      status: status,
     );
   }
 
@@ -57,15 +57,6 @@ abstract class OrganizationConformancePackDetailedStatus
   /// The name of conformance pack deployed in the member account.
   String get conformancePackName;
 
-  /// An error code that is returned when conformance pack creation or deletion failed in the member account.
-  String? get errorCode;
-
-  /// An error message indicating that conformance pack account creation or deletion has failed due to an error in the member account.
-  String? get errorMessage;
-
-  /// The timestamp of the last status update.
-  DateTime? get lastUpdateTime;
-
   /// Indicates deployment status for conformance pack in a member account. When master account calls `PutOrganizationConformancePack` action for the first time, conformance pack status is created in the member account. When master account calls `PutOrganizationConformancePack` action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the master account deletes `OrganizationConformancePack` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the conformance pack to:
@@ -88,14 +79,23 @@ abstract class OrganizationConformancePackDetailedStatus
   ///
   /// *   `UPDATE_FAILED` when conformance pack deletion has failed in the member account.
   _i2.OrganizationResourceDetailedStatus get status;
+
+  /// An error code that is returned when conformance pack creation or deletion failed in the member account.
+  String? get errorCode;
+
+  /// An error message indicating that conformance pack account creation or deletion has failed due to an error in the member account.
+  String? get errorMessage;
+
+  /// The timestamp of the last status update.
+  DateTime? get lastUpdateTime;
   @override
   List<Object?> get props => [
         accountId,
         conformancePackName,
+        status,
         errorCode,
         errorMessage,
         lastUpdateTime,
-        status,
       ];
   @override
   String toString() {
@@ -110,6 +110,10 @@ abstract class OrganizationConformancePackDetailedStatus
       conformancePackName,
     );
     helper.add(
+      'status',
+      status,
+    );
+    helper.add(
       'errorCode',
       errorCode,
     );
@@ -120,10 +124,6 @@ abstract class OrganizationConformancePackDetailedStatus
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'status',
-      status,
     );
     return helper.toString();
   }
@@ -171,6 +171,13 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'Status':
+          result.status = (serializers.deserialize(
+            value!,
+            specifiedType:
+                const FullType(_i2.OrganizationResourceDetailedStatus),
+          ) as _i2.OrganizationResourceDetailedStatus);
+          break;
         case 'ErrorCode':
           if (value != null) {
             result.errorCode = (serializers.deserialize(
@@ -194,13 +201,6 @@ class OrganizationConformancePackDetailedStatusAwsJson11Serializer extends _i3
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
-          break;
-        case 'Status':
-          result.status = (serializers.deserialize(
-            value!,
-            specifiedType:
-                const FullType(_i2.OrganizationResourceDetailedStatus),
-          ) as _i2.OrganizationResourceDetailedStatus);
           break;
       }
     }

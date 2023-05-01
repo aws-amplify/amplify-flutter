@@ -89,6 +89,14 @@ class QueryPrecedenceInputRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'foo':
+          if (value != null) {
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'baz':
           if (value != null) {
             result.baz.replace((serializers.deserialize(
@@ -101,14 +109,6 @@ class QueryPrecedenceInputRestXmlSerializer
                 ],
               ),
             ) as _i6.BuiltMap<String, String>));
-          }
-          break;
-        case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }

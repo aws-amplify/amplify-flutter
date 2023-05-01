@@ -20,14 +20,14 @@ abstract class KinesisDataStreamDestination
             KinesisDataStreamDestinationBuilder> {
   /// Describes a Kinesis data stream destination.
   factory KinesisDataStreamDestination({
+    String? streamArn,
     _i2.DestinationStatus? destinationStatus,
     String? destinationStatusDescription,
-    String? streamArn,
   }) {
     return _$KinesisDataStreamDestination._(
+      streamArn: streamArn,
       destinationStatus: destinationStatus,
       destinationStatusDescription: destinationStatusDescription,
-      streamArn: streamArn,
     );
   }
 
@@ -45,23 +45,27 @@ abstract class KinesisDataStreamDestination
   @BuiltValueHook(initializeBuilder: true)
   static void _init(KinesisDataStreamDestinationBuilder b) {}
 
+  /// The ARN for a specific Kinesis data stream.
+  String? get streamArn;
+
   /// The current status of replication.
   _i2.DestinationStatus? get destinationStatus;
 
   /// The human-readable string that corresponds to the replica status.
   String? get destinationStatusDescription;
-
-  /// The ARN for a specific Kinesis data stream.
-  String? get streamArn;
   @override
   List<Object?> get props => [
+        streamArn,
         destinationStatus,
         destinationStatusDescription,
-        streamArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('KinesisDataStreamDestination');
+    helper.add(
+      'streamArn',
+      streamArn,
+    );
     helper.add(
       'destinationStatus',
       destinationStatus,
@@ -69,10 +73,6 @@ abstract class KinesisDataStreamDestination
     helper.add(
       'destinationStatusDescription',
       destinationStatusDescription,
-    );
-    helper.add(
-      'streamArn',
-      streamArn,
     );
     return helper.toString();
   }
@@ -108,6 +108,14 @@ class KinesisDataStreamDestinationAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'StreamArn':
+          if (value != null) {
+            result.streamArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'DestinationStatus':
           if (value != null) {
             result.destinationStatus = (serializers.deserialize(
@@ -119,14 +127,6 @@ class KinesisDataStreamDestinationAwsJson10Serializer
         case 'DestinationStatusDescription':
           if (value != null) {
             result.destinationStatusDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -146,6 +146,14 @@ class KinesisDataStreamDestinationAwsJson10Serializer
   }) {
     final payload = (object as KinesisDataStreamDestination);
     final result = <Object?>[];
+    if (payload.streamArn != null) {
+      result
+        ..add('StreamArn')
+        ..add(serializers.serialize(
+          payload.streamArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.destinationStatus != null) {
       result
         ..add('DestinationStatus')
@@ -159,14 +167,6 @@ class KinesisDataStreamDestinationAwsJson10Serializer
         ..add('DestinationStatusDescription')
         ..add(serializers.serialize(
           payload.destinationStatusDescription!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.streamArn != null) {
-      result
-        ..add('StreamArn')
-        ..add(serializers.serialize(
-          payload.streamArn!,
           specifiedType: const FullType(String),
         ));
     }

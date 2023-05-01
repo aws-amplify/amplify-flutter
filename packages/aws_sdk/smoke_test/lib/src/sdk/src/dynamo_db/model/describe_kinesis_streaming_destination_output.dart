@@ -19,14 +19,14 @@ abstract class DescribeKinesisStreamingDestinationOutput
         Built<DescribeKinesisStreamingDestinationOutput,
             DescribeKinesisStreamingDestinationOutputBuilder> {
   factory DescribeKinesisStreamingDestinationOutput({
-    List<_i2.KinesisDataStreamDestination>? kinesisDataStreamDestinations,
     String? tableName,
+    List<_i2.KinesisDataStreamDestination>? kinesisDataStreamDestinations,
   }) {
     return _$DescribeKinesisStreamingDestinationOutput._(
+      tableName: tableName,
       kinesisDataStreamDestinations: kinesisDataStreamDestinations == null
           ? null
           : _i3.BuiltList(kinesisDataStreamDestinations),
-      tableName: tableName,
     );
   }
 
@@ -50,28 +50,28 @@ abstract class DescribeKinesisStreamingDestinationOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeKinesisStreamingDestinationOutputBuilder b) {}
 
+  /// The name of the table being described.
+  String? get tableName;
+
   /// The list of replica structures for the table being described.
   _i3.BuiltList<_i2.KinesisDataStreamDestination>?
       get kinesisDataStreamDestinations;
-
-  /// The name of the table being described.
-  String? get tableName;
   @override
   List<Object?> get props => [
-        kinesisDataStreamDestinations,
         tableName,
+        kinesisDataStreamDestinations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeKinesisStreamingDestinationOutput');
     helper.add(
-      'kinesisDataStreamDestinations',
-      kinesisDataStreamDestinations,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'kinesisDataStreamDestinations',
+      kinesisDataStreamDestinations,
     );
     return helper.toString();
   }
@@ -107,6 +107,14 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          if (value != null) {
+            result.tableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'KinesisDataStreamDestinations':
           if (value != null) {
             result.kinesisDataStreamDestinations
@@ -117,14 +125,6 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
                 [FullType(_i2.KinesisDataStreamDestination)],
               ),
             ) as _i3.BuiltList<_i2.KinesisDataStreamDestination>));
-          }
-          break;
-        case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -141,6 +141,14 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
   }) {
     final payload = (object as DescribeKinesisStreamingDestinationOutput);
     final result = <Object?>[];
+    if (payload.tableName != null) {
+      result
+        ..add('TableName')
+        ..add(serializers.serialize(
+          payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.kinesisDataStreamDestinations != null) {
       result
         ..add('KinesisDataStreamDestinations')
@@ -150,14 +158,6 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.KinesisDataStreamDestination)],
           ),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
-        ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

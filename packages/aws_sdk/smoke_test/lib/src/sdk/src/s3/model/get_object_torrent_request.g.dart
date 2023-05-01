@@ -10,11 +10,11 @@ class _$GetObjectTorrentRequest extends GetObjectTorrentRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
   @override
   final _i3.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$GetObjectTorrentRequest(
           [void Function(GetObjectTorrentRequestBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$GetObjectTorrentRequest extends GetObjectTorrentRequest {
 
   _$GetObjectTorrentRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
-      this.requestPayer})
+      this.requestPayer,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectTorrentRequest', 'bucket');
@@ -46,18 +46,18 @@ class _$GetObjectTorrentRequest extends GetObjectTorrentRequest {
     if (identical(other, this)) return true;
     return other is GetObjectTorrentRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
-        requestPayer == other.requestPayer;
+        requestPayer == other.requestPayer &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -72,11 +72,6 @@ class GetObjectTorrentRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
@@ -86,6 +81,11 @@ class GetObjectTorrentRequestBuilder
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   GetObjectTorrentRequestBuilder() {
     GetObjectTorrentRequest._init(this);
   }
@@ -94,9 +94,9 @@ class GetObjectTorrentRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
       _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -121,10 +121,10 @@ class GetObjectTorrentRequestBuilder
         new _$GetObjectTorrentRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'GetObjectTorrentRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'GetObjectTorrentRequest', 'key'),
-            requestPayer: requestPayer);
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

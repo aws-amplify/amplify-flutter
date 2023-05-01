@@ -8,26 +8,26 @@ part of smoke_test.config_service.model.remediation_execution_status;
 
 class _$RemediationExecutionStatus extends RemediationExecutionStatus {
   @override
-  final DateTime? invocationTime;
-  @override
-  final DateTime? lastUpdatedTime;
-  @override
   final _i2.ResourceKey? resourceKey;
   @override
   final _i3.RemediationExecutionState? state;
   @override
   final _i5.BuiltList<_i4.RemediationExecutionStep>? stepDetails;
+  @override
+  final DateTime? invocationTime;
+  @override
+  final DateTime? lastUpdatedTime;
 
   factory _$RemediationExecutionStatus(
           [void Function(RemediationExecutionStatusBuilder)? updates]) =>
       (new RemediationExecutionStatusBuilder()..update(updates))._build();
 
   _$RemediationExecutionStatus._(
-      {this.invocationTime,
-      this.lastUpdatedTime,
-      this.resourceKey,
+      {this.resourceKey,
       this.state,
-      this.stepDetails})
+      this.stepDetails,
+      this.invocationTime,
+      this.lastUpdatedTime})
       : super._();
 
   @override
@@ -43,21 +43,21 @@ class _$RemediationExecutionStatus extends RemediationExecutionStatus {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RemediationExecutionStatus &&
-        invocationTime == other.invocationTime &&
-        lastUpdatedTime == other.lastUpdatedTime &&
         resourceKey == other.resourceKey &&
         state == other.state &&
-        stepDetails == other.stepDetails;
+        stepDetails == other.stepDetails &&
+        invocationTime == other.invocationTime &&
+        lastUpdatedTime == other.lastUpdatedTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, invocationTime.hashCode);
-    _$hash = $jc(_$hash, lastUpdatedTime.hashCode);
     _$hash = $jc(_$hash, resourceKey.hashCode);
     _$hash = $jc(_$hash, state.hashCode);
     _$hash = $jc(_$hash, stepDetails.hashCode);
+    _$hash = $jc(_$hash, invocationTime.hashCode);
+    _$hash = $jc(_$hash, lastUpdatedTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,16 +67,6 @@ class RemediationExecutionStatusBuilder
     implements
         Builder<RemediationExecutionStatus, RemediationExecutionStatusBuilder> {
   _$RemediationExecutionStatus? _$v;
-
-  DateTime? _invocationTime;
-  DateTime? get invocationTime => _$this._invocationTime;
-  set invocationTime(DateTime? invocationTime) =>
-      _$this._invocationTime = invocationTime;
-
-  DateTime? _lastUpdatedTime;
-  DateTime? get lastUpdatedTime => _$this._lastUpdatedTime;
-  set lastUpdatedTime(DateTime? lastUpdatedTime) =>
-      _$this._lastUpdatedTime = lastUpdatedTime;
 
   _i2.ResourceKeyBuilder? _resourceKey;
   _i2.ResourceKeyBuilder get resourceKey =>
@@ -95,6 +85,16 @@ class RemediationExecutionStatusBuilder
   set stepDetails(_i5.ListBuilder<_i4.RemediationExecutionStep>? stepDetails) =>
       _$this._stepDetails = stepDetails;
 
+  DateTime? _invocationTime;
+  DateTime? get invocationTime => _$this._invocationTime;
+  set invocationTime(DateTime? invocationTime) =>
+      _$this._invocationTime = invocationTime;
+
+  DateTime? _lastUpdatedTime;
+  DateTime? get lastUpdatedTime => _$this._lastUpdatedTime;
+  set lastUpdatedTime(DateTime? lastUpdatedTime) =>
+      _$this._lastUpdatedTime = lastUpdatedTime;
+
   RemediationExecutionStatusBuilder() {
     RemediationExecutionStatus._init(this);
   }
@@ -102,11 +102,11 @@ class RemediationExecutionStatusBuilder
   RemediationExecutionStatusBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _invocationTime = $v.invocationTime;
-      _lastUpdatedTime = $v.lastUpdatedTime;
       _resourceKey = $v.resourceKey?.toBuilder();
       _state = $v.state;
       _stepDetails = $v.stepDetails?.toBuilder();
+      _invocationTime = $v.invocationTime;
+      _lastUpdatedTime = $v.lastUpdatedTime;
       _$v = null;
     }
     return this;
@@ -131,11 +131,11 @@ class RemediationExecutionStatusBuilder
     try {
       _$result = _$v ??
           new _$RemediationExecutionStatus._(
-              invocationTime: invocationTime,
-              lastUpdatedTime: lastUpdatedTime,
               resourceKey: _resourceKey?.build(),
               state: state,
-              stepDetails: _stepDetails?.build());
+              stepDetails: _stepDetails?.build(),
+              invocationTime: invocationTime,
+              lastUpdatedTime: lastUpdatedTime);
     } catch (_) {
       late String _$failedField;
       try {

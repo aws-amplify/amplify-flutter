@@ -76,17 +76,17 @@ final Map<FullType, Function> builderFactories = {
   const FullType(
     _i21.BuiltMap,
     [
-      FullType(_i10.DetailsAttributes),
-      FullType(String),
-    ],
-  ): _i21.MapBuilder<_i10.DetailsAttributes, String>.new,
-  const FullType(
-    _i21.BuiltMap,
-    [
       FullType(String),
       FullType(double),
     ],
   ): _i21.MapBuilder<String, double>.new,
+  const FullType(
+    _i21.BuiltMap,
+    [
+      FullType(_i10.DetailsAttributes),
+      FullType(String),
+    ],
+  ): _i21.MapBuilder<_i10.DetailsAttributes, String>.new,
   const FullType(
     _i21.BuiltMap,
     [

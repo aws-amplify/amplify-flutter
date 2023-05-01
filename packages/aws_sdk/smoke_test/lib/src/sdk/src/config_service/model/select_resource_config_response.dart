@@ -19,14 +19,14 @@ abstract class SelectResourceConfigResponse
         Built<SelectResourceConfigResponse,
             SelectResourceConfigResponseBuilder> {
   factory SelectResourceConfigResponse({
-    String? nextToken,
-    _i2.QueryInfo? queryInfo,
     List<String>? results,
+    _i2.QueryInfo? queryInfo,
+    String? nextToken,
   }) {
     return _$SelectResourceConfigResponse._(
-      nextToken: nextToken,
-      queryInfo: queryInfo,
       results: results == null ? null : _i3.BuiltList(results),
+      queryInfo: queryInfo,
+      nextToken: nextToken,
     );
   }
 
@@ -50,34 +50,34 @@ abstract class SelectResourceConfigResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectResourceConfigResponseBuilder b) {}
 
-  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
-  String? get nextToken;
+  /// Returns the results for the SQL query.
+  _i3.BuiltList<String>? get results;
 
   /// Returns the `QueryInfo` object.
   _i2.QueryInfo? get queryInfo;
 
-  /// Returns the results for the SQL query.
-  _i3.BuiltList<String>? get results;
+  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
-        queryInfo,
         results,
+        queryInfo,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectResourceConfigResponse');
     helper.add(
-      'nextToken',
-      nextToken,
+      'results',
+      results,
     );
     helper.add(
       'queryInfo',
       queryInfo,
     );
     helper.add(
-      'results',
-      results,
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -113,12 +113,15 @@ class SelectResourceConfigResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
+        case 'Results':
           if (value != null) {
-            result.nextToken = (serializers.deserialize(
+            result.results.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(
+                _i3.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i3.BuiltList<String>));
           }
           break;
         case 'QueryInfo':
@@ -129,15 +132,12 @@ class SelectResourceConfigResponseAwsJson11Serializer
             ) as _i2.QueryInfo));
           }
           break;
-        case 'Results':
+        case 'NextToken':
           if (value != null) {
-            result.results.replace((serializers.deserialize(
+            result.nextToken = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -154,12 +154,15 @@ class SelectResourceConfigResponseAwsJson11Serializer
   }) {
     final payload = (object as SelectResourceConfigResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
+    if (payload.results != null) {
       result
-        ..add('NextToken')
+        ..add('Results')
         ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
+          payload.results!,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(String)],
+          ),
         ));
     }
     if (payload.queryInfo != null) {
@@ -170,15 +173,12 @@ class SelectResourceConfigResponseAwsJson11Serializer
           specifiedType: const FullType(_i2.QueryInfo),
         ));
     }
-    if (payload.results != null) {
+    if (payload.nextToken != null) {
       result
-        ..add('Results')
+        ..add('NextToken')
         ..add(serializers.serialize(
-          payload.results!,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
-          ),
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

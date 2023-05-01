@@ -21,13 +21,13 @@ abstract class GetBucketAnalyticsConfigurationRequest
         _i1.HasPayload<GetBucketAnalyticsConfigurationRequestPayload> {
   factory GetBucketAnalyticsConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
+    String? expectedBucketOwner,
   }) {
     return _$GetBucketAnalyticsConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -65,11 +65,11 @@ abstract class GetBucketAnalyticsConfigurationRequest
   /// The name of the bucket from which an analytics configuration is retrieved.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID that identifies the analytics configuration.
   String get id;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,8 +88,8 @@ abstract class GetBucketAnalyticsConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         id,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -100,12 +100,12 @@ abstract class GetBucketAnalyticsConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

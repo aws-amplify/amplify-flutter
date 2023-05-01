@@ -8,22 +8,22 @@ part of smoke_test.dynamo_db.model.sse_description;
 
 class _$SseDescription extends SseDescription {
   @override
-  final DateTime? inaccessibleEncryptionDateTime;
+  final _i2.SseStatus? status;
+  @override
+  final _i3.SseType? sseType;
   @override
   final String? kmsMasterKeyArn;
   @override
-  final _i2.SseType? sseType;
-  @override
-  final _i3.SseStatus? status;
+  final DateTime? inaccessibleEncryptionDateTime;
 
   factory _$SseDescription([void Function(SseDescriptionBuilder)? updates]) =>
       (new SseDescriptionBuilder()..update(updates))._build();
 
   _$SseDescription._(
-      {this.inaccessibleEncryptionDateTime,
-      this.kmsMasterKeyArn,
+      {this.status,
       this.sseType,
-      this.status})
+      this.kmsMasterKeyArn,
+      this.inaccessibleEncryptionDateTime})
       : super._();
 
   @override
@@ -38,20 +38,19 @@ class _$SseDescription extends SseDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SseDescription &&
-        inaccessibleEncryptionDateTime ==
-            other.inaccessibleEncryptionDateTime &&
-        kmsMasterKeyArn == other.kmsMasterKeyArn &&
+        status == other.status &&
         sseType == other.sseType &&
-        status == other.status;
+        kmsMasterKeyArn == other.kmsMasterKeyArn &&
+        inaccessibleEncryptionDateTime == other.inaccessibleEncryptionDateTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, inaccessibleEncryptionDateTime.hashCode);
-    _$hash = $jc(_$hash, kmsMasterKeyArn.hashCode);
-    _$hash = $jc(_$hash, sseType.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, sseType.hashCode);
+    _$hash = $jc(_$hash, kmsMasterKeyArn.hashCode);
+    _$hash = $jc(_$hash, inaccessibleEncryptionDateTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,25 +60,25 @@ class SseDescriptionBuilder
     implements Builder<SseDescription, SseDescriptionBuilder> {
   _$SseDescription? _$v;
 
-  DateTime? _inaccessibleEncryptionDateTime;
-  DateTime? get inaccessibleEncryptionDateTime =>
-      _$this._inaccessibleEncryptionDateTime;
-  set inaccessibleEncryptionDateTime(
-          DateTime? inaccessibleEncryptionDateTime) =>
-      _$this._inaccessibleEncryptionDateTime = inaccessibleEncryptionDateTime;
+  _i2.SseStatus? _status;
+  _i2.SseStatus? get status => _$this._status;
+  set status(_i2.SseStatus? status) => _$this._status = status;
+
+  _i3.SseType? _sseType;
+  _i3.SseType? get sseType => _$this._sseType;
+  set sseType(_i3.SseType? sseType) => _$this._sseType = sseType;
 
   String? _kmsMasterKeyArn;
   String? get kmsMasterKeyArn => _$this._kmsMasterKeyArn;
   set kmsMasterKeyArn(String? kmsMasterKeyArn) =>
       _$this._kmsMasterKeyArn = kmsMasterKeyArn;
 
-  _i2.SseType? _sseType;
-  _i2.SseType? get sseType => _$this._sseType;
-  set sseType(_i2.SseType? sseType) => _$this._sseType = sseType;
-
-  _i3.SseStatus? _status;
-  _i3.SseStatus? get status => _$this._status;
-  set status(_i3.SseStatus? status) => _$this._status = status;
+  DateTime? _inaccessibleEncryptionDateTime;
+  DateTime? get inaccessibleEncryptionDateTime =>
+      _$this._inaccessibleEncryptionDateTime;
+  set inaccessibleEncryptionDateTime(
+          DateTime? inaccessibleEncryptionDateTime) =>
+      _$this._inaccessibleEncryptionDateTime = inaccessibleEncryptionDateTime;
 
   SseDescriptionBuilder() {
     SseDescription._init(this);
@@ -88,10 +87,10 @@ class SseDescriptionBuilder
   SseDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _inaccessibleEncryptionDateTime = $v.inaccessibleEncryptionDateTime;
-      _kmsMasterKeyArn = $v.kmsMasterKeyArn;
-      _sseType = $v.sseType;
       _status = $v.status;
+      _sseType = $v.sseType;
+      _kmsMasterKeyArn = $v.kmsMasterKeyArn;
+      _inaccessibleEncryptionDateTime = $v.inaccessibleEncryptionDateTime;
       _$v = null;
     }
     return this;
@@ -114,10 +113,10 @@ class SseDescriptionBuilder
   _$SseDescription _build() {
     final _$result = _$v ??
         new _$SseDescription._(
-            inaccessibleEncryptionDateTime: inaccessibleEncryptionDateTime,
-            kmsMasterKeyArn: kmsMasterKeyArn,
+            status: status,
             sseType: sseType,
-            status: status);
+            kmsMasterKeyArn: kmsMasterKeyArn,
+            inaccessibleEncryptionDateTime: inaccessibleEncryptionDateTime);
     replace(_$result);
     return _$result;
   }

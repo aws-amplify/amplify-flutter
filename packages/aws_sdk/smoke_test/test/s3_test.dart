@@ -21,7 +21,9 @@ void main() {
       client = S3Client(
         region: 'us-west-2',
         baseUri: Uri.http(host),
-        s3ClientConfig: const S3ClientConfig(),
+        s3ClientConfig: S3ClientConfig(
+          usePathStyle: true,
+        ),
         credentialsProvider: const AWSCredentialsProvider(
           AWSCredentials('accessKeyId', 'secretAccessKey'),
         ),

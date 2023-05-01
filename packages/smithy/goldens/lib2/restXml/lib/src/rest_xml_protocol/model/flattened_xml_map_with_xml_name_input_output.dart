@@ -104,7 +104,7 @@ class FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer extends _i1
             )
                 .deserialize(
                   serializers,
-                  (value as Iterable<Object?>),
+                  value is String ? const [] : (value as Iterable<Object?>),
                   specifiedType: const FullType(
                     _i3.BuiltMap,
                     [

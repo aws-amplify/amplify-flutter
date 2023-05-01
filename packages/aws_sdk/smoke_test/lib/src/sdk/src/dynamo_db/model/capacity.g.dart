@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db.model.capacity;
 
 class _$Capacity extends Capacity {
   @override
-  final double? capacityUnits;
-  @override
   final double? readCapacityUnits;
   @override
   final double? writeCapacityUnits;
+  @override
+  final double? capacityUnits;
 
   factory _$Capacity([void Function(CapacityBuilder)? updates]) =>
       (new CapacityBuilder()..update(updates))._build();
 
   _$Capacity._(
-      {this.capacityUnits, this.readCapacityUnits, this.writeCapacityUnits})
+      {this.readCapacityUnits, this.writeCapacityUnits, this.capacityUnits})
       : super._();
 
   @override
@@ -32,17 +32,17 @@ class _$Capacity extends Capacity {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Capacity &&
-        capacityUnits == other.capacityUnits &&
         readCapacityUnits == other.readCapacityUnits &&
-        writeCapacityUnits == other.writeCapacityUnits;
+        writeCapacityUnits == other.writeCapacityUnits &&
+        capacityUnits == other.capacityUnits;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, capacityUnits.hashCode);
     _$hash = $jc(_$hash, readCapacityUnits.hashCode);
     _$hash = $jc(_$hash, writeCapacityUnits.hashCode);
+    _$hash = $jc(_$hash, capacityUnits.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,11 +50,6 @@ class _$Capacity extends Capacity {
 
 class CapacityBuilder implements Builder<Capacity, CapacityBuilder> {
   _$Capacity? _$v;
-
-  double? _capacityUnits;
-  double? get capacityUnits => _$this._capacityUnits;
-  set capacityUnits(double? capacityUnits) =>
-      _$this._capacityUnits = capacityUnits;
 
   double? _readCapacityUnits;
   double? get readCapacityUnits => _$this._readCapacityUnits;
@@ -66,6 +61,11 @@ class CapacityBuilder implements Builder<Capacity, CapacityBuilder> {
   set writeCapacityUnits(double? writeCapacityUnits) =>
       _$this._writeCapacityUnits = writeCapacityUnits;
 
+  double? _capacityUnits;
+  double? get capacityUnits => _$this._capacityUnits;
+  set capacityUnits(double? capacityUnits) =>
+      _$this._capacityUnits = capacityUnits;
+
   CapacityBuilder() {
     Capacity._init(this);
   }
@@ -73,9 +73,9 @@ class CapacityBuilder implements Builder<Capacity, CapacityBuilder> {
   CapacityBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _capacityUnits = $v.capacityUnits;
       _readCapacityUnits = $v.readCapacityUnits;
       _writeCapacityUnits = $v.writeCapacityUnits;
+      _capacityUnits = $v.capacityUnits;
       _$v = null;
     }
     return this;
@@ -98,9 +98,9 @@ class CapacityBuilder implements Builder<Capacity, CapacityBuilder> {
   _$Capacity _build() {
     final _$result = _$v ??
         new _$Capacity._(
-            capacityUnits: capacityUnits,
             readCapacityUnits: readCapacityUnits,
-            writeCapacityUnits: writeCapacityUnits);
+            writeCapacityUnits: writeCapacityUnits,
+            capacityUnits: capacityUnits);
     replace(_$result);
     return _$result;
   }

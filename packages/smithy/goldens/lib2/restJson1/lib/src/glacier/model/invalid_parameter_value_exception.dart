@@ -17,14 +17,14 @@ abstract class InvalidParameterValueException
             InvalidParameterValueExceptionBuilder>,
         _i2.SmithyHttpException {
   factory InvalidParameterValueException({
+    String? type,
     String? code,
     String? message,
-    String? type,
   }) {
     return _$InvalidParameterValueException._(
+      type: type,
       code: code,
       message: message,
-      type: type,
     );
   }
 
@@ -49,10 +49,10 @@ abstract class InvalidParameterValueException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InvalidParameterValueExceptionBuilder b) {}
+  String? get type;
   String? get code;
   @override
   String? get message;
-  String? get type;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.glacier',
@@ -70,14 +70,18 @@ abstract class InvalidParameterValueException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
+        type,
         code,
         message,
-        type,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('InvalidParameterValueException');
+    helper.add(
+      'type',
+      type,
+    );
     helper.add(
       'code',
       code,
@@ -85,10 +89,6 @@ abstract class InvalidParameterValueException
     helper.add(
       'message',
       message,
-    );
-    helper.add(
-      'type',
-      type,
     );
     return helper.toString();
   }

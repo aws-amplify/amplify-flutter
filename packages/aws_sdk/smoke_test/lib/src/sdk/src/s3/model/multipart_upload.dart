@@ -6,10 +6,10 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/initiator.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/initiator.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i2;
 
 part 'multipart_upload.g.dart';
 
@@ -19,22 +19,22 @@ abstract class MultipartUpload
     implements Built<MultipartUpload, MultipartUploadBuilder> {
   /// Container for the `MultipartUpload` for the Amazon S3 object.
   factory MultipartUpload({
-    _i2.ChecksumAlgorithm? checksumAlgorithm,
-    DateTime? initiated,
-    _i3.Initiator? initiator,
-    String? key,
-    _i4.Owner? owner,
-    _i5.StorageClass? storageClass,
     String? uploadId,
+    String? key,
+    DateTime? initiated,
+    _i2.StorageClass? storageClass,
+    _i3.Owner? owner,
+    _i4.Initiator? initiator,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$MultipartUpload._(
-      checksumAlgorithm: checksumAlgorithm,
-      initiated: initiated,
-      initiator: initiator,
-      key: key,
-      owner: owner,
-      storageClass: storageClass,
       uploadId: uploadId,
+      key: key,
+      initiated: initiated,
+      storageClass: storageClass,
+      owner: owner,
+      initiator: initiator,
+      checksumAlgorithm: checksumAlgorithm,
     );
   }
 
@@ -51,66 +51,66 @@ abstract class MultipartUpload
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MultipartUploadBuilder b) {}
 
-  /// The algorithm that was used to create a checksum of the object.
-  _i2.ChecksumAlgorithm? get checksumAlgorithm;
-
-  /// Date and time at which the multipart upload was initiated.
-  DateTime? get initiated;
-
-  /// Identifies who initiated the multipart upload.
-  _i3.Initiator? get initiator;
+  /// Upload ID that identifies the multipart upload.
+  String? get uploadId;
 
   /// Key of the object for which the multipart upload was initiated.
   String? get key;
 
-  /// Specifies the owner of the object that is part of the multipart upload.
-  _i4.Owner? get owner;
+  /// Date and time at which the multipart upload was initiated.
+  DateTime? get initiated;
 
   /// The class of storage used to store the object.
-  _i5.StorageClass? get storageClass;
+  _i2.StorageClass? get storageClass;
 
-  /// Upload ID that identifies the multipart upload.
-  String? get uploadId;
+  /// Specifies the owner of the object that is part of the multipart upload.
+  _i3.Owner? get owner;
+
+  /// Identifies who initiated the multipart upload.
+  _i4.Initiator? get initiator;
+
+  /// The algorithm that was used to create a checksum of the object.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
   @override
   List<Object?> get props => [
-        checksumAlgorithm,
-        initiated,
-        initiator,
-        key,
-        owner,
-        storageClass,
         uploadId,
+        key,
+        initiated,
+        storageClass,
+        owner,
+        initiator,
+        checksumAlgorithm,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MultipartUpload');
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'initiated',
-      initiated,
-    );
-    helper.add(
-      'initiator',
-      initiator,
+      'uploadId',
+      uploadId,
     );
     helper.add(
       'key',
       key,
     );
     helper.add(
-      'owner',
-      owner,
+      'initiated',
+      initiated,
     );
     helper.add(
       'storageClass',
       storageClass,
     );
     helper.add(
-      'uploadId',
-      uploadId,
+      'owner',
+      owner,
+    );
+    helper.add(
+      'initiator',
+      initiator,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     return helper.toString();
   }
@@ -149,8 +149,8 @@ class MultipartUploadRestXmlSerializer
           if (value != null) {
             result.checksumAlgorithm = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ChecksumAlgorithm),
-            ) as _i2.ChecksumAlgorithm);
+              specifiedType: const FullType(_i5.ChecksumAlgorithm),
+            ) as _i5.ChecksumAlgorithm);
           }
           break;
         case 'Initiated':
@@ -165,8 +165,8 @@ class MultipartUploadRestXmlSerializer
           if (value != null) {
             result.initiator.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.Initiator),
-            ) as _i3.Initiator));
+              specifiedType: const FullType(_i4.Initiator),
+            ) as _i4.Initiator));
           }
           break;
         case 'Key':
@@ -181,16 +181,16 @@ class MultipartUploadRestXmlSerializer
           if (value != null) {
             result.owner.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Owner),
-            ) as _i4.Owner));
+              specifiedType: const FullType(_i3.Owner),
+            ) as _i3.Owner));
           }
           break;
         case 'StorageClass':
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.StorageClass),
-            ) as _i5.StorageClass);
+              specifiedType: const FullType(_i2.StorageClass),
+            ) as _i2.StorageClass);
           }
           break;
         case 'UploadId':
@@ -225,7 +225,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i6.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
           payload.checksumAlgorithm!,
-          specifiedType: const FullType.nullable(_i2.ChecksumAlgorithm),
+          specifiedType: const FullType.nullable(_i5.ChecksumAlgorithm),
         ));
     }
     if (payload.initiated != null) {
@@ -241,7 +241,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i6.XmlElementName('Initiator'))
         ..add(serializers.serialize(
           payload.initiator!,
-          specifiedType: const FullType(_i3.Initiator),
+          specifiedType: const FullType(_i4.Initiator),
         ));
     }
     if (payload.key != null) {
@@ -257,7 +257,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i6.XmlElementName('Owner'))
         ..add(serializers.serialize(
           payload.owner!,
-          specifiedType: const FullType(_i4.Owner),
+          specifiedType: const FullType(_i3.Owner),
         ));
     }
     if (payload.storageClass != null) {
@@ -265,7 +265,7 @@ class MultipartUploadRestXmlSerializer
         ..add(const _i6.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i5.StorageClass),
+          specifiedType: const FullType.nullable(_i2.StorageClass),
         ));
     }
     if (payload.uploadId != null) {

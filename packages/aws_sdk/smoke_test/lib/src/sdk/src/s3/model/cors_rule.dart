@@ -16,21 +16,21 @@ abstract class CorsRule
     implements Built<CorsRule, CorsRuleBuilder> {
   /// Specifies a cross-origin access rule for an Amazon S3 bucket.
   factory CorsRule({
+    String? id,
     List<String>? allowedHeaders,
     required List<String> allowedMethods,
     required List<String> allowedOrigins,
     List<String>? exposeHeaders,
-    String? id,
     int? maxAgeSeconds,
   }) {
     return _$CorsRule._(
+      id: id,
       allowedHeaders:
           allowedHeaders == null ? null : _i2.BuiltList(allowedHeaders),
       allowedMethods: _i2.BuiltList(allowedMethods),
       allowedOrigins: _i2.BuiltList(allowedOrigins),
       exposeHeaders:
           exposeHeaders == null ? null : _i2.BuiltList(exposeHeaders),
-      id: id,
       maxAgeSeconds: maxAgeSeconds,
     );
   }
@@ -47,6 +47,9 @@ abstract class CorsRule
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CorsRuleBuilder b) {}
 
+  /// Unique identifier for the rule. The value cannot be longer than 255 characters.
+  String? get id;
+
   /// Headers that are specified in the `Access-Control-Request-Headers` header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are allowed.
   _i2.BuiltList<String>? get allowedHeaders;
 
@@ -59,23 +62,24 @@ abstract class CorsRule
   /// One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript `XMLHttpRequest` object).
   _i2.BuiltList<String>? get exposeHeaders;
 
-  /// Unique identifier for the rule. The value cannot be longer than 255 characters.
-  String? get id;
-
   /// The time in seconds that your browser is to cache the preflight response for the specified resource.
   int? get maxAgeSeconds;
   @override
   List<Object?> get props => [
+        id,
         allowedHeaders,
         allowedMethods,
         allowedOrigins,
         exposeHeaders,
-        id,
         maxAgeSeconds,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CorsRule');
+    helper.add(
+      'id',
+      id,
+    );
     helper.add(
       'allowedHeaders',
       allowedHeaders,
@@ -91,10 +95,6 @@ abstract class CorsRule
     helper.add(
       'exposeHeaders',
       exposeHeaders,
-    );
-    helper.add(
-      'id',
-      id,
     );
     helper.add(
       'maxAgeSeconds',

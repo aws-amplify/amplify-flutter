@@ -16,14 +16,14 @@ abstract class CanarySettings
     implements Built<CanarySettings, CanarySettingsBuilder> {
   /// Configuration settings of a canary deployment.
   factory CanarySettings({
-    String? deploymentId,
     double? percentTraffic,
+    String? deploymentId,
     Map<String, String>? stageVariableOverrides,
     bool? useStageCache,
   }) {
     return _$CanarySettings._(
-      deploymentId: deploymentId,
       percentTraffic: percentTraffic,
+      deploymentId: deploymentId,
       stageVariableOverrides: stageVariableOverrides == null
           ? null
           : _i2.BuiltMap(stageVariableOverrides),
@@ -44,11 +44,11 @@ abstract class CanarySettings
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CanarySettingsBuilder b) {}
 
-  /// The ID of the canary deployment.
-  String? get deploymentId;
-
   /// The percent (0-100) of traffic diverted to a canary deployment.
   double? get percentTraffic;
+
+  /// The ID of the canary deployment.
+  String? get deploymentId;
 
   /// Stage variables overridden for a canary release deployment, including new stage variables introduced in the canary. These stage variables are represented as a string-to-string map between stage variable names and their values.
   _i2.BuiltMap<String, String>? get stageVariableOverrides;
@@ -57,8 +57,8 @@ abstract class CanarySettings
   bool? get useStageCache;
   @override
   List<Object?> get props => [
-        deploymentId,
         percentTraffic,
+        deploymentId,
         stageVariableOverrides,
         useStageCache,
       ];
@@ -66,12 +66,12 @@ abstract class CanarySettings
   String toString() {
     final helper = newBuiltValueToStringHelper('CanarySettings');
     helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
       'percentTraffic',
       percentTraffic,
+    );
+    helper.add(
+      'deploymentId',
+      deploymentId,
     );
     helper.add(
       'stageVariableOverrides',

@@ -9,11 +9,11 @@ part of smoke_test.config_service.model.describe_organization_config_rule_status
 class _$DescribeOrganizationConfigRuleStatusesRequest
     extends DescribeOrganizationConfigRuleStatusesRequest {
   @override
+  final _i3.BuiltList<String>? organizationConfigRuleNames;
+  @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final _i3.BuiltList<String>? organizationConfigRuleNames;
 
   factory _$DescribeOrganizationConfigRuleStatusesRequest(
           [void Function(DescribeOrganizationConfigRuleStatusesRequestBuilder)?
@@ -23,7 +23,7 @@ class _$DescribeOrganizationConfigRuleStatusesRequest
           ._build();
 
   _$DescribeOrganizationConfigRuleStatusesRequest._(
-      {this.limit, this.nextToken, this.organizationConfigRuleNames})
+      {this.organizationConfigRuleNames, this.limit, this.nextToken})
       : super._();
 
   @override
@@ -40,17 +40,17 @@ class _$DescribeOrganizationConfigRuleStatusesRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeOrganizationConfigRuleStatusesRequest &&
+        organizationConfigRuleNames == other.organizationConfigRuleNames &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        organizationConfigRuleNames == other.organizationConfigRuleNames;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConfigRuleNames.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, organizationConfigRuleNames.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,13 @@ class DescribeOrganizationConfigRuleStatusesRequestBuilder
             DescribeOrganizationConfigRuleStatusesRequestBuilder> {
   _$DescribeOrganizationConfigRuleStatusesRequest? _$v;
 
+  _i3.ListBuilder<String>? _organizationConfigRuleNames;
+  _i3.ListBuilder<String> get organizationConfigRuleNames =>
+      _$this._organizationConfigRuleNames ??= new _i3.ListBuilder<String>();
+  set organizationConfigRuleNames(
+          _i3.ListBuilder<String>? organizationConfigRuleNames) =>
+      _$this._organizationConfigRuleNames = organizationConfigRuleNames;
+
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
@@ -70,13 +77,6 @@ class DescribeOrganizationConfigRuleStatusesRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i3.ListBuilder<String>? _organizationConfigRuleNames;
-  _i3.ListBuilder<String> get organizationConfigRuleNames =>
-      _$this._organizationConfigRuleNames ??= new _i3.ListBuilder<String>();
-  set organizationConfigRuleNames(
-          _i3.ListBuilder<String>? organizationConfigRuleNames) =>
-      _$this._organizationConfigRuleNames = organizationConfigRuleNames;
-
   DescribeOrganizationConfigRuleStatusesRequestBuilder() {
     DescribeOrganizationConfigRuleStatusesRequest._init(this);
   }
@@ -84,10 +84,10 @@ class DescribeOrganizationConfigRuleStatusesRequestBuilder
   DescribeOrganizationConfigRuleStatusesRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _nextToken = $v.nextToken;
       _organizationConfigRuleNames =
           $v.organizationConfigRuleNames?.toBuilder();
+      _limit = $v.limit;
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -114,10 +114,10 @@ class DescribeOrganizationConfigRuleStatusesRequestBuilder
     try {
       _$result = _$v ??
           new _$DescribeOrganizationConfigRuleStatusesRequest._(
-              limit: limit,
-              nextToken: nextToken,
               organizationConfigRuleNames:
-                  _organizationConfigRuleNames?.build());
+                  _organizationConfigRuleNames?.build(),
+              limit: limit,
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

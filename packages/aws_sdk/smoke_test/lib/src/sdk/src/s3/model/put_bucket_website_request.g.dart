@@ -10,13 +10,13 @@ class _$PutBucketWebsiteRequest extends PutBucketWebsiteRequest {
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? contentMd5;
   @override
-  final String? expectedBucketOwner;
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final _i2.WebsiteConfiguration websiteConfiguration;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketWebsiteRequest(
           [void Function(PutBucketWebsiteRequestBuilder)? updates]) =>
@@ -24,10 +24,10 @@ class _$PutBucketWebsiteRequest extends PutBucketWebsiteRequest {
 
   _$PutBucketWebsiteRequest._(
       {required this.bucket,
-      this.checksumAlgorithm,
       this.contentMd5,
-      this.expectedBucketOwner,
-      required this.websiteConfiguration})
+      this.checksumAlgorithm,
+      required this.websiteConfiguration,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketWebsiteRequest', 'bucket');
@@ -49,20 +49,20 @@ class _$PutBucketWebsiteRequest extends PutBucketWebsiteRequest {
     if (identical(other, this)) return true;
     return other is PutBucketWebsiteRequest &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
-        websiteConfiguration == other.websiteConfiguration;
+        checksumAlgorithm == other.checksumAlgorithm &&
+        websiteConfiguration == other.websiteConfiguration &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, websiteConfiguration.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,19 +77,14 @@ class PutBucketWebsiteRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
+  _i4.ChecksumAlgorithm? _checksumAlgorithm;
+  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i2.WebsiteConfigurationBuilder? _websiteConfiguration;
   _i2.WebsiteConfigurationBuilder get websiteConfiguration =>
@@ -97,6 +92,11 @@ class PutBucketWebsiteRequestBuilder
   set websiteConfiguration(
           _i2.WebsiteConfigurationBuilder? websiteConfiguration) =>
       _$this._websiteConfiguration = websiteConfiguration;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutBucketWebsiteRequestBuilder() {
     PutBucketWebsiteRequest._init(this);
@@ -106,10 +106,10 @@ class PutBucketWebsiteRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _websiteConfiguration = $v.websiteConfiguration.toBuilder();
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -136,10 +136,10 @@ class PutBucketWebsiteRequestBuilder
           new _$PutBucketWebsiteRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketWebsiteRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
               contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
-              websiteConfiguration: websiteConfiguration.build());
+              checksumAlgorithm: checksumAlgorithm,
+              websiteConfiguration: websiteConfiguration.build(),
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

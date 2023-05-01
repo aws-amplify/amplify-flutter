@@ -19,16 +19,16 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
         Built<DescribeOrganizationConformancePackStatusesResponse,
             DescribeOrganizationConformancePackStatusesResponseBuilder> {
   factory DescribeOrganizationConformancePackStatusesResponse({
-    String? nextToken,
     List<_i2.OrganizationConformancePackStatus>?
         organizationConformancePackStatuses,
+    String? nextToken,
   }) {
     return _$DescribeOrganizationConformancePackStatusesResponse._(
-      nextToken: nextToken,
       organizationConformancePackStatuses:
           organizationConformancePackStatuses == null
               ? null
               : _i3.BuiltList(organizationConformancePackStatuses),
+      nextToken: nextToken,
     );
   }
 
@@ -53,28 +53,28 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
   static void _init(
       DescribeOrganizationConformancePackStatusesResponseBuilder b) {}
 
-  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// A list of `OrganizationConformancePackStatus` objects.
   _i3.BuiltList<_i2.OrganizationConformancePackStatus>?
       get organizationConformancePackStatuses;
+
+  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConformancePackStatuses,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConformancePackStatusesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConformancePackStatuses',
       organizationConformancePackStatuses,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -111,14 +111,6 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePackStatuses':
           if (value != null) {
             result.organizationConformancePackStatuses
@@ -129,6 +121,14 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
                 [FullType(_i2.OrganizationConformancePackStatus)],
               ),
             ) as _i3.BuiltList<_i2.OrganizationConformancePackStatus>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -146,14 +146,6 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
     final payload =
         (object as DescribeOrganizationConformancePackStatusesResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.organizationConformancePackStatuses != null) {
       result
         ..add('OrganizationConformancePackStatuses')
@@ -163,6 +155,14 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePackStatus)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

@@ -8,8 +8,8 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition_check.dart'
     as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/update.dart' as _i5;
 
 part 'transact_write_item.g.dart';
@@ -21,14 +21,14 @@ abstract class TransactWriteItem
   /// A list of requests that can perform update, put, delete, or check operations on multiple items in one or more tables atomically.
   factory TransactWriteItem({
     _i2.ConditionCheck? conditionCheck,
-    _i3.Delete? delete,
-    _i4.Put? put,
+    _i3.Put? put,
+    _i4.Delete? delete,
     _i5.Update? update_,
   }) {
     return _$TransactWriteItem._(
       conditionCheck: conditionCheck,
-      delete: delete,
       put: put,
+      delete: delete,
       update_: update_,
     );
   }
@@ -49,19 +49,19 @@ abstract class TransactWriteItem
   /// A request to perform a check item operation.
   _i2.ConditionCheck? get conditionCheck;
 
-  /// A request to perform a `DeleteItem` operation.
-  _i3.Delete? get delete;
-
   /// A request to perform a `PutItem` operation.
-  _i4.Put? get put;
+  _i3.Put? get put;
+
+  /// A request to perform a `DeleteItem` operation.
+  _i4.Delete? get delete;
 
   /// A request to perform an `UpdateItem` operation.
   _i5.Update? get update_;
   @override
   List<Object?> get props => [
         conditionCheck,
-        delete,
         put,
+        delete,
         update_,
       ];
   @override
@@ -72,12 +72,12 @@ abstract class TransactWriteItem
       conditionCheck,
     );
     helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
       'put',
       put,
+    );
+    helper.add(
+      'delete',
+      delete,
     );
     helper.add(
       'update_',
@@ -124,20 +124,20 @@ class TransactWriteItemAwsJson10Serializer
             ) as _i2.ConditionCheck));
           }
           break;
-        case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Delete),
-            ) as _i3.Delete));
-          }
-          break;
         case 'Put':
           if (value != null) {
             result.put.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Put),
-            ) as _i4.Put));
+              specifiedType: const FullType(_i3.Put),
+            ) as _i3.Put));
+          }
+          break;
+        case 'Delete':
+          if (value != null) {
+            result.delete.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Delete),
+            ) as _i4.Delete));
           }
           break;
         case 'Update':
@@ -170,20 +170,20 @@ class TransactWriteItemAwsJson10Serializer
           specifiedType: const FullType(_i2.ConditionCheck),
         ));
     }
-    if (payload.delete != null) {
-      result
-        ..add('Delete')
-        ..add(serializers.serialize(
-          payload.delete!,
-          specifiedType: const FullType(_i3.Delete),
-        ));
-    }
     if (payload.put != null) {
       result
         ..add('Put')
         ..add(serializers.serialize(
           payload.put!,
-          specifiedType: const FullType(_i4.Put),
+          specifiedType: const FullType(_i3.Put),
+        ));
+    }
+    if (payload.delete != null) {
+      result
+        ..add('Delete')
+        ..add(serializers.serialize(
+          payload.delete!,
+          specifiedType: const FullType(_i4.Delete),
         ));
     }
     if (payload.update_ != null) {

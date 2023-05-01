@@ -8,23 +8,23 @@ part of smoke_test.api_gateway.model.get_resource_request;
 
 class _$GetResourceRequest extends GetResourceRequest {
   @override
-  final _i3.BuiltList<String>? embed;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final _i3.BuiltList<String>? embed;
 
   factory _$GetResourceRequest(
           [void Function(GetResourceRequestBuilder)? updates]) =>
       (new GetResourceRequestBuilder()..update(updates))._build();
 
   _$GetResourceRequest._(
-      {this.embed, required this.resourceId, required this.restApiId})
+      {required this.restApiId, required this.resourceId, this.embed})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'GetResourceRequest', 'resourceId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetResourceRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceId, r'GetResourceRequest', 'resourceId');
   }
 
   @override
@@ -40,17 +40,17 @@ class _$GetResourceRequest extends GetResourceRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetResourceRequest &&
-        embed == other.embed &&
+        restApiId == other.restApiId &&
         resourceId == other.resourceId &&
-        restApiId == other.restApiId;
+        embed == other.embed;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, embed.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, embed.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,18 +60,18 @@ class GetResourceRequestBuilder
     implements Builder<GetResourceRequest, GetResourceRequestBuilder> {
   _$GetResourceRequest? _$v;
 
-  _i3.ListBuilder<String>? _embed;
-  _i3.ListBuilder<String> get embed =>
-      _$this._embed ??= new _i3.ListBuilder<String>();
-  set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  _i3.ListBuilder<String>? _embed;
+  _i3.ListBuilder<String> get embed =>
+      _$this._embed ??= new _i3.ListBuilder<String>();
+  set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
   GetResourceRequestBuilder() {
     GetResourceRequest._init(this);
@@ -80,9 +80,9 @@ class GetResourceRequestBuilder
   GetResourceRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _embed = $v.embed?.toBuilder();
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _embed = $v.embed?.toBuilder();
       _$v = null;
     }
     return this;
@@ -107,11 +107,11 @@ class GetResourceRequestBuilder
     try {
       _$result = _$v ??
           new _$GetResourceRequest._(
-              embed: _embed?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'GetResourceRequest', 'restApiId'),
               resourceId: BuiltValueNullFieldError.checkNotNull(
                   resourceId, r'GetResourceRequest', 'resourceId'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'GetResourceRequest', 'restApiId'));
+              embed: _embed?.build());
     } catch (_) {
       late String _$failedField;
       try {

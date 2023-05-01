@@ -22,13 +22,13 @@ abstract class GetBasePathMappingsRequest
   /// A request to get information about a collection of BasePathMapping resources.
   factory GetBasePathMappingsRequest({
     required String domainName,
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetBasePathMappingsRequest._(
       domainName: domainName,
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -66,11 +66,11 @@ abstract class GetBasePathMappingsRequest
   /// The domain name of a BasePathMapping resource.
   String get domainName;
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
-
   /// The current pagination position in the paged result set.
   String? get position;
+
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,8 +89,8 @@ abstract class GetBasePathMappingsRequest
   @override
   List<Object?> get props => [
         domainName,
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
@@ -100,12 +100,12 @@ abstract class GetBasePathMappingsRequest
       domainName,
     );
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }

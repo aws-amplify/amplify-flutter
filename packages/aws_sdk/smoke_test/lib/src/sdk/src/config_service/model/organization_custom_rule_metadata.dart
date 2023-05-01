@@ -8,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type.dart'
+    as _i2;
 
 part 'organization_custom_rule_metadata.g.dart';
 
@@ -24,26 +24,26 @@ abstract class OrganizationCustomRuleMetadata
   /// An object that specifies organization custom rule metadata such as resource type, resource ID of Amazon Web Services resource, Lambda function ARN, and organization trigger types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationCustomRuleMetadata({
     String? description,
-    String? inputParameters,
     required String lambdaFunctionArn,
-    _i2.MaximumExecutionFrequency? maximumExecutionFrequency,
-    required List<_i3.OrganizationConfigRuleTriggerType>
+    required List<_i2.OrganizationConfigRuleTriggerType>
         organizationConfigRuleTriggerTypes,
-    String? resourceIdScope,
+    String? inputParameters,
+    _i3.MaximumExecutionFrequency? maximumExecutionFrequency,
     List<String>? resourceTypesScope,
+    String? resourceIdScope,
     String? tagKeyScope,
     String? tagValueScope,
   }) {
     return _$OrganizationCustomRuleMetadata._(
       description: description,
-      inputParameters: inputParameters,
       lambdaFunctionArn: lambdaFunctionArn,
-      maximumExecutionFrequency: maximumExecutionFrequency,
       organizationConfigRuleTriggerTypes:
           _i4.BuiltList(organizationConfigRuleTriggerTypes),
-      resourceIdScope: resourceIdScope,
+      inputParameters: inputParameters,
+      maximumExecutionFrequency: maximumExecutionFrequency,
       resourceTypesScope:
           resourceTypesScope == null ? null : _i4.BuiltList(resourceTypesScope),
+      resourceIdScope: resourceIdScope,
       tagKeyScope: tagKeyScope,
       tagValueScope: tagValueScope,
     );
@@ -66,16 +66,8 @@ abstract class OrganizationCustomRuleMetadata
   /// The description that you provide for your organization Config rule.
   String? get description;
 
-  /// A string, in JSON format, that is passed to your organization Config rule Lambda function.
-  String? get inputParameters;
-
   /// The lambda function ARN.
   String get lambdaFunctionArn;
-
-  /// The maximum frequency with which Config runs evaluations for a rule. Your custom rule is triggered when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
-  ///
-  /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
-  _i2.MaximumExecutionFrequency? get maximumExecutionFrequency;
 
   /// The type of notification that triggers Config to run an evaluation for a rule. You can specify the following notification types:
   ///
@@ -84,14 +76,22 @@ abstract class OrganizationCustomRuleMetadata
   /// *   `OversizedConfigurationItemChangeNotification` \- Triggers an evaluation when Config delivers an oversized configuration item. Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.
   ///
   /// *   `ScheduledNotification` \- Triggers a periodic evaluation at the frequency specified for `MaximumExecutionFrequency`.
-  _i4.BuiltList<_i3.OrganizationConfigRuleTriggerType>
+  _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>
       get organizationConfigRuleTriggerTypes;
 
-  /// The ID of the Amazon Web Services resource that was evaluated.
-  String? get resourceIdScope;
+  /// A string, in JSON format, that is passed to your organization Config rule Lambda function.
+  String? get inputParameters;
+
+  /// The maximum frequency with which Config runs evaluations for a rule. Your custom rule is triggered when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
+  ///
+  /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
+  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency;
 
   /// The type of the Amazon Web Services resource that was evaluated.
   _i4.BuiltList<String>? get resourceTypesScope;
+
+  /// The ID of the Amazon Web Services resource that was evaluated.
+  String? get resourceIdScope;
 
   /// One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more specific tag values.
   String? get tagKeyScope;
@@ -101,12 +101,12 @@ abstract class OrganizationCustomRuleMetadata
   @override
   List<Object?> get props => [
         description,
-        inputParameters,
         lambdaFunctionArn,
-        maximumExecutionFrequency,
         organizationConfigRuleTriggerTypes,
-        resourceIdScope,
+        inputParameters,
+        maximumExecutionFrequency,
         resourceTypesScope,
+        resourceIdScope,
         tagKeyScope,
         tagValueScope,
       ];
@@ -119,28 +119,28 @@ abstract class OrganizationCustomRuleMetadata
       description,
     );
     helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
       'lambdaFunctionArn',
       lambdaFunctionArn,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
     );
     helper.add(
       'organizationConfigRuleTriggerTypes',
       organizationConfigRuleTriggerTypes,
     );
     helper.add(
-      'resourceIdScope',
-      resourceIdScope,
+      'inputParameters',
+      inputParameters,
+    );
+    helper.add(
+      'maximumExecutionFrequency',
+      maximumExecutionFrequency,
     );
     helper.add(
       'resourceTypesScope',
       resourceTypesScope,
+    );
+    helper.add(
+      'resourceIdScope',
+      resourceIdScope,
     );
     helper.add(
       'tagKeyScope',
@@ -192,6 +192,22 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
             ) as String);
           }
           break;
+        case 'LambdaFunctionArn':
+          result.lambdaFunctionArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'OrganizationConfigRuleTriggerTypes':
+          result.organizationConfigRuleTriggerTypes
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.OrganizationConfigRuleTriggerType)],
+            ),
+          ) as _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>));
+          break;
         case 'InputParameters':
           if (value != null) {
             result.inputParameters = (serializers.deserialize(
@@ -200,36 +216,12 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'LambdaFunctionArn':
-          result.lambdaFunctionArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'MaximumExecutionFrequency':
           if (value != null) {
             result.maximumExecutionFrequency = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-            ) as _i2.MaximumExecutionFrequency);
-          }
-          break;
-        case 'OrganizationConfigRuleTriggerTypes':
-          result.organizationConfigRuleTriggerTypes
-              .replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.OrganizationConfigRuleTriggerType)],
-            ),
-          ) as _i4.BuiltList<_i3.OrganizationConfigRuleTriggerType>));
-          break;
-        case 'ResourceIdScope':
-          if (value != null) {
-            result.resourceIdScope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i3.MaximumExecutionFrequency),
+            ) as _i3.MaximumExecutionFrequency);
           }
           break;
         case 'ResourceTypesScope':
@@ -241,6 +233,14 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
                 [FullType(String)],
               ),
             ) as _i4.BuiltList<String>));
+          }
+          break;
+        case 'ResourceIdScope':
+          if (value != null) {
+            result.resourceIdScope = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'TagKeyScope':
@@ -283,7 +283,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         payload.organizationConfigRuleTriggerTypes,
         specifiedType: const FullType(
           _i4.BuiltList,
-          [FullType(_i3.OrganizationConfigRuleTriggerType)],
+          [FullType(_i2.OrganizationConfigRuleTriggerType)],
         ),
       ),
     ];
@@ -308,15 +308,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           payload.maximumExecutionFrequency!,
-          specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-        ));
-    }
-    if (payload.resourceIdScope != null) {
-      result
-        ..add('ResourceIdScope')
-        ..add(serializers.serialize(
-          payload.resourceIdScope!,
-          specifiedType: const FullType(String),
+          specifiedType: const FullType(_i3.MaximumExecutionFrequency),
         ));
     }
     if (payload.resourceTypesScope != null) {
@@ -328,6 +320,14 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
             _i4.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.resourceIdScope != null) {
+      result
+        ..add('ResourceIdScope')
+        ..add(serializers.serialize(
+          payload.resourceIdScope!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.tagKeyScope != null) {

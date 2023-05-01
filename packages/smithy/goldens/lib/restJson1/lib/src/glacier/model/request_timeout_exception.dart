@@ -15,14 +15,14 @@ abstract class RequestTimeoutException
         Built<RequestTimeoutException, RequestTimeoutExceptionBuilder>,
         _i2.SmithyHttpException {
   factory RequestTimeoutException({
+    String? type,
     String? code,
     String? message,
-    String? type,
   }) {
     return _$RequestTimeoutException._(
+      type: type,
       code: code,
       message: message,
-      type: type,
     );
   }
 
@@ -47,10 +47,10 @@ abstract class RequestTimeoutException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RequestTimeoutExceptionBuilder b) {}
+  String? get type;
   String? get code;
   @override
   String? get message;
-  String? get type;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.glacier',
@@ -68,13 +68,17 @@ abstract class RequestTimeoutException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
+        type,
         code,
         message,
-        type,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RequestTimeoutException');
+    helper.add(
+      'type',
+      type,
+    );
     helper.add(
       'code',
       code,
@@ -82,10 +86,6 @@ abstract class RequestTimeoutException
     helper.add(
       'message',
       message,
-    );
-    helper.add(
-      'type',
-      type,
     );
     return helper.toString();
   }

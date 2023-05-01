@@ -17,16 +17,16 @@ abstract class Relationship
     implements Built<Relationship, RelationshipBuilder> {
   /// The relationship of the related resource to the main resource.
   factory Relationship({
-    String? relationshipName,
+    _i2.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i2.ResourceType? resourceType,
+    String? relationshipName,
   }) {
     return _$Relationship._(
-      relationshipName: relationshipName,
+      resourceType: resourceType,
       resourceId: resourceId,
       resourceName: resourceName,
-      resourceType: resourceType,
+      relationshipName: relationshipName,
     );
   }
 
@@ -43,8 +43,8 @@ abstract class Relationship
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RelationshipBuilder b) {}
 
-  /// The type of relationship with the related resource.
-  String? get relationshipName;
+  /// The resource type of the related resource.
+  _i2.ResourceType? get resourceType;
 
   /// The ID of the related resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -52,21 +52,21 @@ abstract class Relationship
   /// The custom name of the related resource, if available.
   String? get resourceName;
 
-  /// The resource type of the related resource.
-  _i2.ResourceType? get resourceType;
+  /// The type of relationship with the related resource.
+  String? get relationshipName;
   @override
   List<Object?> get props => [
-        relationshipName,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
+        relationshipName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Relationship');
     helper.add(
-      'relationshipName',
-      relationshipName,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -77,8 +77,8 @@ abstract class Relationship
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'relationshipName',
+      relationshipName,
     );
     return helper.toString();
   }
@@ -113,12 +113,12 @@ class RelationshipAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'relationshipName':
+        case 'resourceType':
           if (value != null) {
-            result.relationshipName = (serializers.deserialize(
+            result.resourceType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i2.ResourceType),
+            ) as _i2.ResourceType);
           }
           break;
         case 'resourceId':
@@ -137,12 +137,12 @@ class RelationshipAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'resourceType':
+        case 'relationshipName':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.relationshipName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -159,12 +159,12 @@ class RelationshipAwsJson11Serializer
   }) {
     final payload = (object as Relationship);
     final result = <Object?>[];
-    if (payload.relationshipName != null) {
+    if (payload.resourceType != null) {
       result
-        ..add('relationshipName')
+        ..add('resourceType')
         ..add(serializers.serialize(
-          payload.relationshipName!,
-          specifiedType: const FullType(String),
+          payload.resourceType!,
+          specifiedType: const FullType(_i2.ResourceType),
         ));
     }
     if (payload.resourceId != null) {
@@ -183,12 +183,12 @@ class RelationshipAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (payload.relationshipName != null) {
       result
-        ..add('resourceType')
+        ..add('relationshipName')
         ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(_i2.ResourceType),
+          payload.relationshipName!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

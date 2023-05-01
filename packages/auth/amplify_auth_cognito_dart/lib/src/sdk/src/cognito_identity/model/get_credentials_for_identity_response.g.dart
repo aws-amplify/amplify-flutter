@@ -9,16 +9,16 @@ part of amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_ide
 class _$GetCredentialsForIdentityResponse
     extends GetCredentialsForIdentityResponse {
   @override
-  final _i2.Credentials? credentials;
-  @override
   final String? identityId;
+  @override
+  final _i2.Credentials? credentials;
 
   factory _$GetCredentialsForIdentityResponse(
           [void Function(GetCredentialsForIdentityResponseBuilder)? updates]) =>
       (new GetCredentialsForIdentityResponseBuilder()..update(updates))
           ._build();
 
-  _$GetCredentialsForIdentityResponse._({this.credentials, this.identityId})
+  _$GetCredentialsForIdentityResponse._({this.identityId, this.credentials})
       : super._();
 
   @override
@@ -34,15 +34,15 @@ class _$GetCredentialsForIdentityResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetCredentialsForIdentityResponse &&
-        credentials == other.credentials &&
-        identityId == other.identityId;
+        identityId == other.identityId &&
+        credentials == other.credentials;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, credentials.hashCode);
     _$hash = $jc(_$hash, identityId.hashCode);
+    _$hash = $jc(_$hash, credentials.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,15 +54,15 @@ class GetCredentialsForIdentityResponseBuilder
             GetCredentialsForIdentityResponseBuilder> {
   _$GetCredentialsForIdentityResponse? _$v;
 
+  String? _identityId;
+  String? get identityId => _$this._identityId;
+  set identityId(String? identityId) => _$this._identityId = identityId;
+
   _i2.CredentialsBuilder? _credentials;
   _i2.CredentialsBuilder get credentials =>
       _$this._credentials ??= new _i2.CredentialsBuilder();
   set credentials(_i2.CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
-
-  String? _identityId;
-  String? get identityId => _$this._identityId;
-  set identityId(String? identityId) => _$this._identityId = identityId;
 
   GetCredentialsForIdentityResponseBuilder() {
     GetCredentialsForIdentityResponse._init(this);
@@ -71,8 +71,8 @@ class GetCredentialsForIdentityResponseBuilder
   GetCredentialsForIdentityResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _credentials = $v.credentials?.toBuilder();
       _identityId = $v.identityId;
+      _credentials = $v.credentials?.toBuilder();
       _$v = null;
     }
     return this;
@@ -98,7 +98,7 @@ class GetCredentialsForIdentityResponseBuilder
     try {
       _$result = _$v ??
           new _$GetCredentialsForIdentityResponse._(
-              credentials: _credentials?.build(), identityId: identityId);
+              identityId: identityId, credentials: _credentials?.build());
     } catch (_) {
       late String _$failedField;
       try {

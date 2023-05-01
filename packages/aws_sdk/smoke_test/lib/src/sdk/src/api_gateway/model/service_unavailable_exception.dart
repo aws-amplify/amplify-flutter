@@ -19,12 +19,12 @@ abstract class ServiceUnavailableException
         _i2.SmithyHttpException {
   /// The requested service is not available. For details see the accompanying error message. Retry after the specified time period.
   factory ServiceUnavailableException({
-    String? message,
     String? retryAfterSeconds,
+    String? message,
   }) {
     return _$ServiceUnavailableException._(
-      message: message,
       retryAfterSeconds: retryAfterSeconds,
+      message: message,
     );
   }
 
@@ -54,9 +54,9 @@ abstract class ServiceUnavailableException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ServiceUnavailableExceptionBuilder b) {}
+  String? get retryAfterSeconds;
   @override
   String? get message;
-  String? get retryAfterSeconds;
   @override
   ServiceUnavailableExceptionPayload getPayload() =>
       ServiceUnavailableExceptionPayload((b) {
@@ -79,19 +79,19 @@ abstract class ServiceUnavailableException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        message,
         retryAfterSeconds,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ServiceUnavailableException');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'retryAfterSeconds',
       retryAfterSeconds,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }

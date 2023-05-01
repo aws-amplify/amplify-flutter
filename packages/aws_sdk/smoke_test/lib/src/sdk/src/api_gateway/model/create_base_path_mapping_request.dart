@@ -21,14 +21,14 @@ abstract class CreateBasePathMappingRequest
         _i1.HasPayload<CreateBasePathMappingRequestPayload> {
   /// Requests API Gateway to create a new BasePathMapping resource.
   factory CreateBasePathMappingRequest({
-    String? basePath,
     required String domainName,
+    String? basePath,
     required String restApiId,
     String? stage,
   }) {
     return _$CreateBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
       restApiId: restApiId,
       stage: stage,
     );
@@ -62,11 +62,11 @@ abstract class CreateBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBasePathMappingRequestBuilder b) {}
 
-  /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify a base path name after the domain name.
-  String? get basePath;
-
   /// The domain name of the BasePathMapping resource to create.
   String get domainName;
+
+  /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify a base path name after the domain name.
+  String? get basePath;
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -94,8 +94,8 @@ abstract class CreateBasePathMappingRequest
       });
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
         restApiId,
         stage,
       ];
@@ -103,12 +103,12 @@ abstract class CreateBasePathMappingRequest
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     helper.add(
       'restApiId',

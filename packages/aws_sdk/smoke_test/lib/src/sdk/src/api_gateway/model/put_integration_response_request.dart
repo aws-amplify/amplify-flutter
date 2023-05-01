@@ -24,26 +24,26 @@ abstract class PutIntegrationResponseRequest
         _i1.HasPayload<PutIntegrationResponseRequestPayload> {
   /// Represents a put integration response request.
   factory PutIntegrationResponseRequest({
-    _i3.ContentHandlingStrategy? contentHandling,
-    required String httpMethod,
+    required String restApiId,
     required String resourceId,
+    required String httpMethod,
+    required String statusCode,
+    String? selectionPattern,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
-    required String restApiId,
-    String? selectionPattern,
-    required String statusCode,
+    _i3.ContentHandlingStrategy? contentHandling,
   }) {
     return _$PutIntegrationResponseRequest._(
-      contentHandling: contentHandling,
-      httpMethod: httpMethod,
+      restApiId: restApiId,
       resourceId: resourceId,
+      httpMethod: httpMethod,
+      statusCode: statusCode,
+      selectionPattern: selectionPattern,
       responseParameters:
           responseParameters == null ? null : _i4.BuiltMap(responseParameters),
       responseTemplates:
           responseTemplates == null ? null : _i4.BuiltMap(responseTemplates),
-      restApiId: restApiId,
-      selectionPattern: selectionPattern,
-      statusCode: statusCode,
+      contentHandling: contentHandling,
     );
   }
 
@@ -89,16 +89,20 @@ abstract class PutIntegrationResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutIntegrationResponseRequestBuilder b) {}
 
-  /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
-  ///
-  /// If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
-  _i3.ContentHandlingStrategy? get contentHandling;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// Specifies a put integration response request's resource identifier.
+  String get resourceId;
 
   /// Specifies a put integration response request's HTTP method.
   String get httpMethod;
 
-  /// Specifies a put integration response request's resource identifier.
-  String get resourceId;
+  /// Specifies the status code that is used to map the integration response to an existing MethodResponse.
+  String get statusCode;
+
+  /// Specifies the selection pattern of a put integration response.
+  String? get selectionPattern;
 
   /// A key-value map specifying response parameters that are passed to the method response from the back end. The key is a method response header parameter name and the mapped value is an integration response header value, a static value enclosed within a pair of single quotes, or a JSON expression from the integration response body. The mapping key must match the pattern of `method.response.header.{name}`, where `name` is a valid and unique header name. The mapped non-static value must match the pattern of `integration.response.header.{name}` or `integration.response.body.{JSON-expression}`, where `name` must be a valid and unique response header name and `JSON-expression` a valid JSON expression without the `$` prefix.
   _i4.BuiltMap<String, String>? get responseParameters;
@@ -106,14 +110,10 @@ abstract class PutIntegrationResponseRequest
   /// Specifies a put integration response's templates.
   _i4.BuiltMap<String, String>? get responseTemplates;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// Specifies the selection pattern of a put integration response.
-  String? get selectionPattern;
-
-  /// Specifies the status code that is used to map the integration response to an existing MethodResponse.
-  String get statusCode;
+  /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
+  ///
+  /// If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
+  _i3.ContentHandlingStrategy? get contentHandling;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -146,29 +146,37 @@ abstract class PutIntegrationResponseRequest
       });
   @override
   List<Object?> get props => [
-        contentHandling,
-        httpMethod,
+        restApiId,
         resourceId,
+        httpMethod,
+        statusCode,
+        selectionPattern,
         responseParameters,
         responseTemplates,
-        restApiId,
-        selectionPattern,
-        statusCode,
+        contentHandling,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest');
     helper.add(
-      'contentHandling',
-      contentHandling,
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     helper.add(
       'httpMethod',
       httpMethod,
     );
     helper.add(
-      'resourceId',
-      resourceId,
+      'statusCode',
+      statusCode,
+    );
+    helper.add(
+      'selectionPattern',
+      selectionPattern,
     );
     helper.add(
       'responseParameters',
@@ -179,16 +187,8 @@ abstract class PutIntegrationResponseRequest
       responseTemplates,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
+      'contentHandling',
+      contentHandling,
     );
     return helper.toString();
   }

@@ -8,14 +8,14 @@ part of smoke_test.dynamo_db.model.write_request;
 
 class _$WriteRequest extends WriteRequest {
   @override
-  final _i2.DeleteRequest? deleteRequest;
+  final _i2.PutRequest? putRequest;
   @override
-  final _i3.PutRequest? putRequest;
+  final _i3.DeleteRequest? deleteRequest;
 
   factory _$WriteRequest([void Function(WriteRequestBuilder)? updates]) =>
       (new WriteRequestBuilder()..update(updates))._build();
 
-  _$WriteRequest._({this.deleteRequest, this.putRequest}) : super._();
+  _$WriteRequest._({this.putRequest, this.deleteRequest}) : super._();
 
   @override
   WriteRequest rebuild(void Function(WriteRequestBuilder) updates) =>
@@ -28,15 +28,15 @@ class _$WriteRequest extends WriteRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is WriteRequest &&
-        deleteRequest == other.deleteRequest &&
-        putRequest == other.putRequest;
+        putRequest == other.putRequest &&
+        deleteRequest == other.deleteRequest;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, deleteRequest.hashCode);
     _$hash = $jc(_$hash, putRequest.hashCode);
+    _$hash = $jc(_$hash, deleteRequest.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -46,17 +46,17 @@ class WriteRequestBuilder
     implements Builder<WriteRequest, WriteRequestBuilder> {
   _$WriteRequest? _$v;
 
-  _i2.DeleteRequestBuilder? _deleteRequest;
-  _i2.DeleteRequestBuilder get deleteRequest =>
-      _$this._deleteRequest ??= new _i2.DeleteRequestBuilder();
-  set deleteRequest(_i2.DeleteRequestBuilder? deleteRequest) =>
-      _$this._deleteRequest = deleteRequest;
-
-  _i3.PutRequestBuilder? _putRequest;
-  _i3.PutRequestBuilder get putRequest =>
-      _$this._putRequest ??= new _i3.PutRequestBuilder();
-  set putRequest(_i3.PutRequestBuilder? putRequest) =>
+  _i2.PutRequestBuilder? _putRequest;
+  _i2.PutRequestBuilder get putRequest =>
+      _$this._putRequest ??= new _i2.PutRequestBuilder();
+  set putRequest(_i2.PutRequestBuilder? putRequest) =>
       _$this._putRequest = putRequest;
+
+  _i3.DeleteRequestBuilder? _deleteRequest;
+  _i3.DeleteRequestBuilder get deleteRequest =>
+      _$this._deleteRequest ??= new _i3.DeleteRequestBuilder();
+  set deleteRequest(_i3.DeleteRequestBuilder? deleteRequest) =>
+      _$this._deleteRequest = deleteRequest;
 
   WriteRequestBuilder() {
     WriteRequest._init(this);
@@ -65,8 +65,8 @@ class WriteRequestBuilder
   WriteRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _deleteRequest = $v.deleteRequest?.toBuilder();
       _putRequest = $v.putRequest?.toBuilder();
+      _deleteRequest = $v.deleteRequest?.toBuilder();
       _$v = null;
     }
     return this;
@@ -91,15 +91,15 @@ class WriteRequestBuilder
     try {
       _$result = _$v ??
           new _$WriteRequest._(
-              deleteRequest: _deleteRequest?.build(),
-              putRequest: _putRequest?.build());
+              putRequest: _putRequest?.build(),
+              deleteRequest: _deleteRequest?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'deleteRequest';
-        _deleteRequest?.build();
         _$failedField = 'putRequest';
         _putRequest?.build();
+        _$failedField = 'deleteRequest';
+        _deleteRequest?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'WriteRequest', _$failedField, e.toString());

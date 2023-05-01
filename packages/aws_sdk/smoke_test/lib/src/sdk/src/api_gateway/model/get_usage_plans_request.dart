@@ -21,14 +21,14 @@ abstract class GetUsagePlansRequest
         _i1.HasPayload<GetUsagePlansRequestPayload> {
   /// The GET request to get all the usage plans of the caller's account.
   factory GetUsagePlansRequest({
+    String? position,
     String? keyId,
     int? limit,
-    String? position,
   }) {
     return _$GetUsagePlansRequest._(
+      position: position,
       keyId: keyId,
       limit: limit,
-      position: position,
     );
   }
 
@@ -63,25 +63,29 @@ abstract class GetUsagePlansRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetUsagePlansRequestBuilder b) {}
 
+  /// The current pagination position in the paged result set.
+  String? get position;
+
   /// The identifier of the API key associated with the usage plans.
   String? get keyId;
 
   /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
   int? get limit;
-
-  /// The current pagination position in the paged result set.
-  String? get position;
   @override
   GetUsagePlansRequestPayload getPayload() => GetUsagePlansRequestPayload();
   @override
   List<Object?> get props => [
+        position,
         keyId,
         limit,
-        position,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetUsagePlansRequest');
+    helper.add(
+      'position',
+      position,
+    );
     helper.add(
       'keyId',
       keyId,
@@ -89,10 +93,6 @@ abstract class GetUsagePlansRequest
     helper.add(
       'limit',
       limit,
-    );
-    helper.add(
-      'position',
-      position,
     );
     return helper.toString();
   }

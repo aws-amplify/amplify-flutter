@@ -19,16 +19,16 @@ abstract class MalformedDoubleInput
         _i1.HasPayload<MalformedDoubleInputPayload> {
   factory MalformedDoubleInput({
     double? doubleInBody,
-    double? doubleInHeader,
     double? doubleInPath,
     double? doubleInQuery,
+    double? doubleInHeader,
   }) {
     doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
       doubleInBody: doubleInBody,
-      doubleInHeader: doubleInHeader,
       doubleInPath: doubleInPath,
       doubleInQuery: doubleInQuery,
+      doubleInHeader: doubleInHeader,
     );
   }
 
@@ -67,9 +67,9 @@ abstract class MalformedDoubleInput
   }
 
   double? get doubleInBody;
-  double? get doubleInHeader;
   double get doubleInPath;
   double? get doubleInQuery;
+  double? get doubleInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,9 +89,9 @@ abstract class MalformedDoubleInput
   @override
   List<Object?> get props => [
         doubleInBody,
-        doubleInHeader,
         doubleInPath,
         doubleInQuery,
+        doubleInHeader,
       ];
   @override
   String toString() {
@@ -101,16 +101,16 @@ abstract class MalformedDoubleInput
       doubleInBody,
     );
     helper.add(
-      'doubleInHeader',
-      doubleInHeader,
-    );
-    helper.add(
       'doubleInPath',
       doubleInPath,
     );
     helper.add(
       'doubleInQuery',
       doubleInQuery,
+    );
+    helper.add(
+      'doubleInHeader',
+      doubleInHeader,
     );
     return helper.toString();
   }

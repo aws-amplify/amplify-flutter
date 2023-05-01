@@ -20,15 +20,15 @@ abstract class GetComplianceDetailsByConfigRuleRequest
         Built<GetComplianceDetailsByConfigRuleRequest,
             GetComplianceDetailsByConfigRuleRequestBuilder> {
   factory GetComplianceDetailsByConfigRuleRequest({
-    List<_i3.ComplianceType>? complianceTypes,
     required String configRuleName,
+    List<_i3.ComplianceType>? complianceTypes,
     int? limit,
     String? nextToken,
   }) {
     return _$GetComplianceDetailsByConfigRuleRequest._(
+      configRuleName: configRuleName,
       complianceTypes:
           complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
-      configRuleName: configRuleName,
       limit: limit,
       nextToken: nextToken,
     );
@@ -54,13 +54,13 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetComplianceDetailsByConfigRuleRequestBuilder b) {}
 
+  /// The name of the Config rule for which you want compliance information.
+  String get configRuleName;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE`.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
-
-  /// The name of the Config rule for which you want compliance information.
-  String get configRuleName;
 
   /// The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int? get limit;
@@ -71,8 +71,8 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   GetComplianceDetailsByConfigRuleRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        complianceTypes,
         configRuleName,
+        complianceTypes,
         limit,
         nextToken,
       ];
@@ -81,12 +81,12 @@ abstract class GetComplianceDetailsByConfigRuleRequest
     final helper =
         newBuiltValueToStringHelper('GetComplianceDetailsByConfigRuleRequest');
     helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
       'configRuleName',
       configRuleName,
+    );
+    helper.add(
+      'complianceTypes',
+      complianceTypes,
     );
     helper.add(
       'limit',
@@ -130,6 +130,12 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigRuleName':
+          result.configRuleName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ComplianceTypes':
           if (value != null) {
             result.complianceTypes.replace((serializers.deserialize(
@@ -140,12 +146,6 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
               ),
             ) as _i4.BuiltList<_i3.ComplianceType>));
           }
-          break;
-        case 'ConfigRuleName':
-          result.configRuleName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
         case 'Limit':
           if (value != null) {

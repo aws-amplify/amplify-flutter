@@ -22,31 +22,31 @@ abstract class CreateRestApiRequest
     implements Built<CreateRestApiRequest, CreateRestApiRequestBuilder> {
   /// The POST Request to add a new RestApi resource to your collection.
   factory CreateRestApiRequest({
-    _i3.ApiKeySourceType? apiKeySource,
-    List<String>? binaryMediaTypes,
-    String? cloneFrom,
-    String? description,
-    bool? disableExecuteApiEndpoint,
-    _i4.EndpointConfiguration? endpointConfiguration,
-    int? minimumCompressionSize,
     required String name,
+    String? description,
+    String? version,
+    String? cloneFrom,
+    List<String>? binaryMediaTypes,
+    int? minimumCompressionSize,
+    _i3.ApiKeySourceType? apiKeySource,
+    _i4.EndpointConfiguration? endpointConfiguration,
     String? policy,
     Map<String, String>? tags,
-    String? version,
+    bool? disableExecuteApiEndpoint,
   }) {
     return _$CreateRestApiRequest._(
-      apiKeySource: apiKeySource,
+      name: name,
+      description: description,
+      version: version,
+      cloneFrom: cloneFrom,
       binaryMediaTypes:
           binaryMediaTypes == null ? null : _i5.BuiltList(binaryMediaTypes),
-      cloneFrom: cloneFrom,
-      description: description,
-      disableExecuteApiEndpoint: disableExecuteApiEndpoint,
-      endpointConfiguration: endpointConfiguration,
       minimumCompressionSize: minimumCompressionSize,
-      name: name,
+      apiKeySource: apiKeySource,
+      endpointConfiguration: endpointConfiguration,
       policy: policy,
       tags: tags == null ? null : _i5.BuiltMap(tags),
-      version: version,
+      disableExecuteApiEndpoint: disableExecuteApiEndpoint,
     );
   }
 
@@ -71,29 +71,29 @@ abstract class CreateRestApiRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRestApiRequestBuilder b) {}
 
-  /// The source of the API key for metering requests according to a usage plan. Valid values are: >`HEADER` to read the API key from the `X-API-Key` header of a request. `AUTHORIZER` to read the API key from the `UsageIdentifierKey` from a custom authorizer.
-  _i3.ApiKeySourceType? get apiKeySource;
-
-  /// The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text payloads.
-  _i5.BuiltList<String>? get binaryMediaTypes;
-
-  /// The ID of the RestApi that you want to clone from.
-  String? get cloneFrom;
+  /// The name of the RestApi.
+  String get name;
 
   /// The description of the RestApi.
   String? get description;
 
-  /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint
-  bool? get disableExecuteApiEndpoint;
+  /// A version identifier for the API.
+  String? get version;
 
-  /// The endpoint configuration of this RestApi showing the endpoint types of the API.
-  _i4.EndpointConfiguration? get endpointConfiguration;
+  /// The ID of the RestApi that you want to clone from.
+  String? get cloneFrom;
+
+  /// The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text payloads.
+  _i5.BuiltList<String>? get binaryMediaTypes;
 
   /// A nullable integer that is used to enable compression (with non-negative between 0 and 10485760 (10M) bytes, inclusive) or disable compression (with a null value) on an API. When compression is enabled, compression or decompression is not applied on the payload if the payload size is smaller than this value. Setting it to zero allows compression for any payload size.
   int? get minimumCompressionSize;
 
-  /// The name of the RestApi.
-  String get name;
+  /// The source of the API key for metering requests according to a usage plan. Valid values are: >`HEADER` to read the API key from the `X-API-Key` header of a request. `AUTHORIZER` to read the API key from the `UsageIdentifierKey` from a custom authorizer.
+  _i3.ApiKeySourceType? get apiKeySource;
+
+  /// The endpoint configuration of this RestApi showing the endpoint types of the API.
+  _i4.EndpointConfiguration? get endpointConfiguration;
 
   /// A stringified JSON policy document that applies to this RestApi regardless of the caller and Method configuration.
   String? get policy;
@@ -101,58 +101,58 @@ abstract class CreateRestApiRequest
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
   _i5.BuiltMap<String, String>? get tags;
 
-  /// A version identifier for the API.
-  String? get version;
+  /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint
+  bool? get disableExecuteApiEndpoint;
   @override
   CreateRestApiRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        apiKeySource,
-        binaryMediaTypes,
-        cloneFrom,
-        description,
-        disableExecuteApiEndpoint,
-        endpointConfiguration,
-        minimumCompressionSize,
         name,
+        description,
+        version,
+        cloneFrom,
+        binaryMediaTypes,
+        minimumCompressionSize,
+        apiKeySource,
+        endpointConfiguration,
         policy,
         tags,
-        version,
+        disableExecuteApiEndpoint,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateRestApiRequest');
     helper.add(
-      'apiKeySource',
-      apiKeySource,
-    );
-    helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'cloneFrom',
-      cloneFrom,
+      'name',
+      name,
     );
     helper.add(
       'description',
       description,
     );
     helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
+      'version',
+      version,
     );
     helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
+      'cloneFrom',
+      cloneFrom,
+    );
+    helper.add(
+      'binaryMediaTypes',
+      binaryMediaTypes,
     );
     helper.add(
       'minimumCompressionSize',
       minimumCompressionSize,
     );
     helper.add(
-      'name',
-      name,
+      'apiKeySource',
+      apiKeySource,
+    );
+    helper.add(
+      'endpointConfiguration',
+      endpointConfiguration,
     );
     helper.add(
       'policy',
@@ -163,8 +163,8 @@ abstract class CreateRestApiRequest
       tags,
     );
     helper.add(
-      'version',
-      version,
+      'disableExecuteApiEndpoint',
+      disableExecuteApiEndpoint,
     );
     return helper.toString();
   }

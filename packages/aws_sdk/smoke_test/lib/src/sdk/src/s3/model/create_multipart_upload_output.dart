@@ -7,10 +7,10 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i6;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i5;
+    as _i3;
 
 part 'create_multipart_upload_output.g.dart';
 
@@ -23,31 +23,31 @@ abstract class CreateMultipartUploadOutput
     DateTime? abortDate,
     String? abortRuleId,
     String? bucket,
-    bool? bucketKeyEnabled,
-    _i3.ChecksumAlgorithm? checksumAlgorithm,
     String? key,
-    _i4.RequestCharged? requestCharged,
-    _i5.ServerSideEncryption? serverSideEncryption,
+    String? uploadId,
+    _i3.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
-    String? ssekmsEncryptionContext,
     String? ssekmsKeyId,
-    String? uploadId,
+    String? ssekmsEncryptionContext,
+    bool? bucketKeyEnabled,
+    _i4.RequestCharged? requestCharged,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$CreateMultipartUploadOutput._(
       abortDate: abortDate,
       abortRuleId: abortRuleId,
       bucket: bucket,
-      bucketKeyEnabled: bucketKeyEnabled,
-      checksumAlgorithm: checksumAlgorithm,
       key: key,
-      requestCharged: requestCharged,
+      uploadId: uploadId,
       serverSideEncryption: serverSideEncryption,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      ssekmsEncryptionContext: ssekmsEncryptionContext,
       ssekmsKeyId: ssekmsKeyId,
-      uploadId: uploadId,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      bucketKeyEnabled: bucketKeyEnabled,
+      requestCharged: requestCharged,
+      checksumAlgorithm: checksumAlgorithm,
     );
   }
 
@@ -76,7 +76,7 @@ abstract class CreateMultipartUploadOutput
           b.abortRuleId = response.headers['x-amz-abort-rule-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i5.ServerSideEncryption.values
+          b.serverSideEncryption = _i3.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -111,7 +111,7 @@ abstract class CreateMultipartUploadOutput
               .byValue(response.headers['x-amz-request-charged']!);
         }
         if (response.headers['x-amz-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i3.ChecksumAlgorithm.values
+          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
               .byValue(response.headers['x-amz-checksum-algorithm']!);
         }
       });
@@ -138,20 +138,14 @@ abstract class CreateMultipartUploadOutput
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String? get bucket;
 
-  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
-
-  /// The algorithm that was used to create a checksum of the object.
-  _i3.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// Object key for which the multipart upload was initiated.
   String? get key;
 
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  /// ID for the initiated multipart upload.
+  String? get uploadId;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i5.ServerSideEncryption? get serverSideEncryption;
+  _i3.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -159,14 +153,20 @@ abstract class CreateMultipartUploadOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
-  String? get ssekmsEncryptionContext;
-
   /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// ID for the initiated multipart upload.
-  String? get uploadId;
+  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  String? get ssekmsEncryptionContext;
+
+  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  bool? get bucketKeyEnabled;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i4.RequestCharged? get requestCharged;
+
+  /// The algorithm that was used to create a checksum of the object.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
   @override
   CreateMultipartUploadOutputPayload getPayload() =>
       CreateMultipartUploadOutputPayload((b) {
@@ -179,16 +179,16 @@ abstract class CreateMultipartUploadOutput
         abortDate,
         abortRuleId,
         bucket,
-        bucketKeyEnabled,
-        checksumAlgorithm,
         key,
-        requestCharged,
+        uploadId,
         serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
-        ssekmsEncryptionContext,
         ssekmsKeyId,
-        uploadId,
+        ssekmsEncryptionContext,
+        bucketKeyEnabled,
+        requestCharged,
+        checksumAlgorithm,
       ];
   @override
   String toString() {
@@ -206,20 +206,12 @@ abstract class CreateMultipartUploadOutput
       bucket,
     );
     helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'key',
       key,
     );
     helper.add(
-      'requestCharged',
-      requestCharged,
+      'uploadId',
+      uploadId,
     );
     helper.add(
       'serverSideEncryption',
@@ -234,16 +226,24 @@ abstract class CreateMultipartUploadOutput
       sseCustomerKeyMd5,
     );
     helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
       'ssekmsKeyId',
       '***SENSITIVE***',
     );
     helper.add(
-      'uploadId',
-      uploadId,
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     return helper.toString();
   }

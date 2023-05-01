@@ -3,9 +3,9 @@
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/authentication_result_type.dart'
-    as _i2;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
     as _i3;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
+    as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
@@ -23,18 +23,18 @@ abstract class RespondToAuthChallengeResponse
             RespondToAuthChallengeResponseBuilder> {
   /// The response to respond to the authentication challenge.
   factory RespondToAuthChallengeResponse({
-    _i2.AuthenticationResultType? authenticationResult,
-    _i3.ChallengeNameType? challengeName,
-    Map<String, String>? challengeParameters,
+    _i2.ChallengeNameType? challengeName,
     String? session,
+    Map<String, String>? challengeParameters,
+    _i3.AuthenticationResultType? authenticationResult,
   }) {
     return _$RespondToAuthChallengeResponse._(
-      authenticationResult: authenticationResult,
       challengeName: challengeName,
+      session: session,
       challengeParameters: challengeParameters == null
           ? null
           : _i4.BuiltMap(challengeParameters),
-      session: session,
+      authenticationResult: authenticationResult,
     );
   }
 
@@ -59,43 +59,43 @@ abstract class RespondToAuthChallengeResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeResponseBuilder b) {}
 
-  /// The result returned by the server in response to the request to respond to the authentication challenge.
-  _i2.AuthenticationResultType? get authenticationResult;
-
   /// The challenge name. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
-  _i3.ChallengeNameType? get challengeName;
+  _i2.ChallengeNameType? get challengeName;
+
+  /// The session that should be passed both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
+  String? get session;
 
   /// The challenge parameters. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   _i4.BuiltMap<String, String>? get challengeParameters;
 
-  /// The session that should be passed both ways in challenge-response calls to the service. If the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
-  String? get session;
+  /// The result returned by the server in response to the request to respond to the authentication challenge.
+  _i3.AuthenticationResultType? get authenticationResult;
   @override
   List<Object?> get props => [
-        authenticationResult,
         challengeName,
-        challengeParameters,
         session,
+        challengeParameters,
+        authenticationResult,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('RespondToAuthChallengeResponse');
     helper.add(
-      'authenticationResult',
-      authenticationResult,
-    );
-    helper.add(
       'challengeName',
       challengeName,
+    );
+    helper.add(
+      'session',
+      session,
     );
     helper.add(
       'challengeParameters',
       challengeParameters,
     );
     helper.add(
-      'session',
-      session,
+      'authenticationResult',
+      authenticationResult,
     );
     return helper.toString();
   }
@@ -131,20 +131,20 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AuthenticationResult':
-          if (value != null) {
-            result.authenticationResult.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AuthenticationResultType),
-            ) as _i2.AuthenticationResultType));
-          }
-          break;
         case 'ChallengeName':
           if (value != null) {
             result.challengeName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ChallengeNameType),
-            ) as _i3.ChallengeNameType);
+              specifiedType: const FullType(_i2.ChallengeNameType),
+            ) as _i2.ChallengeNameType);
+          }
+          break;
+        case 'Session':
+          if (value != null) {
+            result.session = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ChallengeParameters':
@@ -161,12 +161,12 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
             ) as _i4.BuiltMap<String, String>));
           }
           break;
-        case 'Session':
+        case 'AuthenticationResult':
           if (value != null) {
-            result.session = (serializers.deserialize(
+            result.authenticationResult.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i3.AuthenticationResultType),
+            ) as _i3.AuthenticationResultType));
           }
           break;
       }
@@ -183,20 +183,20 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
   }) {
     final payload = (object as RespondToAuthChallengeResponse);
     final result = <Object?>[];
-    if (payload.authenticationResult != null) {
-      result
-        ..add('AuthenticationResult')
-        ..add(serializers.serialize(
-          payload.authenticationResult!,
-          specifiedType: const FullType(_i2.AuthenticationResultType),
-        ));
-    }
     if (payload.challengeName != null) {
       result
         ..add('ChallengeName')
         ..add(serializers.serialize(
           payload.challengeName!,
-          specifiedType: const FullType(_i3.ChallengeNameType),
+          specifiedType: const FullType(_i2.ChallengeNameType),
+        ));
+    }
+    if (payload.session != null) {
+      result
+        ..add('Session')
+        ..add(serializers.serialize(
+          payload.session!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.challengeParameters != null) {
@@ -213,12 +213,12 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
           ),
         ));
     }
-    if (payload.session != null) {
+    if (payload.authenticationResult != null) {
       result
-        ..add('Session')
+        ..add('AuthenticationResult')
         ..add(serializers.serialize(
-          payload.session!,
-          specifiedType: const FullType(String),
+          payload.authenticationResult!,
+          specifiedType: const FullType(_i3.AuthenticationResultType),
         ));
     }
     return result;

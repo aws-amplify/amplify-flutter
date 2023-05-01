@@ -24,15 +24,15 @@ abstract class UpdateDocumentationPartRequest
         _i1.HasPayload<UpdateDocumentationPartRequestPayload> {
   /// Updates an existing documentation part of a given API.
   factory UpdateDocumentationPartRequest({
+    required String restApiId,
     required String documentationPartId,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateDocumentationPartRequest._(
+      restApiId: restApiId,
       documentationPartId: documentationPartId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -67,14 +67,14 @@ abstract class UpdateDocumentationPartRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDocumentationPartRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The identifier of the to-be-updated documentation part.
   String get documentationPartId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,14 +98,18 @@ abstract class UpdateDocumentationPartRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         documentationPartId,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateDocumentationPartRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'documentationPartId',
       documentationPartId,
@@ -113,10 +117,6 @@ abstract class UpdateDocumentationPartRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

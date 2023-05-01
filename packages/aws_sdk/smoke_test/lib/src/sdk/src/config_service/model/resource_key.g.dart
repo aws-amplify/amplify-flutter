@@ -8,19 +8,19 @@ part of smoke_test.config_service.model.resource_key;
 
 class _$ResourceKey extends ResourceKey {
   @override
-  final String resourceId;
-  @override
   final _i2.ResourceType resourceType;
+  @override
+  final String resourceId;
 
   factory _$ResourceKey([void Function(ResourceKeyBuilder)? updates]) =>
       (new ResourceKeyBuilder()..update(updates))._build();
 
-  _$ResourceKey._({required this.resourceId, required this.resourceType})
+  _$ResourceKey._({required this.resourceType, required this.resourceId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        resourceId, r'ResourceKey', 'resourceId');
-    BuiltValueNullFieldError.checkNotNull(
         resourceType, r'ResourceKey', 'resourceType');
+    BuiltValueNullFieldError.checkNotNull(
+        resourceId, r'ResourceKey', 'resourceId');
   }
 
   @override
@@ -34,15 +34,15 @@ class _$ResourceKey extends ResourceKey {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ResourceKey &&
-        resourceId == other.resourceId &&
-        resourceType == other.resourceType;
+        resourceType == other.resourceType &&
+        resourceId == other.resourceId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, resourceType.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,14 +51,14 @@ class _$ResourceKey extends ResourceKey {
 class ResourceKeyBuilder implements Builder<ResourceKey, ResourceKeyBuilder> {
   _$ResourceKey? _$v;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
   _i2.ResourceType? _resourceType;
   _i2.ResourceType? get resourceType => _$this._resourceType;
   set resourceType(_i2.ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
   ResourceKeyBuilder() {
     ResourceKey._init(this);
@@ -67,8 +67,8 @@ class ResourceKeyBuilder implements Builder<ResourceKey, ResourceKeyBuilder> {
   ResourceKeyBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _resourceId = $v.resourceId;
       _resourceType = $v.resourceType;
+      _resourceId = $v.resourceId;
       _$v = null;
     }
     return this;
@@ -91,10 +91,10 @@ class ResourceKeyBuilder implements Builder<ResourceKey, ResourceKeyBuilder> {
   _$ResourceKey _build() {
     final _$result = _$v ??
         new _$ResourceKey._(
-            resourceId: BuiltValueNullFieldError.checkNotNull(
-                resourceId, r'ResourceKey', 'resourceId'),
             resourceType: BuiltValueNullFieldError.checkNotNull(
-                resourceType, r'ResourceKey', 'resourceType'));
+                resourceType, r'ResourceKey', 'resourceType'),
+            resourceId: BuiltValueNullFieldError.checkNotNull(
+                resourceId, r'ResourceKey', 'resourceId'));
     replace(_$result);
     return _$result;
   }

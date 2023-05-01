@@ -371,20 +371,12 @@ const List<_i1.SmithySerializer> serializers = [
 final Map<FullType, Function> builderFactories = {
   const FullType(
     _i122.BuiltList,
-    [FullType(bool)],
-  ): _i122.ListBuilder<bool>.new,
+    [FullType(String)],
+  ): _i122.ListBuilder<String>.new,
   const FullType(
-    _i122.BuiltList,
-    [FullType(double)],
-  ): _i122.ListBuilder<double>.new,
-  const FullType(
-    _i122.BuiltList,
-    [FullType(_i3.FooEnum)],
-  ): _i122.ListBuilder<_i3.FooEnum>.new,
-  const FullType(
-    _i122.BuiltList,
-    [FullType(_i4.IntegerEnum)],
-  ): _i122.ListBuilder<_i4.IntegerEnum>.new,
+    _i122.BuiltSet,
+    [FullType(String)],
+  ): _i122.SetBuilder<String>.new,
   const FullType(
     _i122.BuiltList,
     [FullType(int)],
@@ -394,6 +386,26 @@ final Map<FullType, Function> builderFactories = {
     [FullType(int)],
   ): _i122.SetBuilder<int>.new,
   const FullType(
+    _i122.BuiltList,
+    [FullType(double)],
+  ): _i122.ListBuilder<double>.new,
+  const FullType(
+    _i122.BuiltList,
+    [FullType(bool)],
+  ): _i122.ListBuilder<bool>.new,
+  const FullType(
+    _i122.BuiltList,
+    [FullType(DateTime)],
+  ): _i122.ListBuilder<DateTime>.new,
+  const FullType(
+    _i122.BuiltList,
+    [FullType(_i3.FooEnum)],
+  ): _i122.ListBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i122.BuiltList,
+    [FullType(_i4.IntegerEnum)],
+  ): _i122.ListBuilder<_i4.IntegerEnum>.new,
+  const FullType(
     _i122.BuiltListMultimap,
     [
       FullType(String),
@@ -401,24 +413,16 @@ final Map<FullType, Function> builderFactories = {
     ],
   ): _i122.ListMultimapBuilder<String, String>.new,
   const FullType(
-    _i122.BuiltList,
-    [FullType(String)],
-  ): _i122.ListBuilder<String>.new,
-  const FullType(
-    _i122.BuiltSet,
-    [FullType(String)],
-  ): _i122.SetBuilder<String>.new,
-  const FullType(
-    _i122.BuiltList,
-    [FullType(DateTime)],
-  ): _i122.ListBuilder<DateTime>.new,
-  const FullType(
     _i122.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
   ): _i122.MapBuilder<String, String>.new,
+  const FullType(
+    _i122.BuiltSet,
+    [FullType(_i3.FooEnum)],
+  ): _i122.SetBuilder<_i3.FooEnum>.new,
   const FullType(
     _i122.BuiltMap,
     [
@@ -428,8 +432,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i122.MapBuilder<String, _i3.FooEnum>.new,
   const FullType(
     _i122.BuiltSet,
-    [FullType(_i3.FooEnum)],
-  ): _i122.SetBuilder<_i3.FooEnum>.new,
+    [FullType(_i4.IntegerEnum)],
+  ): _i122.SetBuilder<_i4.IntegerEnum>.new,
   const FullType(
     _i122.BuiltMap,
     [
@@ -438,9 +442,9 @@ final Map<FullType, Function> builderFactories = {
     ],
   ): _i122.MapBuilder<String, _i4.IntegerEnum>.new,
   const FullType(
-    _i122.BuiltSet,
-    [FullType(_i4.IntegerEnum)],
-  ): _i122.SetBuilder<_i4.IntegerEnum>.new,
+    _i122.BuiltList,
+    [FullType.nullable(String)],
+  ): _i122.ListBuilder<String?>.new,
   const FullType(
     _i122.BuiltList,
     [
@@ -452,33 +456,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i122.ListBuilder<_i122.BuiltList<String>>.new,
   const FullType(
     _i122.BuiltList,
-    [FullType.nullable(String)],
-  ): _i122.ListBuilder<String?>.new,
-  const FullType(
-    _i122.BuiltList,
     [FullType(_i43.StructureListMember)],
   ): _i122.ListBuilder<_i43.StructureListMember>.new,
-  const FullType(
-    _i122.BuiltMap,
-    [
-      FullType(String),
-      FullType(bool),
-    ],
-  ): _i122.MapBuilder<String, bool>.new,
-  const FullType(
-    _i122.BuiltMap,
-    [
-      FullType(String),
-      FullType(int),
-    ],
-  ): _i122.MapBuilder<String, int>.new,
-  const FullType(
-    _i122.BuiltSetMultimap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i122.SetMultimapBuilder<String, String>.new,
   const FullType(
     _i122.BuiltMap,
     [
@@ -490,9 +469,23 @@ final Map<FullType, Function> builderFactories = {
     _i122.BuiltMap,
     [
       FullType(String),
-      FullType.nullable(bool),
+      FullType.nullable(_i45.GreetingStruct),
     ],
-  ): _i122.MapBuilder<String, bool?>.new,
+  ): _i122.MapBuilder<String, _i45.GreetingStruct?>.new,
+  const FullType(
+    _i122.BuiltMap,
+    [
+      FullType(String),
+      FullType(int),
+    ],
+  ): _i122.MapBuilder<String, int>.new,
+  const FullType(
+    _i122.BuiltMap,
+    [
+      FullType(String),
+      FullType(bool),
+    ],
+  ): _i122.MapBuilder<String, bool>.new,
   const FullType(
     _i122.BuiltMap,
     [
@@ -504,16 +497,23 @@ final Map<FullType, Function> builderFactories = {
     _i122.BuiltMap,
     [
       FullType(String),
-      FullType.nullable(String),
+      FullType.nullable(bool),
     ],
-  ): _i122.MapBuilder<String, String?>.new,
+  ): _i122.MapBuilder<String, bool?>.new,
   const FullType(
     _i122.BuiltMap,
     [
       FullType(String),
-      FullType.nullable(_i45.GreetingStruct),
+      FullType.nullable(String),
     ],
-  ): _i122.MapBuilder<String, _i45.GreetingStruct?>.new,
+  ): _i122.MapBuilder<String, String?>.new,
+  const FullType(
+    _i122.BuiltSetMultimap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i122.SetMultimapBuilder<String, String>.new,
   const FullType(
     _i122.BuiltMap,
     [

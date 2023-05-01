@@ -22,14 +22,14 @@ abstract class GetResourceRequest
         _i1.HasPayload<GetResourceRequestPayload> {
   /// Request to list information about a resource.
   factory GetResourceRequest({
-    List<String>? embed,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    List<String>? embed,
   }) {
     return _$GetResourceRequest._(
-      embed: embed == null ? null : _i3.BuiltList(embed),
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      embed: embed == null ? null : _i3.BuiltList(embed),
     );
   }
 
@@ -66,14 +66,14 @@ abstract class GetResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourceRequestBuilder b) {}
 
-  /// A query parameter to retrieve the specified resources embedded in the returned Resource representation in the response. This `embed` parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the `"methods"` string. For example, `GET /restapis/{restapi\_id}/resources/{resource\_id}?embed=methods`.
-  _i3.BuiltList<String>? get embed;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The identifier for the Resource resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// A query parameter to retrieve the specified resources embedded in the returned Resource representation in the response. This `embed` parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the `"methods"` string. For example, `GET /restapis/{restapi\_id}/resources/{resource\_id}?embed=methods`.
+  _i3.BuiltList<String>? get embed;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -92,24 +92,24 @@ abstract class GetResourceRequest
   GetResourceRequestPayload getPayload() => GetResourceRequestPayload();
   @override
   List<Object?> get props => [
-        embed,
-        resourceId,
         restApiId,
+        resourceId,
+        embed,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetResourceRequest');
     helper.add(
-      'embed',
-      embed,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'embed',
+      embed,
     );
     return helper.toString();
   }

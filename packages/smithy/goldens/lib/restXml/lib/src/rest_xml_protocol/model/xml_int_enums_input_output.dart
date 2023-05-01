@@ -20,16 +20,16 @@ abstract class XmlIntEnumsInputOutput
     int? intEnum2,
     int? intEnum3,
     List<int>? intEnumList,
-    Map<String, int>? intEnumMap,
     Set<int>? intEnumSet,
+    Map<String, int>? intEnumMap,
   }) {
     return _$XmlIntEnumsInputOutput._(
       intEnum1: intEnum1,
       intEnum2: intEnum2,
       intEnum3: intEnum3,
       intEnumList: intEnumList == null ? null : _i3.BuiltList(intEnumList),
-      intEnumMap: intEnumMap == null ? null : _i3.BuiltMap(intEnumMap),
       intEnumSet: intEnumSet == null ? null : _i3.BuiltSet(intEnumSet),
+      intEnumMap: intEnumMap == null ? null : _i3.BuiltMap(intEnumMap),
     );
   }
 
@@ -63,8 +63,8 @@ abstract class XmlIntEnumsInputOutput
   int? get intEnum2;
   int? get intEnum3;
   _i3.BuiltList<int>? get intEnumList;
-  _i3.BuiltMap<String, int>? get intEnumMap;
   _i3.BuiltSet<int>? get intEnumSet;
+  _i3.BuiltMap<String, int>? get intEnumMap;
   @override
   XmlIntEnumsInputOutput getPayload() => this;
   @override
@@ -73,8 +73,8 @@ abstract class XmlIntEnumsInputOutput
         intEnum2,
         intEnum3,
         intEnumList,
-        intEnumMap,
         intEnumSet,
+        intEnumMap,
       ];
   @override
   String toString() {
@@ -96,12 +96,12 @@ abstract class XmlIntEnumsInputOutput
       intEnumList,
     );
     helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
-    helper.add(
       'intEnumSet',
       intEnumSet,
+    );
+    helper.add(
+      'intEnumMap',
+      intEnumMap,
     );
     return helper.toString();
   }
@@ -166,7 +166,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
             result.intEnumList
                 .replace((const _i1.XmlBuiltListSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i3.BuiltList,
                 [FullType(int)],
@@ -179,7 +179,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
             result.intEnumMap
                 .replace(const _i1.XmlBuiltMapSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i3.BuiltMap,
                 [
@@ -195,7 +195,7 @@ class XmlIntEnumsInputOutputRestXmlSerializer
             result.intEnumSet
                 .replace((const _i1.XmlBuiltSetSerializer().deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i3.BuiltSet,
                 [FullType(int)],

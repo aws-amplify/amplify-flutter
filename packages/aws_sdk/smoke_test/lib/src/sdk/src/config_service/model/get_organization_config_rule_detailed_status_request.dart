@@ -19,16 +19,16 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
         Built<GetOrganizationConfigRuleDetailedStatusRequest,
             GetOrganizationConfigRuleDetailedStatusRequestBuilder> {
   factory GetOrganizationConfigRuleDetailedStatusRequest({
+    required String organizationConfigRuleName,
     _i3.StatusDetailFilters? filters,
     int? limit,
     String? nextToken,
-    required String organizationConfigRuleName,
   }) {
     return _$GetOrganizationConfigRuleDetailedStatusRequest._(
+      organizationConfigRuleName: organizationConfigRuleName,
       filters: filters,
       limit: limit,
       nextToken: nextToken,
-      organizationConfigRuleName: organizationConfigRuleName,
     );
   }
 
@@ -52,6 +52,9 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetOrganizationConfigRuleDetailedStatusRequestBuilder b) {}
 
+  /// The name of your organization Config rule for which you want status details for member accounts.
+  String get organizationConfigRuleName;
+
   /// A `StatusDetailFilters` object.
   _i3.StatusDetailFilters? get filters;
 
@@ -60,22 +63,23 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The name of your organization Config rule for which you want status details for member accounts.
-  String get organizationConfigRuleName;
   @override
   GetOrganizationConfigRuleDetailedStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConfigRuleName,
         filters,
         limit,
         nextToken,
-        organizationConfigRuleName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConfigRuleDetailedStatusRequest');
+    helper.add(
+      'organizationConfigRuleName',
+      organizationConfigRuleName,
+    );
     helper.add(
       'filters',
       filters,
@@ -87,10 +91,6 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
     );
     return helper.toString();
   }
@@ -127,6 +127,12 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'OrganizationConfigRuleName':
+          result.organizationConfigRuleName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'Filters':
           if (value != null) {
             result.filters.replace((serializers.deserialize(
@@ -150,12 +156,6 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'OrganizationConfigRuleName':
-          result.organizationConfigRuleName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

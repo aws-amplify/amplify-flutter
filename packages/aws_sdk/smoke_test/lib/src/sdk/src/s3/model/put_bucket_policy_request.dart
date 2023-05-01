@@ -17,19 +17,19 @@ abstract class PutBucketPolicyRequest
         _i1.HasPayload<String> {
   factory PutBucketPolicyRequest({
     required String bucket,
+    String? contentMd5,
     _i3.ChecksumAlgorithm? checksumAlgorithm,
     bool? confirmRemoveSelfBucketAccess,
-    String? contentMd5,
-    String? expectedBucketOwner,
     required String policy,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketPolicyRequest._(
       bucket: bucket,
+      contentMd5: contentMd5,
       checksumAlgorithm: checksumAlgorithm,
       confirmRemoveSelfBucketAccess: confirmRemoveSelfBucketAccess,
-      contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
       policy: policy,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -78,6 +78,11 @@ abstract class PutBucketPolicyRequest
   /// The name of the bucket.
   String get bucket;
 
+  /// The MD5 hash of the request body.
+  ///
+  /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
+  String? get contentMd5;
+
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
@@ -86,16 +91,11 @@ abstract class PutBucketPolicyRequest
   /// Set this parameter to true to confirm that you want to remove your permissions to change this bucket policy in the future.
   bool? get confirmRemoveSelfBucketAccess;
 
-  /// The MD5 hash of the request body.
-  ///
-  /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
-  String? get contentMd5;
+  /// The bucket policy as a JSON document.
+  String get policy;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
-
-  /// The bucket policy as a JSON document.
-  String get policy;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -113,11 +113,11 @@ abstract class PutBucketPolicyRequest
   @override
   List<Object?> get props => [
         bucket,
+        contentMd5,
         checksumAlgorithm,
         confirmRemoveSelfBucketAccess,
-        contentMd5,
-        expectedBucketOwner,
         policy,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -125,6 +125,10 @@ abstract class PutBucketPolicyRequest
     helper.add(
       'bucket',
       bucket,
+    );
+    helper.add(
+      'contentMd5',
+      contentMd5,
     );
     helper.add(
       'checksumAlgorithm',
@@ -135,16 +139,12 @@ abstract class PutBucketPolicyRequest
       confirmRemoveSelfBucketAccess,
     );
     helper.add(
-      'contentMd5',
-      contentMd5,
+      'policy',
+      policy,
     );
     helper.add(
       'expectedBucketOwner',
       expectedBucketOwner,
-    );
-    helper.add(
-      'policy',
-      policy,
     );
     return helper.toString();
   }

@@ -21,12 +21,12 @@ abstract class GetAuthorizerRequest
         _i1.HasPayload<GetAuthorizerRequestPayload> {
   /// Request to describe an existing Authorizer resource.
   factory GetAuthorizerRequest({
-    required String authorizerId,
     required String restApiId,
+    required String authorizerId,
   }) {
     return _$GetAuthorizerRequest._(
-      authorizerId: authorizerId,
       restApiId: restApiId,
+      authorizerId: authorizerId,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class GetAuthorizerRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAuthorizerRequestBuilder b) {}
 
-  /// The identifier of the Authorizer resource.
-  String get authorizerId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the Authorizer resource.
+  String get authorizerId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -81,19 +81,19 @@ abstract class GetAuthorizerRequest
   GetAuthorizerRequestPayload getPayload() => GetAuthorizerRequestPayload();
   @override
   List<Object?> get props => [
-        authorizerId,
         restApiId,
+        authorizerId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetAuthorizerRequest');
     helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'authorizerId',
+      authorizerId,
     );
     return helper.toString();
   }

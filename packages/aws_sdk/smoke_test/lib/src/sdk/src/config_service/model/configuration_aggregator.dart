@@ -20,24 +20,24 @@ abstract class ConfigurationAggregator
     implements Built<ConfigurationAggregator, ConfigurationAggregatorBuilder> {
   /// The details about the configuration aggregator, including information about source accounts, regions, and metadata of the aggregator.
   factory ConfigurationAggregator({
-    List<_i2.AccountAggregationSource>? accountAggregationSources,
-    String? configurationAggregatorArn,
     String? configurationAggregatorName,
-    String? createdBy,
+    String? configurationAggregatorArn,
+    List<_i2.AccountAggregationSource>? accountAggregationSources,
+    _i3.OrganizationAggregationSource? organizationAggregationSource,
     DateTime? creationTime,
     DateTime? lastUpdatedTime,
-    _i3.OrganizationAggregationSource? organizationAggregationSource,
+    String? createdBy,
   }) {
     return _$ConfigurationAggregator._(
+      configurationAggregatorName: configurationAggregatorName,
+      configurationAggregatorArn: configurationAggregatorArn,
       accountAggregationSources: accountAggregationSources == null
           ? null
           : _i4.BuiltList(accountAggregationSources),
-      configurationAggregatorArn: configurationAggregatorArn,
-      configurationAggregatorName: configurationAggregatorName,
-      createdBy: createdBy,
+      organizationAggregationSource: organizationAggregationSource,
       creationTime: creationTime,
       lastUpdatedTime: lastUpdatedTime,
-      organizationAggregationSource: organizationAggregationSource,
+      createdBy: createdBy,
     );
   }
 
@@ -55,17 +55,17 @@ abstract class ConfigurationAggregator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigurationAggregatorBuilder b) {}
 
-  /// Provides a list of source accounts and regions to be aggregated.
-  _i4.BuiltList<_i2.AccountAggregationSource>? get accountAggregationSources;
+  /// The name of the aggregator.
+  String? get configurationAggregatorName;
 
   /// The Amazon Resource Name (ARN) of the aggregator.
   String? get configurationAggregatorArn;
 
-  /// The name of the aggregator.
-  String? get configurationAggregatorName;
+  /// Provides a list of source accounts and regions to be aggregated.
+  _i4.BuiltList<_i2.AccountAggregationSource>? get accountAggregationSources;
 
-  /// Amazon Web Services service that created the configuration aggregator.
-  String? get createdBy;
+  /// Provides an organization and list of regions to be aggregated.
+  _i3.OrganizationAggregationSource? get organizationAggregationSource;
 
   /// The time stamp when the configuration aggregator was created.
   DateTime? get creationTime;
@@ -73,36 +73,36 @@ abstract class ConfigurationAggregator
   /// The time of the last update.
   DateTime? get lastUpdatedTime;
 
-  /// Provides an organization and list of regions to be aggregated.
-  _i3.OrganizationAggregationSource? get organizationAggregationSource;
+  /// Amazon Web Services service that created the configuration aggregator.
+  String? get createdBy;
   @override
   List<Object?> get props => [
-        accountAggregationSources,
-        configurationAggregatorArn,
         configurationAggregatorName,
-        createdBy,
+        configurationAggregatorArn,
+        accountAggregationSources,
+        organizationAggregationSource,
         creationTime,
         lastUpdatedTime,
-        organizationAggregationSource,
+        createdBy,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigurationAggregator');
     helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
+      'configurationAggregatorName',
+      configurationAggregatorName,
     );
     helper.add(
       'configurationAggregatorArn',
       configurationAggregatorArn,
     );
     helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
+      'accountAggregationSources',
+      accountAggregationSources,
     );
     helper.add(
-      'createdBy',
-      createdBy,
+      'organizationAggregationSource',
+      organizationAggregationSource,
     );
     helper.add(
       'creationTime',
@@ -113,8 +113,8 @@ abstract class ConfigurationAggregator
       lastUpdatedTime,
     );
     helper.add(
-      'organizationAggregationSource',
-      organizationAggregationSource,
+      'createdBy',
+      createdBy,
     );
     return helper.toString();
   }
@@ -150,6 +150,22 @@ class ConfigurationAggregatorAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigurationAggregatorName':
+          if (value != null) {
+            result.configurationAggregatorName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'ConfigurationAggregatorArn':
+          if (value != null) {
+            result.configurationAggregatorArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'AccountAggregationSources':
           if (value != null) {
             result.accountAggregationSources.replace((serializers.deserialize(
@@ -161,28 +177,13 @@ class ConfigurationAggregatorAwsJson11Serializer
             ) as _i4.BuiltList<_i2.AccountAggregationSource>));
           }
           break;
-        case 'ConfigurationAggregatorArn':
+        case 'OrganizationAggregationSource':
           if (value != null) {
-            result.configurationAggregatorArn = (serializers.deserialize(
+            result.organizationAggregationSource
+                .replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ConfigurationAggregatorName':
-          if (value != null) {
-            result.configurationAggregatorName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'CreatedBy':
-          if (value != null) {
-            result.createdBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i3.OrganizationAggregationSource),
+            ) as _i3.OrganizationAggregationSource));
           }
           break;
         case 'CreationTime':
@@ -201,13 +202,12 @@ class ConfigurationAggregatorAwsJson11Serializer
             ) as DateTime);
           }
           break;
-        case 'OrganizationAggregationSource':
+        case 'CreatedBy':
           if (value != null) {
-            result.organizationAggregationSource
-                .replace((serializers.deserialize(
+            result.createdBy = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.OrganizationAggregationSource),
-            ) as _i3.OrganizationAggregationSource));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -224,6 +224,22 @@ class ConfigurationAggregatorAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationAggregator);
     final result = <Object?>[];
+    if (payload.configurationAggregatorName != null) {
+      result
+        ..add('ConfigurationAggregatorName')
+        ..add(serializers.serialize(
+          payload.configurationAggregatorName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.configurationAggregatorArn != null) {
+      result
+        ..add('ConfigurationAggregatorArn')
+        ..add(serializers.serialize(
+          payload.configurationAggregatorArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.accountAggregationSources != null) {
       result
         ..add('AccountAggregationSources')
@@ -235,28 +251,12 @@ class ConfigurationAggregatorAwsJson11Serializer
           ),
         ));
     }
-    if (payload.configurationAggregatorArn != null) {
+    if (payload.organizationAggregationSource != null) {
       result
-        ..add('ConfigurationAggregatorArn')
+        ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
-          payload.configurationAggregatorArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.configurationAggregatorName != null) {
-      result
-        ..add('ConfigurationAggregatorName')
-        ..add(serializers.serialize(
-          payload.configurationAggregatorName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.createdBy != null) {
-      result
-        ..add('CreatedBy')
-        ..add(serializers.serialize(
-          payload.createdBy!,
-          specifiedType: const FullType(String),
+          payload.organizationAggregationSource!,
+          specifiedType: const FullType(_i3.OrganizationAggregationSource),
         ));
     }
     if (payload.creationTime != null) {
@@ -275,12 +275,12 @@ class ConfigurationAggregatorAwsJson11Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.organizationAggregationSource != null) {
+    if (payload.createdBy != null) {
       result
-        ..add('OrganizationAggregationSource')
+        ..add('CreatedBy')
         ..add(serializers.serialize(
-          payload.organizationAggregationSource!,
-          specifiedType: const FullType(_i3.OrganizationAggregationSource),
+          payload.createdBy!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

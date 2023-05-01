@@ -22,12 +22,12 @@ abstract class GetDocumentationVersionRequest
         _i1.HasPayload<GetDocumentationVersionRequestPayload> {
   /// Gets a documentation snapshot of an API.
   factory GetDocumentationVersionRequest({
-    required String documentationVersion,
     required String restApiId,
+    required String documentationVersion,
   }) {
     return _$GetDocumentationVersionRequest._(
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
+      documentationVersion: documentationVersion,
     );
   }
 
@@ -59,11 +59,11 @@ abstract class GetDocumentationVersionRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDocumentationVersionRequestBuilder b) {}
 
-  /// The version identifier of the to-be-retrieved documentation snapshot.
-  String get documentationVersion;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The version identifier of the to-be-retrieved documentation snapshot.
+  String get documentationVersion;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,20 +83,20 @@ abstract class GetDocumentationVersionRequest
       GetDocumentationVersionRequestPayload();
   @override
   List<Object?> get props => [
-        documentationVersion,
         restApiId,
+        documentationVersion,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetDocumentationVersionRequest');
     helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'documentationVersion',
+      documentationVersion,
     );
     return helper.toString();
   }

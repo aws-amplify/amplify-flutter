@@ -21,16 +21,16 @@ abstract class CreateDocumentationVersionRequest
         _i1.HasPayload<CreateDocumentationVersionRequestPayload> {
   /// Creates a new documentation version of a given API.
   factory CreateDocumentationVersionRequest({
-    String? description,
-    required String documentationVersion,
     required String restApiId,
+    required String documentationVersion,
     String? stageName,
+    String? description,
   }) {
     return _$CreateDocumentationVersionRequest._(
-      description: description,
-      documentationVersion: documentationVersion,
       restApiId: restApiId,
+      documentationVersion: documentationVersion,
       stageName: stageName,
+      description: description,
     );
   }
 
@@ -62,17 +62,17 @@ abstract class CreateDocumentationVersionRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDocumentationVersionRequestBuilder b) {}
 
-  /// A description about the new documentation snapshot.
-  String? get description;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The version identifier of the new snapshot.
   String get documentationVersion;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
   /// The stage name to be associated with the new documentation snapshot.
   String? get stageName;
+
+  /// A description about the new documentation snapshot.
+  String? get description;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -94,30 +94,30 @@ abstract class CreateDocumentationVersionRequest
       });
   @override
   List<Object?> get props => [
-        description,
-        documentationVersion,
         restApiId,
+        documentationVersion,
         stageName,
+        description,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CreateDocumentationVersionRequest');
     helper.add(
-      'description',
-      description,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'documentationVersion',
       documentationVersion,
     );
     helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
       'stageName',
       stageName,
+    );
+    helper.add(
+      'description',
+      description,
     );
     return helper.toString();
   }

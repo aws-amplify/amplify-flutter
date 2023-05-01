@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_model_template_request;
 
 class _$GetModelTemplateRequest extends GetModelTemplateRequest {
   @override
-  final String modelName;
-  @override
   final String restApiId;
+  @override
+  final String modelName;
 
   factory _$GetModelTemplateRequest(
           [void Function(GetModelTemplateRequestBuilder)? updates]) =>
       (new GetModelTemplateRequestBuilder()..update(updates))._build();
 
   _$GetModelTemplateRequest._(
-      {required this.modelName, required this.restApiId})
+      {required this.restApiId, required this.modelName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        modelName, r'GetModelTemplateRequest', 'modelName');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetModelTemplateRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        modelName, r'GetModelTemplateRequest', 'modelName');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetModelTemplateRequest extends GetModelTemplateRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetModelTemplateRequest &&
-        modelName == other.modelName &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        modelName == other.modelName;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, modelName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class GetModelTemplateRequestBuilder
         Builder<GetModelTemplateRequest, GetModelTemplateRequestBuilder> {
   _$GetModelTemplateRequest? _$v;
 
-  String? _modelName;
-  String? get modelName => _$this._modelName;
-  set modelName(String? modelName) => _$this._modelName = modelName;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _modelName;
+  String? get modelName => _$this._modelName;
+  set modelName(String? modelName) => _$this._modelName = modelName;
 
   GetModelTemplateRequestBuilder() {
     GetModelTemplateRequest._init(this);
@@ -72,8 +72,8 @@ class GetModelTemplateRequestBuilder
   GetModelTemplateRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _modelName = $v.modelName;
       _restApiId = $v.restApiId;
+      _modelName = $v.modelName;
       _$v = null;
     }
     return this;
@@ -96,10 +96,10 @@ class GetModelTemplateRequestBuilder
   _$GetModelTemplateRequest _build() {
     final _$result = _$v ??
         new _$GetModelTemplateRequest._(
-            modelName: BuiltValueNullFieldError.checkNotNull(
-                modelName, r'GetModelTemplateRequest', 'modelName'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetModelTemplateRequest', 'restApiId'));
+                restApiId, r'GetModelTemplateRequest', 'restApiId'),
+            modelName: BuiltValueNullFieldError.checkNotNull(
+                modelName, r'GetModelTemplateRequest', 'modelName'));
     replace(_$result);
     return _$result;
   }

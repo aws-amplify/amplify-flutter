@@ -30,15 +30,15 @@ abstract class PutBucketInventoryConfigurationRequest
         _i1.HasPayload<_i2.InventoryConfiguration> {
   factory PutBucketInventoryConfigurationRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
     required _i2.InventoryConfiguration inventoryConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketInventoryConfigurationRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
       inventoryConfiguration: inventoryConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -77,14 +77,14 @@ abstract class PutBucketInventoryConfigurationRequest
   /// The name of the bucket where the inventory configuration will be stored.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID used to identify the inventory configuration.
   String get id;
 
   /// Specifies the inventory configuration.
   _i2.InventoryConfiguration get inventoryConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -102,9 +102,9 @@ abstract class PutBucketInventoryConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         id,
         inventoryConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -115,16 +115,16 @@ abstract class PutBucketInventoryConfigurationRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
     );
     helper.add(
       'inventoryConfiguration',
       inventoryConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -198,7 +198,7 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
                 (const _i1.XmlBuiltListSerializer(memberName: 'Field')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i7.BuiltList,
                 [FullType(_i8.InventoryOptionalField)],

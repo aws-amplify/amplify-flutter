@@ -24,15 +24,15 @@ abstract class UpdateRequestValidatorRequest
         _i1.HasPayload<UpdateRequestValidatorRequestPayload> {
   /// Updates a RequestValidator of a given RestApi.
   factory UpdateRequestValidatorRequest({
-    List<_i3.PatchOperation>? patchOperations,
-    required String requestValidatorId,
     required String restApiId,
+    required String requestValidatorId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateRequestValidatorRequest._(
+      restApiId: restApiId,
+      requestValidatorId: requestValidatorId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      requestValidatorId: requestValidatorId,
-      restApiId: restApiId,
     );
   }
 
@@ -67,14 +67,14 @@ abstract class UpdateRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateRequestValidatorRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The identifier of RequestValidator to be updated.
   String get requestValidatorId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,24 +98,24 @@ abstract class UpdateRequestValidatorRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
-        requestValidatorId,
         restApiId,
+        requestValidatorId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'requestValidatorId',
       requestValidatorId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

@@ -23,21 +23,21 @@ abstract class ListObjectVersionsRequest
     required String bucket,
     String? delimiter,
     _i3.EncodingType? encodingType,
-    String? expectedBucketOwner,
     String? keyMarker,
     int? maxKeys,
     String? prefix,
     String? versionIdMarker,
+    String? expectedBucketOwner,
   }) {
     return _$ListObjectVersionsRequest._(
       bucket: bucket,
       delimiter: delimiter,
       encodingType: encodingType,
-      expectedBucketOwner: expectedBucketOwner,
       keyMarker: keyMarker,
       maxKeys: maxKeys,
       prefix: prefix,
       versionIdMarker: versionIdMarker,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -97,9 +97,6 @@ abstract class ListObjectVersionsRequest
   /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
   _i3.EncodingType? get encodingType;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Specifies the key to start with when listing objects in a bucket.
   String? get keyMarker;
 
@@ -111,6 +108,9 @@ abstract class ListObjectVersionsRequest
 
   /// Specifies the object version you want to start listing from.
   String? get versionIdMarker;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -131,11 +131,11 @@ abstract class ListObjectVersionsRequest
         bucket,
         delimiter,
         encodingType,
-        expectedBucketOwner,
         keyMarker,
         maxKeys,
         prefix,
         versionIdMarker,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -153,10 +153,6 @@ abstract class ListObjectVersionsRequest
       encodingType,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'keyMarker',
       keyMarker,
     );
@@ -171,6 +167,10 @@ abstract class ListObjectVersionsRequest
     helper.add(
       'versionIdMarker',
       versionIdMarker,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

@@ -20,23 +20,23 @@ abstract class TestInvokeAuthorizerResponse
             TestInvokeAuthorizerResponseBuilder> {
   /// Represents the response of the test invoke request for a custom Authorizer
   factory TestInvokeAuthorizerResponse({
+    int? clientStatus,
+    String? log,
+    _i2.Int64? latency,
+    String? principalId,
+    String? policy,
     Map<String, List<String>>? authorization,
     Map<String, String>? claims,
-    int? clientStatus,
-    _i2.Int64? latency,
-    String? log,
-    String? policy,
-    String? principalId,
   }) {
     return _$TestInvokeAuthorizerResponse._(
+      clientStatus: clientStatus,
+      log: log,
+      latency: latency,
+      principalId: principalId,
+      policy: policy,
       authorization:
           authorization == null ? null : _i3.BuiltListMultimap(authorization),
       claims: claims == null ? null : _i3.BuiltMap(claims),
-      clientStatus: clientStatus,
-      latency: latency,
-      log: log,
-      policy: policy,
-      principalId: principalId,
     );
   }
 
@@ -61,39 +61,59 @@ abstract class TestInvokeAuthorizerResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerResponseBuilder b) {}
 
+  /// The HTTP status code that the client would have received. Value is 0 if the authorizer succeeded.
+  int? get clientStatus;
+
+  /// The API Gateway execution log for the test authorizer request.
+  String? get log;
+
+  /// The execution latency of the test authorizer request.
+  _i2.Int64? get latency;
+
+  /// The principal identity returned by the Authorizer
+  String? get principalId;
+
+  /// The JSON policy document returned by the Authorizer
+  String? get policy;
+
   /// The authorization response.
   _i3.BuiltListMultimap<String, String>? get authorization;
 
   /// The open identity claims, with any supported custom attributes, returned from the Cognito Your User Pool configured for the API.
   _i3.BuiltMap<String, String>? get claims;
-
-  /// The HTTP status code that the client would have received. Value is 0 if the authorizer succeeded.
-  int? get clientStatus;
-
-  /// The execution latency of the test authorizer request.
-  _i2.Int64? get latency;
-
-  /// The API Gateway execution log for the test authorizer request.
-  String? get log;
-
-  /// The JSON policy document returned by the Authorizer
-  String? get policy;
-
-  /// The principal identity returned by the Authorizer
-  String? get principalId;
   @override
   List<Object?> get props => [
+        clientStatus,
+        log,
+        latency,
+        principalId,
+        policy,
         authorization,
         claims,
-        clientStatus,
-        latency,
-        log,
-        policy,
-        principalId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerResponse');
+    helper.add(
+      'clientStatus',
+      clientStatus,
+    );
+    helper.add(
+      'log',
+      log,
+    );
+    helper.add(
+      'latency',
+      latency,
+    );
+    helper.add(
+      'principalId',
+      principalId,
+    );
+    helper.add(
+      'policy',
+      policy,
+    );
     helper.add(
       'authorization',
       authorization,
@@ -101,26 +121,6 @@ abstract class TestInvokeAuthorizerResponse
     helper.add(
       'claims',
       claims,
-    );
-    helper.add(
-      'clientStatus',
-      clientStatus,
-    );
-    helper.add(
-      'latency',
-      latency,
-    );
-    helper.add(
-      'log',
-      log,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'principalId',
-      principalId,
     );
     return helper.toString();
   }

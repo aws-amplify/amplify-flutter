@@ -15,19 +15,19 @@ abstract class CompletedPart
     implements Built<CompletedPart, CompletedPartBuilder> {
   /// Details of the parts that were uploaded.
   factory CompletedPart({
+    String? eTag,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    String? eTag,
     int? partNumber,
   }) {
     return _$CompletedPart._(
+      eTag: eTag,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      eTag: eTag,
       partNumber: partNumber,
     );
   }
@@ -45,6 +45,9 @@ abstract class CompletedPart
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CompletedPartBuilder b) {}
 
+  /// Entity tag returned when the part was uploaded.
+  String? get eTag;
+
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
 
@@ -57,23 +60,24 @@ abstract class CompletedPart
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// Entity tag returned when the part was uploaded.
-  String? get eTag;
-
   /// Part number that identifies the part. This is a positive integer between 1 and 10,000.
   int? get partNumber;
   @override
   List<Object?> get props => [
+        eTag,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        eTag,
         partNumber,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CompletedPart');
+    helper.add(
+      'eTag',
+      eTag,
+    );
     helper.add(
       'checksumCrc32',
       checksumCrc32,
@@ -89,10 +93,6 @@ abstract class CompletedPart
     helper.add(
       'checksumSha256',
       checksumSha256,
-    );
-    helper.add(
-      'eTag',
-      eTag,
     );
     helper.add(
       'partNumber',

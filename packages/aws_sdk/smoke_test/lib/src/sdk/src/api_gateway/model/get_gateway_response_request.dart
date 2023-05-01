@@ -23,12 +23,12 @@ abstract class GetGatewayResponseRequest
         _i1.HasPayload<GetGatewayResponseRequestPayload> {
   /// Gets a GatewayResponse of a specified response type on the given RestApi.
   factory GetGatewayResponseRequest({
-    required _i3.GatewayResponseType responseType,
     required String restApiId,
+    required _i3.GatewayResponseType responseType,
   }) {
     return _$GetGatewayResponseRequest._(
-      responseType: responseType,
       restApiId: restApiId,
+      responseType: responseType,
     );
   }
 
@@ -61,11 +61,11 @@ abstract class GetGatewayResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetGatewayResponseRequestBuilder b) {}
 
-  /// The response type of the associated GatewayResponse.
-  _i3.GatewayResponseType get responseType;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The response type of the associated GatewayResponse.
+  _i3.GatewayResponseType get responseType;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -85,19 +85,19 @@ abstract class GetGatewayResponseRequest
       GetGatewayResponseRequestPayload();
   @override
   List<Object?> get props => [
-        responseType,
         restApiId,
+        responseType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetGatewayResponseRequest');
     helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'responseType',
+      responseType,
     );
     return helper.toString();
   }

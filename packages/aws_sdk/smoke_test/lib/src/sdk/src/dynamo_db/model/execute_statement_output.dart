@@ -8,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
     as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
+    as _i3;
 
 part 'execute_statement_output.g.dart';
 
@@ -18,19 +18,19 @@ abstract class ExecuteStatementOutput
     with _i1.AWSEquatable<ExecuteStatementOutput>
     implements Built<ExecuteStatementOutput, ExecuteStatementOutputBuilder> {
   factory ExecuteStatementOutput({
-    _i2.ConsumedCapacity? consumedCapacity,
-    List<Map<String, _i3.AttributeValue>>? items,
-    Map<String, _i3.AttributeValue>? lastEvaluatedKey,
+    List<Map<String, _i2.AttributeValue>>? items,
     String? nextToken,
+    _i3.ConsumedCapacity? consumedCapacity,
+    Map<String, _i2.AttributeValue>? lastEvaluatedKey,
   }) {
     return _$ExecuteStatementOutput._(
-      consumedCapacity: consumedCapacity,
       items: items == null
           ? null
           : _i4.BuiltList(items.map((el) => _i4.BuiltMap(el))),
+      nextToken: nextToken,
+      consumedCapacity: consumedCapacity,
       lastEvaluatedKey:
           lastEvaluatedKey == null ? null : _i4.BuiltMap(lastEvaluatedKey),
-      nextToken: nextToken,
     );
   }
 
@@ -54,42 +54,42 @@ abstract class ExecuteStatementOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteStatementOutputBuilder b) {}
 
-  /// The capacity units consumed by an operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the request asked for it. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
-  _i2.ConsumedCapacity? get consumedCapacity;
-
   /// If a read operation was used, this property will contain the result of the read operation; a map of attribute names and their values. For the write operations this value will be empty.
-  _i4.BuiltList<_i4.BuiltMap<String, _i3.AttributeValue>>? get items;
-
-  /// The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request. If `LastEvaluatedKey` is empty, then the "last page" of results has been processed and there is no more data to be retrieved. If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
-  _i4.BuiltMap<String, _i3.AttributeValue>? get lastEvaluatedKey;
+  _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
 
   /// If the response of a read request exceeds the response payload limit DynamoDB will set this value in the response. If set, you can use that this value in the subsequent request to get the remaining results.
   String? get nextToken;
+
+  /// The capacity units consumed by an operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the request asked for it. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
+  _i3.ConsumedCapacity? get consumedCapacity;
+
+  /// The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request. If `LastEvaluatedKey` is empty, then the "last page" of results has been processed and there is no more data to be retrieved. If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
+  _i4.BuiltMap<String, _i2.AttributeValue>? get lastEvaluatedKey;
   @override
   List<Object?> get props => [
-        consumedCapacity,
         items,
-        lastEvaluatedKey,
         nextToken,
+        consumedCapacity,
+        lastEvaluatedKey,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExecuteStatementOutput');
     helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
       'items',
       items,
     );
     helper.add(
-      'lastEvaluatedKey',
-      lastEvaluatedKey,
-    );
-    helper.add(
       'nextToken',
       nextToken,
+    );
+    helper.add(
+      'consumedCapacity',
+      consumedCapacity,
+    );
+    helper.add(
+      'lastEvaluatedKey',
+      lastEvaluatedKey,
     );
     return helper.toString();
   }
@@ -125,14 +125,6 @@ class ExecuteStatementOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConsumedCapacity),
-            ) as _i2.ConsumedCapacity));
-          }
-          break;
         case 'Items':
           if (value != null) {
             result.items.replace((serializers.deserialize(
@@ -144,12 +136,28 @@ class ExecuteStatementOutputAwsJson10Serializer
                     _i4.BuiltMap,
                     [
                       FullType(String),
-                      FullType(_i3.AttributeValue),
+                      FullType(_i2.AttributeValue),
                     ],
                   )
                 ],
               ),
-            ) as _i4.BuiltList<_i4.BuiltMap<String, _i3.AttributeValue>>));
+            ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'ConsumedCapacity':
+          if (value != null) {
+            result.consumedCapacity.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ConsumedCapacity),
+            ) as _i3.ConsumedCapacity));
           }
           break;
         case 'LastEvaluatedKey':
@@ -160,18 +168,10 @@ class ExecuteStatementOutputAwsJson10Serializer
                 _i4.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i3.AttributeValue),
+                  FullType(_i2.AttributeValue),
                 ],
               ),
-            ) as _i4.BuiltMap<String, _i3.AttributeValue>));
-          }
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
+            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
           }
           break;
       }
@@ -188,14 +188,6 @@ class ExecuteStatementOutputAwsJson10Serializer
   }) {
     final payload = (object as ExecuteStatementOutput);
     final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
-      result
-        ..add('ConsumedCapacity')
-        ..add(serializers.serialize(
-          payload.consumedCapacity!,
-          specifiedType: const FullType(_i2.ConsumedCapacity),
-        ));
-    }
     if (payload.items != null) {
       result
         ..add('Items')
@@ -208,11 +200,27 @@ class ExecuteStatementOutputAwsJson10Serializer
                 _i4.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i3.AttributeValue),
+                  FullType(_i2.AttributeValue),
                 ],
               )
             ],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.consumedCapacity != null) {
+      result
+        ..add('ConsumedCapacity')
+        ..add(serializers.serialize(
+          payload.consumedCapacity!,
+          specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }
     if (payload.lastEvaluatedKey != null) {
@@ -224,17 +232,9 @@ class ExecuteStatementOutputAwsJson10Serializer
             _i4.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.AttributeValue),
+              FullType(_i2.AttributeValue),
             ],
           ),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

@@ -3,9 +3,9 @@
 library amplify_storage_s3_dart.s3.model.upload_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
     as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
+    as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -21,30 +21,30 @@ abstract class UploadPartOutput
         _i2.EmptyPayload,
         _i2.HasPayload<UploadPartOutputPayload> {
   factory UploadPartOutput({
-    bool? bucketKeyEnabled,
+    _i3.ServerSideEncryption? serverSideEncryption,
+    String? eTag,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    String? eTag,
-    _i3.RequestCharged? requestCharged,
-    _i4.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
+    bool? bucketKeyEnabled,
+    _i4.RequestCharged? requestCharged,
   }) {
     return _$UploadPartOutput._(
-      bucketKeyEnabled: bucketKeyEnabled,
+      serverSideEncryption: serverSideEncryption,
+      eTag: eTag,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      eTag: eTag,
-      requestCharged: requestCharged,
-      serverSideEncryption: serverSideEncryption,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
       ssekmsKeyId: ssekmsKeyId,
+      bucketKeyEnabled: bucketKeyEnabled,
+      requestCharged: requestCharged,
     );
   }
 
@@ -60,7 +60,7 @@ abstract class UploadPartOutput
   ) =>
       UploadPartOutput.build((b) {
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i4.ServerSideEncryption.values
+          b.serverSideEncryption = _i3.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response.headers['ETag'] != null) {
@@ -102,7 +102,7 @@ abstract class UploadPartOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = _i4.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -114,8 +114,11 @@ abstract class UploadPartOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartOutputBuilder b) {}
 
-  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  _i3.ServerSideEncryption? get serverSideEncryption;
+
+  /// Entity tag for the uploaded object.
+  String? get eTag;
 
   /// The base64-encoded, 32-bit CRC32 checksum of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
@@ -129,15 +132,6 @@ abstract class UploadPartOutput
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// Entity tag for the uploaded object.
-  String? get eTag;
-
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
-
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i4.ServerSideEncryption? get serverSideEncryption;
-
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
 
@@ -146,28 +140,38 @@ abstract class UploadPartOutput
 
   /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key was used for the object.
   String? get ssekmsKeyId;
+
+  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  bool? get bucketKeyEnabled;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i4.RequestCharged? get requestCharged;
   @override
   UploadPartOutputPayload getPayload() => UploadPartOutputPayload();
   @override
   List<Object?> get props => [
-        bucketKeyEnabled,
+        serverSideEncryption,
+        eTag,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        eTag,
-        requestCharged,
-        serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
         ssekmsKeyId,
+        bucketKeyEnabled,
+        requestCharged,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadPartOutput');
     helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
+      'serverSideEncryption',
+      serverSideEncryption,
+    );
+    helper.add(
+      'eTag',
+      eTag,
     );
     helper.add(
       'checksumCrc32',
@@ -186,18 +190,6 @@ abstract class UploadPartOutput
       checksumSha256,
     );
     helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
       'sseCustomerAlgorithm',
       sseCustomerAlgorithm,
     );
@@ -208,6 +200,14 @@ abstract class UploadPartOutput
     helper.add(
       'ssekmsKeyId',
       '***SENSITIVE***',
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
     );
     return helper.toString();
   }

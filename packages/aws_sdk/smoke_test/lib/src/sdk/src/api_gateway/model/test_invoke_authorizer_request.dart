@@ -21,28 +21,28 @@ abstract class TestInvokeAuthorizerRequest
         _i1.HasPayload<TestInvokeAuthorizerRequestPayload> {
   /// Make a request to simulate the invocation of an Authorizer.
   factory TestInvokeAuthorizerRequest({
-    Map<String, String>? additionalContext,
+    required String restApiId,
     required String authorizerId,
-    String? body,
     Map<String, String>? headers,
     Map<String, List<String>>? multiValueHeaders,
     String? pathWithQueryString,
-    required String restApiId,
+    String? body,
     Map<String, String>? stageVariables,
+    Map<String, String>? additionalContext,
   }) {
     return _$TestInvokeAuthorizerRequest._(
-      additionalContext:
-          additionalContext == null ? null : _i3.BuiltMap(additionalContext),
+      restApiId: restApiId,
       authorizerId: authorizerId,
-      body: body,
       headers: headers == null ? null : _i3.BuiltMap(headers),
       multiValueHeaders: multiValueHeaders == null
           ? null
           : _i3.BuiltListMultimap(multiValueHeaders),
       pathWithQueryString: pathWithQueryString,
-      restApiId: restApiId,
+      body: body,
       stageVariables:
           stageVariables == null ? null : _i3.BuiltMap(stageVariables),
+      additionalContext:
+          additionalContext == null ? null : _i3.BuiltMap(additionalContext),
     );
   }
 
@@ -88,14 +88,11 @@ abstract class TestInvokeAuthorizerRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeAuthorizerRequestBuilder b) {}
 
-  /// A key-value map of additional context variables.
-  _i3.BuiltMap<String, String>? get additionalContext;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies a test invoke authorizer request's Authorizer ID.
   String get authorizerId;
-
-  /// The simulated request body of an incoming invocation request.
-  String? get body;
 
   /// A key-value map of headers to simulate an incoming invocation request. This is where the incoming authorization token, or identity source, should be specified.
   _i3.BuiltMap<String, String>? get headers;
@@ -106,11 +103,14 @@ abstract class TestInvokeAuthorizerRequest
   /// The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
   String? get pathWithQueryString;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The simulated request body of an incoming invocation request.
+  String? get body;
 
   /// A key-value map of stage variables to simulate an invocation on a deployed Stage.
   _i3.BuiltMap<String, String>? get stageVariables;
+
+  /// A key-value map of additional context variables.
+  _i3.BuiltMap<String, String>? get additionalContext;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -145,29 +145,25 @@ abstract class TestInvokeAuthorizerRequest
       });
   @override
   List<Object?> get props => [
-        additionalContext,
+        restApiId,
         authorizerId,
-        body,
         headers,
         multiValueHeaders,
         pathWithQueryString,
-        restApiId,
+        body,
         stageVariables,
+        additionalContext,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest');
     helper.add(
-      'additionalContext',
-      additionalContext,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'authorizerId',
       authorizerId,
-    );
-    helper.add(
-      'body',
-      body,
     );
     helper.add(
       'headers',
@@ -182,12 +178,16 @@ abstract class TestInvokeAuthorizerRequest
       pathWithQueryString,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'body',
+      body,
     );
     helper.add(
       'stageVariables',
       stageVariables,
+    );
+    helper.add(
+      'additionalContext',
+      additionalContext,
     );
     return helper.toString();
   }

@@ -20,17 +20,17 @@ abstract class GetComplianceDetailsByResourceRequest
         Built<GetComplianceDetailsByResourceRequest,
             GetComplianceDetailsByResourceRequestBuilder> {
   factory GetComplianceDetailsByResourceRequest({
+    required String resourceType,
+    required String resourceId,
     List<_i3.ComplianceType>? complianceTypes,
     String? nextToken,
-    required String resourceId,
-    required String resourceType,
   }) {
     return _$GetComplianceDetailsByResourceRequest._(
+      resourceType: resourceType,
+      resourceId: resourceId,
       complianceTypes:
           complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
       nextToken: nextToken,
-      resourceId: resourceId,
-      resourceType: resourceType,
     );
   }
 
@@ -54,6 +54,12 @@ abstract class GetComplianceDetailsByResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetComplianceDetailsByResourceRequestBuilder b) {}
 
+  /// The type of the Amazon Web Services resource for which you want compliance information.
+  String get resourceType;
+
+  /// The ID of the Amazon Web Services resource for which you want compliance information.
+  String get resourceId;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE`.
@@ -61,25 +67,27 @@ abstract class GetComplianceDetailsByResourceRequest
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The ID of the Amazon Web Services resource for which you want compliance information.
-  String get resourceId;
-
-  /// The type of the Amazon Web Services resource for which you want compliance information.
-  String get resourceType;
   @override
   GetComplianceDetailsByResourceRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        resourceType,
+        resourceId,
         complianceTypes,
         nextToken,
-        resourceId,
-        resourceType,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetComplianceDetailsByResourceRequest');
+    helper.add(
+      'resourceType',
+      resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
+    );
     helper.add(
       'complianceTypes',
       complianceTypes,
@@ -87,14 +95,6 @@ abstract class GetComplianceDetailsByResourceRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
     );
     return helper.toString();
   }
@@ -130,6 +130,18 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ResourceType':
+          result.resourceType = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'ResourceId':
+          result.resourceId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ComplianceTypes':
           if (value != null) {
             result.complianceTypes.replace((serializers.deserialize(
@@ -149,18 +161,6 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
             ) as String);
           }
           break;
-        case 'ResourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ResourceType':
-          result.resourceType = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
       }
     }
 
@@ -175,14 +175,14 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as GetComplianceDetailsByResourceRequest);
     final result = <Object?>[
-      'ResourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
       'ResourceType',
       serializers.serialize(
         payload.resourceType,
+        specifiedType: const FullType(String),
+      ),
+      'ResourceId',
+      serializers.serialize(
+        payload.resourceId,
         specifiedType: const FullType(String),
       ),
     ];

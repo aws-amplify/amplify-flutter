@@ -15,14 +15,14 @@ abstract class DocumentationVersion
     implements Built<DocumentationVersion, DocumentationVersionBuilder> {
   /// A snapshot of the documentation of an API.
   factory DocumentationVersion({
+    String? version,
     DateTime? createdDate,
     String? description,
-    String? version,
   }) {
     return _$DocumentationVersion._(
+      version: version,
       createdDate: createdDate,
       description: description,
-      version: version,
     );
   }
 
@@ -47,23 +47,27 @@ abstract class DocumentationVersion
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DocumentationVersionBuilder b) {}
 
+  /// The version identifier of the API documentation snapshot.
+  String? get version;
+
   /// The date when the API documentation snapshot is created.
   DateTime? get createdDate;
 
   /// The description of the API documentation snapshot.
   String? get description;
-
-  /// The version identifier of the API documentation snapshot.
-  String? get version;
   @override
   List<Object?> get props => [
+        version,
         createdDate,
         description,
-        version,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DocumentationVersion');
+    helper.add(
+      'version',
+      version,
+    );
     helper.add(
       'createdDate',
       createdDate,
@@ -71,10 +75,6 @@ abstract class DocumentationVersion
     helper.add(
       'description',
       description,
-    );
-    helper.add(
-      'version',
-      version,
     );
     return helper.toString();
   }

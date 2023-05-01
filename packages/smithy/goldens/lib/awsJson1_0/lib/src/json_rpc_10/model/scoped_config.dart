@@ -3,9 +3,9 @@
 library aws_json1_0_v1.json_rpc_10.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/client_config.dart' as _i2;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/client_config.dart' as _i4;
 import 'package:aws_json1_0_v1/src/json_rpc_10/model/environment_config.dart'
-    as _i4;
+    as _i2;
 import 'package:aws_json1_0_v1/src/json_rpc_10/model/file_config_settings.dart'
     as _i3;
 import 'package:aws_json1_0_v1/src/json_rpc_10/model/operation_config.dart'
@@ -23,18 +23,18 @@ abstract class ScopedConfig
     implements Built<ScopedConfig, ScopedConfigBuilder> {
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   factory ScopedConfig({
-    _i2.ClientConfig? client,
+    _i2.EnvironmentConfig? environment,
     Map<String, _i3.FileConfigSettings>? configFile,
     Map<String, _i3.FileConfigSettings>? credentialsFile,
-    _i4.EnvironmentConfig? environment,
+    _i4.ClientConfig? client,
     _i5.OperationConfig? operation,
   }) {
     return _$ScopedConfig._(
-      client: client,
+      environment: environment,
       configFile: configFile == null ? null : _i6.BuiltMap(configFile),
       credentialsFile:
           credentialsFile == null ? null : _i6.BuiltMap(credentialsFile),
-      environment: environment,
+      client: client,
       operation: operation,
     );
   }
@@ -52,8 +52,8 @@ abstract class ScopedConfig
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ScopedConfigBuilder b) {}
 
-  /// Configuration that is set on the constructed client.
-  _i2.ClientConfig? get client;
+  /// Config settings that can be set as environment variables.
+  _i2.EnvironmentConfig? get environment;
 
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
   _i6.BuiltMap<String, _i3.FileConfigSettings>? get configFile;
@@ -61,25 +61,25 @@ abstract class ScopedConfig
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
   _i6.BuiltMap<String, _i3.FileConfigSettings>? get credentialsFile;
 
-  /// Config settings that can be set as environment variables.
-  _i4.EnvironmentConfig? get environment;
+  /// Configuration that is set on the constructed client.
+  _i4.ClientConfig? get client;
 
   /// Configuration that is set for the scope of a single operation.
   _i5.OperationConfig? get operation;
   @override
   List<Object?> get props => [
-        client,
+        environment,
         configFile,
         credentialsFile,
-        environment,
+        client,
         operation,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ScopedConfig');
     helper.add(
-      'client',
-      client,
+      'environment',
+      environment,
     );
     helper.add(
       'configFile',
@@ -90,8 +90,8 @@ abstract class ScopedConfig
       credentialsFile,
     );
     helper.add(
-      'environment',
-      environment,
+      'client',
+      client,
     );
     helper.add(
       'operation',
@@ -130,12 +130,12 @@ class ScopedConfigAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'client':
+        case 'environment':
           if (value != null) {
-            result.client.replace((serializers.deserialize(
+            result.environment.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ClientConfig),
-            ) as _i2.ClientConfig));
+              specifiedType: const FullType(_i2.EnvironmentConfig),
+            ) as _i2.EnvironmentConfig));
           }
           break;
         case 'configFile':
@@ -166,12 +166,12 @@ class ScopedConfigAwsJson10Serializer
             ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
           }
           break;
-        case 'environment':
+        case 'client':
           if (value != null) {
-            result.environment.replace((serializers.deserialize(
+            result.client.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.EnvironmentConfig),
-            ) as _i4.EnvironmentConfig));
+              specifiedType: const FullType(_i4.ClientConfig),
+            ) as _i4.ClientConfig));
           }
           break;
         case 'operation':
@@ -196,12 +196,12 @@ class ScopedConfigAwsJson10Serializer
   }) {
     final payload = (object as ScopedConfig);
     final result = <Object?>[];
-    if (payload.client != null) {
+    if (payload.environment != null) {
       result
-        ..add('client')
+        ..add('environment')
         ..add(serializers.serialize(
-          payload.client!,
-          specifiedType: const FullType(_i2.ClientConfig),
+          payload.environment!,
+          specifiedType: const FullType(_i2.EnvironmentConfig),
         ));
     }
     if (payload.configFile != null) {
@@ -232,12 +232,12 @@ class ScopedConfigAwsJson10Serializer
           ),
         ));
     }
-    if (payload.environment != null) {
+    if (payload.client != null) {
       result
-        ..add('environment')
+        ..add('client')
         ..add(serializers.serialize(
-          payload.environment!,
-          specifiedType: const FullType(_i4.EnvironmentConfig),
+          payload.client!,
+          specifiedType: const FullType(_i4.ClientConfig),
         ));
     }
     if (payload.operation != null) {

@@ -22,27 +22,27 @@ abstract class ListObjectsV2Request
         _i1.HasPayload<ListObjectsV2RequestPayload> {
   factory ListObjectsV2Request({
     required String bucket,
-    String? continuationToken,
     String? delimiter,
     _i3.EncodingType? encodingType,
-    String? expectedBucketOwner,
-    bool? fetchOwner,
     int? maxKeys,
     String? prefix,
-    _i4.RequestPayer? requestPayer,
+    String? continuationToken,
+    bool? fetchOwner,
     String? startAfter,
+    _i4.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
   }) {
     return _$ListObjectsV2Request._(
       bucket: bucket,
-      continuationToken: continuationToken,
       delimiter: delimiter,
       encodingType: encodingType,
-      expectedBucketOwner: expectedBucketOwner,
-      fetchOwner: fetchOwner,
       maxKeys: maxKeys,
       prefix: prefix,
-      requestPayer: requestPayer,
+      continuationToken: continuationToken,
+      fetchOwner: fetchOwner,
       startAfter: startAfter,
+      requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -107,20 +107,11 @@ abstract class ListObjectsV2Request
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// ContinuationToken indicates Amazon S3 that the list is being continued on this bucket with a token. ContinuationToken is obfuscated and is not a real key.
-  String? get continuationToken;
-
   /// A delimiter is a character you use to group keys.
   String? get delimiter;
 
   /// Encoding type used by Amazon S3 to encode object keys in the response.
   _i3.EncodingType? get encodingType;
-
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
-  /// The owner field is not present in listV2 by default, if you want to return owner field with each key in the result then set the fetch owner field to true.
-  bool? get fetchOwner;
 
   /// Sets the maximum number of keys returned in the response. By default the action returns up to 1,000 key names. The response might contain fewer keys but will never contain more.
   int? get maxKeys;
@@ -128,11 +119,20 @@ abstract class ListObjectsV2Request
   /// Limits the response to keys that begin with the specified prefix.
   String? get prefix;
 
-  /// Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket owners need not specify this parameter in their requests.
-  _i4.RequestPayer? get requestPayer;
+  /// ContinuationToken indicates Amazon S3 that the list is being continued on this bucket with a token. ContinuationToken is obfuscated and is not a real key.
+  String? get continuationToken;
+
+  /// The owner field is not present in listV2 by default, if you want to return owner field with each key in the result then set the fetch owner field to true.
+  bool? get fetchOwner;
 
   /// StartAfter is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key. StartAfter can be any key in the bucket.
   String? get startAfter;
+
+  /// Confirms that the requester knows that she or he will be charged for the list objects request in V2 style. Bucket owners need not specify this parameter in their requests.
+  _i4.RequestPayer? get requestPayer;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -150,15 +150,15 @@ abstract class ListObjectsV2Request
   @override
   List<Object?> get props => [
         bucket,
-        continuationToken,
         delimiter,
         encodingType,
-        expectedBucketOwner,
-        fetchOwner,
         maxKeys,
         prefix,
-        requestPayer,
+        continuationToken,
+        fetchOwner,
         startAfter,
+        requestPayer,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -166,10 +166,6 @@ abstract class ListObjectsV2Request
     helper.add(
       'bucket',
       bucket,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
     );
     helper.add(
       'delimiter',
@@ -180,14 +176,6 @@ abstract class ListObjectsV2Request
       encodingType,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'fetchOwner',
-      fetchOwner,
-    );
-    helper.add(
       'maxKeys',
       maxKeys,
     );
@@ -196,12 +184,24 @@ abstract class ListObjectsV2Request
       prefix,
     );
     helper.add(
-      'requestPayer',
-      requestPayer,
+      'continuationToken',
+      continuationToken,
+    );
+    helper.add(
+      'fetchOwner',
+      fetchOwner,
     );
     helper.add(
       'startAfter',
       startAfter,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

@@ -144,6 +144,12 @@ class ValidationExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'message':
+          result.message = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'fieldList':
           if (value != null) {
             result.fieldList.replace((serializers.deserialize(
@@ -154,12 +160,6 @@ class ValidationExceptionRestJson1Serializer
               ),
             ) as _i8.BuiltList<_i9.ValidationExceptionField>));
           }
-          break;
-        case 'message':
-          result.message = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -204,14 +204,14 @@ class ValidationExceptionFieldRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'message':
-          result.message = (serializers.deserialize(
+        case 'path':
+          result.path = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'path':
-          result.path = (serializers.deserialize(
+        case 'message':
+          result.message = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);

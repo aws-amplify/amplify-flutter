@@ -17,12 +17,12 @@ abstract class ResourceKey
     implements Built<ResourceKey, ResourceKeyBuilder> {
   /// The details that identify a resource within Config, including the resource type and resource ID.
   factory ResourceKey({
-    required String resourceId,
     required _i2.ResourceType resourceType,
+    required String resourceId,
   }) {
     return _$ResourceKey._(
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -39,26 +39,26 @@ abstract class ResourceKey
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceKeyBuilder b) {}
 
-  /// The ID of the resource (for example., sg-xxxxxx).
-  String get resourceId;
-
   /// The resource type.
   _i2.ResourceType get resourceType;
+
+  /// The ID of the resource (for example., sg-xxxxxx).
+  String get resourceId;
   @override
   List<Object?> get props => [
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceKey');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -93,17 +93,17 @@ class ResourceKeyAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'resourceId':
-          result.resourceId = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value!,
             specifiedType: const FullType(_i2.ResourceType),
           ) as _i2.ResourceType);
+          break;
+        case 'resourceId':
+          result.resourceId = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -119,15 +119,15 @@ class ResourceKeyAwsJson11Serializer
   }) {
     final payload = (object as ResourceKey);
     final result = <Object?>[
-      'resourceId',
-      serializers.serialize(
-        payload.resourceId,
-        specifiedType: const FullType(String),
-      ),
       'resourceType',
       serializers.serialize(
         payload.resourceType,
         specifiedType: const FullType(_i2.ResourceType),
+      ),
+      'resourceId',
+      serializers.serialize(
+        payload.resourceId,
+        specifiedType: const FullType(String),
       ),
     ];
     return result;

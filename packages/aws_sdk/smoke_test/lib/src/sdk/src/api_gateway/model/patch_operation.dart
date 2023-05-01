@@ -16,16 +16,16 @@ abstract class PatchOperation
     implements Built<PatchOperation, PatchOperationBuilder> {
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   factory PatchOperation({
-    String? from,
     _i2.Op? op,
     String? path,
     String? value,
+    String? from,
   }) {
     return _$PatchOperation._(
-      from: from,
       op: op,
       path: path,
       value: value,
+      from: from,
     );
   }
 
@@ -42,9 +42,6 @@ abstract class PatchOperation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PatchOperationBuilder b) {}
 
-  /// The copy update operation's source as identified by a JSON-Pointer value referencing the location within the targeted resource to copy the value from. For example, to promote a canary deployment, you copy the canary deployment ID to the affiliated deployment ID by calling a PATCH request on a Stage resource with "op":"copy", "from":"/canarySettings/deploymentId" and "path":"/deploymentId".
-  String? get from;
-
   /// An update operation to be performed with this PATCH request. The valid value can be add, remove, replace or copy. Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message..
   _i2.Op? get op;
 
@@ -53,20 +50,19 @@ abstract class PatchOperation
 
   /// The new target value of the update operation. It is applicable for the add or replace operation. When using AWS CLI to update a property of a JSON value, enclose the JSON object with a pair of single quotes in a Linux shell, e.g., '{"a": ...}'.
   String? get value;
+
+  /// The copy update operation's source as identified by a JSON-Pointer value referencing the location within the targeted resource to copy the value from. For example, to promote a canary deployment, you copy the canary deployment ID to the affiliated deployment ID by calling a PATCH request on a Stage resource with "op":"copy", "from":"/canarySettings/deploymentId" and "path":"/deploymentId".
+  String? get from;
   @override
   List<Object?> get props => [
-        from,
         op,
         path,
         value,
+        from,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PatchOperation');
-    helper.add(
-      'from',
-      from,
-    );
     helper.add(
       'op',
       op,
@@ -78,6 +74,10 @@ abstract class PatchOperation
     helper.add(
       'value',
       value,
+    );
+    helper.add(
+      'from',
+      from,
     );
     return helper.toString();
   }

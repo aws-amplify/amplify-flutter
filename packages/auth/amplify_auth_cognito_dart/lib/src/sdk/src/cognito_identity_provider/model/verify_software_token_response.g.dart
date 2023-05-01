@@ -8,15 +8,15 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.verify_softwar
 
 class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
   @override
-  final String? session;
-  @override
   final _i2.VerifySoftwareTokenResponseType? status;
+  @override
+  final String? session;
 
   factory _$VerifySoftwareTokenResponse(
           [void Function(VerifySoftwareTokenResponseBuilder)? updates]) =>
       (new VerifySoftwareTokenResponseBuilder()..update(updates))._build();
 
-  _$VerifySoftwareTokenResponse._({this.session, this.status}) : super._();
+  _$VerifySoftwareTokenResponse._({this.status, this.session}) : super._();
 
   @override
   VerifySoftwareTokenResponse rebuild(
@@ -31,15 +31,15 @@ class _$VerifySoftwareTokenResponse extends VerifySoftwareTokenResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is VerifySoftwareTokenResponse &&
-        session == other.session &&
-        status == other.status;
+        status == other.status &&
+        session == other.session;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, session.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,14 +51,14 @@ class VerifySoftwareTokenResponseBuilder
             VerifySoftwareTokenResponseBuilder> {
   _$VerifySoftwareTokenResponse? _$v;
 
-  String? _session;
-  String? get session => _$this._session;
-  set session(String? session) => _$this._session = session;
-
   _i2.VerifySoftwareTokenResponseType? _status;
   _i2.VerifySoftwareTokenResponseType? get status => _$this._status;
   set status(_i2.VerifySoftwareTokenResponseType? status) =>
       _$this._status = status;
+
+  String? _session;
+  String? get session => _$this._session;
+  set session(String? session) => _$this._session = session;
 
   VerifySoftwareTokenResponseBuilder() {
     VerifySoftwareTokenResponse._init(this);
@@ -67,8 +67,8 @@ class VerifySoftwareTokenResponseBuilder
   VerifySoftwareTokenResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _session = $v.session;
       _status = $v.status;
+      _session = $v.session;
       _$v = null;
     }
     return this;
@@ -90,7 +90,7 @@ class VerifySoftwareTokenResponseBuilder
 
   _$VerifySoftwareTokenResponse _build() {
     final _$result = _$v ??
-        new _$VerifySoftwareTokenResponse._(session: session, status: status);
+        new _$VerifySoftwareTokenResponse._(status: status, session: session);
     replace(_$result);
     return _$result;
   }

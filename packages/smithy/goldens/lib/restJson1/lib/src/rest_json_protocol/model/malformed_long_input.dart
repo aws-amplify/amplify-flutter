@@ -20,16 +20,16 @@ abstract class MalformedLongInput
         _i1.HasPayload<MalformedLongInputPayload> {
   factory MalformedLongInput({
     _i3.Int64? longInBody,
-    _i3.Int64? longInHeader,
     _i3.Int64? longInPath,
     _i3.Int64? longInQuery,
+    _i3.Int64? longInHeader,
   }) {
     longInPath ??= _i3.Int64.ZERO;
     return _$MalformedLongInput._(
       longInBody: longInBody,
-      longInHeader: longInHeader,
       longInPath: longInPath,
       longInQuery: longInQuery,
+      longInHeader: longInHeader,
     );
   }
 
@@ -68,9 +68,9 @@ abstract class MalformedLongInput
   }
 
   _i3.Int64? get longInBody;
-  _i3.Int64? get longInHeader;
   _i3.Int64 get longInPath;
   _i3.Int64? get longInQuery;
+  _i3.Int64? get longInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -90,9 +90,9 @@ abstract class MalformedLongInput
   @override
   List<Object?> get props => [
         longInBody,
-        longInHeader,
         longInPath,
         longInQuery,
+        longInHeader,
       ];
   @override
   String toString() {
@@ -102,16 +102,16 @@ abstract class MalformedLongInput
       longInBody,
     );
     helper.add(
-      'longInHeader',
-      longInHeader,
-    );
-    helper.add(
       'longInPath',
       longInPath,
     );
     helper.add(
       'longInQuery',
       longInQuery,
+    );
+    helper.add(
+      'longInHeader',
+      longInHeader,
     );
     return helper.toString();
   }

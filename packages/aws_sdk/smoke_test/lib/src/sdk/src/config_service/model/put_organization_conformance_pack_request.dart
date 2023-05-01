@@ -20,25 +20,25 @@ abstract class PutOrganizationConformancePackRequest
         Built<PutOrganizationConformancePackRequest,
             PutOrganizationConformancePackRequestBuilder> {
   factory PutOrganizationConformancePackRequest({
-    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
+    required String organizationConformancePackName,
+    String? templateS3Uri,
+    String? templateBody,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
+    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
     List<String>? excludedAccounts,
-    required String organizationConformancePackName,
-    String? templateBody,
-    String? templateS3Uri,
   }) {
     return _$PutOrganizationConformancePackRequest._(
+      organizationConformancePackName: organizationConformancePackName,
+      templateS3Uri: templateS3Uri,
+      templateBody: templateBody,
+      deliveryS3Bucket: deliveryS3Bucket,
+      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
           : _i4.BuiltList(conformancePackInputParameters),
-      deliveryS3Bucket: deliveryS3Bucket,
-      deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       excludedAccounts:
           excludedAccounts == null ? null : _i4.BuiltList(excludedAccounts),
-      organizationConformancePackName: organizationConformancePackName,
-      templateBody: templateBody,
-      templateS3Uri: templateS3Uri,
     );
   }
 
@@ -62,9 +62,16 @@ abstract class PutOrganizationConformancePackRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutOrganizationConformancePackRequestBuilder b) {}
 
-  /// A list of `ConformancePackInputParameter` objects.
-  _i4.BuiltList<_i3.ConformancePackInputParameter>?
-      get conformancePackInputParameters;
+  /// Name of the organization conformance pack you want to create.
+  String get organizationConformancePackName;
+
+  /// Location of file containing the template body. The uri must point to the conformance pack template (max size: 300 KB).
+  ///
+  /// You must have access to read Amazon S3 bucket.
+  String? get templateS3Uri;
+
+  /// A string containing full conformance pack template body. Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes.
+  String? get templateBody;
 
   /// The name of the Amazon S3 bucket where Config stores conformance pack templates.
   ///
@@ -76,38 +83,39 @@ abstract class PutOrganizationConformancePackRequest
   /// This field is optional.
   String? get deliveryS3KeyPrefix;
 
+  /// A list of `ConformancePackInputParameter` objects.
+  _i4.BuiltList<_i3.ConformancePackInputParameter>?
+      get conformancePackInputParameters;
+
   /// A list of Amazon Web Services accounts to be excluded from an organization conformance pack while deploying a conformance pack.
   _i4.BuiltList<String>? get excludedAccounts;
-
-  /// Name of the organization conformance pack you want to create.
-  String get organizationConformancePackName;
-
-  /// A string containing full conformance pack template body. Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes.
-  String? get templateBody;
-
-  /// Location of file containing the template body. The uri must point to the conformance pack template (max size: 300 KB).
-  ///
-  /// You must have access to read Amazon S3 bucket.
-  String? get templateS3Uri;
   @override
   PutOrganizationConformancePackRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        conformancePackInputParameters,
+        organizationConformancePackName,
+        templateS3Uri,
+        templateBody,
         deliveryS3Bucket,
         deliveryS3KeyPrefix,
+        conformancePackInputParameters,
         excludedAccounts,
-        organizationConformancePackName,
-        templateBody,
-        templateS3Uri,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutOrganizationConformancePackRequest');
     helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
+      'organizationConformancePackName',
+      organizationConformancePackName,
+    );
+    helper.add(
+      'templateS3Uri',
+      templateS3Uri,
+    );
+    helper.add(
+      'templateBody',
+      templateBody,
     );
     helper.add(
       'deliveryS3Bucket',
@@ -118,20 +126,12 @@ abstract class PutOrganizationConformancePackRequest
       deliveryS3KeyPrefix,
     );
     helper.add(
+      'conformancePackInputParameters',
+      conformancePackInputParameters,
+    );
+    helper.add(
       'excludedAccounts',
       excludedAccounts,
-    );
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
     );
     return helper.toString();
   }
@@ -167,16 +167,26 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConformancePackInputParameters':
+        case 'OrganizationConformancePackName':
+          result.organizationConformancePackName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'TemplateS3Uri':
           if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
+            result.templateS3Uri = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ConformancePackInputParameter)],
-              ),
-            ) as _i4.BuiltList<_i3.ConformancePackInputParameter>));
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'TemplateBody':
+          if (value != null) {
+            result.templateBody = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'DeliveryS3Bucket':
@@ -195,6 +205,18 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
             ) as String);
           }
           break;
+        case 'ConformancePackInputParameters':
+          if (value != null) {
+            result.conformancePackInputParameters
+                .replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.ConformancePackInputParameter)],
+              ),
+            ) as _i4.BuiltList<_i3.ConformancePackInputParameter>));
+          }
+          break;
         case 'ExcludedAccounts':
           if (value != null) {
             result.excludedAccounts.replace((serializers.deserialize(
@@ -204,28 +226,6 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
                 [FullType(String)],
               ),
             ) as _i4.BuiltList<String>));
-          }
-          break;
-        case 'OrganizationConformancePackName':
-          result.organizationConformancePackName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TemplateS3Uri':
-          if (value != null) {
-            result.templateS3Uri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -248,15 +248,20 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.conformancePackInputParameters != null) {
+    if (payload.templateS3Uri != null) {
       result
-        ..add('ConformancePackInputParameters')
+        ..add('TemplateS3Uri')
         ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ConformancePackInputParameter)],
-          ),
+          payload.templateS3Uri!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.templateBody != null) {
+      result
+        ..add('TemplateBody')
+        ..add(serializers.serialize(
+          payload.templateBody!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.deliveryS3Bucket != null) {
@@ -275,6 +280,17 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
           specifiedType: const FullType(String),
         ));
     }
+    if (payload.conformancePackInputParameters != null) {
+      result
+        ..add('ConformancePackInputParameters')
+        ..add(serializers.serialize(
+          payload.conformancePackInputParameters!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.ConformancePackInputParameter)],
+          ),
+        ));
+    }
     if (payload.excludedAccounts != null) {
       result
         ..add('ExcludedAccounts')
@@ -284,22 +300,6 @@ class PutOrganizationConformancePackRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (payload.templateBody != null) {
-      result
-        ..add('TemplateBody')
-        ..add(serializers.serialize(
-          payload.templateBody!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.templateS3Uri != null) {
-      result
-        ..add('TemplateS3Uri')
-        ..add(serializers.serialize(
-          payload.templateS3Uri!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

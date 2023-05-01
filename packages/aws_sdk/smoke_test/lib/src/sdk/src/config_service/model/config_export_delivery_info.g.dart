@@ -8,13 +8,13 @@ part of smoke_test.config_service.model.config_export_delivery_info;
 
 class _$ConfigExportDeliveryInfo extends ConfigExportDeliveryInfo {
   @override
-  final DateTime? lastAttemptTime;
+  final _i2.DeliveryStatus? lastStatus;
   @override
   final String? lastErrorCode;
   @override
   final String? lastErrorMessage;
   @override
-  final _i2.DeliveryStatus? lastStatus;
+  final DateTime? lastAttemptTime;
   @override
   final DateTime? lastSuccessfulTime;
   @override
@@ -25,10 +25,10 @@ class _$ConfigExportDeliveryInfo extends ConfigExportDeliveryInfo {
       (new ConfigExportDeliveryInfoBuilder()..update(updates))._build();
 
   _$ConfigExportDeliveryInfo._(
-      {this.lastAttemptTime,
+      {this.lastStatus,
       this.lastErrorCode,
       this.lastErrorMessage,
-      this.lastStatus,
+      this.lastAttemptTime,
       this.lastSuccessfulTime,
       this.nextDeliveryTime})
       : super._();
@@ -46,10 +46,10 @@ class _$ConfigExportDeliveryInfo extends ConfigExportDeliveryInfo {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConfigExportDeliveryInfo &&
-        lastAttemptTime == other.lastAttemptTime &&
+        lastStatus == other.lastStatus &&
         lastErrorCode == other.lastErrorCode &&
         lastErrorMessage == other.lastErrorMessage &&
-        lastStatus == other.lastStatus &&
+        lastAttemptTime == other.lastAttemptTime &&
         lastSuccessfulTime == other.lastSuccessfulTime &&
         nextDeliveryTime == other.nextDeliveryTime;
   }
@@ -57,10 +57,10 @@ class _$ConfigExportDeliveryInfo extends ConfigExportDeliveryInfo {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, lastAttemptTime.hashCode);
+    _$hash = $jc(_$hash, lastStatus.hashCode);
     _$hash = $jc(_$hash, lastErrorCode.hashCode);
     _$hash = $jc(_$hash, lastErrorMessage.hashCode);
-    _$hash = $jc(_$hash, lastStatus.hashCode);
+    _$hash = $jc(_$hash, lastAttemptTime.hashCode);
     _$hash = $jc(_$hash, lastSuccessfulTime.hashCode);
     _$hash = $jc(_$hash, nextDeliveryTime.hashCode);
     _$hash = $jf(_$hash);
@@ -73,10 +73,10 @@ class ConfigExportDeliveryInfoBuilder
         Builder<ConfigExportDeliveryInfo, ConfigExportDeliveryInfoBuilder> {
   _$ConfigExportDeliveryInfo? _$v;
 
-  DateTime? _lastAttemptTime;
-  DateTime? get lastAttemptTime => _$this._lastAttemptTime;
-  set lastAttemptTime(DateTime? lastAttemptTime) =>
-      _$this._lastAttemptTime = lastAttemptTime;
+  _i2.DeliveryStatus? _lastStatus;
+  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
+  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
+      _$this._lastStatus = lastStatus;
 
   String? _lastErrorCode;
   String? get lastErrorCode => _$this._lastErrorCode;
@@ -88,10 +88,10 @@ class ConfigExportDeliveryInfoBuilder
   set lastErrorMessage(String? lastErrorMessage) =>
       _$this._lastErrorMessage = lastErrorMessage;
 
-  _i2.DeliveryStatus? _lastStatus;
-  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
-  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
-      _$this._lastStatus = lastStatus;
+  DateTime? _lastAttemptTime;
+  DateTime? get lastAttemptTime => _$this._lastAttemptTime;
+  set lastAttemptTime(DateTime? lastAttemptTime) =>
+      _$this._lastAttemptTime = lastAttemptTime;
 
   DateTime? _lastSuccessfulTime;
   DateTime? get lastSuccessfulTime => _$this._lastSuccessfulTime;
@@ -110,10 +110,10 @@ class ConfigExportDeliveryInfoBuilder
   ConfigExportDeliveryInfoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _lastAttemptTime = $v.lastAttemptTime;
+      _lastStatus = $v.lastStatus;
       _lastErrorCode = $v.lastErrorCode;
       _lastErrorMessage = $v.lastErrorMessage;
-      _lastStatus = $v.lastStatus;
+      _lastAttemptTime = $v.lastAttemptTime;
       _lastSuccessfulTime = $v.lastSuccessfulTime;
       _nextDeliveryTime = $v.nextDeliveryTime;
       _$v = null;
@@ -138,10 +138,10 @@ class ConfigExportDeliveryInfoBuilder
   _$ConfigExportDeliveryInfo _build() {
     final _$result = _$v ??
         new _$ConfigExportDeliveryInfo._(
-            lastAttemptTime: lastAttemptTime,
+            lastStatus: lastStatus,
             lastErrorCode: lastErrorCode,
             lastErrorMessage: lastErrorMessage,
-            lastStatus: lastStatus,
+            lastAttemptTime: lastAttemptTime,
             lastSuccessfulTime: lastSuccessfulTime,
             nextDeliveryTime: nextDeliveryTime);
     replace(_$result);

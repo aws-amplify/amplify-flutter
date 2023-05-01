@@ -20,21 +20,21 @@ abstract class BackupDetails
   /// Contains the details of the backup created for the table.
   factory BackupDetails({
     required String backupArn,
-    required DateTime backupCreationDateTime,
-    DateTime? backupExpiryDateTime,
     required String backupName,
     _i2.Int64? backupSizeBytes,
     required _i3.BackupStatus backupStatus,
     required _i4.BackupType backupType,
+    required DateTime backupCreationDateTime,
+    DateTime? backupExpiryDateTime,
   }) {
     return _$BackupDetails._(
       backupArn: backupArn,
-      backupCreationDateTime: backupCreationDateTime,
-      backupExpiryDateTime: backupExpiryDateTime,
       backupName: backupName,
       backupSizeBytes: backupSizeBytes,
       backupStatus: backupStatus,
       backupType: backupType,
+      backupCreationDateTime: backupCreationDateTime,
+      backupExpiryDateTime: backupExpiryDateTime,
     );
   }
 
@@ -54,12 +54,6 @@ abstract class BackupDetails
   /// ARN associated with the backup.
   String get backupArn;
 
-  /// Time at which the backup was created. This is the request time of the backup.
-  DateTime get backupCreationDateTime;
-
-  /// Time at which the automatic on-demand backup created by DynamoDB will expire. This `SYSTEM` on-demand backup expires automatically 35 days after its creation.
-  DateTime? get backupExpiryDateTime;
-
   /// Name of the requested backup.
   String get backupName;
 
@@ -77,15 +71,21 @@ abstract class BackupDetails
   ///
   /// *   `AWS_BACKUP` \- On-demand backup created by you from Backup service.
   _i4.BackupType get backupType;
+
+  /// Time at which the backup was created. This is the request time of the backup.
+  DateTime get backupCreationDateTime;
+
+  /// Time at which the automatic on-demand backup created by DynamoDB will expire. This `SYSTEM` on-demand backup expires automatically 35 days after its creation.
+  DateTime? get backupExpiryDateTime;
   @override
   List<Object?> get props => [
         backupArn,
-        backupCreationDateTime,
-        backupExpiryDateTime,
         backupName,
         backupSizeBytes,
         backupStatus,
         backupType,
+        backupCreationDateTime,
+        backupExpiryDateTime,
       ];
   @override
   String toString() {
@@ -93,14 +93,6 @@ abstract class BackupDetails
     helper.add(
       'backupArn',
       backupArn,
-    );
-    helper.add(
-      'backupCreationDateTime',
-      backupCreationDateTime,
-    );
-    helper.add(
-      'backupExpiryDateTime',
-      backupExpiryDateTime,
     );
     helper.add(
       'backupName',
@@ -117,6 +109,14 @@ abstract class BackupDetails
     helper.add(
       'backupType',
       backupType,
+    );
+    helper.add(
+      'backupCreationDateTime',
+      backupCreationDateTime,
+    );
+    helper.add(
+      'backupExpiryDateTime',
+      backupExpiryDateTime,
     );
     return helper.toString();
   }
@@ -157,20 +157,6 @@ class BackupDetailsAwsJson10Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'BackupCreationDateTime':
-          result.backupCreationDateTime = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
-          break;
-        case 'BackupExpiryDateTime':
-          if (value != null) {
-            result.backupExpiryDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'BackupName':
           result.backupName = (serializers.deserialize(
             value!,
@@ -197,6 +183,20 @@ class BackupDetailsAwsJson10Serializer
             specifiedType: const FullType(_i4.BackupType),
           ) as _i4.BackupType);
           break;
+        case 'BackupCreationDateTime':
+          result.backupCreationDateTime = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+          break;
+        case 'BackupExpiryDateTime':
+          if (value != null) {
+            result.backupExpiryDateTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
       }
     }
 
@@ -216,11 +216,6 @@ class BackupDetailsAwsJson10Serializer
         payload.backupArn,
         specifiedType: const FullType(String),
       ),
-      'BackupCreationDateTime',
-      serializers.serialize(
-        payload.backupCreationDateTime,
-        specifiedType: const FullType(DateTime),
-      ),
       'BackupName',
       serializers.serialize(
         payload.backupName,
@@ -236,21 +231,26 @@ class BackupDetailsAwsJson10Serializer
         payload.backupType,
         specifiedType: const FullType(_i4.BackupType),
       ),
+      'BackupCreationDateTime',
+      serializers.serialize(
+        payload.backupCreationDateTime,
+        specifiedType: const FullType(DateTime),
+      ),
     ];
-    if (payload.backupExpiryDateTime != null) {
-      result
-        ..add('BackupExpiryDateTime')
-        ..add(serializers.serialize(
-          payload.backupExpiryDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.backupSizeBytes != null) {
       result
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
           payload.backupSizeBytes!,
           specifiedType: const FullType(_i2.Int64),
+        ));
+    }
+    if (payload.backupExpiryDateTime != null) {
+      result
+        ..add('BackupExpiryDateTime')
+        ..add(serializers.serialize(
+          payload.backupExpiryDateTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

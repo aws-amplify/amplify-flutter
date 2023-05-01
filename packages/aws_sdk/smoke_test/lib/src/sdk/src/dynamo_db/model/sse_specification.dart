@@ -17,13 +17,13 @@ abstract class SseSpecification
   /// Represents the settings used to enable server-side encryption.
   factory SseSpecification({
     bool? enabled,
-    String? kmsMasterKeyId,
     _i2.SseType? sseType,
+    String? kmsMasterKeyId,
   }) {
     return _$SseSpecification._(
       enabled: enabled,
-      kmsMasterKeyId: kmsMasterKeyId,
       sseType: sseType,
+      kmsMasterKeyId: kmsMasterKeyId,
     );
   }
 
@@ -43,18 +43,18 @@ abstract class SseSpecification
   /// Indicates whether server-side encryption is done using an Amazon Web Services managed key or an Amazon Web Services owned key. If enabled (true), server-side encryption type is set to `KMS` and an Amazon Web Services managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to Amazon Web Services owned key.
   bool? get enabled;
 
-  /// The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key `alias/aws/dynamodb`.
-  String? get kmsMasterKeyId;
-
   /// Server-side encryption type. The only supported value is:
   ///
   /// *   `KMS` \- Server-side encryption that uses Key Management Service. The key is stored in your account and is managed by KMS (KMS charges apply).
   _i2.SseType? get sseType;
+
+  /// The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key `alias/aws/dynamodb`.
+  String? get kmsMasterKeyId;
   @override
   List<Object?> get props => [
         enabled,
-        kmsMasterKeyId,
         sseType,
+        kmsMasterKeyId,
       ];
   @override
   String toString() {
@@ -64,12 +64,12 @@ abstract class SseSpecification
       enabled,
     );
     helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
-    helper.add(
       'sseType',
       sseType,
+    );
+    helper.add(
+      'kmsMasterKeyId',
+      kmsMasterKeyId,
     );
     return helper.toString();
   }
@@ -112,20 +112,20 @@ class SseSpecificationAwsJson10Serializer
             ) as bool);
           }
           break;
-        case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'SSEType':
           if (value != null) {
             result.sseType = (serializers.deserialize(
               value,
               specifiedType: const FullType(_i2.SseType),
             ) as _i2.SseType);
+          }
+          break;
+        case 'KMSMasterKeyId':
+          if (value != null) {
+            result.kmsMasterKeyId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -150,20 +150,20 @@ class SseSpecificationAwsJson10Serializer
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.kmsMasterKeyId != null) {
-      result
-        ..add('KMSMasterKeyId')
-        ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.sseType != null) {
       result
         ..add('SSEType')
         ..add(serializers.serialize(
           payload.sseType!,
           specifiedType: const FullType(_i2.SseType),
+        ));
+    }
+    if (payload.kmsMasterKeyId != null) {
+      result
+        ..add('KMSMasterKeyId')
+        ..add(serializers.serialize(
+          payload.kmsMasterKeyId!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

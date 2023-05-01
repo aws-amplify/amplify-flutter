@@ -21,14 +21,14 @@ abstract class DeleteMethodRequest
         _i1.HasPayload<DeleteMethodRequestPayload> {
   /// Request to delete an existing Method resource.
   factory DeleteMethodRequest({
-    required String httpMethod,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
   }) {
     return _$DeleteMethodRequest._(
-      httpMethod: httpMethod,
-      resourceId: resourceId,
       restApiId: restApiId,
+      resourceId: resourceId,
+      httpMethod: httpMethod,
     );
   }
 
@@ -63,14 +63,14 @@ abstract class DeleteMethodRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteMethodRequestBuilder b) {}
 
-  /// The HTTP verb of the Method resource.
-  String get httpMethod;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The Resource identifier for the Method resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The HTTP verb of the Method resource.
+  String get httpMethod;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -91,24 +91,24 @@ abstract class DeleteMethodRequest
   DeleteMethodRequestPayload getPayload() => DeleteMethodRequestPayload();
   @override
   List<Object?> get props => [
-        httpMethod,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteMethodRequest');
     helper.add(
-      'httpMethod',
-      httpMethod,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
     );
     return helper.toString();
   }

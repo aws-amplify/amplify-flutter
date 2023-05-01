@@ -19,14 +19,14 @@ abstract class DescribeRemediationExceptionsResponse
         Built<DescribeRemediationExceptionsResponse,
             DescribeRemediationExceptionsResponseBuilder> {
   factory DescribeRemediationExceptionsResponse({
-    String? nextToken,
     List<_i2.RemediationException>? remediationExceptions,
+    String? nextToken,
   }) {
     return _$DescribeRemediationExceptionsResponse._(
-      nextToken: nextToken,
       remediationExceptions: remediationExceptions == null
           ? null
           : _i3.BuiltList(remediationExceptions),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class DescribeRemediationExceptionsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRemediationExceptionsResponseBuilder b) {}
 
-  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of remediation exception objects.
   _i3.BuiltList<_i2.RemediationException>? get remediationExceptions;
+
+  /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         remediationExceptions,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeRemediationExceptionsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'remediationExceptions',
       remediationExceptions,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,14 +106,6 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'RemediationExceptions':
           if (value != null) {
             result.remediationExceptions.replace((serializers.deserialize(
@@ -123,6 +115,14 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
                 [FullType(_i2.RemediationException)],
               ),
             ) as _i3.BuiltList<_i2.RemediationException>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -139,14 +139,6 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeRemediationExceptionsResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.remediationExceptions != null) {
       result
         ..add('RemediationExceptions')
@@ -156,6 +148,14 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.RemediationException)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

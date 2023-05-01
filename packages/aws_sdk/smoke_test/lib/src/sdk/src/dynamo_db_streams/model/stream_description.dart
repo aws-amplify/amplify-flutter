@@ -8,13 +8,13 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/key_schema_element.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_status.dart'
     as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_status.dart'
+    as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart'
+    as _i3;
 
 part 'stream_description.g.dart';
 
@@ -24,26 +24,26 @@ abstract class StreamDescription
     implements Built<StreamDescription, StreamDescriptionBuilder> {
   /// Represents all of the data describing a particular stream.
   factory StreamDescription({
-    DateTime? creationRequestDateTime,
-    List<_i2.KeySchemaElement>? keySchema,
-    String? lastEvaluatedShardId,
-    List<_i3.Shard>? shards,
     String? streamArn,
     String? streamLabel,
-    _i4.StreamStatus? streamStatus,
-    _i5.StreamViewType? streamViewType,
+    _i2.StreamStatus? streamStatus,
+    _i3.StreamViewType? streamViewType,
+    DateTime? creationRequestDateTime,
     String? tableName,
+    List<_i4.KeySchemaElement>? keySchema,
+    List<_i5.Shard>? shards,
+    String? lastEvaluatedShardId,
   }) {
     return _$StreamDescription._(
-      creationRequestDateTime: creationRequestDateTime,
-      keySchema: keySchema == null ? null : _i6.BuiltList(keySchema),
-      lastEvaluatedShardId: lastEvaluatedShardId,
-      shards: shards == null ? null : _i6.BuiltList(shards),
       streamArn: streamArn,
       streamLabel: streamLabel,
       streamStatus: streamStatus,
       streamViewType: streamViewType,
+      creationRequestDateTime: creationRequestDateTime,
       tableName: tableName,
+      keySchema: keySchema == null ? null : _i6.BuiltList(keySchema),
+      shards: shards == null ? null : _i6.BuiltList(shards),
+      lastEvaluatedShardId: lastEvaluatedShardId,
     );
   }
 
@@ -59,22 +59,6 @@ abstract class StreamDescription
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamDescriptionBuilder b) {}
-
-  /// The date and time when the request to create this stream was issued.
-  DateTime? get creationRequestDateTime;
-
-  /// The key attribute(s) of the stream's DynamoDB table.
-  _i6.BuiltList<_i2.KeySchemaElement>? get keySchema;
-
-  /// The shard ID of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
-  ///
-  /// If `LastEvaluatedShardId` is empty, then the "last page" of results has been processed and there is currently no more data to be retrieved.
-  ///
-  /// If `LastEvaluatedShardId` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedShardId` is empty.
-  String? get lastEvaluatedShardId;
-
-  /// The shards that comprise the stream.
-  _i6.BuiltList<_i3.Shard>? get shards;
 
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
@@ -99,7 +83,7 @@ abstract class StreamDescription
   /// *   `DISABLING` \- Streams is currently being disabled on the DynamoDB table.
   ///
   /// *   `DISABLED` \- the stream is disabled.
-  _i4.StreamStatus? get streamStatus;
+  _i2.StreamStatus? get streamStatus;
 
   /// Indicates the format of the records within this stream:
   ///
@@ -110,41 +94,41 @@ abstract class StreamDescription
   /// *   `OLD_IMAGE` \- entire items from the table, as they appeared before they were modified.
   ///
   /// *   `NEW\_AND\_OLD_IMAGES` \- both the new and the old images of the items from the table.
-  _i5.StreamViewType? get streamViewType;
+  _i3.StreamViewType? get streamViewType;
+
+  /// The date and time when the request to create this stream was issued.
+  DateTime? get creationRequestDateTime;
 
   /// The DynamoDB table with which the stream is associated.
   String? get tableName;
+
+  /// The key attribute(s) of the stream's DynamoDB table.
+  _i6.BuiltList<_i4.KeySchemaElement>? get keySchema;
+
+  /// The shards that comprise the stream.
+  _i6.BuiltList<_i5.Shard>? get shards;
+
+  /// The shard ID of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
+  ///
+  /// If `LastEvaluatedShardId` is empty, then the "last page" of results has been processed and there is currently no more data to be retrieved.
+  ///
+  /// If `LastEvaluatedShardId` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedShardId` is empty.
+  String? get lastEvaluatedShardId;
   @override
   List<Object?> get props => [
-        creationRequestDateTime,
-        keySchema,
-        lastEvaluatedShardId,
-        shards,
         streamArn,
         streamLabel,
         streamStatus,
         streamViewType,
+        creationRequestDateTime,
         tableName,
+        keySchema,
+        shards,
+        lastEvaluatedShardId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('StreamDescription');
-    helper.add(
-      'creationRequestDateTime',
-      creationRequestDateTime,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'lastEvaluatedShardId',
-      lastEvaluatedShardId,
-    );
-    helper.add(
-      'shards',
-      shards,
-    );
     helper.add(
       'streamArn',
       streamArn,
@@ -162,8 +146,24 @@ abstract class StreamDescription
       streamViewType,
     );
     helper.add(
+      'creationRequestDateTime',
+      creationRequestDateTime,
+    );
+    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'keySchema',
+      keySchema,
+    );
+    helper.add(
+      'shards',
+      shards,
+    );
+    helper.add(
+      'lastEvaluatedShardId',
+      lastEvaluatedShardId,
     );
     return helper.toString();
   }
@@ -198,44 +198,6 @@ class StreamDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CreationRequestDateTime':
-          if (value != null) {
-            result.creationRequestDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.KeySchemaElement)],
-              ),
-            ) as _i6.BuiltList<_i2.KeySchemaElement>));
-          }
-          break;
-        case 'LastEvaluatedShardId':
-          if (value != null) {
-            result.lastEvaluatedShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Shards':
-          if (value != null) {
-            result.shards.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.Shard)],
-              ),
-            ) as _i6.BuiltList<_i3.Shard>));
-          }
-          break;
         case 'StreamArn':
           if (value != null) {
             result.streamArn = (serializers.deserialize(
@@ -256,21 +218,59 @@ class StreamDescriptionAwsJson10Serializer
           if (value != null) {
             result.streamStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.StreamStatus),
-            ) as _i4.StreamStatus);
+              specifiedType: const FullType(_i2.StreamStatus),
+            ) as _i2.StreamStatus);
           }
           break;
         case 'StreamViewType':
           if (value != null) {
             result.streamViewType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.StreamViewType),
-            ) as _i5.StreamViewType);
+              specifiedType: const FullType(_i3.StreamViewType),
+            ) as _i3.StreamViewType);
+          }
+          break;
+        case 'CreationRequestDateTime':
+          if (value != null) {
+            result.creationRequestDateTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'TableName':
           if (value != null) {
             result.tableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'KeySchema':
+          if (value != null) {
+            result.keySchema.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i4.KeySchemaElement)],
+              ),
+            ) as _i6.BuiltList<_i4.KeySchemaElement>));
+          }
+          break;
+        case 'Shards':
+          if (value != null) {
+            result.shards.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i6.BuiltList,
+                [FullType(_i5.Shard)],
+              ),
+            ) as _i6.BuiltList<_i5.Shard>));
+          }
+          break;
+        case 'LastEvaluatedShardId':
+          if (value != null) {
+            result.lastEvaluatedShardId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -290,44 +290,6 @@ class StreamDescriptionAwsJson10Serializer
   }) {
     final payload = (object as StreamDescription);
     final result = <Object?>[];
-    if (payload.creationRequestDateTime != null) {
-      result
-        ..add('CreationRequestDateTime')
-        ..add(serializers.serialize(
-          payload.creationRequestDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.keySchema != null) {
-      result
-        ..add('KeySchema')
-        ..add(serializers.serialize(
-          payload.keySchema!,
-          specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i2.KeySchemaElement)],
-          ),
-        ));
-    }
-    if (payload.lastEvaluatedShardId != null) {
-      result
-        ..add('LastEvaluatedShardId')
-        ..add(serializers.serialize(
-          payload.lastEvaluatedShardId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.shards != null) {
-      result
-        ..add('Shards')
-        ..add(serializers.serialize(
-          payload.shards!,
-          specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i3.Shard)],
-          ),
-        ));
-    }
     if (payload.streamArn != null) {
       result
         ..add('StreamArn')
@@ -349,7 +311,7 @@ class StreamDescriptionAwsJson10Serializer
         ..add('StreamStatus')
         ..add(serializers.serialize(
           payload.streamStatus!,
-          specifiedType: const FullType(_i4.StreamStatus),
+          specifiedType: const FullType(_i2.StreamStatus),
         ));
     }
     if (payload.streamViewType != null) {
@@ -357,7 +319,15 @@ class StreamDescriptionAwsJson10Serializer
         ..add('StreamViewType')
         ..add(serializers.serialize(
           payload.streamViewType!,
-          specifiedType: const FullType(_i5.StreamViewType),
+          specifiedType: const FullType(_i3.StreamViewType),
+        ));
+    }
+    if (payload.creationRequestDateTime != null) {
+      result
+        ..add('CreationRequestDateTime')
+        ..add(serializers.serialize(
+          payload.creationRequestDateTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.tableName != null) {
@@ -365,6 +335,36 @@ class StreamDescriptionAwsJson10Serializer
         ..add('TableName')
         ..add(serializers.serialize(
           payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.keySchema != null) {
+      result
+        ..add('KeySchema')
+        ..add(serializers.serialize(
+          payload.keySchema!,
+          specifiedType: const FullType(
+            _i6.BuiltList,
+            [FullType(_i4.KeySchemaElement)],
+          ),
+        ));
+    }
+    if (payload.shards != null) {
+      result
+        ..add('Shards')
+        ..add(serializers.serialize(
+          payload.shards!,
+          specifiedType: const FullType(
+            _i6.BuiltList,
+            [FullType(_i5.Shard)],
+          ),
+        ));
+    }
+    if (payload.lastEvaluatedShardId != null) {
+      result
+        ..add('LastEvaluatedShardId')
+        ..add(serializers.serialize(
+          payload.lastEvaluatedShardId!,
           specifiedType: const FullType(String),
         ));
     }

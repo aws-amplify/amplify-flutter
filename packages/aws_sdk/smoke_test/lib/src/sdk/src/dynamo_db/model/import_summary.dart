@@ -9,9 +9,9 @@ import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_status.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart'
+    as _i3;
 
 part 'import_summary.g.dart';
 
@@ -21,24 +21,24 @@ abstract class ImportSummary
     implements Built<ImportSummary, ImportSummaryBuilder> {
   /// Summary information about the source file for the import.
   factory ImportSummary({
-    String? cloudWatchLogGroupArn,
-    DateTime? endTime,
     String? importArn,
     _i2.ImportStatus? importStatus,
-    _i3.InputFormat? inputFormat,
-    _i4.S3BucketSource? s3BucketSource,
-    DateTime? startTime,
     String? tableArn,
+    _i3.S3BucketSource? s3BucketSource,
+    String? cloudWatchLogGroupArn,
+    _i4.InputFormat? inputFormat,
+    DateTime? startTime,
+    DateTime? endTime,
   }) {
     return _$ImportSummary._(
-      cloudWatchLogGroupArn: cloudWatchLogGroupArn,
-      endTime: endTime,
       importArn: importArn,
       importStatus: importStatus,
-      inputFormat: inputFormat,
-      s3BucketSource: s3BucketSource,
-      startTime: startTime,
       tableArn: tableArn,
+      s3BucketSource: s3BucketSource,
+      cloudWatchLogGroupArn: cloudWatchLogGroupArn,
+      inputFormat: inputFormat,
+      startTime: startTime,
+      endTime: endTime,
     );
   }
 
@@ -55,51 +55,43 @@ abstract class ImportSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportSummaryBuilder b) {}
 
-  /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with this import task.
-  String? get cloudWatchLogGroupArn;
-
-  /// The time at which this import task ended. (Does this include the successful complete creation of the table it was imported to?)
-  DateTime? get endTime;
-
   /// The Amazon Resource Number (ARN) corresponding to the import request.
   String? get importArn;
 
   /// The status of the import operation.
   _i2.ImportStatus? get importStatus;
 
-  /// The format of the source data. Valid values are `CSV`, `DYNAMODB_JSON` or `ION`.
-  _i3.InputFormat? get inputFormat;
+  /// The Amazon Resource Number (ARN) of the table being imported into.
+  String? get tableArn;
 
   /// The path and S3 bucket of the source file that is being imported. This includes the S3Bucket (required), S3KeyPrefix (optional) and S3BucketOwner (optional if the bucket is owned by the requester).
-  _i4.S3BucketSource? get s3BucketSource;
+  _i3.S3BucketSource? get s3BucketSource;
+
+  /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with this import task.
+  String? get cloudWatchLogGroupArn;
+
+  /// The format of the source data. Valid values are `CSV`, `DYNAMODB_JSON` or `ION`.
+  _i4.InputFormat? get inputFormat;
 
   /// The time at which this import task began.
   DateTime? get startTime;
 
-  /// The Amazon Resource Number (ARN) of the table being imported into.
-  String? get tableArn;
+  /// The time at which this import task ended. (Does this include the successful complete creation of the table it was imported to?)
+  DateTime? get endTime;
   @override
   List<Object?> get props => [
-        cloudWatchLogGroupArn,
-        endTime,
         importArn,
         importStatus,
-        inputFormat,
-        s3BucketSource,
-        startTime,
         tableArn,
+        s3BucketSource,
+        cloudWatchLogGroupArn,
+        inputFormat,
+        startTime,
+        endTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ImportSummary');
-    helper.add(
-      'cloudWatchLogGroupArn',
-      cloudWatchLogGroupArn,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
     helper.add(
       'importArn',
       importArn,
@@ -109,20 +101,28 @@ abstract class ImportSummary
       importStatus,
     );
     helper.add(
-      'inputFormat',
-      inputFormat,
+      'tableArn',
+      tableArn,
     );
     helper.add(
       's3BucketSource',
       s3BucketSource,
     );
     helper.add(
+      'cloudWatchLogGroupArn',
+      cloudWatchLogGroupArn,
+    );
+    helper.add(
+      'inputFormat',
+      inputFormat,
+    );
+    helper.add(
       'startTime',
       startTime,
     );
     helper.add(
-      'tableArn',
-      tableArn,
+      'endTime',
+      endTime,
     );
     return helper.toString();
   }
@@ -157,22 +157,6 @@ class ImportSummaryAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CloudWatchLogGroupArn':
-          if (value != null) {
-            result.cloudWatchLogGroupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'EndTime':
-          if (value != null) {
-            result.endTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'ImportArn':
           if (value != null) {
             result.importArn = (serializers.deserialize(
@@ -189,20 +173,36 @@ class ImportSummaryAwsJson10Serializer
             ) as _i2.ImportStatus);
           }
           break;
-        case 'InputFormat':
+        case 'TableArn':
           if (value != null) {
-            result.inputFormat = (serializers.deserialize(
+            result.tableArn = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.InputFormat),
-            ) as _i3.InputFormat);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'S3BucketSource':
           if (value != null) {
             result.s3BucketSource.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.S3BucketSource),
-            ) as _i4.S3BucketSource));
+              specifiedType: const FullType(_i3.S3BucketSource),
+            ) as _i3.S3BucketSource));
+          }
+          break;
+        case 'CloudWatchLogGroupArn':
+          if (value != null) {
+            result.cloudWatchLogGroupArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'InputFormat':
+          if (value != null) {
+            result.inputFormat = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.InputFormat),
+            ) as _i4.InputFormat);
           }
           break;
         case 'StartTime':
@@ -213,12 +213,12 @@ class ImportSummaryAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'TableArn':
+        case 'EndTime':
           if (value != null) {
-            result.tableArn = (serializers.deserialize(
+            result.endTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
       }
@@ -235,22 +235,6 @@ class ImportSummaryAwsJson10Serializer
   }) {
     final payload = (object as ImportSummary);
     final result = <Object?>[];
-    if (payload.cloudWatchLogGroupArn != null) {
-      result
-        ..add('CloudWatchLogGroupArn')
-        ..add(serializers.serialize(
-          payload.cloudWatchLogGroupArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.endTime != null) {
-      result
-        ..add('EndTime')
-        ..add(serializers.serialize(
-          payload.endTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.importArn != null) {
       result
         ..add('ImportArn')
@@ -267,12 +251,12 @@ class ImportSummaryAwsJson10Serializer
           specifiedType: const FullType(_i2.ImportStatus),
         ));
     }
-    if (payload.inputFormat != null) {
+    if (payload.tableArn != null) {
       result
-        ..add('InputFormat')
+        ..add('TableArn')
         ..add(serializers.serialize(
-          payload.inputFormat!,
-          specifiedType: const FullType(_i3.InputFormat),
+          payload.tableArn!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.s3BucketSource != null) {
@@ -280,7 +264,23 @@ class ImportSummaryAwsJson10Serializer
         ..add('S3BucketSource')
         ..add(serializers.serialize(
           payload.s3BucketSource!,
-          specifiedType: const FullType(_i4.S3BucketSource),
+          specifiedType: const FullType(_i3.S3BucketSource),
+        ));
+    }
+    if (payload.cloudWatchLogGroupArn != null) {
+      result
+        ..add('CloudWatchLogGroupArn')
+        ..add(serializers.serialize(
+          payload.cloudWatchLogGroupArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.inputFormat != null) {
+      result
+        ..add('InputFormat')
+        ..add(serializers.serialize(
+          payload.inputFormat!,
+          specifiedType: const FullType(_i4.InputFormat),
         ));
     }
     if (payload.startTime != null) {
@@ -291,12 +291,12 @@ class ImportSummaryAwsJson10Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.tableArn != null) {
+    if (payload.endTime != null) {
       result
-        ..add('TableArn')
+        ..add('EndTime')
         ..add(serializers.serialize(
-          payload.tableArn!,
-          specifiedType: const FullType(String),
+          payload.endTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

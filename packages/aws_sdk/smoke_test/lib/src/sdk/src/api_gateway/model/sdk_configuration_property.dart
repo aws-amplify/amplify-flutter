@@ -16,18 +16,18 @@ abstract class SdkConfigurationProperty
         Built<SdkConfigurationProperty, SdkConfigurationPropertyBuilder> {
   /// A configuration property of an SDK type.
   factory SdkConfigurationProperty({
-    String? defaultValue,
-    String? description,
-    String? friendlyName,
     String? name,
+    String? friendlyName,
+    String? description,
     bool? required,
+    String? defaultValue,
   }) {
     return _$SdkConfigurationProperty._(
-      defaultValue: defaultValue,
-      description: description,
-      friendlyName: friendlyName,
       name: name,
+      friendlyName: friendlyName,
+      description: description,
       required: required,
+      defaultValue: defaultValue,
     );
   }
 
@@ -45,50 +45,50 @@ abstract class SdkConfigurationProperty
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkConfigurationPropertyBuilder b) {}
 
-  /// The default value of an SdkType configuration property.
-  String? get defaultValue;
-
-  /// The description of an SdkType configuration property.
-  String? get description;
+  /// The name of a an SdkType configuration property.
+  String? get name;
 
   /// The user-friendly name of an SdkType configuration property.
   String? get friendlyName;
 
-  /// The name of a an SdkType configuration property.
-  String? get name;
+  /// The description of an SdkType configuration property.
+  String? get description;
 
   /// A boolean flag of an SdkType configuration property to indicate if the associated SDK configuration property is required (`true`) or not (`false`).
   bool? get required;
+
+  /// The default value of an SdkType configuration property.
+  String? get defaultValue;
   @override
   List<Object?> get props => [
-        defaultValue,
-        description,
-        friendlyName,
         name,
+        friendlyName,
+        description,
         required,
+        defaultValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SdkConfigurationProperty');
     helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'description',
-      description,
+      'name',
+      name,
     );
     helper.add(
       'friendlyName',
       friendlyName,
     );
     helper.add(
-      'name',
-      name,
+      'description',
+      description,
     );
     helper.add(
       'required',
       required,
+    );
+    helper.add(
+      'defaultValue',
+      defaultValue,
     );
     return helper.toString();
   }

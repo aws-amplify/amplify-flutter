@@ -5,11 +5,11 @@ library smoke_test.dynamo_db.model.backup_summary; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart' as _i4;
+    as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart' as _i3;
 
 part 'backup_summary.g.dart';
 
@@ -19,28 +19,28 @@ abstract class BackupSummary
     implements Built<BackupSummary, BackupSummaryBuilder> {
   /// Contains details for the backup.
   factory BackupSummary({
+    String? tableName,
+    String? tableId,
+    String? tableArn,
     String? backupArn,
+    String? backupName,
     DateTime? backupCreationDateTime,
     DateTime? backupExpiryDateTime,
-    String? backupName,
-    _i2.Int64? backupSizeBytes,
-    _i3.BackupStatus? backupStatus,
-    _i4.BackupType? backupType,
-    String? tableArn,
-    String? tableId,
-    String? tableName,
+    _i2.BackupStatus? backupStatus,
+    _i3.BackupType? backupType,
+    _i4.Int64? backupSizeBytes,
   }) {
     return _$BackupSummary._(
+      tableName: tableName,
+      tableId: tableId,
+      tableArn: tableArn,
       backupArn: backupArn,
+      backupName: backupName,
       backupCreationDateTime: backupCreationDateTime,
       backupExpiryDateTime: backupExpiryDateTime,
-      backupName: backupName,
-      backupSizeBytes: backupSizeBytes,
       backupStatus: backupStatus,
       backupType: backupType,
-      tableArn: tableArn,
-      tableId: tableId,
-      tableName: tableName,
+      backupSizeBytes: backupSizeBytes,
     );
   }
 
@@ -57,8 +57,20 @@ abstract class BackupSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BackupSummaryBuilder b) {}
 
+  /// Name of the table.
+  String? get tableName;
+
+  /// Unique identifier for the table.
+  String? get tableId;
+
+  /// ARN associated with the table.
+  String? get tableArn;
+
   /// ARN associated with the backup.
   String? get backupArn;
+
+  /// Name of the specified backup.
+  String? get backupName;
 
   /// Time at which the backup was created.
   DateTime? get backupCreationDateTime;
@@ -66,14 +78,8 @@ abstract class BackupSummary
   /// Time at which the automatic on-demand backup created by DynamoDB will expire. This `SYSTEM` on-demand backup expires automatically 35 days after its creation.
   DateTime? get backupExpiryDateTime;
 
-  /// Name of the specified backup.
-  String? get backupName;
-
-  /// Size of the backup in bytes.
-  _i2.Int64? get backupSizeBytes;
-
   /// Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
-  _i3.BackupStatus? get backupStatus;
+  _i2.BackupStatus? get backupStatus;
 
   /// BackupType:
   ///
@@ -82,35 +88,45 @@ abstract class BackupSummary
   /// *   `SYSTEM` \- If you delete a table with point-in-time recovery enabled, a `SYSTEM` backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.
   ///
   /// *   `AWS_BACKUP` \- On-demand backup created by you from Backup service.
-  _i4.BackupType? get backupType;
+  _i3.BackupType? get backupType;
 
-  /// ARN associated with the table.
-  String? get tableArn;
-
-  /// Unique identifier for the table.
-  String? get tableId;
-
-  /// Name of the table.
-  String? get tableName;
+  /// Size of the backup in bytes.
+  _i4.Int64? get backupSizeBytes;
   @override
   List<Object?> get props => [
+        tableName,
+        tableId,
+        tableArn,
         backupArn,
+        backupName,
         backupCreationDateTime,
         backupExpiryDateTime,
-        backupName,
-        backupSizeBytes,
         backupStatus,
         backupType,
-        tableArn,
-        tableId,
-        tableName,
+        backupSizeBytes,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BackupSummary');
     helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
+      'tableId',
+      tableId,
+    );
+    helper.add(
+      'tableArn',
+      tableArn,
+    );
+    helper.add(
       'backupArn',
       backupArn,
+    );
+    helper.add(
+      'backupName',
+      backupName,
     );
     helper.add(
       'backupCreationDateTime',
@@ -121,14 +137,6 @@ abstract class BackupSummary
       backupExpiryDateTime,
     );
     helper.add(
-      'backupName',
-      backupName,
-    );
-    helper.add(
-      'backupSizeBytes',
-      backupSizeBytes,
-    );
-    helper.add(
       'backupStatus',
       backupStatus,
     );
@@ -137,16 +145,8 @@ abstract class BackupSummary
       backupType,
     );
     helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'tableName',
-      tableName,
+      'backupSizeBytes',
+      backupSizeBytes,
     );
     return helper.toString();
   }
@@ -181,9 +181,41 @@ class BackupSummaryAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          if (value != null) {
+            result.tableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'TableId':
+          if (value != null) {
+            result.tableId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'TableArn':
+          if (value != null) {
+            result.tableArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'BackupArn':
           if (value != null) {
             result.backupArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'BackupName':
+          if (value != null) {
+            result.backupName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -205,60 +237,28 @@ class BackupSummaryAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'BackupName':
-          if (value != null) {
-            result.backupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'BackupSizeBytes':
-          if (value != null) {
-            result.backupSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
         case 'BackupStatus':
           if (value != null) {
             result.backupStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.BackupStatus),
-            ) as _i3.BackupStatus);
+              specifiedType: const FullType(_i2.BackupStatus),
+            ) as _i2.BackupStatus);
           }
           break;
         case 'BackupType':
           if (value != null) {
             result.backupType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.BackupType),
-            ) as _i4.BackupType);
+              specifiedType: const FullType(_i3.BackupType),
+            ) as _i3.BackupType);
           }
           break;
-        case 'TableArn':
+        case 'BackupSizeBytes':
           if (value != null) {
-            result.tableArn = (serializers.deserialize(
+            result.backupSizeBytes = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TableId':
-          if (value != null) {
-            result.tableId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
           }
           break;
       }
@@ -275,11 +275,43 @@ class BackupSummaryAwsJson10Serializer
   }) {
     final payload = (object as BackupSummary);
     final result = <Object?>[];
+    if (payload.tableName != null) {
+      result
+        ..add('TableName')
+        ..add(serializers.serialize(
+          payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.tableId != null) {
+      result
+        ..add('TableId')
+        ..add(serializers.serialize(
+          payload.tableId!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.tableArn != null) {
+      result
+        ..add('TableArn')
+        ..add(serializers.serialize(
+          payload.tableArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.backupArn != null) {
       result
         ..add('BackupArn')
         ..add(serializers.serialize(
           payload.backupArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.backupName != null) {
+      result
+        ..add('BackupName')
+        ..add(serializers.serialize(
+          payload.backupName!,
           specifiedType: const FullType(String),
         ));
     }
@@ -299,28 +331,12 @@ class BackupSummaryAwsJson10Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.backupName != null) {
-      result
-        ..add('BackupName')
-        ..add(serializers.serialize(
-          payload.backupName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.backupSizeBytes != null) {
-      result
-        ..add('BackupSizeBytes')
-        ..add(serializers.serialize(
-          payload.backupSizeBytes!,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
     if (payload.backupStatus != null) {
       result
         ..add('BackupStatus')
         ..add(serializers.serialize(
           payload.backupStatus!,
-          specifiedType: const FullType(_i3.BackupStatus),
+          specifiedType: const FullType(_i2.BackupStatus),
         ));
     }
     if (payload.backupType != null) {
@@ -328,31 +344,15 @@ class BackupSummaryAwsJson10Serializer
         ..add('BackupType')
         ..add(serializers.serialize(
           payload.backupType!,
-          specifiedType: const FullType(_i4.BackupType),
+          specifiedType: const FullType(_i3.BackupType),
         ));
     }
-    if (payload.tableArn != null) {
+    if (payload.backupSizeBytes != null) {
       result
-        ..add('TableArn')
+        ..add('BackupSizeBytes')
         ..add(serializers.serialize(
-          payload.tableArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tableId != null) {
-      result
-        ..add('TableId')
-        ..add(serializers.serialize(
-          payload.tableId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
-        ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
+          payload.backupSizeBytes!,
+          specifiedType: const FullType(_i4.Int64),
         ));
     }
     return result;

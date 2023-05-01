@@ -15,13 +15,13 @@ abstract class TimeToLiveSpecification
     implements Built<TimeToLiveSpecification, TimeToLiveSpecificationBuilder> {
   /// Represents the settings used to enable or disable Time to Live (TTL) for the specified table.
   factory TimeToLiveSpecification({
-    required String attributeName,
     bool? enabled,
+    required String attributeName,
   }) {
     enabled ??= false;
     return _$TimeToLiveSpecification._(
-      attributeName: attributeName,
       enabled: enabled,
+      attributeName: attributeName,
     );
   }
 
@@ -41,26 +41,26 @@ abstract class TimeToLiveSpecification
     b.enabled = false;
   }
 
-  /// The name of the TTL attribute used to store the expiration time for items in the table.
-  String get attributeName;
-
   /// Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
   bool get enabled;
+
+  /// The name of the TTL attribute used to store the expiration time for items in the table.
+  String get attributeName;
   @override
   List<Object?> get props => [
-        attributeName,
         enabled,
+        attributeName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TimeToLiveSpecification');
     helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
       'enabled',
       enabled,
+    );
+    helper.add(
+      'attributeName',
+      attributeName,
     );
     return helper.toString();
   }
@@ -96,17 +96,17 @@ class TimeToLiveSpecificationAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AttributeName':
-          result.attributeName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Enabled':
           result.enabled = (serializers.deserialize(
             value!,
             specifiedType: const FullType(bool),
           ) as bool);
+          break;
+        case 'AttributeName':
+          result.attributeName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -122,15 +122,15 @@ class TimeToLiveSpecificationAwsJson10Serializer
   }) {
     final payload = (object as TimeToLiveSpecification);
     final result = <Object?>[
-      'AttributeName',
-      serializers.serialize(
-        payload.attributeName,
-        specifiedType: const FullType(String),
-      ),
       'Enabled',
       serializers.serialize(
         payload.enabled,
         specifiedType: const FullType(bool),
+      ),
+      'AttributeName',
+      serializers.serialize(
+        payload.attributeName,
+        specifiedType: const FullType(String),
       ),
     ];
     return result;

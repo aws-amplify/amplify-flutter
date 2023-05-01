@@ -10,16 +10,16 @@ class _$GetBasePathMappingsRequest extends GetBasePathMappingsRequest {
   @override
   final String domainName;
   @override
-  final int? limit;
-  @override
   final String? position;
+  @override
+  final int? limit;
 
   factory _$GetBasePathMappingsRequest(
           [void Function(GetBasePathMappingsRequestBuilder)? updates]) =>
       (new GetBasePathMappingsRequestBuilder()..update(updates))._build();
 
   _$GetBasePathMappingsRequest._(
-      {required this.domainName, this.limit, this.position})
+      {required this.domainName, this.position, this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         domainName, r'GetBasePathMappingsRequest', 'domainName');
@@ -39,16 +39,16 @@ class _$GetBasePathMappingsRequest extends GetBasePathMappingsRequest {
     if (identical(other, this)) return true;
     return other is GetBasePathMappingsRequest &&
         domainName == other.domainName &&
-        limit == other.limit &&
-        position == other.position;
+        position == other.position &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, domainName.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,13 +63,13 @@ class GetBasePathMappingsRequestBuilder
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetBasePathMappingsRequestBuilder() {
     GetBasePathMappingsRequest._init(this);
@@ -79,8 +79,8 @@ class GetBasePathMappingsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _domainName = $v.domainName;
-      _limit = $v.limit;
       _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -105,8 +105,8 @@ class GetBasePathMappingsRequestBuilder
         new _$GetBasePathMappingsRequest._(
             domainName: BuiltValueNullFieldError.checkNotNull(
                 domainName, r'GetBasePathMappingsRequest', 'domainName'),
-            limit: limit,
-            position: position);
+            position: position,
+            limit: limit);
     replace(_$result);
     return _$result;
   }

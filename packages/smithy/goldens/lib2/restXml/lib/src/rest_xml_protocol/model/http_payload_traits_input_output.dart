@@ -20,12 +20,12 @@ abstract class HttpPayloadTraitsInputOutput
             HttpPayloadTraitsInputOutputBuilder>,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpPayloadTraitsInputOutput({
-    _i2.Uint8List? blob,
     String? foo,
+    _i2.Uint8List? blob,
   }) {
     return _$HttpPayloadTraitsInputOutput._(
-      blob: blob,
       foo: foo,
+      blob: blob,
     );
   }
 
@@ -65,25 +65,25 @@ abstract class HttpPayloadTraitsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPayloadTraitsInputOutputBuilder b) {}
-  _i2.Uint8List? get blob;
   String? get foo;
+  _i2.Uint8List? get blob;
   @override
   _i2.Uint8List? getPayload() => blob;
   @override
   List<Object?> get props => [
-        blob,
         foo,
+        blob,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpPayloadTraitsInputOutput');
     helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'blob',
+      blob,
     );
     return helper.toString();
   }

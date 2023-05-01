@@ -16,12 +16,12 @@ abstract class ValidationExceptionField
         Built<ValidationExceptionField, ValidationExceptionFieldBuilder> {
   /// Describes one specific validation failure for an input member.
   factory ValidationExceptionField({
-    required String message,
     required String path,
+    required String message,
   }) {
     return _$ValidationExceptionField._(
-      message: message,
       path: path,
+      message: message,
     );
   }
 
@@ -39,26 +39,26 @@ abstract class ValidationExceptionField
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ValidationExceptionFieldBuilder b) {}
 
-  /// A detailed description of the validation failure.
-  String get message;
-
   /// A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.
   String get path;
+
+  /// A detailed description of the validation failure.
+  String get message;
   @override
   List<Object?> get props => [
-        message,
         path,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationExceptionField');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'path',
       path,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }

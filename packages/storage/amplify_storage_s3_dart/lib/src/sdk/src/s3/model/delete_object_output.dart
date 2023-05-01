@@ -20,13 +20,13 @@ abstract class DeleteObjectOutput
         _i2.HasPayload<DeleteObjectOutputPayload> {
   factory DeleteObjectOutput({
     bool? deleteMarker,
-    _i3.RequestCharged? requestCharged,
     String? versionId,
+    _i3.RequestCharged? requestCharged,
   }) {
     return _$DeleteObjectOutput._(
       deleteMarker: deleteMarker,
-      requestCharged: requestCharged,
       versionId: versionId,
+      requestCharged: requestCharged,
     );
   }
 
@@ -64,18 +64,18 @@ abstract class DeleteObjectOutput
   /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
   bool? get deleteMarker;
 
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
-
   /// Returns the version ID of the delete marker created as a result of the DELETE operation.
   String? get versionId;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i3.RequestCharged? get requestCharged;
   @override
   DeleteObjectOutputPayload getPayload() => DeleteObjectOutputPayload();
   @override
   List<Object?> get props => [
         deleteMarker,
-        requestCharged,
         versionId,
+        requestCharged,
       ];
   @override
   String toString() {
@@ -85,12 +85,12 @@ abstract class DeleteObjectOutput
       deleteMarker,
     );
     helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
     );
     return helper.toString();
   }

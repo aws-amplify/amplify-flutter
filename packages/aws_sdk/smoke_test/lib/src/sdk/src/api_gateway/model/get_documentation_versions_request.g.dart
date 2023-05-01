@@ -9,18 +9,18 @@ part of smoke_test.api_gateway.model.get_documentation_versions_request;
 class _$GetDocumentationVersionsRequest
     extends GetDocumentationVersionsRequest {
   @override
-  final int? limit;
+  final String restApiId;
   @override
   final String? position;
   @override
-  final String restApiId;
+  final int? limit;
 
   factory _$GetDocumentationVersionsRequest(
           [void Function(GetDocumentationVersionsRequestBuilder)? updates]) =>
       (new GetDocumentationVersionsRequestBuilder()..update(updates))._build();
 
   _$GetDocumentationVersionsRequest._(
-      {this.limit, this.position, required this.restApiId})
+      {required this.restApiId, this.position, this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetDocumentationVersionsRequest', 'restApiId');
@@ -39,17 +39,17 @@ class _$GetDocumentationVersionsRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDocumentationVersionsRequest &&
-        limit == other.limit &&
+        restApiId == other.restApiId &&
         position == other.position &&
-        restApiId == other.restApiId;
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -61,17 +61,17 @@ class GetDocumentationVersionsRequestBuilder
             GetDocumentationVersionsRequestBuilder> {
   _$GetDocumentationVersionsRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetDocumentationVersionsRequestBuilder() {
     GetDocumentationVersionsRequest._init(this);
@@ -80,9 +80,9 @@ class GetDocumentationVersionsRequestBuilder
   GetDocumentationVersionsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _position = $v.position;
       _restApiId = $v.restApiId;
+      _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -105,10 +105,10 @@ class GetDocumentationVersionsRequestBuilder
   _$GetDocumentationVersionsRequest _build() {
     final _$result = _$v ??
         new _$GetDocumentationVersionsRequest._(
-            limit: limit,
-            position: position,
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetDocumentationVersionsRequest', 'restApiId'));
+                restApiId, r'GetDocumentationVersionsRequest', 'restApiId'),
+            position: position,
+            limit: limit);
     replace(_$result);
     return _$result;
   }

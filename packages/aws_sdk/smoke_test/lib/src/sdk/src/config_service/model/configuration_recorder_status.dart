@@ -18,24 +18,24 @@ abstract class ConfigurationRecorderStatus
         Built<ConfigurationRecorderStatus, ConfigurationRecorderStatusBuilder> {
   /// The current status of the configuration recorder.
   factory ConfigurationRecorderStatus({
+    String? name,
+    DateTime? lastStartTime,
+    DateTime? lastStopTime,
+    bool? recording,
+    _i2.RecorderStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
-    DateTime? lastStartTime,
-    _i2.RecorderStatus? lastStatus,
     DateTime? lastStatusChangeTime,
-    DateTime? lastStopTime,
-    String? name,
-    bool? recording,
   }) {
     return _$ConfigurationRecorderStatus._(
+      name: name,
+      lastStartTime: lastStartTime,
+      lastStopTime: lastStopTime,
+      recording: recording,
+      lastStatus: lastStatus,
       lastErrorCode: lastErrorCode,
       lastErrorMessage: lastErrorMessage,
-      lastStartTime: lastStartTime,
-      lastStatus: lastStatus,
       lastStatusChangeTime: lastStatusChangeTime,
-      lastStopTime: lastStopTime,
-      name: name,
-      recording: recording,
     );
   }
 
@@ -53,43 +53,63 @@ abstract class ConfigurationRecorderStatus
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigurationRecorderStatusBuilder b) {}
 
+  /// The name of the configuration recorder.
+  String? get name;
+
+  /// The time the recorder was last started.
+  DateTime? get lastStartTime;
+
+  /// The time the recorder was last stopped.
+  DateTime? get lastStopTime;
+
+  /// Specifies whether or not the recorder is currently recording.
+  bool? get recording;
+
+  /// The last (previous) status of the recorder.
+  _i2.RecorderStatus? get lastStatus;
+
   /// The error code indicating that the recording failed.
   String? get lastErrorCode;
 
   /// The message indicating that the recording failed due to an error.
   String? get lastErrorMessage;
 
-  /// The time the recorder was last started.
-  DateTime? get lastStartTime;
-
-  /// The last (previous) status of the recorder.
-  _i2.RecorderStatus? get lastStatus;
-
   /// The time when the status was last changed.
   DateTime? get lastStatusChangeTime;
-
-  /// The time the recorder was last stopped.
-  DateTime? get lastStopTime;
-
-  /// The name of the configuration recorder.
-  String? get name;
-
-  /// Specifies whether or not the recorder is currently recording.
-  bool? get recording;
   @override
   List<Object?> get props => [
+        name,
+        lastStartTime,
+        lastStopTime,
+        recording,
+        lastStatus,
         lastErrorCode,
         lastErrorMessage,
-        lastStartTime,
-        lastStatus,
         lastStatusChangeTime,
-        lastStopTime,
-        name,
-        recording,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigurationRecorderStatus');
+    helper.add(
+      'name',
+      name,
+    );
+    helper.add(
+      'lastStartTime',
+      lastStartTime,
+    );
+    helper.add(
+      'lastStopTime',
+      lastStopTime,
+    );
+    helper.add(
+      'recording',
+      recording,
+    );
+    helper.add(
+      'lastStatus',
+      lastStatus,
+    );
     helper.add(
       'lastErrorCode',
       lastErrorCode,
@@ -99,28 +119,8 @@ abstract class ConfigurationRecorderStatus
       lastErrorMessage,
     );
     helper.add(
-      'lastStartTime',
-      lastStartTime,
-    );
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
       'lastStatusChangeTime',
       lastStatusChangeTime,
-    );
-    helper.add(
-      'lastStopTime',
-      lastStopTime,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'recording',
-      recording,
     );
     return helper.toString();
   }
@@ -156,6 +156,46 @@ class ConfigurationRecorderStatusAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'name':
+          if (value != null) {
+            result.name = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'lastStartTime':
+          if (value != null) {
+            result.lastStartTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'lastStopTime':
+          if (value != null) {
+            result.lastStopTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'recording':
+          if (value != null) {
+            result.recording = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'lastStatus':
+          if (value != null) {
+            result.lastStatus = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.RecorderStatus),
+            ) as _i2.RecorderStatus);
+          }
+          break;
         case 'lastErrorCode':
           if (value != null) {
             result.lastErrorCode = (serializers.deserialize(
@@ -172,52 +212,12 @@ class ConfigurationRecorderStatusAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'lastStartTime':
-          if (value != null) {
-            result.lastStartTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RecorderStatus),
-            ) as _i2.RecorderStatus);
-          }
-          break;
         case 'lastStatusChangeTime':
           if (value != null) {
             result.lastStatusChangeTime = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
-          }
-          break;
-        case 'lastStopTime':
-          if (value != null) {
-            result.lastStopTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'recording':
-          if (value != null) {
-            result.recording = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
           }
           break;
       }
@@ -234,6 +234,46 @@ class ConfigurationRecorderStatusAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationRecorderStatus);
     final result = <Object?>[];
+    if (payload.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(
+          payload.name!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.lastStartTime != null) {
+      result
+        ..add('lastStartTime')
+        ..add(serializers.serialize(
+          payload.lastStartTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastStopTime != null) {
+      result
+        ..add('lastStopTime')
+        ..add(serializers.serialize(
+          payload.lastStopTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.recording != null) {
+      result
+        ..add('recording')
+        ..add(serializers.serialize(
+          payload.recording!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.lastStatus != null) {
+      result
+        ..add('lastStatus')
+        ..add(serializers.serialize(
+          payload.lastStatus!,
+          specifiedType: const FullType(_i2.RecorderStatus),
+        ));
+    }
     if (payload.lastErrorCode != null) {
       result
         ..add('lastErrorCode')
@@ -250,52 +290,12 @@ class ConfigurationRecorderStatusAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastStartTime != null) {
-      result
-        ..add('lastStartTime')
-        ..add(serializers.serialize(
-          payload.lastStartTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastStatus != null) {
-      result
-        ..add('lastStatus')
-        ..add(serializers.serialize(
-          payload.lastStatus!,
-          specifiedType: const FullType(_i2.RecorderStatus),
-        ));
-    }
     if (payload.lastStatusChangeTime != null) {
       result
         ..add('lastStatusChangeTime')
         ..add(serializers.serialize(
           payload.lastStatusChangeTime!,
           specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastStopTime != null) {
-      result
-        ..add('lastStopTime')
-        ..add(serializers.serialize(
-          payload.lastStopTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(
-          payload.name!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.recording != null) {
-      result
-        ..add('recording')
-        ..add(serializers.serialize(
-          payload.recording!,
-          specifiedType: const FullType(bool),
         ));
     }
     return result;

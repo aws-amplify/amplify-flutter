@@ -14,29 +14,29 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final String? bucket;
   @override
-  final _i3.ChecksumAlgorithm? checksumAlgorithm;
-  @override
-  final _i4.Initiator? initiator;
-  @override
-  final bool? isTruncated;
-  @override
   final String? key;
   @override
-  final int? maxParts;
-  @override
-  final String? nextPartNumberMarker;
-  @override
-  final _i5.Owner? owner;
+  final String? uploadId;
   @override
   final String? partNumberMarker;
   @override
-  final _i9.BuiltList<_i6.Part>? parts;
+  final String? nextPartNumberMarker;
+  @override
+  final int? maxParts;
+  @override
+  final bool? isTruncated;
+  @override
+  final _i9.BuiltList<_i3.Part>? parts;
+  @override
+  final _i4.Initiator? initiator;
+  @override
+  final _i5.Owner? owner;
+  @override
+  final _i6.StorageClass? storageClass;
   @override
   final _i7.RequestCharged? requestCharged;
   @override
-  final _i8.StorageClass? storageClass;
-  @override
-  final String? uploadId;
+  final _i8.ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$ListPartsOutput([void Function(ListPartsOutputBuilder)? updates]) =>
       (new ListPartsOutputBuilder()..update(updates))._build();
@@ -45,18 +45,18 @@ class _$ListPartsOutput extends ListPartsOutput {
       {this.abortDate,
       this.abortRuleId,
       this.bucket,
-      this.checksumAlgorithm,
-      this.initiator,
-      this.isTruncated,
       this.key,
-      this.maxParts,
-      this.nextPartNumberMarker,
-      this.owner,
+      this.uploadId,
       this.partNumberMarker,
+      this.nextPartNumberMarker,
+      this.maxParts,
+      this.isTruncated,
       this.parts,
-      this.requestCharged,
+      this.initiator,
+      this.owner,
       this.storageClass,
-      this.uploadId})
+      this.requestCharged,
+      this.checksumAlgorithm})
       : super._();
 
   @override
@@ -74,18 +74,18 @@ class _$ListPartsOutput extends ListPartsOutput {
         abortDate == other.abortDate &&
         abortRuleId == other.abortRuleId &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        initiator == other.initiator &&
-        isTruncated == other.isTruncated &&
         key == other.key &&
-        maxParts == other.maxParts &&
-        nextPartNumberMarker == other.nextPartNumberMarker &&
-        owner == other.owner &&
+        uploadId == other.uploadId &&
         partNumberMarker == other.partNumberMarker &&
+        nextPartNumberMarker == other.nextPartNumberMarker &&
+        maxParts == other.maxParts &&
+        isTruncated == other.isTruncated &&
         parts == other.parts &&
-        requestCharged == other.requestCharged &&
+        initiator == other.initiator &&
+        owner == other.owner &&
         storageClass == other.storageClass &&
-        uploadId == other.uploadId;
+        requestCharged == other.requestCharged &&
+        checksumAlgorithm == other.checksumAlgorithm;
   }
 
   @override
@@ -94,18 +94,18 @@ class _$ListPartsOutput extends ListPartsOutput {
     _$hash = $jc(_$hash, abortDate.hashCode);
     _$hash = $jc(_$hash, abortRuleId.hashCode);
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, initiator.hashCode);
-    _$hash = $jc(_$hash, isTruncated.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, maxParts.hashCode);
-    _$hash = $jc(_$hash, nextPartNumberMarker.hashCode);
-    _$hash = $jc(_$hash, owner.hashCode);
-    _$hash = $jc(_$hash, partNumberMarker.hashCode);
-    _$hash = $jc(_$hash, parts.hashCode);
-    _$hash = $jc(_$hash, requestCharged.hashCode);
-    _$hash = $jc(_$hash, storageClass.hashCode);
     _$hash = $jc(_$hash, uploadId.hashCode);
+    _$hash = $jc(_$hash, partNumberMarker.hashCode);
+    _$hash = $jc(_$hash, nextPartNumberMarker.hashCode);
+    _$hash = $jc(_$hash, maxParts.hashCode);
+    _$hash = $jc(_$hash, isTruncated.hashCode);
+    _$hash = $jc(_$hash, parts.hashCode);
+    _$hash = $jc(_$hash, initiator.hashCode);
+    _$hash = $jc(_$hash, owner.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, requestCharged.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -127,10 +127,36 @@ class ListPartsOutputBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i3.ChecksumAlgorithm? _checksumAlgorithm;
-  _i3.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i3.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
+  String? _key;
+  String? get key => _$this._key;
+  set key(String? key) => _$this._key = key;
+
+  String? _uploadId;
+  String? get uploadId => _$this._uploadId;
+  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
+
+  String? _partNumberMarker;
+  String? get partNumberMarker => _$this._partNumberMarker;
+  set partNumberMarker(String? partNumberMarker) =>
+      _$this._partNumberMarker = partNumberMarker;
+
+  String? _nextPartNumberMarker;
+  String? get nextPartNumberMarker => _$this._nextPartNumberMarker;
+  set nextPartNumberMarker(String? nextPartNumberMarker) =>
+      _$this._nextPartNumberMarker = nextPartNumberMarker;
+
+  int? _maxParts;
+  int? get maxParts => _$this._maxParts;
+  set maxParts(int? maxParts) => _$this._maxParts = maxParts;
+
+  bool? _isTruncated;
+  bool? get isTruncated => _$this._isTruncated;
+  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
+
+  _i9.ListBuilder<_i3.Part>? _parts;
+  _i9.ListBuilder<_i3.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i3.Part>();
+  set parts(_i9.ListBuilder<_i3.Part>? parts) => _$this._parts = parts;
 
   _i4.InitiatorBuilder? _initiator;
   _i4.InitiatorBuilder get initiator =>
@@ -138,50 +164,24 @@ class ListPartsOutputBuilder
   set initiator(_i4.InitiatorBuilder? initiator) =>
       _$this._initiator = initiator;
 
-  bool? _isTruncated;
-  bool? get isTruncated => _$this._isTruncated;
-  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
-
-  String? _key;
-  String? get key => _$this._key;
-  set key(String? key) => _$this._key = key;
-
-  int? _maxParts;
-  int? get maxParts => _$this._maxParts;
-  set maxParts(int? maxParts) => _$this._maxParts = maxParts;
-
-  String? _nextPartNumberMarker;
-  String? get nextPartNumberMarker => _$this._nextPartNumberMarker;
-  set nextPartNumberMarker(String? nextPartNumberMarker) =>
-      _$this._nextPartNumberMarker = nextPartNumberMarker;
-
   _i5.OwnerBuilder? _owner;
   _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
   set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
 
-  String? _partNumberMarker;
-  String? get partNumberMarker => _$this._partNumberMarker;
-  set partNumberMarker(String? partNumberMarker) =>
-      _$this._partNumberMarker = partNumberMarker;
-
-  _i9.ListBuilder<_i6.Part>? _parts;
-  _i9.ListBuilder<_i6.Part> get parts =>
-      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
-  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
+  _i6.StorageClass? _storageClass;
+  _i6.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i6.StorageClass? storageClass) =>
+      _$this._storageClass = storageClass;
 
   _i7.RequestCharged? _requestCharged;
   _i7.RequestCharged? get requestCharged => _$this._requestCharged;
   set requestCharged(_i7.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i8.StorageClass? _storageClass;
-  _i8.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i8.StorageClass? storageClass) =>
-      _$this._storageClass = storageClass;
-
-  String? _uploadId;
-  String? get uploadId => _$this._uploadId;
-  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
+  _i8.ChecksumAlgorithm? _checksumAlgorithm;
+  _i8.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i8.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   ListPartsOutputBuilder() {
     ListPartsOutput._init(this);
@@ -193,18 +193,18 @@ class ListPartsOutputBuilder
       _abortDate = $v.abortDate;
       _abortRuleId = $v.abortRuleId;
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
-      _initiator = $v.initiator?.toBuilder();
-      _isTruncated = $v.isTruncated;
       _key = $v.key;
-      _maxParts = $v.maxParts;
-      _nextPartNumberMarker = $v.nextPartNumberMarker;
-      _owner = $v.owner?.toBuilder();
-      _partNumberMarker = $v.partNumberMarker;
-      _parts = $v.parts?.toBuilder();
-      _requestCharged = $v.requestCharged;
-      _storageClass = $v.storageClass;
       _uploadId = $v.uploadId;
+      _partNumberMarker = $v.partNumberMarker;
+      _nextPartNumberMarker = $v.nextPartNumberMarker;
+      _maxParts = $v.maxParts;
+      _isTruncated = $v.isTruncated;
+      _parts = $v.parts?.toBuilder();
+      _initiator = $v.initiator?.toBuilder();
+      _owner = $v.owner?.toBuilder();
+      _storageClass = $v.storageClass;
+      _requestCharged = $v.requestCharged;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _$v = null;
     }
     return this;
@@ -232,29 +232,27 @@ class ListPartsOutputBuilder
               abortDate: abortDate,
               abortRuleId: abortRuleId,
               bucket: bucket,
-              checksumAlgorithm: checksumAlgorithm,
-              initiator: _initiator?.build(),
-              isTruncated: isTruncated,
               key: key,
-              maxParts: maxParts,
-              nextPartNumberMarker: nextPartNumberMarker,
-              owner: _owner?.build(),
+              uploadId: uploadId,
               partNumberMarker: partNumberMarker,
+              nextPartNumberMarker: nextPartNumberMarker,
+              maxParts: maxParts,
+              isTruncated: isTruncated,
               parts: _parts?.build(),
-              requestCharged: requestCharged,
+              initiator: _initiator?.build(),
+              owner: _owner?.build(),
               storageClass: storageClass,
-              uploadId: uploadId);
+              requestCharged: requestCharged,
+              checksumAlgorithm: checksumAlgorithm);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'initiator';
-        _initiator?.build();
-
-        _$failedField = 'owner';
-        _owner?.build();
-
         _$failedField = 'parts';
         _parts?.build();
+        _$failedField = 'initiator';
+        _initiator?.build();
+        _$failedField = 'owner';
+        _owner?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ListPartsOutput', _$failedField, e.toString());
@@ -270,7 +268,7 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? bucket;
   @override
-  final _i3.ChecksumAlgorithm? checksumAlgorithm;
+  final _i8.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final _i4.Initiator? initiator;
   @override
@@ -286,9 +284,9 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? partNumberMarker;
   @override
-  final _i9.BuiltList<_i6.Part>? parts;
+  final _i9.BuiltList<_i3.Part>? parts;
   @override
-  final _i8.StorageClass? storageClass;
+  final _i6.StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -366,9 +364,9 @@ class ListPartsOutputPayloadBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i3.ChecksumAlgorithm? _checksumAlgorithm;
-  _i3.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i3.ChecksumAlgorithm? checksumAlgorithm) =>
+  _i8.ChecksumAlgorithm? _checksumAlgorithm;
+  _i8.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i8.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i4.InitiatorBuilder? _initiator;
@@ -403,14 +401,14 @@ class ListPartsOutputPayloadBuilder
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i9.ListBuilder<_i6.Part>? _parts;
-  _i9.ListBuilder<_i6.Part> get parts =>
-      _$this._parts ??= new _i9.ListBuilder<_i6.Part>();
-  set parts(_i9.ListBuilder<_i6.Part>? parts) => _$this._parts = parts;
+  _i9.ListBuilder<_i3.Part>? _parts;
+  _i9.ListBuilder<_i3.Part> get parts =>
+      _$this._parts ??= new _i9.ListBuilder<_i3.Part>();
+  set parts(_i9.ListBuilder<_i3.Part>? parts) => _$this._parts = parts;
 
-  _i8.StorageClass? _storageClass;
-  _i8.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i8.StorageClass? storageClass) =>
+  _i6.StorageClass? _storageClass;
+  _i6.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i6.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;

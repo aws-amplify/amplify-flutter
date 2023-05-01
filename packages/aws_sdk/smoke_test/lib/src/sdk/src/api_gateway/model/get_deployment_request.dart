@@ -22,14 +22,14 @@ abstract class GetDeploymentRequest
         _i1.HasPayload<GetDeploymentRequestPayload> {
   /// Requests API Gateway to get information about a Deployment resource.
   factory GetDeploymentRequest({
+    required String restApiId,
     required String deploymentId,
     List<String>? embed,
-    required String restApiId,
   }) {
     return _$GetDeploymentRequest._(
+      restApiId: restApiId,
       deploymentId: deploymentId,
       embed: embed == null ? null : _i3.BuiltList(embed),
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +66,14 @@ abstract class GetDeploymentRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDeploymentRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The identifier of the Deployment resource to get information about.
   String get deploymentId;
 
   /// A query parameter to retrieve the specified embedded resources of the returned Deployment resource in the response. In a REST API call, this `embed` parameter value is a list of comma-separated strings, as in `GET /restapis/{restapi\_id}/deployments/{deployment\_id}?embed=var1,var2`. The SDK and other platform-dependent libraries might use a different format for the list. Currently, this request supports only retrieval of the embedded API summary this way. Hence, the parameter value must be a single-valued list containing only the `"apisummary"` string. For example, `GET /restapis/{restapi\_id}/deployments/{deployment\_id}?embed=apisummary`.
   _i3.BuiltList<String>? get embed;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -92,13 +92,17 @@ abstract class GetDeploymentRequest
   GetDeploymentRequestPayload getPayload() => GetDeploymentRequestPayload();
   @override
   List<Object?> get props => [
+        restApiId,
         deploymentId,
         embed,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDeploymentRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'deploymentId',
       deploymentId,
@@ -106,10 +110,6 @@ abstract class GetDeploymentRequest
     helper.add(
       'embed',
       embed,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

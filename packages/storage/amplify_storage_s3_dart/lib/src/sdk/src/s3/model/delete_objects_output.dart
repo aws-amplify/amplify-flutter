@@ -4,9 +4,9 @@ library amplify_storage_s3_dart.s3.model.delete_objects_output; // ignore_for_fi
 
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/deleted_object.dart'
     as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/error.dart' as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/error.dart' as _i5;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i5;
+    as _i4;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
@@ -23,13 +23,13 @@ abstract class DeleteObjectsOutput
         _i2.HasPayload<DeleteObjectsOutputPayload> {
   factory DeleteObjectsOutput({
     List<_i3.DeletedObject>? deleted,
-    List<_i4.Error>? errors,
-    _i5.RequestCharged? requestCharged,
+    _i4.RequestCharged? requestCharged,
+    List<_i5.Error>? errors,
   }) {
     return _$DeleteObjectsOutput._(
       deleted: deleted == null ? null : _i6.BuiltList(deleted),
-      errors: errors == null ? null : _i6.BuiltList(errors),
       requestCharged: requestCharged,
+      errors: errors == null ? null : _i6.BuiltList(errors),
     );
   }
 
@@ -52,7 +52,7 @@ abstract class DeleteObjectsOutput
           b.errors.replace(payload.errors!);
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i5.RequestCharged.values
+          b.requestCharged = _i4.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -67,11 +67,11 @@ abstract class DeleteObjectsOutput
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
   _i6.BuiltList<_i3.DeletedObject>? get deleted;
 
-  /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
-  _i6.BuiltList<_i4.Error>? get errors;
-
   /// If present, indicates that the requester was successfully charged for the request.
-  _i5.RequestCharged? get requestCharged;
+  _i4.RequestCharged? get requestCharged;
+
+  /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
+  _i6.BuiltList<_i5.Error>? get errors;
   @override
   DeleteObjectsOutputPayload getPayload() => DeleteObjectsOutputPayload((b) {
         if (deleted != null) {
@@ -84,8 +84,8 @@ abstract class DeleteObjectsOutput
   @override
   List<Object?> get props => [
         deleted,
-        errors,
         requestCharged,
+        errors,
       ];
   @override
   String toString() {
@@ -95,12 +95,12 @@ abstract class DeleteObjectsOutput
       deleted,
     );
     helper.add(
-      'errors',
-      errors,
-    );
-    helper.add(
       'requestCharged',
       requestCharged,
+    );
+    helper.add(
+      'errors',
+      errors,
     );
     return helper.toString();
   }
@@ -124,7 +124,7 @@ abstract class DeleteObjectsOutputPayload
   _i6.BuiltList<_i3.DeletedObject>? get deleted;
 
   /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
-  _i6.BuiltList<_i4.Error>? get errors;
+  _i6.BuiltList<_i5.Error>? get errors;
   @override
   List<Object?> get props => [
         deleted,
@@ -188,8 +188,8 @@ class DeleteObjectsOutputRestXmlSerializer
           if (value != null) {
             result.errors.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Error),
-            ) as _i4.Error));
+              specifiedType: const FullType(_i5.Error),
+            ) as _i5.Error));
           }
           break;
       }
@@ -231,7 +231,7 @@ class DeleteObjectsOutputRestXmlSerializer
         payload.errors!,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
-          [FullType(_i4.Error)],
+          [FullType(_i5.Error)],
         ),
       ));
     }

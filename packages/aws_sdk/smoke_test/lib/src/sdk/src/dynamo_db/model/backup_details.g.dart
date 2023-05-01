@@ -10,10 +10,6 @@ class _$BackupDetails extends BackupDetails {
   @override
   final String backupArn;
   @override
-  final DateTime backupCreationDateTime;
-  @override
-  final DateTime? backupExpiryDateTime;
-  @override
   final String backupName;
   @override
   final _i2.Int64? backupSizeBytes;
@@ -21,29 +17,33 @@ class _$BackupDetails extends BackupDetails {
   final _i3.BackupStatus backupStatus;
   @override
   final _i4.BackupType backupType;
+  @override
+  final DateTime backupCreationDateTime;
+  @override
+  final DateTime? backupExpiryDateTime;
 
   factory _$BackupDetails([void Function(BackupDetailsBuilder)? updates]) =>
       (new BackupDetailsBuilder()..update(updates))._build();
 
   _$BackupDetails._(
       {required this.backupArn,
-      required this.backupCreationDateTime,
-      this.backupExpiryDateTime,
       required this.backupName,
       this.backupSizeBytes,
       required this.backupStatus,
-      required this.backupType})
+      required this.backupType,
+      required this.backupCreationDateTime,
+      this.backupExpiryDateTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         backupArn, r'BackupDetails', 'backupArn');
-    BuiltValueNullFieldError.checkNotNull(
-        backupCreationDateTime, r'BackupDetails', 'backupCreationDateTime');
     BuiltValueNullFieldError.checkNotNull(
         backupName, r'BackupDetails', 'backupName');
     BuiltValueNullFieldError.checkNotNull(
         backupStatus, r'BackupDetails', 'backupStatus');
     BuiltValueNullFieldError.checkNotNull(
         backupType, r'BackupDetails', 'backupType');
+    BuiltValueNullFieldError.checkNotNull(
+        backupCreationDateTime, r'BackupDetails', 'backupCreationDateTime');
   }
 
   @override
@@ -58,24 +58,24 @@ class _$BackupDetails extends BackupDetails {
     if (identical(other, this)) return true;
     return other is BackupDetails &&
         backupArn == other.backupArn &&
-        backupCreationDateTime == other.backupCreationDateTime &&
-        backupExpiryDateTime == other.backupExpiryDateTime &&
         backupName == other.backupName &&
         backupSizeBytes == other.backupSizeBytes &&
         backupStatus == other.backupStatus &&
-        backupType == other.backupType;
+        backupType == other.backupType &&
+        backupCreationDateTime == other.backupCreationDateTime &&
+        backupExpiryDateTime == other.backupExpiryDateTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, backupArn.hashCode);
-    _$hash = $jc(_$hash, backupCreationDateTime.hashCode);
-    _$hash = $jc(_$hash, backupExpiryDateTime.hashCode);
     _$hash = $jc(_$hash, backupName.hashCode);
     _$hash = $jc(_$hash, backupSizeBytes.hashCode);
     _$hash = $jc(_$hash, backupStatus.hashCode);
     _$hash = $jc(_$hash, backupType.hashCode);
+    _$hash = $jc(_$hash, backupCreationDateTime.hashCode);
+    _$hash = $jc(_$hash, backupExpiryDateTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,16 +88,6 @@ class BackupDetailsBuilder
   String? _backupArn;
   String? get backupArn => _$this._backupArn;
   set backupArn(String? backupArn) => _$this._backupArn = backupArn;
-
-  DateTime? _backupCreationDateTime;
-  DateTime? get backupCreationDateTime => _$this._backupCreationDateTime;
-  set backupCreationDateTime(DateTime? backupCreationDateTime) =>
-      _$this._backupCreationDateTime = backupCreationDateTime;
-
-  DateTime? _backupExpiryDateTime;
-  DateTime? get backupExpiryDateTime => _$this._backupExpiryDateTime;
-  set backupExpiryDateTime(DateTime? backupExpiryDateTime) =>
-      _$this._backupExpiryDateTime = backupExpiryDateTime;
 
   String? _backupName;
   String? get backupName => _$this._backupName;
@@ -117,6 +107,16 @@ class BackupDetailsBuilder
   _i4.BackupType? get backupType => _$this._backupType;
   set backupType(_i4.BackupType? backupType) => _$this._backupType = backupType;
 
+  DateTime? _backupCreationDateTime;
+  DateTime? get backupCreationDateTime => _$this._backupCreationDateTime;
+  set backupCreationDateTime(DateTime? backupCreationDateTime) =>
+      _$this._backupCreationDateTime = backupCreationDateTime;
+
+  DateTime? _backupExpiryDateTime;
+  DateTime? get backupExpiryDateTime => _$this._backupExpiryDateTime;
+  set backupExpiryDateTime(DateTime? backupExpiryDateTime) =>
+      _$this._backupExpiryDateTime = backupExpiryDateTime;
+
   BackupDetailsBuilder() {
     BackupDetails._init(this);
   }
@@ -125,12 +125,12 @@ class BackupDetailsBuilder
     final $v = _$v;
     if ($v != null) {
       _backupArn = $v.backupArn;
-      _backupCreationDateTime = $v.backupCreationDateTime;
-      _backupExpiryDateTime = $v.backupExpiryDateTime;
       _backupName = $v.backupName;
       _backupSizeBytes = $v.backupSizeBytes;
       _backupStatus = $v.backupStatus;
       _backupType = $v.backupType;
+      _backupCreationDateTime = $v.backupCreationDateTime;
+      _backupExpiryDateTime = $v.backupExpiryDateTime;
       _$v = null;
     }
     return this;
@@ -155,18 +155,18 @@ class BackupDetailsBuilder
         new _$BackupDetails._(
             backupArn: BuiltValueNullFieldError.checkNotNull(
                 backupArn, r'BackupDetails', 'backupArn'),
-            backupCreationDateTime: BuiltValueNullFieldError.checkNotNull(
-                backupCreationDateTime,
-                r'BackupDetails',
-                'backupCreationDateTime'),
-            backupExpiryDateTime: backupExpiryDateTime,
             backupName: BuiltValueNullFieldError.checkNotNull(
                 backupName, r'BackupDetails', 'backupName'),
             backupSizeBytes: backupSizeBytes,
             backupStatus: BuiltValueNullFieldError.checkNotNull(
                 backupStatus, r'BackupDetails', 'backupStatus'),
             backupType: BuiltValueNullFieldError.checkNotNull(
-                backupType, r'BackupDetails', 'backupType'));
+                backupType, r'BackupDetails', 'backupType'),
+            backupCreationDateTime: BuiltValueNullFieldError.checkNotNull(
+                backupCreationDateTime,
+                r'BackupDetails',
+                'backupCreationDateTime'),
+            backupExpiryDateTime: backupExpiryDateTime);
     replace(_$result);
     return _$result;
   }

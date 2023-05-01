@@ -17,14 +17,14 @@ abstract class ComplianceSummary
     implements Built<ComplianceSummary, ComplianceSummaryBuilder> {
   /// The number of Config rules or Amazon Web Services resources that are compliant and noncompliant.
   factory ComplianceSummary({
-    DateTime? complianceSummaryTimestamp,
     _i2.ComplianceContributorCount? compliantResourceCount,
     _i2.ComplianceContributorCount? nonCompliantResourceCount,
+    DateTime? complianceSummaryTimestamp,
   }) {
     return _$ComplianceSummary._(
-      complianceSummaryTimestamp: complianceSummaryTimestamp,
       compliantResourceCount: compliantResourceCount,
       nonCompliantResourceCount: nonCompliantResourceCount,
+      complianceSummaryTimestamp: complianceSummaryTimestamp,
     );
   }
 
@@ -41,27 +41,23 @@ abstract class ComplianceSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceSummaryBuilder b) {}
 
-  /// The time that Config created the compliance summary.
-  DateTime? get complianceSummaryTimestamp;
-
   /// The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get compliantResourceCount;
 
   /// The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get nonCompliantResourceCount;
+
+  /// The time that Config created the compliance summary.
+  DateTime? get complianceSummaryTimestamp;
   @override
   List<Object?> get props => [
-        complianceSummaryTimestamp,
         compliantResourceCount,
         nonCompliantResourceCount,
+        complianceSummaryTimestamp,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplianceSummary');
-    helper.add(
-      'complianceSummaryTimestamp',
-      complianceSummaryTimestamp,
-    );
     helper.add(
       'compliantResourceCount',
       compliantResourceCount,
@@ -69,6 +65,10 @@ abstract class ComplianceSummary
     helper.add(
       'nonCompliantResourceCount',
       nonCompliantResourceCount,
+    );
+    helper.add(
+      'complianceSummaryTimestamp',
+      complianceSummaryTimestamp,
     );
     return helper.toString();
   }
@@ -103,14 +103,6 @@ class ComplianceSummaryAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceSummaryTimestamp':
-          if (value != null) {
-            result.complianceSummaryTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'CompliantResourceCount':
           if (value != null) {
             result.compliantResourceCount.replace((serializers.deserialize(
@@ -127,6 +119,14 @@ class ComplianceSummaryAwsJson11Serializer
             ) as _i2.ComplianceContributorCount));
           }
           break;
+        case 'ComplianceSummaryTimestamp':
+          if (value != null) {
+            result.complianceSummaryTimestamp = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
       }
     }
 
@@ -141,14 +141,6 @@ class ComplianceSummaryAwsJson11Serializer
   }) {
     final payload = (object as ComplianceSummary);
     final result = <Object?>[];
-    if (payload.complianceSummaryTimestamp != null) {
-      result
-        ..add('ComplianceSummaryTimestamp')
-        ..add(serializers.serialize(
-          payload.complianceSummaryTimestamp!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.compliantResourceCount != null) {
       result
         ..add('CompliantResourceCount')
@@ -163,6 +155,14 @@ class ComplianceSummaryAwsJson11Serializer
         ..add(serializers.serialize(
           payload.nonCompliantResourceCount!,
           specifiedType: const FullType(_i2.ComplianceContributorCount),
+        ));
+    }
+    if (payload.complianceSummaryTimestamp != null) {
+      result
+        ..add('ComplianceSummaryTimestamp')
+        ..add(serializers.serialize(
+          payload.complianceSummaryTimestamp!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

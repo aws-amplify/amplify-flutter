@@ -11,9 +11,9 @@ class _$DescribeConfigurationAggregatorsRequest
   @override
   final _i3.BuiltList<String>? configurationAggregatorNames;
   @override
-  final int? limit;
-  @override
   final String? nextToken;
+  @override
+  final int? limit;
 
   factory _$DescribeConfigurationAggregatorsRequest(
           [void Function(DescribeConfigurationAggregatorsRequestBuilder)?
@@ -22,7 +22,7 @@ class _$DescribeConfigurationAggregatorsRequest
           ._build();
 
   _$DescribeConfigurationAggregatorsRequest._(
-      {this.configurationAggregatorNames, this.limit, this.nextToken})
+      {this.configurationAggregatorNames, this.nextToken, this.limit})
       : super._();
 
   @override
@@ -40,16 +40,16 @@ class _$DescribeConfigurationAggregatorsRequest
     if (identical(other, this)) return true;
     return other is DescribeConfigurationAggregatorsRequest &&
         configurationAggregatorNames == other.configurationAggregatorNames &&
-        limit == other.limit &&
-        nextToken == other.nextToken;
+        nextToken == other.nextToken &&
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, configurationAggregatorNames.hashCode);
-    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,13 +68,13 @@ class DescribeConfigurationAggregatorsRequestBuilder
           _i3.ListBuilder<String>? configurationAggregatorNames) =>
       _$this._configurationAggregatorNames = configurationAggregatorNames;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
-
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   DescribeConfigurationAggregatorsRequestBuilder() {
     DescribeConfigurationAggregatorsRequest._init(this);
@@ -85,8 +85,8 @@ class DescribeConfigurationAggregatorsRequestBuilder
     if ($v != null) {
       _configurationAggregatorNames =
           $v.configurationAggregatorNames?.toBuilder();
-      _limit = $v.limit;
       _nextToken = $v.nextToken;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -114,8 +114,8 @@ class DescribeConfigurationAggregatorsRequestBuilder
           new _$DescribeConfigurationAggregatorsRequest._(
               configurationAggregatorNames:
                   _configurationAggregatorNames?.build(),
-              limit: limit,
-              nextToken: nextToken);
+              nextToken: nextToken,
+              limit: limit);
     } catch (_) {
       late String _$failedField;
       try {

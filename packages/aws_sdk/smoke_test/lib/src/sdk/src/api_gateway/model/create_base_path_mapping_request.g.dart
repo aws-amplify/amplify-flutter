@@ -8,9 +8,9 @@ part of smoke_test.api_gateway.model.create_base_path_mapping_request;
 
 class _$CreateBasePathMappingRequest extends CreateBasePathMappingRequest {
   @override
-  final String? basePath;
-  @override
   final String domainName;
+  @override
+  final String? basePath;
   @override
   final String restApiId;
   @override
@@ -21,8 +21,8 @@ class _$CreateBasePathMappingRequest extends CreateBasePathMappingRequest {
       (new CreateBasePathMappingRequestBuilder()..update(updates))._build();
 
   _$CreateBasePathMappingRequest._(
-      {this.basePath,
-      required this.domainName,
+      {required this.domainName,
+      this.basePath,
       required this.restApiId,
       this.stage})
       : super._() {
@@ -45,8 +45,8 @@ class _$CreateBasePathMappingRequest extends CreateBasePathMappingRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateBasePathMappingRequest &&
-        basePath == other.basePath &&
         domainName == other.domainName &&
+        basePath == other.basePath &&
         restApiId == other.restApiId &&
         stage == other.stage;
   }
@@ -54,8 +54,8 @@ class _$CreateBasePathMappingRequest extends CreateBasePathMappingRequest {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, stage.hashCode);
     _$hash = $jf(_$hash);
@@ -69,13 +69,13 @@ class CreateBasePathMappingRequestBuilder
             CreateBasePathMappingRequestBuilder> {
   _$CreateBasePathMappingRequest? _$v;
 
-  String? _basePath;
-  String? get basePath => _$this._basePath;
-  set basePath(String? basePath) => _$this._basePath = basePath;
-
   String? _domainName;
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
+
+  String? _basePath;
+  String? get basePath => _$this._basePath;
+  set basePath(String? basePath) => _$this._basePath = basePath;
 
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
@@ -92,8 +92,8 @@ class CreateBasePathMappingRequestBuilder
   CreateBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _basePath = $v.basePath;
       _domainName = $v.domainName;
+      _basePath = $v.basePath;
       _restApiId = $v.restApiId;
       _stage = $v.stage;
       _$v = null;
@@ -118,9 +118,9 @@ class CreateBasePathMappingRequestBuilder
   _$CreateBasePathMappingRequest _build() {
     final _$result = _$v ??
         new _$CreateBasePathMappingRequest._(
-            basePath: basePath,
             domainName: BuiltValueNullFieldError.checkNotNull(
                 domainName, r'CreateBasePathMappingRequest', 'domainName'),
+            basePath: basePath,
             restApiId: BuiltValueNullFieldError.checkNotNull(
                 restApiId, r'CreateBasePathMappingRequest', 'restApiId'),
             stage: stage);

@@ -19,14 +19,14 @@ abstract class UpdateContributorInsightsInput
         Built<UpdateContributorInsightsInput,
             UpdateContributorInsightsInputBuilder> {
   factory UpdateContributorInsightsInput({
-    required _i3.ContributorInsightsAction contributorInsightsAction,
-    String? indexName,
     required String tableName,
+    String? indexName,
+    required _i3.ContributorInsightsAction contributorInsightsAction,
   }) {
     return _$UpdateContributorInsightsInput._(
-      contributorInsightsAction: contributorInsightsAction,
-      indexName: indexName,
       tableName: tableName,
+      indexName: indexName,
+      contributorInsightsAction: contributorInsightsAction,
     );
   }
 
@@ -50,37 +50,37 @@ abstract class UpdateContributorInsightsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateContributorInsightsInputBuilder b) {}
 
-  /// Represents the contributor insights action.
-  _i3.ContributorInsightsAction get contributorInsightsAction;
+  /// The name of the table.
+  String get tableName;
 
   /// The global secondary index name, if applicable.
   String? get indexName;
 
-  /// The name of the table.
-  String get tableName;
+  /// Represents the contributor insights action.
+  _i3.ContributorInsightsAction get contributorInsightsAction;
   @override
   UpdateContributorInsightsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        contributorInsightsAction,
-        indexName,
         tableName,
+        indexName,
+        contributorInsightsAction,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('UpdateContributorInsightsInput');
     helper.add(
-      'contributorInsightsAction',
-      contributorInsightsAction,
+      'tableName',
+      tableName,
     );
     helper.add(
       'indexName',
       indexName,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'contributorInsightsAction',
+      contributorInsightsAction,
     );
     return helper.toString();
   }
@@ -116,11 +116,11 @@ class UpdateContributorInsightsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ContributorInsightsAction':
-          result.contributorInsightsAction = (serializers.deserialize(
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i3.ContributorInsightsAction),
-          ) as _i3.ContributorInsightsAction);
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'IndexName':
           if (value != null) {
@@ -130,11 +130,11 @@ class UpdateContributorInsightsInputAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
+        case 'ContributorInsightsAction':
+          result.contributorInsightsAction = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(String),
-          ) as String);
+            specifiedType: const FullType(_i3.ContributorInsightsAction),
+          ) as _i3.ContributorInsightsAction);
           break;
       }
     }
@@ -150,15 +150,15 @@ class UpdateContributorInsightsInputAwsJson10Serializer
   }) {
     final payload = (object as UpdateContributorInsightsInput);
     final result = <Object?>[
-      'ContributorInsightsAction',
-      serializers.serialize(
-        payload.contributorInsightsAction,
-        specifiedType: const FullType(_i3.ContributorInsightsAction),
-      ),
       'TableName',
       serializers.serialize(
         payload.tableName,
         specifiedType: const FullType(String),
+      ),
+      'ContributorInsightsAction',
+      serializers.serialize(
+        payload.contributorInsightsAction,
+        specifiedType: const FullType(_i3.ContributorInsightsAction),
       ),
     ];
     if (payload.indexName != null) {
