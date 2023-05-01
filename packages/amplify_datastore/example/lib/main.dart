@@ -177,6 +177,15 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  getPost() async {
+    try {
+      List<Post> post = await Amplify.DataStore.query(Post.classType);
+      print(post);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   savePost(String title, int rating, Blog associatedBlog) async {
     try {
       Post post = Post(
@@ -285,6 +294,10 @@ class _MyAppState extends State<MyApp> {
                 _selectedPostForNewComment, _posts, saveComment, this),
 
             Padding(padding: EdgeInsets.all(10.0)),
+
+            Padding(padding: EdgeInsets.all(5.0)),
+
+            ElevatedButton(onPressed: getPost, child: Text('Query Posts')),
 
             // Row for query buttons
             displayQueryButtons(_isAmplifyConfigured, this),

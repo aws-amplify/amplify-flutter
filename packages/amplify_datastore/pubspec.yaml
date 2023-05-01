@@ -26,6 +26,9 @@ dev_dependencies:
     sdk: flutter
   fake_async: ^1.2.0
 
+dependency_overrides:
+  async: ^2.10.0
+
 # The following section is specific to Flutter.
 flutter:
   plugin:

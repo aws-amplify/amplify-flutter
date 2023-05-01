@@ -230,30 +230,24 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                         continue
                     }
 
-                    result[key] = [
-                        "modelName": nextModelName,
-                        "serializedData": try generateSerializedData(
+                    result[key] = try generateSerializedData(
                             values: deserializedValue,
                             modelSchemaRegistry: modelSchemaRegistry,
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: nextModelName
                         )
-                    ]
                 }
                 // if a field has a single CustomType value presented as JSONValue.object
                 else if case .embedded(_, .some(let customTypeSchema)) = field?.type,
                         case .some(.object(let deserializedValue)) = values[key]
                 {
                     let customTypeName = customTypeSchema.name
-                    result[key] = [
-                        "customTypeName": customTypeName,
-                        "serializedData": try FlutterSerializedModel.generateSerializedData(
+                    result[key] = try FlutterSerializedModel.generateSerializedData(
                             values: deserializedValue,
                             modelSchemaRegistry: modelSchemaRegistry,
                             customTypeSchemaRegistry: customTypeSchemaRegistry,
                             modelName: customTypeName
                         )
-                    ]
                 }
             } else if case .collection = field?.type{
                 continue
@@ -266,15 +260,12 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
                        case .embeddedCollection(_, .some(let customTypeSchema)) = field?.type
                     {
                         let customTypeName = customTypeSchema.name
-                        deserializedArray.append([
-                            "customTypeName": customTypeName,
-                            "serializedData": try FlutterSerializedModel.generateSerializedData(
+                        deserializedArray.append(try FlutterSerializedModel.generateSerializedData(
                                 values: deserializedItem,
                                 modelSchemaRegistry: modelSchemaRegistry,
                                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                                 modelName: customTypeName
-                            )
-                        ])
+                            ))
                     } else {
                         deserializedArray.append(deserializeValue(value: item, fieldType: fieldType))
                     }
@@ -320,15 +311,12 @@ public struct FlutterSerializedModel: Model, ModelIdentifiable, JSONValueHolder 
         customTypeSchemaRegistry: FlutterSchemaRegistry,
         modelName: String
     ) throws -> [String: Any] {
-        return [
-            "modelName": modelName,
-            "serializedData": try FlutterSerializedModel.generateSerializedData(
+        return ["\(modelName)": try FlutterSerializedModel.generateSerializedData(
                 values: values,
                 modelSchemaRegistry: modelSchemaRegistry,
                 customTypeSchemaRegistry: customTypeSchemaRegistry,
                 modelName: modelName
-            )
-        ]
+            )]
     }
 }
 
