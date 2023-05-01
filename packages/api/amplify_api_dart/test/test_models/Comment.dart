@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -12,10 +24,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Comment type in your schema.
+/** This is an auto generated class representing the Comment type in your schema. */
 @immutable
 class Comment extends Model {
-  static const classType = _CommentModelType();
+  static const classType = const _CommentModelType();
   final String id;
   final Post? _post;
   final String? _content;
@@ -42,7 +54,7 @@ class Comment extends Model {
     try {
       return _content!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -89,7 +101,7 @@ class Comment extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -112,9 +124,8 @@ class Comment extends Model {
 
   Comment.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _post = json['post']?['serializedData'] != null
-            ? Post.fromJson(
-                Map<String, dynamic>.from(json['post']['serializedData']))
+        _post = json['post'] != null
+            ? Post.fromJson(new Map<String, dynamic>.from(json['post']))
             : null,
         _content = json['content'],
         _createdAt = json['createdAt'] != null
@@ -132,13 +143,20 @@ class Comment extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'post': _post,
+        'content': _content,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<CommentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField POST = QueryField(
       fieldName: "post",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Post).toString()));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Post'));
   static final QueryField CONTENT = QueryField(fieldName: "content");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -154,8 +172,8 @@ class Comment extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Comment.POST,
         isRequired: false,
-        targetNames: ["postID"],
-        ofModelName: (Post).toString()));
+        targetNames: ['postID'],
+        ofModelName: 'Post'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Comment.CONTENT,
@@ -183,15 +201,22 @@ class _CommentModelType extends ModelType<Comment> {
   Comment fromJson(Map<String, dynamic> jsonData) {
     return Comment.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Comment';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [Comment] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Comment] in your schema.
+ */
 @immutable
 class CommentModelIdentifier implements ModelIdentifier<Comment> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
+  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
   const CommentModelIdentifier({required this.id});
 
   @override

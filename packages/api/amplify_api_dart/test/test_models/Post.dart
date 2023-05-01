@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -13,10 +25,10 @@ import 'package:meta/meta.dart';
 
 import 'ModelProvider.dart';
 
-/// This is an auto generated class representing the Post type in your schema.
+/** This is an auto generated class representing the Post type in your schema. */
 @immutable
 class Post extends Model {
-  static const classType = _PostModelType();
+  static const classType = const _PostModelType();
   final String id;
   final String? _title;
   final int? _rating;
@@ -43,7 +55,7 @@ class Post extends Model {
     try {
       return _title!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -56,7 +68,7 @@ class Post extends Model {
     try {
       return _rating!;
     } catch (e) {
-      throw AmplifyCodeGenModelException(
+      throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages
               .codeGenRequiredFieldForceCastExceptionMessage,
           recoverySuggestion: AmplifyExceptionMessages
@@ -149,7 +161,7 @@ class Post extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -193,22 +205,19 @@ class Post extends Model {
         _created = json['created'] != null
             ? TemporalDateTime.fromString(json['created'])
             : null,
-        _blog = json['blog']?['serializedData'] != null
-            ? Blog.fromJson(
-                Map<String, dynamic>.from(json['blog']['serializedData']))
+        _blog = json['blog'] != null
+            ? Blog.fromJson(new Map<String, dynamic>.from(json['blog']))
             : null,
-        _comments = json['comments'] is List
-            ? (json['comments'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => Comment.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+        _comments = json['comments'] != null
+            ? (json['comments']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
-        _tags = json['tags'] is List
-            ? (json['tags'] as List)
-                .where((e) => e?['serializedData'] != null)
-                .map((e) => PostTags.fromJson(
-                    Map<String, dynamic>.from(e['serializedData'])))
+        _tags = json['tags'] != null
+            ? (json['tags']['items'] as List)
+                .where((e) => e != null)
+                .map((e) => PostTags.fromJson(new Map<String, dynamic>.from(e)))
                 .toList()
             : null,
         _createdAt = json['createdAt'] != null
@@ -230,6 +239,18 @@ class Post extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'title': _title,
+        'rating': _rating,
+        'created': _created,
+        'blog': _blog,
+        'comments': _comments,
+        'tags': _tags,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<PostModelIdentifier> MODEL_IDENTIFIER =
       QueryModelIdentifier<PostModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
@@ -238,16 +259,15 @@ class Post extends Model {
   static final QueryField CREATED = QueryField(fieldName: "created");
   static final QueryField BLOG = QueryField(
       fieldName: "blog",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Blog).toString()));
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Blog'));
   static final QueryField COMMENTS = QueryField(
       fieldName: "comments",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (Comment).toString()));
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Comment'));
   static final QueryField TAGS = QueryField(
       fieldName: "tags",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (PostTags).toString()));
+      fieldType:
+          ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'PostTags'));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
@@ -277,19 +297,19 @@ class Post extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: Post.BLOG,
         isRequired: false,
-        targetNames: ["blogID"],
-        ofModelName: (Blog).toString()));
+        targetNames: ['blogID'],
+        ofModelName: 'Blog'));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Post.COMMENTS,
         isRequired: false,
-        ofModelName: (Comment).toString(),
+        ofModelName: 'Comment',
         associatedKey: Comment.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Post.TAGS,
         isRequired: false,
-        ofModelName: (PostTags).toString(),
+        ofModelName: 'PostTags',
         associatedKey: PostTags.POST));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -313,15 +333,22 @@ class _PostModelType extends ModelType<Post> {
   Post fromJson(Map<String, dynamic> jsonData) {
     return Post.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'Post';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [Post] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [Post] in your schema.
+ */
 @immutable
 class PostModelIdentifier implements ModelIdentifier<Post> {
   final String id;
 
-  /// Create an instance of PostModelIdentifier using [id] the primary key.
+  /** Create an instance of PostModelIdentifier using [id] the primary key. */
   const PostModelIdentifier({required this.id});
 
   @override
