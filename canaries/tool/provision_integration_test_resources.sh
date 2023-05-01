@@ -12,7 +12,7 @@ FLUTTERCONFIG="{\
 }"
 
 AMPLIFY="{\
-\"projectName\":\"apiIntegMultiAuth\",\
+\"projectName\":\"amplifyCanaries\",\
 \"envName\":\"test\",\
 \"defaultEditor\":\"code\"\
 }"
