@@ -55,7 +55,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         Map<String, dynamic> arguments =
             (call.arguments as Map).cast<String, dynamic>();
 
-        final modelName = arguments["modelName"] as String;
+        final modelName = arguments["__modelName"] as String;
         final modelType = modelProvider!.getModelTypeByModelName(modelName);
 
         ConflictData conflictData = ConflictData.fromJson(
@@ -140,9 +140,8 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
         throw DataStoreException(
             AmplifyExceptionMessages.nullReturnedFromMethodChannel);
       return serializedResults
-          .map((serializedResult) => modelType.fromJson(
-              new Map<String, dynamic>.from(
-                  serializedResult["serializedData"])))
+          .map((serializedResult) => modelType
+              .fromJson(new Map<String, dynamic>.from(serializedResult)))
           .toList();
     } on PlatformException catch (e) {
       throw _deserializeException(e);
@@ -262,7 +261,7 @@ class AmplifyDataStoreMethodChannel extends AmplifyDataStore {
   String _getModelNameFromEvent(Map<dynamic, dynamic> serializedEvent) {
     Map<String, dynamic> serializedItem =
         Map<String, dynamic>.from(serializedEvent["item"]);
-    return serializedItem["modelName"] as String;
+    return serializedItem["__modelName"] as String;
   }
 
   AmplifyException _deserializeExceptionFromMap(Map<String, dynamic> e) {

@@ -3,8 +3,6 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-const _serializedData = 'serializedData';
-
 /// "items", the key name for nested data in AppSync
 const items = 'items';
 
@@ -100,87 +98,4 @@ ModelSchema getModelSchemaByModelName(
   }
 
   return schema;
-}
-
-/// Transform the JSON from AppSync so it matches the fromJson in codegen models.
-/// 1) Look for a parent in the schema. If that parent exists in the JSON, transform it.
-/// 2) Look for list of children under [fieldName]["items"] and hoist up so no more ["items"].
-Map<String, dynamic> transformAppSyncJsonToModelJson(
-  Map<String, dynamic> input,
-  ModelSchema modelSchema, {
-  bool isPaginated = false,
-}) {
-  input = <String, dynamic>{...input}; // avoid mutating original
-
-  // check for list at top-level and transform each entry
-  if (isPaginated && input[items] is List) {
-    final transformedItems = (input[items] as List)
-        .map(
-          (dynamic e) => e != null
-              ? transformAppSyncJsonToModelJson(
-                  e as Map<String, dynamic>,
-                  modelSchema,
-                )
-              : null,
-        )
-        .toList();
-    input.update(items, (dynamic value) => transformedItems);
-    return input;
-  }
-
-  final relatedFields = _getRelatedFields(modelSchema);
-
-  // transform parents/hasOne recursively
-  for (final parentField in relatedFields.singleFields) {
-    final ofModelName =
-        parentField.type.ofModelName ?? parentField.type.ofCustomTypeName;
-    final inputValue = input[parentField.name];
-    if ((inputValue is Map || inputValue is List) && ofModelName != null) {
-      final parentSchema = getModelSchemaByModelName(ofModelName, null);
-      input.update(parentField.name, (dynamic parentData) {
-        if (parentData is List) {
-          // only used for embeddedCollection
-          return parentData
-              .map(
-                (dynamic e) => {
-                  _serializedData: transformAppSyncJsonToModelJson(
-                    e as Map<String, dynamic>,
-                    parentSchema,
-                  ),
-                },
-              )
-              .toList();
-        }
-        return {
-          _serializedData: transformAppSyncJsonToModelJson(
-            parentData as Map<String, dynamic>,
-            parentSchema,
-          ),
-        };
-      });
-    }
-  }
-
-  // transform children recursively
-  for (final childField in relatedFields.hasManyFields) {
-    final ofModelName = childField.type.ofModelName;
-    final inputValue = input[childField.name];
-    final inputItems = (inputValue is Map) ? inputValue[items] as List? : null;
-    if (inputItems is List && ofModelName != null) {
-      final childSchema = getModelSchemaByModelName(ofModelName, null);
-      final transformedItems = inputItems
-          .map(
-            (dynamic item) => {
-              _serializedData: transformAppSyncJsonToModelJson(
-                item as Map<String, dynamic>,
-                childSchema,
-              ),
-            },
-          )
-          .toList();
-      input.update(childField.name, (dynamic value) => transformedItems);
-    }
-  }
-
-  return input;
 }

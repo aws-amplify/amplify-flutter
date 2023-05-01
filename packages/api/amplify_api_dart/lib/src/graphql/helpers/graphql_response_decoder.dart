@@ -5,7 +5,6 @@
 
 import 'dart:convert';
 
-import 'package:amplify_api_dart/src/graphql/utils.dart';
 import 'package:amplify_core/amplify_core.dart';
 
 const _nextToken = 'nextToken';
@@ -76,12 +75,7 @@ class GraphQLResponseDecoder {
 
     // Found a JSON object to represent the model, parse it using model's fromJSON.
     T decodedData;
-    final modelSchema = getModelSchemaByModelName(modelType.modelName(), null);
-    dataJson = transformAppSyncJsonToModelJson(
-      dataJson!,
-      modelSchema,
-      isPaginated: modelType is PaginatedModelType,
-    );
+
     if (modelType is PaginatedModelType) {
       final filter = request.variables['filter'] as Map<String, dynamic>?;
       final limit = request.variables['limit'] as int?;

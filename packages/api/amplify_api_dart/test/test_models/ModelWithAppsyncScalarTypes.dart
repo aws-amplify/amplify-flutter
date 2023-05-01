@@ -1,5 +1,17 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+/*
+* Copyright 2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License").
+* You may not use this file except in compliance with the License.
+* A copy of the License is located at
+*
+*  http://aws.amazon.com/apache2.0
+*
+* or in the "license" file accompanying this file. This file is distributed
+* on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+* express or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
 // NOTE: This file is generated and may not follow lint rules defined in your app
 // Generated files can be excluded from analysis in analysis_options.yaml
@@ -11,10 +23,12 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-/// This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema.
+import 'utils.dart';
+
+/** This is an auto generated class representing the ModelWithAppsyncScalarTypes type in your schema. */
 @immutable
 class ModelWithAppsyncScalarTypes extends Model {
-  static const classType = _ModelWithAppsyncScalarTypesModelType();
+  static const classType = const _ModelWithAppsyncScalarTypesModelType();
   final String id;
   final String? _stringValue;
   final String? _altStringValue;
@@ -387,7 +401,7 @@ class ModelWithAppsyncScalarTypes extends Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("ModelWithAppsyncScalarTypes {");
     buffer.write("id=" + "$id" + ", ");
@@ -649,6 +663,40 @@ class ModelWithAppsyncScalarTypes extends Model {
         'updatedAt': _updatedAt?.format()
       };
 
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'stringValue': _stringValue,
+        'altStringValue': _altStringValue,
+        'listOfStringValue': _listOfStringValue,
+        'intValue': _intValue,
+        'altIntValue': _altIntValue,
+        'listOfIntValue': _listOfIntValue,
+        'floatValue': _floatValue,
+        'listOfFloatValue': _listOfFloatValue,
+        'booleanValue': _booleanValue,
+        'listOfBooleanValue': _listOfBooleanValue,
+        'awsDateValue': _awsDateValue,
+        'listOfAWSDateValue': _listOfAWSDateValue,
+        'awsTimeValue': _awsTimeValue,
+        'listOfAWSTimeValue': _listOfAWSTimeValue,
+        'awsDateTimeValue': _awsDateTimeValue,
+        'listOfAWSDateTimeValue': _listOfAWSDateTimeValue,
+        'awsTimestampValue': _awsTimestampValue,
+        'listOfAWSTimestampValue': _listOfAWSTimestampValue,
+        'awsEmailValue': _awsEmailValue,
+        'listOfAWSEmailValue': _listOfAWSEmailValue,
+        'awsJsonValue': _awsJsonValue,
+        'listOfAWSJsonValue': _listOfAWSJsonValue,
+        'awsPhoneValue': _awsPhoneValue,
+        'listOfAWSPhoneValue': _listOfAWSPhoneValue,
+        'awsURLValue': _awsURLValue,
+        'listOfAWSURLValue': _listOfAWSURLValue,
+        'awsIPAddressValue': _awsIPAddressValue,
+        'listOfAWSIPAddressValue': _listOfAWSIPAddressValue,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
   static final QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>
       MODEL_IDENTIFIER =
       QueryModelIdentifier<ModelWithAppsyncScalarTypesModelIdentifier>();
@@ -722,7 +770,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.INTVALUE,
@@ -739,7 +787,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.int.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.FLOATVALUE,
@@ -751,7 +799,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.double.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.double))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.BOOLEANVALUE,
@@ -763,7 +811,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.bool.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.bool))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSDATEVALUE,
@@ -775,7 +823,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.date.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.date))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSTIMEVALUE,
@@ -787,7 +835,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.time.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.time))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSDATETIMEVALUE,
@@ -799,7 +847,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.dateTime.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.dateTime))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSTIMESTAMPVALUE,
@@ -811,7 +859,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.timestamp.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.timestamp))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSEMAILVALUE,
@@ -823,7 +871,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSJSONVALUE,
@@ -835,7 +883,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSPHONEVALUE,
@@ -847,7 +895,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSURLVALUE,
@@ -859,7 +907,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: ModelWithAppsyncScalarTypes.AWSIPADDRESSVALUE,
@@ -871,7 +919,7 @@ class ModelWithAppsyncScalarTypes extends Model {
         isRequired: false,
         isArray: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.collection,
-            ofModelName: ModelFieldTypeEnum.string.name)));
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',
@@ -895,16 +943,23 @@ class _ModelWithAppsyncScalarTypesModelType
   ModelWithAppsyncScalarTypes fromJson(Map<String, dynamic> jsonData) {
     return ModelWithAppsyncScalarTypes.fromJson(jsonData);
   }
+
+  @override
+  String modelName() {
+    return 'ModelWithAppsyncScalarTypes';
+  }
 }
 
-/// This is an auto generated class representing the model identifier
-/// of [ModelWithAppsyncScalarTypes] in your schema.
+/**
+ * This is an auto generated class representing the model identifier
+ * of [ModelWithAppsyncScalarTypes] in your schema.
+ */
 @immutable
 class ModelWithAppsyncScalarTypesModelIdentifier
     implements ModelIdentifier<ModelWithAppsyncScalarTypes> {
   final String id;
 
-  /// Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key.
+  /** Create an instance of ModelWithAppsyncScalarTypesModelIdentifier using [id] the primary key. */
   const ModelWithAppsyncScalarTypesModelIdentifier({required this.id});
 
   @override

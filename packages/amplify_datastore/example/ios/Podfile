@@ -44,5 +44,15 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      # Workaround for: https://github.com/flutter/flutter/issues/126449
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+
+      # iOS Test Debugging fix
+      s = config.build_settings['FRAMEWORK_SEARCH_PATHS']
+      s = [ '$(inherited)' ] if s == nil;
+      s.push('$(PLATFORM_DIR)/Developer/Library/Frameworks')
+      config.build_settings['FRAMEWORK_SEARCH_PATHS'] = s
+    end
   end
 end

@@ -6,10 +6,7 @@ package com.amazonaws.amplify.amplify_datastore
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
 import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class AmplifySerializedModelTest {
 
     private var serializedModelMaps: Map<String, Any> = (
@@ -63,14 +60,8 @@ class AmplifySerializedModelTest {
         // timestamp value is expected as Long, however readMapFromFile util create Integer for this field
         // Correct the field before assertion
         val correctedRefMap = refMap.mapValues {
-            if (it.key == "serializedData") {
-                (it.value as Map<String, Any>).mapValues { entry ->
-                    if (entry.key == "timestampType") {
-                        (entry.value as Number).toLong()
-                    } else {
-                        entry.value
-                    }
-                }
+            if (it.key == "timestampType") {
+                (it.value as Number).toLong()
             } else {
                 it.value
             }
@@ -90,8 +81,8 @@ class AmplifySerializedModelTest {
 
         // Verify result
         Assert.assertEquals(
-            flutterSerializedModel.toMap(),
-            expectedResult
+            expectedResult,
+            flutterSerializedModel.toMap()
         )
     }
 }
