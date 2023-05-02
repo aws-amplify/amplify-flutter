@@ -19,14 +19,14 @@ abstract class ExportResponse
         _i2.HasPayload<_i3.Uint8List> {
   /// The binary blob response to GetExport, which contains the generated SDK.
   factory ExportResponse({
-    _i3.Uint8List? body,
-    String? contentDisposition,
     String? contentType,
+    String? contentDisposition,
+    _i3.Uint8List? body,
   }) {
     return _$ExportResponse._(
-      body: body,
-      contentDisposition: contentDisposition,
       contentType: contentType,
+      contentDisposition: contentDisposition,
+      body: body,
     );
   }
 
@@ -58,36 +58,36 @@ abstract class ExportResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportResponseBuilder b) {}
 
-  /// The binary blob response to GetExport, which contains the export.
-  _i3.Uint8List? get body;
+  /// The content-type header value in the HTTP response. This will correspond to a valid 'accept' type in the request.
+  String? get contentType;
 
   /// The content-disposition header value in the HTTP response.
   String? get contentDisposition;
 
-  /// The content-type header value in the HTTP response. This will correspond to a valid 'accept' type in the request.
-  String? get contentType;
+  /// The binary blob response to GetExport, which contains the export.
+  _i3.Uint8List? get body;
   @override
   _i3.Uint8List? getPayload() => body;
   @override
   List<Object?> get props => [
-        body,
-        contentDisposition,
         contentType,
+        contentDisposition,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExportResponse');
     helper.add(
-      'body',
-      body,
+      'contentType',
+      contentType,
     );
     helper.add(
       'contentDisposition',
       contentDisposition,
     );
     helper.add(
-      'contentType',
-      contentType,
+      'body',
+      body,
     );
     return helper.toString();
   }

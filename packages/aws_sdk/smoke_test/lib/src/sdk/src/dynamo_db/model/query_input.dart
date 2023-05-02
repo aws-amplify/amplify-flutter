@@ -8,13 +8,13 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
     as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/select.dart' as _i7;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart'
+    as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
+    as _i7;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/select.dart' as _i3;
 
 part 'query_input.g.dart';
 
@@ -24,48 +24,48 @@ abstract class QueryInput
     implements Built<QueryInput, QueryInputBuilder> {
   /// Represents the input of a `Query` operation.
   factory QueryInput({
-    List<String>? attributesToGet,
-    _i3.ConditionalOperator? conditionalOperator,
-    bool? consistentRead,
-    Map<String, _i4.AttributeValue>? exclusiveStartKey,
-    Map<String, String>? expressionAttributeNames,
-    Map<String, _i4.AttributeValue>? expressionAttributeValues,
-    String? filterExpression,
-    String? indexName,
-    String? keyConditionExpression,
-    Map<String, _i5.Condition>? keyConditions,
-    int? limit,
-    String? projectionExpression,
-    Map<String, _i5.Condition>? queryFilter,
-    _i6.ReturnConsumedCapacity? returnConsumedCapacity,
-    bool? scanIndexForward,
-    _i7.Select? select,
     required String tableName,
+    String? indexName,
+    _i3.Select? select,
+    List<String>? attributesToGet,
+    int? limit,
+    bool? consistentRead,
+    Map<String, _i4.Condition>? keyConditions,
+    Map<String, _i4.Condition>? queryFilter,
+    _i5.ConditionalOperator? conditionalOperator,
+    bool? scanIndexForward,
+    Map<String, _i6.AttributeValue>? exclusiveStartKey,
+    _i7.ReturnConsumedCapacity? returnConsumedCapacity,
+    String? projectionExpression,
+    String? filterExpression,
+    String? keyConditionExpression,
+    Map<String, String>? expressionAttributeNames,
+    Map<String, _i6.AttributeValue>? expressionAttributeValues,
   }) {
     return _$QueryInput._(
+      tableName: tableName,
+      indexName: indexName,
+      select: select,
       attributesToGet:
           attributesToGet == null ? null : _i8.BuiltList(attributesToGet),
-      conditionalOperator: conditionalOperator,
+      limit: limit,
       consistentRead: consistentRead,
+      keyConditions: keyConditions == null ? null : _i8.BuiltMap(keyConditions),
+      queryFilter: queryFilter == null ? null : _i8.BuiltMap(queryFilter),
+      conditionalOperator: conditionalOperator,
+      scanIndexForward: scanIndexForward,
       exclusiveStartKey:
           exclusiveStartKey == null ? null : _i8.BuiltMap(exclusiveStartKey),
+      returnConsumedCapacity: returnConsumedCapacity,
+      projectionExpression: projectionExpression,
+      filterExpression: filterExpression,
+      keyConditionExpression: keyConditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
           : _i8.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
           : _i8.BuiltMap(expressionAttributeValues),
-      filterExpression: filterExpression,
-      indexName: indexName,
-      keyConditionExpression: keyConditionExpression,
-      keyConditions: keyConditions == null ? null : _i8.BuiltMap(keyConditions),
-      limit: limit,
-      projectionExpression: projectionExpression,
-      queryFilter: queryFilter == null ? null : _i8.BuiltMap(queryFilter),
-      returnConsumedCapacity: returnConsumedCapacity,
-      scanIndexForward: scanIndexForward,
-      select: select,
-      tableName: tableName,
     );
   }
 
@@ -89,67 +89,81 @@ abstract class QueryInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueryInputBuilder b) {}
 
+  /// The name of the table containing the requested items.
+  String get tableName;
+
+  /// The name of an index to query. This index can be any local secondary index or global secondary index on the table. Note that if you use the `IndexName` parameter, you must also provide `TableName.`
+  String? get indexName;
+
+  /// The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index.
+  ///
+  /// *   `ALL_ATTRIBUTES` \- Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.
+  ///
+  /// *   `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying `ALL_ATTRIBUTES`.
+  ///
+  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves.
+  ///
+  /// *   `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in `ProjectionExpression`. This return value is equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
+  ///
+  ///     If you query or scan a local secondary index and request only attributes that are projected into that index, the operation will read only the index and not the table. If any of the requested attributes are not projected into the local secondary index, DynamoDB fetches each of these attributes from the parent table. This extra fetching incurs additional throughput cost and latency.
+  ///
+  ///     If you query or scan a global secondary index, you can only request attributes that are projected into the index. Global secondary index queries cannot fetch attributes from the parent table.
+  ///
+  ///
+  /// If neither `Select` nor `ProjectionExpression` are specified, DynamoDB defaults to `ALL_ATTRIBUTES` when accessing a table, and `ALL\_PROJECTED\_ATTRIBUTES` when accessing an index. You cannot use both `Select` and `ProjectionExpression` together in a single request, unless the value for `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to specifying `ProjectionExpression` without any value for `Select`.)
+  ///
+  /// If you use the `ProjectionExpression` parameter, then the value for `Select` can only be `SPECIFIC_ATTRIBUTES`. Any other value for `Select` will return an error.
+  _i3.Select? get select;
+
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [AttributesToGet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html) in the _Amazon DynamoDB Developer Guide_.
   _i8.BuiltList<String>? get attributesToGet;
 
-  /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ConditionalOperator? get conditionalOperator;
+  /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, and a key in `LastEvaluatedKey` to apply in a subsequent operation, so that you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation. For more information, see [Query and Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html) in the _Amazon DynamoDB Developer Guide_.
+  int? get limit;
 
   /// Determines the read consistency model: If set to `true`, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads.
   ///
   /// Strongly consistent reads are not supported on global secondary indexes. If you query a global secondary index with `ConsistentRead` set to `true`, you will receive a `ValidationException`.
   bool? get consistentRead;
 
+  /// This is a legacy parameter. Use `KeyConditionExpression` instead. For more information, see [KeyConditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html) in the _Amazon DynamoDB Developer Guide_.
+  _i8.BuiltMap<String, _i4.Condition>? get keyConditions;
+
+  /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [QueryFilter](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html) in the _Amazon DynamoDB Developer Guide_.
+  _i8.BuiltMap<String, _i4.Condition>? get queryFilter;
+
+  /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
+  _i5.ConditionalOperator? get conditionalOperator;
+
+  /// Specifies the order for index traversal: If `true` (default), the traversal is performed in ascending order; if `false`, the traversal is performed in descending order.
+  ///
+  /// Items with the same partition key value are stored in sorted order by sort key. If the sort key data type is Number, the results are stored in numeric order. For type String, the results are stored in order of UTF-8 bytes. For type Binary, DynamoDB treats each byte of the binary data as unsigned.
+  ///
+  /// If `ScanIndexForward` is `true`, DynamoDB returns the results in the order in which they are stored (by sort key value). This is the default behavior. If `ScanIndexForward` is `false`, DynamoDB reads the results in reverse order by sort key value, and then returns the results to the client.
+  bool? get scanIndexForward;
+
   /// The primary key of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedKey` in the previous operation.
   ///
   /// The data type for `ExclusiveStartKey` must be String, Number, or Binary. No set data types are allowed.
-  _i8.BuiltMap<String, _i4.AttributeValue>? get exclusiveStartKey;
+  _i8.BuiltMap<String, _i6.AttributeValue>? get exclusiveStartKey;
 
-  /// One or more substitution tokens for attribute names in an expression. The following are some use cases for using `ExpressionAttributeNames`:
+  /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
-  /// *   To access an attribute whose name conflicts with a DynamoDB reserved word.
+  /// *   `INDEXES` \- The response includes the aggregate `ConsumedCapacity` for the operation, together with `ConsumedCapacity` for each table and secondary index that was accessed.
   ///
-  /// *   To create a placeholder for repeating occurrences of an attribute name in an expression.
+  ///     Note that some operations, such as `GetItem` and `BatchGetItem`, do not access any indexes at all. In these cases, specifying `INDEXES` will only return `ConsumedCapacity` information for table(s).
   ///
-  /// *   To prevent special characters in an attribute name from being misinterpreted in an expression.
+  /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
-  ///
-  /// Use the **#** character in an expression to dereference an attribute name. For example, consider the following attribute name:
-  ///
-  /// *   `Percentile`
-  ///
-  ///
-  /// The name of this attribute conflicts with a reserved word, so it cannot be used directly in an expression. (For the complete list of reserved words, see [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html) in the _Amazon DynamoDB Developer Guide_). To work around this, you could specify the following for `ExpressionAttributeNames`:
-  ///
-  /// *   `{"#P":"Percentile"}`
-  ///
-  ///
-  /// You could then use this substitution in an expression, as in this example:
-  ///
-  /// *   `#P = :val`
-  ///
-  ///
-  /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
-  ///
-  /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, String>? get expressionAttributeNames;
+  /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
+  _i7.ReturnConsumedCapacity? get returnConsumedCapacity;
 
-  /// One or more values that can be substituted in an expression.
+  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas.
   ///
-  /// Use the **:** (colon) character in an expression to dereference an attribute value. For example, suppose that you wanted to check whether the value of the _ProductStatus_ attribute was one of the following:
+  /// If no attribute names are specified, then all attributes will be returned. If any of the requested attributes are not found, they will not appear in the result.
   ///
-  /// `Available | Backordered | Discontinued`
-  ///
-  /// You would first need to specify `ExpressionAttributeValues` as follows:
-  ///
-  /// `{ ":avail":{"S":"Available"}, ":back":{"S":"Backordered"}, ":disc":{"S":"Discontinued"} }`
-  ///
-  /// You could then use these values in an expression, such as this:
-  ///
-  /// `ProductStatus IN (:avail, :back, :disc)`
-  ///
-  /// For more information on expression attribute values, see [Specifying Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, _i4.AttributeValue>? get expressionAttributeValues;
+  /// For more information, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
+  String? get projectionExpression;
 
   /// A string that contains conditions that DynamoDB applies after the `Query` operation, but before the data is returned to you. Items that do not satisfy the `FilterExpression` criteria are not returned.
   ///
@@ -159,9 +173,6 @@ abstract class QueryInput
   ///
   /// For more information, see [Filter Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression) in the _Amazon DynamoDB Developer Guide_.
   String? get filterExpression;
-
-  /// The name of an index to query. This index can be any local secondary index or global secondary index on the table. Note that if you use the `IndexName` parameter, you must also provide `TableName.`
-  String? get indexName;
 
   /// The condition that specifies the key values for items to be retrieved by the `Query` action.
   ///
@@ -211,102 +222,135 @@ abstract class QueryInput
   /// For more information on `ExpressionAttributeNames` and `ExpressionAttributeValues`, see [Using Placeholders for Attribute Names and Values](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ExpressionPlaceholders.html) in the _Amazon DynamoDB Developer Guide_.
   String? get keyConditionExpression;
 
-  /// This is a legacy parameter. Use `KeyConditionExpression` instead. For more information, see [KeyConditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.KeyConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, _i5.Condition>? get keyConditions;
+  /// One or more substitution tokens for attribute names in an expression. The following are some use cases for using `ExpressionAttributeNames`:
+  ///
+  /// *   To access an attribute whose name conflicts with a DynamoDB reserved word.
+  ///
+  /// *   To create a placeholder for repeating occurrences of an attribute name in an expression.
+  ///
+  /// *   To prevent special characters in an attribute name from being misinterpreted in an expression.
+  ///
+  ///
+  /// Use the **#** character in an expression to dereference an attribute name. For example, consider the following attribute name:
+  ///
+  /// *   `Percentile`
+  ///
+  ///
+  /// The name of this attribute conflicts with a reserved word, so it cannot be used directly in an expression. (For the complete list of reserved words, see [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html) in the _Amazon DynamoDB Developer Guide_). To work around this, you could specify the following for `ExpressionAttributeNames`:
+  ///
+  /// *   `{"#P":"Percentile"}`
+  ///
+  ///
+  /// You could then use this substitution in an expression, as in this example:
+  ///
+  /// *   `#P = :val`
+  ///
+  ///
+  /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
+  ///
+  /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
+  _i8.BuiltMap<String, String>? get expressionAttributeNames;
 
-  /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, and a key in `LastEvaluatedKey` to apply in a subsequent operation, so that you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation. For more information, see [Query and Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html) in the _Amazon DynamoDB Developer Guide_.
-  int? get limit;
-
-  /// A string that identifies one or more attributes to retrieve from the table. These attributes can include scalars, sets, or elements of a JSON document. The attributes in the expression must be separated by commas.
+  /// One or more values that can be substituted in an expression.
   ///
-  /// If no attribute names are specified, then all attributes will be returned. If any of the requested attributes are not found, they will not appear in the result.
+  /// Use the **:** (colon) character in an expression to dereference an attribute value. For example, suppose that you wanted to check whether the value of the _ProductStatus_ attribute was one of the following:
   ///
-  /// For more information, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  String? get projectionExpression;
-
-  /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [QueryFilter](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.QueryFilter.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, _i5.Condition>? get queryFilter;
-
-  /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
+  /// `Available | Backordered | Discontinued`
   ///
-  /// *   `INDEXES` \- The response includes the aggregate `ConsumedCapacity` for the operation, together with `ConsumedCapacity` for each table and secondary index that was accessed.
+  /// You would first need to specify `ExpressionAttributeValues` as follows:
   ///
-  ///     Note that some operations, such as `GetItem` and `BatchGetItem`, do not access any indexes at all. In these cases, specifying `INDEXES` will only return `ConsumedCapacity` information for table(s).
+  /// `{ ":avail":{"S":"Available"}, ":back":{"S":"Backordered"}, ":disc":{"S":"Discontinued"} }`
   ///
-  /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
+  /// You could then use these values in an expression, such as this:
   ///
-  /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i6.ReturnConsumedCapacity? get returnConsumedCapacity;
-
-  /// Specifies the order for index traversal: If `true` (default), the traversal is performed in ascending order; if `false`, the traversal is performed in descending order.
+  /// `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// Items with the same partition key value are stored in sorted order by sort key. If the sort key data type is Number, the results are stored in numeric order. For type String, the results are stored in order of UTF-8 bytes. For type Binary, DynamoDB treats each byte of the binary data as unsigned.
-  ///
-  /// If `ScanIndexForward` is `true`, DynamoDB returns the results in the order in which they are stored (by sort key value). This is the default behavior. If `ScanIndexForward` is `false`, DynamoDB reads the results in reverse order by sort key value, and then returns the results to the client.
-  bool? get scanIndexForward;
-
-  /// The attributes to be returned in the result. You can retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index.
-  ///
-  /// *   `ALL_ATTRIBUTES` \- Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.
-  ///
-  /// *   `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying `ALL_ATTRIBUTES`.
-  ///
-  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves.
-  ///
-  /// *   `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in `ProjectionExpression`. This return value is equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
-  ///
-  ///     If you query or scan a local secondary index and request only attributes that are projected into that index, the operation will read only the index and not the table. If any of the requested attributes are not projected into the local secondary index, DynamoDB fetches each of these attributes from the parent table. This extra fetching incurs additional throughput cost and latency.
-  ///
-  ///     If you query or scan a global secondary index, you can only request attributes that are projected into the index. Global secondary index queries cannot fetch attributes from the parent table.
-  ///
-  ///
-  /// If neither `Select` nor `ProjectionExpression` are specified, DynamoDB defaults to `ALL_ATTRIBUTES` when accessing a table, and `ALL\_PROJECTED\_ATTRIBUTES` when accessing an index. You cannot use both `Select` and `ProjectionExpression` together in a single request, unless the value for `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to specifying `ProjectionExpression` without any value for `Select`.)
-  ///
-  /// If you use the `ProjectionExpression` parameter, then the value for `Select` can only be `SPECIFIC_ATTRIBUTES`. Any other value for `Select` will return an error.
-  _i7.Select? get select;
-
-  /// The name of the table containing the requested items.
-  String get tableName;
+  /// For more information on expression attribute values, see [Specifying Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
+  _i8.BuiltMap<String, _i6.AttributeValue>? get expressionAttributeValues;
   @override
   QueryInput getPayload() => this;
   @override
   List<Object?> get props => [
+        tableName,
+        indexName,
+        select,
         attributesToGet,
-        conditionalOperator,
+        limit,
         consistentRead,
+        keyConditions,
+        queryFilter,
+        conditionalOperator,
+        scanIndexForward,
         exclusiveStartKey,
+        returnConsumedCapacity,
+        projectionExpression,
+        filterExpression,
+        keyConditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
-        filterExpression,
-        indexName,
-        keyConditionExpression,
-        keyConditions,
-        limit,
-        projectionExpression,
-        queryFilter,
-        returnConsumedCapacity,
-        scanIndexForward,
-        select,
-        tableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueryInput');
     helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
+      'indexName',
+      indexName,
+    );
+    helper.add(
+      'select',
+      select,
+    );
+    helper.add(
       'attributesToGet',
       attributesToGet,
     );
     helper.add(
-      'conditionalOperator',
-      conditionalOperator,
+      'limit',
+      limit,
     );
     helper.add(
       'consistentRead',
       consistentRead,
     );
     helper.add(
+      'keyConditions',
+      keyConditions,
+    );
+    helper.add(
+      'queryFilter',
+      queryFilter,
+    );
+    helper.add(
+      'conditionalOperator',
+      conditionalOperator,
+    );
+    helper.add(
+      'scanIndexForward',
+      scanIndexForward,
+    );
+    helper.add(
       'exclusiveStartKey',
       exclusiveStartKey,
+    );
+    helper.add(
+      'returnConsumedCapacity',
+      returnConsumedCapacity,
+    );
+    helper.add(
+      'projectionExpression',
+      projectionExpression,
+    );
+    helper.add(
+      'filterExpression',
+      filterExpression,
+    );
+    helper.add(
+      'keyConditionExpression',
+      keyConditionExpression,
     );
     helper.add(
       'expressionAttributeNames',
@@ -315,50 +359,6 @@ abstract class QueryInput
     helper.add(
       'expressionAttributeValues',
       expressionAttributeValues,
-    );
-    helper.add(
-      'filterExpression',
-      filterExpression,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keyConditionExpression',
-      keyConditionExpression,
-    );
-    helper.add(
-      'keyConditions',
-      keyConditions,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'queryFilter',
-      queryFilter,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'scanIndexForward',
-      scanIndexForward,
-    );
-    helper.add(
-      'select',
-      select,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     return helper.toString();
   }
@@ -393,6 +393,28 @@ class QueryInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'IndexName':
+          if (value != null) {
+            result.indexName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'Select':
+          if (value != null) {
+            result.select = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.Select),
+            ) as _i3.Select);
+          }
+          break;
         case 'AttributesToGet':
           if (value != null) {
             result.attributesToGet.replace((serializers.deserialize(
@@ -404,17 +426,61 @@ class QueryInputAwsJson10Serializer
             ) as _i8.BuiltList<String>));
           }
           break;
-        case 'ConditionalOperator':
+        case 'Limit':
           if (value != null) {
-            result.conditionalOperator = (serializers.deserialize(
+            result.limit = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ConditionalOperator),
-            ) as _i3.ConditionalOperator);
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
         case 'ConsistentRead':
           if (value != null) {
             result.consistentRead = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'KeyConditions':
+          if (value != null) {
+            result.keyConditions.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i8.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(_i4.Condition),
+                ],
+              ),
+            ) as _i8.BuiltMap<String, _i4.Condition>));
+          }
+          break;
+        case 'QueryFilter':
+          if (value != null) {
+            result.queryFilter.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i8.BuiltMap,
+                [
+                  FullType(String),
+                  FullType(_i4.Condition),
+                ],
+              ),
+            ) as _i8.BuiltMap<String, _i4.Condition>));
+          }
+          break;
+        case 'ConditionalOperator':
+          if (value != null) {
+            result.conditionalOperator = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.ConditionalOperator),
+            ) as _i5.ConditionalOperator);
+          }
+          break;
+        case 'ScanIndexForward':
+          if (value != null) {
+            result.scanIndexForward = (serializers.deserialize(
               value,
               specifiedType: const FullType(bool),
             ) as bool);
@@ -428,10 +494,42 @@ class QueryInputAwsJson10Serializer
                 _i8.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i4.AttributeValue),
+                  FullType(_i6.AttributeValue),
                 ],
               ),
-            ) as _i8.BuiltMap<String, _i4.AttributeValue>));
+            ) as _i8.BuiltMap<String, _i6.AttributeValue>));
+          }
+          break;
+        case 'ReturnConsumedCapacity':
+          if (value != null) {
+            result.returnConsumedCapacity = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i7.ReturnConsumedCapacity),
+            ) as _i7.ReturnConsumedCapacity);
+          }
+          break;
+        case 'ProjectionExpression':
+          if (value != null) {
+            result.projectionExpression = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'FilterExpression':
+          if (value != null) {
+            result.filterExpression = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'KeyConditionExpression':
+          if (value != null) {
+            result.keyConditionExpression = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ExpressionAttributeNames':
@@ -456,109 +554,11 @@ class QueryInputAwsJson10Serializer
                 _i8.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i4.AttributeValue),
+                  FullType(_i6.AttributeValue),
                 ],
               ),
-            ) as _i8.BuiltMap<String, _i4.AttributeValue>));
+            ) as _i8.BuiltMap<String, _i6.AttributeValue>));
           }
-          break;
-        case 'FilterExpression':
-          if (value != null) {
-            result.filterExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'KeyConditionExpression':
-          if (value != null) {
-            result.keyConditionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'KeyConditions':
-          if (value != null) {
-            result.keyConditions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i5.Condition),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i5.Condition>));
-          }
-          break;
-        case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryFilter':
-          if (value != null) {
-            result.queryFilter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i5.Condition),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i5.Condition>));
-          }
-          break;
-        case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ReturnConsumedCapacity),
-            ) as _i6.ReturnConsumedCapacity);
-          }
-          break;
-        case 'ScanIndexForward':
-          if (value != null) {
-            result.scanIndexForward = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'Select':
-          if (value != null) {
-            result.select = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.Select),
-            ) as _i7.Select);
-          }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -580,6 +580,22 @@ class QueryInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.indexName != null) {
+      result
+        ..add('IndexName')
+        ..add(serializers.serialize(
+          payload.indexName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.select != null) {
+      result
+        ..add('Select')
+        ..add(serializers.serialize(
+          payload.select!,
+          specifiedType: const FullType(_i3.Select),
+        ));
+    }
     if (payload.attributesToGet != null) {
       result
         ..add('AttributesToGet')
@@ -591,12 +607,12 @@ class QueryInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.conditionalOperator != null) {
+    if (payload.limit != null) {
       result
-        ..add('ConditionalOperator')
+        ..add('Limit')
         ..add(serializers.serialize(
-          payload.conditionalOperator!,
-          specifiedType: const FullType(_i3.ConditionalOperator),
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     if (payload.consistentRead != null) {
@@ -604,6 +620,50 @@ class QueryInputAwsJson10Serializer
         ..add('ConsistentRead')
         ..add(serializers.serialize(
           payload.consistentRead!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.keyConditions != null) {
+      result
+        ..add('KeyConditions')
+        ..add(serializers.serialize(
+          payload.keyConditions!,
+          specifiedType: const FullType(
+            _i8.BuiltMap,
+            [
+              FullType(String),
+              FullType(_i4.Condition),
+            ],
+          ),
+        ));
+    }
+    if (payload.queryFilter != null) {
+      result
+        ..add('QueryFilter')
+        ..add(serializers.serialize(
+          payload.queryFilter!,
+          specifiedType: const FullType(
+            _i8.BuiltMap,
+            [
+              FullType(String),
+              FullType(_i4.Condition),
+            ],
+          ),
+        ));
+    }
+    if (payload.conditionalOperator != null) {
+      result
+        ..add('ConditionalOperator')
+        ..add(serializers.serialize(
+          payload.conditionalOperator!,
+          specifiedType: const FullType(_i5.ConditionalOperator),
+        ));
+    }
+    if (payload.scanIndexForward != null) {
+      result
+        ..add('ScanIndexForward')
+        ..add(serializers.serialize(
+          payload.scanIndexForward!,
           specifiedType: const FullType(bool),
         ));
     }
@@ -616,9 +676,41 @@ class QueryInputAwsJson10Serializer
             _i8.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.AttributeValue),
+              FullType(_i6.AttributeValue),
             ],
           ),
+        ));
+    }
+    if (payload.returnConsumedCapacity != null) {
+      result
+        ..add('ReturnConsumedCapacity')
+        ..add(serializers.serialize(
+          payload.returnConsumedCapacity!,
+          specifiedType: const FullType(_i7.ReturnConsumedCapacity),
+        ));
+    }
+    if (payload.projectionExpression != null) {
+      result
+        ..add('ProjectionExpression')
+        ..add(serializers.serialize(
+          payload.projectionExpression!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.filterExpression != null) {
+      result
+        ..add('FilterExpression')
+        ..add(serializers.serialize(
+          payload.filterExpression!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.keyConditionExpression != null) {
+      result
+        ..add('KeyConditionExpression')
+        ..add(serializers.serialize(
+          payload.keyConditionExpression!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.expressionAttributeNames != null) {
@@ -644,101 +736,9 @@ class QueryInputAwsJson10Serializer
             _i8.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.AttributeValue),
+              FullType(_i6.AttributeValue),
             ],
           ),
-        ));
-    }
-    if (payload.filterExpression != null) {
-      result
-        ..add('FilterExpression')
-        ..add(serializers.serialize(
-          payload.filterExpression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.indexName != null) {
-      result
-        ..add('IndexName')
-        ..add(serializers.serialize(
-          payload.indexName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.keyConditionExpression != null) {
-      result
-        ..add('KeyConditionExpression')
-        ..add(serializers.serialize(
-          payload.keyConditionExpression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.keyConditions != null) {
-      result
-        ..add('KeyConditions')
-        ..add(serializers.serialize(
-          payload.keyConditions!,
-          specifiedType: const FullType(
-            _i8.BuiltMap,
-            [
-              FullType(String),
-              FullType(_i5.Condition),
-            ],
-          ),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('Limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.projectionExpression != null) {
-      result
-        ..add('ProjectionExpression')
-        ..add(serializers.serialize(
-          payload.projectionExpression!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.queryFilter != null) {
-      result
-        ..add('QueryFilter')
-        ..add(serializers.serialize(
-          payload.queryFilter!,
-          specifiedType: const FullType(
-            _i8.BuiltMap,
-            [
-              FullType(String),
-              FullType(_i5.Condition),
-            ],
-          ),
-        ));
-    }
-    if (payload.returnConsumedCapacity != null) {
-      result
-        ..add('ReturnConsumedCapacity')
-        ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
-          specifiedType: const FullType(_i6.ReturnConsumedCapacity),
-        ));
-    }
-    if (payload.scanIndexForward != null) {
-      result
-        ..add('ScanIndexForward')
-        ..add(serializers.serialize(
-          payload.scanIndexForward!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.select != null) {
-      result
-        ..add('Select')
-        ..add(serializers.serialize(
-          payload.select!,
-          specifiedType: const FullType(_i7.Select),
         ));
     }
     return result;

@@ -19,16 +19,16 @@ abstract class MalformedIntegerInput
         _i1.HasPayload<MalformedIntegerInputPayload> {
   factory MalformedIntegerInput({
     int? integerInBody,
-    int? integerInHeader,
     int? integerInPath,
     int? integerInQuery,
+    int? integerInHeader,
   }) {
     integerInPath ??= 0;
     return _$MalformedIntegerInput._(
       integerInBody: integerInBody,
-      integerInHeader: integerInHeader,
       integerInPath: integerInPath,
       integerInQuery: integerInQuery,
+      integerInHeader: integerInHeader,
     );
   }
 
@@ -67,9 +67,9 @@ abstract class MalformedIntegerInput
   }
 
   int? get integerInBody;
-  int? get integerInHeader;
   int get integerInPath;
   int? get integerInQuery;
+  int? get integerInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -90,9 +90,9 @@ abstract class MalformedIntegerInput
   @override
   List<Object?> get props => [
         integerInBody,
-        integerInHeader,
         integerInPath,
         integerInQuery,
+        integerInHeader,
       ];
   @override
   String toString() {
@@ -102,16 +102,16 @@ abstract class MalformedIntegerInput
       integerInBody,
     );
     helper.add(
-      'integerInHeader',
-      integerInHeader,
-    );
-    helper.add(
       'integerInPath',
       integerInPath,
     );
     helper.add(
       'integerInQuery',
       integerInQuery,
+    );
+    helper.add(
+      'integerInHeader',
+      integerInHeader,
     );
     return helper.toString();
   }

@@ -10,11 +10,11 @@ class _$MalformedFloatInput extends MalformedFloatInput {
   @override
   final double? floatInBody;
   @override
-  final double? floatInHeader;
-  @override
   final double floatInPath;
   @override
   final double? floatInQuery;
+  @override
+  final double? floatInHeader;
 
   factory _$MalformedFloatInput(
           [void Function(MalformedFloatInputBuilder)? updates]) =>
@@ -22,9 +22,9 @@ class _$MalformedFloatInput extends MalformedFloatInput {
 
   _$MalformedFloatInput._(
       {this.floatInBody,
-      this.floatInHeader,
       required this.floatInPath,
-      this.floatInQuery})
+      this.floatInQuery,
+      this.floatInHeader})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         floatInPath, r'MalformedFloatInput', 'floatInPath');
@@ -44,18 +44,18 @@ class _$MalformedFloatInput extends MalformedFloatInput {
     if (identical(other, this)) return true;
     return other is MalformedFloatInput &&
         floatInBody == other.floatInBody &&
-        floatInHeader == other.floatInHeader &&
         floatInPath == other.floatInPath &&
-        floatInQuery == other.floatInQuery;
+        floatInQuery == other.floatInQuery &&
+        floatInHeader == other.floatInHeader;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, floatInBody.hashCode);
-    _$hash = $jc(_$hash, floatInHeader.hashCode);
     _$hash = $jc(_$hash, floatInPath.hashCode);
     _$hash = $jc(_$hash, floatInQuery.hashCode);
+    _$hash = $jc(_$hash, floatInHeader.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,11 +69,6 @@ class MalformedFloatInputBuilder
   double? get floatInBody => _$this._floatInBody;
   set floatInBody(double? floatInBody) => _$this._floatInBody = floatInBody;
 
-  double? _floatInHeader;
-  double? get floatInHeader => _$this._floatInHeader;
-  set floatInHeader(double? floatInHeader) =>
-      _$this._floatInHeader = floatInHeader;
-
   double? _floatInPath;
   double? get floatInPath => _$this._floatInPath;
   set floatInPath(double? floatInPath) => _$this._floatInPath = floatInPath;
@@ -81,6 +76,11 @@ class MalformedFloatInputBuilder
   double? _floatInQuery;
   double? get floatInQuery => _$this._floatInQuery;
   set floatInQuery(double? floatInQuery) => _$this._floatInQuery = floatInQuery;
+
+  double? _floatInHeader;
+  double? get floatInHeader => _$this._floatInHeader;
+  set floatInHeader(double? floatInHeader) =>
+      _$this._floatInHeader = floatInHeader;
 
   MalformedFloatInputBuilder() {
     MalformedFloatInput._init(this);
@@ -90,9 +90,9 @@ class MalformedFloatInputBuilder
     final $v = _$v;
     if ($v != null) {
       _floatInBody = $v.floatInBody;
-      _floatInHeader = $v.floatInHeader;
       _floatInPath = $v.floatInPath;
       _floatInQuery = $v.floatInQuery;
+      _floatInHeader = $v.floatInHeader;
       _$v = null;
     }
     return this;
@@ -116,10 +116,10 @@ class MalformedFloatInputBuilder
     final _$result = _$v ??
         new _$MalformedFloatInput._(
             floatInBody: floatInBody,
-            floatInHeader: floatInHeader,
             floatInPath: BuiltValueNullFieldError.checkNotNull(
                 floatInPath, r'MalformedFloatInput', 'floatInPath'),
-            floatInQuery: floatInQuery);
+            floatInQuery: floatInQuery,
+            floatInHeader: floatInHeader);
     replace(_$result);
     return _$result;
   }

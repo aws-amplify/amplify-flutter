@@ -10,9 +10,9 @@ class _$MalformedRequiredInput extends MalformedRequiredInput {
   @override
   final String string;
   @override
-  final String stringInHeader;
-  @override
   final String stringInQuery;
+  @override
+  final String stringInHeader;
 
   factory _$MalformedRequiredInput(
           [void Function(MalformedRequiredInputBuilder)? updates]) =>
@@ -20,15 +20,15 @@ class _$MalformedRequiredInput extends MalformedRequiredInput {
 
   _$MalformedRequiredInput._(
       {required this.string,
-      required this.stringInHeader,
-      required this.stringInQuery})
+      required this.stringInQuery,
+      required this.stringInHeader})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         string, r'MalformedRequiredInput', 'string');
     BuiltValueNullFieldError.checkNotNull(
-        stringInHeader, r'MalformedRequiredInput', 'stringInHeader');
-    BuiltValueNullFieldError.checkNotNull(
         stringInQuery, r'MalformedRequiredInput', 'stringInQuery');
+    BuiltValueNullFieldError.checkNotNull(
+        stringInHeader, r'MalformedRequiredInput', 'stringInHeader');
   }
 
   @override
@@ -45,16 +45,16 @@ class _$MalformedRequiredInput extends MalformedRequiredInput {
     if (identical(other, this)) return true;
     return other is MalformedRequiredInput &&
         string == other.string &&
-        stringInHeader == other.stringInHeader &&
-        stringInQuery == other.stringInQuery;
+        stringInQuery == other.stringInQuery &&
+        stringInHeader == other.stringInHeader;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, string.hashCode);
-    _$hash = $jc(_$hash, stringInHeader.hashCode);
     _$hash = $jc(_$hash, stringInQuery.hashCode);
+    _$hash = $jc(_$hash, stringInHeader.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,15 +68,15 @@ class MalformedRequiredInputBuilder
   String? get string => _$this._string;
   set string(String? string) => _$this._string = string;
 
-  String? _stringInHeader;
-  String? get stringInHeader => _$this._stringInHeader;
-  set stringInHeader(String? stringInHeader) =>
-      _$this._stringInHeader = stringInHeader;
-
   String? _stringInQuery;
   String? get stringInQuery => _$this._stringInQuery;
   set stringInQuery(String? stringInQuery) =>
       _$this._stringInQuery = stringInQuery;
+
+  String? _stringInHeader;
+  String? get stringInHeader => _$this._stringInHeader;
+  set stringInHeader(String? stringInHeader) =>
+      _$this._stringInHeader = stringInHeader;
 
   MalformedRequiredInputBuilder() {
     MalformedRequiredInput._init(this);
@@ -86,8 +86,8 @@ class MalformedRequiredInputBuilder
     final $v = _$v;
     if ($v != null) {
       _string = $v.string;
-      _stringInHeader = $v.stringInHeader;
       _stringInQuery = $v.stringInQuery;
+      _stringInHeader = $v.stringInHeader;
       _$v = null;
     }
     return this;
@@ -112,10 +112,10 @@ class MalformedRequiredInputBuilder
         new _$MalformedRequiredInput._(
             string: BuiltValueNullFieldError.checkNotNull(
                 string, r'MalformedRequiredInput', 'string'),
-            stringInHeader: BuiltValueNullFieldError.checkNotNull(
-                stringInHeader, r'MalformedRequiredInput', 'stringInHeader'),
             stringInQuery: BuiltValueNullFieldError.checkNotNull(
-                stringInQuery, r'MalformedRequiredInput', 'stringInQuery'));
+                stringInQuery, r'MalformedRequiredInput', 'stringInQuery'),
+            stringInHeader: BuiltValueNullFieldError.checkNotNull(
+                stringInHeader, r'MalformedRequiredInput', 'stringInHeader'));
     replace(_$result);
     return _$result;
   }

@@ -143,23 +143,17 @@ class HttpRequestWithLabelsInputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'boolean':
-          result.boolean = (serializers.deserialize(
+        case 'string':
+          result.string = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(bool),
-          ) as bool);
+            specifiedType: const FullType(String),
+          ) as String);
           break;
-        case 'double':
-          result.double_ = (serializers.deserialize(
+        case 'short':
+          result.short = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(double),
-          ) as double);
-          break;
-        case 'float':
-          result.float = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(double),
-          ) as double);
+            specifiedType: const FullType(int),
+          ) as int);
           break;
         case 'integer':
           result.integer = (serializers.deserialize(
@@ -173,17 +167,23 @@ class HttpRequestWithLabelsInputRestJson1Serializer
             specifiedType: const FullType(_i6.Int64),
           ) as _i6.Int64);
           break;
-        case 'short':
-          result.short = (serializers.deserialize(
+        case 'float':
+          result.float = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(int),
-          ) as int);
+            specifiedType: const FullType(double),
+          ) as double);
           break;
-        case 'string':
-          result.string = (serializers.deserialize(
+        case 'double':
+          result.double_ = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(String),
-          ) as String);
+            specifiedType: const FullType(double),
+          ) as double);
+          break;
+        case 'boolean':
+          result.boolean = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(bool),
+          ) as bool);
           break;
         case 'timestamp':
           result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(

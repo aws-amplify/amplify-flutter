@@ -18,12 +18,12 @@ abstract class ParameterizedStatement
     implements Built<ParameterizedStatement, ParameterizedStatementBuilder> {
   /// Represents a PartiQL statment that uses parameters.
   factory ParameterizedStatement({
-    List<_i2.AttributeValue>? parameters,
     required String statement,
+    List<_i2.AttributeValue>? parameters,
   }) {
     return _$ParameterizedStatement._(
-      parameters: parameters == null ? null : _i3.BuiltList(parameters),
       statement: statement,
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
     );
   }
 
@@ -41,26 +41,26 @@ abstract class ParameterizedStatement
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ParameterizedStatementBuilder b) {}
 
-  /// The parameter values.
-  _i3.BuiltList<_i2.AttributeValue>? get parameters;
-
   /// A PartiQL statment that uses parameters.
   String get statement;
+
+  /// The parameter values.
+  _i3.BuiltList<_i2.AttributeValue>? get parameters;
   @override
   List<Object?> get props => [
-        parameters,
         statement,
+        parameters,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ParameterizedStatement');
     helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
       'statement',
       statement,
+    );
+    helper.add(
+      'parameters',
+      parameters,
     );
     return helper.toString();
   }
@@ -96,6 +96,12 @@ class ParameterizedStatementAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Statement':
+          result.statement = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'Parameters':
           if (value != null) {
             result.parameters.replace((serializers.deserialize(
@@ -106,12 +112,6 @@ class ParameterizedStatementAwsJson10Serializer
               ),
             ) as _i3.BuiltList<_i2.AttributeValue>));
           }
-          break;
-        case 'Statement':
-          result.statement = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

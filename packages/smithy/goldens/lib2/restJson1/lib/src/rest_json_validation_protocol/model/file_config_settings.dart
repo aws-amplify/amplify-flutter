@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/retry_mode.dart'
-    as _i2;
-import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/s3_config.dart'
     as _i3;
+import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/s3_config.dart'
+    as _i2;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'file_config_settings.g.dart';
@@ -22,19 +22,19 @@ abstract class FileConfigSettings
     String? awsAccessKeyId,
     String? awsSecretAccessKey,
     String? awsSessionToken,
-    int? maxAttempts,
     String? region,
-    _i2.RetryMode? retryMode,
-    _i3.S3Config? s3,
+    _i2.S3Config? s3,
+    _i3.RetryMode? retryMode,
+    int? maxAttempts,
   }) {
     return _$FileConfigSettings._(
       awsAccessKeyId: awsAccessKeyId,
       awsSecretAccessKey: awsSecretAccessKey,
       awsSessionToken: awsSessionToken,
-      maxAttempts: maxAttempts,
       region: region,
-      retryMode: retryMode,
       s3: s3,
+      retryMode: retryMode,
+      maxAttempts: maxAttempts,
     );
   }
 
@@ -54,23 +54,23 @@ abstract class FileConfigSettings
   String? get awsAccessKeyId;
   String? get awsSecretAccessKey;
   String? get awsSessionToken;
-  int? get maxAttempts;
   String? get region;
 
-  /// Controls the strategy used for retries.
-  _i2.RetryMode? get retryMode;
-
   /// Configuration specific to S3.
-  _i3.S3Config? get s3;
+  _i2.S3Config? get s3;
+
+  /// Controls the strategy used for retries.
+  _i3.RetryMode? get retryMode;
+  int? get maxAttempts;
   @override
   List<Object?> get props => [
         awsAccessKeyId,
         awsSecretAccessKey,
         awsSessionToken,
-        maxAttempts,
         region,
-        retryMode,
         s3,
+        retryMode,
+        maxAttempts,
       ];
   @override
   String toString() {
@@ -88,20 +88,20 @@ abstract class FileConfigSettings
       awsSessionToken,
     );
     helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
-    helper.add(
       'region',
       region,
+    );
+    helper.add(
+      's3',
+      s3,
     );
     helper.add(
       'retryMode',
       retryMode,
     );
     helper.add(
-      's3',
-      s3,
+      'maxAttempts',
+      maxAttempts,
     );
     return helper.toString();
   }
@@ -180,16 +180,16 @@ class FileConfigSettingsRestJson1Serializer
           if (value != null) {
             result.retryMode = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.RetryMode),
-            ) as _i2.RetryMode);
+              specifiedType: const FullType(_i3.RetryMode),
+            ) as _i3.RetryMode);
           }
           break;
         case 's3':
           if (value != null) {
             result.s3.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.S3Config),
-            ) as _i3.S3Config));
+              specifiedType: const FullType(_i2.S3Config),
+            ) as _i2.S3Config));
           }
           break;
       }
@@ -251,7 +251,7 @@ class FileConfigSettingsRestJson1Serializer
         ..add('retry_mode')
         ..add(serializers.serialize(
           payload.retryMode!,
-          specifiedType: const FullType(_i2.RetryMode),
+          specifiedType: const FullType(_i3.RetryMode),
         ));
     }
     if (payload.s3 != null) {
@@ -259,7 +259,7 @@ class FileConfigSettingsRestJson1Serializer
         ..add('s3')
         ..add(serializers.serialize(
           payload.s3!,
-          specifiedType: const FullType(_i3.S3Config),
+          specifiedType: const FullType(_i2.S3Config),
         ));
     }
     return result;

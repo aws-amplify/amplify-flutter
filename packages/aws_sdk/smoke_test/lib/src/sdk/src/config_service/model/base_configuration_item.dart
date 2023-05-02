@@ -20,38 +20,38 @@ abstract class BaseConfigurationItem
     implements Built<BaseConfigurationItem, BaseConfigurationItemBuilder> {
   /// The detailed configuration of a specified resource.
   factory BaseConfigurationItem({
+    String? version,
     String? accountId,
-    String? arn,
-    String? availabilityZone,
-    String? awsRegion,
-    String? configuration,
     DateTime? configurationItemCaptureTime,
     _i2.ConfigurationItemStatus? configurationItemStatus,
     String? configurationStateId,
-    DateTime? resourceCreationTime,
+    String? arn,
+    _i3.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i3.ResourceType? resourceType,
+    String? awsRegion,
+    String? availabilityZone,
+    DateTime? resourceCreationTime,
+    String? configuration,
     Map<String, String>? supplementaryConfiguration,
-    String? version,
   }) {
     return _$BaseConfigurationItem._(
+      version: version,
       accountId: accountId,
-      arn: arn,
-      availabilityZone: availabilityZone,
-      awsRegion: awsRegion,
-      configuration: configuration,
       configurationItemCaptureTime: configurationItemCaptureTime,
       configurationItemStatus: configurationItemStatus,
       configurationStateId: configurationStateId,
-      resourceCreationTime: resourceCreationTime,
+      arn: arn,
+      resourceType: resourceType,
       resourceId: resourceId,
       resourceName: resourceName,
-      resourceType: resourceType,
+      awsRegion: awsRegion,
+      availabilityZone: availabilityZone,
+      resourceCreationTime: resourceCreationTime,
+      configuration: configuration,
       supplementaryConfiguration: supplementaryConfiguration == null
           ? null
           : _i4.BuiltMap(supplementaryConfiguration),
-      version: version,
     );
   }
 
@@ -69,20 +69,11 @@ abstract class BaseConfigurationItem
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BaseConfigurationItemBuilder b) {}
 
+  /// The version number of the resource configuration.
+  String? get version;
+
   /// The 12-digit Amazon Web Services account ID associated with the resource.
   String? get accountId;
-
-  /// The Amazon Resource Name (ARN) of the resource.
-  String? get arn;
-
-  /// The Availability Zone associated with the resource.
-  String? get availabilityZone;
-
-  /// The region where the resource resides.
-  String? get awsRegion;
-
-  /// The description of the resource configuration.
-  String? get configuration;
 
   /// The time when the configuration recording was initiated.
   DateTime? get configurationItemCaptureTime;
@@ -106,8 +97,11 @@ abstract class BaseConfigurationItem
   /// An identifier that indicates the ordering of the configuration items of a resource.
   String? get configurationStateId;
 
-  /// The time stamp when the resource was created.
-  DateTime? get resourceCreationTime;
+  /// The Amazon Resource Name (ARN) of the resource.
+  String? get arn;
+
+  /// The type of Amazon Web Services resource.
+  _i3.ResourceType? get resourceType;
 
   /// The ID of the resource (for example., sg-xxxxxx).
   String? get resourceId;
@@ -115,53 +109,47 @@ abstract class BaseConfigurationItem
   /// The custom name of the resource, if available.
   String? get resourceName;
 
-  /// The type of Amazon Web Services resource.
-  _i3.ResourceType? get resourceType;
+  /// The region where the resource resides.
+  String? get awsRegion;
+
+  /// The Availability Zone associated with the resource.
+  String? get availabilityZone;
+
+  /// The time stamp when the resource was created.
+  DateTime? get resourceCreationTime;
+
+  /// The description of the resource configuration.
+  String? get configuration;
 
   /// Configuration attributes that Config returns for certain resource types to supplement the information returned for the configuration parameter.
   _i4.BuiltMap<String, String>? get supplementaryConfiguration;
-
-  /// The version number of the resource configuration.
-  String? get version;
   @override
   List<Object?> get props => [
+        version,
         accountId,
-        arn,
-        availabilityZone,
-        awsRegion,
-        configuration,
         configurationItemCaptureTime,
         configurationItemStatus,
         configurationStateId,
-        resourceCreationTime,
+        arn,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
+        awsRegion,
+        availabilityZone,
+        resourceCreationTime,
+        configuration,
         supplementaryConfiguration,
-        version,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('BaseConfigurationItem');
     helper.add(
+      'version',
+      version,
+    );
+    helper.add(
       'accountId',
       accountId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'availabilityZone',
-      availabilityZone,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'configuration',
-      configuration,
     );
     helper.add(
       'configurationItemCaptureTime',
@@ -176,8 +164,12 @@ abstract class BaseConfigurationItem
       configurationStateId,
     );
     helper.add(
-      'resourceCreationTime',
-      resourceCreationTime,
+      'arn',
+      arn,
+    );
+    helper.add(
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -188,16 +180,24 @@ abstract class BaseConfigurationItem
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'awsRegion',
+      awsRegion,
+    );
+    helper.add(
+      'availabilityZone',
+      availabilityZone,
+    );
+    helper.add(
+      'resourceCreationTime',
+      resourceCreationTime,
+    );
+    helper.add(
+      'configuration',
+      configuration,
     );
     helper.add(
       'supplementaryConfiguration',
       supplementaryConfiguration,
-    );
-    helper.add(
-      'version',
-      version,
     );
     return helper.toString();
   }
@@ -233,41 +233,17 @@ class BaseConfigurationItemAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'version':
+          if (value != null) {
+            result.version = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'accountId':
           if (value != null) {
             result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'availabilityZone':
-          if (value != null) {
-            result.availabilityZone = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'awsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'configuration':
-          if (value != null) {
-            result.configuration = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -297,12 +273,20 @@ class BaseConfigurationItemAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'resourceCreationTime':
+        case 'arn':
           if (value != null) {
-            result.resourceCreationTime = (serializers.deserialize(
+            result.arn = (serializers.deserialize(
               value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'resourceType':
+          if (value != null) {
+            result.resourceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.ResourceType),
+            ) as _i3.ResourceType);
           }
           break;
         case 'resourceId':
@@ -321,12 +305,36 @@ class BaseConfigurationItemAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'resourceType':
+        case 'awsRegion':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.awsRegion = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ResourceType),
-            ) as _i3.ResourceType);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'availabilityZone':
+          if (value != null) {
+            result.availabilityZone = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'resourceCreationTime':
+          if (value != null) {
+            result.resourceCreationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'configuration':
+          if (value != null) {
+            result.configuration = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'supplementaryConfiguration':
@@ -343,14 +351,6 @@ class BaseConfigurationItemAwsJson11Serializer
             ) as _i4.BuiltMap<String, String>));
           }
           break;
-        case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -365,43 +365,19 @@ class BaseConfigurationItemAwsJson11Serializer
   }) {
     final payload = (object as BaseConfigurationItem);
     final result = <Object?>[];
+    if (payload.version != null) {
+      result
+        ..add('version')
+        ..add(serializers.serialize(
+          payload.version!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.accountId != null) {
       result
         ..add('accountId')
         ..add(serializers.serialize(
           payload.accountId!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.arn != null) {
-      result
-        ..add('arn')
-        ..add(serializers.serialize(
-          payload.arn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.availabilityZone != null) {
-      result
-        ..add('availabilityZone')
-        ..add(serializers.serialize(
-          payload.availabilityZone!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.awsRegion != null) {
-      result
-        ..add('awsRegion')
-        ..add(serializers.serialize(
-          payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.configuration != null) {
-      result
-        ..add('configuration')
-        ..add(serializers.serialize(
-          payload.configuration!,
           specifiedType: const FullType(String),
         ));
     }
@@ -429,12 +405,20 @@ class BaseConfigurationItemAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceCreationTime != null) {
+    if (payload.arn != null) {
       result
-        ..add('resourceCreationTime')
+        ..add('arn')
         ..add(serializers.serialize(
-          payload.resourceCreationTime!,
-          specifiedType: const FullType(DateTime),
+          payload.arn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceType != null) {
+      result
+        ..add('resourceType')
+        ..add(serializers.serialize(
+          payload.resourceType!,
+          specifiedType: const FullType(_i3.ResourceType),
         ));
     }
     if (payload.resourceId != null) {
@@ -453,12 +437,36 @@ class BaseConfigurationItemAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (payload.awsRegion != null) {
       result
-        ..add('resourceType')
+        ..add('awsRegion')
         ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(_i3.ResourceType),
+          payload.awsRegion!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.availabilityZone != null) {
+      result
+        ..add('availabilityZone')
+        ..add(serializers.serialize(
+          payload.availabilityZone!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceCreationTime != null) {
+      result
+        ..add('resourceCreationTime')
+        ..add(serializers.serialize(
+          payload.resourceCreationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.configuration != null) {
+      result
+        ..add('configuration')
+        ..add(serializers.serialize(
+          payload.configuration!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.supplementaryConfiguration != null) {
@@ -473,14 +481,6 @@ class BaseConfigurationItemAwsJson11Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (payload.version != null) {
-      result
-        ..add('version')
-        ..add(serializers.serialize(
-          payload.version!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

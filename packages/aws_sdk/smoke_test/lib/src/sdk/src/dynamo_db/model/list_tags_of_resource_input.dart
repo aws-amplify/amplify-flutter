@@ -15,12 +15,12 @@ abstract class ListTagsOfResourceInput
         _i2.AWSEquatable<ListTagsOfResourceInput>
     implements Built<ListTagsOfResourceInput, ListTagsOfResourceInputBuilder> {
   factory ListTagsOfResourceInput({
-    String? nextToken,
     required String resourceArn,
+    String? nextToken,
   }) {
     return _$ListTagsOfResourceInput._(
-      nextToken: nextToken,
       resourceArn: resourceArn,
+      nextToken: nextToken,
     );
   }
 
@@ -44,28 +44,28 @@ abstract class ListTagsOfResourceInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsOfResourceInputBuilder b) {}
 
-  /// An optional string that, if supplied, must be copied from the output of a previous call to ListTagOfResource. When provided in this manner, this API fetches the next page of results.
-  String? get nextToken;
-
   /// The Amazon DynamoDB resource with tags to be listed. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
+
+  /// An optional string that, if supplied, must be copied from the output of a previous call to ListTagOfResource. When provided in this manner, this API fetches the next page of results.
+  String? get nextToken;
   @override
   ListTagsOfResourceInput getPayload() => this;
   @override
   List<Object?> get props => [
-        nextToken,
         resourceArn,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsOfResourceInput');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'resourceArn',
       resourceArn,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -101,6 +101,12 @@ class ListTagsOfResourceInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ResourceArn':
+          result.resourceArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'NextToken':
           if (value != null) {
             result.nextToken = (serializers.deserialize(
@@ -108,12 +114,6 @@ class ListTagsOfResourceInputAwsJson10Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'ResourceArn':
-          result.resourceArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

@@ -20,15 +20,15 @@ abstract class MalformedPatternOverrideInput
         Built<MalformedPatternOverrideInput,
             MalformedPatternOverrideInputBuilder> {
   factory MalformedPatternOverrideInput({
+    String? string,
     List<String>? list,
     Map<String, String>? map,
-    String? string,
     _i3.PatternUnionOverride? union,
   }) {
     return _$MalformedPatternOverrideInput._(
+      string: string,
       list: list == null ? null : _i4.BuiltList(list),
       map: map == null ? null : _i4.BuiltMap(map),
-      string: string,
       union: union,
     );
   }
@@ -52,22 +52,26 @@ abstract class MalformedPatternOverrideInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedPatternOverrideInputBuilder b) {}
+  String? get string;
   _i4.BuiltList<String>? get list;
   _i4.BuiltMap<String, String>? get map;
-  String? get string;
   _i3.PatternUnionOverride? get union;
   @override
   MalformedPatternOverrideInput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         list,
         map,
-        string,
         union,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'list',
       list,
@@ -75,10 +79,6 @@ abstract class MalformedPatternOverrideInput
     helper.add(
       'map',
       map,
-    );
-    helper.add(
-      'string',
-      string,
     );
     helper.add(
       'union',

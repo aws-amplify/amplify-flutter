@@ -19,24 +19,24 @@ abstract class CreateApiKeyRequest
     implements Built<CreateApiKeyRequest, CreateApiKeyRequestBuilder> {
   /// Request to create an ApiKey resource.
   factory CreateApiKeyRequest({
-    String? customerId,
+    String? name,
     String? description,
     bool? enabled,
     bool? generateDistinctId,
-    String? name,
-    List<_i3.StageKey>? stageKeys,
-    Map<String, String>? tags,
     String? value,
+    List<_i3.StageKey>? stageKeys,
+    String? customerId,
+    Map<String, String>? tags,
   }) {
     return _$CreateApiKeyRequest._(
-      customerId: customerId,
+      name: name,
       description: description,
       enabled: enabled,
       generateDistinctId: generateDistinctId,
-      name: name,
-      stageKeys: stageKeys == null ? null : _i4.BuiltList(stageKeys),
-      tags: tags == null ? null : _i4.BuiltMap(tags),
       value: value,
+      stageKeys: stageKeys == null ? null : _i4.BuiltList(stageKeys),
+      customerId: customerId,
+      tags: tags == null ? null : _i4.BuiltMap(tags),
     );
   }
 
@@ -61,8 +61,8 @@ abstract class CreateApiKeyRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateApiKeyRequestBuilder b) {}
 
-  /// An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
-  String? get customerId;
+  /// The name of the ApiKey.
+  String? get name;
 
   /// The description of the ApiKey.
   String? get description;
@@ -73,36 +73,36 @@ abstract class CreateApiKeyRequest
   /// Specifies whether (`true`) or not (`false`) the key identifier is distinct from the created API key value. This parameter is deprecated and should not be used.
   bool? get generateDistinctId;
 
-  /// The name of the ApiKey.
-  String? get name;
+  /// Specifies a value of the API key.
+  String? get value;
 
   /// DEPRECATED FOR USAGE PLANS - Specifies stages associated with the API key.
   _i4.BuiltList<_i3.StageKey>? get stageKeys;
 
+  /// An AWS Marketplace customer identifier , when integrating with the AWS SaaS Marketplace.
+  String? get customerId;
+
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
   _i4.BuiltMap<String, String>? get tags;
-
-  /// Specifies a value of the API key.
-  String? get value;
   @override
   CreateApiKeyRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        customerId,
+        name,
         description,
         enabled,
         generateDistinctId,
-        name,
-        stageKeys,
-        tags,
         value,
+        stageKeys,
+        customerId,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateApiKeyRequest');
     helper.add(
-      'customerId',
-      customerId,
+      'name',
+      name,
     );
     helper.add(
       'description',
@@ -117,20 +117,20 @@ abstract class CreateApiKeyRequest
       generateDistinctId,
     );
     helper.add(
-      'name',
-      name,
+      'value',
+      value,
     );
     helper.add(
       'stageKeys',
       stageKeys,
     );
     helper.add(
-      'tags',
-      tags,
+      'customerId',
+      customerId,
     );
     helper.add(
-      'value',
-      value,
+      'tags',
+      tags,
     );
     return helper.toString();
   }

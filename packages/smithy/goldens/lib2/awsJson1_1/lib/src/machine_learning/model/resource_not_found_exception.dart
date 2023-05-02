@@ -15,12 +15,12 @@ abstract class ResourceNotFoundException
         Built<ResourceNotFoundException, ResourceNotFoundExceptionBuilder>,
         _i2.SmithyHttpException {
   factory ResourceNotFoundException({
-    int? code,
     String? message,
+    int? code,
   }) {
     return _$ResourceNotFoundException._(
-      code: code,
       message: message,
+      code: code,
     );
   }
 
@@ -45,9 +45,9 @@ abstract class ResourceNotFoundException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceNotFoundExceptionBuilder b) {}
-  int? get code;
   @override
   String? get message;
+  int? get code;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.machinelearning',
@@ -65,19 +65,19 @@ abstract class ResourceNotFoundException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        code,
         message,
+        code,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceNotFoundException');
     helper.add(
-      'code',
-      code,
-    );
-    helper.add(
       'message',
       message,
+    );
+    helper.add(
+      'code',
+      code,
     );
     return helper.toString();
   }
@@ -113,20 +113,20 @@ class ResourceNotFoundExceptionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'code':
+          if (value != null) {
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -143,20 +143,20 @@ class ResourceNotFoundExceptionAwsJson11Serializer
   }) {
     final payload = (object as ResourceNotFoundException);
     final result = <Object?>[];
-    if (payload.code != null) {
-      result
-        ..add('code')
-        ..add(serializers.serialize(
-          payload.code!,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (payload.message != null) {
       result
         ..add('message')
         ..add(serializers.serialize(
           payload.message!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.code != null) {
+      result
+        ..add('code')
+        ..add(serializers.serialize(
+          payload.code!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

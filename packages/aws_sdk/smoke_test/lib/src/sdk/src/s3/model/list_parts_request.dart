@@ -21,27 +21,27 @@ abstract class ListPartsRequest
         _i1.HasPayload<ListPartsRequestPayload> {
   factory ListPartsRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String key,
     int? maxParts,
     String? partNumberMarker,
+    required String uploadId,
     _i3.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
-    required String uploadId,
   }) {
     return _$ListPartsRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
       maxParts: maxParts,
       partNumberMarker: partNumberMarker,
+      uploadId: uploadId,
       requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKey: sseCustomerKey,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      uploadId: uploadId,
     );
   }
 
@@ -111,9 +111,6 @@ abstract class ListPartsRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Object key for which the multipart upload was initiated.
   String get key;
 
@@ -123,8 +120,14 @@ abstract class ListPartsRequest
   /// Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.
   String? get partNumberMarker;
 
+  /// Upload ID identifying the multipart upload whose parts are being listed.
+  String get uploadId;
+
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
   _i3.RequestPayer? get requestPayer;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
 
   /// The server-side encryption (SSE) algorithm used to encrypt the object. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
   String? get sseCustomerAlgorithm;
@@ -134,9 +137,6 @@ abstract class ListPartsRequest
 
   /// The MD5 server-side encryption (SSE) customer managed key. This parameter is needed only when the object was created using a checksum algorithm. For more information, see [Protecting data using SSE-C keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html) in the _Amazon S3 User Guide_.
   String? get sseCustomerKeyMd5;
-
-  /// Upload ID identifying the multipart upload whose parts are being listed.
-  String get uploadId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -156,15 +156,15 @@ abstract class ListPartsRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         key,
         maxParts,
         partNumberMarker,
+        uploadId,
         requestPayer,
+        expectedBucketOwner,
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        uploadId,
       ];
   @override
   String toString() {
@@ -172,10 +172,6 @@ abstract class ListPartsRequest
     helper.add(
       'bucket',
       bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
     );
     helper.add(
       'key',
@@ -190,8 +186,16 @@ abstract class ListPartsRequest
       partNumberMarker,
     );
     helper.add(
+      'uploadId',
+      uploadId,
+    );
+    helper.add(
       'requestPayer',
       requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     helper.add(
       'sseCustomerAlgorithm',
@@ -204,10 +208,6 @@ abstract class ListPartsRequest
     helper.add(
       'sseCustomerKeyMd5',
       sseCustomerKeyMd5,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
     );
     return helper.toString();
   }

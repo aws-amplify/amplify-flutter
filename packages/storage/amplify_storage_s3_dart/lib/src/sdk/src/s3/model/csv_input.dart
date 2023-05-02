@@ -17,22 +17,22 @@ abstract class CsvInput
     implements Built<CsvInput, CsvInputBuilder> {
   /// Describes how an uncompressed comma-separated values (CSV)-formatted input object is formatted.
   factory CsvInput({
-    bool? allowQuotedRecordDelimiter,
-    String? comments,
-    String? fieldDelimiter,
     _i2.FileHeaderInfo? fileHeaderInfo,
-    String? quoteCharacter,
+    String? comments,
     String? quoteEscapeCharacter,
     String? recordDelimiter,
+    String? fieldDelimiter,
+    String? quoteCharacter,
+    bool? allowQuotedRecordDelimiter,
   }) {
     return _$CsvInput._(
-      allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
-      comments: comments,
-      fieldDelimiter: fieldDelimiter,
       fileHeaderInfo: fileHeaderInfo,
-      quoteCharacter: quoteCharacter,
+      comments: comments,
       quoteEscapeCharacter: quoteEscapeCharacter,
       recordDelimiter: recordDelimiter,
+      fieldDelimiter: fieldDelimiter,
+      quoteCharacter: quoteCharacter,
+      allowQuotedRecordDelimiter: allowQuotedRecordDelimiter,
     );
   }
 
@@ -48,15 +48,6 @@ abstract class CsvInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CsvInputBuilder b) {}
 
-  /// Specifies that CSV field values may contain quoted record delimiters and such records should be allowed. Default value is FALSE. Setting this value to TRUE may lower performance.
-  bool? get allowQuotedRecordDelimiter;
-
-  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line.
-  String? get comments;
-
-  /// A single character used to separate individual fields in a record. You can specify an arbitrary delimiter.
-  String? get fieldDelimiter;
-
   /// Describes the first line of input. Valid values are:
   ///
   /// *   `NONE`: First line is not a header.
@@ -65,6 +56,18 @@ abstract class CsvInput
   ///
   /// *   `Use`: First line is a header, and you can use the header value to identify a column in an expression (`SELECT "name" FROM OBJECT`).
   _i2.FileHeaderInfo? get fileHeaderInfo;
+
+  /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line.
+  String? get comments;
+
+  /// A single character used for escaping the quotation mark character inside an already escaped value. For example, the value `""" a , b """` is parsed as `" a , b "`.
+  String? get quoteEscapeCharacter;
+
+  /// A single character used to separate individual records in the input. Instead of the default value, you can specify an arbitrary delimiter.
+  String? get recordDelimiter;
+
+  /// A single character used to separate individual fields in a record. You can specify an arbitrary delimiter.
+  String? get fieldDelimiter;
 
   /// A single character used for escaping when the field delimiter is part of the value. For example, if the value is `a, b`, Amazon S3 wraps this field value in quotation marks, as follows: `" a , b "`.
   ///
@@ -75,43 +78,28 @@ abstract class CsvInput
   /// Ancestors: `CSV`
   String? get quoteCharacter;
 
-  /// A single character used for escaping the quotation mark character inside an already escaped value. For example, the value `""" a , b """` is parsed as `" a , b "`.
-  String? get quoteEscapeCharacter;
-
-  /// A single character used to separate individual records in the input. Instead of the default value, you can specify an arbitrary delimiter.
-  String? get recordDelimiter;
+  /// Specifies that CSV field values may contain quoted record delimiters and such records should be allowed. Default value is FALSE. Setting this value to TRUE may lower performance.
+  bool? get allowQuotedRecordDelimiter;
   @override
   List<Object?> get props => [
-        allowQuotedRecordDelimiter,
-        comments,
-        fieldDelimiter,
         fileHeaderInfo,
-        quoteCharacter,
+        comments,
         quoteEscapeCharacter,
         recordDelimiter,
+        fieldDelimiter,
+        quoteCharacter,
+        allowQuotedRecordDelimiter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CsvInput');
     helper.add(
-      'allowQuotedRecordDelimiter',
-      allowQuotedRecordDelimiter,
-    );
-    helper.add(
-      'comments',
-      comments,
-    );
-    helper.add(
-      'fieldDelimiter',
-      fieldDelimiter,
-    );
-    helper.add(
       'fileHeaderInfo',
       fileHeaderInfo,
     );
     helper.add(
-      'quoteCharacter',
-      quoteCharacter,
+      'comments',
+      comments,
     );
     helper.add(
       'quoteEscapeCharacter',
@@ -120,6 +108,18 @@ abstract class CsvInput
     helper.add(
       'recordDelimiter',
       recordDelimiter,
+    );
+    helper.add(
+      'fieldDelimiter',
+      fieldDelimiter,
+    );
+    helper.add(
+      'quoteCharacter',
+      quoteCharacter,
+    );
+    helper.add(
+      'allowQuotedRecordDelimiter',
+      allowQuotedRecordDelimiter,
     );
     return helper.toString();
   }

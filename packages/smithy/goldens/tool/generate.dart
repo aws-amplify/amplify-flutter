@@ -20,6 +20,7 @@ const skipProtocols = [
 const awsProtocols = [
   'awsJson1_0',
   'awsJson1_1',
+  'awsQuery',
   'restJson1',
   'restXml',
   'restXmlWithNamespace'

@@ -8,17 +8,17 @@ part of rest_json1_v1.glacier.model.archive_creation_output;
 
 class _$ArchiveCreationOutput extends ArchiveCreationOutput {
   @override
-  final String? archiveId;
+  final String? location;
   @override
   final String? checksum;
   @override
-  final String? location;
+  final String? archiveId;
 
   factory _$ArchiveCreationOutput(
           [void Function(ArchiveCreationOutputBuilder)? updates]) =>
       (new ArchiveCreationOutputBuilder()..update(updates))._build();
 
-  _$ArchiveCreationOutput._({this.archiveId, this.checksum, this.location})
+  _$ArchiveCreationOutput._({this.location, this.checksum, this.archiveId})
       : super._();
 
   @override
@@ -34,17 +34,17 @@ class _$ArchiveCreationOutput extends ArchiveCreationOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ArchiveCreationOutput &&
-        archiveId == other.archiveId &&
+        location == other.location &&
         checksum == other.checksum &&
-        location == other.location;
+        archiveId == other.archiveId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, archiveId.hashCode);
-    _$hash = $jc(_$hash, checksum.hashCode);
     _$hash = $jc(_$hash, location.hashCode);
+    _$hash = $jc(_$hash, checksum.hashCode);
+    _$hash = $jc(_$hash, archiveId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,17 +54,17 @@ class ArchiveCreationOutputBuilder
     implements Builder<ArchiveCreationOutput, ArchiveCreationOutputBuilder> {
   _$ArchiveCreationOutput? _$v;
 
-  String? _archiveId;
-  String? get archiveId => _$this._archiveId;
-  set archiveId(String? archiveId) => _$this._archiveId = archiveId;
+  String? _location;
+  String? get location => _$this._location;
+  set location(String? location) => _$this._location = location;
 
   String? _checksum;
   String? get checksum => _$this._checksum;
   set checksum(String? checksum) => _$this._checksum = checksum;
 
-  String? _location;
-  String? get location => _$this._location;
-  set location(String? location) => _$this._location = location;
+  String? _archiveId;
+  String? get archiveId => _$this._archiveId;
+  set archiveId(String? archiveId) => _$this._archiveId = archiveId;
 
   ArchiveCreationOutputBuilder() {
     ArchiveCreationOutput._init(this);
@@ -73,9 +73,9 @@ class ArchiveCreationOutputBuilder
   ArchiveCreationOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _archiveId = $v.archiveId;
-      _checksum = $v.checksum;
       _location = $v.location;
+      _checksum = $v.checksum;
+      _archiveId = $v.archiveId;
       _$v = null;
     }
     return this;
@@ -98,7 +98,7 @@ class ArchiveCreationOutputBuilder
   _$ArchiveCreationOutput _build() {
     final _$result = _$v ??
         new _$ArchiveCreationOutput._(
-            archiveId: archiveId, checksum: checksum, location: location);
+            location: location, checksum: checksum, archiveId: archiveId);
     replace(_$result);
     return _$result;
   }

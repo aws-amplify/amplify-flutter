@@ -25,13 +25,13 @@ abstract class DefaultRetention
   ///
   /// *   The `DefaultRetention` period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   factory DefaultRetention({
-    int? days,
     _i2.ObjectLockRetentionMode? mode,
+    int? days,
     int? years,
   }) {
     return _$DefaultRetention._(
-      days: days,
       mode: mode,
+      days: days,
       years: years,
     );
   }
@@ -53,30 +53,30 @@ abstract class DefaultRetention
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DefaultRetentionBuilder b) {}
 
-  /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
-  int? get days;
-
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
   _i2.ObjectLockRetentionMode? get mode;
+
+  /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
+  int? get days;
 
   /// The number of years that you want to specify for the default retention period. Must be used with `Mode`.
   int? get years;
   @override
   List<Object?> get props => [
-        days,
         mode,
+        days,
         years,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DefaultRetention');
     helper.add(
-      'days',
-      days,
-    );
-    helper.add(
       'mode',
       mode,
+    );
+    helper.add(
+      'days',
+      days,
     );
     helper.add(
       'years',

@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/s3/model/common_prefix.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/common_prefix.dart' as _i3;
 import 'package:rest_xml_v1/src/s3/model/encoding_type.dart' as _i4;
-import 'package:rest_xml_v1/src/s3/model/object.dart' as _i3;
+import 'package:rest_xml_v1/src/s3/model/object.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i6;
 
 part 'list_objects_v2_output.g.dart';
@@ -17,32 +17,32 @@ abstract class ListObjectsV2Output
     with _i1.AWSEquatable<ListObjectsV2Output>
     implements Built<ListObjectsV2Output, ListObjectsV2OutputBuilder> {
   factory ListObjectsV2Output({
-    List<_i2.CommonPrefix>? commonPrefixes,
-    List<_i3.S3Object>? contents,
-    String? continuationToken,
-    String? delimiter,
-    _i4.EncodingType? encodingType,
     bool? isTruncated,
-    int? keyCount,
-    int? maxKeys,
+    List<_i2.S3Object>? contents,
     String? name,
-    String? nextContinuationToken,
     String? prefix,
+    String? delimiter,
+    int? maxKeys,
+    List<_i3.CommonPrefix>? commonPrefixes,
+    _i4.EncodingType? encodingType,
+    int? keyCount,
+    String? continuationToken,
+    String? nextContinuationToken,
     String? startAfter,
   }) {
     return _$ListObjectsV2Output._(
+      isTruncated: isTruncated,
+      contents: contents == null ? null : _i5.BuiltList(contents),
+      name: name,
+      prefix: prefix,
+      delimiter: delimiter,
+      maxKeys: maxKeys,
       commonPrefixes:
           commonPrefixes == null ? null : _i5.BuiltList(commonPrefixes),
-      contents: contents == null ? null : _i5.BuiltList(contents),
-      continuationToken: continuationToken,
-      delimiter: delimiter,
       encodingType: encodingType,
-      isTruncated: isTruncated,
       keyCount: keyCount,
-      maxKeys: maxKeys,
-      name: name,
+      continuationToken: continuationToken,
       nextContinuationToken: nextContinuationToken,
-      prefix: prefix,
       startAfter: startAfter,
     );
   }
@@ -66,79 +66,79 @@ abstract class ListObjectsV2Output
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsV2OutputBuilder b) {}
-  _i5.BuiltList<_i2.CommonPrefix>? get commonPrefixes;
-  _i5.BuiltList<_i3.S3Object>? get contents;
-  String? get continuationToken;
-  String? get delimiter;
-  _i4.EncodingType? get encodingType;
   bool? get isTruncated;
-  int? get keyCount;
-  int? get maxKeys;
+  _i5.BuiltList<_i2.S3Object>? get contents;
   String? get name;
-  String? get nextContinuationToken;
   String? get prefix;
+  String? get delimiter;
+  int? get maxKeys;
+  _i5.BuiltList<_i3.CommonPrefix>? get commonPrefixes;
+  _i4.EncodingType? get encodingType;
+  int? get keyCount;
+  String? get continuationToken;
+  String? get nextContinuationToken;
   String? get startAfter;
   @override
   List<Object?> get props => [
-        commonPrefixes,
-        contents,
-        continuationToken,
-        delimiter,
-        encodingType,
         isTruncated,
-        keyCount,
-        maxKeys,
+        contents,
         name,
-        nextContinuationToken,
         prefix,
+        delimiter,
+        maxKeys,
+        commonPrefixes,
+        encodingType,
+        keyCount,
+        continuationToken,
+        nextContinuationToken,
         startAfter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListObjectsV2Output');
     helper.add(
-      'commonPrefixes',
-      commonPrefixes,
+      'isTruncated',
+      isTruncated,
     );
     helper.add(
       'contents',
       contents,
     );
     helper.add(
-      'continuationToken',
-      continuationToken,
+      'name',
+      name,
+    );
+    helper.add(
+      'prefix',
+      prefix,
     );
     helper.add(
       'delimiter',
       delimiter,
     );
     helper.add(
-      'encodingType',
-      encodingType,
+      'maxKeys',
+      maxKeys,
     );
     helper.add(
-      'isTruncated',
-      isTruncated,
+      'commonPrefixes',
+      commonPrefixes,
+    );
+    helper.add(
+      'encodingType',
+      encodingType,
     );
     helper.add(
       'keyCount',
       keyCount,
     );
     helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'name',
-      name,
+      'continuationToken',
+      continuationToken,
     );
     helper.add(
       'nextContinuationToken',
       nextContinuationToken,
-    );
-    helper.add(
-      'prefix',
-      prefix,
     );
     helper.add(
       'startAfter',
@@ -181,16 +181,16 @@ class ListObjectsV2OutputRestXmlSerializer
           if (value != null) {
             result.commonPrefixes.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.CommonPrefix),
-            ) as _i2.CommonPrefix));
+              specifiedType: const FullType(_i3.CommonPrefix),
+            ) as _i3.CommonPrefix));
           }
           break;
         case 'Contents':
           if (value != null) {
             result.contents.add((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.S3Object),
-            ) as _i3.S3Object));
+              specifiedType: const FullType(_i2.S3Object),
+            ) as _i2.S3Object));
           }
           break;
         case 'ContinuationToken':
@@ -300,7 +300,7 @@ class ListObjectsV2OutputRestXmlSerializer
         payload.commonPrefixes!,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
-          [FullType(_i2.CommonPrefix)],
+          [FullType(_i3.CommonPrefix)],
         ),
       ));
     }
@@ -311,7 +311,7 @@ class ListObjectsV2OutputRestXmlSerializer
         payload.contents!,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
-          [FullType(_i3.S3Object)],
+          [FullType(_i2.S3Object)],
         ),
       ));
     }

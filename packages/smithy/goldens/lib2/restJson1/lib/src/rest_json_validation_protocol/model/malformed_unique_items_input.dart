@@ -8,15 +8,15 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i9;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/foo_enum.dart'
-    as _i4;
+    as _i5;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/foo_union.dart'
     as _i8;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/greeting_struct.dart'
     as _i7;
 import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/integer_enum.dart'
-    as _i5;
+    as _i6;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'malformed_unique_items_input.g.dart';
@@ -30,37 +30,37 @@ abstract class MalformedUniqueItemsInput
   factory MalformedUniqueItemsInput({
     Set<_i3.Uint8List>? blobList,
     Set<bool>? booleanList,
-    Set<int>? byteList,
-    Set<DateTime>? dateTimeList,
-    Set<_i4.FooEnum>? enumList,
-    Set<DateTime>? httpDateList,
-    Set<_i5.IntegerEnum>? intEnumList,
-    Set<int>? integerList,
-    Set<List<String>>? listList,
-    Set<_i6.Int64>? longList,
-    Set<int>? shortList,
     Set<String>? stringList,
-    Set<_i7.GreetingStruct>? structureList,
+    Set<int>? byteList,
+    Set<int>? shortList,
+    Set<int>? integerList,
+    Set<_i4.Int64>? longList,
     Set<DateTime>? timestampList,
+    Set<DateTime>? dateTimeList,
+    Set<DateTime>? httpDateList,
+    Set<_i5.FooEnum>? enumList,
+    Set<_i6.IntegerEnum>? intEnumList,
+    Set<List<String>>? listList,
+    Set<_i7.GreetingStruct>? structureList,
     Set<_i8.FooUnion>? unionList,
   }) {
     return _$MalformedUniqueItemsInput._(
       blobList: blobList == null ? null : _i9.BuiltSet(blobList),
       booleanList: booleanList == null ? null : _i9.BuiltSet(booleanList),
+      stringList: stringList == null ? null : _i9.BuiltSet(stringList),
       byteList: byteList == null ? null : _i9.BuiltSet(byteList),
-      dateTimeList: dateTimeList == null ? null : _i9.BuiltSet(dateTimeList),
-      enumList: enumList == null ? null : _i9.BuiltSet(enumList),
-      httpDateList: httpDateList == null ? null : _i9.BuiltSet(httpDateList),
-      intEnumList: intEnumList == null ? null : _i9.BuiltSet(intEnumList),
+      shortList: shortList == null ? null : _i9.BuiltSet(shortList),
       integerList: integerList == null ? null : _i9.BuiltSet(integerList),
+      longList: longList == null ? null : _i9.BuiltSet(longList),
+      timestampList: timestampList == null ? null : _i9.BuiltSet(timestampList),
+      dateTimeList: dateTimeList == null ? null : _i9.BuiltSet(dateTimeList),
+      httpDateList: httpDateList == null ? null : _i9.BuiltSet(httpDateList),
+      enumList: enumList == null ? null : _i9.BuiltSet(enumList),
+      intEnumList: intEnumList == null ? null : _i9.BuiltSet(intEnumList),
       listList: listList == null
           ? null
           : _i9.BuiltSet(listList.map((el) => _i9.BuiltList(el))),
-      longList: longList == null ? null : _i9.BuiltSet(longList),
-      shortList: shortList == null ? null : _i9.BuiltSet(shortList),
-      stringList: stringList == null ? null : _i9.BuiltSet(stringList),
       structureList: structureList == null ? null : _i9.BuiltSet(structureList),
-      timestampList: timestampList == null ? null : _i9.BuiltSet(timestampList),
       unionList: unionList == null ? null : _i9.BuiltSet(unionList),
     );
   }
@@ -86,18 +86,18 @@ abstract class MalformedUniqueItemsInput
   static void _init(MalformedUniqueItemsInputBuilder b) {}
   _i9.BuiltSet<_i3.Uint8List>? get blobList;
   _i9.BuiltSet<bool>? get booleanList;
-  _i9.BuiltSet<int>? get byteList;
-  _i9.BuiltSet<DateTime>? get dateTimeList;
-  _i9.BuiltSet<_i4.FooEnum>? get enumList;
-  _i9.BuiltSet<DateTime>? get httpDateList;
-  _i9.BuiltSet<_i5.IntegerEnum>? get intEnumList;
-  _i9.BuiltSet<int>? get integerList;
-  _i9.BuiltSet<_i9.BuiltList<String>>? get listList;
-  _i9.BuiltSet<_i6.Int64>? get longList;
-  _i9.BuiltSet<int>? get shortList;
   _i9.BuiltSet<String>? get stringList;
-  _i9.BuiltSet<_i7.GreetingStruct>? get structureList;
+  _i9.BuiltSet<int>? get byteList;
+  _i9.BuiltSet<int>? get shortList;
+  _i9.BuiltSet<int>? get integerList;
+  _i9.BuiltSet<_i4.Int64>? get longList;
   _i9.BuiltSet<DateTime>? get timestampList;
+  _i9.BuiltSet<DateTime>? get dateTimeList;
+  _i9.BuiltSet<DateTime>? get httpDateList;
+  _i9.BuiltSet<_i5.FooEnum>? get enumList;
+  _i9.BuiltSet<_i6.IntegerEnum>? get intEnumList;
+  _i9.BuiltSet<_i9.BuiltList<String>>? get listList;
+  _i9.BuiltSet<_i7.GreetingStruct>? get structureList;
   _i9.BuiltSet<_i8.FooUnion>? get unionList;
   @override
   MalformedUniqueItemsInput getPayload() => this;
@@ -105,18 +105,18 @@ abstract class MalformedUniqueItemsInput
   List<Object?> get props => [
         blobList,
         booleanList,
-        byteList,
-        dateTimeList,
-        enumList,
-        httpDateList,
-        intEnumList,
-        integerList,
-        listList,
-        longList,
-        shortList,
         stringList,
-        structureList,
+        byteList,
+        shortList,
+        integerList,
+        longList,
         timestampList,
+        dateTimeList,
+        httpDateList,
+        enumList,
+        intEnumList,
+        listList,
+        structureList,
         unionList,
       ];
   @override
@@ -131,52 +131,52 @@ abstract class MalformedUniqueItemsInput
       booleanList,
     );
     helper.add(
+      'stringList',
+      stringList,
+    );
+    helper.add(
       'byteList',
       byteList,
-    );
-    helper.add(
-      'dateTimeList',
-      dateTimeList,
-    );
-    helper.add(
-      'enumList',
-      enumList,
-    );
-    helper.add(
-      'httpDateList',
-      httpDateList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'listList',
-      listList,
-    );
-    helper.add(
-      'longList',
-      longList,
     );
     helper.add(
       'shortList',
       shortList,
     );
     helper.add(
-      'stringList',
-      stringList,
+      'integerList',
+      integerList,
     );
     helper.add(
-      'structureList',
-      structureList,
+      'longList',
+      longList,
     );
     helper.add(
       'timestampList',
       timestampList,
+    );
+    helper.add(
+      'dateTimeList',
+      dateTimeList,
+    );
+    helper.add(
+      'httpDateList',
+      httpDateList,
+    );
+    helper.add(
+      'enumList',
+      enumList,
+    );
+    helper.add(
+      'intEnumList',
+      intEnumList,
+    );
+    helper.add(
+      'listList',
+      listList,
+    );
+    helper.add(
+      'structureList',
+      structureList,
     );
     helper.add(
       'unionList',
@@ -266,9 +266,9 @@ class MalformedUniqueItemsInputRestJson1Serializer
               value,
               specifiedType: const FullType(
                 _i9.BuiltSet,
-                [FullType(_i4.FooEnum)],
+                [FullType(_i5.FooEnum)],
               ),
-            ) as _i9.BuiltSet<_i4.FooEnum>));
+            ) as _i9.BuiltSet<_i5.FooEnum>));
           }
           break;
         case 'httpDateList':
@@ -288,9 +288,9 @@ class MalformedUniqueItemsInputRestJson1Serializer
               value,
               specifiedType: const FullType(
                 _i9.BuiltSet,
-                [FullType(_i5.IntegerEnum)],
+                [FullType(_i6.IntegerEnum)],
               ),
-            ) as _i9.BuiltSet<_i5.IntegerEnum>));
+            ) as _i9.BuiltSet<_i6.IntegerEnum>));
           }
           break;
         case 'integerList':
@@ -326,9 +326,9 @@ class MalformedUniqueItemsInputRestJson1Serializer
               value,
               specifiedType: const FullType(
                 _i9.BuiltSet,
-                [FullType(_i6.Int64)],
+                [FullType(_i4.Int64)],
               ),
-            ) as _i9.BuiltSet<_i6.Int64>));
+            ) as _i9.BuiltSet<_i4.Int64>));
           }
           break;
         case 'shortList':
@@ -451,7 +451,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
           payload.enumList!,
           specifiedType: const FullType(
             _i9.BuiltSet,
-            [FullType(_i4.FooEnum)],
+            [FullType(_i5.FooEnum)],
           ),
         ));
     }
@@ -473,7 +473,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
           payload.intEnumList!,
           specifiedType: const FullType(
             _i9.BuiltSet,
-            [FullType(_i5.IntegerEnum)],
+            [FullType(_i6.IntegerEnum)],
           ),
         ));
     }
@@ -511,7 +511,7 @@ class MalformedUniqueItemsInputRestJson1Serializer
           payload.longList!,
           specifiedType: const FullType(
             _i9.BuiltSet,
-            [FullType(_i6.Int64)],
+            [FullType(_i4.Int64)],
           ),
         ));
     }

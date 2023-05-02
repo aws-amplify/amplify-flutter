@@ -6,12 +6,12 @@ import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart'
     as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
 
 part 'put_object_retention_request.g.dart';
 
@@ -24,25 +24,25 @@ abstract class PutObjectRetentionRequest
         _i1.HasPayload<_i2.ObjectLockRetention> {
   factory PutObjectRetentionRequest({
     required String bucket,
-    bool? bypassGovernanceRetention,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? contentMd5,
-    String? expectedBucketOwner,
     required String key,
-    _i5.RequestPayer? requestPayer,
     _i2.ObjectLockRetention? retention,
+    _i4.RequestPayer? requestPayer,
     String? versionId,
+    bool? bypassGovernanceRetention,
+    String? contentMd5,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    String? expectedBucketOwner,
   }) {
     return _$PutObjectRetentionRequest._(
       bucket: bucket,
-      bypassGovernanceRetention: bypassGovernanceRetention,
-      checksumAlgorithm: checksumAlgorithm,
-      contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
-      requestPayer: requestPayer,
       retention: retention,
+      requestPayer: requestPayer,
       versionId: versionId,
+      bypassGovernanceRetention: bypassGovernanceRetention,
+      contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -62,7 +62,7 @@ abstract class PutObjectRetentionRequest
           b.retention.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i5.RequestPayer.values
+          b.requestPayer = _i4.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-bypass-governance-retention'] != null) {
@@ -73,7 +73,7 @@ abstract class PutObjectRetentionRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -103,33 +103,33 @@ abstract class PutObjectRetentionRequest
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
+  /// The key name for the object that you want to apply this Object Retention configuration to.
+  String get key;
+
+  /// The container element for the Object Retention configuration.
+  _i2.ObjectLockRetention? get retention;
+
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i4.RequestPayer? get requestPayer;
+
+  /// The version ID for the object that you want to apply this Object Retention configuration to.
+  String? get versionId;
+
   /// Indicates whether this action should bypass Governance-mode restrictions.
   bool? get bypassGovernanceRetention;
-
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The MD5 hash for the request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
-
-  /// The key name for the object that you want to apply this Object Retention configuration to.
-  String get key;
-
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i5.RequestPayer? get requestPayer;
-
-  /// The container element for the Object Retention configuration.
-  _i2.ObjectLockRetention? get retention;
-
-  /// The version ID for the object that you want to apply this Object Retention configuration to.
-  String? get versionId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -150,14 +150,14 @@ abstract class PutObjectRetentionRequest
   @override
   List<Object?> get props => [
         bucket,
-        bypassGovernanceRetention,
-        checksumAlgorithm,
-        contentMd5,
-        expectedBucketOwner,
         key,
-        requestPayer,
         retention,
+        requestPayer,
         versionId,
+        bypassGovernanceRetention,
+        contentMd5,
+        checksumAlgorithm,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -167,36 +167,36 @@ abstract class PutObjectRetentionRequest
       bucket,
     );
     helper.add(
-      'bypassGovernanceRetention',
-      bypassGovernanceRetention,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'key',
       key,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
     );
     helper.add(
       'retention',
       retention,
     );
     helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'bypassGovernanceRetention',
+      bypassGovernanceRetention,
+    );
+    helper.add(
+      'contentMd5',
+      contentMd5,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

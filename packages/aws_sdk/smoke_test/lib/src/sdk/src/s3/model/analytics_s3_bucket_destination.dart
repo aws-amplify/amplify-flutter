@@ -20,15 +20,15 @@ abstract class AnalyticsS3BucketDestination
             AnalyticsS3BucketDestinationBuilder> {
   /// Contains information about where to publish the analytics results.
   factory AnalyticsS3BucketDestination({
-    required String bucket,
-    String? bucketAccountId,
     required _i2.AnalyticsS3ExportFileFormat format,
+    String? bucketAccountId,
+    required String bucket,
     String? prefix,
   }) {
     return _$AnalyticsS3BucketDestination._(
-      bucket: bucket,
-      bucketAccountId: bucketAccountId,
       format: format,
+      bucketAccountId: bucketAccountId,
+      bucket: bucket,
       prefix: prefix,
     );
   }
@@ -47,40 +47,40 @@ abstract class AnalyticsS3BucketDestination
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AnalyticsS3BucketDestinationBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the bucket to which data is exported.
-  String get bucket;
+  /// Specifies the file format used when exporting data to Amazon S3.
+  _i2.AnalyticsS3ExportFileFormat get format;
 
   /// The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
   ///
   /// Although this value is optional, we strongly recommend that you set it to help prevent problems if the destination bucket ownership changes.
   String? get bucketAccountId;
 
-  /// Specifies the file format used when exporting data to Amazon S3.
-  _i2.AnalyticsS3ExportFileFormat get format;
+  /// The Amazon Resource Name (ARN) of the bucket to which data is exported.
+  String get bucket;
 
   /// The prefix to use when exporting data. The prefix is prepended to all results.
   String? get prefix;
   @override
   List<Object?> get props => [
-        bucket,
-        bucketAccountId,
         format,
+        bucketAccountId,
+        bucket,
         prefix,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination');
     helper.add(
-      'bucket',
-      bucket,
+      'format',
+      format,
     );
     helper.add(
       'bucketAccountId',
       bucketAccountId,
     );
     helper.add(
-      'format',
-      format,
+      'bucket',
+      bucket,
     );
     helper.add(
       'prefix',

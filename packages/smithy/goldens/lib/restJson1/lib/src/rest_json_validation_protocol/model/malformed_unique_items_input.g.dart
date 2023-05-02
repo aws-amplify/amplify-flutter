@@ -12,29 +12,29 @@ class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
   @override
   final _i8.BuiltSet<bool>? booleanList;
   @override
+  final _i8.BuiltSet<String>? stringList;
+  @override
   final _i8.BuiltSet<int>? byteList;
-  @override
-  final _i8.BuiltSet<DateTime>? dateTimeList;
-  @override
-  final _i8.BuiltSet<_i4.FooEnum>? enumList;
-  @override
-  final _i8.BuiltSet<DateTime>? httpDateList;
-  @override
-  final _i8.BuiltSet<int>? intEnumList;
-  @override
-  final _i8.BuiltSet<int>? integerList;
-  @override
-  final _i8.BuiltSet<_i8.BuiltList<String>>? listList;
-  @override
-  final _i8.BuiltSet<_i5.Int64>? longList;
   @override
   final _i8.BuiltSet<int>? shortList;
   @override
-  final _i8.BuiltSet<String>? stringList;
+  final _i8.BuiltSet<int>? integerList;
   @override
-  final _i8.BuiltSet<_i6.GreetingStruct>? structureList;
+  final _i8.BuiltSet<_i4.Int64>? longList;
   @override
   final _i8.BuiltSet<DateTime>? timestampList;
+  @override
+  final _i8.BuiltSet<DateTime>? dateTimeList;
+  @override
+  final _i8.BuiltSet<DateTime>? httpDateList;
+  @override
+  final _i8.BuiltSet<_i5.FooEnum>? enumList;
+  @override
+  final _i8.BuiltSet<int>? intEnumList;
+  @override
+  final _i8.BuiltSet<_i8.BuiltList<String>>? listList;
+  @override
+  final _i8.BuiltSet<_i6.GreetingStruct>? structureList;
   @override
   final _i8.BuiltSet<_i7.FooUnion>? unionList;
 
@@ -45,18 +45,18 @@ class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
   _$MalformedUniqueItemsInput._(
       {this.blobList,
       this.booleanList,
-      this.byteList,
-      this.dateTimeList,
-      this.enumList,
-      this.httpDateList,
-      this.intEnumList,
-      this.integerList,
-      this.listList,
-      this.longList,
-      this.shortList,
       this.stringList,
-      this.structureList,
+      this.byteList,
+      this.shortList,
+      this.integerList,
+      this.longList,
       this.timestampList,
+      this.dateTimeList,
+      this.httpDateList,
+      this.enumList,
+      this.intEnumList,
+      this.listList,
+      this.structureList,
       this.unionList})
       : super._();
 
@@ -75,18 +75,18 @@ class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
     return other is MalformedUniqueItemsInput &&
         blobList == other.blobList &&
         booleanList == other.booleanList &&
-        byteList == other.byteList &&
-        dateTimeList == other.dateTimeList &&
-        enumList == other.enumList &&
-        httpDateList == other.httpDateList &&
-        intEnumList == other.intEnumList &&
-        integerList == other.integerList &&
-        listList == other.listList &&
-        longList == other.longList &&
-        shortList == other.shortList &&
         stringList == other.stringList &&
-        structureList == other.structureList &&
+        byteList == other.byteList &&
+        shortList == other.shortList &&
+        integerList == other.integerList &&
+        longList == other.longList &&
         timestampList == other.timestampList &&
+        dateTimeList == other.dateTimeList &&
+        httpDateList == other.httpDateList &&
+        enumList == other.enumList &&
+        intEnumList == other.intEnumList &&
+        listList == other.listList &&
+        structureList == other.structureList &&
         unionList == other.unionList;
   }
 
@@ -95,18 +95,18 @@ class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
     var _$hash = 0;
     _$hash = $jc(_$hash, blobList.hashCode);
     _$hash = $jc(_$hash, booleanList.hashCode);
-    _$hash = $jc(_$hash, byteList.hashCode);
-    _$hash = $jc(_$hash, dateTimeList.hashCode);
-    _$hash = $jc(_$hash, enumList.hashCode);
-    _$hash = $jc(_$hash, httpDateList.hashCode);
-    _$hash = $jc(_$hash, intEnumList.hashCode);
-    _$hash = $jc(_$hash, integerList.hashCode);
-    _$hash = $jc(_$hash, listList.hashCode);
-    _$hash = $jc(_$hash, longList.hashCode);
-    _$hash = $jc(_$hash, shortList.hashCode);
     _$hash = $jc(_$hash, stringList.hashCode);
-    _$hash = $jc(_$hash, structureList.hashCode);
+    _$hash = $jc(_$hash, byteList.hashCode);
+    _$hash = $jc(_$hash, shortList.hashCode);
+    _$hash = $jc(_$hash, integerList.hashCode);
+    _$hash = $jc(_$hash, longList.hashCode);
     _$hash = $jc(_$hash, timestampList.hashCode);
+    _$hash = $jc(_$hash, dateTimeList.hashCode);
+    _$hash = $jc(_$hash, httpDateList.hashCode);
+    _$hash = $jc(_$hash, enumList.hashCode);
+    _$hash = $jc(_$hash, intEnumList.hashCode);
+    _$hash = $jc(_$hash, listList.hashCode);
+    _$hash = $jc(_$hash, structureList.hashCode);
     _$hash = $jc(_$hash, unionList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -130,52 +130,16 @@ class MalformedUniqueItemsInputBuilder
   set booleanList(_i8.SetBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
+  _i8.SetBuilder<String>? _stringList;
+  _i8.SetBuilder<String> get stringList =>
+      _$this._stringList ??= new _i8.SetBuilder<String>();
+  set stringList(_i8.SetBuilder<String>? stringList) =>
+      _$this._stringList = stringList;
+
   _i8.SetBuilder<int>? _byteList;
   _i8.SetBuilder<int> get byteList =>
       _$this._byteList ??= new _i8.SetBuilder<int>();
   set byteList(_i8.SetBuilder<int>? byteList) => _$this._byteList = byteList;
-
-  _i8.SetBuilder<DateTime>? _dateTimeList;
-  _i8.SetBuilder<DateTime> get dateTimeList =>
-      _$this._dateTimeList ??= new _i8.SetBuilder<DateTime>();
-  set dateTimeList(_i8.SetBuilder<DateTime>? dateTimeList) =>
-      _$this._dateTimeList = dateTimeList;
-
-  _i8.SetBuilder<_i4.FooEnum>? _enumList;
-  _i8.SetBuilder<_i4.FooEnum> get enumList =>
-      _$this._enumList ??= new _i8.SetBuilder<_i4.FooEnum>();
-  set enumList(_i8.SetBuilder<_i4.FooEnum>? enumList) =>
-      _$this._enumList = enumList;
-
-  _i8.SetBuilder<DateTime>? _httpDateList;
-  _i8.SetBuilder<DateTime> get httpDateList =>
-      _$this._httpDateList ??= new _i8.SetBuilder<DateTime>();
-  set httpDateList(_i8.SetBuilder<DateTime>? httpDateList) =>
-      _$this._httpDateList = httpDateList;
-
-  _i8.SetBuilder<int>? _intEnumList;
-  _i8.SetBuilder<int> get intEnumList =>
-      _$this._intEnumList ??= new _i8.SetBuilder<int>();
-  set intEnumList(_i8.SetBuilder<int>? intEnumList) =>
-      _$this._intEnumList = intEnumList;
-
-  _i8.SetBuilder<int>? _integerList;
-  _i8.SetBuilder<int> get integerList =>
-      _$this._integerList ??= new _i8.SetBuilder<int>();
-  set integerList(_i8.SetBuilder<int>? integerList) =>
-      _$this._integerList = integerList;
-
-  _i8.SetBuilder<_i8.BuiltList<String>>? _listList;
-  _i8.SetBuilder<_i8.BuiltList<String>> get listList =>
-      _$this._listList ??= new _i8.SetBuilder<_i8.BuiltList<String>>();
-  set listList(_i8.SetBuilder<_i8.BuiltList<String>>? listList) =>
-      _$this._listList = listList;
-
-  _i8.SetBuilder<_i5.Int64>? _longList;
-  _i8.SetBuilder<_i5.Int64> get longList =>
-      _$this._longList ??= new _i8.SetBuilder<_i5.Int64>();
-  set longList(_i8.SetBuilder<_i5.Int64>? longList) =>
-      _$this._longList = longList;
 
   _i8.SetBuilder<int>? _shortList;
   _i8.SetBuilder<int> get shortList =>
@@ -183,23 +147,59 @@ class MalformedUniqueItemsInputBuilder
   set shortList(_i8.SetBuilder<int>? shortList) =>
       _$this._shortList = shortList;
 
-  _i8.SetBuilder<String>? _stringList;
-  _i8.SetBuilder<String> get stringList =>
-      _$this._stringList ??= new _i8.SetBuilder<String>();
-  set stringList(_i8.SetBuilder<String>? stringList) =>
-      _$this._stringList = stringList;
+  _i8.SetBuilder<int>? _integerList;
+  _i8.SetBuilder<int> get integerList =>
+      _$this._integerList ??= new _i8.SetBuilder<int>();
+  set integerList(_i8.SetBuilder<int>? integerList) =>
+      _$this._integerList = integerList;
 
-  _i8.SetBuilder<_i6.GreetingStruct>? _structureList;
-  _i8.SetBuilder<_i6.GreetingStruct> get structureList =>
-      _$this._structureList ??= new _i8.SetBuilder<_i6.GreetingStruct>();
-  set structureList(_i8.SetBuilder<_i6.GreetingStruct>? structureList) =>
-      _$this._structureList = structureList;
+  _i8.SetBuilder<_i4.Int64>? _longList;
+  _i8.SetBuilder<_i4.Int64> get longList =>
+      _$this._longList ??= new _i8.SetBuilder<_i4.Int64>();
+  set longList(_i8.SetBuilder<_i4.Int64>? longList) =>
+      _$this._longList = longList;
 
   _i8.SetBuilder<DateTime>? _timestampList;
   _i8.SetBuilder<DateTime> get timestampList =>
       _$this._timestampList ??= new _i8.SetBuilder<DateTime>();
   set timestampList(_i8.SetBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
+
+  _i8.SetBuilder<DateTime>? _dateTimeList;
+  _i8.SetBuilder<DateTime> get dateTimeList =>
+      _$this._dateTimeList ??= new _i8.SetBuilder<DateTime>();
+  set dateTimeList(_i8.SetBuilder<DateTime>? dateTimeList) =>
+      _$this._dateTimeList = dateTimeList;
+
+  _i8.SetBuilder<DateTime>? _httpDateList;
+  _i8.SetBuilder<DateTime> get httpDateList =>
+      _$this._httpDateList ??= new _i8.SetBuilder<DateTime>();
+  set httpDateList(_i8.SetBuilder<DateTime>? httpDateList) =>
+      _$this._httpDateList = httpDateList;
+
+  _i8.SetBuilder<_i5.FooEnum>? _enumList;
+  _i8.SetBuilder<_i5.FooEnum> get enumList =>
+      _$this._enumList ??= new _i8.SetBuilder<_i5.FooEnum>();
+  set enumList(_i8.SetBuilder<_i5.FooEnum>? enumList) =>
+      _$this._enumList = enumList;
+
+  _i8.SetBuilder<int>? _intEnumList;
+  _i8.SetBuilder<int> get intEnumList =>
+      _$this._intEnumList ??= new _i8.SetBuilder<int>();
+  set intEnumList(_i8.SetBuilder<int>? intEnumList) =>
+      _$this._intEnumList = intEnumList;
+
+  _i8.SetBuilder<_i8.BuiltList<String>>? _listList;
+  _i8.SetBuilder<_i8.BuiltList<String>> get listList =>
+      _$this._listList ??= new _i8.SetBuilder<_i8.BuiltList<String>>();
+  set listList(_i8.SetBuilder<_i8.BuiltList<String>>? listList) =>
+      _$this._listList = listList;
+
+  _i8.SetBuilder<_i6.GreetingStruct>? _structureList;
+  _i8.SetBuilder<_i6.GreetingStruct> get structureList =>
+      _$this._structureList ??= new _i8.SetBuilder<_i6.GreetingStruct>();
+  set structureList(_i8.SetBuilder<_i6.GreetingStruct>? structureList) =>
+      _$this._structureList = structureList;
 
   _i8.SetBuilder<_i7.FooUnion>? _unionList;
   _i8.SetBuilder<_i7.FooUnion> get unionList =>
@@ -216,18 +216,18 @@ class MalformedUniqueItemsInputBuilder
     if ($v != null) {
       _blobList = $v.blobList?.toBuilder();
       _booleanList = $v.booleanList?.toBuilder();
-      _byteList = $v.byteList?.toBuilder();
-      _dateTimeList = $v.dateTimeList?.toBuilder();
-      _enumList = $v.enumList?.toBuilder();
-      _httpDateList = $v.httpDateList?.toBuilder();
-      _intEnumList = $v.intEnumList?.toBuilder();
-      _integerList = $v.integerList?.toBuilder();
-      _listList = $v.listList?.toBuilder();
-      _longList = $v.longList?.toBuilder();
-      _shortList = $v.shortList?.toBuilder();
       _stringList = $v.stringList?.toBuilder();
-      _structureList = $v.structureList?.toBuilder();
+      _byteList = $v.byteList?.toBuilder();
+      _shortList = $v.shortList?.toBuilder();
+      _integerList = $v.integerList?.toBuilder();
+      _longList = $v.longList?.toBuilder();
       _timestampList = $v.timestampList?.toBuilder();
+      _dateTimeList = $v.dateTimeList?.toBuilder();
+      _httpDateList = $v.httpDateList?.toBuilder();
+      _enumList = $v.enumList?.toBuilder();
+      _intEnumList = $v.intEnumList?.toBuilder();
+      _listList = $v.listList?.toBuilder();
+      _structureList = $v.structureList?.toBuilder();
       _unionList = $v.unionList?.toBuilder();
       _$v = null;
     }
@@ -255,18 +255,18 @@ class MalformedUniqueItemsInputBuilder
           new _$MalformedUniqueItemsInput._(
               blobList: _blobList?.build(),
               booleanList: _booleanList?.build(),
-              byteList: _byteList?.build(),
-              dateTimeList: _dateTimeList?.build(),
-              enumList: _enumList?.build(),
-              httpDateList: _httpDateList?.build(),
-              intEnumList: _intEnumList?.build(),
-              integerList: _integerList?.build(),
-              listList: _listList?.build(),
-              longList: _longList?.build(),
-              shortList: _shortList?.build(),
               stringList: _stringList?.build(),
-              structureList: _structureList?.build(),
+              byteList: _byteList?.build(),
+              shortList: _shortList?.build(),
+              integerList: _integerList?.build(),
+              longList: _longList?.build(),
               timestampList: _timestampList?.build(),
+              dateTimeList: _dateTimeList?.build(),
+              httpDateList: _httpDateList?.build(),
+              enumList: _enumList?.build(),
+              intEnumList: _intEnumList?.build(),
+              listList: _listList?.build(),
+              structureList: _structureList?.build(),
               unionList: _unionList?.build());
     } catch (_) {
       late String _$failedField;
@@ -275,30 +275,30 @@ class MalformedUniqueItemsInputBuilder
         _blobList?.build();
         _$failedField = 'booleanList';
         _booleanList?.build();
-        _$failedField = 'byteList';
-        _byteList?.build();
-        _$failedField = 'dateTimeList';
-        _dateTimeList?.build();
-        _$failedField = 'enumList';
-        _enumList?.build();
-        _$failedField = 'httpDateList';
-        _httpDateList?.build();
-        _$failedField = 'intEnumList';
-        _intEnumList?.build();
-        _$failedField = 'integerList';
-        _integerList?.build();
-        _$failedField = 'listList';
-        _listList?.build();
-        _$failedField = 'longList';
-        _longList?.build();
-        _$failedField = 'shortList';
-        _shortList?.build();
         _$failedField = 'stringList';
         _stringList?.build();
-        _$failedField = 'structureList';
-        _structureList?.build();
+        _$failedField = 'byteList';
+        _byteList?.build();
+        _$failedField = 'shortList';
+        _shortList?.build();
+        _$failedField = 'integerList';
+        _integerList?.build();
+        _$failedField = 'longList';
+        _longList?.build();
         _$failedField = 'timestampList';
         _timestampList?.build();
+        _$failedField = 'dateTimeList';
+        _dateTimeList?.build();
+        _$failedField = 'httpDateList';
+        _httpDateList?.build();
+        _$failedField = 'enumList';
+        _enumList?.build();
+        _$failedField = 'intEnumList';
+        _intEnumList?.build();
+        _$failedField = 'listList';
+        _listList?.build();
+        _$failedField = 'structureList';
+        _structureList?.build();
         _$failedField = 'unionList';
         _unionList?.build();
       } catch (e) {

@@ -133,20 +133,20 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Uint8List),
-            ) as _i6.Uint8List);
-          }
-          break;
         case 'foo':
           if (value != null) {
             result.foo = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'blob':
+          if (value != null) {
+            result.blob = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.Uint8List),
+            ) as _i6.Uint8List);
           }
           break;
       }

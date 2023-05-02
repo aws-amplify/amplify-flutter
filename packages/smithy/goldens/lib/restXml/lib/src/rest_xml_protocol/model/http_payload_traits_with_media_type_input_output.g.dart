@@ -9,9 +9,9 @@ part of rest_xml_v1.rest_xml_protocol.model.http_payload_traits_with_media_type_
 class _$HttpPayloadTraitsWithMediaTypeInputOutput
     extends HttpPayloadTraitsWithMediaTypeInputOutput {
   @override
-  final _i2.Uint8List? blob;
-  @override
   final String? foo;
+  @override
+  final _i2.Uint8List? blob;
 
   factory _$HttpPayloadTraitsWithMediaTypeInputOutput(
           [void Function(HttpPayloadTraitsWithMediaTypeInputOutputBuilder)?
@@ -19,7 +19,7 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
       (new HttpPayloadTraitsWithMediaTypeInputOutputBuilder()..update(updates))
           ._build();
 
-  _$HttpPayloadTraitsWithMediaTypeInputOutput._({this.blob, this.foo})
+  _$HttpPayloadTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
       : super._();
 
   @override
@@ -36,15 +36,15 @@ class _$HttpPayloadTraitsWithMediaTypeInputOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HttpPayloadTraitsWithMediaTypeInputOutput &&
-        blob == other.blob &&
-        foo == other.foo;
+        foo == other.foo &&
+        blob == other.blob;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, blob.hashCode);
     _$hash = $jc(_$hash, foo.hashCode);
+    _$hash = $jc(_$hash, blob.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,13 +56,13 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
             HttpPayloadTraitsWithMediaTypeInputOutputBuilder> {
   _$HttpPayloadTraitsWithMediaTypeInputOutput? _$v;
 
-  _i2.Uint8List? _blob;
-  _i2.Uint8List? get blob => _$this._blob;
-  set blob(_i2.Uint8List? blob) => _$this._blob = blob;
-
   String? _foo;
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
+
+  _i2.Uint8List? _blob;
+  _i2.Uint8List? get blob => _$this._blob;
+  set blob(_i2.Uint8List? blob) => _$this._blob = blob;
 
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder() {
     HttpPayloadTraitsWithMediaTypeInputOutput._init(this);
@@ -71,8 +71,8 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _blob = $v.blob;
       _foo = $v.foo;
+      _blob = $v.blob;
       _$v = null;
     }
     return this;
@@ -96,7 +96,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
 
   _$HttpPayloadTraitsWithMediaTypeInputOutput _build() {
     final _$result = _$v ??
-        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(blob: blob, foo: foo);
+        new _$HttpPayloadTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
     replace(_$result);
     return _$result;
   }

@@ -8,18 +8,18 @@ part of smoke_test.s3.model.noncurrent_version_transition;
 
 class _$NoncurrentVersionTransition extends NoncurrentVersionTransition {
   @override
-  final int? newerNoncurrentVersions;
-  @override
   final int? noncurrentDays;
   @override
   final _i2.TransitionStorageClass? storageClass;
+  @override
+  final int? newerNoncurrentVersions;
 
   factory _$NoncurrentVersionTransition(
           [void Function(NoncurrentVersionTransitionBuilder)? updates]) =>
       (new NoncurrentVersionTransitionBuilder()..update(updates))._build();
 
   _$NoncurrentVersionTransition._(
-      {this.newerNoncurrentVersions, this.noncurrentDays, this.storageClass})
+      {this.noncurrentDays, this.storageClass, this.newerNoncurrentVersions})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$NoncurrentVersionTransition extends NoncurrentVersionTransition {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NoncurrentVersionTransition &&
-        newerNoncurrentVersions == other.newerNoncurrentVersions &&
         noncurrentDays == other.noncurrentDays &&
-        storageClass == other.storageClass;
+        storageClass == other.storageClass &&
+        newerNoncurrentVersions == other.newerNoncurrentVersions;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, newerNoncurrentVersions.hashCode);
     _$hash = $jc(_$hash, noncurrentDays.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, newerNoncurrentVersions.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,11 +57,6 @@ class NoncurrentVersionTransitionBuilder
             NoncurrentVersionTransitionBuilder> {
   _$NoncurrentVersionTransition? _$v;
 
-  int? _newerNoncurrentVersions;
-  int? get newerNoncurrentVersions => _$this._newerNoncurrentVersions;
-  set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
-      _$this._newerNoncurrentVersions = newerNoncurrentVersions;
-
   int? _noncurrentDays;
   int? get noncurrentDays => _$this._noncurrentDays;
   set noncurrentDays(int? noncurrentDays) =>
@@ -72,6 +67,11 @@ class NoncurrentVersionTransitionBuilder
   set storageClass(_i2.TransitionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
+  int? _newerNoncurrentVersions;
+  int? get newerNoncurrentVersions => _$this._newerNoncurrentVersions;
+  set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
+      _$this._newerNoncurrentVersions = newerNoncurrentVersions;
+
   NoncurrentVersionTransitionBuilder() {
     NoncurrentVersionTransition._init(this);
   }
@@ -79,9 +79,9 @@ class NoncurrentVersionTransitionBuilder
   NoncurrentVersionTransitionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _newerNoncurrentVersions = $v.newerNoncurrentVersions;
       _noncurrentDays = $v.noncurrentDays;
       _storageClass = $v.storageClass;
+      _newerNoncurrentVersions = $v.newerNoncurrentVersions;
       _$v = null;
     }
     return this;
@@ -104,9 +104,9 @@ class NoncurrentVersionTransitionBuilder
   _$NoncurrentVersionTransition _build() {
     final _$result = _$v ??
         new _$NoncurrentVersionTransition._(
-            newerNoncurrentVersions: newerNoncurrentVersions,
             noncurrentDays: noncurrentDays,
-            storageClass: storageClass);
+            storageClass: storageClass,
+            newerNoncurrentVersions: newerNoncurrentVersions);
     replace(_$result);
     return _$result;
   }

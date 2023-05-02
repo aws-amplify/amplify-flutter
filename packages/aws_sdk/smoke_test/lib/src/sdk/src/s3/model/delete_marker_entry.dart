@@ -16,18 +16,18 @@ abstract class DeleteMarkerEntry
     implements Built<DeleteMarkerEntry, DeleteMarkerEntryBuilder> {
   /// Information about the delete marker.
   factory DeleteMarkerEntry({
-    bool? isLatest,
-    String? key,
-    DateTime? lastModified,
     _i2.Owner? owner,
+    String? key,
     String? versionId,
+    bool? isLatest,
+    DateTime? lastModified,
   }) {
     return _$DeleteMarkerEntry._(
-      isLatest: isLatest,
-      key: key,
-      lastModified: lastModified,
       owner: owner,
+      key: key,
       versionId: versionId,
+      isLatest: isLatest,
+      lastModified: lastModified,
     );
   }
 
@@ -44,50 +44,50 @@ abstract class DeleteMarkerEntry
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteMarkerEntryBuilder b) {}
 
-  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool? get isLatest;
+  /// The account that created the delete marker.>
+  _i2.Owner? get owner;
 
   /// The object key.
   String? get key;
 
-  /// Date and time the object was last modified.
-  DateTime? get lastModified;
-
-  /// The account that created the delete marker.>
-  _i2.Owner? get owner;
-
   /// Version ID of an object.
   String? get versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
+  bool? get isLatest;
+
+  /// Date and time the object was last modified.
+  DateTime? get lastModified;
   @override
   List<Object?> get props => [
-        isLatest,
-        key,
-        lastModified,
         owner,
+        key,
         versionId,
+        isLatest,
+        lastModified,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteMarkerEntry');
     helper.add(
-      'isLatest',
-      isLatest,
+      'owner',
+      owner,
     );
     helper.add(
       'key',
       key,
     );
     helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'isLatest',
+      isLatest,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
     );
     return helper.toString();
   }

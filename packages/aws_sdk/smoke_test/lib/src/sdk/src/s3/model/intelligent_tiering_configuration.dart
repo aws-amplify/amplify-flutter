@@ -28,14 +28,14 @@ abstract class IntelligentTieringConfiguration
   ///
   /// For information about the S3 Intelligent-Tiering storage class, see [Storage class for automatically optimizing frequently and infrequently accessed objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access).
   factory IntelligentTieringConfiguration({
-    _i2.IntelligentTieringFilter? filter,
     required String id,
+    _i2.IntelligentTieringFilter? filter,
     required _i3.IntelligentTieringStatus status,
     required List<_i4.Tiering> tierings,
   }) {
     return _$IntelligentTieringConfiguration._(
-      filter: filter,
       id: id,
+      filter: filter,
       status: status,
       tierings: _i5.BuiltList(tierings),
     );
@@ -57,11 +57,11 @@ abstract class IntelligentTieringConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(IntelligentTieringConfigurationBuilder b) {}
 
-  /// Specifies a bucket filter. The configuration only includes objects that meet the filter's criteria.
-  _i2.IntelligentTieringFilter? get filter;
-
   /// The ID used to identify the S3 Intelligent-Tiering configuration.
   String get id;
+
+  /// Specifies a bucket filter. The configuration only includes objects that meet the filter's criteria.
+  _i2.IntelligentTieringFilter? get filter;
 
   /// Specifies the status of the configuration.
   _i3.IntelligentTieringStatus get status;
@@ -70,8 +70,8 @@ abstract class IntelligentTieringConfiguration
   _i5.BuiltList<_i4.Tiering> get tierings;
   @override
   List<Object?> get props => [
-        filter,
         id,
+        filter,
         status,
         tierings,
       ];
@@ -80,12 +80,12 @@ abstract class IntelligentTieringConfiguration
     final helper =
         newBuiltValueToStringHelper('IntelligentTieringConfiguration');
     helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     helper.add(
       'status',

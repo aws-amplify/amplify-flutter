@@ -19,18 +19,18 @@ abstract class MemberAccountStatus
   factory MemberAccountStatus({
     required String accountId,
     required String configRuleName,
+    required _i2.MemberAccountRuleStatus memberAccountRuleStatus,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
-    required _i2.MemberAccountRuleStatus memberAccountRuleStatus,
   }) {
     return _$MemberAccountStatus._(
       accountId: accountId,
       configRuleName: configRuleName,
+      memberAccountRuleStatus: memberAccountRuleStatus,
       errorCode: errorCode,
       errorMessage: errorMessage,
       lastUpdateTime: lastUpdateTime,
-      memberAccountRuleStatus: memberAccountRuleStatus,
     );
   }
 
@@ -54,15 +54,6 @@ abstract class MemberAccountStatus
   /// The name of Config rule deployed in the member account.
   String get configRuleName;
 
-  /// An error code that is returned when Config rule creation or deletion failed in the member account.
-  String? get errorCode;
-
-  /// An error message indicating that Config rule account creation or deletion has failed due to an error in the member account.
-  String? get errorMessage;
-
-  /// The timestamp of the last status update.
-  DateTime? get lastUpdateTime;
-
   /// Indicates deployment status for Config rule in the member account. When master account calls `PutOrganizationConfigRule` action for the first time, Config rule status is created in the member account. When master account calls `PutOrganizationConfigRule` action for the second time, Config rule status is updated in the member account. Config rule status is deleted when the master account deletes `OrganizationConfigRule` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the rule to:
@@ -85,14 +76,23 @@ abstract class MemberAccountStatus
   ///
   /// *   `UPDATE_FAILED` when Config rule deletion has failed in the member account.
   _i2.MemberAccountRuleStatus get memberAccountRuleStatus;
+
+  /// An error code that is returned when Config rule creation or deletion failed in the member account.
+  String? get errorCode;
+
+  /// An error message indicating that Config rule account creation or deletion has failed due to an error in the member account.
+  String? get errorMessage;
+
+  /// The timestamp of the last status update.
+  DateTime? get lastUpdateTime;
   @override
   List<Object?> get props => [
         accountId,
         configRuleName,
+        memberAccountRuleStatus,
         errorCode,
         errorMessage,
         lastUpdateTime,
-        memberAccountRuleStatus,
       ];
   @override
   String toString() {
@@ -106,6 +106,10 @@ abstract class MemberAccountStatus
       configRuleName,
     );
     helper.add(
+      'memberAccountRuleStatus',
+      memberAccountRuleStatus,
+    );
+    helper.add(
       'errorCode',
       errorCode,
     );
@@ -116,10 +120,6 @@ abstract class MemberAccountStatus
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'memberAccountRuleStatus',
-      memberAccountRuleStatus,
     );
     return helper.toString();
   }
@@ -166,6 +166,12 @@ class MemberAccountStatusAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'MemberAccountRuleStatus':
+          result.memberAccountRuleStatus = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.MemberAccountRuleStatus),
+          ) as _i2.MemberAccountRuleStatus);
+          break;
         case 'ErrorCode':
           if (value != null) {
             result.errorCode = (serializers.deserialize(
@@ -189,12 +195,6 @@ class MemberAccountStatusAwsJson11Serializer
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
-          break;
-        case 'MemberAccountRuleStatus':
-          result.memberAccountRuleStatus = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.MemberAccountRuleStatus),
-          ) as _i2.MemberAccountRuleStatus);
           break;
       }
     }

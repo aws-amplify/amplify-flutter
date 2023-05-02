@@ -20,18 +20,18 @@ abstract class OrganizationConformancePackStatus
             OrganizationConformancePackStatusBuilder> {
   /// Returns the status for an organization conformance pack in an organization.
   factory OrganizationConformancePackStatus({
+    required String organizationConformancePackName,
+    required _i2.OrganizationResourceStatus status,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
-    required String organizationConformancePackName,
-    required _i2.OrganizationResourceStatus status,
   }) {
     return _$OrganizationConformancePackStatus._(
+      organizationConformancePackName: organizationConformancePackName,
+      status: status,
       errorCode: errorCode,
       errorMessage: errorMessage,
       lastUpdateTime: lastUpdateTime,
-      organizationConformancePackName: organizationConformancePackName,
-      status: status,
     );
   }
 
@@ -48,15 +48,6 @@ abstract class OrganizationConformancePackStatus
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OrganizationConformancePackStatusBuilder b) {}
-
-  /// An error code that is returned when organization conformance pack creation or deletion has failed in a member account.
-  String? get errorCode;
-
-  /// An error message indicating that organization conformance pack creation or deletion failed due to an error.
-  String? get errorMessage;
-
-  /// The timestamp of the last update.
-  DateTime? get lastUpdateTime;
 
   /// The name that you assign to organization conformance pack.
   String get organizationConformancePackName;
@@ -83,18 +74,35 @@ abstract class OrganizationConformancePackStatus
   ///
   /// *   `UPDATE_FAILED` when an organization conformance pack update failed in one or more member accounts within that organization.
   _i2.OrganizationResourceStatus get status;
+
+  /// An error code that is returned when organization conformance pack creation or deletion has failed in a member account.
+  String? get errorCode;
+
+  /// An error message indicating that organization conformance pack creation or deletion failed due to an error.
+  String? get errorMessage;
+
+  /// The timestamp of the last update.
+  DateTime? get lastUpdateTime;
   @override
   List<Object?> get props => [
+        organizationConformancePackName,
+        status,
         errorCode,
         errorMessage,
         lastUpdateTime,
-        organizationConformancePackName,
-        status,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('OrganizationConformancePackStatus');
+    helper.add(
+      'organizationConformancePackName',
+      organizationConformancePackName,
+    );
+    helper.add(
+      'status',
+      status,
+    );
     helper.add(
       'errorCode',
       errorCode,
@@ -106,14 +114,6 @@ abstract class OrganizationConformancePackStatus
     helper.add(
       'lastUpdateTime',
       lastUpdateTime,
-    );
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'status',
-      status,
     );
     return helper.toString();
   }
@@ -149,6 +149,18 @@ class OrganizationConformancePackStatusAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'OrganizationConformancePackName':
+          result.organizationConformancePackName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'Status':
+          result.status = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.OrganizationResourceStatus),
+          ) as _i2.OrganizationResourceStatus);
+          break;
         case 'ErrorCode':
           if (value != null) {
             result.errorCode = (serializers.deserialize(
@@ -172,18 +184,6 @@ class OrganizationConformancePackStatusAwsJson11Serializer
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
-          break;
-        case 'OrganizationConformancePackName':
-          result.organizationConformancePackName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'Status':
-          result.status = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.OrganizationResourceStatus),
-          ) as _i2.OrganizationResourceStatus);
           break;
       }
     }

@@ -5,8 +5,8 @@ library rest_xml_v1.s3.model.object; // ignore_for_file: no_leading_underscores_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i3;
-import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i2;
+import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i4;
 
 part 'object.g.dart';
@@ -15,20 +15,20 @@ abstract class S3Object
     with _i1.AWSEquatable<S3Object>
     implements Built<S3Object, S3ObjectBuilder> {
   factory S3Object({
-    String? eTag,
     String? key,
     DateTime? lastModified,
-    _i2.Owner? owner,
+    String? eTag,
     int? size,
-    _i3.ObjectStorageClass? storageClass,
+    _i2.ObjectStorageClass? storageClass,
+    _i3.Owner? owner,
   }) {
     return _$S3Object._(
-      eTag: eTag,
       key: key,
       lastModified: lastModified,
-      owner: owner,
+      eTag: eTag,
       size: size,
       storageClass: storageClass,
+      owner: owner,
     );
   }
 
@@ -42,28 +42,24 @@ abstract class S3Object
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(S3ObjectBuilder b) {}
-  String? get eTag;
   String? get key;
   DateTime? get lastModified;
-  _i2.Owner? get owner;
+  String? get eTag;
   int? get size;
-  _i3.ObjectStorageClass? get storageClass;
+  _i2.ObjectStorageClass? get storageClass;
+  _i3.Owner? get owner;
   @override
   List<Object?> get props => [
-        eTag,
         key,
         lastModified,
-        owner,
+        eTag,
         size,
         storageClass,
+        owner,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Object');
-    helper.add(
-      'eTag',
-      eTag,
-    );
     helper.add(
       'key',
       key,
@@ -73,8 +69,8 @@ abstract class S3Object
       lastModified,
     );
     helper.add(
-      'owner',
-      owner,
+      'eTag',
+      eTag,
     );
     helper.add(
       'size',
@@ -83,6 +79,10 @@ abstract class S3Object
     helper.add(
       'storageClass',
       storageClass,
+    );
+    helper.add(
+      'owner',
+      owner,
     );
     return helper.toString();
   }
@@ -144,8 +144,8 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
           if (value != null) {
             result.owner.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.Owner),
-            ) as _i2.Owner));
+              specifiedType: const FullType(_i3.Owner),
+            ) as _i3.Owner));
           }
           break;
         case 'Size':
@@ -160,8 +160,8 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ObjectStorageClass),
-            ) as _i3.ObjectStorageClass);
+              specifiedType: const FullType(_i2.ObjectStorageClass),
+            ) as _i2.ObjectStorageClass);
           }
           break;
       }
@@ -212,7 +212,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ..add(const _i4.XmlElementName('Owner'))
         ..add(serializers.serialize(
           payload.owner!,
-          specifiedType: const FullType(_i2.Owner),
+          specifiedType: const FullType(_i3.Owner),
         ));
     }
     if (payload.size != null) {
@@ -228,7 +228,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i3.ObjectStorageClass),
+          specifiedType: const FullType.nullable(_i2.ObjectStorageClass),
         ));
     }
     return result;

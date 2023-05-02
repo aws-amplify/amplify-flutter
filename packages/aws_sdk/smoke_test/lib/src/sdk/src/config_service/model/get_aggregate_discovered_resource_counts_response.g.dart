@@ -9,13 +9,13 @@ part of smoke_test.config_service.model.get_aggregate_discovered_resource_counts
 class _$GetAggregateDiscoveredResourceCountsResponse
     extends GetAggregateDiscoveredResourceCountsResponse {
   @override
+  final _i2.Int64 totalDiscoveredResources;
+  @override
   final String? groupByKey;
   @override
-  final _i4.BuiltList<_i2.GroupedResourceCount>? groupedResourceCounts;
+  final _i4.BuiltList<_i3.GroupedResourceCount>? groupedResourceCounts;
   @override
   final String? nextToken;
-  @override
-  final _i3.Int64 totalDiscoveredResources;
 
   factory _$GetAggregateDiscoveredResourceCountsResponse(
           [void Function(GetAggregateDiscoveredResourceCountsResponseBuilder)?
@@ -25,10 +25,10 @@ class _$GetAggregateDiscoveredResourceCountsResponse
           ._build();
 
   _$GetAggregateDiscoveredResourceCountsResponse._(
-      {this.groupByKey,
+      {required this.totalDiscoveredResources,
+      this.groupByKey,
       this.groupedResourceCounts,
-      this.nextToken,
-      required this.totalDiscoveredResources})
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         totalDiscoveredResources,
@@ -50,19 +50,19 @@ class _$GetAggregateDiscoveredResourceCountsResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetAggregateDiscoveredResourceCountsResponse &&
+        totalDiscoveredResources == other.totalDiscoveredResources &&
         groupByKey == other.groupByKey &&
         groupedResourceCounts == other.groupedResourceCounts &&
-        nextToken == other.nextToken &&
-        totalDiscoveredResources == other.totalDiscoveredResources;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, totalDiscoveredResources.hashCode);
     _$hash = $jc(_$hash, groupByKey.hashCode);
     _$hash = $jc(_$hash, groupedResourceCounts.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, totalDiscoveredResources.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -74,26 +74,26 @@ class GetAggregateDiscoveredResourceCountsResponseBuilder
             GetAggregateDiscoveredResourceCountsResponseBuilder> {
   _$GetAggregateDiscoveredResourceCountsResponse? _$v;
 
+  _i2.Int64? _totalDiscoveredResources;
+  _i2.Int64? get totalDiscoveredResources => _$this._totalDiscoveredResources;
+  set totalDiscoveredResources(_i2.Int64? totalDiscoveredResources) =>
+      _$this._totalDiscoveredResources = totalDiscoveredResources;
+
   String? _groupByKey;
   String? get groupByKey => _$this._groupByKey;
   set groupByKey(String? groupByKey) => _$this._groupByKey = groupByKey;
 
-  _i4.ListBuilder<_i2.GroupedResourceCount>? _groupedResourceCounts;
-  _i4.ListBuilder<_i2.GroupedResourceCount> get groupedResourceCounts =>
+  _i4.ListBuilder<_i3.GroupedResourceCount>? _groupedResourceCounts;
+  _i4.ListBuilder<_i3.GroupedResourceCount> get groupedResourceCounts =>
       _$this._groupedResourceCounts ??=
-          new _i4.ListBuilder<_i2.GroupedResourceCount>();
+          new _i4.ListBuilder<_i3.GroupedResourceCount>();
   set groupedResourceCounts(
-          _i4.ListBuilder<_i2.GroupedResourceCount>? groupedResourceCounts) =>
+          _i4.ListBuilder<_i3.GroupedResourceCount>? groupedResourceCounts) =>
       _$this._groupedResourceCounts = groupedResourceCounts;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
-  _i3.Int64? _totalDiscoveredResources;
-  _i3.Int64? get totalDiscoveredResources => _$this._totalDiscoveredResources;
-  set totalDiscoveredResources(_i3.Int64? totalDiscoveredResources) =>
-      _$this._totalDiscoveredResources = totalDiscoveredResources;
 
   GetAggregateDiscoveredResourceCountsResponseBuilder() {
     GetAggregateDiscoveredResourceCountsResponse._init(this);
@@ -102,10 +102,10 @@ class GetAggregateDiscoveredResourceCountsResponseBuilder
   GetAggregateDiscoveredResourceCountsResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _totalDiscoveredResources = $v.totalDiscoveredResources;
       _groupByKey = $v.groupByKey;
       _groupedResourceCounts = $v.groupedResourceCounts?.toBuilder();
       _nextToken = $v.nextToken;
-      _totalDiscoveredResources = $v.totalDiscoveredResources;
       _$v = null;
     }
     return this;
@@ -132,13 +132,13 @@ class GetAggregateDiscoveredResourceCountsResponseBuilder
     try {
       _$result = _$v ??
           new _$GetAggregateDiscoveredResourceCountsResponse._(
-              groupByKey: groupByKey,
-              groupedResourceCounts: _groupedResourceCounts?.build(),
-              nextToken: nextToken,
               totalDiscoveredResources: BuiltValueNullFieldError.checkNotNull(
                   totalDiscoveredResources,
                   r'GetAggregateDiscoveredResourceCountsResponse',
-                  'totalDiscoveredResources'));
+                  'totalDiscoveredResources'),
+              groupByKey: groupByKey,
+              groupedResourceCounts: _groupedResourceCounts?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

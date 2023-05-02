@@ -17,37 +17,37 @@ abstract class MalformedRangeInput
     implements Built<MalformedRangeInput, MalformedRangeInputBuilder> {
   factory MalformedRangeInput({
     int? byte,
-    double? float,
-    int? integer,
-    _i3.Int64? long,
-    int? maxByte,
-    double? maxFloat,
-    int? maxInteger,
-    _i3.Int64? maxLong,
-    int? maxShort,
     int? minByte,
-    double? minFloat,
-    int? minInteger,
-    _i3.Int64? minLong,
-    int? minShort,
+    int? maxByte,
     int? short,
+    int? minShort,
+    int? maxShort,
+    int? integer,
+    int? minInteger,
+    int? maxInteger,
+    _i3.Int64? long,
+    _i3.Int64? minLong,
+    _i3.Int64? maxLong,
+    double? float,
+    double? minFloat,
+    double? maxFloat,
   }) {
     return _$MalformedRangeInput._(
       byte: byte,
-      float: float,
-      integer: integer,
-      long: long,
-      maxByte: maxByte,
-      maxFloat: maxFloat,
-      maxInteger: maxInteger,
-      maxLong: maxLong,
-      maxShort: maxShort,
       minByte: minByte,
-      minFloat: minFloat,
-      minInteger: minInteger,
-      minLong: minLong,
-      minShort: minShort,
+      maxByte: maxByte,
       short: short,
+      minShort: minShort,
+      maxShort: maxShort,
+      integer: integer,
+      minInteger: minInteger,
+      maxInteger: maxInteger,
+      long: long,
+      minLong: minLong,
+      maxLong: maxLong,
+      float: float,
+      minFloat: minFloat,
+      maxFloat: maxFloat,
     );
   }
 
@@ -71,39 +71,39 @@ abstract class MalformedRangeInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedRangeInputBuilder b) {}
   int? get byte;
-  double? get float;
-  int? get integer;
-  _i3.Int64? get long;
-  int? get maxByte;
-  double? get maxFloat;
-  int? get maxInteger;
-  _i3.Int64? get maxLong;
-  int? get maxShort;
   int? get minByte;
-  double? get minFloat;
-  int? get minInteger;
-  _i3.Int64? get minLong;
-  int? get minShort;
+  int? get maxByte;
   int? get short;
+  int? get minShort;
+  int? get maxShort;
+  int? get integer;
+  int? get minInteger;
+  int? get maxInteger;
+  _i3.Int64? get long;
+  _i3.Int64? get minLong;
+  _i3.Int64? get maxLong;
+  double? get float;
+  double? get minFloat;
+  double? get maxFloat;
   @override
   MalformedRangeInput getPayload() => this;
   @override
   List<Object?> get props => [
         byte,
-        float,
-        integer,
-        long,
-        maxByte,
-        maxFloat,
-        maxInteger,
-        maxLong,
-        maxShort,
         minByte,
-        minFloat,
-        minInteger,
-        minLong,
-        minShort,
+        maxByte,
         short,
+        minShort,
+        maxShort,
+        integer,
+        minInteger,
+        maxInteger,
+        long,
+        minLong,
+        maxLong,
+        float,
+        minFloat,
+        maxFloat,
       ];
   @override
   String toString() {
@@ -113,60 +113,60 @@ abstract class MalformedRangeInput
       byte,
     );
     helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'long',
-      long,
+      'minByte',
+      minByte,
     );
     helper.add(
       'maxByte',
       maxByte,
     );
     helper.add(
-      'maxFloat',
-      maxFloat,
-    );
-    helper.add(
-      'maxInteger',
-      maxInteger,
-    );
-    helper.add(
-      'maxLong',
-      maxLong,
-    );
-    helper.add(
-      'maxShort',
-      maxShort,
-    );
-    helper.add(
-      'minByte',
-      minByte,
-    );
-    helper.add(
-      'minFloat',
-      minFloat,
-    );
-    helper.add(
-      'minInteger',
-      minInteger,
-    );
-    helper.add(
-      'minLong',
-      minLong,
+      'short',
+      short,
     );
     helper.add(
       'minShort',
       minShort,
     );
     helper.add(
-      'short',
-      short,
+      'maxShort',
+      maxShort,
+    );
+    helper.add(
+      'integer',
+      integer,
+    );
+    helper.add(
+      'minInteger',
+      minInteger,
+    );
+    helper.add(
+      'maxInteger',
+      maxInteger,
+    );
+    helper.add(
+      'long',
+      long,
+    );
+    helper.add(
+      'minLong',
+      minLong,
+    );
+    helper.add(
+      'maxLong',
+      maxLong,
+    );
+    helper.add(
+      'float',
+      float,
+    );
+    helper.add(
+      'minFloat',
+      minFloat,
+    );
+    helper.add(
+      'maxFloat',
+      maxFloat,
     );
     return helper.toString();
   }

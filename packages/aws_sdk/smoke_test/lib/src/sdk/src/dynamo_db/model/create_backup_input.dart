@@ -13,12 +13,12 @@ abstract class CreateBackupInput
     with _i1.HttpInput<CreateBackupInput>, _i2.AWSEquatable<CreateBackupInput>
     implements Built<CreateBackupInput, CreateBackupInputBuilder> {
   factory CreateBackupInput({
-    required String backupName,
     required String tableName,
+    required String backupName,
   }) {
     return _$CreateBackupInput._(
-      backupName: backupName,
       tableName: tableName,
+      backupName: backupName,
     );
   }
 
@@ -41,28 +41,28 @@ abstract class CreateBackupInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateBackupInputBuilder b) {}
 
-  /// Specified name for the backup.
-  String get backupName;
-
   /// The name of the table.
   String get tableName;
+
+  /// Specified name for the backup.
+  String get backupName;
   @override
   CreateBackupInput getPayload() => this;
   @override
   List<Object?> get props => [
-        backupName,
         tableName,
+        backupName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateBackupInput');
     helper.add(
-      'backupName',
-      backupName,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'backupName',
+      backupName,
     );
     return helper.toString();
   }
@@ -97,14 +97,14 @@ class CreateBackupInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'BackupName':
-          result.backupName = (serializers.deserialize(
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
+        case 'BackupName':
+          result.backupName = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -123,14 +123,14 @@ class CreateBackupInputAwsJson10Serializer
   }) {
     final payload = (object as CreateBackupInput);
     final result = <Object?>[
-      'BackupName',
-      serializers.serialize(
-        payload.backupName,
-        specifiedType: const FullType(String),
-      ),
       'TableName',
       serializers.serialize(
         payload.tableName,
+        specifiedType: const FullType(String),
+      ),
+      'BackupName',
+      serializers.serialize(
+        payload.backupName,
         specifiedType: const FullType(String),
       ),
     ];

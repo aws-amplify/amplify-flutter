@@ -18,20 +18,20 @@ abstract class GetObjectAttributesParts
         Built<GetObjectAttributesParts, GetObjectAttributesPartsBuilder> {
   /// A collection of parts associated with a multipart upload.
   factory GetObjectAttributesParts({
-    bool? isTruncated,
-    int? maxParts,
-    String? nextPartNumberMarker,
-    String? partNumberMarker,
-    List<_i2.ObjectPart>? parts,
     int? totalPartsCount,
+    String? partNumberMarker,
+    String? nextPartNumberMarker,
+    int? maxParts,
+    bool? isTruncated,
+    List<_i2.ObjectPart>? parts,
   }) {
     return _$GetObjectAttributesParts._(
-      isTruncated: isTruncated,
-      maxParts: maxParts,
-      nextPartNumberMarker: nextPartNumberMarker,
-      partNumberMarker: partNumberMarker,
-      parts: parts == null ? null : _i3.BuiltList(parts),
       totalPartsCount: totalPartsCount,
+      partNumberMarker: partNumberMarker,
+      nextPartNumberMarker: nextPartNumberMarker,
+      maxParts: maxParts,
+      isTruncated: isTruncated,
+      parts: parts == null ? null : _i3.BuiltList(parts),
     );
   }
 
@@ -49,58 +49,58 @@ abstract class GetObjectAttributesParts
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectAttributesPartsBuilder b) {}
 
-  /// Indicates whether the returned list of parts is truncated. A value of `true` indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the `MaxParts` element.
-  bool? get isTruncated;
-
-  /// The maximum number of parts allowed in the response.
-  int? get maxParts;
-
-  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `PartNumberMarker` request parameter in a subsequent request.
-  String? get nextPartNumberMarker;
+  /// The total number of parts.
+  int? get totalPartsCount;
 
   /// The marker for the current part.
   String? get partNumberMarker;
 
+  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `PartNumberMarker` request parameter in a subsequent request.
+  String? get nextPartNumberMarker;
+
+  /// The maximum number of parts allowed in the response.
+  int? get maxParts;
+
+  /// Indicates whether the returned list of parts is truncated. A value of `true` indicates that the list was truncated. A list can be truncated if the number of parts exceeds the limit returned in the `MaxParts` element.
+  bool? get isTruncated;
+
   /// A container for elements related to a particular part. A response can contain zero or more `Parts` elements.
   _i3.BuiltList<_i2.ObjectPart>? get parts;
-
-  /// The total number of parts.
-  int? get totalPartsCount;
   @override
   List<Object?> get props => [
-        isTruncated,
-        maxParts,
-        nextPartNumberMarker,
-        partNumberMarker,
-        parts,
         totalPartsCount,
+        partNumberMarker,
+        nextPartNumberMarker,
+        maxParts,
+        isTruncated,
+        parts,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetObjectAttributesParts');
     helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
+      'totalPartsCount',
+      totalPartsCount,
     );
     helper.add(
       'partNumberMarker',
       partNumberMarker,
     );
     helper.add(
-      'parts',
-      parts,
+      'nextPartNumberMarker',
+      nextPartNumberMarker,
     );
     helper.add(
-      'totalPartsCount',
-      totalPartsCount,
+      'maxParts',
+      maxParts,
+    );
+    helper.add(
+      'isTruncated',
+      isTruncated,
+    );
+    helper.add(
+      'parts',
+      parts,
     );
     return helper.toString();
   }

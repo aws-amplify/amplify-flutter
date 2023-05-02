@@ -8,18 +8,18 @@ part of smoke_test.dynamo_db.model.contributor_insights_summary;
 
 class _$ContributorInsightsSummary extends ContributorInsightsSummary {
   @override
-  final _i2.ContributorInsightsStatus? contributorInsightsStatus;
+  final String? tableName;
   @override
   final String? indexName;
   @override
-  final String? tableName;
+  final _i2.ContributorInsightsStatus? contributorInsightsStatus;
 
   factory _$ContributorInsightsSummary(
           [void Function(ContributorInsightsSummaryBuilder)? updates]) =>
       (new ContributorInsightsSummaryBuilder()..update(updates))._build();
 
   _$ContributorInsightsSummary._(
-      {this.contributorInsightsStatus, this.indexName, this.tableName})
+      {this.tableName, this.indexName, this.contributorInsightsStatus})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$ContributorInsightsSummary extends ContributorInsightsSummary {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ContributorInsightsSummary &&
-        contributorInsightsStatus == other.contributorInsightsStatus &&
+        tableName == other.tableName &&
         indexName == other.indexName &&
-        tableName == other.tableName;
+        contributorInsightsStatus == other.contributorInsightsStatus;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contributorInsightsStatus.hashCode);
-    _$hash = $jc(_$hash, indexName.hashCode);
     _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, indexName.hashCode);
+    _$hash = $jc(_$hash, contributorInsightsStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,20 +56,20 @@ class ContributorInsightsSummaryBuilder
         Builder<ContributorInsightsSummary, ContributorInsightsSummaryBuilder> {
   _$ContributorInsightsSummary? _$v;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
+  String? _indexName;
+  String? get indexName => _$this._indexName;
+  set indexName(String? indexName) => _$this._indexName = indexName;
+
   _i2.ContributorInsightsStatus? _contributorInsightsStatus;
   _i2.ContributorInsightsStatus? get contributorInsightsStatus =>
       _$this._contributorInsightsStatus;
   set contributorInsightsStatus(
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
-
-  String? _indexName;
-  String? get indexName => _$this._indexName;
-  set indexName(String? indexName) => _$this._indexName = indexName;
-
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
 
   ContributorInsightsSummaryBuilder() {
     ContributorInsightsSummary._init(this);
@@ -78,9 +78,9 @@ class ContributorInsightsSummaryBuilder
   ContributorInsightsSummaryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contributorInsightsStatus = $v.contributorInsightsStatus;
-      _indexName = $v.indexName;
       _tableName = $v.tableName;
+      _indexName = $v.indexName;
+      _contributorInsightsStatus = $v.contributorInsightsStatus;
       _$v = null;
     }
     return this;
@@ -103,9 +103,9 @@ class ContributorInsightsSummaryBuilder
   _$ContributorInsightsSummary _build() {
     final _$result = _$v ??
         new _$ContributorInsightsSummary._(
-            contributorInsightsStatus: contributorInsightsStatus,
+            tableName: tableName,
             indexName: indexName,
-            tableName: tableName);
+            contributorInsightsStatus: contributorInsightsStatus);
     replace(_$result);
     return _$result;
   }

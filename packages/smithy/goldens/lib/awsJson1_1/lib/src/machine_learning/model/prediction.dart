@@ -16,17 +16,17 @@ abstract class Prediction
     with _i1.AWSEquatable<Prediction>
     implements Built<Prediction, PredictionBuilder> {
   factory Prediction({
-    Map<_i2.DetailsAttributes, String>? details,
     String? predictedLabel,
-    Map<String, double>? predictedScores,
     double? predictedValue,
+    Map<String, double>? predictedScores,
+    Map<_i2.DetailsAttributes, String>? details,
   }) {
     return _$Prediction._(
-      details: details == null ? null : _i3.BuiltMap(details),
       predictedLabel: predictedLabel,
+      predictedValue: predictedValue,
       predictedScores:
           predictedScores == null ? null : _i3.BuiltMap(predictedScores),
-      predictedValue: predictedValue,
+      details: details == null ? null : _i3.BuiltMap(details),
     );
   }
 
@@ -41,35 +41,35 @@ abstract class Prediction
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PredictionBuilder b) {}
-  _i3.BuiltMap<_i2.DetailsAttributes, String>? get details;
   String? get predictedLabel;
-  _i3.BuiltMap<String, double>? get predictedScores;
   double? get predictedValue;
+  _i3.BuiltMap<String, double>? get predictedScores;
+  _i3.BuiltMap<_i2.DetailsAttributes, String>? get details;
   @override
   List<Object?> get props => [
-        details,
         predictedLabel,
-        predictedScores,
         predictedValue,
+        predictedScores,
+        details,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Prediction');
     helper.add(
-      'details',
-      details,
-    );
-    helper.add(
       'predictedLabel',
       predictedLabel,
+    );
+    helper.add(
+      'predictedValue',
+      predictedValue,
     );
     helper.add(
       'predictedScores',
       predictedScores,
     );
     helper.add(
-      'predictedValue',
-      predictedValue,
+      'details',
+      details,
     );
     return helper.toString();
   }
@@ -104,26 +104,20 @@ class PredictionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'details':
-          if (value != null) {
-            result.details.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(_i2.DetailsAttributes),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
-          }
-          break;
         case 'predictedLabel':
           if (value != null) {
             result.predictedLabel = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'predictedValue':
+          if (value != null) {
+            result.predictedValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'predictedScores':
@@ -140,12 +134,18 @@ class PredictionAwsJson11Serializer
             ) as _i3.BuiltMap<String, double>));
           }
           break;
-        case 'predictedValue':
+        case 'details':
           if (value != null) {
-            result.predictedValue = (serializers.deserialize(
+            result.details.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(double),
-            ) as double);
+              specifiedType: const FullType(
+                _i3.BuiltMap,
+                [
+                  FullType(_i2.DetailsAttributes),
+                  FullType(String),
+                ],
+              ),
+            ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
           }
           break;
       }
@@ -162,26 +162,20 @@ class PredictionAwsJson11Serializer
   }) {
     final payload = (object as Prediction);
     final result = <Object?>[];
-    if (payload.details != null) {
-      result
-        ..add('details')
-        ..add(serializers.serialize(
-          payload.details!,
-          specifiedType: const FullType(
-            _i3.BuiltMap,
-            [
-              FullType(_i2.DetailsAttributes),
-              FullType(String),
-            ],
-          ),
-        ));
-    }
     if (payload.predictedLabel != null) {
       result
         ..add('predictedLabel')
         ..add(serializers.serialize(
           payload.predictedLabel!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.predictedValue != null) {
+      result
+        ..add('predictedValue')
+        ..add(serializers.serialize(
+          payload.predictedValue!,
+          specifiedType: const FullType(double),
         ));
     }
     if (payload.predictedScores != null) {
@@ -198,12 +192,18 @@ class PredictionAwsJson11Serializer
           ),
         ));
     }
-    if (payload.predictedValue != null) {
+    if (payload.details != null) {
       result
-        ..add('predictedValue')
+        ..add('details')
         ..add(serializers.serialize(
-          payload.predictedValue!,
-          specifiedType: const FullType(double),
+          payload.details!,
+          specifiedType: const FullType(
+            _i3.BuiltMap,
+            [
+              FullType(_i2.DetailsAttributes),
+              FullType(String),
+            ],
+          ),
         ));
     }
     return result;

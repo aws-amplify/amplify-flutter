@@ -17,14 +17,14 @@ abstract class MetricsAndOperator
     implements Built<MetricsAndOperator, MetricsAndOperatorBuilder> {
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
   factory MetricsAndOperator({
-    String? accessPointArn,
     String? prefix,
     List<_i2.Tag>? tags,
+    String? accessPointArn,
   }) {
     return _$MetricsAndOperator._(
-      accessPointArn: accessPointArn,
       prefix: prefix,
       tags: tags == null ? null : _i3.BuiltList(tags),
+      accessPointArn: accessPointArn,
     );
   }
 
@@ -42,27 +42,23 @@ abstract class MetricsAndOperator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MetricsAndOperatorBuilder b) {}
 
-  /// The access point ARN used when evaluating an `AND` predicate.
-  String? get accessPointArn;
-
   /// The prefix used when evaluating an AND predicate.
   String? get prefix;
 
   /// The list of tags used when evaluating an AND predicate.
   _i3.BuiltList<_i2.Tag>? get tags;
+
+  /// The access point ARN used when evaluating an `AND` predicate.
+  String? get accessPointArn;
   @override
   List<Object?> get props => [
-        accessPointArn,
         prefix,
         tags,
+        accessPointArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MetricsAndOperator');
-    helper.add(
-      'accessPointArn',
-      accessPointArn,
-    );
     helper.add(
       'prefix',
       prefix,
@@ -70,6 +66,10 @@ abstract class MetricsAndOperator
     helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'accessPointArn',
+      accessPointArn,
     );
     return helper.toString();
   }

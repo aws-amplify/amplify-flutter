@@ -450,20 +450,20 @@ class DocumentTypeInputOutputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'documentValue':
-          if (value != null) {
-            result.documentValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.JsonObject),
-            ) as _i6.JsonObject);
-          }
-          break;
         case 'stringValue':
           if (value != null) {
             result.stringValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'documentValue':
+          if (value != null) {
+            result.documentValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.JsonObject),
+            ) as _i6.JsonObject);
           }
           break;
       }

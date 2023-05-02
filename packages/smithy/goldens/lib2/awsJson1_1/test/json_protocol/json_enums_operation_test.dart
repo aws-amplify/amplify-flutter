@@ -197,6 +197,17 @@ class JsonEnumsInputOutputAwsJson11Serializer
             ) as _i8.BuiltList<_i7.FooEnum>));
           }
           break;
+        case 'fooEnumSet':
+          if (value != null) {
+            result.fooEnumSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i8.BuiltSet,
+                [FullType(_i7.FooEnum)],
+              ),
+            ) as _i8.BuiltSet<_i7.FooEnum>));
+          }
+          break;
         case 'fooEnumMap':
           if (value != null) {
             result.fooEnumMap.replace((serializers.deserialize(
@@ -209,17 +220,6 @@ class JsonEnumsInputOutputAwsJson11Serializer
                 ],
               ),
             ) as _i8.BuiltMap<String, _i7.FooEnum>));
-          }
-          break;
-        case 'fooEnumSet':
-          if (value != null) {
-            result.fooEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltSet,
-                [FullType(_i7.FooEnum)],
-              ),
-            ) as _i8.BuiltSet<_i7.FooEnum>));
           }
           break;
       }

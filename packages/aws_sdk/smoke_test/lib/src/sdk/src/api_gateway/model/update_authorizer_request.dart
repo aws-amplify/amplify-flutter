@@ -23,15 +23,15 @@ abstract class UpdateAuthorizerRequest
         _i1.HasPayload<UpdateAuthorizerRequestPayload> {
   /// Request to update an existing Authorizer resource.
   factory UpdateAuthorizerRequest({
+    required String restApiId,
     required String authorizerId,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateAuthorizerRequest._(
+      restApiId: restApiId,
       authorizerId: authorizerId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +66,14 @@ abstract class UpdateAuthorizerRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateAuthorizerRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The identifier of the Authorizer resource.
   String get authorizerId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -97,13 +97,17 @@ abstract class UpdateAuthorizerRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         authorizerId,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateAuthorizerRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'authorizerId',
       authorizerId,
@@ -111,10 +115,6 @@ abstract class UpdateAuthorizerRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

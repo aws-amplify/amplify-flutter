@@ -17,14 +17,14 @@ abstract class ArchiveCreationOutput
         _i2.EmptyPayload,
         _i2.HasPayload<ArchiveCreationOutputPayload> {
   factory ArchiveCreationOutput({
-    String? archiveId,
-    String? checksum,
     String? location,
+    String? checksum,
+    String? archiveId,
   }) {
     return _$ArchiveCreationOutput._(
-      archiveId: archiveId,
-      checksum: checksum,
       location: location,
+      checksum: checksum,
+      archiveId: archiveId,
     );
   }
 
@@ -57,31 +57,31 @@ abstract class ArchiveCreationOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ArchiveCreationOutputBuilder b) {}
-  String? get archiveId;
-  String? get checksum;
   String? get location;
+  String? get checksum;
+  String? get archiveId;
   @override
   ArchiveCreationOutputPayload getPayload() => ArchiveCreationOutputPayload();
   @override
   List<Object?> get props => [
-        archiveId,
-        checksum,
         location,
+        checksum,
+        archiveId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ArchiveCreationOutput');
     helper.add(
-      'archiveId',
-      archiveId,
+      'location',
+      location,
     );
     helper.add(
       'checksum',
       checksum,
     );
     helper.add(
-      'location',
-      location,
+      'archiveId',
+      archiveId,
     );
     return helper.toString();
   }

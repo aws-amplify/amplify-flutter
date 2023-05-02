@@ -22,22 +22,22 @@ abstract class OrganizationManagedRuleMetadata
   /// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationManagedRuleMetadata({
     String? description,
+    required String ruleIdentifier,
     String? inputParameters,
     _i2.MaximumExecutionFrequency? maximumExecutionFrequency,
-    String? resourceIdScope,
     List<String>? resourceTypesScope,
-    required String ruleIdentifier,
+    String? resourceIdScope,
     String? tagKeyScope,
     String? tagValueScope,
   }) {
     return _$OrganizationManagedRuleMetadata._(
       description: description,
+      ruleIdentifier: ruleIdentifier,
       inputParameters: inputParameters,
       maximumExecutionFrequency: maximumExecutionFrequency,
-      resourceIdScope: resourceIdScope,
       resourceTypesScope:
           resourceTypesScope == null ? null : _i3.BuiltList(resourceTypesScope),
-      ruleIdentifier: ruleIdentifier,
+      resourceIdScope: resourceIdScope,
       tagKeyScope: tagKeyScope,
       tagValueScope: tagValueScope,
     );
@@ -60,6 +60,9 @@ abstract class OrganizationManagedRuleMetadata
   /// The description that you provide for your organization Config rule.
   String? get description;
 
+  /// For organization config managed rules, a predefined identifier from a list. For example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference a managed rule, see [Using Config managed rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
+  String get ruleIdentifier;
+
   /// A string, in JSON format, that is passed to your organization Config rule Lambda function.
   String? get inputParameters;
 
@@ -68,14 +71,11 @@ abstract class OrganizationManagedRuleMetadata
   /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
   _i2.MaximumExecutionFrequency? get maximumExecutionFrequency;
 
-  /// The ID of the Amazon Web Services resource that was evaluated.
-  String? get resourceIdScope;
-
   /// The type of the Amazon Web Services resource that was evaluated.
   _i3.BuiltList<String>? get resourceTypesScope;
 
-  /// For organization config managed rules, a predefined identifier from a list. For example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference a managed rule, see [Using Config managed rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
-  String get ruleIdentifier;
+  /// The ID of the Amazon Web Services resource that was evaluated.
+  String? get resourceIdScope;
 
   /// One part of a key-value pair that make up a tag. A key is a general label that acts like a category for more specific tag values.
   String? get tagKeyScope;
@@ -85,11 +85,11 @@ abstract class OrganizationManagedRuleMetadata
   @override
   List<Object?> get props => [
         description,
+        ruleIdentifier,
         inputParameters,
         maximumExecutionFrequency,
-        resourceIdScope,
         resourceTypesScope,
-        ruleIdentifier,
+        resourceIdScope,
         tagKeyScope,
         tagValueScope,
       ];
@@ -102,6 +102,10 @@ abstract class OrganizationManagedRuleMetadata
       description,
     );
     helper.add(
+      'ruleIdentifier',
+      ruleIdentifier,
+    );
+    helper.add(
       'inputParameters',
       inputParameters,
     );
@@ -110,16 +114,12 @@ abstract class OrganizationManagedRuleMetadata
       maximumExecutionFrequency,
     );
     helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
       'resourceTypesScope',
       resourceTypesScope,
     );
     helper.add(
-      'ruleIdentifier',
-      ruleIdentifier,
+      'resourceIdScope',
+      resourceIdScope,
     );
     helper.add(
       'tagKeyScope',
@@ -171,6 +171,12 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
             ) as String);
           }
           break;
+        case 'RuleIdentifier':
+          result.ruleIdentifier = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'InputParameters':
           if (value != null) {
             result.inputParameters = (serializers.deserialize(
@@ -187,14 +193,6 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
             ) as _i2.MaximumExecutionFrequency);
           }
           break;
-        case 'ResourceIdScope':
-          if (value != null) {
-            result.resourceIdScope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceTypesScope':
           if (value != null) {
             result.resourceTypesScope.replace((serializers.deserialize(
@@ -206,11 +204,13 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
             ) as _i3.BuiltList<String>));
           }
           break;
-        case 'RuleIdentifier':
-          result.ruleIdentifier = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
+        case 'ResourceIdScope':
+          if (value != null) {
+            result.resourceIdScope = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
         case 'TagKeyScope':
           if (value != null) {
@@ -272,14 +272,6 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
           specifiedType: const FullType(_i2.MaximumExecutionFrequency),
         ));
     }
-    if (payload.resourceIdScope != null) {
-      result
-        ..add('ResourceIdScope')
-        ..add(serializers.serialize(
-          payload.resourceIdScope!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceTypesScope != null) {
       result
         ..add('ResourceTypesScope')
@@ -289,6 +281,14 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
+        ));
+    }
+    if (payload.resourceIdScope != null) {
+      result
+        ..add('ResourceIdScope')
+        ..add(serializers.serialize(
+          payload.resourceIdScope!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.tagKeyScope != null) {

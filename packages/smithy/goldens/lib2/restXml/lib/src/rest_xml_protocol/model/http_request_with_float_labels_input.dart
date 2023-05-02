@@ -20,14 +20,14 @@ abstract class HttpRequestWithFloatLabelsInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithFloatLabelsInputPayload> {
   factory HttpRequestWithFloatLabelsInput({
-    double? double_,
     double? float,
+    double? double_,
   }) {
-    double_ ??= 0;
     float ??= 0;
+    double_ ??= 0;
     return _$HttpRequestWithFloatLabelsInput._(
-      double_: double_,
       float: float,
+      double_: double_,
     );
   }
 
@@ -57,12 +57,12 @@ abstract class HttpRequestWithFloatLabelsInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
-    b.double_ = 0;
     b.float = 0;
+    b.double_ = 0;
   }
 
-  double get double_;
   double get float;
+  double get double_;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,20 +82,20 @@ abstract class HttpRequestWithFloatLabelsInput
       HttpRequestWithFloatLabelsInputPayload();
   @override
   List<Object?> get props => [
-        double_,
         float,
+        double_,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput');
     helper.add(
-      'double_',
-      double_,
-    );
-    helper.add(
       'float',
       float,
+    );
+    helper.add(
+      'double_',
+      double_,
     );
     return helper.toString();
   }

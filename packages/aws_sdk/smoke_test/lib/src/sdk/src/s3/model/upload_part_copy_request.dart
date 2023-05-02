@@ -27,18 +27,18 @@ abstract class UploadPartCopyRequest
     String? copySourceIfNoneMatch,
     DateTime? copySourceIfUnmodifiedSince,
     String? copySourceRange,
-    String? copySourceSseCustomerAlgorithm,
-    String? copySourceSseCustomerKey,
-    String? copySourceSseCustomerKeyMd5,
-    String? expectedBucketOwner,
-    String? expectedSourceBucketOwner,
     required String key,
     int? partNumber,
-    _i3.RequestPayer? requestPayer,
+    required String uploadId,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
-    required String uploadId,
+    String? copySourceSseCustomerAlgorithm,
+    String? copySourceSseCustomerKey,
+    String? copySourceSseCustomerKeyMd5,
+    _i3.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
+    String? expectedSourceBucketOwner,
   }) {
     partNumber ??= 0;
     return _$UploadPartCopyRequest._(
@@ -49,18 +49,18 @@ abstract class UploadPartCopyRequest
       copySourceIfNoneMatch: copySourceIfNoneMatch,
       copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
       copySourceRange: copySourceRange,
-      copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-      copySourceSseCustomerKey: copySourceSseCustomerKey,
-      copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-      expectedBucketOwner: expectedBucketOwner,
-      expectedSourceBucketOwner: expectedSourceBucketOwner,
       key: key,
       partNumber: partNumber,
-      requestPayer: requestPayer,
+      uploadId: uploadId,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKey: sseCustomerKey,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      uploadId: uploadId,
+      copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+      copySourceSseCustomerKey: copySourceSseCustomerKey,
+      copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+      requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
+      expectedSourceBucketOwner: expectedSourceBucketOwner,
     );
   }
 
@@ -206,29 +206,14 @@ abstract class UploadPartCopyRequest
   /// The range of bytes to copy from the source object. The range value must use the form bytes=first-last, where the first and last are the zero-based byte offsets to copy. For example, bytes=0-9 indicates that you want to copy the first 10 bytes of the source. You can copy a range only if the source object is greater than 5 MB.
   String? get copySourceRange;
 
-  /// Specifies the algorithm to use when decrypting the source object (for example, AES256).
-  String? get copySourceSseCustomerAlgorithm;
-
-  /// Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. The encryption key provided in this header must be one that was used when the source object was created.
-  String? get copySourceSseCustomerKey;
-
-  /// Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
-  String? get copySourceSseCustomerKeyMd5;
-
-  /// The account ID of the expected destination bucket owner. If the destination bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
-  /// The account ID of the expected source bucket owner. If the source bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedSourceBucketOwner;
-
   /// Object key for which the multipart upload was initiated.
   String get key;
 
   /// Part number of part being copied. This is a positive integer between 1 and 10,000.
   int get partNumber;
 
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  /// Upload ID identifying the multipart upload whose part is being copied.
+  String get uploadId;
 
   /// Specifies the algorithm to use to when encrypting the object (for example, AES256).
   String? get sseCustomerAlgorithm;
@@ -239,8 +224,23 @@ abstract class UploadPartCopyRequest
   /// Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
   String? get sseCustomerKeyMd5;
 
-  /// Upload ID identifying the multipart upload whose part is being copied.
-  String get uploadId;
+  /// Specifies the algorithm to use when decrypting the source object (for example, AES256).
+  String? get copySourceSseCustomerAlgorithm;
+
+  /// Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. The encryption key provided in this header must be one that was used when the source object was created.
+  String? get copySourceSseCustomerKey;
+
+  /// Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
+  String? get copySourceSseCustomerKeyMd5;
+
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i3.RequestPayer? get requestPayer;
+
+  /// The account ID of the expected destination bucket owner. If the destination bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
+
+  /// The account ID of the expected source bucket owner. If the source bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedSourceBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -266,18 +266,18 @@ abstract class UploadPartCopyRequest
         copySourceIfNoneMatch,
         copySourceIfUnmodifiedSince,
         copySourceRange,
-        copySourceSseCustomerAlgorithm,
-        copySourceSseCustomerKey,
-        copySourceSseCustomerKeyMd5,
-        expectedBucketOwner,
-        expectedSourceBucketOwner,
         key,
         partNumber,
-        requestPayer,
+        uploadId,
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        uploadId,
+        copySourceSseCustomerAlgorithm,
+        copySourceSseCustomerKey,
+        copySourceSseCustomerKeyMd5,
+        requestPayer,
+        expectedBucketOwner,
+        expectedSourceBucketOwner,
       ];
   @override
   String toString() {
@@ -311,26 +311,6 @@ abstract class UploadPartCopyRequest
       copySourceRange,
     );
     helper.add(
-      'copySourceSseCustomerAlgorithm',
-      copySourceSseCustomerAlgorithm,
-    );
-    helper.add(
-      'copySourceSseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'copySourceSseCustomerKeyMd5',
-      copySourceSseCustomerKeyMd5,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'expectedSourceBucketOwner',
-      expectedSourceBucketOwner,
-    );
-    helper.add(
       'key',
       key,
     );
@@ -339,8 +319,8 @@ abstract class UploadPartCopyRequest
       partNumber,
     );
     helper.add(
-      'requestPayer',
-      requestPayer,
+      'uploadId',
+      uploadId,
     );
     helper.add(
       'sseCustomerAlgorithm',
@@ -355,8 +335,28 @@ abstract class UploadPartCopyRequest
       sseCustomerKeyMd5,
     );
     helper.add(
-      'uploadId',
-      uploadId,
+      'copySourceSseCustomerAlgorithm',
+      copySourceSseCustomerAlgorithm,
+    );
+    helper.add(
+      'copySourceSseCustomerKey',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'copySourceSseCustomerKeyMd5',
+      copySourceSseCustomerKeyMd5,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'expectedSourceBucketOwner',
+      expectedSourceBucketOwner,
     );
     return helper.toString();
   }

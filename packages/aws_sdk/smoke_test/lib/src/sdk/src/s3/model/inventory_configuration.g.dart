@@ -10,13 +10,13 @@ class _$InventoryConfiguration extends InventoryConfiguration {
   @override
   final _i2.InventoryDestination destination;
   @override
+  final bool isEnabled;
+  @override
   final _i3.InventoryFilter? filter;
   @override
   final String id;
   @override
   final _i4.InventoryIncludedObjectVersions includedObjectVersions;
-  @override
-  final bool isEnabled;
   @override
   final _i7.BuiltList<_i5.InventoryOptionalField>? optionalFields;
   @override
@@ -28,20 +28,20 @@ class _$InventoryConfiguration extends InventoryConfiguration {
 
   _$InventoryConfiguration._(
       {required this.destination,
+      required this.isEnabled,
       this.filter,
       required this.id,
       required this.includedObjectVersions,
-      required this.isEnabled,
       this.optionalFields,
       required this.schedule})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         destination, r'InventoryConfiguration', 'destination');
+    BuiltValueNullFieldError.checkNotNull(
+        isEnabled, r'InventoryConfiguration', 'isEnabled');
     BuiltValueNullFieldError.checkNotNull(id, r'InventoryConfiguration', 'id');
     BuiltValueNullFieldError.checkNotNull(includedObjectVersions,
         r'InventoryConfiguration', 'includedObjectVersions');
-    BuiltValueNullFieldError.checkNotNull(
-        isEnabled, r'InventoryConfiguration', 'isEnabled');
     BuiltValueNullFieldError.checkNotNull(
         schedule, r'InventoryConfiguration', 'schedule');
   }
@@ -60,10 +60,10 @@ class _$InventoryConfiguration extends InventoryConfiguration {
     if (identical(other, this)) return true;
     return other is InventoryConfiguration &&
         destination == other.destination &&
+        isEnabled == other.isEnabled &&
         filter == other.filter &&
         id == other.id &&
         includedObjectVersions == other.includedObjectVersions &&
-        isEnabled == other.isEnabled &&
         optionalFields == other.optionalFields &&
         schedule == other.schedule;
   }
@@ -72,10 +72,10 @@ class _$InventoryConfiguration extends InventoryConfiguration {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, destination.hashCode);
+    _$hash = $jc(_$hash, isEnabled.hashCode);
     _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, includedObjectVersions.hashCode);
-    _$hash = $jc(_$hash, isEnabled.hashCode);
     _$hash = $jc(_$hash, optionalFields.hashCode);
     _$hash = $jc(_$hash, schedule.hashCode);
     _$hash = $jf(_$hash);
@@ -93,6 +93,10 @@ class InventoryConfigurationBuilder
   set destination(_i2.InventoryDestinationBuilder? destination) =>
       _$this._destination = destination;
 
+  bool? _isEnabled;
+  bool? get isEnabled => _$this._isEnabled;
+  set isEnabled(bool? isEnabled) => _$this._isEnabled = isEnabled;
+
   _i3.InventoryFilterBuilder? _filter;
   _i3.InventoryFilterBuilder get filter =>
       _$this._filter ??= new _i3.InventoryFilterBuilder();
@@ -108,10 +112,6 @@ class InventoryConfigurationBuilder
   set includedObjectVersions(
           _i4.InventoryIncludedObjectVersions? includedObjectVersions) =>
       _$this._includedObjectVersions = includedObjectVersions;
-
-  bool? _isEnabled;
-  bool? get isEnabled => _$this._isEnabled;
-  set isEnabled(bool? isEnabled) => _$this._isEnabled = isEnabled;
 
   _i7.ListBuilder<_i5.InventoryOptionalField>? _optionalFields;
   _i7.ListBuilder<_i5.InventoryOptionalField> get optionalFields =>
@@ -135,10 +135,10 @@ class InventoryConfigurationBuilder
     final $v = _$v;
     if ($v != null) {
       _destination = $v.destination.toBuilder();
+      _isEnabled = $v.isEnabled;
       _filter = $v.filter?.toBuilder();
       _id = $v.id;
       _includedObjectVersions = $v.includedObjectVersions;
-      _isEnabled = $v.isEnabled;
       _optionalFields = $v.optionalFields?.toBuilder();
       _schedule = $v.schedule.toBuilder();
       _$v = null;
@@ -166,6 +166,8 @@ class InventoryConfigurationBuilder
       _$result = _$v ??
           new _$InventoryConfiguration._(
               destination: destination.build(),
+              isEnabled: BuiltValueNullFieldError.checkNotNull(
+                  isEnabled, r'InventoryConfiguration', 'isEnabled'),
               filter: _filter?.build(),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'InventoryConfiguration', 'id'),
@@ -173,8 +175,6 @@ class InventoryConfigurationBuilder
                   includedObjectVersions,
                   r'InventoryConfiguration',
                   'includedObjectVersions'),
-              isEnabled: BuiltValueNullFieldError.checkNotNull(
-                  isEnabled, r'InventoryConfiguration', 'isEnabled'),
               optionalFields: _optionalFields?.build(),
               schedule: schedule.build());
     } catch (_) {
@@ -182,6 +182,7 @@ class InventoryConfigurationBuilder
       try {
         _$failedField = 'destination';
         destination.build();
+
         _$failedField = 'filter';
         _filter?.build();
 

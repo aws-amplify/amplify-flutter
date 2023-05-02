@@ -23,16 +23,16 @@ abstract class PutBucketAnalyticsConfigurationRequest
             PutBucketAnalyticsConfigurationRequestBuilder>,
         _i1.HasPayload<_i2.AnalyticsConfiguration> {
   factory PutBucketAnalyticsConfigurationRequest({
-    required _i2.AnalyticsConfiguration analyticsConfiguration,
     required String bucket,
-    String? expectedBucketOwner,
     required String id,
+    required _i2.AnalyticsConfiguration analyticsConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketAnalyticsConfigurationRequest._(
-      analyticsConfiguration: analyticsConfiguration,
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       id: id,
+      analyticsConfiguration: analyticsConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -68,17 +68,17 @@ abstract class PutBucketAnalyticsConfigurationRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBucketAnalyticsConfigurationRequestBuilder b) {}
 
-  /// The configuration and any analyses for the analytics filter.
-  _i2.AnalyticsConfiguration get analyticsConfiguration;
-
   /// The name of the bucket to which an analytics configuration is stored.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The ID that identifies the analytics configuration.
   String get id;
+
+  /// The configuration and any analyses for the analytics filter.
+  _i2.AnalyticsConfiguration get analyticsConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -95,30 +95,30 @@ abstract class PutBucketAnalyticsConfigurationRequest
   _i2.AnalyticsConfiguration getPayload() => analyticsConfiguration;
   @override
   List<Object?> get props => [
-        analyticsConfiguration,
         bucket,
-        expectedBucketOwner,
         id,
+        analyticsConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest');
     helper.add(
-      'analyticsConfiguration',
-      analyticsConfiguration,
-    );
-    helper.add(
       'bucket',
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'analyticsConfiguration',
+      analyticsConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

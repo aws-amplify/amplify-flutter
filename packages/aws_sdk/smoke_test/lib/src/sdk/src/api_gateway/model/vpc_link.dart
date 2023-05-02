@@ -18,22 +18,22 @@ abstract class VpcLink
     implements Built<VpcLink, VpcLinkBuilder> {
   /// An API Gateway VPC link for a RestApi to access resources in an Amazon Virtual Private Cloud (VPC).
   factory VpcLink({
-    String? description,
     String? id,
     String? name,
+    String? description,
+    List<String>? targetArns,
     _i2.VpcLinkStatus? status,
     String? statusMessage,
     Map<String, String>? tags,
-    List<String>? targetArns,
   }) {
     return _$VpcLink._(
-      description: description,
       id: id,
       name: name,
+      description: description,
+      targetArns: targetArns == null ? null : _i3.BuiltList(targetArns),
       status: status,
       statusMessage: statusMessage,
       tags: tags == null ? null : _i3.BuiltMap(tags),
-      targetArns: targetArns == null ? null : _i3.BuiltList(targetArns),
     );
   }
 
@@ -56,14 +56,17 @@ abstract class VpcLink
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VpcLinkBuilder b) {}
 
-  /// The description of the VPC link.
-  String? get description;
-
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String? get id;
 
   /// The name used to label and identify the VPC link.
   String? get name;
+
+  /// The description of the VPC link.
+  String? get description;
+
+  /// The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned by the same AWS account of the API owner.
+  _i3.BuiltList<String>? get targetArns;
 
   /// The status of the VPC link. The valid values are `AVAILABLE`, `PENDING`, `DELETING`, or `FAILED`. Deploying an API will wait if the status is `PENDING` and will fail if the status is `DELETING`.
   _i2.VpcLinkStatus? get status;
@@ -73,26 +76,19 @@ abstract class VpcLink
 
   /// The collection of tags. Each tag element is associated with a given resource.
   _i3.BuiltMap<String, String>? get tags;
-
-  /// The ARN of the network load balancer of the VPC targeted by the VPC link. The network load balancer must be owned by the same AWS account of the API owner.
-  _i3.BuiltList<String>? get targetArns;
   @override
   List<Object?> get props => [
-        description,
         id,
         name,
+        description,
+        targetArns,
         status,
         statusMessage,
         tags,
-        targetArns,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('VpcLink');
-    helper.add(
-      'description',
-      description,
-    );
     helper.add(
       'id',
       id,
@@ -100,6 +96,14 @@ abstract class VpcLink
     helper.add(
       'name',
       name,
+    );
+    helper.add(
+      'description',
+      description,
+    );
+    helper.add(
+      'targetArns',
+      targetArns,
     );
     helper.add(
       'status',
@@ -112,10 +116,6 @@ abstract class VpcLink
     helper.add(
       'tags',
       tags,
-    );
-    helper.add(
-      'targetArns',
-      targetArns,
     );
     return helper.toString();
   }

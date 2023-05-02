@@ -8,38 +8,38 @@ part of smoke_test.config_service.model.organization_config_rule;
 
 class _$OrganizationConfigRule extends OrganizationConfigRule {
   @override
+  final String organizationConfigRuleName;
+  @override
+  final String organizationConfigRuleArn;
+  @override
+  final _i2.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
+  @override
+  final _i3.OrganizationCustomRuleMetadata? organizationCustomRuleMetadata;
+  @override
   final _i5.BuiltList<String>? excludedAccounts;
   @override
   final DateTime? lastUpdateTime;
   @override
-  final String organizationConfigRuleArn;
-  @override
-  final String organizationConfigRuleName;
-  @override
-  final _i2.OrganizationCustomPolicyRuleMetadataNoPolicy?
+  final _i4.OrganizationCustomPolicyRuleMetadataNoPolicy?
       organizationCustomPolicyRuleMetadata;
-  @override
-  final _i3.OrganizationCustomRuleMetadata? organizationCustomRuleMetadata;
-  @override
-  final _i4.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
 
   factory _$OrganizationConfigRule(
           [void Function(OrganizationConfigRuleBuilder)? updates]) =>
       (new OrganizationConfigRuleBuilder()..update(updates))._build();
 
   _$OrganizationConfigRule._(
-      {this.excludedAccounts,
-      this.lastUpdateTime,
+      {required this.organizationConfigRuleName,
       required this.organizationConfigRuleArn,
-      required this.organizationConfigRuleName,
-      this.organizationCustomPolicyRuleMetadata,
+      this.organizationManagedRuleMetadata,
       this.organizationCustomRuleMetadata,
-      this.organizationManagedRuleMetadata})
+      this.excludedAccounts,
+      this.lastUpdateTime,
+      this.organizationCustomPolicyRuleMetadata})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(organizationConfigRuleArn,
-        r'OrganizationConfigRule', 'organizationConfigRuleArn');
     BuiltValueNullFieldError.checkNotNull(organizationConfigRuleName,
         r'OrganizationConfigRule', 'organizationConfigRuleName');
+    BuiltValueNullFieldError.checkNotNull(organizationConfigRuleArn,
+        r'OrganizationConfigRule', 'organizationConfigRuleArn');
   }
 
   @override
@@ -55,28 +55,28 @@ class _$OrganizationConfigRule extends OrganizationConfigRule {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is OrganizationConfigRule &&
-        excludedAccounts == other.excludedAccounts &&
-        lastUpdateTime == other.lastUpdateTime &&
-        organizationConfigRuleArn == other.organizationConfigRuleArn &&
         organizationConfigRuleName == other.organizationConfigRuleName &&
-        organizationCustomPolicyRuleMetadata ==
-            other.organizationCustomPolicyRuleMetadata &&
+        organizationConfigRuleArn == other.organizationConfigRuleArn &&
+        organizationManagedRuleMetadata ==
+            other.organizationManagedRuleMetadata &&
         organizationCustomRuleMetadata ==
             other.organizationCustomRuleMetadata &&
-        organizationManagedRuleMetadata ==
-            other.organizationManagedRuleMetadata;
+        excludedAccounts == other.excludedAccounts &&
+        lastUpdateTime == other.lastUpdateTime &&
+        organizationCustomPolicyRuleMetadata ==
+            other.organizationCustomPolicyRuleMetadata;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
+    _$hash = $jc(_$hash, organizationConfigRuleArn.hashCode);
+    _$hash = $jc(_$hash, organizationManagedRuleMetadata.hashCode);
+    _$hash = $jc(_$hash, organizationCustomRuleMetadata.hashCode);
     _$hash = $jc(_$hash, excludedAccounts.hashCode);
     _$hash = $jc(_$hash, lastUpdateTime.hashCode);
-    _$hash = $jc(_$hash, organizationConfigRuleArn.hashCode);
-    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
     _$hash = $jc(_$hash, organizationCustomPolicyRuleMetadata.hashCode);
-    _$hash = $jc(_$hash, organizationCustomRuleMetadata.hashCode);
-    _$hash = $jc(_$hash, organizationManagedRuleMetadata.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -85,6 +85,36 @@ class _$OrganizationConfigRule extends OrganizationConfigRule {
 class OrganizationConfigRuleBuilder
     implements Builder<OrganizationConfigRule, OrganizationConfigRuleBuilder> {
   _$OrganizationConfigRule? _$v;
+
+  String? _organizationConfigRuleName;
+  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
+  set organizationConfigRuleName(String? organizationConfigRuleName) =>
+      _$this._organizationConfigRuleName = organizationConfigRuleName;
+
+  String? _organizationConfigRuleArn;
+  String? get organizationConfigRuleArn => _$this._organizationConfigRuleArn;
+  set organizationConfigRuleArn(String? organizationConfigRuleArn) =>
+      _$this._organizationConfigRuleArn = organizationConfigRuleArn;
+
+  _i2.OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
+  _i2.OrganizationManagedRuleMetadataBuilder
+      get organizationManagedRuleMetadata =>
+          _$this._organizationManagedRuleMetadata ??=
+              new _i2.OrganizationManagedRuleMetadataBuilder();
+  set organizationManagedRuleMetadata(
+          _i2.OrganizationManagedRuleMetadataBuilder?
+              organizationManagedRuleMetadata) =>
+      _$this._organizationManagedRuleMetadata = organizationManagedRuleMetadata;
+
+  _i3.OrganizationCustomRuleMetadataBuilder? _organizationCustomRuleMetadata;
+  _i3.OrganizationCustomRuleMetadataBuilder
+      get organizationCustomRuleMetadata =>
+          _$this._organizationCustomRuleMetadata ??=
+              new _i3.OrganizationCustomRuleMetadataBuilder();
+  set organizationCustomRuleMetadata(
+          _i3.OrganizationCustomRuleMetadataBuilder?
+              organizationCustomRuleMetadata) =>
+      _$this._organizationCustomRuleMetadata = organizationCustomRuleMetadata;
 
   _i5.ListBuilder<String>? _excludedAccounts;
   _i5.ListBuilder<String> get excludedAccounts =>
@@ -97,47 +127,17 @@ class OrganizationConfigRuleBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  String? _organizationConfigRuleArn;
-  String? get organizationConfigRuleArn => _$this._organizationConfigRuleArn;
-  set organizationConfigRuleArn(String? organizationConfigRuleArn) =>
-      _$this._organizationConfigRuleArn = organizationConfigRuleArn;
-
-  String? _organizationConfigRuleName;
-  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
-  set organizationConfigRuleName(String? organizationConfigRuleName) =>
-      _$this._organizationConfigRuleName = organizationConfigRuleName;
-
-  _i2.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder?
+  _i4.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder?
       _organizationCustomPolicyRuleMetadata;
-  _i2.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder
+  _i4.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder
       get organizationCustomPolicyRuleMetadata =>
           _$this._organizationCustomPolicyRuleMetadata ??=
-              new _i2.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder();
+              new _i4.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder();
   set organizationCustomPolicyRuleMetadata(
-          _i2.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder?
+          _i4.OrganizationCustomPolicyRuleMetadataNoPolicyBuilder?
               organizationCustomPolicyRuleMetadata) =>
       _$this._organizationCustomPolicyRuleMetadata =
           organizationCustomPolicyRuleMetadata;
-
-  _i3.OrganizationCustomRuleMetadataBuilder? _organizationCustomRuleMetadata;
-  _i3.OrganizationCustomRuleMetadataBuilder
-      get organizationCustomRuleMetadata =>
-          _$this._organizationCustomRuleMetadata ??=
-              new _i3.OrganizationCustomRuleMetadataBuilder();
-  set organizationCustomRuleMetadata(
-          _i3.OrganizationCustomRuleMetadataBuilder?
-              organizationCustomRuleMetadata) =>
-      _$this._organizationCustomRuleMetadata = organizationCustomRuleMetadata;
-
-  _i4.OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
-  _i4.OrganizationManagedRuleMetadataBuilder
-      get organizationManagedRuleMetadata =>
-          _$this._organizationManagedRuleMetadata ??=
-              new _i4.OrganizationManagedRuleMetadataBuilder();
-  set organizationManagedRuleMetadata(
-          _i4.OrganizationManagedRuleMetadataBuilder?
-              organizationManagedRuleMetadata) =>
-      _$this._organizationManagedRuleMetadata = organizationManagedRuleMetadata;
 
   OrganizationConfigRuleBuilder() {
     OrganizationConfigRule._init(this);
@@ -146,16 +146,16 @@ class OrganizationConfigRuleBuilder
   OrganizationConfigRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _excludedAccounts = $v.excludedAccounts?.toBuilder();
-      _lastUpdateTime = $v.lastUpdateTime;
-      _organizationConfigRuleArn = $v.organizationConfigRuleArn;
       _organizationConfigRuleName = $v.organizationConfigRuleName;
-      _organizationCustomPolicyRuleMetadata =
-          $v.organizationCustomPolicyRuleMetadata?.toBuilder();
-      _organizationCustomRuleMetadata =
-          $v.organizationCustomRuleMetadata?.toBuilder();
+      _organizationConfigRuleArn = $v.organizationConfigRuleArn;
       _organizationManagedRuleMetadata =
           $v.organizationManagedRuleMetadata?.toBuilder();
+      _organizationCustomRuleMetadata =
+          $v.organizationCustomRuleMetadata?.toBuilder();
+      _excludedAccounts = $v.excludedAccounts?.toBuilder();
+      _lastUpdateTime = $v.lastUpdateTime;
+      _organizationCustomPolicyRuleMetadata =
+          $v.organizationCustomPolicyRuleMetadata?.toBuilder();
       _$v = null;
     }
     return this;
@@ -180,34 +180,34 @@ class OrganizationConfigRuleBuilder
     try {
       _$result = _$v ??
           new _$OrganizationConfigRule._(
-              excludedAccounts: _excludedAccounts?.build(),
-              lastUpdateTime: lastUpdateTime,
-              organizationConfigRuleArn: BuiltValueNullFieldError.checkNotNull(
-                  organizationConfigRuleArn,
-                  r'OrganizationConfigRule',
-                  'organizationConfigRuleArn'),
               organizationConfigRuleName: BuiltValueNullFieldError.checkNotNull(
                   organizationConfigRuleName,
                   r'OrganizationConfigRule',
                   'organizationConfigRuleName'),
-              organizationCustomPolicyRuleMetadata:
-                  _organizationCustomPolicyRuleMetadata?.build(),
+              organizationConfigRuleArn: BuiltValueNullFieldError.checkNotNull(
+                  organizationConfigRuleArn,
+                  r'OrganizationConfigRule',
+                  'organizationConfigRuleArn'),
+              organizationManagedRuleMetadata:
+                  _organizationManagedRuleMetadata?.build(),
               organizationCustomRuleMetadata:
                   _organizationCustomRuleMetadata?.build(),
-              organizationManagedRuleMetadata:
-                  _organizationManagedRuleMetadata?.build());
+              excludedAccounts: _excludedAccounts?.build(),
+              lastUpdateTime: lastUpdateTime,
+              organizationCustomPolicyRuleMetadata:
+                  _organizationCustomPolicyRuleMetadata?.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'organizationManagedRuleMetadata';
+        _organizationManagedRuleMetadata?.build();
+        _$failedField = 'organizationCustomRuleMetadata';
+        _organizationCustomRuleMetadata?.build();
         _$failedField = 'excludedAccounts';
         _excludedAccounts?.build();
 
         _$failedField = 'organizationCustomPolicyRuleMetadata';
         _organizationCustomPolicyRuleMetadata?.build();
-        _$failedField = 'organizationCustomRuleMetadata';
-        _organizationCustomRuleMetadata?.build();
-        _$failedField = 'organizationManagedRuleMetadata';
-        _organizationManagedRuleMetadata?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'OrganizationConfigRule', _$failedField, e.toString());

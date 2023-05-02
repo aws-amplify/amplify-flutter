@@ -8,18 +8,18 @@ part of amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_ide
 
 class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
   @override
-  final String? customRoleArn;
-  @override
   final String identityId;
   @override
   final _i3.BuiltMap<String, String>? logins;
+  @override
+  final String? customRoleArn;
 
   factory _$GetCredentialsForIdentityInput(
           [void Function(GetCredentialsForIdentityInputBuilder)? updates]) =>
       (new GetCredentialsForIdentityInputBuilder()..update(updates))._build();
 
   _$GetCredentialsForIdentityInput._(
-      {this.customRoleArn, required this.identityId, this.logins})
+      {required this.identityId, this.logins, this.customRoleArn})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         identityId, r'GetCredentialsForIdentityInput', 'identityId');
@@ -38,17 +38,17 @@ class _$GetCredentialsForIdentityInput extends GetCredentialsForIdentityInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetCredentialsForIdentityInput &&
-        customRoleArn == other.customRoleArn &&
         identityId == other.identityId &&
-        logins == other.logins;
+        logins == other.logins &&
+        customRoleArn == other.customRoleArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, customRoleArn.hashCode);
     _$hash = $jc(_$hash, identityId.hashCode);
     _$hash = $jc(_$hash, logins.hashCode);
+    _$hash = $jc(_$hash, customRoleArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -60,11 +60,6 @@ class GetCredentialsForIdentityInputBuilder
             GetCredentialsForIdentityInputBuilder> {
   _$GetCredentialsForIdentityInput? _$v;
 
-  String? _customRoleArn;
-  String? get customRoleArn => _$this._customRoleArn;
-  set customRoleArn(String? customRoleArn) =>
-      _$this._customRoleArn = customRoleArn;
-
   String? _identityId;
   String? get identityId => _$this._identityId;
   set identityId(String? identityId) => _$this._identityId = identityId;
@@ -74,6 +69,11 @@ class GetCredentialsForIdentityInputBuilder
       _$this._logins ??= new _i3.MapBuilder<String, String>();
   set logins(_i3.MapBuilder<String, String>? logins) => _$this._logins = logins;
 
+  String? _customRoleArn;
+  String? get customRoleArn => _$this._customRoleArn;
+  set customRoleArn(String? customRoleArn) =>
+      _$this._customRoleArn = customRoleArn;
+
   GetCredentialsForIdentityInputBuilder() {
     GetCredentialsForIdentityInput._init(this);
   }
@@ -81,9 +81,9 @@ class GetCredentialsForIdentityInputBuilder
   GetCredentialsForIdentityInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _customRoleArn = $v.customRoleArn;
       _identityId = $v.identityId;
       _logins = $v.logins?.toBuilder();
+      _customRoleArn = $v.customRoleArn;
       _$v = null;
     }
     return this;
@@ -108,10 +108,10 @@ class GetCredentialsForIdentityInputBuilder
     try {
       _$result = _$v ??
           new _$GetCredentialsForIdentityInput._(
-              customRoleArn: customRoleArn,
               identityId: BuiltValueNullFieldError.checkNotNull(
                   identityId, r'GetCredentialsForIdentityInput', 'identityId'),
-              logins: _logins?.build());
+              logins: _logins?.build(),
+              customRoleArn: customRoleArn);
     } catch (_) {
       late String _$failedField;
       try {

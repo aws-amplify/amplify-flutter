@@ -113,6 +113,10 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i11.FooEnum)],
   ): _i37.ListBuilder<_i11.FooEnum>.new,
   const FullType(
+    _i37.BuiltSet,
+    [FullType(_i11.FooEnum)],
+  ): _i37.SetBuilder<_i11.FooEnum>.new,
+  const FullType(
     _i37.BuiltMap,
     [
       FullType(String),
@@ -120,13 +124,13 @@ final Map<FullType, Function> builderFactories = {
     ],
   ): _i37.MapBuilder<String, _i11.FooEnum>.new,
   const FullType(
-    _i37.BuiltSet,
-    [FullType(_i11.FooEnum)],
-  ): _i37.SetBuilder<_i11.FooEnum>.new,
-  const FullType(
     _i37.BuiltList,
     [FullType(int)],
   ): _i37.ListBuilder<int>.new,
+  const FullType(
+    _i37.BuiltSet,
+    [FullType(int)],
+  ): _i37.SetBuilder<int>.new,
   const FullType(
     _i37.BuiltMap,
     [
@@ -134,10 +138,6 @@ final Map<FullType, Function> builderFactories = {
       FullType(int),
     ],
   ): _i37.MapBuilder<String, int>.new,
-  const FullType(
-    _i37.BuiltSet,
-    [FullType(int)],
-  ): _i37.SetBuilder<int>.new,
   const FullType(
     _i37.BuiltList,
     [FullType(String)],

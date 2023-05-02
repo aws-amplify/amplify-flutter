@@ -18,16 +18,16 @@ abstract class ConfigRuleComplianceFilters
         Built<ConfigRuleComplianceFilters, ConfigRuleComplianceFiltersBuilder> {
   /// Filters the compliance results based on account ID, region, compliance type, and rule name.
   factory ConfigRuleComplianceFilters({
+    String? configRuleName,
+    _i2.ComplianceType? complianceType,
     String? accountId,
     String? awsRegion,
-    _i2.ComplianceType? complianceType,
-    String? configRuleName,
   }) {
     return _$ConfigRuleComplianceFilters._(
+      configRuleName: configRuleName,
+      complianceType: complianceType,
       accountId: accountId,
       awsRegion: awsRegion,
-      complianceType: complianceType,
-      configRuleName: configRuleName,
     );
   }
 
@@ -45,29 +45,37 @@ abstract class ConfigRuleComplianceFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleComplianceFiltersBuilder b) {}
 
-  /// The 12-digit account ID of the source account.
-  String? get accountId;
-
-  /// The source region where the data is aggregated.
-  String? get awsRegion;
+  /// The name of the Config rule.
+  String? get configRuleName;
 
   /// The rule compliance status.
   ///
   /// For the `ConfigRuleComplianceFilters` data type, Config supports only `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and the `INSUFFICIENT_DATA` values.
   _i2.ComplianceType? get complianceType;
 
-  /// The name of the Config rule.
-  String? get configRuleName;
+  /// The 12-digit account ID of the source account.
+  String? get accountId;
+
+  /// The source region where the data is aggregated.
+  String? get awsRegion;
   @override
   List<Object?> get props => [
+        configRuleName,
+        complianceType,
         accountId,
         awsRegion,
-        complianceType,
-        configRuleName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigRuleComplianceFilters');
+    helper.add(
+      'configRuleName',
+      configRuleName,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -75,14 +83,6 @@ abstract class ConfigRuleComplianceFilters
     helper.add(
       'awsRegion',
       awsRegion,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
     );
     return helper.toString();
   }
@@ -118,17 +118,9 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AccountId':
+        case 'ConfigRuleName':
           if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
+            result.configRuleName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -142,9 +134,17 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
             ) as _i2.ComplianceType);
           }
           break;
-        case 'ConfigRuleName':
+        case 'AccountId':
           if (value != null) {
-            result.configRuleName = (serializers.deserialize(
+            result.accountId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'AwsRegion':
+          if (value != null) {
+            result.awsRegion = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -164,6 +164,22 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
   }) {
     final payload = (object as ConfigRuleComplianceFilters);
     final result = <Object?>[];
+    if (payload.configRuleName != null) {
+      result
+        ..add('ConfigRuleName')
+        ..add(serializers.serialize(
+          payload.configRuleName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.complianceType != null) {
+      result
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          payload.complianceType!,
+          specifiedType: const FullType(_i2.ComplianceType),
+        ));
+    }
     if (payload.accountId != null) {
       result
         ..add('AccountId')
@@ -177,22 +193,6 @@ class ConfigRuleComplianceFiltersAwsJson11Serializer
         ..add('AwsRegion')
         ..add(serializers.serialize(
           payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ComplianceType),
-        ));
-    }
-    if (payload.configRuleName != null) {
-      result
-        ..add('ConfigRuleName')
-        ..add(serializers.serialize(
-          payload.configRuleName!,
           specifiedType: const FullType(String),
         ));
     }

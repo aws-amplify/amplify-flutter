@@ -23,16 +23,16 @@ abstract class PutConfigurationAggregatorRequest
         Built<PutConfigurationAggregatorRequest,
             PutConfigurationAggregatorRequestBuilder> {
   factory PutConfigurationAggregatorRequest({
-    List<_i3.AccountAggregationSource>? accountAggregationSources,
     required String configurationAggregatorName,
+    List<_i3.AccountAggregationSource>? accountAggregationSources,
     _i4.OrganizationAggregationSource? organizationAggregationSource,
     List<_i5.Tag>? tags,
   }) {
     return _$PutConfigurationAggregatorRequest._(
+      configurationAggregatorName: configurationAggregatorName,
       accountAggregationSources: accountAggregationSources == null
           ? null
           : _i6.BuiltList(accountAggregationSources),
-      configurationAggregatorName: configurationAggregatorName,
       organizationAggregationSource: organizationAggregationSource,
       tags: tags == null ? null : _i6.BuiltList(tags),
     );
@@ -58,11 +58,11 @@ abstract class PutConfigurationAggregatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutConfigurationAggregatorRequestBuilder b) {}
 
-  /// A list of AccountAggregationSource object.
-  _i6.BuiltList<_i3.AccountAggregationSource>? get accountAggregationSources;
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
+
+  /// A list of AccountAggregationSource object.
+  _i6.BuiltList<_i3.AccountAggregationSource>? get accountAggregationSources;
 
   /// An OrganizationAggregationSource object.
   _i4.OrganizationAggregationSource? get organizationAggregationSource;
@@ -73,8 +73,8 @@ abstract class PutConfigurationAggregatorRequest
   PutConfigurationAggregatorRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        accountAggregationSources,
         configurationAggregatorName,
+        accountAggregationSources,
         organizationAggregationSource,
         tags,
       ];
@@ -83,12 +83,12 @@ abstract class PutConfigurationAggregatorRequest
     final helper =
         newBuiltValueToStringHelper('PutConfigurationAggregatorRequest');
     helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
-    );
-    helper.add(
       'configurationAggregatorName',
       configurationAggregatorName,
+    );
+    helper.add(
+      'accountAggregationSources',
+      accountAggregationSources,
     );
     helper.add(
       'organizationAggregationSource',
@@ -132,6 +132,12 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigurationAggregatorName':
+          result.configurationAggregatorName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'AccountAggregationSources':
           if (value != null) {
             result.accountAggregationSources.replace((serializers.deserialize(
@@ -142,12 +148,6 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
               ),
             ) as _i6.BuiltList<_i3.AccountAggregationSource>));
           }
-          break;
-        case 'ConfigurationAggregatorName':
-          result.configurationAggregatorName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
         case 'OrganizationAggregationSource':
           if (value != null) {

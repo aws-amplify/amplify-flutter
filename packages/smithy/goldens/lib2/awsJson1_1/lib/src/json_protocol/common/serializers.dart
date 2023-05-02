@@ -116,6 +116,10 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i11.FooEnum)],
   ): _i38.ListBuilder<_i11.FooEnum>.new,
   const FullType(
+    _i38.BuiltSet,
+    [FullType(_i11.FooEnum)],
+  ): _i38.SetBuilder<_i11.FooEnum>.new,
+  const FullType(
     _i38.BuiltMap,
     [
       FullType(String),
@@ -123,13 +127,13 @@ final Map<FullType, Function> builderFactories = {
     ],
   ): _i38.MapBuilder<String, _i11.FooEnum>.new,
   const FullType(
-    _i38.BuiltSet,
-    [FullType(_i11.FooEnum)],
-  ): _i38.SetBuilder<_i11.FooEnum>.new,
-  const FullType(
     _i38.BuiltList,
     [FullType(_i13.IntegerEnum)],
   ): _i38.ListBuilder<_i13.IntegerEnum>.new,
+  const FullType(
+    _i38.BuiltSet,
+    [FullType(_i13.IntegerEnum)],
+  ): _i38.SetBuilder<_i13.IntegerEnum>.new,
   const FullType(
     _i38.BuiltMap,
     [
@@ -137,10 +141,6 @@ final Map<FullType, Function> builderFactories = {
       FullType(_i13.IntegerEnum),
     ],
   ): _i38.MapBuilder<String, _i13.IntegerEnum>.new,
-  const FullType(
-    _i38.BuiltSet,
-    [FullType(_i13.IntegerEnum)],
-  ): _i38.SetBuilder<_i13.IntegerEnum>.new,
   const FullType(
     _i38.BuiltList,
     [FullType(String)],

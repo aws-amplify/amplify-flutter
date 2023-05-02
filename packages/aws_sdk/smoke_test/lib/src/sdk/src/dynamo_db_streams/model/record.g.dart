@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db_streams.model.record;
 
 class _$Record extends Record {
   @override
-  final String? awsRegion;
-  @override
-  final _i2.StreamRecord? dynamodb;
-  @override
   final String? eventId;
   @override
-  final _i3.OperationType? eventName;
+  final _i2.OperationType? eventName;
+  @override
+  final String? eventVersion;
   @override
   final String? eventSource;
   @override
-  final String? eventVersion;
+  final String? awsRegion;
+  @override
+  final _i3.StreamRecord? dynamodb;
   @override
   final _i4.Identity? userIdentity;
 
@@ -26,12 +26,12 @@ class _$Record extends Record {
       (new RecordBuilder()..update(updates))._build();
 
   _$Record._(
-      {this.awsRegion,
-      this.dynamodb,
-      this.eventId,
+      {this.eventId,
       this.eventName,
-      this.eventSource,
       this.eventVersion,
+      this.eventSource,
+      this.awsRegion,
+      this.dynamodb,
       this.userIdentity})
       : super._();
 
@@ -46,24 +46,24 @@ class _$Record extends Record {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Record &&
-        awsRegion == other.awsRegion &&
-        dynamodb == other.dynamodb &&
         eventId == other.eventId &&
         eventName == other.eventName &&
-        eventSource == other.eventSource &&
         eventVersion == other.eventVersion &&
+        eventSource == other.eventSource &&
+        awsRegion == other.awsRegion &&
+        dynamodb == other.dynamodb &&
         userIdentity == other.userIdentity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, awsRegion.hashCode);
-    _$hash = $jc(_$hash, dynamodb.hashCode);
     _$hash = $jc(_$hash, eventId.hashCode);
     _$hash = $jc(_$hash, eventName.hashCode);
-    _$hash = $jc(_$hash, eventSource.hashCode);
     _$hash = $jc(_$hash, eventVersion.hashCode);
+    _$hash = $jc(_$hash, eventSource.hashCode);
+    _$hash = $jc(_$hash, awsRegion.hashCode);
+    _$hash = $jc(_$hash, dynamodb.hashCode);
     _$hash = $jc(_$hash, userIdentity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -73,31 +73,31 @@ class _$Record extends Record {
 class RecordBuilder implements Builder<Record, RecordBuilder> {
   _$Record? _$v;
 
-  String? _awsRegion;
-  String? get awsRegion => _$this._awsRegion;
-  set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
-
-  _i2.StreamRecordBuilder? _dynamodb;
-  _i2.StreamRecordBuilder get dynamodb =>
-      _$this._dynamodb ??= new _i2.StreamRecordBuilder();
-  set dynamodb(_i2.StreamRecordBuilder? dynamodb) =>
-      _$this._dynamodb = dynamodb;
-
   String? _eventId;
   String? get eventId => _$this._eventId;
   set eventId(String? eventId) => _$this._eventId = eventId;
 
-  _i3.OperationType? _eventName;
-  _i3.OperationType? get eventName => _$this._eventName;
-  set eventName(_i3.OperationType? eventName) => _$this._eventName = eventName;
+  _i2.OperationType? _eventName;
+  _i2.OperationType? get eventName => _$this._eventName;
+  set eventName(_i2.OperationType? eventName) => _$this._eventName = eventName;
+
+  String? _eventVersion;
+  String? get eventVersion => _$this._eventVersion;
+  set eventVersion(String? eventVersion) => _$this._eventVersion = eventVersion;
 
   String? _eventSource;
   String? get eventSource => _$this._eventSource;
   set eventSource(String? eventSource) => _$this._eventSource = eventSource;
 
-  String? _eventVersion;
-  String? get eventVersion => _$this._eventVersion;
-  set eventVersion(String? eventVersion) => _$this._eventVersion = eventVersion;
+  String? _awsRegion;
+  String? get awsRegion => _$this._awsRegion;
+  set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
+
+  _i3.StreamRecordBuilder? _dynamodb;
+  _i3.StreamRecordBuilder get dynamodb =>
+      _$this._dynamodb ??= new _i3.StreamRecordBuilder();
+  set dynamodb(_i3.StreamRecordBuilder? dynamodb) =>
+      _$this._dynamodb = dynamodb;
 
   _i4.IdentityBuilder? _userIdentity;
   _i4.IdentityBuilder get userIdentity =>
@@ -112,12 +112,12 @@ class RecordBuilder implements Builder<Record, RecordBuilder> {
   RecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _awsRegion = $v.awsRegion;
-      _dynamodb = $v.dynamodb?.toBuilder();
       _eventId = $v.eventId;
       _eventName = $v.eventName;
-      _eventSource = $v.eventSource;
       _eventVersion = $v.eventVersion;
+      _eventSource = $v.eventSource;
+      _awsRegion = $v.awsRegion;
+      _dynamodb = $v.dynamodb?.toBuilder();
       _userIdentity = $v.userIdentity?.toBuilder();
       _$v = null;
     }
@@ -143,19 +143,18 @@ class RecordBuilder implements Builder<Record, RecordBuilder> {
     try {
       _$result = _$v ??
           new _$Record._(
-              awsRegion: awsRegion,
-              dynamodb: _dynamodb?.build(),
               eventId: eventId,
               eventName: eventName,
-              eventSource: eventSource,
               eventVersion: eventVersion,
+              eventSource: eventSource,
+              awsRegion: awsRegion,
+              dynamodb: _dynamodb?.build(),
               userIdentity: _userIdentity?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'dynamodb';
         _dynamodb?.build();
-
         _$failedField = 'userIdentity';
         _userIdentity?.build();
       } catch (e) {

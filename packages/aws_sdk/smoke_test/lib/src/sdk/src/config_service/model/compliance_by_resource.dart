@@ -17,14 +17,14 @@ abstract class ComplianceByResource
     implements Built<ComplianceByResource, ComplianceByResourceBuilder> {
   /// Indicates whether an Amazon Web Services resource that is evaluated according to one or more Config rules is compliant. A resource is compliant if it complies with all of the rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.
   factory ComplianceByResource({
-    _i2.Compliance? compliance,
-    String? resourceId,
     String? resourceType,
+    String? resourceId,
+    _i2.Compliance? compliance,
   }) {
     return _$ComplianceByResource._(
-      compliance: compliance,
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
+      compliance: compliance,
     );
   }
 
@@ -42,34 +42,34 @@ abstract class ComplianceByResource
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceByResourceBuilder b) {}
 
-  /// Indicates whether the Amazon Web Services resource complies with all of the Config rules that evaluated it.
-  _i2.Compliance? get compliance;
+  /// The type of the Amazon Web Services resource that was evaluated.
+  String? get resourceType;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String? get resourceId;
 
-  /// The type of the Amazon Web Services resource that was evaluated.
-  String? get resourceType;
+  /// Indicates whether the Amazon Web Services resource complies with all of the Config rules that evaluated it.
+  _i2.Compliance? get compliance;
   @override
   List<Object?> get props => [
-        compliance,
-        resourceId,
         resourceType,
+        resourceId,
+        compliance,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ComplianceByResource');
     helper.add(
-      'compliance',
-      compliance,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'compliance',
+      compliance,
     );
     return helper.toString();
   }
@@ -105,12 +105,12 @@ class ComplianceByResourceAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Compliance':
+        case 'ResourceType':
           if (value != null) {
-            result.compliance.replace((serializers.deserialize(
+            result.resourceType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.Compliance),
-            ) as _i2.Compliance));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ResourceId':
@@ -121,12 +121,12 @@ class ComplianceByResourceAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'ResourceType':
+        case 'Compliance':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.compliance.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i2.Compliance),
+            ) as _i2.Compliance));
           }
           break;
       }
@@ -143,12 +143,12 @@ class ComplianceByResourceAwsJson11Serializer
   }) {
     final payload = (object as ComplianceByResource);
     final result = <Object?>[];
-    if (payload.compliance != null) {
+    if (payload.resourceType != null) {
       result
-        ..add('Compliance')
+        ..add('ResourceType')
         ..add(serializers.serialize(
-          payload.compliance!,
-          specifiedType: const FullType(_i2.Compliance),
+          payload.resourceType!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.resourceId != null) {
@@ -159,12 +159,12 @@ class ComplianceByResourceAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (payload.compliance != null) {
       result
-        ..add('ResourceType')
+        ..add('Compliance')
         ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(String),
+          payload.compliance!,
+          specifiedType: const FullType(_i2.Compliance),
         ));
     }
     return result;

@@ -8,11 +8,11 @@ part of rest_json1_v2.glacier.model.resource_not_found_exception;
 
 class _$ResourceNotFoundException extends ResourceNotFoundException {
   @override
+  final String? type;
+  @override
   final String? code;
   @override
   final String? message;
-  @override
-  final String? type;
   @override
   final Map<String, String>? headers;
 
@@ -21,7 +21,7 @@ class _$ResourceNotFoundException extends ResourceNotFoundException {
       (new ResourceNotFoundExceptionBuilder()..update(updates))._build();
 
   _$ResourceNotFoundException._(
-      {this.code, this.message, this.type, this.headers})
+      {this.type, this.code, this.message, this.headers})
       : super._();
 
   @override
@@ -37,17 +37,17 @@ class _$ResourceNotFoundException extends ResourceNotFoundException {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ResourceNotFoundException &&
+        type == other.type &&
         code == other.code &&
-        message == other.message &&
-        type == other.type;
+        message == other.message;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, code.hashCode);
     _$hash = $jc(_$hash, message.hashCode);
-    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,6 +58,10 @@ class ResourceNotFoundExceptionBuilder
         Builder<ResourceNotFoundException, ResourceNotFoundExceptionBuilder> {
   _$ResourceNotFoundException? _$v;
 
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
+
   String? _code;
   String? get code => _$this._code;
   set code(String? code) => _$this._code = code;
@@ -65,10 +69,6 @@ class ResourceNotFoundExceptionBuilder
   String? _message;
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
-
-  String? _type;
-  String? get type => _$this._type;
-  set type(String? type) => _$this._type = type;
 
   Map<String, String>? _headers;
   Map<String, String>? get headers => _$this._headers;
@@ -81,9 +81,9 @@ class ResourceNotFoundExceptionBuilder
   ResourceNotFoundExceptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _type = $v.type;
       _code = $v.code;
       _message = $v.message;
-      _type = $v.type;
       _headers = $v.headers;
       _$v = null;
     }
@@ -107,7 +107,7 @@ class ResourceNotFoundExceptionBuilder
   _$ResourceNotFoundException _build() {
     final _$result = _$v ??
         new _$ResourceNotFoundException._(
-            code: code, message: message, type: type, headers: headers);
+            type: type, code: code, message: message, headers: headers);
     replace(_$result);
     return _$result;
   }

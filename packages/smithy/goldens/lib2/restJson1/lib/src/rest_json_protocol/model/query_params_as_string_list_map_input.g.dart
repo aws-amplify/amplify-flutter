@@ -9,15 +9,15 @@ part of rest_json1_v2.rest_json_protocol.model.query_params_as_string_list_map_i
 class _$QueryParamsAsStringListMapInput
     extends QueryParamsAsStringListMapInput {
   @override
-  final _i3.BuiltListMultimap<String, String>? foo;
-  @override
   final String? qux;
+  @override
+  final _i3.BuiltListMultimap<String, String>? foo;
 
   factory _$QueryParamsAsStringListMapInput(
           [void Function(QueryParamsAsStringListMapInputBuilder)? updates]) =>
       (new QueryParamsAsStringListMapInputBuilder()..update(updates))._build();
 
-  _$QueryParamsAsStringListMapInput._({this.foo, this.qux}) : super._();
+  _$QueryParamsAsStringListMapInput._({this.qux, this.foo}) : super._();
 
   @override
   QueryParamsAsStringListMapInput rebuild(
@@ -32,15 +32,15 @@ class _$QueryParamsAsStringListMapInput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is QueryParamsAsStringListMapInput &&
-        foo == other.foo &&
-        qux == other.qux;
+        qux == other.qux &&
+        foo == other.foo;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, foo.hashCode);
     _$hash = $jc(_$hash, qux.hashCode);
+    _$hash = $jc(_$hash, foo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,14 +52,14 @@ class QueryParamsAsStringListMapInputBuilder
             QueryParamsAsStringListMapInputBuilder> {
   _$QueryParamsAsStringListMapInput? _$v;
 
+  String? _qux;
+  String? get qux => _$this._qux;
+  set qux(String? qux) => _$this._qux = qux;
+
   _i3.ListMultimapBuilder<String, String>? _foo;
   _i3.ListMultimapBuilder<String, String> get foo =>
       _$this._foo ??= new _i3.ListMultimapBuilder<String, String>();
   set foo(_i3.ListMultimapBuilder<String, String>? foo) => _$this._foo = foo;
-
-  String? _qux;
-  String? get qux => _$this._qux;
-  set qux(String? qux) => _$this._qux = qux;
 
   QueryParamsAsStringListMapInputBuilder() {
     QueryParamsAsStringListMapInput._init(this);
@@ -68,8 +68,8 @@ class QueryParamsAsStringListMapInputBuilder
   QueryParamsAsStringListMapInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _foo = $v.foo?.toBuilder();
       _qux = $v.qux;
+      _foo = $v.foo?.toBuilder();
       _$v = null;
     }
     return this;
@@ -93,7 +93,7 @@ class QueryParamsAsStringListMapInputBuilder
     _$QueryParamsAsStringListMapInput _$result;
     try {
       _$result = _$v ??
-          new _$QueryParamsAsStringListMapInput._(foo: _foo?.build(), qux: qux);
+          new _$QueryParamsAsStringListMapInput._(qux: qux, foo: _foo?.build());
     } catch (_) {
       late String _$failedField;
       try {

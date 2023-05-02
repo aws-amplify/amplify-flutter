@@ -14,24 +14,24 @@ abstract class XmlNestedUnionStruct
     with _i1.AWSEquatable<XmlNestedUnionStruct>
     implements Built<XmlNestedUnionStruct, XmlNestedUnionStructBuilder> {
   factory XmlNestedUnionStruct({
+    String? stringValue,
     bool? booleanValue,
     int? byteValue,
-    double? doubleValue,
-    double? floatValue,
+    int? shortValue,
     int? integerValue,
     _i2.Int64? longValue,
-    int? shortValue,
-    String? stringValue,
+    double? floatValue,
+    double? doubleValue,
   }) {
     return _$XmlNestedUnionStruct._(
+      stringValue: stringValue,
       booleanValue: booleanValue,
       byteValue: byteValue,
-      doubleValue: doubleValue,
-      floatValue: floatValue,
+      shortValue: shortValue,
       integerValue: integerValue,
       longValue: longValue,
-      shortValue: shortValue,
-      stringValue: stringValue,
+      floatValue: floatValue,
+      doubleValue: doubleValue,
     );
   }
 
@@ -47,28 +47,32 @@ abstract class XmlNestedUnionStruct
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlNestedUnionStructBuilder b) {}
+  String? get stringValue;
   bool? get booleanValue;
   int? get byteValue;
-  double? get doubleValue;
-  double? get floatValue;
+  int? get shortValue;
   int? get integerValue;
   _i2.Int64? get longValue;
-  int? get shortValue;
-  String? get stringValue;
+  double? get floatValue;
+  double? get doubleValue;
   @override
   List<Object?> get props => [
+        stringValue,
         booleanValue,
         byteValue,
-        doubleValue,
-        floatValue,
+        shortValue,
         integerValue,
         longValue,
-        shortValue,
-        stringValue,
+        floatValue,
+        doubleValue,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct');
+    helper.add(
+      'stringValue',
+      stringValue,
+    );
     helper.add(
       'booleanValue',
       booleanValue,
@@ -78,12 +82,8 @@ abstract class XmlNestedUnionStruct
       byteValue,
     );
     helper.add(
-      'doubleValue',
-      doubleValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
+      'shortValue',
+      shortValue,
     );
     helper.add(
       'integerValue',
@@ -94,12 +94,12 @@ abstract class XmlNestedUnionStruct
       longValue,
     );
     helper.add(
-      'shortValue',
-      shortValue,
+      'floatValue',
+      floatValue,
     );
     helper.add(
-      'stringValue',
-      stringValue,
+      'doubleValue',
+      doubleValue,
     );
     return helper.toString();
   }

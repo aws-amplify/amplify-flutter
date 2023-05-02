@@ -23,15 +23,15 @@ abstract class UpdateResourceRequest
         _i1.HasPayload<UpdateResourceRequestPayload> {
   /// Request to change information about a Resource resource.
   factory UpdateResourceRequest({
-    List<_i3.PatchOperation>? patchOperations,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateResourceRequest._(
+      restApiId: restApiId,
+      resourceId: resourceId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      resourceId: resourceId,
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +66,14 @@ abstract class UpdateResourceRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateResourceRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The identifier of the Resource resource.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -97,24 +97,24 @@ abstract class UpdateResourceRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
-        resourceId,
         restApiId,
+        resourceId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateResourceRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

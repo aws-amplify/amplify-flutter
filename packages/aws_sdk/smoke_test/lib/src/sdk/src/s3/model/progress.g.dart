@@ -8,16 +8,16 @@ part of smoke_test.s3.model.progress;
 
 class _$Progress extends Progress {
   @override
+  final _i2.Int64? bytesScanned;
+  @override
   final _i2.Int64? bytesProcessed;
   @override
   final _i2.Int64? bytesReturned;
-  @override
-  final _i2.Int64? bytesScanned;
 
   factory _$Progress([void Function(ProgressBuilder)? updates]) =>
       (new ProgressBuilder()..update(updates))._build();
 
-  _$Progress._({this.bytesProcessed, this.bytesReturned, this.bytesScanned})
+  _$Progress._({this.bytesScanned, this.bytesProcessed, this.bytesReturned})
       : super._();
 
   @override
@@ -31,17 +31,17 @@ class _$Progress extends Progress {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Progress &&
+        bytesScanned == other.bytesScanned &&
         bytesProcessed == other.bytesProcessed &&
-        bytesReturned == other.bytesReturned &&
-        bytesScanned == other.bytesScanned;
+        bytesReturned == other.bytesReturned;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, bytesScanned.hashCode);
     _$hash = $jc(_$hash, bytesProcessed.hashCode);
     _$hash = $jc(_$hash, bytesReturned.hashCode);
-    _$hash = $jc(_$hash, bytesScanned.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,6 +49,11 @@ class _$Progress extends Progress {
 
 class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress? _$v;
+
+  _i2.Int64? _bytesScanned;
+  _i2.Int64? get bytesScanned => _$this._bytesScanned;
+  set bytesScanned(_i2.Int64? bytesScanned) =>
+      _$this._bytesScanned = bytesScanned;
 
   _i2.Int64? _bytesProcessed;
   _i2.Int64? get bytesProcessed => _$this._bytesProcessed;
@@ -60,11 +65,6 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   set bytesReturned(_i2.Int64? bytesReturned) =>
       _$this._bytesReturned = bytesReturned;
 
-  _i2.Int64? _bytesScanned;
-  _i2.Int64? get bytesScanned => _$this._bytesScanned;
-  set bytesScanned(_i2.Int64? bytesScanned) =>
-      _$this._bytesScanned = bytesScanned;
-
   ProgressBuilder() {
     Progress._init(this);
   }
@@ -72,9 +72,9 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   ProgressBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _bytesScanned = $v.bytesScanned;
       _bytesProcessed = $v.bytesProcessed;
       _bytesReturned = $v.bytesReturned;
-      _bytesScanned = $v.bytesScanned;
       _$v = null;
     }
     return this;
@@ -97,9 +97,9 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   _$Progress _build() {
     final _$result = _$v ??
         new _$Progress._(
+            bytesScanned: bytesScanned,
             bytesProcessed: bytesProcessed,
-            bytesReturned: bytesReturned,
-            bytesScanned: bytesScanned);
+            bytesReturned: bytesReturned);
     replace(_$result);
     return _$result;
   }

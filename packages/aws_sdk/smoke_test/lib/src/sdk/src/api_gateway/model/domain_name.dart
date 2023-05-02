@@ -8,13 +8,13 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/domain_name_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart'
+    as _i2;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart'
+    as _i4;
 
 part 'domain_name.g.dart';
 
@@ -24,42 +24,42 @@ abstract class DomainName
     implements Built<DomainName, DomainNameBuilder> {
   /// Represents a custom domain name as a user-friendly host name of an API (RestApi).
   factory DomainName({
-    String? certificateArn,
-    String? certificateName,
-    DateTime? certificateUploadDate,
-    String? distributionDomainName,
-    String? distributionHostedZoneId,
     String? domainName,
-    _i2.DomainNameStatus? domainNameStatus,
-    String? domainNameStatusMessage,
-    _i3.EndpointConfiguration? endpointConfiguration,
-    _i4.MutualTlsAuthentication? mutualTlsAuthentication,
-    String? ownershipVerificationCertificateArn,
-    String? regionalCertificateArn,
-    String? regionalCertificateName,
+    String? certificateName,
+    String? certificateArn,
+    DateTime? certificateUploadDate,
     String? regionalDomainName,
     String? regionalHostedZoneId,
-    _i5.SecurityPolicy? securityPolicy,
+    String? regionalCertificateName,
+    String? regionalCertificateArn,
+    String? distributionDomainName,
+    String? distributionHostedZoneId,
+    _i2.EndpointConfiguration? endpointConfiguration,
+    _i3.DomainNameStatus? domainNameStatus,
+    String? domainNameStatusMessage,
+    _i4.SecurityPolicy? securityPolicy,
     Map<String, String>? tags,
+    _i5.MutualTlsAuthentication? mutualTlsAuthentication,
+    String? ownershipVerificationCertificateArn,
   }) {
     return _$DomainName._(
-      certificateArn: certificateArn,
-      certificateName: certificateName,
-      certificateUploadDate: certificateUploadDate,
-      distributionDomainName: distributionDomainName,
-      distributionHostedZoneId: distributionHostedZoneId,
       domainName: domainName,
-      domainNameStatus: domainNameStatus,
-      domainNameStatusMessage: domainNameStatusMessage,
-      endpointConfiguration: endpointConfiguration,
-      mutualTlsAuthentication: mutualTlsAuthentication,
-      ownershipVerificationCertificateArn: ownershipVerificationCertificateArn,
-      regionalCertificateArn: regionalCertificateArn,
-      regionalCertificateName: regionalCertificateName,
+      certificateName: certificateName,
+      certificateArn: certificateArn,
+      certificateUploadDate: certificateUploadDate,
       regionalDomainName: regionalDomainName,
       regionalHostedZoneId: regionalHostedZoneId,
+      regionalCertificateName: regionalCertificateName,
+      regionalCertificateArn: regionalCertificateArn,
+      distributionDomainName: distributionDomainName,
+      distributionHostedZoneId: distributionHostedZoneId,
+      endpointConfiguration: endpointConfiguration,
+      domainNameStatus: domainNameStatus,
+      domainNameStatusMessage: domainNameStatusMessage,
       securityPolicy: securityPolicy,
       tags: tags == null ? null : _i6.BuiltMap(tags),
+      mutualTlsAuthentication: mutualTlsAuthentication,
+      ownershipVerificationCertificateArn: ownershipVerificationCertificateArn,
     );
   }
 
@@ -83,44 +83,17 @@ abstract class DomainName
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DomainNameBuilder b) {}
 
-  /// The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
-  String? get certificateArn;
+  /// The custom domain name as an API host name, for example, `my-api.example.com`.
+  String? get domainName;
 
   /// The name of the certificate that will be used by edge-optimized endpoint for this domain name.
   String? get certificateName;
 
+  /// The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
+  String? get certificateArn;
+
   /// The timestamp when the certificate that was used by edge-optimized endpoint for this domain name was uploaded.
   DateTime? get certificateUploadDate;
-
-  /// The domain name of the Amazon CloudFront distribution associated with this custom domain name for an edge-optimized endpoint. You set up this association when adding a DNS record pointing the custom domain name to this distribution name. For more information about CloudFront distributions, see the Amazon CloudFront documentation.
-  String? get distributionDomainName;
-
-  /// The region-agnostic Amazon Route 53 Hosted Zone ID of the edge-optimized endpoint. The valid value is `Z2FDTNDATAQYW2` for all the regions. For more information, see Set up a Regional Custom Domain Name and AWS Regions and Endpoints for API Gateway.
-  String? get distributionHostedZoneId;
-
-  /// The custom domain name as an API host name, for example, `my-api.example.com`.
-  String? get domainName;
-
-  /// The status of the DomainName migration. The valid values are `AVAILABLE` and `UPDATING`. If the status is `UPDATING`, the domain cannot be modified further until the existing operation is complete. If it is `AVAILABLE`, the domain can be updated.
-  _i2.DomainNameStatus? get domainNameStatus;
-
-  /// An optional text message containing detailed information about status of the DomainName migration.
-  String? get domainNameStatusMessage;
-
-  /// The endpoint configuration of this DomainName showing the endpoint types of the domain name.
-  _i3.EndpointConfiguration? get endpointConfiguration;
-
-  /// The mutual TLS authentication configuration for a custom domain name. If specified, API Gateway performs two-way authentication between the client and the server. Clients must present a trusted certificate to access your API.
-  _i4.MutualTlsAuthentication? get mutualTlsAuthentication;
-
-  /// The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
-  String? get ownershipVerificationCertificateArn;
-
-  /// The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.
-  String? get regionalCertificateArn;
-
-  /// The name of the certificate that will be used for validating the regional domain name.
-  String? get regionalCertificateName;
 
   /// The domain name associated with the regional endpoint for this custom domain name. You set up this association by adding a DNS record that points the custom domain name to this regional domain name. The regional domain name is returned by API Gateway when you create a regional endpoint.
   String? get regionalDomainName;
@@ -128,85 +101,76 @@ abstract class DomainName
   /// The region-specific Amazon Route 53 Hosted Zone ID of the regional endpoint. For more information, see Set up a Regional Custom Domain Name and AWS Regions and Endpoints for API Gateway.
   String? get regionalHostedZoneId;
 
+  /// The name of the certificate that will be used for validating the regional domain name.
+  String? get regionalCertificateName;
+
+  /// The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.
+  String? get regionalCertificateArn;
+
+  /// The domain name of the Amazon CloudFront distribution associated with this custom domain name for an edge-optimized endpoint. You set up this association when adding a DNS record pointing the custom domain name to this distribution name. For more information about CloudFront distributions, see the Amazon CloudFront documentation.
+  String? get distributionDomainName;
+
+  /// The region-agnostic Amazon Route 53 Hosted Zone ID of the edge-optimized endpoint. The valid value is `Z2FDTNDATAQYW2` for all the regions. For more information, see Set up a Regional Custom Domain Name and AWS Regions and Endpoints for API Gateway.
+  String? get distributionHostedZoneId;
+
+  /// The endpoint configuration of this DomainName showing the endpoint types of the domain name.
+  _i2.EndpointConfiguration? get endpointConfiguration;
+
+  /// The status of the DomainName migration. The valid values are `AVAILABLE` and `UPDATING`. If the status is `UPDATING`, the domain cannot be modified further until the existing operation is complete. If it is `AVAILABLE`, the domain can be updated.
+  _i3.DomainNameStatus? get domainNameStatus;
+
+  /// An optional text message containing detailed information about status of the DomainName migration.
+  String? get domainNameStatusMessage;
+
   /// The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are `TLS\_1\_0` and `TLS\_1\_2`.
-  _i5.SecurityPolicy? get securityPolicy;
+  _i4.SecurityPolicy? get securityPolicy;
 
   /// The collection of tags. Each tag element is associated with a given resource.
   _i6.BuiltMap<String, String>? get tags;
+
+  /// The mutual TLS authentication configuration for a custom domain name. If specified, API Gateway performs two-way authentication between the client and the server. Clients must present a trusted certificate to access your API.
+  _i5.MutualTlsAuthentication? get mutualTlsAuthentication;
+
+  /// The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
+  String? get ownershipVerificationCertificateArn;
   @override
   List<Object?> get props => [
-        certificateArn,
-        certificateName,
-        certificateUploadDate,
-        distributionDomainName,
-        distributionHostedZoneId,
         domainName,
-        domainNameStatus,
-        domainNameStatusMessage,
-        endpointConfiguration,
-        mutualTlsAuthentication,
-        ownershipVerificationCertificateArn,
-        regionalCertificateArn,
-        regionalCertificateName,
+        certificateName,
+        certificateArn,
+        certificateUploadDate,
         regionalDomainName,
         regionalHostedZoneId,
+        regionalCertificateName,
+        regionalCertificateArn,
+        distributionDomainName,
+        distributionHostedZoneId,
+        endpointConfiguration,
+        domainNameStatus,
+        domainNameStatusMessage,
         securityPolicy,
         tags,
+        mutualTlsAuthentication,
+        ownershipVerificationCertificateArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DomainName');
     helper.add(
-      'certificateArn',
-      certificateArn,
+      'domainName',
+      domainName,
     );
     helper.add(
       'certificateName',
       certificateName,
     );
     helper.add(
+      'certificateArn',
+      certificateArn,
+    );
+    helper.add(
       'certificateUploadDate',
       certificateUploadDate,
-    );
-    helper.add(
-      'distributionDomainName',
-      distributionDomainName,
-    );
-    helper.add(
-      'distributionHostedZoneId',
-      distributionHostedZoneId,
-    );
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'domainNameStatus',
-      domainNameStatus,
-    );
-    helper.add(
-      'domainNameStatusMessage',
-      domainNameStatusMessage,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'mutualTlsAuthentication',
-      mutualTlsAuthentication,
-    );
-    helper.add(
-      'ownershipVerificationCertificateArn',
-      ownershipVerificationCertificateArn,
-    );
-    helper.add(
-      'regionalCertificateArn',
-      regionalCertificateArn,
-    );
-    helper.add(
-      'regionalCertificateName',
-      regionalCertificateName,
     );
     helper.add(
       'regionalDomainName',
@@ -217,12 +181,48 @@ abstract class DomainName
       regionalHostedZoneId,
     );
     helper.add(
+      'regionalCertificateName',
+      regionalCertificateName,
+    );
+    helper.add(
+      'regionalCertificateArn',
+      regionalCertificateArn,
+    );
+    helper.add(
+      'distributionDomainName',
+      distributionDomainName,
+    );
+    helper.add(
+      'distributionHostedZoneId',
+      distributionHostedZoneId,
+    );
+    helper.add(
+      'endpointConfiguration',
+      endpointConfiguration,
+    );
+    helper.add(
+      'domainNameStatus',
+      domainNameStatus,
+    );
+    helper.add(
+      'domainNameStatusMessage',
+      domainNameStatusMessage,
+    );
+    helper.add(
       'securityPolicy',
       securityPolicy,
     );
     helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'mutualTlsAuthentication',
+      mutualTlsAuthentication,
+    );
+    helper.add(
+      'ownershipVerificationCertificateArn',
+      ownershipVerificationCertificateArn,
     );
     return helper.toString();
   }
@@ -309,8 +309,8 @@ class DomainNameRestJson1Serializer
           if (value != null) {
             result.domainNameStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.DomainNameStatus),
-            ) as _i2.DomainNameStatus);
+              specifiedType: const FullType(_i3.DomainNameStatus),
+            ) as _i3.DomainNameStatus);
           }
           break;
         case 'domainNameStatusMessage':
@@ -325,16 +325,16 @@ class DomainNameRestJson1Serializer
           if (value != null) {
             result.endpointConfiguration.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.EndpointConfiguration),
-            ) as _i3.EndpointConfiguration));
+              specifiedType: const FullType(_i2.EndpointConfiguration),
+            ) as _i2.EndpointConfiguration));
           }
           break;
         case 'mutualTlsAuthentication':
           if (value != null) {
             result.mutualTlsAuthentication.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.MutualTlsAuthentication),
-            ) as _i4.MutualTlsAuthentication));
+              specifiedType: const FullType(_i5.MutualTlsAuthentication),
+            ) as _i5.MutualTlsAuthentication));
           }
           break;
         case 'ownershipVerificationCertificateArn':
@@ -382,8 +382,8 @@ class DomainNameRestJson1Serializer
           if (value != null) {
             result.securityPolicy = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.SecurityPolicy),
-            ) as _i5.SecurityPolicy);
+              specifiedType: const FullType(_i4.SecurityPolicy),
+            ) as _i4.SecurityPolicy);
           }
           break;
         case 'tags':
@@ -467,7 +467,7 @@ class DomainNameRestJson1Serializer
         ..add('domainNameStatus')
         ..add(serializers.serialize(
           payload.domainNameStatus!,
-          specifiedType: const FullType(_i2.DomainNameStatus),
+          specifiedType: const FullType(_i3.DomainNameStatus),
         ));
     }
     if (payload.domainNameStatusMessage != null) {
@@ -483,7 +483,7 @@ class DomainNameRestJson1Serializer
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           payload.endpointConfiguration!,
-          specifiedType: const FullType(_i3.EndpointConfiguration),
+          specifiedType: const FullType(_i2.EndpointConfiguration),
         ));
     }
     if (payload.mutualTlsAuthentication != null) {
@@ -491,7 +491,7 @@ class DomainNameRestJson1Serializer
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
           payload.mutualTlsAuthentication!,
-          specifiedType: const FullType(_i4.MutualTlsAuthentication),
+          specifiedType: const FullType(_i5.MutualTlsAuthentication),
         ));
     }
     if (payload.ownershipVerificationCertificateArn != null) {
@@ -539,7 +539,7 @@ class DomainNameRestJson1Serializer
         ..add('securityPolicy')
         ..add(serializers.serialize(
           payload.securityPolicy!,
-          specifiedType: const FullType(_i5.SecurityPolicy),
+          specifiedType: const FullType(_i4.SecurityPolicy),
         ));
     }
     if (payload.tags != null) {

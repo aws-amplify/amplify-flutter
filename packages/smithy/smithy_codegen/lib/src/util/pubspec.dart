@@ -44,7 +44,7 @@ final dependencyVersions = {
   'build_test': const Dependency.dev('^2.1.5'),
   'built_value_generator': const Dependency.dev('8.4.4'),
   'lints': const Dependency.dev('^2.0.0'),
-  'test': const Dependency.dev('^1.16.0'),
+  'test': const Dependency.dev('^1.22.1'),
 };
 
 class PubspecGenerator implements Generator<String> {

@@ -2,7 +2,7 @@ name: amplify_flutter_repository
 
 packages:
   - packages/**
-  - example/*
+  - canaries/*
   - packages/**/example/*
   - "*"
 

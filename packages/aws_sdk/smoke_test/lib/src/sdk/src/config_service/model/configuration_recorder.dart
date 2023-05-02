@@ -18,13 +18,13 @@ abstract class ConfigurationRecorder
   /// An object that represents the recording of configuration changes of an Amazon Web Services resource.
   factory ConfigurationRecorder({
     String? name,
-    _i2.RecordingGroup? recordingGroup,
     String? roleArn,
+    _i2.RecordingGroup? recordingGroup,
   }) {
     return _$ConfigurationRecorder._(
       name: name,
-      recordingGroup: recordingGroup,
       roleArn: roleArn,
+      recordingGroup: recordingGroup,
     );
   }
 
@@ -45,18 +45,18 @@ abstract class ConfigurationRecorder
   /// The name of the recorder. By default, Config automatically assigns the name "default" when creating the configuration recorder. You cannot change the assigned name.
   String? get name;
 
-  /// Specifies the types of Amazon Web Services resources for which Config records configuration changes.
-  _i2.RecordingGroup? get recordingGroup;
-
   /// Amazon Resource Name (ARN) of the IAM role used to describe the Amazon Web Services resources associated with the account.
   ///
   /// While the API model does not require this field, the server will reject a request without a defined roleARN for the configuration recorder.
   String? get roleArn;
+
+  /// Specifies the types of Amazon Web Services resources for which Config records configuration changes.
+  _i2.RecordingGroup? get recordingGroup;
   @override
   List<Object?> get props => [
         name,
-        recordingGroup,
         roleArn,
+        recordingGroup,
       ];
   @override
   String toString() {
@@ -66,12 +66,12 @@ abstract class ConfigurationRecorder
       name,
     );
     helper.add(
-      'recordingGroup',
-      recordingGroup,
-    );
-    helper.add(
       'roleArn',
       roleArn,
+    );
+    helper.add(
+      'recordingGroup',
+      recordingGroup,
     );
     return helper.toString();
   }
@@ -115,20 +115,20 @@ class ConfigurationRecorderAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'recordingGroup':
-          if (value != null) {
-            result.recordingGroup.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RecordingGroup),
-            ) as _i2.RecordingGroup));
-          }
-          break;
         case 'roleARN':
           if (value != null) {
             result.roleArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'recordingGroup':
+          if (value != null) {
+            result.recordingGroup.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.RecordingGroup),
+            ) as _i2.RecordingGroup));
           }
           break;
       }
@@ -153,20 +153,20 @@ class ConfigurationRecorderAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.recordingGroup != null) {
-      result
-        ..add('recordingGroup')
-        ..add(serializers.serialize(
-          payload.recordingGroup!,
-          specifiedType: const FullType(_i2.RecordingGroup),
-        ));
-    }
     if (payload.roleArn != null) {
       result
         ..add('roleARN')
         ..add(serializers.serialize(
           payload.roleArn!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.recordingGroup != null) {
+      result
+        ..add('recordingGroup')
+        ..add(serializers.serialize(
+          payload.recordingGroup!,
+          specifiedType: const FullType(_i2.RecordingGroup),
         ));
     }
     return result;

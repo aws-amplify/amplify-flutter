@@ -19,16 +19,16 @@ abstract class MalformedByteInput
         _i1.HasPayload<MalformedByteInputPayload> {
   factory MalformedByteInput({
     int? byteInBody,
-    int? byteInHeader,
     int? byteInPath,
     int? byteInQuery,
+    int? byteInHeader,
   }) {
     byteInPath ??= 0;
     return _$MalformedByteInput._(
       byteInBody: byteInBody,
-      byteInHeader: byteInHeader,
       byteInPath: byteInPath,
       byteInQuery: byteInQuery,
+      byteInHeader: byteInHeader,
     );
   }
 
@@ -66,9 +66,9 @@ abstract class MalformedByteInput
   }
 
   int? get byteInBody;
-  int? get byteInHeader;
   int get byteInPath;
   int? get byteInQuery;
+  int? get byteInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,9 +88,9 @@ abstract class MalformedByteInput
   @override
   List<Object?> get props => [
         byteInBody,
-        byteInHeader,
         byteInPath,
         byteInQuery,
+        byteInHeader,
       ];
   @override
   String toString() {
@@ -100,16 +100,16 @@ abstract class MalformedByteInput
       byteInBody,
     );
     helper.add(
-      'byteInHeader',
-      byteInHeader,
-    );
-    helper.add(
       'byteInPath',
       byteInPath,
     );
     helper.add(
       'byteInQuery',
       byteInQuery,
+    );
+    helper.add(
+      'byteInHeader',
+      byteInHeader,
     );
     return helper.toString();
   }

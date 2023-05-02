@@ -9,13 +9,13 @@ part of smoke_test.config_service.model.aggregate_conformance_pack_compliance_fi
 class _$AggregateConformancePackComplianceFilters
     extends AggregateConformancePackComplianceFilters {
   @override
-  final String? accountId;
-  @override
-  final String? awsRegion;
+  final String? conformancePackName;
   @override
   final _i2.ConformancePackComplianceType? complianceType;
   @override
-  final String? conformancePackName;
+  final String? accountId;
+  @override
+  final String? awsRegion;
 
   factory _$AggregateConformancePackComplianceFilters(
           [void Function(AggregateConformancePackComplianceFiltersBuilder)?
@@ -24,10 +24,10 @@ class _$AggregateConformancePackComplianceFilters
           ._build();
 
   _$AggregateConformancePackComplianceFilters._(
-      {this.accountId,
-      this.awsRegion,
+      {this.conformancePackName,
       this.complianceType,
-      this.conformancePackName})
+      this.accountId,
+      this.awsRegion})
       : super._();
 
   @override
@@ -44,19 +44,19 @@ class _$AggregateConformancePackComplianceFilters
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AggregateConformancePackComplianceFilters &&
-        accountId == other.accountId &&
-        awsRegion == other.awsRegion &&
+        conformancePackName == other.conformancePackName &&
         complianceType == other.complianceType &&
-        conformancePackName == other.conformancePackName;
+        accountId == other.accountId &&
+        awsRegion == other.awsRegion;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, conformancePackName.hashCode);
+    _$hash = $jc(_$hash, complianceType.hashCode);
     _$hash = $jc(_$hash, accountId.hashCode);
     _$hash = $jc(_$hash, awsRegion.hashCode);
-    _$hash = $jc(_$hash, complianceType.hashCode);
-    _$hash = $jc(_$hash, conformancePackName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,6 +68,17 @@ class AggregateConformancePackComplianceFiltersBuilder
             AggregateConformancePackComplianceFiltersBuilder> {
   _$AggregateConformancePackComplianceFilters? _$v;
 
+  String? _conformancePackName;
+  String? get conformancePackName => _$this._conformancePackName;
+  set conformancePackName(String? conformancePackName) =>
+      _$this._conformancePackName = conformancePackName;
+
+  _i2.ConformancePackComplianceType? _complianceType;
+  _i2.ConformancePackComplianceType? get complianceType =>
+      _$this._complianceType;
+  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+      _$this._complianceType = complianceType;
+
   String? _accountId;
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
@@ -76,17 +87,6 @@ class AggregateConformancePackComplianceFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
-      _$this._complianceType = complianceType;
-
-  String? _conformancePackName;
-  String? get conformancePackName => _$this._conformancePackName;
-  set conformancePackName(String? conformancePackName) =>
-      _$this._conformancePackName = conformancePackName;
-
   AggregateConformancePackComplianceFiltersBuilder() {
     AggregateConformancePackComplianceFilters._init(this);
   }
@@ -94,10 +94,10 @@ class AggregateConformancePackComplianceFiltersBuilder
   AggregateConformancePackComplianceFiltersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _conformancePackName = $v.conformancePackName;
+      _complianceType = $v.complianceType;
       _accountId = $v.accountId;
       _awsRegion = $v.awsRegion;
-      _complianceType = $v.complianceType;
-      _conformancePackName = $v.conformancePackName;
       _$v = null;
     }
     return this;
@@ -122,10 +122,10 @@ class AggregateConformancePackComplianceFiltersBuilder
   _$AggregateConformancePackComplianceFilters _build() {
     final _$result = _$v ??
         new _$AggregateConformancePackComplianceFilters._(
-            accountId: accountId,
-            awsRegion: awsRegion,
+            conformancePackName: conformancePackName,
             complianceType: complianceType,
-            conformancePackName: conformancePackName);
+            accountId: accountId,
+            awsRegion: awsRegion);
     replace(_$result);
     return _$result;
   }

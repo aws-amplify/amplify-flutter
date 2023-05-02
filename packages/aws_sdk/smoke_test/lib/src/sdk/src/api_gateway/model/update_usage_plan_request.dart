@@ -23,13 +23,13 @@ abstract class UpdateUsagePlanRequest
         _i1.HasPayload<UpdateUsagePlanRequestPayload> {
   /// The PATCH request to update a usage plan of a given plan Id.
   factory UpdateUsagePlanRequest({
-    List<_i3.PatchOperation>? patchOperations,
     required String usagePlanId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateUsagePlanRequest._(
+      usagePlanId: usagePlanId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -61,11 +61,11 @@ abstract class UpdateUsagePlanRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUsagePlanRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
   /// The Id of the to-be-updated usage plan.
   String get usagePlanId;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -87,19 +87,19 @@ abstract class UpdateUsagePlanRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
         usagePlanId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
-    );
-    helper.add(
       'usagePlanId',
       usagePlanId,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

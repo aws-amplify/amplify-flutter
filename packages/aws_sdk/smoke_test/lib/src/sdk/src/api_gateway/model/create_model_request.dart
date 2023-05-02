@@ -20,18 +20,18 @@ abstract class CreateModelRequest
         _i1.HasPayload<CreateModelRequestPayload> {
   /// Request to add a new Model to an existing RestApi resource.
   factory CreateModelRequest({
-    required String contentType,
-    String? description,
-    required String name,
     required String restApiId,
+    required String name,
+    String? description,
     String? schema,
+    required String contentType,
   }) {
     return _$CreateModelRequest._(
-      contentType: contentType,
-      description: description,
-      name: name,
       restApiId: restApiId,
+      name: name,
+      description: description,
       schema: schema,
+      contentType: contentType,
     );
   }
 
@@ -64,20 +64,20 @@ abstract class CreateModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateModelRequestBuilder b) {}
 
-  /// The content-type for the model.
-  String get contentType;
-
-  /// The description of the model.
-  String? get description;
+  /// The RestApi identifier under which the Model will be created.
+  String get restApiId;
 
   /// The name of the model. Must be alphanumeric.
   String get name;
 
-  /// The RestApi identifier under which the Model will be created.
-  String get restApiId;
+  /// The description of the model.
+  String? get description;
 
   /// The schema for the model. For `application/json` models, this should be JSON schema draft 4 model.
   String? get schema;
+
+  /// The content-type for the model.
+  String get contentType;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -99,34 +99,34 @@ abstract class CreateModelRequest
       });
   @override
   List<Object?> get props => [
-        contentType,
-        description,
-        name,
         restApiId,
+        name,
+        description,
         schema,
+        contentType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateModelRequest');
     helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'description',
-      description,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'name',
       name,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'description',
+      description,
     );
     helper.add(
       'schema',
       schema,
+    );
+    helper.add(
+      'contentType',
+      contentType,
     );
     return helper.toString();
   }

@@ -9,9 +9,9 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
+    as _i3;
 
 part 'usage_plan.g.dart';
 
@@ -21,24 +21,24 @@ abstract class UsagePlan
     implements Built<UsagePlan, UsagePlanBuilder> {
   /// Represents a usage plan used to specify who can assess associated API stages. Optionally, target request rate and quota limits can be set. In some cases clients can exceed the targets that you set. Don’t rely on usage plans to control costs. Consider using [Amazon Web Services Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) to monitor costs and [WAF](https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html) to manage API requests.
   factory UsagePlan({
-    List<_i2.ApiStage>? apiStages,
-    String? description,
     String? id,
     String? name,
+    String? description,
+    List<_i2.ApiStage>? apiStages,
+    _i3.ThrottleSettings? throttle,
+    _i4.QuotaSettings? quota,
     String? productCode,
-    _i3.QuotaSettings? quota,
     Map<String, String>? tags,
-    _i4.ThrottleSettings? throttle,
   }) {
     return _$UsagePlan._(
-      apiStages: apiStages == null ? null : _i5.BuiltList(apiStages),
-      description: description,
       id: id,
       name: name,
-      productCode: productCode,
-      quota: quota,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      description: description,
+      apiStages: apiStages == null ? null : _i5.BuiltList(apiStages),
       throttle: throttle,
+      quota: quota,
+      productCode: productCode,
+      tags: tags == null ? null : _i5.BuiltMap(tags),
     );
   }
 
@@ -62,51 +62,43 @@ abstract class UsagePlan
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsagePlanBuilder b) {}
 
-  /// The associated API stages of a usage plan.
-  _i5.BuiltList<_i2.ApiStage>? get apiStages;
-
-  /// The description of a usage plan.
-  String? get description;
-
   /// The identifier of a UsagePlan resource.
   String? get id;
 
   /// The name of a usage plan.
   String? get name;
 
+  /// The description of a usage plan.
+  String? get description;
+
+  /// The associated API stages of a usage plan.
+  _i5.BuiltList<_i2.ApiStage>? get apiStages;
+
+  /// A map containing method level throttling information for API stage in a usage plan.
+  _i3.ThrottleSettings? get throttle;
+
+  /// The target maximum number of permitted requests per a given unit time interval.
+  _i4.QuotaSettings? get quota;
+
   /// The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
   String? get productCode;
 
-  /// The target maximum number of permitted requests per a given unit time interval.
-  _i3.QuotaSettings? get quota;
-
   /// The collection of tags. Each tag element is associated with a given resource.
   _i5.BuiltMap<String, String>? get tags;
-
-  /// A map containing method level throttling information for API stage in a usage plan.
-  _i4.ThrottleSettings? get throttle;
   @override
   List<Object?> get props => [
-        apiStages,
-        description,
         id,
         name,
-        productCode,
-        quota,
-        tags,
+        description,
+        apiStages,
         throttle,
+        quota,
+        productCode,
+        tags,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UsagePlan');
-    helper.add(
-      'apiStages',
-      apiStages,
-    );
-    helper.add(
-      'description',
-      description,
-    );
     helper.add(
       'id',
       id,
@@ -116,20 +108,28 @@ abstract class UsagePlan
       name,
     );
     helper.add(
-      'productCode',
-      productCode,
+      'description',
+      description,
+    );
+    helper.add(
+      'apiStages',
+      apiStages,
+    );
+    helper.add(
+      'throttle',
+      throttle,
     );
     helper.add(
       'quota',
       quota,
     );
     helper.add(
-      'tags',
-      tags,
+      'productCode',
+      productCode,
     );
     helper.add(
-      'throttle',
-      throttle,
+      'tags',
+      tags,
     );
     return helper.toString();
   }
@@ -211,8 +211,8 @@ class UsagePlanRestJson1Serializer
           if (value != null) {
             result.quota.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.QuotaSettings),
-            ) as _i3.QuotaSettings));
+              specifiedType: const FullType(_i4.QuotaSettings),
+            ) as _i4.QuotaSettings));
           }
           break;
         case 'tags':
@@ -233,8 +233,8 @@ class UsagePlanRestJson1Serializer
           if (value != null) {
             result.throttle.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.ThrottleSettings),
-            ) as _i4.ThrottleSettings));
+              specifiedType: const FullType(_i3.ThrottleSettings),
+            ) as _i3.ThrottleSettings));
           }
           break;
       }
@@ -299,7 +299,7 @@ class UsagePlanRestJson1Serializer
         ..add('quota')
         ..add(serializers.serialize(
           payload.quota!,
-          specifiedType: const FullType(_i3.QuotaSettings),
+          specifiedType: const FullType(_i4.QuotaSettings),
         ));
     }
     if (payload.tags != null) {
@@ -321,7 +321,7 @@ class UsagePlanRestJson1Serializer
         ..add('throttle')
         ..add(serializers.serialize(
           payload.throttle!,
-          specifiedType: const FullType(_i4.ThrottleSettings),
+          specifiedType: const FullType(_i3.ThrottleSettings),
         ));
     }
     return result;

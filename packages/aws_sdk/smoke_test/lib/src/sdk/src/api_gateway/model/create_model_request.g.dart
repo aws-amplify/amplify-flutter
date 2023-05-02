@@ -8,32 +8,32 @@ part of smoke_test.api_gateway.model.create_model_request;
 
 class _$CreateModelRequest extends CreateModelRequest {
   @override
-  final String contentType;
-  @override
-  final String? description;
+  final String restApiId;
   @override
   final String name;
   @override
-  final String restApiId;
+  final String? description;
   @override
   final String? schema;
+  @override
+  final String contentType;
 
   factory _$CreateModelRequest(
           [void Function(CreateModelRequestBuilder)? updates]) =>
       (new CreateModelRequestBuilder()..update(updates))._build();
 
   _$CreateModelRequest._(
-      {required this.contentType,
-      this.description,
+      {required this.restApiId,
       required this.name,
-      required this.restApiId,
-      this.schema})
+      this.description,
+      this.schema,
+      required this.contentType})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        contentType, r'CreateModelRequest', 'contentType');
+        restApiId, r'CreateModelRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(name, r'CreateModelRequest', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'CreateModelRequest', 'restApiId');
+        contentType, r'CreateModelRequest', 'contentType');
   }
 
   @override
@@ -49,21 +49,21 @@ class _$CreateModelRequest extends CreateModelRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateModelRequest &&
-        contentType == other.contentType &&
-        description == other.description &&
-        name == other.name &&
         restApiId == other.restApiId &&
-        schema == other.schema;
+        name == other.name &&
+        description == other.description &&
+        schema == other.schema &&
+        contentType == other.contentType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contentType.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, schema.hashCode);
+    _$hash = $jc(_$hash, contentType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,25 +73,25 @@ class CreateModelRequestBuilder
     implements Builder<CreateModelRequest, CreateModelRequestBuilder> {
   _$CreateModelRequest? _$v;
 
-  String? _contentType;
-  String? get contentType => _$this._contentType;
-  set contentType(String? contentType) => _$this._contentType = contentType;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   String? _schema;
   String? get schema => _$this._schema;
   set schema(String? schema) => _$this._schema = schema;
+
+  String? _contentType;
+  String? get contentType => _$this._contentType;
+  set contentType(String? contentType) => _$this._contentType = contentType;
 
   CreateModelRequestBuilder() {
     CreateModelRequest._init(this);
@@ -100,11 +100,11 @@ class CreateModelRequestBuilder
   CreateModelRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contentType = $v.contentType;
-      _description = $v.description;
-      _name = $v.name;
       _restApiId = $v.restApiId;
+      _name = $v.name;
+      _description = $v.description;
       _schema = $v.schema;
+      _contentType = $v.contentType;
       _$v = null;
     }
     return this;
@@ -127,14 +127,14 @@ class CreateModelRequestBuilder
   _$CreateModelRequest _build() {
     final _$result = _$v ??
         new _$CreateModelRequest._(
-            contentType: BuiltValueNullFieldError.checkNotNull(
-                contentType, r'CreateModelRequest', 'contentType'),
-            description: description,
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'CreateModelRequest', 'name'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
                 restApiId, r'CreateModelRequest', 'restApiId'),
-            schema: schema);
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'CreateModelRequest', 'name'),
+            description: description,
+            schema: schema,
+            contentType: BuiltValueNullFieldError.checkNotNull(
+                contentType, r'CreateModelRequest', 'contentType'));
     replace(_$result);
     return _$result;
   }

@@ -50,7 +50,9 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
   @override
   Library generate() {
-    if (_httpOperations.isNotEmpty) {
+    final isAwsQuery =
+        context.serviceProtocols.whereType<AwsQueryTrait>().isNotEmpty;
+    if (_httpOperations.isNotEmpty && !isAwsQuery) {
       builder
         ..name = context.serviceClientLibrary.libraryName
         ..body.addAll([

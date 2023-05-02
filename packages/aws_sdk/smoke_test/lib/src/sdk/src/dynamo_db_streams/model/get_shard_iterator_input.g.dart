@@ -8,30 +8,30 @@ part of smoke_test.dynamo_db_streams.model.get_shard_iterator_input;
 
 class _$GetShardIteratorInput extends GetShardIteratorInput {
   @override
-  final String? sequenceNumber;
+  final String streamArn;
   @override
   final String shardId;
   @override
   final _i3.ShardIteratorType shardIteratorType;
   @override
-  final String streamArn;
+  final String? sequenceNumber;
 
   factory _$GetShardIteratorInput(
           [void Function(GetShardIteratorInputBuilder)? updates]) =>
       (new GetShardIteratorInputBuilder()..update(updates))._build();
 
   _$GetShardIteratorInput._(
-      {this.sequenceNumber,
+      {required this.streamArn,
       required this.shardId,
       required this.shardIteratorType,
-      required this.streamArn})
+      this.sequenceNumber})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        streamArn, r'GetShardIteratorInput', 'streamArn');
     BuiltValueNullFieldError.checkNotNull(
         shardId, r'GetShardIteratorInput', 'shardId');
     BuiltValueNullFieldError.checkNotNull(
         shardIteratorType, r'GetShardIteratorInput', 'shardIteratorType');
-    BuiltValueNullFieldError.checkNotNull(
-        streamArn, r'GetShardIteratorInput', 'streamArn');
   }
 
   @override
@@ -47,19 +47,19 @@ class _$GetShardIteratorInput extends GetShardIteratorInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetShardIteratorInput &&
-        sequenceNumber == other.sequenceNumber &&
+        streamArn == other.streamArn &&
         shardId == other.shardId &&
         shardIteratorType == other.shardIteratorType &&
-        streamArn == other.streamArn;
+        sequenceNumber == other.sequenceNumber;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, sequenceNumber.hashCode);
+    _$hash = $jc(_$hash, streamArn.hashCode);
     _$hash = $jc(_$hash, shardId.hashCode);
     _$hash = $jc(_$hash, shardIteratorType.hashCode);
-    _$hash = $jc(_$hash, streamArn.hashCode);
+    _$hash = $jc(_$hash, sequenceNumber.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,10 +69,9 @@ class GetShardIteratorInputBuilder
     implements Builder<GetShardIteratorInput, GetShardIteratorInputBuilder> {
   _$GetShardIteratorInput? _$v;
 
-  String? _sequenceNumber;
-  String? get sequenceNumber => _$this._sequenceNumber;
-  set sequenceNumber(String? sequenceNumber) =>
-      _$this._sequenceNumber = sequenceNumber;
+  String? _streamArn;
+  String? get streamArn => _$this._streamArn;
+  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
   String? _shardId;
   String? get shardId => _$this._shardId;
@@ -83,9 +82,10 @@ class GetShardIteratorInputBuilder
   set shardIteratorType(_i3.ShardIteratorType? shardIteratorType) =>
       _$this._shardIteratorType = shardIteratorType;
 
-  String? _streamArn;
-  String? get streamArn => _$this._streamArn;
-  set streamArn(String? streamArn) => _$this._streamArn = streamArn;
+  String? _sequenceNumber;
+  String? get sequenceNumber => _$this._sequenceNumber;
+  set sequenceNumber(String? sequenceNumber) =>
+      _$this._sequenceNumber = sequenceNumber;
 
   GetShardIteratorInputBuilder() {
     GetShardIteratorInput._init(this);
@@ -94,10 +94,10 @@ class GetShardIteratorInputBuilder
   GetShardIteratorInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _sequenceNumber = $v.sequenceNumber;
+      _streamArn = $v.streamArn;
       _shardId = $v.shardId;
       _shardIteratorType = $v.shardIteratorType;
-      _streamArn = $v.streamArn;
+      _sequenceNumber = $v.sequenceNumber;
       _$v = null;
     }
     return this;
@@ -120,15 +120,15 @@ class GetShardIteratorInputBuilder
   _$GetShardIteratorInput _build() {
     final _$result = _$v ??
         new _$GetShardIteratorInput._(
-            sequenceNumber: sequenceNumber,
+            streamArn: BuiltValueNullFieldError.checkNotNull(
+                streamArn, r'GetShardIteratorInput', 'streamArn'),
             shardId: BuiltValueNullFieldError.checkNotNull(
                 shardId, r'GetShardIteratorInput', 'shardId'),
             shardIteratorType: BuiltValueNullFieldError.checkNotNull(
                 shardIteratorType,
                 r'GetShardIteratorInput',
                 'shardIteratorType'),
-            streamArn: BuiltValueNullFieldError.checkNotNull(
-                streamArn, r'GetShardIteratorInput', 'streamArn'));
+            sequenceNumber: sequenceNumber);
     replace(_$result);
     return _$result;
   }

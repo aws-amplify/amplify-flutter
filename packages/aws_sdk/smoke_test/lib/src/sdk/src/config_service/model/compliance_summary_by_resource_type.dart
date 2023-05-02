@@ -20,12 +20,12 @@ abstract class ComplianceSummaryByResourceType
             ComplianceSummaryByResourceTypeBuilder> {
   /// The number of Amazon Web Services resources of a specific type that are compliant or noncompliant, up to a maximum of 100 for each.
   factory ComplianceSummaryByResourceType({
-    _i2.ComplianceSummary? complianceSummary,
     String? resourceType,
+    _i2.ComplianceSummary? complianceSummary,
   }) {
     return _$ComplianceSummaryByResourceType._(
-      complianceSummary: complianceSummary,
       resourceType: resourceType,
+      complianceSummary: complianceSummary,
     );
   }
 
@@ -43,27 +43,27 @@ abstract class ComplianceSummaryByResourceType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplianceSummaryByResourceTypeBuilder b) {}
 
-  /// The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
-  _i2.ComplianceSummary? get complianceSummary;
-
   /// The type of Amazon Web Services resource.
   String? get resourceType;
+
+  /// The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
+  _i2.ComplianceSummary? get complianceSummary;
   @override
   List<Object?> get props => [
-        complianceSummary,
         resourceType,
+        complianceSummary,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ComplianceSummaryByResourceType');
     helper.add(
-      'complianceSummary',
-      complianceSummary,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'complianceSummary',
+      complianceSummary,
     );
     return helper.toString();
   }
@@ -99,20 +99,20 @@ class ComplianceSummaryByResourceTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceSummary),
-            ) as _i2.ComplianceSummary));
-          }
-          break;
         case 'ResourceType':
           if (value != null) {
             result.resourceType = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ComplianceSummary':
+          if (value != null) {
+            result.complianceSummary.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ComplianceSummary),
+            ) as _i2.ComplianceSummary));
           }
           break;
       }
@@ -129,20 +129,20 @@ class ComplianceSummaryByResourceTypeAwsJson11Serializer
   }) {
     final payload = (object as ComplianceSummaryByResourceType);
     final result = <Object?>[];
-    if (payload.complianceSummary != null) {
-      result
-        ..add('ComplianceSummary')
-        ..add(serializers.serialize(
-          payload.complianceSummary!,
-          specifiedType: const FullType(_i2.ComplianceSummary),
-        ));
-    }
     if (payload.resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
           payload.resourceType!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.complianceSummary != null) {
+      result
+        ..add('ComplianceSummary')
+        ..add(serializers.serialize(
+          payload.complianceSummary!,
+          specifiedType: const FullType(_i2.ComplianceSummary),
         ));
     }
     return result;

@@ -18,15 +18,15 @@ abstract class MalformedEnumInput
     with _i1.HttpInput<MalformedEnumInput>, _i2.AWSEquatable<MalformedEnumInput>
     implements Built<MalformedEnumInput, MalformedEnumInputBuilder> {
   factory MalformedEnumInput({
+    _i3.EnumString? string,
     List<_i3.EnumString>? list,
     Map<_i3.EnumString, _i3.EnumString>? map,
-    _i3.EnumString? string,
     _i4.EnumUnion? union,
   }) {
     return _$MalformedEnumInput._(
+      string: string,
       list: list == null ? null : _i5.BuiltList(list),
       map: map == null ? null : _i5.BuiltMap(map),
-      string: string,
       union: union,
     );
   }
@@ -50,22 +50,26 @@ abstract class MalformedEnumInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedEnumInputBuilder b) {}
+  _i3.EnumString? get string;
   _i5.BuiltList<_i3.EnumString>? get list;
   _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? get map;
-  _i3.EnumString? get string;
   _i4.EnumUnion? get union;
   @override
   MalformedEnumInput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         list,
         map,
-        string,
         union,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedEnumInput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'list',
       list,
@@ -73,10 +77,6 @@ abstract class MalformedEnumInput
     helper.add(
       'map',
       map,
-    );
-    helper.add(
-      'string',
-      string,
     );
     helper.add(
       'union',

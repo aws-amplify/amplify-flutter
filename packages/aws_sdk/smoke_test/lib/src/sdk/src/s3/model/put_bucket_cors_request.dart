@@ -22,16 +22,16 @@ abstract class PutBucketCorsRequest
         _i1.HasPayload<_i2.CorsConfiguration> {
   factory PutBucketCorsRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? contentMd5,
     required _i2.CorsConfiguration corsConfiguration,
+    String? contentMd5,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketCorsRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
-      contentMd5: contentMd5,
       corsConfiguration: corsConfiguration,
+      contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
       expectedBucketOwner: expectedBucketOwner,
     );
   }
@@ -75,18 +75,18 @@ abstract class PutBucketCorsRequest
   /// Specifies the bucket impacted by the `cors`configuration.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  /// Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
+  _i2.CorsConfiguration get corsConfiguration;
 
   /// The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify that the request body was not corrupted in transit. For more information, go to [RFC 1864.](http://www.ietf.org/rfc/rfc1864.txt)
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
-  _i2.CorsConfiguration get corsConfiguration;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -107,9 +107,9 @@ abstract class PutBucketCorsRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
-        contentMd5,
         corsConfiguration,
+        contentMd5,
+        checksumAlgorithm,
         expectedBucketOwner,
       ];
   @override
@@ -120,16 +120,16 @@ abstract class PutBucketCorsRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
+      'corsConfiguration',
+      corsConfiguration,
     );
     helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'corsConfiguration',
-      corsConfiguration,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'expectedBucketOwner',

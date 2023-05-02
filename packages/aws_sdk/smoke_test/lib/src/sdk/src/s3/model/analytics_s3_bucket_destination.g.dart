@@ -8,11 +8,11 @@ part of smoke_test.s3.model.analytics_s3_bucket_destination;
 
 class _$AnalyticsS3BucketDestination extends AnalyticsS3BucketDestination {
   @override
-  final String bucket;
+  final _i2.AnalyticsS3ExportFileFormat format;
   @override
   final String? bucketAccountId;
   @override
-  final _i2.AnalyticsS3ExportFileFormat format;
+  final String bucket;
   @override
   final String? prefix;
 
@@ -21,15 +21,15 @@ class _$AnalyticsS3BucketDestination extends AnalyticsS3BucketDestination {
       (new AnalyticsS3BucketDestinationBuilder()..update(updates))._build();
 
   _$AnalyticsS3BucketDestination._(
-      {required this.bucket,
+      {required this.format,
       this.bucketAccountId,
-      required this.format,
+      required this.bucket,
       this.prefix})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        bucket, r'AnalyticsS3BucketDestination', 'bucket');
-    BuiltValueNullFieldError.checkNotNull(
         format, r'AnalyticsS3BucketDestination', 'format');
+    BuiltValueNullFieldError.checkNotNull(
+        bucket, r'AnalyticsS3BucketDestination', 'bucket');
   }
 
   @override
@@ -45,18 +45,18 @@ class _$AnalyticsS3BucketDestination extends AnalyticsS3BucketDestination {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AnalyticsS3BucketDestination &&
-        bucket == other.bucket &&
-        bucketAccountId == other.bucketAccountId &&
         format == other.format &&
+        bucketAccountId == other.bucketAccountId &&
+        bucket == other.bucket &&
         prefix == other.prefix;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bucketAccountId.hashCode);
     _$hash = $jc(_$hash, format.hashCode);
+    _$hash = $jc(_$hash, bucketAccountId.hashCode);
+    _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -69,19 +69,19 @@ class AnalyticsS3BucketDestinationBuilder
             AnalyticsS3BucketDestinationBuilder> {
   _$AnalyticsS3BucketDestination? _$v;
 
-  String? _bucket;
-  String? get bucket => _$this._bucket;
-  set bucket(String? bucket) => _$this._bucket = bucket;
+  _i2.AnalyticsS3ExportFileFormat? _format;
+  _i2.AnalyticsS3ExportFileFormat? get format => _$this._format;
+  set format(_i2.AnalyticsS3ExportFileFormat? format) =>
+      _$this._format = format;
 
   String? _bucketAccountId;
   String? get bucketAccountId => _$this._bucketAccountId;
   set bucketAccountId(String? bucketAccountId) =>
       _$this._bucketAccountId = bucketAccountId;
 
-  _i2.AnalyticsS3ExportFileFormat? _format;
-  _i2.AnalyticsS3ExportFileFormat? get format => _$this._format;
-  set format(_i2.AnalyticsS3ExportFileFormat? format) =>
-      _$this._format = format;
+  String? _bucket;
+  String? get bucket => _$this._bucket;
+  set bucket(String? bucket) => _$this._bucket = bucket;
 
   String? _prefix;
   String? get prefix => _$this._prefix;
@@ -94,9 +94,9 @@ class AnalyticsS3BucketDestinationBuilder
   AnalyticsS3BucketDestinationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _bucket = $v.bucket;
-      _bucketAccountId = $v.bucketAccountId;
       _format = $v.format;
+      _bucketAccountId = $v.bucketAccountId;
+      _bucket = $v.bucket;
       _prefix = $v.prefix;
       _$v = null;
     }
@@ -120,11 +120,11 @@ class AnalyticsS3BucketDestinationBuilder
   _$AnalyticsS3BucketDestination _build() {
     final _$result = _$v ??
         new _$AnalyticsS3BucketDestination._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'AnalyticsS3BucketDestination', 'bucket'),
-            bucketAccountId: bucketAccountId,
             format: BuiltValueNullFieldError.checkNotNull(
                 format, r'AnalyticsS3BucketDestination', 'format'),
+            bucketAccountId: bucketAccountId,
+            bucket: BuiltValueNullFieldError.checkNotNull(
+                bucket, r'AnalyticsS3BucketDestination', 'bucket'),
             prefix: prefix);
     replace(_$result);
     return _$result;

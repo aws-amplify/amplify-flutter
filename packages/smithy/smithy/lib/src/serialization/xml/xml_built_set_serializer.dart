@@ -12,11 +12,13 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet> {
     this.memberName = 'member',
     this.memberNamespace,
     this.flattened = false,
-  });
+    XmlIndexer? indexer,
+  }) : indexer = indexer ?? XmlIndexer.none;
 
   final String memberName;
   final XmlNamespace? memberNamespace;
   final bool flattened;
+  final XmlIndexer indexer;
 
   @override
   Iterable<Type> get types => [BuiltSet, BuiltSet<Object>().runtimeType];
@@ -35,13 +37,17 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet> {
         ? FullType.unspecified
         : specifiedType.parameters[0];
 
-    return builtSet.expand((Object? item) {
+    return builtSet.expandIndexed((index, Object? item) {
       var value = serializers.serialize(item, specifiedType: elementType);
       // Nested structures are always unwrapped.
       if (value is XmlElement) {
         value = value.children;
       }
-      return [XmlElementName(memberName, memberNamespace), value];
+      final elementName = indexer.elementName(memberName, index);
+      return [
+        XmlElementName(elementName, memberNamespace),
+        value,
+      ];
     });
   }
 

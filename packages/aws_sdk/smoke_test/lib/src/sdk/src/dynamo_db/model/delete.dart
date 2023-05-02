@@ -20,15 +20,17 @@ abstract class Delete
     implements Built<Delete, DeleteBuilder> {
   /// Represents a request to perform a `DeleteItem` operation.
   factory Delete({
+    required Map<String, _i2.AttributeValue> key,
+    required String tableName,
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
     Map<String, _i2.AttributeValue>? expressionAttributeValues,
-    required Map<String, _i2.AttributeValue> key,
     _i3.ReturnValuesOnConditionCheckFailure?
         returnValuesOnConditionCheckFailure,
-    required String tableName,
   }) {
     return _$Delete._(
+      key: _i4.BuiltMap(key),
+      tableName: tableName,
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
@@ -36,9 +38,7 @@ abstract class Delete
       expressionAttributeValues: expressionAttributeValues == null
           ? null
           : _i4.BuiltMap(expressionAttributeValues),
-      key: _i4.BuiltMap(key),
       returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
-      tableName: tableName,
     );
   }
 
@@ -54,6 +54,12 @@ abstract class Delete
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteBuilder b) {}
 
+  /// The primary key of the item to be deleted. Each element consists of an attribute name and a value for that attribute.
+  _i4.BuiltMap<String, _i2.AttributeValue> get key;
+
+  /// Name of the table in which the item to be deleted resides.
+  String get tableName;
+
   /// A condition that must be satisfied in order for a conditional delete to succeed.
   String? get conditionExpression;
 
@@ -63,27 +69,29 @@ abstract class Delete
   /// One or more values that can be substituted in an expression.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
-  /// The primary key of the item to be deleted. Each element consists of an attribute name and a value for that attribute.
-  _i4.BuiltMap<String, _i2.AttributeValue> get key;
-
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Delete` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure;
-
-  /// Name of the table in which the item to be deleted resides.
-  String get tableName;
   @override
   List<Object?> get props => [
+        key,
+        tableName,
         conditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
-        key,
         returnValuesOnConditionCheckFailure,
-        tableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Delete');
+    helper.add(
+      'key',
+      key,
+    );
+    helper.add(
+      'tableName',
+      tableName,
+    );
     helper.add(
       'conditionExpression',
       conditionExpression,
@@ -97,16 +105,8 @@ abstract class Delete
       expressionAttributeValues,
     );
     helper.add(
-      'key',
-      key,
-    );
-    helper.add(
       'returnValuesOnConditionCheckFailure',
       returnValuesOnConditionCheckFailure,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     return helper.toString();
   }
@@ -140,6 +140,24 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Key':
+          result.key.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          break;
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ConditionExpression':
           if (value != null) {
             result.conditionExpression = (serializers.deserialize(
@@ -176,18 +194,6 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
             ) as _i4.BuiltMap<String, _i2.AttributeValue>));
           }
           break;
-        case 'Key':
-          result.key.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(_i2.AttributeValue),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          break;
         case 'ReturnValuesOnConditionCheckFailure':
           if (value != null) {
             result.returnValuesOnConditionCheckFailure =
@@ -197,12 +203,6 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
                   const FullType(_i3.ReturnValuesOnConditionCheckFailure),
             ) as _i3.ReturnValuesOnConditionCheckFailure);
           }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

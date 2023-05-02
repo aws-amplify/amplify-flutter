@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db.model.failure_exception;
 
 class _$FailureException extends FailureException {
   @override
-  final String? exceptionDescription;
-  @override
   final String? exceptionName;
+  @override
+  final String? exceptionDescription;
 
   factory _$FailureException(
           [void Function(FailureExceptionBuilder)? updates]) =>
       (new FailureExceptionBuilder()..update(updates))._build();
 
-  _$FailureException._({this.exceptionDescription, this.exceptionName})
+  _$FailureException._({this.exceptionName, this.exceptionDescription})
       : super._();
 
   @override
@@ -31,15 +31,15 @@ class _$FailureException extends FailureException {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is FailureException &&
-        exceptionDescription == other.exceptionDescription &&
-        exceptionName == other.exceptionName;
+        exceptionName == other.exceptionName &&
+        exceptionDescription == other.exceptionDescription;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, exceptionDescription.hashCode);
     _$hash = $jc(_$hash, exceptionName.hashCode);
+    _$hash = $jc(_$hash, exceptionDescription.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -49,15 +49,15 @@ class FailureExceptionBuilder
     implements Builder<FailureException, FailureExceptionBuilder> {
   _$FailureException? _$v;
 
-  String? _exceptionDescription;
-  String? get exceptionDescription => _$this._exceptionDescription;
-  set exceptionDescription(String? exceptionDescription) =>
-      _$this._exceptionDescription = exceptionDescription;
-
   String? _exceptionName;
   String? get exceptionName => _$this._exceptionName;
   set exceptionName(String? exceptionName) =>
       _$this._exceptionName = exceptionName;
+
+  String? _exceptionDescription;
+  String? get exceptionDescription => _$this._exceptionDescription;
+  set exceptionDescription(String? exceptionDescription) =>
+      _$this._exceptionDescription = exceptionDescription;
 
   FailureExceptionBuilder() {
     FailureException._init(this);
@@ -66,8 +66,8 @@ class FailureExceptionBuilder
   FailureExceptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _exceptionDescription = $v.exceptionDescription;
       _exceptionName = $v.exceptionName;
+      _exceptionDescription = $v.exceptionDescription;
       _$v = null;
     }
     return this;
@@ -90,8 +90,8 @@ class FailureExceptionBuilder
   _$FailureException _build() {
     final _$result = _$v ??
         new _$FailureException._(
-            exceptionDescription: exceptionDescription,
-            exceptionName: exceptionName);
+            exceptionName: exceptionName,
+            exceptionDescription: exceptionDescription);
     replace(_$result);
     return _$result;
   }

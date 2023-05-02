@@ -7,10 +7,10 @@ import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/index_document.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/redirect_all_requests_to.dart'
-    as _i4;
+    as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart' as _i5;
 
 part 'get_bucket_website_output.g.dart';
@@ -19,15 +19,15 @@ abstract class GetBucketWebsiteOutput
     with _i1.AWSEquatable<GetBucketWebsiteOutput>
     implements Built<GetBucketWebsiteOutput, GetBucketWebsiteOutputBuilder> {
   factory GetBucketWebsiteOutput({
-    _i2.ErrorDocument? errorDocument,
+    _i2.RedirectAllRequestsTo? redirectAllRequestsTo,
     _i3.IndexDocument? indexDocument,
-    _i4.RedirectAllRequestsTo? redirectAllRequestsTo,
+    _i4.ErrorDocument? errorDocument,
     List<_i5.RoutingRule>? routingRules,
   }) {
     return _$GetBucketWebsiteOutput._(
-      errorDocument: errorDocument,
-      indexDocument: indexDocument,
       redirectAllRequestsTo: redirectAllRequestsTo,
+      indexDocument: indexDocument,
+      errorDocument: errorDocument,
       routingRules: routingRules == null ? null : _i6.BuiltList(routingRules),
     );
   }
@@ -52,38 +52,38 @@ abstract class GetBucketWebsiteOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketWebsiteOutputBuilder b) {}
 
-  /// The object key name of the website error document to use for 4XX class errors.
-  _i2.ErrorDocument? get errorDocument;
+  /// Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3 bucket.
+  _i2.RedirectAllRequestsTo? get redirectAllRequestsTo;
 
   /// The name of the index document for the website (for example `index.html`).
   _i3.IndexDocument? get indexDocument;
 
-  /// Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3 bucket.
-  _i4.RedirectAllRequestsTo? get redirectAllRequestsTo;
+  /// The object key name of the website error document to use for 4XX class errors.
+  _i4.ErrorDocument? get errorDocument;
 
   /// Rules that define when a redirect is applied and the redirect behavior.
   _i6.BuiltList<_i5.RoutingRule>? get routingRules;
   @override
   List<Object?> get props => [
-        errorDocument,
-        indexDocument,
         redirectAllRequestsTo,
+        indexDocument,
+        errorDocument,
         routingRules,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketWebsiteOutput');
     helper.add(
-      'errorDocument',
-      errorDocument,
+      'redirectAllRequestsTo',
+      redirectAllRequestsTo,
     );
     helper.add(
       'indexDocument',
       indexDocument,
     );
     helper.add(
-      'redirectAllRequestsTo',
-      redirectAllRequestsTo,
+      'errorDocument',
+      errorDocument,
     );
     helper.add(
       'routingRules',
@@ -127,8 +127,8 @@ class GetBucketWebsiteOutputRestXmlSerializer
           if (value != null) {
             result.errorDocument.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ErrorDocument),
-            ) as _i2.ErrorDocument));
+              specifiedType: const FullType(_i4.ErrorDocument),
+            ) as _i4.ErrorDocument));
           }
           break;
         case 'IndexDocument':
@@ -143,8 +143,8 @@ class GetBucketWebsiteOutputRestXmlSerializer
           if (value != null) {
             result.redirectAllRequestsTo.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.RedirectAllRequestsTo),
-            ) as _i4.RedirectAllRequestsTo));
+              specifiedType: const FullType(_i2.RedirectAllRequestsTo),
+            ) as _i2.RedirectAllRequestsTo));
           }
           break;
         case 'RoutingRules':
@@ -153,7 +153,7 @@ class GetBucketWebsiteOutputRestXmlSerializer
                 (const _i7.XmlBuiltListSerializer(memberName: 'RoutingRule')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i6.BuiltList,
                 [FullType(_i5.RoutingRule)],
@@ -185,7 +185,7 @@ class GetBucketWebsiteOutputRestXmlSerializer
         ..add(const _i7.XmlElementName('ErrorDocument'))
         ..add(serializers.serialize(
           payload.errorDocument!,
-          specifiedType: const FullType(_i2.ErrorDocument),
+          specifiedType: const FullType(_i4.ErrorDocument),
         ));
     }
     if (payload.indexDocument != null) {
@@ -201,7 +201,7 @@ class GetBucketWebsiteOutputRestXmlSerializer
         ..add(const _i7.XmlElementName('RedirectAllRequestsTo'))
         ..add(serializers.serialize(
           payload.redirectAllRequestsTo!,
-          specifiedType: const FullType(_i4.RedirectAllRequestsTo),
+          specifiedType: const FullType(_i2.RedirectAllRequestsTo),
         ));
     }
     if (payload.routingRules != null) {

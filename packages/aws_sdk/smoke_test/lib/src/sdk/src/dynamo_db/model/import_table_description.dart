@@ -5,18 +5,18 @@ library smoke_test.dynamo_db.model.import_table_description; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i9;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_status.dart'
-    as _i3;
+    as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_compression_type.dart'
-    as _i4;
+    as _i7;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format_options.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart'
-    as _i7;
+    as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_creation_parameters.dart'
     as _i8;
 
@@ -28,46 +28,46 @@ abstract class ImportTableDescription
     implements Built<ImportTableDescription, ImportTableDescriptionBuilder> {
   /// Represents the properties of the table being imported into.
   factory ImportTableDescription({
-    String? clientToken,
-    String? cloudWatchLogGroupArn,
-    DateTime? endTime,
-    _i2.Int64? errorCount,
-    String? failureCode,
-    String? failureMessage,
     String? importArn,
-    _i3.ImportStatus? importStatus,
-    _i2.Int64? importedItemCount,
-    _i4.InputCompressionType? inputCompressionType,
+    _i2.ImportStatus? importStatus,
+    String? tableArn,
+    String? tableId,
+    String? clientToken,
+    _i3.S3BucketSource? s3BucketSource,
+    _i4.Int64? errorCount,
+    String? cloudWatchLogGroupArn,
     _i5.InputFormat? inputFormat,
     _i6.InputFormatOptions? inputFormatOptions,
-    _i2.Int64? processedItemCount,
-    _i2.Int64? processedSizeBytes,
-    _i7.S3BucketSource? s3BucketSource,
-    DateTime? startTime,
-    String? tableArn,
+    _i7.InputCompressionType? inputCompressionType,
     _i8.TableCreationParameters? tableCreationParameters,
-    String? tableId,
+    DateTime? startTime,
+    DateTime? endTime,
+    _i4.Int64? processedSizeBytes,
+    _i4.Int64? processedItemCount,
+    _i4.Int64? importedItemCount,
+    String? failureCode,
+    String? failureMessage,
   }) {
     return _$ImportTableDescription._(
-      clientToken: clientToken,
-      cloudWatchLogGroupArn: cloudWatchLogGroupArn,
-      endTime: endTime,
-      errorCount: errorCount,
-      failureCode: failureCode,
-      failureMessage: failureMessage,
       importArn: importArn,
       importStatus: importStatus,
-      importedItemCount: importedItemCount,
-      inputCompressionType: inputCompressionType,
+      tableArn: tableArn,
+      tableId: tableId,
+      clientToken: clientToken,
+      s3BucketSource: s3BucketSource,
+      errorCount: errorCount,
+      cloudWatchLogGroupArn: cloudWatchLogGroupArn,
       inputFormat: inputFormat,
       inputFormatOptions: inputFormatOptions,
-      processedItemCount: processedItemCount,
-      processedSizeBytes: processedSizeBytes,
-      s3BucketSource: s3BucketSource,
-      startTime: startTime,
-      tableArn: tableArn,
+      inputCompressionType: inputCompressionType,
       tableCreationParameters: tableCreationParameters,
-      tableId: tableId,
+      startTime: startTime,
+      endTime: endTime,
+      processedSizeBytes: processedSizeBytes,
+      processedItemCount: processedItemCount,
+      importedItemCount: importedItemCount,
+      failureCode: failureCode,
+      failureMessage: failureMessage,
     );
   }
 
@@ -85,35 +85,29 @@ abstract class ImportTableDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ImportTableDescriptionBuilder b) {}
 
-  /// The client token that was provided for the import task. Reusing the client token on retry makes a call to `ImportTable` idempotent.
-  String? get clientToken;
-
-  /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with the target table.
-  String? get cloudWatchLogGroupArn;
-
-  /// The time at which the creation of the table associated with this import task completed.
-  DateTime? get endTime;
-
-  /// The number of errors occurred on importing the source file into the target table.
-  _i2.Int64? get errorCount;
-
-  /// The error code corresponding to the failure that the import job ran into during execution.
-  String? get failureCode;
-
-  /// The error message corresponding to the failure that the import job ran into during execution.
-  String? get failureMessage;
-
   /// The Amazon Resource Number (ARN) corresponding to the import request.
   String? get importArn;
 
   /// The status of the import.
-  _i3.ImportStatus? get importStatus;
+  _i2.ImportStatus? get importStatus;
 
-  /// The number of items successfully imported into the new table.
-  _i2.Int64? get importedItemCount;
+  /// The Amazon Resource Number (ARN) of the table being imported into.
+  String? get tableArn;
 
-  /// The compression options for the data that has been imported into the target table. The values are NONE, GZIP, or ZSTD.
-  _i4.InputCompressionType? get inputCompressionType;
+  /// The table id corresponding to the table created by import table process.
+  String? get tableId;
+
+  /// The client token that was provided for the import task. Reusing the client token on retry makes a call to `ImportTable` idempotent.
+  String? get clientToken;
+
+  /// Values for the S3 bucket the source file is imported from. Includes bucket name (required), key prefix (optional) and bucket account owner ID (optional).
+  _i3.S3BucketSource? get s3BucketSource;
+
+  /// The number of errors occurred on importing the source file into the target table.
+  _i4.Int64? get errorCount;
+
+  /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with the target table.
+  String? get cloudWatchLogGroupArn;
 
   /// The format of the source data going into the target table.
   _i5.InputFormat? get inputFormat;
@@ -121,75 +115,57 @@ abstract class ImportTableDescription
   /// The format options for the data that was imported into the target table. There is one value, CsvOption.
   _i6.InputFormatOptions? get inputFormatOptions;
 
-  /// The total number of items processed from the source file.
-  _i2.Int64? get processedItemCount;
-
-  /// The total size of data processed from the source file, in Bytes.
-  _i2.Int64? get processedSizeBytes;
-
-  /// Values for the S3 bucket the source file is imported from. Includes bucket name (required), key prefix (optional) and bucket account owner ID (optional).
-  _i7.S3BucketSource? get s3BucketSource;
-
-  /// The time when this import task started.
-  DateTime? get startTime;
-
-  /// The Amazon Resource Number (ARN) of the table being imported into.
-  String? get tableArn;
+  /// The compression options for the data that has been imported into the target table. The values are NONE, GZIP, or ZSTD.
+  _i7.InputCompressionType? get inputCompressionType;
 
   /// The parameters for the new table that is being imported into.
   _i8.TableCreationParameters? get tableCreationParameters;
 
-  /// The table id corresponding to the table created by import table process.
-  String? get tableId;
+  /// The time when this import task started.
+  DateTime? get startTime;
+
+  /// The time at which the creation of the table associated with this import task completed.
+  DateTime? get endTime;
+
+  /// The total size of data processed from the source file, in Bytes.
+  _i4.Int64? get processedSizeBytes;
+
+  /// The total number of items processed from the source file.
+  _i4.Int64? get processedItemCount;
+
+  /// The number of items successfully imported into the new table.
+  _i4.Int64? get importedItemCount;
+
+  /// The error code corresponding to the failure that the import job ran into during execution.
+  String? get failureCode;
+
+  /// The error message corresponding to the failure that the import job ran into during execution.
+  String? get failureMessage;
   @override
   List<Object?> get props => [
-        clientToken,
-        cloudWatchLogGroupArn,
-        endTime,
-        errorCount,
-        failureCode,
-        failureMessage,
         importArn,
         importStatus,
-        importedItemCount,
-        inputCompressionType,
+        tableArn,
+        tableId,
+        clientToken,
+        s3BucketSource,
+        errorCount,
+        cloudWatchLogGroupArn,
         inputFormat,
         inputFormatOptions,
-        processedItemCount,
-        processedSizeBytes,
-        s3BucketSource,
-        startTime,
-        tableArn,
+        inputCompressionType,
         tableCreationParameters,
-        tableId,
+        startTime,
+        endTime,
+        processedSizeBytes,
+        processedItemCount,
+        importedItemCount,
+        failureCode,
+        failureMessage,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ImportTableDescription');
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      'cloudWatchLogGroupArn',
-      cloudWatchLogGroupArn,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
-    helper.add(
-      'errorCount',
-      errorCount,
-    );
-    helper.add(
-      'failureCode',
-      failureCode,
-    );
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
     helper.add(
       'importArn',
       importArn,
@@ -199,12 +175,28 @@ abstract class ImportTableDescription
       importStatus,
     );
     helper.add(
-      'importedItemCount',
-      importedItemCount,
+      'tableArn',
+      tableArn,
     );
     helper.add(
-      'inputCompressionType',
-      inputCompressionType,
+      'tableId',
+      tableId,
+    );
+    helper.add(
+      'clientToken',
+      clientToken,
+    );
+    helper.add(
+      's3BucketSource',
+      s3BucketSource,
+    );
+    helper.add(
+      'errorCount',
+      errorCount,
+    );
+    helper.add(
+      'cloudWatchLogGroupArn',
+      cloudWatchLogGroupArn,
     );
     helper.add(
       'inputFormat',
@@ -215,32 +207,40 @@ abstract class ImportTableDescription
       inputFormatOptions,
     );
     helper.add(
-      'processedItemCount',
-      processedItemCount,
-    );
-    helper.add(
-      'processedSizeBytes',
-      processedSizeBytes,
-    );
-    helper.add(
-      's3BucketSource',
-      s3BucketSource,
-    );
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
+      'inputCompressionType',
+      inputCompressionType,
     );
     helper.add(
       'tableCreationParameters',
       tableCreationParameters,
     );
     helper.add(
-      'tableId',
-      tableId,
+      'startTime',
+      startTime,
+    );
+    helper.add(
+      'endTime',
+      endTime,
+    );
+    helper.add(
+      'processedSizeBytes',
+      processedSizeBytes,
+    );
+    helper.add(
+      'processedItemCount',
+      processedItemCount,
+    );
+    helper.add(
+      'importedItemCount',
+      importedItemCount,
+    );
+    helper.add(
+      'failureCode',
+      failureCode,
+    );
+    helper.add(
+      'failureMessage',
+      failureMessage,
     );
     return helper.toString();
   }
@@ -276,54 +276,6 @@ class ImportTableDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'CloudWatchLogGroupArn':
-          if (value != null) {
-            result.cloudWatchLogGroupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'EndTime':
-          if (value != null) {
-            result.endTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'ErrorCount':
-          if (value != null) {
-            result.errorCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
-        case 'FailureCode':
-          if (value != null) {
-            result.failureCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ImportArn':
           if (value != null) {
             result.importArn = (serializers.deserialize(
@@ -336,24 +288,56 @@ class ImportTableDescriptionAwsJson10Serializer
           if (value != null) {
             result.importStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.ImportStatus),
-            ) as _i3.ImportStatus);
+              specifiedType: const FullType(_i2.ImportStatus),
+            ) as _i2.ImportStatus);
           }
           break;
-        case 'ImportedItemCount':
+        case 'TableArn':
           if (value != null) {
-            result.importedItemCount = (serializers.deserialize(
+            result.tableArn = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
-        case 'InputCompressionType':
+        case 'TableId':
           if (value != null) {
-            result.inputCompressionType = (serializers.deserialize(
+            result.tableId = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.InputCompressionType),
-            ) as _i4.InputCompressionType);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'ClientToken':
+          if (value != null) {
+            result.clientToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'S3BucketSource':
+          if (value != null) {
+            result.s3BucketSource.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.S3BucketSource),
+            ) as _i3.S3BucketSource));
+          }
+          break;
+        case 'ErrorCount':
+          if (value != null) {
+            result.errorCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
+          break;
+        case 'CloudWatchLogGroupArn':
+          if (value != null) {
+            result.cloudWatchLogGroupArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'InputFormat':
@@ -372,44 +356,12 @@ class ImportTableDescriptionAwsJson10Serializer
             ) as _i6.InputFormatOptions));
           }
           break;
-        case 'ProcessedItemCount':
+        case 'InputCompressionType':
           if (value != null) {
-            result.processedItemCount = (serializers.deserialize(
+            result.inputCompressionType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
-        case 'ProcessedSizeBytes':
-          if (value != null) {
-            result.processedSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
-        case 'S3BucketSource':
-          if (value != null) {
-            result.s3BucketSource.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.S3BucketSource),
-            ) as _i7.S3BucketSource));
-          }
-          break;
-        case 'StartTime':
-          if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i7.InputCompressionType),
+            ) as _i7.InputCompressionType);
           }
           break;
         case 'TableCreationParameters':
@@ -420,9 +372,57 @@ class ImportTableDescriptionAwsJson10Serializer
             ) as _i8.TableCreationParameters));
           }
           break;
-        case 'TableId':
+        case 'StartTime':
           if (value != null) {
-            result.tableId = (serializers.deserialize(
+            result.startTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'EndTime':
+          if (value != null) {
+            result.endTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'ProcessedSizeBytes':
+          if (value != null) {
+            result.processedSizeBytes = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
+          break;
+        case 'ProcessedItemCount':
+          if (value != null) {
+            result.processedItemCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
+          break;
+        case 'ImportedItemCount':
+          if (value != null) {
+            result.importedItemCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.Int64),
+            ) as _i4.Int64);
+          }
+          break;
+        case 'FailureCode':
+          if (value != null) {
+            result.failureCode = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'FailureMessage':
+          if (value != null) {
+            result.failureMessage = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -442,54 +442,6 @@ class ImportTableDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ImportTableDescription);
     final result = <Object?>[];
-    if (payload.clientToken != null) {
-      result
-        ..add('ClientToken')
-        ..add(serializers.serialize(
-          payload.clientToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.cloudWatchLogGroupArn != null) {
-      result
-        ..add('CloudWatchLogGroupArn')
-        ..add(serializers.serialize(
-          payload.cloudWatchLogGroupArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.endTime != null) {
-      result
-        ..add('EndTime')
-        ..add(serializers.serialize(
-          payload.endTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.errorCount != null) {
-      result
-        ..add('ErrorCount')
-        ..add(serializers.serialize(
-          payload.errorCount!,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
-    if (payload.failureCode != null) {
-      result
-        ..add('FailureCode')
-        ..add(serializers.serialize(
-          payload.failureCode!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.importArn != null) {
       result
         ..add('ImportArn')
@@ -503,23 +455,55 @@ class ImportTableDescriptionAwsJson10Serializer
         ..add('ImportStatus')
         ..add(serializers.serialize(
           payload.importStatus!,
-          specifiedType: const FullType(_i3.ImportStatus),
+          specifiedType: const FullType(_i2.ImportStatus),
         ));
     }
-    if (payload.importedItemCount != null) {
+    if (payload.tableArn != null) {
       result
-        ..add('ImportedItemCount')
+        ..add('TableArn')
         ..add(serializers.serialize(
-          payload.importedItemCount!,
-          specifiedType: const FullType(_i2.Int64),
+          payload.tableArn!,
+          specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputCompressionType != null) {
+    if (payload.tableId != null) {
       result
-        ..add('InputCompressionType')
+        ..add('TableId')
         ..add(serializers.serialize(
-          payload.inputCompressionType!,
-          specifiedType: const FullType(_i4.InputCompressionType),
+          payload.tableId!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.clientToken != null) {
+      result
+        ..add('ClientToken')
+        ..add(serializers.serialize(
+          payload.clientToken!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.s3BucketSource != null) {
+      result
+        ..add('S3BucketSource')
+        ..add(serializers.serialize(
+          payload.s3BucketSource!,
+          specifiedType: const FullType(_i3.S3BucketSource),
+        ));
+    }
+    if (payload.errorCount != null) {
+      result
+        ..add('ErrorCount')
+        ..add(serializers.serialize(
+          payload.errorCount!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.cloudWatchLogGroupArn != null) {
+      result
+        ..add('CloudWatchLogGroupArn')
+        ..add(serializers.serialize(
+          payload.cloudWatchLogGroupArn!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.inputFormat != null) {
@@ -538,44 +522,12 @@ class ImportTableDescriptionAwsJson10Serializer
           specifiedType: const FullType(_i6.InputFormatOptions),
         ));
     }
-    if (payload.processedItemCount != null) {
+    if (payload.inputCompressionType != null) {
       result
-        ..add('ProcessedItemCount')
+        ..add('InputCompressionType')
         ..add(serializers.serialize(
-          payload.processedItemCount!,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
-    if (payload.processedSizeBytes != null) {
-      result
-        ..add('ProcessedSizeBytes')
-        ..add(serializers.serialize(
-          payload.processedSizeBytes!,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
-    if (payload.s3BucketSource != null) {
-      result
-        ..add('S3BucketSource')
-        ..add(serializers.serialize(
-          payload.s3BucketSource!,
-          specifiedType: const FullType(_i7.S3BucketSource),
-        ));
-    }
-    if (payload.startTime != null) {
-      result
-        ..add('StartTime')
-        ..add(serializers.serialize(
-          payload.startTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.tableArn != null) {
-      result
-        ..add('TableArn')
-        ..add(serializers.serialize(
-          payload.tableArn!,
-          specifiedType: const FullType(String),
+          payload.inputCompressionType!,
+          specifiedType: const FullType(_i7.InputCompressionType),
         ));
     }
     if (payload.tableCreationParameters != null) {
@@ -586,11 +538,59 @@ class ImportTableDescriptionAwsJson10Serializer
           specifiedType: const FullType(_i8.TableCreationParameters),
         ));
     }
-    if (payload.tableId != null) {
+    if (payload.startTime != null) {
       result
-        ..add('TableId')
+        ..add('StartTime')
         ..add(serializers.serialize(
-          payload.tableId!,
+          payload.startTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.endTime != null) {
+      result
+        ..add('EndTime')
+        ..add(serializers.serialize(
+          payload.endTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.processedSizeBytes != null) {
+      result
+        ..add('ProcessedSizeBytes')
+        ..add(serializers.serialize(
+          payload.processedSizeBytes!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.processedItemCount != null) {
+      result
+        ..add('ProcessedItemCount')
+        ..add(serializers.serialize(
+          payload.processedItemCount!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.importedItemCount != null) {
+      result
+        ..add('ImportedItemCount')
+        ..add(serializers.serialize(
+          payload.importedItemCount!,
+          specifiedType: const FullType(_i4.Int64),
+        ));
+    }
+    if (payload.failureCode != null) {
+      result
+        ..add('FailureCode')
+        ..add(serializers.serialize(
+          payload.failureCode!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.failureMessage != null) {
+      result
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          payload.failureMessage!,
           specifiedType: const FullType(String),
         ));
     }

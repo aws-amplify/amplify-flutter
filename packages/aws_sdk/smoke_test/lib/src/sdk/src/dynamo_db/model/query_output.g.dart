@@ -8,25 +8,25 @@ part of smoke_test.dynamo_db.model.query_output;
 
 class _$QueryOutput extends QueryOutput {
   @override
-  final _i2.ConsumedCapacity? consumedCapacity;
+  final _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? items;
   @override
   final int? count;
   @override
-  final _i4.BuiltList<_i4.BuiltMap<String, _i3.AttributeValue>>? items;
-  @override
-  final _i4.BuiltMap<String, _i3.AttributeValue>? lastEvaluatedKey;
-  @override
   final int? scannedCount;
+  @override
+  final _i4.BuiltMap<String, _i2.AttributeValue>? lastEvaluatedKey;
+  @override
+  final _i3.ConsumedCapacity? consumedCapacity;
 
   factory _$QueryOutput([void Function(QueryOutputBuilder)? updates]) =>
       (new QueryOutputBuilder()..update(updates))._build();
 
   _$QueryOutput._(
-      {this.consumedCapacity,
+      {this.items,
       this.count,
-      this.items,
+      this.scannedCount,
       this.lastEvaluatedKey,
-      this.scannedCount})
+      this.consumedCapacity})
       : super._();
 
   @override
@@ -40,21 +40,21 @@ class _$QueryOutput extends QueryOutput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is QueryOutput &&
-        consumedCapacity == other.consumedCapacity &&
-        count == other.count &&
         items == other.items &&
+        count == other.count &&
+        scannedCount == other.scannedCount &&
         lastEvaluatedKey == other.lastEvaluatedKey &&
-        scannedCount == other.scannedCount;
+        consumedCapacity == other.consumedCapacity;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, consumedCapacity.hashCode);
-    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, items.hashCode);
-    _$hash = $jc(_$hash, lastEvaluatedKey.hashCode);
+    _$hash = $jc(_$hash, count.hashCode);
     _$hash = $jc(_$hash, scannedCount.hashCode);
+    _$hash = $jc(_$hash, lastEvaluatedKey.hashCode);
+    _$hash = $jc(_$hash, consumedCapacity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -63,34 +63,34 @@ class _$QueryOutput extends QueryOutput {
 class QueryOutputBuilder implements Builder<QueryOutput, QueryOutputBuilder> {
   _$QueryOutput? _$v;
 
-  _i2.ConsumedCapacityBuilder? _consumedCapacity;
-  _i2.ConsumedCapacityBuilder get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i2.ConsumedCapacityBuilder();
-  set consumedCapacity(_i2.ConsumedCapacityBuilder? consumedCapacity) =>
-      _$this._consumedCapacity = consumedCapacity;
+  _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>? _items;
+  _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>> get items =>
+      _$this._items ??=
+          new _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>();
+  set items(_i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>? items) =>
+      _$this._items = items;
 
   int? _count;
   int? get count => _$this._count;
   set count(int? count) => _$this._count = count;
 
-  _i4.ListBuilder<_i4.BuiltMap<String, _i3.AttributeValue>>? _items;
-  _i4.ListBuilder<_i4.BuiltMap<String, _i3.AttributeValue>> get items =>
-      _$this._items ??=
-          new _i4.ListBuilder<_i4.BuiltMap<String, _i3.AttributeValue>>();
-  set items(_i4.ListBuilder<_i4.BuiltMap<String, _i3.AttributeValue>>? items) =>
-      _$this._items = items;
-
-  _i4.MapBuilder<String, _i3.AttributeValue>? _lastEvaluatedKey;
-  _i4.MapBuilder<String, _i3.AttributeValue> get lastEvaluatedKey =>
-      _$this._lastEvaluatedKey ??=
-          new _i4.MapBuilder<String, _i3.AttributeValue>();
-  set lastEvaluatedKey(
-          _i4.MapBuilder<String, _i3.AttributeValue>? lastEvaluatedKey) =>
-      _$this._lastEvaluatedKey = lastEvaluatedKey;
-
   int? _scannedCount;
   int? get scannedCount => _$this._scannedCount;
   set scannedCount(int? scannedCount) => _$this._scannedCount = scannedCount;
+
+  _i4.MapBuilder<String, _i2.AttributeValue>? _lastEvaluatedKey;
+  _i4.MapBuilder<String, _i2.AttributeValue> get lastEvaluatedKey =>
+      _$this._lastEvaluatedKey ??=
+          new _i4.MapBuilder<String, _i2.AttributeValue>();
+  set lastEvaluatedKey(
+          _i4.MapBuilder<String, _i2.AttributeValue>? lastEvaluatedKey) =>
+      _$this._lastEvaluatedKey = lastEvaluatedKey;
+
+  _i3.ConsumedCapacityBuilder? _consumedCapacity;
+  _i3.ConsumedCapacityBuilder get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i3.ConsumedCapacityBuilder();
+  set consumedCapacity(_i3.ConsumedCapacityBuilder? consumedCapacity) =>
+      _$this._consumedCapacity = consumedCapacity;
 
   QueryOutputBuilder() {
     QueryOutput._init(this);
@@ -99,11 +99,11 @@ class QueryOutputBuilder implements Builder<QueryOutput, QueryOutputBuilder> {
   QueryOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _consumedCapacity = $v.consumedCapacity?.toBuilder();
-      _count = $v.count;
       _items = $v.items?.toBuilder();
-      _lastEvaluatedKey = $v.lastEvaluatedKey?.toBuilder();
+      _count = $v.count;
       _scannedCount = $v.scannedCount;
+      _lastEvaluatedKey = $v.lastEvaluatedKey?.toBuilder();
+      _consumedCapacity = $v.consumedCapacity?.toBuilder();
       _$v = null;
     }
     return this;
@@ -128,21 +128,21 @@ class QueryOutputBuilder implements Builder<QueryOutput, QueryOutputBuilder> {
     try {
       _$result = _$v ??
           new _$QueryOutput._(
-              consumedCapacity: _consumedCapacity?.build(),
-              count: count,
               items: _items?.build(),
+              count: count,
+              scannedCount: scannedCount,
               lastEvaluatedKey: _lastEvaluatedKey?.build(),
-              scannedCount: scannedCount);
+              consumedCapacity: _consumedCapacity?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'consumedCapacity';
-        _consumedCapacity?.build();
-
         _$failedField = 'items';
         _items?.build();
+
         _$failedField = 'lastEvaluatedKey';
         _lastEvaluatedKey?.build();
+        _$failedField = 'consumedCapacity';
+        _consumedCapacity?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'QueryOutput', _$failedField, e.toString());

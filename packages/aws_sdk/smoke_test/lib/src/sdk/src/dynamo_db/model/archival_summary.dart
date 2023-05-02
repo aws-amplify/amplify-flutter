@@ -15,14 +15,14 @@ abstract class ArchivalSummary
     implements Built<ArchivalSummary, ArchivalSummaryBuilder> {
   /// Contains details of a table archival operation.
   factory ArchivalSummary({
-    String? archivalBackupArn,
     DateTime? archivalDateTime,
     String? archivalReason,
+    String? archivalBackupArn,
   }) {
     return _$ArchivalSummary._(
-      archivalBackupArn: archivalBackupArn,
       archivalDateTime: archivalDateTime,
       archivalReason: archivalReason,
+      archivalBackupArn: archivalBackupArn,
     );
   }
 
@@ -39,9 +39,6 @@ abstract class ArchivalSummary
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ArchivalSummaryBuilder b) {}
 
-  /// The Amazon Resource Name (ARN) of the backup the table was archived to, when applicable in the archival reason. If you wish to restore this backup to the same table name, you will need to delete the original table.
-  String? get archivalBackupArn;
-
   /// The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.
   DateTime? get archivalDateTime;
 
@@ -49,19 +46,18 @@ abstract class ArchivalSummary
   ///
   /// *   `INACCESSIBLE\_ENCRYPTION\_CREDENTIALS` \- The table was archived due to the table's KMS key being inaccessible for more than seven days. An On-Demand backup was created at the archival time.
   String? get archivalReason;
+
+  /// The Amazon Resource Name (ARN) of the backup the table was archived to, when applicable in the archival reason. If you wish to restore this backup to the same table name, you will need to delete the original table.
+  String? get archivalBackupArn;
   @override
   List<Object?> get props => [
-        archivalBackupArn,
         archivalDateTime,
         archivalReason,
+        archivalBackupArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ArchivalSummary');
-    helper.add(
-      'archivalBackupArn',
-      archivalBackupArn,
-    );
     helper.add(
       'archivalDateTime',
       archivalDateTime,
@@ -69,6 +65,10 @@ abstract class ArchivalSummary
     helper.add(
       'archivalReason',
       archivalReason,
+    );
+    helper.add(
+      'archivalBackupArn',
+      archivalBackupArn,
     );
     return helper.toString();
   }
@@ -103,14 +103,6 @@ class ArchivalSummaryAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ArchivalBackupArn':
-          if (value != null) {
-            result.archivalBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ArchivalDateTime':
           if (value != null) {
             result.archivalDateTime = (serializers.deserialize(
@@ -122,6 +114,14 @@ class ArchivalSummaryAwsJson10Serializer
         case 'ArchivalReason':
           if (value != null) {
             result.archivalReason = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'ArchivalBackupArn':
+          if (value != null) {
+            result.archivalBackupArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -141,14 +141,6 @@ class ArchivalSummaryAwsJson10Serializer
   }) {
     final payload = (object as ArchivalSummary);
     final result = <Object?>[];
-    if (payload.archivalBackupArn != null) {
-      result
-        ..add('ArchivalBackupArn')
-        ..add(serializers.serialize(
-          payload.archivalBackupArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.archivalDateTime != null) {
       result
         ..add('ArchivalDateTime')
@@ -162,6 +154,14 @@ class ArchivalSummaryAwsJson10Serializer
         ..add('ArchivalReason')
         ..add(serializers.serialize(
           payload.archivalReason!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.archivalBackupArn != null) {
+      result
+        ..add('ArchivalBackupArn')
+        ..add(serializers.serialize(
+          payload.archivalBackupArn!,
           specifiedType: const FullType(String),
         ));
     }

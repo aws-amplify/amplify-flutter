@@ -10,17 +10,13 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
+  @override
+  final String? versionId;
   @override
   final int? maxParts;
   @override
-  final _i5.BuiltList<_i3.ObjectAttributes> objectAttributes;
-  @override
   final String? partNumberMarker;
-  @override
-  final _i4.RequestPayer? requestPayer;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -28,7 +24,11 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final String? versionId;
+  final _i3.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
+  @override
+  final _i5.BuiltList<_i4.ObjectAttributes> objectAttributes;
 
   factory _$GetObjectAttributesRequest(
           [void Function(GetObjectAttributesRequestBuilder)? updates]) =>
@@ -36,16 +36,16 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
 
   _$GetObjectAttributesRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
+      this.versionId,
       this.maxParts,
-      required this.objectAttributes,
       this.partNumberMarker,
-      this.requestPayer,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
-      this.versionId})
+      this.requestPayer,
+      this.expectedBucketOwner,
+      required this.objectAttributes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectAttributesRequest', 'bucket');
@@ -69,32 +69,32 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
     if (identical(other, this)) return true;
     return other is GetObjectAttributesRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
+        versionId == other.versionId &&
         maxParts == other.maxParts &&
-        objectAttributes == other.objectAttributes &&
         partNumberMarker == other.partNumberMarker &&
-        requestPayer == other.requestPayer &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
         sseCustomerKey == other.sseCustomerKey &&
         sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        versionId == other.versionId;
+        requestPayer == other.requestPayer &&
+        expectedBucketOwner == other.expectedBucketOwner &&
+        objectAttributes == other.objectAttributes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
+    _$hash = $jc(_$hash, versionId.hashCode);
     _$hash = $jc(_$hash, maxParts.hashCode);
-    _$hash = $jc(_$hash, objectAttributes.hashCode);
     _$hash = $jc(_$hash, partNumberMarker.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKey.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, objectAttributes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -109,35 +109,22 @@ class GetObjectAttributesRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
+
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
 
   int? _maxParts;
   int? get maxParts => _$this._maxParts;
   set maxParts(int? maxParts) => _$this._maxParts = maxParts;
 
-  _i5.ListBuilder<_i3.ObjectAttributes>? _objectAttributes;
-  _i5.ListBuilder<_i3.ObjectAttributes> get objectAttributes =>
-      _$this._objectAttributes ??= new _i5.ListBuilder<_i3.ObjectAttributes>();
-  set objectAttributes(
-          _i5.ListBuilder<_i3.ObjectAttributes>? objectAttributes) =>
-      _$this._objectAttributes = objectAttributes;
-
   String? _partNumberMarker;
   String? get partNumberMarker => _$this._partNumberMarker;
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
-
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
 
   String? _sseCustomerAlgorithm;
   String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
@@ -154,9 +141,22 @@ class GetObjectAttributesRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
+  _i3.RequestPayer? _requestPayer;
+  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i3.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
+  _i5.ListBuilder<_i4.ObjectAttributes>? _objectAttributes;
+  _i5.ListBuilder<_i4.ObjectAttributes> get objectAttributes =>
+      _$this._objectAttributes ??= new _i5.ListBuilder<_i4.ObjectAttributes>();
+  set objectAttributes(
+          _i5.ListBuilder<_i4.ObjectAttributes>? objectAttributes) =>
+      _$this._objectAttributes = objectAttributes;
 
   GetObjectAttributesRequestBuilder() {
     GetObjectAttributesRequest._init(this);
@@ -166,16 +166,16 @@ class GetObjectAttributesRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
+      _versionId = $v.versionId;
       _maxParts = $v.maxParts;
-      _objectAttributes = $v.objectAttributes.toBuilder();
       _partNumberMarker = $v.partNumberMarker;
-      _requestPayer = $v.requestPayer;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKey = $v.sseCustomerKey;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _versionId = $v.versionId;
+      _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
+      _objectAttributes = $v.objectAttributes.toBuilder();
       _$v = null;
     }
     return this;
@@ -202,17 +202,17 @@ class GetObjectAttributesRequestBuilder
           new _$GetObjectAttributesRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'GetObjectAttributesRequest', 'bucket'),
-              expectedBucketOwner: expectedBucketOwner,
               key: BuiltValueNullFieldError.checkNotNull(
                   key, r'GetObjectAttributesRequest', 'key'),
+              versionId: versionId,
               maxParts: maxParts,
-              objectAttributes: objectAttributes.build(),
               partNumberMarker: partNumberMarker,
-              requestPayer: requestPayer,
               sseCustomerAlgorithm: sseCustomerAlgorithm,
               sseCustomerKey: sseCustomerKey,
               sseCustomerKeyMd5: sseCustomerKeyMd5,
-              versionId: versionId);
+              requestPayer: requestPayer,
+              expectedBucketOwner: expectedBucketOwner,
+              objectAttributes: objectAttributes.build());
     } catch (_) {
       late String _$failedField;
       try {

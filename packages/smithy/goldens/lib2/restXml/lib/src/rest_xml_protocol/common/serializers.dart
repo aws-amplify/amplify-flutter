@@ -240,20 +240,12 @@ const List<_i1.SmithySerializer> serializers = [
 final Map<FullType, Function> builderFactories = {
   const FullType(
     _i79.BuiltList,
-    [FullType(bool)],
-  ): _i79.ListBuilder<bool>.new,
+    [FullType(String)],
+  ): _i79.ListBuilder<String>.new,
   const FullType(
-    _i79.BuiltList,
-    [FullType(double)],
-  ): _i79.ListBuilder<double>.new,
-  const FullType(
-    _i79.BuiltList,
-    [FullType(_i3.FooEnum)],
-  ): _i79.ListBuilder<_i3.FooEnum>.new,
-  const FullType(
-    _i79.BuiltList,
-    [FullType(_i4.IntegerEnum)],
-  ): _i79.ListBuilder<_i4.IntegerEnum>.new,
+    _i79.BuiltSet,
+    [FullType(String)],
+  ): _i79.SetBuilder<String>.new,
   const FullType(
     _i79.BuiltList,
     [FullType(int)],
@@ -263,24 +255,32 @@ final Map<FullType, Function> builderFactories = {
     [FullType(int)],
   ): _i79.SetBuilder<int>.new,
   const FullType(
+    _i79.BuiltList,
+    [FullType(double)],
+  ): _i79.ListBuilder<double>.new,
+  const FullType(
+    _i79.BuiltList,
+    [FullType(bool)],
+  ): _i79.ListBuilder<bool>.new,
+  const FullType(
+    _i79.BuiltList,
+    [FullType(DateTime)],
+  ): _i79.ListBuilder<DateTime>.new,
+  const FullType(
+    _i79.BuiltList,
+    [FullType(_i3.FooEnum)],
+  ): _i79.ListBuilder<_i3.FooEnum>.new,
+  const FullType(
+    _i79.BuiltList,
+    [FullType(_i4.IntegerEnum)],
+  ): _i79.ListBuilder<_i4.IntegerEnum>.new,
+  const FullType(
     _i79.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
   ): _i79.MapBuilder<String, String>.new,
-  const FullType(
-    _i79.BuiltList,
-    [FullType(String)],
-  ): _i79.ListBuilder<String>.new,
-  const FullType(
-    _i79.BuiltSet,
-    [FullType(String)],
-  ): _i79.SetBuilder<String>.new,
-  const FullType(
-    _i79.BuiltList,
-    [FullType(DateTime)],
-  ): _i79.ListBuilder<DateTime>.new,
   const FullType(
     _i79.BuiltMap,
     [
@@ -310,10 +310,6 @@ final Map<FullType, Function> builderFactories = {
   ): _i79.ListMultimapBuilder<String, String>.new,
   const FullType(
     _i79.BuiltList,
-    [FullType(_i56.StructureListMember)],
-  ): _i79.ListBuilder<_i56.StructureListMember>.new,
-  const FullType(
-    _i79.BuiltList,
     [
       FullType(
         _i79.BuiltList,
@@ -321,6 +317,10 @@ final Map<FullType, Function> builderFactories = {
       )
     ],
   ): _i79.ListBuilder<_i79.BuiltList<String>>.new,
+  const FullType(
+    _i79.BuiltList,
+    [FullType(_i56.StructureListMember)],
+  ): _i79.ListBuilder<_i56.StructureListMember>.new,
   const FullType(
     _i79.BuiltMap,
     [
@@ -333,16 +333,16 @@ final Map<FullType, Function> builderFactories = {
     [FullType(_i3.FooEnum)],
   ): _i79.SetBuilder<_i3.FooEnum>.new,
   const FullType(
+    _i79.BuiltSet,
+    [FullType(_i4.IntegerEnum)],
+  ): _i79.SetBuilder<_i4.IntegerEnum>.new,
+  const FullType(
     _i79.BuiltMap,
     [
       FullType(String),
       FullType(_i4.IntegerEnum),
     ],
   ): _i79.MapBuilder<String, _i4.IntegerEnum>.new,
-  const FullType(
-    _i79.BuiltSet,
-    [FullType(_i4.IntegerEnum)],
-  ): _i79.SetBuilder<_i4.IntegerEnum>.new,
   const FullType(
     _i79.BuiltMap,
     [

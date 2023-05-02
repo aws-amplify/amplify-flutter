@@ -74,7 +74,7 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           ..body = literalConstList([
             symbol,
             // Variant class types
-            ...sortedMembers.map(
+            ...members.map(
               (member) => refer(variantClassName(member)),
             ),
           ]).code,
@@ -92,7 +92,7 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     switch (key) {
     '''));
 
-    for (final member in sortedMembers) {
+    for (final member in members) {
       final memberSymbol = memberSymbols[member]!.unboxed;
       final memberWireName =
           protocolTraits.memberWireNames[member] ?? member.memberName;
@@ -138,7 +138,7 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
 
     final object = refer('object');
     final branches = <String, Expression>{};
-    for (final member in sortedMembers) {
+    for (final member in members) {
       final memberName = member.dartName(ShapeType.union);
       branches[memberName] = Method(
         (m) => m

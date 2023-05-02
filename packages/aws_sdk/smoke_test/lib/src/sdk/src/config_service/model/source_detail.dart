@@ -9,9 +9,9 @@ import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/event_source.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/message_type.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/message_type.dart'
+    as _i3;
 
 part 'source_detail.g.dart';
 
@@ -22,13 +22,13 @@ abstract class SourceDetail
   /// Provides the source and the message types that trigger Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic. You can specify the parameter values for `SourceDetail` only for custom rules.
   factory SourceDetail({
     _i2.EventSource? eventSource,
-    _i3.MaximumExecutionFrequency? maximumExecutionFrequency,
-    _i4.MessageType? messageType,
+    _i3.MessageType? messageType,
+    _i4.MaximumExecutionFrequency? maximumExecutionFrequency,
   }) {
     return _$SourceDetail._(
       eventSource: eventSource,
-      maximumExecutionFrequency: maximumExecutionFrequency,
       messageType: messageType,
+      maximumExecutionFrequency: maximumExecutionFrequency,
     );
   }
 
@@ -48,13 +48,6 @@ abstract class SourceDetail
   /// The source of the event, such as an Amazon Web Services service, that triggers Config to evaluate your Amazon Web Services resources.
   _i2.EventSource? get eventSource;
 
-  /// The frequency at which you want Config to run evaluations for a custom rule with a periodic trigger. If you specify a value for `MaximumExecutionFrequency`, then `MessageType` must use the `ScheduledNotification` value.
-  ///
-  /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
-  ///
-  /// Based on the valid value you choose, Config runs evaluations once for each valid value. For example, if you choose `Three_Hours`, Config runs evaluations once every three hours. In this case, `Three_Hours` is the frequency of this rule.
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency;
-
   /// The type of notification that triggers Config to run an evaluation for a rule. You can specify the following notification types:
   ///
   /// *   `ConfigurationItemChangeNotification` \- Triggers an evaluation when Config delivers a configuration item as a result of a resource change.
@@ -67,12 +60,19 @@ abstract class SourceDetail
   ///
   ///
   /// If you want your custom rule to be triggered by configuration changes, specify two SourceDetail objects, one for `ConfigurationItemChangeNotification` and one for `OversizedConfigurationItemChangeNotification`.
-  _i4.MessageType? get messageType;
+  _i3.MessageType? get messageType;
+
+  /// The frequency at which you want Config to run evaluations for a custom rule with a periodic trigger. If you specify a value for `MaximumExecutionFrequency`, then `MessageType` must use the `ScheduledNotification` value.
+  ///
+  /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
+  ///
+  /// Based on the valid value you choose, Config runs evaluations once for each valid value. For example, if you choose `Three_Hours`, Config runs evaluations once every three hours. In this case, `Three_Hours` is the frequency of this rule.
+  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency;
   @override
   List<Object?> get props => [
         eventSource,
-        maximumExecutionFrequency,
         messageType,
+        maximumExecutionFrequency,
       ];
   @override
   String toString() {
@@ -82,12 +82,12 @@ abstract class SourceDetail
       eventSource,
     );
     helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
       'messageType',
       messageType,
+    );
+    helper.add(
+      'maximumExecutionFrequency',
+      maximumExecutionFrequency,
     );
     return helper.toString();
   }
@@ -130,20 +130,20 @@ class SourceDetailAwsJson11Serializer
             ) as _i2.EventSource);
           }
           break;
-        case 'MaximumExecutionFrequency':
-          if (value != null) {
-            result.maximumExecutionFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.MaximumExecutionFrequency),
-            ) as _i3.MaximumExecutionFrequency);
-          }
-          break;
         case 'MessageType':
           if (value != null) {
             result.messageType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.MessageType),
-            ) as _i4.MessageType);
+              specifiedType: const FullType(_i3.MessageType),
+            ) as _i3.MessageType);
+          }
+          break;
+        case 'MaximumExecutionFrequency':
+          if (value != null) {
+            result.maximumExecutionFrequency = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.MaximumExecutionFrequency),
+            ) as _i4.MaximumExecutionFrequency);
           }
           break;
       }
@@ -168,20 +168,20 @@ class SourceDetailAwsJson11Serializer
           specifiedType: const FullType(_i2.EventSource),
         ));
     }
-    if (payload.maximumExecutionFrequency != null) {
-      result
-        ..add('MaximumExecutionFrequency')
-        ..add(serializers.serialize(
-          payload.maximumExecutionFrequency!,
-          specifiedType: const FullType(_i3.MaximumExecutionFrequency),
-        ));
-    }
     if (payload.messageType != null) {
       result
         ..add('MessageType')
         ..add(serializers.serialize(
           payload.messageType!,
-          specifiedType: const FullType(_i4.MessageType),
+          specifiedType: const FullType(_i3.MessageType),
+        ));
+    }
+    if (payload.maximumExecutionFrequency != null) {
+      result
+        ..add('MaximumExecutionFrequency')
+        ..add(serializers.serialize(
+          payload.maximumExecutionFrequency!,
+          specifiedType: const FullType(_i4.MaximumExecutionFrequency),
         ));
     }
     return result;

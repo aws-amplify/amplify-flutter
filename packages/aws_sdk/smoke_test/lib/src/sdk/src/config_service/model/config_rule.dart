@@ -7,11 +7,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_state.dart'
-    as _i2;
+    as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/scope.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/source.dart' as _i5;
+    as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/scope.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/source.dart' as _i3;
 
 part 'config_rule.g.dart';
 
@@ -33,28 +33,28 @@ abstract class ConfigRule
   ///
   /// You can use the Amazon Web Services CLI and Amazon Web Services SDKs if you want to create a rule that triggers evaluations for your resources when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
   factory ConfigRule({
+    String? configRuleName,
     String? configRuleArn,
     String? configRuleId,
-    String? configRuleName,
-    _i2.ConfigRuleState? configRuleState,
-    String? createdBy,
     String? description,
+    _i2.Scope? scope,
+    required _i3.Source source,
     String? inputParameters,
-    _i3.MaximumExecutionFrequency? maximumExecutionFrequency,
-    _i4.Scope? scope,
-    required _i5.Source source,
+    _i4.MaximumExecutionFrequency? maximumExecutionFrequency,
+    _i5.ConfigRuleState? configRuleState,
+    String? createdBy,
   }) {
     return _$ConfigRule._(
+      configRuleName: configRuleName,
       configRuleArn: configRuleArn,
       configRuleId: configRuleId,
-      configRuleName: configRuleName,
-      configRuleState: configRuleState,
-      createdBy: createdBy,
       description: description,
-      inputParameters: inputParameters,
-      maximumExecutionFrequency: maximumExecutionFrequency,
       scope: scope,
       source: source,
+      inputParameters: inputParameters,
+      maximumExecutionFrequency: maximumExecutionFrequency,
+      configRuleState: configRuleState,
+      createdBy: createdBy,
     );
   }
 
@@ -77,31 +77,25 @@ abstract class ConfigRule
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConfigRuleBuilder b) {}
 
+  /// The name that you assign to the Config rule. The name is required if you are adding a new rule.
+  String? get configRuleName;
+
   /// The Amazon Resource Name (ARN) of the Config rule.
   String? get configRuleArn;
 
   /// The ID of the Config rule.
   String? get configRuleId;
 
-  /// The name that you assign to the Config rule. The name is required if you are adding a new rule.
-  String? get configRuleName;
-
-  /// Indicates whether the Config rule is active or is currently being deleted by Config. It can also indicate the evaluation status for the Config rule.
-  ///
-  /// Config sets the state of the rule to `EVALUATING` temporarily after you use the `StartConfigRulesEvaluation` request to evaluate your resources against the Config rule.
-  ///
-  /// Config sets the state of the rule to `DELETING_RESULTS` temporarily after you use the `DeleteEvaluationResults` request to delete the current evaluation results for the Config rule.
-  ///
-  /// Config temporarily sets the state of a rule to `DELETING` after you use the `DeleteConfigRule` request to delete the rule. After Config deletes the rule, the rule and all of its evaluations are erased and are no longer available.
-  _i2.ConfigRuleState? get configRuleState;
-
-  /// Service principal name of the service that created the rule.
-  ///
-  /// The field is populated only if the service-linked rule is created by a service. The field is empty if you create your own rule.
-  String? get createdBy;
-
   /// The description that you provide for the Config rule.
   String? get description;
+
+  /// Defines which resources can trigger an evaluation for the rule. The scope can include one or more resource types, a combination of one resource type and one resource ID, or a combination of a tag key and value. Specify a scope to constrain the resources that can trigger an evaluation for the rule. If you do not specify a scope, evaluations are triggered when any resource in the recording group changes.
+  ///
+  /// The scope can be empty.
+  _i2.Scope? get scope;
+
+  /// Provides the rule owner (`Amazon Web Services` for managed rules, `CUSTOM_POLICY` for Custom Policy rules, and `CUSTOM_LAMBDA` for Custom Lambda rules), the rule identifier, and the notifications that cause the function to evaluate your Amazon Web Services resources.
+  _i3.Source get source;
 
   /// A string, in JSON format, that is passed to the Config rule Lambda function.
   String? get inputParameters;
@@ -114,31 +108,41 @@ abstract class ConfigRule
   ///
   ///
   /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency;
+  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency;
 
-  /// Defines which resources can trigger an evaluation for the rule. The scope can include one or more resource types, a combination of one resource type and one resource ID, or a combination of a tag key and value. Specify a scope to constrain the resources that can trigger an evaluation for the rule. If you do not specify a scope, evaluations are triggered when any resource in the recording group changes.
+  /// Indicates whether the Config rule is active or is currently being deleted by Config. It can also indicate the evaluation status for the Config rule.
   ///
-  /// The scope can be empty.
-  _i4.Scope? get scope;
+  /// Config sets the state of the rule to `EVALUATING` temporarily after you use the `StartConfigRulesEvaluation` request to evaluate your resources against the Config rule.
+  ///
+  /// Config sets the state of the rule to `DELETING_RESULTS` temporarily after you use the `DeleteEvaluationResults` request to delete the current evaluation results for the Config rule.
+  ///
+  /// Config temporarily sets the state of a rule to `DELETING` after you use the `DeleteConfigRule` request to delete the rule. After Config deletes the rule, the rule and all of its evaluations are erased and are no longer available.
+  _i5.ConfigRuleState? get configRuleState;
 
-  /// Provides the rule owner (`Amazon Web Services` for managed rules, `CUSTOM_POLICY` for Custom Policy rules, and `CUSTOM_LAMBDA` for Custom Lambda rules), the rule identifier, and the notifications that cause the function to evaluate your Amazon Web Services resources.
-  _i5.Source get source;
+  /// Service principal name of the service that created the rule.
+  ///
+  /// The field is populated only if the service-linked rule is created by a service. The field is empty if you create your own rule.
+  String? get createdBy;
   @override
   List<Object?> get props => [
+        configRuleName,
         configRuleArn,
         configRuleId,
-        configRuleName,
-        configRuleState,
-        createdBy,
         description,
-        inputParameters,
-        maximumExecutionFrequency,
         scope,
         source,
+        inputParameters,
+        maximumExecutionFrequency,
+        configRuleState,
+        createdBy,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConfigRule');
+    helper.add(
+      'configRuleName',
+      configRuleName,
+    );
     helper.add(
       'configRuleArn',
       configRuleArn,
@@ -148,20 +152,16 @@ abstract class ConfigRule
       configRuleId,
     );
     helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'configRuleState',
-      configRuleState,
-    );
-    helper.add(
-      'createdBy',
-      createdBy,
-    );
-    helper.add(
       'description',
       description,
+    );
+    helper.add(
+      'scope',
+      scope,
+    );
+    helper.add(
+      'source',
+      source,
     );
     helper.add(
       'inputParameters',
@@ -172,12 +172,12 @@ abstract class ConfigRule
       maximumExecutionFrequency,
     );
     helper.add(
-      'scope',
-      scope,
+      'configRuleState',
+      configRuleState,
     );
     helper.add(
-      'source',
-      source,
+      'createdBy',
+      createdBy,
     );
     return helper.toString();
   }
@@ -212,6 +212,14 @@ class ConfigRuleAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigRuleName':
+          if (value != null) {
+            result.configRuleName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ConfigRuleArn':
           if (value != null) {
             result.configRuleArn = (serializers.deserialize(
@@ -228,30 +236,6 @@ class ConfigRuleAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ConfigRuleState':
-          if (value != null) {
-            result.configRuleState = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigRuleState),
-            ) as _i2.ConfigRuleState);
-          }
-          break;
-        case 'CreatedBy':
-          if (value != null) {
-            result.createdBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Description':
           if (value != null) {
             result.description = (serializers.deserialize(
@@ -259,6 +243,20 @@ class ConfigRuleAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
+          break;
+        case 'Scope':
+          if (value != null) {
+            result.scope.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Scope),
+            ) as _i2.Scope));
+          }
+          break;
+        case 'Source':
+          result.source.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Source),
+          ) as _i3.Source));
           break;
         case 'InputParameters':
           if (value != null) {
@@ -272,23 +270,25 @@ class ConfigRuleAwsJson11Serializer
           if (value != null) {
             result.maximumExecutionFrequency = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.MaximumExecutionFrequency),
-            ) as _i3.MaximumExecutionFrequency);
+              specifiedType: const FullType(_i4.MaximumExecutionFrequency),
+            ) as _i4.MaximumExecutionFrequency);
           }
           break;
-        case 'Scope':
+        case 'ConfigRuleState':
           if (value != null) {
-            result.scope.replace((serializers.deserialize(
+            result.configRuleState = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Scope),
-            ) as _i4.Scope));
+              specifiedType: const FullType(_i5.ConfigRuleState),
+            ) as _i5.ConfigRuleState);
           }
           break;
-        case 'Source':
-          result.source.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i5.Source),
-          ) as _i5.Source));
+        case 'CreatedBy':
+          if (value != null) {
+            result.createdBy = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -307,9 +307,17 @@ class ConfigRuleAwsJson11Serializer
       'Source',
       serializers.serialize(
         payload.source,
-        specifiedType: const FullType(_i5.Source),
+        specifiedType: const FullType(_i3.Source),
       ),
     ];
+    if (payload.configRuleName != null) {
+      result
+        ..add('ConfigRuleName')
+        ..add(serializers.serialize(
+          payload.configRuleName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.configRuleArn != null) {
       result
         ..add('ConfigRuleArn')
@@ -326,36 +334,20 @@ class ConfigRuleAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleName != null) {
-      result
-        ..add('ConfigRuleName')
-        ..add(serializers.serialize(
-          payload.configRuleName!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.configRuleState != null) {
-      result
-        ..add('ConfigRuleState')
-        ..add(serializers.serialize(
-          payload.configRuleState!,
-          specifiedType: const FullType(_i2.ConfigRuleState),
-        ));
-    }
-    if (payload.createdBy != null) {
-      result
-        ..add('CreatedBy')
-        ..add(serializers.serialize(
-          payload.createdBy!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.description != null) {
       result
         ..add('Description')
         ..add(serializers.serialize(
           payload.description!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.scope != null) {
+      result
+        ..add('Scope')
+        ..add(serializers.serialize(
+          payload.scope!,
+          specifiedType: const FullType(_i2.Scope),
         ));
     }
     if (payload.inputParameters != null) {
@@ -371,15 +363,23 @@ class ConfigRuleAwsJson11Serializer
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           payload.maximumExecutionFrequency!,
-          specifiedType: const FullType(_i3.MaximumExecutionFrequency),
+          specifiedType: const FullType(_i4.MaximumExecutionFrequency),
         ));
     }
-    if (payload.scope != null) {
+    if (payload.configRuleState != null) {
       result
-        ..add('Scope')
+        ..add('ConfigRuleState')
         ..add(serializers.serialize(
-          payload.scope!,
-          specifiedType: const FullType(_i4.Scope),
+          payload.configRuleState!,
+          specifiedType: const FullType(_i5.ConfigRuleState),
+        ));
+    }
+    if (payload.createdBy != null) {
+      result
+        ..add('CreatedBy')
+        ..add(serializers.serialize(
+          payload.createdBy!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

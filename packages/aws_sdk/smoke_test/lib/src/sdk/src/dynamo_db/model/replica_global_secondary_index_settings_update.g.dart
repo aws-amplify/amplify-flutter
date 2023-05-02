@@ -11,10 +11,10 @@ class _$ReplicaGlobalSecondaryIndexSettingsUpdate
   @override
   final String indexName;
   @override
-  final _i2.AutoScalingSettingsUpdate?
-      provisionedReadCapacityAutoScalingSettingsUpdate;
+  final _i2.Int64? provisionedReadCapacityUnits;
   @override
-  final _i3.Int64? provisionedReadCapacityUnits;
+  final _i3.AutoScalingSettingsUpdate?
+      provisionedReadCapacityAutoScalingSettingsUpdate;
 
   factory _$ReplicaGlobalSecondaryIndexSettingsUpdate(
           [void Function(ReplicaGlobalSecondaryIndexSettingsUpdateBuilder)?
@@ -24,8 +24,8 @@ class _$ReplicaGlobalSecondaryIndexSettingsUpdate
 
   _$ReplicaGlobalSecondaryIndexSettingsUpdate._(
       {required this.indexName,
-      this.provisionedReadCapacityAutoScalingSettingsUpdate,
-      this.provisionedReadCapacityUnits})
+      this.provisionedReadCapacityUnits,
+      this.provisionedReadCapacityAutoScalingSettingsUpdate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         indexName, r'ReplicaGlobalSecondaryIndexSettingsUpdate', 'indexName');
@@ -46,18 +46,18 @@ class _$ReplicaGlobalSecondaryIndexSettingsUpdate
     if (identical(other, this)) return true;
     return other is ReplicaGlobalSecondaryIndexSettingsUpdate &&
         indexName == other.indexName &&
+        provisionedReadCapacityUnits == other.provisionedReadCapacityUnits &&
         provisionedReadCapacityAutoScalingSettingsUpdate ==
-            other.provisionedReadCapacityAutoScalingSettingsUpdate &&
-        provisionedReadCapacityUnits == other.provisionedReadCapacityUnits;
+            other.provisionedReadCapacityAutoScalingSettingsUpdate;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, indexName.hashCode);
+    _$hash = $jc(_$hash, provisionedReadCapacityUnits.hashCode);
     _$hash =
         $jc(_$hash, provisionedReadCapacityAutoScalingSettingsUpdate.hashCode);
-    _$hash = $jc(_$hash, provisionedReadCapacityUnits.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,23 +73,23 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.AutoScalingSettingsUpdateBuilder?
+  _i2.Int64? _provisionedReadCapacityUnits;
+  _i2.Int64? get provisionedReadCapacityUnits =>
+      _$this._provisionedReadCapacityUnits;
+  set provisionedReadCapacityUnits(_i2.Int64? provisionedReadCapacityUnits) =>
+      _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
+
+  _i3.AutoScalingSettingsUpdateBuilder?
       _provisionedReadCapacityAutoScalingSettingsUpdate;
-  _i2.AutoScalingSettingsUpdateBuilder
+  _i3.AutoScalingSettingsUpdateBuilder
       get provisionedReadCapacityAutoScalingSettingsUpdate =>
           _$this._provisionedReadCapacityAutoScalingSettingsUpdate ??=
-              new _i2.AutoScalingSettingsUpdateBuilder();
+              new _i3.AutoScalingSettingsUpdateBuilder();
   set provisionedReadCapacityAutoScalingSettingsUpdate(
-          _i2.AutoScalingSettingsUpdateBuilder?
+          _i3.AutoScalingSettingsUpdateBuilder?
               provisionedReadCapacityAutoScalingSettingsUpdate) =>
       _$this._provisionedReadCapacityAutoScalingSettingsUpdate =
           provisionedReadCapacityAutoScalingSettingsUpdate;
-
-  _i3.Int64? _provisionedReadCapacityUnits;
-  _i3.Int64? get provisionedReadCapacityUnits =>
-      _$this._provisionedReadCapacityUnits;
-  set provisionedReadCapacityUnits(_i3.Int64? provisionedReadCapacityUnits) =>
-      _$this._provisionedReadCapacityUnits = provisionedReadCapacityUnits;
 
   ReplicaGlobalSecondaryIndexSettingsUpdateBuilder() {
     ReplicaGlobalSecondaryIndexSettingsUpdate._init(this);
@@ -99,9 +99,9 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateBuilder
     final $v = _$v;
     if ($v != null) {
       _indexName = $v.indexName;
+      _provisionedReadCapacityUnits = $v.provisionedReadCapacityUnits;
       _provisionedReadCapacityAutoScalingSettingsUpdate =
           $v.provisionedReadCapacityAutoScalingSettingsUpdate?.toBuilder();
-      _provisionedReadCapacityUnits = $v.provisionedReadCapacityUnits;
       _$v = null;
     }
     return this;
@@ -130,9 +130,9 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateBuilder
           new _$ReplicaGlobalSecondaryIndexSettingsUpdate._(
               indexName: BuiltValueNullFieldError.checkNotNull(indexName,
                   r'ReplicaGlobalSecondaryIndexSettingsUpdate', 'indexName'),
+              provisionedReadCapacityUnits: provisionedReadCapacityUnits,
               provisionedReadCapacityAutoScalingSettingsUpdate:
-                  _provisionedReadCapacityAutoScalingSettingsUpdate?.build(),
-              provisionedReadCapacityUnits: provisionedReadCapacityUnits);
+                  _provisionedReadCapacityAutoScalingSettingsUpdate?.build());
     } catch (_) {
       late String _$failedField;
       try {

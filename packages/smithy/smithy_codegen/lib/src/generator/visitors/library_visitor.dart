@@ -27,9 +27,13 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   /// Tracks visited shapes to prevent stack overflow from nesting.
   final Set<ShapeId> seen = {};
 
-  GeneratedLibrary _buildLibrary(Shape shape, Library library) =>
+  GeneratedLibrary _buildLibrary(
+    Shape shape,
+    Library library, {
+    SmithyLibrary? smithyLibrary,
+  }) =>
       GeneratedLibrary(
-        shape.smithyLibrary(context),
+        smithyLibrary ?? shape.smithyLibrary(context),
         library,
       );
 
@@ -42,11 +46,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     seen.add(shape.shapeId);
 
     // Build the operation class.
-    final operationLibrary = _buildLibrary(
+    yield _buildLibrary(
       shape,
       OperationGenerator(shape, context).generate(),
     );
-    yield operationLibrary;
 
     // Build the waiters, if any
     // if (shape.hasTrait<WaitableTrait>()) {
@@ -68,7 +71,7 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
       packageName: context.packageName,
       serviceName: context.serviceName,
       libraryType: SmithyLibrary_LibraryType.TEST,
-      filename: shape.dartName,
+      filename: shape.dartName(context),
     );
     final generated = OperationTestGenerator(
       shape,

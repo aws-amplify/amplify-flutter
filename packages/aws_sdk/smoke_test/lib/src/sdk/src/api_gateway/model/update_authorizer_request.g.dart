@@ -8,25 +8,25 @@ part of smoke_test.api_gateway.model.update_authorizer_request;
 
 class _$UpdateAuthorizerRequest extends UpdateAuthorizerRequest {
   @override
+  final String restApiId;
+  @override
   final String authorizerId;
   @override
   final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
-  final String restApiId;
 
   factory _$UpdateAuthorizerRequest(
           [void Function(UpdateAuthorizerRequestBuilder)? updates]) =>
       (new UpdateAuthorizerRequestBuilder()..update(updates))._build();
 
   _$UpdateAuthorizerRequest._(
-      {required this.authorizerId,
-      this.patchOperations,
-      required this.restApiId})
+      {required this.restApiId,
+      required this.authorizerId,
+      this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        authorizerId, r'UpdateAuthorizerRequest', 'authorizerId');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'UpdateAuthorizerRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        authorizerId, r'UpdateAuthorizerRequest', 'authorizerId');
   }
 
   @override
@@ -42,17 +42,17 @@ class _$UpdateAuthorizerRequest extends UpdateAuthorizerRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateAuthorizerRequest &&
+        restApiId == other.restApiId &&
         authorizerId == other.authorizerId &&
-        patchOperations == other.patchOperations &&
-        restApiId == other.restApiId;
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, authorizerId.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,6 +62,10 @@ class UpdateAuthorizerRequestBuilder
     implements
         Builder<UpdateAuthorizerRequest, UpdateAuthorizerRequestBuilder> {
   _$UpdateAuthorizerRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _authorizerId;
   String? get authorizerId => _$this._authorizerId;
@@ -73,10 +77,6 @@ class UpdateAuthorizerRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   UpdateAuthorizerRequestBuilder() {
     UpdateAuthorizerRequest._init(this);
   }
@@ -84,9 +84,9 @@ class UpdateAuthorizerRequestBuilder
   UpdateAuthorizerRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
       _authorizerId = $v.authorizerId;
       _patchOperations = $v.patchOperations?.toBuilder();
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -111,11 +111,11 @@ class UpdateAuthorizerRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateAuthorizerRequest._(
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateAuthorizerRequest', 'restApiId'),
               authorizerId: BuiltValueNullFieldError.checkNotNull(
                   authorizerId, r'UpdateAuthorizerRequest', 'authorizerId'),
-              patchOperations: _patchOperations?.build(),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateAuthorizerRequest', 'restApiId'));
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

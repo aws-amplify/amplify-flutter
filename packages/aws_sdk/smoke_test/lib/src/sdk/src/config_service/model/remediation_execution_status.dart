@@ -23,18 +23,18 @@ abstract class RemediationExecutionStatus
         Built<RemediationExecutionStatus, RemediationExecutionStatusBuilder> {
   /// Provides details of the current status of the invoked remediation action for that resource.
   factory RemediationExecutionStatus({
-    DateTime? invocationTime,
-    DateTime? lastUpdatedTime,
     _i2.ResourceKey? resourceKey,
     _i3.RemediationExecutionState? state,
     List<_i4.RemediationExecutionStep>? stepDetails,
+    DateTime? invocationTime,
+    DateTime? lastUpdatedTime,
   }) {
     return _$RemediationExecutionStatus._(
-      invocationTime: invocationTime,
-      lastUpdatedTime: lastUpdatedTime,
       resourceKey: resourceKey,
       state: state,
       stepDetails: stepDetails == null ? null : _i5.BuiltList(stepDetails),
+      invocationTime: invocationTime,
+      lastUpdatedTime: lastUpdatedTime,
     );
   }
 
@@ -52,12 +52,6 @@ abstract class RemediationExecutionStatus
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExecutionStatusBuilder b) {}
 
-  /// Start time when the remediation was executed.
-  DateTime? get invocationTime;
-
-  /// The time when the remediation execution was last updated.
-  DateTime? get lastUpdatedTime;
-
   /// The details that identify a resource within Config, including the resource type and resource ID.
   _i2.ResourceKey? get resourceKey;
 
@@ -66,25 +60,23 @@ abstract class RemediationExecutionStatus
 
   /// Details of every step.
   _i5.BuiltList<_i4.RemediationExecutionStep>? get stepDetails;
+
+  /// Start time when the remediation was executed.
+  DateTime? get invocationTime;
+
+  /// The time when the remediation execution was last updated.
+  DateTime? get lastUpdatedTime;
   @override
   List<Object?> get props => [
-        invocationTime,
-        lastUpdatedTime,
         resourceKey,
         state,
         stepDetails,
+        invocationTime,
+        lastUpdatedTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RemediationExecutionStatus');
-    helper.add(
-      'invocationTime',
-      invocationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
     helper.add(
       'resourceKey',
       resourceKey,
@@ -96,6 +88,14 @@ abstract class RemediationExecutionStatus
     helper.add(
       'stepDetails',
       stepDetails,
+    );
+    helper.add(
+      'invocationTime',
+      invocationTime,
+    );
+    helper.add(
+      'lastUpdatedTime',
+      lastUpdatedTime,
     );
     return helper.toString();
   }
@@ -131,22 +131,6 @@ class RemediationExecutionStatusAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'InvocationTime':
-          if (value != null) {
-            result.invocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'LastUpdatedTime':
-          if (value != null) {
-            result.lastUpdatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'ResourceKey':
           if (value != null) {
             result.resourceKey.replace((serializers.deserialize(
@@ -174,6 +158,22 @@ class RemediationExecutionStatusAwsJson11Serializer
             ) as _i5.BuiltList<_i4.RemediationExecutionStep>));
           }
           break;
+        case 'InvocationTime':
+          if (value != null) {
+            result.invocationTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
+        case 'LastUpdatedTime':
+          if (value != null) {
+            result.lastUpdatedTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
+          }
+          break;
       }
     }
 
@@ -188,22 +188,6 @@ class RemediationExecutionStatusAwsJson11Serializer
   }) {
     final payload = (object as RemediationExecutionStatus);
     final result = <Object?>[];
-    if (payload.invocationTime != null) {
-      result
-        ..add('InvocationTime')
-        ..add(serializers.serialize(
-          payload.invocationTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.lastUpdatedTime != null) {
-      result
-        ..add('LastUpdatedTime')
-        ..add(serializers.serialize(
-          payload.lastUpdatedTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.resourceKey != null) {
       result
         ..add('ResourceKey')
@@ -229,6 +213,22 @@ class RemediationExecutionStatusAwsJson11Serializer
             _i5.BuiltList,
             [FullType(_i4.RemediationExecutionStep)],
           ),
+        ));
+    }
+    if (payload.invocationTime != null) {
+      result
+        ..add('InvocationTime')
+        ..add(serializers.serialize(
+          payload.invocationTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastUpdatedTime != null) {
+      result
+        ..add('LastUpdatedTime')
+        ..add(serializers.serialize(
+          payload.lastUpdatedTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

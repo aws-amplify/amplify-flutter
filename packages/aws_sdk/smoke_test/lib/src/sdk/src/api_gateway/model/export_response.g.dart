@@ -8,16 +8,16 @@ part of smoke_test.api_gateway.model.export_response;
 
 class _$ExportResponse extends ExportResponse {
   @override
-  final _i3.Uint8List? body;
+  final String? contentType;
   @override
   final String? contentDisposition;
   @override
-  final String? contentType;
+  final _i3.Uint8List? body;
 
   factory _$ExportResponse([void Function(ExportResponseBuilder)? updates]) =>
       (new ExportResponseBuilder()..update(updates))._build();
 
-  _$ExportResponse._({this.body, this.contentDisposition, this.contentType})
+  _$ExportResponse._({this.contentType, this.contentDisposition, this.body})
       : super._();
 
   @override
@@ -32,17 +32,17 @@ class _$ExportResponse extends ExportResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ExportResponse &&
-        body == other.body &&
+        contentType == other.contentType &&
         contentDisposition == other.contentDisposition &&
-        contentType == other.contentType;
+        body == other.body;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, body.hashCode);
-    _$hash = $jc(_$hash, contentDisposition.hashCode);
     _$hash = $jc(_$hash, contentType.hashCode);
+    _$hash = $jc(_$hash, contentDisposition.hashCode);
+    _$hash = $jc(_$hash, body.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,18 +52,18 @@ class ExportResponseBuilder
     implements Builder<ExportResponse, ExportResponseBuilder> {
   _$ExportResponse? _$v;
 
-  _i3.Uint8List? _body;
-  _i3.Uint8List? get body => _$this._body;
-  set body(_i3.Uint8List? body) => _$this._body = body;
+  String? _contentType;
+  String? get contentType => _$this._contentType;
+  set contentType(String? contentType) => _$this._contentType = contentType;
 
   String? _contentDisposition;
   String? get contentDisposition => _$this._contentDisposition;
   set contentDisposition(String? contentDisposition) =>
       _$this._contentDisposition = contentDisposition;
 
-  String? _contentType;
-  String? get contentType => _$this._contentType;
-  set contentType(String? contentType) => _$this._contentType = contentType;
+  _i3.Uint8List? _body;
+  _i3.Uint8List? get body => _$this._body;
+  set body(_i3.Uint8List? body) => _$this._body = body;
 
   ExportResponseBuilder() {
     ExportResponse._init(this);
@@ -72,9 +72,9 @@ class ExportResponseBuilder
   ExportResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _body = $v.body;
-      _contentDisposition = $v.contentDisposition;
       _contentType = $v.contentType;
+      _contentDisposition = $v.contentDisposition;
+      _body = $v.body;
       _$v = null;
     }
     return this;
@@ -97,9 +97,9 @@ class ExportResponseBuilder
   _$ExportResponse _build() {
     final _$result = _$v ??
         new _$ExportResponse._(
-            body: body,
+            contentType: contentType,
             contentDisposition: contentDisposition,
-            contentType: contentType);
+            body: body);
     replace(_$result);
     return _$result;
   }

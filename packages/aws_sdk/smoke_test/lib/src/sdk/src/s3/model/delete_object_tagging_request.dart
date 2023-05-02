@@ -20,15 +20,15 @@ abstract class DeleteObjectTaggingRequest
         _i1.HasPayload<DeleteObjectTaggingRequestPayload> {
   factory DeleteObjectTaggingRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String key,
     String? versionId,
+    String? expectedBucketOwner,
   }) {
     return _$DeleteObjectTaggingRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
       versionId: versionId,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -73,14 +73,14 @@ abstract class DeleteObjectTaggingRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The key that identifies the object in the bucket from which to remove all tags.
   String get key;
 
   /// The versionId of the object that the tag-set will be removed from.
   String? get versionId;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -101,9 +101,9 @@ abstract class DeleteObjectTaggingRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         key,
         versionId,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -113,16 +113,16 @@ abstract class DeleteObjectTaggingRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'key',
       key,
     );
     helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

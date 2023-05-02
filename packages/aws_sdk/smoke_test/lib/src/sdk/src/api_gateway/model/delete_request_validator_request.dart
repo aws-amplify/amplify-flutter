@@ -22,12 +22,12 @@ abstract class DeleteRequestValidatorRequest
         _i1.HasPayload<DeleteRequestValidatorRequestPayload> {
   /// Deletes a specified RequestValidator of a given RestApi.
   factory DeleteRequestValidatorRequest({
-    required String requestValidatorId,
     required String restApiId,
+    required String requestValidatorId,
   }) {
     return _$DeleteRequestValidatorRequest._(
-      requestValidatorId: requestValidatorId,
       restApiId: restApiId,
+      requestValidatorId: requestValidatorId,
     );
   }
 
@@ -59,11 +59,11 @@ abstract class DeleteRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteRequestValidatorRequestBuilder b) {}
 
-  /// The identifier of the RequestValidator to be deleted.
-  String get requestValidatorId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the RequestValidator to be deleted.
+  String get requestValidatorId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,19 +83,19 @@ abstract class DeleteRequestValidatorRequest
       DeleteRequestValidatorRequestPayload();
   @override
   List<Object?> get props => [
-        requestValidatorId,
         restApiId,
+        requestValidatorId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteRequestValidatorRequest');
     helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'requestValidatorId',
+      requestValidatorId,
     );
     return helper.toString();
   }

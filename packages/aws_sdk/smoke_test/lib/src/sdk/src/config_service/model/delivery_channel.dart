@@ -17,20 +17,20 @@ abstract class DeliveryChannel
     implements Built<DeliveryChannel, DeliveryChannelBuilder> {
   /// The channel through which Config delivers notifications and updated configuration states.
   factory DeliveryChannel({
-    _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
     String? name,
     String? s3BucketName,
     String? s3KeyPrefix,
     String? s3KmsKeyArn,
     String? snsTopicArn,
+    _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
   }) {
     return _$DeliveryChannel._(
-      configSnapshotDeliveryProperties: configSnapshotDeliveryProperties,
       name: name,
       s3BucketName: s3BucketName,
       s3KeyPrefix: s3KeyPrefix,
       s3KmsKeyArn: s3KmsKeyArn,
       snsTopicArn: snsTopicArn,
+      configSnapshotDeliveryProperties: configSnapshotDeliveryProperties,
     );
   }
 
@@ -46,9 +46,6 @@ abstract class DeliveryChannel
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeliveryChannelBuilder b) {}
-
-  /// The options for how often Config delivers configuration snapshots to the Amazon S3 bucket.
-  _i2.ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
 
   /// The name of the delivery channel. By default, Config assigns the name "default" when creating the delivery channel. To change the delivery channel name, you must use the DeleteDeliveryChannel action to delete your current delivery channel, and then you must use the PutDeliveryChannel command to create a delivery channel that has the desired name.
   String? get name;
@@ -68,22 +65,21 @@ abstract class DeliveryChannel
   ///
   /// If you choose a topic from another account, the topic must have policies that grant access permissions to Config. For more information, see [Permissions for the Amazon SNS Topic](https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html) in the _Config Developer Guide_.
   String? get snsTopicArn;
+
+  /// The options for how often Config delivers configuration snapshots to the Amazon S3 bucket.
+  _i2.ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
   @override
   List<Object?> get props => [
-        configSnapshotDeliveryProperties,
         name,
         s3BucketName,
         s3KeyPrefix,
         s3KmsKeyArn,
         snsTopicArn,
+        configSnapshotDeliveryProperties,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeliveryChannel');
-    helper.add(
-      'configSnapshotDeliveryProperties',
-      configSnapshotDeliveryProperties,
-    );
     helper.add(
       'name',
       name,
@@ -103,6 +99,10 @@ abstract class DeliveryChannel
     helper.add(
       'snsTopicArn',
       snsTopicArn,
+    );
+    helper.add(
+      'configSnapshotDeliveryProperties',
+      configSnapshotDeliveryProperties,
     );
     return helper.toString();
   }
@@ -137,16 +137,6 @@ class DeliveryChannelAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'configSnapshotDeliveryProperties':
-          if (value != null) {
-            result.configSnapshotDeliveryProperties
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.ConfigSnapshotDeliveryProperties),
-            ) as _i2.ConfigSnapshotDeliveryProperties));
-          }
-          break;
         case 'name':
           if (value != null) {
             result.name = (serializers.deserialize(
@@ -187,6 +177,16 @@ class DeliveryChannelAwsJson11Serializer
             ) as String);
           }
           break;
+        case 'configSnapshotDeliveryProperties':
+          if (value != null) {
+            result.configSnapshotDeliveryProperties
+                .replace((serializers.deserialize(
+              value,
+              specifiedType:
+                  const FullType(_i2.ConfigSnapshotDeliveryProperties),
+            ) as _i2.ConfigSnapshotDeliveryProperties));
+          }
+          break;
       }
     }
 
@@ -201,14 +201,6 @@ class DeliveryChannelAwsJson11Serializer
   }) {
     final payload = (object as DeliveryChannel);
     final result = <Object?>[];
-    if (payload.configSnapshotDeliveryProperties != null) {
-      result
-        ..add('configSnapshotDeliveryProperties')
-        ..add(serializers.serialize(
-          payload.configSnapshotDeliveryProperties!,
-          specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
-        ));
-    }
     if (payload.name != null) {
       result
         ..add('name')
@@ -247,6 +239,14 @@ class DeliveryChannelAwsJson11Serializer
         ..add(serializers.serialize(
           payload.snsTopicArn!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.configSnapshotDeliveryProperties != null) {
+      result
+        ..add('configSnapshotDeliveryProperties')
+        ..add(serializers.serialize(
+          payload.configSnapshotDeliveryProperties!,
+          specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
         ));
     }
     return result;

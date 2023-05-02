@@ -8,8 +8,8 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i6;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/object_attributes.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/object_attributes.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i3;
 
 part 'get_object_attributes_request.g.dart';
 
@@ -23,29 +23,29 @@ abstract class GetObjectAttributesRequest
         _i1.HasPayload<GetObjectAttributesRequestPayload> {
   factory GetObjectAttributesRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String key,
+    String? versionId,
     int? maxParts,
-    required List<_i3.ObjectAttributes> objectAttributes,
     String? partNumberMarker,
-    _i4.RequestPayer? requestPayer,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
-    String? versionId,
+    _i3.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
+    required List<_i4.ObjectAttributes> objectAttributes,
   }) {
     return _$GetObjectAttributesRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
+      versionId: versionId,
       maxParts: maxParts,
-      objectAttributes: _i5.BuiltList(objectAttributes),
       partNumberMarker: partNumberMarker,
-      requestPayer: requestPayer,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKey: sseCustomerKey,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      versionId: versionId,
+      requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
+      objectAttributes: _i5.BuiltList(objectAttributes),
     );
   }
 
@@ -84,7 +84,7 @@ abstract class GetObjectAttributesRequest
               request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = _i3.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -94,7 +94,7 @@ abstract class GetObjectAttributesRequest
         if (request.headers['x-amz-object-attributes'] != null) {
           b.objectAttributes.addAll(_i1
               .parseHeader(request.headers['x-amz-object-attributes']!)
-              .map((el) => _i3.ObjectAttributes.values.byValue(el.trim())));
+              .map((el) => _i4.ObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['versionId'] != null) {
           b.versionId = request.queryParameters['versionId']!;
@@ -121,23 +121,17 @@ abstract class GetObjectAttributesRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The object key.
   String get key;
+
+  /// The version ID used to reference a specific version of the object.
+  String? get versionId;
 
   /// Sets the maximum number of parts to return.
   int? get maxParts;
 
-  /// An XML header that specifies the fields at the root level that you want returned in the response. Fields that you do not specify are not returned.
-  _i5.BuiltList<_i3.ObjectAttributes> get objectAttributes;
-
   /// Specifies the part after which listing should begin. Only parts with higher part numbers will be listed.
   String? get partNumberMarker;
-
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
 
   /// Specifies the algorithm to use when encrypting the object (for example, AES256).
   String? get sseCustomerAlgorithm;
@@ -148,8 +142,14 @@ abstract class GetObjectAttributesRequest
   /// Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.
   String? get sseCustomerKeyMd5;
 
-  /// The version ID used to reference a specific version of the object.
-  String? get versionId;
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i3.RequestPayer? get requestPayer;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
+
+  /// An XML header that specifies the fields at the root level that you want returned in the response. Fields that you do not specify are not returned.
+  _i5.BuiltList<_i4.ObjectAttributes> get objectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -170,16 +170,16 @@ abstract class GetObjectAttributesRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         key,
+        versionId,
         maxParts,
-        objectAttributes,
         partNumberMarker,
-        requestPayer,
         sseCustomerAlgorithm,
         sseCustomerKey,
         sseCustomerKeyMd5,
-        versionId,
+        requestPayer,
+        expectedBucketOwner,
+        objectAttributes,
       ];
   @override
   String toString() {
@@ -189,28 +189,20 @@ abstract class GetObjectAttributesRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'key',
       key,
+    );
+    helper.add(
+      'versionId',
+      versionId,
     );
     helper.add(
       'maxParts',
       maxParts,
     );
     helper.add(
-      'objectAttributes',
-      objectAttributes,
-    );
-    helper.add(
       'partNumberMarker',
       partNumberMarker,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
     );
     helper.add(
       'sseCustomerAlgorithm',
@@ -225,8 +217,16 @@ abstract class GetObjectAttributesRequest
       sseCustomerKeyMd5,
     );
     helper.add(
-      'versionId',
-      versionId,
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'objectAttributes',
+      objectAttributes,
     );
     return helper.toString();
   }

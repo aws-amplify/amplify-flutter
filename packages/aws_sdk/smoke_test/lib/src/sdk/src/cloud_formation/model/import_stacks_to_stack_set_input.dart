@@ -1,0 +1,337 @@
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+
+library smoke_test.cloud_formation.model.import_stacks_to_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:smithy/smithy.dart' as _i1;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
+    as _i4;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
+    as _i3;
+
+part 'import_stacks_to_stack_set_input.g.dart';
+
+abstract class ImportStacksToStackSetInput
+    with
+        _i1.HttpInput<ImportStacksToStackSetInput>,
+        _i2.AWSEquatable<ImportStacksToStackSetInput>
+    implements
+        Built<ImportStacksToStackSetInput, ImportStacksToStackSetInputBuilder> {
+  factory ImportStacksToStackSetInput({
+    required String stackSetName,
+    List<String>? stackIds,
+    String? stackIdsUrl,
+    List<String>? organizationalUnitIds,
+    _i3.StackSetOperationPreferences? operationPreferences,
+    String? operationId,
+    _i4.CallAs? callAs,
+  }) {
+    if (const bool.hasEnvironment('SMITHY_TEST')) {
+      operationId ??= '00000000-0000-4000-8000-000000000000';
+    } else {
+      operationId ??= _i2.uuid(secure: true);
+    }
+    return _$ImportStacksToStackSetInput._(
+      stackSetName: stackSetName,
+      stackIds: stackIds == null ? null : _i5.BuiltList(stackIds),
+      stackIdsUrl: stackIdsUrl,
+      organizationalUnitIds: organizationalUnitIds == null
+          ? null
+          : _i5.BuiltList(organizationalUnitIds),
+      operationPreferences: operationPreferences,
+      operationId: operationId,
+      callAs: callAs,
+    );
+  }
+
+  factory ImportStacksToStackSetInput.build(
+          [void Function(ImportStacksToStackSetInputBuilder) updates]) =
+      _$ImportStacksToStackSetInput;
+
+  const ImportStacksToStackSetInput._();
+
+  factory ImportStacksToStackSetInput.fromRequest(
+    ImportStacksToStackSetInput payload,
+    _i2.AWSBaseHttpRequest request, {
+    Map<String, String> labels = const {},
+  }) =>
+      payload;
+
+  static const List<_i1.SmithySerializer> serializers = [
+    ImportStacksToStackSetInputAwsQuerySerializer()
+  ];
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _init(ImportStacksToStackSetInputBuilder b) {
+    if (const bool.hasEnvironment('SMITHY_TEST')) {
+      b.operationId = '00000000-0000-4000-8000-000000000000';
+    } else {
+      b.operationId = _i2.uuid(secure: true);
+    }
+  }
+
+  /// The name of the stack set. The name must be unique in the Region where you create your stack set.
+  String get stackSetName;
+
+  /// The IDs of the stacks you are importing into a stack set. You import up to 10 stacks per stack set at a time.
+  ///
+  /// Specify either `StackIds` or `StackIdsUrl`.
+  _i5.BuiltList<String>? get stackIds;
+
+  /// The Amazon S3 URL which contains list of stack ids to be inputted.
+  ///
+  /// Specify either `StackIds` or `StackIdsUrl`.
+  String? get stackIdsUrl;
+
+  /// The list of OU ID's to which the stacks being imported has to be mapped as deployment target.
+  _i5.BuiltList<String>? get organizationalUnitIds;
+
+  /// The user-specified preferences for how CloudFormation performs a stack set operation.
+  ///
+  /// For more information about maximum concurrent accounts and failure tolerance, see [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
+  _i3.StackSetOperationPreferences? get operationPreferences;
+
+  /// A unique, user defined, identifier for the stack set operation.
+  String? get operationId;
+
+  /// By default, `SELF` is specified. Use `SELF` for stack sets with self-managed permissions.
+  ///
+  /// *   If you are signed in to the management account, specify `SELF`.
+  ///
+  /// *   For service managed stack sets, specify `DELEGATED_ADMIN`.
+  _i4.CallAs? get callAs;
+  @override
+  ImportStacksToStackSetInput getPayload() => this;
+  @override
+  List<Object?> get props => [
+        stackSetName,
+        stackIds,
+        stackIdsUrl,
+        organizationalUnitIds,
+        operationPreferences,
+        operationId,
+        callAs,
+      ];
+  @override
+  String toString() {
+    final helper = newBuiltValueToStringHelper('ImportStacksToStackSetInput');
+    helper.add(
+      'stackSetName',
+      stackSetName,
+    );
+    helper.add(
+      'stackIds',
+      stackIds,
+    );
+    helper.add(
+      'stackIdsUrl',
+      stackIdsUrl,
+    );
+    helper.add(
+      'organizationalUnitIds',
+      organizationalUnitIds,
+    );
+    helper.add(
+      'operationPreferences',
+      operationPreferences,
+    );
+    helper.add(
+      'operationId',
+      operationId,
+    );
+    helper.add(
+      'callAs',
+      callAs,
+    );
+    return helper.toString();
+  }
+}
+
+class ImportStacksToStackSetInputAwsQuerySerializer
+    extends _i1.StructuredSmithySerializer<ImportStacksToStackSetInput> {
+  const ImportStacksToStackSetInputAwsQuerySerializer()
+      : super('ImportStacksToStackSetInput');
+
+  @override
+  Iterable<Type> get types => const [
+        ImportStacksToStackSetInput,
+        _$ImportStacksToStackSetInput,
+      ];
+  @override
+  Iterable<_i1.ShapeId> get supportedProtocols => const [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsQuery',
+        )
+      ];
+  @override
+  ImportStacksToStackSetInput deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = ImportStacksToStackSetInputBuilder();
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current;
+      iterator.moveNext();
+      final value = iterator.current;
+      switch (key as String) {
+        case 'StackSetName':
+          result.stackSetName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'StackIds':
+          if (value != null) {
+            result.stackIds.replace((const _i1.XmlBuiltListSerializer(
+                    indexer: _i1.XmlIndexer.awsQueryList)
+                .deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(
+                _i5.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i5.BuiltList<String>));
+          }
+          break;
+        case 'StackIdsUrl':
+          if (value != null) {
+            result.stackIdsUrl = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'OrganizationalUnitIds':
+          if (value != null) {
+            result.organizationalUnitIds.replace(
+                (const _i1.XmlBuiltListSerializer(
+                        indexer: _i1.XmlIndexer.awsQueryList)
+                    .deserialize(
+              serializers,
+              value is String ? const [] : (value as Iterable<Object?>),
+              specifiedType: const FullType(
+                _i5.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i5.BuiltList<String>));
+          }
+          break;
+        case 'OperationPreferences':
+          if (value != null) {
+            result.operationPreferences.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.StackSetOperationPreferences),
+            ) as _i3.StackSetOperationPreferences));
+          }
+          break;
+        case 'OperationId':
+          if (value != null) {
+            result.operationId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'CallAs':
+          if (value != null) {
+            result.callAs = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.CallAs),
+            ) as _i4.CallAs);
+          }
+          break;
+      }
+    }
+
+    return result.build();
+  }
+
+  @override
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Object? object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final payload = (object as ImportStacksToStackSetInput);
+    final result = <Object?>[
+      const _i1.XmlElementName(
+        'ImportStacksToStackSetInputResponse',
+        _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+      )
+    ];
+    result
+      ..add(const _i1.XmlElementName('StackSetName'))
+      ..add(serializers.serialize(
+        payload.stackSetName,
+        specifiedType: const FullType(String),
+      ));
+    if (payload.stackIds != null) {
+      result
+        ..add(const _i1.XmlElementName('StackIds'))
+        ..add(const _i1.XmlBuiltListSerializer(
+                indexer: _i1.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          payload.stackIds!,
+          specifiedType: const FullType.nullable(
+            _i5.BuiltList,
+            [FullType(String)],
+          ),
+        ));
+    }
+    if (payload.stackIdsUrl != null) {
+      result
+        ..add(const _i1.XmlElementName('StackIdsUrl'))
+        ..add(serializers.serialize(
+          payload.stackIdsUrl!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.organizationalUnitIds != null) {
+      result
+        ..add(const _i1.XmlElementName('OrganizationalUnitIds'))
+        ..add(const _i1.XmlBuiltListSerializer(
+                indexer: _i1.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          payload.organizationalUnitIds!,
+          specifiedType: const FullType.nullable(
+            _i5.BuiltList,
+            [FullType(String)],
+          ),
+        ));
+    }
+    if (payload.operationPreferences != null) {
+      result
+        ..add(const _i1.XmlElementName('OperationPreferences'))
+        ..add(serializers.serialize(
+          payload.operationPreferences!,
+          specifiedType: const FullType(_i3.StackSetOperationPreferences),
+        ));
+    }
+    if (payload.operationId != null) {
+      result
+        ..add(const _i1.XmlElementName('OperationId'))
+        ..add(serializers.serialize(
+          payload.operationId!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.callAs != null) {
+      result
+        ..add(const _i1.XmlElementName('CallAs'))
+        ..add(serializers.serialize(
+          payload.callAs!,
+          specifiedType: const FullType.nullable(_i4.CallAs),
+        ));
+    }
+    return result;
+  }
+}

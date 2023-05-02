@@ -17,16 +17,16 @@ abstract class NullOperationInputOutput
     implements
         Built<NullOperationInputOutput, NullOperationInputOutputBuilder> {
   factory NullOperationInputOutput({
+    String? string,
     List<String?>? sparseStringList,
     Map<String, String?>? sparseStringMap,
-    String? string,
   }) {
     return _$NullOperationInputOutput._(
+      string: string,
       sparseStringList:
           sparseStringList == null ? null : _i3.BuiltList(sparseStringList),
       sparseStringMap:
           sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
-      string: string,
     );
   }
 
@@ -56,20 +56,24 @@ abstract class NullOperationInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(NullOperationInputOutputBuilder b) {}
+  String? get string;
   _i3.BuiltList<String?>? get sparseStringList;
   _i3.BuiltMap<String, String?>? get sparseStringMap;
-  String? get string;
   @override
   NullOperationInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         sparseStringList,
         sparseStringMap,
-        string,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('NullOperationInputOutput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'sparseStringList',
       sparseStringList,
@@ -77,10 +81,6 @@ abstract class NullOperationInputOutput
     helper.add(
       'sparseStringMap',
       sparseStringMap,
-    );
-    helper.add(
-      'string',
-      string,
     );
     return helper.toString();
   }
@@ -116,6 +116,14 @@ class NullOperationInputOutputAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'string':
+          if (value != null) {
+            result.string = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'sparseStringList':
           if (value != null) {
             result.sparseStringList.replace((serializers.deserialize(
@@ -141,14 +149,6 @@ class NullOperationInputOutputAwsJson11Serializer
             ) as _i3.BuiltMap<String, String?>));
           }
           break;
-        case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
       }
     }
 
@@ -163,6 +163,14 @@ class NullOperationInputOutputAwsJson11Serializer
   }) {
     final payload = (object as NullOperationInputOutput);
     final result = <Object?>[];
+    if (payload.string != null) {
+      result
+        ..add('string')
+        ..add(serializers.serialize(
+          payload.string!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.sparseStringList != null) {
       result
         ..add('sparseStringList')
@@ -186,14 +194,6 @@ class NullOperationInputOutputAwsJson11Serializer
               FullType.nullable(String),
             ],
           ),
-        ));
-    }
-    if (payload.string != null) {
-      result
-        ..add('string')
-        ..add(serializers.serialize(
-          payload.string!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

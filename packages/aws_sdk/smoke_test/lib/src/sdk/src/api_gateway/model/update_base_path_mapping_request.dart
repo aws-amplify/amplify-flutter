@@ -24,13 +24,13 @@ abstract class UpdateBasePathMappingRequest
         _i1.HasPayload<UpdateBasePathMappingRequestPayload> {
   /// A request to change information about the BasePathMapping resource.
   factory UpdateBasePathMappingRequest({
-    required String basePath,
     required String domainName,
+    required String basePath,
     List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateBasePathMappingRequest._(
-      basePath: basePath,
       domainName: domainName,
+      basePath: basePath,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
     );
@@ -67,13 +67,13 @@ abstract class UpdateBasePathMappingRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateBasePathMappingRequestBuilder b) {}
 
+  /// The domain name of the BasePathMapping resource to change.
+  String get domainName;
+
   /// The base path of the BasePathMapping resource to change.
   ///
   /// To specify an empty base path, set this parameter to `'(none)'`.
   String get basePath;
-
-  /// The domain name of the BasePathMapping resource to change.
-  String get domainName;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
@@ -100,20 +100,20 @@ abstract class UpdateBasePathMappingRequest
       });
   @override
   List<Object?> get props => [
-        basePath,
         domainName,
+        basePath,
         patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest');
     helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
       'domainName',
       domainName,
+    );
+    helper.add(
+      'basePath',
+      basePath,
     );
     helper.add(
       'patchOperations',

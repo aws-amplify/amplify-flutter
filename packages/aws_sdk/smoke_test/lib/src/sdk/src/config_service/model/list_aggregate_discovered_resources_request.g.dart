@@ -11,13 +11,13 @@ class _$ListAggregateDiscoveredResourcesRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.ResourceFilters? filters;
+  final _i3.ResourceType resourceType;
+  @override
+  final _i4.ResourceFilters? filters;
   @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final _i4.ResourceType resourceType;
 
   factory _$ListAggregateDiscoveredResourcesRequest(
           [void Function(ListAggregateDiscoveredResourcesRequestBuilder)?
@@ -27,10 +27,10 @@ class _$ListAggregateDiscoveredResourcesRequest
 
   _$ListAggregateDiscoveredResourcesRequest._(
       {required this.configurationAggregatorName,
+      required this.resourceType,
       this.filters,
       this.limit,
-      this.nextToken,
-      required this.resourceType})
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
@@ -55,20 +55,20 @@ class _$ListAggregateDiscoveredResourcesRequest
     if (identical(other, this)) return true;
     return other is ListAggregateDiscoveredResourcesRequest &&
         configurationAggregatorName == other.configurationAggregatorName &&
+        resourceType == other.resourceType &&
         filters == other.filters &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        resourceType == other.resourceType;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, configurationAggregatorName.hashCode);
+    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jc(_$hash, filters.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, resourceType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -86,10 +86,15 @@ class ListAggregateDiscoveredResourcesRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.ResourceFiltersBuilder? _filters;
-  _i3.ResourceFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ResourceFiltersBuilder();
-  set filters(_i3.ResourceFiltersBuilder? filters) => _$this._filters = filters;
+  _i3.ResourceType? _resourceType;
+  _i3.ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(_i3.ResourceType? resourceType) =>
+      _$this._resourceType = resourceType;
+
+  _i4.ResourceFiltersBuilder? _filters;
+  _i4.ResourceFiltersBuilder get filters =>
+      _$this._filters ??= new _i4.ResourceFiltersBuilder();
+  set filters(_i4.ResourceFiltersBuilder? filters) => _$this._filters = filters;
 
   int? _limit;
   int? get limit => _$this._limit;
@@ -99,11 +104,6 @@ class ListAggregateDiscoveredResourcesRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i4.ResourceType? _resourceType;
-  _i4.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i4.ResourceType? resourceType) =>
-      _$this._resourceType = resourceType;
-
   ListAggregateDiscoveredResourcesRequestBuilder() {
     ListAggregateDiscoveredResourcesRequest._init(this);
   }
@@ -112,10 +112,10 @@ class ListAggregateDiscoveredResourcesRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _configurationAggregatorName = $v.configurationAggregatorName;
+      _resourceType = $v.resourceType;
       _filters = $v.filters?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _resourceType = $v.resourceType;
       _$v = null;
     }
     return this;
@@ -146,11 +146,11 @@ class ListAggregateDiscoveredResourcesRequestBuilder
                       configurationAggregatorName,
                       r'ListAggregateDiscoveredResourcesRequest',
                       'configurationAggregatorName'),
+              resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
+                  r'ListAggregateDiscoveredResourcesRequest', 'resourceType'),
               filters: _filters?.build(),
               limit: limit,
-              nextToken: nextToken,
-              resourceType: BuiltValueNullFieldError.checkNotNull(resourceType,
-                  r'ListAggregateDiscoveredResourcesRequest', 'resourceType'));
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

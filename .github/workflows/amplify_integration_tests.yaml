@@ -1,7 +1,7 @@
 name: Amplify Integration Tests
 on:
   push:
-    branches: 
+    branches:
       - main
       - stable
       - feat/**
@@ -66,38 +66,15 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Cache AVD
-        id: avd-cache
-        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # 3.0.11
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-${{ matrix.api-level }}-${{ matrix.arch }}-${{ matrix.target }}
-
-      - name: Create AVD and generate snapshot
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
-        with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: ${{ matrix.arch }}
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
-          script: echo "Generated AVD snapshot for caching."
-
-      - name: Run Android integration tests
-        uses: reactivecircus/android-emulator-runner@50986b1464923454c95e261820bc626f38490ec0 # 2.27.0
+      - name: Launch Android emulator
+        uses: ./.github/composite_actions/launch_android_emulator
         # Make the timeout a little longer and add retry due to delay from starting emulator.
         timeout-minutes: 60
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
-          # -no-snapshot-save + default options: https://github.com/reactivecircus/android-emulator-runner#configurations
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -logcat '*:e *:s'
-          script: |
-            adb shell settings put system screen_off_timeout 3600000 # set timeout to 1 hour
-            melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
+          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
 
   ios:
     runs-on: macos-latest
@@ -125,9 +102,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
-      - name: Boot iOS Simulator
-        run: |
-          xcrun simctl boot "iPhone 14 Pro Max"
+      - name: Launch iOS simulator
+        uses: ./.github/composite_actions/launch_ios_simulator
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -140,7 +116,7 @@ jobs:
       - name: Run integration tests
         timeout-minutes: 30
         run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh
+          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh -d test
 
   web:
     runs-on: ubuntu-latest

@@ -19,17 +19,17 @@ abstract class AutoScalingSettingsUpdate
         Built<AutoScalingSettingsUpdate, AutoScalingSettingsUpdateBuilder> {
   /// Represents the auto scaling settings to be modified for a global table or global secondary index.
   factory AutoScalingSettingsUpdate({
+    _i2.Int64? minimumUnits,
+    _i2.Int64? maximumUnits,
     bool? autoScalingDisabled,
     String? autoScalingRoleArn,
-    _i2.Int64? maximumUnits,
-    _i2.Int64? minimumUnits,
     _i3.AutoScalingPolicyUpdate? scalingPolicyUpdate,
   }) {
     return _$AutoScalingSettingsUpdate._(
+      minimumUnits: minimumUnits,
+      maximumUnits: maximumUnits,
       autoScalingDisabled: autoScalingDisabled,
       autoScalingRoleArn: autoScalingRoleArn,
-      maximumUnits: maximumUnits,
-      minimumUnits: minimumUnits,
       scalingPolicyUpdate: scalingPolicyUpdate,
     );
   }
@@ -48,31 +48,39 @@ abstract class AutoScalingSettingsUpdate
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AutoScalingSettingsUpdateBuilder b) {}
 
+  /// The minimum capacity units that a global table or global secondary index should be scaled down to.
+  _i2.Int64? get minimumUnits;
+
+  /// The maximum capacity units that a global table or global secondary index should be scaled up to.
+  _i2.Int64? get maximumUnits;
+
   /// Disabled auto scaling for this global table or global secondary index.
   bool? get autoScalingDisabled;
 
   /// Role ARN used for configuring auto scaling policy.
   String? get autoScalingRoleArn;
 
-  /// The maximum capacity units that a global table or global secondary index should be scaled up to.
-  _i2.Int64? get maximumUnits;
-
-  /// The minimum capacity units that a global table or global secondary index should be scaled down to.
-  _i2.Int64? get minimumUnits;
-
   /// The scaling policy to apply for scaling target global table or global secondary index capacity units.
   _i3.AutoScalingPolicyUpdate? get scalingPolicyUpdate;
   @override
   List<Object?> get props => [
+        minimumUnits,
+        maximumUnits,
         autoScalingDisabled,
         autoScalingRoleArn,
-        maximumUnits,
-        minimumUnits,
         scalingPolicyUpdate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AutoScalingSettingsUpdate');
+    helper.add(
+      'minimumUnits',
+      minimumUnits,
+    );
+    helper.add(
+      'maximumUnits',
+      maximumUnits,
+    );
     helper.add(
       'autoScalingDisabled',
       autoScalingDisabled,
@@ -80,14 +88,6 @@ abstract class AutoScalingSettingsUpdate
     helper.add(
       'autoScalingRoleArn',
       autoScalingRoleArn,
-    );
-    helper.add(
-      'maximumUnits',
-      maximumUnits,
-    );
-    helper.add(
-      'minimumUnits',
-      minimumUnits,
     );
     helper.add(
       'scalingPolicyUpdate',
@@ -127,6 +127,22 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'MinimumUnits':
+          if (value != null) {
+            result.minimumUnits = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
+          break;
+        case 'MaximumUnits':
+          if (value != null) {
+            result.maximumUnits = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
+          }
+          break;
         case 'AutoScalingDisabled':
           if (value != null) {
             result.autoScalingDisabled = (serializers.deserialize(
@@ -141,22 +157,6 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'MaximumUnits':
-          if (value != null) {
-            result.maximumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
-        case 'MinimumUnits':
-          if (value != null) {
-            result.minimumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
           }
           break;
         case 'ScalingPolicyUpdate':
@@ -181,6 +181,22 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
   }) {
     final payload = (object as AutoScalingSettingsUpdate);
     final result = <Object?>[];
+    if (payload.minimumUnits != null) {
+      result
+        ..add('MinimumUnits')
+        ..add(serializers.serialize(
+          payload.minimumUnits!,
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
+    if (payload.maximumUnits != null) {
+      result
+        ..add('MaximumUnits')
+        ..add(serializers.serialize(
+          payload.maximumUnits!,
+          specifiedType: const FullType(_i2.Int64),
+        ));
+    }
     if (payload.autoScalingDisabled != null) {
       result
         ..add('AutoScalingDisabled')
@@ -195,22 +211,6 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ..add(serializers.serialize(
           payload.autoScalingRoleArn!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.maximumUnits != null) {
-      result
-        ..add('MaximumUnits')
-        ..add(serializers.serialize(
-          payload.maximumUnits!,
-          specifiedType: const FullType(_i2.Int64),
-        ));
-    }
-    if (payload.minimumUnits != null) {
-      result
-        ..add('MinimumUnits')
-        ..add(serializers.serialize(
-          payload.minimumUnits!,
-          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (payload.scalingPolicyUpdate != null) {

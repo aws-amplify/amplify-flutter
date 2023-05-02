@@ -16,12 +16,12 @@ abstract class ListTagsForResourceResponse
     implements
         Built<ListTagsForResourceResponse, ListTagsForResourceResponseBuilder> {
   factory ListTagsForResourceResponse({
-    String? nextToken,
     List<_i2.Tag>? tags,
+    String? nextToken,
   }) {
     return _$ListTagsForResourceResponse._(
-      nextToken: nextToken,
       tags: tags == null ? null : _i3.BuiltList(tags),
+      nextToken: nextToken,
     );
   }
 
@@ -45,26 +45,26 @@ abstract class ListTagsForResourceResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListTagsForResourceResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// The tags for the resource.
   _i3.BuiltList<_i2.Tag>? get tags;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         tags,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListTagsForResourceResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'tags',
       tags,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -100,14 +100,6 @@ class ListTagsForResourceResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Tags':
           if (value != null) {
             result.tags.replace((serializers.deserialize(
@@ -117,6 +109,14 @@ class ListTagsForResourceResponseAwsJson11Serializer
                 [FullType(_i2.Tag)],
               ),
             ) as _i3.BuiltList<_i2.Tag>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -133,14 +133,6 @@ class ListTagsForResourceResponseAwsJson11Serializer
   }) {
     final payload = (object as ListTagsForResourceResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.tags != null) {
       result
         ..add('Tags')
@@ -150,6 +142,14 @@ class ListTagsForResourceResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.Tag)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

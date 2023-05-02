@@ -8,15 +8,15 @@ part of smoke_test.dynamo_db.model.list_tags_of_resource_input;
 
 class _$ListTagsOfResourceInput extends ListTagsOfResourceInput {
   @override
-  final String? nextToken;
-  @override
   final String resourceArn;
+  @override
+  final String? nextToken;
 
   factory _$ListTagsOfResourceInput(
           [void Function(ListTagsOfResourceInputBuilder)? updates]) =>
       (new ListTagsOfResourceInputBuilder()..update(updates))._build();
 
-  _$ListTagsOfResourceInput._({this.nextToken, required this.resourceArn})
+  _$ListTagsOfResourceInput._({required this.resourceArn, this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceArn, r'ListTagsOfResourceInput', 'resourceArn');
@@ -35,15 +35,15 @@ class _$ListTagsOfResourceInput extends ListTagsOfResourceInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListTagsOfResourceInput &&
-        nextToken == other.nextToken &&
-        resourceArn == other.resourceArn;
+        resourceArn == other.resourceArn &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, resourceArn.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,13 +54,13 @@ class ListTagsOfResourceInputBuilder
         Builder<ListTagsOfResourceInput, ListTagsOfResourceInputBuilder> {
   _$ListTagsOfResourceInput? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   String? _resourceArn;
   String? get resourceArn => _$this._resourceArn;
   set resourceArn(String? resourceArn) => _$this._resourceArn = resourceArn;
+
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
   ListTagsOfResourceInputBuilder() {
     ListTagsOfResourceInput._init(this);
@@ -69,8 +69,8 @@ class ListTagsOfResourceInputBuilder
   ListTagsOfResourceInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _resourceArn = $v.resourceArn;
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -93,9 +93,9 @@ class ListTagsOfResourceInputBuilder
   _$ListTagsOfResourceInput _build() {
     final _$result = _$v ??
         new _$ListTagsOfResourceInput._(
-            nextToken: nextToken,
             resourceArn: BuiltValueNullFieldError.checkNotNull(
-                resourceArn, r'ListTagsOfResourceInput', 'resourceArn'));
+                resourceArn, r'ListTagsOfResourceInput', 'resourceArn'),
+            nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

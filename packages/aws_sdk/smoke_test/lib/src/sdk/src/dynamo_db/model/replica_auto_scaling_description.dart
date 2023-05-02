@@ -25,9 +25,9 @@ abstract class ReplicaAutoScalingDescription
             ReplicaAutoScalingDescriptionBuilder> {
   /// Represents the auto scaling settings of the replica.
   factory ReplicaAutoScalingDescription({
+    String? regionName,
     List<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
         globalSecondaryIndexes,
-    String? regionName,
     _i3.AutoScalingSettingsDescription?
         replicaProvisionedReadCapacityAutoScalingSettings,
     _i3.AutoScalingSettingsDescription?
@@ -35,10 +35,10 @@ abstract class ReplicaAutoScalingDescription
     _i4.ReplicaStatus? replicaStatus,
   }) {
     return _$ReplicaAutoScalingDescription._(
+      regionName: regionName,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
           : _i5.BuiltList(globalSecondaryIndexes),
-      regionName: regionName,
       replicaProvisionedReadCapacityAutoScalingSettings:
           replicaProvisionedReadCapacityAutoScalingSettings,
       replicaProvisionedWriteCapacityAutoScalingSettings:
@@ -61,12 +61,12 @@ abstract class ReplicaAutoScalingDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ReplicaAutoScalingDescriptionBuilder b) {}
 
+  /// The Region where the replica exists.
+  String? get regionName;
+
   /// Replica-specific global secondary index auto scaling settings.
   _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       get globalSecondaryIndexes;
-
-  /// The Region where the replica exists.
-  String? get regionName;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
   _i3.AutoScalingSettingsDescription?
@@ -88,8 +88,8 @@ abstract class ReplicaAutoScalingDescription
   _i4.ReplicaStatus? get replicaStatus;
   @override
   List<Object?> get props => [
-        globalSecondaryIndexes,
         regionName,
+        globalSecondaryIndexes,
         replicaProvisionedReadCapacityAutoScalingSettings,
         replicaProvisionedWriteCapacityAutoScalingSettings,
         replicaStatus,
@@ -98,12 +98,12 @@ abstract class ReplicaAutoScalingDescription
   String toString() {
     final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription');
     helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
       'regionName',
       regionName,
+    );
+    helper.add(
+      'globalSecondaryIndexes',
+      globalSecondaryIndexes,
     );
     helper.add(
       'replicaProvisionedReadCapacityAutoScalingSettings',
@@ -151,6 +151,14 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'RegionName':
+          if (value != null) {
+            result.regionName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'GlobalSecondaryIndexes':
           if (value != null) {
             result.globalSecondaryIndexes.replace((serializers.deserialize(
@@ -164,14 +172,6 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
               ),
             ) as _i5.BuiltList<
                 _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>));
-          }
-          break;
-        case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
         case 'ReplicaProvisionedReadCapacityAutoScalingSettings':
@@ -214,6 +214,14 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ReplicaAutoScalingDescription);
     final result = <Object?>[];
+    if (payload.regionName != null) {
+      result
+        ..add('RegionName')
+        ..add(serializers.serialize(
+          payload.regionName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
@@ -223,14 +231,6 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
             _i5.BuiltList,
             [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)],
           ),
-        ));
-    }
-    if (payload.regionName != null) {
-      result
-        ..add('RegionName')
-        ..add(serializers.serialize(
-          payload.regionName!,
-          specifiedType: const FullType(String),
         ));
     }
     if (payload.replicaProvisionedReadCapacityAutoScalingSettings != null) {

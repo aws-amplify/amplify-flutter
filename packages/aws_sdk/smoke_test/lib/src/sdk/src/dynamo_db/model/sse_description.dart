@@ -6,8 +6,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_status.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_status.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart' as _i3;
 
 part 'sse_description.g.dart';
 
@@ -17,16 +17,16 @@ abstract class SseDescription
     implements Built<SseDescription, SseDescriptionBuilder> {
   /// The description of the server-side encryption status on the specified table.
   factory SseDescription({
-    DateTime? inaccessibleEncryptionDateTime,
+    _i2.SseStatus? status,
+    _i3.SseType? sseType,
     String? kmsMasterKeyArn,
-    _i2.SseType? sseType,
-    _i3.SseStatus? status,
+    DateTime? inaccessibleEncryptionDateTime,
   }) {
     return _$SseDescription._(
-      inaccessibleEncryptionDateTime: inaccessibleEncryptionDateTime,
-      kmsMasterKeyArn: kmsMasterKeyArn,
-      sseType: sseType,
       status: status,
+      sseType: sseType,
+      kmsMasterKeyArn: kmsMasterKeyArn,
+      inaccessibleEncryptionDateTime: inaccessibleEncryptionDateTime,
     );
   }
 
@@ -43,48 +43,48 @@ abstract class SseDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SseDescriptionBuilder b) {}
 
-  /// Indicates the time, in UNIX epoch date format, when DynamoDB detected that the table's KMS key was inaccessible. This attribute will automatically be cleared when DynamoDB detects that the table's KMS key is accessible again. DynamoDB will initiate the table archival process when table's KMS key remains inaccessible for more than seven days from this date.
-  DateTime? get inaccessibleEncryptionDateTime;
-
-  /// The KMS key ARN used for the KMS encryption.
-  String? get kmsMasterKeyArn;
-
-  /// Server-side encryption type. The only supported value is:
-  ///
-  /// *   `KMS` \- Server-side encryption that uses Key Management Service. The key is stored in your account and is managed by KMS (KMS charges apply).
-  _i2.SseType? get sseType;
-
   /// Represents the current state of server-side encryption. The only supported values are:
   ///
   /// *   `ENABLED` \- Server-side encryption is enabled.
   ///
   /// *   `UPDATING` \- Server-side encryption is being updated.
-  _i3.SseStatus? get status;
+  _i2.SseStatus? get status;
+
+  /// Server-side encryption type. The only supported value is:
+  ///
+  /// *   `KMS` \- Server-side encryption that uses Key Management Service. The key is stored in your account and is managed by KMS (KMS charges apply).
+  _i3.SseType? get sseType;
+
+  /// The KMS key ARN used for the KMS encryption.
+  String? get kmsMasterKeyArn;
+
+  /// Indicates the time, in UNIX epoch date format, when DynamoDB detected that the table's KMS key was inaccessible. This attribute will automatically be cleared when DynamoDB detects that the table's KMS key is accessible again. DynamoDB will initiate the table archival process when table's KMS key remains inaccessible for more than seven days from this date.
+  DateTime? get inaccessibleEncryptionDateTime;
   @override
   List<Object?> get props => [
-        inaccessibleEncryptionDateTime,
-        kmsMasterKeyArn,
-        sseType,
         status,
+        sseType,
+        kmsMasterKeyArn,
+        inaccessibleEncryptionDateTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SseDescription');
     helper.add(
-      'inaccessibleEncryptionDateTime',
-      inaccessibleEncryptionDateTime,
-    );
-    helper.add(
-      'kmsMasterKeyArn',
-      kmsMasterKeyArn,
+      'status',
+      status,
     );
     helper.add(
       'sseType',
       sseType,
     );
     helper.add(
-      'status',
-      status,
+      'kmsMasterKeyArn',
+      kmsMasterKeyArn,
+    );
+    helper.add(
+      'inaccessibleEncryptionDateTime',
+      inaccessibleEncryptionDateTime,
     );
     return helper.toString();
   }
@@ -119,12 +119,20 @@ class SseDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'InaccessibleEncryptionDateTime':
+        case 'Status':
           if (value != null) {
-            result.inaccessibleEncryptionDateTime = (serializers.deserialize(
+            result.status = (serializers.deserialize(
               value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
+              specifiedType: const FullType(_i2.SseStatus),
+            ) as _i2.SseStatus);
+          }
+          break;
+        case 'SSEType':
+          if (value != null) {
+            result.sseType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.SseType),
+            ) as _i3.SseType);
           }
           break;
         case 'KMSMasterKeyArn':
@@ -135,20 +143,12 @@ class SseDescriptionAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'SSEType':
+        case 'InaccessibleEncryptionDateTime':
           if (value != null) {
-            result.sseType = (serializers.deserialize(
+            result.inaccessibleEncryptionDateTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.SseType),
-            ) as _i2.SseType);
-          }
-          break;
-        case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SseStatus),
-            ) as _i3.SseStatus);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
       }
@@ -165,12 +165,20 @@ class SseDescriptionAwsJson10Serializer
   }) {
     final payload = (object as SseDescription);
     final result = <Object?>[];
-    if (payload.inaccessibleEncryptionDateTime != null) {
+    if (payload.status != null) {
       result
-        ..add('InaccessibleEncryptionDateTime')
+        ..add('Status')
         ..add(serializers.serialize(
-          payload.inaccessibleEncryptionDateTime!,
-          specifiedType: const FullType(DateTime),
+          payload.status!,
+          specifiedType: const FullType(_i2.SseStatus),
+        ));
+    }
+    if (payload.sseType != null) {
+      result
+        ..add('SSEType')
+        ..add(serializers.serialize(
+          payload.sseType!,
+          specifiedType: const FullType(_i3.SseType),
         ));
     }
     if (payload.kmsMasterKeyArn != null) {
@@ -181,20 +189,12 @@ class SseDescriptionAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sseType != null) {
+    if (payload.inaccessibleEncryptionDateTime != null) {
       result
-        ..add('SSEType')
+        ..add('InaccessibleEncryptionDateTime')
         ..add(serializers.serialize(
-          payload.sseType!,
-          specifiedType: const FullType(_i2.SseType),
-        ));
-    }
-    if (payload.status != null) {
-      result
-        ..add('Status')
-        ..add(serializers.serialize(
-          payload.status!,
-          specifiedType: const FullType(_i3.SseStatus),
+          payload.inaccessibleEncryptionDateTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

@@ -19,19 +19,19 @@ abstract class MalformedLengthInput
     implements Built<MalformedLengthInput, MalformedLengthInputBuilder> {
   factory MalformedLengthInput({
     _i3.Uint8List? blob,
+    String? string,
+    String? minString,
+    String? maxString,
     List<String>? list,
     Map<String, List<String>>? map,
-    String? maxString,
-    String? minString,
-    String? string,
   }) {
     return _$MalformedLengthInput._(
       blob: blob,
+      string: string,
+      minString: minString,
+      maxString: maxString,
       list: list == null ? null : _i4.BuiltList(list),
       map: map == null ? null : _i4.BuiltListMultimap(map),
-      maxString: maxString,
-      minString: minString,
-      string: string,
     );
   }
 
@@ -55,21 +55,21 @@ abstract class MalformedLengthInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedLengthInputBuilder b) {}
   _i3.Uint8List? get blob;
+  String? get string;
+  String? get minString;
+  String? get maxString;
   _i4.BuiltList<String>? get list;
   _i4.BuiltListMultimap<String, String>? get map;
-  String? get maxString;
-  String? get minString;
-  String? get string;
   @override
   MalformedLengthInput getPayload() => this;
   @override
   List<Object?> get props => [
         blob,
+        string,
+        minString,
+        maxString,
         list,
         map,
-        maxString,
-        minString,
-        string,
       ];
   @override
   String toString() {
@@ -79,24 +79,24 @@ abstract class MalformedLengthInput
       blob,
     );
     helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'maxString',
-      maxString,
+      'string',
+      string,
     );
     helper.add(
       'minString',
       minString,
     );
     helper.add(
-      'string',
-      string,
+      'maxString',
+      maxString,
+    );
+    helper.add(
+      'list',
+      list,
+    );
+    helper.add(
+      'map',
+      map,
     );
     return helper.toString();
   }

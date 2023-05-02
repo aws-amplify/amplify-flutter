@@ -20,15 +20,17 @@ abstract class Put
     implements Built<Put, PutBuilder> {
   /// Represents a request to perform a `PutItem` operation.
   factory Put({
+    required Map<String, _i2.AttributeValue> item,
+    required String tableName,
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
     Map<String, _i2.AttributeValue>? expressionAttributeValues,
-    required Map<String, _i2.AttributeValue> item,
     _i3.ReturnValuesOnConditionCheckFailure?
         returnValuesOnConditionCheckFailure,
-    required String tableName,
   }) {
     return _$Put._(
+      item: _i4.BuiltMap(item),
+      tableName: tableName,
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
@@ -36,9 +38,7 @@ abstract class Put
       expressionAttributeValues: expressionAttributeValues == null
           ? null
           : _i4.BuiltMap(expressionAttributeValues),
-      item: _i4.BuiltMap(item),
       returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
-      tableName: tableName,
     );
   }
 
@@ -54,6 +54,12 @@ abstract class Put
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutBuilder b) {}
 
+  /// A map of attribute name to attribute values, representing the primary key of the item to be written by `PutItem`. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
+  _i4.BuiltMap<String, _i2.AttributeValue> get item;
+
+  /// Name of the table in which to write the item.
+  String get tableName;
+
   /// A condition that must be satisfied in order for a conditional update to succeed.
   String? get conditionExpression;
 
@@ -63,27 +69,29 @@ abstract class Put
   /// One or more values that can be substituted in an expression.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
-  /// A map of attribute name to attribute values, representing the primary key of the item to be written by `PutItem`. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
-  _i4.BuiltMap<String, _i2.AttributeValue> get item;
-
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Put` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure;
-
-  /// Name of the table in which to write the item.
-  String get tableName;
   @override
   List<Object?> get props => [
+        item,
+        tableName,
         conditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
-        item,
         returnValuesOnConditionCheckFailure,
-        tableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Put');
+    helper.add(
+      'item',
+      item,
+    );
+    helper.add(
+      'tableName',
+      tableName,
+    );
     helper.add(
       'conditionExpression',
       conditionExpression,
@@ -97,16 +105,8 @@ abstract class Put
       expressionAttributeValues,
     );
     helper.add(
-      'item',
-      item,
-    );
-    helper.add(
       'returnValuesOnConditionCheckFailure',
       returnValuesOnConditionCheckFailure,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     return helper.toString();
   }
@@ -140,6 +140,24 @@ class PutAwsJson10Serializer extends _i5.StructuredSmithySerializer<Put> {
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Item':
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          break;
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ConditionExpression':
           if (value != null) {
             result.conditionExpression = (serializers.deserialize(
@@ -176,18 +194,6 @@ class PutAwsJson10Serializer extends _i5.StructuredSmithySerializer<Put> {
             ) as _i4.BuiltMap<String, _i2.AttributeValue>));
           }
           break;
-        case 'Item':
-          result.item.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i4.BuiltMap,
-              [
-                FullType(String),
-                FullType(_i2.AttributeValue),
-              ],
-            ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          break;
         case 'ReturnValuesOnConditionCheckFailure':
           if (value != null) {
             result.returnValuesOnConditionCheckFailure =
@@ -197,12 +203,6 @@ class PutAwsJson10Serializer extends _i5.StructuredSmithySerializer<Put> {
                   const FullType(_i3.ReturnValuesOnConditionCheckFailure),
             ) as _i3.ReturnValuesOnConditionCheckFailure);
           }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

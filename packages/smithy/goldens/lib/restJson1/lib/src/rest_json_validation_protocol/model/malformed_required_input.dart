@@ -19,13 +19,13 @@ abstract class MalformedRequiredInput
         _i1.HasPayload<MalformedRequiredInputPayload> {
   factory MalformedRequiredInput({
     required String string,
-    required String stringInHeader,
     required String stringInQuery,
+    required String stringInHeader,
   }) {
     return _$MalformedRequiredInput._(
       string: string,
-      stringInHeader: stringInHeader,
       stringInQuery: stringInQuery,
+      stringInHeader: stringInHeader,
     );
   }
 
@@ -57,8 +57,8 @@ abstract class MalformedRequiredInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedRequiredInputBuilder b) {}
   String get string;
-  String get stringInHeader;
   String get stringInQuery;
+  String get stringInHeader;
   @override
   MalformedRequiredInputPayload getPayload() =>
       MalformedRequiredInputPayload((b) {
@@ -67,8 +67,8 @@ abstract class MalformedRequiredInput
   @override
   List<Object?> get props => [
         string,
-        stringInHeader,
         stringInQuery,
+        stringInHeader,
       ];
   @override
   String toString() {
@@ -78,12 +78,12 @@ abstract class MalformedRequiredInput
       string,
     );
     helper.add(
-      'stringInHeader',
-      stringInHeader,
-    );
-    helper.add(
       'stringInQuery',
       stringInQuery,
+    );
+    helper.add(
+      'stringInHeader',
+      stringInHeader,
     );
     return helper.toString();
   }

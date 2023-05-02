@@ -8,15 +8,15 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_
 
 class _$InitiateAuthRequest extends InitiateAuthRequest {
   @override
-  final _i3.AnalyticsMetadataType? analyticsMetadata;
-  @override
-  final _i4.AuthFlowType authFlow;
+  final _i3.AuthFlowType authFlow;
   @override
   final _i6.BuiltMap<String, String>? authParameters;
   @override
+  final _i6.BuiltMap<String, String>? clientMetadata;
+  @override
   final String clientId;
   @override
-  final _i6.BuiltMap<String, String>? clientMetadata;
+  final _i4.AnalyticsMetadataType? analyticsMetadata;
   @override
   final _i5.UserContextDataType? userContextData;
 
@@ -25,11 +25,11 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
       (new InitiateAuthRequestBuilder()..update(updates))._build();
 
   _$InitiateAuthRequest._(
-      {this.analyticsMetadata,
-      required this.authFlow,
+      {required this.authFlow,
       this.authParameters,
-      required this.clientId,
       this.clientMetadata,
+      required this.clientId,
+      this.analyticsMetadata,
       this.userContextData})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -51,22 +51,22 @@ class _$InitiateAuthRequest extends InitiateAuthRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is InitiateAuthRequest &&
-        analyticsMetadata == other.analyticsMetadata &&
         authFlow == other.authFlow &&
         authParameters == other.authParameters &&
-        clientId == other.clientId &&
         clientMetadata == other.clientMetadata &&
+        clientId == other.clientId &&
+        analyticsMetadata == other.analyticsMetadata &&
         userContextData == other.userContextData;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, analyticsMetadata.hashCode);
     _$hash = $jc(_$hash, authFlow.hashCode);
     _$hash = $jc(_$hash, authParameters.hashCode);
-    _$hash = $jc(_$hash, clientId.hashCode);
     _$hash = $jc(_$hash, clientMetadata.hashCode);
+    _$hash = $jc(_$hash, clientId.hashCode);
+    _$hash = $jc(_$hash, analyticsMetadata.hashCode);
     _$hash = $jc(_$hash, userContextData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -77,15 +77,9 @@ class InitiateAuthRequestBuilder
     implements Builder<InitiateAuthRequest, InitiateAuthRequestBuilder> {
   _$InitiateAuthRequest? _$v;
 
-  _i3.AnalyticsMetadataTypeBuilder? _analyticsMetadata;
-  _i3.AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new _i3.AnalyticsMetadataTypeBuilder();
-  set analyticsMetadata(_i3.AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
-      _$this._analyticsMetadata = analyticsMetadata;
-
-  _i4.AuthFlowType? _authFlow;
-  _i4.AuthFlowType? get authFlow => _$this._authFlow;
-  set authFlow(_i4.AuthFlowType? authFlow) => _$this._authFlow = authFlow;
+  _i3.AuthFlowType? _authFlow;
+  _i3.AuthFlowType? get authFlow => _$this._authFlow;
+  set authFlow(_i3.AuthFlowType? authFlow) => _$this._authFlow = authFlow;
 
   _i6.MapBuilder<String, String>? _authParameters;
   _i6.MapBuilder<String, String> get authParameters =>
@@ -93,15 +87,21 @@ class InitiateAuthRequestBuilder
   set authParameters(_i6.MapBuilder<String, String>? authParameters) =>
       _$this._authParameters = authParameters;
 
-  String? _clientId;
-  String? get clientId => _$this._clientId;
-  set clientId(String? clientId) => _$this._clientId = clientId;
-
   _i6.MapBuilder<String, String>? _clientMetadata;
   _i6.MapBuilder<String, String> get clientMetadata =>
       _$this._clientMetadata ??= new _i6.MapBuilder<String, String>();
   set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
+
+  String? _clientId;
+  String? get clientId => _$this._clientId;
+  set clientId(String? clientId) => _$this._clientId = clientId;
+
+  _i4.AnalyticsMetadataTypeBuilder? _analyticsMetadata;
+  _i4.AnalyticsMetadataTypeBuilder get analyticsMetadata =>
+      _$this._analyticsMetadata ??= new _i4.AnalyticsMetadataTypeBuilder();
+  set analyticsMetadata(_i4.AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
+      _$this._analyticsMetadata = analyticsMetadata;
 
   _i5.UserContextDataTypeBuilder? _userContextData;
   _i5.UserContextDataTypeBuilder get userContextData =>
@@ -116,11 +116,11 @@ class InitiateAuthRequestBuilder
   InitiateAuthRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _analyticsMetadata = $v.analyticsMetadata?.toBuilder();
       _authFlow = $v.authFlow;
       _authParameters = $v.authParameters?.toBuilder();
-      _clientId = $v.clientId;
       _clientMetadata = $v.clientMetadata?.toBuilder();
+      _clientId = $v.clientId;
+      _analyticsMetadata = $v.analyticsMetadata?.toBuilder();
       _userContextData = $v.userContextData?.toBuilder();
       _$v = null;
     }
@@ -146,25 +146,24 @@ class InitiateAuthRequestBuilder
     try {
       _$result = _$v ??
           new _$InitiateAuthRequest._(
-              analyticsMetadata: _analyticsMetadata?.build(),
               authFlow: BuiltValueNullFieldError.checkNotNull(
                   authFlow, r'InitiateAuthRequest', 'authFlow'),
               authParameters: _authParameters?.build(),
+              clientMetadata: _clientMetadata?.build(),
               clientId: BuiltValueNullFieldError.checkNotNull(
                   clientId, r'InitiateAuthRequest', 'clientId'),
-              clientMetadata: _clientMetadata?.build(),
+              analyticsMetadata: _analyticsMetadata?.build(),
               userContextData: _userContextData?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'analyticsMetadata';
-        _analyticsMetadata?.build();
-
         _$failedField = 'authParameters';
         _authParameters?.build();
-
         _$failedField = 'clientMetadata';
         _clientMetadata?.build();
+
+        _$failedField = 'analyticsMetadata';
+        _analyticsMetadata?.build();
         _$failedField = 'userContextData';
         _userContextData?.build();
       } catch (e) {

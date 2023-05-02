@@ -5,14 +5,14 @@ library smoke_test.dynamo_db.model.export_description; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:fixnum/fixnum.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart'
     as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart'
+    as _i2;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart'
-    as _i5;
+    as _i3;
 
 part 'export_description.g.dart';
 
@@ -22,46 +22,46 @@ abstract class ExportDescription
     implements Built<ExportDescription, ExportDescriptionBuilder> {
   /// Represents the properties of the exported table.
   factory ExportDescription({
-    _i2.Int64? billedSizeBytes,
-    String? clientToken,
-    DateTime? endTime,
     String? exportArn,
-    _i3.ExportFormat? exportFormat,
+    _i2.ExportStatus? exportStatus,
+    DateTime? startTime,
+    DateTime? endTime,
     String? exportManifest,
-    _i4.ExportStatus? exportStatus,
+    String? tableArn,
+    String? tableId,
     DateTime? exportTime,
-    String? failureCode,
-    String? failureMessage,
-    _i2.Int64? itemCount,
+    String? clientToken,
     String? s3Bucket,
     String? s3BucketOwner,
     String? s3Prefix,
-    _i5.S3SseAlgorithm? s3SseAlgorithm,
+    _i3.S3SseAlgorithm? s3SseAlgorithm,
     String? s3SseKmsKeyId,
-    DateTime? startTime,
-    String? tableArn,
-    String? tableId,
+    String? failureCode,
+    String? failureMessage,
+    _i4.ExportFormat? exportFormat,
+    _i5.Int64? billedSizeBytes,
+    _i5.Int64? itemCount,
   }) {
     return _$ExportDescription._(
-      billedSizeBytes: billedSizeBytes,
-      clientToken: clientToken,
-      endTime: endTime,
       exportArn: exportArn,
-      exportFormat: exportFormat,
-      exportManifest: exportManifest,
       exportStatus: exportStatus,
+      startTime: startTime,
+      endTime: endTime,
+      exportManifest: exportManifest,
+      tableArn: tableArn,
+      tableId: tableId,
       exportTime: exportTime,
-      failureCode: failureCode,
-      failureMessage: failureMessage,
-      itemCount: itemCount,
+      clientToken: clientToken,
       s3Bucket: s3Bucket,
       s3BucketOwner: s3BucketOwner,
       s3Prefix: s3Prefix,
       s3SseAlgorithm: s3SseAlgorithm,
       s3SseKmsKeyId: s3SseKmsKeyId,
-      startTime: startTime,
-      tableArn: tableArn,
-      tableId: tableId,
+      failureCode: failureCode,
+      failureMessage: failureMessage,
+      exportFormat: exportFormat,
+      billedSizeBytes: billedSizeBytes,
+      itemCount: itemCount,
     );
   }
 
@@ -78,38 +78,32 @@ abstract class ExportDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExportDescriptionBuilder b) {}
 
-  /// The billable size of the table export.
-  _i2.Int64? get billedSizeBytes;
+  /// The Amazon Resource Name (ARN) of the table export.
+  String? get exportArn;
 
-  /// The client token that was provided for the export task. A client token makes calls to `ExportTableToPointInTimeInput` idempotent, meaning that multiple identical calls have the same effect as one single call.
-  String? get clientToken;
+  /// Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
+  _i2.ExportStatus? get exportStatus;
+
+  /// The time at which the export task began.
+  DateTime? get startTime;
 
   /// The time at which the export task completed.
   DateTime? get endTime;
 
-  /// The Amazon Resource Name (ARN) of the table export.
-  String? get exportArn;
-
-  /// The format of the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
-  _i3.ExportFormat? get exportFormat;
-
   /// The name of the manifest file for the export task.
   String? get exportManifest;
 
-  /// Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
-  _i4.ExportStatus? get exportStatus;
+  /// The Amazon Resource Name (ARN) of the table that was exported.
+  String? get tableArn;
+
+  /// Unique ID of the table that was exported.
+  String? get tableId;
 
   /// Point in time from which table data was exported.
   DateTime? get exportTime;
 
-  /// Status code for the result of the failed export.
-  String? get failureCode;
-
-  /// Export failure reason description.
-  String? get failureMessage;
-
-  /// The number of items exported.
-  _i2.Int64? get itemCount;
+  /// The client token that was provided for the export task. A client token makes calls to `ExportTableToPointInTimeInput` idempotent, meaning that multiple identical calls have the same effect as one single call.
+  String? get clientToken;
 
   /// The name of the Amazon S3 bucket containing the export.
   String? get s3Bucket;
@@ -125,87 +119,85 @@ abstract class ExportDescription
   /// *   `AES256` \- server-side encryption with Amazon S3 managed keys
   ///
   /// *   `KMS` \- server-side encryption with KMS managed keys
-  _i5.S3SseAlgorithm? get s3SseAlgorithm;
+  _i3.S3SseAlgorithm? get s3SseAlgorithm;
 
   /// The ID of the KMS managed key used to encrypt the S3 bucket where export data is stored (if applicable).
   String? get s3SseKmsKeyId;
 
-  /// The time at which the export task began.
-  DateTime? get startTime;
+  /// Status code for the result of the failed export.
+  String? get failureCode;
 
-  /// The Amazon Resource Name (ARN) of the table that was exported.
-  String? get tableArn;
+  /// Export failure reason description.
+  String? get failureMessage;
 
-  /// Unique ID of the table that was exported.
-  String? get tableId;
+  /// The format of the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
+  _i4.ExportFormat? get exportFormat;
+
+  /// The billable size of the table export.
+  _i5.Int64? get billedSizeBytes;
+
+  /// The number of items exported.
+  _i5.Int64? get itemCount;
   @override
   List<Object?> get props => [
-        billedSizeBytes,
-        clientToken,
-        endTime,
         exportArn,
-        exportFormat,
-        exportManifest,
         exportStatus,
+        startTime,
+        endTime,
+        exportManifest,
+        tableArn,
+        tableId,
         exportTime,
-        failureCode,
-        failureMessage,
-        itemCount,
+        clientToken,
         s3Bucket,
         s3BucketOwner,
         s3Prefix,
         s3SseAlgorithm,
         s3SseKmsKeyId,
-        startTime,
-        tableArn,
-        tableId,
+        failureCode,
+        failureMessage,
+        exportFormat,
+        billedSizeBytes,
+        itemCount,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExportDescription');
     helper.add(
-      'billedSizeBytes',
-      billedSizeBytes,
-    );
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
-    helper.add(
       'exportArn',
       exportArn,
-    );
-    helper.add(
-      'exportFormat',
-      exportFormat,
-    );
-    helper.add(
-      'exportManifest',
-      exportManifest,
     );
     helper.add(
       'exportStatus',
       exportStatus,
     );
     helper.add(
+      'startTime',
+      startTime,
+    );
+    helper.add(
+      'endTime',
+      endTime,
+    );
+    helper.add(
+      'exportManifest',
+      exportManifest,
+    );
+    helper.add(
+      'tableArn',
+      tableArn,
+    );
+    helper.add(
+      'tableId',
+      tableId,
+    );
+    helper.add(
       'exportTime',
       exportTime,
     );
     helper.add(
-      'failureCode',
-      failureCode,
-    );
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
+      'clientToken',
+      clientToken,
     );
     helper.add(
       's3Bucket',
@@ -228,16 +220,24 @@ abstract class ExportDescription
       s3SseKmsKeyId,
     );
     helper.add(
-      'startTime',
-      startTime,
+      'failureCode',
+      failureCode,
     );
     helper.add(
-      'tableArn',
-      tableArn,
+      'failureMessage',
+      failureMessage,
     );
     helper.add(
-      'tableId',
-      tableId,
+      'exportFormat',
+      exportFormat,
+    );
+    helper.add(
+      'billedSizeBytes',
+      billedSizeBytes,
+    );
+    helper.add(
+      'itemCount',
+      itemCount,
     );
     return helper.toString();
   }
@@ -272,20 +272,28 @@ class ExportDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'BilledSizeBytes':
+        case 'ExportArn':
           if (value != null) {
-            result.billedSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
-        case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
+            result.exportArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ExportStatus':
+          if (value != null) {
+            result.exportStatus = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ExportStatus),
+            ) as _i2.ExportStatus);
+          }
+          break;
+        case 'StartTime':
+          if (value != null) {
+            result.startTime = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'EndTime':
@@ -296,22 +304,6 @@ class ExportDescriptionAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'ExportArn':
-          if (value != null) {
-            result.exportArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ExportFormat':
-          if (value != null) {
-            result.exportFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ExportFormat),
-            ) as _i3.ExportFormat);
-          }
-          break;
         case 'ExportManifest':
           if (value != null) {
             result.exportManifest = (serializers.deserialize(
@@ -320,12 +312,20 @@ class ExportDescriptionAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'ExportStatus':
+        case 'TableArn':
           if (value != null) {
-            result.exportStatus = (serializers.deserialize(
+            result.tableArn = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.ExportStatus),
-            ) as _i4.ExportStatus);
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'TableId':
+          if (value != null) {
+            result.tableId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'ExportTime':
@@ -336,28 +336,12 @@ class ExportDescriptionAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'FailureCode':
+        case 'ClientToken':
           if (value != null) {
-            result.failureCode = (serializers.deserialize(
+            result.clientToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ItemCount':
-          if (value != null) {
-            result.itemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
           }
           break;
         case 'S3Bucket':
@@ -388,8 +372,8 @@ class ExportDescriptionAwsJson10Serializer
           if (value != null) {
             result.s3SseAlgorithm = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.S3SseAlgorithm),
-            ) as _i5.S3SseAlgorithm);
+              specifiedType: const FullType(_i3.S3SseAlgorithm),
+            ) as _i3.S3SseAlgorithm);
           }
           break;
         case 'S3SseKmsKeyId':
@@ -400,28 +384,44 @@ class ExportDescriptionAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'StartTime':
+        case 'FailureCode':
           if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
-        case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
+            result.failureCode = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'TableId':
+        case 'FailureMessage':
           if (value != null) {
-            result.tableId = (serializers.deserialize(
+            result.failureMessage = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ExportFormat':
+          if (value != null) {
+            result.exportFormat = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.ExportFormat),
+            ) as _i4.ExportFormat);
+          }
+          break;
+        case 'BilledSizeBytes':
+          if (value != null) {
+            result.billedSizeBytes = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.Int64),
+            ) as _i5.Int64);
+          }
+          break;
+        case 'ItemCount':
+          if (value != null) {
+            result.itemCount = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.Int64),
+            ) as _i5.Int64);
           }
           break;
       }
@@ -438,20 +438,28 @@ class ExportDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ExportDescription);
     final result = <Object?>[];
-    if (payload.billedSizeBytes != null) {
+    if (payload.exportArn != null) {
       result
-        ..add('BilledSizeBytes')
+        ..add('ExportArn')
         ..add(serializers.serialize(
-          payload.billedSizeBytes!,
-          specifiedType: const FullType(_i2.Int64),
+          payload.exportArn!,
+          specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientToken != null) {
+    if (payload.exportStatus != null) {
       result
-        ..add('ClientToken')
+        ..add('ExportStatus')
         ..add(serializers.serialize(
-          payload.clientToken!,
-          specifiedType: const FullType(String),
+          payload.exportStatus!,
+          specifiedType: const FullType(_i2.ExportStatus),
+        ));
+    }
+    if (payload.startTime != null) {
+      result
+        ..add('StartTime')
+        ..add(serializers.serialize(
+          payload.startTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.endTime != null) {
@@ -462,22 +470,6 @@ class ExportDescriptionAwsJson10Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.exportArn != null) {
-      result
-        ..add('ExportArn')
-        ..add(serializers.serialize(
-          payload.exportArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.exportFormat != null) {
-      result
-        ..add('ExportFormat')
-        ..add(serializers.serialize(
-          payload.exportFormat!,
-          specifiedType: const FullType(_i3.ExportFormat),
-        ));
-    }
     if (payload.exportManifest != null) {
       result
         ..add('ExportManifest')
@@ -486,12 +478,20 @@ class ExportDescriptionAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exportStatus != null) {
+    if (payload.tableArn != null) {
       result
-        ..add('ExportStatus')
+        ..add('TableArn')
         ..add(serializers.serialize(
-          payload.exportStatus!,
-          specifiedType: const FullType(_i4.ExportStatus),
+          payload.tableArn!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.tableId != null) {
+      result
+        ..add('TableId')
+        ..add(serializers.serialize(
+          payload.tableId!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.exportTime != null) {
@@ -502,28 +502,12 @@ class ExportDescriptionAwsJson10Serializer
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.failureCode != null) {
+    if (payload.clientToken != null) {
       result
-        ..add('FailureCode')
+        ..add('ClientToken')
         ..add(serializers.serialize(
-          payload.failureCode!,
+          payload.clientToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.itemCount != null) {
-      result
-        ..add('ItemCount')
-        ..add(serializers.serialize(
-          payload.itemCount!,
-          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (payload.s3Bucket != null) {
@@ -555,7 +539,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
           payload.s3SseAlgorithm!,
-          specifiedType: const FullType(_i5.S3SseAlgorithm),
+          specifiedType: const FullType(_i3.S3SseAlgorithm),
         ));
     }
     if (payload.s3SseKmsKeyId != null) {
@@ -566,28 +550,44 @@ class ExportDescriptionAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.startTime != null) {
+    if (payload.failureCode != null) {
       result
-        ..add('StartTime')
+        ..add('FailureCode')
         ..add(serializers.serialize(
-          payload.startTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.tableArn != null) {
-      result
-        ..add('TableArn')
-        ..add(serializers.serialize(
-          payload.tableArn!,
+          payload.failureCode!,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableId != null) {
+    if (payload.failureMessage != null) {
       result
-        ..add('TableId')
+        ..add('FailureMessage')
         ..add(serializers.serialize(
-          payload.tableId!,
+          payload.failureMessage!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.exportFormat != null) {
+      result
+        ..add('ExportFormat')
+        ..add(serializers.serialize(
+          payload.exportFormat!,
+          specifiedType: const FullType(_i4.ExportFormat),
+        ));
+    }
+    if (payload.billedSizeBytes != null) {
+      result
+        ..add('BilledSizeBytes')
+        ..add(serializers.serialize(
+          payload.billedSizeBytes!,
+          specifiedType: const FullType(_i5.Int64),
+        ));
+    }
+    if (payload.itemCount != null) {
+      result
+        ..add('ItemCount')
+        ..add(serializers.serialize(
+          payload.itemCount!,
+          specifiedType: const FullType(_i5.Int64),
         ));
     }
     return result;

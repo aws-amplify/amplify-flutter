@@ -12,9 +12,9 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
   @override
   final String deviceKey;
   @override
-  final String? deviceName;
-  @override
   final _i3.DeviceSecretVerifierConfigType? deviceSecretVerifierConfig;
+  @override
+  final String? deviceName;
 
   factory _$ConfirmDeviceRequest(
           [void Function(ConfirmDeviceRequestBuilder)? updates]) =>
@@ -23,8 +23,8 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
   _$ConfirmDeviceRequest._(
       {required this.accessToken,
       required this.deviceKey,
-      this.deviceName,
-      this.deviceSecretVerifierConfig})
+      this.deviceSecretVerifierConfig,
+      this.deviceName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         accessToken, r'ConfirmDeviceRequest', 'accessToken');
@@ -47,8 +47,8 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
     return other is ConfirmDeviceRequest &&
         accessToken == other.accessToken &&
         deviceKey == other.deviceKey &&
-        deviceName == other.deviceName &&
-        deviceSecretVerifierConfig == other.deviceSecretVerifierConfig;
+        deviceSecretVerifierConfig == other.deviceSecretVerifierConfig &&
+        deviceName == other.deviceName;
   }
 
   @override
@@ -56,8 +56,8 @@ class _$ConfirmDeviceRequest extends ConfirmDeviceRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jc(_$hash, deviceKey.hashCode);
-    _$hash = $jc(_$hash, deviceName.hashCode);
     _$hash = $jc(_$hash, deviceSecretVerifierConfig.hashCode);
+    _$hash = $jc(_$hash, deviceName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -75,10 +75,6 @@ class ConfirmDeviceRequestBuilder
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
-  String? _deviceName;
-  String? get deviceName => _$this._deviceName;
-  set deviceName(String? deviceName) => _$this._deviceName = deviceName;
-
   _i3.DeviceSecretVerifierConfigTypeBuilder? _deviceSecretVerifierConfig;
   _i3.DeviceSecretVerifierConfigTypeBuilder get deviceSecretVerifierConfig =>
       _$this._deviceSecretVerifierConfig ??=
@@ -87,6 +83,10 @@ class ConfirmDeviceRequestBuilder
           _i3.DeviceSecretVerifierConfigTypeBuilder?
               deviceSecretVerifierConfig) =>
       _$this._deviceSecretVerifierConfig = deviceSecretVerifierConfig;
+
+  String? _deviceName;
+  String? get deviceName => _$this._deviceName;
+  set deviceName(String? deviceName) => _$this._deviceName = deviceName;
 
   ConfirmDeviceRequestBuilder() {
     ConfirmDeviceRequest._init(this);
@@ -97,8 +97,8 @@ class ConfirmDeviceRequestBuilder
     if ($v != null) {
       _accessToken = $v.accessToken;
       _deviceKey = $v.deviceKey;
-      _deviceName = $v.deviceName;
       _deviceSecretVerifierConfig = $v.deviceSecretVerifierConfig?.toBuilder();
+      _deviceName = $v.deviceName;
       _$v = null;
     }
     return this;
@@ -127,8 +127,8 @@ class ConfirmDeviceRequestBuilder
                   accessToken, r'ConfirmDeviceRequest', 'accessToken'),
               deviceKey: BuiltValueNullFieldError.checkNotNull(
                   deviceKey, r'ConfirmDeviceRequest', 'deviceKey'),
-              deviceName: deviceName,
-              deviceSecretVerifierConfig: _deviceSecretVerifierConfig?.build());
+              deviceSecretVerifierConfig: _deviceSecretVerifierConfig?.build(),
+              deviceName: deviceName);
     } catch (_) {
       late String _$failedField;
       try {

@@ -23,15 +23,15 @@ abstract class UpdateModelRequest
         _i1.HasPayload<UpdateModelRequestPayload> {
   /// Request to update an existing model in an existing RestApi resource.
   factory UpdateModelRequest({
+    required String restApiId,
     required String modelName,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateModelRequest._(
+      restApiId: restApiId,
       modelName: modelName,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +66,14 @@ abstract class UpdateModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateModelRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The name of the model to update.
   String get modelName;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -96,13 +96,17 @@ abstract class UpdateModelRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         modelName,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateModelRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'modelName',
       modelName,
@@ -110,10 +114,6 @@ abstract class UpdateModelRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

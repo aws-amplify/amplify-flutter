@@ -19,20 +19,20 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
         Built<ListBucketIntelligentTieringConfigurationsOutput,
             ListBucketIntelligentTieringConfigurationsOutputBuilder> {
   factory ListBucketIntelligentTieringConfigurationsOutput({
+    bool? isTruncated,
     String? continuationToken,
+    String? nextContinuationToken,
     List<_i2.IntelligentTieringConfiguration>?
         intelligentTieringConfigurationList,
-    bool? isTruncated,
-    String? nextContinuationToken,
   }) {
     return _$ListBucketIntelligentTieringConfigurationsOutput._(
+      isTruncated: isTruncated,
       continuationToken: continuationToken,
+      nextContinuationToken: nextContinuationToken,
       intelligentTieringConfigurationList:
           intelligentTieringConfigurationList == null
               ? null
               : _i3.BuiltList(intelligentTieringConfigurationList),
-      isTruncated: isTruncated,
-      nextContinuationToken: nextContinuationToken,
     );
   }
 
@@ -57,44 +57,44 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   static void _init(
       ListBucketIntelligentTieringConfigurationsOutputBuilder b) {}
 
+  /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
+  bool? get isTruncated;
+
   /// The `ContinuationToken` that represents a placeholder from where this request should begin.
   String? get continuationToken;
+
+  /// The marker used to continue this inventory configuration listing. Use the `NextContinuationToken` from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
+  String? get nextContinuationToken;
 
   /// The list of S3 Intelligent-Tiering configurations for a bucket.
   _i3.BuiltList<_i2.IntelligentTieringConfiguration>?
       get intelligentTieringConfigurationList;
-
-  /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
-  bool? get isTruncated;
-
-  /// The marker used to continue this inventory configuration listing. Use the `NextContinuationToken` from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
-  String? get nextContinuationToken;
   @override
   List<Object?> get props => [
-        continuationToken,
-        intelligentTieringConfigurationList,
         isTruncated,
+        continuationToken,
         nextContinuationToken,
+        intelligentTieringConfigurationList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'ListBucketIntelligentTieringConfigurationsOutput');
     helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'intelligentTieringConfigurationList',
-      intelligentTieringConfigurationList,
-    );
-    helper.add(
       'isTruncated',
       isTruncated,
     );
     helper.add(
+      'continuationToken',
+      continuationToken,
+    );
+    helper.add(
       'nextContinuationToken',
       nextContinuationToken,
+    );
+    helper.add(
+      'intelligentTieringConfigurationList',
+      intelligentTieringConfigurationList,
     );
     return helper.toString();
   }

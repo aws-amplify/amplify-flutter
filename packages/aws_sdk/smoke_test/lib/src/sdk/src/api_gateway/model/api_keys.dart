@@ -17,14 +17,14 @@ abstract class ApiKeys
     implements Built<ApiKeys, ApiKeysBuilder> {
   /// Represents a collection of API keys as represented by an ApiKeys resource.
   factory ApiKeys({
+    List<String>? warnings,
     List<_i2.ApiKey>? items,
     String? position,
-    List<String>? warnings,
   }) {
     return _$ApiKeys._(
+      warnings: warnings == null ? null : _i3.BuiltList(warnings),
       items: items == null ? null : _i3.BuiltList(items),
       position: position,
-      warnings: warnings == null ? null : _i3.BuiltList(warnings),
     );
   }
 
@@ -47,23 +47,27 @@ abstract class ApiKeys
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ApiKeysBuilder b) {}
 
+  /// A list of warning messages logged during the import of API keys when the `failOnWarnings` option is set to true.
+  _i3.BuiltList<String>? get warnings;
+
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.ApiKey>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
-
-  /// A list of warning messages logged during the import of API keys when the `failOnWarnings` option is set to true.
-  _i3.BuiltList<String>? get warnings;
   @override
   List<Object?> get props => [
+        warnings,
         items,
         position,
-        warnings,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ApiKeys');
+    helper.add(
+      'warnings',
+      warnings,
+    );
     helper.add(
       'items',
       items,
@@ -71,10 +75,6 @@ abstract class ApiKeys
     helper.add(
       'position',
       position,
-    );
-    helper.add(
-      'warnings',
-      warnings,
     );
     return helper.toString();
   }

@@ -19,14 +19,14 @@ abstract class DescribeRetentionConfigurationsResponse
         Built<DescribeRetentionConfigurationsResponse,
             DescribeRetentionConfigurationsResponseBuilder> {
   factory DescribeRetentionConfigurationsResponse({
-    String? nextToken,
     List<_i2.RetentionConfiguration>? retentionConfigurations,
+    String? nextToken,
   }) {
     return _$DescribeRetentionConfigurationsResponse._(
-      nextToken: nextToken,
       retentionConfigurations: retentionConfigurations == null
           ? null
           : _i3.BuiltList(retentionConfigurations),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class DescribeRetentionConfigurationsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeRetentionConfigurationsResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a retention configuration object.
   _i3.BuiltList<_i2.RetentionConfiguration>? get retentionConfigurations;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         retentionConfigurations,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DescribeRetentionConfigurationsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'retentionConfigurations',
       retentionConfigurations,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,14 +106,6 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'RetentionConfigurations':
           if (value != null) {
             result.retentionConfigurations.replace((serializers.deserialize(
@@ -123,6 +115,14 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
                 [FullType(_i2.RetentionConfiguration)],
               ),
             ) as _i3.BuiltList<_i2.RetentionConfiguration>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -139,14 +139,6 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeRetentionConfigurationsResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.retentionConfigurations != null) {
       result
         ..add('RetentionConfigurations')
@@ -156,6 +148,14 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.RetentionConfiguration)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

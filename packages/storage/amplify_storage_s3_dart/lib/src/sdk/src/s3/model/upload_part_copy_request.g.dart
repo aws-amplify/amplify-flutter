@@ -22,21 +22,11 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String? copySourceRange;
   @override
-  final String? copySourceSseCustomerAlgorithm;
-  @override
-  final String? copySourceSseCustomerKey;
-  @override
-  final String? copySourceSseCustomerKeyMd5;
-  @override
-  final String? expectedBucketOwner;
-  @override
-  final String? expectedSourceBucketOwner;
-  @override
   final String key;
   @override
   final int partNumber;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final String uploadId;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -44,7 +34,17 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final String uploadId;
+  final String? copySourceSseCustomerAlgorithm;
+  @override
+  final String? copySourceSseCustomerKey;
+  @override
+  final String? copySourceSseCustomerKeyMd5;
+  @override
+  final _i3.RequestPayer? requestPayer;
+  @override
+  final String? expectedBucketOwner;
+  @override
+  final String? expectedSourceBucketOwner;
 
   factory _$UploadPartCopyRequest(
           [void Function(UploadPartCopyRequestBuilder)? updates]) =>
@@ -58,18 +58,18 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
       this.copySourceIfNoneMatch,
       this.copySourceIfUnmodifiedSince,
       this.copySourceRange,
-      this.copySourceSseCustomerAlgorithm,
-      this.copySourceSseCustomerKey,
-      this.copySourceSseCustomerKeyMd5,
-      this.expectedBucketOwner,
-      this.expectedSourceBucketOwner,
       required this.key,
       required this.partNumber,
-      this.requestPayer,
+      required this.uploadId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
-      required this.uploadId})
+      this.copySourceSseCustomerAlgorithm,
+      this.copySourceSseCustomerKey,
+      this.copySourceSseCustomerKeyMd5,
+      this.requestPayer,
+      this.expectedBucketOwner,
+      this.expectedSourceBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'UploadPartCopyRequest', 'bucket');
@@ -102,19 +102,19 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
         copySourceIfNoneMatch == other.copySourceIfNoneMatch &&
         copySourceIfUnmodifiedSince == other.copySourceIfUnmodifiedSince &&
         copySourceRange == other.copySourceRange &&
+        key == other.key &&
+        partNumber == other.partNumber &&
+        uploadId == other.uploadId &&
+        sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
+        sseCustomerKey == other.sseCustomerKey &&
+        sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
         copySourceSseCustomerAlgorithm ==
             other.copySourceSseCustomerAlgorithm &&
         copySourceSseCustomerKey == other.copySourceSseCustomerKey &&
         copySourceSseCustomerKeyMd5 == other.copySourceSseCustomerKeyMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
-        expectedSourceBucketOwner == other.expectedSourceBucketOwner &&
-        key == other.key &&
-        partNumber == other.partNumber &&
         requestPayer == other.requestPayer &&
-        sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
-        sseCustomerKey == other.sseCustomerKey &&
-        sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        uploadId == other.uploadId;
+        expectedBucketOwner == other.expectedBucketOwner &&
+        expectedSourceBucketOwner == other.expectedSourceBucketOwner;
   }
 
   @override
@@ -127,18 +127,18 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
     _$hash = $jc(_$hash, copySourceIfNoneMatch.hashCode);
     _$hash = $jc(_$hash, copySourceIfUnmodifiedSince.hashCode);
     _$hash = $jc(_$hash, copySourceRange.hashCode);
-    _$hash = $jc(_$hash, copySourceSseCustomerAlgorithm.hashCode);
-    _$hash = $jc(_$hash, copySourceSseCustomerKey.hashCode);
-    _$hash = $jc(_$hash, copySourceSseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
-    _$hash = $jc(_$hash, expectedSourceBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, partNumber.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, uploadId.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKey.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, uploadId.hashCode);
+    _$hash = $jc(_$hash, copySourceSseCustomerAlgorithm.hashCode);
+    _$hash = $jc(_$hash, copySourceSseCustomerKey.hashCode);
+    _$hash = $jc(_$hash, copySourceSseCustomerKeyMd5.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, expectedSourceBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -182,6 +182,33 @@ class UploadPartCopyRequestBuilder
   set copySourceRange(String? copySourceRange) =>
       _$this._copySourceRange = copySourceRange;
 
+  String? _key;
+  String? get key => _$this._key;
+  set key(String? key) => _$this._key = key;
+
+  int? _partNumber;
+  int? get partNumber => _$this._partNumber;
+  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
+
+  String? _uploadId;
+  String? get uploadId => _$this._uploadId;
+  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
+
+  String? _sseCustomerAlgorithm;
+  String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
+  set sseCustomerAlgorithm(String? sseCustomerAlgorithm) =>
+      _$this._sseCustomerAlgorithm = sseCustomerAlgorithm;
+
+  String? _sseCustomerKey;
+  String? get sseCustomerKey => _$this._sseCustomerKey;
+  set sseCustomerKey(String? sseCustomerKey) =>
+      _$this._sseCustomerKey = sseCustomerKey;
+
+  String? _sseCustomerKeyMd5;
+  String? get sseCustomerKeyMd5 => _$this._sseCustomerKeyMd5;
+  set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
+      _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
+
   String? _copySourceSseCustomerAlgorithm;
   String? get copySourceSseCustomerAlgorithm =>
       _$this._copySourceSseCustomerAlgorithm;
@@ -199,6 +226,11 @@ class UploadPartCopyRequestBuilder
   set copySourceSseCustomerKeyMd5(String? copySourceSseCustomerKeyMd5) =>
       _$this._copySourceSseCustomerKeyMd5 = copySourceSseCustomerKeyMd5;
 
+  _i3.RequestPayer? _requestPayer;
+  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i3.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
   set expectedBucketOwner(String? expectedBucketOwner) =>
@@ -208,38 +240,6 @@ class UploadPartCopyRequestBuilder
   String? get expectedSourceBucketOwner => _$this._expectedSourceBucketOwner;
   set expectedSourceBucketOwner(String? expectedSourceBucketOwner) =>
       _$this._expectedSourceBucketOwner = expectedSourceBucketOwner;
-
-  String? _key;
-  String? get key => _$this._key;
-  set key(String? key) => _$this._key = key;
-
-  int? _partNumber;
-  int? get partNumber => _$this._partNumber;
-  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
-
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
-
-  String? _sseCustomerAlgorithm;
-  String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
-  set sseCustomerAlgorithm(String? sseCustomerAlgorithm) =>
-      _$this._sseCustomerAlgorithm = sseCustomerAlgorithm;
-
-  String? _sseCustomerKey;
-  String? get sseCustomerKey => _$this._sseCustomerKey;
-  set sseCustomerKey(String? sseCustomerKey) =>
-      _$this._sseCustomerKey = sseCustomerKey;
-
-  String? _sseCustomerKeyMd5;
-  String? get sseCustomerKeyMd5 => _$this._sseCustomerKeyMd5;
-  set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
-      _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
-
-  String? _uploadId;
-  String? get uploadId => _$this._uploadId;
-  set uploadId(String? uploadId) => _$this._uploadId = uploadId;
 
   UploadPartCopyRequestBuilder() {
     UploadPartCopyRequest._init(this);
@@ -255,18 +255,18 @@ class UploadPartCopyRequestBuilder
       _copySourceIfNoneMatch = $v.copySourceIfNoneMatch;
       _copySourceIfUnmodifiedSince = $v.copySourceIfUnmodifiedSince;
       _copySourceRange = $v.copySourceRange;
-      _copySourceSseCustomerAlgorithm = $v.copySourceSseCustomerAlgorithm;
-      _copySourceSseCustomerKey = $v.copySourceSseCustomerKey;
-      _copySourceSseCustomerKeyMd5 = $v.copySourceSseCustomerKeyMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
-      _expectedSourceBucketOwner = $v.expectedSourceBucketOwner;
       _key = $v.key;
       _partNumber = $v.partNumber;
-      _requestPayer = $v.requestPayer;
+      _uploadId = $v.uploadId;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKey = $v.sseCustomerKey;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _uploadId = $v.uploadId;
+      _copySourceSseCustomerAlgorithm = $v.copySourceSseCustomerAlgorithm;
+      _copySourceSseCustomerKey = $v.copySourceSseCustomerKey;
+      _copySourceSseCustomerKeyMd5 = $v.copySourceSseCustomerKeyMd5;
+      _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
+      _expectedSourceBucketOwner = $v.expectedSourceBucketOwner;
       _$v = null;
     }
     return this;
@@ -298,21 +298,21 @@ class UploadPartCopyRequestBuilder
             copySourceIfNoneMatch: copySourceIfNoneMatch,
             copySourceIfUnmodifiedSince: copySourceIfUnmodifiedSince,
             copySourceRange: copySourceRange,
-            copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
-            copySourceSseCustomerKey: copySourceSseCustomerKey,
-            copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
-            expectedBucketOwner: expectedBucketOwner,
-            expectedSourceBucketOwner: expectedSourceBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'UploadPartCopyRequest', 'key'),
             partNumber: BuiltValueNullFieldError.checkNotNull(
                 partNumber, r'UploadPartCopyRequest', 'partNumber'),
-            requestPayer: requestPayer,
+            uploadId: BuiltValueNullFieldError.checkNotNull(
+                uploadId, r'UploadPartCopyRequest', 'uploadId'),
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKey: sseCustomerKey,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
-            uploadId: BuiltValueNullFieldError.checkNotNull(
-                uploadId, r'UploadPartCopyRequest', 'uploadId'));
+            copySourceSseCustomerAlgorithm: copySourceSseCustomerAlgorithm,
+            copySourceSseCustomerKey: copySourceSseCustomerKey,
+            copySourceSseCustomerKeyMd5: copySourceSseCustomerKeyMd5,
+            requestPayer: requestPayer,
+            expectedBucketOwner: expectedBucketOwner,
+            expectedSourceBucketOwner: expectedSourceBucketOwner);
     replace(_$result);
     return _$result;
   }

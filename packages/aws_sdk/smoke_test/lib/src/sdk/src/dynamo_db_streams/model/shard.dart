@@ -17,14 +17,14 @@ abstract class Shard
     implements Built<Shard, ShardBuilder> {
   /// A uniquely identified group of stream records within a stream.
   factory Shard({
-    String? parentShardId,
-    _i2.SequenceNumberRange? sequenceNumberRange,
     String? shardId,
+    _i2.SequenceNumberRange? sequenceNumberRange,
+    String? parentShardId,
   }) {
     return _$Shard._(
-      parentShardId: parentShardId,
-      sequenceNumberRange: sequenceNumberRange,
       shardId: shardId,
+      sequenceNumberRange: sequenceNumberRange,
+      parentShardId: parentShardId,
     );
   }
 
@@ -40,34 +40,34 @@ abstract class Shard
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ShardBuilder b) {}
 
-  /// The shard ID of the current shard's parent.
-  String? get parentShardId;
+  /// The system-generated identifier for this shard.
+  String? get shardId;
 
   /// The range of possible sequence numbers for the shard.
   _i2.SequenceNumberRange? get sequenceNumberRange;
 
-  /// The system-generated identifier for this shard.
-  String? get shardId;
+  /// The shard ID of the current shard's parent.
+  String? get parentShardId;
   @override
   List<Object?> get props => [
-        parentShardId,
-        sequenceNumberRange,
         shardId,
+        sequenceNumberRange,
+        parentShardId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Shard');
     helper.add(
-      'parentShardId',
-      parentShardId,
+      'shardId',
+      shardId,
     );
     helper.add(
       'sequenceNumberRange',
       sequenceNumberRange,
     );
     helper.add(
-      'shardId',
-      shardId,
+      'parentShardId',
+      parentShardId,
     );
     return helper.toString();
   }
@@ -101,9 +101,9 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ParentShardId':
+        case 'ShardId':
           if (value != null) {
-            result.parentShardId = (serializers.deserialize(
+            result.shardId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -117,9 +117,9 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
             ) as _i2.SequenceNumberRange));
           }
           break;
-        case 'ShardId':
+        case 'ParentShardId':
           if (value != null) {
-            result.shardId = (serializers.deserialize(
+            result.parentShardId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -139,11 +139,11 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
   }) {
     final payload = (object as Shard);
     final result = <Object?>[];
-    if (payload.parentShardId != null) {
+    if (payload.shardId != null) {
       result
-        ..add('ParentShardId')
+        ..add('ShardId')
         ..add(serializers.serialize(
-          payload.parentShardId!,
+          payload.shardId!,
           specifiedType: const FullType(String),
         ));
     }
@@ -155,11 +155,11 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
           specifiedType: const FullType(_i2.SequenceNumberRange),
         ));
     }
-    if (payload.shardId != null) {
+    if (payload.parentShardId != null) {
       result
-        ..add('ShardId')
+        ..add('ParentShardId')
         ..add(serializers.serialize(
-          payload.shardId!,
+          payload.parentShardId!,
           specifiedType: const FullType(String),
         ));
     }

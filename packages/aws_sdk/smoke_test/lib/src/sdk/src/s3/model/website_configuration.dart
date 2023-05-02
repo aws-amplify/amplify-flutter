@@ -150,7 +150,7 @@ class WebsiteConfigurationRestXmlSerializer
                 (const _i7.XmlBuiltListSerializer(memberName: 'RoutingRule')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i6.BuiltList,
                 [FullType(_i5.RoutingRule)],

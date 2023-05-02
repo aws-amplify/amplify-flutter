@@ -19,14 +19,14 @@ abstract class DescribeOrganizationConformancePacksResponse
         Built<DescribeOrganizationConformancePacksResponse,
             DescribeOrganizationConformancePacksResponseBuilder> {
   factory DescribeOrganizationConformancePacksResponse({
-    String? nextToken,
     List<_i2.OrganizationConformancePack>? organizationConformancePacks,
+    String? nextToken,
   }) {
     return _$DescribeOrganizationConformancePacksResponse._(
-      nextToken: nextToken,
       organizationConformancePacks: organizationConformancePacks == null
           ? null
           : _i3.BuiltList(organizationConformancePacks),
+      nextToken: nextToken,
     );
   }
 
@@ -50,28 +50,28 @@ abstract class DescribeOrganizationConformancePacksResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeOrganizationConformancePacksResponseBuilder b) {}
 
-  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a list of OrganizationConformancePacks objects.
   _i3.BuiltList<_i2.OrganizationConformancePack>?
       get organizationConformancePacks;
+
+  /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         organizationConformancePacks,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConformancePacksResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'organizationConformancePacks',
       organizationConformancePacks,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -108,14 +108,6 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'OrganizationConformancePacks':
           if (value != null) {
             result.organizationConformancePacks
@@ -126,6 +118,14 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
                 [FullType(_i2.OrganizationConformancePack)],
               ),
             ) as _i3.BuiltList<_i2.OrganizationConformancePack>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -142,14 +142,6 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
   }) {
     final payload = (object as DescribeOrganizationConformancePacksResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.organizationConformancePacks != null) {
       result
         ..add('OrganizationConformancePacks')
@@ -159,6 +151,14 @@ class DescribeOrganizationConformancePacksResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePack)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

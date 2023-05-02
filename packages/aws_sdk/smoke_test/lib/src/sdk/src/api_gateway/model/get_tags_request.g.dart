@@ -8,16 +8,16 @@ part of smoke_test.api_gateway.model.get_tags_request;
 
 class _$GetTagsRequest extends GetTagsRequest {
   @override
-  final int? limit;
+  final String resourceArn;
   @override
   final String? position;
   @override
-  final String resourceArn;
+  final int? limit;
 
   factory _$GetTagsRequest([void Function(GetTagsRequestBuilder)? updates]) =>
       (new GetTagsRequestBuilder()..update(updates))._build();
 
-  _$GetTagsRequest._({this.limit, this.position, required this.resourceArn})
+  _$GetTagsRequest._({required this.resourceArn, this.position, this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resourceArn, r'GetTagsRequest', 'resourceArn');
@@ -35,17 +35,17 @@ class _$GetTagsRequest extends GetTagsRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetTagsRequest &&
-        limit == other.limit &&
+        resourceArn == other.resourceArn &&
         position == other.position &&
-        resourceArn == other.resourceArn;
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, resourceArn.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,17 +55,17 @@ class GetTagsRequestBuilder
     implements Builder<GetTagsRequest, GetTagsRequestBuilder> {
   _$GetTagsRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
+  String? _resourceArn;
+  String? get resourceArn => _$this._resourceArn;
+  set resourceArn(String? resourceArn) => _$this._resourceArn = resourceArn;
 
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _resourceArn;
-  String? get resourceArn => _$this._resourceArn;
-  set resourceArn(String? resourceArn) => _$this._resourceArn = resourceArn;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetTagsRequestBuilder() {
     GetTagsRequest._init(this);
@@ -74,9 +74,9 @@ class GetTagsRequestBuilder
   GetTagsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _position = $v.position;
       _resourceArn = $v.resourceArn;
+      _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -99,10 +99,10 @@ class GetTagsRequestBuilder
   _$GetTagsRequest _build() {
     final _$result = _$v ??
         new _$GetTagsRequest._(
-            limit: limit,
-            position: position,
             resourceArn: BuiltValueNullFieldError.checkNotNull(
-                resourceArn, r'GetTagsRequest', 'resourceArn'));
+                resourceArn, r'GetTagsRequest', 'resourceArn'),
+            position: position,
+            limit: limit);
     replace(_$result);
     return _$result;
   }

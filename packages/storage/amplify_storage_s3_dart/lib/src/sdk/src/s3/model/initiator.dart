@@ -15,12 +15,12 @@ abstract class Initiator
     implements Built<Initiator, InitiatorBuilder> {
   /// Container element that identifies who initiated the multipart upload.
   factory Initiator({
-    String? displayName,
     String? id,
+    String? displayName,
   }) {
     return _$Initiator._(
-      displayName: displayName,
       id: id,
+      displayName: displayName,
     );
   }
 
@@ -37,26 +37,26 @@ abstract class Initiator
   @BuiltValueHook(initializeBuilder: true)
   static void _init(InitiatorBuilder b) {}
 
-  /// Name of the Principal.
-  String? get displayName;
-
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
+
+  /// Name of the Principal.
+  String? get displayName;
   @override
   List<Object?> get props => [
-        displayName,
         id,
+        displayName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Initiator');
     helper.add(
-      'displayName',
-      displayName,
-    );
-    helper.add(
       'id',
       id,
+    );
+    helper.add(
+      'displayName',
+      displayName,
     );
     return helper.toString();
   }

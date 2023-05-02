@@ -18,18 +18,18 @@ abstract class SdkType
     implements Built<SdkType, SdkTypeBuilder> {
   /// A type of SDK that API Gateway can generate.
   factory SdkType({
-    List<_i2.SdkConfigurationProperty>? configurationProperties,
-    String? description,
-    String? friendlyName,
     String? id,
+    String? friendlyName,
+    String? description,
+    List<_i2.SdkConfigurationProperty>? configurationProperties,
   }) {
     return _$SdkType._(
+      id: id,
+      friendlyName: friendlyName,
+      description: description,
       configurationProperties: configurationProperties == null
           ? null
           : _i3.BuiltList(configurationProperties),
-      description: description,
-      friendlyName: friendlyName,
-      id: id,
     );
   }
 
@@ -52,42 +52,42 @@ abstract class SdkType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SdkTypeBuilder b) {}
 
-  /// A list of configuration properties of an SdkType.
-  _i3.BuiltList<_i2.SdkConfigurationProperty>? get configurationProperties;
-
-  /// The description of an SdkType.
-  String? get description;
+  /// The identifier of an SdkType instance.
+  String? get id;
 
   /// The user-friendly name of an SdkType instance.
   String? get friendlyName;
 
-  /// The identifier of an SdkType instance.
-  String? get id;
+  /// The description of an SdkType.
+  String? get description;
+
+  /// A list of configuration properties of an SdkType.
+  _i3.BuiltList<_i2.SdkConfigurationProperty>? get configurationProperties;
   @override
   List<Object?> get props => [
-        configurationProperties,
-        description,
-        friendlyName,
         id,
+        friendlyName,
+        description,
+        configurationProperties,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SdkType');
     helper.add(
-      'configurationProperties',
-      configurationProperties,
-    );
-    helper.add(
-      'description',
-      description,
+      'id',
+      id,
     );
     helper.add(
       'friendlyName',
       friendlyName,
     );
     helper.add(
-      'id',
-      id,
+      'description',
+      description,
+    );
+    helper.add(
+      'configurationProperties',
+      configurationProperties,
     );
     return helper.toString();
   }

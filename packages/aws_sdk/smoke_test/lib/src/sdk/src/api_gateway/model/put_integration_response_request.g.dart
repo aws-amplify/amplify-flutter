@@ -8,42 +8,42 @@ part of smoke_test.api_gateway.model.put_integration_response_request;
 
 class _$PutIntegrationResponseRequest extends PutIntegrationResponseRequest {
   @override
-  final _i3.ContentHandlingStrategy? contentHandling;
+  final String restApiId;
+  @override
+  final String resourceId;
   @override
   final String httpMethod;
   @override
-  final String resourceId;
+  final String statusCode;
+  @override
+  final String? selectionPattern;
   @override
   final _i4.BuiltMap<String, String>? responseParameters;
   @override
   final _i4.BuiltMap<String, String>? responseTemplates;
   @override
-  final String restApiId;
-  @override
-  final String? selectionPattern;
-  @override
-  final String statusCode;
+  final _i3.ContentHandlingStrategy? contentHandling;
 
   factory _$PutIntegrationResponseRequest(
           [void Function(PutIntegrationResponseRequestBuilder)? updates]) =>
       (new PutIntegrationResponseRequestBuilder()..update(updates))._build();
 
   _$PutIntegrationResponseRequest._(
-      {this.contentHandling,
-      required this.httpMethod,
+      {required this.restApiId,
       required this.resourceId,
+      required this.httpMethod,
+      required this.statusCode,
+      this.selectionPattern,
       this.responseParameters,
       this.responseTemplates,
-      required this.restApiId,
-      this.selectionPattern,
-      required this.statusCode})
+      this.contentHandling})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'PutIntegrationResponseRequest', 'httpMethod');
+        restApiId, r'PutIntegrationResponseRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'PutIntegrationResponseRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'PutIntegrationResponseRequest', 'restApiId');
+        httpMethod, r'PutIntegrationResponseRequest', 'httpMethod');
     BuiltValueNullFieldError.checkNotNull(
         statusCode, r'PutIntegrationResponseRequest', 'statusCode');
   }
@@ -61,27 +61,27 @@ class _$PutIntegrationResponseRequest extends PutIntegrationResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutIntegrationResponseRequest &&
-        contentHandling == other.contentHandling &&
-        httpMethod == other.httpMethod &&
+        restApiId == other.restApiId &&
         resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
+        statusCode == other.statusCode &&
+        selectionPattern == other.selectionPattern &&
         responseParameters == other.responseParameters &&
         responseTemplates == other.responseTemplates &&
-        restApiId == other.restApiId &&
-        selectionPattern == other.selectionPattern &&
-        statusCode == other.statusCode;
+        contentHandling == other.contentHandling;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, contentHandling.hashCode);
-    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
+    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, selectionPattern.hashCode);
     _$hash = $jc(_$hash, responseParameters.hashCode);
     _$hash = $jc(_$hash, responseTemplates.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
-    _$hash = $jc(_$hash, selectionPattern.hashCode);
-    _$hash = $jc(_$hash, statusCode.hashCode);
+    _$hash = $jc(_$hash, contentHandling.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -93,18 +93,26 @@ class PutIntegrationResponseRequestBuilder
             PutIntegrationResponseRequestBuilder> {
   _$PutIntegrationResponseRequest? _$v;
 
-  _i3.ContentHandlingStrategy? _contentHandling;
-  _i3.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
-      _$this._contentHandling = contentHandling;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
   String? _httpMethod;
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
+  String? _statusCode;
+  String? get statusCode => _$this._statusCode;
+  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
+
+  String? _selectionPattern;
+  String? get selectionPattern => _$this._selectionPattern;
+  set selectionPattern(String? selectionPattern) =>
+      _$this._selectionPattern = selectionPattern;
 
   _i4.MapBuilder<String, String>? _responseParameters;
   _i4.MapBuilder<String, String> get responseParameters =>
@@ -118,18 +126,10 @@ class PutIntegrationResponseRequestBuilder
   set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
-  String? _selectionPattern;
-  String? get selectionPattern => _$this._selectionPattern;
-  set selectionPattern(String? selectionPattern) =>
-      _$this._selectionPattern = selectionPattern;
-
-  String? _statusCode;
-  String? get statusCode => _$this._statusCode;
-  set statusCode(String? statusCode) => _$this._statusCode = statusCode;
+  _i3.ContentHandlingStrategy? _contentHandling;
+  _i3.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
+      _$this._contentHandling = contentHandling;
 
   PutIntegrationResponseRequestBuilder() {
     PutIntegrationResponseRequest._init(this);
@@ -138,14 +138,14 @@ class PutIntegrationResponseRequestBuilder
   PutIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _contentHandling = $v.contentHandling;
-      _httpMethod = $v.httpMethod;
+      _restApiId = $v.restApiId;
       _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
+      _statusCode = $v.statusCode;
+      _selectionPattern = $v.selectionPattern;
       _responseParameters = $v.responseParameters?.toBuilder();
       _responseTemplates = $v.responseTemplates?.toBuilder();
-      _restApiId = $v.restApiId;
-      _selectionPattern = $v.selectionPattern;
-      _statusCode = $v.statusCode;
+      _contentHandling = $v.contentHandling;
       _$v = null;
     }
     return this;
@@ -170,18 +170,18 @@ class PutIntegrationResponseRequestBuilder
     try {
       _$result = _$v ??
           new _$PutIntegrationResponseRequest._(
-              contentHandling: contentHandling,
-              httpMethod: BuiltValueNullFieldError.checkNotNull(
-                  httpMethod, r'PutIntegrationResponseRequest', 'httpMethod'),
-              resourceId: BuiltValueNullFieldError.checkNotNull(
-                  resourceId, r'PutIntegrationResponseRequest', 'resourceId'),
-              responseParameters: _responseParameters?.build(),
-              responseTemplates: _responseTemplates?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'PutIntegrationResponseRequest', 'restApiId'),
-              selectionPattern: selectionPattern,
+              resourceId: BuiltValueNullFieldError.checkNotNull(
+                  resourceId, r'PutIntegrationResponseRequest', 'resourceId'),
+              httpMethod: BuiltValueNullFieldError.checkNotNull(
+                  httpMethod, r'PutIntegrationResponseRequest', 'httpMethod'),
               statusCode: BuiltValueNullFieldError.checkNotNull(
-                  statusCode, r'PutIntegrationResponseRequest', 'statusCode'));
+                  statusCode, r'PutIntegrationResponseRequest', 'statusCode'),
+              selectionPattern: selectionPattern,
+              responseParameters: _responseParameters?.build(),
+              responseTemplates: _responseTemplates?.build(),
+              contentHandling: contentHandling);
     } catch (_) {
       late String _$failedField;
       try {

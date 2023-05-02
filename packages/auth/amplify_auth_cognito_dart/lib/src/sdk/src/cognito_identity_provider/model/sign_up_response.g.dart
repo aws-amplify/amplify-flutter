@@ -8,9 +8,9 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_respon
 
 class _$SignUpResponse extends SignUpResponse {
   @override
-  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
-  @override
   final bool userConfirmed;
+  @override
+  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
   @override
   final String userSub;
 
@@ -18,8 +18,8 @@ class _$SignUpResponse extends SignUpResponse {
       (new SignUpResponseBuilder()..update(updates))._build();
 
   _$SignUpResponse._(
-      {this.codeDeliveryDetails,
-      required this.userConfirmed,
+      {required this.userConfirmed,
+      this.codeDeliveryDetails,
       required this.userSub})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -40,16 +40,16 @@ class _$SignUpResponse extends SignUpResponse {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SignUpResponse &&
-        codeDeliveryDetails == other.codeDeliveryDetails &&
         userConfirmed == other.userConfirmed &&
+        codeDeliveryDetails == other.codeDeliveryDetails &&
         userSub == other.userSub;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, codeDeliveryDetails.hashCode);
     _$hash = $jc(_$hash, userConfirmed.hashCode);
+    _$hash = $jc(_$hash, codeDeliveryDetails.hashCode);
     _$hash = $jc(_$hash, userSub.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -60,17 +60,17 @@ class SignUpResponseBuilder
     implements Builder<SignUpResponse, SignUpResponseBuilder> {
   _$SignUpResponse? _$v;
 
+  bool? _userConfirmed;
+  bool? get userConfirmed => _$this._userConfirmed;
+  set userConfirmed(bool? userConfirmed) =>
+      _$this._userConfirmed = userConfirmed;
+
   _i2.CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
   _i2.CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
       _$this._codeDeliveryDetails ??= new _i2.CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
           _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
-
-  bool? _userConfirmed;
-  bool? get userConfirmed => _$this._userConfirmed;
-  set userConfirmed(bool? userConfirmed) =>
-      _$this._userConfirmed = userConfirmed;
 
   String? _userSub;
   String? get userSub => _$this._userSub;
@@ -83,8 +83,8 @@ class SignUpResponseBuilder
   SignUpResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _codeDeliveryDetails = $v.codeDeliveryDetails?.toBuilder();
       _userConfirmed = $v.userConfirmed;
+      _codeDeliveryDetails = $v.codeDeliveryDetails?.toBuilder();
       _userSub = $v.userSub;
       _$v = null;
     }
@@ -110,9 +110,9 @@ class SignUpResponseBuilder
     try {
       _$result = _$v ??
           new _$SignUpResponse._(
-              codeDeliveryDetails: _codeDeliveryDetails?.build(),
               userConfirmed: BuiltValueNullFieldError.checkNotNull(
                   userConfirmed, r'SignUpResponse', 'userConfirmed'),
+              codeDeliveryDetails: _codeDeliveryDetails?.build(),
               userSub: BuiltValueNullFieldError.checkNotNull(
                   userSub, r'SignUpResponse', 'userSub'));
     } catch (_) {

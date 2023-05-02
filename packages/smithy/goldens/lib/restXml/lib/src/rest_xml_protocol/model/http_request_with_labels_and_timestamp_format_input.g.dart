@@ -9,19 +9,19 @@ part of rest_xml_v1.rest_xml_protocol.model.http_request_with_labels_and_timesta
 class _$HttpRequestWithLabelsAndTimestampFormatInput
     extends HttpRequestWithLabelsAndTimestampFormatInput {
   @override
-  final DateTime defaultFormat;
-  @override
-  final DateTime memberDateTime;
-  @override
   final DateTime memberEpochSeconds;
   @override
   final DateTime memberHttpDate;
   @override
-  final DateTime targetDateTime;
+  final DateTime memberDateTime;
+  @override
+  final DateTime defaultFormat;
   @override
   final DateTime targetEpochSeconds;
   @override
   final DateTime targetHttpDate;
+  @override
+  final DateTime targetDateTime;
 
   factory _$HttpRequestWithLabelsAndTimestampFormatInput(
           [void Function(HttpRequestWithLabelsAndTimestampFormatInputBuilder)?
@@ -31,28 +31,28 @@ class _$HttpRequestWithLabelsAndTimestampFormatInput
           ._build();
 
   _$HttpRequestWithLabelsAndTimestampFormatInput._(
-      {required this.defaultFormat,
-      required this.memberDateTime,
-      required this.memberEpochSeconds,
+      {required this.memberEpochSeconds,
       required this.memberHttpDate,
-      required this.targetDateTime,
+      required this.memberDateTime,
+      required this.defaultFormat,
       required this.targetEpochSeconds,
-      required this.targetHttpDate})
+      required this.targetHttpDate,
+      required this.targetDateTime})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(defaultFormat,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat');
-    BuiltValueNullFieldError.checkNotNull(memberDateTime,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime');
     BuiltValueNullFieldError.checkNotNull(memberEpochSeconds,
         r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberEpochSeconds');
     BuiltValueNullFieldError.checkNotNull(memberHttpDate,
         r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberHttpDate');
-    BuiltValueNullFieldError.checkNotNull(targetDateTime,
-        r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime');
+    BuiltValueNullFieldError.checkNotNull(memberDateTime,
+        r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime');
+    BuiltValueNullFieldError.checkNotNull(defaultFormat,
+        r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat');
     BuiltValueNullFieldError.checkNotNull(targetEpochSeconds,
         r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetEpochSeconds');
     BuiltValueNullFieldError.checkNotNull(targetHttpDate,
         r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate');
+    BuiltValueNullFieldError.checkNotNull(targetDateTime,
+        r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime');
   }
 
   @override
@@ -69,25 +69,25 @@ class _$HttpRequestWithLabelsAndTimestampFormatInput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is HttpRequestWithLabelsAndTimestampFormatInput &&
-        defaultFormat == other.defaultFormat &&
-        memberDateTime == other.memberDateTime &&
         memberEpochSeconds == other.memberEpochSeconds &&
         memberHttpDate == other.memberHttpDate &&
-        targetDateTime == other.targetDateTime &&
+        memberDateTime == other.memberDateTime &&
+        defaultFormat == other.defaultFormat &&
         targetEpochSeconds == other.targetEpochSeconds &&
-        targetHttpDate == other.targetHttpDate;
+        targetHttpDate == other.targetHttpDate &&
+        targetDateTime == other.targetDateTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, defaultFormat.hashCode);
-    _$hash = $jc(_$hash, memberDateTime.hashCode);
     _$hash = $jc(_$hash, memberEpochSeconds.hashCode);
     _$hash = $jc(_$hash, memberHttpDate.hashCode);
-    _$hash = $jc(_$hash, targetDateTime.hashCode);
+    _$hash = $jc(_$hash, memberDateTime.hashCode);
+    _$hash = $jc(_$hash, defaultFormat.hashCode);
     _$hash = $jc(_$hash, targetEpochSeconds.hashCode);
     _$hash = $jc(_$hash, targetHttpDate.hashCode);
+    _$hash = $jc(_$hash, targetDateTime.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -99,16 +99,6 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
             HttpRequestWithLabelsAndTimestampFormatInputBuilder> {
   _$HttpRequestWithLabelsAndTimestampFormatInput? _$v;
 
-  DateTime? _defaultFormat;
-  DateTime? get defaultFormat => _$this._defaultFormat;
-  set defaultFormat(DateTime? defaultFormat) =>
-      _$this._defaultFormat = defaultFormat;
-
-  DateTime? _memberDateTime;
-  DateTime? get memberDateTime => _$this._memberDateTime;
-  set memberDateTime(DateTime? memberDateTime) =>
-      _$this._memberDateTime = memberDateTime;
-
   DateTime? _memberEpochSeconds;
   DateTime? get memberEpochSeconds => _$this._memberEpochSeconds;
   set memberEpochSeconds(DateTime? memberEpochSeconds) =>
@@ -119,10 +109,15 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   set memberHttpDate(DateTime? memberHttpDate) =>
       _$this._memberHttpDate = memberHttpDate;
 
-  DateTime? _targetDateTime;
-  DateTime? get targetDateTime => _$this._targetDateTime;
-  set targetDateTime(DateTime? targetDateTime) =>
-      _$this._targetDateTime = targetDateTime;
+  DateTime? _memberDateTime;
+  DateTime? get memberDateTime => _$this._memberDateTime;
+  set memberDateTime(DateTime? memberDateTime) =>
+      _$this._memberDateTime = memberDateTime;
+
+  DateTime? _defaultFormat;
+  DateTime? get defaultFormat => _$this._defaultFormat;
+  set defaultFormat(DateTime? defaultFormat) =>
+      _$this._defaultFormat = defaultFormat;
 
   DateTime? _targetEpochSeconds;
   DateTime? get targetEpochSeconds => _$this._targetEpochSeconds;
@@ -134,6 +129,11 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   set targetHttpDate(DateTime? targetHttpDate) =>
       _$this._targetHttpDate = targetHttpDate;
 
+  DateTime? _targetDateTime;
+  DateTime? get targetDateTime => _$this._targetDateTime;
+  set targetDateTime(DateTime? targetDateTime) =>
+      _$this._targetDateTime = targetDateTime;
+
   HttpRequestWithLabelsAndTimestampFormatInputBuilder() {
     HttpRequestWithLabelsAndTimestampFormatInput._init(this);
   }
@@ -141,13 +141,13 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   HttpRequestWithLabelsAndTimestampFormatInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _defaultFormat = $v.defaultFormat;
-      _memberDateTime = $v.memberDateTime;
       _memberEpochSeconds = $v.memberEpochSeconds;
       _memberHttpDate = $v.memberHttpDate;
-      _targetDateTime = $v.targetDateTime;
+      _memberDateTime = $v.memberDateTime;
+      _defaultFormat = $v.defaultFormat;
       _targetEpochSeconds = $v.targetEpochSeconds;
       _targetHttpDate = $v.targetHttpDate;
+      _targetDateTime = $v.targetDateTime;
       _$v = null;
     }
     return this;
@@ -172,21 +172,23 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   _$HttpRequestWithLabelsAndTimestampFormatInput _build() {
     final _$result = _$v ??
         new _$HttpRequestWithLabelsAndTimestampFormatInput._(
-            defaultFormat: BuiltValueNullFieldError.checkNotNull(
-                defaultFormat, r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat'),
-            memberDateTime: BuiltValueNullFieldError.checkNotNull(
-                memberDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime'),
             memberEpochSeconds: BuiltValueNullFieldError.checkNotNull(
-                memberEpochSeconds, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberEpochSeconds'),
+                memberEpochSeconds,
+                r'HttpRequestWithLabelsAndTimestampFormatInput',
+                'memberEpochSeconds'),
             memberHttpDate: BuiltValueNullFieldError.checkNotNull(
                 memberHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberHttpDate'),
-            targetDateTime: BuiltValueNullFieldError.checkNotNull(
-                targetDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime'),
+            memberDateTime: BuiltValueNullFieldError.checkNotNull(
+                memberDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'memberDateTime'),
+            defaultFormat: BuiltValueNullFieldError.checkNotNull(
+                defaultFormat, r'HttpRequestWithLabelsAndTimestampFormatInput', 'defaultFormat'),
             targetEpochSeconds: BuiltValueNullFieldError.checkNotNull(
                 targetEpochSeconds,
                 r'HttpRequestWithLabelsAndTimestampFormatInput',
                 'targetEpochSeconds'),
-            targetHttpDate: BuiltValueNullFieldError.checkNotNull(targetHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate'));
+            targetHttpDate: BuiltValueNullFieldError.checkNotNull(
+                targetHttpDate, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetHttpDate'),
+            targetDateTime: BuiltValueNullFieldError.checkNotNull(targetDateTime, r'HttpRequestWithLabelsAndTimestampFormatInput', 'targetDateTime'));
     replace(_$result);
     return _$result;
   }

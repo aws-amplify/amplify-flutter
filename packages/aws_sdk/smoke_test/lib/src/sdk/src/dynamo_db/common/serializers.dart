@@ -814,12 +814,12 @@ const List<_i1.SmithySerializer> serializers = [
 final Map<FullType, Function> builderFactories = {
   const FullType(
     _i273.BuiltList,
-    [FullType(_i274.Uint8List)],
-  ): _i273.ListBuilder<_i274.Uint8List>.new,
+    [FullType(String)],
+  ): _i273.ListBuilder<String>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(_i2.AttributeValue)],
-  ): _i273.ListBuilder<_i2.AttributeValue>.new,
+    [FullType(_i274.Uint8List)],
+  ): _i273.ListBuilder<_i274.Uint8List>.new,
   const FullType(
     _i273.BuiltMap,
     [
@@ -829,8 +829,8 @@ final Map<FullType, Function> builderFactories = {
   ): _i273.MapBuilder<String, _i2.AttributeValue>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(String)],
-  ): _i273.ListBuilder<String>.new,
+    [FullType(_i2.AttributeValue)],
+  ): _i273.ListBuilder<_i2.AttributeValue>.new,
   const FullType(
     _i273.BuiltList,
     [FullType(_i3.BatchStatementRequest)],
@@ -844,19 +844,12 @@ final Map<FullType, Function> builderFactories = {
   ): _i273.MapBuilder<String, _i9.Capacity>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(_i10.ConsumedCapacity)],
-  ): _i273.ListBuilder<_i10.ConsumedCapacity>.new,
-  const FullType(
-    _i273.BuiltList,
     [FullType(_i8.BatchStatementResponse)],
   ): _i273.ListBuilder<_i8.BatchStatementResponse>.new,
   const FullType(
-    _i273.BuiltMap,
-    [
-      FullType(String),
-      FullType(String),
-    ],
-  ): _i273.MapBuilder<String, String>.new,
+    _i273.BuiltList,
+    [FullType(_i10.ConsumedCapacity)],
+  ): _i273.ListBuilder<_i10.ConsumedCapacity>.new,
   const FullType(
     _i273.BuiltList,
     [
@@ -869,6 +862,13 @@ final Map<FullType, Function> builderFactories = {
       )
     ],
   ): _i273.ListBuilder<_i273.BuiltMap<String, _i2.AttributeValue>>.new,
+  const FullType(
+    _i273.BuiltMap,
+    [
+      FullType(String),
+      FullType(String),
+    ],
+  ): _i273.MapBuilder<String, String>.new,
   const FullType(
     _i273.BuiltMap,
     [
@@ -931,32 +931,32 @@ final Map<FullType, Function> builderFactories = {
   ): _i273.ListBuilder<_i51.AttributeDefinition>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(_i58.GlobalSecondaryIndex)],
-  ): _i273.ListBuilder<_i58.GlobalSecondaryIndex>.new,
-  const FullType(
-    _i273.BuiltList,
     [FullType(_i56.LocalSecondaryIndex)],
   ): _i273.ListBuilder<_i56.LocalSecondaryIndex>.new,
+  const FullType(
+    _i273.BuiltList,
+    [FullType(_i58.GlobalSecondaryIndex)],
+  ): _i273.ListBuilder<_i58.GlobalSecondaryIndex>.new,
   const FullType(
     _i273.BuiltList,
     [FullType(_i64.Tag)],
   ): _i273.ListBuilder<_i64.Tag>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(_i71.GlobalSecondaryIndexDescription)],
-  ): _i273.ListBuilder<_i71.GlobalSecondaryIndexDescription>.new,
-  const FullType(
-    _i273.BuiltList,
     [FullType(_i69.LocalSecondaryIndexDescription)],
   ): _i273.ListBuilder<_i69.LocalSecondaryIndexDescription>.new,
   const FullType(
     _i273.BuiltList,
-    [FullType(_i82.GlobalSecondaryIndexInfo)],
-  ): _i273.ListBuilder<_i82.GlobalSecondaryIndexInfo>.new,
+    [FullType(_i71.GlobalSecondaryIndexDescription)],
+  ): _i273.ListBuilder<_i71.GlobalSecondaryIndexDescription>.new,
   const FullType(
     _i273.BuiltList,
     [FullType(_i81.LocalSecondaryIndexInfo)],
   ): _i273.ListBuilder<_i81.LocalSecondaryIndexInfo>.new,
+  const FullType(
+    _i273.BuiltList,
+    [FullType(_i82.GlobalSecondaryIndexInfo)],
+  ): _i273.ListBuilder<_i82.GlobalSecondaryIndexInfo>.new,
   const FullType(
     _i273.BuiltMap,
     [

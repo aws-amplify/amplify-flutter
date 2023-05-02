@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_gateway_response_request;
 
 class _$DeleteGatewayResponseRequest extends DeleteGatewayResponseRequest {
   @override
-  final _i3.GatewayResponseType responseType;
-  @override
   final String restApiId;
+  @override
+  final _i3.GatewayResponseType responseType;
 
   factory _$DeleteGatewayResponseRequest(
           [void Function(DeleteGatewayResponseRequestBuilder)? updates]) =>
       (new DeleteGatewayResponseRequestBuilder()..update(updates))._build();
 
   _$DeleteGatewayResponseRequest._(
-      {required this.responseType, required this.restApiId})
+      {required this.restApiId, required this.responseType})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        responseType, r'DeleteGatewayResponseRequest', 'responseType');
-    BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteGatewayResponseRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(
+        responseType, r'DeleteGatewayResponseRequest', 'responseType');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteGatewayResponseRequest extends DeleteGatewayResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteGatewayResponseRequest &&
-        responseType == other.responseType &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        responseType == other.responseType;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, responseType.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, responseType.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,14 +58,14 @@ class DeleteGatewayResponseRequestBuilder
             DeleteGatewayResponseRequestBuilder> {
   _$DeleteGatewayResponseRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   _i3.GatewayResponseType? _responseType;
   _i3.GatewayResponseType? get responseType => _$this._responseType;
   set responseType(_i3.GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   DeleteGatewayResponseRequestBuilder() {
     DeleteGatewayResponseRequest._init(this);
@@ -74,8 +74,8 @@ class DeleteGatewayResponseRequestBuilder
   DeleteGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _responseType = $v.responseType;
       _restApiId = $v.restApiId;
+      _responseType = $v.responseType;
       _$v = null;
     }
     return this;
@@ -98,10 +98,10 @@ class DeleteGatewayResponseRequestBuilder
   _$DeleteGatewayResponseRequest _build() {
     final _$result = _$v ??
         new _$DeleteGatewayResponseRequest._(
-            responseType: BuiltValueNullFieldError.checkNotNull(
-                responseType, r'DeleteGatewayResponseRequest', 'responseType'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteGatewayResponseRequest', 'restApiId'));
+                restApiId, r'DeleteGatewayResponseRequest', 'restApiId'),
+            responseType: BuiltValueNullFieldError.checkNotNull(
+                responseType, r'DeleteGatewayResponseRequest', 'responseType'));
     replace(_$result);
     return _$result;
   }

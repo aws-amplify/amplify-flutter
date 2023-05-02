@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.describe_remediation_exceptions_response
 class _$DescribeRemediationExceptionsResponse
     extends DescribeRemediationExceptionsResponse {
   @override
-  final String? nextToken;
-  @override
   final _i3.BuiltList<_i2.RemediationException>? remediationExceptions;
+  @override
+  final String? nextToken;
 
   factory _$DescribeRemediationExceptionsResponse(
           [void Function(DescribeRemediationExceptionsResponseBuilder)?
@@ -20,7 +20,7 @@ class _$DescribeRemediationExceptionsResponse
           ._build();
 
   _$DescribeRemediationExceptionsResponse._(
-      {this.nextToken, this.remediationExceptions})
+      {this.remediationExceptions, this.nextToken})
       : super._();
 
   @override
@@ -37,15 +37,15 @@ class _$DescribeRemediationExceptionsResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeRemediationExceptionsResponse &&
-        nextToken == other.nextToken &&
-        remediationExceptions == other.remediationExceptions;
+        remediationExceptions == other.remediationExceptions &&
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jc(_$hash, remediationExceptions.hashCode);
+    _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,10 +57,6 @@ class DescribeRemediationExceptionsResponseBuilder
             DescribeRemediationExceptionsResponseBuilder> {
   _$DescribeRemediationExceptionsResponse? _$v;
 
-  String? _nextToken;
-  String? get nextToken => _$this._nextToken;
-  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
-
   _i3.ListBuilder<_i2.RemediationException>? _remediationExceptions;
   _i3.ListBuilder<_i2.RemediationException> get remediationExceptions =>
       _$this._remediationExceptions ??=
@@ -69,6 +65,10 @@ class DescribeRemediationExceptionsResponseBuilder
           _i3.ListBuilder<_i2.RemediationException>? remediationExceptions) =>
       _$this._remediationExceptions = remediationExceptions;
 
+  String? _nextToken;
+  String? get nextToken => _$this._nextToken;
+  set nextToken(String? nextToken) => _$this._nextToken = nextToken;
+
   DescribeRemediationExceptionsResponseBuilder() {
     DescribeRemediationExceptionsResponse._init(this);
   }
@@ -76,8 +76,8 @@ class DescribeRemediationExceptionsResponseBuilder
   DescribeRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nextToken = $v.nextToken;
       _remediationExceptions = $v.remediationExceptions?.toBuilder();
+      _nextToken = $v.nextToken;
       _$v = null;
     }
     return this;
@@ -103,8 +103,8 @@ class DescribeRemediationExceptionsResponseBuilder
     try {
       _$result = _$v ??
           new _$DescribeRemediationExceptionsResponse._(
-              nextToken: nextToken,
-              remediationExceptions: _remediationExceptions?.build());
+              remediationExceptions: _remediationExceptions?.build(),
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

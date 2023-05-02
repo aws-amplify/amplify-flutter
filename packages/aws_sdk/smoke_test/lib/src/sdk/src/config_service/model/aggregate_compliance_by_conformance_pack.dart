@@ -24,16 +24,16 @@ abstract class AggregateComplianceByConformancePack
   ///
   /// A conformance pack is compliant if all of the rules in a conformance packs are compliant. It is noncompliant if any of the rules are not compliant. The compliance status of a conformance pack is INSUFFICIENT\_DATA only if all rules within a conformance pack cannot be evaluated due to insufficient data. If some of the rules in a conformance pack are compliant but the compliance status of other rules in that same conformance pack is INSUFFICIENT\_DATA, the conformance pack shows compliant.
   factory AggregateComplianceByConformancePack({
+    String? conformancePackName,
+    _i2.AggregateConformancePackCompliance? compliance,
     String? accountId,
     String? awsRegion,
-    _i2.AggregateConformancePackCompliance? compliance,
-    String? conformancePackName,
   }) {
     return _$AggregateComplianceByConformancePack._(
+      conformancePackName: conformancePackName,
+      compliance: compliance,
       accountId: accountId,
       awsRegion: awsRegion,
-      compliance: compliance,
-      conformancePackName: conformancePackName,
     );
   }
 
@@ -53,28 +53,36 @@ abstract class AggregateComplianceByConformancePack
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AggregateComplianceByConformancePackBuilder b) {}
 
+  /// The name of the conformance pack.
+  String? get conformancePackName;
+
+  /// The compliance status of the conformance pack.
+  _i2.AggregateConformancePackCompliance? get compliance;
+
   /// The 12-digit Amazon Web Services account ID of the source account.
   String? get accountId;
 
   /// The source Amazon Web Services Region from where the data is aggregated.
   String? get awsRegion;
-
-  /// The compliance status of the conformance pack.
-  _i2.AggregateConformancePackCompliance? get compliance;
-
-  /// The name of the conformance pack.
-  String? get conformancePackName;
   @override
   List<Object?> get props => [
+        conformancePackName,
+        compliance,
         accountId,
         awsRegion,
-        compliance,
-        conformancePackName,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('AggregateComplianceByConformancePack');
+    helper.add(
+      'conformancePackName',
+      conformancePackName,
+    );
+    helper.add(
+      'compliance',
+      compliance,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -82,14 +90,6 @@ abstract class AggregateComplianceByConformancePack
     helper.add(
       'awsRegion',
       awsRegion,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
     );
     return helper.toString();
   }
@@ -125,17 +125,9 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AccountId':
+        case 'ConformancePackName':
           if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
+            result.conformancePackName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -150,9 +142,17 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
             ) as _i2.AggregateConformancePackCompliance));
           }
           break;
-        case 'ConformancePackName':
+        case 'AccountId':
           if (value != null) {
-            result.conformancePackName = (serializers.deserialize(
+            result.accountId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'AwsRegion':
+          if (value != null) {
+            result.awsRegion = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -172,6 +172,22 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
   }) {
     final payload = (object as AggregateComplianceByConformancePack);
     final result = <Object?>[];
+    if (payload.conformancePackName != null) {
+      result
+        ..add('ConformancePackName')
+        ..add(serializers.serialize(
+          payload.conformancePackName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.compliance != null) {
+      result
+        ..add('Compliance')
+        ..add(serializers.serialize(
+          payload.compliance!,
+          specifiedType: const FullType(_i2.AggregateConformancePackCompliance),
+        ));
+    }
     if (payload.accountId != null) {
       result
         ..add('AccountId')
@@ -185,22 +201,6 @@ class AggregateComplianceByConformancePackAwsJson11Serializer extends _i3
         ..add('AwsRegion')
         ..add(serializers.serialize(
           payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.compliance != null) {
-      result
-        ..add('Compliance')
-        ..add(serializers.serialize(
-          payload.compliance!,
-          specifiedType: const FullType(_i2.AggregateConformancePackCompliance),
-        ));
-    }
-    if (payload.conformancePackName != null) {
-      result
-        ..add('ConformancePackName')
-        ..add(serializers.serialize(
-          payload.conformancePackName!,
           specifiedType: const FullType(String),
         ));
     }

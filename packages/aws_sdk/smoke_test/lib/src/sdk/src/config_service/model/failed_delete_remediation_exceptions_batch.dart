@@ -21,12 +21,12 @@ abstract class FailedDeleteRemediationExceptionsBatch
             FailedDeleteRemediationExceptionsBatchBuilder> {
   /// List of each of the failed delete remediation exceptions with specific reasons.
   factory FailedDeleteRemediationExceptionsBatch({
-    List<_i2.RemediationExceptionResourceKey>? failedItems,
     String? failureMessage,
+    List<_i2.RemediationExceptionResourceKey>? failedItems,
   }) {
     return _$FailedDeleteRemediationExceptionsBatch._(
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
       failureMessage: failureMessage,
+      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
     );
   }
 
@@ -44,27 +44,27 @@ abstract class FailedDeleteRemediationExceptionsBatch
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailedDeleteRemediationExceptionsBatchBuilder b) {}
 
-  /// Returns remediation exception resource key object of the failed items.
-  _i3.BuiltList<_i2.RemediationExceptionResourceKey>? get failedItems;
-
   /// Returns a failure message for delete remediation exception. For example, Config creates an exception due to an internal error.
   String? get failureMessage;
+
+  /// Returns remediation exception resource key object of the failed items.
+  _i3.BuiltList<_i2.RemediationExceptionResourceKey>? get failedItems;
   @override
   List<Object?> get props => [
-        failedItems,
         failureMessage,
+        failedItems,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('FailedDeleteRemediationExceptionsBatch');
     helper.add(
-      'failedItems',
-      failedItems,
-    );
-    helper.add(
       'failureMessage',
       failureMessage,
+    );
+    helper.add(
+      'failedItems',
+      failedItems,
     );
     return helper.toString();
   }
@@ -100,6 +100,14 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'FailureMessage':
+          if (value != null) {
+            result.failureMessage = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'FailedItems':
           if (value != null) {
             result.failedItems.replace((serializers.deserialize(
@@ -109,14 +117,6 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
                 [FullType(_i2.RemediationExceptionResourceKey)],
               ),
             ) as _i3.BuiltList<_i2.RemediationExceptionResourceKey>));
-          }
-          break;
-        case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -133,6 +133,14 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
   }) {
     final payload = (object as FailedDeleteRemediationExceptionsBatch);
     final result = <Object?>[];
+    if (payload.failureMessage != null) {
+      result
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          payload.failureMessage!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.failedItems != null) {
       result
         ..add('FailedItems')
@@ -142,14 +150,6 @@ class FailedDeleteRemediationExceptionsBatchAwsJson11Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.RemediationExceptionResourceKey)],
           ),
-        ));
-    }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

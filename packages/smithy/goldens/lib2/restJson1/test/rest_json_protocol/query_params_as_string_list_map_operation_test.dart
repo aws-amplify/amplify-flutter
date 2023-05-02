@@ -95,6 +95,14 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'qux':
+          if (value != null) {
+            result.qux = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'foo':
           if (value != null) {
             result.foo.replace((serializers.deserialize(
@@ -107,14 +115,6 @@ class QueryParamsAsStringListMapInputRestJson1Serializer extends _i4
                 ],
               ),
             ) as _i6.BuiltListMultimap<String, String>));
-          }
-          break;
-        case 'qux':
-          if (value != null) {
-            result.qux = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }

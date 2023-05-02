@@ -8,16 +8,16 @@ part of smoke_test.s3.model.server_side_encryption_by_default;
 
 class _$ServerSideEncryptionByDefault extends ServerSideEncryptionByDefault {
   @override
-  final String? kmsMasterKeyId;
-  @override
   final _i2.ServerSideEncryption sseAlgorithm;
+  @override
+  final String? kmsMasterKeyId;
 
   factory _$ServerSideEncryptionByDefault(
           [void Function(ServerSideEncryptionByDefaultBuilder)? updates]) =>
       (new ServerSideEncryptionByDefaultBuilder()..update(updates))._build();
 
   _$ServerSideEncryptionByDefault._(
-      {this.kmsMasterKeyId, required this.sseAlgorithm})
+      {required this.sseAlgorithm, this.kmsMasterKeyId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         sseAlgorithm, r'ServerSideEncryptionByDefault', 'sseAlgorithm');
@@ -36,15 +36,15 @@ class _$ServerSideEncryptionByDefault extends ServerSideEncryptionByDefault {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ServerSideEncryptionByDefault &&
-        kmsMasterKeyId == other.kmsMasterKeyId &&
-        sseAlgorithm == other.sseAlgorithm;
+        sseAlgorithm == other.sseAlgorithm &&
+        kmsMasterKeyId == other.kmsMasterKeyId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
     _$hash = $jc(_$hash, sseAlgorithm.hashCode);
+    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,15 +56,15 @@ class ServerSideEncryptionByDefaultBuilder
             ServerSideEncryptionByDefaultBuilder> {
   _$ServerSideEncryptionByDefault? _$v;
 
-  String? _kmsMasterKeyId;
-  String? get kmsMasterKeyId => _$this._kmsMasterKeyId;
-  set kmsMasterKeyId(String? kmsMasterKeyId) =>
-      _$this._kmsMasterKeyId = kmsMasterKeyId;
-
   _i2.ServerSideEncryption? _sseAlgorithm;
   _i2.ServerSideEncryption? get sseAlgorithm => _$this._sseAlgorithm;
   set sseAlgorithm(_i2.ServerSideEncryption? sseAlgorithm) =>
       _$this._sseAlgorithm = sseAlgorithm;
+
+  String? _kmsMasterKeyId;
+  String? get kmsMasterKeyId => _$this._kmsMasterKeyId;
+  set kmsMasterKeyId(String? kmsMasterKeyId) =>
+      _$this._kmsMasterKeyId = kmsMasterKeyId;
 
   ServerSideEncryptionByDefaultBuilder() {
     ServerSideEncryptionByDefault._init(this);
@@ -73,8 +73,8 @@ class ServerSideEncryptionByDefaultBuilder
   ServerSideEncryptionByDefaultBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _kmsMasterKeyId = $v.kmsMasterKeyId;
       _sseAlgorithm = $v.sseAlgorithm;
+      _kmsMasterKeyId = $v.kmsMasterKeyId;
       _$v = null;
     }
     return this;
@@ -97,9 +97,9 @@ class ServerSideEncryptionByDefaultBuilder
   _$ServerSideEncryptionByDefault _build() {
     final _$result = _$v ??
         new _$ServerSideEncryptionByDefault._(
-            kmsMasterKeyId: kmsMasterKeyId,
-            sseAlgorithm: BuiltValueNullFieldError.checkNotNull(sseAlgorithm,
-                r'ServerSideEncryptionByDefault', 'sseAlgorithm'));
+            sseAlgorithm: BuiltValueNullFieldError.checkNotNull(
+                sseAlgorithm, r'ServerSideEncryptionByDefault', 'sseAlgorithm'),
+            kmsMasterKeyId: kmsMasterKeyId);
     replace(_$result);
     return _$result;
   }

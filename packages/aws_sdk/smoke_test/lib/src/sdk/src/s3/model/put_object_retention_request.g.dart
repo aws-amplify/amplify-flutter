@@ -10,21 +10,21 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
   @override
   final String bucket;
   @override
-  final bool? bypassGovernanceRetention;
-  @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
-  final String? contentMd5;
-  @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
-  @override
-  final _i5.RequestPayer? requestPayer;
   @override
   final _i2.ObjectLockRetention? retention;
   @override
+  final _i4.RequestPayer? requestPayer;
+  @override
   final String? versionId;
+  @override
+  final bool? bypassGovernanceRetention;
+  @override
+  final String? contentMd5;
+  @override
+  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutObjectRetentionRequest(
           [void Function(PutObjectRetentionRequestBuilder)? updates]) =>
@@ -32,14 +32,14 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
 
   _$PutObjectRetentionRequest._(
       {required this.bucket,
-      this.bypassGovernanceRetention,
-      this.checksumAlgorithm,
-      this.contentMd5,
-      this.expectedBucketOwner,
       required this.key,
-      this.requestPayer,
       this.retention,
-      this.versionId})
+      this.requestPayer,
+      this.versionId,
+      this.bypassGovernanceRetention,
+      this.contentMd5,
+      this.checksumAlgorithm,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutObjectRetentionRequest', 'bucket');
@@ -61,28 +61,28 @@ class _$PutObjectRetentionRequest extends PutObjectRetentionRequest {
     if (identical(other, this)) return true;
     return other is PutObjectRetentionRequest &&
         bucket == other.bucket &&
-        bypassGovernanceRetention == other.bypassGovernanceRetention &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
-        requestPayer == other.requestPayer &&
         retention == other.retention &&
-        versionId == other.versionId;
+        requestPayer == other.requestPayer &&
+        versionId == other.versionId &&
+        bypassGovernanceRetention == other.bypassGovernanceRetention &&
+        contentMd5 == other.contentMd5 &&
+        checksumAlgorithm == other.checksumAlgorithm &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, retention.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, bypassGovernanceRetention.hashCode);
+    _$hash = $jc(_$hash, contentMd5.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -97,33 +97,9 @@ class PutObjectRetentionRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  bool? _bypassGovernanceRetention;
-  bool? get bypassGovernanceRetention => _$this._bypassGovernanceRetention;
-  set bypassGovernanceRetention(bool? bypassGovernanceRetention) =>
-      _$this._bypassGovernanceRetention = bypassGovernanceRetention;
-
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
-  String? _contentMd5;
-  String? get contentMd5 => _$this._contentMd5;
-  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
-
-  _i5.RequestPayer? _requestPayer;
-  _i5.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i5.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
 
   _i2.ObjectLockRetentionBuilder? _retention;
   _i2.ObjectLockRetentionBuilder get retention =>
@@ -131,9 +107,33 @@ class PutObjectRetentionRequestBuilder
   set retention(_i2.ObjectLockRetentionBuilder? retention) =>
       _$this._retention = retention;
 
+  _i4.RequestPayer? _requestPayer;
+  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i4.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
   String? _versionId;
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
+
+  bool? _bypassGovernanceRetention;
+  bool? get bypassGovernanceRetention => _$this._bypassGovernanceRetention;
+  set bypassGovernanceRetention(bool? bypassGovernanceRetention) =>
+      _$this._bypassGovernanceRetention = bypassGovernanceRetention;
+
+  String? _contentMd5;
+  String? get contentMd5 => _$this._contentMd5;
+  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
+
+  _i5.ChecksumAlgorithm? _checksumAlgorithm;
+  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   PutObjectRetentionRequestBuilder() {
     PutObjectRetentionRequest._init(this);
@@ -143,14 +143,14 @@ class PutObjectRetentionRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
-      _checksumAlgorithm = $v.checksumAlgorithm;
-      _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
-      _requestPayer = $v.requestPayer;
       _retention = $v.retention?.toBuilder();
+      _requestPayer = $v.requestPayer;
       _versionId = $v.versionId;
+      _bypassGovernanceRetention = $v.bypassGovernanceRetention;
+      _contentMd5 = $v.contentMd5;
+      _checksumAlgorithm = $v.checksumAlgorithm;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -177,15 +177,15 @@ class PutObjectRetentionRequestBuilder
           new _$PutObjectRetentionRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutObjectRetentionRequest', 'bucket'),
-              bypassGovernanceRetention: bypassGovernanceRetention,
-              checksumAlgorithm: checksumAlgorithm,
-              contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
               key: BuiltValueNullFieldError.checkNotNull(
                   key, r'PutObjectRetentionRequest', 'key'),
-              requestPayer: requestPayer,
               retention: _retention?.build(),
-              versionId: versionId);
+              requestPayer: requestPayer,
+              versionId: versionId,
+              bypassGovernanceRetention: bypassGovernanceRetention,
+              contentMd5: contentMd5,
+              checksumAlgorithm: checksumAlgorithm,
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

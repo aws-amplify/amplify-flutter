@@ -10,11 +10,11 @@ class _$PutBucketCorsRequest extends PutBucketCorsRequest {
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final _i2.CorsConfiguration corsConfiguration;
   @override
   final String? contentMd5;
   @override
-  final _i2.CorsConfiguration corsConfiguration;
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -24,9 +24,9 @@ class _$PutBucketCorsRequest extends PutBucketCorsRequest {
 
   _$PutBucketCorsRequest._(
       {required this.bucket,
-      this.checksumAlgorithm,
-      this.contentMd5,
       required this.corsConfiguration,
+      this.contentMd5,
+      this.checksumAlgorithm,
       this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -49,9 +49,9 @@ class _$PutBucketCorsRequest extends PutBucketCorsRequest {
     if (identical(other, this)) return true;
     return other is PutBucketCorsRequest &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
-        contentMd5 == other.contentMd5 &&
         corsConfiguration == other.corsConfiguration &&
+        contentMd5 == other.contentMd5 &&
+        checksumAlgorithm == other.checksumAlgorithm &&
         expectedBucketOwner == other.expectedBucketOwner;
   }
 
@@ -59,9 +59,9 @@ class _$PutBucketCorsRequest extends PutBucketCorsRequest {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
-    _$hash = $jc(_$hash, contentMd5.hashCode);
     _$hash = $jc(_$hash, corsConfiguration.hashCode);
+    _$hash = $jc(_$hash, contentMd5.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -76,20 +76,20 @@ class PutBucketCorsRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
-  String? _contentMd5;
-  String? get contentMd5 => _$this._contentMd5;
-  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
-
   _i2.CorsConfigurationBuilder? _corsConfiguration;
   _i2.CorsConfigurationBuilder get corsConfiguration =>
       _$this._corsConfiguration ??= new _i2.CorsConfigurationBuilder();
   set corsConfiguration(_i2.CorsConfigurationBuilder? corsConfiguration) =>
       _$this._corsConfiguration = corsConfiguration;
+
+  String? _contentMd5;
+  String? get contentMd5 => _$this._contentMd5;
+  set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
+
+  _i4.ChecksumAlgorithm? _checksumAlgorithm;
+  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
@@ -104,9 +104,9 @@ class PutBucketCorsRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
-      _contentMd5 = $v.contentMd5;
       _corsConfiguration = $v.corsConfiguration.toBuilder();
+      _contentMd5 = $v.contentMd5;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
@@ -134,9 +134,9 @@ class PutBucketCorsRequestBuilder
           new _$PutBucketCorsRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketCorsRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
-              contentMd5: contentMd5,
               corsConfiguration: corsConfiguration.build(),
+              contentMd5: contentMd5,
+              checksumAlgorithm: checksumAlgorithm,
               expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;

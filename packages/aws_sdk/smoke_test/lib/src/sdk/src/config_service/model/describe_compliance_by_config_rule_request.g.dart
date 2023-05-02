@@ -9,9 +9,9 @@ part of smoke_test.config_service.model.describe_compliance_by_config_rule_reque
 class _$DescribeComplianceByConfigRuleRequest
     extends DescribeComplianceByConfigRuleRequest {
   @override
-  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
-  @override
   final _i4.BuiltList<String>? configRuleNames;
+  @override
+  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
   final String? nextToken;
 
@@ -22,7 +22,7 @@ class _$DescribeComplianceByConfigRuleRequest
           ._build();
 
   _$DescribeComplianceByConfigRuleRequest._(
-      {this.complianceTypes, this.configRuleNames, this.nextToken})
+      {this.configRuleNames, this.complianceTypes, this.nextToken})
       : super._();
 
   @override
@@ -39,16 +39,16 @@ class _$DescribeComplianceByConfigRuleRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DescribeComplianceByConfigRuleRequest &&
-        complianceTypes == other.complianceTypes &&
         configRuleNames == other.configRuleNames &&
+        complianceTypes == other.complianceTypes &&
         nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, configRuleNames.hashCode);
+    _$hash = $jc(_$hash, complianceTypes.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -61,17 +61,17 @@ class DescribeComplianceByConfigRuleRequestBuilder
             DescribeComplianceByConfigRuleRequestBuilder> {
   _$DescribeComplianceByConfigRuleRequest? _$v;
 
-  _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
-  _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
-      _$this._complianceTypes ??= new _i4.ListBuilder<_i3.ComplianceType>();
-  set complianceTypes(_i4.ListBuilder<_i3.ComplianceType>? complianceTypes) =>
-      _$this._complianceTypes = complianceTypes;
-
   _i4.ListBuilder<String>? _configRuleNames;
   _i4.ListBuilder<String> get configRuleNames =>
       _$this._configRuleNames ??= new _i4.ListBuilder<String>();
   set configRuleNames(_i4.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
+
+  _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
+  _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
+      _$this._complianceTypes ??= new _i4.ListBuilder<_i3.ComplianceType>();
+  set complianceTypes(_i4.ListBuilder<_i3.ComplianceType>? complianceTypes) =>
+      _$this._complianceTypes = complianceTypes;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
@@ -84,8 +84,8 @@ class DescribeComplianceByConfigRuleRequestBuilder
   DescribeComplianceByConfigRuleRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _complianceTypes = $v.complianceTypes?.toBuilder();
       _configRuleNames = $v.configRuleNames?.toBuilder();
+      _complianceTypes = $v.complianceTypes?.toBuilder();
       _nextToken = $v.nextToken;
       _$v = null;
     }
@@ -112,16 +112,16 @@ class DescribeComplianceByConfigRuleRequestBuilder
     try {
       _$result = _$v ??
           new _$DescribeComplianceByConfigRuleRequest._(
-              complianceTypes: _complianceTypes?.build(),
               configRuleNames: _configRuleNames?.build(),
+              complianceTypes: _complianceTypes?.build(),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'complianceTypes';
-        _complianceTypes?.build();
         _$failedField = 'configRuleNames';
         _configRuleNames?.build();
+        _$failedField = 'complianceTypes';
+        _complianceTypes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'DescribeComplianceByConfigRuleRequest',

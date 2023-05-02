@@ -87,7 +87,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
   @override
   Reference operationShape(OperationShape shape, [Shape? parent]) {
     final library = shape.smithyLibrary(context);
-    return Reference(shape.dartName, library.libraryUrl);
+    return Reference(shape.dartName(context), library.libraryUrl);
   }
 
   @override

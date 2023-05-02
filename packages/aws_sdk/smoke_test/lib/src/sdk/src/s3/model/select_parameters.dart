@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart' as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/input_serialization.dart'
-    as _i3;
+    as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart'
     as _i4;
 
@@ -20,15 +20,15 @@ abstract class SelectParameters
     implements Built<SelectParameters, SelectParametersBuilder> {
   /// Describes the parameters for Select job types.
   factory SelectParameters({
+    required _i2.InputSerialization inputSerialization,
+    required _i3.ExpressionType expressionType,
     required String expression,
-    required _i2.ExpressionType expressionType,
-    required _i3.InputSerialization inputSerialization,
     required _i4.OutputSerialization outputSerialization,
   }) {
     return _$SelectParameters._(
-      expression: expression,
-      expressionType: expressionType,
       inputSerialization: inputSerialization,
+      expressionType: expressionType,
+      expression: expression,
       outputSerialization: outputSerialization,
     );
   }
@@ -46,38 +46,38 @@ abstract class SelectParameters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(SelectParametersBuilder b) {}
 
-  /// The expression that is used to query the object.
-  String get expression;
+  /// Describes the serialization format of the object.
+  _i2.InputSerialization get inputSerialization;
 
   /// The type of the provided expression (for example, SQL).
-  _i2.ExpressionType get expressionType;
+  _i3.ExpressionType get expressionType;
 
-  /// Describes the serialization format of the object.
-  _i3.InputSerialization get inputSerialization;
+  /// The expression that is used to query the object.
+  String get expression;
 
   /// Describes how the results of the Select job are serialized.
   _i4.OutputSerialization get outputSerialization;
   @override
   List<Object?> get props => [
-        expression,
-        expressionType,
         inputSerialization,
+        expressionType,
+        expression,
         outputSerialization,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('SelectParameters');
     helper.add(
-      'expression',
-      expression,
+      'inputSerialization',
+      inputSerialization,
     );
     helper.add(
       'expressionType',
       expressionType,
     );
     helper.add(
-      'inputSerialization',
-      inputSerialization,
+      'expression',
+      expression,
     );
     helper.add(
       'outputSerialization',
@@ -125,14 +125,14 @@ class SelectParametersRestXmlSerializer
         case 'ExpressionType':
           result.expressionType = (serializers.deserialize(
             value!,
-            specifiedType: const FullType(_i2.ExpressionType),
-          ) as _i2.ExpressionType);
+            specifiedType: const FullType(_i3.ExpressionType),
+          ) as _i3.ExpressionType);
           break;
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.InputSerialization),
-          ) as _i3.InputSerialization));
+            specifiedType: const FullType(_i2.InputSerialization),
+          ) as _i2.InputSerialization));
           break;
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
@@ -169,13 +169,13 @@ class SelectParametersRestXmlSerializer
       ..add(const _i5.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         payload.expressionType,
-        specifiedType: const FullType.nullable(_i2.ExpressionType),
+        specifiedType: const FullType.nullable(_i3.ExpressionType),
       ));
     result
       ..add(const _i5.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         payload.inputSerialization,
-        specifiedType: const FullType(_i3.InputSerialization),
+        specifiedType: const FullType(_i2.InputSerialization),
       ));
     result
       ..add(const _i5.XmlElementName('OutputSerialization'))

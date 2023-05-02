@@ -6,12 +6,12 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/object_version_storage_class.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
+    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i5;
 
 part 'object_version.g.dart';
 
@@ -21,27 +21,27 @@ abstract class ObjectVersion
     implements Built<ObjectVersion, ObjectVersionBuilder> {
   /// The version of an object.
   factory ObjectVersion({
-    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
     String? eTag,
-    bool? isLatest,
+    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
+    _i3.Int64? size,
+    _i4.ObjectVersionStorageClass? storageClass,
     String? key,
-    DateTime? lastModified,
-    _i3.Owner? owner,
-    _i4.Int64? size,
-    _i5.ObjectVersionStorageClass? storageClass,
     String? versionId,
+    bool? isLatest,
+    DateTime? lastModified,
+    _i5.Owner? owner,
   }) {
     return _$ObjectVersion._(
+      eTag: eTag,
       checksumAlgorithm:
           checksumAlgorithm == null ? null : _i6.BuiltList(checksumAlgorithm),
-      eTag: eTag,
-      isLatest: isLatest,
-      key: key,
-      lastModified: lastModified,
-      owner: owner,
       size: size,
       storageClass: storageClass,
+      key: key,
       versionId: versionId,
+      isLatest: isLatest,
+      lastModified: lastModified,
+      owner: owner,
     );
   }
 
@@ -58,70 +58,54 @@ abstract class ObjectVersion
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectVersionBuilder b) {}
 
-  /// The algorithm that was used to create a checksum of the object.
-  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
-
   /// The entity tag is an MD5 hash of that version of the object.
   String? get eTag;
 
-  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
-  bool? get isLatest;
+  /// The algorithm that was used to create a checksum of the object.
+  _i6.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
+
+  /// Size in bytes of the object.
+  _i3.Int64? get size;
+
+  /// The class of storage used to store the object.
+  _i4.ObjectVersionStorageClass? get storageClass;
 
   /// The object key.
   String? get key;
+
+  /// Version ID of an object.
+  String? get versionId;
+
+  /// Specifies whether the object is (true) or is not (false) the latest version of an object.
+  bool? get isLatest;
 
   /// Date and time the object was last modified.
   DateTime? get lastModified;
 
   /// Specifies the owner of the object.
-  _i3.Owner? get owner;
-
-  /// Size in bytes of the object.
-  _i4.Int64? get size;
-
-  /// The class of storage used to store the object.
-  _i5.ObjectVersionStorageClass? get storageClass;
-
-  /// Version ID of an object.
-  String? get versionId;
+  _i5.Owner? get owner;
   @override
   List<Object?> get props => [
-        checksumAlgorithm,
         eTag,
-        isLatest,
-        key,
-        lastModified,
-        owner,
+        checksumAlgorithm,
         size,
         storageClass,
+        key,
         versionId,
+        isLatest,
+        lastModified,
+        owner,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectVersion');
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'eTag',
       eTag,
     );
     helper.add(
-      'isLatest',
-      isLatest,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'owner',
-      owner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'size',
@@ -132,8 +116,24 @@ abstract class ObjectVersion
       storageClass,
     );
     helper.add(
+      'key',
+      key,
+    );
+    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'isLatest',
+      isLatest,
+    );
+    helper.add(
+      'lastModified',
+      lastModified,
+    );
+    helper.add(
+      'owner',
+      owner,
     );
     return helper.toString();
   }
@@ -212,24 +212,24 @@ class ObjectVersionRestXmlSerializer
           if (value != null) {
             result.owner.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
+              specifiedType: const FullType(_i5.Owner),
+            ) as _i5.Owner));
           }
           break;
         case 'Size':
           if (value != null) {
             result.size = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
+              specifiedType: const FullType(_i3.Int64),
+            ) as _i3.Int64);
           }
           break;
         case 'StorageClass':
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.ObjectVersionStorageClass),
-            ) as _i5.ObjectVersionStorageClass);
+              specifiedType: const FullType(_i4.ObjectVersionStorageClass),
+            ) as _i4.ObjectVersionStorageClass);
           }
           break;
         case 'VersionId':
@@ -308,7 +308,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i7.XmlElementName('Owner'))
         ..add(serializers.serialize(
           payload.owner!,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(_i5.Owner),
         ));
     }
     if (payload.size != null) {
@@ -316,7 +316,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i7.XmlElementName('Size'))
         ..add(serializers.serialize(
           payload.size!,
-          specifiedType: const FullType.nullable(_i4.Int64),
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
     if (payload.storageClass != null) {
@@ -324,7 +324,7 @@ class ObjectVersionRestXmlSerializer
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i5.ObjectVersionStorageClass),
+          specifiedType: const FullType.nullable(_i4.ObjectVersionStorageClass),
         ));
     }
     if (payload.versionId != null) {

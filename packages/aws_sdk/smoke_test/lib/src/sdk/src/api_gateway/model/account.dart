@@ -18,16 +18,16 @@ abstract class Account
     implements Built<Account, AccountBuilder> {
   /// Represents an AWS account that is associated with API Gateway.
   factory Account({
-    String? apiKeyVersion,
     String? cloudwatchRoleArn,
-    List<String>? features,
     _i2.ThrottleSettings? throttleSettings,
+    List<String>? features,
+    String? apiKeyVersion,
   }) {
     return _$Account._(
-      apiKeyVersion: apiKeyVersion,
       cloudwatchRoleArn: cloudwatchRoleArn,
-      features: features == null ? null : _i3.BuiltList(features),
       throttleSettings: throttleSettings,
+      features: features == null ? null : _i3.BuiltList(features),
+      apiKeyVersion: apiKeyVersion,
     );
   }
 
@@ -50,42 +50,42 @@ abstract class Account
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AccountBuilder b) {}
 
-  /// The version of the API keys used for the account.
-  String? get apiKeyVersion;
-
   /// The ARN of an Amazon CloudWatch role for the current Account.
   String? get cloudwatchRoleArn;
+
+  /// Specifies the API request limits configured for the current Account.
+  _i2.ThrottleSettings? get throttleSettings;
 
   /// A list of features supported for the account. When usage plans are enabled, the features list will include an entry of `"UsagePlans"`.
   _i3.BuiltList<String>? get features;
 
-  /// Specifies the API request limits configured for the current Account.
-  _i2.ThrottleSettings? get throttleSettings;
+  /// The version of the API keys used for the account.
+  String? get apiKeyVersion;
   @override
   List<Object?> get props => [
-        apiKeyVersion,
         cloudwatchRoleArn,
-        features,
         throttleSettings,
+        features,
+        apiKeyVersion,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Account');
     helper.add(
-      'apiKeyVersion',
-      apiKeyVersion,
-    );
-    helper.add(
       'cloudwatchRoleArn',
       cloudwatchRoleArn,
+    );
+    helper.add(
+      'throttleSettings',
+      throttleSettings,
     );
     helper.add(
       'features',
       features,
     );
     helper.add(
-      'throttleSettings',
-      throttleSettings,
+      'apiKeyVersion',
+      apiKeyVersion,
     );
     return helper.toString();
   }

@@ -17,16 +17,16 @@ abstract class ResourceIdentifier
     implements Built<ResourceIdentifier, ResourceIdentifierBuilder> {
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   factory ResourceIdentifier({
-    DateTime? resourceDeletionTime,
+    _i2.ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
-    _i2.ResourceType? resourceType,
+    DateTime? resourceDeletionTime,
   }) {
     return _$ResourceIdentifier._(
-      resourceDeletionTime: resourceDeletionTime,
+      resourceType: resourceType,
       resourceId: resourceId,
       resourceName: resourceName,
-      resourceType: resourceType,
+      resourceDeletionTime: resourceDeletionTime,
     );
   }
 
@@ -44,8 +44,8 @@ abstract class ResourceIdentifier
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceIdentifierBuilder b) {}
 
-  /// The time that the resource was deleted.
-  DateTime? get resourceDeletionTime;
+  /// The type of resource.
+  _i2.ResourceType? get resourceType;
 
   /// The ID of the resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -53,21 +53,21 @@ abstract class ResourceIdentifier
   /// The custom name of the resource (if available).
   String? get resourceName;
 
-  /// The type of resource.
-  _i2.ResourceType? get resourceType;
+  /// The time that the resource was deleted.
+  DateTime? get resourceDeletionTime;
   @override
   List<Object?> get props => [
-        resourceDeletionTime,
+        resourceType,
         resourceId,
         resourceName,
-        resourceType,
+        resourceDeletionTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ResourceIdentifier');
     helper.add(
-      'resourceDeletionTime',
-      resourceDeletionTime,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceId',
@@ -78,8 +78,8 @@ abstract class ResourceIdentifier
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'resourceDeletionTime',
+      resourceDeletionTime,
     );
     return helper.toString();
   }
@@ -114,12 +114,12 @@ class ResourceIdentifierAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'resourceDeletionTime':
+        case 'resourceType':
           if (value != null) {
-            result.resourceDeletionTime = (serializers.deserialize(
+            result.resourceType = (serializers.deserialize(
               value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
+              specifiedType: const FullType(_i2.ResourceType),
+            ) as _i2.ResourceType);
           }
           break;
         case 'resourceId':
@@ -138,12 +138,12 @@ class ResourceIdentifierAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'resourceType':
+        case 'resourceDeletionTime':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.resourceDeletionTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
       }
@@ -160,12 +160,12 @@ class ResourceIdentifierAwsJson11Serializer
   }) {
     final payload = (object as ResourceIdentifier);
     final result = <Object?>[];
-    if (payload.resourceDeletionTime != null) {
+    if (payload.resourceType != null) {
       result
-        ..add('resourceDeletionTime')
+        ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceDeletionTime!,
-          specifiedType: const FullType(DateTime),
+          payload.resourceType!,
+          specifiedType: const FullType(_i2.ResourceType),
         ));
     }
     if (payload.resourceId != null) {
@@ -184,12 +184,12 @@ class ResourceIdentifierAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (payload.resourceDeletionTime != null) {
       result
-        ..add('resourceType')
+        ..add('resourceDeletionTime')
         ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(_i2.ResourceType),
+          payload.resourceDeletionTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

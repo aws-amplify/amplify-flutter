@@ -22,12 +22,12 @@ abstract class DeleteDocumentationPartRequest
         _i1.HasPayload<DeleteDocumentationPartRequestPayload> {
   /// Deletes an existing documentation part of an API.
   factory DeleteDocumentationPartRequest({
-    required String documentationPartId,
     required String restApiId,
+    required String documentationPartId,
   }) {
     return _$DeleteDocumentationPartRequest._(
-      documentationPartId: documentationPartId,
       restApiId: restApiId,
+      documentationPartId: documentationPartId,
     );
   }
 
@@ -59,11 +59,11 @@ abstract class DeleteDocumentationPartRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDocumentationPartRequestBuilder b) {}
 
-  /// The identifier of the to-be-deleted documentation part.
-  String get documentationPartId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the to-be-deleted documentation part.
+  String get documentationPartId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -83,20 +83,20 @@ abstract class DeleteDocumentationPartRequest
       DeleteDocumentationPartRequestPayload();
   @override
   List<Object?> get props => [
-        documentationPartId,
         restApiId,
+        documentationPartId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('DeleteDocumentationPartRequest');
     helper.add(
-      'documentationPartId',
-      documentationPartId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'documentationPartId',
+      documentationPartId,
     );
     return helper.toString();
   }

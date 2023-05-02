@@ -9,9 +9,9 @@ part of smoke_test.s3.model.intelligent_tiering_configuration;
 class _$IntelligentTieringConfiguration
     extends IntelligentTieringConfiguration {
   @override
-  final _i2.IntelligentTieringFilter? filter;
-  @override
   final String id;
+  @override
+  final _i2.IntelligentTieringFilter? filter;
   @override
   final _i3.IntelligentTieringStatus status;
   @override
@@ -22,8 +22,8 @@ class _$IntelligentTieringConfiguration
       (new IntelligentTieringConfigurationBuilder()..update(updates))._build();
 
   _$IntelligentTieringConfiguration._(
-      {this.filter,
-      required this.id,
+      {required this.id,
+      this.filter,
       required this.status,
       required this.tierings})
       : super._() {
@@ -48,8 +48,8 @@ class _$IntelligentTieringConfiguration
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is IntelligentTieringConfiguration &&
-        filter == other.filter &&
         id == other.id &&
+        filter == other.filter &&
         status == other.status &&
         tierings == other.tierings;
   }
@@ -57,8 +57,8 @@ class _$IntelligentTieringConfiguration
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, tierings.hashCode);
     _$hash = $jf(_$hash);
@@ -72,15 +72,15 @@ class IntelligentTieringConfigurationBuilder
             IntelligentTieringConfigurationBuilder> {
   _$IntelligentTieringConfiguration? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
   _i2.IntelligentTieringFilterBuilder? _filter;
   _i2.IntelligentTieringFilterBuilder get filter =>
       _$this._filter ??= new _i2.IntelligentTieringFilterBuilder();
   set filter(_i2.IntelligentTieringFilterBuilder? filter) =>
       _$this._filter = filter;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
 
   _i3.IntelligentTieringStatus? _status;
   _i3.IntelligentTieringStatus? get status => _$this._status;
@@ -99,8 +99,8 @@ class IntelligentTieringConfigurationBuilder
   IntelligentTieringConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _filter = $v.filter?.toBuilder();
       _id = $v.id;
+      _filter = $v.filter?.toBuilder();
       _status = $v.status;
       _tierings = $v.tierings.toBuilder();
       _$v = null;
@@ -127,9 +127,9 @@ class IntelligentTieringConfigurationBuilder
     try {
       _$result = _$v ??
           new _$IntelligentTieringConfiguration._(
-              filter: _filter?.build(),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'IntelligentTieringConfiguration', 'id'),
+              filter: _filter?.build(),
               status: BuiltValueNullFieldError.checkNotNull(
                   status, r'IntelligentTieringConfiguration', 'status'),
               tierings: tierings.build());

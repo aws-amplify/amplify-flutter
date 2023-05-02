@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.get_base_path_mapping_request;
 
 class _$GetBasePathMappingRequest extends GetBasePathMappingRequest {
   @override
-  final String basePath;
-  @override
   final String domainName;
+  @override
+  final String basePath;
 
   factory _$GetBasePathMappingRequest(
           [void Function(GetBasePathMappingRequestBuilder)? updates]) =>
       (new GetBasePathMappingRequestBuilder()..update(updates))._build();
 
   _$GetBasePathMappingRequest._(
-      {required this.basePath, required this.domainName})
+      {required this.domainName, required this.basePath})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        basePath, r'GetBasePathMappingRequest', 'basePath');
-    BuiltValueNullFieldError.checkNotNull(
         domainName, r'GetBasePathMappingRequest', 'domainName');
+    BuiltValueNullFieldError.checkNotNull(
+        basePath, r'GetBasePathMappingRequest', 'basePath');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$GetBasePathMappingRequest extends GetBasePathMappingRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetBasePathMappingRequest &&
-        basePath == other.basePath &&
-        domainName == other.domainName;
+        domainName == other.domainName &&
+        basePath == other.basePath;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jc(_$hash, domainName.hashCode);
+    _$hash = $jc(_$hash, basePath.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,13 +57,13 @@ class GetBasePathMappingRequestBuilder
         Builder<GetBasePathMappingRequest, GetBasePathMappingRequestBuilder> {
   _$GetBasePathMappingRequest? _$v;
 
-  String? _basePath;
-  String? get basePath => _$this._basePath;
-  set basePath(String? basePath) => _$this._basePath = basePath;
-
   String? _domainName;
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
+
+  String? _basePath;
+  String? get basePath => _$this._basePath;
+  set basePath(String? basePath) => _$this._basePath = basePath;
 
   GetBasePathMappingRequestBuilder() {
     GetBasePathMappingRequest._init(this);
@@ -72,8 +72,8 @@ class GetBasePathMappingRequestBuilder
   GetBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _basePath = $v.basePath;
       _domainName = $v.domainName;
+      _basePath = $v.basePath;
       _$v = null;
     }
     return this;
@@ -96,10 +96,10 @@ class GetBasePathMappingRequestBuilder
   _$GetBasePathMappingRequest _build() {
     final _$result = _$v ??
         new _$GetBasePathMappingRequest._(
-            basePath: BuiltValueNullFieldError.checkNotNull(
-                basePath, r'GetBasePathMappingRequest', 'basePath'),
             domainName: BuiltValueNullFieldError.checkNotNull(
-                domainName, r'GetBasePathMappingRequest', 'domainName'));
+                domainName, r'GetBasePathMappingRequest', 'domainName'),
+            basePath: BuiltValueNullFieldError.checkNotNull(
+                basePath, r'GetBasePathMappingRequest', 'basePath'));
     replace(_$result);
     return _$result;
   }

@@ -6,13 +6,13 @@ import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/object_lock_configuration.dart'
     as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/object_lock_enabled.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/s3/model/object_lock_rule.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
 
 part 'put_object_lock_configuration_request.g.dart';
 
@@ -26,21 +26,21 @@ abstract class PutObjectLockConfigurationRequest
         _i1.HasPayload<_i2.ObjectLockConfiguration> {
   factory PutObjectLockConfigurationRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? contentMd5,
-    String? expectedBucketOwner,
     _i2.ObjectLockConfiguration? objectLockConfiguration,
-    _i5.RequestPayer? requestPayer,
+    _i4.RequestPayer? requestPayer,
     String? token,
+    String? contentMd5,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    String? expectedBucketOwner,
   }) {
     return _$PutObjectLockConfigurationRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
-      contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
       objectLockConfiguration: objectLockConfiguration,
       requestPayer: requestPayer,
       token: token,
+      contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -60,7 +60,7 @@ abstract class PutObjectLockConfigurationRequest
           b.objectLockConfiguration.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i5.RequestPayer.values
+          b.requestPayer = _i4.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-bucket-object-lock-token'] != null) {
@@ -70,7 +70,7 @@ abstract class PutObjectLockConfigurationRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -92,27 +92,27 @@ abstract class PutObjectLockConfigurationRequest
   /// The bucket whose Object Lock configuration you want to create or replace.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  /// The Object Lock configuration that you want to apply to the specified bucket.
+  _i2.ObjectLockConfiguration? get objectLockConfiguration;
+
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i4.RequestPayer? get requestPayer;
+
+  /// A token to allow Object Lock to be enabled for an existing bucket.
+  String? get token;
 
   /// The MD5 hash for the request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
-
-  /// The Object Lock configuration that you want to apply to the specified bucket.
-  _i2.ObjectLockConfiguration? get objectLockConfiguration;
-
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i5.RequestPayer? get requestPayer;
-
-  /// A token to allow Object Lock to be enabled for an existing bucket.
-  String? get token;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -131,12 +131,12 @@ abstract class PutObjectLockConfigurationRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
-        contentMd5,
-        expectedBucketOwner,
         objectLockConfiguration,
         requestPayer,
         token,
+        contentMd5,
+        checksumAlgorithm,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -145,18 +145,6 @@ abstract class PutObjectLockConfigurationRequest
     helper.add(
       'bucket',
       bucket,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
     );
     helper.add(
       'objectLockConfiguration',
@@ -169,6 +157,18 @@ abstract class PutObjectLockConfigurationRequest
     helper.add(
       'token',
       token,
+    );
+    helper.add(
+      'contentMd5',
+      contentMd5,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

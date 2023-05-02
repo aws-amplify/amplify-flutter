@@ -17,17 +17,17 @@ abstract class Evaluation
     implements Built<Evaluation, EvaluationBuilder> {
   /// Identifies an Amazon Web Services resource and indicates whether it complies with the Config rule that it was evaluated against.
   factory Evaluation({
-    String? annotation,
-    required String complianceResourceId,
     required String complianceResourceType,
+    required String complianceResourceId,
     required _i2.ComplianceType complianceType,
+    String? annotation,
     required DateTime orderingTimestamp,
   }) {
     return _$Evaluation._(
-      annotation: annotation,
-      complianceResourceId: complianceResourceId,
       complianceResourceType: complianceResourceType,
+      complianceResourceId: complianceResourceId,
       complianceType: complianceType,
+      annotation: annotation,
       orderingTimestamp: orderingTimestamp,
     );
   }
@@ -45,14 +45,11 @@ abstract class Evaluation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EvaluationBuilder b) {}
 
-  /// Supplementary information about how the evaluation determined the compliance.
-  String? get annotation;
+  /// The type of Amazon Web Services resource that was evaluated.
+  String get complianceResourceType;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String get complianceResourceId;
-
-  /// The type of Amazon Web Services resource that was evaluated.
-  String get complianceResourceType;
 
   /// Indicates whether the Amazon Web Services resource complies with the Config rule that it was evaluated against.
   ///
@@ -61,34 +58,37 @@ abstract class Evaluation
   /// Similarly, Config does not accept `INSUFFICIENT_DATA` as the value for `ComplianceType` from a `PutEvaluations` request. For example, an Lambda function for a custom Config rule cannot pass an `INSUFFICIENT_DATA` value to Config.
   _i2.ComplianceType get complianceType;
 
+  /// Supplementary information about how the evaluation determined the compliance.
+  String? get annotation;
+
   /// The time of the event in Config that triggered the evaluation. For event-based evaluations, the time indicates when Config created the configuration item that triggered the evaluation. For periodic evaluations, the time indicates when Config triggered the evaluation at the frequency that you specified (for example, every 24 hours).
   DateTime get orderingTimestamp;
   @override
   List<Object?> get props => [
-        annotation,
-        complianceResourceId,
         complianceResourceType,
+        complianceResourceId,
         complianceType,
+        annotation,
         orderingTimestamp,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Evaluation');
     helper.add(
-      'annotation',
-      annotation,
+      'complianceResourceType',
+      complianceResourceType,
     );
     helper.add(
       'complianceResourceId',
       complianceResourceId,
     );
     helper.add(
-      'complianceResourceType',
-      complianceResourceType,
-    );
-    helper.add(
       'complianceType',
       complianceType,
+    );
+    helper.add(
+      'annotation',
+      annotation,
     );
     helper.add(
       'orderingTimestamp',
@@ -127,22 +127,14 @@ class EvaluationAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ComplianceResourceId':
-          result.complianceResourceId = (serializers.deserialize(
+        case 'ComplianceResourceType':
+          result.complianceResourceType = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ComplianceResourceType':
-          result.complianceResourceType = (serializers.deserialize(
+        case 'ComplianceResourceId':
+          result.complianceResourceId = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -152,6 +144,14 @@ class EvaluationAwsJson11Serializer
             value!,
             specifiedType: const FullType(_i2.ComplianceType),
           ) as _i2.ComplianceType);
+          break;
+        case 'Annotation':
+          if (value != null) {
+            result.annotation = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
         case 'OrderingTimestamp':
           result.orderingTimestamp = (serializers.deserialize(
@@ -173,14 +173,14 @@ class EvaluationAwsJson11Serializer
   }) {
     final payload = (object as Evaluation);
     final result = <Object?>[
-      'ComplianceResourceId',
-      serializers.serialize(
-        payload.complianceResourceId,
-        specifiedType: const FullType(String),
-      ),
       'ComplianceResourceType',
       serializers.serialize(
         payload.complianceResourceType,
+        specifiedType: const FullType(String),
+      ),
+      'ComplianceResourceId',
+      serializers.serialize(
+        payload.complianceResourceId,
         specifiedType: const FullType(String),
       ),
       'ComplianceType',

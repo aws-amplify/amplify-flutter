@@ -87,7 +87,7 @@ class GetBucketTaggingOutputRestXmlSerializer
           result.tagSet.replace(
               (const _i4.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
-            (value as Iterable<Object?>),
+            value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
               _i3.BuiltList,
               [FullType(_i2.Tag)],

@@ -1056,12 +1056,12 @@ final Map<FullType, Function> builderFactories = {
   ): _i337.ListBuilder<_i73.ComplianceByConfigRule>.new,
   const FullType(
     _i337.BuiltList,
-    [FullType(_i54.ComplianceType)],
-  ): _i337.ListBuilder<_i54.ComplianceType>.new,
-  const FullType(
-    _i337.BuiltList,
     [FullType(String)],
   ): _i337.ListBuilder<String>.new,
+  const FullType(
+    _i337.BuiltList,
+    [FullType(_i54.ComplianceType)],
+  ): _i337.ListBuilder<_i54.ComplianceType>.new,
   const FullType(
     _i337.BuiltList,
     [FullType(_i76.ComplianceByResource)],

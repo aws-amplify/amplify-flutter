@@ -22,27 +22,27 @@ abstract class ListObjectsV2Request
         _i1.HasPayload<ListObjectsV2RequestPayload> {
   factory ListObjectsV2Request({
     required String bucket,
-    String? continuationToken,
     String? delimiter,
     _i3.EncodingType? encodingType,
-    String? expectedBucketOwner,
-    bool? fetchOwner,
     int? maxKeys,
     String? prefix,
-    _i4.RequestPayer? requestPayer,
+    String? continuationToken,
+    bool? fetchOwner,
     String? startAfter,
+    _i4.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
   }) {
     return _$ListObjectsV2Request._(
       bucket: bucket,
-      continuationToken: continuationToken,
       delimiter: delimiter,
       encodingType: encodingType,
-      expectedBucketOwner: expectedBucketOwner,
-      fetchOwner: fetchOwner,
       maxKeys: maxKeys,
       prefix: prefix,
-      requestPayer: requestPayer,
+      continuationToken: continuationToken,
+      fetchOwner: fetchOwner,
       startAfter: startAfter,
+      requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -100,15 +100,15 @@ abstract class ListObjectsV2Request
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListObjectsV2RequestBuilder b) {}
   String get bucket;
-  String? get continuationToken;
   String? get delimiter;
   _i3.EncodingType? get encodingType;
-  String? get expectedBucketOwner;
-  bool? get fetchOwner;
   int? get maxKeys;
   String? get prefix;
-  _i4.RequestPayer? get requestPayer;
+  String? get continuationToken;
+  bool? get fetchOwner;
   String? get startAfter;
+  _i4.RequestPayer? get requestPayer;
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -126,15 +126,15 @@ abstract class ListObjectsV2Request
   @override
   List<Object?> get props => [
         bucket,
-        continuationToken,
         delimiter,
         encodingType,
-        expectedBucketOwner,
-        fetchOwner,
         maxKeys,
         prefix,
-        requestPayer,
+        continuationToken,
+        fetchOwner,
         startAfter,
+        requestPayer,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -142,10 +142,6 @@ abstract class ListObjectsV2Request
     helper.add(
       'bucket',
       bucket,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
     );
     helper.add(
       'delimiter',
@@ -156,14 +152,6 @@ abstract class ListObjectsV2Request
       encodingType,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'fetchOwner',
-      fetchOwner,
-    );
-    helper.add(
       'maxKeys',
       maxKeys,
     );
@@ -172,12 +160,24 @@ abstract class ListObjectsV2Request
       prefix,
     );
     helper.add(
-      'requestPayer',
-      requestPayer,
+      'continuationToken',
+      continuationToken,
+    );
+    helper.add(
+      'fetchOwner',
+      fetchOwner,
     );
     helper.add(
       'startAfter',
       startAfter,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

@@ -10,15 +10,15 @@ class _$PutBucketReplicationRequest extends PutBucketReplicationRequest {
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
-  @override
   final String? contentMd5;
   @override
-  final String? expectedBucketOwner;
+  final _i4.ChecksumAlgorithm? checksumAlgorithm;
   @override
   final _i2.ReplicationConfiguration replicationConfiguration;
   @override
   final String? token;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$PutBucketReplicationRequest(
           [void Function(PutBucketReplicationRequestBuilder)? updates]) =>
@@ -26,11 +26,11 @@ class _$PutBucketReplicationRequest extends PutBucketReplicationRequest {
 
   _$PutBucketReplicationRequest._(
       {required this.bucket,
-      this.checksumAlgorithm,
       this.contentMd5,
-      this.expectedBucketOwner,
+      this.checksumAlgorithm,
       required this.replicationConfiguration,
-      this.token})
+      this.token,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutBucketReplicationRequest', 'bucket');
@@ -52,22 +52,22 @@ class _$PutBucketReplicationRequest extends PutBucketReplicationRequest {
     if (identical(other, this)) return true;
     return other is PutBucketReplicationRequest &&
         bucket == other.bucket &&
-        checksumAlgorithm == other.checksumAlgorithm &&
         contentMd5 == other.contentMd5 &&
-        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumAlgorithm == other.checksumAlgorithm &&
         replicationConfiguration == other.replicationConfiguration &&
-        token == other.token;
+        token == other.token &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, contentMd5.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumAlgorithm.hashCode);
     _$hash = $jc(_$hash, replicationConfiguration.hashCode);
     _$hash = $jc(_$hash, token.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -83,19 +83,14 @@ class PutBucketReplicationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
-      _$this._checksumAlgorithm = checksumAlgorithm;
-
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
+  _i4.ChecksumAlgorithm? _checksumAlgorithm;
+  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+      _$this._checksumAlgorithm = checksumAlgorithm;
 
   _i2.ReplicationConfigurationBuilder? _replicationConfiguration;
   _i2.ReplicationConfigurationBuilder get replicationConfiguration =>
@@ -109,6 +104,11 @@ class PutBucketReplicationRequestBuilder
   String? get token => _$this._token;
   set token(String? token) => _$this._token = token;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   PutBucketReplicationRequestBuilder() {
     PutBucketReplicationRequest._init(this);
   }
@@ -117,11 +117,11 @@ class PutBucketReplicationRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumAlgorithm = $v.checksumAlgorithm;
       _contentMd5 = $v.contentMd5;
-      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumAlgorithm = $v.checksumAlgorithm;
       _replicationConfiguration = $v.replicationConfiguration.toBuilder();
       _token = $v.token;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -148,11 +148,11 @@ class PutBucketReplicationRequestBuilder
           new _$PutBucketReplicationRequest._(
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutBucketReplicationRequest', 'bucket'),
-              checksumAlgorithm: checksumAlgorithm,
               contentMd5: contentMd5,
-              expectedBucketOwner: expectedBucketOwner,
+              checksumAlgorithm: checksumAlgorithm,
               replicationConfiguration: replicationConfiguration.build(),
-              token: token);
+              token: token,
+              expectedBucketOwner: expectedBucketOwner);
     } catch (_) {
       late String _$failedField;
       try {

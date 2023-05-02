@@ -21,15 +21,15 @@ abstract class DescribeRemediationExecutionStatusRequest
             DescribeRemediationExecutionStatusRequestBuilder> {
   factory DescribeRemediationExecutionStatusRequest({
     required String configRuleName,
+    List<_i3.ResourceKey>? resourceKeys,
     int? limit,
     String? nextToken,
-    List<_i3.ResourceKey>? resourceKeys,
   }) {
     return _$DescribeRemediationExecutionStatusRequest._(
       configRuleName: configRuleName,
+      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
       limit: limit,
       nextToken: nextToken,
-      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
     );
   }
 
@@ -56,22 +56,22 @@ abstract class DescribeRemediationExecutionStatusRequest
   /// A list of Config rule names.
   String get configRuleName;
 
+  /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
+  _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
+
   /// The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify 0, Config uses the default.
   int? get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-  _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
   @override
   DescribeRemediationExecutionStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configRuleName,
+        resourceKeys,
         limit,
         nextToken,
-        resourceKeys,
       ];
   @override
   String toString() {
@@ -82,16 +82,16 @@ abstract class DescribeRemediationExecutionStatusRequest
       configRuleName,
     );
     helper.add(
+      'resourceKeys',
+      resourceKeys,
+    );
+    helper.add(
       'limit',
       limit,
     );
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
     );
     return helper.toString();
   }
@@ -133,6 +133,17 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
             specifiedType: const FullType(String),
           ) as String);
           break;
+        case 'ResourceKeys':
+          if (value != null) {
+            result.resourceKeys.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.ResourceKey)],
+              ),
+            ) as _i4.BuiltList<_i3.ResourceKey>));
+          }
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -147,17 +158,6 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'ResourceKeys':
-          if (value != null) {
-            result.resourceKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ResourceKey)],
-              ),
-            ) as _i4.BuiltList<_i3.ResourceKey>));
           }
           break;
       }
@@ -180,6 +180,17 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
+    if (payload.resourceKeys != null) {
+      result
+        ..add('ResourceKeys')
+        ..add(serializers.serialize(
+          payload.resourceKeys!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.ResourceKey)],
+          ),
+        ));
+    }
     if (payload.limit != null) {
       result
         ..add('Limit')
@@ -194,17 +205,6 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.resourceKeys != null) {
-      result
-        ..add('ResourceKeys')
-        ..add(serializers.serialize(
-          payload.resourceKeys!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ResourceKey)],
-          ),
         ));
     }
     return result;

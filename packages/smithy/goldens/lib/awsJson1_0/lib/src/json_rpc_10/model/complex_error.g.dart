@@ -8,9 +8,9 @@ part of aws_json1_0_v1.json_rpc_10.model.complex_error;
 
 class _$ComplexError extends ComplexError {
   @override
-  final _i3.ComplexNestedErrorData? nested;
-  @override
   final String? topLevel;
+  @override
+  final _i3.ComplexNestedErrorData? nested;
   @override
   final int? statusCode;
   @override
@@ -19,7 +19,7 @@ class _$ComplexError extends ComplexError {
   factory _$ComplexError([void Function(ComplexErrorBuilder)? updates]) =>
       (new ComplexErrorBuilder()..update(updates))._build();
 
-  _$ComplexError._({this.nested, this.topLevel, this.statusCode, this.headers})
+  _$ComplexError._({this.topLevel, this.nested, this.statusCode, this.headers})
       : super._();
 
   @override
@@ -33,15 +33,15 @@ class _$ComplexError extends ComplexError {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ComplexError &&
-        nested == other.nested &&
-        topLevel == other.topLevel;
+        topLevel == other.topLevel &&
+        nested == other.nested;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, nested.hashCode);
     _$hash = $jc(_$hash, topLevel.hashCode);
+    _$hash = $jc(_$hash, nested.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,15 +51,15 @@ class ComplexErrorBuilder
     implements Builder<ComplexError, ComplexErrorBuilder> {
   _$ComplexError? _$v;
 
+  String? _topLevel;
+  String? get topLevel => _$this._topLevel;
+  set topLevel(String? topLevel) => _$this._topLevel = topLevel;
+
   _i3.ComplexNestedErrorDataBuilder? _nested;
   _i3.ComplexNestedErrorDataBuilder get nested =>
       _$this._nested ??= new _i3.ComplexNestedErrorDataBuilder();
   set nested(_i3.ComplexNestedErrorDataBuilder? nested) =>
       _$this._nested = nested;
-
-  String? _topLevel;
-  String? get topLevel => _$this._topLevel;
-  set topLevel(String? topLevel) => _$this._topLevel = topLevel;
 
   int? _statusCode;
   int? get statusCode => _$this._statusCode;
@@ -76,8 +76,8 @@ class ComplexErrorBuilder
   ComplexErrorBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _nested = $v.nested?.toBuilder();
       _topLevel = $v.topLevel;
+      _nested = $v.nested?.toBuilder();
       _statusCode = $v.statusCode;
       _headers = $v.headers;
       _$v = null;
@@ -104,8 +104,8 @@ class ComplexErrorBuilder
     try {
       _$result = _$v ??
           new _$ComplexError._(
-              nested: _nested?.build(),
               topLevel: topLevel,
+              nested: _nested?.build(),
               statusCode: statusCode,
               headers: headers);
     } catch (_) {

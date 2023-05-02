@@ -8,16 +8,16 @@ part of smoke_test.s3.model.noncurrent_version_expiration;
 
 class _$NoncurrentVersionExpiration extends NoncurrentVersionExpiration {
   @override
-  final int? newerNoncurrentVersions;
-  @override
   final int? noncurrentDays;
+  @override
+  final int? newerNoncurrentVersions;
 
   factory _$NoncurrentVersionExpiration(
           [void Function(NoncurrentVersionExpirationBuilder)? updates]) =>
       (new NoncurrentVersionExpirationBuilder()..update(updates))._build();
 
   _$NoncurrentVersionExpiration._(
-      {this.newerNoncurrentVersions, this.noncurrentDays})
+      {this.noncurrentDays, this.newerNoncurrentVersions})
       : super._();
 
   @override
@@ -33,15 +33,15 @@ class _$NoncurrentVersionExpiration extends NoncurrentVersionExpiration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NoncurrentVersionExpiration &&
-        newerNoncurrentVersions == other.newerNoncurrentVersions &&
-        noncurrentDays == other.noncurrentDays;
+        noncurrentDays == other.noncurrentDays &&
+        newerNoncurrentVersions == other.newerNoncurrentVersions;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, newerNoncurrentVersions.hashCode);
     _$hash = $jc(_$hash, noncurrentDays.hashCode);
+    _$hash = $jc(_$hash, newerNoncurrentVersions.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,15 +53,15 @@ class NoncurrentVersionExpirationBuilder
             NoncurrentVersionExpirationBuilder> {
   _$NoncurrentVersionExpiration? _$v;
 
-  int? _newerNoncurrentVersions;
-  int? get newerNoncurrentVersions => _$this._newerNoncurrentVersions;
-  set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
-      _$this._newerNoncurrentVersions = newerNoncurrentVersions;
-
   int? _noncurrentDays;
   int? get noncurrentDays => _$this._noncurrentDays;
   set noncurrentDays(int? noncurrentDays) =>
       _$this._noncurrentDays = noncurrentDays;
+
+  int? _newerNoncurrentVersions;
+  int? get newerNoncurrentVersions => _$this._newerNoncurrentVersions;
+  set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
+      _$this._newerNoncurrentVersions = newerNoncurrentVersions;
 
   NoncurrentVersionExpirationBuilder() {
     NoncurrentVersionExpiration._init(this);
@@ -70,8 +70,8 @@ class NoncurrentVersionExpirationBuilder
   NoncurrentVersionExpirationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _newerNoncurrentVersions = $v.newerNoncurrentVersions;
       _noncurrentDays = $v.noncurrentDays;
+      _newerNoncurrentVersions = $v.newerNoncurrentVersions;
       _$v = null;
     }
     return this;
@@ -94,8 +94,8 @@ class NoncurrentVersionExpirationBuilder
   _$NoncurrentVersionExpiration _build() {
     final _$result = _$v ??
         new _$NoncurrentVersionExpiration._(
-            newerNoncurrentVersions: newerNoncurrentVersions,
-            noncurrentDays: noncurrentDays);
+            noncurrentDays: noncurrentDays,
+            newerNoncurrentVersions: newerNoncurrentVersions);
     replace(_$result);
     return _$result;
   }

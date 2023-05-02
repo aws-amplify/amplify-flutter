@@ -8,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_auto_scaling_description.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart'
+    as _i2;
 
 part 'table_auto_scaling_description.g.dart';
 
@@ -21,14 +21,14 @@ abstract class TableAutoScalingDescription
         Built<TableAutoScalingDescription, TableAutoScalingDescriptionBuilder> {
   /// Represents the auto scaling configuration for a global table.
   factory TableAutoScalingDescription({
-    List<_i2.ReplicaAutoScalingDescription>? replicas,
     String? tableName,
-    _i3.TableStatus? tableStatus,
+    _i2.TableStatus? tableStatus,
+    List<_i3.ReplicaAutoScalingDescription>? replicas,
   }) {
     return _$TableAutoScalingDescription._(
-      replicas: replicas == null ? null : _i4.BuiltList(replicas),
       tableName: tableName,
       tableStatus: tableStatus,
+      replicas: replicas == null ? null : _i4.BuiltList(replicas),
     );
   }
 
@@ -46,9 +46,6 @@ abstract class TableAutoScalingDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TableAutoScalingDescriptionBuilder b) {}
 
-  /// Represents replicas of the global table.
-  _i4.BuiltList<_i2.ReplicaAutoScalingDescription>? get replicas;
-
   /// The name of the table.
   String? get tableName;
 
@@ -61,20 +58,19 @@ abstract class TableAutoScalingDescription
   /// *   `DELETING` \- The table is being deleted.
   ///
   /// *   `ACTIVE` \- The table is ready for use.
-  _i3.TableStatus? get tableStatus;
+  _i2.TableStatus? get tableStatus;
+
+  /// Represents replicas of the global table.
+  _i4.BuiltList<_i3.ReplicaAutoScalingDescription>? get replicas;
   @override
   List<Object?> get props => [
-        replicas,
         tableName,
         tableStatus,
+        replicas,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TableAutoScalingDescription');
-    helper.add(
-      'replicas',
-      replicas,
-    );
     helper.add(
       'tableName',
       tableName,
@@ -82,6 +78,10 @@ abstract class TableAutoScalingDescription
     helper.add(
       'tableStatus',
       tableStatus,
+    );
+    helper.add(
+      'replicas',
+      replicas,
     );
     return helper.toString();
   }
@@ -117,17 +117,6 @@ class TableAutoScalingDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Replicas':
-          if (value != null) {
-            result.replicas.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ReplicaAutoScalingDescription)],
-              ),
-            ) as _i4.BuiltList<_i2.ReplicaAutoScalingDescription>));
-          }
-          break;
         case 'TableName':
           if (value != null) {
             result.tableName = (serializers.deserialize(
@@ -140,8 +129,19 @@ class TableAutoScalingDescriptionAwsJson10Serializer
           if (value != null) {
             result.tableStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.TableStatus),
-            ) as _i3.TableStatus);
+              specifiedType: const FullType(_i2.TableStatus),
+            ) as _i2.TableStatus);
+          }
+          break;
+        case 'Replicas':
+          if (value != null) {
+            result.replicas.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.ReplicaAutoScalingDescription)],
+              ),
+            ) as _i4.BuiltList<_i3.ReplicaAutoScalingDescription>));
           }
           break;
       }
@@ -158,17 +158,6 @@ class TableAutoScalingDescriptionAwsJson10Serializer
   }) {
     final payload = (object as TableAutoScalingDescription);
     final result = <Object?>[];
-    if (payload.replicas != null) {
-      result
-        ..add('Replicas')
-        ..add(serializers.serialize(
-          payload.replicas!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ReplicaAutoScalingDescription)],
-          ),
-        ));
-    }
     if (payload.tableName != null) {
       result
         ..add('TableName')
@@ -182,7 +171,18 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         ..add('TableStatus')
         ..add(serializers.serialize(
           payload.tableStatus!,
-          specifiedType: const FullType(_i3.TableStatus),
+          specifiedType: const FullType(_i2.TableStatus),
+        ));
+    }
+    if (payload.replicas != null) {
+      result
+        ..add('Replicas')
+        ..add(serializers.serialize(
+          payload.replicas!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.ReplicaAutoScalingDescription)],
+          ),
         ));
     }
     return result;

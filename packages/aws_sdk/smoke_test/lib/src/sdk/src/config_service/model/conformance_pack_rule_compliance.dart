@@ -21,13 +21,13 @@ abstract class ConformancePackRuleCompliance
             ConformancePackRuleComplianceBuilder> {
   /// Compliance information of one or more Config rules within a conformance pack. You can filter using Config rule names and compliance types.
   factory ConformancePackRuleCompliance({
-    _i2.ConformancePackComplianceType? complianceType,
     String? configRuleName,
+    _i2.ConformancePackComplianceType? complianceType,
     List<String>? controls,
   }) {
     return _$ConformancePackRuleCompliance._(
-      complianceType: complianceType,
       configRuleName: configRuleName,
+      complianceType: complianceType,
       controls: controls == null ? null : _i3.BuiltList(controls),
     );
   }
@@ -46,32 +46,32 @@ abstract class ConformancePackRuleCompliance
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackRuleComplianceBuilder b) {}
 
+  /// Name of the Config rule.
+  String? get configRuleName;
+
   /// Compliance of the Config rule.
   ///
   /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
   _i2.ConformancePackComplianceType? get complianceType;
 
-  /// Name of the Config rule.
-  String? get configRuleName;
-
   /// Controls for the conformance pack. A control is a process to prevent or detect problems while meeting objectives. A control can align with a specific compliance regime or map to internal controls defined by an organization.
   _i3.BuiltList<String>? get controls;
   @override
   List<Object?> get props => [
-        complianceType,
         configRuleName,
+        complianceType,
         controls,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance');
     helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
       'configRuleName',
       configRuleName,
+    );
+    helper.add(
+      'complianceType',
+      complianceType,
     );
     helper.add(
       'controls',
@@ -111,20 +111,20 @@ class ConformancePackRuleComplianceAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
         case 'ConfigRuleName':
           if (value != null) {
             result.configRuleName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'ComplianceType':
+          if (value != null) {
+            result.complianceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ConformancePackComplianceType),
+            ) as _i2.ConformancePackComplianceType);
           }
           break;
         case 'Controls':
@@ -152,20 +152,20 @@ class ConformancePackRuleComplianceAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackRuleCompliance);
     final result = <Object?>[];
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
     if (payload.configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
           payload.configRuleName!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.complianceType != null) {
+      result
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          payload.complianceType!,
+          specifiedType: const FullType(_i2.ConformancePackComplianceType),
         ));
     }
     if (payload.controls != null) {

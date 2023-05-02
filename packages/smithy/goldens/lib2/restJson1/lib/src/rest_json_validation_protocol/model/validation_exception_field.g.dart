@@ -8,20 +8,20 @@ part of rest_json1_v2.rest_json_validation_protocol.model.validation_exception_f
 
 class _$ValidationExceptionField extends ValidationExceptionField {
   @override
-  final String message;
-  @override
   final String path;
+  @override
+  final String message;
 
   factory _$ValidationExceptionField(
           [void Function(ValidationExceptionFieldBuilder)? updates]) =>
       (new ValidationExceptionFieldBuilder()..update(updates))._build();
 
-  _$ValidationExceptionField._({required this.message, required this.path})
+  _$ValidationExceptionField._({required this.path, required this.message})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        message, r'ValidationExceptionField', 'message');
-    BuiltValueNullFieldError.checkNotNull(
         path, r'ValidationExceptionField', 'path');
+    BuiltValueNullFieldError.checkNotNull(
+        message, r'ValidationExceptionField', 'message');
   }
 
   @override
@@ -37,15 +37,15 @@ class _$ValidationExceptionField extends ValidationExceptionField {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ValidationExceptionField &&
-        message == other.message &&
-        path == other.path;
+        path == other.path &&
+        message == other.message;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jc(_$hash, path.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,13 +56,13 @@ class ValidationExceptionFieldBuilder
         Builder<ValidationExceptionField, ValidationExceptionFieldBuilder> {
   _$ValidationExceptionField? _$v;
 
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
-
   String? _path;
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
+
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
 
   ValidationExceptionFieldBuilder() {
     ValidationExceptionField._init(this);
@@ -71,8 +71,8 @@ class ValidationExceptionFieldBuilder
   ValidationExceptionFieldBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _message = $v.message;
       _path = $v.path;
+      _message = $v.message;
       _$v = null;
     }
     return this;
@@ -95,10 +95,10 @@ class ValidationExceptionFieldBuilder
   _$ValidationExceptionField _build() {
     final _$result = _$v ??
         new _$ValidationExceptionField._(
-            message: BuiltValueNullFieldError.checkNotNull(
-                message, r'ValidationExceptionField', 'message'),
             path: BuiltValueNullFieldError.checkNotNull(
-                path, r'ValidationExceptionField', 'path'));
+                path, r'ValidationExceptionField', 'path'),
+            message: BuiltValueNullFieldError.checkNotNull(
+                message, r'ValidationExceptionField', 'message'));
     replace(_$result);
     return _$result;
   }

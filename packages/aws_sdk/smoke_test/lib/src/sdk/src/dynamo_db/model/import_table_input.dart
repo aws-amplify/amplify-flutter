@@ -7,13 +7,13 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_compression_type.dart'
-    as _i3;
+    as _i6;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format_options.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart'
-    as _i6;
+    as _i3;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_creation_parameters.dart'
     as _i7;
 
@@ -24,10 +24,10 @@ abstract class ImportTableInput
     implements Built<ImportTableInput, ImportTableInputBuilder> {
   factory ImportTableInput({
     String? clientToken,
-    _i3.InputCompressionType? inputCompressionType,
+    required _i3.S3BucketSource s3BucketSource,
     required _i4.InputFormat inputFormat,
     _i5.InputFormatOptions? inputFormatOptions,
-    required _i6.S3BucketSource s3BucketSource,
+    _i6.InputCompressionType? inputCompressionType,
     required _i7.TableCreationParameters tableCreationParameters,
   }) {
     if (const bool.hasEnvironment('SMITHY_TEST')) {
@@ -37,10 +37,10 @@ abstract class ImportTableInput
     }
     return _$ImportTableInput._(
       clientToken: clientToken,
-      inputCompressionType: inputCompressionType,
+      s3BucketSource: s3BucketSource,
       inputFormat: inputFormat,
       inputFormatOptions: inputFormatOptions,
-      s3BucketSource: s3BucketSource,
+      inputCompressionType: inputCompressionType,
       tableCreationParameters: tableCreationParameters,
     );
   }
@@ -77,8 +77,8 @@ abstract class ImportTableInput
   /// If you submit a request with the same client token but a change in other parameters within the 8-hour idempotency window, DynamoDB returns an `IdempotentParameterMismatch` exception.
   String? get clientToken;
 
-  /// Type of compression to be used on the input coming from the imported table.
-  _i3.InputCompressionType? get inputCompressionType;
+  /// The S3 bucket that provides the source for the import.
+  _i3.S3BucketSource get s3BucketSource;
 
   /// The format of the source data. Valid values for `ImportFormat` are `CSV`, `DYNAMODB_JSON` or `ION`.
   _i4.InputFormat get inputFormat;
@@ -86,8 +86,8 @@ abstract class ImportTableInput
   /// Additional properties that specify how the input is formatted,
   _i5.InputFormatOptions? get inputFormatOptions;
 
-  /// The S3 bucket that provides the source for the import.
-  _i6.S3BucketSource get s3BucketSource;
+  /// Type of compression to be used on the input coming from the imported table.
+  _i6.InputCompressionType? get inputCompressionType;
 
   /// Parameters for the table to import the data into.
   _i7.TableCreationParameters get tableCreationParameters;
@@ -96,10 +96,10 @@ abstract class ImportTableInput
   @override
   List<Object?> get props => [
         clientToken,
-        inputCompressionType,
+        s3BucketSource,
         inputFormat,
         inputFormatOptions,
-        s3BucketSource,
+        inputCompressionType,
         tableCreationParameters,
       ];
   @override
@@ -110,8 +110,8 @@ abstract class ImportTableInput
       clientToken,
     );
     helper.add(
-      'inputCompressionType',
-      inputCompressionType,
+      's3BucketSource',
+      s3BucketSource,
     );
     helper.add(
       'inputFormat',
@@ -122,8 +122,8 @@ abstract class ImportTableInput
       inputFormatOptions,
     );
     helper.add(
-      's3BucketSource',
-      s3BucketSource,
+      'inputCompressionType',
+      inputCompressionType,
     );
     helper.add(
       'tableCreationParameters',
@@ -170,13 +170,11 @@ class ImportTableInputAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'InputCompressionType':
-          if (value != null) {
-            result.inputCompressionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.InputCompressionType),
-            ) as _i3.InputCompressionType);
-          }
+        case 'S3BucketSource':
+          result.s3BucketSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.S3BucketSource),
+          ) as _i3.S3BucketSource));
           break;
         case 'InputFormat':
           result.inputFormat = (serializers.deserialize(
@@ -192,11 +190,13 @@ class ImportTableInputAwsJson10Serializer
             ) as _i5.InputFormatOptions));
           }
           break;
-        case 'S3BucketSource':
-          result.s3BucketSource.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(_i6.S3BucketSource),
-          ) as _i6.S3BucketSource));
+        case 'InputCompressionType':
+          if (value != null) {
+            result.inputCompressionType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.InputCompressionType),
+            ) as _i6.InputCompressionType);
+          }
           break;
         case 'TableCreationParameters':
           result.tableCreationParameters.replace((serializers.deserialize(
@@ -218,15 +218,15 @@ class ImportTableInputAwsJson10Serializer
   }) {
     final payload = (object as ImportTableInput);
     final result = <Object?>[
+      'S3BucketSource',
+      serializers.serialize(
+        payload.s3BucketSource,
+        specifiedType: const FullType(_i3.S3BucketSource),
+      ),
       'InputFormat',
       serializers.serialize(
         payload.inputFormat,
         specifiedType: const FullType(_i4.InputFormat),
-      ),
-      'S3BucketSource',
-      serializers.serialize(
-        payload.s3BucketSource,
-        specifiedType: const FullType(_i6.S3BucketSource),
       ),
       'TableCreationParameters',
       serializers.serialize(
@@ -242,20 +242,20 @@ class ImportTableInputAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputCompressionType != null) {
-      result
-        ..add('InputCompressionType')
-        ..add(serializers.serialize(
-          payload.inputCompressionType!,
-          specifiedType: const FullType(_i3.InputCompressionType),
-        ));
-    }
     if (payload.inputFormatOptions != null) {
       result
         ..add('InputFormatOptions')
         ..add(serializers.serialize(
           payload.inputFormatOptions!,
           specifiedType: const FullType(_i5.InputFormatOptions),
+        ));
+    }
+    if (payload.inputCompressionType != null) {
+      result
+        ..add('InputCompressionType')
+        ..add(serializers.serialize(
+          payload.inputCompressionType!,
+          specifiedType: const FullType(_i6.InputCompressionType),
         ));
     }
     return result;

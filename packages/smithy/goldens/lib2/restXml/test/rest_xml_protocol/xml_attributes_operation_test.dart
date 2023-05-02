@@ -164,17 +164,17 @@ class XmlAttributesInputOutputRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'attr':
+        case 'foo':
           if (value != null) {
-            result.attr = (serializers.deserialize(
+            result.foo = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'foo':
+        case 'attr':
           if (value != null) {
-            result.foo = (serializers.deserialize(
+            result.attr = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);

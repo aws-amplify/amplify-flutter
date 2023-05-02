@@ -15,12 +15,12 @@ abstract class MethodSnapshot
     implements Built<MethodSnapshot, MethodSnapshotBuilder> {
   /// Represents a summary of a Method resource, given a particular date and time.
   factory MethodSnapshot({
-    bool? apiKeyRequired,
     String? authorizationType,
+    bool? apiKeyRequired,
   }) {
     return _$MethodSnapshot._(
-      apiKeyRequired: apiKeyRequired,
       authorizationType: authorizationType,
+      apiKeyRequired: apiKeyRequired,
     );
   }
 
@@ -37,26 +37,26 @@ abstract class MethodSnapshot
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MethodSnapshotBuilder b) {}
 
-  /// Specifies whether the method requires a valid ApiKey.
-  bool? get apiKeyRequired;
-
   /// The method's authorization type. Valid values are `NONE` for open access, `AWS_IAM` for using AWS IAM permissions, `CUSTOM` for using a custom authorizer, or `COGNITO\_USER\_POOLS` for using a Cognito user pool.
   String? get authorizationType;
+
+  /// Specifies whether the method requires a valid ApiKey.
+  bool? get apiKeyRequired;
   @override
   List<Object?> get props => [
-        apiKeyRequired,
         authorizationType,
+        apiKeyRequired,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MethodSnapshot');
     helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
       'authorizationType',
       authorizationType,
+    );
+    helper.add(
+      'apiKeyRequired',
+      apiKeyRequired,
     );
     return helper.toString();
   }

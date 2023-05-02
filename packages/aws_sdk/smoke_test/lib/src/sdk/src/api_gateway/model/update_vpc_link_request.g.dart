@@ -8,15 +8,15 @@ part of smoke_test.api_gateway.model.update_vpc_link_request;
 
 class _$UpdateVpcLinkRequest extends UpdateVpcLinkRequest {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
-  @override
   final String vpcLinkId;
+  @override
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateVpcLinkRequest(
           [void Function(UpdateVpcLinkRequestBuilder)? updates]) =>
       (new UpdateVpcLinkRequestBuilder()..update(updates))._build();
 
-  _$UpdateVpcLinkRequest._({this.patchOperations, required this.vpcLinkId})
+  _$UpdateVpcLinkRequest._({required this.vpcLinkId, this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vpcLinkId, r'UpdateVpcLinkRequest', 'vpcLinkId');
@@ -35,15 +35,15 @@ class _$UpdateVpcLinkRequest extends UpdateVpcLinkRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateVpcLinkRequest &&
-        patchOperations == other.patchOperations &&
-        vpcLinkId == other.vpcLinkId;
+        vpcLinkId == other.vpcLinkId &&
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jc(_$hash, vpcLinkId.hashCode);
+    _$hash = $jc(_$hash, patchOperations.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,15 +53,15 @@ class UpdateVpcLinkRequestBuilder
     implements Builder<UpdateVpcLinkRequest, UpdateVpcLinkRequestBuilder> {
   _$UpdateVpcLinkRequest? _$v;
 
+  String? _vpcLinkId;
+  String? get vpcLinkId => _$this._vpcLinkId;
+  set vpcLinkId(String? vpcLinkId) => _$this._vpcLinkId = vpcLinkId;
+
   _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
   _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
       _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
-
-  String? _vpcLinkId;
-  String? get vpcLinkId => _$this._vpcLinkId;
-  set vpcLinkId(String? vpcLinkId) => _$this._vpcLinkId = vpcLinkId;
 
   UpdateVpcLinkRequestBuilder() {
     UpdateVpcLinkRequest._init(this);
@@ -70,8 +70,8 @@ class UpdateVpcLinkRequestBuilder
   UpdateVpcLinkRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _patchOperations = $v.patchOperations?.toBuilder();
       _vpcLinkId = $v.vpcLinkId;
+      _patchOperations = $v.patchOperations?.toBuilder();
       _$v = null;
     }
     return this;
@@ -96,9 +96,9 @@ class UpdateVpcLinkRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateVpcLinkRequest._(
-              patchOperations: _patchOperations?.build(),
               vpcLinkId: BuiltValueNullFieldError.checkNotNull(
-                  vpcLinkId, r'UpdateVpcLinkRequest', 'vpcLinkId'));
+                  vpcLinkId, r'UpdateVpcLinkRequest', 'vpcLinkId'),
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

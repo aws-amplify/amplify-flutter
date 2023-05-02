@@ -8,24 +8,24 @@ part of smoke_test.s3.model.notification_configuration;
 
 class _$NotificationConfiguration extends NotificationConfiguration {
   @override
-  final _i2.EventBridgeConfiguration? eventBridgeConfiguration;
+  final _i6.BuiltList<_i2.TopicConfiguration>? topicConfigurations;
   @override
-  final _i6.BuiltList<_i3.LambdaFunctionConfiguration>?
+  final _i6.BuiltList<_i3.QueueConfiguration>? queueConfigurations;
+  @override
+  final _i6.BuiltList<_i4.LambdaFunctionConfiguration>?
       lambdaFunctionConfigurations;
   @override
-  final _i6.BuiltList<_i4.QueueConfiguration>? queueConfigurations;
-  @override
-  final _i6.BuiltList<_i5.TopicConfiguration>? topicConfigurations;
+  final _i5.EventBridgeConfiguration? eventBridgeConfiguration;
 
   factory _$NotificationConfiguration(
           [void Function(NotificationConfigurationBuilder)? updates]) =>
       (new NotificationConfigurationBuilder()..update(updates))._build();
 
   _$NotificationConfiguration._(
-      {this.eventBridgeConfiguration,
-      this.lambdaFunctionConfigurations,
+      {this.topicConfigurations,
       this.queueConfigurations,
-      this.topicConfigurations})
+      this.lambdaFunctionConfigurations,
+      this.eventBridgeConfiguration})
       : super._();
 
   @override
@@ -41,19 +41,19 @@ class _$NotificationConfiguration extends NotificationConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NotificationConfiguration &&
-        eventBridgeConfiguration == other.eventBridgeConfiguration &&
-        lambdaFunctionConfigurations == other.lambdaFunctionConfigurations &&
+        topicConfigurations == other.topicConfigurations &&
         queueConfigurations == other.queueConfigurations &&
-        topicConfigurations == other.topicConfigurations;
+        lambdaFunctionConfigurations == other.lambdaFunctionConfigurations &&
+        eventBridgeConfiguration == other.eventBridgeConfiguration;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, eventBridgeConfiguration.hashCode);
-    _$hash = $jc(_$hash, lambdaFunctionConfigurations.hashCode);
-    _$hash = $jc(_$hash, queueConfigurations.hashCode);
     _$hash = $jc(_$hash, topicConfigurations.hashCode);
+    _$hash = $jc(_$hash, queueConfigurations.hashCode);
+    _$hash = $jc(_$hash, lambdaFunctionConfigurations.hashCode);
+    _$hash = $jc(_$hash, eventBridgeConfiguration.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -64,40 +64,40 @@ class NotificationConfigurationBuilder
         Builder<NotificationConfiguration, NotificationConfigurationBuilder> {
   _$NotificationConfiguration? _$v;
 
-  _i2.EventBridgeConfigurationBuilder? _eventBridgeConfiguration;
-  _i2.EventBridgeConfigurationBuilder get eventBridgeConfiguration =>
-      _$this._eventBridgeConfiguration ??=
-          new _i2.EventBridgeConfigurationBuilder();
-  set eventBridgeConfiguration(
-          _i2.EventBridgeConfigurationBuilder? eventBridgeConfiguration) =>
-      _$this._eventBridgeConfiguration = eventBridgeConfiguration;
+  _i6.ListBuilder<_i2.TopicConfiguration>? _topicConfigurations;
+  _i6.ListBuilder<_i2.TopicConfiguration> get topicConfigurations =>
+      _$this._topicConfigurations ??=
+          new _i6.ListBuilder<_i2.TopicConfiguration>();
+  set topicConfigurations(
+          _i6.ListBuilder<_i2.TopicConfiguration>? topicConfigurations) =>
+      _$this._topicConfigurations = topicConfigurations;
 
-  _i6.ListBuilder<_i3.LambdaFunctionConfiguration>?
+  _i6.ListBuilder<_i3.QueueConfiguration>? _queueConfigurations;
+  _i6.ListBuilder<_i3.QueueConfiguration> get queueConfigurations =>
+      _$this._queueConfigurations ??=
+          new _i6.ListBuilder<_i3.QueueConfiguration>();
+  set queueConfigurations(
+          _i6.ListBuilder<_i3.QueueConfiguration>? queueConfigurations) =>
+      _$this._queueConfigurations = queueConfigurations;
+
+  _i6.ListBuilder<_i4.LambdaFunctionConfiguration>?
       _lambdaFunctionConfigurations;
-  _i6.ListBuilder<_i3.LambdaFunctionConfiguration>
+  _i6.ListBuilder<_i4.LambdaFunctionConfiguration>
       get lambdaFunctionConfigurations =>
           _$this._lambdaFunctionConfigurations ??=
-              new _i6.ListBuilder<_i3.LambdaFunctionConfiguration>();
+              new _i6.ListBuilder<_i4.LambdaFunctionConfiguration>();
   set lambdaFunctionConfigurations(
-          _i6.ListBuilder<_i3.LambdaFunctionConfiguration>?
+          _i6.ListBuilder<_i4.LambdaFunctionConfiguration>?
               lambdaFunctionConfigurations) =>
       _$this._lambdaFunctionConfigurations = lambdaFunctionConfigurations;
 
-  _i6.ListBuilder<_i4.QueueConfiguration>? _queueConfigurations;
-  _i6.ListBuilder<_i4.QueueConfiguration> get queueConfigurations =>
-      _$this._queueConfigurations ??=
-          new _i6.ListBuilder<_i4.QueueConfiguration>();
-  set queueConfigurations(
-          _i6.ListBuilder<_i4.QueueConfiguration>? queueConfigurations) =>
-      _$this._queueConfigurations = queueConfigurations;
-
-  _i6.ListBuilder<_i5.TopicConfiguration>? _topicConfigurations;
-  _i6.ListBuilder<_i5.TopicConfiguration> get topicConfigurations =>
-      _$this._topicConfigurations ??=
-          new _i6.ListBuilder<_i5.TopicConfiguration>();
-  set topicConfigurations(
-          _i6.ListBuilder<_i5.TopicConfiguration>? topicConfigurations) =>
-      _$this._topicConfigurations = topicConfigurations;
+  _i5.EventBridgeConfigurationBuilder? _eventBridgeConfiguration;
+  _i5.EventBridgeConfigurationBuilder get eventBridgeConfiguration =>
+      _$this._eventBridgeConfiguration ??=
+          new _i5.EventBridgeConfigurationBuilder();
+  set eventBridgeConfiguration(
+          _i5.EventBridgeConfigurationBuilder? eventBridgeConfiguration) =>
+      _$this._eventBridgeConfiguration = eventBridgeConfiguration;
 
   NotificationConfigurationBuilder() {
     NotificationConfiguration._init(this);
@@ -106,11 +106,11 @@ class NotificationConfigurationBuilder
   NotificationConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _eventBridgeConfiguration = $v.eventBridgeConfiguration?.toBuilder();
+      _topicConfigurations = $v.topicConfigurations?.toBuilder();
+      _queueConfigurations = $v.queueConfigurations?.toBuilder();
       _lambdaFunctionConfigurations =
           $v.lambdaFunctionConfigurations?.toBuilder();
-      _queueConfigurations = $v.queueConfigurations?.toBuilder();
-      _topicConfigurations = $v.topicConfigurations?.toBuilder();
+      _eventBridgeConfiguration = $v.eventBridgeConfiguration?.toBuilder();
       _$v = null;
     }
     return this;
@@ -135,22 +135,22 @@ class NotificationConfigurationBuilder
     try {
       _$result = _$v ??
           new _$NotificationConfiguration._(
-              eventBridgeConfiguration: _eventBridgeConfiguration?.build(),
+              topicConfigurations: _topicConfigurations?.build(),
+              queueConfigurations: _queueConfigurations?.build(),
               lambdaFunctionConfigurations:
                   _lambdaFunctionConfigurations?.build(),
-              queueConfigurations: _queueConfigurations?.build(),
-              topicConfigurations: _topicConfigurations?.build());
+              eventBridgeConfiguration: _eventBridgeConfiguration?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'eventBridgeConfiguration';
-        _eventBridgeConfiguration?.build();
-        _$failedField = 'lambdaFunctionConfigurations';
-        _lambdaFunctionConfigurations?.build();
-        _$failedField = 'queueConfigurations';
-        _queueConfigurations?.build();
         _$failedField = 'topicConfigurations';
         _topicConfigurations?.build();
+        _$failedField = 'queueConfigurations';
+        _queueConfigurations?.build();
+        _$failedField = 'lambdaFunctionConfigurations';
+        _lambdaFunctionConfigurations?.build();
+        _$failedField = 'eventBridgeConfiguration';
+        _eventBridgeConfiguration?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'NotificationConfiguration', _$failedField, e.toString());

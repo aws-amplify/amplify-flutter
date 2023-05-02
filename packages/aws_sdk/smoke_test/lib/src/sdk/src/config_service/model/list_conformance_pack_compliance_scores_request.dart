@@ -9,9 +9,9 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_scores_filters.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/config_service/model/sort_by.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/sort_order.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/config_service/model/sort_order.dart'
+    as _i4;
 
 part 'list_conformance_pack_compliance_scores_request.g.dart';
 
@@ -24,17 +24,17 @@ abstract class ListConformancePackComplianceScoresRequest
             ListConformancePackComplianceScoresRequestBuilder> {
   factory ListConformancePackComplianceScoresRequest({
     _i3.ConformancePackComplianceScoresFilters? filters,
+    _i4.SortOrder? sortOrder,
+    _i5.SortBy? sortBy,
     int? limit,
     String? nextToken,
-    _i4.SortBy? sortBy,
-    _i5.SortOrder? sortOrder,
   }) {
     return _$ListConformancePackComplianceScoresRequest._(
       filters: filters,
+      sortOrder: sortOrder,
+      sortBy: sortBy,
       limit: limit,
       nextToken: nextToken,
-      sortBy: sortBy,
-      sortOrder: sortOrder,
     );
   }
 
@@ -61,30 +61,30 @@ abstract class ListConformancePackComplianceScoresRequest
   /// Filters the results based on the `ConformancePackComplianceScoresFilters`.
   _i3.ConformancePackComplianceScoresFilters? get filters;
 
+  /// Determines the order in which conformance pack compliance scores are sorted. Either in ascending or descending order.
+  ///
+  /// Conformance packs with a compliance score of `INSUFFICIENT_DATA` will be first when sorting by ascending order and last when sorting by descending order.
+  _i4.SortOrder? get sortOrder;
+
+  /// Sorts your conformance pack compliance scores in either ascending or descending order, depending on `SortOrder`.
+  ///
+  /// By default, conformance pack compliance scores are sorted in ascending order by compliance score and alphabetically by name of the conformance pack if there is more than one conformance pack with the same compliance score.
+  _i5.SortBy? get sortBy;
+
   /// The maximum number of conformance pack compliance scores returned on each page.
   int? get limit;
 
   /// The `nextToken` string in a prior request that you can use to get the paginated response for next set of conformance pack compliance scores.
   String? get nextToken;
-
-  /// Sorts your conformance pack compliance scores in either ascending or descending order, depending on `SortOrder`.
-  ///
-  /// By default, conformance pack compliance scores are sorted in ascending order by compliance score and alphabetically by name of the conformance pack if there is more than one conformance pack with the same compliance score.
-  _i4.SortBy? get sortBy;
-
-  /// Determines the order in which conformance pack compliance scores are sorted. Either in ascending or descending order.
-  ///
-  /// Conformance packs with a compliance score of `INSUFFICIENT_DATA` will be first when sorting by ascending order and last when sorting by descending order.
-  _i5.SortOrder? get sortOrder;
   @override
   ListConformancePackComplianceScoresRequest getPayload() => this;
   @override
   List<Object?> get props => [
         filters,
+        sortOrder,
+        sortBy,
         limit,
         nextToken,
-        sortBy,
-        sortOrder,
       ];
   @override
   String toString() {
@@ -95,20 +95,20 @@ abstract class ListConformancePackComplianceScoresRequest
       filters,
     );
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
+      'sortOrder',
+      sortOrder,
     );
     helper.add(
       'sortBy',
       sortBy,
     );
     helper.add(
-      'sortOrder',
-      sortOrder,
+      'limit',
+      limit,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -153,6 +153,22 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
             ) as _i3.ConformancePackComplianceScoresFilters));
           }
           break;
+        case 'SortOrder':
+          if (value != null) {
+            result.sortOrder = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.SortOrder),
+            ) as _i4.SortOrder);
+          }
+          break;
+        case 'SortBy':
+          if (value != null) {
+            result.sortBy = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.SortBy),
+            ) as _i5.SortBy);
+          }
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -167,22 +183,6 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'SortBy':
-          if (value != null) {
-            result.sortBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SortBy),
-            ) as _i4.SortBy);
-          }
-          break;
-        case 'SortOrder':
-          if (value != null) {
-            result.sortOrder = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.SortOrder),
-            ) as _i5.SortOrder);
           }
           break;
       }
@@ -208,6 +208,22 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
               const FullType(_i3.ConformancePackComplianceScoresFilters),
         ));
     }
+    if (payload.sortOrder != null) {
+      result
+        ..add('SortOrder')
+        ..add(serializers.serialize(
+          payload.sortOrder!,
+          specifiedType: const FullType(_i4.SortOrder),
+        ));
+    }
+    if (payload.sortBy != null) {
+      result
+        ..add('SortBy')
+        ..add(serializers.serialize(
+          payload.sortBy!,
+          specifiedType: const FullType(_i5.SortBy),
+        ));
+    }
     if (payload.limit != null) {
       result
         ..add('Limit')
@@ -222,22 +238,6 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.sortBy != null) {
-      result
-        ..add('SortBy')
-        ..add(serializers.serialize(
-          payload.sortBy!,
-          specifiedType: const FullType(_i4.SortBy),
-        ));
-    }
-    if (payload.sortOrder != null) {
-      result
-        ..add('SortOrder')
-        ..add(serializers.serialize(
-          payload.sortOrder!,
-          specifiedType: const FullType(_i5.SortOrder),
         ));
     }
     return result;

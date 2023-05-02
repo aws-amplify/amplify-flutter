@@ -19,16 +19,16 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
         Built<GetOrganizationConformancePackDetailedStatusRequest,
             GetOrganizationConformancePackDetailedStatusRequestBuilder> {
   factory GetOrganizationConformancePackDetailedStatusRequest({
+    required String organizationConformancePackName,
     _i3.OrganizationResourceDetailedStatusFilters? filters,
     int? limit,
     String? nextToken,
-    required String organizationConformancePackName,
   }) {
     return _$GetOrganizationConformancePackDetailedStatusRequest._(
+      organizationConformancePackName: organizationConformancePackName,
       filters: filters,
       limit: limit,
       nextToken: nextToken,
-      organizationConformancePackName: organizationConformancePackName,
     );
   }
 
@@ -53,6 +53,9 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
   static void _init(
       GetOrganizationConformancePackDetailedStatusRequestBuilder b) {}
 
+  /// The name of organization conformance pack for which you want status details for member accounts.
+  String get organizationConformancePackName;
+
   /// An `OrganizationResourceDetailedStatusFilters` object.
   _i3.OrganizationResourceDetailedStatusFilters? get filters;
 
@@ -61,22 +64,23 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The name of organization conformance pack for which you want status details for member accounts.
-  String get organizationConformancePackName;
   @override
   GetOrganizationConformancePackDetailedStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConformancePackName,
         filters,
         limit,
         nextToken,
-        organizationConformancePackName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetOrganizationConformancePackDetailedStatusRequest');
+    helper.add(
+      'organizationConformancePackName',
+      organizationConformancePackName,
+    );
     helper.add(
       'filters',
       filters,
@@ -88,10 +92,6 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
     );
     return helper.toString();
   }
@@ -128,6 +128,12 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'OrganizationConformancePackName':
+          result.organizationConformancePackName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'Filters':
           if (value != null) {
             result.filters.replace((serializers.deserialize(
@@ -152,12 +158,6 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'OrganizationConformancePackName':
-          result.organizationConformancePackName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
