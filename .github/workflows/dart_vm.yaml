@@ -44,10 +44,25 @@ jobs:
       - name: Git Submodules
         run: git submodule update --init
 
+      # Some Dart packages require Flutter to be available, for example `amplify_core`
+      # requires it for its `doc` package. Running this before "Setup Dart" means that
+      # the `dart` executable in PATH will always be the one setup by "Setup Dart".
+      #
+      # TODO(dnys1): Create mapping of Flutter->Dart versions so we can just use Dart
+      # vended by Flutter.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # 2.8.0
+        with:
+          cache: true
+          channel: stable
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@007c7cbb377cdbdf8922e2f8c4172dc60fbaaf9a # main
         with:
           sdk: ${{ matrix.sdk }}
+
+      - name: Dart Version
+        run: dart --version
 
       - name: Setup aft
         shell: bash # Run in bash regardless of platform
