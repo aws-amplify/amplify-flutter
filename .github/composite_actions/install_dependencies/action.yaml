@@ -24,9 +24,9 @@ runs:
       shell: bash
       run: |
         git submodule update --init
-        flutter pub global activate -spath packages/aft
-        if [[ "$FLUTTER_CHANNEL" == "stable" ]]; then
-          flutter pub global run aft --config=aft.legacy.yaml constraints apply
+        dart pub global activate -spath packages/aft
+        if [[ "${{ inputs.flutter-channel }}" == "stable" ]]; then
+          dart pub global run aft --config=aft.legacy.yaml constraints apply
         fi
-        flutter pub global run aft link
-        flutter pub global run aft exec --include="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
+        dart pub global run aft link
+        dart pub global run aft exec --include="amplify_secure_storage_dart,amplify_auth_cognito_dart" -- dart run build_runner build --delete-conflicting-outputs
