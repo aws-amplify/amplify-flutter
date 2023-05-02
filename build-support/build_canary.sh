@@ -23,6 +23,7 @@ cp -r $ROOT_DIR/canaries/lib .
 cp $ROOT_DIR/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
 
 # Android
+sed -i'' -e "s/ext.kotlin_version = .*/ext.kotlin_version = \"1.8.21\"/" ./android/build.gradle
 sed -i'' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle
 sed -i'' -e "s/compileSdkVersion .*/compileSdkVersion 33/" ./android/app/build.gradle
 cat ./android/app/build.gradle
