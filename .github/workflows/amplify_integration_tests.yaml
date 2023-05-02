@@ -74,7 +74,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
-          script: melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test.sh -d emulator-5554  --retries 1
+          script: aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
   ios:
     runs-on: macos-latest
@@ -115,8 +115,7 @@ jobs:
 
       - name: Run integration tests
         timeout-minutes: 30
-        run: |
-          melos exec -c 1 --scope ${{ matrix.scope }} -- small=true \$MELOS_ROOT_PATH/build-support/integ_test_ios.sh -d test
+        run: aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
     runs-on: ubuntu-latest
@@ -158,7 +157,7 @@ jobs:
         timeout-minutes: 30
         run: |
           chromedriver --port=4444 &
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d web-server
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
 
   macos:
     runs-on: macos-latest
@@ -201,7 +200,7 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-macos-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d macos
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d macos
 
   linux:
     runs-on: ubuntu-latest
@@ -240,7 +239,7 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-linux-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- \$MELOS_ROOT_PATH/build-support/integ_test.sh -d linux
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
 
   windows:
     runs-on: windows-latest
@@ -282,4 +281,4 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-windows-desktop
-          melos exec -c 1 --scope ${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
+          aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d windows
