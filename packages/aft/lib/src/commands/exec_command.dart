@@ -76,6 +76,7 @@ extension ExecCommandFn on AmplifyCommand {
       includeParentEnvironment: true,
       environment: environment,
       workingDirectory: workingDirectory,
+      runInShell: true,
     );
     return ProcessResult(proc.pid, await proc.exitCode, null, null);
   }
