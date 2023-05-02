@@ -282,4 +282,4 @@ jobs:
         timeout-minutes: 30
         run: |
           flutter config --enable-windows-desktop
-          dart pub global run aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d windows
+          dart pub global run aft exec --include=${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
