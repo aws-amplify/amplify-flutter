@@ -21,15 +21,15 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
             DescribeConfigurationAggregatorSourcesStatusRequestBuilder> {
   factory DescribeConfigurationAggregatorSourcesStatusRequest({
     required String configurationAggregatorName,
-    int? limit,
-    String? nextToken,
     List<_i3.AggregatedSourceStatusType>? updateStatus,
+    String? nextToken,
+    int? limit,
   }) {
     return _$DescribeConfigurationAggregatorSourcesStatusRequest._(
       configurationAggregatorName: configurationAggregatorName,
-      limit: limit,
-      nextToken: nextToken,
       updateStatus: updateStatus == null ? null : _i4.BuiltList(updateStatus),
+      nextToken: nextToken,
+      limit: limit,
     );
   }
 
@@ -57,12 +57,6 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 
-  /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
-
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Filters the status type.
   ///
   /// *   Valid value FAILED indicates errors while moving data.
@@ -71,14 +65,20 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   ///
   /// *   Valid value OUTDATED indicates the data is not the most recent.
   _i4.BuiltList<_i3.AggregatedSourceStatusType>? get updateStatus;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
+
+  /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
+  int? get limit;
   @override
   DescribeConfigurationAggregatorSourcesStatusRequest getPayload() => this;
   @override
   List<Object?> get props => [
         configurationAggregatorName,
-        limit,
-        nextToken,
         updateStatus,
+        nextToken,
+        limit,
       ];
   @override
   String toString() {
@@ -89,16 +89,16 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
       configurationAggregatorName,
     );
     helper.add(
-      'limit',
-      limit,
+      'updateStatus',
+      updateStatus,
     );
     helper.add(
       'nextToken',
       nextToken,
     );
     helper.add(
-      'updateStatus',
-      updateStatus,
+      'limit',
+      limit,
     );
     return helper.toString();
   }
@@ -141,12 +141,15 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'Limit':
+        case 'UpdateStatus':
           if (value != null) {
-            result.limit = (serializers.deserialize(
+            result.updateStatus.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(int),
-            ) as int);
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.AggregatedSourceStatusType)],
+              ),
+            ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
           }
           break;
         case 'NextToken':
@@ -157,15 +160,12 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'UpdateStatus':
+        case 'Limit':
           if (value != null) {
-            result.updateStatus.replace((serializers.deserialize(
+            result.limit = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AggregatedSourceStatusType)],
-              ),
-            ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -189,12 +189,15 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.limit != null) {
+    if (payload.updateStatus != null) {
       result
-        ..add('Limit')
+        ..add('UpdateStatus')
         ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
+          payload.updateStatus!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.AggregatedSourceStatusType)],
+          ),
         ));
     }
     if (payload.nextToken != null) {
@@ -205,15 +208,12 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.updateStatus != null) {
+    if (payload.limit != null) {
       result
-        ..add('UpdateStatus')
+        ..add('Limit')
         ..add(serializers.serialize(
-          payload.updateStatus!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.AggregatedSourceStatusType)],
-          ),
+          payload.limit!,
+          specifiedType: const FullType(int),
         ));
     }
     return result;

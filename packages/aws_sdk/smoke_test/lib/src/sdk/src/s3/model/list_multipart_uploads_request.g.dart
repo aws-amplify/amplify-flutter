@@ -14,8 +14,6 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   @override
   final _i3.EncodingType? encodingType;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String? keyMarker;
   @override
   final int? maxUploads;
@@ -23,6 +21,8 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   final String? prefix;
   @override
   final String? uploadIdMarker;
+  @override
+  final String? expectedBucketOwner;
 
   factory _$ListMultipartUploadsRequest(
           [void Function(ListMultipartUploadsRequestBuilder)? updates]) =>
@@ -32,11 +32,11 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
       {required this.bucket,
       this.delimiter,
       this.encodingType,
-      this.expectedBucketOwner,
       this.keyMarker,
       this.maxUploads,
       this.prefix,
-      this.uploadIdMarker})
+      this.uploadIdMarker,
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListMultipartUploadsRequest', 'bucket');
@@ -58,11 +58,11 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
         bucket == other.bucket &&
         delimiter == other.delimiter &&
         encodingType == other.encodingType &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         keyMarker == other.keyMarker &&
         maxUploads == other.maxUploads &&
         prefix == other.prefix &&
-        uploadIdMarker == other.uploadIdMarker;
+        uploadIdMarker == other.uploadIdMarker &&
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
@@ -71,11 +71,11 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, delimiter.hashCode);
     _$hash = $jc(_$hash, encodingType.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, keyMarker.hashCode);
     _$hash = $jc(_$hash, maxUploads.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, uploadIdMarker.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -100,11 +100,6 @@ class ListMultipartUploadsRequestBuilder
   set encodingType(_i3.EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _keyMarker;
   String? get keyMarker => _$this._keyMarker;
   set keyMarker(String? keyMarker) => _$this._keyMarker = keyMarker;
@@ -122,6 +117,11 @@ class ListMultipartUploadsRequestBuilder
   set uploadIdMarker(String? uploadIdMarker) =>
       _$this._uploadIdMarker = uploadIdMarker;
 
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
   ListMultipartUploadsRequestBuilder() {
     ListMultipartUploadsRequest._init(this);
   }
@@ -132,11 +132,11 @@ class ListMultipartUploadsRequestBuilder
       _bucket = $v.bucket;
       _delimiter = $v.delimiter;
       _encodingType = $v.encodingType;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _keyMarker = $v.keyMarker;
       _maxUploads = $v.maxUploads;
       _prefix = $v.prefix;
       _uploadIdMarker = $v.uploadIdMarker;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -163,11 +163,11 @@ class ListMultipartUploadsRequestBuilder
                 bucket, r'ListMultipartUploadsRequest', 'bucket'),
             delimiter: delimiter,
             encodingType: encodingType,
-            expectedBucketOwner: expectedBucketOwner,
             keyMarker: keyMarker,
             maxUploads: maxUploads,
             prefix: prefix,
-            uploadIdMarker: uploadIdMarker);
+            uploadIdMarker: uploadIdMarker,
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

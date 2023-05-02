@@ -18,13 +18,13 @@ abstract class Encryption
   /// Contains the type of server-side encryption used.
   factory Encryption({
     required _i2.ServerSideEncryption encryptionType,
-    String? kmsContext,
     String? kmsKeyId,
+    String? kmsContext,
   }) {
     return _$Encryption._(
       encryptionType: encryptionType,
-      kmsContext: kmsContext,
       kmsKeyId: kmsKeyId,
+      kmsContext: kmsContext,
     );
   }
 
@@ -44,16 +44,16 @@ abstract class Encryption
   /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, aws:kms).
   _i2.ServerSideEncryption get encryptionType;
 
-  /// If the encryption type is `aws:kms`, this optional value can be used to specify the encryption context for the restore results.
-  String? get kmsContext;
-
   /// If the encryption type is `aws:kms`, this optional value specifies the ID of the symmetric customer managed key to use for encryption of job results. Amazon S3 only supports symmetric keys. For more information, see [Using symmetric and asymmetric keys](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get kmsKeyId;
+
+  /// If the encryption type is `aws:kms`, this optional value can be used to specify the encryption context for the restore results.
+  String? get kmsContext;
   @override
   List<Object?> get props => [
         encryptionType,
-        kmsContext,
         kmsKeyId,
+        kmsContext,
       ];
   @override
   String toString() {
@@ -63,12 +63,12 @@ abstract class Encryption
       encryptionType,
     );
     helper.add(
-      'kmsContext',
-      kmsContext,
-    );
-    helper.add(
       'kmsKeyId',
       '***SENSITIVE***',
+    );
+    helper.add(
+      'kmsContext',
+      kmsContext,
     );
     return helper.toString();
   }

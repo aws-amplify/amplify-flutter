@@ -10,10 +10,6 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final String bucket;
   @override
-  final _i3.ChecksumMode? checksumMode;
-  @override
-  final String? expectedBucketOwner;
-  @override
   final String? ifMatch;
   @override
   final DateTime? ifModifiedSince;
@@ -24,11 +20,7 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final String key;
   @override
-  final int? partNumber;
-  @override
   final String? range;
-  @override
-  final _i4.RequestPayer? requestPayer;
   @override
   final String? responseCacheControl;
   @override
@@ -42,13 +34,21 @@ class _$GetObjectRequest extends GetObjectRequest {
   @override
   final DateTime? responseExpires;
   @override
+  final String? versionId;
+  @override
   final String? sseCustomerAlgorithm;
   @override
   final String? sseCustomerKey;
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final String? versionId;
+  final _i3.RequestPayer? requestPayer;
+  @override
+  final int? partNumber;
+  @override
+  final String? expectedBucketOwner;
+  @override
+  final _i4.ChecksumMode? checksumMode;
 
   factory _$GetObjectRequest(
           [void Function(GetObjectRequestBuilder)? updates]) =>
@@ -56,26 +56,26 @@ class _$GetObjectRequest extends GetObjectRequest {
 
   _$GetObjectRequest._(
       {required this.bucket,
-      this.checksumMode,
-      this.expectedBucketOwner,
       this.ifMatch,
       this.ifModifiedSince,
       this.ifNoneMatch,
       this.ifUnmodifiedSince,
       required this.key,
-      this.partNumber,
       this.range,
-      this.requestPayer,
       this.responseCacheControl,
       this.responseContentDisposition,
       this.responseContentEncoding,
       this.responseContentLanguage,
       this.responseContentType,
       this.responseExpires,
+      this.versionId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
       this.sseCustomerKeyMd5,
-      this.versionId})
+      this.requestPayer,
+      this.partNumber,
+      this.expectedBucketOwner,
+      this.checksumMode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectRequest', 'bucket');
@@ -95,52 +95,52 @@ class _$GetObjectRequest extends GetObjectRequest {
     if (identical(other, this)) return true;
     return other is GetObjectRequest &&
         bucket == other.bucket &&
-        checksumMode == other.checksumMode &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         ifMatch == other.ifMatch &&
         ifModifiedSince == other.ifModifiedSince &&
         ifNoneMatch == other.ifNoneMatch &&
         ifUnmodifiedSince == other.ifUnmodifiedSince &&
         key == other.key &&
-        partNumber == other.partNumber &&
         range == other.range &&
-        requestPayer == other.requestPayer &&
         responseCacheControl == other.responseCacheControl &&
         responseContentDisposition == other.responseContentDisposition &&
         responseContentEncoding == other.responseContentEncoding &&
         responseContentLanguage == other.responseContentLanguage &&
         responseContentType == other.responseContentType &&
         responseExpires == other.responseExpires &&
+        versionId == other.versionId &&
         sseCustomerAlgorithm == other.sseCustomerAlgorithm &&
         sseCustomerKey == other.sseCustomerKey &&
         sseCustomerKeyMd5 == other.sseCustomerKeyMd5 &&
-        versionId == other.versionId;
+        requestPayer == other.requestPayer &&
+        partNumber == other.partNumber &&
+        expectedBucketOwner == other.expectedBucketOwner &&
+        checksumMode == other.checksumMode;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, checksumMode.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, ifMatch.hashCode);
     _$hash = $jc(_$hash, ifModifiedSince.hashCode);
     _$hash = $jc(_$hash, ifNoneMatch.hashCode);
     _$hash = $jc(_$hash, ifUnmodifiedSince.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, partNumber.hashCode);
     _$hash = $jc(_$hash, range.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, responseCacheControl.hashCode);
     _$hash = $jc(_$hash, responseContentDisposition.hashCode);
     _$hash = $jc(_$hash, responseContentEncoding.hashCode);
     _$hash = $jc(_$hash, responseContentLanguage.hashCode);
     _$hash = $jc(_$hash, responseContentType.hashCode);
     _$hash = $jc(_$hash, responseExpires.hashCode);
+    _$hash = $jc(_$hash, versionId.hashCode);
     _$hash = $jc(_$hash, sseCustomerAlgorithm.hashCode);
     _$hash = $jc(_$hash, sseCustomerKey.hashCode);
     _$hash = $jc(_$hash, sseCustomerKeyMd5.hashCode);
-    _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, partNumber.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, checksumMode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -153,16 +153,6 @@ class GetObjectRequestBuilder
   String? _bucket;
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
-
-  _i3.ChecksumMode? _checksumMode;
-  _i3.ChecksumMode? get checksumMode => _$this._checksumMode;
-  set checksumMode(_i3.ChecksumMode? checksumMode) =>
-      _$this._checksumMode = checksumMode;
-
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
 
   String? _ifMatch;
   String? get ifMatch => _$this._ifMatch;
@@ -186,18 +176,9 @@ class GetObjectRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  int? _partNumber;
-  int? get partNumber => _$this._partNumber;
-  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
-
   String? _range;
   String? get range => _$this._range;
   set range(String? range) => _$this._range = range;
-
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
-      _$this._requestPayer = requestPayer;
 
   String? _responseCacheControl;
   String? get responseCacheControl => _$this._responseCacheControl;
@@ -229,6 +210,10 @@ class GetObjectRequestBuilder
   set responseExpires(DateTime? responseExpires) =>
       _$this._responseExpires = responseExpires;
 
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
+
   String? _sseCustomerAlgorithm;
   String? get sseCustomerAlgorithm => _$this._sseCustomerAlgorithm;
   set sseCustomerAlgorithm(String? sseCustomerAlgorithm) =>
@@ -244,9 +229,24 @@ class GetObjectRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
+  _i3.RequestPayer? _requestPayer;
+  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i3.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
+  int? _partNumber;
+  int? get partNumber => _$this._partNumber;
+  set partNumber(int? partNumber) => _$this._partNumber = partNumber;
+
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
+
+  _i4.ChecksumMode? _checksumMode;
+  _i4.ChecksumMode? get checksumMode => _$this._checksumMode;
+  set checksumMode(_i4.ChecksumMode? checksumMode) =>
+      _$this._checksumMode = checksumMode;
 
   GetObjectRequestBuilder() {
     GetObjectRequest._init(this);
@@ -256,26 +256,26 @@ class GetObjectRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _checksumMode = $v.checksumMode;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _ifMatch = $v.ifMatch;
       _ifModifiedSince = $v.ifModifiedSince;
       _ifNoneMatch = $v.ifNoneMatch;
       _ifUnmodifiedSince = $v.ifUnmodifiedSince;
       _key = $v.key;
-      _partNumber = $v.partNumber;
       _range = $v.range;
-      _requestPayer = $v.requestPayer;
       _responseCacheControl = $v.responseCacheControl;
       _responseContentDisposition = $v.responseContentDisposition;
       _responseContentEncoding = $v.responseContentEncoding;
       _responseContentLanguage = $v.responseContentLanguage;
       _responseContentType = $v.responseContentType;
       _responseExpires = $v.responseExpires;
+      _versionId = $v.versionId;
       _sseCustomerAlgorithm = $v.sseCustomerAlgorithm;
       _sseCustomerKey = $v.sseCustomerKey;
       _sseCustomerKeyMd5 = $v.sseCustomerKeyMd5;
-      _versionId = $v.versionId;
+      _requestPayer = $v.requestPayer;
+      _partNumber = $v.partNumber;
+      _expectedBucketOwner = $v.expectedBucketOwner;
+      _checksumMode = $v.checksumMode;
       _$v = null;
     }
     return this;
@@ -300,27 +300,27 @@ class GetObjectRequestBuilder
         new _$GetObjectRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'GetObjectRequest', 'bucket'),
-            checksumMode: checksumMode,
-            expectedBucketOwner: expectedBucketOwner,
             ifMatch: ifMatch,
             ifModifiedSince: ifModifiedSince,
             ifNoneMatch: ifNoneMatch,
             ifUnmodifiedSince: ifUnmodifiedSince,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'GetObjectRequest', 'key'),
-            partNumber: partNumber,
             range: range,
-            requestPayer: requestPayer,
             responseCacheControl: responseCacheControl,
             responseContentDisposition: responseContentDisposition,
             responseContentEncoding: responseContentEncoding,
             responseContentLanguage: responseContentLanguage,
             responseContentType: responseContentType,
             responseExpires: responseExpires,
+            versionId: versionId,
             sseCustomerAlgorithm: sseCustomerAlgorithm,
             sseCustomerKey: sseCustomerKey,
             sseCustomerKeyMd5: sseCustomerKeyMd5,
-            versionId: versionId);
+            requestPayer: requestPayer,
+            partNumber: partNumber,
+            expectedBucketOwner: expectedBucketOwner,
+            checksumMode: checksumMode);
     replace(_$result);
     return _$result;
   }

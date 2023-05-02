@@ -8,18 +8,18 @@ part of smoke_test.config_service.model.put_conformance_pack_request;
 
 class _$PutConformancePackRequest extends PutConformancePackRequest {
   @override
-  final _i5.BuiltList<_i3.ConformancePackInputParameter>?
-      conformancePackInputParameters;
-  @override
   final String conformancePackName;
+  @override
+  final String? templateS3Uri;
+  @override
+  final String? templateBody;
   @override
   final String? deliveryS3Bucket;
   @override
   final String? deliveryS3KeyPrefix;
   @override
-  final String? templateBody;
-  @override
-  final String? templateS3Uri;
+  final _i5.BuiltList<_i3.ConformancePackInputParameter>?
+      conformancePackInputParameters;
   @override
   final _i4.TemplateSsmDocumentDetails? templateSsmDocumentDetails;
 
@@ -28,12 +28,12 @@ class _$PutConformancePackRequest extends PutConformancePackRequest {
       (new PutConformancePackRequestBuilder()..update(updates))._build();
 
   _$PutConformancePackRequest._(
-      {this.conformancePackInputParameters,
-      required this.conformancePackName,
+      {required this.conformancePackName,
+      this.templateS3Uri,
+      this.templateBody,
       this.deliveryS3Bucket,
       this.deliveryS3KeyPrefix,
-      this.templateBody,
-      this.templateS3Uri,
+      this.conformancePackInputParameters,
       this.templateSsmDocumentDetails})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(conformancePackName,
@@ -53,25 +53,25 @@ class _$PutConformancePackRequest extends PutConformancePackRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PutConformancePackRequest &&
-        conformancePackInputParameters ==
-            other.conformancePackInputParameters &&
         conformancePackName == other.conformancePackName &&
+        templateS3Uri == other.templateS3Uri &&
+        templateBody == other.templateBody &&
         deliveryS3Bucket == other.deliveryS3Bucket &&
         deliveryS3KeyPrefix == other.deliveryS3KeyPrefix &&
-        templateBody == other.templateBody &&
-        templateS3Uri == other.templateS3Uri &&
+        conformancePackInputParameters ==
+            other.conformancePackInputParameters &&
         templateSsmDocumentDetails == other.templateSsmDocumentDetails;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, conformancePackInputParameters.hashCode);
     _$hash = $jc(_$hash, conformancePackName.hashCode);
+    _$hash = $jc(_$hash, templateS3Uri.hashCode);
+    _$hash = $jc(_$hash, templateBody.hashCode);
     _$hash = $jc(_$hash, deliveryS3Bucket.hashCode);
     _$hash = $jc(_$hash, deliveryS3KeyPrefix.hashCode);
-    _$hash = $jc(_$hash, templateBody.hashCode);
-    _$hash = $jc(_$hash, templateS3Uri.hashCode);
+    _$hash = $jc(_$hash, conformancePackInputParameters.hashCode);
     _$hash = $jc(_$hash, templateSsmDocumentDetails.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -83,21 +83,19 @@ class PutConformancePackRequestBuilder
         Builder<PutConformancePackRequest, PutConformancePackRequestBuilder> {
   _$PutConformancePackRequest? _$v;
 
-  _i5.ListBuilder<_i3.ConformancePackInputParameter>?
-      _conformancePackInputParameters;
-  _i5.ListBuilder<_i3.ConformancePackInputParameter>
-      get conformancePackInputParameters =>
-          _$this._conformancePackInputParameters ??=
-              new _i5.ListBuilder<_i3.ConformancePackInputParameter>();
-  set conformancePackInputParameters(
-          _i5.ListBuilder<_i3.ConformancePackInputParameter>?
-              conformancePackInputParameters) =>
-      _$this._conformancePackInputParameters = conformancePackInputParameters;
-
   String? _conformancePackName;
   String? get conformancePackName => _$this._conformancePackName;
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
+
+  String? _templateS3Uri;
+  String? get templateS3Uri => _$this._templateS3Uri;
+  set templateS3Uri(String? templateS3Uri) =>
+      _$this._templateS3Uri = templateS3Uri;
+
+  String? _templateBody;
+  String? get templateBody => _$this._templateBody;
+  set templateBody(String? templateBody) => _$this._templateBody = templateBody;
 
   String? _deliveryS3Bucket;
   String? get deliveryS3Bucket => _$this._deliveryS3Bucket;
@@ -109,14 +107,16 @@ class PutConformancePackRequestBuilder
   set deliveryS3KeyPrefix(String? deliveryS3KeyPrefix) =>
       _$this._deliveryS3KeyPrefix = deliveryS3KeyPrefix;
 
-  String? _templateBody;
-  String? get templateBody => _$this._templateBody;
-  set templateBody(String? templateBody) => _$this._templateBody = templateBody;
-
-  String? _templateS3Uri;
-  String? get templateS3Uri => _$this._templateS3Uri;
-  set templateS3Uri(String? templateS3Uri) =>
-      _$this._templateS3Uri = templateS3Uri;
+  _i5.ListBuilder<_i3.ConformancePackInputParameter>?
+      _conformancePackInputParameters;
+  _i5.ListBuilder<_i3.ConformancePackInputParameter>
+      get conformancePackInputParameters =>
+          _$this._conformancePackInputParameters ??=
+              new _i5.ListBuilder<_i3.ConformancePackInputParameter>();
+  set conformancePackInputParameters(
+          _i5.ListBuilder<_i3.ConformancePackInputParameter>?
+              conformancePackInputParameters) =>
+      _$this._conformancePackInputParameters = conformancePackInputParameters;
 
   _i4.TemplateSsmDocumentDetailsBuilder? _templateSsmDocumentDetails;
   _i4.TemplateSsmDocumentDetailsBuilder get templateSsmDocumentDetails =>
@@ -133,13 +133,13 @@ class PutConformancePackRequestBuilder
   PutConformancePackRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _conformancePackInputParameters =
-          $v.conformancePackInputParameters?.toBuilder();
       _conformancePackName = $v.conformancePackName;
+      _templateS3Uri = $v.templateS3Uri;
+      _templateBody = $v.templateBody;
       _deliveryS3Bucket = $v.deliveryS3Bucket;
       _deliveryS3KeyPrefix = $v.deliveryS3KeyPrefix;
-      _templateBody = $v.templateBody;
-      _templateS3Uri = $v.templateS3Uri;
+      _conformancePackInputParameters =
+          $v.conformancePackInputParameters?.toBuilder();
       _templateSsmDocumentDetails = $v.templateSsmDocumentDetails?.toBuilder();
       _$v = null;
     }
@@ -165,23 +165,22 @@ class PutConformancePackRequestBuilder
     try {
       _$result = _$v ??
           new _$PutConformancePackRequest._(
-              conformancePackInputParameters:
-                  _conformancePackInputParameters?.build(),
               conformancePackName: BuiltValueNullFieldError.checkNotNull(
                   conformancePackName,
                   r'PutConformancePackRequest',
                   'conformancePackName'),
+              templateS3Uri: templateS3Uri,
+              templateBody: templateBody,
               deliveryS3Bucket: deliveryS3Bucket,
               deliveryS3KeyPrefix: deliveryS3KeyPrefix,
-              templateBody: templateBody,
-              templateS3Uri: templateS3Uri,
+              conformancePackInputParameters:
+                  _conformancePackInputParameters?.build(),
               templateSsmDocumentDetails: _templateSsmDocumentDetails?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'conformancePackInputParameters';
         _conformancePackInputParameters?.build();
-
         _$failedField = 'templateSsmDocumentDetails';
         _templateSsmDocumentDetails?.build();
       } catch (e) {

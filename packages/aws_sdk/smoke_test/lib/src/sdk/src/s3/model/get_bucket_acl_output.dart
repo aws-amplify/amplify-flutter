@@ -7,8 +7,8 @@ import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i2;
 
 part 'get_bucket_acl_output.g.dart';
 
@@ -16,12 +16,12 @@ abstract class GetBucketAclOutput
     with _i1.AWSEquatable<GetBucketAclOutput>
     implements Built<GetBucketAclOutput, GetBucketAclOutputBuilder> {
   factory GetBucketAclOutput({
-    List<_i2.Grant>? grants,
-    _i3.Owner? owner,
+    _i2.Owner? owner,
+    List<_i3.Grant>? grants,
   }) {
     return _$GetBucketAclOutput._(
-      grants: grants == null ? null : _i4.BuiltList(grants),
       owner: owner,
+      grants: grants == null ? null : _i4.BuiltList(grants),
     );
   }
 
@@ -45,26 +45,26 @@ abstract class GetBucketAclOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetBucketAclOutputBuilder b) {}
 
-  /// A list of grants.
-  _i4.BuiltList<_i2.Grant>? get grants;
-
   /// Container for the bucket owner's display name and ID.
-  _i3.Owner? get owner;
+  _i2.Owner? get owner;
+
+  /// A list of grants.
+  _i4.BuiltList<_i3.Grant>? get grants;
   @override
   List<Object?> get props => [
-        grants,
         owner,
+        grants,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetBucketAclOutput');
     helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
       'owner',
       owner,
+    );
+    helper.add(
+      'grants',
+      grants,
     );
     return helper.toString();
   }
@@ -105,20 +105,20 @@ class GetBucketAclOutputRestXmlSerializer
                 (const _i5.XmlBuiltListSerializer(memberName: 'Grant')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltList,
-                [FullType(_i2.Grant)],
+                [FullType(_i3.Grant)],
               ),
-            ) as _i4.BuiltList<_i2.Grant>));
+            ) as _i4.BuiltList<_i3.Grant>));
           }
           break;
         case 'Owner':
           if (value != null) {
             result.owner.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
+              specifiedType: const FullType(_i2.Owner),
+            ) as _i2.Owner));
           }
           break;
       }
@@ -148,7 +148,7 @@ class GetBucketAclOutputRestXmlSerializer
           payload.grants!,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
-            [FullType(_i2.Grant)],
+            [FullType(_i3.Grant)],
           ),
         ));
     }
@@ -157,7 +157,7 @@ class GetBucketAclOutputRestXmlSerializer
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
           payload.owner!,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(_i2.Owner),
         ));
     }
     return result;

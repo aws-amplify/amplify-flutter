@@ -24,12 +24,12 @@ abstract class DeleteGatewayResponseRequest
         _i1.HasPayload<DeleteGatewayResponseRequestPayload> {
   /// Clears any customization of a GatewayResponse of a specified response type on the given RestApi and resets it with the default settings.
   factory DeleteGatewayResponseRequest({
-    required _i3.GatewayResponseType responseType,
     required String restApiId,
+    required _i3.GatewayResponseType responseType,
   }) {
     return _$DeleteGatewayResponseRequest._(
-      responseType: responseType,
       restApiId: restApiId,
+      responseType: responseType,
     );
   }
 
@@ -62,11 +62,11 @@ abstract class DeleteGatewayResponseRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteGatewayResponseRequestBuilder b) {}
 
-  /// The response type of the associated GatewayResponse.
-  _i3.GatewayResponseType get responseType;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The response type of the associated GatewayResponse.
+  _i3.GatewayResponseType get responseType;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -86,19 +86,19 @@ abstract class DeleteGatewayResponseRequest
       DeleteGatewayResponseRequestPayload();
   @override
   List<Object?> get props => [
-        responseType,
         restApiId,
+        responseType,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteGatewayResponseRequest');
     helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'responseType',
+      responseType,
     );
     return helper.toString();
   }

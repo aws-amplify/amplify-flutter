@@ -18,12 +18,12 @@ abstract class ListStreamsOutput
     implements Built<ListStreamsOutput, ListStreamsOutputBuilder> {
   /// Represents the output of a `ListStreams` operation.
   factory ListStreamsOutput({
-    String? lastEvaluatedStreamArn,
     List<_i2.Stream>? streams,
+    String? lastEvaluatedStreamArn,
   }) {
     return _$ListStreamsOutput._(
-      lastEvaluatedStreamArn: lastEvaluatedStreamArn,
       streams: streams == null ? null : _i3.BuiltList(streams),
+      lastEvaluatedStreamArn: lastEvaluatedStreamArn,
     );
   }
 
@@ -47,30 +47,30 @@ abstract class ListStreamsOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStreamsOutputBuilder b) {}
 
+  /// A list of stream descriptors associated with the current account and endpoint.
+  _i3.BuiltList<_i2.Stream>? get streams;
+
   /// The stream ARN of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
   ///
   /// If `LastEvaluatedStreamArn` is empty, then the "last page" of results has been processed and there is no more data to be retrieved.
   ///
   /// If `LastEvaluatedStreamArn` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedStreamArn` is empty.
   String? get lastEvaluatedStreamArn;
-
-  /// A list of stream descriptors associated with the current account and endpoint.
-  _i3.BuiltList<_i2.Stream>? get streams;
   @override
   List<Object?> get props => [
-        lastEvaluatedStreamArn,
         streams,
+        lastEvaluatedStreamArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStreamsOutput');
     helper.add(
-      'lastEvaluatedStreamArn',
-      lastEvaluatedStreamArn,
-    );
-    helper.add(
       'streams',
       streams,
+    );
+    helper.add(
+      'lastEvaluatedStreamArn',
+      lastEvaluatedStreamArn,
     );
     return helper.toString();
   }
@@ -105,14 +105,6 @@ class ListStreamsOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'LastEvaluatedStreamArn':
-          if (value != null) {
-            result.lastEvaluatedStreamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'Streams':
           if (value != null) {
             result.streams.replace((serializers.deserialize(
@@ -122,6 +114,14 @@ class ListStreamsOutputAwsJson10Serializer
                 [FullType(_i2.Stream)],
               ),
             ) as _i3.BuiltList<_i2.Stream>));
+          }
+          break;
+        case 'LastEvaluatedStreamArn':
+          if (value != null) {
+            result.lastEvaluatedStreamArn = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -138,14 +138,6 @@ class ListStreamsOutputAwsJson10Serializer
   }) {
     final payload = (object as ListStreamsOutput);
     final result = <Object?>[];
-    if (payload.lastEvaluatedStreamArn != null) {
-      result
-        ..add('LastEvaluatedStreamArn')
-        ..add(serializers.serialize(
-          payload.lastEvaluatedStreamArn!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.streams != null) {
       result
         ..add('Streams')
@@ -155,6 +147,14 @@ class ListStreamsOutputAwsJson10Serializer
             _i3.BuiltList,
             [FullType(_i2.Stream)],
           ),
+        ));
+    }
+    if (payload.lastEvaluatedStreamArn != null) {
+      result
+        ..add('LastEvaluatedStreamArn')
+        ..add(serializers.serialize(
+          payload.lastEvaluatedStreamArn!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

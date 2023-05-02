@@ -23,13 +23,13 @@ abstract class UpdateVpcLinkRequest
         _i1.HasPayload<UpdateVpcLinkRequestPayload> {
   /// Updates an existing VpcLink of a specified identifier.
   factory UpdateVpcLinkRequest({
-    List<_i3.PatchOperation>? patchOperations,
     required String vpcLinkId,
+    List<_i3.PatchOperation>? patchOperations,
   }) {
     return _$UpdateVpcLinkRequest._(
+      vpcLinkId: vpcLinkId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      vpcLinkId: vpcLinkId,
     );
   }
 
@@ -61,11 +61,11 @@ abstract class UpdateVpcLinkRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateVpcLinkRequestBuilder b) {}
 
-  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String get vpcLinkId;
+
+  /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
+  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -86,19 +86,19 @@ abstract class UpdateVpcLinkRequest
       });
   @override
   List<Object?> get props => [
-        patchOperations,
         vpcLinkId,
+        patchOperations,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequest');
     helper.add(
-      'patchOperations',
-      patchOperations,
-    );
-    helper.add(
       'vpcLinkId',
       vpcLinkId,
+    );
+    helper.add(
+      'patchOperations',
+      patchOperations,
     );
     return helper.toString();
   }

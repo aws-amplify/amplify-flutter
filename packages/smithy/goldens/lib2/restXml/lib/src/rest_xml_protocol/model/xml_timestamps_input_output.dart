@@ -16,22 +16,22 @@ abstract class XmlTimestampsInputOutput
     implements
         Built<XmlTimestampsInputOutput, XmlTimestampsInputOutputBuilder> {
   factory XmlTimestampsInputOutput({
+    DateTime? normal,
     DateTime? dateTime,
     DateTime? dateTimeOnTarget,
     DateTime? epochSeconds,
     DateTime? epochSecondsOnTarget,
     DateTime? httpDate,
     DateTime? httpDateOnTarget,
-    DateTime? normal,
   }) {
     return _$XmlTimestampsInputOutput._(
+      normal: normal,
       dateTime: dateTime,
       dateTimeOnTarget: dateTimeOnTarget,
       epochSeconds: epochSeconds,
       epochSecondsOnTarget: epochSecondsOnTarget,
       httpDate: httpDate,
       httpDateOnTarget: httpDateOnTarget,
-      normal: normal,
     );
   }
 
@@ -61,28 +61,32 @@ abstract class XmlTimestampsInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(XmlTimestampsInputOutputBuilder b) {}
+  DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;
   DateTime? get epochSeconds;
   DateTime? get epochSecondsOnTarget;
   DateTime? get httpDate;
   DateTime? get httpDateOnTarget;
-  DateTime? get normal;
   @override
   XmlTimestampsInputOutput getPayload() => this;
   @override
   List<Object?> get props => [
+        normal,
         dateTime,
         dateTimeOnTarget,
         epochSeconds,
         epochSecondsOnTarget,
         httpDate,
         httpDateOnTarget,
-        normal,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('XmlTimestampsInputOutput');
+    helper.add(
+      'normal',
+      normal,
+    );
     helper.add(
       'dateTime',
       dateTime,
@@ -106,10 +110,6 @@ abstract class XmlTimestampsInputOutput
     helper.add(
       'httpDateOnTarget',
       httpDateOnTarget,
-    );
-    helper.add(
-      'normal',
-      normal,
     );
     return helper.toString();
   }

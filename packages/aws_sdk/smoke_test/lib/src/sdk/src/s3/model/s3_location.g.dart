@@ -8,34 +8,34 @@ part of smoke_test.s3.model.s3_location;
 
 class _$S3Location extends S3Location {
   @override
-  final _i8.BuiltList<_i2.Grant>? accessControlList;
-  @override
   final String bucketName;
-  @override
-  final _i3.ObjectCannedAcl? cannedAcl;
-  @override
-  final _i4.Encryption? encryption;
   @override
   final String prefix;
   @override
-  final _i5.StorageClass? storageClass;
+  final _i2.Encryption? encryption;
   @override
-  final _i6.Tagging? tagging;
+  final _i3.ObjectCannedAcl? cannedAcl;
   @override
-  final _i8.BuiltList<_i7.MetadataEntry>? userMetadata;
+  final _i8.BuiltList<_i4.Grant>? accessControlList;
+  @override
+  final _i5.Tagging? tagging;
+  @override
+  final _i8.BuiltList<_i6.MetadataEntry>? userMetadata;
+  @override
+  final _i7.StorageClass? storageClass;
 
   factory _$S3Location([void Function(S3LocationBuilder)? updates]) =>
       (new S3LocationBuilder()..update(updates))._build();
 
   _$S3Location._(
-      {this.accessControlList,
-      required this.bucketName,
-      this.cannedAcl,
-      this.encryption,
+      {required this.bucketName,
       required this.prefix,
-      this.storageClass,
+      this.encryption,
+      this.cannedAcl,
+      this.accessControlList,
       this.tagging,
-      this.userMetadata})
+      this.userMetadata,
+      this.storageClass})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucketName, r'S3Location', 'bucketName');
@@ -53,27 +53,27 @@ class _$S3Location extends S3Location {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is S3Location &&
-        accessControlList == other.accessControlList &&
         bucketName == other.bucketName &&
-        cannedAcl == other.cannedAcl &&
-        encryption == other.encryption &&
         prefix == other.prefix &&
-        storageClass == other.storageClass &&
+        encryption == other.encryption &&
+        cannedAcl == other.cannedAcl &&
+        accessControlList == other.accessControlList &&
         tagging == other.tagging &&
-        userMetadata == other.userMetadata;
+        userMetadata == other.userMetadata &&
+        storageClass == other.storageClass;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessControlList.hashCode);
     _$hash = $jc(_$hash, bucketName.hashCode);
-    _$hash = $jc(_$hash, cannedAcl.hashCode);
-    _$hash = $jc(_$hash, encryption.hashCode);
     _$hash = $jc(_$hash, prefix.hashCode);
-    _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, encryption.hashCode);
+    _$hash = $jc(_$hash, cannedAcl.hashCode);
+    _$hash = $jc(_$hash, accessControlList.hashCode);
     _$hash = $jc(_$hash, tagging.hashCode);
     _$hash = $jc(_$hash, userMetadata.hashCode);
+    _$hash = $jc(_$hash, storageClass.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,46 +82,46 @@ class _$S3Location extends S3Location {
 class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
   _$S3Location? _$v;
 
-  _i8.ListBuilder<_i2.Grant>? _accessControlList;
-  _i8.ListBuilder<_i2.Grant> get accessControlList =>
-      _$this._accessControlList ??= new _i8.ListBuilder<_i2.Grant>();
-  set accessControlList(_i8.ListBuilder<_i2.Grant>? accessControlList) =>
-      _$this._accessControlList = accessControlList;
-
   String? _bucketName;
   String? get bucketName => _$this._bucketName;
   set bucketName(String? bucketName) => _$this._bucketName = bucketName;
+
+  String? _prefix;
+  String? get prefix => _$this._prefix;
+  set prefix(String? prefix) => _$this._prefix = prefix;
+
+  _i2.EncryptionBuilder? _encryption;
+  _i2.EncryptionBuilder get encryption =>
+      _$this._encryption ??= new _i2.EncryptionBuilder();
+  set encryption(_i2.EncryptionBuilder? encryption) =>
+      _$this._encryption = encryption;
 
   _i3.ObjectCannedAcl? _cannedAcl;
   _i3.ObjectCannedAcl? get cannedAcl => _$this._cannedAcl;
   set cannedAcl(_i3.ObjectCannedAcl? cannedAcl) =>
       _$this._cannedAcl = cannedAcl;
 
-  _i4.EncryptionBuilder? _encryption;
-  _i4.EncryptionBuilder get encryption =>
-      _$this._encryption ??= new _i4.EncryptionBuilder();
-  set encryption(_i4.EncryptionBuilder? encryption) =>
-      _$this._encryption = encryption;
+  _i8.ListBuilder<_i4.Grant>? _accessControlList;
+  _i8.ListBuilder<_i4.Grant> get accessControlList =>
+      _$this._accessControlList ??= new _i8.ListBuilder<_i4.Grant>();
+  set accessControlList(_i8.ListBuilder<_i4.Grant>? accessControlList) =>
+      _$this._accessControlList = accessControlList;
 
-  String? _prefix;
-  String? get prefix => _$this._prefix;
-  set prefix(String? prefix) => _$this._prefix = prefix;
+  _i5.TaggingBuilder? _tagging;
+  _i5.TaggingBuilder get tagging =>
+      _$this._tagging ??= new _i5.TaggingBuilder();
+  set tagging(_i5.TaggingBuilder? tagging) => _$this._tagging = tagging;
 
-  _i5.StorageClass? _storageClass;
-  _i5.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i5.StorageClass? storageClass) =>
-      _$this._storageClass = storageClass;
-
-  _i6.TaggingBuilder? _tagging;
-  _i6.TaggingBuilder get tagging =>
-      _$this._tagging ??= new _i6.TaggingBuilder();
-  set tagging(_i6.TaggingBuilder? tagging) => _$this._tagging = tagging;
-
-  _i8.ListBuilder<_i7.MetadataEntry>? _userMetadata;
-  _i8.ListBuilder<_i7.MetadataEntry> get userMetadata =>
-      _$this._userMetadata ??= new _i8.ListBuilder<_i7.MetadataEntry>();
-  set userMetadata(_i8.ListBuilder<_i7.MetadataEntry>? userMetadata) =>
+  _i8.ListBuilder<_i6.MetadataEntry>? _userMetadata;
+  _i8.ListBuilder<_i6.MetadataEntry> get userMetadata =>
+      _$this._userMetadata ??= new _i8.ListBuilder<_i6.MetadataEntry>();
+  set userMetadata(_i8.ListBuilder<_i6.MetadataEntry>? userMetadata) =>
       _$this._userMetadata = userMetadata;
+
+  _i7.StorageClass? _storageClass;
+  _i7.StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i7.StorageClass? storageClass) =>
+      _$this._storageClass = storageClass;
 
   S3LocationBuilder() {
     S3Location._init(this);
@@ -130,14 +130,14 @@ class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
   S3LocationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessControlList = $v.accessControlList?.toBuilder();
       _bucketName = $v.bucketName;
-      _cannedAcl = $v.cannedAcl;
-      _encryption = $v.encryption?.toBuilder();
       _prefix = $v.prefix;
-      _storageClass = $v.storageClass;
+      _encryption = $v.encryption?.toBuilder();
+      _cannedAcl = $v.cannedAcl;
+      _accessControlList = $v.accessControlList?.toBuilder();
       _tagging = $v.tagging?.toBuilder();
       _userMetadata = $v.userMetadata?.toBuilder();
+      _storageClass = $v.storageClass;
       _$v = null;
     }
     return this;
@@ -162,25 +162,24 @@ class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
     try {
       _$result = _$v ??
           new _$S3Location._(
-              accessControlList: _accessControlList?.build(),
               bucketName: BuiltValueNullFieldError.checkNotNull(
                   bucketName, r'S3Location', 'bucketName'),
-              cannedAcl: cannedAcl,
-              encryption: _encryption?.build(),
               prefix: BuiltValueNullFieldError.checkNotNull(
                   prefix, r'S3Location', 'prefix'),
-              storageClass: storageClass,
+              encryption: _encryption?.build(),
+              cannedAcl: cannedAcl,
+              accessControlList: _accessControlList?.build(),
               tagging: _tagging?.build(),
-              userMetadata: _userMetadata?.build());
+              userMetadata: _userMetadata?.build(),
+              storageClass: storageClass);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'accessControlList';
-        _accessControlList?.build();
-
         _$failedField = 'encryption';
         _encryption?.build();
 
+        _$failedField = 'accessControlList';
+        _accessControlList?.build();
         _$failedField = 'tagging';
         _tagging?.build();
         _$failedField = 'userMetadata';

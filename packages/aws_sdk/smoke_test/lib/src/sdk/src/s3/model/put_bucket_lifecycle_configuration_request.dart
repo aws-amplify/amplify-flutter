@@ -25,14 +25,14 @@ abstract class PutBucketLifecycleConfigurationRequest
   factory PutBucketLifecycleConfigurationRequest({
     required String bucket,
     _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? expectedBucketOwner,
     _i2.BucketLifecycleConfiguration? lifecycleConfiguration,
+    String? expectedBucketOwner,
   }) {
     return _$PutBucketLifecycleConfigurationRequest._(
       bucket: bucket,
       checksumAlgorithm: checksumAlgorithm,
-      expectedBucketOwner: expectedBucketOwner,
       lifecycleConfiguration: lifecycleConfiguration,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -79,11 +79,11 @@ abstract class PutBucketLifecycleConfigurationRequest
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
   _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Container for lifecycle rules. You can add as many as 1,000 rules.
   _i2.BucketLifecycleConfiguration? get lifecycleConfiguration;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -102,8 +102,8 @@ abstract class PutBucketLifecycleConfigurationRequest
   List<Object?> get props => [
         bucket,
         checksumAlgorithm,
-        expectedBucketOwner,
         lifecycleConfiguration,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -118,12 +118,12 @@ abstract class PutBucketLifecycleConfigurationRequest
       checksumAlgorithm,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'lifecycleConfiguration',
       lifecycleConfiguration,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

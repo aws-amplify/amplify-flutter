@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+PROJECT_DIR=$(mktemp -d)
+cd $PROJECT_DIR
+
+# generate
+flutter create --project-name=amplified_todo .
+flutter pub add amplify_flutter \
+  amplify_datastore:^1.0.0-supports-only-mobile.0 \
+  amplify_storage_s3 \
+  amplify_analytics_pinpoint \
+  amplify_auth_cognito \
+  amplify_authenticator \
+  amplify_api
+# add test packages
+flutter pub add dev:integration_test:'{"sdk":"flutter"}' dev:flutter_test:'{"sdk":"flutter"}'
+flutter pub upgrade --major-versions
+
+# copy template files to newly generated app
+cp -r $ROOT_DIR/canaries/lib .
+cp $ROOT_DIR/.circleci/dummy_amplifyconfiguration.dart lib/amplifyconfiguration.dart
+
+# Android
+sed -i'' -e "s/minSdkVersion .*/minSdkVersion 24/" ./android/app/build.gradle && cat ./android/app/build.gradle
+# iOS
+sed -i'' -e "s/# platform .*/platform :ios, '13.0'/" ./ios/Podfile && cat ./ios/Podfile
+
+flutter build $@

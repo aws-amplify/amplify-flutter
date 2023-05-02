@@ -104,7 +104,7 @@ class ListBucketsOutputRestXmlSerializer
                 (const _i5.XmlBuiltListSerializer(memberName: 'Bucket')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i4.BuiltList,
                 [FullType(_i2.Bucket)],

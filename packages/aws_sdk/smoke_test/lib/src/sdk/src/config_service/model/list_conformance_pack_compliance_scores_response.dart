@@ -19,14 +19,14 @@ abstract class ListConformancePackComplianceScoresResponse
         Built<ListConformancePackComplianceScoresResponse,
             ListConformancePackComplianceScoresResponseBuilder> {
   factory ListConformancePackComplianceScoresResponse({
+    String? nextToken,
     required List<_i2.ConformancePackComplianceScore>
         conformancePackComplianceScores,
-    String? nextToken,
   }) {
     return _$ListConformancePackComplianceScoresResponse._(
+      nextToken: nextToken,
       conformancePackComplianceScores:
           _i3.BuiltList(conformancePackComplianceScores),
-      nextToken: nextToken,
     );
   }
 
@@ -50,28 +50,28 @@ abstract class ListConformancePackComplianceScoresResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListConformancePackComplianceScoresResponseBuilder b) {}
 
+  /// The `nextToken` string that you can use to get the next page of results in a paginated response.
+  String? get nextToken;
+
   /// A list of `ConformancePackComplianceScore` objects.
   _i3.BuiltList<_i2.ConformancePackComplianceScore>
       get conformancePackComplianceScores;
-
-  /// The `nextToken` string that you can use to get the next page of results in a paginated response.
-  String? get nextToken;
   @override
   List<Object?> get props => [
-        conformancePackComplianceScores,
         nextToken,
+        conformancePackComplianceScores,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'ListConformancePackComplianceScoresResponse');
     helper.add(
-      'conformancePackComplianceScores',
-      conformancePackComplianceScores,
-    );
-    helper.add(
       'nextToken',
       nextToken,
+    );
+    helper.add(
+      'conformancePackComplianceScores',
+      conformancePackComplianceScores,
     );
     return helper.toString();
   }
@@ -107,6 +107,14 @@ class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ConformancePackComplianceScores':
           result.conformancePackComplianceScores
               .replace((serializers.deserialize(
@@ -116,14 +124,6 @@ class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
               [FullType(_i2.ConformancePackComplianceScore)],
             ),
           ) as _i3.BuiltList<_i2.ConformancePackComplianceScore>));
-          break;
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
           break;
       }
     }

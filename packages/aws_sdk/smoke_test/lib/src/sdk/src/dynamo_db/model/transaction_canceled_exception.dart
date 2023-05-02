@@ -238,14 +238,14 @@ abstract class TransactionCanceledException
   ///
   ///         *   The provided expression refers to an attribute that does not exist in the item.
   factory TransactionCanceledException({
-    List<_i3.CancellationReason>? cancellationReasons,
     String? message,
+    List<_i3.CancellationReason>? cancellationReasons,
   }) {
     return _$TransactionCanceledException._(
+      message: message,
       cancellationReasons: cancellationReasons == null
           ? null
           : _i4.BuiltList(cancellationReasons),
-      message: message,
     );
   }
 
@@ -380,11 +380,11 @@ abstract class TransactionCanceledException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TransactionCanceledExceptionBuilder b) {}
+  @override
+  String? get message;
 
   /// A list of cancellation reasons.
   _i4.BuiltList<_i3.CancellationReason>? get cancellationReasons;
-  @override
-  String? get message;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.dynamodb',
@@ -402,19 +402,19 @@ abstract class TransactionCanceledException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        cancellationReasons,
         message,
+        cancellationReasons,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TransactionCanceledException');
     helper.add(
-      'cancellationReasons',
-      cancellationReasons,
-    );
-    helper.add(
       'message',
       message,
+    );
+    helper.add(
+      'cancellationReasons',
+      cancellationReasons,
     );
     return helper.toString();
   }
@@ -450,6 +450,14 @@ class TransactionCanceledExceptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'Message':
+          if (value != null) {
+            result.message = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'CancellationReasons':
           if (value != null) {
             result.cancellationReasons.replace((serializers.deserialize(
@@ -459,14 +467,6 @@ class TransactionCanceledExceptionAwsJson10Serializer
                 [FullType(_i3.CancellationReason)],
               ),
             ) as _i4.BuiltList<_i3.CancellationReason>));
-          }
-          break;
-        case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -483,6 +483,14 @@ class TransactionCanceledExceptionAwsJson10Serializer
   }) {
     final payload = (object as TransactionCanceledException);
     final result = <Object?>[];
+    if (payload.message != null) {
+      result
+        ..add('Message')
+        ..add(serializers.serialize(
+          payload.message!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.cancellationReasons != null) {
       result
         ..add('CancellationReasons')
@@ -492,14 +500,6 @@ class TransactionCanceledExceptionAwsJson10Serializer
             _i4.BuiltList,
             [FullType(_i3.CancellationReason)],
           ),
-        ));
-    }
-    if (payload.message != null) {
-      result
-        ..add('Message')
-        ..add(serializers.serialize(
-          payload.message!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

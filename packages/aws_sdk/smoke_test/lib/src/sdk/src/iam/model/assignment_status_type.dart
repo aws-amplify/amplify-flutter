@@ -1,0 +1,71 @@
+// Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+
+library smoke_test.iam.model.assignment_status_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+import 'package:smithy/smithy.dart' as _i1;
+
+class AssignmentStatusType extends _i1.SmithyEnum<AssignmentStatusType> {
+  const AssignmentStatusType._(
+    int index,
+    String name,
+    String value,
+  ) : super(
+          index,
+          name,
+          value,
+        );
+
+  const AssignmentStatusType._sdkUnknown(String value)
+      : super.sdkUnknown(value);
+
+  static const any = AssignmentStatusType._(
+    0,
+    'Any',
+    'Any',
+  );
+
+  static const assigned = AssignmentStatusType._(
+    1,
+    'Assigned',
+    'Assigned',
+  );
+
+  static const unassigned = AssignmentStatusType._(
+    2,
+    'Unassigned',
+    'Unassigned',
+  );
+
+  /// All values of [AssignmentStatusType].
+  static const values = <AssignmentStatusType>[
+    AssignmentStatusType.any,
+    AssignmentStatusType.assigned,
+    AssignmentStatusType.unassigned,
+  ];
+
+  static const List<_i1.SmithySerializer<AssignmentStatusType>> serializers = [
+    _i1.SmithyEnumSerializer(
+      'assignmentStatusType',
+      values: values,
+      sdkUnknown: AssignmentStatusType._sdkUnknown,
+      supportedProtocols: [
+        _i1.ShapeId(
+          namespace: 'aws.protocols',
+          shape: 'awsQuery',
+        )
+      ],
+    )
+  ];
+}
+
+extension AssignmentStatusTypeHelpers on List<AssignmentStatusType> {
+  /// Returns the value of [AssignmentStatusType] whose name matches [name].
+  ///
+  /// Throws a `StateError` if no matching value is found.
+  AssignmentStatusType byName(String name) =>
+      firstWhere((el) => el.name.toLowerCase() == name.toLowerCase());
+
+  /// Returns the value of [AssignmentStatusType] whose value matches [value].
+  AssignmentStatusType byValue(String value) =>
+      firstWhere((el) => el.value == value);
+}

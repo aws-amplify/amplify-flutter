@@ -8,21 +8,21 @@ part of smoke_test.api_gateway.model.delete_request_validator_request;
 
 class _$DeleteRequestValidatorRequest extends DeleteRequestValidatorRequest {
   @override
-  final String requestValidatorId;
-  @override
   final String restApiId;
+  @override
+  final String requestValidatorId;
 
   factory _$DeleteRequestValidatorRequest(
           [void Function(DeleteRequestValidatorRequestBuilder)? updates]) =>
       (new DeleteRequestValidatorRequestBuilder()..update(updates))._build();
 
   _$DeleteRequestValidatorRequest._(
-      {required this.requestValidatorId, required this.restApiId})
+      {required this.restApiId, required this.requestValidatorId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
-        r'DeleteRequestValidatorRequest', 'requestValidatorId');
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'DeleteRequestValidatorRequest', 'restApiId');
+    BuiltValueNullFieldError.checkNotNull(requestValidatorId,
+        r'DeleteRequestValidatorRequest', 'requestValidatorId');
   }
 
   @override
@@ -38,15 +38,15 @@ class _$DeleteRequestValidatorRequest extends DeleteRequestValidatorRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeleteRequestValidatorRequest &&
-        requestValidatorId == other.requestValidatorId &&
-        restApiId == other.restApiId;
+        restApiId == other.restApiId &&
+        requestValidatorId == other.requestValidatorId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, requestValidatorId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, requestValidatorId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -58,14 +58,14 @@ class DeleteRequestValidatorRequestBuilder
             DeleteRequestValidatorRequestBuilder> {
   _$DeleteRequestValidatorRequest? _$v;
 
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
   String? _requestValidatorId;
   String? get requestValidatorId => _$this._requestValidatorId;
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   DeleteRequestValidatorRequestBuilder() {
     DeleteRequestValidatorRequest._init(this);
@@ -74,8 +74,8 @@ class DeleteRequestValidatorRequestBuilder
   DeleteRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _requestValidatorId = $v.requestValidatorId;
       _restApiId = $v.restApiId;
+      _requestValidatorId = $v.requestValidatorId;
       _$v = null;
     }
     return this;
@@ -98,12 +98,12 @@ class DeleteRequestValidatorRequestBuilder
   _$DeleteRequestValidatorRequest _build() {
     final _$result = _$v ??
         new _$DeleteRequestValidatorRequest._(
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'DeleteRequestValidatorRequest', 'restApiId'),
             requestValidatorId: BuiltValueNullFieldError.checkNotNull(
                 requestValidatorId,
                 r'DeleteRequestValidatorRequest',
-                'requestValidatorId'),
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'DeleteRequestValidatorRequest', 'restApiId'));
+                'requestValidatorId'));
     replace(_$result);
     return _$result;
   }

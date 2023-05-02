@@ -17,13 +17,15 @@ abstract class Usage
     implements Built<Usage, UsageBuilder> {
   /// Represents the usage data of a usage plan.
   factory Usage({
+    String? usagePlanId,
+    String? startDate,
     String? endDate,
     Map<String, List<List<_i2.Int64>>>? items,
     String? position,
-    String? startDate,
-    String? usagePlanId,
   }) {
     return _$Usage._(
+      usagePlanId: usagePlanId,
+      startDate: startDate,
       endDate: endDate,
       items: items == null
           ? null
@@ -36,8 +38,6 @@ abstract class Usage
                 value.map((el) => _i3.BuiltList(el)),
               ))),
       position: position,
-      startDate: startDate,
-      usagePlanId: usagePlanId,
     );
   }
 
@@ -60,6 +60,12 @@ abstract class Usage
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsageBuilder b) {}
 
+  /// The plan Id associated with this usage data.
+  String? get usagePlanId;
+
+  /// The starting date of the usage data.
+  String? get startDate;
+
   /// The ending date of the usage data.
   String? get endDate;
 
@@ -68,23 +74,25 @@ abstract class Usage
 
   /// The current pagination position in the paged result set.
   String? get position;
-
-  /// The starting date of the usage data.
-  String? get startDate;
-
-  /// The plan Id associated with this usage data.
-  String? get usagePlanId;
   @override
   List<Object?> get props => [
+        usagePlanId,
+        startDate,
         endDate,
         items,
         position,
-        startDate,
-        usagePlanId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Usage');
+    helper.add(
+      'usagePlanId',
+      usagePlanId,
+    );
+    helper.add(
+      'startDate',
+      startDate,
+    );
     helper.add(
       'endDate',
       endDate,
@@ -96,14 +104,6 @@ abstract class Usage
     helper.add(
       'position',
       position,
-    );
-    helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
     );
     return helper.toString();
   }

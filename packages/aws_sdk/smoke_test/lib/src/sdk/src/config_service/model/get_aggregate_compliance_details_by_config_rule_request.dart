@@ -19,20 +19,20 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
         Built<GetAggregateComplianceDetailsByConfigRuleRequest,
             GetAggregateComplianceDetailsByConfigRuleRequestBuilder> {
   factory GetAggregateComplianceDetailsByConfigRuleRequest({
+    required String configurationAggregatorName,
+    required String configRuleName,
     required String accountId,
     required String awsRegion,
     _i3.ComplianceType? complianceType,
-    required String configRuleName,
-    required String configurationAggregatorName,
     int? limit,
     String? nextToken,
   }) {
     return _$GetAggregateComplianceDetailsByConfigRuleRequest._(
+      configurationAggregatorName: configurationAggregatorName,
+      configRuleName: configRuleName,
       accountId: accountId,
       awsRegion: awsRegion,
       complianceType: complianceType,
-      configRuleName: configRuleName,
-      configurationAggregatorName: configurationAggregatorName,
       limit: limit,
       nextToken: nextToken,
     );
@@ -59,6 +59,12 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   static void _init(
       GetAggregateComplianceDetailsByConfigRuleRequestBuilder b) {}
 
+  /// The name of the configuration aggregator.
+  String get configurationAggregatorName;
+
+  /// The name of the Config rule for which you want compliance information.
+  String get configRuleName;
+
   /// The 12-digit account ID of the source account.
   String get accountId;
 
@@ -70,12 +76,6 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   /// For the `GetAggregateComplianceDetailsByConfigRuleRequest` data type, Config supports only the `COMPLIANT` and `NON_COMPLIANT`. Config does not support the `NOT_APPLICABLE` and `INSUFFICIENT_DATA` values.
   _i3.ComplianceType? get complianceType;
 
-  /// The name of the Config rule for which you want compliance information.
-  String get configRuleName;
-
-  /// The name of the configuration aggregator.
-  String get configurationAggregatorName;
-
   /// The maximum number of evaluation results returned on each page. The default is 50. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int? get limit;
 
@@ -85,11 +85,11 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   GetAggregateComplianceDetailsByConfigRuleRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        configurationAggregatorName,
+        configRuleName,
         accountId,
         awsRegion,
         complianceType,
-        configRuleName,
-        configurationAggregatorName,
         limit,
         nextToken,
       ];
@@ -97,6 +97,14 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetAggregateComplianceDetailsByConfigRuleRequest');
+    helper.add(
+      'configurationAggregatorName',
+      configurationAggregatorName,
+    );
+    helper.add(
+      'configRuleName',
+      configRuleName,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -108,14 +116,6 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
     helper.add(
       'complianceType',
       complianceType,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
     );
     helper.add(
       'limit',
@@ -160,6 +160,18 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'ConfigurationAggregatorName':
+          result.configurationAggregatorName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'ConfigRuleName':
+          result.configRuleName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'AccountId':
           result.accountId = (serializers.deserialize(
             value!,
@@ -179,18 +191,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
               specifiedType: const FullType(_i3.ComplianceType),
             ) as _i3.ComplianceType);
           }
-          break;
-        case 'ConfigRuleName':
-          result.configRuleName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
-        case 'ConfigurationAggregatorName':
-          result.configurationAggregatorName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
         case 'Limit':
           if (value != null) {
@@ -223,6 +223,16 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
     final payload =
         (object as GetAggregateComplianceDetailsByConfigRuleRequest);
     final result = <Object?>[
+      'ConfigurationAggregatorName',
+      serializers.serialize(
+        payload.configurationAggregatorName,
+        specifiedType: const FullType(String),
+      ),
+      'ConfigRuleName',
+      serializers.serialize(
+        payload.configRuleName,
+        specifiedType: const FullType(String),
+      ),
       'AccountId',
       serializers.serialize(
         payload.accountId,
@@ -231,16 +241,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
       'AwsRegion',
       serializers.serialize(
         payload.awsRegion,
-        specifiedType: const FullType(String),
-      ),
-      'ConfigRuleName',
-      serializers.serialize(
-        payload.configRuleName,
-        specifiedType: const FullType(String),
-      ),
-      'ConfigurationAggregatorName',
-      serializers.serialize(
-        payload.configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
     ];

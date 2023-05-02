@@ -22,13 +22,13 @@ abstract class ComplexError
   /// This error is thrown when a request is invalid.
   factory ComplexError({
     String? header,
-    _i3.ComplexNestedErrorData? nested,
     String? topLevel,
+    _i3.ComplexNestedErrorData? nested,
   }) {
     return _$ComplexError._(
       header: header,
-      nested: nested,
       topLevel: topLevel,
+      nested: nested,
     );
   }
 
@@ -61,8 +61,8 @@ abstract class ComplexError
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ComplexErrorBuilder b) {}
   String? get header;
-  _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
+  _i3.ComplexNestedErrorData? get nested;
   @override
   ComplexErrorPayload getPayload() => ComplexErrorPayload((b) {
         if (nested != null) {
@@ -90,8 +90,8 @@ abstract class ComplexError
   @override
   List<Object?> get props => [
         header,
-        nested,
         topLevel,
+        nested,
       ];
   @override
   String toString() {
@@ -101,12 +101,12 @@ abstract class ComplexError
       header,
     );
     helper.add(
-      'nested',
-      nested,
-    );
-    helper.add(
       'topLevel',
       topLevel,
+    );
+    helper.add(
+      'nested',
+      nested,
     );
     return helper.toString();
   }

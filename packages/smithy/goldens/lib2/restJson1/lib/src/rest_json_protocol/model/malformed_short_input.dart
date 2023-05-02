@@ -19,16 +19,16 @@ abstract class MalformedShortInput
         _i1.HasPayload<MalformedShortInputPayload> {
   factory MalformedShortInput({
     int? shortInBody,
-    int? shortInHeader,
     int? shortInPath,
     int? shortInQuery,
+    int? shortInHeader,
   }) {
     shortInPath ??= 0;
     return _$MalformedShortInput._(
       shortInBody: shortInBody,
-      shortInHeader: shortInHeader,
       shortInPath: shortInPath,
       shortInQuery: shortInQuery,
+      shortInHeader: shortInHeader,
     );
   }
 
@@ -66,9 +66,9 @@ abstract class MalformedShortInput
   }
 
   int? get shortInBody;
-  int? get shortInHeader;
   int get shortInPath;
   int? get shortInQuery;
+  int? get shortInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,9 +88,9 @@ abstract class MalformedShortInput
   @override
   List<Object?> get props => [
         shortInBody,
-        shortInHeader,
         shortInPath,
         shortInQuery,
+        shortInHeader,
       ];
   @override
   String toString() {
@@ -100,16 +100,16 @@ abstract class MalformedShortInput
       shortInBody,
     );
     helper.add(
-      'shortInHeader',
-      shortInHeader,
-    );
-    helper.add(
       'shortInPath',
       shortInPath,
     );
     helper.add(
       'shortInQuery',
       shortInQuery,
+    );
+    helper.add(
+      'shortInHeader',
+      shortInHeader,
     );
     return helper.toString();
   }

@@ -25,12 +25,11 @@ abstract class PutObjectAclRequest
         Built<PutObjectAclRequest, PutObjectAclRequestBuilder>,
         _i1.HasPayload<_i2.AccessControlPolicy> {
   factory PutObjectAclRequest({
-    _i2.AccessControlPolicy? accessControlPolicy,
     _i4.ObjectCannedAcl? acl,
+    _i2.AccessControlPolicy? accessControlPolicy,
     required String bucket,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
     String? contentMd5,
-    String? expectedBucketOwner,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
     String? grantFullControl,
     String? grantRead,
     String? grantReadAcp,
@@ -39,14 +38,14 @@ abstract class PutObjectAclRequest
     required String key,
     _i6.RequestPayer? requestPayer,
     String? versionId,
+    String? expectedBucketOwner,
   }) {
     return _$PutObjectAclRequest._(
-      accessControlPolicy: accessControlPolicy,
       acl: acl,
+      accessControlPolicy: accessControlPolicy,
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
       contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
+      checksumAlgorithm: checksumAlgorithm,
       grantFullControl: grantFullControl,
       grantRead: grantRead,
       grantReadAcp: grantReadAcp,
@@ -55,6 +54,7 @@ abstract class PutObjectAclRequest
       key: key,
       requestPayer: requestPayer,
       versionId: versionId,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -125,29 +125,26 @@ abstract class PutObjectAclRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectAclRequestBuilder b) {}
 
-  /// Contains the elements that set the ACL permissions for an object per grantee.
-  _i2.AccessControlPolicy? get accessControlPolicy;
-
   /// The canned ACL to apply to the object. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
   _i4.ObjectCannedAcl? get acl;
+
+  /// Contains the elements that set the ACL permissions for an object per grantee.
+  _i2.AccessControlPolicy? get accessControlPolicy;
 
   /// The bucket name that contains the object to which you want to attach the ACL.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
-
   /// The base64-encoded 128-bit MD5 digest of the data. This header must be used as a message integrity check to verify that the request body was not corrupted in transit. For more information, go to [RFC 1864.>](http://www.ietf.org/rfc/rfc1864.txt)
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
   ///
@@ -186,6 +183,9 @@ abstract class PutObjectAclRequest
 
   /// VersionId used to reference a specific version of the object.
   String? get versionId;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -205,12 +205,11 @@ abstract class PutObjectAclRequest
       accessControlPolicy ?? _i2.AccessControlPolicy();
   @override
   List<Object?> get props => [
-        accessControlPolicy,
         acl,
+        accessControlPolicy,
         bucket,
-        checksumAlgorithm,
         contentMd5,
-        expectedBucketOwner,
+        checksumAlgorithm,
         grantFullControl,
         grantRead,
         grantReadAcp,
@@ -219,33 +218,30 @@ abstract class PutObjectAclRequest
         key,
         requestPayer,
         versionId,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('PutObjectAclRequest');
     helper.add(
-      'accessControlPolicy',
-      accessControlPolicy,
-    );
-    helper.add(
       'acl',
       acl,
+    );
+    helper.add(
+      'accessControlPolicy',
+      accessControlPolicy,
     );
     helper.add(
       'bucket',
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'grantFullControl',
@@ -278,6 +274,10 @@ abstract class PutObjectAclRequest
     helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }
@@ -318,7 +318,7 @@ class PutObjectAclRequestRestXmlSerializer
                 (const _i1.XmlBuiltListSerializer(memberName: 'Grant')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i7.BuiltList,
                 [FullType(_i8.Grant)],

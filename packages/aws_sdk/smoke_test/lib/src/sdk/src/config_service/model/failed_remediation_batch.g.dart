@@ -8,15 +8,15 @@ part of smoke_test.config_service.model.failed_remediation_batch;
 
 class _$FailedRemediationBatch extends FailedRemediationBatch {
   @override
-  final _i3.BuiltList<_i2.RemediationConfiguration>? failedItems;
-  @override
   final String? failureMessage;
+  @override
+  final _i3.BuiltList<_i2.RemediationConfiguration>? failedItems;
 
   factory _$FailedRemediationBatch(
           [void Function(FailedRemediationBatchBuilder)? updates]) =>
       (new FailedRemediationBatchBuilder()..update(updates))._build();
 
-  _$FailedRemediationBatch._({this.failedItems, this.failureMessage})
+  _$FailedRemediationBatch._({this.failureMessage, this.failedItems})
       : super._();
 
   @override
@@ -32,15 +32,15 @@ class _$FailedRemediationBatch extends FailedRemediationBatch {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is FailedRemediationBatch &&
-        failedItems == other.failedItems &&
-        failureMessage == other.failureMessage;
+        failureMessage == other.failureMessage &&
+        failedItems == other.failedItems;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, failedItems.hashCode);
     _$hash = $jc(_$hash, failureMessage.hashCode);
+    _$hash = $jc(_$hash, failedItems.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,17 +50,17 @@ class FailedRemediationBatchBuilder
     implements Builder<FailedRemediationBatch, FailedRemediationBatchBuilder> {
   _$FailedRemediationBatch? _$v;
 
+  String? _failureMessage;
+  String? get failureMessage => _$this._failureMessage;
+  set failureMessage(String? failureMessage) =>
+      _$this._failureMessage = failureMessage;
+
   _i3.ListBuilder<_i2.RemediationConfiguration>? _failedItems;
   _i3.ListBuilder<_i2.RemediationConfiguration> get failedItems =>
       _$this._failedItems ??=
           new _i3.ListBuilder<_i2.RemediationConfiguration>();
   set failedItems(_i3.ListBuilder<_i2.RemediationConfiguration>? failedItems) =>
       _$this._failedItems = failedItems;
-
-  String? _failureMessage;
-  String? get failureMessage => _$this._failureMessage;
-  set failureMessage(String? failureMessage) =>
-      _$this._failureMessage = failureMessage;
 
   FailedRemediationBatchBuilder() {
     FailedRemediationBatch._init(this);
@@ -69,8 +69,8 @@ class FailedRemediationBatchBuilder
   FailedRemediationBatchBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _failedItems = $v.failedItems?.toBuilder();
       _failureMessage = $v.failureMessage;
+      _failedItems = $v.failedItems?.toBuilder();
       _$v = null;
     }
     return this;
@@ -95,8 +95,8 @@ class FailedRemediationBatchBuilder
     try {
       _$result = _$v ??
           new _$FailedRemediationBatch._(
-              failedItems: _failedItems?.build(),
-              failureMessage: failureMessage);
+              failureMessage: failureMessage,
+              failedItems: _failedItems?.build());
     } catch (_) {
       late String _$failedField;
       try {

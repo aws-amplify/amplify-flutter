@@ -8,28 +8,28 @@ part of rest_xml_v2.s3.model.object;
 
 class _$S3Object extends S3Object {
   @override
-  final String? eTag;
-  @override
   final String? key;
   @override
   final DateTime? lastModified;
   @override
-  final _i2.Owner? owner;
+  final String? eTag;
   @override
   final int? size;
   @override
-  final _i3.ObjectStorageClass? storageClass;
+  final _i2.ObjectStorageClass? storageClass;
+  @override
+  final _i3.Owner? owner;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
 
   _$S3Object._(
-      {this.eTag,
-      this.key,
+      {this.key,
       this.lastModified,
-      this.owner,
+      this.eTag,
       this.size,
-      this.storageClass})
+      this.storageClass,
+      this.owner})
       : super._();
 
   @override
@@ -43,23 +43,23 @@ class _$S3Object extends S3Object {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is S3Object &&
-        eTag == other.eTag &&
         key == other.key &&
         lastModified == other.lastModified &&
-        owner == other.owner &&
+        eTag == other.eTag &&
         size == other.size &&
-        storageClass == other.storageClass;
+        storageClass == other.storageClass &&
+        owner == other.owner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, eTag.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
     _$hash = $jc(_$hash, lastModified.hashCode);
-    _$hash = $jc(_$hash, owner.hashCode);
+    _$hash = $jc(_$hash, eTag.hashCode);
     _$hash = $jc(_$hash, size.hashCode);
     _$hash = $jc(_$hash, storageClass.hashCode);
+    _$hash = $jc(_$hash, owner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -67,10 +67,6 @@ class _$S3Object extends S3Object {
 
 class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _$S3Object? _$v;
-
-  String? _eTag;
-  String? get eTag => _$this._eTag;
-  set eTag(String? eTag) => _$this._eTag = eTag;
 
   String? _key;
   String? get key => _$this._key;
@@ -81,18 +77,22 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i2.OwnerBuilder? _owner;
-  _i2.OwnerBuilder get owner => _$this._owner ??= new _i2.OwnerBuilder();
-  set owner(_i2.OwnerBuilder? owner) => _$this._owner = owner;
+  String? _eTag;
+  String? get eTag => _$this._eTag;
+  set eTag(String? eTag) => _$this._eTag = eTag;
 
   int? _size;
   int? get size => _$this._size;
   set size(int? size) => _$this._size = size;
 
-  _i3.ObjectStorageClass? _storageClass;
-  _i3.ObjectStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i3.ObjectStorageClass? storageClass) =>
+  _i2.ObjectStorageClass? _storageClass;
+  _i2.ObjectStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(_i2.ObjectStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
+
+  _i3.OwnerBuilder? _owner;
+  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
+  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
   S3ObjectBuilder() {
     S3Object._init(this);
@@ -101,12 +101,12 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   S3ObjectBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _eTag = $v.eTag;
       _key = $v.key;
       _lastModified = $v.lastModified;
-      _owner = $v.owner?.toBuilder();
+      _eTag = $v.eTag;
       _size = $v.size;
       _storageClass = $v.storageClass;
+      _owner = $v.owner?.toBuilder();
       _$v = null;
     }
     return this;
@@ -131,12 +131,12 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
     try {
       _$result = _$v ??
           new _$S3Object._(
-              eTag: eTag,
               key: key,
               lastModified: lastModified,
-              owner: _owner?.build(),
+              eTag: eTag,
               size: size,
-              storageClass: storageClass);
+              storageClass: storageClass,
+              owner: _owner?.build());
     } catch (_) {
       late String _$failedField;
       try {

@@ -8,8 +8,6 @@ part of smoke_test.config_service.model.delivery_channel;
 
 class _$DeliveryChannel extends DeliveryChannel {
   @override
-  final _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties;
-  @override
   final String? name;
   @override
   final String? s3BucketName;
@@ -19,17 +17,19 @@ class _$DeliveryChannel extends DeliveryChannel {
   final String? s3KmsKeyArn;
   @override
   final String? snsTopicArn;
+  @override
+  final _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties;
 
   factory _$DeliveryChannel([void Function(DeliveryChannelBuilder)? updates]) =>
       (new DeliveryChannelBuilder()..update(updates))._build();
 
   _$DeliveryChannel._(
-      {this.configSnapshotDeliveryProperties,
-      this.name,
+      {this.name,
       this.s3BucketName,
       this.s3KeyPrefix,
       this.s3KmsKeyArn,
-      this.snsTopicArn})
+      this.snsTopicArn,
+      this.configSnapshotDeliveryProperties})
       : super._();
 
   @override
@@ -44,24 +44,24 @@ class _$DeliveryChannel extends DeliveryChannel {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is DeliveryChannel &&
-        configSnapshotDeliveryProperties ==
-            other.configSnapshotDeliveryProperties &&
         name == other.name &&
         s3BucketName == other.s3BucketName &&
         s3KeyPrefix == other.s3KeyPrefix &&
         s3KmsKeyArn == other.s3KmsKeyArn &&
-        snsTopicArn == other.snsTopicArn;
+        snsTopicArn == other.snsTopicArn &&
+        configSnapshotDeliveryProperties ==
+            other.configSnapshotDeliveryProperties;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, configSnapshotDeliveryProperties.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, s3BucketName.hashCode);
     _$hash = $jc(_$hash, s3KeyPrefix.hashCode);
     _$hash = $jc(_$hash, s3KmsKeyArn.hashCode);
     _$hash = $jc(_$hash, snsTopicArn.hashCode);
+    _$hash = $jc(_$hash, configSnapshotDeliveryProperties.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -70,18 +70,6 @@ class _$DeliveryChannel extends DeliveryChannel {
 class DeliveryChannelBuilder
     implements Builder<DeliveryChannel, DeliveryChannelBuilder> {
   _$DeliveryChannel? _$v;
-
-  _i2.ConfigSnapshotDeliveryPropertiesBuilder?
-      _configSnapshotDeliveryProperties;
-  _i2.ConfigSnapshotDeliveryPropertiesBuilder
-      get configSnapshotDeliveryProperties =>
-          _$this._configSnapshotDeliveryProperties ??=
-              new _i2.ConfigSnapshotDeliveryPropertiesBuilder();
-  set configSnapshotDeliveryProperties(
-          _i2.ConfigSnapshotDeliveryPropertiesBuilder?
-              configSnapshotDeliveryProperties) =>
-      _$this._configSnapshotDeliveryProperties =
-          configSnapshotDeliveryProperties;
 
   String? _name;
   String? get name => _$this._name;
@@ -103,6 +91,18 @@ class DeliveryChannelBuilder
   String? get snsTopicArn => _$this._snsTopicArn;
   set snsTopicArn(String? snsTopicArn) => _$this._snsTopicArn = snsTopicArn;
 
+  _i2.ConfigSnapshotDeliveryPropertiesBuilder?
+      _configSnapshotDeliveryProperties;
+  _i2.ConfigSnapshotDeliveryPropertiesBuilder
+      get configSnapshotDeliveryProperties =>
+          _$this._configSnapshotDeliveryProperties ??=
+              new _i2.ConfigSnapshotDeliveryPropertiesBuilder();
+  set configSnapshotDeliveryProperties(
+          _i2.ConfigSnapshotDeliveryPropertiesBuilder?
+              configSnapshotDeliveryProperties) =>
+      _$this._configSnapshotDeliveryProperties =
+          configSnapshotDeliveryProperties;
+
   DeliveryChannelBuilder() {
     DeliveryChannel._init(this);
   }
@@ -110,13 +110,13 @@ class DeliveryChannelBuilder
   DeliveryChannelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _configSnapshotDeliveryProperties =
-          $v.configSnapshotDeliveryProperties?.toBuilder();
       _name = $v.name;
       _s3BucketName = $v.s3BucketName;
       _s3KeyPrefix = $v.s3KeyPrefix;
       _s3KmsKeyArn = $v.s3KmsKeyArn;
       _snsTopicArn = $v.snsTopicArn;
+      _configSnapshotDeliveryProperties =
+          $v.configSnapshotDeliveryProperties?.toBuilder();
       _$v = null;
     }
     return this;
@@ -141,13 +141,13 @@ class DeliveryChannelBuilder
     try {
       _$result = _$v ??
           new _$DeliveryChannel._(
-              configSnapshotDeliveryProperties:
-                  _configSnapshotDeliveryProperties?.build(),
               name: name,
               s3BucketName: s3BucketName,
               s3KeyPrefix: s3KeyPrefix,
               s3KmsKeyArn: s3KmsKeyArn,
-              snsTopicArn: snsTopicArn);
+              snsTopicArn: snsTopicArn,
+              configSnapshotDeliveryProperties:
+                  _configSnapshotDeliveryProperties?.build());
     } catch (_) {
       late String _$failedField;
       try {

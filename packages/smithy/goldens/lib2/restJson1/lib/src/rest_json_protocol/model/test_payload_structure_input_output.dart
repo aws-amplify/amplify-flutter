@@ -20,12 +20,12 @@ abstract class TestPayloadStructureInputOutput
             TestPayloadStructureInputOutputBuilder>,
         _i1.HasPayload<_i2.PayloadConfig> {
   factory TestPayloadStructureInputOutput({
-    _i2.PayloadConfig? payloadConfig,
     String? testId,
+    _i2.PayloadConfig? payloadConfig,
   }) {
     return _$TestPayloadStructureInputOutput._(
-      payloadConfig: payloadConfig,
       testId: testId,
+      payloadConfig: payloadConfig,
     );
   }
 
@@ -69,26 +69,26 @@ abstract class TestPayloadStructureInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestPayloadStructureInputOutputBuilder b) {}
-  _i2.PayloadConfig? get payloadConfig;
   String? get testId;
+  _i2.PayloadConfig? get payloadConfig;
   @override
   _i2.PayloadConfig? getPayload() => payloadConfig ?? _i2.PayloadConfig();
   @override
   List<Object?> get props => [
-        payloadConfig,
         testId,
+        payloadConfig,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('TestPayloadStructureInputOutput');
     helper.add(
-      'payloadConfig',
-      payloadConfig,
-    );
-    helper.add(
       'testId',
       testId,
+    );
+    helper.add(
+      'payloadConfig',
+      payloadConfig,
     );
     return helper.toString();
   }

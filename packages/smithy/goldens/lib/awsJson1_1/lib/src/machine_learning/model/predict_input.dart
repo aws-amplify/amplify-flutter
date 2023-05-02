@@ -15,13 +15,13 @@ abstract class PredictInput
     implements Built<PredictInput, PredictInputBuilder> {
   factory PredictInput({
     required String mlModelId,
-    required String predictEndpoint,
     required Map<String, String> record,
+    required String predictEndpoint,
   }) {
     return _$PredictInput._(
       mlModelId: mlModelId,
-      predictEndpoint: predictEndpoint,
       record: _i3.BuiltMap(record),
+      predictEndpoint: predictEndpoint,
     );
   }
 
@@ -44,15 +44,15 @@ abstract class PredictInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PredictInputBuilder b) {}
   String get mlModelId;
-  String get predictEndpoint;
   _i3.BuiltMap<String, String> get record;
+  String get predictEndpoint;
   @override
   PredictInput getPayload() => this;
   @override
   List<Object?> get props => [
         mlModelId,
-        predictEndpoint,
         record,
+        predictEndpoint,
       ];
   @override
   String toString() {
@@ -62,12 +62,12 @@ abstract class PredictInput
       mlModelId,
     );
     helper.add(
-      'predictEndpoint',
-      predictEndpoint,
-    );
-    helper.add(
       'record',
       record,
+    );
+    helper.add(
+      'predictEndpoint',
+      predictEndpoint,
     );
     return helper.toString();
   }
@@ -108,12 +108,6 @@ class PredictInputAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Record':
           result.record.replace((serializers.deserialize(
             value,
@@ -125,6 +119,12 @@ class PredictInputAwsJson11Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, String>));
+          break;
+        case 'PredictEndpoint':
+          result.predictEndpoint = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -145,11 +145,6 @@ class PredictInputAwsJson11Serializer
         payload.mlModelId,
         specifiedType: const FullType(String),
       ),
-      'PredictEndpoint',
-      serializers.serialize(
-        payload.predictEndpoint,
-        specifiedType: const FullType(String),
-      ),
       'Record',
       serializers.serialize(
         payload.record,
@@ -160,6 +155,11 @@ class PredictInputAwsJson11Serializer
             FullType(String),
           ],
         ),
+      ),
+      'PredictEndpoint',
+      serializers.serialize(
+        payload.predictEndpoint,
+        specifiedType: const FullType(String),
       ),
     ];
     return result;

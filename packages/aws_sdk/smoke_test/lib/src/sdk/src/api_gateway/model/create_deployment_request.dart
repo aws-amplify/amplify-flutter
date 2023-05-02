@@ -25,26 +25,26 @@ abstract class CreateDeploymentRequest
         _i1.HasPayload<CreateDeploymentRequestPayload> {
   /// Requests API Gateway to create a Deployment resource.
   factory CreateDeploymentRequest({
+    required String restApiId,
+    String? stageName,
+    String? stageDescription,
+    String? description,
     bool? cacheClusterEnabled,
     _i3.CacheClusterSize? cacheClusterSize,
-    _i4.DeploymentCanarySettings? canarySettings,
-    String? description,
-    required String restApiId,
-    String? stageDescription,
-    String? stageName,
-    bool? tracingEnabled,
     Map<String, String>? variables,
+    _i4.DeploymentCanarySettings? canarySettings,
+    bool? tracingEnabled,
   }) {
     return _$CreateDeploymentRequest._(
+      restApiId: restApiId,
+      stageName: stageName,
+      stageDescription: stageDescription,
+      description: description,
       cacheClusterEnabled: cacheClusterEnabled,
       cacheClusterSize: cacheClusterSize,
-      canarySettings: canarySettings,
-      description: description,
-      restApiId: restApiId,
-      stageDescription: stageDescription,
-      stageName: stageName,
-      tracingEnabled: tracingEnabled,
       variables: variables == null ? null : _i5.BuiltMap(variables),
+      canarySettings: canarySettings,
+      tracingEnabled: tracingEnabled,
     );
   }
 
@@ -85,32 +85,32 @@ abstract class CreateDeploymentRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDeploymentRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
+  /// The name of the Stage resource for the Deployment resource to create.
+  String? get stageName;
+
+  /// The description of the Stage resource for the Deployment resource to create.
+  String? get stageDescription;
+
+  /// The description for the Deployment resource to create.
+  String? get description;
+
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;
 
   /// Specifies the cache cluster size for the Stage resource specified in the input, if a cache cluster is enabled.
   _i3.CacheClusterSize? get cacheClusterSize;
 
+  /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
+  _i5.BuiltMap<String, String>? get variables;
+
   /// The input configuration for the canary deployment when the deployment is a canary release deployment.
   _i4.DeploymentCanarySettings? get canarySettings;
 
-  /// The description for the Deployment resource to create.
-  String? get description;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
-
-  /// The description of the Stage resource for the Deployment resource to create.
-  String? get stageDescription;
-
-  /// The name of the Stage resource for the Deployment resource to create.
-  String? get stageName;
-
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
   bool? get tracingEnabled;
-
-  /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
-  _i5.BuiltMap<String, String>? get variables;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -141,19 +141,35 @@ abstract class CreateDeploymentRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
+        stageName,
+        stageDescription,
+        description,
         cacheClusterEnabled,
         cacheClusterSize,
-        canarySettings,
-        description,
-        restApiId,
-        stageDescription,
-        stageName,
-        tracingEnabled,
         variables,
+        canarySettings,
+        tracingEnabled,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateDeploymentRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
+    helper.add(
+      'stageName',
+      stageName,
+    );
+    helper.add(
+      'stageDescription',
+      stageDescription,
+    );
+    helper.add(
+      'description',
+      description,
+    );
     helper.add(
       'cacheClusterEnabled',
       cacheClusterEnabled,
@@ -163,32 +179,16 @@ abstract class CreateDeploymentRequest
       cacheClusterSize,
     );
     helper.add(
+      'variables',
+      variables,
+    );
+    helper.add(
       'canarySettings',
       canarySettings,
     );
     helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageDescription',
-      stageDescription,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
       'tracingEnabled',
       tracingEnabled,
-    );
-    helper.add(
-      'variables',
-      variables,
     );
     return helper.toString();
   }

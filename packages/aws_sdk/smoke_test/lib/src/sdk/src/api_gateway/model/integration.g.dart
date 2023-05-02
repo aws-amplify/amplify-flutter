@@ -8,55 +8,55 @@ part of smoke_test.api_gateway.model.integration;
 
 class _$Integration extends Integration {
   @override
-  final _i7.BuiltList<String>? cacheKeyParameters;
-  @override
-  final String? cacheNamespace;
-  @override
-  final String? connectionId;
-  @override
-  final _i2.ConnectionType? connectionType;
-  @override
-  final _i3.ContentHandlingStrategy? contentHandling;
-  @override
-  final String? credentials;
+  final _i2.IntegrationType? type;
   @override
   final String? httpMethod;
   @override
-  final _i7.BuiltMap<String, _i4.IntegrationResponse>? integrationResponses;
+  final String? uri;
   @override
-  final String? passthroughBehavior;
+  final _i3.ConnectionType? connectionType;
+  @override
+  final String? connectionId;
+  @override
+  final String? credentials;
   @override
   final _i7.BuiltMap<String, String>? requestParameters;
   @override
   final _i7.BuiltMap<String, String>? requestTemplates;
   @override
+  final String? passthroughBehavior;
+  @override
+  final _i4.ContentHandlingStrategy? contentHandling;
+  @override
   final int? timeoutInMillis;
   @override
-  final _i5.TlsConfig? tlsConfig;
+  final String? cacheNamespace;
   @override
-  final _i6.IntegrationType? type;
+  final _i7.BuiltList<String>? cacheKeyParameters;
   @override
-  final String? uri;
+  final _i7.BuiltMap<String, _i5.IntegrationResponse>? integrationResponses;
+  @override
+  final _i6.TlsConfig? tlsConfig;
 
   factory _$Integration([void Function(IntegrationBuilder)? updates]) =>
       (new IntegrationBuilder()..update(updates))._build();
 
   _$Integration._(
-      {this.cacheKeyParameters,
-      this.cacheNamespace,
-      this.connectionId,
-      this.connectionType,
-      this.contentHandling,
-      this.credentials,
+      {this.type,
       this.httpMethod,
-      this.integrationResponses,
-      this.passthroughBehavior,
+      this.uri,
+      this.connectionType,
+      this.connectionId,
+      this.credentials,
       this.requestParameters,
       this.requestTemplates,
+      this.passthroughBehavior,
+      this.contentHandling,
       this.timeoutInMillis,
-      this.tlsConfig,
-      this.type,
-      this.uri})
+      this.cacheNamespace,
+      this.cacheKeyParameters,
+      this.integrationResponses,
+      this.tlsConfig})
       : super._();
 
   @override
@@ -70,41 +70,41 @@ class _$Integration extends Integration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Integration &&
-        cacheKeyParameters == other.cacheKeyParameters &&
-        cacheNamespace == other.cacheNamespace &&
-        connectionId == other.connectionId &&
-        connectionType == other.connectionType &&
-        contentHandling == other.contentHandling &&
-        credentials == other.credentials &&
+        type == other.type &&
         httpMethod == other.httpMethod &&
-        integrationResponses == other.integrationResponses &&
-        passthroughBehavior == other.passthroughBehavior &&
+        uri == other.uri &&
+        connectionType == other.connectionType &&
+        connectionId == other.connectionId &&
+        credentials == other.credentials &&
         requestParameters == other.requestParameters &&
         requestTemplates == other.requestTemplates &&
+        passthroughBehavior == other.passthroughBehavior &&
+        contentHandling == other.contentHandling &&
         timeoutInMillis == other.timeoutInMillis &&
-        tlsConfig == other.tlsConfig &&
-        type == other.type &&
-        uri == other.uri;
+        cacheNamespace == other.cacheNamespace &&
+        cacheKeyParameters == other.cacheKeyParameters &&
+        integrationResponses == other.integrationResponses &&
+        tlsConfig == other.tlsConfig;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, cacheKeyParameters.hashCode);
-    _$hash = $jc(_$hash, cacheNamespace.hashCode);
-    _$hash = $jc(_$hash, connectionId.hashCode);
-    _$hash = $jc(_$hash, connectionType.hashCode);
-    _$hash = $jc(_$hash, contentHandling.hashCode);
-    _$hash = $jc(_$hash, credentials.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, integrationResponses.hashCode);
-    _$hash = $jc(_$hash, passthroughBehavior.hashCode);
+    _$hash = $jc(_$hash, uri.hashCode);
+    _$hash = $jc(_$hash, connectionType.hashCode);
+    _$hash = $jc(_$hash, connectionId.hashCode);
+    _$hash = $jc(_$hash, credentials.hashCode);
     _$hash = $jc(_$hash, requestParameters.hashCode);
     _$hash = $jc(_$hash, requestTemplates.hashCode);
+    _$hash = $jc(_$hash, passthroughBehavior.hashCode);
+    _$hash = $jc(_$hash, contentHandling.hashCode);
     _$hash = $jc(_$hash, timeoutInMillis.hashCode);
+    _$hash = $jc(_$hash, cacheNamespace.hashCode);
+    _$hash = $jc(_$hash, cacheKeyParameters.hashCode);
+    _$hash = $jc(_$hash, integrationResponses.hashCode);
     _$hash = $jc(_$hash, tlsConfig.hashCode);
-    _$hash = $jc(_$hash, type.hashCode);
-    _$hash = $jc(_$hash, uri.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -113,52 +113,30 @@ class _$Integration extends Integration {
 class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   _$Integration? _$v;
 
-  _i7.ListBuilder<String>? _cacheKeyParameters;
-  _i7.ListBuilder<String> get cacheKeyParameters =>
-      _$this._cacheKeyParameters ??= new _i7.ListBuilder<String>();
-  set cacheKeyParameters(_i7.ListBuilder<String>? cacheKeyParameters) =>
-      _$this._cacheKeyParameters = cacheKeyParameters;
-
-  String? _cacheNamespace;
-  String? get cacheNamespace => _$this._cacheNamespace;
-  set cacheNamespace(String? cacheNamespace) =>
-      _$this._cacheNamespace = cacheNamespace;
-
-  String? _connectionId;
-  String? get connectionId => _$this._connectionId;
-  set connectionId(String? connectionId) => _$this._connectionId = connectionId;
-
-  _i2.ConnectionType? _connectionType;
-  _i2.ConnectionType? get connectionType => _$this._connectionType;
-  set connectionType(_i2.ConnectionType? connectionType) =>
-      _$this._connectionType = connectionType;
-
-  _i3.ContentHandlingStrategy? _contentHandling;
-  _i3.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
-      _$this._contentHandling = contentHandling;
-
-  String? _credentials;
-  String? get credentials => _$this._credentials;
-  set credentials(String? credentials) => _$this._credentials = credentials;
+  _i2.IntegrationType? _type;
+  _i2.IntegrationType? get type => _$this._type;
+  set type(_i2.IntegrationType? type) => _$this._type = type;
 
   String? _httpMethod;
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  _i7.MapBuilder<String, _i4.IntegrationResponse>? _integrationResponses;
-  _i7.MapBuilder<String, _i4.IntegrationResponse> get integrationResponses =>
-      _$this._integrationResponses ??=
-          new _i7.MapBuilder<String, _i4.IntegrationResponse>();
-  set integrationResponses(
-          _i7.MapBuilder<String, _i4.IntegrationResponse>?
-              integrationResponses) =>
-      _$this._integrationResponses = integrationResponses;
+  String? _uri;
+  String? get uri => _$this._uri;
+  set uri(String? uri) => _$this._uri = uri;
 
-  String? _passthroughBehavior;
-  String? get passthroughBehavior => _$this._passthroughBehavior;
-  set passthroughBehavior(String? passthroughBehavior) =>
-      _$this._passthroughBehavior = passthroughBehavior;
+  _i3.ConnectionType? _connectionType;
+  _i3.ConnectionType? get connectionType => _$this._connectionType;
+  set connectionType(_i3.ConnectionType? connectionType) =>
+      _$this._connectionType = connectionType;
+
+  String? _connectionId;
+  String? get connectionId => _$this._connectionId;
+  set connectionId(String? connectionId) => _$this._connectionId = connectionId;
+
+  String? _credentials;
+  String? get credentials => _$this._credentials;
+  set credentials(String? credentials) => _$this._credentials = credentials;
 
   _i7.MapBuilder<String, String>? _requestParameters;
   _i7.MapBuilder<String, String> get requestParameters =>
@@ -172,24 +150,46 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   set requestTemplates(_i7.MapBuilder<String, String>? requestTemplates) =>
       _$this._requestTemplates = requestTemplates;
 
+  String? _passthroughBehavior;
+  String? get passthroughBehavior => _$this._passthroughBehavior;
+  set passthroughBehavior(String? passthroughBehavior) =>
+      _$this._passthroughBehavior = passthroughBehavior;
+
+  _i4.ContentHandlingStrategy? _contentHandling;
+  _i4.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(_i4.ContentHandlingStrategy? contentHandling) =>
+      _$this._contentHandling = contentHandling;
+
   int? _timeoutInMillis;
   int? get timeoutInMillis => _$this._timeoutInMillis;
   set timeoutInMillis(int? timeoutInMillis) =>
       _$this._timeoutInMillis = timeoutInMillis;
 
-  _i5.TlsConfigBuilder? _tlsConfig;
-  _i5.TlsConfigBuilder get tlsConfig =>
-      _$this._tlsConfig ??= new _i5.TlsConfigBuilder();
-  set tlsConfig(_i5.TlsConfigBuilder? tlsConfig) =>
+  String? _cacheNamespace;
+  String? get cacheNamespace => _$this._cacheNamespace;
+  set cacheNamespace(String? cacheNamespace) =>
+      _$this._cacheNamespace = cacheNamespace;
+
+  _i7.ListBuilder<String>? _cacheKeyParameters;
+  _i7.ListBuilder<String> get cacheKeyParameters =>
+      _$this._cacheKeyParameters ??= new _i7.ListBuilder<String>();
+  set cacheKeyParameters(_i7.ListBuilder<String>? cacheKeyParameters) =>
+      _$this._cacheKeyParameters = cacheKeyParameters;
+
+  _i7.MapBuilder<String, _i5.IntegrationResponse>? _integrationResponses;
+  _i7.MapBuilder<String, _i5.IntegrationResponse> get integrationResponses =>
+      _$this._integrationResponses ??=
+          new _i7.MapBuilder<String, _i5.IntegrationResponse>();
+  set integrationResponses(
+          _i7.MapBuilder<String, _i5.IntegrationResponse>?
+              integrationResponses) =>
+      _$this._integrationResponses = integrationResponses;
+
+  _i6.TlsConfigBuilder? _tlsConfig;
+  _i6.TlsConfigBuilder get tlsConfig =>
+      _$this._tlsConfig ??= new _i6.TlsConfigBuilder();
+  set tlsConfig(_i6.TlsConfigBuilder? tlsConfig) =>
       _$this._tlsConfig = tlsConfig;
-
-  _i6.IntegrationType? _type;
-  _i6.IntegrationType? get type => _$this._type;
-  set type(_i6.IntegrationType? type) => _$this._type = type;
-
-  String? _uri;
-  String? get uri => _$this._uri;
-  set uri(String? uri) => _$this._uri = uri;
 
   IntegrationBuilder() {
     Integration._init(this);
@@ -198,21 +198,21 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   IntegrationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _cacheKeyParameters = $v.cacheKeyParameters?.toBuilder();
-      _cacheNamespace = $v.cacheNamespace;
-      _connectionId = $v.connectionId;
-      _connectionType = $v.connectionType;
-      _contentHandling = $v.contentHandling;
-      _credentials = $v.credentials;
+      _type = $v.type;
       _httpMethod = $v.httpMethod;
-      _integrationResponses = $v.integrationResponses?.toBuilder();
-      _passthroughBehavior = $v.passthroughBehavior;
+      _uri = $v.uri;
+      _connectionType = $v.connectionType;
+      _connectionId = $v.connectionId;
+      _credentials = $v.credentials;
       _requestParameters = $v.requestParameters?.toBuilder();
       _requestTemplates = $v.requestTemplates?.toBuilder();
+      _passthroughBehavior = $v.passthroughBehavior;
+      _contentHandling = $v.contentHandling;
       _timeoutInMillis = $v.timeoutInMillis;
+      _cacheNamespace = $v.cacheNamespace;
+      _cacheKeyParameters = $v.cacheKeyParameters?.toBuilder();
+      _integrationResponses = $v.integrationResponses?.toBuilder();
       _tlsConfig = $v.tlsConfig?.toBuilder();
-      _type = $v.type;
-      _uri = $v.uri;
       _$v = null;
     }
     return this;
@@ -237,35 +237,33 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
     try {
       _$result = _$v ??
           new _$Integration._(
-              cacheKeyParameters: _cacheKeyParameters?.build(),
-              cacheNamespace: cacheNamespace,
-              connectionId: connectionId,
-              connectionType: connectionType,
-              contentHandling: contentHandling,
-              credentials: credentials,
+              type: type,
               httpMethod: httpMethod,
-              integrationResponses: _integrationResponses?.build(),
-              passthroughBehavior: passthroughBehavior,
+              uri: uri,
+              connectionType: connectionType,
+              connectionId: connectionId,
+              credentials: credentials,
               requestParameters: _requestParameters?.build(),
               requestTemplates: _requestTemplates?.build(),
+              passthroughBehavior: passthroughBehavior,
+              contentHandling: contentHandling,
               timeoutInMillis: timeoutInMillis,
-              tlsConfig: _tlsConfig?.build(),
-              type: type,
-              uri: uri);
+              cacheNamespace: cacheNamespace,
+              cacheKeyParameters: _cacheKeyParameters?.build(),
+              integrationResponses: _integrationResponses?.build(),
+              tlsConfig: _tlsConfig?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'cacheKeyParameters';
-        _cacheKeyParameters?.build();
-
-        _$failedField = 'integrationResponses';
-        _integrationResponses?.build();
-
         _$failedField = 'requestParameters';
         _requestParameters?.build();
         _$failedField = 'requestTemplates';
         _requestTemplates?.build();
 
+        _$failedField = 'cacheKeyParameters';
+        _cacheKeyParameters?.build();
+        _$failedField = 'integrationResponses';
+        _integrationResponses?.build();
         _$failedField = 'tlsConfig';
         _tlsConfig?.build();
       } catch (e) {

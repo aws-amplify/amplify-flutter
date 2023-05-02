@@ -18,17 +18,17 @@ abstract class MalformedPatternInput
         _i2.AWSEquatable<MalformedPatternInput>
     implements Built<MalformedPatternInput, MalformedPatternInputBuilder> {
   factory MalformedPatternInput({
+    String? string,
     String? evilString,
     List<String>? list,
     Map<String, String>? map,
-    String? string,
     _i3.PatternUnion? union,
   }) {
     return _$MalformedPatternInput._(
+      string: string,
       evilString: evilString,
       list: list == null ? null : _i4.BuiltList(list),
       map: map == null ? null : _i4.BuiltMap(map),
-      string: string,
       union: union,
     );
   }
@@ -52,24 +52,28 @@ abstract class MalformedPatternInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MalformedPatternInputBuilder b) {}
+  String? get string;
   String? get evilString;
   _i4.BuiltList<String>? get list;
   _i4.BuiltMap<String, String>? get map;
-  String? get string;
   _i3.PatternUnion? get union;
   @override
   MalformedPatternInput getPayload() => this;
   @override
   List<Object?> get props => [
+        string,
         evilString,
         list,
         map,
-        string,
         union,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MalformedPatternInput');
+    helper.add(
+      'string',
+      string,
+    );
     helper.add(
       'evilString',
       evilString,
@@ -81,10 +85,6 @@ abstract class MalformedPatternInput
     helper.add(
       'map',
       map,
-    );
-    helper.add(
-      'string',
-      string,
     );
     helper.add(
       'union',

@@ -17,12 +17,12 @@ abstract class MfaOptionType
     implements Built<MfaOptionType, MfaOptionTypeBuilder> {
   /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
   factory MfaOptionType({
-    String? attributeName,
     _i2.DeliveryMediumType? deliveryMedium,
+    String? attributeName,
   }) {
     return _$MfaOptionType._(
-      attributeName: attributeName,
       deliveryMedium: deliveryMedium,
+      attributeName: attributeName,
     );
   }
 
@@ -39,26 +39,26 @@ abstract class MfaOptionType
   @BuiltValueHook(initializeBuilder: true)
   static void _init(MfaOptionTypeBuilder b) {}
 
-  /// The attribute name of the MFA option type. The only valid value is `phone_number`.
-  String? get attributeName;
-
   /// The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
   _i2.DeliveryMediumType? get deliveryMedium;
+
+  /// The attribute name of the MFA option type. The only valid value is `phone_number`.
+  String? get attributeName;
   @override
   List<Object?> get props => [
-        attributeName,
         deliveryMedium,
+        attributeName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('MfaOptionType');
     helper.add(
-      'attributeName',
-      attributeName,
-    );
-    helper.add(
       'deliveryMedium',
       deliveryMedium,
+    );
+    helper.add(
+      'attributeName',
+      attributeName,
     );
     return helper.toString();
   }
@@ -93,20 +93,20 @@ class MfaOptionTypeAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AttributeName':
-          if (value != null) {
-            result.attributeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'DeliveryMedium':
           if (value != null) {
             result.deliveryMedium = (serializers.deserialize(
               value,
               specifiedType: const FullType(_i2.DeliveryMediumType),
             ) as _i2.DeliveryMediumType);
+          }
+          break;
+        case 'AttributeName':
+          if (value != null) {
+            result.attributeName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -123,20 +123,20 @@ class MfaOptionTypeAwsJson11Serializer
   }) {
     final payload = (object as MfaOptionType);
     final result = <Object?>[];
-    if (payload.attributeName != null) {
-      result
-        ..add('AttributeName')
-        ..add(serializers.serialize(
-          payload.attributeName!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.deliveryMedium != null) {
       result
         ..add('DeliveryMedium')
         ..add(serializers.serialize(
           payload.deliveryMedium!,
           specifiedType: const FullType(_i2.DeliveryMediumType),
+        ));
+    }
+    if (payload.attributeName != null) {
+      result
+        ..add('AttributeName')
+        ..add(serializers.serialize(
+          payload.attributeName!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

@@ -157,8 +157,16 @@ final Map<FullType, Function> builderFactories = {
   ): _i36.SetBuilder<bool>.new,
   const FullType(
     _i36.BuiltSet,
+    [FullType(String)],
+  ): _i36.SetBuilder<String>.new,
+  const FullType(
+    _i36.BuiltSet,
     [FullType(int)],
   ): _i36.SetBuilder<int>.new,
+  const FullType(
+    _i36.BuiltSet,
+    [FullType(_i38.Int64)],
+  ): _i36.SetBuilder<_i38.Int64>.new,
   const FullType(
     _i36.BuiltSet,
     [FullType(DateTime)],
@@ -176,14 +184,6 @@ final Map<FullType, Function> builderFactories = {
       )
     ],
   ): _i36.SetBuilder<_i36.BuiltList<String>>.new,
-  const FullType(
-    _i36.BuiltSet,
-    [FullType(_i38.Int64)],
-  ): _i36.SetBuilder<_i38.Int64>.new,
-  const FullType(
-    _i36.BuiltSet,
-    [FullType(String)],
-  ): _i36.SetBuilder<String>.new,
   const FullType(
     _i36.BuiltSet,
     [FullType(_i18.GreetingStruct)],

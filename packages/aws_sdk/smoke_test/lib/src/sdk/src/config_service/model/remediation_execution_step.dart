@@ -18,17 +18,17 @@ abstract class RemediationExecutionStep
         Built<RemediationExecutionStep, RemediationExecutionStepBuilder> {
   /// Name of the step from the SSM document.
   factory RemediationExecutionStep({
-    String? errorMessage,
     String? name,
-    DateTime? startTime,
     _i2.RemediationExecutionStepState? state,
+    String? errorMessage,
+    DateTime? startTime,
     DateTime? stopTime,
   }) {
     return _$RemediationExecutionStep._(
-      errorMessage: errorMessage,
       name: name,
-      startTime: startTime,
       state: state,
+      errorMessage: errorMessage,
+      startTime: startTime,
       stopTime: stopTime,
     );
   }
@@ -47,46 +47,46 @@ abstract class RemediationExecutionStep
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExecutionStepBuilder b) {}
 
-  /// An error message if the step was interrupted during execution.
-  String? get errorMessage;
-
   /// The details of the step.
   String? get name;
 
-  /// The time when the step started.
-  DateTime? get startTime;
-
   /// The valid status of the step.
   _i2.RemediationExecutionStepState? get state;
+
+  /// An error message if the step was interrupted during execution.
+  String? get errorMessage;
+
+  /// The time when the step started.
+  DateTime? get startTime;
 
   /// The time when the step stopped.
   DateTime? get stopTime;
   @override
   List<Object?> get props => [
-        errorMessage,
         name,
-        startTime,
         state,
+        errorMessage,
+        startTime,
         stopTime,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('RemediationExecutionStep');
     helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
       'name',
       name,
     );
     helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
       'state',
       state,
+    );
+    helper.add(
+      'errorMessage',
+      errorMessage,
+    );
+    helper.add(
+      'startTime',
+      startTime,
     );
     helper.add(
       'stopTime',
@@ -126,17 +126,25 @@ class RemediationExecutionStepAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ErrorMessage':
+        case 'Name':
           if (value != null) {
-            result.errorMessage = (serializers.deserialize(
+            result.name = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'Name':
+        case 'State':
           if (value != null) {
-            result.name = (serializers.deserialize(
+            result.state = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.RemediationExecutionStepState),
+            ) as _i2.RemediationExecutionStepState);
+          }
+          break;
+        case 'ErrorMessage':
+          if (value != null) {
+            result.errorMessage = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -148,14 +156,6 @@ class RemediationExecutionStepAwsJson11Serializer
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
-          }
-          break;
-        case 'State':
-          if (value != null) {
-            result.state = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RemediationExecutionStepState),
-            ) as _i2.RemediationExecutionStepState);
           }
           break;
         case 'StopTime':
@@ -180,19 +180,27 @@ class RemediationExecutionStepAwsJson11Serializer
   }) {
     final payload = (object as RemediationExecutionStep);
     final result = <Object?>[];
-    if (payload.errorMessage != null) {
-      result
-        ..add('ErrorMessage')
-        ..add(serializers.serialize(
-          payload.errorMessage!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.name != null) {
       result
         ..add('Name')
         ..add(serializers.serialize(
           payload.name!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.state != null) {
+      result
+        ..add('State')
+        ..add(serializers.serialize(
+          payload.state!,
+          specifiedType: const FullType(_i2.RemediationExecutionStepState),
+        ));
+    }
+    if (payload.errorMessage != null) {
+      result
+        ..add('ErrorMessage')
+        ..add(serializers.serialize(
+          payload.errorMessage!,
           specifiedType: const FullType(String),
         ));
     }
@@ -202,14 +210,6 @@ class RemediationExecutionStepAwsJson11Serializer
         ..add(serializers.serialize(
           payload.startTime!,
           specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.state != null) {
-      result
-        ..add('State')
-        ..add(serializers.serialize(
-          payload.state!,
-          specifiedType: const FullType(_i2.RemediationExecutionStepState),
         ));
     }
     if (payload.stopTime != null) {

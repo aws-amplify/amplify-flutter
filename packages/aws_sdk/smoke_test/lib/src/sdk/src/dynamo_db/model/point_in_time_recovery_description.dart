@@ -20,14 +20,14 @@ abstract class PointInTimeRecoveryDescription
             PointInTimeRecoveryDescriptionBuilder> {
   /// The description of the point in time settings applied to the table.
   factory PointInTimeRecoveryDescription({
+    _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus,
     DateTime? earliestRestorableDateTime,
     DateTime? latestRestorableDateTime,
-    _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus,
   }) {
     return _$PointInTimeRecoveryDescription._(
+      pointInTimeRecoveryStatus: pointInTimeRecoveryStatus,
       earliestRestorableDateTime: earliestRestorableDateTime,
       latestRestorableDateTime: latestRestorableDateTime,
-      pointInTimeRecoveryStatus: pointInTimeRecoveryStatus,
     );
   }
 
@@ -45,28 +45,32 @@ abstract class PointInTimeRecoveryDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PointInTimeRecoveryDescriptionBuilder b) {}
 
-  /// Specifies the earliest point in time you can restore your table to. You can restore your table to any point in time during the last 35 days.
-  DateTime? get earliestRestorableDateTime;
-
-  /// `LatestRestorableDateTime` is typically 5 minutes before the current time.
-  DateTime? get latestRestorableDateTime;
-
   /// The current state of point in time recovery:
   ///
   /// *   `ENABLED` \- Point in time recovery is enabled.
   ///
   /// *   `DISABLED` \- Point in time recovery is disabled.
   _i2.PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus;
+
+  /// Specifies the earliest point in time you can restore your table to. You can restore your table to any point in time during the last 35 days.
+  DateTime? get earliestRestorableDateTime;
+
+  /// `LatestRestorableDateTime` is typically 5 minutes before the current time.
+  DateTime? get latestRestorableDateTime;
   @override
   List<Object?> get props => [
+        pointInTimeRecoveryStatus,
         earliestRestorableDateTime,
         latestRestorableDateTime,
-        pointInTimeRecoveryStatus,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('PointInTimeRecoveryDescription');
+    helper.add(
+      'pointInTimeRecoveryStatus',
+      pointInTimeRecoveryStatus,
+    );
     helper.add(
       'earliestRestorableDateTime',
       earliestRestorableDateTime,
@@ -74,10 +78,6 @@ abstract class PointInTimeRecoveryDescription
     helper.add(
       'latestRestorableDateTime',
       latestRestorableDateTime,
-    );
-    helper.add(
-      'pointInTimeRecoveryStatus',
-      pointInTimeRecoveryStatus,
     );
     return helper.toString();
   }
@@ -113,6 +113,14 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'PointInTimeRecoveryStatus':
+          if (value != null) {
+            result.pointInTimeRecoveryStatus = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
+            ) as _i2.PointInTimeRecoveryStatus);
+          }
+          break;
         case 'EarliestRestorableDateTime':
           if (value != null) {
             result.earliestRestorableDateTime = (serializers.deserialize(
@@ -129,14 +137,6 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
             ) as DateTime);
           }
           break;
-        case 'PointInTimeRecoveryStatus':
-          if (value != null) {
-            result.pointInTimeRecoveryStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
-            ) as _i2.PointInTimeRecoveryStatus);
-          }
-          break;
       }
     }
 
@@ -151,6 +151,14 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
   }) {
     final payload = (object as PointInTimeRecoveryDescription);
     final result = <Object?>[];
+    if (payload.pointInTimeRecoveryStatus != null) {
+      result
+        ..add('PointInTimeRecoveryStatus')
+        ..add(serializers.serialize(
+          payload.pointInTimeRecoveryStatus!,
+          specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
+        ));
+    }
     if (payload.earliestRestorableDateTime != null) {
       result
         ..add('EarliestRestorableDateTime')
@@ -165,14 +173,6 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           payload.latestRestorableDateTime!,
           specifiedType: const FullType(DateTime),
-        ));
-    }
-    if (payload.pointInTimeRecoveryStatus != null) {
-      result
-        ..add('PointInTimeRecoveryStatus')
-        ..add(serializers.serialize(
-          payload.pointInTimeRecoveryStatus!,
-          specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
         ));
     }
     return result;

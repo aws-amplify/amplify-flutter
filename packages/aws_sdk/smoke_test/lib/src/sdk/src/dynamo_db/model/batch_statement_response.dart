@@ -21,13 +21,13 @@ abstract class BatchStatementResponse
   /// A PartiQL batch statement response..
   factory BatchStatementResponse({
     _i2.BatchStatementError? error,
-    Map<String, _i3.AttributeValue>? item,
     String? tableName,
+    Map<String, _i3.AttributeValue>? item,
   }) {
     return _$BatchStatementResponse._(
       error: error,
-      item: item == null ? null : _i4.BuiltMap(item),
       tableName: tableName,
+      item: item == null ? null : _i4.BuiltMap(item),
     );
   }
 
@@ -48,16 +48,16 @@ abstract class BatchStatementResponse
   /// The error associated with a failed PartiQL batch statement.
   _i2.BatchStatementError? get error;
 
-  /// A DynamoDB item associated with a BatchStatementResponse
-  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
-
   /// The table name associated with a failed PartiQL batch statement.
   String? get tableName;
+
+  /// A DynamoDB item associated with a BatchStatementResponse
+  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
   @override
   List<Object?> get props => [
         error,
-        item,
         tableName,
+        item,
       ];
   @override
   String toString() {
@@ -67,12 +67,12 @@ abstract class BatchStatementResponse
       error,
     );
     helper.add(
-      'item',
-      item,
-    );
-    helper.add(
       'tableName',
       tableName,
+    );
+    helper.add(
+      'item',
+      item,
     );
     return helper.toString();
   }
@@ -116,6 +116,14 @@ class BatchStatementResponseAwsJson10Serializer
             ) as _i2.BatchStatementError));
           }
           break;
+        case 'TableName':
+          if (value != null) {
+            result.tableName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'Item':
           if (value != null) {
             result.item.replace((serializers.deserialize(
@@ -128,14 +136,6 @@ class BatchStatementResponseAwsJson10Serializer
                 ],
               ),
             ) as _i4.BuiltMap<String, _i3.AttributeValue>));
-          }
-          break;
-        case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -160,6 +160,14 @@ class BatchStatementResponseAwsJson10Serializer
           specifiedType: const FullType(_i2.BatchStatementError),
         ));
     }
+    if (payload.tableName != null) {
+      result
+        ..add('TableName')
+        ..add(serializers.serialize(
+          payload.tableName!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.item != null) {
       result
         ..add('Item')
@@ -172,14 +180,6 @@ class BatchStatementResponseAwsJson10Serializer
               FullType(_i3.AttributeValue),
             ],
           ),
-        ));
-    }
-    if (payload.tableName != null) {
-      result
-        ..add('TableName')
-        ..add(serializers.serialize(
-          payload.tableName!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

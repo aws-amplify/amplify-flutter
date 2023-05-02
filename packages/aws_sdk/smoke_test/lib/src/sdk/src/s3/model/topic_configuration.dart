@@ -19,16 +19,16 @@ abstract class TopicConfiguration
     implements Built<TopicConfiguration, TopicConfigurationBuilder> {
   /// A container for specifying the configuration for publication of messages to an Amazon Simple Notification Service (Amazon SNS) topic when Amazon S3 detects specified events.
   factory TopicConfiguration({
-    required List<_i2.Event> events,
-    _i3.NotificationConfigurationFilter? filter,
     String? id,
     required String topicArn,
+    required List<_i2.Event> events,
+    _i3.NotificationConfigurationFilter? filter,
   }) {
     return _$TopicConfiguration._(
-      events: _i4.BuiltList(events),
-      filter: filter,
       id: id,
       topicArn: topicArn,
+      events: _i4.BuiltList(events),
+      filter: filter,
     );
   }
 
@@ -46,35 +46,27 @@ abstract class TopicConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TopicConfigurationBuilder b) {}
 
-  /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i4.BuiltList<_i2.Event> get events;
-
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i3.NotificationConfigurationFilter? get filter;
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 
   /// The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type.
   String get topicArn;
+
+  /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i4.BuiltList<_i2.Event> get events;
+
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
-        events,
-        filter,
         id,
         topicArn,
+        events,
+        filter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TopicConfiguration');
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
     helper.add(
       'id',
       id,
@@ -82,6 +74,14 @@ abstract class TopicConfiguration
     helper.add(
       'topicArn',
       topicArn,
+    );
+    helper.add(
+      'events',
+      events,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     return helper.toString();
   }

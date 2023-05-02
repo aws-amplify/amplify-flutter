@@ -326,17 +326,17 @@ class SimpleScalarPropertiesInputOutputAwsJson11Serializer extends _i5
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'doubleValue':
+        case 'floatValue':
           if (value != null) {
-            result.doubleValue = (serializers.deserialize(
+            result.floatValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(double),
             ) as double);
           }
           break;
-        case 'floatValue':
+        case 'doubleValue':
           if (value != null) {
-            result.floatValue = (serializers.deserialize(
+            result.doubleValue = (serializers.deserialize(
               value,
               specifiedType: const FullType(double),
             ) as double);

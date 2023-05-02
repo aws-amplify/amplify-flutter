@@ -8,17 +8,17 @@ part of smoke_test.api_gateway.model.get_models_request;
 
 class _$GetModelsRequest extends GetModelsRequest {
   @override
-  final int? limit;
+  final String restApiId;
   @override
   final String? position;
   @override
-  final String restApiId;
+  final int? limit;
 
   factory _$GetModelsRequest(
           [void Function(GetModelsRequestBuilder)? updates]) =>
       (new GetModelsRequestBuilder()..update(updates))._build();
 
-  _$GetModelsRequest._({this.limit, this.position, required this.restApiId})
+  _$GetModelsRequest._({required this.restApiId, this.position, this.limit})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetModelsRequest', 'restApiId');
@@ -36,17 +36,17 @@ class _$GetModelsRequest extends GetModelsRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetModelsRequest &&
-        limit == other.limit &&
+        restApiId == other.restApiId &&
         position == other.position &&
-        restApiId == other.restApiId;
+        limit == other.limit;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, position.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, position.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,17 +56,17 @@ class GetModelsRequestBuilder
     implements Builder<GetModelsRequest, GetModelsRequestBuilder> {
   _$GetModelsRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _position;
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
   GetModelsRequestBuilder() {
     GetModelsRequest._init(this);
@@ -75,9 +75,9 @@ class GetModelsRequestBuilder
   GetModelsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _position = $v.position;
       _restApiId = $v.restApiId;
+      _position = $v.position;
+      _limit = $v.limit;
       _$v = null;
     }
     return this;
@@ -100,10 +100,10 @@ class GetModelsRequestBuilder
   _$GetModelsRequest _build() {
     final _$result = _$v ??
         new _$GetModelsRequest._(
-            limit: limit,
-            position: position,
             restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetModelsRequest', 'restApiId'));
+                restApiId, r'GetModelsRequest', 'restApiId'),
+            position: position,
+            limit: limit);
     replace(_$result);
     return _$result;
   }

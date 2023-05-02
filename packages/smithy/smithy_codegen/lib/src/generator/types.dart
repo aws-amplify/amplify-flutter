@@ -805,12 +805,19 @@ class _Smithy {
   Reference get xmlBuiltMapSerializer =>
       const Reference('XmlBuiltMapSerializer', _url);
 
+  /// Creates a [smithy.XmlBuiltMultimapSerializer] reference.
+  Reference get xmlBuiltMultimapSerializer =>
+      const Reference('XmlBuiltMultimapSerializer', _url);
+
   /// Creates a [smithy.XmlBuiltSetSerializer] reference.
   Reference get xmlBuiltSetSerializer =>
       const Reference('XmlBuiltSetSerializer', _url);
 
   /// Creates a [smithy.XmlElementName] reference.
   Reference get xmlElementName => const Reference('XmlElementName', _url);
+
+  /// Creates a [smithy.XmlIndexer] reference.
+  Reference get xmlIndexer => const Reference('XmlIndexer', _url);
 
   /// Creates a [smithy.XmlNamespace] reference.
   Reference get xmlNamespace => const Reference('XmlNamespace', _url);
@@ -836,6 +843,12 @@ class _SmithyAws {
   /// Creates a [smithy_aws.AwsJson1_1Protocol] refererence.
   Reference get awsJson1_1Protocol =>
       const Reference('AwsJson1_1Protocol', _url);
+
+  /// Creates a [smithy_aws.AwsQueryError] reference.
+  Reference get awsQueryError => const Reference('AwsQueryError', _url);
+
+  /// Creates a [smithy_aws.AwsQueryProtocol] refererence.
+  Reference get awsQueryProtocol => const Reference('AwsQueryProtocol', _url);
 
   /// Creates a [smithy_aws.AWSRetryer] refererence.
   Reference get awsRetryer => const Reference('AWSRetryer', _url);

@@ -6,10 +6,10 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/grouped_resource_count.dart'
-    as _i2;
+    as _i3;
 
 part 'get_aggregate_discovered_resource_counts_response.g.dart';
 
@@ -20,19 +20,19 @@ abstract class GetAggregateDiscoveredResourceCountsResponse
         Built<GetAggregateDiscoveredResourceCountsResponse,
             GetAggregateDiscoveredResourceCountsResponseBuilder> {
   factory GetAggregateDiscoveredResourceCountsResponse({
+    _i2.Int64? totalDiscoveredResources,
     String? groupByKey,
-    List<_i2.GroupedResourceCount>? groupedResourceCounts,
+    List<_i3.GroupedResourceCount>? groupedResourceCounts,
     String? nextToken,
-    _i3.Int64? totalDiscoveredResources,
   }) {
-    totalDiscoveredResources ??= _i3.Int64.ZERO;
+    totalDiscoveredResources ??= _i2.Int64.ZERO;
     return _$GetAggregateDiscoveredResourceCountsResponse._(
+      totalDiscoveredResources: totalDiscoveredResources,
       groupByKey: groupByKey,
       groupedResourceCounts: groupedResourceCounts == null
           ? null
           : _i4.BuiltList(groupedResourceCounts),
       nextToken: nextToken,
-      totalDiscoveredResources: totalDiscoveredResources,
     );
   }
 
@@ -55,31 +55,35 @@ abstract class GetAggregateDiscoveredResourceCountsResponse
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetAggregateDiscoveredResourceCountsResponseBuilder b) {
-    b.totalDiscoveredResources = _i3.Int64.ZERO;
+    b.totalDiscoveredResources = _i2.Int64.ZERO;
   }
+
+  /// The total number of resources that are present in an aggregator with the filters that you provide.
+  _i2.Int64 get totalDiscoveredResources;
 
   /// The key passed into the request object. If `GroupByKey` is not provided, the result will be empty.
   String? get groupByKey;
 
   /// Returns a list of GroupedResourceCount objects.
-  _i4.BuiltList<_i2.GroupedResourceCount>? get groupedResourceCounts;
+  _i4.BuiltList<_i3.GroupedResourceCount>? get groupedResourceCounts;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The total number of resources that are present in an aggregator with the filters that you provide.
-  _i3.Int64 get totalDiscoveredResources;
   @override
   List<Object?> get props => [
+        totalDiscoveredResources,
         groupByKey,
         groupedResourceCounts,
         nextToken,
-        totalDiscoveredResources,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'GetAggregateDiscoveredResourceCountsResponse');
+    helper.add(
+      'totalDiscoveredResources',
+      totalDiscoveredResources,
+    );
     helper.add(
       'groupByKey',
       groupByKey,
@@ -91,10 +95,6 @@ abstract class GetAggregateDiscoveredResourceCountsResponse
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'totalDiscoveredResources',
-      totalDiscoveredResources,
     );
     return helper.toString();
   }
@@ -131,6 +131,12 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TotalDiscoveredResources':
+          result.totalDiscoveredResources = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
+          break;
         case 'GroupByKey':
           if (value != null) {
             result.groupByKey = (serializers.deserialize(
@@ -145,9 +151,9 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
               value,
               specifiedType: const FullType(
                 _i4.BuiltList,
-                [FullType(_i2.GroupedResourceCount)],
+                [FullType(_i3.GroupedResourceCount)],
               ),
-            ) as _i4.BuiltList<_i2.GroupedResourceCount>));
+            ) as _i4.BuiltList<_i3.GroupedResourceCount>));
           }
           break;
         case 'NextToken':
@@ -157,12 +163,6 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'TotalDiscoveredResources':
-          result.totalDiscoveredResources = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
           break;
       }
     }
@@ -181,7 +181,7 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
       'TotalDiscoveredResources',
       serializers.serialize(
         payload.totalDiscoveredResources,
-        specifiedType: const FullType(_i3.Int64),
+        specifiedType: const FullType(_i2.Int64),
       ),
     ];
     if (payload.groupByKey != null) {
@@ -199,7 +199,7 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
           payload.groupedResourceCounts!,
           specifiedType: const FullType(
             _i4.BuiltList,
-            [FullType(_i2.GroupedResourceCount)],
+            [FullType(_i3.GroupedResourceCount)],
           ),
         ));
     }

@@ -21,23 +21,23 @@ abstract class PutObjectTaggingRequest
         _i1.HasPayload<_i2.Tagging> {
   factory PutObjectTaggingRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? contentMd5,
-    String? expectedBucketOwner,
     required String key,
-    _i5.RequestPayer? requestPayer,
-    required _i2.Tagging tagging,
     String? versionId,
+    String? contentMd5,
+    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    required _i2.Tagging tagging,
+    String? expectedBucketOwner,
+    _i5.RequestPayer? requestPayer,
   }) {
     return _$PutObjectTaggingRequest._(
       bucket: bucket,
-      checksumAlgorithm: checksumAlgorithm,
-      contentMd5: contentMd5,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
-      requestPayer: requestPayer,
-      tagging: tagging,
       versionId: versionId,
+      contentMd5: contentMd5,
+      checksumAlgorithm: checksumAlgorithm,
+      tagging: tagging,
+      expectedBucketOwner: expectedBucketOwner,
+      requestPayer: requestPayer,
     );
   }
 
@@ -94,30 +94,30 @@ abstract class PutObjectTaggingRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  /// Name of the object key.
+  String get key;
+
+  /// The versionId of the object that the tag-set will be added to.
+  String? get versionId;
 
   /// The MD5 hash for the request body.
   ///
   /// For requests made using the Amazon Web Services Command Line Interface (CLI) or Amazon Web Services SDKs, this field is calculated automatically.
   String? get contentMd5;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
-  /// Name of the object key.
-  String get key;
-
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i5.RequestPayer? get requestPayer;
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i4.ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container for the `TagSet` and `Tag` elements
   _i2.Tagging get tagging;
 
-  /// The versionId of the object that the tag-set will be added to.
-  String? get versionId;
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
+
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i5.RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -137,13 +137,13 @@ abstract class PutObjectTaggingRequest
   @override
   List<Object?> get props => [
         bucket,
-        checksumAlgorithm,
-        contentMd5,
-        expectedBucketOwner,
         key,
-        requestPayer,
-        tagging,
         versionId,
+        contentMd5,
+        checksumAlgorithm,
+        tagging,
+        expectedBucketOwner,
+        requestPayer,
       ];
   @override
   String toString() {
@@ -153,32 +153,32 @@ abstract class PutObjectTaggingRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
+      'key',
+      key,
+    );
+    helper.add(
+      'versionId',
+      versionId,
     );
     helper.add(
       'contentMd5',
       contentMd5,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
+      'checksumAlgorithm',
+      checksumAlgorithm,
     );
     helper.add(
       'tagging',
       tagging,
     );
     helper.add(
-      'versionId',
-      versionId,
+      'expectedBucketOwner',
+      expectedBucketOwner,
+    );
+    helper.add(
+      'requestPayer',
+      requestPayer,
     );
     return helper.toString();
   }
@@ -218,7 +218,7 @@ class PutObjectTaggingRequestRestXmlSerializer
           result.tagSet.replace(
               (const _i1.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
-            (value as Iterable<Object?>),
+            value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
               _i6.BuiltList,
               [FullType(_i7.Tag)],

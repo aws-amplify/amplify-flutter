@@ -20,12 +20,12 @@ abstract class OmitsNullSerializesEmptyStringInput
         _i1.EmptyPayload,
         _i1.HasPayload<OmitsNullSerializesEmptyStringInputPayload> {
   factory OmitsNullSerializesEmptyStringInput({
-    String? emptyString,
     String? nullValue,
+    String? emptyString,
   }) {
     return _$OmitsNullSerializesEmptyStringInput._(
-      emptyString: emptyString,
       nullValue: nullValue,
+      emptyString: emptyString,
     );
   }
 
@@ -55,27 +55,27 @@ abstract class OmitsNullSerializesEmptyStringInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(OmitsNullSerializesEmptyStringInputBuilder b) {}
-  String? get emptyString;
   String? get nullValue;
+  String? get emptyString;
   @override
   OmitsNullSerializesEmptyStringInputPayload getPayload() =>
       OmitsNullSerializesEmptyStringInputPayload();
   @override
   List<Object?> get props => [
-        emptyString,
         nullValue,
+        emptyString,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('OmitsNullSerializesEmptyStringInput');
     helper.add(
-      'emptyString',
-      emptyString,
-    );
-    helper.add(
       'nullValue',
       nullValue,
+    );
+    helper.add(
+      'emptyString',
+      emptyString,
     );
     return helper.toString();
   }

@@ -8,30 +8,30 @@ part of smoke_test.api_gateway.model.update_method_request;
 
 class _$UpdateMethodRequest extends UpdateMethodRequest {
   @override
-  final String httpMethod;
-  @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final String httpMethod;
+  @override
+  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
 
   factory _$UpdateMethodRequest(
           [void Function(UpdateMethodRequestBuilder)? updates]) =>
       (new UpdateMethodRequestBuilder()..update(updates))._build();
 
   _$UpdateMethodRequest._(
-      {required this.httpMethod,
-      this.patchOperations,
+      {required this.restApiId,
       required this.resourceId,
-      required this.restApiId})
+      required this.httpMethod,
+      this.patchOperations})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'UpdateMethodRequest', 'httpMethod');
+        restApiId, r'UpdateMethodRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'UpdateMethodRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'UpdateMethodRequest', 'restApiId');
+        httpMethod, r'UpdateMethodRequest', 'httpMethod');
   }
 
   @override
@@ -47,19 +47,19 @@ class _$UpdateMethodRequest extends UpdateMethodRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateMethodRequest &&
-        httpMethod == other.httpMethod &&
-        patchOperations == other.patchOperations &&
+        restApiId == other.restApiId &&
         resourceId == other.resourceId &&
-        restApiId == other.restApiId;
+        httpMethod == other.httpMethod &&
+        patchOperations == other.patchOperations;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jc(_$hash, patchOperations.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,6 +68,14 @@ class _$UpdateMethodRequest extends UpdateMethodRequest {
 class UpdateMethodRequestBuilder
     implements Builder<UpdateMethodRequest, UpdateMethodRequestBuilder> {
   _$UpdateMethodRequest? _$v;
+
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _resourceId;
+  String? get resourceId => _$this._resourceId;
+  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
   String? _httpMethod;
   String? get httpMethod => _$this._httpMethod;
@@ -79,14 +87,6 @@ class UpdateMethodRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  String? _resourceId;
-  String? get resourceId => _$this._resourceId;
-  set resourceId(String? resourceId) => _$this._resourceId = resourceId;
-
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
-
   UpdateMethodRequestBuilder() {
     UpdateMethodRequest._init(this);
   }
@@ -94,10 +94,10 @@ class UpdateMethodRequestBuilder
   UpdateMethodRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
       _httpMethod = $v.httpMethod;
       _patchOperations = $v.patchOperations?.toBuilder();
-      _resourceId = $v.resourceId;
-      _restApiId = $v.restApiId;
       _$v = null;
     }
     return this;
@@ -122,13 +122,13 @@ class UpdateMethodRequestBuilder
     try {
       _$result = _$v ??
           new _$UpdateMethodRequest._(
-              httpMethod: BuiltValueNullFieldError.checkNotNull(
-                  httpMethod, r'UpdateMethodRequest', 'httpMethod'),
-              patchOperations: _patchOperations?.build(),
+              restApiId: BuiltValueNullFieldError.checkNotNull(
+                  restApiId, r'UpdateMethodRequest', 'restApiId'),
               resourceId: BuiltValueNullFieldError.checkNotNull(
                   resourceId, r'UpdateMethodRequest', 'resourceId'),
-              restApiId: BuiltValueNullFieldError.checkNotNull(
-                  restApiId, r'UpdateMethodRequest', 'restApiId'));
+              httpMethod: BuiltValueNullFieldError.checkNotNull(
+                  httpMethod, r'UpdateMethodRequest', 'httpMethod'),
+              patchOperations: _patchOperations?.build());
     } catch (_) {
       late String _$failedField;
       try {

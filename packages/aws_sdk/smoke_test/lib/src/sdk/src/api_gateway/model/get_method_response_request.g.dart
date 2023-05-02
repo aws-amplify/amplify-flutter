@@ -8,11 +8,11 @@ part of smoke_test.api_gateway.model.get_method_response_request;
 
 class _$GetMethodResponseRequest extends GetMethodResponseRequest {
   @override
-  final String httpMethod;
+  final String restApiId;
   @override
   final String resourceId;
   @override
-  final String restApiId;
+  final String httpMethod;
   @override
   final String statusCode;
 
@@ -21,17 +21,17 @@ class _$GetMethodResponseRequest extends GetMethodResponseRequest {
       (new GetMethodResponseRequestBuilder()..update(updates))._build();
 
   _$GetMethodResponseRequest._(
-      {required this.httpMethod,
+      {required this.restApiId,
       required this.resourceId,
-      required this.restApiId,
+      required this.httpMethod,
       required this.statusCode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        httpMethod, r'GetMethodResponseRequest', 'httpMethod');
+        restApiId, r'GetMethodResponseRequest', 'restApiId');
     BuiltValueNullFieldError.checkNotNull(
         resourceId, r'GetMethodResponseRequest', 'resourceId');
     BuiltValueNullFieldError.checkNotNull(
-        restApiId, r'GetMethodResponseRequest', 'restApiId');
+        httpMethod, r'GetMethodResponseRequest', 'httpMethod');
     BuiltValueNullFieldError.checkNotNull(
         statusCode, r'GetMethodResponseRequest', 'statusCode');
   }
@@ -49,18 +49,18 @@ class _$GetMethodResponseRequest extends GetMethodResponseRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetMethodResponseRequest &&
-        httpMethod == other.httpMethod &&
-        resourceId == other.resourceId &&
         restApiId == other.restApiId &&
+        resourceId == other.resourceId &&
+        httpMethod == other.httpMethod &&
         statusCode == other.statusCode;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, httpMethod.hashCode);
-    _$hash = $jc(_$hash, resourceId.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, resourceId.hashCode);
+    _$hash = $jc(_$hash, httpMethod.hashCode);
     _$hash = $jc(_$hash, statusCode.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -72,17 +72,17 @@ class GetMethodResponseRequestBuilder
         Builder<GetMethodResponseRequest, GetMethodResponseRequestBuilder> {
   _$GetMethodResponseRequest? _$v;
 
-  String? _httpMethod;
-  String? get httpMethod => _$this._httpMethod;
-  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
   String? _resourceId;
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  String? _httpMethod;
+  String? get httpMethod => _$this._httpMethod;
+  set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
   String? _statusCode;
   String? get statusCode => _$this._statusCode;
@@ -95,9 +95,9 @@ class GetMethodResponseRequestBuilder
   GetMethodResponseRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _httpMethod = $v.httpMethod;
-      _resourceId = $v.resourceId;
       _restApiId = $v.restApiId;
+      _resourceId = $v.resourceId;
+      _httpMethod = $v.httpMethod;
       _statusCode = $v.statusCode;
       _$v = null;
     }
@@ -121,12 +121,12 @@ class GetMethodResponseRequestBuilder
   _$GetMethodResponseRequest _build() {
     final _$result = _$v ??
         new _$GetMethodResponseRequest._(
-            httpMethod: BuiltValueNullFieldError.checkNotNull(
-                httpMethod, r'GetMethodResponseRequest', 'httpMethod'),
-            resourceId: BuiltValueNullFieldError.checkNotNull(
-                resourceId, r'GetMethodResponseRequest', 'resourceId'),
             restApiId: BuiltValueNullFieldError.checkNotNull(
                 restApiId, r'GetMethodResponseRequest', 'restApiId'),
+            resourceId: BuiltValueNullFieldError.checkNotNull(
+                resourceId, r'GetMethodResponseRequest', 'resourceId'),
+            httpMethod: BuiltValueNullFieldError.checkNotNull(
+                httpMethod, r'GetMethodResponseRequest', 'httpMethod'),
             statusCode: BuiltValueNullFieldError.checkNotNull(
                 statusCode, r'GetMethodResponseRequest', 'statusCode'));
     replace(_$result);

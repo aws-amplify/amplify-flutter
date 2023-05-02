@@ -8,40 +8,40 @@ part of smoke_test.config_service.model.config_rule;
 
 class _$ConfigRule extends ConfigRule {
   @override
+  final String? configRuleName;
+  @override
   final String? configRuleArn;
   @override
   final String? configRuleId;
   @override
-  final String? configRuleName;
-  @override
-  final _i2.ConfigRuleState? configRuleState;
-  @override
-  final String? createdBy;
-  @override
   final String? description;
+  @override
+  final _i2.Scope? scope;
+  @override
+  final _i3.Source source;
   @override
   final String? inputParameters;
   @override
-  final _i3.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final _i4.MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final _i4.Scope? scope;
+  final _i5.ConfigRuleState? configRuleState;
   @override
-  final _i5.Source source;
+  final String? createdBy;
 
   factory _$ConfigRule([void Function(ConfigRuleBuilder)? updates]) =>
       (new ConfigRuleBuilder()..update(updates))._build();
 
   _$ConfigRule._(
-      {this.configRuleArn,
+      {this.configRuleName,
+      this.configRuleArn,
       this.configRuleId,
-      this.configRuleName,
-      this.configRuleState,
-      this.createdBy,
       this.description,
+      this.scope,
+      required this.source,
       this.inputParameters,
       this.maximumExecutionFrequency,
-      this.scope,
-      required this.source})
+      this.configRuleState,
+      this.createdBy})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(source, r'ConfigRule', 'source');
   }
@@ -57,31 +57,31 @@ class _$ConfigRule extends ConfigRule {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConfigRule &&
+        configRuleName == other.configRuleName &&
         configRuleArn == other.configRuleArn &&
         configRuleId == other.configRuleId &&
-        configRuleName == other.configRuleName &&
-        configRuleState == other.configRuleState &&
-        createdBy == other.createdBy &&
         description == other.description &&
+        scope == other.scope &&
+        source == other.source &&
         inputParameters == other.inputParameters &&
         maximumExecutionFrequency == other.maximumExecutionFrequency &&
-        scope == other.scope &&
-        source == other.source;
+        configRuleState == other.configRuleState &&
+        createdBy == other.createdBy;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, configRuleName.hashCode);
     _$hash = $jc(_$hash, configRuleArn.hashCode);
     _$hash = $jc(_$hash, configRuleId.hashCode);
-    _$hash = $jc(_$hash, configRuleName.hashCode);
-    _$hash = $jc(_$hash, configRuleState.hashCode);
-    _$hash = $jc(_$hash, createdBy.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, inputParameters.hashCode);
-    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jc(_$hash, scope.hashCode);
     _$hash = $jc(_$hash, source.hashCode);
+    _$hash = $jc(_$hash, inputParameters.hashCode);
+    _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
+    _$hash = $jc(_$hash, configRuleState.hashCode);
+    _$hash = $jc(_$hash, createdBy.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -89,6 +89,11 @@ class _$ConfigRule extends ConfigRule {
 
 class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
   _$ConfigRule? _$v;
+
+  String? _configRuleName;
+  String? get configRuleName => _$this._configRuleName;
+  set configRuleName(String? configRuleName) =>
+      _$this._configRuleName = configRuleName;
 
   String? _configRuleArn;
   String? get configRuleArn => _$this._configRuleArn;
@@ -99,43 +104,38 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
   String? get configRuleId => _$this._configRuleId;
   set configRuleId(String? configRuleId) => _$this._configRuleId = configRuleId;
 
-  String? _configRuleName;
-  String? get configRuleName => _$this._configRuleName;
-  set configRuleName(String? configRuleName) =>
-      _$this._configRuleName = configRuleName;
-
-  _i2.ConfigRuleState? _configRuleState;
-  _i2.ConfigRuleState? get configRuleState => _$this._configRuleState;
-  set configRuleState(_i2.ConfigRuleState? configRuleState) =>
-      _$this._configRuleState = configRuleState;
-
-  String? _createdBy;
-  String? get createdBy => _$this._createdBy;
-  set createdBy(String? createdBy) => _$this._createdBy = createdBy;
-
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
+
+  _i2.ScopeBuilder? _scope;
+  _i2.ScopeBuilder get scope => _$this._scope ??= new _i2.ScopeBuilder();
+  set scope(_i2.ScopeBuilder? scope) => _$this._scope = scope;
+
+  _i3.SourceBuilder? _source;
+  _i3.SourceBuilder get source => _$this._source ??= new _i3.SourceBuilder();
+  set source(_i3.SourceBuilder? source) => _$this._source = source;
 
   String? _inputParameters;
   String? get inputParameters => _$this._inputParameters;
   set inputParameters(String? inputParameters) =>
       _$this._inputParameters = inputParameters;
 
-  _i3.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  _i4.MaximumExecutionFrequency? _maximumExecutionFrequency;
+  _i4.MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i3.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  _i4.ScopeBuilder? _scope;
-  _i4.ScopeBuilder get scope => _$this._scope ??= new _i4.ScopeBuilder();
-  set scope(_i4.ScopeBuilder? scope) => _$this._scope = scope;
+  _i5.ConfigRuleState? _configRuleState;
+  _i5.ConfigRuleState? get configRuleState => _$this._configRuleState;
+  set configRuleState(_i5.ConfigRuleState? configRuleState) =>
+      _$this._configRuleState = configRuleState;
 
-  _i5.SourceBuilder? _source;
-  _i5.SourceBuilder get source => _$this._source ??= new _i5.SourceBuilder();
-  set source(_i5.SourceBuilder? source) => _$this._source = source;
+  String? _createdBy;
+  String? get createdBy => _$this._createdBy;
+  set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
   ConfigRuleBuilder() {
     ConfigRule._init(this);
@@ -144,16 +144,16 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
   ConfigRuleBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _configRuleName = $v.configRuleName;
       _configRuleArn = $v.configRuleArn;
       _configRuleId = $v.configRuleId;
-      _configRuleName = $v.configRuleName;
-      _configRuleState = $v.configRuleState;
-      _createdBy = $v.createdBy;
       _description = $v.description;
-      _inputParameters = $v.inputParameters;
-      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _scope = $v.scope?.toBuilder();
       _source = $v.source.toBuilder();
+      _inputParameters = $v.inputParameters;
+      _maximumExecutionFrequency = $v.maximumExecutionFrequency;
+      _configRuleState = $v.configRuleState;
+      _createdBy = $v.createdBy;
       _$v = null;
     }
     return this;
@@ -178,16 +178,16 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
     try {
       _$result = _$v ??
           new _$ConfigRule._(
+              configRuleName: configRuleName,
               configRuleArn: configRuleArn,
               configRuleId: configRuleId,
-              configRuleName: configRuleName,
-              configRuleState: configRuleState,
-              createdBy: createdBy,
               description: description,
+              scope: _scope?.build(),
+              source: source.build(),
               inputParameters: inputParameters,
               maximumExecutionFrequency: maximumExecutionFrequency,
-              scope: _scope?.build(),
-              source: source.build());
+              configRuleState: configRuleState,
+              createdBy: createdBy);
     } catch (_) {
       late String _$failedField;
       try {

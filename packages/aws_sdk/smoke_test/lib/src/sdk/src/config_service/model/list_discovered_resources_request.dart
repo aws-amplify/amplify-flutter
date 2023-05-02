@@ -20,20 +20,20 @@ abstract class ListDiscoveredResourcesRequest
         Built<ListDiscoveredResourcesRequest,
             ListDiscoveredResourcesRequestBuilder> {
   factory ListDiscoveredResourcesRequest({
-    bool? includeDeletedResources,
-    int? limit,
-    String? nextToken,
+    required _i3.ResourceType resourceType,
     List<String>? resourceIds,
     String? resourceName,
-    required _i3.ResourceType resourceType,
+    int? limit,
+    bool? includeDeletedResources,
+    String? nextToken,
   }) {
     return _$ListDiscoveredResourcesRequest._(
-      includeDeletedResources: includeDeletedResources,
-      limit: limit,
-      nextToken: nextToken,
+      resourceType: resourceType,
       resourceIds: resourceIds == null ? null : _i4.BuiltList(resourceIds),
       resourceName: resourceName,
-      resourceType: resourceType,
+      limit: limit,
+      includeDeletedResources: includeDeletedResources,
+      nextToken: nextToken,
     );
   }
 
@@ -57,14 +57,8 @@ abstract class ListDiscoveredResourcesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesRequestBuilder b) {}
 
-  /// Specifies whether Config includes deleted resources in the results. By default, deleted resources are not included.
-  bool? get includeDeletedResources;
-
-  /// The maximum number of resource identifiers returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
-
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
+  /// The type of resources that you want Config to list in the response.
+  _i3.ResourceType get resourceType;
 
   /// The IDs of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered.
   _i4.BuiltList<String>? get resourceIds;
@@ -72,34 +66,32 @@ abstract class ListDiscoveredResourcesRequest
   /// The custom name of only those resources that you want Config to list in the response. If you do not specify this parameter, Config lists all resources of the specified type that it has discovered.
   String? get resourceName;
 
-  /// The type of resources that you want Config to list in the response.
-  _i3.ResourceType get resourceType;
+  /// The maximum number of resource identifiers returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
+  int? get limit;
+
+  /// Specifies whether Config includes deleted resources in the results. By default, deleted resources are not included.
+  bool? get includeDeletedResources;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   ListDiscoveredResourcesRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        includeDeletedResources,
-        limit,
-        nextToken,
+        resourceType,
         resourceIds,
         resourceName,
-        resourceType,
+        limit,
+        includeDeletedResources,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListDiscoveredResourcesRequest');
     helper.add(
-      'includeDeletedResources',
-      includeDeletedResources,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
+      'resourceType',
+      resourceType,
     );
     helper.add(
       'resourceIds',
@@ -110,8 +102,16 @@ abstract class ListDiscoveredResourcesRequest
       resourceName,
     );
     helper.add(
-      'resourceType',
-      resourceType,
+      'limit',
+      limit,
+    );
+    helper.add(
+      'includeDeletedResources',
+      includeDeletedResources,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -147,29 +147,11 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'includeDeletedResources':
-          if (value != null) {
-            result.includeDeletedResources = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
-        case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
+        case 'resourceType':
+          result.resourceType = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(_i3.ResourceType),
+          ) as _i3.ResourceType);
           break;
         case 'resourceIds':
           if (value != null) {
@@ -190,11 +172,29 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'resourceType':
-          result.resourceType = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+        case 'limit':
+          if (value != null) {
+            result.limit = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
+          }
+          break;
+        case 'includeDeletedResources':
+          if (value != null) {
+            result.includeDeletedResources = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(bool),
+            ) as bool);
+          }
+          break;
+        case 'nextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -216,30 +216,6 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         specifiedType: const FullType(_i3.ResourceType),
       ),
     ];
-    if (payload.includeDeletedResources != null) {
-      result
-        ..add('includeDeletedResources')
-        ..add(serializers.serialize(
-          payload.includeDeletedResources!,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (payload.limit != null) {
-      result
-        ..add('limit')
-        ..add(serializers.serialize(
-          payload.limit!,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (payload.nextToken != null) {
-      result
-        ..add('nextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceIds != null) {
       result
         ..add('resourceIds')
@@ -256,6 +232,30 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         ..add('resourceName')
         ..add(serializers.serialize(
           payload.resourceName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.limit != null) {
+      result
+        ..add('limit')
+        ..add(serializers.serialize(
+          payload.limit!,
+          specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.includeDeletedResources != null) {
+      result
+        ..add('includeDeletedResources')
+        ..add(serializers.serialize(
+          payload.includeDeletedResources!,
+          specifiedType: const FullType(bool),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('nextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
           specifiedType: const FullType(String),
         ));
     }

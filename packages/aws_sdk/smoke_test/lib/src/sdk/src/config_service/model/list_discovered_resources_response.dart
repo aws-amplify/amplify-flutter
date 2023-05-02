@@ -19,14 +19,14 @@ abstract class ListDiscoveredResourcesResponse
         Built<ListDiscoveredResourcesResponse,
             ListDiscoveredResourcesResponseBuilder> {
   factory ListDiscoveredResourcesResponse({
-    String? nextToken,
     List<_i2.ResourceIdentifier>? resourceIdentifiers,
+    String? nextToken,
   }) {
     return _$ListDiscoveredResourcesResponse._(
-      nextToken: nextToken,
       resourceIdentifiers: resourceIdentifiers == null
           ? null
           : _i3.BuiltList(resourceIdentifiers),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class ListDiscoveredResourcesResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListDiscoveredResourcesResponseBuilder b) {}
 
-  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   _i3.BuiltList<_i2.ResourceIdentifier>? get resourceIdentifiers;
+
+  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         resourceIdentifiers,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ListDiscoveredResourcesResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'resourceIdentifiers',
       resourceIdentifiers,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,14 +106,6 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'resourceIdentifiers':
           if (value != null) {
             result.resourceIdentifiers.replace((serializers.deserialize(
@@ -123,6 +115,14 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
                 [FullType(_i2.ResourceIdentifier)],
               ),
             ) as _i3.BuiltList<_i2.ResourceIdentifier>));
+          }
+          break;
+        case 'nextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -139,14 +139,6 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
   }) {
     final payload = (object as ListDiscoveredResourcesResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('nextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceIdentifiers != null) {
       result
         ..add('resourceIdentifiers')
@@ -156,6 +148,14 @@ class ListDiscoveredResourcesResponseAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.ResourceIdentifier)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('nextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

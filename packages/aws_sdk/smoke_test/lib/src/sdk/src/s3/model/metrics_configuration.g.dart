@@ -8,15 +8,15 @@ part of smoke_test.s3.model.metrics_configuration;
 
 class _$MetricsConfiguration extends MetricsConfiguration {
   @override
-  final _i2.MetricsFilter? filter;
-  @override
   final String id;
+  @override
+  final _i2.MetricsFilter? filter;
 
   factory _$MetricsConfiguration(
           [void Function(MetricsConfigurationBuilder)? updates]) =>
       (new MetricsConfigurationBuilder()..update(updates))._build();
 
-  _$MetricsConfiguration._({this.filter, required this.id}) : super._() {
+  _$MetricsConfiguration._({required this.id, this.filter}) : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'MetricsConfiguration', 'id');
   }
 
@@ -33,15 +33,15 @@ class _$MetricsConfiguration extends MetricsConfiguration {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MetricsConfiguration &&
-        filter == other.filter &&
-        id == other.id;
+        id == other.id &&
+        filter == other.filter;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, filter.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,13 +51,13 @@ class MetricsConfigurationBuilder
     implements Builder<MetricsConfiguration, MetricsConfigurationBuilder> {
   _$MetricsConfiguration? _$v;
 
-  _i2.MetricsFilter? _filter;
-  _i2.MetricsFilter? get filter => _$this._filter;
-  set filter(_i2.MetricsFilter? filter) => _$this._filter = filter;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
+
+  _i2.MetricsFilter? _filter;
+  _i2.MetricsFilter? get filter => _$this._filter;
+  set filter(_i2.MetricsFilter? filter) => _$this._filter = filter;
 
   MetricsConfigurationBuilder() {
     MetricsConfiguration._init(this);
@@ -66,8 +66,8 @@ class MetricsConfigurationBuilder
   MetricsConfigurationBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _filter = $v.filter;
       _id = $v.id;
+      _filter = $v.filter;
       _$v = null;
     }
     return this;
@@ -90,9 +90,9 @@ class MetricsConfigurationBuilder
   _$MetricsConfiguration _build() {
     final _$result = _$v ??
         new _$MetricsConfiguration._(
-            filter: filter,
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'MetricsConfiguration', 'id'));
+                id, r'MetricsConfiguration', 'id'),
+            filter: filter);
     replace(_$result);
     return _$result;
   }

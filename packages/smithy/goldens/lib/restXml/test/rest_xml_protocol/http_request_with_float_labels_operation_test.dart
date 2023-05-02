@@ -171,14 +171,14 @@ class HttpRequestWithFloatLabelsInputRestXmlSerializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'double':
-          result.double_ = (serializers.deserialize(
+        case 'float':
+          result.float = (serializers.deserialize(
             value!,
             specifiedType: const FullType(double),
           ) as double);
           break;
-        case 'float':
-          result.float = (serializers.deserialize(
+        case 'double':
+          result.double_ = (serializers.deserialize(
             value!,
             specifiedType: const FullType(double),
           ) as double);

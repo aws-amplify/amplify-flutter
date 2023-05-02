@@ -17,17 +17,17 @@ abstract class ExternalEvaluation
     implements Built<ExternalEvaluation, ExternalEvaluationBuilder> {
   /// Identifies an Amazon Web Services resource and indicates whether it complies with the Config rule that it was evaluated against.
   factory ExternalEvaluation({
-    String? annotation,
-    required String complianceResourceId,
     required String complianceResourceType,
+    required String complianceResourceId,
     required _i2.ComplianceType complianceType,
+    String? annotation,
     required DateTime orderingTimestamp,
   }) {
     return _$ExternalEvaluation._(
-      annotation: annotation,
-      complianceResourceId: complianceResourceId,
       complianceResourceType: complianceResourceType,
+      complianceResourceId: complianceResourceId,
       complianceType: complianceType,
+      annotation: annotation,
       orderingTimestamp: orderingTimestamp,
     );
   }
@@ -46,46 +46,46 @@ abstract class ExternalEvaluation
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExternalEvaluationBuilder b) {}
 
-  /// Supplementary information about the reason of compliance. For example, this task was completed on a specific date.
-  String? get annotation;
+  /// The evaluated compliance resource type. Config accepts `AWS::::Account` resource type.
+  String get complianceResourceType;
 
   /// The evaluated compliance resource ID. Config accepts only Amazon Web Services account ID.
   String get complianceResourceId;
 
-  /// The evaluated compliance resource type. Config accepts `AWS::::Account` resource type.
-  String get complianceResourceType;
-
   /// The compliance of the Amazon Web Services resource. The valid values are `COMPLIANT, NON_COMPLIANT,` and `NOT_APPLICABLE`.
   _i2.ComplianceType get complianceType;
+
+  /// Supplementary information about the reason of compliance. For example, this task was completed on a specific date.
+  String? get annotation;
 
   /// The time when the compliance was recorded.
   DateTime get orderingTimestamp;
   @override
   List<Object?> get props => [
-        annotation,
-        complianceResourceId,
         complianceResourceType,
+        complianceResourceId,
         complianceType,
+        annotation,
         orderingTimestamp,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExternalEvaluation');
     helper.add(
-      'annotation',
-      annotation,
+      'complianceResourceType',
+      complianceResourceType,
     );
     helper.add(
       'complianceResourceId',
       complianceResourceId,
     );
     helper.add(
-      'complianceResourceType',
-      complianceResourceType,
-    );
-    helper.add(
       'complianceType',
       complianceType,
+    );
+    helper.add(
+      'annotation',
+      annotation,
     );
     helper.add(
       'orderingTimestamp',
@@ -124,22 +124,14 @@ class ExternalEvaluationAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'ComplianceResourceId':
-          result.complianceResourceId = (serializers.deserialize(
+        case 'ComplianceResourceType':
+          result.complianceResourceType = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'ComplianceResourceType':
-          result.complianceResourceType = (serializers.deserialize(
+        case 'ComplianceResourceId':
+          result.complianceResourceId = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -149,6 +141,14 @@ class ExternalEvaluationAwsJson11Serializer
             value!,
             specifiedType: const FullType(_i2.ComplianceType),
           ) as _i2.ComplianceType);
+          break;
+        case 'Annotation':
+          if (value != null) {
+            result.annotation = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
         case 'OrderingTimestamp':
           result.orderingTimestamp = (serializers.deserialize(
@@ -170,14 +170,14 @@ class ExternalEvaluationAwsJson11Serializer
   }) {
     final payload = (object as ExternalEvaluation);
     final result = <Object?>[
-      'ComplianceResourceId',
-      serializers.serialize(
-        payload.complianceResourceId,
-        specifiedType: const FullType(String),
-      ),
       'ComplianceResourceType',
       serializers.serialize(
         payload.complianceResourceType,
+        specifiedType: const FullType(String),
+      ),
+      'ComplianceResourceId',
+      serializers.serialize(
+        payload.complianceResourceId,
         specifiedType: const FullType(String),
       ),
       'ComplianceType',

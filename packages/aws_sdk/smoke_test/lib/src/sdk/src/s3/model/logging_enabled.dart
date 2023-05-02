@@ -117,7 +117,7 @@ class LoggingEnabledRestXmlSerializer
                 (const _i4.XmlBuiltListSerializer(memberName: 'Grant')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i3.BuiltList,
                 [FullType(_i2.TargetGrant)],

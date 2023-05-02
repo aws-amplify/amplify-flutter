@@ -18,12 +18,12 @@ abstract class FailedRemediationBatch
     implements Built<FailedRemediationBatch, FailedRemediationBatchBuilder> {
   /// List of each of the failed remediations with specific reasons.
   factory FailedRemediationBatch({
-    List<_i2.RemediationConfiguration>? failedItems,
     String? failureMessage,
+    List<_i2.RemediationConfiguration>? failedItems,
   }) {
     return _$FailedRemediationBatch._(
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
       failureMessage: failureMessage,
+      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
     );
   }
 
@@ -41,26 +41,26 @@ abstract class FailedRemediationBatch
   @BuiltValueHook(initializeBuilder: true)
   static void _init(FailedRemediationBatchBuilder b) {}
 
-  /// Returns remediation configurations of the failed items.
-  _i3.BuiltList<_i2.RemediationConfiguration>? get failedItems;
-
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
+
+  /// Returns remediation configurations of the failed items.
+  _i3.BuiltList<_i2.RemediationConfiguration>? get failedItems;
   @override
   List<Object?> get props => [
-        failedItems,
         failureMessage,
+        failedItems,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('FailedRemediationBatch');
     helper.add(
-      'failedItems',
-      failedItems,
-    );
-    helper.add(
       'failureMessage',
       failureMessage,
+    );
+    helper.add(
+      'failedItems',
+      failedItems,
     );
     return helper.toString();
   }
@@ -96,6 +96,14 @@ class FailedRemediationBatchAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'FailureMessage':
+          if (value != null) {
+            result.failureMessage = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'FailedItems':
           if (value != null) {
             result.failedItems.replace((serializers.deserialize(
@@ -105,14 +113,6 @@ class FailedRemediationBatchAwsJson11Serializer
                 [FullType(_i2.RemediationConfiguration)],
               ),
             ) as _i3.BuiltList<_i2.RemediationConfiguration>));
-          }
-          break;
-        case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -129,6 +129,14 @@ class FailedRemediationBatchAwsJson11Serializer
   }) {
     final payload = (object as FailedRemediationBatch);
     final result = <Object?>[];
+    if (payload.failureMessage != null) {
+      result
+        ..add('FailureMessage')
+        ..add(serializers.serialize(
+          payload.failureMessage!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.failedItems != null) {
       result
         ..add('FailedItems')
@@ -138,14 +146,6 @@ class FailedRemediationBatchAwsJson11Serializer
             _i3.BuiltList,
             [FullType(_i2.RemediationConfiguration)],
           ),
-        ));
-    }
-    if (payload.failureMessage != null) {
-      result
-        ..add('FailureMessage')
-        ..add(serializers.serialize(
-          payload.failureMessage!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

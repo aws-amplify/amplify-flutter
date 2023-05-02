@@ -21,12 +21,12 @@ abstract class GetStagesRequest
         _i1.HasPayload<GetStagesRequestPayload> {
   /// Requests API Gateway to get information about one or more Stage resources.
   factory GetStagesRequest({
-    String? deploymentId,
     required String restApiId,
+    String? deploymentId,
   }) {
     return _$GetStagesRequest._(
-      deploymentId: deploymentId,
       restApiId: restApiId,
+      deploymentId: deploymentId,
     );
   }
 
@@ -57,11 +57,11 @@ abstract class GetStagesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetStagesRequestBuilder b) {}
 
-  /// The stages' deployment identifiers.
-  String? get deploymentId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The stages' deployment identifiers.
+  String? get deploymentId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -78,19 +78,19 @@ abstract class GetStagesRequest
   GetStagesRequestPayload getPayload() => GetStagesRequestPayload();
   @override
   List<Object?> get props => [
-        deploymentId,
         restApiId,
+        deploymentId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetStagesRequest');
     helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'deploymentId',
+      deploymentId,
     );
     return helper.toString();
   }

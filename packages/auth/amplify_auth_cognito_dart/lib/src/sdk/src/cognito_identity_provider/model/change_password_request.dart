@@ -17,14 +17,14 @@ abstract class ChangePasswordRequest
     implements Built<ChangePasswordRequest, ChangePasswordRequestBuilder> {
   /// Represents the request to change a user password.
   factory ChangePasswordRequest({
-    required String accessToken,
     required String previousPassword,
     required String proposedPassword,
+    required String accessToken,
   }) {
     return _$ChangePasswordRequest._(
-      accessToken: accessToken,
       previousPassword: previousPassword,
       proposedPassword: proposedPassword,
+      accessToken: accessToken,
     );
   }
 
@@ -49,35 +49,35 @@ abstract class ChangePasswordRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ChangePasswordRequestBuilder b) {}
 
-  /// A valid access token that Amazon Cognito issued to the user whose password you want to change.
-  String get accessToken;
-
   /// The old password.
   String get previousPassword;
 
   /// The new password.
   String get proposedPassword;
+
+  /// A valid access token that Amazon Cognito issued to the user whose password you want to change.
+  String get accessToken;
   @override
   ChangePasswordRequest getPayload() => this;
   @override
   List<Object?> get props => [
-        accessToken,
         previousPassword,
         proposedPassword,
+        accessToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ChangePasswordRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
     helper.add(
       'previousPassword',
       '***SENSITIVE***',
     );
     helper.add(
       'proposedPassword',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'accessToken',
       '***SENSITIVE***',
     );
     return helper.toString();
@@ -114,12 +114,6 @@ class ChangePasswordRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AccessToken':
-          result.accessToken = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'PreviousPassword':
           result.previousPassword = (serializers.deserialize(
             value!,
@@ -128,6 +122,12 @@ class ChangePasswordRequestAwsJson11Serializer
           break;
         case 'ProposedPassword':
           result.proposedPassword = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
+        case 'AccessToken':
+          result.accessToken = (serializers.deserialize(
             value!,
             specifiedType: const FullType(String),
           ) as String);
@@ -146,11 +146,6 @@ class ChangePasswordRequestAwsJson11Serializer
   }) {
     final payload = (object as ChangePasswordRequest);
     final result = <Object?>[
-      'AccessToken',
-      serializers.serialize(
-        payload.accessToken,
-        specifiedType: const FullType(String),
-      ),
       'PreviousPassword',
       serializers.serialize(
         payload.previousPassword,
@@ -159,6 +154,11 @@ class ChangePasswordRequestAwsJson11Serializer
       'ProposedPassword',
       serializers.serialize(
         payload.proposedPassword,
+        specifiedType: const FullType(String),
+      ),
+      'AccessToken',
+      serializers.serialize(
+        payload.accessToken,
         specifiedType: const FullType(String),
       ),
     ];

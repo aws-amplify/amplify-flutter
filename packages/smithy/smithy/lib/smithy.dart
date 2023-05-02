@@ -4,9 +4,10 @@
 /// Smithy client runtime for Dart.
 library smithy;
 
-// AST types
+/// AST types
 export 'package:aws_common/aws_common.dart' show AlpnProtocol;
-// External types used in public APIs
+
+/// External types used in public APIs
 export 'package:fixnum/fixnum.dart';
 
 export 'ast.dart'
@@ -17,13 +18,16 @@ export 'ast.dart'
         ErrorTypeStatusCode,
         ShapeId,
         TimestampFormat;
-// Behavior
+
+/// Behavior
 export 'src/behavior/paginated_result.dart';
 export 'src/behavior/retryer.dart';
 export 'src/endpoint.dart';
-// Exceptions
+
+/// Exceptions
 export 'src/exceptions/exceptions.dart';
-// HTTP
+
+/// HTTP
 export 'src/http/exceptions.dart';
 export 'src/http/http_operation.dart' hide isSmithyHttpTest;
 export 'src/http/http_protocol.dart';
@@ -31,9 +35,11 @@ export 'src/http/http_request.dart';
 export 'src/http/http_server.dart';
 export 'src/http/interceptors/checksum.dart';
 export 'src/http/interceptors/interceptor.dart';
-// Operation
+
+/// Operation
 export 'src/operation.dart';
-// Protocol
+
+/// Protocol
 export 'src/protocol/generic_json_protocol.dart';
 export 'src/protocol/json_serializer.dart';
 export 'src/protocol/protocol.dart';
@@ -43,10 +49,14 @@ export 'src/serialization/json/blob_serializer.dart';
 export 'src/serialization/json/double_serializer.dart';
 export 'src/serialization/json/encoded_json_object_serializer.dart';
 export 'src/serialization/json/int64_serializer.dart';
-// Serialization
 export 'src/serialization/json/smithy_json_plugin.dart';
 export 'src/serialization/json/timestamp_serializer.dart';
 export 'src/serialization/json/unit_serializer.dart';
+
+/// Serialization
+export 'src/serialization/query/query_bool_serializer.dart';
+export 'src/serialization/query/query_double_serializer.dart';
+export 'src/serialization/query/query_int_serializer.dart';
 export 'src/serialization/serializer.dart';
 export 'src/serialization/stream_serializer.dart';
 export 'src/serialization/struct.dart';
@@ -54,11 +64,14 @@ export 'src/serialization/xml/smithy_xml_plugin.dart';
 export 'src/serialization/xml/xml_bool_serializer.dart';
 export 'src/serialization/xml/xml_built_list_serializer.dart';
 export 'src/serialization/xml/xml_built_map_serializer.dart';
+export 'src/serialization/xml/xml_built_multimap_serializer.dart';
 export 'src/serialization/xml/xml_built_set_serializer.dart';
+export 'src/serialization/xml/xml_indexer.dart';
 export 'src/serialization/xml/xml_namespace.dart';
 export 'src/serialization/xml/xml_num_serializer.dart';
 export 'src/serialization/xml/xml_string_serializer.dart';
-// Types
+
+/// Types
 export 'src/types/empty.dart';
 export 'src/types/enum.dart';
 export 'src/types/timestamp.dart';

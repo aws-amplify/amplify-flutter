@@ -20,8 +20,8 @@ abstract class JsonIntEnumsInputOutput
     int? integerEnum2,
     int? integerEnum3,
     List<int>? integerEnumList,
-    Map<String, int>? integerEnumMap,
     Set<int>? integerEnumSet,
+    Map<String, int>? integerEnumMap,
   }) {
     return _$JsonIntEnumsInputOutput._(
       integerEnum1: integerEnum1,
@@ -29,10 +29,10 @@ abstract class JsonIntEnumsInputOutput
       integerEnum3: integerEnum3,
       integerEnumList:
           integerEnumList == null ? null : _i3.BuiltList(integerEnumList),
-      integerEnumMap:
-          integerEnumMap == null ? null : _i3.BuiltMap(integerEnumMap),
       integerEnumSet:
           integerEnumSet == null ? null : _i3.BuiltSet(integerEnumSet),
+      integerEnumMap:
+          integerEnumMap == null ? null : _i3.BuiltMap(integerEnumMap),
     );
   }
 
@@ -66,8 +66,8 @@ abstract class JsonIntEnumsInputOutput
   int? get integerEnum2;
   int? get integerEnum3;
   _i3.BuiltList<int>? get integerEnumList;
-  _i3.BuiltMap<String, int>? get integerEnumMap;
   _i3.BuiltSet<int>? get integerEnumSet;
+  _i3.BuiltMap<String, int>? get integerEnumMap;
   @override
   JsonIntEnumsInputOutput getPayload() => this;
   @override
@@ -76,8 +76,8 @@ abstract class JsonIntEnumsInputOutput
         integerEnum2,
         integerEnum3,
         integerEnumList,
-        integerEnumMap,
         integerEnumSet,
+        integerEnumMap,
       ];
   @override
   String toString() {
@@ -99,12 +99,12 @@ abstract class JsonIntEnumsInputOutput
       integerEnumList,
     );
     helper.add(
-      'integerEnumMap',
-      integerEnumMap,
-    );
-    helper.add(
       'integerEnumSet',
       integerEnumSet,
+    );
+    helper.add(
+      'integerEnumMap',
+      integerEnumMap,
     );
     return helper.toString();
   }

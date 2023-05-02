@@ -21,27 +21,27 @@ abstract class TestInvokeMethodRequest
         _i1.HasPayload<TestInvokeMethodRequestPayload> {
   /// Make a request to simulate the invocation of a Method.
   factory TestInvokeMethodRequest({
-    String? body,
-    String? clientCertificateId,
-    Map<String, String>? headers,
-    required String httpMethod,
-    Map<String, List<String>>? multiValueHeaders,
-    String? pathWithQueryString,
-    required String resourceId,
     required String restApiId,
+    required String resourceId,
+    required String httpMethod,
+    String? pathWithQueryString,
+    String? body,
+    Map<String, String>? headers,
+    Map<String, List<String>>? multiValueHeaders,
+    String? clientCertificateId,
     Map<String, String>? stageVariables,
   }) {
     return _$TestInvokeMethodRequest._(
-      body: body,
-      clientCertificateId: clientCertificateId,
-      headers: headers == null ? null : _i3.BuiltMap(headers),
+      restApiId: restApiId,
+      resourceId: resourceId,
       httpMethod: httpMethod,
+      pathWithQueryString: pathWithQueryString,
+      body: body,
+      headers: headers == null ? null : _i3.BuiltMap(headers),
       multiValueHeaders: multiValueHeaders == null
           ? null
           : _i3.BuiltListMultimap(multiValueHeaders),
-      pathWithQueryString: pathWithQueryString,
-      resourceId: resourceId,
-      restApiId: restApiId,
+      clientCertificateId: clientCertificateId,
       stageVariables:
           stageVariables == null ? null : _i3.BuiltMap(stageVariables),
     );
@@ -90,29 +90,29 @@ abstract class TestInvokeMethodRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeMethodRequestBuilder b) {}
 
-  /// The simulated request body of an incoming invocation request.
-  String? get body;
-
-  /// A ClientCertificate identifier to use in the test invocation. API Gateway will use the certificate when making the HTTPS request to the defined back-end endpoint.
-  String? get clientCertificateId;
-
-  /// A key-value map of headers to simulate an incoming invocation request.
-  _i3.BuiltMap<String, String>? get headers;
-
-  /// Specifies a test invoke method request's HTTP method.
-  String get httpMethod;
-
-  /// The headers as a map from string to list of values to simulate an incoming invocation request.
-  _i3.BuiltListMultimap<String, String>? get multiValueHeaders;
-
-  /// The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
-  String? get pathWithQueryString;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// Specifies a test invoke method request's resource ID.
   String get resourceId;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// Specifies a test invoke method request's HTTP method.
+  String get httpMethod;
+
+  /// The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
+  String? get pathWithQueryString;
+
+  /// The simulated request body of an incoming invocation request.
+  String? get body;
+
+  /// A key-value map of headers to simulate an incoming invocation request.
+  _i3.BuiltMap<String, String>? get headers;
+
+  /// The headers as a map from string to list of values to simulate an incoming invocation request.
+  _i3.BuiltListMultimap<String, String>? get multiValueHeaders;
+
+  /// A ClientCertificate identifier to use in the test invocation. API Gateway will use the certificate when making the HTTPS request to the defined back-end endpoint.
+  String? get clientCertificateId;
 
   /// A key-value map of stage variables to simulate an invocation on a deployed Stage.
   _i3.BuiltMap<String, String>? get stageVariables;
@@ -150,50 +150,50 @@ abstract class TestInvokeMethodRequest
       });
   @override
   List<Object?> get props => [
-        body,
-        clientCertificateId,
-        headers,
-        httpMethod,
-        multiValueHeaders,
-        pathWithQueryString,
-        resourceId,
         restApiId,
+        resourceId,
+        httpMethod,
+        pathWithQueryString,
+        body,
+        headers,
+        multiValueHeaders,
+        clientCertificateId,
         stageVariables,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestInvokeMethodRequest');
     helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'httpMethod',
+      httpMethod,
+    );
+    helper.add(
+      'pathWithQueryString',
+      pathWithQueryString,
+    );
+    helper.add(
+      'body',
+      body,
+    );
+    helper.add(
+      'headers',
+      headers,
+    );
+    helper.add(
+      'multiValueHeaders',
+      multiValueHeaders,
+    );
+    helper.add(
+      'clientCertificateId',
+      clientCertificateId,
     );
     helper.add(
       'stageVariables',

@@ -23,14 +23,14 @@ abstract class CreateDocumentationPartRequest
         _i1.HasPayload<CreateDocumentationPartRequestPayload> {
   /// Creates a new documentation part of a given API.
   factory CreateDocumentationPartRequest({
+    required String restApiId,
     required _i3.DocumentationPartLocation location,
     required String properties,
-    required String restApiId,
   }) {
     return _$CreateDocumentationPartRequest._(
+      restApiId: restApiId,
       location: location,
       properties: properties,
-      restApiId: restApiId,
     );
   }
 
@@ -61,14 +61,14 @@ abstract class CreateDocumentationPartRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateDocumentationPartRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The location of the targeted API entity of the to-be-created documentation part.
   _i3.DocumentationPartLocation get location;
 
   /// The new documentation content map of the targeted API entity. Enclosed key-value pairs are API-specific, but only OpenAPI-compliant key-value pairs can be exported and, hence, published.
   String get properties;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -89,14 +89,18 @@ abstract class CreateDocumentationPartRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         location,
         properties,
-        restApiId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('CreateDocumentationPartRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'location',
       location,
@@ -104,10 +108,6 @@ abstract class CreateDocumentationPartRequest
     helper.add(
       'properties',
       properties,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

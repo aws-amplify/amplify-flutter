@@ -6,10 +6,10 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/config_service/model/resource_count.dart'
-    as _i2;
+    as _i3;
 
 part 'get_discovered_resource_counts_response.g.dart';
 
@@ -20,15 +20,15 @@ abstract class GetDiscoveredResourceCountsResponse
         Built<GetDiscoveredResourceCountsResponse,
             GetDiscoveredResourceCountsResponseBuilder> {
   factory GetDiscoveredResourceCountsResponse({
+    _i2.Int64? totalDiscoveredResources,
+    List<_i3.ResourceCount>? resourceCounts,
     String? nextToken,
-    List<_i2.ResourceCount>? resourceCounts,
-    _i3.Int64? totalDiscoveredResources,
   }) {
     return _$GetDiscoveredResourceCountsResponse._(
-      nextToken: nextToken,
+      totalDiscoveredResources: totalDiscoveredResources,
       resourceCounts:
           resourceCounts == null ? null : _i4.BuiltList(resourceCounts),
-      totalDiscoveredResources: totalDiscoveredResources,
+      nextToken: nextToken,
     );
   }
 
@@ -52,12 +52,6 @@ abstract class GetDiscoveredResourceCountsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDiscoveredResourceCountsResponseBuilder b) {}
 
-  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
-  String? get nextToken;
-
-  /// The list of `ResourceCount` objects. Each object is listed in descending order by the number of resources.
-  _i4.BuiltList<_i2.ResourceCount>? get resourceCounts;
-
   /// The total number of resources that Config is recording in the region for your account. If you specify resource types in the request, Config returns only the total number of resources for those resource types.
   ///
   /// **Example**
@@ -67,28 +61,34 @@ abstract class GetDiscoveredResourceCountsResponse
   /// 2.  You make a call to the `GetDiscoveredResourceCounts` action and specify the resource type, `"AWS::EC2::Instances"`, in the request.
   ///
   /// 3.  Config returns 25 for `totalDiscoveredResources`.
-  _i3.Int64? get totalDiscoveredResources;
+  _i2.Int64? get totalDiscoveredResources;
+
+  /// The list of `ResourceCount` objects. Each object is listed in descending order by the number of resources.
+  _i4.BuiltList<_i3.ResourceCount>? get resourceCounts;
+
+  /// The string that you use in a subsequent request to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
-        resourceCounts,
         totalDiscoveredResources,
+        resourceCounts,
+        nextToken,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('GetDiscoveredResourceCountsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
+      'totalDiscoveredResources',
+      totalDiscoveredResources,
     );
     helper.add(
       'resourceCounts',
       resourceCounts,
     );
     helper.add(
-      'totalDiscoveredResources',
-      totalDiscoveredResources,
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -124,12 +124,12 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'nextToken':
+        case 'totalDiscoveredResources':
           if (value != null) {
-            result.nextToken = (serializers.deserialize(
+            result.totalDiscoveredResources = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(_i2.Int64),
+            ) as _i2.Int64);
           }
           break;
         case 'resourceCounts':
@@ -138,17 +138,17 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
               value,
               specifiedType: const FullType(
                 _i4.BuiltList,
-                [FullType(_i2.ResourceCount)],
+                [FullType(_i3.ResourceCount)],
               ),
-            ) as _i4.BuiltList<_i2.ResourceCount>));
+            ) as _i4.BuiltList<_i3.ResourceCount>));
           }
           break;
-        case 'totalDiscoveredResources':
+        case 'nextToken':
           if (value != null) {
-            result.totalDiscoveredResources = (serializers.deserialize(
+            result.nextToken = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -165,12 +165,12 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
   }) {
     final payload = (object as GetDiscoveredResourceCountsResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
+    if (payload.totalDiscoveredResources != null) {
       result
-        ..add('nextToken')
+        ..add('totalDiscoveredResources')
         ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
+          payload.totalDiscoveredResources!,
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (payload.resourceCounts != null) {
@@ -180,16 +180,16 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
           payload.resourceCounts!,
           specifiedType: const FullType(
             _i4.BuiltList,
-            [FullType(_i2.ResourceCount)],
+            [FullType(_i3.ResourceCount)],
           ),
         ));
     }
-    if (payload.totalDiscoveredResources != null) {
+    if (payload.nextToken != null) {
       result
-        ..add('totalDiscoveredResources')
+        ..add('nextToken')
         ..add(serializers.serialize(
-          payload.totalDiscoveredResources!,
-          specifiedType: const FullType(_i3.Int64),
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

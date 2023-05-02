@@ -24,21 +24,21 @@ abstract class ListObjectsRequest
     required String bucket,
     String? delimiter,
     _i3.EncodingType? encodingType,
-    String? expectedBucketOwner,
     String? marker,
     int? maxKeys,
     String? prefix,
     _i4.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
   }) {
     return _$ListObjectsRequest._(
       bucket: bucket,
       delimiter: delimiter,
       encodingType: encodingType,
-      expectedBucketOwner: expectedBucketOwner,
       marker: marker,
       maxKeys: maxKeys,
       prefix: prefix,
       requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -103,9 +103,6 @@ abstract class ListObjectsRequest
   /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
   _i3.EncodingType? get encodingType;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Marker is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key. Marker can be any key in the bucket.
   String? get marker;
 
@@ -117,6 +114,9 @@ abstract class ListObjectsRequest
 
   /// Confirms that the requester knows that she or he will be charged for the list objects request. Bucket owners need not specify this parameter in their requests.
   _i4.RequestPayer? get requestPayer;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -136,11 +136,11 @@ abstract class ListObjectsRequest
         bucket,
         delimiter,
         encodingType,
-        expectedBucketOwner,
         marker,
         maxKeys,
         prefix,
         requestPayer,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -158,10 +158,6 @@ abstract class ListObjectsRequest
       encodingType,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'marker',
       marker,
     );
@@ -176,6 +172,10 @@ abstract class ListObjectsRequest
     helper.add(
       'requestPayer',
       requestPayer,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

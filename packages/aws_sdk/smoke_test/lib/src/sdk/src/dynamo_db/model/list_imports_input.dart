@@ -13,14 +13,14 @@ abstract class ListImportsInput
     with _i1.HttpInput<ListImportsInput>, _i2.AWSEquatable<ListImportsInput>
     implements Built<ListImportsInput, ListImportsInputBuilder> {
   factory ListImportsInput({
-    String? nextToken,
-    int? pageSize,
     String? tableArn,
+    int? pageSize,
+    String? nextToken,
   }) {
     return _$ListImportsInput._(
-      nextToken: nextToken,
-      pageSize: pageSize,
       tableArn: tableArn,
+      pageSize: pageSize,
+      nextToken: nextToken,
     );
   }
 
@@ -43,36 +43,36 @@ abstract class ListImportsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListImportsInputBuilder b) {}
 
-  /// An optional string that, if supplied, must be copied from the output of a previous call to `ListImports`. When provided in this manner, the API fetches the next page of results.
-  String? get nextToken;
+  /// The Amazon Resource Name (ARN) associated with the table that was imported to.
+  String? get tableArn;
 
   /// The number of `ImportSummary` objects returned in a single page.
   int? get pageSize;
 
-  /// The Amazon Resource Name (ARN) associated with the table that was imported to.
-  String? get tableArn;
+  /// An optional string that, if supplied, must be copied from the output of a previous call to `ListImports`. When provided in this manner, the API fetches the next page of results.
+  String? get nextToken;
   @override
   ListImportsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        nextToken,
-        pageSize,
         tableArn,
+        pageSize,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListImportsInput');
     helper.add(
-      'nextToken',
-      nextToken,
+      'tableArn',
+      tableArn,
     );
     helper.add(
       'pageSize',
       pageSize,
     );
     helper.add(
-      'tableArn',
-      tableArn,
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -107,9 +107,9 @@ class ListImportsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
+        case 'TableArn':
           if (value != null) {
-            result.nextToken = (serializers.deserialize(
+            result.tableArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -123,9 +123,9 @@ class ListImportsInputAwsJson10Serializer
             ) as int);
           }
           break;
-        case 'TableArn':
+        case 'NextToken':
           if (value != null) {
-            result.tableArn = (serializers.deserialize(
+            result.nextToken = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -145,11 +145,11 @@ class ListImportsInputAwsJson10Serializer
   }) {
     final payload = (object as ListImportsInput);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
+    if (payload.tableArn != null) {
       result
-        ..add('NextToken')
+        ..add('TableArn')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          payload.tableArn!,
           specifiedType: const FullType(String),
         ));
     }
@@ -161,11 +161,11 @@ class ListImportsInputAwsJson10Serializer
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.tableArn != null) {
+    if (payload.nextToken != null) {
       result
-        ..add('TableArn')
+        ..add('NextToken')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          payload.nextToken!,
           specifiedType: const FullType(String),
         ));
     }

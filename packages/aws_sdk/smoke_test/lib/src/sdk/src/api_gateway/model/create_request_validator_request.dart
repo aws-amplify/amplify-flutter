@@ -21,14 +21,14 @@ abstract class CreateRequestValidatorRequest
         _i1.HasPayload<CreateRequestValidatorRequestPayload> {
   /// Creates a RequestValidator of a given RestApi.
   factory CreateRequestValidatorRequest({
-    String? name,
     required String restApiId,
+    String? name,
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
     return _$CreateRequestValidatorRequest._(
-      name: name,
       restApiId: restApiId,
+      name: name,
       validateRequestBody: validateRequestBody,
       validateRequestParameters: validateRequestParameters,
     );
@@ -62,11 +62,11 @@ abstract class CreateRequestValidatorRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateRequestValidatorRequestBuilder b) {}
 
-  /// The name of the to-be-created RequestValidator.
-  String? get name;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The name of the to-be-created RequestValidator.
+  String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
   bool? get validateRequestBody;
@@ -94,8 +94,8 @@ abstract class CreateRequestValidatorRequest
       });
   @override
   List<Object?> get props => [
-        name,
         restApiId,
+        name,
         validateRequestBody,
         validateRequestParameters,
       ];
@@ -103,12 +103,12 @@ abstract class CreateRequestValidatorRequest
   String toString() {
     final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest');
     helper.add(
-      'name',
-      name,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'name',
+      name,
     );
     helper.add(
       'validateRequestBody',

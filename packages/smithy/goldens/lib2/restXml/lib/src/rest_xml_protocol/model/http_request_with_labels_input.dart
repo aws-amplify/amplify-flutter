@@ -20,29 +20,29 @@ abstract class HttpRequestWithLabelsInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithLabelsInputPayload> {
   factory HttpRequestWithLabelsInput({
-    bool? boolean,
-    double? double_,
-    double? float,
+    required String string,
+    int? short,
     int? integer,
     _i3.Int64? long,
-    int? short,
-    required String string,
+    double? float,
+    double? double_,
+    bool? boolean,
     required DateTime timestamp,
   }) {
-    boolean ??= false;
-    double_ ??= 0;
-    float ??= 0;
+    short ??= 0;
     integer ??= 0;
     long ??= _i3.Int64.ZERO;
-    short ??= 0;
+    float ??= 0;
+    double_ ??= 0;
+    boolean ??= false;
     return _$HttpRequestWithLabelsInput._(
-      boolean: boolean,
-      double_: double_,
-      float: float,
+      string: string,
+      short: short,
       integer: integer,
       long: long,
-      short: short,
-      string: string,
+      float: float,
+      double_: double_,
+      boolean: boolean,
       timestamp: timestamp,
     );
   }
@@ -94,22 +94,23 @@ abstract class HttpRequestWithLabelsInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpRequestWithLabelsInputBuilder b) {
-    b.boolean = false;
-    b.double_ = 0;
-    b.float = 0;
+    b.short = 0;
     b.integer = 0;
     b.long = _i3.Int64.ZERO;
-    b.short = 0;
+    b.float = 0;
+    b.double_ = 0;
+    b.boolean = false;
   }
+
+  String get string;
+  int get short;
+  int get integer;
+  _i3.Int64 get long;
+  double get float;
+  double get double_;
 
   /// Serialized in the path as true or false.
   bool get boolean;
-  double get double_;
-  double get float;
-  int get integer;
-  _i3.Int64 get long;
-  int get short;
-  String get string;
 
   /// Note that this member has no format, so it's serialized as an RFC 3399 date-time.
   DateTime get timestamp;
@@ -146,29 +147,25 @@ abstract class HttpRequestWithLabelsInput
       HttpRequestWithLabelsInputPayload();
   @override
   List<Object?> get props => [
-        boolean,
-        double_,
-        float,
+        string,
+        short,
         integer,
         long,
-        short,
-        string,
+        float,
+        double_,
+        boolean,
         timestamp,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput');
     helper.add(
-      'boolean',
-      boolean,
+      'string',
+      string,
     );
     helper.add(
-      'double_',
-      double_,
-    );
-    helper.add(
-      'float',
-      float,
+      'short',
+      short,
     );
     helper.add(
       'integer',
@@ -179,12 +176,16 @@ abstract class HttpRequestWithLabelsInput
       long,
     );
     helper.add(
-      'short',
-      short,
+      'float',
+      float,
     );
     helper.add(
-      'string',
-      string,
+      'double_',
+      double_,
+    );
+    helper.add(
+      'boolean',
+      boolean,
     );
     helper.add(
       'timestamp',

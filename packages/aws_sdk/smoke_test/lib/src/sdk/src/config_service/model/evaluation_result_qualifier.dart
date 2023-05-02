@@ -17,13 +17,13 @@ abstract class EvaluationResultQualifier
   /// Identifies an Config rule that evaluated an Amazon Web Services resource, and provides the type and ID of the resource that the rule evaluated.
   factory EvaluationResultQualifier({
     String? configRuleName,
-    String? resourceId,
     String? resourceType,
+    String? resourceId,
   }) {
     return _$EvaluationResultQualifier._(
       configRuleName: configRuleName,
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -44,16 +44,16 @@ abstract class EvaluationResultQualifier
   /// The name of the Config rule that was used in the evaluation.
   String? get configRuleName;
 
-  /// The ID of the evaluated Amazon Web Services resource.
-  String? get resourceId;
-
   /// The type of Amazon Web Services resource that was evaluated.
   String? get resourceType;
+
+  /// The ID of the evaluated Amazon Web Services resource.
+  String? get resourceId;
   @override
   List<Object?> get props => [
         configRuleName,
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
@@ -63,12 +63,12 @@ abstract class EvaluationResultQualifier
       configRuleName,
     );
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -112,17 +112,17 @@ class EvaluationResultQualifierAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'ResourceId':
+        case 'ResourceType':
           if (value != null) {
-            result.resourceId = (serializers.deserialize(
+            result.resourceType = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'ResourceType':
+        case 'ResourceId':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.resourceId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -150,19 +150,19 @@ class EvaluationResultQualifierAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceId != null) {
-      result
-        ..add('ResourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
           payload.resourceType!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceId != null) {
+      result
+        ..add('ResourceId')
+        ..add(serializers.serialize(
+          payload.resourceId!,
           specifiedType: const FullType(String),
         ));
     }

@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/copy_object_result.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i5;
+    as _i4;
 
 part 'copy_object_output.g.dart';
 
@@ -19,30 +19,30 @@ abstract class CopyObjectOutput
         Built<CopyObjectOutput, CopyObjectOutputBuilder>,
         _i2.HasPayload<_i3.CopyObjectResult> {
   factory CopyObjectOutput({
-    bool? bucketKeyEnabled,
     _i3.CopyObjectResult? copyObjectResult,
-    String? copySourceVersionId,
     String? expiration,
-    _i4.RequestCharged? requestCharged,
-    _i5.ServerSideEncryption? serverSideEncryption,
+    String? copySourceVersionId,
+    String? versionId,
+    _i4.ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
-    String? ssekmsEncryptionContext,
     String? ssekmsKeyId,
-    String? versionId,
+    String? ssekmsEncryptionContext,
+    bool? bucketKeyEnabled,
+    _i5.RequestCharged? requestCharged,
   }) {
     return _$CopyObjectOutput._(
-      bucketKeyEnabled: bucketKeyEnabled,
       copyObjectResult: copyObjectResult,
-      copySourceVersionId: copySourceVersionId,
       expiration: expiration,
-      requestCharged: requestCharged,
+      copySourceVersionId: copySourceVersionId,
+      versionId: versionId,
       serverSideEncryption: serverSideEncryption,
       sseCustomerAlgorithm: sseCustomerAlgorithm,
       sseCustomerKeyMd5: sseCustomerKeyMd5,
-      ssekmsEncryptionContext: ssekmsEncryptionContext,
       ssekmsKeyId: ssekmsKeyId,
-      versionId: versionId,
+      ssekmsEncryptionContext: ssekmsEncryptionContext,
+      bucketKeyEnabled: bucketKeyEnabled,
+      requestCharged: requestCharged,
     );
   }
 
@@ -71,7 +71,7 @@ abstract class CopyObjectOutput
           b.versionId = response.headers['x-amz-version-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i5.ServerSideEncryption.values
+          b.serverSideEncryption = _i4.ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -102,7 +102,7 @@ abstract class CopyObjectOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = _i5.RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -114,23 +114,20 @@ abstract class CopyObjectOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CopyObjectOutputBuilder b) {}
 
-  /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
-  bool? get bucketKeyEnabled;
-
   /// Container for all response elements.
   _i3.CopyObjectResult? get copyObjectResult;
-
-  /// Version of the copied object in the destination bucket.
-  String? get copySourceVersionId;
 
   /// If the object expiration is configured, the response includes this header.
   String? get expiration;
 
-  /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  /// Version of the copied object in the destination bucket.
+  String? get copySourceVersionId;
+
+  /// Version ID of the newly created copy.
+  String? get versionId;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
-  _i5.ServerSideEncryption? get serverSideEncryption;
+  _i4.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -138,53 +135,52 @@ abstract class CopyObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
-  String? get ssekmsEncryptionContext;
-
   /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// Version ID of the newly created copy.
-  String? get versionId;
+  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  String? get ssekmsEncryptionContext;
+
+  /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  bool? get bucketKeyEnabled;
+
+  /// If present, indicates that the requester was successfully charged for the request.
+  _i5.RequestCharged? get requestCharged;
   @override
   _i3.CopyObjectResult? getPayload() =>
       copyObjectResult ?? _i3.CopyObjectResult();
   @override
   List<Object?> get props => [
-        bucketKeyEnabled,
         copyObjectResult,
-        copySourceVersionId,
         expiration,
-        requestCharged,
+        copySourceVersionId,
+        versionId,
         serverSideEncryption,
         sseCustomerAlgorithm,
         sseCustomerKeyMd5,
-        ssekmsEncryptionContext,
         ssekmsKeyId,
-        versionId,
+        ssekmsEncryptionContext,
+        bucketKeyEnabled,
+        requestCharged,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('CopyObjectOutput');
     helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
       'copyObjectResult',
       copyObjectResult,
-    );
-    helper.add(
-      'copySourceVersionId',
-      copySourceVersionId,
     );
     helper.add(
       'expiration',
       expiration,
     );
     helper.add(
-      'requestCharged',
-      requestCharged,
+      'copySourceVersionId',
+      copySourceVersionId,
+    );
+    helper.add(
+      'versionId',
+      versionId,
     );
     helper.add(
       'serverSideEncryption',
@@ -199,16 +195,20 @@ abstract class CopyObjectOutput
       sseCustomerKeyMd5,
     );
     helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
       'ssekmsKeyId',
       '***SENSITIVE***',
     );
     helper.add(
-      'versionId',
-      versionId,
+      'ssekmsEncryptionContext',
+      '***SENSITIVE***',
+    );
+    helper.add(
+      'bucketKeyEnabled',
+      bucketKeyEnabled,
+    );
+    helper.add(
+      'requestCharged',
+      requestCharged,
     );
     return helper.toString();
   }

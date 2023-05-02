@@ -6,9 +6,9 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:meta/meta.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'all_query_string_types_input.g.dart';
@@ -22,62 +22,62 @@ abstract class AllQueryStringTypesInput
         _i1.EmptyPayload,
         _i1.HasPayload<AllQueryStringTypesInputPayload> {
   factory AllQueryStringTypesInput({
-    bool? queryBoolean,
-    List<bool>? queryBooleanList,
-    int? queryByte,
-    double? queryDouble,
-    List<double>? queryDoubleList,
-    _i3.FooEnum? queryEnum,
-    List<_i3.FooEnum>? queryEnumList,
-    double? queryFloat,
-    int? queryInteger,
-    int? queryIntegerEnum,
-    List<int>? queryIntegerEnumList,
-    List<int>? queryIntegerList,
-    Set<int>? queryIntegerSet,
-    _i4.Int64? queryLong,
-    Map<String, String>? queryParamsMapOfStrings,
-    int? queryShort,
     String? queryString,
     List<String>? queryStringList,
     Set<String>? queryStringSet,
+    int? queryByte,
+    int? queryShort,
+    int? queryInteger,
+    List<int>? queryIntegerList,
+    Set<int>? queryIntegerSet,
+    _i3.Int64? queryLong,
+    double? queryFloat,
+    double? queryDouble,
+    List<double>? queryDoubleList,
+    bool? queryBoolean,
+    List<bool>? queryBooleanList,
     DateTime? queryTimestamp,
     List<DateTime>? queryTimestampList,
+    _i4.FooEnum? queryEnum,
+    List<_i4.FooEnum>? queryEnumList,
+    int? queryIntegerEnum,
+    List<int>? queryIntegerEnumList,
+    Map<String, String>? queryParamsMapOfStrings,
   }) {
     return _$AllQueryStringTypesInput._(
-      queryBoolean: queryBoolean,
-      queryBooleanList:
-          queryBooleanList == null ? null : _i5.BuiltList(queryBooleanList),
-      queryByte: queryByte,
-      queryDouble: queryDouble,
-      queryDoubleList:
-          queryDoubleList == null ? null : _i5.BuiltList(queryDoubleList),
-      queryEnum: queryEnum,
-      queryEnumList:
-          queryEnumList == null ? null : _i5.BuiltList(queryEnumList),
-      queryFloat: queryFloat,
-      queryInteger: queryInteger,
-      queryIntegerEnum: queryIntegerEnum,
-      queryIntegerEnumList: queryIntegerEnumList == null
-          ? null
-          : _i5.BuiltList(queryIntegerEnumList),
-      queryIntegerList:
-          queryIntegerList == null ? null : _i5.BuiltList(queryIntegerList),
-      queryIntegerSet:
-          queryIntegerSet == null ? null : _i5.BuiltSet(queryIntegerSet),
-      queryLong: queryLong,
-      queryParamsMapOfStrings: queryParamsMapOfStrings == null
-          ? null
-          : _i5.BuiltMap(queryParamsMapOfStrings),
-      queryShort: queryShort,
       queryString: queryString,
       queryStringList:
           queryStringList == null ? null : _i5.BuiltList(queryStringList),
       queryStringSet:
           queryStringSet == null ? null : _i5.BuiltSet(queryStringSet),
+      queryByte: queryByte,
+      queryShort: queryShort,
+      queryInteger: queryInteger,
+      queryIntegerList:
+          queryIntegerList == null ? null : _i5.BuiltList(queryIntegerList),
+      queryIntegerSet:
+          queryIntegerSet == null ? null : _i5.BuiltSet(queryIntegerSet),
+      queryLong: queryLong,
+      queryFloat: queryFloat,
+      queryDouble: queryDouble,
+      queryDoubleList:
+          queryDoubleList == null ? null : _i5.BuiltList(queryDoubleList),
+      queryBoolean: queryBoolean,
+      queryBooleanList:
+          queryBooleanList == null ? null : _i5.BuiltList(queryBooleanList),
       queryTimestamp: queryTimestamp,
       queryTimestampList:
           queryTimestampList == null ? null : _i5.BuiltList(queryTimestampList),
+      queryEnum: queryEnum,
+      queryEnumList:
+          queryEnumList == null ? null : _i5.BuiltList(queryEnumList),
+      queryIntegerEnum: queryIntegerEnum,
+      queryIntegerEnumList: queryIntegerEnumList == null
+          ? null
+          : _i5.BuiltList(queryIntegerEnumList),
+      queryParamsMapOfStrings: queryParamsMapOfStrings == null
+          ? null
+          : _i5.BuiltMap(queryParamsMapOfStrings),
     );
   }
 
@@ -126,7 +126,7 @@ abstract class AllQueryStringTypesInput
               .map((el) => int.parse(el.trim())));
         }
         if (request.queryParameters['Long'] != null) {
-          b.queryLong = _i4.Int64.parseInt(request.queryParameters['Long']!);
+          b.queryLong = _i3.Int64.parseInt(request.queryParameters['Long']!);
         }
         if (request.queryParameters['Float'] != null) {
           b.queryFloat = double.parse(request.queryParameters['Float']!);
@@ -166,12 +166,12 @@ abstract class AllQueryStringTypesInput
         }
         if (request.queryParameters['Enum'] != null) {
           b.queryEnum =
-              _i3.FooEnum.values.byValue(request.queryParameters['Enum']!);
+              _i4.FooEnum.values.byValue(request.queryParameters['Enum']!);
         }
         if (request.queryParameters['EnumList'] != null) {
           b.queryEnumList.addAll(_i1
               .parseHeader(request.queryParameters['EnumList']!)
-              .map((el) => _i3.FooEnum.values.byValue(el.trim())));
+              .map((el) => _i4.FooEnum.values.byValue(el.trim())));
         }
         if (request.queryParameters['IntegerEnum'] != null) {
           b.queryIntegerEnum =
@@ -190,100 +190,80 @@ abstract class AllQueryStringTypesInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AllQueryStringTypesInputBuilder b) {}
-  bool? get queryBoolean;
-  _i5.BuiltList<bool>? get queryBooleanList;
-  int? get queryByte;
-  double? get queryDouble;
-  _i5.BuiltList<double>? get queryDoubleList;
-  _i3.FooEnum? get queryEnum;
-  _i5.BuiltList<_i3.FooEnum>? get queryEnumList;
-  double? get queryFloat;
-  int? get queryInteger;
-  int? get queryIntegerEnum;
-  _i5.BuiltList<int>? get queryIntegerEnumList;
-  _i5.BuiltList<int>? get queryIntegerList;
-  _i5.BuiltSet<int>? get queryIntegerSet;
-  _i4.Int64? get queryLong;
-  _i5.BuiltMap<String, String>? get queryParamsMapOfStrings;
-  int? get queryShort;
   String? get queryString;
   _i5.BuiltList<String>? get queryStringList;
   _i5.BuiltSet<String>? get queryStringSet;
+  int? get queryByte;
+  int? get queryShort;
+  int? get queryInteger;
+  _i5.BuiltList<int>? get queryIntegerList;
+  _i5.BuiltSet<int>? get queryIntegerSet;
+  _i3.Int64? get queryLong;
+  double? get queryFloat;
+  double? get queryDouble;
+  _i5.BuiltList<double>? get queryDoubleList;
+  bool? get queryBoolean;
+  _i5.BuiltList<bool>? get queryBooleanList;
   DateTime? get queryTimestamp;
   _i5.BuiltList<DateTime>? get queryTimestampList;
+  _i4.FooEnum? get queryEnum;
+  _i5.BuiltList<_i4.FooEnum>? get queryEnumList;
+  int? get queryIntegerEnum;
+  _i5.BuiltList<int>? get queryIntegerEnumList;
+  _i5.BuiltMap<String, String>? get queryParamsMapOfStrings;
   @override
   AllQueryStringTypesInputPayload getPayload() =>
       AllQueryStringTypesInputPayload();
   @override
   List<Object?> get props => [
-        queryBoolean,
-        queryBooleanList,
-        queryByte,
-        queryDouble,
-        queryDoubleList,
-        queryEnum,
-        queryEnumList,
-        queryFloat,
-        queryInteger,
-        queryIntegerEnum,
-        queryIntegerEnumList,
-        queryIntegerList,
-        queryIntegerSet,
-        queryLong,
-        queryParamsMapOfStrings,
-        queryShort,
         queryString,
         queryStringList,
         queryStringSet,
+        queryByte,
+        queryShort,
+        queryInteger,
+        queryIntegerList,
+        queryIntegerSet,
+        queryLong,
+        queryFloat,
+        queryDouble,
+        queryDoubleList,
+        queryBoolean,
+        queryBooleanList,
         queryTimestamp,
         queryTimestampList,
+        queryEnum,
+        queryEnumList,
+        queryIntegerEnum,
+        queryIntegerEnumList,
+        queryParamsMapOfStrings,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AllQueryStringTypesInput');
     helper.add(
-      'queryBoolean',
-      queryBoolean,
+      'queryString',
+      queryString,
     );
     helper.add(
-      'queryBooleanList',
-      queryBooleanList,
+      'queryStringList',
+      queryStringList,
+    );
+    helper.add(
+      'queryStringSet',
+      queryStringSet,
     );
     helper.add(
       'queryByte',
       queryByte,
     );
     helper.add(
-      'queryDouble',
-      queryDouble,
-    );
-    helper.add(
-      'queryDoubleList',
-      queryDoubleList,
-    );
-    helper.add(
-      'queryEnum',
-      queryEnum,
-    );
-    helper.add(
-      'queryEnumList',
-      queryEnumList,
-    );
-    helper.add(
-      'queryFloat',
-      queryFloat,
+      'queryShort',
+      queryShort,
     );
     helper.add(
       'queryInteger',
       queryInteger,
-    );
-    helper.add(
-      'queryIntegerEnum',
-      queryIntegerEnum,
-    );
-    helper.add(
-      'queryIntegerEnumList',
-      queryIntegerEnumList,
     );
     helper.add(
       'queryIntegerList',
@@ -298,24 +278,24 @@ abstract class AllQueryStringTypesInput
       queryLong,
     );
     helper.add(
-      'queryParamsMapOfStrings',
-      queryParamsMapOfStrings,
+      'queryFloat',
+      queryFloat,
     );
     helper.add(
-      'queryShort',
-      queryShort,
+      'queryDouble',
+      queryDouble,
     );
     helper.add(
-      'queryString',
-      queryString,
+      'queryDoubleList',
+      queryDoubleList,
     );
     helper.add(
-      'queryStringList',
-      queryStringList,
+      'queryBoolean',
+      queryBoolean,
     );
     helper.add(
-      'queryStringSet',
-      queryStringSet,
+      'queryBooleanList',
+      queryBooleanList,
     );
     helper.add(
       'queryTimestamp',
@@ -324,6 +304,26 @@ abstract class AllQueryStringTypesInput
     helper.add(
       'queryTimestampList',
       queryTimestampList,
+    );
+    helper.add(
+      'queryEnum',
+      queryEnum,
+    );
+    helper.add(
+      'queryEnumList',
+      queryEnumList,
+    );
+    helper.add(
+      'queryIntegerEnum',
+      queryIntegerEnum,
+    );
+    helper.add(
+      'queryIntegerEnumList',
+      queryIntegerEnumList,
+    );
+    helper.add(
+      'queryParamsMapOfStrings',
+      queryParamsMapOfStrings,
     );
     return helper.toString();
   }

@@ -9,16 +9,16 @@ part of smoke_test.config_service.model.start_remediation_execution_response;
 class _$StartRemediationExecutionResponse
     extends StartRemediationExecutionResponse {
   @override
-  final _i3.BuiltList<_i2.ResourceKey>? failedItems;
-  @override
   final String? failureMessage;
+  @override
+  final _i3.BuiltList<_i2.ResourceKey>? failedItems;
 
   factory _$StartRemediationExecutionResponse(
           [void Function(StartRemediationExecutionResponseBuilder)? updates]) =>
       (new StartRemediationExecutionResponseBuilder()..update(updates))
           ._build();
 
-  _$StartRemediationExecutionResponse._({this.failedItems, this.failureMessage})
+  _$StartRemediationExecutionResponse._({this.failureMessage, this.failedItems})
       : super._();
 
   @override
@@ -34,15 +34,15 @@ class _$StartRemediationExecutionResponse
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is StartRemediationExecutionResponse &&
-        failedItems == other.failedItems &&
-        failureMessage == other.failureMessage;
+        failureMessage == other.failureMessage &&
+        failedItems == other.failedItems;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, failedItems.hashCode);
     _$hash = $jc(_$hash, failureMessage.hashCode);
+    _$hash = $jc(_$hash, failedItems.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,16 +54,16 @@ class StartRemediationExecutionResponseBuilder
             StartRemediationExecutionResponseBuilder> {
   _$StartRemediationExecutionResponse? _$v;
 
+  String? _failureMessage;
+  String? get failureMessage => _$this._failureMessage;
+  set failureMessage(String? failureMessage) =>
+      _$this._failureMessage = failureMessage;
+
   _i3.ListBuilder<_i2.ResourceKey>? _failedItems;
   _i3.ListBuilder<_i2.ResourceKey> get failedItems =>
       _$this._failedItems ??= new _i3.ListBuilder<_i2.ResourceKey>();
   set failedItems(_i3.ListBuilder<_i2.ResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
-
-  String? _failureMessage;
-  String? get failureMessage => _$this._failureMessage;
-  set failureMessage(String? failureMessage) =>
-      _$this._failureMessage = failureMessage;
 
   StartRemediationExecutionResponseBuilder() {
     StartRemediationExecutionResponse._init(this);
@@ -72,8 +72,8 @@ class StartRemediationExecutionResponseBuilder
   StartRemediationExecutionResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _failedItems = $v.failedItems?.toBuilder();
       _failureMessage = $v.failureMessage;
+      _failedItems = $v.failedItems?.toBuilder();
       _$v = null;
     }
     return this;
@@ -99,8 +99,8 @@ class StartRemediationExecutionResponseBuilder
     try {
       _$result = _$v ??
           new _$StartRemediationExecutionResponse._(
-              failedItems: _failedItems?.build(),
-              failureMessage: failureMessage);
+              failureMessage: failureMessage,
+              failedItems: _failedItems?.build());
     } catch (_) {
       late String _$failedField;
       try {

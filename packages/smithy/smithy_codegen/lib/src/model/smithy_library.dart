@@ -122,9 +122,6 @@ extension SmithyLibraryX on SmithyLibrary {
     filename = _sanitize(filename);
     switch (libraryType) {
       case SmithyLibrary_LibraryType.OPERATION:
-        if (!filename.endsWith('_operation')) {
-          filename = '${filename}_operation';
-        }
         break;
       case SmithyLibrary_LibraryType.TEST:
         if (!filename.endsWith('_test')) {

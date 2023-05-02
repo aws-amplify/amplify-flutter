@@ -9,13 +9,13 @@ part of smoke_test.config_service.model.get_organization_config_rule_detailed_st
 class _$GetOrganizationConfigRuleDetailedStatusRequest
     extends GetOrganizationConfigRuleDetailedStatusRequest {
   @override
+  final String organizationConfigRuleName;
+  @override
   final _i3.StatusDetailFilters? filters;
   @override
   final int? limit;
   @override
   final String? nextToken;
-  @override
-  final String organizationConfigRuleName;
 
   factory _$GetOrganizationConfigRuleDetailedStatusRequest(
           [void Function(GetOrganizationConfigRuleDetailedStatusRequestBuilder)?
@@ -25,10 +25,10 @@ class _$GetOrganizationConfigRuleDetailedStatusRequest
           ._build();
 
   _$GetOrganizationConfigRuleDetailedStatusRequest._(
-      {this.filters,
+      {required this.organizationConfigRuleName,
+      this.filters,
       this.limit,
-      this.nextToken,
-      required this.organizationConfigRuleName})
+      this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         organizationConfigRuleName,
@@ -51,19 +51,19 @@ class _$GetOrganizationConfigRuleDetailedStatusRequest
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetOrganizationConfigRuleDetailedStatusRequest &&
+        organizationConfigRuleName == other.organizationConfigRuleName &&
         filters == other.filters &&
         limit == other.limit &&
-        nextToken == other.nextToken &&
-        organizationConfigRuleName == other.organizationConfigRuleName;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
     _$hash = $jc(_$hash, filters.hashCode);
     _$hash = $jc(_$hash, limit.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, organizationConfigRuleName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -74,6 +74,11 @@ class GetOrganizationConfigRuleDetailedStatusRequestBuilder
         Builder<GetOrganizationConfigRuleDetailedStatusRequest,
             GetOrganizationConfigRuleDetailedStatusRequestBuilder> {
   _$GetOrganizationConfigRuleDetailedStatusRequest? _$v;
+
+  String? _organizationConfigRuleName;
+  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
+  set organizationConfigRuleName(String? organizationConfigRuleName) =>
+      _$this._organizationConfigRuleName = organizationConfigRuleName;
 
   _i3.StatusDetailFiltersBuilder? _filters;
   _i3.StatusDetailFiltersBuilder get filters =>
@@ -89,11 +94,6 @@ class GetOrganizationConfigRuleDetailedStatusRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  String? _organizationConfigRuleName;
-  String? get organizationConfigRuleName => _$this._organizationConfigRuleName;
-  set organizationConfigRuleName(String? organizationConfigRuleName) =>
-      _$this._organizationConfigRuleName = organizationConfigRuleName;
-
   GetOrganizationConfigRuleDetailedStatusRequestBuilder() {
     GetOrganizationConfigRuleDetailedStatusRequest._init(this);
   }
@@ -101,10 +101,10 @@ class GetOrganizationConfigRuleDetailedStatusRequestBuilder
   GetOrganizationConfigRuleDetailedStatusRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _organizationConfigRuleName = $v.organizationConfigRuleName;
       _filters = $v.filters?.toBuilder();
       _limit = $v.limit;
       _nextToken = $v.nextToken;
-      _organizationConfigRuleName = $v.organizationConfigRuleName;
       _$v = null;
     }
     return this;
@@ -131,13 +131,13 @@ class GetOrganizationConfigRuleDetailedStatusRequestBuilder
     try {
       _$result = _$v ??
           new _$GetOrganizationConfigRuleDetailedStatusRequest._(
-              filters: _filters?.build(),
-              limit: limit,
-              nextToken: nextToken,
               organizationConfigRuleName: BuiltValueNullFieldError.checkNotNull(
                   organizationConfigRuleName,
                   r'GetOrganizationConfigRuleDetailedStatusRequest',
-                  'organizationConfigRuleName'));
+                  'organizationConfigRuleName'),
+              filters: _filters?.build(),
+              limit: limit,
+              nextToken: nextToken);
     } catch (_) {
       late String _$failedField;
       try {

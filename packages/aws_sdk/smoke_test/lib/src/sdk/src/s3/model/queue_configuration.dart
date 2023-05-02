@@ -19,16 +19,16 @@ abstract class QueueConfiguration
     implements Built<QueueConfiguration, QueueConfigurationBuilder> {
   /// Specifies the configuration for publishing messages to an Amazon Simple Queue Service (Amazon SQS) queue when Amazon S3 detects specified events.
   factory QueueConfiguration({
-    required List<_i2.Event> events,
-    _i3.NotificationConfigurationFilter? filter,
     String? id,
     required String queueArn,
+    required List<_i2.Event> events,
+    _i3.NotificationConfigurationFilter? filter,
   }) {
     return _$QueueConfiguration._(
-      events: _i4.BuiltList(events),
-      filter: filter,
       id: id,
       queueArn: queueArn,
+      events: _i4.BuiltList(events),
+      filter: filter,
     );
   }
 
@@ -46,35 +46,27 @@ abstract class QueueConfiguration
   @BuiltValueHook(initializeBuilder: true)
   static void _init(QueueConfigurationBuilder b) {}
 
-  /// A collection of bucket events for which to send notifications
-  _i4.BuiltList<_i2.Event> get events;
-
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i3.NotificationConfigurationFilter? get filter;
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 
   /// The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message when it detects events of the specified type.
   String get queueArn;
+
+  /// A collection of bucket events for which to send notifications
+  _i4.BuiltList<_i2.Event> get events;
+
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
-        events,
-        filter,
         id,
         queueArn,
+        events,
+        filter,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('QueueConfiguration');
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
     helper.add(
       'id',
       id,
@@ -82,6 +74,14 @@ abstract class QueueConfiguration
     helper.add(
       'queueArn',
       queueArn,
+    );
+    helper.add(
+      'events',
+      events,
+    );
+    helper.add(
+      'filter',
+      filter,
     );
     return helper.toString();
   }

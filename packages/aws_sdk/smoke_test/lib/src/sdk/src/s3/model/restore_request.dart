@@ -8,11 +8,11 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i7;
 import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart'
     as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tier.dart' as _i5;
+    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/tier.dart' as _i4;
 
 part 'restore_request.g.dart';
 
@@ -23,21 +23,21 @@ abstract class RestoreRequest
   /// Container for restore job parameters.
   factory RestoreRequest({
     int? days,
-    String? description,
     _i2.GlacierJobParameters? glacierJobParameters,
-    _i3.OutputLocation? outputLocation,
-    _i4.SelectParameters? selectParameters,
-    _i5.Tier? tier,
-    _i6.RestoreRequestType? type,
+    _i3.RestoreRequestType? type,
+    _i4.Tier? tier,
+    String? description,
+    _i5.SelectParameters? selectParameters,
+    _i6.OutputLocation? outputLocation,
   }) {
     return _$RestoreRequest._(
       days: days,
-      description: description,
       glacierJobParameters: glacierJobParameters,
-      outputLocation: outputLocation,
-      selectParameters: selectParameters,
-      tier: tier,
       type: type,
+      tier: tier,
+      description: description,
+      selectParameters: selectParameters,
+      outputLocation: outputLocation,
     );
   }
 
@@ -59,32 +59,32 @@ abstract class RestoreRequest
   /// The Days element is required for regular restores, and must not be provided for select requests.
   int? get days;
 
-  /// The optional description for the job.
-  String? get description;
-
   /// S3 Glacier related parameters pertaining to this job. Do not use with restores that specify `OutputLocation`.
   _i2.GlacierJobParameters? get glacierJobParameters;
 
-  /// Describes the location where the restore job's output is stored.
-  _i3.OutputLocation? get outputLocation;
-
-  /// Describes the parameters for Select job types.
-  _i4.SelectParameters? get selectParameters;
+  /// Type of restore request.
+  _i3.RestoreRequestType? get type;
 
   /// Retrieval tier at which the restore will be processed.
-  _i5.Tier? get tier;
+  _i4.Tier? get tier;
 
-  /// Type of restore request.
-  _i6.RestoreRequestType? get type;
+  /// The optional description for the job.
+  String? get description;
+
+  /// Describes the parameters for Select job types.
+  _i5.SelectParameters? get selectParameters;
+
+  /// Describes the location where the restore job's output is stored.
+  _i6.OutputLocation? get outputLocation;
   @override
   List<Object?> get props => [
         days,
-        description,
         glacierJobParameters,
-        outputLocation,
-        selectParameters,
-        tier,
         type,
+        tier,
+        description,
+        selectParameters,
+        outputLocation,
       ];
   @override
   String toString() {
@@ -94,28 +94,28 @@ abstract class RestoreRequest
       days,
     );
     helper.add(
-      'description',
-      description,
-    );
-    helper.add(
       'glacierJobParameters',
       glacierJobParameters,
     );
     helper.add(
-      'outputLocation',
-      outputLocation,
-    );
-    helper.add(
-      'selectParameters',
-      selectParameters,
+      'type',
+      type,
     );
     helper.add(
       'tier',
       tier,
     );
     helper.add(
-      'type',
-      type,
+      'description',
+      description,
+    );
+    helper.add(
+      'selectParameters',
+      selectParameters,
+    );
+    helper.add(
+      'outputLocation',
+      outputLocation,
     );
     return helper.toString();
   }
@@ -178,32 +178,32 @@ class RestoreRequestRestXmlSerializer
           if (value != null) {
             result.outputLocation.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.OutputLocation),
-            ) as _i3.OutputLocation));
+              specifiedType: const FullType(_i6.OutputLocation),
+            ) as _i6.OutputLocation));
           }
           break;
         case 'SelectParameters':
           if (value != null) {
             result.selectParameters.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.SelectParameters),
-            ) as _i4.SelectParameters));
+              specifiedType: const FullType(_i5.SelectParameters),
+            ) as _i5.SelectParameters));
           }
           break;
         case 'Tier':
           if (value != null) {
             result.tier = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.Tier),
-            ) as _i5.Tier);
+              specifiedType: const FullType(_i4.Tier),
+            ) as _i4.Tier);
           }
           break;
         case 'Type':
           if (value != null) {
             result.type = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.RestoreRequestType),
-            ) as _i6.RestoreRequestType);
+              specifiedType: const FullType(_i3.RestoreRequestType),
+            ) as _i3.RestoreRequestType);
           }
           break;
       }
@@ -254,7 +254,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i7.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
           payload.outputLocation!,
-          specifiedType: const FullType(_i3.OutputLocation),
+          specifiedType: const FullType(_i6.OutputLocation),
         ));
     }
     if (payload.selectParameters != null) {
@@ -262,7 +262,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i7.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
           payload.selectParameters!,
-          specifiedType: const FullType(_i4.SelectParameters),
+          specifiedType: const FullType(_i5.SelectParameters),
         ));
     }
     if (payload.tier != null) {
@@ -270,7 +270,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i7.XmlElementName('Tier'))
         ..add(serializers.serialize(
           payload.tier!,
-          specifiedType: const FullType.nullable(_i5.Tier),
+          specifiedType: const FullType.nullable(_i4.Tier),
         ));
     }
     if (payload.type != null) {
@@ -278,7 +278,7 @@ class RestoreRequestRestXmlSerializer
         ..add(const _i7.XmlElementName('Type'))
         ..add(serializers.serialize(
           payload.type!,
-          specifiedType: const FullType.nullable(_i6.RestoreRequestType),
+          specifiedType: const FullType.nullable(_i3.RestoreRequestType),
         ));
     }
     return result;

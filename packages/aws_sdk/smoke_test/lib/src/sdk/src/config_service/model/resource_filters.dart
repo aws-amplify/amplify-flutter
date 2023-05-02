@@ -16,15 +16,15 @@ abstract class ResourceFilters
   /// Filters the results by resource account ID, region, resource ID, and resource name.
   factory ResourceFilters({
     String? accountId,
-    String? region,
     String? resourceId,
     String? resourceName,
+    String? region,
   }) {
     return _$ResourceFilters._(
       accountId: accountId,
-      region: region,
       resourceId: resourceId,
       resourceName: resourceName,
+      region: region,
     );
   }
 
@@ -44,20 +44,20 @@ abstract class ResourceFilters
   /// The 12-digit source account ID.
   String? get accountId;
 
-  /// The source region.
-  String? get region;
-
   /// The ID of the resource.
   String? get resourceId;
 
   /// The name of the resource.
   String? get resourceName;
+
+  /// The source region.
+  String? get region;
   @override
   List<Object?> get props => [
         accountId,
-        region,
         resourceId,
         resourceName,
+        region,
       ];
   @override
   String toString() {
@@ -67,16 +67,16 @@ abstract class ResourceFilters
       accountId,
     );
     helper.add(
-      'region',
-      region,
-    );
-    helper.add(
       'resourceId',
       resourceId,
     );
     helper.add(
       'resourceName',
       resourceName,
+    );
+    helper.add(
+      'region',
+      region,
     );
     return helper.toString();
   }
@@ -119,14 +119,6 @@ class ResourceFiltersAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ResourceId':
           if (value != null) {
             result.resourceId = (serializers.deserialize(
@@ -138,6 +130,14 @@ class ResourceFiltersAwsJson11Serializer
         case 'ResourceName':
           if (value != null) {
             result.resourceName = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'Region':
+          if (value != null) {
+            result.region = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -165,14 +165,6 @@ class ResourceFiltersAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
-      result
-        ..add('Region')
-        ..add(serializers.serialize(
-          payload.region!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceId != null) {
       result
         ..add('ResourceId')
@@ -186,6 +178,14 @@ class ResourceFiltersAwsJson11Serializer
         ..add('ResourceName')
         ..add(serializers.serialize(
           payload.resourceName!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.region != null) {
+      result
+        ..add('Region')
+        ..add(serializers.serialize(
+          payload.region!,
           specifiedType: const FullType(String),
         ));
     }

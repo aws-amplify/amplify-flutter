@@ -19,18 +19,18 @@ abstract class UploadArchiveInput
         Built<UploadArchiveInput, UploadArchiveInputBuilder>,
         _i1.HasPayload<_i2.Stream<List<int>>> {
   factory UploadArchiveInput({
+    required String vaultName,
     required String accountId,
     String? archiveDescription,
-    _i2.Stream<List<int>>? body,
     String? checksum,
-    required String vaultName,
+    _i2.Stream<List<int>>? body,
   }) {
     return _$UploadArchiveInput._(
+      vaultName: vaultName,
       accountId: accountId,
       archiveDescription: archiveDescription,
-      body: body,
       checksum: checksum,
-      vaultName: vaultName,
+      body: body,
     );
   }
 
@@ -67,11 +67,11 @@ abstract class UploadArchiveInput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadArchiveInputBuilder b) {}
+  String get vaultName;
   String get accountId;
   String? get archiveDescription;
-  _i2.Stream<List<int>>? get body;
   String? get checksum;
-  String get vaultName;
+  _i2.Stream<List<int>>? get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -90,15 +90,19 @@ abstract class UploadArchiveInput
   _i2.Stream<List<int>>? getPayload() => body;
   @override
   List<Object?> get props => [
+        vaultName,
         accountId,
         archiveDescription,
-        body,
         checksum,
-        vaultName,
+        body,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UploadArchiveInput');
+    helper.add(
+      'vaultName',
+      vaultName,
+    );
     helper.add(
       'accountId',
       accountId,
@@ -108,16 +112,12 @@ abstract class UploadArchiveInput
       archiveDescription,
     );
     helper.add(
-      'body',
-      body,
-    );
-    helper.add(
       'checksum',
       checksum,
     );
     helper.add(
-      'vaultName',
-      vaultName,
+      'body',
+      body,
     );
     return helper.toString();
   }

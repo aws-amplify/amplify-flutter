@@ -15,16 +15,16 @@ abstract class Error
     implements Built<Error, ErrorBuilder> {
   /// Container for all error elements.
   factory Error({
-    String? code,
     String? key,
-    String? message,
     String? versionId,
+    String? code,
+    String? message,
   }) {
     return _$Error._(
-      code: code,
       key: key,
-      message: message,
       versionId: versionId,
+      code: code,
+      message: message,
     );
   }
 
@@ -39,6 +39,12 @@ abstract class Error
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ErrorBuilder b) {}
+
+  /// The error key.
+  String? get key;
+
+  /// The version ID of the error.
+  String? get versionId;
 
   /// The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type.
   ///
@@ -749,39 +755,33 @@ abstract class Error
   ///     *   _SOAP Fault Code Prefix:_ Client
   String? get code;
 
-  /// The error key.
-  String? get key;
-
   /// The error message contains a generic description of the error condition in English. It is intended for a human audience. Simple programs display the message directly to the end user if they encounter an error condition they don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper internationalization are more likely to ignore the error message.
   String? get message;
-
-  /// The version ID of the error.
-  String? get versionId;
   @override
   List<Object?> get props => [
-        code,
         key,
-        message,
         versionId,
+        code,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Error');
     helper.add(
-      'code',
-      code,
-    );
-    helper.add(
       'key',
       key,
     );
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'versionId',
       versionId,
+    );
+    helper.add(
+      'code',
+      code,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }

@@ -204,6 +204,14 @@ class StreamingTraitsInputOutputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'foo':
+          if (value != null) {
+            result.foo = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'blob':
           if (value != null) {
             result.blob = (serializers.deserialize(
@@ -218,14 +226,6 @@ class StreamingTraitsInputOutputRestJson1Serializer
                 ],
               ),
             ) as _i6.Stream<List<int>>);
-          }
-          break;
-        case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }

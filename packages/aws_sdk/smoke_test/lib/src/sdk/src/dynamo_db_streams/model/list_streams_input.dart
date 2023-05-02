@@ -15,14 +15,14 @@ abstract class ListStreamsInput
     implements Built<ListStreamsInput, ListStreamsInputBuilder> {
   /// Represents the input of a `ListStreams` operation.
   factory ListStreamsInput({
-    String? exclusiveStartStreamArn,
-    int? limit,
     String? tableName,
+    int? limit,
+    String? exclusiveStartStreamArn,
   }) {
     return _$ListStreamsInput._(
-      exclusiveStartStreamArn: exclusiveStartStreamArn,
-      limit: limit,
       tableName: tableName,
+      limit: limit,
+      exclusiveStartStreamArn: exclusiveStartStreamArn,
     );
   }
 
@@ -46,36 +46,36 @@ abstract class ListStreamsInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ListStreamsInputBuilder b) {}
 
-  /// The ARN (Amazon Resource Name) of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedStreamArn` in the previous operation.
-  String? get exclusiveStartStreamArn;
+  /// If this parameter is provided, then only the streams associated with this table name are returned.
+  String? get tableName;
 
   /// The maximum number of streams to return. The upper limit is 100.
   int? get limit;
 
-  /// If this parameter is provided, then only the streams associated with this table name are returned.
-  String? get tableName;
+  /// The ARN (Amazon Resource Name) of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedStreamArn` in the previous operation.
+  String? get exclusiveStartStreamArn;
   @override
   ListStreamsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        exclusiveStartStreamArn,
-        limit,
         tableName,
+        limit,
+        exclusiveStartStreamArn,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ListStreamsInput');
     helper.add(
-      'exclusiveStartStreamArn',
-      exclusiveStartStreamArn,
+      'tableName',
+      tableName,
     );
     helper.add(
       'limit',
       limit,
     );
     helper.add(
-      'tableName',
-      tableName,
+      'exclusiveStartStreamArn',
+      exclusiveStartStreamArn,
     );
     return helper.toString();
   }
@@ -110,9 +110,9 @@ class ListStreamsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ExclusiveStartStreamArn':
+        case 'TableName':
           if (value != null) {
-            result.exclusiveStartStreamArn = (serializers.deserialize(
+            result.tableName = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -126,9 +126,9 @@ class ListStreamsInputAwsJson10Serializer
             ) as int);
           }
           break;
-        case 'TableName':
+        case 'ExclusiveStartStreamArn':
           if (value != null) {
-            result.tableName = (serializers.deserialize(
+            result.exclusiveStartStreamArn = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -148,11 +148,11 @@ class ListStreamsInputAwsJson10Serializer
   }) {
     final payload = (object as ListStreamsInput);
     final result = <Object?>[];
-    if (payload.exclusiveStartStreamArn != null) {
+    if (payload.tableName != null) {
       result
-        ..add('ExclusiveStartStreamArn')
+        ..add('TableName')
         ..add(serializers.serialize(
-          payload.exclusiveStartStreamArn!,
+          payload.tableName!,
           specifiedType: const FullType(String),
         ));
     }
@@ -164,11 +164,11 @@ class ListStreamsInputAwsJson10Serializer
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.tableName != null) {
+    if (payload.exclusiveStartStreamArn != null) {
       result
-        ..add('TableName')
+        ..add('ExclusiveStartStreamArn')
         ..add(serializers.serialize(
-          payload.tableName!,
+          payload.exclusiveStartStreamArn!,
           specifiedType: const FullType(String),
         ));
     }

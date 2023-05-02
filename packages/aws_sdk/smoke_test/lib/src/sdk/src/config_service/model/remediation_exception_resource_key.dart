@@ -18,12 +18,12 @@ abstract class RemediationExceptionResourceKey
             RemediationExceptionResourceKeyBuilder> {
   /// The details that identify a resource within Config, including the resource type and resource ID.
   factory RemediationExceptionResourceKey({
-    String? resourceId,
     String? resourceType,
+    String? resourceId,
   }) {
     return _$RemediationExceptionResourceKey._(
-      resourceId: resourceId,
       resourceType: resourceType,
+      resourceId: resourceId,
     );
   }
 
@@ -41,27 +41,27 @@ abstract class RemediationExceptionResourceKey
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RemediationExceptionResourceKeyBuilder b) {}
 
-  /// The ID of the resource (for example., sg-xxxxxx).
-  String? get resourceId;
-
   /// The type of a resource.
   String? get resourceType;
+
+  /// The ID of the resource (for example., sg-xxxxxx).
+  String? get resourceId;
   @override
   List<Object?> get props => [
-        resourceId,
         resourceType,
+        resourceId,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('RemediationExceptionResourceKey');
     helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceId',
+      resourceId,
     );
     return helper.toString();
   }
@@ -97,17 +97,17 @@ class RemediationExceptionResourceKeyAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ResourceId':
+        case 'ResourceType':
           if (value != null) {
-            result.resourceId = (serializers.deserialize(
+            result.resourceType = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
           }
           break;
-        case 'ResourceType':
+        case 'ResourceId':
           if (value != null) {
-            result.resourceType = (serializers.deserialize(
+            result.resourceId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -127,19 +127,19 @@ class RemediationExceptionResourceKeyAwsJson11Serializer
   }) {
     final payload = (object as RemediationExceptionResourceKey);
     final result = <Object?>[];
-    if (payload.resourceId != null) {
-      result
-        ..add('ResourceId')
-        ..add(serializers.serialize(
-          payload.resourceId!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
           payload.resourceType!,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.resourceId != null) {
+      result
+        ..add('ResourceId')
+        ..add(serializers.serialize(
+          payload.resourceId!,
           specifiedType: const FullType(String),
         ));
     }

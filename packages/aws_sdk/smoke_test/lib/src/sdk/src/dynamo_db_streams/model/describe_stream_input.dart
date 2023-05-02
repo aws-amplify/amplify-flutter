@@ -17,14 +17,14 @@ abstract class DescribeStreamInput
     implements Built<DescribeStreamInput, DescribeStreamInputBuilder> {
   /// Represents the input of a `DescribeStream` operation.
   factory DescribeStreamInput({
-    String? exclusiveStartShardId,
-    int? limit,
     required String streamArn,
+    int? limit,
+    String? exclusiveStartShardId,
   }) {
     return _$DescribeStreamInput._(
-      exclusiveStartShardId: exclusiveStartShardId,
-      limit: limit,
       streamArn: streamArn,
+      limit: limit,
+      exclusiveStartShardId: exclusiveStartShardId,
     );
   }
 
@@ -49,36 +49,36 @@ abstract class DescribeStreamInput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribeStreamInputBuilder b) {}
 
-  /// The shard ID of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedShardId` in the previous operation.
-  String? get exclusiveStartShardId;
+  /// The Amazon Resource Name (ARN) for the stream.
+  String get streamArn;
 
   /// The maximum number of shard objects to return. The upper limit is 100.
   int? get limit;
 
-  /// The Amazon Resource Name (ARN) for the stream.
-  String get streamArn;
+  /// The shard ID of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedShardId` in the previous operation.
+  String? get exclusiveStartShardId;
   @override
   DescribeStreamInput getPayload() => this;
   @override
   List<Object?> get props => [
-        exclusiveStartShardId,
-        limit,
         streamArn,
+        limit,
+        exclusiveStartShardId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DescribeStreamInput');
     helper.add(
-      'exclusiveStartShardId',
-      exclusiveStartShardId,
+      'streamArn',
+      streamArn,
     );
     helper.add(
       'limit',
       limit,
     );
     helper.add(
-      'streamArn',
-      streamArn,
+      'exclusiveStartShardId',
+      exclusiveStartShardId,
     );
     return helper.toString();
   }
@@ -113,13 +113,11 @@ class DescribeStreamInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ExclusiveStartShardId':
-          if (value != null) {
-            result.exclusiveStartShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
+        case 'StreamArn':
+          result.streamArn = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
         case 'Limit':
           if (value != null) {
@@ -129,11 +127,13 @@ class DescribeStreamInputAwsJson10Serializer
             ) as int);
           }
           break;
-        case 'StreamArn':
-          result.streamArn = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
+        case 'ExclusiveStartShardId':
+          if (value != null) {
+            result.exclusiveStartShardId = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -155,20 +155,20 @@ class DescribeStreamInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.exclusiveStartShardId != null) {
-      result
-        ..add('ExclusiveStartShardId')
-        ..add(serializers.serialize(
-          payload.exclusiveStartShardId!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
           payload.limit!,
           specifiedType: const FullType(int),
+        ));
+    }
+    if (payload.exclusiveStartShardId != null) {
+      result
+        ..add('ExclusiveStartShardId')
+        ..add(serializers.serialize(
+          payload.exclusiveStartShardId!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

@@ -20,16 +20,16 @@ abstract class JsonIntEnumsInputOutput
     int? intEnum2,
     int? intEnum3,
     List<int>? intEnumList,
-    Map<String, int>? intEnumMap,
     Set<int>? intEnumSet,
+    Map<String, int>? intEnumMap,
   }) {
     return _$JsonIntEnumsInputOutput._(
       intEnum1: intEnum1,
       intEnum2: intEnum2,
       intEnum3: intEnum3,
       intEnumList: intEnumList == null ? null : _i3.BuiltList(intEnumList),
-      intEnumMap: intEnumMap == null ? null : _i3.BuiltMap(intEnumMap),
       intEnumSet: intEnumSet == null ? null : _i3.BuiltSet(intEnumSet),
+      intEnumMap: intEnumMap == null ? null : _i3.BuiltMap(intEnumMap),
     );
   }
 
@@ -63,8 +63,8 @@ abstract class JsonIntEnumsInputOutput
   int? get intEnum2;
   int? get intEnum3;
   _i3.BuiltList<int>? get intEnumList;
-  _i3.BuiltMap<String, int>? get intEnumMap;
   _i3.BuiltSet<int>? get intEnumSet;
+  _i3.BuiltMap<String, int>? get intEnumMap;
   @override
   JsonIntEnumsInputOutput getPayload() => this;
   @override
@@ -73,8 +73,8 @@ abstract class JsonIntEnumsInputOutput
         intEnum2,
         intEnum3,
         intEnumList,
-        intEnumMap,
         intEnumSet,
+        intEnumMap,
       ];
   @override
   String toString() {
@@ -96,12 +96,12 @@ abstract class JsonIntEnumsInputOutput
       intEnumList,
     );
     helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
-    helper.add(
       'intEnumSet',
       intEnumSet,
+    );
+    helper.add(
+      'intEnumMap',
+      intEnumMap,
     );
     return helper.toString();
   }
@@ -172,6 +172,17 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
             ) as _i3.BuiltList<int>));
           }
           break;
+        case 'intEnumSet':
+          if (value != null) {
+            result.intEnumSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltSet,
+                [FullType(int)],
+              ),
+            ) as _i3.BuiltSet<int>));
+          }
+          break;
         case 'intEnumMap':
           if (value != null) {
             result.intEnumMap.replace((serializers.deserialize(
@@ -184,17 +195,6 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
                 ],
               ),
             ) as _i3.BuiltMap<String, int>));
-          }
-          break;
-        case 'intEnumSet':
-          if (value != null) {
-            result.intEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltSet,
-                [FullType(int)],
-              ),
-            ) as _i3.BuiltSet<int>));
           }
           break;
       }
@@ -246,6 +246,17 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
           ),
         ));
     }
+    if (payload.intEnumSet != null) {
+      result
+        ..add('intEnumSet')
+        ..add(serializers.serialize(
+          payload.intEnumSet!,
+          specifiedType: const FullType(
+            _i3.BuiltSet,
+            [FullType(int)],
+          ),
+        ));
+    }
     if (payload.intEnumMap != null) {
       result
         ..add('intEnumMap')
@@ -257,17 +268,6 @@ class JsonIntEnumsInputOutputAwsJson11Serializer
               FullType(String),
               FullType(int),
             ],
-          ),
-        ));
-    }
-    if (payload.intEnumSet != null) {
-      result
-        ..add('intEnumSet')
-        ..add(serializers.serialize(
-          payload.intEnumSet!,
-          specifiedType: const FullType(
-            _i3.BuiltSet,
-            [FullType(int)],
           ),
         ));
     }

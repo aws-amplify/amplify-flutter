@@ -8,18 +8,18 @@ part of smoke_test.config_service.model.conformance_pack_compliance_score;
 
 class _$ConformancePackComplianceScore extends ConformancePackComplianceScore {
   @override
+  final String? score;
+  @override
   final String? conformancePackName;
   @override
   final DateTime? lastUpdatedTime;
-  @override
-  final String? score;
 
   factory _$ConformancePackComplianceScore(
           [void Function(ConformancePackComplianceScoreBuilder)? updates]) =>
       (new ConformancePackComplianceScoreBuilder()..update(updates))._build();
 
   _$ConformancePackComplianceScore._(
-      {this.conformancePackName, this.lastUpdatedTime, this.score})
+      {this.score, this.conformancePackName, this.lastUpdatedTime})
       : super._();
 
   @override
@@ -35,17 +35,17 @@ class _$ConformancePackComplianceScore extends ConformancePackComplianceScore {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ConformancePackComplianceScore &&
+        score == other.score &&
         conformancePackName == other.conformancePackName &&
-        lastUpdatedTime == other.lastUpdatedTime &&
-        score == other.score;
+        lastUpdatedTime == other.lastUpdatedTime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, score.hashCode);
     _$hash = $jc(_$hash, conformancePackName.hashCode);
     _$hash = $jc(_$hash, lastUpdatedTime.hashCode);
-    _$hash = $jc(_$hash, score.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -57,6 +57,10 @@ class ConformancePackComplianceScoreBuilder
             ConformancePackComplianceScoreBuilder> {
   _$ConformancePackComplianceScore? _$v;
 
+  String? _score;
+  String? get score => _$this._score;
+  set score(String? score) => _$this._score = score;
+
   String? _conformancePackName;
   String? get conformancePackName => _$this._conformancePackName;
   set conformancePackName(String? conformancePackName) =>
@@ -67,10 +71,6 @@ class ConformancePackComplianceScoreBuilder
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  String? _score;
-  String? get score => _$this._score;
-  set score(String? score) => _$this._score = score;
-
   ConformancePackComplianceScoreBuilder() {
     ConformancePackComplianceScore._init(this);
   }
@@ -78,9 +78,9 @@ class ConformancePackComplianceScoreBuilder
   ConformancePackComplianceScoreBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _score = $v.score;
       _conformancePackName = $v.conformancePackName;
       _lastUpdatedTime = $v.lastUpdatedTime;
-      _score = $v.score;
       _$v = null;
     }
     return this;
@@ -103,9 +103,9 @@ class ConformancePackComplianceScoreBuilder
   _$ConformancePackComplianceScore _build() {
     final _$result = _$v ??
         new _$ConformancePackComplianceScore._(
+            score: score,
             conformancePackName: conformancePackName,
-            lastUpdatedTime: lastUpdatedTime,
-            score: score);
+            lastUpdatedTime: lastUpdatedTime);
     replace(_$result);
     return _$result;
   }

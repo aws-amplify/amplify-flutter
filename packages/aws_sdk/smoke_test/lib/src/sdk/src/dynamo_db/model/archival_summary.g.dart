@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db.model.archival_summary;
 
 class _$ArchivalSummary extends ArchivalSummary {
   @override
-  final String? archivalBackupArn;
-  @override
   final DateTime? archivalDateTime;
   @override
   final String? archivalReason;
+  @override
+  final String? archivalBackupArn;
 
   factory _$ArchivalSummary([void Function(ArchivalSummaryBuilder)? updates]) =>
       (new ArchivalSummaryBuilder()..update(updates))._build();
 
   _$ArchivalSummary._(
-      {this.archivalBackupArn, this.archivalDateTime, this.archivalReason})
+      {this.archivalDateTime, this.archivalReason, this.archivalBackupArn})
       : super._();
 
   @override
@@ -33,17 +33,17 @@ class _$ArchivalSummary extends ArchivalSummary {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ArchivalSummary &&
-        archivalBackupArn == other.archivalBackupArn &&
         archivalDateTime == other.archivalDateTime &&
-        archivalReason == other.archivalReason;
+        archivalReason == other.archivalReason &&
+        archivalBackupArn == other.archivalBackupArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, archivalBackupArn.hashCode);
     _$hash = $jc(_$hash, archivalDateTime.hashCode);
     _$hash = $jc(_$hash, archivalReason.hashCode);
+    _$hash = $jc(_$hash, archivalBackupArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,11 +52,6 @@ class _$ArchivalSummary extends ArchivalSummary {
 class ArchivalSummaryBuilder
     implements Builder<ArchivalSummary, ArchivalSummaryBuilder> {
   _$ArchivalSummary? _$v;
-
-  String? _archivalBackupArn;
-  String? get archivalBackupArn => _$this._archivalBackupArn;
-  set archivalBackupArn(String? archivalBackupArn) =>
-      _$this._archivalBackupArn = archivalBackupArn;
 
   DateTime? _archivalDateTime;
   DateTime? get archivalDateTime => _$this._archivalDateTime;
@@ -68,6 +63,11 @@ class ArchivalSummaryBuilder
   set archivalReason(String? archivalReason) =>
       _$this._archivalReason = archivalReason;
 
+  String? _archivalBackupArn;
+  String? get archivalBackupArn => _$this._archivalBackupArn;
+  set archivalBackupArn(String? archivalBackupArn) =>
+      _$this._archivalBackupArn = archivalBackupArn;
+
   ArchivalSummaryBuilder() {
     ArchivalSummary._init(this);
   }
@@ -75,9 +75,9 @@ class ArchivalSummaryBuilder
   ArchivalSummaryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _archivalBackupArn = $v.archivalBackupArn;
       _archivalDateTime = $v.archivalDateTime;
       _archivalReason = $v.archivalReason;
+      _archivalBackupArn = $v.archivalBackupArn;
       _$v = null;
     }
     return this;
@@ -100,9 +100,9 @@ class ArchivalSummaryBuilder
   _$ArchivalSummary _build() {
     final _$result = _$v ??
         new _$ArchivalSummary._(
-            archivalBackupArn: archivalBackupArn,
             archivalDateTime: archivalDateTime,
-            archivalReason: archivalReason);
+            archivalReason: archivalReason,
+            archivalBackupArn: archivalBackupArn);
     replace(_$result);
     return _$result;
   }

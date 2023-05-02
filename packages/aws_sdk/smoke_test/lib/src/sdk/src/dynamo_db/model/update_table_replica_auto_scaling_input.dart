@@ -26,19 +26,19 @@ abstract class UpdateTableReplicaAutoScalingInput
   factory UpdateTableReplicaAutoScalingInput({
     List<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
         globalSecondaryIndexUpdates,
+    required String tableName,
     _i4.AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate,
     List<_i5.ReplicaAutoScalingUpdate>? replicaUpdates,
-    required String tableName,
   }) {
     return _$UpdateTableReplicaAutoScalingInput._(
       globalSecondaryIndexUpdates: globalSecondaryIndexUpdates == null
           ? null
           : _i6.BuiltList(globalSecondaryIndexUpdates),
+      tableName: tableName,
       provisionedWriteCapacityAutoScalingUpdate:
           provisionedWriteCapacityAutoScalingUpdate,
       replicaUpdates:
           replicaUpdates == null ? null : _i6.BuiltList(replicaUpdates),
-      tableName: tableName,
     );
   }
 
@@ -66,22 +66,22 @@ abstract class UpdateTableReplicaAutoScalingInput
   _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
       get globalSecondaryIndexUpdates;
 
+  /// The name of the global table to be updated.
+  String get tableName;
+
   /// Represents the auto scaling settings to be modified for a global table or global secondary index.
   _i4.AutoScalingSettingsUpdate? get provisionedWriteCapacityAutoScalingUpdate;
 
   /// Represents the auto scaling settings of replicas of the table that will be modified.
   _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>? get replicaUpdates;
-
-  /// The name of the global table to be updated.
-  String get tableName;
   @override
   UpdateTableReplicaAutoScalingInput getPayload() => this;
   @override
   List<Object?> get props => [
         globalSecondaryIndexUpdates,
+        tableName,
         provisionedWriteCapacityAutoScalingUpdate,
         replicaUpdates,
-        tableName,
       ];
   @override
   String toString() {
@@ -92,16 +92,16 @@ abstract class UpdateTableReplicaAutoScalingInput
       globalSecondaryIndexUpdates,
     );
     helper.add(
+      'tableName',
+      tableName,
+    );
+    helper.add(
       'provisionedWriteCapacityAutoScalingUpdate',
       provisionedWriteCapacityAutoScalingUpdate,
     );
     helper.add(
       'replicaUpdates',
       replicaUpdates,
-    );
-    helper.add(
-      'tableName',
-      tableName,
     );
     return helper.toString();
   }
@@ -148,6 +148,12 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
             ) as _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>));
           }
           break;
+        case 'TableName':
+          result.tableName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'ProvisionedWriteCapacityAutoScalingUpdate':
           if (value != null) {
             result.provisionedWriteCapacityAutoScalingUpdate
@@ -167,12 +173,6 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
               ),
             ) as _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>));
           }
-          break;
-        case 'TableName':
-          result.tableName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }

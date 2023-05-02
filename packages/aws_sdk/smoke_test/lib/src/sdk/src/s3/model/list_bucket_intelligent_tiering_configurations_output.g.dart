@@ -9,14 +9,14 @@ part of smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_outpu
 class _$ListBucketIntelligentTieringConfigurationsOutput
     extends ListBucketIntelligentTieringConfigurationsOutput {
   @override
+  final bool? isTruncated;
+  @override
   final String? continuationToken;
+  @override
+  final String? nextContinuationToken;
   @override
   final _i3.BuiltList<_i2.IntelligentTieringConfiguration>?
       intelligentTieringConfigurationList;
-  @override
-  final bool? isTruncated;
-  @override
-  final String? nextContinuationToken;
 
   factory _$ListBucketIntelligentTieringConfigurationsOutput(
           [void Function(
@@ -27,10 +27,10 @@ class _$ListBucketIntelligentTieringConfigurationsOutput
           ._build();
 
   _$ListBucketIntelligentTieringConfigurationsOutput._(
-      {this.continuationToken,
-      this.intelligentTieringConfigurationList,
-      this.isTruncated,
-      this.nextContinuationToken})
+      {this.isTruncated,
+      this.continuationToken,
+      this.nextContinuationToken,
+      this.intelligentTieringConfigurationList})
       : super._();
 
   @override
@@ -48,20 +48,20 @@ class _$ListBucketIntelligentTieringConfigurationsOutput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListBucketIntelligentTieringConfigurationsOutput &&
-        continuationToken == other.continuationToken &&
-        intelligentTieringConfigurationList ==
-            other.intelligentTieringConfigurationList &&
         isTruncated == other.isTruncated &&
-        nextContinuationToken == other.nextContinuationToken;
+        continuationToken == other.continuationToken &&
+        nextContinuationToken == other.nextContinuationToken &&
+        intelligentTieringConfigurationList ==
+            other.intelligentTieringConfigurationList;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, continuationToken.hashCode);
-    _$hash = $jc(_$hash, intelligentTieringConfigurationList.hashCode);
     _$hash = $jc(_$hash, isTruncated.hashCode);
+    _$hash = $jc(_$hash, continuationToken.hashCode);
     _$hash = $jc(_$hash, nextContinuationToken.hashCode);
+    _$hash = $jc(_$hash, intelligentTieringConfigurationList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -73,10 +73,19 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
             ListBucketIntelligentTieringConfigurationsOutputBuilder> {
   _$ListBucketIntelligentTieringConfigurationsOutput? _$v;
 
+  bool? _isTruncated;
+  bool? get isTruncated => _$this._isTruncated;
+  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
+
   String? _continuationToken;
   String? get continuationToken => _$this._continuationToken;
   set continuationToken(String? continuationToken) =>
       _$this._continuationToken = continuationToken;
+
+  String? _nextContinuationToken;
+  String? get nextContinuationToken => _$this._nextContinuationToken;
+  set nextContinuationToken(String? nextContinuationToken) =>
+      _$this._nextContinuationToken = nextContinuationToken;
 
   _i3.ListBuilder<_i2.IntelligentTieringConfiguration>?
       _intelligentTieringConfigurationList;
@@ -90,15 +99,6 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
       _$this._intelligentTieringConfigurationList =
           intelligentTieringConfigurationList;
 
-  bool? _isTruncated;
-  bool? get isTruncated => _$this._isTruncated;
-  set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
-
-  String? _nextContinuationToken;
-  String? get nextContinuationToken => _$this._nextContinuationToken;
-  set nextContinuationToken(String? nextContinuationToken) =>
-      _$this._nextContinuationToken = nextContinuationToken;
-
   ListBucketIntelligentTieringConfigurationsOutputBuilder() {
     ListBucketIntelligentTieringConfigurationsOutput._init(this);
   }
@@ -106,11 +106,11 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
   ListBucketIntelligentTieringConfigurationsOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _isTruncated = $v.isTruncated;
       _continuationToken = $v.continuationToken;
+      _nextContinuationToken = $v.nextContinuationToken;
       _intelligentTieringConfigurationList =
           $v.intelligentTieringConfigurationList?.toBuilder();
-      _isTruncated = $v.isTruncated;
-      _nextContinuationToken = $v.nextContinuationToken;
       _$v = null;
     }
     return this;
@@ -137,11 +137,11 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
     try {
       _$result = _$v ??
           new _$ListBucketIntelligentTieringConfigurationsOutput._(
-              continuationToken: continuationToken,
-              intelligentTieringConfigurationList:
-                  _intelligentTieringConfigurationList?.build(),
               isTruncated: isTruncated,
-              nextContinuationToken: nextContinuationToken);
+              continuationToken: continuationToken,
+              nextContinuationToken: nextContinuationToken,
+              intelligentTieringConfigurationList:
+                  _intelligentTieringConfigurationList?.build());
     } catch (_) {
       late String _$failedField;
       try {

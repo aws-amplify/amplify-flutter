@@ -8,22 +8,22 @@ part of smoke_test.dynamo_db.model.replica_description;
 
 class _$ReplicaDescription extends ReplicaDescription {
   @override
-  final _i6.BuiltList<_i2.ReplicaGlobalSecondaryIndexDescription>?
-      globalSecondaryIndexes;
+  final String? regionName;
+  @override
+  final _i2.ReplicaStatus? replicaStatus;
+  @override
+  final String? replicaStatusDescription;
+  @override
+  final String? replicaStatusPercentProgress;
   @override
   final String? kmsMasterKeyId;
   @override
   final _i3.ProvisionedThroughputOverride? provisionedThroughputOverride;
   @override
-  final String? regionName;
+  final _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>?
+      globalSecondaryIndexes;
   @override
   final DateTime? replicaInaccessibleDateTime;
-  @override
-  final _i4.ReplicaStatus? replicaStatus;
-  @override
-  final String? replicaStatusDescription;
-  @override
-  final String? replicaStatusPercentProgress;
   @override
   final _i5.TableClassSummary? replicaTableClassSummary;
 
@@ -32,14 +32,14 @@ class _$ReplicaDescription extends ReplicaDescription {
       (new ReplicaDescriptionBuilder()..update(updates))._build();
 
   _$ReplicaDescription._(
-      {this.globalSecondaryIndexes,
-      this.kmsMasterKeyId,
-      this.provisionedThroughputOverride,
-      this.regionName,
-      this.replicaInaccessibleDateTime,
+      {this.regionName,
       this.replicaStatus,
       this.replicaStatusDescription,
       this.replicaStatusPercentProgress,
+      this.kmsMasterKeyId,
+      this.provisionedThroughputOverride,
+      this.globalSecondaryIndexes,
+      this.replicaInaccessibleDateTime,
       this.replicaTableClassSummary})
       : super._();
 
@@ -56,28 +56,28 @@ class _$ReplicaDescription extends ReplicaDescription {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ReplicaDescription &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
-        kmsMasterKeyId == other.kmsMasterKeyId &&
-        provisionedThroughputOverride == other.provisionedThroughputOverride &&
         regionName == other.regionName &&
-        replicaInaccessibleDateTime == other.replicaInaccessibleDateTime &&
         replicaStatus == other.replicaStatus &&
         replicaStatusDescription == other.replicaStatusDescription &&
         replicaStatusPercentProgress == other.replicaStatusPercentProgress &&
+        kmsMasterKeyId == other.kmsMasterKeyId &&
+        provisionedThroughputOverride == other.provisionedThroughputOverride &&
+        globalSecondaryIndexes == other.globalSecondaryIndexes &&
+        replicaInaccessibleDateTime == other.replicaInaccessibleDateTime &&
         replicaTableClassSummary == other.replicaTableClassSummary;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
-    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
-    _$hash = $jc(_$hash, provisionedThroughputOverride.hashCode);
     _$hash = $jc(_$hash, regionName.hashCode);
-    _$hash = $jc(_$hash, replicaInaccessibleDateTime.hashCode);
     _$hash = $jc(_$hash, replicaStatus.hashCode);
     _$hash = $jc(_$hash, replicaStatusDescription.hashCode);
     _$hash = $jc(_$hash, replicaStatusPercentProgress.hashCode);
+    _$hash = $jc(_$hash, kmsMasterKeyId.hashCode);
+    _$hash = $jc(_$hash, provisionedThroughputOverride.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
+    _$hash = $jc(_$hash, replicaInaccessibleDateTime.hashCode);
     _$hash = $jc(_$hash, replicaTableClassSummary.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -88,15 +88,25 @@ class ReplicaDescriptionBuilder
     implements Builder<ReplicaDescription, ReplicaDescriptionBuilder> {
   _$ReplicaDescription? _$v;
 
-  _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexDescription>?
-      _globalSecondaryIndexes;
-  _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexDescription>
-      get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??=
-          new _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexDescription>();
-  set globalSecondaryIndexes(
-          _i6.ListBuilder<_i2.ReplicaGlobalSecondaryIndexDescription>?
-              globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
+  String? _regionName;
+  String? get regionName => _$this._regionName;
+  set regionName(String? regionName) => _$this._regionName = regionName;
+
+  _i2.ReplicaStatus? _replicaStatus;
+  _i2.ReplicaStatus? get replicaStatus => _$this._replicaStatus;
+  set replicaStatus(_i2.ReplicaStatus? replicaStatus) =>
+      _$this._replicaStatus = replicaStatus;
+
+  String? _replicaStatusDescription;
+  String? get replicaStatusDescription => _$this._replicaStatusDescription;
+  set replicaStatusDescription(String? replicaStatusDescription) =>
+      _$this._replicaStatusDescription = replicaStatusDescription;
+
+  String? _replicaStatusPercentProgress;
+  String? get replicaStatusPercentProgress =>
+      _$this._replicaStatusPercentProgress;
+  set replicaStatusPercentProgress(String? replicaStatusPercentProgress) =>
+      _$this._replicaStatusPercentProgress = replicaStatusPercentProgress;
 
   String? _kmsMasterKeyId;
   String? get kmsMasterKeyId => _$this._kmsMasterKeyId;
@@ -112,31 +122,21 @@ class ReplicaDescriptionBuilder
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  String? _regionName;
-  String? get regionName => _$this._regionName;
-  set regionName(String? regionName) => _$this._regionName = regionName;
+  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>?
+      _globalSecondaryIndexes;
+  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>
+      get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??=
+          new _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>();
+  set globalSecondaryIndexes(
+          _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>?
+              globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   DateTime? _replicaInaccessibleDateTime;
   DateTime? get replicaInaccessibleDateTime =>
       _$this._replicaInaccessibleDateTime;
   set replicaInaccessibleDateTime(DateTime? replicaInaccessibleDateTime) =>
       _$this._replicaInaccessibleDateTime = replicaInaccessibleDateTime;
-
-  _i4.ReplicaStatus? _replicaStatus;
-  _i4.ReplicaStatus? get replicaStatus => _$this._replicaStatus;
-  set replicaStatus(_i4.ReplicaStatus? replicaStatus) =>
-      _$this._replicaStatus = replicaStatus;
-
-  String? _replicaStatusDescription;
-  String? get replicaStatusDescription => _$this._replicaStatusDescription;
-  set replicaStatusDescription(String? replicaStatusDescription) =>
-      _$this._replicaStatusDescription = replicaStatusDescription;
-
-  String? _replicaStatusPercentProgress;
-  String? get replicaStatusPercentProgress =>
-      _$this._replicaStatusPercentProgress;
-  set replicaStatusPercentProgress(String? replicaStatusPercentProgress) =>
-      _$this._replicaStatusPercentProgress = replicaStatusPercentProgress;
 
   _i5.TableClassSummaryBuilder? _replicaTableClassSummary;
   _i5.TableClassSummaryBuilder get replicaTableClassSummary =>
@@ -152,15 +152,15 @@ class ReplicaDescriptionBuilder
   ReplicaDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
-      _kmsMasterKeyId = $v.kmsMasterKeyId;
-      _provisionedThroughputOverride =
-          $v.provisionedThroughputOverride?.toBuilder();
       _regionName = $v.regionName;
-      _replicaInaccessibleDateTime = $v.replicaInaccessibleDateTime;
       _replicaStatus = $v.replicaStatus;
       _replicaStatusDescription = $v.replicaStatusDescription;
       _replicaStatusPercentProgress = $v.replicaStatusPercentProgress;
+      _kmsMasterKeyId = $v.kmsMasterKeyId;
+      _provisionedThroughputOverride =
+          $v.provisionedThroughputOverride?.toBuilder();
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
+      _replicaInaccessibleDateTime = $v.replicaInaccessibleDateTime;
       _replicaTableClassSummary = $v.replicaTableClassSummary?.toBuilder();
       _$v = null;
     }
@@ -186,24 +186,23 @@ class ReplicaDescriptionBuilder
     try {
       _$result = _$v ??
           new _$ReplicaDescription._(
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
-              kmsMasterKeyId: kmsMasterKeyId,
-              provisionedThroughputOverride:
-                  _provisionedThroughputOverride?.build(),
               regionName: regionName,
-              replicaInaccessibleDateTime: replicaInaccessibleDateTime,
               replicaStatus: replicaStatus,
               replicaStatusDescription: replicaStatusDescription,
               replicaStatusPercentProgress: replicaStatusPercentProgress,
+              kmsMasterKeyId: kmsMasterKeyId,
+              provisionedThroughputOverride:
+                  _provisionedThroughputOverride?.build(),
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
+              replicaInaccessibleDateTime: replicaInaccessibleDateTime,
               replicaTableClassSummary: _replicaTableClassSummary?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
-
         _$failedField = 'provisionedThroughputOverride';
         _provisionedThroughputOverride?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
 
         _$failedField = 'replicaTableClassSummary';
         _replicaTableClassSummary?.build();

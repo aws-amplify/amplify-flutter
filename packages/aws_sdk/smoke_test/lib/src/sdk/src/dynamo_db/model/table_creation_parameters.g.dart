@@ -8,39 +8,39 @@ part of smoke_test.dynamo_db.model.table_creation_parameters;
 
 class _$TableCreationParameters extends TableCreationParameters {
   @override
+  final String tableName;
+  @override
   final _i8.BuiltList<_i2.AttributeDefinition> attributeDefinitions;
   @override
-  final _i3.BillingMode? billingMode;
+  final _i8.BuiltList<_i3.KeySchemaElement> keySchema;
   @override
-  final _i8.BuiltList<_i4.GlobalSecondaryIndex>? globalSecondaryIndexes;
+  final _i4.BillingMode? billingMode;
   @override
-  final _i8.BuiltList<_i5.KeySchemaElement> keySchema;
+  final _i5.ProvisionedThroughput? provisionedThroughput;
   @override
-  final _i6.ProvisionedThroughput? provisionedThroughput;
+  final _i6.SseSpecification? sseSpecification;
   @override
-  final _i7.SseSpecification? sseSpecification;
-  @override
-  final String tableName;
+  final _i8.BuiltList<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes;
 
   factory _$TableCreationParameters(
           [void Function(TableCreationParametersBuilder)? updates]) =>
       (new TableCreationParametersBuilder()..update(updates))._build();
 
   _$TableCreationParameters._(
-      {required this.attributeDefinitions,
-      this.billingMode,
-      this.globalSecondaryIndexes,
+      {required this.tableName,
+      required this.attributeDefinitions,
       required this.keySchema,
+      this.billingMode,
       this.provisionedThroughput,
       this.sseSpecification,
-      required this.tableName})
+      this.globalSecondaryIndexes})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        tableName, r'TableCreationParameters', 'tableName');
     BuiltValueNullFieldError.checkNotNull(attributeDefinitions,
         r'TableCreationParameters', 'attributeDefinitions');
     BuiltValueNullFieldError.checkNotNull(
         keySchema, r'TableCreationParameters', 'keySchema');
-    BuiltValueNullFieldError.checkNotNull(
-        tableName, r'TableCreationParameters', 'tableName');
   }
 
   @override
@@ -56,25 +56,25 @@ class _$TableCreationParameters extends TableCreationParameters {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TableCreationParameters &&
+        tableName == other.tableName &&
         attributeDefinitions == other.attributeDefinitions &&
-        billingMode == other.billingMode &&
-        globalSecondaryIndexes == other.globalSecondaryIndexes &&
         keySchema == other.keySchema &&
+        billingMode == other.billingMode &&
         provisionedThroughput == other.provisionedThroughput &&
         sseSpecification == other.sseSpecification &&
-        tableName == other.tableName;
+        globalSecondaryIndexes == other.globalSecondaryIndexes;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, tableName.hashCode);
     _$hash = $jc(_$hash, attributeDefinitions.hashCode);
-    _$hash = $jc(_$hash, billingMode.hashCode);
-    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jc(_$hash, keySchema.hashCode);
+    _$hash = $jc(_$hash, billingMode.hashCode);
     _$hash = $jc(_$hash, provisionedThroughput.hashCode);
     _$hash = $jc(_$hash, sseSpecification.hashCode);
-    _$hash = $jc(_$hash, tableName.hashCode);
+    _$hash = $jc(_$hash, globalSecondaryIndexes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -85,6 +85,10 @@ class TableCreationParametersBuilder
         Builder<TableCreationParameters, TableCreationParametersBuilder> {
   _$TableCreationParameters? _$v;
 
+  String? _tableName;
+  String? get tableName => _$this._tableName;
+  set tableName(String? tableName) => _$this._tableName = tableName;
+
   _i8.ListBuilder<_i2.AttributeDefinition>? _attributeDefinitions;
   _i8.ListBuilder<_i2.AttributeDefinition> get attributeDefinitions =>
       _$this._attributeDefinitions ??=
@@ -93,41 +97,37 @@ class TableCreationParametersBuilder
           _i8.ListBuilder<_i2.AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
-  _i3.BillingMode? _billingMode;
-  _i3.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i3.BillingMode? billingMode) =>
-      _$this._billingMode = billingMode;
-
-  _i8.ListBuilder<_i4.GlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i8.ListBuilder<_i4.GlobalSecondaryIndex> get globalSecondaryIndexes =>
-      _$this._globalSecondaryIndexes ??=
-          new _i8.ListBuilder<_i4.GlobalSecondaryIndex>();
-  set globalSecondaryIndexes(
-          _i8.ListBuilder<_i4.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
-      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
-
-  _i8.ListBuilder<_i5.KeySchemaElement>? _keySchema;
-  _i8.ListBuilder<_i5.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i8.ListBuilder<_i5.KeySchemaElement>();
-  set keySchema(_i8.ListBuilder<_i5.KeySchemaElement>? keySchema) =>
+  _i8.ListBuilder<_i3.KeySchemaElement>? _keySchema;
+  _i8.ListBuilder<_i3.KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i8.ListBuilder<_i3.KeySchemaElement>();
+  set keySchema(_i8.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i6.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i6.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i6.ProvisionedThroughputBuilder();
+  _i4.BillingMode? _billingMode;
+  _i4.BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(_i4.BillingMode? billingMode) =>
+      _$this._billingMode = billingMode;
+
+  _i5.ProvisionedThroughputBuilder? _provisionedThroughput;
+  _i5.ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new _i5.ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i6.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          _i5.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i7.SseSpecificationBuilder? _sseSpecification;
-  _i7.SseSpecificationBuilder get sseSpecification =>
-      _$this._sseSpecification ??= new _i7.SseSpecificationBuilder();
-  set sseSpecification(_i7.SseSpecificationBuilder? sseSpecification) =>
+  _i6.SseSpecificationBuilder? _sseSpecification;
+  _i6.SseSpecificationBuilder get sseSpecification =>
+      _$this._sseSpecification ??= new _i6.SseSpecificationBuilder();
+  set sseSpecification(_i6.SseSpecificationBuilder? sseSpecification) =>
       _$this._sseSpecification = sseSpecification;
 
-  String? _tableName;
-  String? get tableName => _$this._tableName;
-  set tableName(String? tableName) => _$this._tableName = tableName;
+  _i8.ListBuilder<_i7.GlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i8.ListBuilder<_i7.GlobalSecondaryIndex> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i8.ListBuilder<_i7.GlobalSecondaryIndex>();
+  set globalSecondaryIndexes(
+          _i8.ListBuilder<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
+      _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   TableCreationParametersBuilder() {
     TableCreationParameters._init(this);
@@ -136,13 +136,13 @@ class TableCreationParametersBuilder
   TableCreationParametersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _tableName = $v.tableName;
       _attributeDefinitions = $v.attributeDefinitions.toBuilder();
-      _billingMode = $v.billingMode;
-      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _keySchema = $v.keySchema.toBuilder();
+      _billingMode = $v.billingMode;
       _provisionedThroughput = $v.provisionedThroughput?.toBuilder();
       _sseSpecification = $v.sseSpecification?.toBuilder();
-      _tableName = $v.tableName;
+      _globalSecondaryIndexes = $v.globalSecondaryIndexes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -167,28 +167,28 @@ class TableCreationParametersBuilder
     try {
       _$result = _$v ??
           new _$TableCreationParameters._(
+              tableName: BuiltValueNullFieldError.checkNotNull(
+                  tableName, r'TableCreationParameters', 'tableName'),
               attributeDefinitions: attributeDefinitions.build(),
-              billingMode: billingMode,
-              globalSecondaryIndexes: _globalSecondaryIndexes?.build(),
               keySchema: keySchema.build(),
+              billingMode: billingMode,
               provisionedThroughput: _provisionedThroughput?.build(),
               sseSpecification: _sseSpecification?.build(),
-              tableName: BuiltValueNullFieldError.checkNotNull(
-                  tableName, r'TableCreationParameters', 'tableName'));
+              globalSecondaryIndexes: _globalSecondaryIndexes?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'attributeDefinitions';
         attributeDefinitions.build();
-
-        _$failedField = 'globalSecondaryIndexes';
-        _globalSecondaryIndexes?.build();
         _$failedField = 'keySchema';
         keySchema.build();
+
         _$failedField = 'provisionedThroughput';
         _provisionedThroughput?.build();
         _$failedField = 'sseSpecification';
         _sseSpecification?.build();
+        _$failedField = 'globalSecondaryIndexes';
+        _globalSecondaryIndexes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'TableCreationParameters', _$failedField, e.toString());

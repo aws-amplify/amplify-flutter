@@ -9,9 +9,9 @@ import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/identity.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/operation_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_record.dart'
     as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_record.dart'
+    as _i3;
 
 part 'record.g.dart';
 
@@ -21,21 +21,21 @@ abstract class Record
     implements Built<Record, RecordBuilder> {
   /// A description of a unique event within a stream.
   factory Record({
-    String? awsRegion,
-    _i2.StreamRecord? dynamodb,
     String? eventId,
-    _i3.OperationType? eventName,
-    String? eventSource,
+    _i2.OperationType? eventName,
     String? eventVersion,
+    String? eventSource,
+    String? awsRegion,
+    _i3.StreamRecord? dynamodb,
     _i4.Identity? userIdentity,
   }) {
     return _$Record._(
-      awsRegion: awsRegion,
-      dynamodb: dynamodb,
       eventId: eventId,
       eventName: eventName,
-      eventSource: eventSource,
       eventVersion: eventVersion,
+      eventSource: eventSource,
+      awsRegion: awsRegion,
+      dynamodb: dynamodb,
       userIdentity: userIdentity,
     );
   }
@@ -52,12 +52,6 @@ abstract class Record
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RecordBuilder b) {}
 
-  /// The region in which the `GetRecords` request was received.
-  String? get awsRegion;
-
-  /// The main body of the stream record, containing all of the DynamoDB-specific fields.
-  _i2.StreamRecord? get dynamodb;
-
   /// A globally unique identifier for the event that was recorded in this stream record.
   String? get eventId;
 
@@ -68,15 +62,21 @@ abstract class Record
   /// *   `MODIFY` \- one or more of an existing item's attributes were modified.
   ///
   /// *   `REMOVE` \- the item was deleted from the table
-  _i3.OperationType? get eventName;
-
-  /// The AWS service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
-  String? get eventSource;
+  _i2.OperationType? get eventName;
 
   /// The version number of the stream record format. This number is updated whenever the structure of `Record` is modified.
   ///
   /// Client applications must not assume that `eventVersion` will remain at a particular value, as this number is subject to change at any time. In general, `eventVersion` will only increase as the low-level DynamoDB Streams API evolves.
   String? get eventVersion;
+
+  /// The AWS service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
+  String? get eventSource;
+
+  /// The region in which the `GetRecords` request was received.
+  String? get awsRegion;
+
+  /// The main body of the stream record, containing all of the DynamoDB-specific fields.
+  _i3.StreamRecord? get dynamodb;
 
   /// Items that are deleted by the Time to Live process after expiration have the following fields:
   ///
@@ -90,25 +90,17 @@ abstract class Record
   _i4.Identity? get userIdentity;
   @override
   List<Object?> get props => [
-        awsRegion,
-        dynamodb,
         eventId,
         eventName,
-        eventSource,
         eventVersion,
+        eventSource,
+        awsRegion,
+        dynamodb,
         userIdentity,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Record');
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'dynamodb',
-      dynamodb,
-    );
     helper.add(
       'eventId',
       eventId,
@@ -118,12 +110,20 @@ abstract class Record
       eventName,
     );
     helper.add(
+      'eventVersion',
+      eventVersion,
+    );
+    helper.add(
       'eventSource',
       eventSource,
     );
     helper.add(
-      'eventVersion',
-      eventVersion,
+      'awsRegion',
+      awsRegion,
+    );
+    helper.add(
+      'dynamodb',
+      dynamodb,
     );
     helper.add(
       'userIdentity',
@@ -161,22 +161,6 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'awsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'dynamodb':
-          if (value != null) {
-            result.dynamodb.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamRecord),
-            ) as _i2.StreamRecord));
-          }
-          break;
         case 'eventID':
           if (value != null) {
             result.eventId = (serializers.deserialize(
@@ -189,8 +173,16 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
           if (value != null) {
             result.eventName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.OperationType),
-            ) as _i3.OperationType);
+              specifiedType: const FullType(_i2.OperationType),
+            ) as _i2.OperationType);
+          }
+          break;
+        case 'eventVersion':
+          if (value != null) {
+            result.eventVersion = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
         case 'eventSource':
@@ -201,12 +193,20 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
             ) as String);
           }
           break;
-        case 'eventVersion':
+        case 'awsRegion':
           if (value != null) {
-            result.eventVersion = (serializers.deserialize(
+            result.awsRegion = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'dynamodb':
+          if (value != null) {
+            result.dynamodb.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.StreamRecord),
+            ) as _i3.StreamRecord));
           }
           break;
         case 'userIdentity':
@@ -231,22 +231,6 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
   }) {
     final payload = (object as Record);
     final result = <Object?>[];
-    if (payload.awsRegion != null) {
-      result
-        ..add('awsRegion')
-        ..add(serializers.serialize(
-          payload.awsRegion!,
-          specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.dynamodb != null) {
-      result
-        ..add('dynamodb')
-        ..add(serializers.serialize(
-          payload.dynamodb!,
-          specifiedType: const FullType(_i2.StreamRecord),
-        ));
-    }
     if (payload.eventId != null) {
       result
         ..add('eventID')
@@ -260,7 +244,15 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ..add('eventName')
         ..add(serializers.serialize(
           payload.eventName!,
-          specifiedType: const FullType(_i3.OperationType),
+          specifiedType: const FullType(_i2.OperationType),
+        ));
+    }
+    if (payload.eventVersion != null) {
+      result
+        ..add('eventVersion')
+        ..add(serializers.serialize(
+          payload.eventVersion!,
+          specifiedType: const FullType(String),
         ));
     }
     if (payload.eventSource != null) {
@@ -271,12 +263,20 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventVersion != null) {
+    if (payload.awsRegion != null) {
       result
-        ..add('eventVersion')
+        ..add('awsRegion')
         ..add(serializers.serialize(
-          payload.eventVersion!,
+          payload.awsRegion!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.dynamodb != null) {
+      result
+        ..add('dynamodb')
+        ..add(serializers.serialize(
+          payload.dynamodb!,
+          specifiedType: const FullType(_i3.StreamRecord),
         ));
     }
     if (payload.userIdentity != null) {

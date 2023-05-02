@@ -22,18 +22,18 @@ abstract class ConformancePackEvaluationResult
             ConformancePackEvaluationResultBuilder> {
   /// The details of a conformance pack evaluation. Provides Config rule and Amazon Web Services resource type that was evaluated, the compliance of the conformance pack, related time stamps, and supplementary information.
   factory ConformancePackEvaluationResult({
-    String? annotation,
     required _i2.ConformancePackComplianceType complianceType,
-    required DateTime configRuleInvokedTime,
     required _i3.EvaluationResultIdentifier evaluationResultIdentifier,
+    required DateTime configRuleInvokedTime,
     required DateTime resultRecordedTime,
+    String? annotation,
   }) {
     return _$ConformancePackEvaluationResult._(
-      annotation: annotation,
       complianceType: complianceType,
-      configRuleInvokedTime: configRuleInvokedTime,
       evaluationResultIdentifier: evaluationResultIdentifier,
+      configRuleInvokedTime: configRuleInvokedTime,
       resultRecordedTime: resultRecordedTime,
+      annotation: annotation,
     );
   }
 
@@ -51,51 +51,51 @@ abstract class ConformancePackEvaluationResult
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackEvaluationResultBuilder b) {}
 
-  /// Supplementary information about how the evaluation determined the compliance.
-  String? get annotation;
-
   /// The compliance type. The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
   _i2.ConformancePackComplianceType get complianceType;
-
-  /// The time when Config rule evaluated Amazon Web Services resource.
-  DateTime get configRuleInvokedTime;
 
   /// Uniquely identifies an evaluation result.
   _i3.EvaluationResultIdentifier get evaluationResultIdentifier;
 
+  /// The time when Config rule evaluated Amazon Web Services resource.
+  DateTime get configRuleInvokedTime;
+
   /// The time when Config recorded the evaluation result.
   DateTime get resultRecordedTime;
+
+  /// Supplementary information about how the evaluation determined the compliance.
+  String? get annotation;
   @override
   List<Object?> get props => [
-        annotation,
         complianceType,
-        configRuleInvokedTime,
         evaluationResultIdentifier,
+        configRuleInvokedTime,
         resultRecordedTime,
+        annotation,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackEvaluationResult');
     helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
       'complianceType',
       complianceType,
-    );
-    helper.add(
-      'configRuleInvokedTime',
-      configRuleInvokedTime,
     );
     helper.add(
       'evaluationResultIdentifier',
       evaluationResultIdentifier,
     );
     helper.add(
+      'configRuleInvokedTime',
+      configRuleInvokedTime,
+    );
+    helper.add(
       'resultRecordedTime',
       resultRecordedTime,
+    );
+    helper.add(
+      'annotation',
+      annotation,
     );
     return helper.toString();
   }
@@ -131,25 +131,11 @@ class ConformancePackEvaluationResultAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value!,
             specifiedType: const FullType(_i2.ConformancePackComplianceType),
           ) as _i2.ConformancePackComplianceType);
-          break;
-        case 'ConfigRuleInvokedTime':
-          result.configRuleInvokedTime = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime);
           break;
         case 'EvaluationResultIdentifier':
           result.evaluationResultIdentifier.replace((serializers.deserialize(
@@ -157,11 +143,25 @@ class ConformancePackEvaluationResultAwsJson11Serializer
             specifiedType: const FullType(_i3.EvaluationResultIdentifier),
           ) as _i3.EvaluationResultIdentifier));
           break;
+        case 'ConfigRuleInvokedTime':
+          result.configRuleInvokedTime = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
+          break;
         case 'ResultRecordedTime':
           result.resultRecordedTime = (serializers.deserialize(
             value!,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
+          break;
+        case 'Annotation':
+          if (value != null) {
+            result.annotation = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
           break;
       }
     }
@@ -182,15 +182,15 @@ class ConformancePackEvaluationResultAwsJson11Serializer
         payload.complianceType,
         specifiedType: const FullType(_i2.ConformancePackComplianceType),
       ),
-      'ConfigRuleInvokedTime',
-      serializers.serialize(
-        payload.configRuleInvokedTime,
-        specifiedType: const FullType(DateTime),
-      ),
       'EvaluationResultIdentifier',
       serializers.serialize(
         payload.evaluationResultIdentifier,
         specifiedType: const FullType(_i3.EvaluationResultIdentifier),
+      ),
+      'ConfigRuleInvokedTime',
+      serializers.serialize(
+        payload.configRuleInvokedTime,
+        specifiedType: const FullType(DateTime),
       ),
       'ResultRecordedTime',
       serializers.serialize(

@@ -8,11 +8,11 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart'
     as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_item.dart'
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart'
     as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_item.dart'
+    as _i3;
 
 part 'transact_write_items_input.g.dart';
 
@@ -22,10 +22,10 @@ abstract class TransactWriteItemsInput
         _i2.AWSEquatable<TransactWriteItemsInput>
     implements Built<TransactWriteItemsInput, TransactWriteItemsInputBuilder> {
   factory TransactWriteItemsInput({
+    required List<_i3.TransactWriteItem> transactItems,
+    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
     String? clientRequestToken,
-    _i3.ReturnConsumedCapacity? returnConsumedCapacity,
-    _i4.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
-    required List<_i5.TransactWriteItem> transactItems,
   }) {
     if (const bool.hasEnvironment('SMITHY_TEST')) {
       clientRequestToken ??= '00000000-0000-4000-8000-000000000000';
@@ -33,10 +33,10 @@ abstract class TransactWriteItemsInput
       clientRequestToken ??= _i2.uuid(secure: true);
     }
     return _$TransactWriteItemsInput._(
-      clientRequestToken: clientRequestToken,
+      transactItems: _i6.BuiltList(transactItems),
       returnConsumedCapacity: returnConsumedCapacity,
       returnItemCollectionMetrics: returnItemCollectionMetrics,
-      transactItems: _i6.BuiltList(transactItems),
+      clientRequestToken: clientRequestToken,
     );
   }
 
@@ -66,14 +66,8 @@ abstract class TransactWriteItemsInput
     }
   }
 
-  /// Providing a `ClientRequestToken` makes the call to `TransactWriteItems` idempotent, meaning that multiple identical calls have the same effect as one single call.
-  ///
-  /// Although multiple identical calls using the same client request token produce the same result on the server (no side effects), the responses to the calls might not be the same. If the `ReturnConsumedCapacity>` parameter is set, then the initial `TransactWriteItems` call returns the amount of write capacity units consumed in making the changes. Subsequent `TransactWriteItems` calls with the same client token return the number of read capacity units consumed in reading the item.
-  ///
-  /// A client request token is valid for 10 minutes after the first request that uses it is completed. After 10 minutes, any request with the same client token is treated as a new request. Do not resubmit the same request with the same client token for more than 10 minutes, or the result might not be idempotent.
-  ///
-  /// If you submit a request with the same client token but a change in other parameters within the 10-minute idempotency window, DynamoDB returns an `IdempotentParameterMismatch` exception.
-  String? get clientRequestToken;
+  /// An ordered array of up to 100 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`, `Update`, or `Delete` object. These can operate on items in different tables, but the tables must reside in the same Amazon Web Services account and Region, and no two of them can operate on the same item.
+  _i6.BuiltList<_i3.TransactWriteItem> get transactItems;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -84,28 +78,34 @@ abstract class TransactWriteItemsInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i3.ReturnConsumedCapacity? get returnConsumedCapacity;
+  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about item collections (if any), that were modified during the operation and are returned in the response. If set to `NONE` (the default), no statistics are returned.
-  _i4.ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
+  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
 
-  /// An ordered array of up to 100 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`, `Update`, or `Delete` object. These can operate on items in different tables, but the tables must reside in the same Amazon Web Services account and Region, and no two of them can operate on the same item.
-  _i6.BuiltList<_i5.TransactWriteItem> get transactItems;
+  /// Providing a `ClientRequestToken` makes the call to `TransactWriteItems` idempotent, meaning that multiple identical calls have the same effect as one single call.
+  ///
+  /// Although multiple identical calls using the same client request token produce the same result on the server (no side effects), the responses to the calls might not be the same. If the `ReturnConsumedCapacity>` parameter is set, then the initial `TransactWriteItems` call returns the amount of write capacity units consumed in making the changes. Subsequent `TransactWriteItems` calls with the same client token return the number of read capacity units consumed in reading the item.
+  ///
+  /// A client request token is valid for 10 minutes after the first request that uses it is completed. After 10 minutes, any request with the same client token is treated as a new request. Do not resubmit the same request with the same client token for more than 10 minutes, or the result might not be idempotent.
+  ///
+  /// If you submit a request with the same client token but a change in other parameters within the 10-minute idempotency window, DynamoDB returns an `IdempotentParameterMismatch` exception.
+  String? get clientRequestToken;
   @override
   TransactWriteItemsInput getPayload() => this;
   @override
   List<Object?> get props => [
-        clientRequestToken,
+        transactItems,
         returnConsumedCapacity,
         returnItemCollectionMetrics,
-        transactItems,
+        clientRequestToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TransactWriteItemsInput');
     helper.add(
-      'clientRequestToken',
-      clientRequestToken,
+      'transactItems',
+      transactItems,
     );
     helper.add(
       'returnConsumedCapacity',
@@ -116,8 +116,8 @@ abstract class TransactWriteItemsInput
       returnItemCollectionMetrics,
     );
     helper.add(
-      'transactItems',
-      transactItems,
+      'clientRequestToken',
+      clientRequestToken,
     );
     return helper.toString();
   }
@@ -153,6 +153,31 @@ class TransactWriteItemsInputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'TransactItems':
+          result.transactItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.TransactWriteItem)],
+            ),
+          ) as _i6.BuiltList<_i3.TransactWriteItem>));
+          break;
+        case 'ReturnConsumedCapacity':
+          if (value != null) {
+            result.returnConsumedCapacity = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+            ) as _i4.ReturnConsumedCapacity);
+          }
+          break;
+        case 'ReturnItemCollectionMetrics':
+          if (value != null) {
+            result.returnItemCollectionMetrics = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+            ) as _i5.ReturnItemCollectionMetrics);
+          }
+          break;
         case 'ClientRequestToken':
           if (value != null) {
             result.clientRequestToken = (serializers.deserialize(
@@ -160,31 +185,6 @@ class TransactWriteItemsInputAwsJson10Serializer
               specifiedType: const FullType(String),
             ) as String);
           }
-          break;
-        case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ReturnConsumedCapacity),
-            ) as _i3.ReturnConsumedCapacity);
-          }
-          break;
-        case 'ReturnItemCollectionMetrics':
-          if (value != null) {
-            result.returnItemCollectionMetrics = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnItemCollectionMetrics),
-            ) as _i4.ReturnItemCollectionMetrics);
-          }
-          break;
-        case 'TransactItems':
-          result.transactItems.replace((serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.TransactWriteItem)],
-            ),
-          ) as _i6.BuiltList<_i5.TransactWriteItem>));
           break;
       }
     }
@@ -205,24 +205,16 @@ class TransactWriteItemsInputAwsJson10Serializer
         payload.transactItems,
         specifiedType: const FullType(
           _i6.BuiltList,
-          [FullType(_i5.TransactWriteItem)],
+          [FullType(_i3.TransactWriteItem)],
         ),
       ),
     ];
-    if (payload.clientRequestToken != null) {
-      result
-        ..add('ClientRequestToken')
-        ..add(serializers.serialize(
-          payload.clientRequestToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           payload.returnConsumedCapacity!,
-          specifiedType: const FullType(_i3.ReturnConsumedCapacity),
+          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
     if (payload.returnItemCollectionMetrics != null) {
@@ -230,7 +222,15 @@ class TransactWriteItemsInputAwsJson10Serializer
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           payload.returnItemCollectionMetrics!,
-          specifiedType: const FullType(_i4.ReturnItemCollectionMetrics),
+          specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+        ));
+    }
+    if (payload.clientRequestToken != null) {
+      result
+        ..add('ClientRequestToken')
+        ..add(serializers.serialize(
+          payload.clientRequestToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

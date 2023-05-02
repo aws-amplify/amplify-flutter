@@ -7,12 +7,12 @@ import 'package:built_collection/built_collection.dart' as _i8;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/encryption.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/metadata_entry.dart' as _i7;
+import 'package:smoke_test/src/sdk/src/s3/model/encryption.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/metadata_entry.dart' as _i6;
 import 'package:smoke_test/src/sdk/src/s3/model/object_canned_acl.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i7;
+import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i5;
 
 part 's3_location.g.dart';
 
@@ -22,25 +22,25 @@ abstract class S3Location
     implements Built<S3Location, S3LocationBuilder> {
   /// Describes an Amazon S3 location that will receive the results of the restore request.
   factory S3Location({
-    List<_i2.Grant>? accessControlList,
     required String bucketName,
-    _i3.ObjectCannedAcl? cannedAcl,
-    _i4.Encryption? encryption,
     required String prefix,
-    _i5.StorageClass? storageClass,
-    _i6.Tagging? tagging,
-    List<_i7.MetadataEntry>? userMetadata,
+    _i2.Encryption? encryption,
+    _i3.ObjectCannedAcl? cannedAcl,
+    List<_i4.Grant>? accessControlList,
+    _i5.Tagging? tagging,
+    List<_i6.MetadataEntry>? userMetadata,
+    _i7.StorageClass? storageClass,
   }) {
     return _$S3Location._(
+      bucketName: bucketName,
+      prefix: prefix,
+      encryption: encryption,
+      cannedAcl: cannedAcl,
       accessControlList:
           accessControlList == null ? null : _i8.BuiltList(accessControlList),
-      bucketName: bucketName,
-      cannedAcl: cannedAcl,
-      encryption: encryption,
-      prefix: prefix,
-      storageClass: storageClass,
       tagging: tagging,
       userMetadata: userMetadata == null ? null : _i8.BuiltList(userMetadata),
+      storageClass: storageClass,
     );
   }
 
@@ -57,66 +57,62 @@ abstract class S3Location
   @BuiltValueHook(initializeBuilder: true)
   static void _init(S3LocationBuilder b) {}
 
-  /// A list of grants that control access to the staged results.
-  _i8.BuiltList<_i2.Grant>? get accessControlList;
-
   /// The name of the bucket where the restore results will be placed.
   String get bucketName;
-
-  /// The canned ACL to apply to the restore results.
-  _i3.ObjectCannedAcl? get cannedAcl;
-
-  /// Contains the type of server-side encryption used.
-  _i4.Encryption? get encryption;
 
   /// The prefix that is prepended to the restore results for this request.
   String get prefix;
 
-  /// The class of storage used to store the restore results.
-  _i5.StorageClass? get storageClass;
+  /// Contains the type of server-side encryption used.
+  _i2.Encryption? get encryption;
+
+  /// The canned ACL to apply to the restore results.
+  _i3.ObjectCannedAcl? get cannedAcl;
+
+  /// A list of grants that control access to the staged results.
+  _i8.BuiltList<_i4.Grant>? get accessControlList;
 
   /// The tag-set that is applied to the restore results.
-  _i6.Tagging? get tagging;
+  _i5.Tagging? get tagging;
 
   /// A list of metadata to store with the restore results in S3.
-  _i8.BuiltList<_i7.MetadataEntry>? get userMetadata;
+  _i8.BuiltList<_i6.MetadataEntry>? get userMetadata;
+
+  /// The class of storage used to store the restore results.
+  _i7.StorageClass? get storageClass;
   @override
   List<Object?> get props => [
-        accessControlList,
         bucketName,
-        cannedAcl,
-        encryption,
         prefix,
-        storageClass,
+        encryption,
+        cannedAcl,
+        accessControlList,
         tagging,
         userMetadata,
+        storageClass,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('S3Location');
     helper.add(
-      'accessControlList',
-      accessControlList,
-    );
-    helper.add(
       'bucketName',
       bucketName,
-    );
-    helper.add(
-      'cannedAcl',
-      cannedAcl,
-    );
-    helper.add(
-      'encryption',
-      encryption,
     );
     helper.add(
       'prefix',
       prefix,
     );
     helper.add(
-      'storageClass',
-      storageClass,
+      'encryption',
+      encryption,
+    );
+    helper.add(
+      'cannedAcl',
+      cannedAcl,
+    );
+    helper.add(
+      'accessControlList',
+      accessControlList,
     );
     helper.add(
       'tagging',
@@ -125,6 +121,10 @@ abstract class S3Location
     helper.add(
       'userMetadata',
       userMetadata,
+    );
+    helper.add(
+      'storageClass',
+      storageClass,
     );
     return helper.toString();
   }
@@ -165,12 +165,12 @@ class S3LocationRestXmlSerializer
                 (const _i9.XmlBuiltListSerializer(memberName: 'Grant')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i8.BuiltList,
-                [FullType(_i2.Grant)],
+                [FullType(_i4.Grant)],
               ),
-            ) as _i8.BuiltList<_i2.Grant>));
+            ) as _i8.BuiltList<_i4.Grant>));
           }
           break;
         case 'BucketName':
@@ -191,8 +191,8 @@ class S3LocationRestXmlSerializer
           if (value != null) {
             result.encryption.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i4.Encryption),
-            ) as _i4.Encryption));
+              specifiedType: const FullType(_i2.Encryption),
+            ) as _i2.Encryption));
           }
           break;
         case 'Prefix':
@@ -205,16 +205,16 @@ class S3LocationRestXmlSerializer
           if (value != null) {
             result.storageClass = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i5.StorageClass),
-            ) as _i5.StorageClass);
+              specifiedType: const FullType(_i7.StorageClass),
+            ) as _i7.StorageClass);
           }
           break;
         case 'Tagging':
           if (value != null) {
             result.tagging.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(_i6.Tagging),
-            ) as _i6.Tagging));
+              specifiedType: const FullType(_i5.Tagging),
+            ) as _i5.Tagging));
           }
           break;
         case 'UserMetadata':
@@ -223,12 +223,12 @@ class S3LocationRestXmlSerializer
                 (const _i9.XmlBuiltListSerializer(memberName: 'MetadataEntry')
                     .deserialize(
               serializers,
-              (value as Iterable<Object?>),
+              value is String ? const [] : (value as Iterable<Object?>),
               specifiedType: const FullType(
                 _i8.BuiltList,
-                [FullType(_i7.MetadataEntry)],
+                [FullType(_i6.MetadataEntry)],
               ),
-            ) as _i8.BuiltList<_i7.MetadataEntry>));
+            ) as _i8.BuiltList<_i6.MetadataEntry>));
           }
           break;
       }
@@ -258,7 +258,7 @@ class S3LocationRestXmlSerializer
           payload.accessControlList!,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
-            [FullType(_i2.Grant)],
+            [FullType(_i4.Grant)],
           ),
         ));
     }
@@ -281,7 +281,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i9.XmlElementName('Encryption'))
         ..add(serializers.serialize(
           payload.encryption!,
-          specifiedType: const FullType(_i4.Encryption),
+          specifiedType: const FullType(_i2.Encryption),
         ));
     }
     result
@@ -295,7 +295,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i9.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           payload.storageClass!,
-          specifiedType: const FullType.nullable(_i5.StorageClass),
+          specifiedType: const FullType.nullable(_i7.StorageClass),
         ));
     }
     if (payload.tagging != null) {
@@ -303,7 +303,7 @@ class S3LocationRestXmlSerializer
         ..add(const _i9.XmlElementName('Tagging'))
         ..add(serializers.serialize(
           payload.tagging!,
-          specifiedType: const FullType(_i6.Tagging),
+          specifiedType: const FullType(_i5.Tagging),
         ));
     }
     if (payload.userMetadata != null) {
@@ -315,7 +315,7 @@ class S3LocationRestXmlSerializer
           payload.userMetadata!,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
-            [FullType(_i7.MetadataEntry)],
+            [FullType(_i6.MetadataEntry)],
           ),
         ));
     }

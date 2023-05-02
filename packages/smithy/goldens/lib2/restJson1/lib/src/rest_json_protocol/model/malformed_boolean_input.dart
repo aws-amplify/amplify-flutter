@@ -19,16 +19,16 @@ abstract class MalformedBooleanInput
         _i1.HasPayload<MalformedBooleanInputPayload> {
   factory MalformedBooleanInput({
     bool? booleanInBody,
-    bool? booleanInHeader,
     bool? booleanInPath,
     bool? booleanInQuery,
+    bool? booleanInHeader,
   }) {
     booleanInPath ??= false;
     return _$MalformedBooleanInput._(
       booleanInBody: booleanInBody,
-      booleanInHeader: booleanInHeader,
       booleanInPath: booleanInPath,
       booleanInQuery: booleanInQuery,
+      booleanInHeader: booleanInHeader,
     );
   }
 
@@ -67,9 +67,9 @@ abstract class MalformedBooleanInput
   }
 
   bool? get booleanInBody;
-  bool? get booleanInHeader;
   bool get booleanInPath;
   bool? get booleanInQuery;
+  bool? get booleanInHeader;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -90,9 +90,9 @@ abstract class MalformedBooleanInput
   @override
   List<Object?> get props => [
         booleanInBody,
-        booleanInHeader,
         booleanInPath,
         booleanInQuery,
+        booleanInHeader,
       ];
   @override
   String toString() {
@@ -102,16 +102,16 @@ abstract class MalformedBooleanInput
       booleanInBody,
     );
     helper.add(
-      'booleanInHeader',
-      booleanInHeader,
-    );
-    helper.add(
       'booleanInPath',
       booleanInPath,
     );
     helper.add(
       'booleanInQuery',
       booleanInQuery,
+    );
+    helper.add(
+      'booleanInHeader',
+      booleanInHeader,
     );
     return helper.toString();
   }

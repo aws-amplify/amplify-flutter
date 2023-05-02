@@ -8,9 +8,9 @@ import 'package:built_value/serializer.dart';
 import 'package:meta/meta.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/location_status_type.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/location_status_type.dart'
+    as _i4;
 
 part 'get_documentation_parts_request.g.dart';
 
@@ -26,22 +26,22 @@ abstract class GetDocumentationPartsRequest
         _i1.HasPayload<GetDocumentationPartsRequestPayload> {
   /// Gets the documentation parts of an API. The result may be filtered by the type, name, or path of API entities (targets).
   factory GetDocumentationPartsRequest({
-    int? limit,
-    _i3.LocationStatusType? locationStatus,
+    required String restApiId,
+    _i3.DocumentationPartType? type,
     String? nameQuery,
     String? path,
     String? position,
-    required String restApiId,
-    _i4.DocumentationPartType? type,
+    int? limit,
+    _i4.LocationStatusType? locationStatus,
   }) {
     return _$GetDocumentationPartsRequest._(
-      limit: limit,
-      locationStatus: locationStatus,
+      restApiId: restApiId,
+      type: type,
       nameQuery: nameQuery,
       path: path,
       position: position,
-      restApiId: restApiId,
-      type: type,
+      limit: limit,
+      locationStatus: locationStatus,
     );
   }
 
@@ -59,7 +59,7 @@ abstract class GetDocumentationPartsRequest
   }) =>
       GetDocumentationPartsRequest.build((b) {
         if (request.queryParameters['type'] != null) {
-          b.type = _i4.DocumentationPartType.values
+          b.type = _i3.DocumentationPartType.values
               .byValue(request.queryParameters['type']!);
         }
         if (request.queryParameters['name'] != null) {
@@ -75,7 +75,7 @@ abstract class GetDocumentationPartsRequest
           b.limit = int.parse(request.queryParameters['limit']!);
         }
         if (request.queryParameters['locationStatus'] != null) {
-          b.locationStatus = _i3.LocationStatusType.values
+          b.locationStatus = _i4.LocationStatusType.values
               .byValue(request.queryParameters['locationStatus']!);
         }
         if (labels['restApiId'] != null) {
@@ -90,11 +90,11 @@ abstract class GetDocumentationPartsRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDocumentationPartsRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
-  /// The status of the API documentation parts to retrieve. Valid values are `DOCUMENTED` for retrieving DocumentationPart resources with content and `UNDOCUMENTED` for DocumentationPart resources without content.
-  _i3.LocationStatusType? get locationStatus;
+  /// The type of API entities of the to-be-retrieved documentation parts.
+  _i3.DocumentationPartType? get type;
 
   /// The name of API entities of the to-be-retrieved documentation parts.
   String? get nameQuery;
@@ -105,11 +105,11 @@ abstract class GetDocumentationPartsRequest
   /// The current pagination position in the paged result set.
   String? get position;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
 
-  /// The type of API entities of the to-be-retrieved documentation parts.
-  _i4.DocumentationPartType? get type;
+  /// The status of the API documentation parts to retrieve. Valid values are `DOCUMENTED` for retrieving DocumentationPart resources with content and `UNDOCUMENTED` for DocumentationPart resources without content.
+  _i4.LocationStatusType? get locationStatus;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -127,24 +127,24 @@ abstract class GetDocumentationPartsRequest
       GetDocumentationPartsRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
-        locationStatus,
+        restApiId,
+        type,
         nameQuery,
         path,
         position,
-        restApiId,
-        type,
+        limit,
+        locationStatus,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDocumentationPartsRequest');
     helper.add(
-      'limit',
-      limit,
+      'restApiId',
+      restApiId,
     );
     helper.add(
-      'locationStatus',
-      locationStatus,
+      'type',
+      type,
     );
     helper.add(
       'nameQuery',
@@ -159,12 +159,12 @@ abstract class GetDocumentationPartsRequest
       position,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'limit',
+      limit,
     );
     helper.add(
-      'type',
-      type,
+      'locationStatus',
+      locationStatus,
     );
     return helper.toString();
   }

@@ -195,6 +195,12 @@ class UploadArchiveInputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'vaultName':
+          result.vaultName = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
+          break;
         case 'accountId':
           result.accountId = (serializers.deserialize(
             value!,
@@ -204,6 +210,14 @@ class UploadArchiveInputRestJson1Serializer
         case 'archiveDescription':
           if (value != null) {
             result.archiveDescription = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
+        case 'checksum':
+          if (value != null) {
+            result.checksum = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -224,20 +238,6 @@ class UploadArchiveInputRestJson1Serializer
               ),
             ) as _i7.Stream<List<int>>);
           }
-          break;
-        case 'checksum':
-          if (value != null) {
-            result.checksum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'vaultName':
-          result.vaultName = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
           break;
       }
     }
@@ -283,9 +283,9 @@ class ArchiveCreationOutputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'archiveId':
+        case 'location':
           if (value != null) {
-            result.archiveId = (serializers.deserialize(
+            result.location = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -299,9 +299,9 @@ class ArchiveCreationOutputRestJson1Serializer
             ) as String);
           }
           break;
-        case 'location':
+        case 'archiveId':
           if (value != null) {
-            result.location = (serializers.deserialize(
+            result.archiveId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -350,6 +350,14 @@ class InvalidParameterValueExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'type':
+          if (value != null) {
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'code':
           if (value != null) {
             result.code = (serializers.deserialize(
@@ -361,14 +369,6 @@ class InvalidParameterValueExceptionRestJson1Serializer
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -417,6 +417,14 @@ class MissingParameterValueExceptionRestJson1Serializer extends _i5
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'type':
+          if (value != null) {
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'code':
           if (value != null) {
             result.code = (serializers.deserialize(
@@ -428,14 +436,6 @@ class MissingParameterValueExceptionRestJson1Serializer extends _i5
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -484,6 +484,14 @@ class RequestTimeoutExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'type':
+          if (value != null) {
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'code':
           if (value != null) {
             result.code = (serializers.deserialize(
@@ -495,14 +503,6 @@ class RequestTimeoutExceptionRestJson1Serializer
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -551,6 +551,14 @@ class ResourceNotFoundExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'type':
+          if (value != null) {
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'code':
           if (value != null) {
             result.code = (serializers.deserialize(
@@ -562,14 +570,6 @@ class ResourceNotFoundExceptionRestJson1Serializer
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
@@ -618,6 +618,14 @@ class ServiceUnavailableExceptionRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'type':
+          if (value != null) {
+            result.type = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'code':
           if (value != null) {
             result.code = (serializers.deserialize(
@@ -629,14 +637,6 @@ class ServiceUnavailableExceptionRestJson1Serializer
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);

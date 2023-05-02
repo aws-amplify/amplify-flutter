@@ -19,14 +19,14 @@ abstract class DescribePendingAggregationRequestsResponse
         Built<DescribePendingAggregationRequestsResponse,
             DescribePendingAggregationRequestsResponseBuilder> {
   factory DescribePendingAggregationRequestsResponse({
-    String? nextToken,
     List<_i2.PendingAggregationRequest>? pendingAggregationRequests,
+    String? nextToken,
   }) {
     return _$DescribePendingAggregationRequestsResponse._(
-      nextToken: nextToken,
       pendingAggregationRequests: pendingAggregationRequests == null
           ? null
           : _i3.BuiltList(pendingAggregationRequests),
+      nextToken: nextToken,
     );
   }
 
@@ -50,27 +50,27 @@ abstract class DescribePendingAggregationRequestsResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DescribePendingAggregationRequestsResponseBuilder b) {}
 
-  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
-  String? get nextToken;
-
   /// Returns a PendingAggregationRequests object.
   _i3.BuiltList<_i2.PendingAggregationRequest>? get pendingAggregationRequests;
+
+  /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
+  String? get nextToken;
   @override
   List<Object?> get props => [
-        nextToken,
         pendingAggregationRequests,
+        nextToken,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribePendingAggregationRequestsResponse');
     helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
       'pendingAggregationRequests',
       pendingAggregationRequests,
+    );
+    helper.add(
+      'nextToken',
+      nextToken,
     );
     return helper.toString();
   }
@@ -106,14 +106,6 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
         case 'PendingAggregationRequests':
           if (value != null) {
             result.pendingAggregationRequests.replace((serializers.deserialize(
@@ -123,6 +115,14 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
                 [FullType(_i2.PendingAggregationRequest)],
               ),
             ) as _i3.BuiltList<_i2.PendingAggregationRequest>));
+          }
+          break;
+        case 'NextToken':
+          if (value != null) {
+            result.nextToken = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -139,14 +139,6 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribePendingAggregationRequestsResponse);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
-      result
-        ..add('NextToken')
-        ..add(serializers.serialize(
-          payload.nextToken!,
-          specifiedType: const FullType(String),
-        ));
-    }
     if (payload.pendingAggregationRequests != null) {
       result
         ..add('PendingAggregationRequests')
@@ -156,6 +148,14 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
             _i3.BuiltList,
             [FullType(_i2.PendingAggregationRequest)],
           ),
+        ));
+    }
+    if (payload.nextToken != null) {
+      result
+        ..add('NextToken')
+        ..add(serializers.serialize(
+          payload.nextToken!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;

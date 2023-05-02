@@ -186,6 +186,17 @@ class JsonIntEnumsInputOutputRestJson1Serializer
             ) as _i7.BuiltList<_i6.IntegerEnum>));
           }
           break;
+        case 'integerEnumSet':
+          if (value != null) {
+            result.integerEnumSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltSet,
+                [FullType(_i6.IntegerEnum)],
+              ),
+            ) as _i7.BuiltSet<_i6.IntegerEnum>));
+          }
+          break;
         case 'integerEnumMap':
           if (value != null) {
             result.integerEnumMap.replace((serializers.deserialize(
@@ -198,17 +209,6 @@ class JsonIntEnumsInputOutputRestJson1Serializer
                 ],
               ),
             ) as _i7.BuiltMap<String, _i6.IntegerEnum>));
-          }
-          break;
-        case 'integerEnumSet':
-          if (value != null) {
-            result.integerEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltSet,
-                [FullType(_i6.IntegerEnum)],
-              ),
-            ) as _i7.BuiltSet<_i6.IntegerEnum>));
           }
           break;
       }

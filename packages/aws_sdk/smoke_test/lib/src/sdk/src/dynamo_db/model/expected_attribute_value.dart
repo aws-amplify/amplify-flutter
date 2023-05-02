@@ -34,17 +34,17 @@ abstract class ExpectedAttributeValue
   ///
   /// `Value` and `Exists` are incompatible with `AttributeValueList` and `ComparisonOperator`. Note that if you use both sets of parameters at once, DynamoDB will return a `ValidationException` exception.
   factory ExpectedAttributeValue({
-    List<_i2.AttributeValue>? attributeValueList,
-    _i3.ComparisonOperator? comparisonOperator,
-    bool? exists,
     _i2.AttributeValue? value,
+    bool? exists,
+    _i3.ComparisonOperator? comparisonOperator,
+    List<_i2.AttributeValue>? attributeValueList,
   }) {
     return _$ExpectedAttributeValue._(
+      value: value,
+      exists: exists,
+      comparisonOperator: comparisonOperator,
       attributeValueList:
           attributeValueList == null ? null : _i4.BuiltList(attributeValueList),
-      comparisonOperator: comparisonOperator,
-      exists: exists,
-      value: value,
     );
   }
 
@@ -69,16 +69,28 @@ abstract class ExpectedAttributeValue
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExpectedAttributeValueBuilder b) {}
 
-  /// One or more values to evaluate against the supplied attribute. The number of values in the list depends on the `ComparisonOperator` being used.
+  /// Represents the data for the expected attribute.
   ///
-  /// For type Number, value comparisons are numeric.
+  /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
   ///
-  /// String value comparisons for greater than, equals, or less than are based on ASCII character code values. For example, `a` is greater than `A`, and `a` is greater than `B`. For a list of code values, see [http://en.wikipedia.org/wiki/ASCII#ASCII\_printable\_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
+  /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
+  _i2.AttributeValue? get value;
+
+  /// Causes DynamoDB to evaluate the value before attempting a conditional operation:
   ///
-  /// For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values.
+  /// *   If `Exists` is `true`, DynamoDB will check to see if that attribute value already exists in the table. If it is found, then the operation succeeds. If it is not found, the operation fails with a `ConditionCheckFailedException`.
   ///
-  /// For information on specifying data types in JSON, see [JSON Data Format](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html) in the _Amazon DynamoDB Developer Guide_.
-  _i4.BuiltList<_i2.AttributeValue>? get attributeValueList;
+  /// *   If `Exists` is `false`, DynamoDB assumes that the attribute value does not exist in the table. If in fact the value does not exist, then the assumption is valid and the operation succeeds. If the value is found, despite the assumption that it does not exist, the operation fails with a `ConditionCheckFailedException`.
+  ///
+  ///
+  /// The default setting for `Exists` is `true`. If you supply a `Value` all by itself, DynamoDB assumes the attribute exists: You don't have to set `Exists` to `true`, because it is implied.
+  ///
+  /// DynamoDB returns a `ValidationException` if:
+  ///
+  /// *   `Exists` is `true` but there is no `Value` to check. (You expect a value to exist, but don't specify what that value is.)
+  ///
+  /// *   `Exists` is `false` but you also provide a `Value`. (You cannot expect an attribute to have a value, while also expecting it not to exist.)
+  bool? get exists;
 
   /// A comparator for evaluating attributes in the `AttributeValueList`. For example, equals, greater than, less than, etc.
   ///
@@ -145,53 +157,41 @@ abstract class ExpectedAttributeValue
   ///     `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary (not a set type). A target attribute matches if the target value is greater than, or equal to, the first element and less than, or equal to, the second element. If an item contains an `AttributeValue` element of a different type than the one provided in the request, the value does not match. For example, `{"S":"6"}` does not compare to `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2", "1"\]}`
   _i3.ComparisonOperator? get comparisonOperator;
 
-  /// Causes DynamoDB to evaluate the value before attempting a conditional operation:
+  /// One or more values to evaluate against the supplied attribute. The number of values in the list depends on the `ComparisonOperator` being used.
   ///
-  /// *   If `Exists` is `true`, DynamoDB will check to see if that attribute value already exists in the table. If it is found, then the operation succeeds. If it is not found, the operation fails with a `ConditionCheckFailedException`.
+  /// For type Number, value comparisons are numeric.
   ///
-  /// *   If `Exists` is `false`, DynamoDB assumes that the attribute value does not exist in the table. If in fact the value does not exist, then the assumption is valid and the operation succeeds. If the value is found, despite the assumption that it does not exist, the operation fails with a `ConditionCheckFailedException`.
+  /// String value comparisons for greater than, equals, or less than are based on ASCII character code values. For example, `a` is greater than `A`, and `a` is greater than `B`. For a list of code values, see [http://en.wikipedia.org/wiki/ASCII#ASCII\_printable\_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
   ///
+  /// For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values.
   ///
-  /// The default setting for `Exists` is `true`. If you supply a `Value` all by itself, DynamoDB assumes the attribute exists: You don't have to set `Exists` to `true`, because it is implied.
-  ///
-  /// DynamoDB returns a `ValidationException` if:
-  ///
-  /// *   `Exists` is `true` but there is no `Value` to check. (You expect a value to exist, but don't specify what that value is.)
-  ///
-  /// *   `Exists` is `false` but you also provide a `Value`. (You cannot expect an attribute to have a value, while also expecting it not to exist.)
-  bool? get exists;
-
-  /// Represents the data for the expected attribute.
-  ///
-  /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
-  ///
-  /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
-  _i2.AttributeValue? get value;
+  /// For information on specifying data types in JSON, see [JSON Data Format](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html) in the _Amazon DynamoDB Developer Guide_.
+  _i4.BuiltList<_i2.AttributeValue>? get attributeValueList;
   @override
   List<Object?> get props => [
-        attributeValueList,
-        comparisonOperator,
-        exists,
         value,
+        exists,
+        comparisonOperator,
+        attributeValueList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExpectedAttributeValue');
     helper.add(
-      'attributeValueList',
-      attributeValueList,
-    );
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
+      'value',
+      value,
     );
     helper.add(
       'exists',
       exists,
     );
     helper.add(
-      'value',
-      value,
+      'comparisonOperator',
+      comparisonOperator,
+    );
+    helper.add(
+      'attributeValueList',
+      attributeValueList,
     );
     return helper.toString();
   }
@@ -227,23 +227,12 @@ class ExpectedAttributeValueAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'AttributeValueList':
+        case 'Value':
           if (value != null) {
-            result.attributeValueList.replace((serializers.deserialize(
+            result.value = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.AttributeValue)],
-              ),
-            ) as _i4.BuiltList<_i2.AttributeValue>));
-          }
-          break;
-        case 'ComparisonOperator':
-          if (value != null) {
-            result.comparisonOperator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComparisonOperator),
-            ) as _i3.ComparisonOperator);
+              specifiedType: const FullType(_i2.AttributeValue),
+            ) as _i2.AttributeValue);
           }
           break;
         case 'Exists':
@@ -254,12 +243,23 @@ class ExpectedAttributeValueAwsJson10Serializer
             ) as bool);
           }
           break;
-        case 'Value':
+        case 'ComparisonOperator':
           if (value != null) {
-            result.value = (serializers.deserialize(
+            result.comparisonOperator = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.AttributeValue),
-            ) as _i2.AttributeValue);
+              specifiedType: const FullType(_i3.ComparisonOperator),
+            ) as _i3.ComparisonOperator);
+          }
+          break;
+        case 'AttributeValueList':
+          if (value != null) {
+            result.attributeValueList.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i2.AttributeValue)],
+              ),
+            ) as _i4.BuiltList<_i2.AttributeValue>));
           }
           break;
       }
@@ -276,23 +276,12 @@ class ExpectedAttributeValueAwsJson10Serializer
   }) {
     final payload = (object as ExpectedAttributeValue);
     final result = <Object?>[];
-    if (payload.attributeValueList != null) {
+    if (payload.value != null) {
       result
-        ..add('AttributeValueList')
+        ..add('Value')
         ..add(serializers.serialize(
-          payload.attributeValueList!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.AttributeValue)],
-          ),
-        ));
-    }
-    if (payload.comparisonOperator != null) {
-      result
-        ..add('ComparisonOperator')
-        ..add(serializers.serialize(
-          payload.comparisonOperator!,
-          specifiedType: const FullType(_i3.ComparisonOperator),
+          payload.value!,
+          specifiedType: const FullType(_i2.AttributeValue),
         ));
     }
     if (payload.exists != null) {
@@ -303,12 +292,23 @@ class ExpectedAttributeValueAwsJson10Serializer
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.value != null) {
+    if (payload.comparisonOperator != null) {
       result
-        ..add('Value')
+        ..add('ComparisonOperator')
         ..add(serializers.serialize(
-          payload.value!,
-          specifiedType: const FullType(_i2.AttributeValue),
+          payload.comparisonOperator!,
+          specifiedType: const FullType(_i3.ComparisonOperator),
+        ));
+    }
+    if (payload.attributeValueList != null) {
+      result
+        ..add('AttributeValueList')
+        ..add(serializers.serialize(
+          payload.attributeValueList!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i2.AttributeValue)],
+          ),
         ));
     }
     return result;

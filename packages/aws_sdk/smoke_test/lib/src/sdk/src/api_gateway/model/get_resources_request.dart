@@ -22,16 +22,16 @@ abstract class GetResourcesRequest
         _i1.HasPayload<GetResourcesRequestPayload> {
   /// Request to list information about a collection of resources.
   factory GetResourcesRequest({
-    List<String>? embed,
-    int? limit,
-    String? position,
     required String restApiId,
+    String? position,
+    int? limit,
+    List<String>? embed,
   }) {
     return _$GetResourcesRequest._(
-      embed: embed == null ? null : _i3.BuiltList(embed),
-      limit: limit,
-      position: position,
       restApiId: restApiId,
+      position: position,
+      limit: limit,
+      embed: embed == null ? null : _i3.BuiltList(embed),
     );
   }
 
@@ -71,17 +71,17 @@ abstract class GetResourcesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetResourcesRequestBuilder b) {}
 
-  /// A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This `embed` parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the `"methods"` string. For example, `GET /restapis/{restapi_id}/resources?embed=methods`.
-  _i3.BuiltList<String>? get embed;
-
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
 
   /// The current pagination position in the paged result set.
   String? get position;
 
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
+
+  /// A query parameter used to retrieve the specified resources embedded in the returned Resources resource in the response. This `embed` parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded Method resources this way. The query parameter value must be a single-valued list and contain the `"methods"` string. For example, `GET /restapis/{restapi_id}/resources?embed=methods`.
+  _i3.BuiltList<String>? get embed;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -98,29 +98,29 @@ abstract class GetResourcesRequest
   GetResourcesRequestPayload getPayload() => GetResourcesRequestPayload();
   @override
   List<Object?> get props => [
-        embed,
-        limit,
-        position,
         restApiId,
+        position,
+        limit,
+        embed,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetResourcesRequest');
     helper.add(
-      'embed',
-      embed,
-    );
-    helper.add(
-      'limit',
-      limit,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'position',
       position,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'limit',
+      limit,
+    );
+    helper.add(
+      'embed',
+      embed,
     );
     return helper.toString();
   }

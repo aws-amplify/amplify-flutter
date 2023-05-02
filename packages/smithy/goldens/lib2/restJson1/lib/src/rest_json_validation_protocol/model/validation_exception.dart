@@ -20,12 +20,12 @@ abstract class ValidationException
         _i2.SmithyHttpException {
   /// A standard error for input validation failures. This should be thrown by services when a member of the input structure falls outside of the modeled or documented constraints.
   factory ValidationException({
-    List<_i3.ValidationExceptionField>? fieldList,
     required String message,
+    List<_i3.ValidationExceptionField>? fieldList,
   }) {
     return _$ValidationException._(
-      fieldList: fieldList == null ? null : _i4.BuiltList(fieldList),
       message: message,
+      fieldList: fieldList == null ? null : _i4.BuiltList(fieldList),
     );
   }
 
@@ -53,12 +53,12 @@ abstract class ValidationException
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ValidationExceptionBuilder b) {}
 
-  /// A list of specific failures encountered while validating the input. A member can appear in this list more than once if it failed to satisfy multiple constraints.
-  _i4.BuiltList<_i3.ValidationExceptionField>? get fieldList;
-
   /// A summary of the validation failure.
   @override
   String get message;
+
+  /// A list of specific failures encountered while validating the input. A member can appear in this list more than once if it failed to satisfy multiple constraints.
+  _i4.BuiltList<_i3.ValidationExceptionField>? get fieldList;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'smithy.framework',
@@ -76,19 +76,19 @@ abstract class ValidationException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        fieldList,
         message,
+        fieldList,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ValidationException');
     helper.add(
-      'fieldList',
-      fieldList,
-    );
-    helper.add(
       'message',
       message,
+    );
+    helper.add(
+      'fieldList',
+      fieldList,
     );
     return helper.toString();
   }

@@ -21,12 +21,12 @@ abstract class GetRestApisRequest
         _i1.HasPayload<GetRestApisRequestPayload> {
   /// The GET request to list existing RestApis defined for your collection.
   factory GetRestApisRequest({
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetRestApisRequest._(
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -58,28 +58,28 @@ abstract class GetRestApisRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetRestApisRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
-
   /// The current pagination position in the paged result set.
   String? get position;
+
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   GetRestApisRequestPayload getPayload() => GetRestApisRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetRestApisRequest');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }

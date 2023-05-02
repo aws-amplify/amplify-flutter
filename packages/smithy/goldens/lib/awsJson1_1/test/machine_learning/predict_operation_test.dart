@@ -111,12 +111,6 @@ class PredictInputAwsJson11Serializer
             specifiedType: const FullType(String),
           ) as String);
           break;
-        case 'PredictEndpoint':
-          result.predictEndpoint = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(String),
-          ) as String);
-          break;
         case 'Record':
           result.record.replace((serializers.deserialize(
             value,
@@ -128,6 +122,12 @@ class PredictInputAwsJson11Serializer
               ],
             ),
           ) as _i7.BuiltMap<String, String>));
+          break;
+        case 'PredictEndpoint':
+          result.predictEndpoint = (serializers.deserialize(
+            value!,
+            specifiedType: const FullType(String),
+          ) as String);
           break;
       }
     }
@@ -221,26 +221,20 @@ class PredictionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'details':
-          if (value != null) {
-            result.details.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(_i10.DetailsAttributes),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<_i10.DetailsAttributes, String>));
-          }
-          break;
         case 'predictedLabel':
           if (value != null) {
             result.predictedLabel = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'predictedValue':
+          if (value != null) {
+            result.predictedValue = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(double),
+            ) as double);
           }
           break;
         case 'predictedScores':
@@ -257,12 +251,18 @@ class PredictionAwsJson11Serializer
             ) as _i7.BuiltMap<String, double>));
           }
           break;
-        case 'predictedValue':
+        case 'details':
           if (value != null) {
-            result.predictedValue = (serializers.deserialize(
+            result.details.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(double),
-            ) as double);
+              specifiedType: const FullType(
+                _i7.BuiltMap,
+                [
+                  FullType(_i10.DetailsAttributes),
+                  FullType(String),
+                ],
+              ),
+            ) as _i7.BuiltMap<_i10.DetailsAttributes, String>));
           }
           break;
       }
@@ -308,20 +308,20 @@ class InternalServerExceptionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'code':
+          if (value != null) {
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -367,20 +367,20 @@ class InvalidInputExceptionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'code':
+          if (value != null) {
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -426,20 +426,20 @@ class LimitExceededExceptionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'code':
+          if (value != null) {
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }
@@ -536,20 +536,20 @@ class ResourceNotFoundExceptionAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
         case 'message':
           if (value != null) {
             result.message = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'code':
+          if (value != null) {
+            result.code = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(int),
+            ) as int);
           }
           break;
       }

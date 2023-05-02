@@ -23,15 +23,15 @@ abstract class UpdateDeploymentRequest
         _i1.HasPayload<UpdateDeploymentRequestPayload> {
   /// Requests API Gateway to change information about a Deployment resource.
   factory UpdateDeploymentRequest({
+    required String restApiId,
     required String deploymentId,
     List<_i3.PatchOperation>? patchOperations,
-    required String restApiId,
   }) {
     return _$UpdateDeploymentRequest._(
+      restApiId: restApiId,
       deploymentId: deploymentId,
       patchOperations:
           patchOperations == null ? null : _i4.BuiltList(patchOperations),
-      restApiId: restApiId,
     );
   }
 
@@ -66,14 +66,14 @@ abstract class UpdateDeploymentRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDeploymentRequestBuilder b) {}
 
+  /// The string identifier of the associated RestApi.
+  String get restApiId;
+
   /// The replacement identifier for the Deployment resource to change information about.
   String get deploymentId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
-
-  /// The string identifier of the associated RestApi.
-  String get restApiId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -97,13 +97,17 @@ abstract class UpdateDeploymentRequest
       });
   @override
   List<Object?> get props => [
+        restApiId,
         deploymentId,
         patchOperations,
-        restApiId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('UpdateDeploymentRequest');
+    helper.add(
+      'restApiId',
+      restApiId,
+    );
     helper.add(
       'deploymentId',
       deploymentId,
@@ -111,10 +115,6 @@ abstract class UpdateDeploymentRequest
     helper.add(
       'patchOperations',
       patchOperations,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
     );
     return helper.toString();
   }

@@ -19,12 +19,12 @@ abstract class LimitExceededException
         _i2.SmithyHttpException {
   /// The request exceeded the rate limit. Retry after the specified time period.
   factory LimitExceededException({
-    String? message,
     String? retryAfterSeconds,
+    String? message,
   }) {
     return _$LimitExceededException._(
-      message: message,
       retryAfterSeconds: retryAfterSeconds,
+      message: message,
     );
   }
 
@@ -54,9 +54,9 @@ abstract class LimitExceededException
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(LimitExceededExceptionBuilder b) {}
+  String? get retryAfterSeconds;
   @override
   String? get message;
-  String? get retryAfterSeconds;
   @override
   LimitExceededExceptionPayload getPayload() =>
       LimitExceededExceptionPayload((b) {
@@ -79,19 +79,19 @@ abstract class LimitExceededException
   Exception? get underlyingException => null;
   @override
   List<Object?> get props => [
-        message,
         retryAfterSeconds,
+        message,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('LimitExceededException');
     helper.add(
-      'message',
-      message,
-    );
-    helper.add(
       'retryAfterSeconds',
       retryAfterSeconds,
+    );
+    helper.add(
+      'message',
+      message,
     );
     return helper.toString();
   }

@@ -20,12 +20,12 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
             HttpPayloadTraitsWithMediaTypeInputOutputBuilder>,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpPayloadTraitsWithMediaTypeInputOutput({
-    _i2.Uint8List? blob,
     String? foo,
+    _i2.Uint8List? blob,
   }) {
     return _$HttpPayloadTraitsWithMediaTypeInputOutput._(
-      blob: blob,
       foo: foo,
+      blob: blob,
     );
   }
 
@@ -65,26 +65,26 @@ abstract class HttpPayloadTraitsWithMediaTypeInputOutput
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(HttpPayloadTraitsWithMediaTypeInputOutputBuilder b) {}
-  _i2.Uint8List? get blob;
   String? get foo;
+  _i2.Uint8List? get blob;
   @override
   _i2.Uint8List? getPayload() => blob;
   @override
   List<Object?> get props => [
-        blob,
         foo,
+        blob,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'HttpPayloadTraitsWithMediaTypeInputOutput');
     helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
       'foo',
       foo,
+    );
+    helper.add(
+      'blob',
+      blob,
     );
     return helper.toString();
   }

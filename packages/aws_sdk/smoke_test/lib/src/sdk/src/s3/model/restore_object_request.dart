@@ -6,11 +6,11 @@ import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/restore_request.dart' as _i2;
 import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart'
     as _i7;
@@ -28,21 +28,21 @@ abstract class RestoreObjectRequest
         _i1.HasPayload<_i2.RestoreRequest> {
   factory RestoreObjectRequest({
     required String bucket,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    String? expectedBucketOwner,
     required String key,
-    _i5.RequestPayer? requestPayer,
-    _i2.RestoreRequest? restoreRequest,
     String? versionId,
+    _i2.RestoreRequest? restoreRequest,
+    _i4.RequestPayer? requestPayer,
+    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    String? expectedBucketOwner,
   }) {
     return _$RestoreObjectRequest._(
       bucket: bucket,
+      key: key,
+      versionId: versionId,
+      restoreRequest: restoreRequest,
+      requestPayer: requestPayer,
       checksumAlgorithm: checksumAlgorithm,
       expectedBucketOwner: expectedBucketOwner,
-      key: key,
-      requestPayer: requestPayer,
-      restoreRequest: restoreRequest,
-      versionId: versionId,
     );
   }
 
@@ -62,11 +62,11 @@ abstract class RestoreObjectRequest
           b.restoreRequest.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i5.RequestPayer.values
+          b.requestPayer = _i4.RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -98,25 +98,25 @@ abstract class RestoreObjectRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  ///
-  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
-
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Object key for which the action was initiated.
   String get key;
 
-  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i5.RequestPayer? get requestPayer;
+  /// VersionId used to reference a specific version of the object.
+  String? get versionId;
 
   /// Container for restore job parameters.
   _i2.RestoreRequest? get restoreRequest;
 
-  /// VersionId used to reference a specific version of the object.
-  String? get versionId;
+  /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
+  _i4.RequestPayer? get requestPayer;
+
+  /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
+  ///
+  /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
+  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -136,12 +136,12 @@ abstract class RestoreObjectRequest
   @override
   List<Object?> get props => [
         bucket,
+        key,
+        versionId,
+        restoreRequest,
+        requestPayer,
         checksumAlgorithm,
         expectedBucketOwner,
-        key,
-        requestPayer,
-        restoreRequest,
-        versionId,
       ];
   @override
   String toString() {
@@ -151,28 +151,28 @@ abstract class RestoreObjectRequest
       bucket,
     );
     helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'key',
       key,
     );
     helper.add(
-      'requestPayer',
-      requestPayer,
+      'versionId',
+      versionId,
     );
     helper.add(
       'restoreRequest',
       restoreRequest,
     );
     helper.add(
-      'versionId',
-      versionId,
+      'requestPayer',
+      requestPayer,
+    );
+    helper.add(
+      'checksumAlgorithm',
+      checksumAlgorithm,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

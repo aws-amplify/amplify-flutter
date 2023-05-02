@@ -22,21 +22,21 @@ abstract class DeleteObjectRequest
         _i1.HasPayload<DeleteObjectRequestPayload> {
   factory DeleteObjectRequest({
     required String bucket,
-    bool? bypassGovernanceRetention,
-    String? expectedBucketOwner,
     required String key,
     String? mfa,
-    _i3.RequestPayer? requestPayer,
     String? versionId,
+    _i3.RequestPayer? requestPayer,
+    bool? bypassGovernanceRetention,
+    String? expectedBucketOwner,
   }) {
     return _$DeleteObjectRequest._(
       bucket: bucket,
-      bypassGovernanceRetention: bypassGovernanceRetention,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
       mfa: mfa,
-      requestPayer: requestPayer,
       versionId: versionId,
+      requestPayer: requestPayer,
+      bypassGovernanceRetention: bypassGovernanceRetention,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -92,23 +92,23 @@ abstract class DeleteObjectRequest
   /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
-  bool? get bypassGovernanceRetention;
-
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Key name of the object to delete.
   String get key;
 
   /// The concatenation of the authentication device's serial number, a space, and the value that is displayed on your authentication device. Required to permanently delete a versioned object if versioning is configured with MFA delete enabled.
   String? get mfa;
 
+  /// VersionId used to reference a specific version of the object.
+  String? get versionId;
+
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
   _i3.RequestPayer? get requestPayer;
 
-  /// VersionId used to reference a specific version of the object.
-  String? get versionId;
+  /// Indicates whether S3 Object Lock should bypass Governance-mode restrictions to process this operation. To use this header, you must have the `s3:BypassGovernanceRetention` permission.
+  bool? get bypassGovernanceRetention;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -128,12 +128,12 @@ abstract class DeleteObjectRequest
   @override
   List<Object?> get props => [
         bucket,
-        bypassGovernanceRetention,
-        expectedBucketOwner,
         key,
         mfa,
-        requestPayer,
         versionId,
+        requestPayer,
+        bypassGovernanceRetention,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -141,14 +141,6 @@ abstract class DeleteObjectRequest
     helper.add(
       'bucket',
       bucket,
-    );
-    helper.add(
-      'bypassGovernanceRetention',
-      bypassGovernanceRetention,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
     );
     helper.add(
       'key',
@@ -159,12 +151,20 @@ abstract class DeleteObjectRequest
       mfa,
     );
     helper.add(
+      'versionId',
+      versionId,
+    );
+    helper.add(
       'requestPayer',
       requestPayer,
     );
     helper.add(
-      'versionId',
-      versionId,
+      'bypassGovernanceRetention',
+      bypassGovernanceRetention,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

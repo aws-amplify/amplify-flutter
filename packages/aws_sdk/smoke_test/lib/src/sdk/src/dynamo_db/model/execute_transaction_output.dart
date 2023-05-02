@@ -8,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart'
+    as _i2;
 
 part 'execute_transaction_output.g.dart';
 
@@ -19,13 +19,13 @@ abstract class ExecuteTransactionOutput
     implements
         Built<ExecuteTransactionOutput, ExecuteTransactionOutputBuilder> {
   factory ExecuteTransactionOutput({
-    List<_i2.ConsumedCapacity>? consumedCapacity,
-    List<_i3.ItemResponse>? responses,
+    List<_i2.ItemResponse>? responses,
+    List<_i3.ConsumedCapacity>? consumedCapacity,
   }) {
     return _$ExecuteTransactionOutput._(
+      responses: responses == null ? null : _i4.BuiltList(responses),
       consumedCapacity:
           consumedCapacity == null ? null : _i4.BuiltList(consumedCapacity),
-      responses: responses == null ? null : _i4.BuiltList(responses),
     );
   }
 
@@ -49,26 +49,26 @@ abstract class ExecuteTransactionOutput
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ExecuteTransactionOutputBuilder b) {}
 
-  /// The capacity units consumed by the entire operation. The values of the list are ordered according to the ordering of the statements.
-  _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
-
   /// The response to a PartiQL transaction.
-  _i4.BuiltList<_i3.ItemResponse>? get responses;
+  _i4.BuiltList<_i2.ItemResponse>? get responses;
+
+  /// The capacity units consumed by the entire operation. The values of the list are ordered according to the ordering of the statements.
+  _i4.BuiltList<_i3.ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
-        consumedCapacity,
         responses,
+        consumedCapacity,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ExecuteTransactionOutput');
     helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
       'responses',
       responses,
+    );
+    helper.add(
+      'consumedCapacity',
+      consumedCapacity,
     );
     return helper.toString();
   }
@@ -104,26 +104,26 @@ class ExecuteTransactionOutputAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ConsumedCapacity)],
-              ),
-            ) as _i4.BuiltList<_i2.ConsumedCapacity>));
-          }
-          break;
         case 'Responses':
           if (value != null) {
             result.responses.replace((serializers.deserialize(
               value,
               specifiedType: const FullType(
                 _i4.BuiltList,
-                [FullType(_i3.ItemResponse)],
+                [FullType(_i2.ItemResponse)],
               ),
-            ) as _i4.BuiltList<_i3.ItemResponse>));
+            ) as _i4.BuiltList<_i2.ItemResponse>));
+          }
+          break;
+        case 'ConsumedCapacity':
+          if (value != null) {
+            result.consumedCapacity.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i3.ConsumedCapacity)],
+              ),
+            ) as _i4.BuiltList<_i3.ConsumedCapacity>));
           }
           break;
       }
@@ -140,17 +140,6 @@ class ExecuteTransactionOutputAwsJson10Serializer
   }) {
     final payload = (object as ExecuteTransactionOutput);
     final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
-      result
-        ..add('ConsumedCapacity')
-        ..add(serializers.serialize(
-          payload.consumedCapacity!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ConsumedCapacity)],
-          ),
-        ));
-    }
     if (payload.responses != null) {
       result
         ..add('Responses')
@@ -158,7 +147,18 @@ class ExecuteTransactionOutputAwsJson10Serializer
           payload.responses!,
           specifiedType: const FullType(
             _i4.BuiltList,
-            [FullType(_i3.ItemResponse)],
+            [FullType(_i2.ItemResponse)],
+          ),
+        ));
+    }
+    if (payload.consumedCapacity != null) {
+      result
+        ..add('ConsumedCapacity')
+        ..add(serializers.serialize(
+          payload.consumedCapacity!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i3.ConsumedCapacity)],
           ),
         ));
     }

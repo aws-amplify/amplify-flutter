@@ -144,24 +144,6 @@ class TimestampFormatHeadersIoRestXmlSerializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'defaultFormat':
-          if (value != null) {
-            result.defaultFormat =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
-        case 'memberDateTime':
-          if (value != null) {
-            result.memberDateTime =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
         case 'memberEpochSeconds':
           if (value != null) {
             result.memberEpochSeconds =
@@ -180,9 +162,18 @@ class TimestampFormatHeadersIoRestXmlSerializer
             );
           }
           break;
-        case 'targetDateTime':
+        case 'memberDateTime':
           if (value != null) {
-            result.targetDateTime =
+            result.memberDateTime =
+                _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
+        case 'defaultFormat':
+          if (value != null) {
+            result.defaultFormat =
                 _i4.TimestampSerializer.epochSeconds.deserialize(
               serializers,
               value,
@@ -201,6 +192,15 @@ class TimestampFormatHeadersIoRestXmlSerializer
         case 'targetHttpDate':
           if (value != null) {
             result.targetHttpDate =
+                _i4.TimestampSerializer.epochSeconds.deserialize(
+              serializers,
+              value,
+            );
+          }
+          break;
+        case 'targetDateTime':
+          if (value != null) {
+            result.targetDateTime =
                 _i4.TimestampSerializer.epochSeconds.deserialize(
               serializers,
               value,

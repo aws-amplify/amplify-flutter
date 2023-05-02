@@ -630,20 +630,20 @@ class ComplexErrorAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.ComplexNestedErrorData),
-            ) as _i10.ComplexNestedErrorData));
-          }
-          break;
         case 'TopLevel':
           if (value != null) {
             result.topLevel = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'Nested':
+          if (value != null) {
+            result.nested.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i10.ComplexNestedErrorData),
+            ) as _i10.ComplexNestedErrorData));
           }
           break;
       }

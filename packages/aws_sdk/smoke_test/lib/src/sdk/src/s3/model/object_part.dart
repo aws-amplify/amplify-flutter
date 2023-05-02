@@ -16,20 +16,20 @@ abstract class ObjectPart
     implements Built<ObjectPart, ObjectPartBuilder> {
   /// A container for elements related to an individual part.
   factory ObjectPart({
+    int? partNumber,
+    _i2.Int64? size,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    int? partNumber,
-    _i2.Int64? size,
   }) {
     return _$ObjectPart._(
+      partNumber: partNumber,
+      size: size,
       checksumCrc32: checksumCrc32,
       checksumCrc32C: checksumCrc32C,
       checksumSha1: checksumSha1,
       checksumSha256: checksumSha256,
-      partNumber: partNumber,
-      size: size,
     );
   }
 
@@ -46,6 +46,12 @@ abstract class ObjectPart
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ObjectPartBuilder b) {}
 
+  /// The part number identifying the part. This value is a positive integer between 1 and 10,000.
+  int? get partNumber;
+
+  /// The size of the uploaded part in bytes.
+  _i2.Int64? get size;
+
   /// This header can be used as a data integrity check to verify that the data received is the same data that was originally sent. This header specifies the base64-encoded, 32-bit CRC32 checksum of the object. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   String? get checksumCrc32;
 
@@ -57,24 +63,26 @@ abstract class ObjectPart
 
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
-
-  /// The part number identifying the part. This value is a positive integer between 1 and 10,000.
-  int? get partNumber;
-
-  /// The size of the uploaded part in bytes.
-  _i2.Int64? get size;
   @override
   List<Object?> get props => [
+        partNumber,
+        size,
         checksumCrc32,
         checksumCrc32C,
         checksumSha1,
         checksumSha256,
-        partNumber,
-        size,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('ObjectPart');
+    helper.add(
+      'partNumber',
+      partNumber,
+    );
+    helper.add(
+      'size',
+      size,
+    );
     helper.add(
       'checksumCrc32',
       checksumCrc32,
@@ -90,14 +98,6 @@ abstract class ObjectPart
     helper.add(
       'checksumSha256',
       checksumSha256,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'size',
-      size,
     );
     return helper.toString();
   }

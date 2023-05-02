@@ -18,22 +18,22 @@ abstract class TestInvokeMethodResponse
         Built<TestInvokeMethodResponse, TestInvokeMethodResponseBuilder> {
   /// Represents the response of the test invoke request in the HTTP method.
   factory TestInvokeMethodResponse({
+    int? status,
     String? body,
     Map<String, String>? headers,
-    _i2.Int64? latency,
-    String? log,
     Map<String, List<String>>? multiValueHeaders,
-    int? status,
+    String? log,
+    _i2.Int64? latency,
   }) {
     return _$TestInvokeMethodResponse._(
+      status: status,
       body: body,
       headers: headers == null ? null : _i3.BuiltMap(headers),
-      latency: latency,
-      log: log,
       multiValueHeaders: multiValueHeaders == null
           ? null
           : _i3.BuiltListMultimap(multiValueHeaders),
-      status: status,
+      log: log,
+      latency: latency,
     );
   }
 
@@ -58,35 +58,39 @@ abstract class TestInvokeMethodResponse
   @BuiltValueHook(initializeBuilder: true)
   static void _init(TestInvokeMethodResponseBuilder b) {}
 
+  /// The HTTP status code.
+  int? get status;
+
   /// The body of the HTTP response.
   String? get body;
 
   /// The headers of the HTTP response.
   _i3.BuiltMap<String, String>? get headers;
 
-  /// The execution latency of the test invoke request.
-  _i2.Int64? get latency;
+  /// The headers of the HTTP response as a map from string to list of values.
+  _i3.BuiltListMultimap<String, String>? get multiValueHeaders;
 
   /// The API Gateway execution log for the test invoke request.
   String? get log;
 
-  /// The headers of the HTTP response as a map from string to list of values.
-  _i3.BuiltListMultimap<String, String>? get multiValueHeaders;
-
-  /// The HTTP status code.
-  int? get status;
+  /// The execution latency of the test invoke request.
+  _i2.Int64? get latency;
   @override
   List<Object?> get props => [
+        status,
         body,
         headers,
-        latency,
-        log,
         multiValueHeaders,
-        status,
+        log,
+        latency,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('TestInvokeMethodResponse');
+    helper.add(
+      'status',
+      status,
+    );
     helper.add(
       'body',
       body,
@@ -96,20 +100,16 @@ abstract class TestInvokeMethodResponse
       headers,
     );
     helper.add(
-      'latency',
-      latency,
+      'multiValueHeaders',
+      multiValueHeaders,
     );
     helper.add(
       'log',
       log,
     );
     helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'status',
-      status,
+      'latency',
+      latency,
     );
     return helper.toString();
   }

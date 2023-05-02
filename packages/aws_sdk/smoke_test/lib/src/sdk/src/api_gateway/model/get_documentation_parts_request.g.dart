@@ -8,9 +8,9 @@ part of smoke_test.api_gateway.model.get_documentation_parts_request;
 
 class _$GetDocumentationPartsRequest extends GetDocumentationPartsRequest {
   @override
-  final int? limit;
+  final String restApiId;
   @override
-  final _i3.LocationStatusType? locationStatus;
+  final _i3.DocumentationPartType? type;
   @override
   final String? nameQuery;
   @override
@@ -18,22 +18,22 @@ class _$GetDocumentationPartsRequest extends GetDocumentationPartsRequest {
   @override
   final String? position;
   @override
-  final String restApiId;
+  final int? limit;
   @override
-  final _i4.DocumentationPartType? type;
+  final _i4.LocationStatusType? locationStatus;
 
   factory _$GetDocumentationPartsRequest(
           [void Function(GetDocumentationPartsRequestBuilder)? updates]) =>
       (new GetDocumentationPartsRequestBuilder()..update(updates))._build();
 
   _$GetDocumentationPartsRequest._(
-      {this.limit,
-      this.locationStatus,
+      {required this.restApiId,
+      this.type,
       this.nameQuery,
       this.path,
       this.position,
-      required this.restApiId,
-      this.type})
+      this.limit,
+      this.locationStatus})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetDocumentationPartsRequest', 'restApiId');
@@ -52,25 +52,25 @@ class _$GetDocumentationPartsRequest extends GetDocumentationPartsRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDocumentationPartsRequest &&
-        limit == other.limit &&
-        locationStatus == other.locationStatus &&
+        restApiId == other.restApiId &&
+        type == other.type &&
         nameQuery == other.nameQuery &&
         path == other.path &&
         position == other.position &&
-        restApiId == other.restApiId &&
-        type == other.type;
+        limit == other.limit &&
+        locationStatus == other.locationStatus;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, limit.hashCode);
-    _$hash = $jc(_$hash, locationStatus.hashCode);
+    _$hash = $jc(_$hash, restApiId.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jc(_$hash, nameQuery.hashCode);
     _$hash = $jc(_$hash, path.hashCode);
     _$hash = $jc(_$hash, position.hashCode);
-    _$hash = $jc(_$hash, restApiId.hashCode);
-    _$hash = $jc(_$hash, type.hashCode);
+    _$hash = $jc(_$hash, limit.hashCode);
+    _$hash = $jc(_$hash, locationStatus.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -82,14 +82,13 @@ class GetDocumentationPartsRequestBuilder
             GetDocumentationPartsRequestBuilder> {
   _$GetDocumentationPartsRequest? _$v;
 
-  int? _limit;
-  int? get limit => _$this._limit;
-  set limit(int? limit) => _$this._limit = limit;
+  String? _restApiId;
+  String? get restApiId => _$this._restApiId;
+  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.LocationStatusType? _locationStatus;
-  _i3.LocationStatusType? get locationStatus => _$this._locationStatus;
-  set locationStatus(_i3.LocationStatusType? locationStatus) =>
-      _$this._locationStatus = locationStatus;
+  _i3.DocumentationPartType? _type;
+  _i3.DocumentationPartType? get type => _$this._type;
+  set type(_i3.DocumentationPartType? type) => _$this._type = type;
 
   String? _nameQuery;
   String? get nameQuery => _$this._nameQuery;
@@ -103,13 +102,14 @@ class GetDocumentationPartsRequestBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  String? _restApiId;
-  String? get restApiId => _$this._restApiId;
-  set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+  int? _limit;
+  int? get limit => _$this._limit;
+  set limit(int? limit) => _$this._limit = limit;
 
-  _i4.DocumentationPartType? _type;
-  _i4.DocumentationPartType? get type => _$this._type;
-  set type(_i4.DocumentationPartType? type) => _$this._type = type;
+  _i4.LocationStatusType? _locationStatus;
+  _i4.LocationStatusType? get locationStatus => _$this._locationStatus;
+  set locationStatus(_i4.LocationStatusType? locationStatus) =>
+      _$this._locationStatus = locationStatus;
 
   GetDocumentationPartsRequestBuilder() {
     GetDocumentationPartsRequest._init(this);
@@ -118,13 +118,13 @@ class GetDocumentationPartsRequestBuilder
   GetDocumentationPartsRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _limit = $v.limit;
-      _locationStatus = $v.locationStatus;
+      _restApiId = $v.restApiId;
+      _type = $v.type;
       _nameQuery = $v.nameQuery;
       _path = $v.path;
       _position = $v.position;
-      _restApiId = $v.restApiId;
-      _type = $v.type;
+      _limit = $v.limit;
+      _locationStatus = $v.locationStatus;
       _$v = null;
     }
     return this;
@@ -147,14 +147,14 @@ class GetDocumentationPartsRequestBuilder
   _$GetDocumentationPartsRequest _build() {
     final _$result = _$v ??
         new _$GetDocumentationPartsRequest._(
-            limit: limit,
-            locationStatus: locationStatus,
+            restApiId: BuiltValueNullFieldError.checkNotNull(
+                restApiId, r'GetDocumentationPartsRequest', 'restApiId'),
+            type: type,
             nameQuery: nameQuery,
             path: path,
             position: position,
-            restApiId: BuiltValueNullFieldError.checkNotNull(
-                restApiId, r'GetDocumentationPartsRequest', 'restApiId'),
-            type: type);
+            limit: limit,
+            locationStatus: locationStatus);
     replace(_$result);
     return _$result;
   }

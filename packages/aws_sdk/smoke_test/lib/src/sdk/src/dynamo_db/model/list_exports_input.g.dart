@@ -8,17 +8,17 @@ part of smoke_test.dynamo_db.model.list_exports_input;
 
 class _$ListExportsInput extends ListExportsInput {
   @override
+  final String? tableArn;
+  @override
   final int? maxResults;
   @override
   final String? nextToken;
-  @override
-  final String? tableArn;
 
   factory _$ListExportsInput(
           [void Function(ListExportsInputBuilder)? updates]) =>
       (new ListExportsInputBuilder()..update(updates))._build();
 
-  _$ListExportsInput._({this.maxResults, this.nextToken, this.tableArn})
+  _$ListExportsInput._({this.tableArn, this.maxResults, this.nextToken})
       : super._();
 
   @override
@@ -33,17 +33,17 @@ class _$ListExportsInput extends ListExportsInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ListExportsInput &&
+        tableArn == other.tableArn &&
         maxResults == other.maxResults &&
-        nextToken == other.nextToken &&
-        tableArn == other.tableArn;
+        nextToken == other.nextToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, tableArn.hashCode);
     _$hash = $jc(_$hash, maxResults.hashCode);
     _$hash = $jc(_$hash, nextToken.hashCode);
-    _$hash = $jc(_$hash, tableArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,6 +53,10 @@ class ListExportsInputBuilder
     implements Builder<ListExportsInput, ListExportsInputBuilder> {
   _$ListExportsInput? _$v;
 
+  String? _tableArn;
+  String? get tableArn => _$this._tableArn;
+  set tableArn(String? tableArn) => _$this._tableArn = tableArn;
+
   int? _maxResults;
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
@@ -61,10 +65,6 @@ class ListExportsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  String? _tableArn;
-  String? get tableArn => _$this._tableArn;
-  set tableArn(String? tableArn) => _$this._tableArn = tableArn;
-
   ListExportsInputBuilder() {
     ListExportsInput._init(this);
   }
@@ -72,9 +72,9 @@ class ListExportsInputBuilder
   ListExportsInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _tableArn = $v.tableArn;
       _maxResults = $v.maxResults;
       _nextToken = $v.nextToken;
-      _tableArn = $v.tableArn;
       _$v = null;
     }
     return this;
@@ -97,7 +97,7 @@ class ListExportsInputBuilder
   _$ListExportsInput _build() {
     final _$result = _$v ??
         new _$ListExportsInput._(
-            maxResults: maxResults, nextToken: nextToken, tableArn: tableArn);
+            tableArn: tableArn, maxResults: maxResults, nextToken: nextToken);
     replace(_$result);
     return _$result;
   }

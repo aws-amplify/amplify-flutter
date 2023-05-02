@@ -21,17 +21,17 @@ abstract class GetObjectAclRequest
         _i1.HasPayload<GetObjectAclRequestPayload> {
   factory GetObjectAclRequest({
     required String bucket,
-    String? expectedBucketOwner,
     required String key,
-    _i3.RequestPayer? requestPayer,
     String? versionId,
+    _i3.RequestPayer? requestPayer,
+    String? expectedBucketOwner,
   }) {
     return _$GetObjectAclRequest._(
       bucket: bucket,
-      expectedBucketOwner: expectedBucketOwner,
       key: key,
-      requestPayer: requestPayer,
       versionId: versionId,
+      requestPayer: requestPayer,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -78,17 +78,17 @@ abstract class GetObjectAclRequest
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// The key of the object for which to get the ACL information.
   String get key;
+
+  /// VersionId used to reference a specific version of the object.
+  String? get versionId;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
   _i3.RequestPayer? get requestPayer;
 
-  /// VersionId used to reference a specific version of the object.
-  String? get versionId;
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -108,10 +108,10 @@ abstract class GetObjectAclRequest
   @override
   List<Object?> get props => [
         bucket,
-        expectedBucketOwner,
         key,
-        requestPayer,
         versionId,
+        requestPayer,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -121,20 +121,20 @@ abstract class GetObjectAclRequest
       bucket,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'key',
       key,
+    );
+    helper.add(
+      'versionId',
+      versionId,
     );
     helper.add(
       'requestPayer',
       requestPayer,
     );
     helper.add(
-      'versionId',
-      versionId,
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

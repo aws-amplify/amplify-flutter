@@ -10,13 +10,13 @@ class _$GetObjectRetentionRequest extends GetObjectRetentionRequest {
   @override
   final String bucket;
   @override
-  final String? expectedBucketOwner;
-  @override
   final String key;
+  @override
+  final String? versionId;
   @override
   final _i3.RequestPayer? requestPayer;
   @override
-  final String? versionId;
+  final String? expectedBucketOwner;
 
   factory _$GetObjectRetentionRequest(
           [void Function(GetObjectRetentionRequestBuilder)? updates]) =>
@@ -24,10 +24,10 @@ class _$GetObjectRetentionRequest extends GetObjectRetentionRequest {
 
   _$GetObjectRetentionRequest._(
       {required this.bucket,
-      this.expectedBucketOwner,
       required this.key,
+      this.versionId,
       this.requestPayer,
-      this.versionId})
+      this.expectedBucketOwner})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetObjectRetentionRequest', 'bucket');
@@ -49,20 +49,20 @@ class _$GetObjectRetentionRequest extends GetObjectRetentionRequest {
     if (identical(other, this)) return true;
     return other is GetObjectRetentionRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner &&
         key == other.key &&
+        versionId == other.versionId &&
         requestPayer == other.requestPayer &&
-        versionId == other.versionId;
+        expectedBucketOwner == other.expectedBucketOwner;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
-    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jc(_$hash, key.hashCode);
-    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, versionId.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
+    _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -77,23 +77,23 @@ class GetObjectRetentionRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  String? _expectedBucketOwner;
-  String? get expectedBucketOwner => _$this._expectedBucketOwner;
-  set expectedBucketOwner(String? expectedBucketOwner) =>
-      _$this._expectedBucketOwner = expectedBucketOwner;
-
   String? _key;
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
+
+  String? _versionId;
+  String? get versionId => _$this._versionId;
+  set versionId(String? versionId) => _$this._versionId = versionId;
 
   _i3.RequestPayer? _requestPayer;
   _i3.RequestPayer? get requestPayer => _$this._requestPayer;
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  String? _versionId;
-  String? get versionId => _$this._versionId;
-  set versionId(String? versionId) => _$this._versionId = versionId;
+  String? _expectedBucketOwner;
+  String? get expectedBucketOwner => _$this._expectedBucketOwner;
+  set expectedBucketOwner(String? expectedBucketOwner) =>
+      _$this._expectedBucketOwner = expectedBucketOwner;
 
   GetObjectRetentionRequestBuilder() {
     GetObjectRetentionRequest._init(this);
@@ -103,10 +103,10 @@ class GetObjectRetentionRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
-      _expectedBucketOwner = $v.expectedBucketOwner;
       _key = $v.key;
-      _requestPayer = $v.requestPayer;
       _versionId = $v.versionId;
+      _requestPayer = $v.requestPayer;
+      _expectedBucketOwner = $v.expectedBucketOwner;
       _$v = null;
     }
     return this;
@@ -131,11 +131,11 @@ class GetObjectRetentionRequestBuilder
         new _$GetObjectRetentionRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'GetObjectRetentionRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'GetObjectRetentionRequest', 'key'),
+            versionId: versionId,
             requestPayer: requestPayer,
-            versionId: versionId);
+            expectedBucketOwner: expectedBucketOwner);
     replace(_$result);
     return _$result;
   }

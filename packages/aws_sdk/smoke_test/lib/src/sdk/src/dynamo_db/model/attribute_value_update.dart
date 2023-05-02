@@ -7,9 +7,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_action.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
+    as _i2;
 
 part 'attribute_value_update.g.dart';
 
@@ -27,12 +27,12 @@ abstract class AttributeValueUpdate
   ///
   /// Attribute values cannot be null; string and binary type attributes must have lengths greater than zero; and set type attributes must not be empty. Requests with empty values will be rejected with a `ValidationException` exception.
   factory AttributeValueUpdate({
-    _i2.AttributeAction? action,
-    _i3.AttributeValue? value,
+    _i2.AttributeValue? value,
+    _i3.AttributeAction? action,
   }) {
     return _$AttributeValueUpdate._(
-      action: action,
       value: value,
+      action: action,
     );
   }
 
@@ -53,6 +53,13 @@ abstract class AttributeValueUpdate
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(AttributeValueUpdateBuilder b) {}
+
+  /// Represents the data for an attribute.
+  ///
+  /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
+  ///
+  /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
+  _i2.AttributeValue? get value;
 
   /// Specifies how to perform the update. Valid values are `PUT` (default), `DELETE`, and `ADD`. The behavior depends on whether the specified primary key already exists in the table.
   ///
@@ -87,29 +94,22 @@ abstract class AttributeValueUpdate
   /// *   `DELETE` \- Nothing happens; there is no attribute to delete.
   ///
   /// *   `ADD` \- DynamoDB creates a new item with the supplied primary key and number (or set) for the attribute value. The only data types allowed are number, number set, string set or binary set.
-  _i2.AttributeAction? get action;
-
-  /// Represents the data for an attribute.
-  ///
-  /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
-  ///
-  /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
-  _i3.AttributeValue? get value;
+  _i3.AttributeAction? get action;
   @override
   List<Object?> get props => [
-        action,
         value,
+        action,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AttributeValueUpdate');
     helper.add(
-      'action',
-      action,
-    );
-    helper.add(
       'value',
       value,
+    );
+    helper.add(
+      'action',
+      action,
     );
     return helper.toString();
   }
@@ -145,20 +145,20 @@ class AttributeValueUpdateAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'Action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AttributeAction),
-            ) as _i2.AttributeAction);
-          }
-          break;
         case 'Value':
           if (value != null) {
             result.value = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i3.AttributeValue),
-            ) as _i3.AttributeValue);
+              specifiedType: const FullType(_i2.AttributeValue),
+            ) as _i2.AttributeValue);
+          }
+          break;
+        case 'Action':
+          if (value != null) {
+            result.action = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i3.AttributeAction),
+            ) as _i3.AttributeAction);
           }
           break;
       }
@@ -175,20 +175,20 @@ class AttributeValueUpdateAwsJson10Serializer
   }) {
     final payload = (object as AttributeValueUpdate);
     final result = <Object?>[];
-    if (payload.action != null) {
-      result
-        ..add('Action')
-        ..add(serializers.serialize(
-          payload.action!,
-          specifiedType: const FullType(_i2.AttributeAction),
-        ));
-    }
     if (payload.value != null) {
       result
         ..add('Value')
         ..add(serializers.serialize(
           payload.value!,
-          specifiedType: const FullType(_i3.AttributeValue),
+          specifiedType: const FullType(_i2.AttributeValue),
+        ));
+    }
+    if (payload.action != null) {
+      result
+        ..add('Action')
+        ..add(serializers.serialize(
+          payload.action!,
+          specifiedType: const FullType(_i3.AttributeAction),
         ));
     }
     return result;

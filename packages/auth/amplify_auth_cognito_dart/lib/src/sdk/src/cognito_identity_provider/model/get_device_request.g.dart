@@ -8,15 +8,15 @@ part of amplify_auth_cognito_dart.cognito_identity_provider.model.get_device_req
 
 class _$GetDeviceRequest extends GetDeviceRequest {
   @override
-  final String? accessToken;
-  @override
   final String deviceKey;
+  @override
+  final String? accessToken;
 
   factory _$GetDeviceRequest(
           [void Function(GetDeviceRequestBuilder)? updates]) =>
       (new GetDeviceRequestBuilder()..update(updates))._build();
 
-  _$GetDeviceRequest._({this.accessToken, required this.deviceKey})
+  _$GetDeviceRequest._({required this.deviceKey, this.accessToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         deviceKey, r'GetDeviceRequest', 'deviceKey');
@@ -34,15 +34,15 @@ class _$GetDeviceRequest extends GetDeviceRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetDeviceRequest &&
-        accessToken == other.accessToken &&
-        deviceKey == other.deviceKey;
+        deviceKey == other.deviceKey &&
+        accessToken == other.accessToken;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jc(_$hash, deviceKey.hashCode);
+    _$hash = $jc(_$hash, accessToken.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,13 +52,13 @@ class GetDeviceRequestBuilder
     implements Builder<GetDeviceRequest, GetDeviceRequestBuilder> {
   _$GetDeviceRequest? _$v;
 
-  String? _accessToken;
-  String? get accessToken => _$this._accessToken;
-  set accessToken(String? accessToken) => _$this._accessToken = accessToken;
-
   String? _deviceKey;
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
+
+  String? _accessToken;
+  String? get accessToken => _$this._accessToken;
+  set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
   GetDeviceRequestBuilder() {
     GetDeviceRequest._init(this);
@@ -67,8 +67,8 @@ class GetDeviceRequestBuilder
   GetDeviceRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _accessToken = $v.accessToken;
       _deviceKey = $v.deviceKey;
+      _accessToken = $v.accessToken;
       _$v = null;
     }
     return this;
@@ -91,9 +91,9 @@ class GetDeviceRequestBuilder
   _$GetDeviceRequest _build() {
     final _$result = _$v ??
         new _$GetDeviceRequest._(
-            accessToken: accessToken,
             deviceKey: BuiltValueNullFieldError.checkNotNull(
-                deviceKey, r'GetDeviceRequest', 'deviceKey'));
+                deviceKey, r'GetDeviceRequest', 'deviceKey'),
+            accessToken: accessToken);
     replace(_$result);
     return _$result;
   }

@@ -16,15 +16,15 @@ abstract class Credentials
   /// Credentials for the provided identity ID.
   factory Credentials({
     String? accessKeyId,
-    DateTime? expiration,
     String? secretKey,
     String? sessionToken,
+    DateTime? expiration,
   }) {
     return _$Credentials._(
       accessKeyId: accessKeyId,
-      expiration: expiration,
       secretKey: secretKey,
       sessionToken: sessionToken,
+      expiration: expiration,
     );
   }
 
@@ -44,20 +44,20 @@ abstract class Credentials
   /// The Access Key portion of the credentials.
   String? get accessKeyId;
 
-  /// The date at which these credentials will expire.
-  DateTime? get expiration;
-
   /// The Secret Access Key portion of the credentials
   String? get secretKey;
 
   /// The Session Token portion of the credentials
   String? get sessionToken;
+
+  /// The date at which these credentials will expire.
+  DateTime? get expiration;
   @override
   List<Object?> get props => [
         accessKeyId,
-        expiration,
         secretKey,
         sessionToken,
+        expiration,
       ];
   @override
   String toString() {
@@ -67,16 +67,16 @@ abstract class Credentials
       accessKeyId,
     );
     helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
       'secretKey',
       secretKey,
     );
     helper.add(
       'sessionToken',
       sessionToken,
+    );
+    helper.add(
+      'expiration',
+      expiration,
     );
     return helper.toString();
   }
@@ -119,14 +119,6 @@ class CredentialsAwsJson11Serializer
             ) as String);
           }
           break;
-        case 'Expiration':
-          if (value != null) {
-            result.expiration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
         case 'SecretKey':
           if (value != null) {
             result.secretKey = (serializers.deserialize(
@@ -141,6 +133,14 @@ class CredentialsAwsJson11Serializer
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'Expiration':
+          if (value != null) {
+            result.expiration = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
       }
@@ -165,14 +165,6 @@ class CredentialsAwsJson11Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expiration != null) {
-      result
-        ..add('Expiration')
-        ..add(serializers.serialize(
-          payload.expiration!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.secretKey != null) {
       result
         ..add('SecretKey')
@@ -187,6 +179,14 @@ class CredentialsAwsJson11Serializer
         ..add(serializers.serialize(
           payload.sessionToken!,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (payload.expiration != null) {
+      result
+        ..add('Expiration')
+        ..add(serializers.serialize(
+          payload.expiration!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     return result;

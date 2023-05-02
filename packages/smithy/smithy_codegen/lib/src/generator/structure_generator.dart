@@ -91,14 +91,14 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           ])
           ..methods.addAll([
             defaultValues(
-              members: sortedMembers,
+              members: members,
               builderSymbol: builderSymbol,
             ),
             ..._fieldGetters(isPayload: false),
             ..._httpInputOverrides,
             if (shape.isInputShape || hasPayload) _getPayload,
             ..._errorFields,
-            _props(sortedMembers),
+            _props(members),
             _toString(isPayload: false),
           ])
           ..fields.addAll([
@@ -151,7 +151,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Constructor get factoryConstructor {
     final body = Block((b) {
       final memberExpressions = <String, Expression>{};
-      for (final member in sortedMembers) {
+      for (final member in members) {
         final propertyName = member.dartName(ShapeType.structure);
         final memberSymbol = memberSymbols[member]!;
         final defaultValue = _defaultValueAssignment(member);
@@ -181,7 +181,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ..docs.addAll([
           if (shape.hasDocs(context)) shape.formattedDocs(context),
         ])
-        ..optionalParameters.addAll(sortedMembers.map(_memberParameter))
+        ..optionalParameters.addAll(members.map(_memberParameter))
         ..body = body,
     );
   }
@@ -411,7 +411,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Iterable<Method> _fieldGetters({
     required bool isPayload,
   }) sync* {
-    final members = isPayload ? payloadMembers : sortedMembers;
+    final members = isPayload ? payloadMembers : this.members;
     for (var member in members) {
       yield Method(
         (m) => m
@@ -895,7 +895,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
             .call([literalString(isPayload ? payloadClassName! : className)]),
       ),
     );
-    final members = isPayload ? payloadMembers : sortedMembers;
+    final members = isPayload ? payloadMembers : this.members;
     for (final member in members) {
       final dartName = member.dartName(ShapeType.structure);
       final isSensitive = shape.hasTrait<SensitiveTrait>() ||

@@ -21,12 +21,12 @@ abstract class DeleteDeploymentRequest
         _i1.HasPayload<DeleteDeploymentRequestPayload> {
   /// Requests API Gateway to delete a Deployment resource.
   factory DeleteDeploymentRequest({
-    required String deploymentId,
     required String restApiId,
+    required String deploymentId,
   }) {
     return _$DeleteDeploymentRequest._(
-      deploymentId: deploymentId,
       restApiId: restApiId,
+      deploymentId: deploymentId,
     );
   }
 
@@ -58,11 +58,11 @@ abstract class DeleteDeploymentRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteDeploymentRequestBuilder b) {}
 
-  /// The identifier of the Deployment resource to delete.
-  String get deploymentId;
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
+
+  /// The identifier of the Deployment resource to delete.
+  String get deploymentId;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -82,19 +82,19 @@ abstract class DeleteDeploymentRequest
       DeleteDeploymentRequestPayload();
   @override
   List<Object?> get props => [
-        deploymentId,
         restApiId,
+        deploymentId,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('DeleteDeploymentRequest');
     helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
       'restApiId',
       restApiId,
+    );
+    helper.add(
+      'deploymentId',
+      deploymentId,
     );
     return helper.toString();
   }

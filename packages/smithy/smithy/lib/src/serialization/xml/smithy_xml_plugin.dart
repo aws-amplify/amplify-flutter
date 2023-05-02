@@ -9,6 +9,9 @@ import 'package:xml/xml.dart';
 class SmithyXmlPlugin implements SerializerPlugin {
   const SmithyXmlPlugin();
 
+  /// Extracts the root element from the response document.
+  XmlElement responseRootElement(XmlDocument document) => document.rootElement;
+
   @override
   Object? beforeSerialize(Object? object, FullType specifiedType) {
     if (specifiedType.isUnspecified) {
@@ -187,7 +190,7 @@ class SmithyXmlPlugin implements SerializerPlugin {
         return object;
       }
     }
-    return _deserialize(object.rootElement);
+    return _deserialize(responseRootElement(object));
   }
 
   @override

@@ -15,12 +15,12 @@ abstract class Bucket
     implements Built<Bucket, BucketBuilder> {
   /// In terms of implementation, a Bucket is a resource. An Amazon S3 bucket name is globally unique, and the namespace is shared by all Amazon Web Services accounts.
   factory Bucket({
-    DateTime? creationDate,
     String? name,
+    DateTime? creationDate,
   }) {
     return _$Bucket._(
-      creationDate: creationDate,
       name: name,
+      creationDate: creationDate,
     );
   }
 
@@ -36,26 +36,26 @@ abstract class Bucket
   @BuiltValueHook(initializeBuilder: true)
   static void _init(BucketBuilder b) {}
 
-  /// Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
-  DateTime? get creationDate;
-
   /// The name of the bucket.
   String? get name;
+
+  /// Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
+  DateTime? get creationDate;
   @override
   List<Object?> get props => [
-        creationDate,
         name,
+        creationDate,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('Bucket');
     helper.add(
-      'creationDate',
-      creationDate,
-    );
-    helper.add(
       'name',
       name,
+    );
+    helper.add(
+      'creationDate',
+      creationDate,
     );
     return helper.toString();
   }

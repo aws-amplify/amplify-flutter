@@ -21,12 +21,12 @@ abstract class GetDomainNamesRequest
         _i1.HasPayload<GetDomainNamesRequestPayload> {
   /// Request to describe a collection of DomainName resources.
   factory GetDomainNamesRequest({
-    int? limit,
     String? position,
+    int? limit,
   }) {
     return _$GetDomainNamesRequest._(
-      limit: limit,
       position: position,
+      limit: limit,
     );
   }
 
@@ -58,28 +58,28 @@ abstract class GetDomainNamesRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetDomainNamesRequestBuilder b) {}
 
-  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-  int? get limit;
-
   /// The current pagination position in the paged result set.
   String? get position;
+
+  /// The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+  int? get limit;
   @override
   GetDomainNamesRequestPayload getPayload() => GetDomainNamesRequestPayload();
   @override
   List<Object?> get props => [
-        limit,
         position,
+        limit,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetDomainNamesRequest');
     helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
       'position',
       position,
+    );
+    helper.add(
+      'limit',
+      limit,
     );
     return helper.toString();
   }

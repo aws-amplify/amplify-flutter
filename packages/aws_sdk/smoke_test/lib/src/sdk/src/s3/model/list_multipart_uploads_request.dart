@@ -23,21 +23,21 @@ abstract class ListMultipartUploadsRequest
     required String bucket,
     String? delimiter,
     _i3.EncodingType? encodingType,
-    String? expectedBucketOwner,
     String? keyMarker,
     int? maxUploads,
     String? prefix,
     String? uploadIdMarker,
+    String? expectedBucketOwner,
   }) {
     return _$ListMultipartUploadsRequest._(
       bucket: bucket,
       delimiter: delimiter,
       encodingType: encodingType,
-      expectedBucketOwner: expectedBucketOwner,
       keyMarker: keyMarker,
       maxUploads: maxUploads,
       prefix: prefix,
       uploadIdMarker: uploadIdMarker,
+      expectedBucketOwner: expectedBucketOwner,
     );
   }
 
@@ -103,9 +103,6 @@ abstract class ListMultipartUploadsRequest
   /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
   _i3.EncodingType? get encodingType;
 
-  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
-  String? get expectedBucketOwner;
-
   /// Together with upload-id-marker, this parameter specifies the multipart upload after which listing should begin.
   ///
   /// If `upload-id-marker` is not specified, only the keys lexicographically greater than the specified `key-marker` will be included in the list.
@@ -121,6 +118,9 @@ abstract class ListMultipartUploadsRequest
 
   /// Together with key-marker, specifies the multipart upload after which listing should begin. If key-marker is not specified, the upload-id-marker parameter is ignored. Otherwise, any multipart uploads for a key equal to the key-marker might be included in the list only if they have an upload ID lexicographically greater than the specified `upload-id-marker`.
   String? get uploadIdMarker;
+
+  /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
+  String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -141,11 +141,11 @@ abstract class ListMultipartUploadsRequest
         bucket,
         delimiter,
         encodingType,
-        expectedBucketOwner,
         keyMarker,
         maxUploads,
         prefix,
         uploadIdMarker,
+        expectedBucketOwner,
       ];
   @override
   String toString() {
@@ -163,10 +163,6 @@ abstract class ListMultipartUploadsRequest
       encodingType,
     );
     helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
       'keyMarker',
       keyMarker,
     );
@@ -181,6 +177,10 @@ abstract class ListMultipartUploadsRequest
     helper.add(
       'uploadIdMarker',
       uploadIdMarker,
+    );
+    helper.add(
+      'expectedBucketOwner',
+      expectedBucketOwner,
     );
     return helper.toString();
   }

@@ -237,16 +237,12 @@ const List<_i1.SmithySerializer> serializers = [
 final Map<FullType, Function> builderFactories = {
   const FullType(
     _i78.BuiltList,
-    [FullType(bool)],
-  ): _i78.ListBuilder<bool>.new,
+    [FullType(String)],
+  ): _i78.ListBuilder<String>.new,
   const FullType(
-    _i78.BuiltList,
-    [FullType(double)],
-  ): _i78.ListBuilder<double>.new,
-  const FullType(
-    _i78.BuiltList,
-    [FullType(_i3.FooEnum)],
-  ): _i78.ListBuilder<_i3.FooEnum>.new,
+    _i78.BuiltSet,
+    [FullType(String)],
+  ): _i78.SetBuilder<String>.new,
   const FullType(
     _i78.BuiltList,
     [FullType(int)],
@@ -256,24 +252,28 @@ final Map<FullType, Function> builderFactories = {
     [FullType(int)],
   ): _i78.SetBuilder<int>.new,
   const FullType(
+    _i78.BuiltList,
+    [FullType(double)],
+  ): _i78.ListBuilder<double>.new,
+  const FullType(
+    _i78.BuiltList,
+    [FullType(bool)],
+  ): _i78.ListBuilder<bool>.new,
+  const FullType(
+    _i78.BuiltList,
+    [FullType(DateTime)],
+  ): _i78.ListBuilder<DateTime>.new,
+  const FullType(
+    _i78.BuiltList,
+    [FullType(_i3.FooEnum)],
+  ): _i78.ListBuilder<_i3.FooEnum>.new,
+  const FullType(
     _i78.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
   ): _i78.MapBuilder<String, String>.new,
-  const FullType(
-    _i78.BuiltList,
-    [FullType(String)],
-  ): _i78.ListBuilder<String>.new,
-  const FullType(
-    _i78.BuiltSet,
-    [FullType(String)],
-  ): _i78.SetBuilder<String>.new,
-  const FullType(
-    _i78.BuiltList,
-    [FullType(DateTime)],
-  ): _i78.ListBuilder<DateTime>.new,
   const FullType(
     _i78.BuiltMap,
     [
@@ -303,10 +303,6 @@ final Map<FullType, Function> builderFactories = {
   ): _i78.ListMultimapBuilder<String, String>.new,
   const FullType(
     _i78.BuiltList,
-    [FullType(_i55.StructureListMember)],
-  ): _i78.ListBuilder<_i55.StructureListMember>.new,
-  const FullType(
-    _i78.BuiltList,
     [
       FullType(
         _i78.BuiltList,
@@ -314,6 +310,10 @@ final Map<FullType, Function> builderFactories = {
       )
     ],
   ): _i78.ListBuilder<_i78.BuiltList<String>>.new,
+  const FullType(
+    _i78.BuiltList,
+    [FullType(_i55.StructureListMember)],
+  ): _i78.ListBuilder<_i55.StructureListMember>.new,
   const FullType(
     _i78.BuiltMap,
     [

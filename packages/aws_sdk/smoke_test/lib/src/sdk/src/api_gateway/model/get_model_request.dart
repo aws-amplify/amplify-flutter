@@ -21,14 +21,14 @@ abstract class GetModelRequest
         _i1.HasPayload<GetModelRequestPayload> {
   /// Request to list information about a model in an existing RestApi resource.
   factory GetModelRequest({
-    bool? flatten,
-    required String modelName,
     required String restApiId,
+    required String modelName,
+    bool? flatten,
   }) {
     return _$GetModelRequest._(
-      flatten: flatten,
-      modelName: modelName,
       restApiId: restApiId,
+      modelName: modelName,
+      flatten: flatten,
     );
   }
 
@@ -62,14 +62,14 @@ abstract class GetModelRequest
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetModelRequestBuilder b) {}
 
-  /// A query parameter of a Boolean value to resolve (`true`) all external model references and returns a flattened model schema or not (`false`) The default is `false`.
-  bool? get flatten;
+  /// The RestApi identifier under which the Model exists.
+  String get restApiId;
 
   /// The name of the model as an identifier.
   String get modelName;
 
-  /// The RestApi identifier under which the Model exists.
-  String get restApiId;
+  /// A query parameter of a Boolean value to resolve (`true`) all external model references and returns a flattened model schema or not (`false`) The default is `false`.
+  bool? get flatten;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -88,24 +88,24 @@ abstract class GetModelRequest
   GetModelRequestPayload getPayload() => GetModelRequestPayload();
   @override
   List<Object?> get props => [
-        flatten,
-        modelName,
         restApiId,
+        modelName,
+        flatten,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GetModelRequest');
     helper.add(
-      'flatten',
-      flatten,
+      'restApiId',
+      restApiId,
     );
     helper.add(
       'modelName',
       modelName,
     );
     helper.add(
-      'restApiId',
-      restApiId,
+      'flatten',
+      flatten,
     );
     return helper.toString();
   }

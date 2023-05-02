@@ -18,16 +18,16 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
         Built<DescribeOrganizationConformancePackStatusesRequest,
             DescribeOrganizationConformancePackStatusesRequestBuilder> {
   factory DescribeOrganizationConformancePackStatusesRequest({
+    List<String>? organizationConformancePackNames,
     int? limit,
     String? nextToken,
-    List<String>? organizationConformancePackNames,
   }) {
     return _$DescribeOrganizationConformancePackStatusesRequest._(
-      limit: limit,
-      nextToken: nextToken,
       organizationConformancePackNames: organizationConformancePackNames == null
           ? null
           : _i3.BuiltList(organizationConformancePackNames),
+      limit: limit,
+      nextToken: nextToken,
     );
   }
 
@@ -52,26 +52,30 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
   static void _init(
       DescribeOrganizationConformancePackStatusesRequestBuilder b) {}
 
+  /// The names of organization conformance packs for which you want status details. If you do not specify any names, Config returns details for all your organization conformance packs.
+  _i3.BuiltList<String>? get organizationConformancePackNames;
+
   /// The maximum number of OrganizationConformancePackStatuses returned on each page. If you do no specify a number, Config uses the default. The default is 100.
   int? get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
-
-  /// The names of organization conformance packs for which you want status details. If you do not specify any names, Config returns details for all your organization conformance packs.
-  _i3.BuiltList<String>? get organizationConformancePackNames;
   @override
   DescribeOrganizationConformancePackStatusesRequest getPayload() => this;
   @override
   List<Object?> get props => [
+        organizationConformancePackNames,
         limit,
         nextToken,
-        organizationConformancePackNames,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
         'DescribeOrganizationConformancePackStatusesRequest');
+    helper.add(
+      'organizationConformancePackNames',
+      organizationConformancePackNames,
+    );
     helper.add(
       'limit',
       limit,
@@ -79,10 +83,6 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
     helper.add(
       'nextToken',
       nextToken,
-    );
-    helper.add(
-      'organizationConformancePackNames',
-      organizationConformancePackNames,
     );
     return helper.toString();
   }
@@ -119,6 +119,18 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
+        case 'OrganizationConformancePackNames':
+          if (value != null) {
+            result.organizationConformancePackNames
+                .replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i3.BuiltList,
+                [FullType(String)],
+              ),
+            ) as _i3.BuiltList<String>));
+          }
+          break;
         case 'Limit':
           if (value != null) {
             result.limit = (serializers.deserialize(
@@ -133,18 +145,6 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
               value,
               specifiedType: const FullType(String),
             ) as String);
-          }
-          break;
-        case 'OrganizationConformancePackNames':
-          if (value != null) {
-            result.organizationConformancePackNames
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
           }
           break;
       }
@@ -162,6 +162,17 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
     final payload =
         (object as DescribeOrganizationConformancePackStatusesRequest);
     final result = <Object?>[];
+    if (payload.organizationConformancePackNames != null) {
+      result
+        ..add('OrganizationConformancePackNames')
+        ..add(serializers.serialize(
+          payload.organizationConformancePackNames!,
+          specifiedType: const FullType(
+            _i3.BuiltList,
+            [FullType(String)],
+          ),
+        ));
+    }
     if (payload.limit != null) {
       result
         ..add('Limit')
@@ -176,17 +187,6 @@ class DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           payload.nextToken!,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (payload.organizationConformancePackNames != null) {
-      result
-        ..add('OrganizationConformancePackNames')
-        ..add(serializers.serialize(
-          payload.organizationConformancePackNames!,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(String)],
-          ),
         ));
     }
     return result;

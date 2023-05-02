@@ -17,19 +17,19 @@ abstract class EnvironmentConfig
   /// Config settings that can be set as environment variables.
   factory EnvironmentConfig({
     String? awsAccessKeyId,
-    String? awsDefaultRegion,
-    String? awsProfile,
-    _i2.RetryMode? awsRetryMode,
     String? awsSecretAccessKey,
+    String? awsDefaultRegion,
+    _i2.RetryMode? awsRetryMode,
     String? awsSessionToken,
+    String? awsProfile,
   }) {
     return _$EnvironmentConfig._(
       awsAccessKeyId: awsAccessKeyId,
-      awsDefaultRegion: awsDefaultRegion,
-      awsProfile: awsProfile,
-      awsRetryMode: awsRetryMode,
       awsSecretAccessKey: awsSecretAccessKey,
+      awsDefaultRegion: awsDefaultRegion,
+      awsRetryMode: awsRetryMode,
       awsSessionToken: awsSessionToken,
+      awsProfile: awsProfile,
     );
   }
 
@@ -46,21 +46,21 @@ abstract class EnvironmentConfig
   @BuiltValueHook(initializeBuilder: true)
   static void _init(EnvironmentConfigBuilder b) {}
   String? get awsAccessKeyId;
+  String? get awsSecretAccessKey;
   String? get awsDefaultRegion;
-  String? get awsProfile;
 
   /// Controls the strategy used for retries.
   _i2.RetryMode? get awsRetryMode;
-  String? get awsSecretAccessKey;
   String? get awsSessionToken;
+  String? get awsProfile;
   @override
   List<Object?> get props => [
         awsAccessKeyId,
-        awsDefaultRegion,
-        awsProfile,
-        awsRetryMode,
         awsSecretAccessKey,
+        awsDefaultRegion,
+        awsRetryMode,
         awsSessionToken,
+        awsProfile,
       ];
   @override
   String toString() {
@@ -70,24 +70,24 @@ abstract class EnvironmentConfig
       awsAccessKeyId,
     );
     helper.add(
-      'awsDefaultRegion',
-      awsDefaultRegion,
+      'awsSecretAccessKey',
+      awsSecretAccessKey,
     );
     helper.add(
-      'awsProfile',
-      awsProfile,
+      'awsDefaultRegion',
+      awsDefaultRegion,
     );
     helper.add(
       'awsRetryMode',
       awsRetryMode,
     );
     helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
       'awsSessionToken',
       awsSessionToken,
+    );
+    helper.add(
+      'awsProfile',
+      awsProfile,
     );
     return helper.toString();
   }

@@ -8,28 +8,28 @@ part of smoke_test.api_gateway.model.get_sdk_request;
 
 class _$GetSdkRequest extends GetSdkRequest {
   @override
-  final _i3.BuiltMap<String, String>? parameters;
-  @override
   final String restApiId;
+  @override
+  final String stageName;
   @override
   final String sdkType;
   @override
-  final String stageName;
+  final _i3.BuiltMap<String, String>? parameters;
 
   factory _$GetSdkRequest([void Function(GetSdkRequestBuilder)? updates]) =>
       (new GetSdkRequestBuilder()..update(updates))._build();
 
   _$GetSdkRequest._(
-      {this.parameters,
-      required this.restApiId,
+      {required this.restApiId,
+      required this.stageName,
       required this.sdkType,
-      required this.stageName})
+      this.parameters})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         restApiId, r'GetSdkRequest', 'restApiId');
-    BuiltValueNullFieldError.checkNotNull(sdkType, r'GetSdkRequest', 'sdkType');
     BuiltValueNullFieldError.checkNotNull(
         stageName, r'GetSdkRequest', 'stageName');
+    BuiltValueNullFieldError.checkNotNull(sdkType, r'GetSdkRequest', 'sdkType');
   }
 
   @override
@@ -43,19 +43,19 @@ class _$GetSdkRequest extends GetSdkRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetSdkRequest &&
-        parameters == other.parameters &&
         restApiId == other.restApiId &&
+        stageName == other.stageName &&
         sdkType == other.sdkType &&
-        stageName == other.stageName;
+        parameters == other.parameters;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jc(_$hash, restApiId.hashCode);
-    _$hash = $jc(_$hash, sdkType.hashCode);
     _$hash = $jc(_$hash, stageName.hashCode);
+    _$hash = $jc(_$hash, sdkType.hashCode);
+    _$hash = $jc(_$hash, parameters.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,23 +65,23 @@ class GetSdkRequestBuilder
     implements Builder<GetSdkRequest, GetSdkRequestBuilder> {
   _$GetSdkRequest? _$v;
 
-  _i3.MapBuilder<String, String>? _parameters;
-  _i3.MapBuilder<String, String> get parameters =>
-      _$this._parameters ??= new _i3.MapBuilder<String, String>();
-  set parameters(_i3.MapBuilder<String, String>? parameters) =>
-      _$this._parameters = parameters;
-
   String? _restApiId;
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
+
+  String? _stageName;
+  String? get stageName => _$this._stageName;
+  set stageName(String? stageName) => _$this._stageName = stageName;
 
   String? _sdkType;
   String? get sdkType => _$this._sdkType;
   set sdkType(String? sdkType) => _$this._sdkType = sdkType;
 
-  String? _stageName;
-  String? get stageName => _$this._stageName;
-  set stageName(String? stageName) => _$this._stageName = stageName;
+  _i3.MapBuilder<String, String>? _parameters;
+  _i3.MapBuilder<String, String> get parameters =>
+      _$this._parameters ??= new _i3.MapBuilder<String, String>();
+  set parameters(_i3.MapBuilder<String, String>? parameters) =>
+      _$this._parameters = parameters;
 
   GetSdkRequestBuilder() {
     GetSdkRequest._init(this);
@@ -90,10 +90,10 @@ class GetSdkRequestBuilder
   GetSdkRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _parameters = $v.parameters?.toBuilder();
       _restApiId = $v.restApiId;
-      _sdkType = $v.sdkType;
       _stageName = $v.stageName;
+      _sdkType = $v.sdkType;
+      _parameters = $v.parameters?.toBuilder();
       _$v = null;
     }
     return this;
@@ -118,13 +118,13 @@ class GetSdkRequestBuilder
     try {
       _$result = _$v ??
           new _$GetSdkRequest._(
-              parameters: _parameters?.build(),
               restApiId: BuiltValueNullFieldError.checkNotNull(
                   restApiId, r'GetSdkRequest', 'restApiId'),
+              stageName: BuiltValueNullFieldError.checkNotNull(
+                  stageName, r'GetSdkRequest', 'stageName'),
               sdkType: BuiltValueNullFieldError.checkNotNull(
                   sdkType, r'GetSdkRequest', 'sdkType'),
-              stageName: BuiltValueNullFieldError.checkNotNull(
-                  stageName, r'GetSdkRequest', 'stageName'));
+              parameters: _parameters?.build());
     } catch (_) {
       late String _$failedField;
       try {

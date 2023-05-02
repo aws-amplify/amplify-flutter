@@ -128,20 +128,20 @@ class TestBodyStructureInputOutputRestJson1Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'testConfig':
-          if (value != null) {
-            result.testConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.TestConfig),
-            ) as _i6.TestConfig));
-          }
-          break;
         case 'testId':
           if (value != null) {
             result.testId = (serializers.deserialize(
               value,
               specifiedType: const FullType(String),
             ) as String);
+          }
+          break;
+        case 'testConfig':
+          if (value != null) {
+            result.testConfig.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i6.TestConfig),
+            ) as _i6.TestConfig));
           }
           break;
       }

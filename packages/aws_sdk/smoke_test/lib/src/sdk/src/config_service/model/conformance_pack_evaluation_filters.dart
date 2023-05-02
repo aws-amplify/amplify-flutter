@@ -21,17 +21,17 @@ abstract class ConformancePackEvaluationFilters
             ConformancePackEvaluationFiltersBuilder> {
   /// Filters a conformance pack by Config rule names, compliance types, Amazon Web Services resource types, and resource IDs.
   factory ConformancePackEvaluationFilters({
-    _i2.ConformancePackComplianceType? complianceType,
     List<String>? configRuleNames,
-    List<String>? resourceIds,
+    _i2.ConformancePackComplianceType? complianceType,
     String? resourceType,
+    List<String>? resourceIds,
   }) {
     return _$ConformancePackEvaluationFilters._(
-      complianceType: complianceType,
       configRuleNames:
           configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
-      resourceIds: resourceIds == null ? null : _i3.BuiltList(resourceIds),
+      complianceType: complianceType,
       resourceType: resourceType,
+      resourceIds: resourceIds == null ? null : _i3.BuiltList(resourceIds),
     );
   }
 
@@ -49,47 +49,47 @@ abstract class ConformancePackEvaluationFilters
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ConformancePackEvaluationFiltersBuilder b) {}
 
+  /// Filters the results by Config rule names.
+  _i3.BuiltList<String>? get configRuleNames;
+
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
   _i2.ConformancePackComplianceType? get complianceType;
 
-  /// Filters the results by Config rule names.
-  _i3.BuiltList<String>? get configRuleNames;
+  /// Filters the results by the resource type (for example, `"AWS::EC2::Instance"`).
+  String? get resourceType;
 
   /// Filters the results by resource IDs.
   ///
   /// This is valid only when you provide resource type. If there is no resource type, you will see an error.
   _i3.BuiltList<String>? get resourceIds;
-
-  /// Filters the results by the resource type (for example, `"AWS::EC2::Instance"`).
-  String? get resourceType;
   @override
   List<Object?> get props => [
-        complianceType,
         configRuleNames,
-        resourceIds,
+        complianceType,
         resourceType,
+        resourceIds,
       ];
   @override
   String toString() {
     final helper =
         newBuiltValueToStringHelper('ConformancePackEvaluationFilters');
     helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
       'configRuleNames',
       configRuleNames,
     );
     helper.add(
-      'resourceIds',
-      resourceIds,
+      'complianceType',
+      complianceType,
     );
     helper.add(
       'resourceType',
       resourceType,
+    );
+    helper.add(
+      'resourceIds',
+      resourceIds,
     );
     return helper.toString();
   }
@@ -125,14 +125,6 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
         case 'ConfigRuleNames':
           if (value != null) {
             result.configRuleNames.replace((serializers.deserialize(
@@ -144,6 +136,22 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
             ) as _i3.BuiltList<String>));
           }
           break;
+        case 'ComplianceType':
+          if (value != null) {
+            result.complianceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(_i2.ConformancePackComplianceType),
+            ) as _i2.ConformancePackComplianceType);
+          }
+          break;
+        case 'ResourceType':
+          if (value != null) {
+            result.resourceType = (serializers.deserialize(
+              value,
+              specifiedType: const FullType(String),
+            ) as String);
+          }
+          break;
         case 'ResourceIds':
           if (value != null) {
             result.resourceIds.replace((serializers.deserialize(
@@ -153,14 +161,6 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
                 [FullType(String)],
               ),
             ) as _i3.BuiltList<String>));
-          }
-          break;
-        case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
           }
           break;
       }
@@ -177,14 +177,6 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackEvaluationFilters);
     final result = <Object?>[];
-    if (payload.complianceType != null) {
-      result
-        ..add('ComplianceType')
-        ..add(serializers.serialize(
-          payload.complianceType!,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
-        ));
-    }
     if (payload.configRuleNames != null) {
       result
         ..add('ConfigRuleNames')
@@ -196,6 +188,22 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
           ),
         ));
     }
+    if (payload.complianceType != null) {
+      result
+        ..add('ComplianceType')
+        ..add(serializers.serialize(
+          payload.complianceType!,
+          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+        ));
+    }
+    if (payload.resourceType != null) {
+      result
+        ..add('ResourceType')
+        ..add(serializers.serialize(
+          payload.resourceType!,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (payload.resourceIds != null) {
       result
         ..add('ResourceIds')
@@ -205,14 +213,6 @@ class ConformancePackEvaluationFiltersAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (payload.resourceType != null) {
-      result
-        ..add('ResourceType')
-        ..add(serializers.serialize(
-          payload.resourceType!,
-          specifiedType: const FullType(String),
         ));
     }
     return result;

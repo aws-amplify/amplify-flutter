@@ -184,6 +184,17 @@ class XmlIntEnumsInputOutputRestXmlSerializer
             ) as _i7.BuiltList<_i6.IntegerEnum>));
           }
           break;
+        case 'intEnumSet':
+          if (value != null) {
+            result.intEnumSet.replace((serializers.deserialize(
+              value,
+              specifiedType: const FullType(
+                _i7.BuiltSet,
+                [FullType(_i6.IntegerEnum)],
+              ),
+            ) as _i7.BuiltSet<_i6.IntegerEnum>));
+          }
+          break;
         case 'intEnumMap':
           if (value != null) {
             result.intEnumMap.replace((serializers.deserialize(
@@ -196,17 +207,6 @@ class XmlIntEnumsInputOutputRestXmlSerializer
                 ],
               ),
             ) as _i7.BuiltMap<String, _i6.IntegerEnum>));
-          }
-          break;
-        case 'intEnumSet':
-          if (value != null) {
-            result.intEnumSet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltSet,
-                [FullType(_i6.IntegerEnum)],
-              ),
-            ) as _i7.BuiltSet<_i6.IntegerEnum>));
           }
           break;
       }

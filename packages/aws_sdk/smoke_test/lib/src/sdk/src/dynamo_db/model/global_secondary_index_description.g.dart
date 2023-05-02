@@ -9,38 +9,38 @@ part of smoke_test.dynamo_db.model.global_secondary_index_description;
 class _$GlobalSecondaryIndexDescription
     extends GlobalSecondaryIndexDescription {
   @override
-  final bool? backfilling;
-  @override
-  final String? indexArn;
-  @override
   final String? indexName;
   @override
-  final _i2.Int64? indexSizeBytes;
+  final _i7.BuiltList<_i2.KeySchemaElement>? keySchema;
   @override
-  final _i3.IndexStatus? indexStatus;
+  final _i3.Projection? projection;
   @override
-  final _i2.Int64? itemCount;
+  final _i4.IndexStatus? indexStatus;
   @override
-  final _i7.BuiltList<_i4.KeySchemaElement>? keySchema;
+  final bool? backfilling;
   @override
-  final _i5.Projection? projection;
+  final _i5.ProvisionedThroughputDescription? provisionedThroughput;
   @override
-  final _i6.ProvisionedThroughputDescription? provisionedThroughput;
+  final _i6.Int64? indexSizeBytes;
+  @override
+  final _i6.Int64? itemCount;
+  @override
+  final String? indexArn;
 
   factory _$GlobalSecondaryIndexDescription(
           [void Function(GlobalSecondaryIndexDescriptionBuilder)? updates]) =>
       (new GlobalSecondaryIndexDescriptionBuilder()..update(updates))._build();
 
   _$GlobalSecondaryIndexDescription._(
-      {this.backfilling,
-      this.indexArn,
-      this.indexName,
-      this.indexSizeBytes,
-      this.indexStatus,
-      this.itemCount,
+      {this.indexName,
       this.keySchema,
       this.projection,
-      this.provisionedThroughput})
+      this.indexStatus,
+      this.backfilling,
+      this.provisionedThroughput,
+      this.indexSizeBytes,
+      this.itemCount,
+      this.indexArn})
       : super._();
 
   @override
@@ -56,29 +56,29 @@ class _$GlobalSecondaryIndexDescription
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GlobalSecondaryIndexDescription &&
-        backfilling == other.backfilling &&
-        indexArn == other.indexArn &&
         indexName == other.indexName &&
-        indexSizeBytes == other.indexSizeBytes &&
-        indexStatus == other.indexStatus &&
-        itemCount == other.itemCount &&
         keySchema == other.keySchema &&
         projection == other.projection &&
-        provisionedThroughput == other.provisionedThroughput;
+        indexStatus == other.indexStatus &&
+        backfilling == other.backfilling &&
+        provisionedThroughput == other.provisionedThroughput &&
+        indexSizeBytes == other.indexSizeBytes &&
+        itemCount == other.itemCount &&
+        indexArn == other.indexArn;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, backfilling.hashCode);
-    _$hash = $jc(_$hash, indexArn.hashCode);
     _$hash = $jc(_$hash, indexName.hashCode);
-    _$hash = $jc(_$hash, indexSizeBytes.hashCode);
-    _$hash = $jc(_$hash, indexStatus.hashCode);
-    _$hash = $jc(_$hash, itemCount.hashCode);
     _$hash = $jc(_$hash, keySchema.hashCode);
     _$hash = $jc(_$hash, projection.hashCode);
+    _$hash = $jc(_$hash, indexStatus.hashCode);
+    _$hash = $jc(_$hash, backfilling.hashCode);
     _$hash = $jc(_$hash, provisionedThroughput.hashCode);
+    _$hash = $jc(_$hash, indexSizeBytes.hashCode);
+    _$hash = $jc(_$hash, itemCount.hashCode);
+    _$hash = $jc(_$hash, indexArn.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -90,51 +90,51 @@ class GlobalSecondaryIndexDescriptionBuilder
             GlobalSecondaryIndexDescriptionBuilder> {
   _$GlobalSecondaryIndexDescription? _$v;
 
-  bool? _backfilling;
-  bool? get backfilling => _$this._backfilling;
-  set backfilling(bool? backfilling) => _$this._backfilling = backfilling;
-
-  String? _indexArn;
-  String? get indexArn => _$this._indexArn;
-  set indexArn(String? indexArn) => _$this._indexArn = indexArn;
-
   String? _indexName;
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.Int64? _indexSizeBytes;
-  _i2.Int64? get indexSizeBytes => _$this._indexSizeBytes;
-  set indexSizeBytes(_i2.Int64? indexSizeBytes) =>
-      _$this._indexSizeBytes = indexSizeBytes;
-
-  _i3.IndexStatus? _indexStatus;
-  _i3.IndexStatus? get indexStatus => _$this._indexStatus;
-  set indexStatus(_i3.IndexStatus? indexStatus) =>
-      _$this._indexStatus = indexStatus;
-
-  _i2.Int64? _itemCount;
-  _i2.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
-
-  _i7.ListBuilder<_i4.KeySchemaElement>? _keySchema;
-  _i7.ListBuilder<_i4.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i7.ListBuilder<_i4.KeySchemaElement>();
-  set keySchema(_i7.ListBuilder<_i4.KeySchemaElement>? keySchema) =>
+  _i7.ListBuilder<_i2.KeySchemaElement>? _keySchema;
+  _i7.ListBuilder<_i2.KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i7.ListBuilder<_i2.KeySchemaElement>();
+  set keySchema(_i7.ListBuilder<_i2.KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i5.ProjectionBuilder? _projection;
-  _i5.ProjectionBuilder get projection =>
-      _$this._projection ??= new _i5.ProjectionBuilder();
-  set projection(_i5.ProjectionBuilder? projection) =>
+  _i3.ProjectionBuilder? _projection;
+  _i3.ProjectionBuilder get projection =>
+      _$this._projection ??= new _i3.ProjectionBuilder();
+  set projection(_i3.ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  _i6.ProvisionedThroughputDescriptionBuilder? _provisionedThroughput;
-  _i6.ProvisionedThroughputDescriptionBuilder get provisionedThroughput =>
+  _i4.IndexStatus? _indexStatus;
+  _i4.IndexStatus? get indexStatus => _$this._indexStatus;
+  set indexStatus(_i4.IndexStatus? indexStatus) =>
+      _$this._indexStatus = indexStatus;
+
+  bool? _backfilling;
+  bool? get backfilling => _$this._backfilling;
+  set backfilling(bool? backfilling) => _$this._backfilling = backfilling;
+
+  _i5.ProvisionedThroughputDescriptionBuilder? _provisionedThroughput;
+  _i5.ProvisionedThroughputDescriptionBuilder get provisionedThroughput =>
       _$this._provisionedThroughput ??=
-          new _i6.ProvisionedThroughputDescriptionBuilder();
+          new _i5.ProvisionedThroughputDescriptionBuilder();
   set provisionedThroughput(
-          _i6.ProvisionedThroughputDescriptionBuilder? provisionedThroughput) =>
+          _i5.ProvisionedThroughputDescriptionBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
+
+  _i6.Int64? _indexSizeBytes;
+  _i6.Int64? get indexSizeBytes => _$this._indexSizeBytes;
+  set indexSizeBytes(_i6.Int64? indexSizeBytes) =>
+      _$this._indexSizeBytes = indexSizeBytes;
+
+  _i6.Int64? _itemCount;
+  _i6.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i6.Int64? itemCount) => _$this._itemCount = itemCount;
+
+  String? _indexArn;
+  String? get indexArn => _$this._indexArn;
+  set indexArn(String? indexArn) => _$this._indexArn = indexArn;
 
   GlobalSecondaryIndexDescriptionBuilder() {
     GlobalSecondaryIndexDescription._init(this);
@@ -143,15 +143,15 @@ class GlobalSecondaryIndexDescriptionBuilder
   GlobalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _backfilling = $v.backfilling;
-      _indexArn = $v.indexArn;
       _indexName = $v.indexName;
-      _indexSizeBytes = $v.indexSizeBytes;
-      _indexStatus = $v.indexStatus;
-      _itemCount = $v.itemCount;
       _keySchema = $v.keySchema?.toBuilder();
       _projection = $v.projection?.toBuilder();
+      _indexStatus = $v.indexStatus;
+      _backfilling = $v.backfilling;
       _provisionedThroughput = $v.provisionedThroughput?.toBuilder();
+      _indexSizeBytes = $v.indexSizeBytes;
+      _itemCount = $v.itemCount;
+      _indexArn = $v.indexArn;
       _$v = null;
     }
     return this;
@@ -176,15 +176,15 @@ class GlobalSecondaryIndexDescriptionBuilder
     try {
       _$result = _$v ??
           new _$GlobalSecondaryIndexDescription._(
-              backfilling: backfilling,
-              indexArn: indexArn,
               indexName: indexName,
-              indexSizeBytes: indexSizeBytes,
-              indexStatus: indexStatus,
-              itemCount: itemCount,
               keySchema: _keySchema?.build(),
               projection: _projection?.build(),
-              provisionedThroughput: _provisionedThroughput?.build());
+              indexStatus: indexStatus,
+              backfilling: backfilling,
+              provisionedThroughput: _provisionedThroughput?.build(),
+              indexSizeBytes: indexSizeBytes,
+              itemCount: itemCount,
+              indexArn: indexArn);
     } catch (_) {
       late String _$failedField;
       try {
@@ -192,6 +192,7 @@ class GlobalSecondaryIndexDescriptionBuilder
         _keySchema?.build();
         _$failedField = 'projection';
         _projection?.build();
+
         _$failedField = 'provisionedThroughput';
         _provisionedThroughput?.build();
       } catch (e) {

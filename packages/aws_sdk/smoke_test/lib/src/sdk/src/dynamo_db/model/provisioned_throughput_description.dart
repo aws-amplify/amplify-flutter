@@ -19,15 +19,15 @@ abstract class ProvisionedThroughputDescription
             ProvisionedThroughputDescriptionBuilder> {
   /// Represents the provisioned throughput settings for the table, consisting of read and write capacity units, along with data about increases and decreases.
   factory ProvisionedThroughputDescription({
-    DateTime? lastDecreaseDateTime,
     DateTime? lastIncreaseDateTime,
+    DateTime? lastDecreaseDateTime,
     _i2.Int64? numberOfDecreasesToday,
     _i2.Int64? readCapacityUnits,
     _i2.Int64? writeCapacityUnits,
   }) {
     return _$ProvisionedThroughputDescription._(
-      lastDecreaseDateTime: lastDecreaseDateTime,
       lastIncreaseDateTime: lastIncreaseDateTime,
+      lastDecreaseDateTime: lastDecreaseDateTime,
       numberOfDecreasesToday: numberOfDecreasesToday,
       readCapacityUnits: readCapacityUnits,
       writeCapacityUnits: writeCapacityUnits,
@@ -48,11 +48,11 @@ abstract class ProvisionedThroughputDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ProvisionedThroughputDescriptionBuilder b) {}
 
-  /// The date and time of the last provisioned throughput decrease for this table.
-  DateTime? get lastDecreaseDateTime;
-
   /// The date and time of the last provisioned throughput increase for this table.
   DateTime? get lastIncreaseDateTime;
+
+  /// The date and time of the last provisioned throughput decrease for this table.
+  DateTime? get lastDecreaseDateTime;
 
   /// The number of provisioned throughput decreases for this table during this UTC calendar day. For current maximums on provisioned throughput decreases, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
   _i2.Int64? get numberOfDecreasesToday;
@@ -64,8 +64,8 @@ abstract class ProvisionedThroughputDescription
   _i2.Int64? get writeCapacityUnits;
   @override
   List<Object?> get props => [
-        lastDecreaseDateTime,
         lastIncreaseDateTime,
+        lastDecreaseDateTime,
         numberOfDecreasesToday,
         readCapacityUnits,
         writeCapacityUnits,
@@ -75,12 +75,12 @@ abstract class ProvisionedThroughputDescription
     final helper =
         newBuiltValueToStringHelper('ProvisionedThroughputDescription');
     helper.add(
-      'lastDecreaseDateTime',
-      lastDecreaseDateTime,
-    );
-    helper.add(
       'lastIncreaseDateTime',
       lastIncreaseDateTime,
+    );
+    helper.add(
+      'lastDecreaseDateTime',
+      lastDecreaseDateTime,
     );
     helper.add(
       'numberOfDecreasesToday',
@@ -128,17 +128,17 @@ class ProvisionedThroughputDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'LastDecreaseDateTime':
+        case 'LastIncreaseDateTime':
           if (value != null) {
-            result.lastDecreaseDateTime = (serializers.deserialize(
+            result.lastIncreaseDateTime = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
           }
           break;
-        case 'LastIncreaseDateTime':
+        case 'LastDecreaseDateTime':
           if (value != null) {
-            result.lastIncreaseDateTime = (serializers.deserialize(
+            result.lastDecreaseDateTime = (serializers.deserialize(
               value,
               specifiedType: const FullType(DateTime),
             ) as DateTime);
@@ -182,19 +182,19 @@ class ProvisionedThroughputDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ProvisionedThroughputDescription);
     final result = <Object?>[];
-    if (payload.lastDecreaseDateTime != null) {
-      result
-        ..add('LastDecreaseDateTime')
-        ..add(serializers.serialize(
-          payload.lastDecreaseDateTime!,
-          specifiedType: const FullType(DateTime),
-        ));
-    }
     if (payload.lastIncreaseDateTime != null) {
       result
         ..add('LastIncreaseDateTime')
         ..add(serializers.serialize(
           payload.lastIncreaseDateTime!,
+          specifiedType: const FullType(DateTime),
+        ));
+    }
+    if (payload.lastDecreaseDateTime != null) {
+      result
+        ..add('LastDecreaseDateTime')
+        ..add(serializers.serialize(
+          payload.lastDecreaseDateTime!,
           specifiedType: const FullType(DateTime),
         ));
     }

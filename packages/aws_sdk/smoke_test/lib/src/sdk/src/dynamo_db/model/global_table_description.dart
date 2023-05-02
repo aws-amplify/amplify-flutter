@@ -8,9 +8,9 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart'
+    as _i2;
 
 part 'global_table_description.g.dart';
 
@@ -20,19 +20,19 @@ abstract class GlobalTableDescription
     implements Built<GlobalTableDescription, GlobalTableDescriptionBuilder> {
   /// Contains details about the global table.
   factory GlobalTableDescription({
-    DateTime? creationDateTime,
+    List<_i2.ReplicaDescription>? replicationGroup,
     String? globalTableArn,
+    DateTime? creationDateTime,
+    _i3.GlobalTableStatus? globalTableStatus,
     String? globalTableName,
-    _i2.GlobalTableStatus? globalTableStatus,
-    List<_i3.ReplicaDescription>? replicationGroup,
   }) {
     return _$GlobalTableDescription._(
-      creationDateTime: creationDateTime,
-      globalTableArn: globalTableArn,
-      globalTableName: globalTableName,
-      globalTableStatus: globalTableStatus,
       replicationGroup:
           replicationGroup == null ? null : _i4.BuiltList(replicationGroup),
+      globalTableArn: globalTableArn,
+      creationDateTime: creationDateTime,
+      globalTableStatus: globalTableStatus,
+      globalTableName: globalTableName,
     );
   }
 
@@ -50,14 +50,14 @@ abstract class GlobalTableDescription
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GlobalTableDescriptionBuilder b) {}
 
-  /// The creation time of the global table.
-  DateTime? get creationDateTime;
+  /// The Regions where the global table has replicas.
+  _i4.BuiltList<_i2.ReplicaDescription>? get replicationGroup;
 
   /// The unique identifier of the global table.
   String? get globalTableArn;
 
-  /// The global table name.
-  String? get globalTableName;
+  /// The creation time of the global table.
+  DateTime? get creationDateTime;
 
   /// The current state of the global table:
   ///
@@ -68,40 +68,40 @@ abstract class GlobalTableDescription
   /// *   `DELETING` \- The global table is being deleted.
   ///
   /// *   `ACTIVE` \- The global table is ready for use.
-  _i2.GlobalTableStatus? get globalTableStatus;
+  _i3.GlobalTableStatus? get globalTableStatus;
 
-  /// The Regions where the global table has replicas.
-  _i4.BuiltList<_i3.ReplicaDescription>? get replicationGroup;
+  /// The global table name.
+  String? get globalTableName;
   @override
   List<Object?> get props => [
-        creationDateTime,
-        globalTableArn,
-        globalTableName,
-        globalTableStatus,
         replicationGroup,
+        globalTableArn,
+        creationDateTime,
+        globalTableStatus,
+        globalTableName,
       ];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('GlobalTableDescription');
     helper.add(
-      'creationDateTime',
-      creationDateTime,
+      'replicationGroup',
+      replicationGroup,
     );
     helper.add(
       'globalTableArn',
       globalTableArn,
     );
     helper.add(
-      'globalTableName',
-      globalTableName,
+      'creationDateTime',
+      creationDateTime,
     );
     helper.add(
       'globalTableStatus',
       globalTableStatus,
     );
     helper.add(
-      'replicationGroup',
-      replicationGroup,
+      'globalTableName',
+      globalTableName,
     );
     return helper.toString();
   }
@@ -137,12 +137,15 @@ class GlobalTableDescriptionAwsJson10Serializer
       iterator.moveNext();
       final value = iterator.current;
       switch (key) {
-        case 'CreationDateTime':
+        case 'ReplicationGroup':
           if (value != null) {
-            result.creationDateTime = (serializers.deserialize(
+            result.replicationGroup.replace((serializers.deserialize(
               value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
+              specifiedType: const FullType(
+                _i4.BuiltList,
+                [FullType(_i2.ReplicaDescription)],
+              ),
+            ) as _i4.BuiltList<_i2.ReplicaDescription>));
           }
           break;
         case 'GlobalTableArn':
@@ -153,31 +156,28 @@ class GlobalTableDescriptionAwsJson10Serializer
             ) as String);
           }
           break;
-        case 'GlobalTableName':
+        case 'CreationDateTime':
           if (value != null) {
-            result.globalTableName = (serializers.deserialize(
+            result.creationDateTime = (serializers.deserialize(
               value,
-              specifiedType: const FullType(String),
-            ) as String);
+              specifiedType: const FullType(DateTime),
+            ) as DateTime);
           }
           break;
         case 'GlobalTableStatus':
           if (value != null) {
             result.globalTableStatus = (serializers.deserialize(
               value,
-              specifiedType: const FullType(_i2.GlobalTableStatus),
-            ) as _i2.GlobalTableStatus);
+              specifiedType: const FullType(_i3.GlobalTableStatus),
+            ) as _i3.GlobalTableStatus);
           }
           break;
-        case 'ReplicationGroup':
+        case 'GlobalTableName':
           if (value != null) {
-            result.replicationGroup.replace((serializers.deserialize(
+            result.globalTableName = (serializers.deserialize(
               value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ReplicaDescription)],
-              ),
-            ) as _i4.BuiltList<_i3.ReplicaDescription>));
+              specifiedType: const FullType(String),
+            ) as String);
           }
           break;
       }
@@ -194,12 +194,15 @@ class GlobalTableDescriptionAwsJson10Serializer
   }) {
     final payload = (object as GlobalTableDescription);
     final result = <Object?>[];
-    if (payload.creationDateTime != null) {
+    if (payload.replicationGroup != null) {
       result
-        ..add('CreationDateTime')
+        ..add('ReplicationGroup')
         ..add(serializers.serialize(
-          payload.creationDateTime!,
-          specifiedType: const FullType(DateTime),
+          payload.replicationGroup!,
+          specifiedType: const FullType(
+            _i4.BuiltList,
+            [FullType(_i2.ReplicaDescription)],
+          ),
         ));
     }
     if (payload.globalTableArn != null) {
@@ -210,12 +213,12 @@ class GlobalTableDescriptionAwsJson10Serializer
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.globalTableName != null) {
+    if (payload.creationDateTime != null) {
       result
-        ..add('GlobalTableName')
+        ..add('CreationDateTime')
         ..add(serializers.serialize(
-          payload.globalTableName!,
-          specifiedType: const FullType(String),
+          payload.creationDateTime!,
+          specifiedType: const FullType(DateTime),
         ));
     }
     if (payload.globalTableStatus != null) {
@@ -223,18 +226,15 @@ class GlobalTableDescriptionAwsJson10Serializer
         ..add('GlobalTableStatus')
         ..add(serializers.serialize(
           payload.globalTableStatus!,
-          specifiedType: const FullType(_i2.GlobalTableStatus),
+          specifiedType: const FullType(_i3.GlobalTableStatus),
         ));
     }
-    if (payload.replicationGroup != null) {
+    if (payload.globalTableName != null) {
       result
-        ..add('ReplicationGroup')
+        ..add('GlobalTableName')
         ..add(serializers.serialize(
-          payload.replicationGroup!,
-          specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ReplicaDescription)],
-          ),
+          payload.globalTableName!,
+          specifiedType: const FullType(String),
         ));
     }
     return result;
