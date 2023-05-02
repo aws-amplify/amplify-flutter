@@ -26,10 +26,29 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
+  final _dependabotConfig = StringBuffer('''
+# Generated with aft. To update, run: `aft generate workflows`
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+''');
+
   @override
   Future<void> run() async {
     await super.run();
     for (final package in commandPackages.values) {
+      final repoRelativePath = p.relative(package.path, from: rootDir.path);
+      _dependabotConfig.write('''
+  - package-ecosystem: "pub"
+    directory: "$repoRelativePath"
+    schedule:
+      interval: "daily"
+''');
+
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
         continue;
@@ -49,7 +68,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         '${package.name}.yaml',
       );
       final workflowFile = File(workflowFilepath);
-      final repoRelativePath = p.relative(package.path, from: rootDir.path);
       final customWorkflow = File(p.join(package.path, 'workflow.yaml'));
       if (customWorkflow.existsSync()) {
         customWorkflow.copySync(workflowFilepath);
@@ -181,6 +199,11 @@ jobs:
       );
     }
 
+    final dependabotFile = File(
+      p.join(rootDir.path, '.github', 'dependabot.yaml'),
+    );
+    writeWorkflowFile(dependabotFile, _dependabotConfig.toString());
+
     // Check if workflow generation caused `git diff` to change.
     if (setExitIfChanged) {
       final gitDiff = await Process.start(
@@ -209,12 +232,36 @@ jobs:
     required PackageInfo package,
     required String repoRelativePath,
   }) async {
-    const androidWorkflow = 'flutter_android.yaml';
+    if (package.flavor != PackageFlavor.flutter) {
+      return;
+    }
+
+    final appFacingAndroidPackageDir =
+        Directory(p.join(package.path, 'android'));
+    final platformAndroidPackageDir = Directory(
+      p.join('${package.path}_android', 'android'),
+    );
+
+    if (!appFacingAndroidPackageDir.existsSync() &&
+        !platformAndroidPackageDir.existsSync()) {
+      return;
+    }
+
+    final androidPackageDir = appFacingAndroidPackageDir.existsSync()
+        ? appFacingAndroidPackageDir.path
+        : platformAndroidPackageDir.path;
+
+    _dependabotConfig.write('''
+  - package-ecosystem: "gradle"
+    directory: "${p.relative(androidPackageDir, from: rootDir.path)}"
+    schedule:
+      interval: "weekly"
+''');
 
     final appFacingAndroidTestDir =
-        Directory(p.join(package.path, 'android', 'src', 'test'));
+        Directory(p.join(appFacingAndroidPackageDir.path, 'src', 'test'));
     final platformAndroidPackageTestDir = Directory(
-      p.join('${package.path}_android', 'android', 'src', 'test'),
+      p.join(platformAndroidPackageDir.path, 'src', 'test'),
     ); // federated _android package
     final androidExampleDir = Directory(
       p.join(package.path, 'example', 'android'),
@@ -228,10 +275,11 @@ jobs:
         (appFacingPackageAndroidTestsDirExists ||
             platformPackageAndroidTestDirExists);
 
-    if (package.flavor != PackageFlavor.flutter || !hasAndroidTests) {
+    if (!hasAndroidTests) {
       return;
     }
 
+    const androidWorkflow = 'flutter_android.yaml';
     final androidWorkflowFilepath = p.join(
       rootDir.path,
       '.github',
