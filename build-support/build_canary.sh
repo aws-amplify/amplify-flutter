@@ -16,8 +16,7 @@ flutter pub add amplify_flutter \
   amplify_authenticator \
   amplify_api
 # add test packages
-flutter pub add dev:integration_test:'{"sdk":"flutter"}' dev:flutter_test:'{"sdk":"flutter"}'
-flutter pub upgrade --major-versions
+flutter pub add --dev --sdk=flutter integration_test
 
 # copy template files to newly generated app
 cp -r $ROOT_DIR/canaries/lib .
