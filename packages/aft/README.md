@@ -31,8 +31,6 @@ When developing `aft`, some commands will require the `libgit2` library for inte
 $ brew install libgit2
 ```
 
-> Note: If you encounter a dependency error after install for libgit2dart, run `git submodule update --init`.
-
 ```sh
 # Linux
 $ sudo apt-get install libgit2-dev
@@ -45,19 +43,23 @@ $ dart pub global activate -spath packages/aft
 $ aft --help
 ```
 
-Make sure the Dart pub cache is in your PATH to run `aft` as a global executable after activating. See [here](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) for more information.
+> Note: If you encounter a dependency error for libgit2dart, run `git submodule update --init`.
 
+Make sure the Dart pub cache is in your PATH to run `aft` as a global executable after activating. See [here](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path) for more information.
 
 ### Writing Scripts
 
 `aft` supports running named scripts using the `aft run` command. Scripts are defined in the `scripts` section of the `aft.yaml` and consist of two parts:
+
 - `from`: defines where the script will run
 - `run`: defines the script which will run
 
 #### Package Selectors
-The `from` option specifies a package selector which is a way to describe which packages (or more specifically, package paths) a script will run from. 
+
+The `from` option specifies a package selector which is a way to describe which packages (or more specifically, package paths) a script will run from.
 
 Selectors can be:
+
 - A built-in selector:
   - `all`: All packages in the repo
   - `example`: Example apps
@@ -67,10 +69,10 @@ Selectors can be:
   - `current`: Selects the current directory
   - `dart`: All Dart packages
   - `flutter`: All Flutter packages
- - A **String** which is not a built-in selector:
-   - A package name (e.g. `amplify_flutter`)
-   - A component name (e.g. `Amplify Dart`)
-   - A glob which is matched against the package name and path (e.g. `*auth*`)
+- A **String** which is not a built-in selector:
+  - A package name (e.g. `amplify_flutter`)
+  - A component name (e.g. `Amplify Dart`)
+  - A glob which is matched against the package name and path (e.g. `*auth*`)
 - A **List** of selectors which get OR'd together.
 - A **Map** which has keys for one of:
   - `include`/`exclude`: Explicitly includes/excludes a package selector
@@ -80,6 +82,7 @@ Selectors can be:
 Some examples:
 
 To select a specific set of packages:
+
 ```yaml
 from:
   - amplify_auth_cognito
@@ -88,6 +91,7 @@ from:
 ```
 
 To select all but a few packages:
+
 ```yaml
 from:
   exclude:
@@ -103,6 +107,7 @@ from:
 ```
 
 To select all Flutter example packages:
+
 ```yaml
 from:
   and:
