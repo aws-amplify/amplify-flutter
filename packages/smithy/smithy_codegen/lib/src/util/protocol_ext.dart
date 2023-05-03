@@ -20,33 +20,25 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
   bool supportsTrait(ShapeId traitId) => traits.contains(traitId);
 
   /// The protocol class which can be instantiated.
-  Reference get instantiableProtocolSymbol {
-    switch (runtimeType) {
-      case GenericJsonProtocolDefinitionTrait:
-        return DartTypes.smithy.genericJsonProtocol;
-      case AwsJson1_0Trait:
-        return DartTypes.smithyAws.awsJson1_0Protocol;
-      case AwsJson1_1Trait:
-        return DartTypes.smithyAws.awsJson1_1Protocol;
-      case RestJson1Trait:
-        return DartTypes.smithyAws.restJson1Protocol;
-      case RestXmlTrait:
-        return DartTypes.smithyAws.restXmlProtocol;
-      case AwsQueryTrait:
-        return DartTypes.smithyAws.awsQueryProtocol;
-      default:
-        throw UnsupportedError(
-          'No protocol found for $runtimeType ($shapeId).',
-        );
-    }
-  }
+  Reference get instantiableProtocolSymbol => switch (this) {
+        GenericJsonProtocolDefinitionTrait _ =>
+          DartTypes.smithy.genericJsonProtocol,
+        AwsJson1_0Trait _ => DartTypes.smithyAws.awsJson1_0Protocol,
+        AwsJson1_1Trait _ => DartTypes.smithyAws.awsJson1_1Protocol,
+        RestJson1Trait _ => DartTypes.smithyAws.restJson1Protocol,
+        RestXmlTrait _ => DartTypes.smithyAws.restXmlProtocol,
+        AwsQueryTrait _ => DartTypes.smithyAws.awsQueryProtocol,
+        _ => throw UnsupportedError(
+            'No protocol found for $runtimeType ($shapeId)',
+          ),
+      };
 
   /// Returns the structure generator for this protocol.
   StructureSerializerGenerator structureGenerator(
     StructureShape shape,
     CodegenContext context,
   ) {
-    if (this is RestXmlTrait || this is AwsQueryTrait) {
+    if (this case RestXmlTrait _ || AwsQueryTrait _) {
       return StructureXmlSerializerGenerator(
         shape,
         context,
@@ -62,21 +54,16 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     );
   }
 
-  SerializerConfig get serializerConfig {
-    switch (runtimeType) {
-      case GenericJsonProtocolDefinitionTrait:
-        return const SerializerConfig.genericJson();
-      case AwsJson1_0Trait:
-      case AwsJson1_1Trait:
-        return const SerializerConfig.awsJson();
-      case RestJson1Trait:
-        return const SerializerConfig.restJson1();
-      case AwsQueryTrait:
-        return const SerializerConfig.awsQuery();
-      default:
-        return const SerializerConfig();
-    }
-  }
+  SerializerConfig get serializerConfig => switch (this) {
+        GenericJsonProtocolDefinitionTrait _ =>
+          const SerializerConfig.genericJson(),
+        AwsJson1_0Trait _ ||
+        AwsJson1_1Trait _ =>
+          const SerializerConfig.awsJson(),
+        RestJson1Trait _ => const SerializerConfig.restJson1(),
+        AwsQueryTrait _ => const SerializerConfig.awsQuery(),
+        _ => const SerializerConfig(),
+      };
 
   Expression serializers(CodegenContext context) {
     final additionalSerializers = <Expression>[];
@@ -122,9 +109,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
       yield DartTypes.smithy.withContentLength.constInstance([]);
     }
 
-    switch (runtimeType) {
-      case AwsJson1_0Trait:
-      case AwsJson1_1Trait:
+    switch (this) {
+      case AwsJson1_0Trait _ || AwsJson1_1Trait _:
         yield DartTypes.smithy.withHeader.constInstance([
           literalString('X-Amz-Target'),
 
@@ -140,7 +126,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           ].join('.'))
         ]);
         break;
-      case RestJson1Trait:
+      case RestJson1Trait _:
         // Empty payloads should not contain `Content-Length` and `Content-Type`
         // headers.
         if (inputShape.payloadMembers(context).isEmpty) {
@@ -154,14 +140,13 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           ];
         }
         break;
-      case RestXmlTrait:
-      case AwsQueryTrait:
+      case RestXmlTrait _ || AwsQueryTrait _:
       default:
     }
 
     // https://awslabs.github.io/smithy/1.0/spec/core/auth-traits.html#optionalauth-trait
     final authTrait = shape.getTrait<AuthTrait>();
-    final bool isOptionalAuth = shape.hasTrait<OptionalAuthTrait>() ||
+    final isOptionalAuth = shape.hasTrait<OptionalAuthTrait>() ||
         (authTrait != null && authTrait.values.isEmpty);
 
     // SigV4
@@ -236,15 +221,14 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
       final operationName = shape.shapeId.shape;
       switch (trait.sdkId) {
         case 'S3':
-          if (operationName == 'GetObject') {
-            yield DartTypes.smithyAws.checkPartialResponse.constInstance([]);
-          }
-          // These S3 operations require checking for errors on 2xx responses:
-          // https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
-          if (operationName == 'CopyObject' ||
-              operationName == 'CompleteMultipartUpload' ||
-              operationName == 'UploadPartCopy') {
-            yield DartTypes.smithyAws.checkErrorOnSuccess.constInstance([]);
+          switch (operationName) {
+            case 'GetObject':
+              yield DartTypes.smithyAws.checkPartialResponse.constInstance([]);
+
+            // These S3 operations require checking for errors on 2xx responses:
+            // https://aws.amazon.com/premiumsupport/knowledge-center/s3-resolve-200-internalerror/
+            case 'CopyObject' || 'CompleteMultipartUpload' || 'UploadPartCopy':
+              yield DartTypes.smithyAws.checkErrorOnSuccess.constInstance([]);
           }
       }
     }
@@ -257,9 +241,8 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     final inputShape = shape.inputShape(context);
     final inputPayload = inputShape.httpPayload(context);
     final parameters = <String, Expression>{};
-    switch (runtimeType) {
-      case RestJson1Trait:
-      case RestXmlTrait:
+    switch (this) {
+      case RestJson1Trait _ || RestXmlTrait _:
         String? mediaType;
         final payloadShape = inputPayload.member;
         if (payloadShape != null) {
@@ -271,7 +254,6 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         if (mediaType != null) {
           parameters['mediaType'] = literalString(mediaType);
         }
-        break;
     }
 
     final this_ = this;
@@ -304,28 +286,26 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     return parameters;
   }
 
-  RouteConfiguration get routeConfiguration {
-    switch (runtimeType) {
-      case RestJson1Trait:
-      case RestXmlTrait:
-      case GenericJsonProtocolDefinitionTrait:
-        return RouteConfiguration.rest;
-      case AwsJson1_0Trait:
-      case AwsJson1_1Trait:
-      case AwsQueryTrait:
-        return RouteConfiguration.rpc;
-    }
-    throw StateError('Unknown type: $runtimeType');
-  }
+  RouteConfiguration get routeConfiguration => switch (this) {
+        RestJson1Trait _ ||
+        RestXmlTrait _ ||
+        GenericJsonProtocolDefinitionTrait _ =>
+          RouteConfiguration.rest,
+        AwsJson1_0Trait _ ||
+        AwsJson1_1Trait _ ||
+        AwsQueryTrait _ =>
+          RouteConfiguration.rpc,
+        _ => throw StateError('Unknown type: $runtimeType'),
+      };
 
   Expression? addErrorTo(
     Expression headersMap,
     HttpErrorTraits error,
   ) {
-    switch (runtimeType) {
-      case RestJson1Trait:
-      case RestXmlTrait:
-      case GenericJsonProtocolDefinitionTrait:
+    switch (this) {
+      case RestJson1Trait _ ||
+            RestXmlTrait _ ||
+            GenericJsonProtocolDefinitionTrait _:
         return headersMap.index(literalString('X-Amzn-Errortype')).assign(
               literalString(error.shapeId.shape),
             );

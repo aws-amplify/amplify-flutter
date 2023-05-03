@@ -56,13 +56,11 @@ class SmithyVersionSerializer implements PrimitiveSerializer<SmithyVersion> {
     SmithyVersion object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    switch (object) {
-      case SmithyVersion.v1:
-        return '1.0';
-      case SmithyVersion.v2:
-        return '2.0';
-    }
-    throw ArgumentError('Unknown Smithy version: $object');
+    return switch (object) {
+      SmithyVersion.v1 => '1.0',
+      SmithyVersion.v2 => '2.0',
+      _ => throw ArgumentError('Unknown Smithy version: $object'),
+    };
   }
 }
 
