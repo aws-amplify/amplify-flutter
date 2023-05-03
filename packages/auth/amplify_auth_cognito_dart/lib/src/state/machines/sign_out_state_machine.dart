@@ -10,7 +10,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.sign_out_state_machine}
 /// Manages signing out a user and clearing credentials from the local store.
 /// {@endtemplate}
-class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
+final class SignOutStateMachine
+    extends AuthStateMachine<SignOutEvent, SignOutState> {
   /// {@macro amplify_auth_cognito.sign_out_state_machine}
   SignOutStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 

@@ -32,7 +32,8 @@ import 'package:meta/meta.dart';
 /// the same pattern of calling `cognitoIdp.InitiateAuth` plus some number of
 /// challenge responses.
 /// {@endtemplate}
-class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
+final class SignInStateMachine
+    extends AuthStateMachine<SignInEvent, SignInState> {
   /// {@macro amplify_auth_cognito.sign_in_state_machine}
   SignInStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 

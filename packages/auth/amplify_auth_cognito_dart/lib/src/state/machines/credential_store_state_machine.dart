@@ -21,7 +21,7 @@ import 'package:meta/meta.dart';
 /// {@template amplify_auth_cognito.credential_store_state_machine}
 /// Manages the loading and storing of auth configuration data.
 /// {@endtemplate}
-class CredentialStoreStateMachine
+final class CredentialStoreStateMachine
     extends AuthStateMachine<CredentialStoreEvent, CredentialStoreState> {
   /// {@macro amplify_auth_cognito.credential_store_state_machine}
   CredentialStoreStateMachine(CognitoAuthStateMachine manager)

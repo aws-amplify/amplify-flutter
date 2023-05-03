@@ -16,7 +16,7 @@ import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 /// {@template amplify_auth_cognito.hosted_ui_state_machine}
 /// Manages the Hosted UI lifecycle and OIDC flow.
 /// {@endtemplate}
-class HostedUiStateMachine
+final class HostedUiStateMachine
     extends AuthStateMachine<HostedUiEvent, HostedUiState> {
   /// {@macro amplify_auth_cognito.hosted_ui_state_machine}
   HostedUiStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
