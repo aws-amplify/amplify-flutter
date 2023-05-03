@@ -12,7 +12,10 @@ runs:
       shell: bash
       run: |
         xcrun simctl list runtimes -j
-        xcversion simulators --verbose
+
+        # Use xcodes (https://github.com/XcodesOrg/xcodes) to list runtimes for all Xcode versions
+        brew install xcodesorg/made/xcodes
+        xcodes runtimes
 
     - name: Create Simulator
       shell: bash
@@ -22,7 +25,7 @@ runs:
         }
         if [[ -z "$(get_runtime)" ]]; then
           echo "No runtime found for iOS ${{ inputs.ios-version }}" >&2
-          xcversion simulators --install='iOS ${{ inputs.ios-version }}' --verbose
+          sudo xcodes runtimes install 'iOS ${{ inputs.ios-version }}'
         fi
         xcrun simctl create test "iPhone 11" "$(get_runtime)"
         xcrun simctl boot test
