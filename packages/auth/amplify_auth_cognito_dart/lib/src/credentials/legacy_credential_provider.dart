@@ -7,7 +7,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito_dart.legacy_credential_provider}
 /// Provides methods to fetch and delete legacy credentials if they exist.
 /// {@endtemplate}
-abstract class LegacyCredentialProvider {
+abstract interface class LegacyCredentialProvider {
   /// {@macro amplify_auth_cognito_dart.legacy_credential_provider}
   const LegacyCredentialProvider();
 
