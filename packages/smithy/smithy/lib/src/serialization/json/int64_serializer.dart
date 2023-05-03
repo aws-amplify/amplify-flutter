@@ -6,19 +6,21 @@ import 'package:fixnum/fixnum.dart';
 
 enum _Int64Format { number, string }
 
-enum Int64Serializer implements PrimitiveSerializer<Int64> {
-  asNum._(_Int64Format.number),
-  asString._(_Int64Format.string);
-
+// TODO(dnys1): Remove when doing so wouldn't crash DDC
+// ignore: use_enums
+class Int64Serializer implements PrimitiveSerializer<Int64> {
   const Int64Serializer._(this._format);
 
   final _Int64Format _format;
 
-  @override
-  final Iterable<Type> types = const [Int64];
+  static const asNum = Int64Serializer._(_Int64Format.number);
+  static const asString = Int64Serializer._(_Int64Format.string);
 
   @override
-  final String wireName = 'Long';
+  Iterable<Type> get types => const [Int64];
+
+  @override
+  String get wireName => 'Long';
 
   @override
   Object serialize(
@@ -26,10 +28,12 @@ enum Int64Serializer implements PrimitiveSerializer<Int64> {
     Int64 int64, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return switch (_format) {
-      _Int64Format.number => int64.toInt(),
-      _Int64Format.string => int64.toString(),
-    };
+    switch (_format) {
+      case _Int64Format.number:
+        return int64.toInt();
+      case _Int64Format.string:
+        return int64.toString();
+    }
   }
 
   @override
@@ -38,9 +42,11 @@ enum Int64Serializer implements PrimitiveSerializer<Int64> {
     Object? serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return switch (_format) {
-      _Int64Format.number => Int64((serialized as num).toInt()),
-      _Int64Format.string => Int64.parseInt(serialized as String),
-    };
+    switch (_format) {
+      case _Int64Format.number:
+        return Int64((serialized as num).toInt());
+      case _Int64Format.string:
+        return Int64.parseInt(serialized as String);
+    }
   }
 }
