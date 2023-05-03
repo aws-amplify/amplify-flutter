@@ -58,6 +58,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -105,6 +108,9 @@ jobs:
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -142,6 +148,9 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -228,6 +237,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
 
+      - name: Pub Upgrade
+        run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
+
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
         with:
@@ -269,6 +281,9 @@ jobs:
 
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
+
+      - name: Pub Upgrade
+        run: dart pub global run aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
