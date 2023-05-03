@@ -35,7 +35,7 @@ class AwsQueryProtocol<InputPayload, Input, OutputPayload, Output>
     this.awsQueryErrors = const [],
     List<HttpRequestInterceptor> requestInterceptors = const [],
     List<HttpResponseInterceptor> responseInterceptors = const [],
-    List<SmithySerializer> serializers = const [],
+    List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   }) : super(
           _coreSerializers,

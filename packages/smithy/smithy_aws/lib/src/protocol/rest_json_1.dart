@@ -7,8 +7,7 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_aws/src/protocol/aws_http_protocol.dart';
-
-import 'aws_json_error_protocol.dart';
+import 'package:smithy_aws/src/protocol/aws_json_error_protocol.dart';
 
 class RestJson1Protocol<InputPayload, Input, OutputPayload, Output>
     extends AWSHttpProtocol<InputPayload, Input, OutputPayload, Output>
@@ -17,7 +16,7 @@ class RestJson1Protocol<InputPayload, Input, OutputPayload, Output>
     this.mediaType,
     List<HttpRequestInterceptor> requestInterceptors = const [],
     List<HttpResponseInterceptor> responseInterceptors = const [],
-    List<SmithySerializer> serializers = const [],
+    List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
   }) : super(
           _coreSerializers,

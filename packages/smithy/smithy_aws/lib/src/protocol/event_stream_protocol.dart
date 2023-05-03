@@ -5,7 +5,7 @@ import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
 
-import 'aws_http_protocol.dart';
+import 'package:smithy_aws/src/protocol/aws_http_protocol.dart';
 
 class EventStreamProtocol<InputPayload, Input, OutputPayload, Output>
     implements AWSHttpProtocol<InputPayload, Input, OutputPayload, Output> {
