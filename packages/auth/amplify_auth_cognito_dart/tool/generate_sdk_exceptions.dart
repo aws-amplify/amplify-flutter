@@ -181,7 +181,7 @@ class $shapeName extends core.AuthServiceException {
 @internal
 Object transformSdkException(Object e) {
   if (e is! SmithyException) {
-    return e;
+    return e is Exception ? core.AuthException.fromException(e) : e;
   }
   final message = e.message ?? e.toString();
   final shapeId = e.shapeId;
