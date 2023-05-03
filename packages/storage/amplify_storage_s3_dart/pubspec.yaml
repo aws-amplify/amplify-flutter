@@ -28,7 +28,7 @@ dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   build_runner: ^2.0.0
   build_verify: ^3.0.0
-  built_value_generator: 8.4.4
+  built_value_generator: ^8.4.4
   drift_dev: ^2.2.0+1
   json_serializable: 6.6.1
   mocktail: ^0.3.0
