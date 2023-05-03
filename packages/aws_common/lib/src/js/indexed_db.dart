@@ -167,6 +167,16 @@ extension PropsIDBDatabase on IDBDatabase {
       [name, js_util.jsify(params)],
     );
   }
+
+  /// Returns the object store for [storeName] in a new transaction.
+  IDBObjectStore getObjectStore(String storeName) {
+    final transaction = this.transaction(
+      storeName,
+      mode: IDBTransactionMode.readwrite,
+    );
+    final store = transaction.objectStore(storeName);
+    return store;
+  }
 }
 
 /// {@template amplify_secure_storage_dart.idb_object_store}
