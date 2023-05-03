@@ -20,8 +20,11 @@ class XmlNumSerializer extends PrimitiveSmithySerializer<num> {
   Iterable<Type> get types => [int, double];
 
   @override
-  num deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  num deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (serialized is num) {
       return serialized;
     }
@@ -43,8 +46,11 @@ class XmlNumSerializer extends PrimitiveSmithySerializer<num> {
   }
 
   @override
-  Object serialize(Serializers serializers, num object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    num object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (object.isNaN) {
       return nan;
     } else if (object.isInfinite) {

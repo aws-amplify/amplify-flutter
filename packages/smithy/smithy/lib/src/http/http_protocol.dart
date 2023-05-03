@@ -113,7 +113,7 @@ String sanitizeHeader(String headerValue, {bool isTimestampList = false}) {
 
       // Timestamp lists do not get escaped for some reason.
       !isTimestampList) {
-    return '"${headerValue.replaceAll('"', '\\"')}"';
+    return '"${headerValue.replaceAll('"', r'\"')}"';
   }
   return headerValue;
 }
@@ -123,9 +123,9 @@ final _gmt = RegExp(r'GMT$');
 /// Parses a list of headers separated by commas.
 List<String> parseHeader(String headerValue, {bool isTimestampList = false}) {
   final tokens = <String>[];
-  int start = 0;
-  int index = 0;
-  bool escaped = false;
+  var start = 0;
+  var index = 0;
+  var escaped = false;
   while (index < headerValue.length) {
     if (!escaped && headerValue[index] == ',') {
       final token = headerValue.substring(start, index);
@@ -140,7 +140,7 @@ List<String> parseHeader(String headerValue, {bool isTimestampList = false}) {
     } else if (!isTimestampList &&
         (headerValue[index] == ' ' || headerValue[index] == '\t')) {
       start++;
-    } else if (headerValue[index] == '\\') {
+    } else if (headerValue[index] == r'\') {
       index++;
     } else if (headerValue[index] == '"') {
       escaped = !escaped;
@@ -153,6 +153,6 @@ List<String> parseHeader(String headerValue, {bool isTimestampList = false}) {
     if (headerValue.startsWith('"') && headerValue.endsWith('"')) {
       headerValue = headerValue.substring(1, headerValue.length - 1);
     }
-    return headerValue.trim().replaceAll('\\"', '"');
+    return headerValue.trim().replaceAll(r'\"', '"');
   }).toList();
 }

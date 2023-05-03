@@ -7,7 +7,8 @@ import 'package:collection/collection.dart';
 import 'package:smithy/smithy.dart';
 import 'package:xml/xml.dart';
 
-class XmlBuiltListSerializer implements StructuredSerializer<BuiltList> {
+class XmlBuiltListSerializer
+    implements StructuredSerializer<BuiltList<Object?>> {
   const XmlBuiltListSerializer({
     this.memberName = 'member',
     this.memberNamespace,
@@ -21,24 +22,31 @@ class XmlBuiltListSerializer implements StructuredSerializer<BuiltList> {
   final XmlIndexer indexer;
 
   @override
-  Iterable<Type> get types => [BuiltList, BuiltList<dynamic>().runtimeType];
+  Iterable<Type> get types => [
+        BuiltList,
+        BuiltList<dynamic>().runtimeType,
+        BuiltList<Object?>().runtimeType,
+      ];
 
   @override
-  final String wireName = 'list';
+  String get wireName => 'list';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BuiltList builtList,
-      {FullType specifiedType = FullType.unspecified}) {
-    var isUnderspecified =
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BuiltList<Object?> builtList, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    var elementType = specifiedType.parameters.isEmpty
+    final elementType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
 
     return builtList.expandIndexed((index, Object? item) {
-      Object? value = serializers.serialize(item, specifiedType: elementType);
+      var value = serializers.serialize(item, specifiedType: elementType);
       // Nested structures are always unwrapped.
       if (value is XmlElement) {
         value = value.children;
@@ -52,23 +60,29 @@ class XmlBuiltListSerializer implements StructuredSerializer<BuiltList> {
   }
 
   @override
-  BuiltList deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    var isUnderspecified =
+  BuiltList<Object?> deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    var elementType = specifiedType.parameters.isEmpty
+    final elementType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
 
-    var result = isUnderspecified
+    final result = isUnderspecified
         ? ListBuilder<Object>()
         : serializers.newBuilder(specifiedType) as ListBuilder;
 
-    result.replace(serialized.expandIndexed<Object?>((int index, Object? item) {
-      if (index.isEven) return [];
-      return [serializers.deserialize(item, specifiedType: elementType)];
-    }));
+    // ignore: cascade_invocations
+    result.replace(
+      serialized.expandIndexed<Object?>((int index, Object? item) {
+        if (index.isEven) return [];
+        return [serializers.deserialize(item, specifiedType: elementType)];
+      }),
+    );
     return result.build();
   }
 }

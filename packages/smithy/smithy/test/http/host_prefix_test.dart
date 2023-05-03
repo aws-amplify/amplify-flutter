@@ -52,9 +52,10 @@ class TestOp1 extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest((b) {
-        b.method = 'GET';
-        b.path = '/';
-        b.hostPrefix = 'data.';
+        b
+          ..method = 'GET'
+          ..path = '/'
+          ..hostPrefix = 'data.';
       });
 
   @override
@@ -101,9 +102,10 @@ class TestOp2 extends HttpOperation<TestOp2Input, TestOp2Input, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(TestOp2Input input) => HttpRequest((b) {
-        b.method = 'GET';
-        b.path = '/';
-        b.hostPrefix = '{Bucket}-{AccountId}.';
+        b
+          ..method = 'GET'
+          ..path = '/'
+          ..hostPrefix = '{Bucket}-{AccountId}.';
       });
 
   @override

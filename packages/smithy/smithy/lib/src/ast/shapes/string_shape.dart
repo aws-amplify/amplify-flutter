@@ -15,8 +15,9 @@ abstract class StringShape
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StringShapeBuilder b) {
-    b.shapeId = id;
-    b.traits = TraitMap.empty();
+    b
+      ..shapeId = id
+      ..traits = TraitMap.empty();
   }
 
   static const id = ShapeId.core('String');
@@ -27,9 +28,10 @@ abstract class StringShape
       return null;
     }
     return StringEnumShape((b) {
-      b.shapeId = shapeId;
-      b.members = NamedMembersMap({});
-      b.traits = traits..remove(EnumTrait.id);
+      b
+        ..shapeId = shapeId
+        ..members = NamedMembersMap({})
+        ..traits = (traits..remove(EnumTrait.id));
       for (final definition in enumTrait.definitions) {
         final memberName = definition.name ?? definition.value;
         final deprecated = definition.deprecated ?? false;

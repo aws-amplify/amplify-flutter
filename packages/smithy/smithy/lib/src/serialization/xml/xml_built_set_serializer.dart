@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:smithy/smithy.dart';
 import 'package:xml/xml.dart';
 
-class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet> {
+class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet<Object?>> {
   const XmlBuiltSetSerializer({
     this.memberName = 'member',
     this.memberNamespace,
@@ -21,19 +21,26 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet> {
   final XmlIndexer indexer;
 
   @override
-  Iterable<Type> get types => [BuiltSet, BuiltSet<Object>().runtimeType];
+  Iterable<Type> get types => [
+        BuiltSet,
+        BuiltSet<dynamic>().runtimeType,
+        BuiltSet<Object?>().runtimeType,
+      ];
 
   @override
-  final String wireName = 'set';
+  String get wireName => 'set';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BuiltSet builtSet,
-      {FullType specifiedType = FullType.unspecified}) {
-    var isUnderspecified =
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    BuiltSet<Object?> builtSet, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    var elementType = specifiedType.parameters.isEmpty
+    final elementType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
 
@@ -52,18 +59,22 @@ class XmlBuiltSetSerializer implements StructuredSerializer<BuiltSet> {
   }
 
   @override
-  BuiltSet deserialize(Serializers serializers, Iterable serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    var isUnderspecified =
+  BuiltSet<Object?> deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    var elementType = specifiedType.parameters.isEmpty
+    final elementType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
-    var result = isUnderspecified
+    final result = isUnderspecified
         ? SetBuilder<Object>()
         : serializers.newBuilder(specifiedType) as SetBuilder;
 
+    // ignore: cascade_invocations
     result.replace(
       serialized.expandIndexed<Object?>((int index, Object? item) {
         if (index.isEven) return [];
