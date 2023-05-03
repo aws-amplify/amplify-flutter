@@ -121,7 +121,7 @@ jobs:
 
       - name: Run integration tests
         timeout-minutes: 30
-        run: aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
+        run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
     runs-on: ubuntu-latest
