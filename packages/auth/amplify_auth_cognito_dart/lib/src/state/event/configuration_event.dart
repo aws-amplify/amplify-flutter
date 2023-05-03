@@ -18,7 +18,7 @@ enum ConfigurationEventType {
 /// {@template amplify_auth_cognito.auth_event}
 /// Discrete events of the Auth state machine.
 /// {@endtemplate}
-abstract class ConfigurationEvent
+sealed class ConfigurationEvent
     extends AuthEvent<ConfigurationEventType, ConfigurationStateType> {
   const ConfigurationEvent._();
 
@@ -41,7 +41,7 @@ abstract class ConfigurationEvent
 /// {@template amplify_auth_cognito.configuration_event.configure}
 /// Triggers configuration of the Auth category.
 /// {@endtemplate}
-class Configure extends ConfigurationEvent {
+final class Configure extends ConfigurationEvent {
   /// {@macro amplify_auth_cognito.configuration_event.configure}
   const Configure(this.config) : super._();
 
@@ -75,7 +75,7 @@ class Configure extends ConfigurationEvent {
 /// {@template amplify_auth_cognito.configuration_event.configure_succeeded}
 /// Successful configuration of the Auth plugin.
 /// {@endtemplate}
-class ConfigureSucceeded extends ConfigurationEvent {
+final class ConfigureSucceeded extends ConfigurationEvent {
   /// {@macro amplify_auth_cognito.configuration_event.configure_succeeded}
   const ConfigureSucceeded(this.config) : super._();
 
