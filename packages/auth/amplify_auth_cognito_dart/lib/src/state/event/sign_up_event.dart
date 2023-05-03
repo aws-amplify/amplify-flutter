@@ -18,7 +18,7 @@ enum SignUpEventType {
 }
 
 /// Discrete events of the sign up flow.
-abstract class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
+sealed class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
   const SignUpEvent._();
 
   /// {@macro amplify_auth_cognito.sign_up_inititate}
@@ -48,7 +48,7 @@ abstract class SignUpEvent extends AuthEvent<SignUpEventType, SignUpStateType> {
 /// {@template amplify_auth_cognito.sign_up_inititate}
 /// Initiates the sign up flow.
 /// {@endtemplate}
-class SignUpInitiate extends SignUpEvent {
+final class SignUpInitiate extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_inititate}
   const SignUpInitiate({
     required this.parameters,
@@ -85,7 +85,7 @@ class SignUpInitiate extends SignUpEvent {
 /// {@template amplify_auth_cognito.sign_up_confirm}
 /// Confirms a sign up.
 /// {@endtemplate}
-class SignUpConfirm extends SignUpEvent {
+final class SignUpConfirm extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_confirm}
   const SignUpConfirm({
     required this.username,
@@ -118,7 +118,7 @@ class SignUpConfirm extends SignUpEvent {
 /// {@template amplify_auth_cognito.sign_up_succeeded}
 /// A successful sign up/confirm sign up event.
 /// {@endtemplate}
-class SignUpSucceeded extends SignUpEvent {
+final class SignUpSucceeded extends SignUpEvent {
   /// {@macro amplify_auth_cognito.sign_up_succeeded}
   const SignUpSucceeded({
     this.userId,

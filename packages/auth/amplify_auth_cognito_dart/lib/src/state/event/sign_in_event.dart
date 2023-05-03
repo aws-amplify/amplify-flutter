@@ -26,7 +26,7 @@ enum SignInEventType {
 /// {@template amplify_auth_cognito.sign_in_event}
 /// Discrete events of an auth flow state machine.
 /// {@endtemplate}
-abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
+sealed class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
   /// {@macro amplify_auth_cognito.sign_in_event}
   const SignInEvent._();
 
@@ -63,7 +63,7 @@ abstract class SignInEvent extends AuthEvent<SignInEventType, SignInStateType> {
 /// {@template amplify_auth_cognito.sign_in_initiate}
 /// Initiates the auth flow.
 /// {@endtemplate}
-class SignInInitiate extends SignInEvent {
+final class SignInInitiate extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_initiate}
   const SignInInitiate({
     this.authFlowType,
@@ -97,7 +97,7 @@ class SignInInitiate extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_respond_to_challenge}
 /// Responds to an auth challenge.
 /// {@endtemplate}
-class SignInRespondToChallenge extends SignInEvent {
+final class SignInRespondToChallenge extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_respond_to_challenge}
   const SignInRespondToChallenge({
     required this.answer,
@@ -165,7 +165,7 @@ class SignInRespondToChallenge extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_cancelled}
 /// Cancels the auth flow.
 /// {@endtemplate}
-class SignInCancelled extends SignInEvent {
+final class SignInCancelled extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_cancelled}
   const SignInCancelled() : super._();
 
@@ -184,7 +184,7 @@ class SignInCancelled extends SignInEvent {
 /// {@template amplify_auth_cognito.sign_in_succeeded}
 /// Successful auth flow completion.
 /// {@endtemplate}
-class SignInSucceeded extends SignInEvent {
+final class SignInSucceeded extends SignInEvent {
   /// {@macro amplify_auth_cognito.sign_in_succeeded}
   const SignInSucceeded(this.user) : super._();
 

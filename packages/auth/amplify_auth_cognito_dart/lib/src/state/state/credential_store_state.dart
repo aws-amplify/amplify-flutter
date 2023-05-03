@@ -32,8 +32,7 @@ enum CredentialStoreStateType {
 }
 
 /// Discrete states of the credential store state machine.
-abstract class CredentialStoreState
-    extends AuthState<CredentialStoreStateType> {
+sealed class CredentialStoreState extends AuthState<CredentialStoreStateType> {
   const CredentialStoreState._();
 
   /// {@macro amplify_auth_cognito.credential_store_not_configured}
@@ -73,7 +72,7 @@ abstract class CredentialStoreState
 /// {@template amplify_auth_cognito.credential_store_not_configured}
 /// The credential store has not yet been configured.
 /// {@endtemplate}
-class CredentialStoreNotConfigured extends CredentialStoreState {
+final class CredentialStoreNotConfigured extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_not_configured}
   const CredentialStoreNotConfigured() : super._();
 
@@ -87,7 +86,7 @@ class CredentialStoreNotConfigured extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_migrating_legacy_store}
 /// Credentials are being migrated from the V1 credential store.
 /// {@endtemplate}
-class CredentialStoreMigratingLegacyStore extends CredentialStoreState {
+final class CredentialStoreMigratingLegacyStore extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_migrating_legacy_store}
   const CredentialStoreMigratingLegacyStore() : super._();
 
@@ -102,7 +101,8 @@ class CredentialStoreMigratingLegacyStore extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_loading_stored_credentials}
 /// Credentials are being loading from the credential store.
 /// {@endtemplate}
-class CredentialStoreLoadingStoredCredentials extends CredentialStoreState {
+final class CredentialStoreLoadingStoredCredentials
+    extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_loading_stored_credentials}
   const CredentialStoreLoadingStoredCredentials() : super._();
 
@@ -117,7 +117,7 @@ class CredentialStoreLoadingStoredCredentials extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_storing_credentials}
 /// Credentials are being written to the credential store.
 /// {@endtemplate}
-class CredentialStoreStoringCredentials extends CredentialStoreState {
+final class CredentialStoreStoringCredentials extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_storing_credentials}
   const CredentialStoreStoringCredentials() : super._();
 
@@ -132,7 +132,7 @@ class CredentialStoreStoringCredentials extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_clearing_credentials}
 /// Credentials are being cleared from the credential store.
 /// {@endtemplate}
-class CredentialStoreClearingCredentials extends CredentialStoreState {
+final class CredentialStoreClearingCredentials extends CredentialStoreState {
   /// {@macro amplify_auth_cognito.credential_store_clearing_credentials}
   const CredentialStoreClearingCredentials() : super._();
 
@@ -147,7 +147,8 @@ class CredentialStoreClearingCredentials extends CredentialStoreState {
 /// {@template amplify_auth_cognito.credential_store_success}
 /// A successful result to a requested save/load of credentials.
 /// {@endtemplate}
-class CredentialStoreSuccess extends CredentialStoreState with SuccessState {
+final class CredentialStoreSuccess extends CredentialStoreState
+    with SuccessState {
   /// {@macro amplify_auth_cognito.credential_store_success}
   const CredentialStoreSuccess(this.data) : super._();
 
@@ -167,7 +168,8 @@ class CredentialStoreSuccess extends CredentialStoreState with SuccessState {
 /// {@template amplify_auth_cognito.credential_store_failure}
 /// A failure saving/loading data from the credential store.
 /// {@endtemplate}
-class CredentialStoreFailure extends CredentialStoreState with ErrorState {
+final class CredentialStoreFailure extends CredentialStoreState
+    with ErrorState {
   /// {@macro amplify_auth_cognito.credential_store_failure}
   const CredentialStoreFailure(this.exception, this.stackTrace) : super._();
 
