@@ -18,7 +18,7 @@ class RestXmlProtocol<InputPayload, Input, OutputPayload, Output>
     this.mediaType,
     List<HttpRequestInterceptor> requestInterceptors = const [],
     List<HttpResponseInterceptor> responseInterceptors = const [],
-    List<SmithySerializer> serializers = const [],
+    List<SmithySerializer<dynamic>> serializers = const [],
     Map<FullType, Function> builderFactories = const {},
     this.noErrorWrapping = false,
   }) : super(

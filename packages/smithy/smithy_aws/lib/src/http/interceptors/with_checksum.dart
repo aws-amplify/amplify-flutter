@@ -69,7 +69,8 @@ class WithChecksum extends HttpRequestInterceptor {
       };
 
   static Converter<List<int>, String> _converterForAlgorithm(
-          String algorithm) =>
+    String algorithm,
+  ) =>
       switch (algorithm) {
         'CRC32C' => Crc32C().fuse(const _CrcValueToHeaderConverter()),
         'CRC32' => Crc32().fuse(const _CrcValueToHeaderConverter()),
