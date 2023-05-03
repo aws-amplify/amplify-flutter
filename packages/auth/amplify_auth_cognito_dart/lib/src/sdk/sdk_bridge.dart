@@ -18,25 +18,22 @@ import 'package:smithy/smithy.dart';
 /// Bridging helpers for [ChallengeNameType].
 extension ChallengeNameTypeBridge on ChallengeNameType {
   /// The sign in step corresponding to this challenge.
-  AuthSignInStep get signInStep {
-    switch (this) {
-      case ChallengeNameType.customChallenge:
-        return AuthSignInStep.confirmSignInWithCustomChallenge;
-      case ChallengeNameType.newPasswordRequired:
-        return AuthSignInStep.confirmSignInWithNewPassword;
-      case ChallengeNameType.smsMfa:
-        return AuthSignInStep.confirmSignInWithSmsMfaCode;
-      case ChallengeNameType.adminNoSrpAuth:
-      case ChallengeNameType.selectMfaType:
-      case ChallengeNameType.passwordVerifier:
-      case ChallengeNameType.devicePasswordVerifier:
-      case ChallengeNameType.deviceSrpAuth:
-      case ChallengeNameType.mfaSetup:
-      case ChallengeNameType.softwareTokenMfa:
-        break;
-    }
-    throw InvalidStateException('Unrecognized challenge type: $this');
-  }
+  AuthSignInStep get signInStep => switch (this) {
+        ChallengeNameType.customChallenge =>
+          AuthSignInStep.confirmSignInWithCustomChallenge,
+        ChallengeNameType.newPasswordRequired =>
+          AuthSignInStep.confirmSignInWithNewPassword,
+        ChallengeNameType.smsMfa => AuthSignInStep.confirmSignInWithSmsMfaCode,
+        ChallengeNameType.adminNoSrpAuth ||
+        ChallengeNameType.selectMfaType ||
+        ChallengeNameType.passwordVerifier ||
+        ChallengeNameType.devicePasswordVerifier ||
+        ChallengeNameType.deviceSrpAuth ||
+        ChallengeNameType.mfaSetup ||
+        ChallengeNameType.softwareTokenMfa ||
+        _ =>
+          throw InvalidStateException('Unrecognized challenge type: $this'),
+      };
 }
 
 /// Bridging helpers for [CodeDeliveryDetailsType].
@@ -58,15 +55,11 @@ extension CodeDeliveryDetailsBridge on CodeDeliveryDetailsType {
 /// Bridging helpers for [DeliveryMediumType].
 extension DeliveryMediumTypeBridge on DeliveryMediumType {
   /// The [DeliveryMedium] representation of `this`.
-  DeliveryMedium get asDeliveryMedium {
-    switch (this) {
-      case DeliveryMediumType.sms:
-        return DeliveryMedium.sms;
-      case DeliveryMediumType.email:
-        return DeliveryMedium.email;
-    }
-    throw StateError('Unknown delivery medium: $this');
-  }
+  DeliveryMedium get asDeliveryMedium => switch (this) {
+        DeliveryMediumType.sms => DeliveryMedium.sms,
+        DeliveryMediumType.email => DeliveryMedium.email,
+        _ => throw StateError('Unknown delivery medium: $this'),
+      };
 }
 
 /// Bridging helpers for [AuthUserAttribute].
@@ -93,19 +86,16 @@ extension AttributeTypeBridge on AttributeType {
 /// Bridging helpers for [AuthenticationFlowType].
 extension AuthenticationFlowTypeBridge on AuthenticationFlowType {
   /// The Cognito SDK value of `this`.
-  AuthFlowType get sdkValue {
-    switch (this) {
-      case AuthenticationFlowType.userSrpAuth:
-        return AuthFlowType.userSrpAuth;
-      // ignore: deprecated_member_use
-      case AuthenticationFlowType.customAuth:
-      case AuthenticationFlowType.customAuthWithSrp:
-      case AuthenticationFlowType.customAuthWithoutSrp:
-        return AuthFlowType.customAuth;
-      case AuthenticationFlowType.userPasswordAuth:
-        return AuthFlowType.userPasswordAuth;
-    }
-  }
+  AuthFlowType get sdkValue => switch (this) {
+        AuthenticationFlowType.userSrpAuth => AuthFlowType.userSrpAuth,
+        // ignore: deprecated_member_use
+        AuthenticationFlowType.customAuth ||
+        AuthenticationFlowType.customAuthWithSrp ||
+        AuthenticationFlowType.customAuthWithoutSrp =>
+          AuthFlowType.customAuth,
+        AuthenticationFlowType.userPasswordAuth =>
+          AuthFlowType.userPasswordAuth,
+      };
 }
 
 /// {@template amplify_auth_cognito_dart.sdk.wrapped_cognito_identity_provider_client}
