@@ -207,9 +207,9 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
   ) sync* {
     // HTTP checksum
     final checksumTrait = shape.getTrait<HttpChecksumTrait>();
-    if (shape.hasTrait<HttpChecksumRequiredTrait>() &&
-        (checksumTrait == null ||
-            checksumTrait.requestChecksumRequired != false)) {
+    if (checksumTrait
+        case == null || HttpChecksumTrait(requestChecksumRequired: null || true)
+        when shape.hasTrait<HttpChecksumRequiredTrait>()) {
       yield DartTypes.smithy.validateChecksum.constInstance([]);
     }
 
@@ -256,11 +256,10 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         }
     }
 
-    final this_ = this;
-    if (this_ is RestXmlTrait) {
-      parameters['noErrorWrapping'] = literalBool(this_.noErrorWrapping);
+    if (this case RestXmlTrait trait) {
+      parameters['noErrorWrapping'] = literalBool(trait.noErrorWrapping);
     }
-    if (this_ is AwsQueryTrait) {
+    if (this case AwsQueryTrait _) {
       // Values must be included for AWS Query
       // https://smithy.io/2.0/aws/protocols/aws-query-protocol.html#request-serialization
       parameters['action'] = literalString(shape.shapeId.shape);

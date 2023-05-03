@@ -19,42 +19,25 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 import 'config_parameter.dart';
 
 extension SimpleShapeUtil on SimpleShape {
-  Reference get typeReference {
-    switch (getType()) {
-      case ShapeType.bigDecimal:
-        throw UnimplementedError();
-      case ShapeType.bigInteger:
-        return DartTypes.core.bigInt;
-      case ShapeType.blob:
-        if (isStreaming) {
-          return DartTypes.async
-              .stream(DartTypes.core.list(DartTypes.core.int));
-        }
-        return DartTypes.typedData.uint8List;
-      case ShapeType.boolean:
-        return DartTypes.core.bool;
-      case ShapeType.byte:
-        return DartTypes.core.int;
-      case ShapeType.document:
-        return DartTypes.builtValue.jsonObject;
-      case ShapeType.double:
-        return DartTypes.core.double;
-      case ShapeType.float:
-        return DartTypes.core.double;
-      case ShapeType.integer:
-        return DartTypes.core.int;
-      case ShapeType.long:
-        return DartTypes.fixNum.int64;
-      case ShapeType.short:
-        return DartTypes.core.int;
-      case ShapeType.string:
-        return DartTypes.core.string;
-      case ShapeType.timestamp:
-        return DartTypes.core.dateTime;
-      default:
-        throw ArgumentError('Invalid simple shape: ${getType()}');
-    }
-  }
+  Reference get typeReference => switch (getType()) {
+        ShapeType.bigDecimal => throw UnimplementedError(),
+        ShapeType.bigInteger => DartTypes.core.bigInt,
+        ShapeType.blob when isStreaming =>
+          DartTypes.async.stream(DartTypes.core.list(DartTypes.core.int)),
+        ShapeType.blob when (!isStreaming) => DartTypes.typedData.uint8List,
+        ShapeType.boolean => DartTypes.core.bool,
+        ShapeType.byte => DartTypes.core.int,
+        ShapeType.document => DartTypes.builtValue.jsonObject,
+        ShapeType.double => DartTypes.core.double,
+        ShapeType.float => DartTypes.core.double,
+        ShapeType.integer => DartTypes.core.int,
+        ShapeType.long => DartTypes.fixNum.int64,
+        ShapeType.short => DartTypes.core.int,
+        ShapeType.string => DartTypes.core.string,
+        ShapeType.timestamp => DartTypes.core.dateTime,
+        ShapeType invalid =>
+          throw ArgumentError('Invalid simple shape: $invalid'),
+      };
 }
 
 extension ShapeClassName on Shape {
@@ -313,21 +296,16 @@ extension ShapeUtils on Shape {
   }
 
   /// The library type generated for this shape.
-  SmithyLibrary_LibraryType get libraryType {
-    switch (getType()) {
-      case ShapeType.service:
-        return SmithyLibrary_LibraryType.CLIENT;
-      case ShapeType.operation:
-        return SmithyLibrary_LibraryType.OPERATION;
-      case ShapeType.structure:
-      case ShapeType.union:
-        return SmithyLibrary_LibraryType.MODEL;
-      default:
-        return isEnum
-            ? SmithyLibrary_LibraryType.MODEL
-            : throw ArgumentError('Invalid shape type: ${getType()}');
-    }
-  }
+  SmithyLibrary_LibraryType get libraryType => switch (getType()) {
+        ShapeType.service => SmithyLibrary_LibraryType.CLIENT,
+        ShapeType.operation => SmithyLibrary_LibraryType.OPERATION,
+        ShapeType.structure ||
+        ShapeType.union =>
+          SmithyLibrary_LibraryType.MODEL,
+        ShapeType _ when isEnum => SmithyLibrary_LibraryType.MODEL,
+        ShapeType invalid =>
+          throw ArgumentError('Invalid shape type: $invalid'),
+      };
 
   /// The smithy library for this shape.
   SmithyLibrary smithyLibrary(CodegenContext context) {
