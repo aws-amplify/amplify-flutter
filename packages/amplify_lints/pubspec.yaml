@@ -10,4 +10,4 @@ environment:
 
 dependencies:
   flutter_lints: ^2.0.0
-  lints: ^2.0.0
+  lints: ^2.1.0
