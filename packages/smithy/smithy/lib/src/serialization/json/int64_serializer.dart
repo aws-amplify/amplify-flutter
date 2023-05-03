@@ -23,22 +23,18 @@ class Int64Serializer implements PrimitiveSerializer<Int64> {
   @override
   Object serialize(Serializers serializers, Int64 int64,
       {FullType specifiedType = FullType.unspecified}) {
-    switch (_format) {
-      case _Int64Format.number:
-        return int64.toInt();
-      case _Int64Format.string:
-        return int64.toString();
-    }
+    return switch (_format) {
+      _Int64Format.number => int64.toInt(),
+      _Int64Format.string => int64.toString(),
+    };
   }
 
   @override
   Int64 deserialize(Serializers serializers, Object? serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    switch (_format) {
-      case _Int64Format.number:
-        return Int64((serialized as num).toInt());
-      case _Int64Format.string:
-        return Int64.parseInt(serialized as String);
-    }
+    return switch (_format) {
+      _Int64Format.number => Int64((serialized as num).toInt()),
+      _Int64Format.string => Int64.parseInt(serialized as String),
+    };
   }
 }

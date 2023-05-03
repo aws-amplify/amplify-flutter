@@ -61,16 +61,11 @@ class Segment with AWSEquatable<Segment> {
   @override
   List<Object> get props => [content, type];
 
-  String get asString {
-    switch (type) {
-      case SegmentType.literal:
-        return content;
-      case SegmentType.label:
-        return '{$content}';
-      case SegmentType.greedyLabel:
-        return '{$content+}';
-    }
-  }
+  String get asString => switch (type) {
+        SegmentType.literal => content,
+        SegmentType.label => '{$content}',
+        SegmentType.greedyLabel => '{$content+}',
+      };
 
   bool get isLabel => type != SegmentType.literal;
 

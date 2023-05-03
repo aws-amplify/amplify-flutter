@@ -48,21 +48,20 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
   @override
   Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
     final Object? payload = input is HasPayload ? input.getPayload() : input;
-    if (payload is String) {
-      return Stream.value(utf8.encode(payload));
-    } else if (payload is List<int>) {
-      return Stream.value(payload);
-    } else if (payload is Stream<List<int>>) {
-      return payload;
-    } else {
-      specifiedType ??= FullType(Input, [FullType(InputPayload)]);
-      return Stream.fromFuture(() async {
-        return await wireSerializer.serialize(
-          input,
-          specifiedType: specifiedType,
-        );
-      }());
-    }
+    return switch (payload) {
+      String _ => Stream.value(utf8.encode(payload)),
+      List<int> _ => Stream.value(payload),
+      Stream<List<int>> _ => payload,
+      _ => Stream.fromFuture(
+          Future.value(
+            wireSerializer.serialize(
+              input,
+              specifiedType:
+                  specifiedType ?? FullType(Input, [FullType(InputPayload)]),
+            ),
+          ),
+        ),
+    };
   }
 
   @override
@@ -102,7 +101,7 @@ mixin HasLabel {
   String labelFor(String key);
 }
 
-abstract class HasPayload<Payload> {
+abstract interface class HasPayload<Payload> {
   Payload? getPayload();
 }
 

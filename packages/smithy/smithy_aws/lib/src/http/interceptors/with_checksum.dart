@@ -59,34 +59,24 @@ class WithChecksum extends HttpRequestInterceptor {
   final String _algorithm;
 
   // https://awslabs.github.io/smithy/2.0/aws/aws-core.html#resolving-checksum-name
-  String get _header {
-    switch (_algorithm) {
-      case 'CRC32C':
-      case 'CRC32':
-      case 'SHA1':
-      case 'SHA256':
-        return 'x-amz-checksum-${_algorithm.toLowerCase()}';
-      case 'MD5':
-      default:
-        return 'Content-MD5';
-    }
-  }
+  String get _header => switch (_algorithm) {
+        'CRC32C' ||
+        'CRC32' ||
+        'SHA1' ||
+        'SHA256' =>
+          'x-amz-checksum-${_algorithm.toLowerCase()}',
+        'MD5' || _ => 'Content-MD5',
+      };
 
-  static Converter<List<int>, String> _converterForAlgorithm(String algorithm) {
-    switch (algorithm) {
-      case 'CRC32C':
-        return Crc32C().fuse(const _CrcValueToHeaderConverter());
-      case 'CRC32':
-        return Crc32().fuse(const _CrcValueToHeaderConverter());
-      case 'SHA1':
-        return sha1.fuse(const _DigestToHeaderConverter());
-      case 'SHA256':
-        return sha256.fuse(const _DigestToHeaderConverter());
-      case 'MD5':
-      default:
-        return md5.fuse(const _DigestToHeaderConverter());
-    }
-  }
+  static Converter<List<int>, String> _converterForAlgorithm(
+          String algorithm) =>
+      switch (algorithm) {
+        'CRC32C' => Crc32C().fuse(const _CrcValueToHeaderConverter()),
+        'CRC32' => Crc32().fuse(const _CrcValueToHeaderConverter()),
+        'SHA1' => sha1.fuse(const _DigestToHeaderConverter()),
+        'SHA256' => sha256.fuse(const _DigestToHeaderConverter()),
+        'MD5' || _ => md5.fuse(const _DigestToHeaderConverter()),
+      };
 
   @override
   Future<AWSBaseHttpRequest> intercept(

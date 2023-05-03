@@ -36,18 +36,15 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   static String expandLabels(String template, HasLabel input) {
     final pattern = UriPattern.parse(template);
     return pattern.segments.map((segment) {
-      switch (segment.type) {
-        case SegmentType.literal:
-          return segment.content;
-        case SegmentType.label:
-          return _escapeLabel(input.labelFor(segment.content));
-        case SegmentType.greedyLabel:
-          return input
-              .labelFor(segment.content)
-              .split('/')
-              .map(_escapeLabel)
-              .join('/');
-      }
+      return switch (segment.type) {
+        SegmentType.literal => segment.content,
+        SegmentType.label => _escapeLabel(input.labelFor(segment.content)),
+        SegmentType.greedyLabel => input
+            .labelFor(segment.content)
+            .split('/')
+            .map(_escapeLabel)
+            .join('/'),
+      };
     }).join('/');
   }
 
@@ -277,11 +274,10 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         response.split(),
         specifiedType: FullType(OutputPayload),
       );
-      if (payload is Output) {
-        output = payload;
-      } else {
-        output = buildOutput(payload, response);
-      }
+      output = switch (payload) {
+        Output _ => payload,
+        _ => buildOutput(payload, response),
+      };
       successCode = this.successCode(output);
     } on Object catch (e, st) {
       error = e;
