@@ -34,10 +34,8 @@ class CleanCommand extends AmplifyCommand {
             ..error('Could not clean ${package.path}: ')
             ..error(errors.toString());
         }
-        break;
       case PackageFlavor.dart:
         await buildDir.delete(recursive: true);
-        break;
     }
   }
 

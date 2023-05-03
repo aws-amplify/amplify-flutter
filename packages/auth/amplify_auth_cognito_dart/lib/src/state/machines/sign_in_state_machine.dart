@@ -424,7 +424,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
                 'Include a password in your call to Amplify.Auth.signIn',
           );
         }
-        break;
       case AuthenticationFlowType.customAuthWithoutSrp:
         if (password != null) {
           throw const AuthValidationException(
@@ -434,7 +433,6 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
                 'Do not include a password in your call to Amplify.Auth.signIn',
           );
         }
-        break;
       // ignore: deprecated_member_use
       case AuthenticationFlowType.customAuth:
       default:
@@ -481,12 +479,10 @@ class SignInStateMachine extends AuthStateMachine<SignInEvent, SignInState> {
         if (event is SignInRespondToChallenge) {
           return createSmsMfaRequest(event);
         }
-        break;
       case ChallengeNameType.newPasswordRequired:
         if (event is SignInRespondToChallenge) {
           return createNewPasswordRequest(event);
         }
-        break;
       default:
         break;
     }

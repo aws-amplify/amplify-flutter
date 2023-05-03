@@ -48,33 +48,26 @@ class HostedUiStateMachine
         event as HostedUiConfigure;
         emit(const HostedUiState.configuring());
         await onConfigure(event);
-        break;
       case HostedUiEventType.foundState:
         event as HostedUiFoundState;
         await onFoundState(event);
-        break;
       case HostedUiEventType.exchange:
         event as HostedUiExchange;
         emit(const HostedUiState.signingIn());
         await onExchange(event);
-        break;
       case HostedUiEventType.signIn:
         event as HostedUiSignIn;
         emit(const HostedUiState.signingIn());
         await onSignIn(event);
-        break;
       case HostedUiEventType.cancelSignIn:
         await onCancelSignIn(event.cast());
-        break;
       case HostedUiEventType.signOut:
         event as HostedUiSignOut;
         emit(const HostedUiState.signingOut());
         await onSignOut(event);
-        break;
       case HostedUiEventType.succeeded:
         event as HostedUiSucceeded;
         await onSucceeded(event);
-        break;
     }
   }
 

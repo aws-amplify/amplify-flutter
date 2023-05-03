@@ -27,7 +27,6 @@ class SignOutStateMachine extends AuthStateMachine<SignOutEvent, SignOutState> {
       case SignOutEventType.initiate:
         event as SignOutInitiate;
         await _onInitiate(event);
-        break;
     }
   }
 

@@ -94,7 +94,6 @@ Future<void> buildAndRun(Compiler compiler) async {
           return true;
         }
       });
-      break;
     case Compiler.dart2js:
       final buildProc = await processManager.spawn('webdev', [
         'build',
@@ -104,7 +103,6 @@ Future<void> buildAndRun(Compiler compiler) async {
       if (await buildProc.exitCode != 0) {
         fail('Could not build web app');
       }
-      break;
   }
 
   final mimeResolver = MimeTypeResolver();

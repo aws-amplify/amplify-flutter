@@ -63,21 +63,17 @@ class FetchAuthSessionStateMachine
         event as FetchAuthSessionFetch;
         emit(const FetchAuthSessionState.fetching());
         await onFetchAuthSession(event);
-        break;
       case FetchAuthSessionEventType.federate:
         event as FetchAuthSessionFederate;
         emit(const FetchAuthSessionState.fetching());
         await onFederate(event);
-        break;
       case FetchAuthSessionEventType.refresh:
         event as FetchAuthSessionRefresh;
         emit(const FetchAuthSessionState.refreshing());
         await onRefresh(event);
-        break;
       case FetchAuthSessionEventType.succeeded:
         event as FetchAuthSessionSucceeded;
         emit(FetchAuthSessionState.success(event.session));
-        break;
     }
   }
 
@@ -562,10 +558,8 @@ class FetchAuthSessionStateMachine
       switch (userPoolTokens.signInMethod) {
         case CognitoSignInMethod.default$:
           keys = CognitoUserPoolKeys(expect());
-          break;
         case CognitoSignInMethod.hostedUi:
           keys = HostedUiKeys(expect());
-          break;
       }
       final identityPoolConfig = _identityPoolConfig;
       await manager.clearCredentials([

@@ -5,8 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 
-final _builders = <
-    StateMachineToken,
+final _builders = <StateMachineToken,
     StateMachineBuilder<StateMachineEvent, StateMachineState,
         MyStateMachineManager>>{
   MyStateMachine.type: MyStateMachine.new,
@@ -101,10 +100,8 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
         break;
       case MyType.doWork:
         await doWork(fail: false);
-        break;
       case MyType.tryWork:
         await doWork(fail: true);
-        break;
       case MyType.delegateWork:
         await manager.delegateWork();
         emit(const MyState(MyType.success));
@@ -196,7 +193,6 @@ class WorkerMachine extends StateMachine<WorkerEvent, WorkerState,
       case WorkType.doWork:
         await Future<void>.delayed(Duration.zero);
         dispatch(const WorkerEvent(WorkType.success)).ignore();
-        break;
     }
   }
 
