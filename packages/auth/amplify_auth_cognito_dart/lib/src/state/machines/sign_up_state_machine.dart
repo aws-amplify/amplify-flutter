@@ -11,7 +11,8 @@ import 'package:amplify_core/amplify_core.dart';
 /// {@template amplify_auth_cognito.sign_up_state_machine}
 /// Manages user sign up with Cognito.
 /// {@endtemplate}
-class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
+final class SignUpStateMachine
+    extends AuthStateMachine<SignUpEvent, SignUpState> {
   /// {@macro amplify_auth_cognito.sign_up_state_machine}
   SignUpStateMachine(CognitoAuthStateMachine manager) : super(manager, type);
 
