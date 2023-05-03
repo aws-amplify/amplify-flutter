@@ -36,13 +36,12 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return (value as Any) as! T?
 }
-
 /// A pigeon for interacting with the NSUserDefaults API on iOS and macOS.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NSUserDefaultsPigeon {
-  func setBool(key: String, value: Bool, completion: @escaping (Result<Void, Error>) -> Void)
-  func boolFor(key: String, completion: @escaping (Result<Bool, Error>) -> Void)
+  func setBool(key: String, value: Bool) throws
+  func boolFor(key: String) throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -56,13 +55,11 @@ class NSUserDefaultsPigeonSetup {
         let args = message as! [Any]
         let keyArg = args[0] as! String
         let valueArg = args[1] as! Bool
-        api.setBool(key: keyArg, value: valueArg) { result in
-          switch result {
-            case .success:
-              reply(wrapResult(nil))
-            case .failure(let error):
-              reply(wrapError(error))
-          }
+        do {
+          try api.setBool(key: keyArg, value: valueArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
         }
       }
     } else {
@@ -73,13 +70,11 @@ class NSUserDefaultsPigeonSetup {
       boolForChannel.setMessageHandler { message, reply in
         let args = message as! [Any]
         let keyArg = args[0] as! String
-        api.boolFor(key: keyArg) { result in
-          switch result {
-            case .success(let res):
-              reply(wrapResult(res))
-            case .failure(let error):
-              reply(wrapError(error))
-          }
+        do {
+          let result = try api.boolFor(key: keyArg)
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
         }
       }
     } else {

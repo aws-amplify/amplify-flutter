@@ -8,14 +8,11 @@ public class SwiftAmplifySecureStoragePlugin: NSObject, FlutterPlugin, NSUserDef
         NSUserDefaultsPigeonSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
     
-    func setBool(key: String, value: Bool, completion: @escaping (Result<Void, Error>) -> Void) {
+    func setBool(key: String, value: Bool) throws {
         UserDefaults.standard.set(value, forKey: key)
-        completion(Result.success(()))
-
     }
     
-    func boolFor(key: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let value = UserDefaults.standard.bool(forKey: key)
-        completion(Result.success(value))
+    func boolFor(key: String) throws -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
     }
 }

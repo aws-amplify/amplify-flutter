@@ -18,11 +18,7 @@ import 'package:pigeon/pigeon.dart';
 /// A pigeon for interacting with the NSUserDefaults API on iOS and macOS.
 @HostApi()
 abstract class NSUserDefaultsPigeon {
-  @async
-  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   void setBool(String key, bool value);
 
-  @async
-  @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   bool boolFor(String key);
 }
