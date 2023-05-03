@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:aws_common/src/http/aws_http_response.dart';
+import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
 import 'package:test/test.dart';
 
@@ -32,7 +33,7 @@ void main() {
       final req = await op
           .createRequest(
             op.buildRequest(input),
-            GenericJsonProtocol(),
+            GenericJsonProtocol(serializers: [const TestOp2InputSerializer()]),
             input,
           )
           .transformRequest();
@@ -93,6 +94,39 @@ class TestOp2Input with HasLabel {
       default:
         throw MissingLabelException(this, key);
     }
+  }
+}
+
+class TestOp2InputSerializer
+    implements PrimitiveSmithySerializer<TestOp2Input> {
+  const TestOp2InputSerializer();
+
+  @override
+  Iterable<ShapeId> get supportedProtocols =>
+      [GenericJsonProtocolDefinitionTrait.id];
+
+  @override
+  Iterable<Type> get types => const [TestOp2Input];
+
+  @override
+  String get wireName => 'TestOp2Input';
+
+  @override
+  TestOp2Input deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return const TestOp2Input();
+  }
+
+  @override
+  Object serialize(
+    Serializers serializers,
+    TestOp2Input object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return '';
   }
 }
 
