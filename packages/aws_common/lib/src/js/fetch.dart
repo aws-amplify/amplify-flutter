@@ -8,7 +8,6 @@ import 'package:aws_common/src/js/promise.dart';
 import 'package:aws_common/src/js/readable_stream.dart';
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;
-import 'package:meta/meta.dart';
 
 /// How a [Request] will interact with the browser's HTTP cache.
 enum RequestCache with JSEnum {
@@ -213,19 +212,31 @@ abstract class RequestInit {
     Map<String, String>? headers,
     Object? /*Stream<List<int>>|List<int>|null*/ body,
   }) {
-    return createRequestInit(
-      cache: cache,
-      credentials: credentials,
-      mode: mode,
-      destination: destination,
-      redirect: redirect,
-      referrer: referrer,
-      integrity: integrity,
-      keepalive: keepalive,
-      signal: signal,
-      method: method,
-      headers: headers,
-      body: body,
+    // `fetch` does not allow bodies for these methods.
+    final cannotHaveBody =
+        method == AWSHttpMethod.get || method == AWSHttpMethod.head;
+    if (cannotHaveBody) {
+      body = null;
+    }
+    if (body is Stream<List<int>>) {
+      body = body.asReadableStream();
+    }
+    return RequestInit._(
+      cache: cache.jsValue,
+      credentials: credentials.jsValue,
+      mode: mode.jsValue,
+      destination: destination.jsValue,
+      redirect: redirect.jsValue,
+      referrer: referrer ?? undefined,
+      headers: headers != null ? js_util.jsify(headers) : undefined,
+      integrity: integrity ?? undefined,
+      keepalive: keepalive ?? undefined,
+      method: method.value,
+      signal: signal ?? undefined,
+      body: body ?? undefined,
+      // Added for full compatibility with all `fetch` impls:
+      // https://developer.chrome.com/articles/fetch-streaming-requests/#half-duplex
+      duplex: 'half',
     );
   }
 
@@ -244,60 +255,6 @@ abstract class RequestInit {
     String? method,
     Object? body,
   });
-}
-
-/// Factory for [RequestInit].
-///
-// TODO(dnys1): Remove when fixed https://github.com/dart-lang/sdk/issues/49778.
-@internal
-RequestInit createRequestInit({
-  RequestCache cache = RequestCache.default$,
-  RequestCredentials credentials = RequestCredentials.default$,
-  RequestMode mode = RequestMode.default$,
-  RequestDestination destination = RequestDestination.default$,
-  RequestRedirect redirect = RequestRedirect.default$,
-
-  /// A string specifying the referrer of the request. This can be a
-  /// same-origin URL, about:client, or an empty string.
-  String? referrer,
-
-  /// Contains the subresource integrity value of the request.
-  String? integrity,
-
-  /// The keepalive option can be used to allow the request to outlive the
-  /// page.
-  bool? keepalive,
-  AbortSignal? signal,
-  AWSHttpMethod method = AWSHttpMethod.get,
-  Map<String, String>? headers,
-  Object? /*Stream<List<int>>|List<int>|null*/ body,
-}) {
-  // `fetch` does not allow bodies for these methods.
-  final cannotHaveBody =
-      method == AWSHttpMethod.get || method == AWSHttpMethod.head;
-  if (cannotHaveBody) {
-    body = null;
-  }
-  if (body is Stream<List<int>>) {
-    body = body.asReadableStream();
-  }
-  return RequestInit._(
-    cache: cache.jsValue,
-    credentials: credentials.jsValue,
-    mode: mode.jsValue,
-    destination: destination.jsValue,
-    redirect: redirect.jsValue,
-    referrer: referrer ?? undefined,
-    headers: headers != null ? js_util.jsify(headers) : undefined,
-    integrity: integrity ?? undefined,
-    keepalive: keepalive ?? undefined,
-    method: method.value,
-    signal: signal ?? undefined,
-    body: body ?? undefined,
-    // Added for full compatibility with all `fetch` impls:
-    // https://developer.chrome.com/articles/fetch-streaming-requests/#half-duplex
-    duplex: 'half',
-  );
 }
 
 /// {@template aws_common.js.headers}
