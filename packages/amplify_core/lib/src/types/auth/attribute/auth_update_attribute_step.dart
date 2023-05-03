@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// TODO(dnys1): Remove when Dart 2.18 is no longer supported
-// ignore_for_file: comment_references
-
 import 'package:amplify_core/src/types/auth/attribute/auth_next_update_attribute_step.dart';
 
 /// {@template amplify_core.auth.auth_update_attribute_step}
