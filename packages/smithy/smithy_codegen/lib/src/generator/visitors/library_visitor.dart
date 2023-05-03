@@ -38,8 +38,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
       );
 
   @override
-  Iterable<GeneratedLibrary> operationShape(OperationShape shape,
-      [Shape? parent]) sync* {
+  Iterable<GeneratedLibrary> operationShape(
+    OperationShape shape, [
+    Shape? parent,
+  ]) sync* {
     if (seen.contains(shape.shapeId)) {
       return;
     }
@@ -99,8 +101,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   }
 
   @override
-  Iterable<GeneratedLibrary> serviceShape(ServiceShape shape,
-      [Shape? parent]) sync* {
+  Iterable<GeneratedLibrary> serviceShape(
+    ServiceShape shape, [
+    Shape? parent,
+  ]) sync* {
     if (seen.contains(shape.shapeId)) {
       return;
     }
@@ -206,8 +210,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   }
 
   @override
-  Iterable<GeneratedLibrary> structureShape(StructureShape shape,
-      [Shape? parent]) sync* {
+  Iterable<GeneratedLibrary> structureShape(
+    StructureShape shape, [
+    Shape? parent,
+  ]) sync* {
     if (seen.contains(shape.shapeId)) {
       return;
     }
@@ -225,8 +231,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
   }
 
   @override
-  Iterable<GeneratedLibrary> unionShape(UnionShape shape,
-      [Shape? parent]) sync* {
+  Iterable<GeneratedLibrary> unionShape(
+    UnionShape shape, [
+    Shape? parent,
+  ]) sync* {
     if (seen.contains(shape.shapeId)) {
       return;
     }

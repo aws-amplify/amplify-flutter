@@ -12,13 +12,11 @@ import 'package:smithy_codegen/src/generator/generator.dart';
 /// the generated payload types which are meant to be an internal abstraction.
 class ServiceGenerator extends LibraryGenerator<ServiceShape> {
   ServiceGenerator(
-    ServiceShape shape,
+    super.shape,
     CodegenContext context, {
-    SmithyLibrary? smithyLibrary,
+    super.smithyLibrary,
   }) : super(
-          shape,
           context: context,
-          smithyLibrary: smithyLibrary,
         );
 
   @override

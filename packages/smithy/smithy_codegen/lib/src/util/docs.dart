@@ -10,21 +10,28 @@ String formatDocs(String docs) {
         docs,
         rules: [
           // Format <fullname> as H1
-          html2md.Rule('fullname', filters: ['fullname'],
-              replacement: (text, node) {
-            return '## $text\n\n';
-          }),
+          html2md.Rule(
+            'fullname',
+            filters: ['fullname'],
+            replacement: (text, node) {
+              return '## $text\n\n';
+            },
+          ),
 
           // Format <p> with line breaks
-          html2md.Rule('p', filters: ['p'], replacement: (text, node) {
-            return '$text\n\n';
-          }),
+          html2md.Rule(
+            'p',
+            filters: ['p'],
+            replacement: (text, node) {
+              return '$text\n\n';
+            },
+          ),
         ],
       )
       .split('\n')
       .map((doc) => doc.replaceFirst(RegExp(r'^/*'), ''))
       // unescape pre-convert MD
-      .map((doc) => doc.replaceAll('\\*', '*').replaceAll('\\.', '.'))
+      .map((doc) => doc.replaceAll(r'\*', '*').replaceAll(r'\.', '.'))
       .toList();
 
   // Empty lines are not needed

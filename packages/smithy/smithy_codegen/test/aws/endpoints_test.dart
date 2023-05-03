@@ -39,47 +39,63 @@ void main() {
   group('Endpoints', () {
     for (var i = 0; i < testCases.length; i++) {
       final testCase = testCases[i];
-      test('Test Case $i', () {
-        final partitions =
-            endpoints.values.map((node) => node[testCase.service]).toList();
-        final endpointResolver = AWSEndpointResolver(partitions);
-        expect(
-          endpointResolver
-              .resolve(testCase.service, testCase.region)
-              .endpoint
-              .uri
-              .host,
-          equals(testCase.endpoint),
-        );
-      }, skip: skipReason(testCase));
+      test(
+        'Test Case $i',
+        () {
+          final partitions =
+              endpoints.values.map((node) => node[testCase.service]).toList();
+          final endpointResolver = AWSEndpointResolver(partitions);
+          expect(
+            endpointResolver
+                .resolve(testCase.service, testCase.region)
+                .endpoint
+                .uri
+                .host,
+            equals(testCase.endpoint),
+          );
+        },
+        skip: skipReason(testCase),
+      );
     }
 
     // Error cases
-    test('Warning: Deprecated Endpoint', () {
-      /* const testCase = */ const TestCase(
-        service: 'multi-variant-service',
-        region: 'af-south-1',
-        fips: false,
-        dualStack: false,
-      );
-    }, skip: 'No logging enabled');
+    test(
+      'Warning: Deprecated Endpoint',
+      () {
+        /* const testCase = */ const TestCase(
+          service: 'multi-variant-service',
+          region: 'af-south-1',
+          fips: false,
+          dualStack: false,
+        );
+      },
+      skip: 'No logging enabled',
+    );
 
-    test('Error: FIPS not supported', () {
-      /* const testCase = */ const TestCase(
-        service: 'some-service',
-        region: 'us-iso-east-1',
-        fips: true,
-        dualStack: false,
-      );
-    }, skip: 'FIPS not supported');
+    test(
+      'Error: FIPS not supported',
+      () {
+        /* const testCase = */ const TestCase(
+          service: 'some-service',
+          region: 'us-iso-east-1',
+          fips: true,
+          dualStack: false,
+        );
+      },
+      skip: 'FIPS not supported',
+    );
 
-    test('Error: DualStack not supported', () {
-      /* const testCase = */ const TestCase(
-        service: 'some-service',
-        region: 'us-iso-east-1',
-        fips: false,
-        dualStack: true,
-      );
-    }, skip: 'DualStack not supported');
+    test(
+      'Error: DualStack not supported',
+      () {
+        /* const testCase = */ const TestCase(
+          service: 'some-service',
+          region: 'us-iso-east-1',
+          fips: false,
+          dualStack: true,
+        );
+      },
+      skip: 'DualStack not supported',
+    );
   });
 }

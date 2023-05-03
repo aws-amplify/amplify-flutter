@@ -3,10 +3,8 @@
 
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
-import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/generation_context.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
-import 'package:smithy_codegen/src/generator/serialization/serializer_config.dart';
 import 'package:smithy_codegen/src/generator/serialization/serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/protocol_ext.dart';
@@ -17,11 +15,11 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
     with NamedMembersGenerationContext, UnionGenerationContext {
   UnionSerializerGenerator(
-    UnionShape shape,
-    CodegenContext context,
-    ProtocolDefinitionTrait protocol, {
-    SerializerConfig? config,
-  }) : super(shape, context, protocol, config: config);
+    super.shape,
+    super.context,
+    super.protocol, {
+    super.config,
+  });
 
   @override
   Reference get serializedSymbol => symbol;
@@ -83,14 +81,18 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
   @override
   Code get deserializeCode {
     final builder = BlockBuilder();
-    builder.statements.add(Code.scope((allocate) => '''
+    builder.statements.add(
+      Code.scope(
+        (allocate) => '''
     final iterator = serialized.iterator;
     iterator.moveNext();
     final key = iterator.current as ${allocate(DartTypes.core.string)};
     iterator.moveNext();
     final value = iterator.current as ${allocate(DartTypes.core.object)};
     switch (key) {
-    '''));
+    ''',
+      ),
+    );
 
     for (final member in members) {
       final memberSymbol = memberSymbols[member]!.unboxed;
@@ -142,9 +144,13 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
       final memberName = member.dartName(ShapeType.union);
       branches[memberName] = Method(
         (m) => m
-          ..requiredParameters.add(Parameter((p) => p
-            ..type = memberSymbols[member]!.unboxed
-            ..name = memberName))
+          ..requiredParameters.add(
+            Parameter(
+              (p) => p
+                ..type = memberSymbols[member]!.unboxed
+                ..name = memberName,
+            ),
+          )
           ..lambda = true
           ..body = serializerFor(
             member,
@@ -184,12 +190,16 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           sdkUnknown: Method(
             (m) => m
               ..requiredParameters.addAll([
-                Parameter((p) => p
-                  ..type = DartTypes.core.string
-                  ..name = '_'),
-                Parameter((p) => p
-                  ..type = unknownMemberSymbol
-                  ..name = sdkUnknown),
+                Parameter(
+                  (p) => p
+                    ..type = DartTypes.core.string
+                    ..name = '_',
+                ),
+                Parameter(
+                  (p) => p
+                    ..type = unknownMemberSymbol
+                    ..name = sdkUnknown,
+                ),
               ])
               ..lambda = true
               ..body = refer(sdkUnknown).code,

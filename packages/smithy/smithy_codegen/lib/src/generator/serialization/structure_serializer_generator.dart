@@ -3,10 +3,8 @@
 
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
-import 'package:smithy_codegen/src/generator/context.dart';
 import 'package:smithy_codegen/src/generator/generation_context.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
-import 'package:smithy_codegen/src/generator/serialization/serializer_config.dart';
 import 'package:smithy_codegen/src/generator/serialization/serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/protocol_ext.dart';
@@ -17,11 +15,11 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     with NamedMembersGenerationContext, StructureGenerationContext {
   StructureSerializerGenerator(
-    StructureShape shape,
-    CodegenContext context,
-    ProtocolDefinitionTrait protocol, {
-    SerializerConfig? config,
-  }) : super(shape, context, protocol, config: config);
+    super.shape,
+    super.context,
+    super.protocol, {
+    super.config,
+  });
 
   @override
   Reference get serializedSymbol =>
@@ -159,14 +157,16 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
           ]).code,
       );
 
-  Code get deserializePreamble => Code.scope((allocate) => '''
+  Code get deserializePreamble => Code.scope(
+        (allocate) => '''
       final iterator = serialized.iterator;
       while (iterator.moveNext()) {
         final key = iterator.current as ${allocate(DartTypes.core.string)};
         iterator.moveNext();
         final value = iterator.current;
         switch (key) {
-      ''');
+      ''',
+      );
 
   @override
   Code get deserializeCode {
@@ -189,12 +189,11 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
           .statement;
     }
 
-    final builder = BlockBuilder();
-
-    // Create the builder.
-    builder.addExpression(
-      declareFinal('result').assign(builderSymbol.newInstance([])),
-    );
+    final builder = BlockBuilder()
+      // Create the builder.
+      ..addExpression(
+        declareFinal('result').assign(builderSymbol.newInstance([])),
+      );
 
     // Iterate over the serialized elements.
     builder.statements.addAll([
@@ -238,7 +237,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
 
   /// Expression to deserialize fields within the `switch` statement.
   Iterable<Code> get fieldDeserializers sync* {
-    for (var member in serializedMembers) {
+    for (final member in serializedMembers) {
       final wireName = memberWireName(member);
       final memberSymbol = memberSymbols[member]!;
       final isNullable = member.isNullable(context, shape);
@@ -269,11 +268,13 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
         else
           refer('result')
               .property(member.dartName(ShapeType.structure))
-              .assign(deserializerFor(
-                member,
-                value: isNullable ? value : value.nullChecked,
-                memberSymbol: memberSymbol.unboxed,
-              ))
+              .assign(
+                deserializerFor(
+                  member,
+                  value: isNullable ? value : value.nullChecked,
+                  memberSymbol: memberSymbol.unboxed,
+                ),
+              )
               .statement
               .wrapWithBlockIf(
                 value.notEqualTo(literalNull),
@@ -331,7 +332,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     final result = <Expression>[];
     final nonNullMembers =
         serializedMembers.where((member) => !member.isNullable(context, shape));
-    for (var member in nonNullMembers) {
+    for (final member in nonNullMembers) {
       final memberRef = payload.property(member.dartName(ShapeType.structure));
       result.addAll([
         literalString(memberWireName(member)),
@@ -347,7 +348,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     // Add remaining objects only if they're non-null.
     final nullableMembers =
         serializedMembers.where((member) => member.isNullable(context, shape));
-    for (var member in nullableMembers) {
+    for (final member in nullableMembers) {
       final memberRef = payload.property(member.dartName(ShapeType.structure));
       builder.statements.addAll([
         refer('result')

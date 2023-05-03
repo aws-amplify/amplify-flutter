@@ -13,10 +13,9 @@ import 'package:smithy_codegen/src/core/reserved_words.dart';
 import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/generator/visitors/symbol_visitor.dart';
+import 'package:smithy_codegen/src/util/config_parameter.dart';
 import 'package:smithy_codegen/src/util/docs.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
-
-import 'config_parameter.dart';
 
 extension SimpleShapeUtil on SimpleShape {
   Reference get typeReference => switch (getType()) {
@@ -35,7 +34,7 @@ extension SimpleShapeUtil on SimpleShape {
         ShapeType.short => DartTypes.core.int,
         ShapeType.string => DartTypes.core.string,
         ShapeType.timestamp => DartTypes.core.dateTime,
-        ShapeType invalid =>
+        final ShapeType invalid =>
           throw ArgumentError('Invalid simple shape: $invalid'),
       };
 }
@@ -49,7 +48,6 @@ extension ShapeClassName on Shape {
     switch (type) {
       case ShapeType.string:
         if (!isEnum) return null;
-        break;
       case ShapeType.enum_:
       case ShapeType.intEnum:
       case ShapeType.structure:
@@ -99,7 +97,7 @@ extension DartName on String {
 
     final escapeChar =
         (parentType == ShapeType.enum_ || parentType == ShapeType.union)
-            ? '\$'
+            ? r'$'
             : '_';
     var name = this;
     if (reservedWords.contains(name)) {
@@ -303,7 +301,7 @@ extension ShapeUtils on Shape {
         ShapeType.union =>
           SmithyLibrary_LibraryType.MODEL,
         ShapeType _ when isEnum => SmithyLibrary_LibraryType.MODEL,
-        ShapeType invalid =>
+        final ShapeType invalid =>
           throw ArgumentError('Invalid shape type: $invalid'),
       };
 
@@ -351,10 +349,10 @@ extension ShapeUtils on Shape {
 
 extension NamedMembersShapeUtil on NamedMembersShape {
   PaginationItem parsePathToExpression(CodegenContext context, String p) {
-    NamedMembersShape shape = this;
+    var shape = this;
     final path = p.split('.');
-    final List<Expression Function(Expression)> exps = [];
-    bool isNullable = false;
+    final exps = <Expression Function(Expression)>[];
+    var isNullable = false;
     late MemberShape member;
     late Reference symbol;
     while (path.isNotEmpty) {
@@ -439,31 +437,39 @@ extension OperationShapeUtil on OperationShape {
       }
 
       if (b.inputTokenPath != null) {
-        b.inputToken.replace(inputShape(context).parsePathToExpression(
-          context,
-          b.inputTokenPath!,
-        ));
+        b.inputToken.replace(
+          inputShape(context).parsePathToExpression(
+            context,
+            b.inputTokenPath!,
+          ),
+        );
       }
 
       if (b.outputTokenPath != null) {
-        b.outputToken.replace(outputShape(context).parsePathToExpression(
-          context,
-          b.outputTokenPath!,
-        ));
+        b.outputToken.replace(
+          outputShape(context).parsePathToExpression(
+            context,
+            b.outputTokenPath!,
+          ),
+        );
       }
 
       if (b.itemsPath != null) {
-        b.items.replace(outputShape(context).parsePathToExpression(
-          context,
-          b.itemsPath!,
-        ));
+        b.items.replace(
+          outputShape(context).parsePathToExpression(
+            context,
+            b.itemsPath!,
+          ),
+        );
       }
 
       if (b.pageSizePath != null) {
-        b.pageSize.replace(inputShape(context).parsePathToExpression(
-          context,
-          b.pageSizePath!,
-        ));
+        b.pageSize.replace(
+          inputShape(context).parsePathToExpression(
+            context,
+            b.pageSizePath!,
+          ),
+        );
       }
     });
   }
@@ -676,7 +682,7 @@ extension StructureShapeUtil on StructureShape {
       return null;
     }
     final builder = HttpOutputTraitsBuilder();
-    for (var member in members.values) {
+    for (final member in members.values) {
       final headerTrait = member.getTrait<HttpHeaderTrait>();
       if (headerTrait != null) {
         builder.httpHeaders[headerTrait.value] = member;
@@ -703,7 +709,7 @@ extension StructureShapeUtil on StructureShape {
       return null;
     }
     final builder = HttpInputTraitsBuilder();
-    for (var member in members.values) {
+    for (final member in members.values) {
       final headerTrait = member.getTrait<HttpHeaderTrait>();
       if (headerTrait != null) {
         builder.httpHeaders[headerTrait.value] = member;
@@ -735,9 +741,9 @@ extension StructureShapeUtil on StructureShape {
     if (!isError) {
       return null;
     }
-    final builder = HttpErrorTraitsBuilder();
-    builder.symbol = context.symbolFor(shapeId);
-    builder.shapeId = shapeId;
+    final builder = HttpErrorTraitsBuilder()
+      ..symbol = context.symbolFor(shapeId)
+      ..shapeId = shapeId;
     final errorTrait = expectTrait<ErrorTrait>();
     builder.kind = errorTrait.type;
     final httpErrorTrait = getTrait<HttpErrorTrait>();
@@ -750,7 +756,7 @@ extension StructureShapeUtil on StructureShape {
         isThrottlingError: retryTrait.throttling,
       );
     }
-    for (var member in members.values) {
+    for (final member in members.values) {
       final headerTrait = member.getTrait<HttpHeaderTrait>();
       if (headerTrait != null) {
         builder.httpHeaders[headerTrait.value] = member;

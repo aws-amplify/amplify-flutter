@@ -96,9 +96,11 @@ class PubspecGenerator implements Generator<String> {
     String? dependencyOverridesBlock;
     if (smithyPath != null) {
       dependencyOverridesBlock = dependencyVersions.entries
-          .where((dep) =>
-              dep.value.type == DependencyType.smithy ||
-              dep.value.type == DependencyType.aws)
+          .where(
+            (dep) =>
+                dep.value.type == DependencyType.smithy ||
+                dep.value.type == DependencyType.aws,
+          )
           .map((dep) => dependencyYaml(dep.key, dep.value))
           .join('\n');
     }

@@ -15,10 +15,10 @@ import 'package:smithy_codegen/src/util/symbol_ext.dart';
 class UnionGenerator extends LibraryGenerator<UnionShape>
     with UnionGenerationContext, NamedMembersGenerationContext {
   UnionGenerator(
-    UnionShape shape,
+    super.shape,
     CodegenContext context, {
-    SmithyLibrary? smithyLibrary,
-  }) : super(shape, context: context, smithyLibrary: smithyLibrary);
+    super.smithyLibrary,
+  }) : super(context: context);
 
   late final _serializers = [
     for (final protocol in context.serviceProtocols)
@@ -97,20 +97,36 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
         e
           ..name = _typeEnumName
           ..docs.add(docs)
-          ..types.add(TypeReference((t) => t
-            ..symbol = 'T'
-            ..bound = symbol))
-          ..constructors.add(Constructor((c) => c
-            ..constant = true
-            ..docs.add(docs)
-            ..requiredParameters.add(Parameter((p) => p
-              ..toThis = true
-              ..name = 'value'))))
-          ..fields.add(Field((f) => f
-            ..docs.add('/// The Smithy value.')
-            ..modifier = FieldModifier.final$
-            ..type = DartTypes.core.string
-            ..name = 'value'));
+          ..types.add(
+            TypeReference(
+              (t) => t
+                ..symbol = 'T'
+                ..bound = symbol,
+            ),
+          )
+          ..constructors.add(
+            Constructor(
+              (c) => c
+                ..constant = true
+                ..docs.add(docs)
+                ..requiredParameters.add(
+                  Parameter(
+                    (p) => p
+                      ..toThis = true
+                      ..name = 'value',
+                  ),
+                ),
+            ),
+          )
+          ..fields.add(
+            Field(
+              (f) => f
+                ..docs.add('/// The Smithy value.')
+                ..modifier = FieldModifier.final$
+                ..type = DartTypes.core.string
+                ..name = 'value',
+            ),
+          );
         for (final member in members) {
           e.values.add(
             EnumValue(
@@ -274,15 +290,18 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
   }
 
   /// All the serializers for the union.
-  Field get _serializersField => Field((f) => f
-    ..static = true
-    ..modifier = FieldModifier.constant
-    ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
-    ..name = 'serializers'
-    ..assignment = literalConstList([
-      for (final serializer in _serializers)
-        refer(serializer.name).constInstance([]),
-    ]).code);
+  Field get _serializersField => Field(
+        (f) => f
+          ..static = true
+          ..modifier = FieldModifier.constant
+          ..type =
+              DartTypes.core.list(DartTypes.smithy.smithySerializer(symbol))
+          ..name = 'serializers'
+          ..assignment = literalConstList([
+            for (final serializer in _serializers)
+              refer(serializer.name).constInstance([]),
+          ]).code,
+      );
 
   /// Factory constructors for each member.
   Iterable<Class> get _variantClasses sync* {
@@ -300,13 +319,17 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..constant = !requiresTransformation
           ..requiredParameters.addAll([
             if (requiresTransformation)
-              Parameter((p) => p
-                ..type = transformedSymbol.unboxed
-                ..name = variantName)
+              Parameter(
+                (p) => p
+                  ..type = transformedSymbol.unboxed
+                  ..name = variantName,
+              )
             else if (member.target != Shape.unit)
-              Parameter((p) => p
-                ..toThis = true
-                ..name = variantName),
+              Parameter(
+                (p) => p
+                  ..toThis = true
+                  ..name = variantName,
+              ),
           ])
           ..initializers.addAll([
             if (requiresTransformation)
@@ -334,9 +357,11 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ..constant = true
             ..name = '_'
             ..requiredParameters.add(
-              Parameter((p) => p
-                ..toThis = true
-                ..name = variantName),
+              Parameter(
+                (p) => p
+                  ..toThis = true
+                  ..name = variantName,
+              ),
             )
             ..initializers.add(
               refer('super').property('_').call([]).code,
@@ -359,22 +384,26 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ctor,
             if (privateConstructor != null) privateConstructor,
           ])
-          ..fields.add(Field(
-            (f) => f
-              ..modifier = FieldModifier.final$
-              ..annotations.add(DartTypes.core.override)
-              ..name = variantName
-              ..type = memberSymbols[member]!.unboxed,
-          ))
+          ..fields.add(
+            Field(
+              (f) => f
+                ..modifier = FieldModifier.final$
+                ..annotations.add(DartTypes.core.override)
+                ..name = variantName
+                ..type = memberSymbols[member]!.unboxed,
+            ),
+          )
           ..methods.addAll([
             typeGetter,
-            Method((m) => m
-              ..annotations.add(DartTypes.core.override)
-              ..returns = DartTypes.core.string
-              ..name = 'name'
-              ..type = MethodType.getter
-              ..lambda = true
-              ..body = literalString(member.memberName).code),
+            Method(
+              (m) => m
+                ..annotations.add(DartTypes.core.override)
+                ..returns = DartTypes.core.string
+                ..name = 'name'
+                ..type = MethodType.getter
+                ..lambda = true
+                ..body = literalString(member.memberName).code,
+            ),
           ]);
       });
     }
@@ -404,26 +433,32 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
         ..name = 'value'
         ..type = unknownMemberSymbol,
     );
-    yield Class((c) => c
-      ..name = variantClassName(unknownMember)
-      ..extend = symbol
-      ..constructors.add(ctor)
-      ..methods.add(Method(
-        (m) => m
-          ..type = MethodType.getter
-          ..returns = refer(_typeEnumName)
-          ..name = 'type'
-          ..annotations.add(DartTypes.core.override)
-          ..body = refer(_typeEnumName).property(sdkUnknown).code,
-      ))
-      ..fields.addAll([
-        Field((f) => f
-          ..modifier = FieldModifier.final$
-          ..annotations.add(DartTypes.core.override)
-          ..name = 'name'
-          ..type = DartTypes.core.string),
-        value,
-      ]));
+    yield Class(
+      (c) => c
+        ..name = variantClassName(unknownMember)
+        ..extend = symbol
+        ..constructors.add(ctor)
+        ..methods.add(
+          Method(
+            (m) => m
+              ..type = MethodType.getter
+              ..returns = refer(_typeEnumName)
+              ..name = 'type'
+              ..annotations.add(DartTypes.core.override)
+              ..body = refer(_typeEnumName).property(sdkUnknown).code,
+          ),
+        )
+        ..fields.addAll([
+          Field(
+            (f) => f
+              ..modifier = FieldModifier.final$
+              ..annotations.add(DartTypes.core.override)
+              ..name = 'name'
+              ..type = DartTypes.core.string,
+          ),
+          value,
+        ]),
+    );
   }
 
   Method get _toString {
