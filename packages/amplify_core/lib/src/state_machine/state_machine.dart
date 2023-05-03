@@ -39,7 +39,7 @@ mixin Dispatcher<E extends StateMachineEvent, S extends StateMachineState> {
 }
 
 /// Interface for emitting a state from a state machine.
-abstract class Emitter<S extends StateMachineState> {
+abstract interface class Emitter<S extends StateMachineState> {
   /// Emits a new state.
   void emit(S state);
 }
@@ -47,7 +47,7 @@ abstract class Emitter<S extends StateMachineState> {
 /// {@template amplify_core.state_machine_type}
 /// A marker for state machine types to improve DX with generic functions.
 /// {@endtemplate}
-class StateMachineToken<
+final class StateMachineToken<
     Event extends ManagerEvent,
     State extends ManagerState,
     ManagerEvent extends StateMachineEvent,

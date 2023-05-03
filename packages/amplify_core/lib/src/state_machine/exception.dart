@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart';
 /// An exception raised within a state machine when an event could not be
 /// processed due to some precondition not being met.
 /// {@endtemplate}
-abstract /* interface */ class PreconditionException implements Exception {
+abstract interface class PreconditionException implements Exception {
   /// (@macro amplify_core.state_machine.precondition_exception)
   const PreconditionException();
 
