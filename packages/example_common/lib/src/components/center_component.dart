@@ -3,7 +3,7 @@
 
 import 'dart:html';
 
-import 'component.dart';
+import 'package:example_common/src/components/component.dart';
 
 /// {@template example_common.center_component}
 /// A component that centers the provided child

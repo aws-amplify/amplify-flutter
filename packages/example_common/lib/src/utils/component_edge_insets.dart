@@ -14,22 +14,11 @@ class ComponentEdgeInsets {
     this.bottom = 0,
   });
 
-  /// Left edge inset in px
-  final double left;
-
-  /// Right edge inset in px
-  final double right;
-
-  /// Top edge inset in px
-  final double top;
-
-  /// Bottom edge inset in px
-  final double bottom;
-
   /// Create [ComponentEdgeInsets] that is symmetric
-  const ComponentEdgeInsets.symmetric(
-      {double horizontal = 0, double vertical = 0})
-      : left = horizontal,
+  const ComponentEdgeInsets.symmetric({
+    double horizontal = 0,
+    double vertical = 0,
+  })  : left = horizontal,
         right = horizontal,
         top = vertical,
         bottom = vertical;
@@ -43,6 +32,18 @@ class ComponentEdgeInsets {
 
   /// [ComponentEdgeInsets] with no value
   static const zero = ComponentEdgeInsets.all(0);
+
+  /// Left edge inset in px
+  final double left;
+
+  /// Right edge inset in px
+  final double right;
+
+  /// Top edge inset in px
+  final double top;
+
+  /// Bottom edge inset in px
+  final double bottom;
 
   /// Creates a CSS string
   String toCssString() {

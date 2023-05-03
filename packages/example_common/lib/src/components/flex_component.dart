@@ -3,8 +3,8 @@
 
 import 'dart:html';
 
-import '../enums.dart';
-import 'component.dart';
+import 'package:example_common/src/components/component.dart';
+import 'package:example_common/src/enums.dart';
 
 /// {@template example_common.flex_component}
 /// a component that displays a set of [children] in either a row or column
@@ -32,7 +32,7 @@ class FlexComponent extends Component {
     div.style.display = 'flex';
     div.style.flexDirection = direction.flexDirection;
     div.style.alignItems = alignItems.name;
-    for (var child in children) {
+    for (final child in children) {
       div.appendComponent(child);
     }
     return Component.fromElement(div);
@@ -45,12 +45,10 @@ class FlexComponent extends Component {
 class ColumnComponent extends FlexComponent {
   /// {@macro example_common.column_component}
   ColumnComponent({
-    AlignItems alignItems = AlignItems.start,
-    required List<Component> children,
+    super.alignItems,
+    required super.children,
   }) : super(
           direction: Axis.vertical,
-          alignItems: alignItems,
-          children: children,
         );
 }
 
@@ -60,11 +58,9 @@ class ColumnComponent extends FlexComponent {
 class RowComponent extends FlexComponent {
   /// {@macro example_common.row_component}
   RowComponent({
-    AlignItems alignItems = AlignItems.start,
-    required List<Component> children,
+    super.alignItems,
+    required super.children,
   }) : super(
           direction: Axis.horizontal,
-          alignItems: alignItems,
-          children: children,
         );
 }
