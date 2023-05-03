@@ -174,11 +174,8 @@ class SmithyHttpRequest {
     final requestProgress = StreamController<int>.broadcast(sync: true);
     final responseProgress = StreamController<int>.broadcast(sync: true);
 
-    // TODO(dnys1): Use `completeOperation` when available
-    AWSHttpOperation? underlyingOperation;
     final completer = CancelableCompleter<AWSBaseHttpResponse>(
       onCancel: () {
-        underlyingOperation?.cancel();
         requestProgress.close();
         responseProgress.close();
         onCancel?.call();
@@ -189,30 +186,23 @@ class SmithyHttpRequest {
         baseClient: client,
         isCanceled: () => completer.isCanceled,
       );
-      underlyingOperation = request.send(
+      final operation = request.send(
         // We extract the transformRequest/transformResponse methods of
         // `client` when specified. To avoid calling them twice in `send`,
         // send the request using its baseClient.
         // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
         client: client is AWSBaseHttpClient ? client.baseClient : client,
       );
-      underlyingOperation!.requestProgress.forward(requestProgress);
-      underlyingOperation!.responseProgress.forward(responseProgress);
-      // TODO(dnys1): Use `completeOperation` when available
-      underlyingOperation!.operation.then(
-        (response) async {
-          try {
-            response = await _transformResponse(
-              response,
-              baseClient: client,
-              isCanceled: () => completer.isCanceled,
-            );
-            completer.complete(response);
-          } on Object catch (e, st) {
-            completer.completeError(e, st);
-          }
-        },
-        onError: completer.completeError,
+      operation.requestProgress.forward(requestProgress);
+      operation.responseProgress.forward(responseProgress);
+      completer.completeOperation(
+        operation.operation.then(
+          (response) => _transformResponse(
+            response,
+            baseClient: client,
+            isCanceled: () => completer.isCanceled,
+          ),
+        ),
       );
     });
     return AWSHttpOperation(
