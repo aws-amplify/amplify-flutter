@@ -3,9 +3,6 @@
 
 // ignore_for_file: avoid_classes_with_only_static_members
 
-@JS()
-library aws_common.js.abort;
-
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;
 
@@ -14,6 +11,7 @@ import 'package:js/js_util.dart' as js_util;
 /// a fetch request) and abort it if required via an [AbortController] object.
 /// {@endtemplate}
 @JS()
+@staticInterop
 abstract class AbortSignal {
   /// An [AbortSignal] instance that is already set as aborted.
   external static AbortSignal abort([String? reason]);
@@ -39,19 +37,18 @@ extension PropsAbortSignal on AbortSignal {
 /// and when desired.
 /// {@endtemplate}
 @JS()
-class AbortController {
+@staticInterop
+abstract class AbortController {
   /// {@macro aws_http.js.abort_controller}
   external factory AbortController();
+}
 
+/// {@macro aws_http.js.abort_controller}
+extension PropsAbortController on AbortController {
   /// The [AbortSignal], which can be used to communicate with, or to abort,
   /// a DOM request.
   external AbortSignal get signal;
 
   /// Aborts a DOM request before it has completed.
   external void abort([String? reason]);
-}
-
-/// {@macro aws_http.js.abort_controller}
-extension PropsAbortController on AbortController {
-  // TODO(dnys1): Move methods here when staticInterop is enabled.
 }

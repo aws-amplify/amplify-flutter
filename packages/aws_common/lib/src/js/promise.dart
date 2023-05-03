@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-library aws_http.js.promise;
-
 import 'dart:async';
 
 import 'package:js/js.dart';
@@ -21,7 +19,7 @@ typedef Executor<T> = void Function(
 /// {@endtemplate}
 @JS()
 @staticInterop
-class Promise<T> {
+abstract class Promise<T> {
   /// Creates a JS Promise.
   factory Promise(Executor<T> executor) => createPromise(executor);
 

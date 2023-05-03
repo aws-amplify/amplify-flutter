@@ -309,7 +309,7 @@ RequestInit createRequestInit({
 /// {@endtemplate}
 @JS()
 @staticInterop
-class Headers {
+abstract class Headers {
   /// {@macro aws_common.js.headers}
   external factory Headers(Map<String, String> headers);
 }
@@ -353,7 +353,7 @@ extension PropsHeaders on Headers {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class Request {
+abstract class Request {
   /// {@macro aws_common.js.request}
   external factory Request(String url, [RequestInit? init]);
 }
@@ -364,7 +364,7 @@ class Request {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class Response {
+abstract class Response {
   /// {@macro aws_common.js.response}
   external factory Response(String url, [RequestInit? init]);
 }

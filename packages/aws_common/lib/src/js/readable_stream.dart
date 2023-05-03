@@ -1,9 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-@JS()
-library aws_common.js.readable_stream;
-
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -20,7 +17,8 @@ import 'package:meta/meta.dart';
 /// {@endtemplate}
 @JS()
 @anonymous
-class UnderlyingSource {
+@staticInterop
+abstract class UnderlyingSource {
   /// {@macro aws_common.js.readable_stream}
   factory UnderlyingSource({
     /// This is a method, called immediately when the object is constructed.
@@ -159,7 +157,12 @@ enum ReadableStreamType with JSEnum {
 /// Similar to a Dart [StreamController].
 /// {@endtemplate}
 @JS()
-abstract class ReadableStreamController {
+@anonymous
+@staticInterop
+abstract class ReadableStreamController {}
+
+/// {@macro aws_common.js.readable_stream_controller}
+extension PropsReadableStreamController on ReadableStreamController {
   /// The desired size required to fill the stream's internal queue.
   external int get desiredSize;
 
@@ -170,18 +173,15 @@ abstract class ReadableStreamController {
   external void enqueue(Uint8List chunk);
 }
 
-/// {@macro aws_common.js.readable_stream_controller}
-extension PropsReadableStreamController on ReadableStreamController {
-  // TODO(dnys1): Move methods here when staticInterop is enabled.
-}
-
 /// {@template aws_common.js.readable_stream_default_controller}
 /// A default [ReadableStreamController], for [ReadableStream]s which are not
 /// byte streams.
 /// {@endtemplate}
 @JS()
 @anonymous
-class ReadableStreamDefaultController extends ReadableStreamController {}
+@staticInterop
+abstract class ReadableStreamDefaultController
+    extends ReadableStreamController {}
 
 /// {@template aws_common.js.readable_byte_stream_controller}
 /// A [ReadableStreamController] for [ReadableStream]s which are not
@@ -189,13 +189,15 @@ class ReadableStreamDefaultController extends ReadableStreamController {}
 /// {@endtemplate}
 @JS()
 @anonymous
-class ReadableByteStreamController extends ReadableStreamController {}
+@staticInterop
+abstract class ReadableByteStreamController extends ReadableStreamController {}
 
 /// {@template aws_common.js.readable_stream}
 /// Represents a readable stream of byte data.
 /// {@endtemplate}
 @JS()
-class ReadableStream {
+@staticInterop
+abstract class ReadableStream {
   /// {@macro aws_common.js.readable_stream}
   external factory ReadableStream([UnderlyingSource? underlyingSource]);
 }
@@ -240,6 +242,7 @@ extension PropsReadableStream on ReadableStream {
 /// {@endtemplate}
 @JS()
 @anonymous
+@staticInterop
 abstract class ReadableStreamReader {}
 
 /// {@macro aws_common.js.readable_stream_reader}
@@ -273,7 +276,8 @@ extension PropsReadableStreamReader on ReadableStreamReader {
 /// {@endtemplate}
 @JS()
 @anonymous
-class ReadableStreamBYOBReader extends ReadableStreamReader {}
+@staticInterop
+abstract class ReadableStreamBYOBReader extends ReadableStreamReader {}
 
 /// {@template aws_common.js.readable_stream_default_reader}
 /// A default reader that can be used to read stream data supplied from a
@@ -281,7 +285,8 @@ class ReadableStreamBYOBReader extends ReadableStreamReader {}
 /// {@endtemplate}
 @JS()
 @anonymous
-class ReadableStreamDefaultReader extends ReadableStreamReader {}
+@staticInterop
+abstract class ReadableStreamDefaultReader extends ReadableStreamReader {}
 
 /// {@macro aws_common.js.readable_stream_default_reader}
 extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
@@ -308,6 +313,7 @@ enum ReadableStreamReaderMode with JSEnum {
 /// {@endtemplate}
 @JS()
 @anonymous
+@staticInterop
 abstract class ReadableStreamChunk {}
 
 /// {@macro aws_common.js.readable_stream_chunk}

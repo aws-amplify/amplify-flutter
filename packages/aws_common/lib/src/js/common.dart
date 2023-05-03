@@ -162,11 +162,6 @@ extension PropsEventTarget on EventTarget {
       ]);
 }
 
-Object? _convertToJs(Object? o) {
-  if (o == null || o is! Map || o is! Iterable) return o;
-  return js_util.jsify(o);
-}
-
 /// {@template worker_bee.js.interop.global_scope}
 /// The global execution context, referred to by [self].
 ///
@@ -174,7 +169,7 @@ Object? _convertToJs(Object? o) {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class GlobalScope extends EventTarget {}
+abstract class GlobalScope extends EventTarget {}
 
 /// {@macro worker_bee.js.interop.global_scope}
 extension PropsGlobalScope on GlobalScope {
@@ -192,8 +187,8 @@ extension PropsGlobalScope on GlobalScope {
     List<Object>? transfer,
   ]) =>
       js_util.callMethod(this, 'postMessage', [
-        _convertToJs(o),
-        transfer?.map(_convertToJs).toList(),
+        js_util.jsify(o),
+        transfer?.map(js_util.jsify).toList(),
       ]);
 }
 
@@ -202,7 +197,7 @@ extension PropsGlobalScope on GlobalScope {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class MessageEvent extends Event {}
+abstract class MessageEvent extends Event {}
 
 /// {@macro worker_bee.js.interop.message_event}
 extension PropsMessageEvent on MessageEvent {
@@ -227,7 +222,7 @@ extension PropsMessageEvent on MessageEvent {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class MessagePort extends EventTarget {}
+abstract class MessagePort extends EventTarget {}
 
 /// {@macro worker_bee.js.interop.message_port}
 extension PropsMessagePort on MessagePort {
@@ -254,8 +249,8 @@ extension PropsMessagePort on MessagePort {
     List<Object>? transfer,
   ]) =>
       js_util.callMethod(this, 'postMessage', [
-        _convertToJs(o),
-        transfer?.map(_convertToJs).toList(),
+        js_util.jsify(o),
+        transfer?.map(js_util.jsify).toList(),
       ]);
 
   /// Starts the sending of messages queued on the port.
@@ -293,7 +288,7 @@ extension PropsLocation on Location {
 @JS()
 @anonymous
 @staticInterop
-class WorkerInit {
+abstract class WorkerInit {
   /// {@macro worker_bee.js.interop.worker_init}
   external factory WorkerInit({
     String? type,
@@ -306,7 +301,7 @@ class WorkerInit {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class Worker extends EventTarget {
+abstract class Worker extends EventTarget {
   /// {@macro worker_bee.js.interop.worker}
   external factory Worker(String url, [WorkerInit? init]);
 }
@@ -341,7 +336,7 @@ extension PropsWorker on Worker {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class ErrorEvent extends Event {}
+abstract class ErrorEvent extends Event {}
 
 /// {@macro worker_bee.js.interop.error_event}
 extension PropsErrorEvent on ErrorEvent {
@@ -359,7 +354,7 @@ extension PropsErrorEvent on ErrorEvent {
 /// {@endtemplate}
 @JS()
 @staticInterop
-class MessageChannel {
+abstract class MessageChannel {
   /// {@macro worker_bee.js.interop.message_channel}
   external factory MessageChannel();
 }
@@ -376,7 +371,7 @@ extension PropsMessageChannel on MessageChannel {
 /// Browser-based JSON utilities.
 @JS()
 @staticInterop
-class JSON {
+abstract class JSON {
   /// Stringifies a JSON-like object.
   external static String stringify(Object? object);
 }
@@ -386,7 +381,7 @@ class JSON {
 /// {@endtemplate}
 @JS('Object')
 @staticInterop
-class JSObject {
+abstract class JSObject {
   /// Returns an array of a given [object]'s own enumerable property names,
   /// iterated in the same order that a normal loop would.
   external static List<String> keys(Object object);
