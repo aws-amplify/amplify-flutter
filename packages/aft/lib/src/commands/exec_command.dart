@@ -38,14 +38,14 @@ class ExecCommand extends AmplifyCommand with GlobOptions, FailFastOption {
         arg = arg.replaceAll('<$key>', value);
       });
       return arg;
-    }).toList();
+    }).join(' ');
 
     for (final package in commandPackages.values) {
       logger.info(
-        'Running "${command.join(' ')}" in "${package.path}"...',
+        'Running "$command" in "${package.path}"...',
       );
       final result = await execCommand(
-        command,
+        ['sh', '-c', command],
         workingDirectory: package.path,
       );
       if (result.exitCode != 0) {
