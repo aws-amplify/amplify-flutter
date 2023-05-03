@@ -7,7 +7,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// A [DependencyManager] for Amplify plugins initialized with default Amplify
 /// dependencies.
 /// {@endtemplate}
-class AmplifyDependencyManager extends DependencyManager {
+final class AmplifyDependencyManager extends DependencyManager {
   /// {@macro amplify_core.state_machine.amplify_dependency_manager}
   AmplifyDependencyManager() : super() {
     addBuilder<AmplifyUserAgent>((_) => AmplifyUserAgent());
