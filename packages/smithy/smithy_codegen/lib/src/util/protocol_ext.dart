@@ -120,12 +120,13 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
           //
           // For example, the value for the operation `ns.example#MyOp` of the
           // service `ns.example#MyService` is MyService.MyOp.
-          literalString([
-            context.service!.shapeId.shape,
-            shape.shapeId.shape,
-          ].join('.'))
+          literalString(
+            [
+              context.service!.shapeId.shape,
+              shape.shapeId.shape,
+            ].join('.'),
+          )
         ]);
-        break;
       case RestJson1Trait _:
         // Empty payloads should not contain `Content-Length` and `Content-Type`
         // headers.
@@ -139,7 +140,6 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
             ]),
           ];
         }
-        break;
       case RestXmlTrait _ || AwsQueryTrait _:
       default:
     }
@@ -256,7 +256,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
         }
     }
 
-    if (this case RestXmlTrait trait) {
+    if (this case final RestXmlTrait trait) {
       parameters['noErrorWrapping'] = literalBool(trait.noErrorWrapping);
     }
     if (this case AwsQueryTrait _) {

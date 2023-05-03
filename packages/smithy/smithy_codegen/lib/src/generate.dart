@@ -116,11 +116,11 @@ Map<ShapeId, GeneratedOutput> generateForAst(
     // Build service shapes last, since they aggregate generated types.
     final operations = context.shapes.values.whereType<OperationShape>();
     final visitor = LibraryVisitor(context);
-    final Iterable<GeneratedLibrary> libraries = [
+    final libraries = [
       ...operations,
       ...additionalShapes.map(context.shapeFor),
       serviceShape
-    ].expand((shape) => shape.accept(visitor) ?? const []);
+    ].expand<GeneratedLibrary>((shape) => shape.accept(visitor) ?? const []);
     outputs[serviceShape.shapeId] = GeneratedOutput(
       context: context,
       libraries: libraries.toSet().toList(),

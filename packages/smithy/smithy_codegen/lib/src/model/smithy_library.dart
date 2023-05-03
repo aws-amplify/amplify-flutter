@@ -127,7 +127,6 @@ extension SmithyLibraryX on SmithyLibrary {
         if (!filename.endsWith('_test')) {
           filename = '${filename}_test';
         }
-        break;
       default:
         break;
     }

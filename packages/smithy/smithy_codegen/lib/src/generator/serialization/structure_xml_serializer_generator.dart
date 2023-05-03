@@ -3,8 +3,6 @@
 
 import 'package:code_builder/code_builder.dart';
 import 'package:smithy/ast.dart';
-import 'package:smithy_codegen/src/generator/context.dart';
-import 'package:smithy_codegen/src/generator/serialization/serializer_config.dart';
 import 'package:smithy_codegen/src/generator/serialization/structure_serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
@@ -14,11 +12,11 @@ import 'package:smithy_codegen/src/util/trait_ext.dart';
 /// Generates a serializer class for [shape] and [protocol].
 class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
   StructureXmlSerializerGenerator(
-    StructureShape shape,
-    CodegenContext context,
-    ProtocolDefinitionTrait protocol, {
-    SerializerConfig? config,
-  }) : super(shape, context, protocol, config: config);
+    super.shape,
+    super.context,
+    super.protocol, {
+    super.config,
+  });
 
   String get payloadWireName {
     String? payloadWireName;
@@ -116,9 +114,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       });
     } else {
       targetShape as MapShape;
-      final String? keyName =
-          targetShape.key.traits.getTrait<XmlNameTrait>()?.value;
-      final String? valueName =
+      final keyName = targetShape.key.traits.getTrait<XmlNameTrait>()?.value;
+      final valueName =
           targetShape.value.traits.getTrait<XmlNameTrait>()?.value;
       final valueShape = context.shapeFor(targetShape.value.target);
       if (valueShape is ListShape) {
@@ -210,12 +207,15 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         : payloadWireName;
     builder.addExpression(
       declareFinal('result').assign(
-        literalList([
-          DartTypes.smithy.xmlElementName.constInstance([
-            literalString(payloadResponseName),
-            if (namespace != null) namespace.constructedInstance
-          ])
-        ], DartTypes.core.object.boxed),
+        literalList(
+          [
+            DartTypes.smithy.xmlElementName.constInstance([
+              literalString(payloadResponseName),
+              if (namespace != null) namespace.constructedInstance
+            ])
+          ],
+          DartTypes.core.object.boxed,
+        ),
       ),
     );
 
@@ -276,7 +276,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       final memberRef = ref(member);
       final isFlattened = flattenedMembers.contains(member);
       final isNullable = member.isNullable(context, shape);
-      var serializer = serializerFor(
+      final serializer = serializerFor(
         member,
         isNullable ? memberRef.nullChecked : memberRef,
       );
@@ -345,19 +345,22 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
 
   @override
   Code get deserializePreamble {
-    final preamble = Code.scope((allocate) => '''
+    final preamble = Code.scope(
+      (allocate) => '''
       final iterator = serialized.iterator;
       while (iterator.moveNext()) {
         final key = iterator.current;
         iterator.moveNext();
         final value = iterator.current;
         switch (key as ${allocate(DartTypes.core.string)}) {
-      ''');
+      ''',
+    );
     return Block.of([
       if (shape.isError &&
           protocol is RestXmlTrait &&
           !(protocol as RestXmlTrait).noErrorWrapping)
-        Code.scope((allocate) => '''
+        Code.scope(
+          (allocate) => '''
       final errorIterator = serialized.iterator;
       while (errorIterator.moveNext()) {
         final key = errorIterator.current;
@@ -365,14 +368,15 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         if (key == 'Error') {
           serialized = errorIterator.current as ${allocate(DartTypes.core.iterable(DartTypes.core.object.boxed))};
         }
-      }'''),
+      }''',
+        ),
       preamble,
     ]);
   }
 
   @override
   Iterable<Code> get fieldDeserializers sync* {
-    for (var member in serializedMembers) {
+    for (final member in serializedMembers) {
       final wireName = memberWireName(member);
       var memberSymbol = memberSymbols[member]!;
       final isNullable = member.isNullable(context, shape);
@@ -420,8 +424,12 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
               .property(member.dartName(ShapeType.structure))
               .property(nestedMethod)
               .call([
-                postProcess(deserializerFor(targetMember,
-                    memberSymbol: memberSymbol.unboxed)),
+                postProcess(
+                  deserializerFor(
+                    targetMember,
+                    memberSymbol: memberSymbol.unboxed,
+                  ),
+                ),
               ])
               .statement
               .wrapWithBlockIf(
@@ -431,11 +439,13 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         else
           refer('result')
               .property(member.dartName(ShapeType.structure))
-              .assign(deserializerFor(
-                member,
-                value: isNullable ? value : value.nullChecked,
-                memberSymbol: memberSymbol.unboxed,
-              ))
+              .assign(
+                deserializerFor(
+                  member,
+                  value: isNullable ? value : value.nullChecked,
+                  memberSymbol: memberSymbol.unboxed,
+                ),
+              )
               .statement
               .wrapWithBlockIf(
                 value.notEqualTo(literalNull),
