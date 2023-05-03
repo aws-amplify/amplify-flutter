@@ -24,7 +24,7 @@ void main() {
         fail('Should be cancelled');
       });
       final op = operation.run(const Unit(), client: client);
-      shouldCancel.future.then((_) {
+      await shouldCancel.future.then((_) {
         op.cancel();
       });
       expect(op.requestProgress, emitsThrough(emitsDone));
@@ -94,14 +94,16 @@ class TransformingClient extends AWSBaseHttpClient {
 
   @override
   Future<AWSBaseHttpRequest> transformRequest(
-      AWSBaseHttpRequest request) async {
+    AWSBaseHttpRequest request,
+  ) async {
     await onRequest?.call(request);
     return request;
   }
 
   @override
   Future<AWSBaseHttpResponse> transformResponse(
-      AWSBaseHttpResponse response) async {
+    AWSBaseHttpResponse response,
+  ) async {
     response = await super.transformResponse(response);
     await onResponse?.call(response);
     return response;
@@ -128,8 +130,9 @@ class TestOp extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   HttpRequest buildRequest(Unit input) => HttpRequest((b) {
-        b.method = 'GET';
-        b.path = '/';
+        b
+          ..method = 'GET'
+          ..path = '/';
       });
 
   @override

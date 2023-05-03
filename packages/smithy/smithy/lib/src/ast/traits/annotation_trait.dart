@@ -3,7 +3,7 @@
 
 import 'package:smithy/ast.dart';
 
-abstract class AnnotationTrait extends Trait<Map> {
+abstract class AnnotationTrait extends Trait<Map<String, Object?>> {
   const AnnotationTrait(ShapeId shapeId)
       : super(shapeId, const <String, Object?>{});
 }

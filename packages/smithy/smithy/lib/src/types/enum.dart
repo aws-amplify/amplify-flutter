@@ -79,11 +79,11 @@ abstract class _SmithyEnumSerializer<T extends _SmithyEnumBase<T, Value>,
         Value extends Object> extends SmithySerializer<T>
     implements PrimitiveSerializer<T> {
   const _SmithyEnumSerializer(
-    String wireName, {
+    super.wireName, {
     required this.values,
     required this.sdkUnknown,
     required this.supportedProtocols,
-  }) : super(wireName);
+  });
 
   /// All enum values.
   final List<T> values;

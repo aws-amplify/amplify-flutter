@@ -19,7 +19,8 @@ class ClientDiscoveredEndpointTrait
 
   factory ClientDiscoveredEndpointTrait.fromJson(Object? json) =>
       _$ClientDiscoveredEndpointTraitFromJson(
-          (json as Map).cast<String, Object?>());
+        (json as Map).cast<String, Object?>(),
+      );
 
   static const id =
       ShapeId(namespace: 'aws.api', shape: 'clientDiscoveredEndpoint');

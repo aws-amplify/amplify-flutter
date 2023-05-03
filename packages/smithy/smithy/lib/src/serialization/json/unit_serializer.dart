@@ -9,14 +9,20 @@ class UnitSerializer implements StructuredSerializer<Unit> {
   const UnitSerializer();
 
   @override
-  Unit deserialize(Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Unit deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return const Unit();
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Unit object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    Unit object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return const [];
   }
 

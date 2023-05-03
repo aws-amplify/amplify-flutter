@@ -12,15 +12,21 @@ class XmlBoolSerializer extends PrimitiveSmithySerializer<bool> {
   Iterable<Type> get types => [bool];
 
   @override
-  bool deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  bool deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     serialized as String;
     return serialized == 'true';
   }
 
   @override
-  Object serialize(Serializers serializers, bool object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    bool object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return object.toString();
   }
 }

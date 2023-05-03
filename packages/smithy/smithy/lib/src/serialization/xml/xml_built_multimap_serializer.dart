@@ -6,7 +6,7 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart';
 
 class XmlBuiltMultimapSerializer
-    implements StructuredSerializer<BuiltListMultimap> {
+    implements StructuredSerializer<BuiltListMultimap<Object?, Object?>> {
   const XmlBuiltMultimapSerializer({
     this.keyName = 'key',
     this.valueName = 'value',
@@ -18,6 +18,7 @@ class XmlBuiltMultimapSerializer
   Iterable<Type> get types => [
         BuiltListMultimap,
         BuiltListMultimap<dynamic, dynamic>().runtimeType,
+        BuiltListMultimap<Object?, Object?>().runtimeType,
       ];
 
   final String keyName;
@@ -26,25 +27,26 @@ class XmlBuiltMultimapSerializer
   final XmlIndexer indexer;
 
   @override
-  final String wireName = 'multimap';
+  String get wireName => 'multimap';
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    BuiltListMultimap builtMap, {
+    BuiltListMultimap<Object?, Object?> builtMap, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    var isUnderspecified =
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
     if (!isUnderspecified) serializers.expectBuilder(specifiedType);
 
-    var keyType = specifiedType.parameters.isEmpty
+    final keyType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
-    var valueType = FullType(BuiltList, [
-      specifiedType.parameters.isEmpty
-          ? FullType.unspecified
-          : specifiedType.parameters[1]
+    final valueType = FullType(BuiltList, [
+      if (specifiedType.parameters.isEmpty)
+        FullType.unspecified
+      else
+        specifiedType.parameters[1]
     ]);
 
     var index = 0;
@@ -52,11 +54,12 @@ class XmlBuiltMultimapSerializer
     builtMap.forEachKey((key, value) {
       final innerResult = <Object?>[];
       final elementKeyName = indexer.elementName(keyName, index);
-      innerResult.add(XmlElementName(elementKeyName));
-      innerResult.add(serializers.serialize(key, specifiedType: keyType));
+      innerResult
+        ..add(XmlElementName(elementKeyName))
+        ..add(serializers.serialize(key, specifiedType: keyType));
       final elementValueName = indexer.elementName(valueName, index);
       innerResult.add(XmlElementName(elementValueName));
-      final Object? serializedValue = serializers.serialize(
+      final serializedValue = serializers.serialize(
         value,
         specifiedType: valueType,
       );
@@ -68,32 +71,37 @@ class XmlBuiltMultimapSerializer
   }
 
   @override
-  BuiltListMultimap deserialize(
+  BuiltListMultimap<Object?, Object?> deserialize(
     Serializers serializers,
-    Iterable serialized, {
+    Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    var isUnderspecified =
+    final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
 
-    var keyType = specifiedType.parameters.isEmpty
+    final keyType = specifiedType.parameters.isEmpty
         ? FullType.unspecified
         : specifiedType.parameters[0];
-    var valueType = FullType(BuiltList, [
-      specifiedType.parameters.isEmpty
-          ? FullType.unspecified
-          : specifiedType.parameters[1]
+    final valueType = FullType(BuiltList, [
+      if (specifiedType.parameters.isEmpty)
+        FullType.unspecified
+      else
+        specifiedType.parameters[1]
     ]);
 
-    var result = isUnderspecified
+    final result = isUnderspecified
         ? ListMultimapBuilder<Object, Object>()
         : serializers.newBuilder(specifiedType) as ListMultimapBuilder;
 
     for (var i = 0; i < serialized.length; i += 2) {
-      final key = serializers.deserialize(serialized.elementAt(i),
-          specifiedType: keyType);
-      final values = serializers.deserialize(serialized.elementAt(i + 1),
-          specifiedType: valueType) as Iterable<dynamic>;
+      final key = serializers.deserialize(
+        serialized.elementAt(i),
+        specifiedType: keyType,
+      );
+      final values = serializers.deserialize(
+        serialized.elementAt(i + 1),
+        specifiedType: valueType,
+      ) as Iterable<dynamic>;
       result.addValues(key, values);
     }
 

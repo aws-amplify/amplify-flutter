@@ -34,15 +34,15 @@ class UriPattern extends SmithyPattern {
     final segments = <Segment>[];
 
     // Skip the first '/' segment, and thus assume offset of 1.
-    for (int i = 1; i < unparsedSegments.length; i++) {
-      String segment = unparsedSegments[i];
+    for (var i = 1; i < unparsedSegments.length; i++) {
+      final segment = unparsedSegments[i];
       if (i == unparsedSegments.length - 1 && segment.isEmpty) {
         break;
       }
       segments.add(Segment.parse(segment));
     }
 
-    final Map<String, String> queryLiterals = {};
+    final queryLiterals = <String, String>{};
     // Parse the query literals outside of the general pattern
     if (parts.length == 2) {
       if (parts[1].contains('{') || parts[1].contains('}')) {
@@ -52,7 +52,7 @@ class UriPattern extends SmithyPattern {
       }
       for (final kvp in parts[1].split('&')) {
         final parameterParts = kvp.split('=');
-        String actualKey = parameterParts[0];
+        final actualKey = parameterParts[0];
         if (queryLiterals.containsKey(actualKey)) {
           throw InvalidUriPatternError(
             'Literal query parameters must not be repeated: $uri',

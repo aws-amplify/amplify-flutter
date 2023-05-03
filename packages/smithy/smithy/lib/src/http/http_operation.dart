@@ -286,7 +286,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (response.statusCode == successCode) {
       // Close the response so that the underlying subscription created by
       // `split` is cancelled as well.
-      response.close();
+      await response.close();
       if (output != null) {
         return output;
       }
@@ -309,19 +309,20 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
           headers: response.headers,
         );
       }
-      final Type errorType = smithyError.type;
-      final Function builder = smithyError.builder;
-      final Object? errorPayload = await protocol.deserialize(
+      final errorType = smithyError.type;
+      final builder = smithyError.builder;
+      final errorPayload = await protocol.deserialize(
         response.body,
         specifiedType: FullType(errorType),
       );
-      final SmithyException smithyException =
+      final smithyException =
+          // ignore: avoid_dynamic_calls
           builder(errorPayload, response) as SmithyException;
       throw smithyException;
     } finally {
       // Close the response so that the underlying subscription created by
       // `split` is cancelled as well.
-      response.close();
+      await response.close();
     }
   }
 
@@ -379,7 +380,7 @@ abstract class PaginatedHttpOperation<
       final token = getToken(output);
       final items = getItems(output);
       late PaginatedResult<Items, PageSize, Token> result;
-      result = PaginatedResult(
+      return result = PaginatedResult(
         items,
         nextContinuationToken: token,
 
@@ -404,7 +405,6 @@ abstract class PaginatedHttpOperation<
           );
         },
       );
-      return result;
     });
     return SmithyOperation(
       paginatedOperation,

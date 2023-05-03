@@ -20,7 +20,7 @@ abstract class NamedMembersShape implements Shape {
 }
 
 class NamedMembersMap extends DelegatingMap<String, MemberShape> {
-  NamedMembersMap(Map<String, MemberShape> members) : super(members);
+  NamedMembersMap(super.members);
 
   @override
   bool operator ==(Object? other) =>
@@ -45,23 +45,29 @@ class NamedMembersMapSerializer extends StructuredSerializer<NamedMembersMap> {
       final memberName = iterator.current as String;
       final shapeId = ShapeId.empty.replace(member: memberName);
       iterator.moveNext();
-      final Object? value = iterator.current;
+      final value = iterator.current;
       membersMap[memberName] = serializers
           .deserializeWith(
-              MemberShape.serializer,
-              StandardJsonPlugin()
-                  .beforeDeserialize(value, const FullType(MemberShape)))!
-          .rebuild((b) => b
-            ..shapeId = shapeId
-            ..memberName = memberName);
+            MemberShape.serializer,
+            StandardJsonPlugin()
+                .beforeDeserialize(value, const FullType(MemberShape)),
+          )!
+          .rebuild(
+            (b) => b
+              ..shapeId = shapeId
+              ..memberName = memberName,
+          );
     }
     return membersMap;
   }
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, NamedMembersMap object,
-      {FullType specifiedType = FullType.unspecified}) sync* {
-    for (var entry in object.entries) {
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    NamedMembersMap object, {
+    FullType specifiedType = FullType.unspecified,
+  }) sync* {
+    for (final entry in object.entries) {
       yield entry.key;
       yield serializers.serializeWith(Shape.serializer, entry.value);
     }

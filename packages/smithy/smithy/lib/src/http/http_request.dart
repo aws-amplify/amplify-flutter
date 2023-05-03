@@ -88,9 +88,9 @@ abstract class HttpResponse
 /// interceptors, without storing all of this on the request itself.
 abstract class HttpRequestContext
     implements Built<HttpRequestContext, HttpRequestContextBuilder> {
-  factory HttpRequestContext(
-          [void Function(HttpRequestContextBuilder) updates]) =
-      _$HttpRequestContext;
+  factory HttpRequestContext([
+    void Function(HttpRequestContextBuilder) updates,
+  ]) = _$HttpRequestContext;
   HttpRequestContext._();
 
   /// The service name to use when signing the request.
@@ -193,8 +193,8 @@ class SmithyHttpRequest {
         // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
         client: client is AWSBaseHttpClient ? client.baseClient : client,
       );
-      operation.requestProgress.forward(requestProgress);
-      operation.responseProgress.forward(responseProgress);
+      unawaited(operation.requestProgress.forward(requestProgress));
+      unawaited(operation.responseProgress.forward(responseProgress));
       completer.completeOperation(
         operation.operation.then(
           (response) => _transformResponse(
