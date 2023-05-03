@@ -34,6 +34,7 @@ linter:
     - directives_ordering                              # To maintain visual separation of a file’s imports.
     - eol_at_end_of_file                               # To provide consistency across our repos/languages.
     - flutter_style_todos                              # To ensure traceability of TODOs.
+    - invalid_case_patterns                            # To prevent invalid case statements.
     - join_return_with_assignment                      # To improve code readability.
     # - lines_longer_than_80_chars                     # Too restrictive as a lint, but generally a good rule to follow nonetheless.
     - missing_whitespace_between_adjacent_strings      # To prevent sentences which are smashedtogether.
@@ -61,6 +62,7 @@ linter:
     - sort_pub_dependencies                            # To simplify searching a large list.
     - tighten_type_of_initializing_formals             # To catch errors at compile-time vs. runtime.
     - type_annotate_public_apis                        # To ensure public APIs provide type safety.
+    - type_literal_in_constant_pattern                 # To prevent invalid case statements.
     - unawaited_futures                                # To prevent accidental fire-and-forget.
     - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
     - unnecessary_breaks                               # To simplify switch statements.
