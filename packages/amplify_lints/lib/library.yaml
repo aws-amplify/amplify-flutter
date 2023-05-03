@@ -63,6 +63,7 @@ linter:
     - type_annotate_public_apis                        # To ensure public APIs provide type safety.
     - unawaited_futures                                # To prevent accidental fire-and-forget.
     - unnecessary_await_in_return                      # To make code more concise and to encourage mindfulness about where Futures are awaited.
+    - unnecessary_breaks                               # To simplify switch statements.
     - unnecessary_lambdas                              # To make code more concise.
     - unnecessary_null_checks                          # To improve code readability.
     - use_enums                                        # To encourage use of the enhanced-enums language feature.

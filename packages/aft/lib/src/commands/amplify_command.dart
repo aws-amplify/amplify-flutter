@@ -54,11 +54,9 @@ abstract class AmplifyCommand extends Command<void>
       case LogLevel.debug:
       case LogLevel.info:
         stdout.writeln(message);
-        break;
       case LogLevel.warn:
       case LogLevel.error:
         stderr.writeln(message);
-        break;
       case LogLevel.none:
         break;
     }

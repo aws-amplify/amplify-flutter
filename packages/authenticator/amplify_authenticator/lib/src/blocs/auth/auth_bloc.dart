@@ -143,14 +143,12 @@ class StateMachineBloc
           break;
         }
         nextState = const AuthenticatedState();
-        break;
       case AuthHubEventType.signedOut:
       case AuthHubEventType.sessionExpired:
       case AuthHubEventType.userDeleted:
         if (_currentState is AuthenticatedState) {
           nextState = UnauthenticatedState(step: initialStep);
         }
-        break;
     }
     if (nextState != null) {
       _emit(nextState);
@@ -208,21 +206,16 @@ class StateMachineBloc
       switch (result.nextStep.signInStep) {
         case AuthSignInStep.confirmSignInWithSmsMfaCode:
           yield UnauthenticatedState.confirmSignInMfa;
-          break;
         case AuthSignInStep.confirmSignInWithCustomChallenge:
           yield ConfirmSignInCustom(
             publicParameters: result.nextStep.additionalInfo,
           );
-          break;
         case AuthSignInStep.confirmSignInWithNewPassword:
           yield UnauthenticatedState.confirmSignInNewPassword;
-          break;
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
-          break;
         case AuthSignInStep.confirmSignUp:
           yield UnauthenticatedState.confirmSignUp;
-          break;
         case AuthSignInStep.done:
           if (rememberDevice) {
             try {
@@ -234,7 +227,6 @@ class StateMachineBloc
             }
           }
           yield* _checkUserVerification();
-          break;
         default:
           break;
       }
@@ -296,24 +288,19 @@ class StateMachineBloc
       case AuthSignInStep.confirmSignInWithSmsMfaCode:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignInMfa);
-        break;
       case AuthSignInStep.confirmSignInWithCustomChallenge:
         _emit(
           ConfirmSignInCustom(
             publicParameters: result.nextStep.additionalInfo,
           ),
         );
-        break;
       case AuthSignInStep.confirmSignInWithNewPassword:
         _emit(UnauthenticatedState.confirmSignInNewPassword);
-        break;
       case AuthSignInStep.resetPassword:
         _emit(UnauthenticatedState.confirmResetPassword);
-        break;
       case AuthSignInStep.confirmSignUp:
         _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
         _emit(UnauthenticatedState.confirmSignUp);
-        break;
       case AuthSignInStep.done:
         if (isSocialSignIn) {
           _emit(const AuthenticatedState());
@@ -322,7 +309,6 @@ class StateMachineBloc
             _emit(state);
           }
         }
-        break;
       default:
         break;
     }
@@ -414,7 +400,6 @@ class StateMachineBloc
         case AuthSignUpStep.confirmSignUp:
           _notifyCodeSent(result.nextStep.codeDeliveryDetails?.destination);
           yield UnauthenticatedState.confirmSignUp;
-          break;
         case AuthSignUpStep.done:
           final authSignInData = AuthUsernamePasswordSignInData(
             username: data.username,
@@ -422,7 +407,6 @@ class StateMachineBloc
           );
 
           yield* _signIn(authSignInData);
-          break;
       }
     } on Exception catch (e) {
       _exceptionController.add(AuthenticatorException(e));

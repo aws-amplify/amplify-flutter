@@ -48,17 +48,14 @@ class SignUpStateMachine extends AuthStateMachine<SignUpEvent, SignUpState> {
         event as SignUpInitiate;
         emit(const SignUpState.initiating());
         await onInitiate(event);
-        break;
       case SignUpEventType.confirm:
         event as SignUpConfirm;
         emit(const SignUpState.confirming());
         await onConfirm(event);
-        break;
       case SignUpEventType.succeeded:
         event as SignUpSucceeded;
         emit(SignUpState.success(userId: event.userId));
         await onSucceeded(event);
-        break;
     }
   }
 
