@@ -43,30 +43,24 @@ final class HostedUiStateMachine
 
   @override
   Future<void> resolve(HostedUiEvent event) async {
-    switch (event.type) {
-      case HostedUiEventType.configure:
-        event as HostedUiConfigure;
+    switch (event) {
+      case HostedUiConfigure _:
         emit(const HostedUiState.configuring());
         await onConfigure(event);
-      case HostedUiEventType.foundState:
-        event as HostedUiFoundState;
+      case HostedUiFoundState _:
         await onFoundState(event);
-      case HostedUiEventType.exchange:
-        event as HostedUiExchange;
+      case HostedUiExchange _:
         emit(const HostedUiState.signingIn());
         await onExchange(event);
-      case HostedUiEventType.signIn:
-        event as HostedUiSignIn;
+      case HostedUiSignIn _:
         emit(const HostedUiState.signingIn());
         await onSignIn(event);
-      case HostedUiEventType.cancelSignIn:
-        await onCancelSignIn(event.cast());
-      case HostedUiEventType.signOut:
-        event as HostedUiSignOut;
+      case HostedUiCancelSignIn _:
+        await onCancelSignIn(event);
+      case HostedUiSignOut _:
         emit(const HostedUiState.signingOut());
         await onSignOut(event);
-      case HostedUiEventType.succeeded:
-        event as HostedUiSucceeded;
+      case HostedUiSucceeded _:
         await onSucceeded(event);
     }
   }
@@ -82,9 +76,8 @@ final class HostedUiStateMachine
   /// State machine callback for the [HostedUiConfigure] event.
   Future<void> onConfigure(HostedUiConfigure event) async {
     final result = await manager.loadCredentials();
-    final userPoolTokens = result.userPoolTokens;
-    if (userPoolTokens != null &&
-        userPoolTokens.signInMethod == CognitoSignInMethod.hostedUi) {
+    if (result.userPoolTokens case CognitoUserPoolTokens(:final signInMethod)
+        when signInMethod == CognitoSignInMethod.hostedUi) {
       emit(HostedUiState.signedIn(result.authUser));
       return;
     }

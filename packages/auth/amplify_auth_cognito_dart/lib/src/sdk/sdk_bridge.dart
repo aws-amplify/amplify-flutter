@@ -58,7 +58,7 @@ extension DeliveryMediumTypeBridge on DeliveryMediumType {
   DeliveryMedium get asDeliveryMedium => switch (this) {
         DeliveryMediumType.sms => DeliveryMedium.sms,
         DeliveryMediumType.email => DeliveryMedium.email,
-        _ => throw StateError('Unknown delivery medium: $this'),
+        _ => DeliveryMedium.unknown,
       };
 }
 

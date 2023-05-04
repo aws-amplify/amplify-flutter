@@ -1,10 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/src/model/cognito_user.dart';
-import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
-import 'package:amplify_core/amplify_core.dart';
+part of 'auth_state.dart';
 
 /// {@template amplify_auth_cognito_dart.sign_in_state_type}
 /// Discrete state types of an auth flow state machine.
@@ -50,7 +47,7 @@ sealed class SignInState extends AuthState<SignInStateType> {
   ) = SignInChallenge;
 
   /// {@macro amplify_auth_cognito_dart.sign_in_success}
-  const factory SignInState.success(CognitoUser user) = SignInSuccess;
+  const factory SignInState.success(AuthUser user) = SignInSuccess;
 
   /// {@macro amplify_auth_cognito_dart.sign_in_cancelling}
   const factory SignInState.cancelling() = SignInCancelling;
@@ -134,7 +131,7 @@ final class SignInSuccess extends SignInState with SuccessState {
   const SignInSuccess(this.user);
 
   /// The signed in user.
-  final CognitoUser user;
+  final AuthUser user;
 
   @override
   SignInStateType get type => SignInStateType.success;

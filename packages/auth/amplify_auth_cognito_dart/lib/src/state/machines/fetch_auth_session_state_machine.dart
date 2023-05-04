@@ -58,22 +58,18 @@ final class FetchAuthSessionStateMachine
 
   @override
   Future<void> resolve(FetchAuthSessionEvent event) async {
-    switch (event.type) {
-      case FetchAuthSessionEventType.fetch:
-        event as FetchAuthSessionFetch;
+    switch (event) {
+      case FetchAuthSessionFetch _:
         emit(const FetchAuthSessionState.fetching());
         await onFetchAuthSession(event);
-      case FetchAuthSessionEventType.federate:
-        event as FetchAuthSessionFederate;
+      case FetchAuthSessionFederate _:
         emit(const FetchAuthSessionState.fetching());
         await onFederate(event);
-      case FetchAuthSessionEventType.refresh:
-        event as FetchAuthSessionRefresh;
+      case FetchAuthSessionRefresh _:
         emit(const FetchAuthSessionState.refreshing());
         await onRefresh(event);
-      case FetchAuthSessionEventType.succeeded:
-        event as FetchAuthSessionSucceeded;
-        emit(FetchAuthSessionState.success(event.session));
+      case FetchAuthSessionSucceeded(:final session):
+        emit(FetchAuthSessionState.success(session));
     }
   }
 
