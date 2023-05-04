@@ -30,7 +30,7 @@ dev_dependencies:
   amplify_test:
     path: ../../../test/amplify_test
   build_runner: ^2.4.0
-  built_value_generator: 8.4.4
+  built_value_generator: 8.5.0
   flutter_test:
     sdk: flutter
   mockito: ^5.0.0

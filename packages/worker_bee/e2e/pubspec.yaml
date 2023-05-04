@@ -8,7 +8,7 @@ environment:
 dependencies: 
   aws_common: ">=0.4.0 <0.5.0"
   built_collection: ^5.0.0
-  built_value: ">=8.4.0 <8.5.0"
+  built_value: ">=8.5.0 <8.6.0"
   fixnum: ^1.0.0
   meta: ^1.7.0
   test: ^1.22.1
@@ -26,6 +26,6 @@ dev_dependencies:
   build_runner: ^2.4.0
   build_verify: ^3.0.0
   build_web_compilers: ^4.0.0
-  built_value_generator: 8.4.4
+  built_value_generator: 8.5.0
   worker_bee_builder:
     path: ../worker_bee_builder
