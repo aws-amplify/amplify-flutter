@@ -174,15 +174,15 @@ class MalformedDoubleInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'doubleInBody':
-          if (value != null) {
-            result.doubleInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -199,11 +199,12 @@ class MalformedDoubleInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedDoubleInputPayload);
     final result = <Object?>[];
-    if (payload.doubleInBody != null) {
+    final MalformedDoubleInputPayload(:doubleInBody) = payload;
+    if (doubleInBody != null) {
       result
         ..add('doubleInBody')
         ..add(serializers.serialize(
-          payload.doubleInBody!,
+          doubleInBody,
           specifiedType: const FullType(double),
         ));
     }

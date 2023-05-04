@@ -100,26 +100,23 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
     final result = _i2.NestedPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,19 +136,20 @@ class HttpPayloadWithStructureInputOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.greeting != null) {
+    final _i2.NestedPayload(:greeting, :name) = payload;
+    if (greeting != null) {
       result
         ..add(const _i1.XmlElementName('greeting'))
         ..add(serializers.serialize(
-          payload.greeting!,
+          greeting,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add(const _i1.XmlElementName('name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }

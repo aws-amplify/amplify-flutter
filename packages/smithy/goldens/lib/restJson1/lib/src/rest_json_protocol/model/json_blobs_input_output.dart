@@ -91,15 +91,15 @@ class JsonBlobsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -114,11 +114,12 @@ class JsonBlobsInputOutputRestJson1Serializer
   }) {
     final payload = (object as JsonBlobsInputOutput);
     final result = <Object?>[];
-    if (payload.data != null) {
+    final JsonBlobsInputOutput(:data) = payload;
+    if (data != null) {
       result
         ..add('data')
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }

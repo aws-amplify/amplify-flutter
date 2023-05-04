@@ -90,15 +90,15 @@ class NestedStructuresInputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StructArg),
-            ) as _i6.StructArg));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StructArg),
+          ) as _i6.StructArg));
       }
     }
 
@@ -140,31 +140,25 @@ class StructArgAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StringArg':
-          if (value != null) {
-            result.stringArg = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringArg = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OtherArg':
-          if (value != null) {
-            result.otherArg = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.otherArg = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RecursiveArg':
-          if (value != null) {
-            result.recursiveArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StructArg),
-            ) as _i6.StructArg));
-          }
-          break;
+          result.recursiveArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StructArg),
+          ) as _i6.StructArg));
       }
     }
 

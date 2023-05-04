@@ -87,25 +87,25 @@ class XmlMapsInputOutputRestXmlSerializer
     final result = XmlMapsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.GreetingStruct),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.myMap.replace(const _i1.XmlBuiltMapSerializer().deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.GreetingStruct),
+              ],
+            ),
+          ));
       }
     }
 
@@ -120,12 +120,13 @@ class XmlMapsInputOutputRestXmlSerializer
   }) {
     final payload = (object as XmlMapsInputOutput);
     final result = <Object?>[const _i1.XmlElementName('XmlMapsInputOutput')];
-    if (payload.myMap != null) {
+    final XmlMapsInputOutput(:myMap) = payload;
+    if (myMap != null) {
       result
         ..add(const _i1.XmlElementName('myMap'))
         ..add(const _i1.XmlBuiltMapSerializer().serialize(
           serializers,
-          payload.myMap!,
+          myMap,
           specifiedType: const FullType.nullable(
             _i4.BuiltMap,
             [

@@ -132,15 +132,15 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'payload':
-          if (value != null) {
-            result.payload.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.XmlAttributesInputOutput),
-            ) as _i6.XmlAttributesInputOutput));
-          }
-          break;
+          result.payload.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.XmlAttributesInputOutput),
+          ) as _i6.XmlAttributesInputOutput));
       }
     }
 
@@ -183,23 +183,20 @@ class XmlAttributesInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'attr':
-          if (value != null) {
-            result.attr = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attr = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

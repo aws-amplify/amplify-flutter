@@ -292,79 +292,55 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'byteValue':
-          if (value != null) {
-            result.byteValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byteValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'DoubleDribble':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'falseBooleanValue':
-          if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.falseBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'integerValue':
-          if (value != null) {
-            result.integerValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'longValue':
-          if (value != null) {
-            result.longValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.longValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'shortValue':
-          if (value != null) {
-            result.shortValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.shortValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'trueBooleanValue':
-          if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.trueBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -381,75 +357,86 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i1
         ? object.getPayload()
         : (object as SimpleScalarPropertiesInputOutputPayload);
     final result = <Object?>[];
-    if (payload.byteValue != null) {
+    final SimpleScalarPropertiesInputOutputPayload(
+      :byteValue,
+      :doubleValue,
+      :falseBooleanValue,
+      :floatValue,
+      :integerValue,
+      :longValue,
+      :shortValue,
+      :stringValue,
+      :trueBooleanValue
+    ) = payload;
+    if (byteValue != null) {
       result
         ..add('byteValue')
         ..add(serializers.serialize(
-          payload.byteValue!,
+          byteValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.doubleValue != null) {
+    if (doubleValue != null) {
       result
         ..add('DoubleDribble')
         ..add(serializers.serialize(
-          payload.doubleValue!,
+          doubleValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.falseBooleanValue != null) {
+    if (falseBooleanValue != null) {
       result
         ..add('falseBooleanValue')
         ..add(serializers.serialize(
-          payload.falseBooleanValue!,
+          falseBooleanValue,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.floatValue != null) {
+    if (floatValue != null) {
       result
         ..add('floatValue')
         ..add(serializers.serialize(
-          payload.floatValue!,
+          floatValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.integerValue != null) {
+    if (integerValue != null) {
       result
         ..add('integerValue')
         ..add(serializers.serialize(
-          payload.integerValue!,
+          integerValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.longValue != null) {
+    if (longValue != null) {
       result
         ..add('longValue')
         ..add(serializers.serialize(
-          payload.longValue!,
+          longValue,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.shortValue != null) {
+    if (shortValue != null) {
       result
         ..add('shortValue')
         ..add(serializers.serialize(
-          payload.shortValue!,
+          shortValue,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.stringValue != null) {
+    if (stringValue != null) {
       result
         ..add('stringValue')
         ..add(serializers.serialize(
-          payload.stringValue!,
+          stringValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.trueBooleanValue != null) {
+    if (trueBooleanValue != null) {
       result
         ..add('trueBooleanValue')
         ..add(serializers.serialize(
-          payload.trueBooleanValue!,
+          trueBooleanValue,
           specifiedType: const FullType(bool),
         ));
     }

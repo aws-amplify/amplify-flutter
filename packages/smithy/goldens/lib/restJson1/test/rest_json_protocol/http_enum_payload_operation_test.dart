@@ -112,15 +112,15 @@ class EnumPayloadInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'payload':
-          if (value != null) {
-            result.payload = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StringEnum),
-            ) as _i6.StringEnum);
-          }
-          break;
+          result.payload = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StringEnum),
+          ) as _i6.StringEnum);
       }
     }
 

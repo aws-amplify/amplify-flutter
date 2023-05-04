@@ -296,23 +296,20 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'doubleValue':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -355,23 +352,20 @@ class SimpleScalarPropertiesOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'doubleValue':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 

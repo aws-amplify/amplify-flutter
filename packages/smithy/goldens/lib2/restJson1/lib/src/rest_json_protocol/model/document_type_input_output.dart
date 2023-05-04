@@ -105,23 +105,20 @@ class DocumentTypeInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'documentValue':
-          if (value != null) {
-            result.documentValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.JsonObject),
-            ) as _i3.JsonObject);
-          }
-          break;
+          result.documentValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.JsonObject),
+          ) as _i3.JsonObject);
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -136,19 +133,20 @@ class DocumentTypeInputOutputRestJson1Serializer
   }) {
     final payload = (object as DocumentTypeInputOutput);
     final result = <Object?>[];
-    if (payload.documentValue != null) {
+    final DocumentTypeInputOutput(:documentValue, :stringValue) = payload;
+    if (documentValue != null) {
       result
         ..add('documentValue')
         ..add(serializers.serialize(
-          payload.documentValue!,
+          documentValue,
           specifiedType: const FullType(_i3.JsonObject),
         ));
     }
-    if (payload.stringValue != null) {
+    if (stringValue != null) {
       result
         ..add('stringValue')
         ..add(serializers.serialize(
-          payload.stringValue!,
+          stringValue,
           specifiedType: const FullType(String),
         ));
     }

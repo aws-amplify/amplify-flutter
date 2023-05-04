@@ -205,47 +205,44 @@ class NestedXmlMapsInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nestedMap':
-          if (value != null) {
-            result.nestedMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i6.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i7.FooEnum),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
-          }
-          break;
+          result.nestedMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i6.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i7.FooEnum),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
         case 'flatNestedMap':
-          if (value != null) {
-            result.flatNestedMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i6.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i7.FooEnum),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
-          }
-          break;
+          result.flatNestedMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i6.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i7.FooEnum),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, _i7.FooEnum>>));
       }
     }
 

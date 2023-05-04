@@ -78,31 +78,31 @@ class FlattenedXmlMapOutputAwsQuerySerializer
     final result = FlattenedXmlMapOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.addAll(const _i4.XmlBuiltMapSerializer(
-              flattenedKey: 'myMap',
-              indexer: _i4.XmlIndexer.awsQueryMap,
-            )
-                .deserialize(
-                  serializers,
-                  value is String ? const [] : (value as Iterable<Object?>),
-                  specifiedType: const FullType(
-                    _i3.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.FooEnum),
-                    ],
-                  ),
-                )
-                .toMap()
-                .cast());
-          }
-          break;
+          result.myMap.addAll(const _i4.XmlBuiltMapSerializer(
+            flattenedKey: 'myMap',
+            indexer: _i4.XmlIndexer.awsQueryMap,
+          )
+              .deserialize(
+                serializers,
+                value is String ? const [] : (value as Iterable<Object?>),
+                specifiedType: const FullType(
+                  _i3.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.FooEnum),
+                  ],
+                ),
+              )
+              .toMap()
+              .cast());
       }
     }
 
@@ -122,13 +122,14 @@ class FlattenedXmlMapOutputAwsQuerySerializer
         _i4.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.myMap != null) {
+    final FlattenedXmlMapOutput(:myMap) = payload;
+    if (myMap != null) {
       result.addAll(const _i4.XmlBuiltMapSerializer(
         flattenedKey: 'myMap',
         indexer: _i4.XmlIndexer.awsQueryMap,
       ).serialize(
         serializers,
-        payload.myMap!,
+        myMap,
         specifiedType: const FullType.nullable(
           _i3.BuiltMap,
           [

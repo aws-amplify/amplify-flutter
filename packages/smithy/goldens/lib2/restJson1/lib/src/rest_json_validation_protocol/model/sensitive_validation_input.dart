@@ -83,15 +83,15 @@ class SensitiveValidationInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -106,11 +106,12 @@ class SensitiveValidationInputRestJson1Serializer
   }) {
     final payload = (object as SensitiveValidationInput);
     final result = <Object?>[];
-    if (payload.string != null) {
+    final SensitiveValidationInput(:string) = payload;
+    if (string != null) {
       result
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(String),
         ));
     }

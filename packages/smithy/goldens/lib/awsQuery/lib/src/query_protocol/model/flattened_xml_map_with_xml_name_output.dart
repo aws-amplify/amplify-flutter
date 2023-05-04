@@ -81,33 +81,33 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
     final result = FlattenedXmlMapWithXmlNameOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'KVP':
-          if (value != null) {
-            result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
-              keyName: 'K',
-              valueName: 'V',
-              flattenedKey: 'KVP',
-              indexer: _i3.XmlIndexer.awsQueryMap,
-            )
-                .deserialize(
-                  serializers,
-                  value is String ? const [] : (value as Iterable<Object?>),
-                  specifiedType: const FullType(
-                    _i2.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  ),
-                )
-                .toMap()
-                .cast());
-          }
-          break;
+          result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
+            keyName: 'K',
+            valueName: 'V',
+            flattenedKey: 'KVP',
+            indexer: _i3.XmlIndexer.awsQueryMap,
+          )
+              .deserialize(
+                serializers,
+                value is String ? const [] : (value as Iterable<Object?>),
+                specifiedType: const FullType(
+                  _i2.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              )
+              .toMap()
+              .cast());
       }
     }
 
@@ -127,7 +127,8 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.myMap != null) {
+    final FlattenedXmlMapWithXmlNameOutput(:myMap) = payload;
+    if (myMap != null) {
       result.addAll(const _i3.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
@@ -135,7 +136,7 @@ class FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer
         indexer: _i3.XmlIndexer.awsQueryMap,
       ).serialize(
         serializers,
-        payload.myMap!,
+        myMap,
         specifiedType: const FullType.nullable(
           _i2.BuiltMap,
           [

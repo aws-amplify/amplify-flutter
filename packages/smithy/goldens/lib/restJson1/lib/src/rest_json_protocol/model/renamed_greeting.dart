@@ -69,15 +69,15 @@ class RenamedGreetingRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'salutation':
-          if (value != null) {
-            result.salutation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.salutation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -92,11 +92,12 @@ class RenamedGreetingRestJson1Serializer
   }) {
     final payload = (object as RenamedGreeting);
     final result = <Object?>[];
-    if (payload.salutation != null) {
+    final RenamedGreeting(:salutation) = payload;
+    if (salutation != null) {
       result
         ..add('salutation')
         ..add(serializers.serialize(
-          payload.salutation!,
+          salutation,
           specifiedType: const FullType(String),
         ));
     }

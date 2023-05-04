@@ -115,40 +115,34 @@ class NullOperationInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'sparseStringList':
-          if (value != null) {
-            result.sparseStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType.nullable(String)],
-              ),
-            ) as _i3.BuiltList<String?>));
-          }
-          break;
+          result.sparseStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType.nullable(String)],
+            ),
+          ) as _i3.BuiltList<String?>));
         case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String?>));
-          }
-          break;
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String?>));
       }
     }
 
@@ -163,30 +157,35 @@ class NullOperationInputOutputAwsJson11Serializer
   }) {
     final payload = (object as NullOperationInputOutput);
     final result = <Object?>[];
-    if (payload.string != null) {
+    final NullOperationInputOutput(
+      :string,
+      :sparseStringList,
+      :sparseStringMap
+    ) = payload;
+    if (string != null) {
       result
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sparseStringList != null) {
+    if (sparseStringList != null) {
       result
         ..add('sparseStringList')
         ..add(serializers.serialize(
-          payload.sparseStringList!,
+          sparseStringList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType.nullable(String)],
           ),
         ));
     }
-    if (payload.sparseStringMap != null) {
+    if (sparseStringMap != null) {
       result
         ..add('sparseStringMap')
         ..add(serializers.serialize(
-          payload.sparseStringMap!,
+          sparseStringMap,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

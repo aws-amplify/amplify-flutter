@@ -130,66 +130,48 @@ class FileConfigSettingsAwsQuerySerializer
     final result = FileConfigSettingsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'aws_access_key_id':
-          if (value != null) {
-            result.awsAccessKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsAccessKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'aws_secret_access_key':
-          if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSecretAccessKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'aws_session_token':
-          if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSessionToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Config),
-            ) as _i2.S3Config));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Config),
+          ) as _i2.S3Config));
         case 'retry_mode':
-          if (value != null) {
-            result.retryMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RetryMode),
-            ) as _i3.RetryMode);
-          }
-          break;
+          result.retryMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RetryMode),
+          ) as _i3.RetryMode);
         case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxAttempts = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -209,59 +191,68 @@ class FileConfigSettingsAwsQuerySerializer
         _i4.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.awsAccessKeyId != null) {
+    final FileConfigSettings(
+      :awsAccessKeyId,
+      :awsSecretAccessKey,
+      :awsSessionToken,
+      :region,
+      :s3,
+      :retryMode,
+      :maxAttempts
+    ) = payload;
+    if (awsAccessKeyId != null) {
       result
         ..add(const _i4.XmlElementName('aws_access_key_id'))
         ..add(serializers.serialize(
-          payload.awsAccessKeyId!,
+          awsAccessKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsSecretAccessKey != null) {
+    if (awsSecretAccessKey != null) {
       result
         ..add(const _i4.XmlElementName('aws_secret_access_key'))
         ..add(serializers.serialize(
-          payload.awsSecretAccessKey!,
+          awsSecretAccessKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsSessionToken != null) {
+    if (awsSessionToken != null) {
       result
         ..add(const _i4.XmlElementName('aws_session_token'))
         ..add(serializers.serialize(
-          payload.awsSessionToken!,
+          awsSessionToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add(const _i4.XmlElementName('region'))
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3 != null) {
+    if (s3 != null) {
       result
         ..add(const _i4.XmlElementName('s3'))
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    if (payload.retryMode != null) {
+    if (retryMode != null) {
       result
         ..add(const _i4.XmlElementName('retry_mode'))
         ..add(serializers.serialize(
-          payload.retryMode!,
+          retryMode,
           specifiedType: const FullType.nullable(_i3.RetryMode),
         ));
     }
-    if (payload.maxAttempts != null) {
+    if (maxAttempts != null) {
       result
         ..add(const _i4.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
-          payload.maxAttempts!,
+          maxAttempts,
           specifiedType: const FullType.nullable(int),
         ));
     }

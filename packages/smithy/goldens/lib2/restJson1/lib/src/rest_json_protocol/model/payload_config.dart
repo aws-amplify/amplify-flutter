@@ -69,15 +69,15 @@ class PayloadConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -92,11 +92,12 @@ class PayloadConfigRestJson1Serializer
   }) {
     final payload = (object as PayloadConfig);
     final result = <Object?>[];
-    if (payload.data != null) {
+    final PayloadConfig(:data) = payload;
+    if (data != null) {
       result
         ..add('data')
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType(int),
         ));
     }

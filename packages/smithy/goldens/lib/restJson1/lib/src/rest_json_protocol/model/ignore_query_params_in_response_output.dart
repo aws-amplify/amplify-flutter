@@ -82,15 +82,15 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -105,11 +105,12 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer
   }) {
     final payload = (object as IgnoreQueryParamsInResponseOutput);
     final result = <Object?>[];
-    if (payload.baz != null) {
+    final IgnoreQueryParamsInResponseOutput(:baz) = payload;
+    if (baz != null) {
       result
         ..add('baz')
         ..add(serializers.serialize(
-          payload.baz!,
+          baz,
           specifiedType: const FullType(String),
         ));
     }

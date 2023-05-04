@@ -99,23 +99,20 @@ class GetRestApisRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -157,26 +154,23 @@ class RestApisRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'items':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i9.RestApi)],
-              ),
-            ) as _i8.BuiltList<_i9.RestApi>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i9.RestApi)],
+            ),
+          ) as _i8.BuiltList<_i9.RestApi>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -218,124 +212,87 @@ class RestApiRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'createdDate':
-          if (value != null) {
-            result.createdDate =
-                _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.createdDate = _i5.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.version = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i8.BuiltList<String>));
-          }
-          break;
+          result.warnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i8.BuiltList<String>));
         case 'binaryMediaTypes':
-          if (value != null) {
-            result.binaryMediaTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i8.BuiltList<String>));
-          }
-          break;
+          result.binaryMediaTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i8.BuiltList<String>));
         case 'minimumCompressionSize':
-          if (value != null) {
-            result.minimumCompressionSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minimumCompressionSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'apiKeySource':
-          if (value != null) {
-            result.apiKeySource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.ApiKeySourceType),
-            ) as _i10.ApiKeySourceType);
-          }
-          break;
+          result.apiKeySource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.ApiKeySourceType),
+          ) as _i10.ApiKeySourceType);
         case 'endpointConfiguration':
-          if (value != null) {
-            result.endpointConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i11.EndpointConfiguration),
-            ) as _i11.EndpointConfiguration));
-          }
-          break;
+          result.endpointConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i11.EndpointConfiguration),
+          ) as _i11.EndpointConfiguration));
         case 'policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, String>));
         case 'disableExecuteApiEndpoint':
-          if (value != null) {
-            result.disableExecuteApiEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.disableExecuteApiEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -378,29 +335,26 @@ class EndpointConfigurationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'types':
-          if (value != null) {
-            result.types.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i12.EndpointType)],
-              ),
-            ) as _i8.BuiltList<_i12.EndpointType>));
-          }
-          break;
+          result.types.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i12.EndpointType)],
+            ),
+          ) as _i8.BuiltList<_i12.EndpointType>));
         case 'vpcEndpointIds':
-          if (value != null) {
-            result.vpcEndpointIds.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i8.BuiltList<String>));
-          }
-          break;
+          result.vpcEndpointIds.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i8.BuiltList<String>));
       }
     }
 
@@ -442,15 +396,15 @@ class BadRequestExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -493,23 +447,20 @@ class TooManyRequestsExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'retryAfterSeconds':
-          if (value != null) {
-            result.retryAfterSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.retryAfterSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -552,15 +503,15 @@ class UnauthorizedExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

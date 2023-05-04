@@ -109,23 +109,20 @@ class FractionalSecondsOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'httpdate':
-          if (value != null) {
-            result.httpdate = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpdate = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 

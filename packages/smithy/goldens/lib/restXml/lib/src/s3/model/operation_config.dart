@@ -72,18 +72,18 @@ class OperationConfigRestXmlSerializer
     final result = OperationConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 's3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Config),
-            ) as _i2.S3Config));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Config),
+          ) as _i2.S3Config));
       }
     }
 
@@ -103,11 +103,12 @@ class OperationConfigRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.s3 != null) {
+    final OperationConfig(:s3) = payload;
+    if (s3 != null) {
       result
         ..add(const _i3.XmlElementName('s3'))
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }

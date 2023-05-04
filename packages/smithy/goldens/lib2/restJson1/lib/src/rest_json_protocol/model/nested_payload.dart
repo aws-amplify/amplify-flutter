@@ -83,23 +83,20 @@ class NestedPayloadRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,19 +111,20 @@ class NestedPayloadRestJson1Serializer
   }) {
     final payload = (object as NestedPayload);
     final result = <Object?>[];
-    if (payload.greeting != null) {
+    final NestedPayload(:greeting, :name) = payload;
+    if (greeting != null) {
       result
         ..add('greeting')
         ..add(serializers.serialize(
-          payload.greeting!,
+          greeting,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }

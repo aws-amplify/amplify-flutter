@@ -174,15 +174,15 @@ class MalformedLongInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'longInBody':
-          if (value != null) {
-            result.longInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.longInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
       }
     }
 
@@ -199,11 +199,12 @@ class MalformedLongInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedLongInputPayload);
     final result = <Object?>[];
-    if (payload.longInBody != null) {
+    final MalformedLongInputPayload(:longInBody) = payload;
+    if (longInBody != null) {
       result
         ..add('longInBody')
         ..add(serializers.serialize(
-          payload.longInBody!,
+          longInBody,
           specifiedType: const FullType(_i3.Int64),
         ));
     }

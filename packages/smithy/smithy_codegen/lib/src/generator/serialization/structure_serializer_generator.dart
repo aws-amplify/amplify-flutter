@@ -240,7 +240,6 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     for (final member in serializedMembers) {
       final wireName = memberWireName(member);
       final memberSymbol = memberSymbols[member]!;
-      final isNullable = member.isNullable(context, shape);
       final targetShape = context.shapeFor(member.target);
       final hasNestedBuilder = [
         ShapeType.map,
@@ -252,35 +251,26 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       yield Block.of([
         const Code('case '),
         literalString(wireName).code,
+        Code.scope((ref) => 'when ${ref(value)} != null'),
         const Code(':'),
         if (hasNestedBuilder)
           refer('result')
               .property(member.dartName(ShapeType.structure))
               .property('replace')
               .call([
-                deserializerFor(member, memberSymbol: memberSymbol.unboxed),
-              ])
-              .statement
-              .wrapWithBlockIf(
-                value.notEqualTo(literalNull),
-                isNullable,
-              )
+            deserializerFor(member, memberSymbol: memberSymbol.unboxed),
+          ]).statement
         else
           refer('result')
               .property(member.dartName(ShapeType.structure))
               .assign(
                 deserializerFor(
                   member,
-                  value: isNullable ? value : value.nullChecked,
+                  value: value,
                   memberSymbol: memberSymbol.unboxed,
                 ),
               )
-              .statement
-              .wrapWithBlockIf(
-                value.notEqualTo(literalNull),
-                isNullable,
-              ),
-        const Code('break;'),
+              .statement,
       ]);
     }
   }
@@ -348,8 +338,14 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
     // Add remaining objects only if they're non-null.
     final nullableMembers =
         serializedMembers.where((member) => member.isNullable(context, shape));
+    if (nullableMembers.isNotEmpty) {
+      // Destructure `payload` so that members can be null-checked w/ promotion.
+      builder.statements.add(
+        destructure(payloadSymbol, nullableMembers, payload),
+      );
+    }
     for (final member in nullableMembers) {
-      final memberRef = payload.property(member.dartName(ShapeType.structure));
+      final memberRef = refer(member.dartName(ShapeType.structure));
       builder.statements.addAll([
         refer('result')
             .cascade('add')
@@ -358,7 +354,7 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
             .call([
               serializerFor(
                 member,
-                memberRef.nullChecked,
+                memberRef,
                 memberSymbol: context.symbolFor(member.target, shape).unboxed,
               )
             ])

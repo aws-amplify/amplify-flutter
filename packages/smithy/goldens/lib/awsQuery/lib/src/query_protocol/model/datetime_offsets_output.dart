@@ -75,18 +75,18 @@ class DatetimeOffsetsOutputAwsQuerySerializer
     final result = DatetimeOffsetsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -106,12 +106,13 @@ class DatetimeOffsetsOutputAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.datetime != null) {
+    final DatetimeOffsetsOutput(:datetime) = payload;
+    if (datetime != null) {
       result
         ..add(const _i2.XmlElementName('datetime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
     return result;

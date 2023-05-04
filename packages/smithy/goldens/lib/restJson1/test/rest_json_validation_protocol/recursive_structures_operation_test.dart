@@ -93,15 +93,15 @@ class RecursiveStructuresInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.RecursiveUnionOne),
-            ) as _i6.RecursiveUnionOne);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.RecursiveUnionOne),
+          ) as _i6.RecursiveUnionOne);
       }
     }
 
@@ -143,24 +143,23 @@ class ValidationExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'fieldList':
-          if (value != null) {
-            result.fieldList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i9.ValidationExceptionField)],
-              ),
-            ) as _i8.BuiltList<_i9.ValidationExceptionField>));
-          }
-          break;
+          result.fieldList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i9.ValidationExceptionField)],
+            ),
+          ) as _i8.BuiltList<_i9.ValidationExceptionField>));
       }
     }
 
@@ -203,19 +202,20 @@ class ValidationExceptionFieldRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 

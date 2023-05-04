@@ -122,24 +122,23 @@ class ValidationExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'fieldList':
-          if (value != null) {
-            result.fieldList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ValidationExceptionField)],
-              ),
-            ) as _i4.BuiltList<_i3.ValidationExceptionField>));
-          }
-          break;
+          result.fieldList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ValidationExceptionField)],
+            ),
+          ) as _i4.BuiltList<_i3.ValidationExceptionField>));
         case 'message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -160,11 +159,12 @@ class ValidationExceptionRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.fieldList != null) {
+    final ValidationException(:fieldList) = payload;
+    if (fieldList != null) {
       result
         ..add('fieldList')
         ..add(serializers.serialize(
-          payload.fieldList!,
+          fieldList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ValidationExceptionField)],

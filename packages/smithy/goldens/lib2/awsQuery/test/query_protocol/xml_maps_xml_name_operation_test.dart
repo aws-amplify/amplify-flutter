@@ -85,21 +85,21 @@ class XmlMapsXmlNameOutputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.GreetingStruct),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
-          }
-          break;
+          result.myMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.GreetingStruct),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
       }
     }
 
@@ -141,15 +141,15 @@ class GreetingStructAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

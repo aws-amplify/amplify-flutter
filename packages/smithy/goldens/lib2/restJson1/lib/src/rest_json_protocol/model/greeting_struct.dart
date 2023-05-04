@@ -85,15 +85,15 @@ class GreetingStructRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -108,11 +108,12 @@ class GreetingStructRestJson1Serializer
   }) {
     final payload = (object as GreetingStruct);
     final result = <Object?>[];
-    if (payload.hi != null) {
+    final GreetingStruct(:hi) = payload;
+    if (hi != null) {
       result
         ..add('hi')
         ..add(serializers.serialize(
-          payload.hi!,
+          hi,
           specifiedType: const FullType(String),
         ));
     }

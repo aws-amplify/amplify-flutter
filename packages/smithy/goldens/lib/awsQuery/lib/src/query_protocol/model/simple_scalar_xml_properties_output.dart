@@ -158,90 +158,63 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
     final result = SimpleScalarXmlPropertiesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'stringValue':
-          if (value != null) {
-            result.stringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'emptyStringValue':
-          if (value != null) {
-            result.emptyStringValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.emptyStringValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'trueBooleanValue':
-          if (value != null) {
-            result.trueBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.trueBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'falseBooleanValue':
-          if (value != null) {
-            result.falseBooleanValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.falseBooleanValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'byteValue':
-          if (value != null) {
-            result.byteValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byteValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'shortValue':
-          if (value != null) {
-            result.shortValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.shortValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'integerValue':
-          if (value != null) {
-            result.integerValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'longValue':
-          if (value != null) {
-            result.longValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.longValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'DoubleDribble':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -261,83 +234,95 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.stringValue != null) {
+    final SimpleScalarXmlPropertiesOutput(
+      :stringValue,
+      :emptyStringValue,
+      :trueBooleanValue,
+      :falseBooleanValue,
+      :byteValue,
+      :shortValue,
+      :integerValue,
+      :longValue,
+      :floatValue,
+      :doubleValue
+    ) = payload;
+    if (stringValue != null) {
       result
         ..add(const _i3.XmlElementName('stringValue'))
         ..add(serializers.serialize(
-          payload.stringValue!,
+          stringValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.emptyStringValue != null) {
+    if (emptyStringValue != null) {
       result
         ..add(const _i3.XmlElementName('emptyStringValue'))
         ..add(serializers.serialize(
-          payload.emptyStringValue!,
+          emptyStringValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.trueBooleanValue != null) {
+    if (trueBooleanValue != null) {
       result
         ..add(const _i3.XmlElementName('trueBooleanValue'))
         ..add(serializers.serialize(
-          payload.trueBooleanValue!,
+          trueBooleanValue,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.falseBooleanValue != null) {
+    if (falseBooleanValue != null) {
       result
         ..add(const _i3.XmlElementName('falseBooleanValue'))
         ..add(serializers.serialize(
-          payload.falseBooleanValue!,
+          falseBooleanValue,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.byteValue != null) {
+    if (byteValue != null) {
       result
         ..add(const _i3.XmlElementName('byteValue'))
         ..add(serializers.serialize(
-          payload.byteValue!,
+          byteValue,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.shortValue != null) {
+    if (shortValue != null) {
       result
         ..add(const _i3.XmlElementName('shortValue'))
         ..add(serializers.serialize(
-          payload.shortValue!,
+          shortValue,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.integerValue != null) {
+    if (integerValue != null) {
       result
         ..add(const _i3.XmlElementName('integerValue'))
         ..add(serializers.serialize(
-          payload.integerValue!,
+          integerValue,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.longValue != null) {
+    if (longValue != null) {
       result
         ..add(const _i3.XmlElementName('longValue'))
         ..add(serializers.serialize(
-          payload.longValue!,
+          longValue,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.floatValue != null) {
+    if (floatValue != null) {
       result
         ..add(const _i3.XmlElementName('floatValue'))
         ..add(serializers.serialize(
-          payload.floatValue!,
+          floatValue,
           specifiedType: const FullType.nullable(double),
         ));
     }
-    if (payload.doubleValue != null) {
+    if (doubleValue != null) {
       result
         ..add(const _i3.XmlElementName('DoubleDribble'))
         ..add(serializers.serialize(
-          payload.doubleValue!,
+          doubleValue,
           specifiedType: const FullType.nullable(double),
         ));
     }

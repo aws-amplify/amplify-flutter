@@ -119,21 +119,21 @@ class HttpPrefixHeadersInResponseOutputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'prefixHeaders':
-          if (value != null) {
-            result.prefixHeaders.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String>));
-          }
-          break;
+          result.prefixHeaders.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String>));
       }
     }
 

@@ -87,18 +87,18 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
     final result = XmlEmptyStringsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'emptyString':
-          if (value != null) {
-            result.emptyString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.emptyString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -115,11 +115,12 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
     final result = <Object?>[
       const _i1.XmlElementName('XmlEmptyStringsInputOutput')
     ];
-    if (payload.emptyString != null) {
+    final XmlEmptyStringsInputOutput(:emptyString) = payload;
+    if (emptyString != null) {
       result
         ..add(const _i1.XmlElementName('emptyString'))
         ..add(serializers.serialize(
-          payload.emptyString!,
+          emptyString,
           specifiedType: const FullType(String),
         ));
     }

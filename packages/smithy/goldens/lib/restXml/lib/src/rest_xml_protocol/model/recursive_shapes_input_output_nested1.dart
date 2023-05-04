@@ -88,27 +88,24 @@ class RecursiveShapesInputOutputNested1RestXmlSerializer
     final result = RecursiveShapesInputOutputNested1Builder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.RecursiveShapesInputOutputNested2),
-            ) as _i2.RecursiveShapesInputOutputNested2));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.RecursiveShapesInputOutputNested2),
+          ) as _i2.RecursiveShapesInputOutputNested2));
       }
     }
 
@@ -125,19 +122,20 @@ class RecursiveShapesInputOutputNested1RestXmlSerializer
     final result = <Object?>[
       const _i3.XmlElementName('RecursiveShapesInputOutputNested1')
     ];
-    if (payload.foo != null) {
+    final RecursiveShapesInputOutputNested1(:foo, :nested) = payload;
+    if (foo != null) {
       result
         ..add(const _i3.XmlElementName('foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nested != null) {
+    if (nested != null) {
       result
         ..add(const _i3.XmlElementName('nested'))
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i2.RecursiveShapesInputOutputNested2),
         ));
     }

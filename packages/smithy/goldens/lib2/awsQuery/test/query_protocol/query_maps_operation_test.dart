@@ -477,113 +477,92 @@ class QueryMapsInputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MapArg':
-          if (value != null) {
-            result.mapArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.mapArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'RenamedMapArg':
-          if (value != null) {
-            result.renamedMapArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.renamedMapArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'ComplexMapArg':
-          if (value != null) {
-            result.complexMapArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.GreetingStruct),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
-          }
-          break;
+          result.complexMapArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.GreetingStruct),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
         case 'MapWithXmlMemberName':
-          if (value != null) {
-            result.mapWithXmlMemberName.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.mapWithXmlMemberName.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'FlattenedMap':
-          if (value != null) {
-            result.flattenedMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.flattenedMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'FlattenedMapWithXmlName':
-          if (value != null) {
-            result.flattenedMapWithXmlName.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.flattenedMapWithXmlName.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'MapOfLists':
-          if (value != null) {
-            result.mapOfLists.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.mapOfLists.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltListMultimap<String, String>));
         case 'NestedStructWithMap':
-          if (value != null) {
-            result.nestedStructWithMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.NestedStructWithMap),
-            ) as _i8.NestedStructWithMap));
-          }
-          break;
+          result.nestedStructWithMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.NestedStructWithMap),
+          ) as _i8.NestedStructWithMap));
       }
     }
 
@@ -625,15 +604,15 @@ class GreetingStructAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -675,21 +654,21 @@ class NestedStructWithMapAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MapArg':
-          if (value != null) {
-            result.mapArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.mapArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
       }
     }
 

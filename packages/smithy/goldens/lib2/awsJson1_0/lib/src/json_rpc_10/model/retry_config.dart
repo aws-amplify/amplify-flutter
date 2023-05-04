@@ -89,23 +89,20 @@ class RetryConfigAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RetryMode),
-            ) as _i2.RetryMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RetryMode),
+          ) as _i2.RetryMode);
         case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxAttempts = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -120,19 +117,20 @@ class RetryConfigAwsJson10Serializer
   }) {
     final payload = (object as RetryConfig);
     final result = <Object?>[];
-    if (payload.mode != null) {
+    final RetryConfig(:mode, :maxAttempts) = payload;
+    if (mode != null) {
       result
         ..add('mode')
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType(_i2.RetryMode),
         ));
     }
-    if (payload.maxAttempts != null) {
+    if (maxAttempts != null) {
       result
         ..add('max_attempts')
         ..add(serializers.serialize(
-          payload.maxAttempts!,
+          maxAttempts,
           specifiedType: const FullType(int),
         ));
     }

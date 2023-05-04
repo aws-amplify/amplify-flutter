@@ -177,15 +177,15 @@ class MalformedBooleanInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'booleanInBody':
-          if (value != null) {
-            result.booleanInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.booleanInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -202,11 +202,12 @@ class MalformedBooleanInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedBooleanInputPayload);
     final result = <Object?>[];
-    if (payload.booleanInBody != null) {
+    final MalformedBooleanInputPayload(:booleanInBody) = payload;
+    if (booleanInBody != null) {
       result
         ..add('booleanInBody')
         ..add(serializers.serialize(
-          payload.booleanInBody!,
+          booleanInBody,
           specifiedType: const FullType(bool),
         ));
     }

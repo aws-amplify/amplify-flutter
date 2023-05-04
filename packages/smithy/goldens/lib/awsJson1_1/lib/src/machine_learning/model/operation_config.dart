@@ -76,15 +76,15 @@ class OperationConfigAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 's3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Config),
-            ) as _i2.S3Config));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Config),
+          ) as _i2.S3Config));
       }
     }
 
@@ -99,11 +99,12 @@ class OperationConfigAwsJson11Serializer
   }) {
     final payload = (object as OperationConfig);
     final result = <Object?>[];
-    if (payload.s3 != null) {
+    final OperationConfig(:s3) = payload;
+    if (s3 != null) {
       result
         ..add('s3')
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }

@@ -134,15 +134,15 @@ class PutAndGetInlineDocumentsInputOutputAwsJson11Serializer extends _i5
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'inlineDocument':
-          if (value != null) {
-            result.inlineDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.JsonObject),
-            ) as _i7.JsonObject);
-          }
-          break;
+          result.inlineDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.JsonObject),
+          ) as _i7.JsonObject);
       }
     }
 

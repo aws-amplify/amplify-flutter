@@ -92,23 +92,20 @@ class FractionalSecondsOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'httpdate':
-          if (value != null) {
-            result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -123,20 +120,21 @@ class FractionalSecondsOutputAwsJson11Serializer
   }) {
     final payload = (object as FractionalSecondsOutput);
     final result = <Object?>[];
-    if (payload.datetime != null) {
+    final FractionalSecondsOutput(:datetime, :httpdate) = payload;
+    if (datetime != null) {
       result
         ..add('datetime')
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
-    if (payload.httpdate != null) {
+    if (httpdate != null) {
       result
         ..add('httpdate')
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpdate!,
+          httpdate,
         ));
     }
     return result;

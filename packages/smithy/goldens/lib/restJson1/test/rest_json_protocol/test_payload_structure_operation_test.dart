@@ -172,23 +172,20 @@ class TestPayloadStructureInputOutputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'testId':
-          if (value != null) {
-            result.testId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.testId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'payloadConfig':
-          if (value != null) {
-            result.payloadConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.PayloadConfig),
-            ) as _i6.PayloadConfig));
-          }
-          break;
+          result.payloadConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.PayloadConfig),
+          ) as _i6.PayloadConfig));
       }
     }
 
@@ -230,15 +227,15 @@ class PayloadConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 

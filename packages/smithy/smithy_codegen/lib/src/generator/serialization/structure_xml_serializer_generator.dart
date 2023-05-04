@@ -229,8 +229,14 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     }
 
     Expression ref(MemberShape member) =>
-        payload.property(member.dartName(ShapeType.structure));
+        refer(member.dartName(ShapeType.structure));
 
+    if (serializedMembers.isNotEmpty) {
+      // Destructure `payload` so that members can be null-checked w/ promotion.
+      builder.statements.add(
+        destructure(payloadSymbol, serializedMembers, payload),
+      );
+    }
     for (final member in attributeMembers) {
       final memberRef = ref(member);
       final isNullable = member.isNullable(context, shape);
@@ -244,14 +250,14 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
                 ]),
                 serializerFor(
                   member,
-                  isNullable ? memberRef.nullChecked : memberRef,
+                  memberRef,
                 ).asA(DartTypes.core.string),
               ]),
             ])
             .statement
             .wrapWithBlockIf(
               memberRef.notEqualTo(literalNull),
-              member.isNullable(context, shape),
+              isNullable,
             ),
       );
     }
@@ -276,10 +282,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       final memberRef = ref(member);
       final isFlattened = flattenedMembers.contains(member);
       final isNullable = member.isNullable(context, shape);
-      final serializer = serializerFor(
-        member,
-        isNullable ? memberRef.nullChecked : memberRef,
-      );
+      final serializer = serializerFor(member, memberRef);
       final memberNs = member.getTrait<XmlNamespaceTrait>();
       Expression addRes = result;
       if (!isFlattened) {
@@ -297,7 +300,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
             .statement
             .wrapWithBlockIf(
               memberRef.notEqualTo(literalNull),
-              member.isNullable(context, shape),
+              isNullable,
             ),
       );
     }
@@ -379,7 +382,6 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     for (final member in serializedMembers) {
       final wireName = memberWireName(member);
       var memberSymbol = memberSymbols[member]!;
-      final isNullable = member.isNullable(context, shape);
       final targetShape = context.shapeFor(member.target);
       final hasNestedBuilder = [
         ShapeType.map,
@@ -418,40 +420,31 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       yield Block.of([
         const Code('case '),
         literalString(wireName).code,
+        Code.scope((ref) => 'when ${ref(value)} != null'),
         const Code(':'),
         if (hasNestedBuilder)
           refer('result')
               .property(member.dartName(ShapeType.structure))
               .property(nestedMethod)
               .call([
-                postProcess(
-                  deserializerFor(
-                    targetMember,
-                    memberSymbol: memberSymbol.unboxed,
-                  ),
-                ),
-              ])
-              .statement
-              .wrapWithBlockIf(
-                value.notEqualTo(literalNull),
-                isNullable,
-              )
+            postProcess(
+              deserializerFor(
+                targetMember,
+                memberSymbol: memberSymbol.unboxed,
+              ),
+            ),
+          ]).statement
         else
           refer('result')
               .property(member.dartName(ShapeType.structure))
               .assign(
                 deserializerFor(
                   member,
-                  value: isNullable ? value : value.nullChecked,
+                  value: value,
                   memberSymbol: memberSymbol.unboxed,
                 ),
               )
-              .statement
-              .wrapWithBlockIf(
-                value.notEqualTo(literalNull),
-                isNullable,
-              ),
-        const Code('break;'),
+              .statement,
       ]);
     }
   }

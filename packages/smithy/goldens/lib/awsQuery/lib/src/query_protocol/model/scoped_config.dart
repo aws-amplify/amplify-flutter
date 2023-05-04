@@ -127,68 +127,56 @@ class ScopedConfigAwsQuerySerializer
     final result = ScopedConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'environment':
-          if (value != null) {
-            result.environment.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EnvironmentConfig),
-            ) as _i2.EnvironmentConfig));
-          }
-          break;
+          result.environment.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EnvironmentConfig),
+          ) as _i2.EnvironmentConfig));
         case 'configFile':
-          if (value != null) {
-            result.configFile.replace(const _i7.XmlBuiltMapSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.FileConfigSettings),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.configFile.replace(const _i7.XmlBuiltMapSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.FileConfigSettings),
+              ],
+            ),
+          ));
         case 'credentialsFile':
-          if (value != null) {
-            result.credentialsFile.replace(const _i7.XmlBuiltMapSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.FileConfigSettings),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.credentialsFile.replace(const _i7.XmlBuiltMapSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.FileConfigSettings),
+              ],
+            ),
+          ));
         case 'client':
-          if (value != null) {
-            result.client.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ClientConfig),
-            ) as _i4.ClientConfig));
-          }
-          break;
+          result.client.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ClientConfig),
+          ) as _i4.ClientConfig));
         case 'operation':
-          if (value != null) {
-            result.operation.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.OperationConfig),
-            ) as _i5.OperationConfig));
-          }
-          break;
+          result.operation.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.OperationConfig),
+          ) as _i5.OperationConfig));
       }
     }
 
@@ -208,22 +196,29 @@ class ScopedConfigAwsQuerySerializer
         _i7.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.environment != null) {
+    final ScopedConfig(
+      :environment,
+      :configFile,
+      :credentialsFile,
+      :client,
+      :operation
+    ) = payload;
+    if (environment != null) {
       result
         ..add(const _i7.XmlElementName('environment'))
         ..add(serializers.serialize(
-          payload.environment!,
+          environment,
           specifiedType: const FullType(_i2.EnvironmentConfig),
         ));
     }
-    if (payload.configFile != null) {
+    if (configFile != null) {
       result
         ..add(const _i7.XmlElementName('configFile'))
         ..add(
             const _i7.XmlBuiltMapSerializer(indexer: _i7.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.configFile!,
+          configFile,
           specifiedType: const FullType.nullable(
             _i6.BuiltMap,
             [
@@ -233,14 +228,14 @@ class ScopedConfigAwsQuerySerializer
           ),
         ));
     }
-    if (payload.credentialsFile != null) {
+    if (credentialsFile != null) {
       result
         ..add(const _i7.XmlElementName('credentialsFile'))
         ..add(
             const _i7.XmlBuiltMapSerializer(indexer: _i7.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.credentialsFile!,
+          credentialsFile,
           specifiedType: const FullType.nullable(
             _i6.BuiltMap,
             [
@@ -250,19 +245,19 @@ class ScopedConfigAwsQuerySerializer
           ),
         ));
     }
-    if (payload.client != null) {
+    if (client != null) {
       result
         ..add(const _i7.XmlElementName('client'))
         ..add(serializers.serialize(
-          payload.client!,
+          client,
           specifiedType: const FullType(_i4.ClientConfig),
         ));
     }
-    if (payload.operation != null) {
+    if (operation != null) {
       result
         ..add(const _i7.XmlElementName('operation'))
         ..add(serializers.serialize(
-          payload.operation!,
+          operation,
           specifiedType: const FullType(_i5.OperationConfig),
         ));
     }

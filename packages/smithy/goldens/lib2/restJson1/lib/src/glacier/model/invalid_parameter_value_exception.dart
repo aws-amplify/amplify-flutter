@@ -123,31 +123,25 @@ class InvalidParameterValueExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -162,27 +156,28 @@ class InvalidParameterValueExceptionRestJson1Serializer
   }) {
     final payload = (object as InvalidParameterValueException);
     final result = <Object?>[];
-    if (payload.code != null) {
+    final InvalidParameterValueException(:code, :message, :type) = payload;
+    if (code != null) {
       result
         ..add('code')
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.message != null) {
+    if (message != null) {
       result
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add('type')
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType(String),
         ));
     }

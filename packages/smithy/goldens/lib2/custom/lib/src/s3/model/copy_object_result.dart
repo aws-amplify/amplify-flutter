@@ -66,18 +66,18 @@ class CopyObjectResultRestXmlSerializer
     final result = CopyObjectResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -97,11 +97,12 @@ class CopyObjectResultRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eTag != null) {
+    final CopyObjectResult(:eTag) = payload;
+    if (eTag != null) {
       result
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }

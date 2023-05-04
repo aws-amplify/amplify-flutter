@@ -85,13 +85,15 @@ class MalformedTimestampBodyDefaultInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timestamp':
           result.timestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 

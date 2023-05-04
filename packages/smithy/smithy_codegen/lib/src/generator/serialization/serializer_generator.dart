@@ -64,6 +64,19 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
           ..body = literalConstList([protocol.shapeId.constructed]).code,
       );
 
+  /// Destructures [members] from [variable] (of type [symbol]) to local final variables.
+  Code destructure(
+    Reference symbol,
+    Iterable<MemberShape> members,
+    Reference variable,
+  ) {
+    return Code.scope(
+      (ref) =>
+          'final ${ref(symbol)}(${members.map((m) => ':${m.dartName(shape.getType())}').join(', ')}) '
+          '= ${ref(variable)};',
+    );
+  }
+
   /// The deserialize method.
   Method get deserialize => Method(
         (m) => m

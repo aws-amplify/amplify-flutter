@@ -85,15 +85,15 @@ class RecursiveStructuresInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RecursiveUnionOne),
-            ) as _i3.RecursiveUnionOne);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RecursiveUnionOne),
+          ) as _i3.RecursiveUnionOne);
       }
     }
 
@@ -108,11 +108,12 @@ class RecursiveStructuresInputRestJson1Serializer
   }) {
     final payload = (object as RecursiveStructuresInput);
     final result = <Object?>[];
-    if (payload.union != null) {
+    final RecursiveStructuresInput(:union) = payload;
+    if (union != null) {
       result
         ..add('union')
         ..add(serializers.serialize(
-          payload.union!,
+          union,
           specifiedType: const FullType(_i3.RecursiveUnionOne),
         ));
     }

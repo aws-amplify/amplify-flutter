@@ -88,23 +88,20 @@ class HttpChecksumReallyRequiredInputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'checksumAlgorithm':
-          if (value != null) {
-            result.checksumAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ChecksumAlgorithm),
-            ) as _i6.ChecksumAlgorithm);
-          }
-          break;
+          result.checksumAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ChecksumAlgorithm),
+          ) as _i6.ChecksumAlgorithm);
         case 'content':
-          if (value != null) {
-            result.content = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.Uint8List),
-            ) as _i7.Uint8List);
-          }
-          break;
+          result.content = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.Uint8List),
+          ) as _i7.Uint8List);
       }
     }
 

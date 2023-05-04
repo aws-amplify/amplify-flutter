@@ -481,79 +481,55 @@ class SimpleInputParamsInputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Bar':
-          if (value != null) {
-            result.bar = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bar = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Bam':
-          if (value != null) {
-            result.bam = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.bam = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'FloatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'Boo':
-          if (value != null) {
-            result.boo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.boo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'Qux':
-          if (value != null) {
-            result.qux = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Uint8List),
-            ) as _i6.Uint8List);
-          }
-          break;
+          result.qux = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Uint8List),
+          ) as _i6.Uint8List);
         case 'FooEnum':
-          if (value != null) {
-            result.fooEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.FooEnum),
-            ) as _i7.FooEnum);
-          }
-          break;
+          result.fooEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.FooEnum),
+          ) as _i7.FooEnum);
         case 'IntegerEnum':
-          if (value != null) {
-            result.integerEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.IntegerEnum),
-            ) as _i8.IntegerEnum);
-          }
-          break;
+          result.integerEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.IntegerEnum),
+          ) as _i8.IntegerEnum);
       }
     }
 

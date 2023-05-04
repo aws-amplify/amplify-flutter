@@ -135,25 +135,25 @@ class CopyObjectRequestRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CopySource':
           result.copySource = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Key':
           result.key = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -195,15 +195,15 @@ class CopyObjectOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CopyObjectResult':
-          if (value != null) {
-            result.copyObjectResult.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.CopyObjectResult),
-            ) as _i8.CopyObjectResult));
-          }
-          break;
+          result.copyObjectResult.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.CopyObjectResult),
+          ) as _i8.CopyObjectResult));
       }
     }
 
@@ -245,15 +245,15 @@ class CopyObjectResultRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

@@ -128,70 +128,52 @@ class XmlTimestampsOutputAwsQuerySerializer
     final result = XmlTimestampsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'normal':
-          if (value != null) {
-            result.normal = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.normal = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'dateTime':
-          if (value != null) {
-            result.dateTime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'dateTimeOnTarget':
-          if (value != null) {
-            result.dateTimeOnTarget =
-                _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTimeOnTarget =
+              _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSeconds':
-          if (value != null) {
-            result.epochSeconds =
-                _i2.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSeconds =
+              _i2.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSecondsOnTarget':
-          if (value != null) {
-            result.epochSecondsOnTarget =
-                _i2.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSecondsOnTarget =
+              _i2.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDate':
-          if (value != null) {
-            result.httpDate = _i2.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDate = _i2.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDateOnTarget':
-          if (value != null) {
-            result.httpDateOnTarget =
-                _i2.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDateOnTarget =
+              _i2.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -211,60 +193,69 @@ class XmlTimestampsOutputAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.normal != null) {
+    final XmlTimestampsOutput(
+      :normal,
+      :dateTime,
+      :dateTimeOnTarget,
+      :epochSeconds,
+      :epochSecondsOnTarget,
+      :httpDate,
+      :httpDateOnTarget
+    ) = payload;
+    if (normal != null) {
       result
         ..add(const _i2.XmlElementName('normal'))
         ..add(serializers.serialize(
-          payload.normal!,
+          normal,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.dateTime != null) {
+    if (dateTime != null) {
       result
         ..add(const _i2.XmlElementName('dateTime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.dateTime!,
+          dateTime,
         ));
     }
-    if (payload.dateTimeOnTarget != null) {
+    if (dateTimeOnTarget != null) {
       result
         ..add(const _i2.XmlElementName('dateTimeOnTarget'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.dateTimeOnTarget!,
+          dateTimeOnTarget,
         ));
     }
-    if (payload.epochSeconds != null) {
+    if (epochSeconds != null) {
       result
         ..add(const _i2.XmlElementName('epochSeconds'))
         ..add(_i2.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochSeconds!,
+          epochSeconds,
         ));
     }
-    if (payload.epochSecondsOnTarget != null) {
+    if (epochSecondsOnTarget != null) {
       result
         ..add(const _i2.XmlElementName('epochSecondsOnTarget'))
         ..add(_i2.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochSecondsOnTarget!,
+          epochSecondsOnTarget,
         ));
     }
-    if (payload.httpDate != null) {
+    if (httpDate != null) {
       result
         ..add(const _i2.XmlElementName('httpDate'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpDate!,
+          httpDate,
         ));
     }
-    if (payload.httpDateOnTarget != null) {
+    if (httpDateOnTarget != null) {
       result
         ..add(const _i2.XmlElementName('httpDateOnTarget'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpDateOnTarget!,
+          httpDateOnTarget,
         ));
     }
     return result;

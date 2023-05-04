@@ -123,56 +123,44 @@ class MalformedPatternInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'evilString':
-          if (value != null) {
-            result.evilString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.evilString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'list':
-          if (value != null) {
-            result.list.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.list.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'map':
-          if (value != null) {
-            result.map.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.map.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PatternUnion),
-            ) as _i3.PatternUnion);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PatternUnion),
+          ) as _i3.PatternUnion);
       }
     }
 
@@ -187,30 +175,32 @@ class MalformedPatternInputRestJson1Serializer
   }) {
     final payload = (object as MalformedPatternInput);
     final result = <Object?>[];
-    if (payload.evilString != null) {
+    final MalformedPatternInput(:evilString, :list, :map, :string, :union) =
+        payload;
+    if (evilString != null) {
       result
         ..add('evilString')
         ..add(serializers.serialize(
-          payload.evilString!,
+          evilString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.list != null) {
+    if (list != null) {
       result
         ..add('list')
         ..add(serializers.serialize(
-          payload.list!,
+          list,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.map != null) {
+    if (map != null) {
       result
         ..add('map')
         ..add(serializers.serialize(
-          payload.map!,
+          map,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -220,19 +210,19 @@ class MalformedPatternInputRestJson1Serializer
           ),
         ));
     }
-    if (payload.string != null) {
+    if (string != null) {
       result
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.union != null) {
+    if (union != null) {
       result
         ..add('union')
         ..add(serializers.serialize(
-          payload.union!,
+          union,
           specifiedType: const FullType(_i3.PatternUnion),
         ));
     }

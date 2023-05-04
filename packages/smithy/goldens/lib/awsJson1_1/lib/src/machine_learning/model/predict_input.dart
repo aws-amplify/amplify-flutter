@@ -101,13 +101,15 @@ class PredictInputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MLModelId':
           result.mlModelId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Record':
           result.record.replace((serializers.deserialize(
             value,
@@ -119,13 +121,11 @@ class PredictInputAwsJson11Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, String>));
-          break;
         case 'PredictEndpoint':
           result.predictEndpoint = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 

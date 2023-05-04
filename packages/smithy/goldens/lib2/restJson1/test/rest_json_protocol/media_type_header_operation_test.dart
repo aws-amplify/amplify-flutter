@@ -115,15 +115,15 @@ class MediaTypeHeaderInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'json':
-          if (value != null) {
-            result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -166,15 +166,15 @@ class MediaTypeHeaderOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'json':
-          if (value != null) {
-            result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.json = const _i4.EncodedJsonObjectSerializer().deserialize(
+            serializers,
+            value,
+          );
       }
     }
 

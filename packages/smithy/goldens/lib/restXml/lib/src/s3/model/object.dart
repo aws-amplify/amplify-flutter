@@ -112,58 +112,43 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     final result = S3ObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastModified':
-          if (value != null) {
-            result.lastModified = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastModified = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Owner),
+          ) as _i3.Owner));
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.size = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectStorageClass),
-            ) as _i2.ObjectStorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectStorageClass),
+          ) as _i2.ObjectStorageClass);
       }
     }
 
@@ -183,51 +168,53 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eTag != null) {
+    final S3Object(:eTag, :key, :lastModified, :owner, :size, :storageClass) =
+        payload;
+    if (eTag != null) {
       result
         ..add(const _i4.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i4.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastModified != null) {
+    if (lastModified != null) {
       result
         ..add(const _i4.XmlElementName('LastModified'))
         ..add(serializers.serialize(
-          payload.lastModified!,
+          lastModified,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.owner != null) {
+    if (owner != null) {
       result
         ..add(const _i4.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    if (payload.size != null) {
+    if (size != null) {
       result
         ..add(const _i4.XmlElementName('Size'))
         ..add(serializers.serialize(
-          payload.size!,
+          size,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i2.ObjectStorageClass),
         ));
     }

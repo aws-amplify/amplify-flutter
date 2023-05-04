@@ -156,72 +156,54 @@ class ErrorWithMembersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplexData':
-          if (value != null) {
-            result.complexData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.KitchenSink),
-            ) as _i3.KitchenSink));
-          }
-          break;
+          result.complexData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.KitchenSink),
+          ) as _i3.KitchenSink));
         case 'IntegerField':
-          if (value != null) {
-            result.integerField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ListField':
-          if (value != null) {
-            result.listField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.listField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'MapField':
-          if (value != null) {
-            result.mapField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.mapField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StringField':
-          if (value != null) {
-            result.stringField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -236,46 +218,55 @@ class ErrorWithMembersAwsJson11Serializer
   }) {
     final payload = (object as ErrorWithMembers);
     final result = <Object?>[];
-    if (payload.code != null) {
+    final ErrorWithMembers(
+      :code,
+      :complexData,
+      :integerField,
+      :listField,
+      :mapField,
+      :message,
+      :stringField
+    ) = payload;
+    if (code != null) {
       result
         ..add('Code')
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.complexData != null) {
+    if (complexData != null) {
       result
         ..add('ComplexData')
         ..add(serializers.serialize(
-          payload.complexData!,
+          complexData,
           specifiedType: const FullType(_i3.KitchenSink),
         ));
     }
-    if (payload.integerField != null) {
+    if (integerField != null) {
       result
         ..add('IntegerField')
         ..add(serializers.serialize(
-          payload.integerField!,
+          integerField,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.listField != null) {
+    if (listField != null) {
       result
         ..add('ListField')
         ..add(serializers.serialize(
-          payload.listField!,
+          listField,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.mapField != null) {
+    if (mapField != null) {
       result
         ..add('MapField')
         ..add(serializers.serialize(
-          payload.mapField!,
+          mapField,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -285,19 +276,19 @@ class ErrorWithMembersAwsJson11Serializer
           ),
         ));
     }
-    if (payload.message != null) {
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stringField != null) {
+    if (stringField != null) {
       result
         ..add('StringField')
         ..add(serializers.serialize(
-          payload.stringField!,
+          stringField,
           specifiedType: const FullType(String),
         ));
     }

@@ -306,40 +306,34 @@ class NullOperationInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'sparseStringList':
-          if (value != null) {
-            result.sparseStringList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType.nullable(String)],
-              ),
-            ) as _i7.BuiltList<String?>));
-          }
-          break;
+          result.sparseStringList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType.nullable(String)],
+            ),
+          ) as _i7.BuiltList<String?>));
         case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String?>));
-          }
-          break;
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String?>));
       }
     }
 

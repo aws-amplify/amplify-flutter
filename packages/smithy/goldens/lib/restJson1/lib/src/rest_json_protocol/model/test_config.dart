@@ -69,15 +69,15 @@ class TestConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timeout':
-          if (value != null) {
-            result.timeout = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.timeout = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -92,11 +92,12 @@ class TestConfigRestJson1Serializer
   }) {
     final payload = (object as TestConfig);
     final result = <Object?>[];
-    if (payload.timeout != null) {
+    final TestConfig(:timeout) = payload;
+    if (timeout != null) {
       result
         ..add('timeout')
         ..add(serializers.serialize(
-          payload.timeout!,
+          timeout,
           specifiedType: const FullType(int),
         ));
     }

@@ -70,24 +70,24 @@ class NestedStructWithListAwsQuerySerializer
     final result = NestedStructWithListBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ListArg':
-          if (value != null) {
-            result.listArg.replace((const _i3.XmlBuiltListSerializer(
-                    indexer: _i3.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.listArg.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -107,14 +107,15 @@ class NestedStructWithListAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.listArg != null) {
+    final NestedStructWithList(:listArg) = payload;
+    if (listArg != null) {
       result
         ..add(const _i3.XmlElementName('ListArg'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.listArg!,
+          listArg,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],

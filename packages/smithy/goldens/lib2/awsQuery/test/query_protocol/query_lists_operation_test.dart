@@ -332,70 +332,55 @@ class QueryListsInputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ListArg':
-          if (value != null) {
-            result.listArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.listArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'ComplexListArg':
-          if (value != null) {
-            result.complexListArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i7.GreetingStruct)],
-              ),
-            ) as _i6.BuiltList<_i7.GreetingStruct>));
-          }
-          break;
+          result.complexListArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i7.GreetingStruct)],
+            ),
+          ) as _i6.BuiltList<_i7.GreetingStruct>));
         case 'FlattenedListArg':
-          if (value != null) {
-            result.flattenedListArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.flattenedListArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'ListArgWithXmlNameMember':
-          if (value != null) {
-            result.listArgWithXmlNameMember.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.listArgWithXmlNameMember.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'FlattenedListArgWithXmlName':
-          if (value != null) {
-            result.flattenedListArgWithXmlName.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.flattenedListArgWithXmlName.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'NestedWithList':
-          if (value != null) {
-            result.nestedWithList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.NestedStructWithList),
-            ) as _i8.NestedStructWithList));
-          }
-          break;
+          result.nestedWithList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.NestedStructWithList),
+          ) as _i8.NestedStructWithList));
       }
     }
 
@@ -437,15 +422,15 @@ class GreetingStructAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -488,18 +473,18 @@ class NestedStructWithListAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ListArg':
-          if (value != null) {
-            result.listArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.listArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
       }
     }
 

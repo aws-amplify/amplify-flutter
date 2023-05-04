@@ -91,24 +91,21 @@ class RecursiveShapesInputOutputNested1RestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.RecursiveShapesInputOutputNested2),
-            ) as _i2.RecursiveShapesInputOutputNested2));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.RecursiveShapesInputOutputNested2),
+          ) as _i2.RecursiveShapesInputOutputNested2));
       }
     }
 
@@ -123,19 +120,20 @@ class RecursiveShapesInputOutputNested1RestJson1Serializer
   }) {
     final payload = (object as RecursiveShapesInputOutputNested1);
     final result = <Object?>[];
-    if (payload.foo != null) {
+    final RecursiveShapesInputOutputNested1(:foo, :nested) = payload;
+    if (foo != null) {
       result
         ..add('foo')
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nested != null) {
+    if (nested != null) {
       result
         ..add('nested')
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i2.RecursiveShapesInputOutputNested2),
         ));
     }

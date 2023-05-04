@@ -127,23 +127,20 @@ class TestBodyStructureInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'testId':
-          if (value != null) {
-            result.testId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.testId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'testConfig':
-          if (value != null) {
-            result.testConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.TestConfig),
-            ) as _i6.TestConfig));
-          }
-          break;
+          result.testConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.TestConfig),
+          ) as _i6.TestConfig));
       }
     }
 
@@ -185,15 +182,15 @@ class TestConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timeout':
-          if (value != null) {
-            result.timeout = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.timeout = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 

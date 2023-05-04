@@ -197,15 +197,15 @@ class DocumentTypeAsPayloadInputOutputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'documentValue':
-          if (value != null) {
-            result.documentValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.JsonObject),
-            ) as _i6.JsonObject);
-          }
-          break;
+          result.documentValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.JsonObject),
+          ) as _i6.JsonObject);
       }
     }
 

@@ -132,78 +132,63 @@ class QueryListsInputAwsQuerySerializer
     final result = QueryListsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ListArg':
-          if (value != null) {
-            result.listArg.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.listArg.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'ComplexListArg':
-          if (value != null) {
-            result.complexListArg.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.GreetingStruct)],
-              ),
-            ) as _i5.BuiltList<_i3.GreetingStruct>));
-          }
-          break;
+          result.complexListArg.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.GreetingStruct)],
+            ),
+          ) as _i5.BuiltList<_i3.GreetingStruct>));
         case 'FlattenedListArg':
-          if (value != null) {
-            result.flattenedListArg.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedListArg.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'ListArgWithXmlNameMember':
-          if (value != null) {
-            result.listArgWithXmlNameMember
-                .replace((const _i1.XmlBuiltListSerializer(
-              memberName: 'item',
-              indexer: _i1.XmlIndexer.awsQueryList,
-            ).deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.listArgWithXmlNameMember
+              .replace((const _i1.XmlBuiltListSerializer(
+            memberName: 'item',
+            indexer: _i1.XmlIndexer.awsQueryList,
+          ).deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'Hi':
-          if (value != null) {
-            result.flattenedListArgWithXmlName.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.flattenedListArgWithXmlName.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'NestedWithList':
-          if (value != null) {
-            result.nestedWithList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.NestedStructWithList),
-            ) as _i4.NestedStructWithList));
-          }
-          break;
+          result.nestedWithList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.NestedStructWithList),
+          ) as _i4.NestedStructWithList));
       }
     }
 
@@ -223,48 +208,56 @@ class QueryListsInputAwsQuerySerializer
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.listArg != null) {
+    final QueryListsInput(
+      :listArg,
+      :complexListArg,
+      :flattenedListArg,
+      :listArgWithXmlNameMember,
+      :flattenedListArgWithXmlName,
+      :nestedWithList
+    ) = payload;
+    if (listArg != null) {
       result
         ..add(const _i1.XmlElementName('ListArg'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.listArg!,
+          listArg,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.complexListArg != null) {
+    if (complexListArg != null) {
       result
         ..add(const _i1.XmlElementName('ComplexListArg'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.complexListArg!,
+          complexListArg,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.GreetingStruct)],
           ),
         ));
     }
-    if (payload.flattenedListArg != null) {
+    if (flattenedListArg != null) {
       result.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'FlattenedListArg',
         indexer: _i1.XmlIndexer.awsQueryList,
       ).serialize(
         serializers,
-        payload.flattenedListArg!,
+        flattenedListArg,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.listArgWithXmlNameMember != null) {
+    if (listArgWithXmlNameMember != null) {
       result
         ..add(const _i1.XmlElementName('ListArgWithXmlNameMember'))
         ..add(const _i1.XmlBuiltListSerializer(
@@ -272,31 +265,31 @@ class QueryListsInputAwsQuerySerializer
           indexer: _i1.XmlIndexer.awsQueryList,
         ).serialize(
           serializers,
-          payload.listArgWithXmlNameMember!,
+          listArgWithXmlNameMember,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.flattenedListArgWithXmlName != null) {
+    if (flattenedListArgWithXmlName != null) {
       result.addAll(const _i1.XmlBuiltListSerializer(
         memberName: 'Hi',
         indexer: _i1.XmlIndexer.awsQueryList,
       ).serialize(
         serializers,
-        payload.flattenedListArgWithXmlName!,
+        flattenedListArgWithXmlName,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.nestedWithList != null) {
+    if (nestedWithList != null) {
       result
         ..add(const _i1.XmlElementName('NestedWithList'))
         ..add(serializers.serialize(
-          payload.nestedWithList!,
+          nestedWithList,
           specifiedType: const FullType(_i4.NestedStructWithList),
         ));
     }

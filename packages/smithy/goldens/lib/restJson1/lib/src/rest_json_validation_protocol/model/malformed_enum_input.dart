@@ -114,48 +114,39 @@ class MalformedEnumInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'list':
-          if (value != null) {
-            result.list.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.EnumString)],
-              ),
-            ) as _i5.BuiltList<_i3.EnumString>));
-          }
-          break;
+          result.list.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.EnumString)],
+            ),
+          ) as _i5.BuiltList<_i3.EnumString>));
         case 'map':
-          if (value != null) {
-            result.map.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(_i3.EnumString),
-                  FullType(_i3.EnumString),
-                ],
-              ),
-            ) as _i5.BuiltMap<_i3.EnumString, _i3.EnumString>));
-          }
-          break;
+          result.map.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(_i3.EnumString),
+                FullType(_i3.EnumString),
+              ],
+            ),
+          ) as _i5.BuiltMap<_i3.EnumString, _i3.EnumString>));
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EnumString),
-            ) as _i3.EnumString);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EnumString),
+          ) as _i3.EnumString);
         case 'union':
-          if (value != null) {
-            result.union = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.EnumUnion),
-            ) as _i4.EnumUnion);
-          }
-          break;
+          result.union = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EnumUnion),
+          ) as _i4.EnumUnion);
       }
     }
 
@@ -170,22 +161,23 @@ class MalformedEnumInputRestJson1Serializer
   }) {
     final payload = (object as MalformedEnumInput);
     final result = <Object?>[];
-    if (payload.list != null) {
+    final MalformedEnumInput(:list, :map, :string, :union) = payload;
+    if (list != null) {
       result
         ..add('list')
         ..add(serializers.serialize(
-          payload.list!,
+          list,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.EnumString)],
           ),
         ));
     }
-    if (payload.map != null) {
+    if (map != null) {
       result
         ..add('map')
         ..add(serializers.serialize(
-          payload.map!,
+          map,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -195,19 +187,19 @@ class MalformedEnumInputRestJson1Serializer
           ),
         ));
     }
-    if (payload.string != null) {
+    if (string != null) {
       result
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(_i3.EnumString),
         ));
     }
-    if (payload.union != null) {
+    if (union != null) {
       result
         ..add('union')
         ..add(serializers.serialize(
-          payload.union!,
+          union,
           specifiedType: const FullType(_i4.EnumUnion),
         ));
     }

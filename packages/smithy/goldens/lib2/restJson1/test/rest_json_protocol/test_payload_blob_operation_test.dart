@@ -126,23 +126,20 @@ class TestPayloadBlobInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentType':
-          if (value != null) {
-            result.contentType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.contentType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Uint8List),
-            ) as _i6.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Uint8List),
+          ) as _i6.Uint8List);
       }
     }
 

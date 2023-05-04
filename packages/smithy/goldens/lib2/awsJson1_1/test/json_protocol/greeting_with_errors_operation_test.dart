@@ -579,15 +579,15 @@ class GreetingWithErrorsOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -629,23 +629,20 @@ class ComplexErrorAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TopLevel':
-          if (value != null) {
-            result.topLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.topLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.ComplexNestedErrorData),
-            ) as _i10.ComplexNestedErrorData));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.ComplexNestedErrorData),
+          ) as _i10.ComplexNestedErrorData));
       }
     }
 
@@ -688,15 +685,15 @@ class ComplexNestedErrorDataAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -770,15 +767,15 @@ class InvalidGreetingAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

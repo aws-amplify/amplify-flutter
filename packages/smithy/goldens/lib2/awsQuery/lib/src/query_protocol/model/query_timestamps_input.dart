@@ -101,36 +101,28 @@ class QueryTimestampsInputAwsQuerySerializer
     final result = QueryTimestampsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'normalFormat':
-          if (value != null) {
-            result.normalFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.normalFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'epochMember':
-          if (value != null) {
-            result.epochMember =
-                _i1.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochMember = _i1.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'epochTarget':
-          if (value != null) {
-            result.epochTarget =
-                _i1.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochTarget = _i1.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -150,28 +142,30 @@ class QueryTimestampsInputAwsQuerySerializer
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.normalFormat != null) {
+    final QueryTimestampsInput(:normalFormat, :epochMember, :epochTarget) =
+        payload;
+    if (normalFormat != null) {
       result
         ..add(const _i1.XmlElementName('normalFormat'))
         ..add(serializers.serialize(
-          payload.normalFormat!,
+          normalFormat,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.epochMember != null) {
+    if (epochMember != null) {
       result
         ..add(const _i1.XmlElementName('epochMember'))
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochMember!,
+          epochMember,
         ));
     }
-    if (payload.epochTarget != null) {
+    if (epochTarget != null) {
       result
         ..add(const _i1.XmlElementName('epochTarget'))
         ..add(_i1.TimestampSerializer.epochSeconds.serialize(
           serializers,
-          payload.epochTarget!,
+          epochTarget,
         ));
     }
     return result;

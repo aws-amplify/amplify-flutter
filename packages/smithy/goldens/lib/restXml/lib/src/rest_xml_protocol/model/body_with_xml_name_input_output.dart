@@ -89,18 +89,18 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
     final result = BodyWithXmlNameInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PayloadWithXmlName),
-            ) as _i3.PayloadWithXmlName));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PayloadWithXmlName),
+          ) as _i3.PayloadWithXmlName));
       }
     }
 
@@ -115,11 +115,12 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
   }) {
     final payload = (object as BodyWithXmlNameInputOutput);
     final result = <Object?>[const _i1.XmlElementName('Ahoy')];
-    if (payload.nested != null) {
+    final BodyWithXmlNameInputOutput(:nested) = payload;
+    if (nested != null) {
       result
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.PayloadWithXmlName),
         ));
     }

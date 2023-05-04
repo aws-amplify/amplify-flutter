@@ -125,15 +125,15 @@ class BodyWithXmlNameInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.PayloadWithXmlName),
-            ) as _i6.PayloadWithXmlName));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.PayloadWithXmlName),
+          ) as _i6.PayloadWithXmlName));
       }
     }
 
@@ -175,15 +175,15 @@ class PayloadWithXmlNameRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

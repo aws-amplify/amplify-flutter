@@ -173,15 +173,15 @@ class MalformedFloatInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'floatInBody':
-          if (value != null) {
-            result.floatInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -198,11 +198,12 @@ class MalformedFloatInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedFloatInputPayload);
     final result = <Object?>[];
-    if (payload.floatInBody != null) {
+    final MalformedFloatInputPayload(:floatInBody) = payload;
+    if (floatInBody != null) {
       result
         ..add('floatInBody')
         ..add(serializers.serialize(
-          payload.floatInBody!,
+          floatInBody,
           specifiedType: const FullType(double),
         ));
     }
