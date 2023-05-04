@@ -10,10 +10,22 @@ import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:meta/meta.dart';
 import 'package:smithy/smithy.dart';
 
+/// {@template amplify_auth_cognito_dart.sdk.cognito_service_exception}
+/// An [core.AuthServiceException] thrown by Cognito.
+/// {@endtemplate}
+sealed class CognitoServiceException extends core.AuthServiceException {
+  /// {@macro amplify_auth_cognito_dart.sdk.cognito_service_exception}
+  const CognitoServiceException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+}
+
 /// {@template amplify_auth_cognito_dart.sdk.lambda_exception}
 /// Exception thrown when an error from the AWS Lambda service is encountered.
 /// {@endtemplate}
-class LambdaException extends core.AuthServiceException {
+final class LambdaException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk.lambda_exception}
   factory LambdaException(
     String message, {
@@ -63,7 +75,8 @@ class LambdaException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unknown_service_exception}
 /// An unknown exception raised by Cognito.
 /// {@endtemplate}
-class UnknownServiceException extends core.AuthServiceException {
+final class UnknownServiceException extends CognitoServiceException
+    implements core.UnknownException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unknown_service_exception}
   const UnknownServiceException(
     super.message, {
@@ -98,7 +111,7 @@ typedef MFAMethodNotFoundException = MfaMethodNotFoundException;
 /// {@template amplify_auth_cognito_dart.sdk_exception.alias_exists_exception}
 /// This exception is thrown when a user tries to confirm the account with an email address or phone number that has already been supplied as an alias for a different user profile. This exception indicates that an account with this email address or phone already exists in a user pool that you've configured to use email address or phone number as a sign-in alias.
 /// {@endtemplate}
-class AliasExistsException extends core.AuthServiceException {
+final class AliasExistsException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.alias_exists_exception}
   const AliasExistsException(
     super.message, {
@@ -113,7 +126,7 @@ class AliasExistsException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.code_delivery_failure_exception}
 /// This exception is thrown when a verification code fails to deliver successfully.
 /// {@endtemplate}
-class CodeDeliveryFailureException extends core.AuthServiceException {
+final class CodeDeliveryFailureException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.code_delivery_failure_exception}
   const CodeDeliveryFailureException(
     super.message, {
@@ -128,7 +141,7 @@ class CodeDeliveryFailureException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.code_mismatch_exception}
 /// This exception is thrown if the provided code doesn't match what the server was expecting.
 /// {@endtemplate}
-class CodeMismatchException extends core.AuthServiceException {
+final class CodeMismatchException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.code_mismatch_exception}
   const CodeMismatchException(
     super.message, {
@@ -143,7 +156,7 @@ class CodeMismatchException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.concurrent_modification_exception}
 /// This exception is thrown if two or more modifications are happening concurrently.
 /// {@endtemplate}
-class ConcurrentModificationException extends core.AuthServiceException {
+final class ConcurrentModificationException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.concurrent_modification_exception}
   const ConcurrentModificationException(
     super.message, {
@@ -158,7 +171,7 @@ class ConcurrentModificationException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.enable_software_token_mfa_exception}
 /// This exception is thrown when there is a code mismatch and the service fails to configure the software token TOTP multi-factor authentication (MFA).
 /// {@endtemplate}
-class EnableSoftwareTokenMfaException extends core.AuthServiceException {
+final class EnableSoftwareTokenMfaException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.enable_software_token_mfa_exception}
   const EnableSoftwareTokenMfaException(
     super.message, {
@@ -173,7 +186,7 @@ class EnableSoftwareTokenMfaException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.expired_code_exception}
 /// This exception is thrown if a code has expired.
 /// {@endtemplate}
-class ExpiredCodeException extends core.AuthServiceException {
+final class ExpiredCodeException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.expired_code_exception}
   const ExpiredCodeException(
     super.message, {
@@ -188,7 +201,7 @@ class ExpiredCodeException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.forbidden_exception}
 /// This exception is thrown when WAF doesn't allow your request based on a web ACL that's associated with your user pool.
 /// {@endtemplate}
-class ForbiddenException extends core.AuthServiceException {
+final class ForbiddenException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.forbidden_exception}
   const ForbiddenException(
     super.message, {
@@ -203,7 +216,7 @@ class ForbiddenException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
 /// This exception is thrown when Amazon Cognito encounters an internal error.
 /// {@endtemplate}
-class InternalErrorException extends core.AuthServiceException {
+final class InternalErrorException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.internal_error_exception}
   const InternalErrorException(
     super.message, {
@@ -218,7 +231,8 @@ class InternalErrorException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_email_role_access_policy_exception}
 /// This exception is thrown when Amazon Cognito isn't allowed to use your email identity. HTTP status code: 400.
 /// {@endtemplate}
-class InvalidEmailRoleAccessPolicyException extends core.AuthServiceException {
+final class InvalidEmailRoleAccessPolicyException
+    extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_email_role_access_policy_exception}
   const InvalidEmailRoleAccessPolicyException(
     super.message, {
@@ -233,7 +247,7 @@ class InvalidEmailRoleAccessPolicyException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_lambda_response_exception}
 /// This exception is thrown when Amazon Cognito encounters an invalid Lambda response.
 /// {@endtemplate}
-class InvalidLambdaResponseException extends core.AuthServiceException {
+final class InvalidLambdaResponseException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_lambda_response_exception}
   const InvalidLambdaResponseException(
     super.message, {
@@ -248,7 +262,7 @@ class InvalidLambdaResponseException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
 /// This exception is thrown when the Amazon Cognito service encounters an invalid parameter.
 /// {@endtemplate}
-class InvalidParameterException extends core.AuthServiceException {
+final class InvalidParameterException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_parameter_exception}
   const InvalidParameterException(
     super.message, {
@@ -263,7 +277,7 @@ class InvalidParameterException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_password_exception}
 /// This exception is thrown when Amazon Cognito encounters an invalid password.
 /// {@endtemplate}
-class InvalidPasswordException extends core.AuthServiceException {
+final class InvalidPasswordException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_password_exception}
   const InvalidPasswordException(
     super.message, {
@@ -278,7 +292,8 @@ class InvalidPasswordException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_sms_role_access_policy_exception}
 /// This exception is returned when the role provided for SMS configuration doesn't have permission to publish using Amazon SNS.
 /// {@endtemplate}
-class InvalidSmsRoleAccessPolicyException extends core.AuthServiceException {
+final class InvalidSmsRoleAccessPolicyException
+    extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_sms_role_access_policy_exception}
   const InvalidSmsRoleAccessPolicyException(
     super.message, {
@@ -293,8 +308,8 @@ class InvalidSmsRoleAccessPolicyException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_sms_role_trust_relationship_exception}
 /// This exception is thrown when the trust relationship is not valid for the role provided for SMS configuration. This can happen if you don't trust `cognito-idp.amazonaws.com` or the external ID provided in the role does not match what is provided in the SMS configuration for the user pool.
 /// {@endtemplate}
-class InvalidSmsRoleTrustRelationshipException
-    extends core.AuthServiceException {
+final class InvalidSmsRoleTrustRelationshipException
+    extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_sms_role_trust_relationship_exception}
   const InvalidSmsRoleTrustRelationshipException(
     super.message, {
@@ -309,7 +324,8 @@ class InvalidSmsRoleTrustRelationshipException
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_user_pool_configuration_exception}
 /// This exception is thrown when the user pool configuration is not valid.
 /// {@endtemplate}
-class InvalidUserPoolConfigurationException extends core.AuthServiceException {
+final class InvalidUserPoolConfigurationException
+    extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_user_pool_configuration_exception}
   const InvalidUserPoolConfigurationException(
     super.message, {
@@ -324,7 +340,7 @@ class InvalidUserPoolConfigurationException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
 /// This exception is thrown when a user exceeds the limit for a requested Amazon Web Services resource.
 /// {@endtemplate}
-class LimitExceededException extends core.AuthServiceException {
+final class LimitExceededException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.limit_exceeded_exception}
   const LimitExceededException(
     super.message, {
@@ -339,7 +355,7 @@ class LimitExceededException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.mfa_method_not_found_exception}
 /// This exception is thrown when Amazon Cognito can't find a multi-factor authentication (MFA) method.
 /// {@endtemplate}
-class MfaMethodNotFoundException extends core.AuthServiceException {
+final class MfaMethodNotFoundException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.mfa_method_not_found_exception}
   const MfaMethodNotFoundException(
     super.message, {
@@ -351,10 +367,26 @@ class MfaMethodNotFoundException extends core.AuthServiceException {
   String get runtimeTypeName => 'MfaMethodNotFoundException';
 }
 
+/// {@template amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
+/// This exception is thrown when a user isn't authorized.
+/// {@endtemplate}
+final class NotAuthorizedServiceException extends CognitoServiceException
+    implements core.AuthNotAuthorizedException {
+  /// {@macro amplify_auth_cognito_dart.sdk_exception.not_authorized_exception}
+  const NotAuthorizedServiceException(
+    super.message, {
+    super.recoverySuggestion,
+    super.underlyingException,
+  });
+
+  @override
+  String get runtimeTypeName => 'NotAuthorizedServiceException';
+}
+
 /// {@template amplify_auth_cognito_dart.sdk_exception.password_reset_required_exception}
 /// This exception is thrown when a password reset is required.
 /// {@endtemplate}
-class PasswordResetRequiredException extends core.AuthServiceException {
+final class PasswordResetRequiredException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.password_reset_required_exception}
   const PasswordResetRequiredException(
     super.message, {
@@ -369,7 +401,7 @@ class PasswordResetRequiredException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
 /// This exception is thrown when the Amazon Cognito service can't find the requested resource.
 /// {@endtemplate}
-class ResourceNotFoundException extends core.AuthServiceException {
+final class ResourceNotFoundException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_not_found_exception}
   const ResourceNotFoundException(
     super.message, {
@@ -384,7 +416,7 @@ class ResourceNotFoundException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.software_token_mfa_not_found_exception}
 /// This exception is thrown when the software token time-based one-time password (TOTP) multi-factor authentication (MFA) isn't activated for the user pool.
 /// {@endtemplate}
-class SoftwareTokenMfaNotFoundException extends core.AuthServiceException {
+final class SoftwareTokenMfaNotFoundException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.software_token_mfa_not_found_exception}
   const SoftwareTokenMfaNotFoundException(
     super.message, {
@@ -399,7 +431,7 @@ class SoftwareTokenMfaNotFoundException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.too_many_failed_attempts_exception}
 /// This exception is thrown when the user has made too many failed attempts for a given action, such as sign-in.
 /// {@endtemplate}
-class TooManyFailedAttemptsException extends core.AuthServiceException {
+final class TooManyFailedAttemptsException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.too_many_failed_attempts_exception}
   const TooManyFailedAttemptsException(
     super.message, {
@@ -414,7 +446,7 @@ class TooManyFailedAttemptsException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
 /// This exception is thrown when the user has made too many requests for a given operation.
 /// {@endtemplate}
-class TooManyRequestsException extends core.AuthServiceException {
+final class TooManyRequestsException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.too_many_requests_exception}
   const TooManyRequestsException(
     super.message, {
@@ -429,7 +461,7 @@ class TooManyRequestsException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unauthorized_exception}
 /// Exception that is thrown when the request isn't authorized. This can happen due to an invalid access token in the request.
 /// {@endtemplate}
-class UnauthorizedException extends core.AuthServiceException {
+final class UnauthorizedException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unauthorized_exception}
   const UnauthorizedException(
     super.message, {
@@ -444,7 +476,7 @@ class UnauthorizedException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unexpected_lambda_exception}
 /// This exception is thrown when Amazon Cognito encounters an unexpected exception with Lambda.
 /// {@endtemplate}
-class UnexpectedLambdaException extends core.AuthServiceException {
+final class UnexpectedLambdaException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unexpected_lambda_exception}
   const UnexpectedLambdaException(
     super.message, {
@@ -459,7 +491,7 @@ class UnexpectedLambdaException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unsupported_operation_exception}
 /// Exception that is thrown when you attempt to perform an operation that isn't enabled for the user pool client.
 /// {@endtemplate}
-class UnsupportedOperationException extends core.AuthServiceException {
+final class UnsupportedOperationException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unsupported_operation_exception}
   const UnsupportedOperationException(
     super.message, {
@@ -474,7 +506,7 @@ class UnsupportedOperationException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.unsupported_token_type_exception}
 /// Exception that is thrown when an unsupported token is passed to an operation.
 /// {@endtemplate}
-class UnsupportedTokenTypeException extends core.AuthServiceException {
+final class UnsupportedTokenTypeException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.unsupported_token_type_exception}
   const UnsupportedTokenTypeException(
     super.message, {
@@ -489,7 +521,7 @@ class UnsupportedTokenTypeException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.user_lambda_validation_exception}
 /// This exception is thrown when the Amazon Cognito service encounters a user validation exception with the Lambda service.
 /// {@endtemplate}
-class UserLambdaValidationException extends core.AuthServiceException {
+final class UserLambdaValidationException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.user_lambda_validation_exception}
   const UserLambdaValidationException(
     super.message, {
@@ -504,7 +536,7 @@ class UserLambdaValidationException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.user_not_confirmed_exception}
 /// This exception is thrown when a user isn't confirmed successfully.
 /// {@endtemplate}
-class UserNotConfirmedException extends core.AuthServiceException {
+final class UserNotConfirmedException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.user_not_confirmed_exception}
   const UserNotConfirmedException(
     super.message, {
@@ -519,7 +551,7 @@ class UserNotConfirmedException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.user_not_found_exception}
 /// This exception is thrown when a user isn't found.
 /// {@endtemplate}
-class UserNotFoundException extends core.AuthServiceException {
+final class UserNotFoundException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.user_not_found_exception}
   const UserNotFoundException(
     super.message, {
@@ -534,7 +566,7 @@ class UserNotFoundException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.username_exists_exception}
 /// This exception is thrown when Amazon Cognito encounters a user name that already exists in the user pool.
 /// {@endtemplate}
-class UsernameExistsException extends core.AuthServiceException {
+final class UsernameExistsException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.username_exists_exception}
   const UsernameExistsException(
     super.message, {
@@ -549,7 +581,7 @@ class UsernameExistsException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.external_service_exception}
 /// An exception thrown when a dependent service such as Facebook or Twitter is not responding
 /// {@endtemplate}
-class ExternalServiceException extends core.AuthServiceException {
+final class ExternalServiceException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.external_service_exception}
   const ExternalServiceException(
     super.message, {
@@ -564,8 +596,8 @@ class ExternalServiceException extends core.AuthServiceException {
 /// {@template amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
 /// Thrown if the identity pool has no role associated for the given auth type (auth/unauth) or if the AssumeRole fails.
 /// {@endtemplate}
-class InvalidIdentityPoolConfigurationException
-    extends core.AuthServiceException {
+final class InvalidIdentityPoolConfigurationException
+    extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.invalid_identity_pool_configuration_exception}
   const InvalidIdentityPoolConfigurationException(
     super.message, {
@@ -580,7 +612,7 @@ class InvalidIdentityPoolConfigurationException
 /// {@template amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
 /// Thrown when a user tries to use a login which is already linked to another account.
 /// {@endtemplate}
-class ResourceConflictException extends core.AuthServiceException {
+final class ResourceConflictException extends CognitoServiceException {
   /// {@macro amplify_auth_cognito_dart.sdk_exception.resource_conflict_exception}
   const ResourceConflictException(
     super.message, {
@@ -614,209 +646,148 @@ Object transformSdkException(Object e) {
     return LambdaException(message, underlyingException: e);
   }
 
-  if (shapeId.shape == 'AliasExistsException') {
-    return AliasExistsException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'CodeDeliveryFailureException') {
-    return CodeDeliveryFailureException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'CodeMismatchException') {
-    return CodeMismatchException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ConcurrentModificationException') {
-    return ConcurrentModificationException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'EnableSoftwareTokenMfaException') {
-    return EnableSoftwareTokenMfaException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ExpiredCodeException') {
-    return ExpiredCodeException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ForbiddenException') {
-    return ForbiddenException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InternalErrorException') {
-    return InternalErrorException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidEmailRoleAccessPolicyException') {
-    return InvalidEmailRoleAccessPolicyException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidLambdaResponseException') {
-    return InvalidLambdaResponseException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidParameterException') {
-    return InvalidParameterException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidPasswordException') {
-    return InvalidPasswordException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidSmsRoleAccessPolicyException') {
-    return InvalidSmsRoleAccessPolicyException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidSmsRoleTrustRelationshipException') {
-    return InvalidSmsRoleTrustRelationshipException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidUserPoolConfigurationException') {
-    return InvalidUserPoolConfigurationException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'LimitExceededException') {
-    return LimitExceededException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'MfaMethodNotFoundException') {
-    return MfaMethodNotFoundException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'NotAuthorizedException') {
-    return core.AuthNotAuthorizedException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'PasswordResetRequiredException') {
-    return PasswordResetRequiredException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ResourceNotFoundException') {
-    return ResourceNotFoundException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'SoftwareTokenMfaNotFoundException') {
-    return SoftwareTokenMfaNotFoundException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'TooManyFailedAttemptsException') {
-    return TooManyFailedAttemptsException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'TooManyRequestsException') {
-    return TooManyRequestsException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UnauthorizedException') {
-    return UnauthorizedException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UnexpectedLambdaException') {
-    return UnexpectedLambdaException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UnsupportedOperationException') {
-    return UnsupportedOperationException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UnsupportedTokenTypeException') {
-    return UnsupportedTokenTypeException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UserLambdaValidationException') {
-    return UserLambdaValidationException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UserNotConfirmedException') {
-    return UserNotConfirmedException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UserNotFoundException') {
-    return UserNotFoundException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'UsernameExistsException') {
-    return UsernameExistsException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ExternalServiceException') {
-    return ExternalServiceException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'InvalidIdentityPoolConfigurationException') {
-    return InvalidIdentityPoolConfigurationException(
-      message,
-      underlyingException: e,
-    );
-  }
-  if (shapeId.shape == 'ResourceConflictException') {
-    return ResourceConflictException(
-      message,
-      underlyingException: e,
-    );
-  }
-  return UnknownServiceException(message, underlyingException: e);
+  return switch (shapeId.shape) {
+    'AliasExistsException' => AliasExistsException(
+        message,
+        underlyingException: e,
+      ),
+    'CodeDeliveryFailureException' => CodeDeliveryFailureException(
+        message,
+        underlyingException: e,
+      ),
+    'CodeMismatchException' => CodeMismatchException(
+        message,
+        underlyingException: e,
+      ),
+    'ConcurrentModificationException' => ConcurrentModificationException(
+        message,
+        underlyingException: e,
+      ),
+    'EnableSoftwareTokenMfaException' => EnableSoftwareTokenMfaException(
+        message,
+        underlyingException: e,
+      ),
+    'ExpiredCodeException' => ExpiredCodeException(
+        message,
+        underlyingException: e,
+      ),
+    'ForbiddenException' => ForbiddenException(
+        message,
+        underlyingException: e,
+      ),
+    'InternalErrorException' => InternalErrorException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidEmailRoleAccessPolicyException' =>
+      InvalidEmailRoleAccessPolicyException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidLambdaResponseException' => InvalidLambdaResponseException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidParameterException' => InvalidParameterException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidPasswordException' => InvalidPasswordException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidSmsRoleAccessPolicyException' =>
+      InvalidSmsRoleAccessPolicyException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidSmsRoleTrustRelationshipException' =>
+      InvalidSmsRoleTrustRelationshipException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidUserPoolConfigurationException' =>
+      InvalidUserPoolConfigurationException(
+        message,
+        underlyingException: e,
+      ),
+    'LimitExceededException' => LimitExceededException(
+        message,
+        underlyingException: e,
+      ),
+    'MfaMethodNotFoundException' => MfaMethodNotFoundException(
+        message,
+        underlyingException: e,
+      ),
+    'NotAuthorizedException' => NotAuthorizedServiceException(
+        message,
+        underlyingException: e,
+      ),
+    'PasswordResetRequiredException' => PasswordResetRequiredException(
+        message,
+        underlyingException: e,
+      ),
+    'ResourceNotFoundException' => ResourceNotFoundException(
+        message,
+        underlyingException: e,
+      ),
+    'SoftwareTokenMfaNotFoundException' => SoftwareTokenMfaNotFoundException(
+        message,
+        underlyingException: e,
+      ),
+    'TooManyFailedAttemptsException' => TooManyFailedAttemptsException(
+        message,
+        underlyingException: e,
+      ),
+    'TooManyRequestsException' => TooManyRequestsException(
+        message,
+        underlyingException: e,
+      ),
+    'UnauthorizedException' => UnauthorizedException(
+        message,
+        underlyingException: e,
+      ),
+    'UnexpectedLambdaException' => UnexpectedLambdaException(
+        message,
+        underlyingException: e,
+      ),
+    'UnsupportedOperationException' => UnsupportedOperationException(
+        message,
+        underlyingException: e,
+      ),
+    'UnsupportedTokenTypeException' => UnsupportedTokenTypeException(
+        message,
+        underlyingException: e,
+      ),
+    'UserLambdaValidationException' => UserLambdaValidationException(
+        message,
+        underlyingException: e,
+      ),
+    'UserNotConfirmedException' => UserNotConfirmedException(
+        message,
+        underlyingException: e,
+      ),
+    'UserNotFoundException' => UserNotFoundException(
+        message,
+        underlyingException: e,
+      ),
+    'UsernameExistsException' => UsernameExistsException(
+        message,
+        underlyingException: e,
+      ),
+    'ExternalServiceException' => ExternalServiceException(
+        message,
+        underlyingException: e,
+      ),
+    'InvalidIdentityPoolConfigurationException' =>
+      InvalidIdentityPoolConfigurationException(
+        message,
+        underlyingException: e,
+      ),
+    'ResourceConflictException' => ResourceConflictException(
+        message,
+        underlyingException: e,
+      ),
+    _ => UnknownServiceException(message, underlyingException: e),
+  };
 }

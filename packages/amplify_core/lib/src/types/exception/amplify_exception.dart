@@ -4,6 +4,17 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+part 'auth/auth_exception.dart';
+part 'auth/invalid_state_exception.dart';
+part 'auth/not_authorized_exception.dart';
+part 'auth/service_exception.dart';
+part 'auth/session_expired_exception.dart';
+part 'auth/signed_out_exception.dart';
+part 'auth/user_cancelled_exception.dart';
+part 'auth/validation_exception.dart';
+part 'network_exception.dart';
+part 'unknown_exception.dart';
+
 /// {@template amplify_core.amplify_exception}
 /// Thrown from top level Amplify APIs from the amplify-flutter package.
 /// All other Amplify APIs throw subclasses of AmplifyException.
