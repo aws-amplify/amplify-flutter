@@ -31,8 +31,8 @@ mixin Dispatcher<E extends StateMachineEvent, S extends StateMachineState> {
   ) async {
     final completer = dispatch(event);
     final state = await completer.completed;
-    if (state is ErrorState) {
-      Error.throwWithStackTrace(state.exception, state.stackTrace);
+    if (state case ErrorState(:final exception, :final stackTrace)) {
+      Error.throwWithStackTrace(exception, stackTrace);
     }
     return state as SuccessState;
   }
@@ -161,8 +161,8 @@ abstract class StateMachineManager<
   ) async {
     final completer = accept(event);
     final state = await completer.completed;
-    if (state is ErrorState) {
-      Error.throwWithStackTrace(state.exception, state.stackTrace);
+    if (state case ErrorState(:final exception, :final stackTrace)) {
+      Error.throwWithStackTrace(exception, stackTrace);
     }
     return state as SuccessState;
   }

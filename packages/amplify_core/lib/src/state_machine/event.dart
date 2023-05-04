@@ -20,6 +20,7 @@ abstract base class StateMachineEvent<EventType extends Object,
   EventType get type;
 
   /// Casts this to an event of type [E].
+  @Deprecated('Use pattern matching instead')
   E cast<E extends StateMachineEvent<EventType, StateType>>() => this as E;
 
   /// Checks the precondition, given [currentState].
