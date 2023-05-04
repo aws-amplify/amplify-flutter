@@ -8,25 +8,7 @@ import 'package:rest_json1_v2/src/rest_json_validation_protocol/model/enum_strin
     as _i2;
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [EnumUnion].
-enum EnumUnionType<T extends EnumUnion> {
-  /// The type for [EnumUnionFirst].
-  first<EnumUnionFirst>(r'first'),
-
-  /// The type for [EnumUnionSecond].
-  second<EnumUnionSecond>(r'second'),
-
-  /// The type for an unknown value.
-  sdkUnknown<EnumUnionSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [EnumUnion].
-  const EnumUnionType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
+sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   const EnumUnion._();
 
   const factory EnumUnion.first(_i2.EnumString first) = EnumUnionFirst;
@@ -44,30 +26,8 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
 
   _i2.EnumString? get first => null;
   _i2.EnumString? get second => null;
-  EnumUnionType get type;
   @override
   Object get value => (first ?? second)!;
-  @override
-  T? when<T>({
-    T Function(_i2.EnumString)? first,
-    T Function(_i2.EnumString)? second,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is EnumUnionFirst) {
-      return first?.call((this as EnumUnionFirst).first);
-    }
-    if (this is EnumUnionSecond) {
-      return second?.call((this as EnumUnionSecond).second);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'EnumUnion');
@@ -87,31 +47,27 @@ abstract class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   }
 }
 
-class EnumUnionFirst extends EnumUnion {
+final class EnumUnionFirst extends EnumUnion {
   const EnumUnionFirst(this.first) : super._();
 
   @override
   final _i2.EnumString first;
 
   @override
-  EnumUnionType get type => EnumUnionType.first;
-  @override
   String get name => 'first';
 }
 
-class EnumUnionSecond extends EnumUnion {
+final class EnumUnionSecond extends EnumUnion {
   const EnumUnionSecond(this.second) : super._();
 
   @override
   final _i2.EnumString second;
 
   @override
-  EnumUnionType get type => EnumUnionType.second;
-  @override
   String get name => 'second';
 }
 
-class EnumUnionSdkUnknown extends EnumUnion {
+final class EnumUnionSdkUnknown extends EnumUnion {
   const EnumUnionSdkUnknown(
     this.name,
     this.value,
@@ -122,9 +78,6 @@ class EnumUnionSdkUnknown extends EnumUnion {
 
   @override
   final Object value;
-
-  @override
-  EnumUnionType get type => EnumUnionType.sdkUnknown;
 }
 
 class EnumUnionRestJson1Serializer
@@ -150,11 +103,7 @@ class EnumUnionRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
         return EnumUnionFirst((serializers.deserialize(
@@ -182,21 +131,17 @@ class EnumUnionRestJson1Serializer
     (object as EnumUnion);
     return [
       object.name,
-      object.when<Object?>(
-        first: (_i2.EnumString first) => serializers.serialize(
-          first,
+      switch (object) {
+        EnumUnionFirst(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.EnumString),
         ),
-        second: (_i2.EnumString second) => serializers.serialize(
-          second,
+        EnumUnionSecond(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.EnumString),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        EnumUnionSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

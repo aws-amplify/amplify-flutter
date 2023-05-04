@@ -24,9 +24,6 @@ abstract class SmithyUnion<U extends SmithyUnion<U>>
   @override
   List<Object> get props => [U, value];
 
-  /// Switch on the union's value.
-  T? when<T>();
-
   @override
   String toString() => value.toString();
 }

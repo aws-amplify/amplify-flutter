@@ -6,25 +6,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [SimpleUnion].
-enum SimpleUnionType<T extends SimpleUnion> {
-  /// The type for [SimpleUnionInt].
-  int$<SimpleUnionInt>(r'int'),
-
-  /// The type for [SimpleUnionString].
-  string<SimpleUnionString>(r'string'),
-
-  /// The type for an unknown value.
-  sdkUnknown<SimpleUnionSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [SimpleUnion].
-  const SimpleUnionType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
+sealed class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   const SimpleUnion._();
 
   const factory SimpleUnion.int$(int int$) = SimpleUnionInt;
@@ -42,30 +24,8 @@ abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
 
   int? get int$ => null;
   String? get string => null;
-  SimpleUnionType get type;
   @override
   Object get value => (int$ ?? string)!;
-  @override
-  T? when<T>({
-    T Function(int)? int$,
-    T Function(String)? string,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is SimpleUnionInt) {
-      return int$?.call((this as SimpleUnionInt).int$);
-    }
-    if (this is SimpleUnionString) {
-      return string?.call((this as SimpleUnionString).string);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'SimpleUnion');
@@ -85,31 +45,27 @@ abstract class SimpleUnion extends _i1.SmithyUnion<SimpleUnion> {
   }
 }
 
-class SimpleUnionInt extends SimpleUnion {
+final class SimpleUnionInt extends SimpleUnion {
   const SimpleUnionInt(this.int$) : super._();
 
   @override
   final int int$;
 
   @override
-  SimpleUnionType get type => SimpleUnionType.int$;
-  @override
   String get name => 'int';
 }
 
-class SimpleUnionString extends SimpleUnion {
+final class SimpleUnionString extends SimpleUnion {
   const SimpleUnionString(this.string) : super._();
 
   @override
   final String string;
 
   @override
-  SimpleUnionType get type => SimpleUnionType.string;
-  @override
   String get name => 'string';
 }
 
-class SimpleUnionSdkUnknown extends SimpleUnion {
+final class SimpleUnionSdkUnknown extends SimpleUnion {
   const SimpleUnionSdkUnknown(
     this.name,
     this.value,
@@ -120,9 +76,6 @@ class SimpleUnionSdkUnknown extends SimpleUnion {
 
   @override
   final Object value;
-
-  @override
-  SimpleUnionType get type => SimpleUnionType.sdkUnknown;
 }
 
 class SimpleUnionRestJson1Serializer
@@ -148,11 +101,7 @@ class SimpleUnionRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'int':
         return SimpleUnionInt((serializers.deserialize(
@@ -180,21 +129,17 @@ class SimpleUnionRestJson1Serializer
     (object as SimpleUnion);
     return [
       object.name,
-      object.when<Object?>(
-        int$: (int int$) => serializers.serialize(
-          int$,
+      switch (object) {
+        SimpleUnionInt(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(int),
         ),
-        string: (String string) => serializers.serialize(
-          string,
+        SimpleUnionString(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        SimpleUnionSdkUnknown(:final value) => value,
+      },
     ];
   }
 }
