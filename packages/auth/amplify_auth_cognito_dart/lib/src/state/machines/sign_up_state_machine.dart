@@ -44,18 +44,15 @@ final class SignUpStateMachine
 
   @override
   Future<void> resolve(SignUpEvent event) async {
-    switch (event.type) {
-      case SignUpEventType.initiate:
-        event as SignUpInitiate;
+    switch (event) {
+      case SignUpInitiate _:
         emit(const SignUpState.initiating());
         await onInitiate(event);
-      case SignUpEventType.confirm:
-        event as SignUpConfirm;
+      case SignUpConfirm _:
         emit(const SignUpState.confirming());
         await onConfirm(event);
-      case SignUpEventType.succeeded:
-        event as SignUpSucceeded;
-        emit(SignUpState.success(userId: event.userId));
+      case SignUpSucceeded(:final userId):
+        emit(SignUpState.success(userId: userId));
         await onSucceeded(event);
     }
   }

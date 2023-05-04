@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 /// was not met.
 /// {@endtemplate}
 @internal
-class AuthPreconditionException extends AuthException
+final class AuthPreconditionException extends AuthValidationException
     implements PreconditionException {
   /// {@macro amplify_auth_cognito.exception.auth_precondition_exception}
   const AuthPreconditionException(

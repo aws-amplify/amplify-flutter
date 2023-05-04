@@ -13,7 +13,6 @@ import 'package:amplify_auth_cognito_dart/src/flows/helpers.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform.dart';
 import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_stub.dart'
     if (dart.library.html) 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/initial_parameters_html.dart';
-import 'package:amplify_auth_cognito_dart/src/model/auth_user_ext.dart';
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 import 'package:amplify_auth_cognito_dart/src/model/session/cognito_sign_in_details.dart';
 import 'package:amplify_auth_cognito_dart/src/model/sign_in_parameters.dart';
@@ -164,19 +163,16 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     }
     _stateMachineSubscription = _stateMachine.stream.listen(
       (state) {
-        AuthHubEvent? hubEvent;
-        if (state is HostedUiSignedIn) {
-          hubEvent = AuthHubEvent.signedIn(state.user);
-        }
-        if (state is SignInSuccess) {
-          hubEvent = AuthHubEvent.signedIn(state.user.authUser);
-        }
-        if (state is FetchAuthSessionSuccess) {
-          final exception = state.session.userPoolTokensResult.exception;
-          if (exception is SessionExpiredException) {
-            hubEvent = AuthHubEvent.sessionExpired();
-          }
-        }
+        final hubEvent = switch (state) {
+          HostedUiSignedIn(:final user) ||
+          SignInSuccess(:final user) =>
+            AuthHubEvent.signedIn(user),
+          FetchAuthSessionSuccess(:final session)
+              when session.userPoolTokensResult.exception
+                  is SessionExpiredException =>
+            AuthHubEvent.sessionExpired(),
+          _ => null,
+        };
 
         if (hubEvent != null) {
           _hubEventController.add(hubEvent);
@@ -237,20 +233,9 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
     );
 
     await _init();
-    await _stateMachine.accept(ConfigurationEvent.configure(config)).accepted;
-
-    await for (final state
-        in _stateMachine.expect(ConfigurationStateMachine.type).stream) {
-      switch (state.type) {
-        case ConfigurationStateType.notConfigured:
-        case ConfigurationStateType.configuring:
-          continue;
-        case ConfigurationStateType.configured:
-          return;
-        case ConfigurationStateType.failure:
-          throw (state as ConfigureFailure).exception;
-      }
-    }
+    await _stateMachine.acceptAndComplete<Configured>(
+      ConfigurationEvent.configure(config),
+    );
   }
 
   /// Retrieves the code delivery details from the challenge parameters.
@@ -359,30 +344,57 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
         .accepted;
 
     await for (final state in stateMachine.stream) {
-      switch (state.type) {
-        case HostedUiStateType.notConfigured:
-        case HostedUiStateType.configuring:
-        case HostedUiStateType.signingIn:
-        case HostedUiStateType.signingOut:
+      switch (state) {
+        case HostedUiNotConfigured _:
+        case HostedUiConfiguring _:
+        case HostedUiSigningIn _:
+        case HostedUiSigningOut _:
+        case HostedUiSignedOut _:
           continue;
-        case HostedUiStateType.signedOut:
-          throw const UnknownException(
-            'An unknown error occurred while signing in',
-          );
-        case HostedUiStateType.signedIn:
+        case HostedUiSignedIn _:
           return const CognitoSignInResult(
             isSignedIn: true,
             nextStep: AuthNextSignInStep(
               signInStep: AuthSignInStep.done,
             ),
           );
-        case HostedUiStateType.failure:
-          state as HostedUiFailure;
-          throw state.exception;
+        case HostedUiFailure(:final exception, :final stackTrace):
+          Error.throwWithStackTrace(exception, stackTrace);
       }
     }
 
     throw const UserCancelledException('The user cancelled the sign-in flow');
+  }
+
+  CognitoSignUpResult _processSignUpResult(SignUpState result) {
+    return switch (result) {
+      SignUpNotStarted _ ||
+      SignUpInitiating _ ||
+      SignUpConfirming _ =>
+        // This should never happen.
+        throw UnknownException(
+          'Sign up could not be completed',
+          underlyingException: result,
+        ),
+      SignUpNeedsConfirmation(:final userId, :final codeDeliveryDetails) =>
+        CognitoSignUpResult(
+          userId: userId,
+          isSignUpComplete: false,
+          nextStep: AuthNextSignUpStep(
+            signUpStep: AuthSignUpStep.confirmSignUp,
+            codeDeliveryDetails: codeDeliveryDetails?.asAuthCodeDeliveryDetails,
+          ),
+        ),
+      SignUpSuccess(:final userId) => CognitoSignUpResult(
+          userId: userId,
+          isSignUpComplete: true,
+          nextStep: const AuthNextSignUpStep(
+            signUpStep: AuthSignUpStep.done,
+          ),
+        ),
+      SignUpFailure(:final exception, :final stackTrace) =>
+        Error.throwWithStackTrace(exception, stackTrace),
+    };
   }
 
   @override
@@ -396,55 +408,19 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options.pluginOptions,
       defaultPluginOptions: const CognitoSignUpPluginOptions(),
     );
-    await _stateMachine
-        .accept(
-          SignUpEvent.initiate(
-            parameters: SignUpParameters(
-              (p) => p
-                ..username = username
-                ..password = password,
-            ),
-            userAttributes: options.userAttributes,
-            clientMetadata: pluginOptions.clientMetadata,
-            validationData: pluginOptions.validationData,
-          ),
-        )
-        .accepted;
-
-    await for (final state
-        in _stateMachine.expect(SignUpStateMachine.type).stream) {
-      switch (state.type) {
-        case SignUpStateType.notStarted:
-        case SignUpStateType.initiating:
-        case SignUpStateType.confirming:
-          continue;
-        case SignUpStateType.needsConfirmation:
-          state as SignUpNeedsConfirmation;
-          return CognitoSignUpResult(
-            userId: state.userId,
-            isSignUpComplete: false,
-            nextStep: AuthNextSignUpStep(
-              signUpStep: AuthSignUpStep.confirmSignUp,
-              codeDeliveryDetails:
-                  state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
-            ),
-          );
-        case SignUpStateType.success:
-          state as SignUpSuccess;
-          return CognitoSignUpResult(
-            userId: state.userId,
-            isSignUpComplete: true,
-            nextStep: const AuthNextSignUpStep(
-              signUpStep: AuthSignUpStep.done,
-            ),
-          );
-        case SignUpStateType.failure:
-          throw (state as SignUpFailure).exception;
-      }
-    }
-
-    // This should never happen.
-    throw const UnknownException('Sign up could not be completed');
+    final result = await _stateMachine.acceptAndComplete<SignUpState>(
+      SignUpEvent.initiate(
+        parameters: SignUpParameters(
+          (p) => p
+            ..username = username
+            ..password = password,
+        ),
+        userAttributes: options.userAttributes,
+        clientMetadata: pluginOptions.clientMetadata,
+        validationData: pluginOptions.validationData,
+      ),
+    );
+    return _processSignUpResult(result);
   }
 
   @override
@@ -458,50 +434,14 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options.pluginOptions,
       defaultPluginOptions: const CognitoConfirmSignUpPluginOptions(),
     );
-    await _stateMachine
-        .accept(
-          SignUpEvent.confirm(
-            username: username,
-            confirmationCode: confirmationCode,
-            clientMetadata: pluginOptions.clientMetadata,
-          ),
-        )
-        .accepted;
-
-    await for (final state
-        in _stateMachine.expect(SignUpStateMachine.type).stream) {
-      switch (state.type) {
-        case SignUpStateType.notStarted:
-        case SignUpStateType.initiating:
-        case SignUpStateType.confirming:
-          continue;
-        case SignUpStateType.needsConfirmation:
-          state as SignUpNeedsConfirmation;
-          return CognitoSignUpResult(
-            userId: state.userId,
-            isSignUpComplete: false,
-            nextStep: AuthNextSignUpStep(
-              signUpStep: AuthSignUpStep.confirmSignUp,
-              codeDeliveryDetails:
-                  state.codeDeliveryDetails?.asAuthCodeDeliveryDetails,
-            ),
-          );
-        case SignUpStateType.success:
-          state as SignUpSuccess;
-          return CognitoSignUpResult(
-            userId: state.userId,
-            isSignUpComplete: true,
-            nextStep: const AuthNextSignUpStep(
-              signUpStep: AuthSignUpStep.done,
-            ),
-          );
-        case SignUpStateType.failure:
-          throw (state as SignUpFailure).exception;
-      }
-    }
-
-    // This should never happen.
-    throw const UnknownException('Sign up confirmation could not be completed');
+    final result = await _stateMachine.acceptAndComplete<SignUpState>(
+      SignUpEvent.confirm(
+        username: username,
+        confirmationCode: confirmationCode,
+        clientMetadata: pluginOptions.clientMetadata,
+      ),
+    );
+    return _processSignUpResult(result);
   }
 
   @override
@@ -543,37 +483,42 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }
 
   CognitoSignInResult _processSignInResult(SignInState result) {
-    switch (result.type) {
-      case SignInStateType.notStarted:
-      case SignInStateType.initiating:
-      case SignInStateType.failure:
+    return switch (result) {
+      SignInNotStarted _ ||
+      SignInInitiating _ =>
         // This should never happen.
-        throw const UnknownException('Sign in could not be completed');
-      case SignInStateType.cancelling:
-        throw const UserCancelledException(
+        throw UnknownException(
+          'Sign in could not be completed',
+          underlyingException: result,
+        ),
+      SignInCancelling _ => throw const UserCancelledException(
           'The user canceled the sign-in flow',
-        );
-      case SignInStateType.challenge:
-        result as SignInChallenge;
-        return CognitoSignInResult(
+        ),
+      SignInChallenge(
+        :final challengeName,
+        :final challengeParameters,
+        :final requiredAttributes,
+      ) =>
+        CognitoSignInResult(
           isSignedIn: false,
           nextStep: AuthNextSignInStep(
-            signInStep: result.challengeName.signInStep,
+            signInStep: challengeName.signInStep,
             codeDeliveryDetails: _getChallengeDeliveryDetails(
-              result.challengeParameters,
+              challengeParameters,
             ),
-            additionalInfo: result.challengeParameters,
-            missingAttributes: result.requiredAttributes,
+            additionalInfo: challengeParameters,
+            missingAttributes: requiredAttributes,
           ),
-        );
-      case SignInStateType.success:
-        return const CognitoSignInResult(
+        ),
+      SignInSuccess _ => const CognitoSignInResult(
           isSignedIn: true,
           nextStep: AuthNextSignInStep(
             signInStep: AuthSignInStep.done,
           ),
-        );
-    }
+        ),
+      SignInFailure(:final exception, :final stackTrace) =>
+        Error.throwWithStackTrace(exception, stackTrace),
+    };
   }
 
   @override
@@ -1016,24 +961,28 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
   }) async {
     options ??= const SignOutOptions();
 
-    final resultState = await stateMachine.acceptAndComplete(
+    final result = await stateMachine.acceptAndComplete<SignOutState>(
       SignOutEvent.initiate(options),
     );
 
-    final CognitoSignOutResult signOutResult;
-    if (resultState is SignOutSuccess) {
-      signOutResult = const CognitoSignOutResult.complete();
-    } else if (resultState is SignOutPartialFailure) {
-      signOutResult = CognitoSignOutResult.partial(
-        hostedUiException: resultState.hostedUiException,
-        globalSignOutException: resultState.globalSignOutException,
-        revokeTokenException: resultState.revokeTokenException,
-      );
-    } else {
-      resultState as SignOutFailure;
-      final exception = AuthException.fromException(resultState.exception);
-      signOutResult = CognitoSignOutResult.failed(exception);
-    }
+    final signOutResult = switch (result) {
+      SignOutSuccess _ => const CognitoSignOutResult.complete(),
+      SignOutPartialFailure _ => CognitoSignOutResult.partial(
+          hostedUiException: result.hostedUiException,
+          globalSignOutException: result.globalSignOutException,
+          revokeTokenException: result.revokeTokenException,
+        ),
+      SignOutFailure(:final exception) => CognitoSignOutResult.failed(
+          AuthException.fromException(exception),
+        ),
+      SignOutIdle _ ||
+      SignOutSigningOut _ =>
+        // This should never happen.
+        throw UnknownException(
+          'Sign in could not be completed',
+          underlyingException: result,
+        ),
+    };
     if (signOutResult is! CognitoFailedSignOut) {
       _hubEventController.add(AuthHubEvent.signedOut());
     }

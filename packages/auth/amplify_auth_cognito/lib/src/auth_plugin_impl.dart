@@ -21,10 +21,8 @@ import 'package:amplify_auth_cognito_dart/src/flows/hosted_ui/hosted_ui_platform
 import 'package:amplify_auth_cognito_dart/src/model/hosted_ui/oauth_parameters.dart';
 // ignore: implementation_imports
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
-// ignore: implementation_imports
-import 'package:amplify_auth_cognito_dart/src/state/event/hosted_ui_event.dart';
-// ignore: implementation_imports
-import 'package:amplify_auth_cognito_dart/src/state/machines/hosted_ui_state_machine.dart';
+// ignore: implementation_imports, invalid_use_of_internal_member
+import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 

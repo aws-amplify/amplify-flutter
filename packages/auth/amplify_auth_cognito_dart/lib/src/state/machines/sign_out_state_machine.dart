@@ -24,9 +24,8 @@ final class SignOutStateMachine
 
   @override
   Future<void> resolve(SignOutEvent event) async {
-    switch (event.type) {
-      case SignOutEventType.initiate:
-        event as SignOutInitiate;
+    switch (event) {
+      case SignOutInitiate _:
         await _onInitiate(event);
     }
   }
@@ -70,14 +69,11 @@ final class SignOutStateMachine
     Future<void> signOutHostedUi() async {
       if (tokens.signInMethod == CognitoSignInMethod.hostedUi) {
         final hostedUiResult = await manager.signOutHostedUI();
-        if (hostedUiResult is HostedUiFailure) {
-          final exception = hostedUiResult.exception;
+        if (hostedUiResult case HostedUiFailure(:final exception)) {
           if (exception is UserCancelledException) {
             throw exception;
           }
-          hostedUiException = HostedUiException(
-            underlyingException: hostedUiResult.exception,
-          );
+          hostedUiException = HostedUiException(underlyingException: exception);
         }
       }
     }

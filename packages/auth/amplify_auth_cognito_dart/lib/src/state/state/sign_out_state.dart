@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:amplify_auth_cognito_dart/amplify_auth_cognito_dart.dart';
-import 'package:amplify_auth_cognito_dart/src/state/state.dart';
+part of 'auth_state.dart';
 
 /// {@template amplify_auth_cognito.sign_out_state_type}
 /// Discrete state types of the Sign Out state machine.
