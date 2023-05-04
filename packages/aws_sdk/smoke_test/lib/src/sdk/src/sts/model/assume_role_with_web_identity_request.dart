@@ -175,66 +175,54 @@ class AssumeRoleWithWebIdentityRequestAwsQuerySerializer
     final result = AssumeRoleWithWebIdentityRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RoleArn':
           result.roleArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleSessionName':
           result.roleSessionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'WebIdentityToken':
           result.webIdentityToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProviderId':
-          if (value != null) {
-            result.providerId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.providerId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyArns':
-          if (value != null) {
-            result.policyArns.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.PolicyDescriptorType)],
-              ),
-            ) as _i4.BuiltList<_i3.PolicyDescriptorType>));
-          }
-          break;
+          result.policyArns.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.PolicyDescriptorType)],
+            ),
+          ) as _i4.BuiltList<_i3.PolicyDescriptorType>));
         case 'Policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DurationSeconds':
-          if (value != null) {
-            result.durationSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.durationSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -254,59 +242,68 @@ class AssumeRoleWithWebIdentityRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final AssumeRoleWithWebIdentityRequest(
+      :roleArn,
+      :roleSessionName,
+      :webIdentityToken,
+      :providerId,
+      :policyArns,
+      :policy,
+      :durationSeconds
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('RoleArn'))
       ..add(serializers.serialize(
-        payload.roleArn,
+        roleArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('RoleSessionName'))
       ..add(serializers.serialize(
-        payload.roleSessionName,
+        roleSessionName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('WebIdentityToken'))
       ..add(serializers.serialize(
-        payload.webIdentityToken,
+        webIdentityToken,
         specifiedType: const FullType(String),
       ));
-    if (payload.providerId != null) {
+    if (providerId != null) {
       result
         ..add(const _i1.XmlElementName('ProviderId'))
         ..add(serializers.serialize(
-          payload.providerId!,
+          providerId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyArns != null) {
+    if (policyArns != null) {
       result
         ..add(const _i1.XmlElementName('PolicyArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyArns!,
+          policyArns,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.PolicyDescriptorType)],
           ),
         ));
     }
-    if (payload.policy != null) {
+    if (policy != null) {
       result
         ..add(const _i1.XmlElementName('Policy'))
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.durationSeconds != null) {
+    if (durationSeconds != null) {
       result
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
-          payload.durationSeconds!,
+          durationSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }

@@ -79,18 +79,18 @@ class GetBucketCorsOutputRestXmlSerializer
     final result = GetBucketCorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CORSRule':
-          if (value != null) {
-            result.corsRules.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CorsRule),
-            ) as _i2.CorsRule));
-          }
-          break;
+          result.corsRules.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CorsRule),
+          ) as _i2.CorsRule));
       }
     }
 
@@ -110,11 +110,12 @@ class GetBucketCorsOutputRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.corsRules != null) {
+    final GetBucketCorsOutput(:corsRules) = payload;
+    if (corsRules != null) {
       result.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
         serializers,
-        payload.corsRules!,
+        corsRules,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.CorsRule)],

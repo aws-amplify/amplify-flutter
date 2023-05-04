@@ -88,16 +88,18 @@ class DeleteServerCertificateRequestAwsQuerySerializer
     final result = DeleteServerCertificateRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServerCertificateName':
           result.serverCertificateName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -117,10 +119,11 @@ class DeleteServerCertificateRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final DeleteServerCertificateRequest(:serverCertificateName) = payload;
     result
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
-        payload.serverCertificateName,
+        serverCertificateName,
         specifiedType: const FullType(String),
       ));
     return result;

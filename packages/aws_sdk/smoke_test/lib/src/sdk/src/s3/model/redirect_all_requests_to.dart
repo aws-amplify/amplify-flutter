@@ -90,24 +90,23 @@ class RedirectAllRequestsToRestXmlSerializer
     final result = RedirectAllRequestsToBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'HostName':
           result.hostName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Protocol':
-          if (value != null) {
-            result.protocol = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Protocol),
-            ) as _i2.Protocol);
-          }
-          break;
+          result.protocol = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Protocol),
+          ) as _i2.Protocol);
       }
     }
 
@@ -127,17 +126,18 @@ class RedirectAllRequestsToRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final RedirectAllRequestsTo(:hostName, :protocol) = payload;
     result
       ..add(const _i3.XmlElementName('HostName'))
       ..add(serializers.serialize(
-        payload.hostName,
+        hostName,
         specifiedType: const FullType(String),
       ));
-    if (payload.protocol != null) {
+    if (protocol != null) {
       result
         ..add(const _i3.XmlElementName('Protocol'))
         ..add(serializers.serialize(
-          payload.protocol!,
+          protocol,
           specifiedType: const FullType.nullable(_i2.Protocol),
         ));
     }

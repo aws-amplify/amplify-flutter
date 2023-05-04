@@ -110,43 +110,37 @@ class MethodResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'responseModels':
-          if (value != null) {
-            result.responseModels.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, String>));
-          }
-          break;
+          result.responseModels.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, String>));
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(bool),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, bool>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(bool),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, bool>));
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -161,11 +155,13 @@ class MethodResponseRestJson1Serializer
   }) {
     final payload = (object as MethodResponse);
     final result = <Object?>[];
-    if (payload.responseModels != null) {
+    final MethodResponse(:responseModels, :responseParameters, :statusCode) =
+        payload;
+    if (responseModels != null) {
       result
         ..add('responseModels')
         ..add(serializers.serialize(
-          payload.responseModels!,
+          responseModels,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [
@@ -175,11 +171,11 @@ class MethodResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseParameters != null) {
+    if (responseParameters != null) {
       result
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [
@@ -189,11 +185,11 @@ class MethodResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.statusCode != null) {
+    if (statusCode != null) {
       result
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }

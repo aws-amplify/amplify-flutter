@@ -268,13 +268,15 @@ class DeleteItemInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Key':
           result.key.replace((serializers.deserialize(
             value,
@@ -286,89 +288,64 @@ class DeleteItemInputAwsJson10Serializer
               ],
             ),
           ) as _i9.BuiltMap<String, _i3.AttributeValue>));
-          break;
         case 'Expected':
-          if (value != null) {
-            result.expected.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i9.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i4.ExpectedAttributeValue),
-                ],
-              ),
-            ) as _i9.BuiltMap<String, _i4.ExpectedAttributeValue>));
-          }
-          break;
+          result.expected.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i9.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i4.ExpectedAttributeValue),
+              ],
+            ),
+          ) as _i9.BuiltMap<String, _i4.ExpectedAttributeValue>));
         case 'ConditionalOperator':
-          if (value != null) {
-            result.conditionalOperator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ConditionalOperator),
-            ) as _i5.ConditionalOperator);
-          }
-          break;
+          result.conditionalOperator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ConditionalOperator),
+          ) as _i5.ConditionalOperator);
         case 'ReturnValues':
-          if (value != null) {
-            result.returnValues = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ReturnValue),
-            ) as _i6.ReturnValue);
-          }
-          break;
+          result.returnValues = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ReturnValue),
+          ) as _i6.ReturnValue);
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.ReturnConsumedCapacity),
-            ) as _i7.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.ReturnConsumedCapacity),
+          ) as _i7.ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
-          if (value != null) {
-            result.returnItemCollectionMetrics = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.ReturnItemCollectionMetrics),
-            ) as _i8.ReturnItemCollectionMetrics);
-          }
-          break;
+          result.returnItemCollectionMetrics = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.ReturnItemCollectionMetrics),
+          ) as _i8.ReturnItemCollectionMetrics);
         case 'ConditionExpression':
-          if (value != null) {
-            result.conditionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conditionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i9.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i9.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i9.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i9.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
-          if (value != null) {
-            result.expressionAttributeValues.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i9.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.AttributeValue),
-                ],
-              ),
-            ) as _i9.BuiltMap<String, _i3.AttributeValue>));
-          }
-          break;
+          result.expressionAttributeValues.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i9.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.AttributeValue),
+              ],
+            ),
+          ) as _i9.BuiltMap<String, _i3.AttributeValue>));
       }
     }
 
@@ -400,11 +377,21 @@ class DeleteItemInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.expected != null) {
+    final DeleteItemInput(
+      :expected,
+      :conditionalOperator,
+      :returnValues,
+      :returnConsumedCapacity,
+      :returnItemCollectionMetrics,
+      :conditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues
+    ) = payload;
+    if (expected != null) {
       result
         ..add('Expected')
         ..add(serializers.serialize(
-          payload.expected!,
+          expected,
           specifiedType: const FullType(
             _i9.BuiltMap,
             [
@@ -414,51 +401,51 @@ class DeleteItemInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.conditionalOperator != null) {
+    if (conditionalOperator != null) {
       result
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
-          payload.conditionalOperator!,
+          conditionalOperator,
           specifiedType: const FullType(_i5.ConditionalOperator),
         ));
     }
-    if (payload.returnValues != null) {
+    if (returnValues != null) {
       result
         ..add('ReturnValues')
         ..add(serializers.serialize(
-          payload.returnValues!,
+          returnValues,
           specifiedType: const FullType(_i6.ReturnValue),
         ));
     }
-    if (payload.returnConsumedCapacity != null) {
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i7.ReturnConsumedCapacity),
         ));
     }
-    if (payload.returnItemCollectionMetrics != null) {
+    if (returnItemCollectionMetrics != null) {
       result
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.returnItemCollectionMetrics!,
+          returnItemCollectionMetrics,
           specifiedType: const FullType(_i8.ReturnItemCollectionMetrics),
         ));
     }
-    if (payload.conditionExpression != null) {
+    if (conditionExpression != null) {
       result
         ..add('ConditionExpression')
         ..add(serializers.serialize(
-          payload.conditionExpression!,
+          conditionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i9.BuiltMap,
             [
@@ -468,11 +455,11 @@ class DeleteItemInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.expressionAttributeValues != null) {
+    if (expressionAttributeValues != null) {
       result
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
-          payload.expressionAttributeValues!,
+          expressionAttributeValues,
           specifiedType: const FullType(
             _i9.BuiltMap,
             [

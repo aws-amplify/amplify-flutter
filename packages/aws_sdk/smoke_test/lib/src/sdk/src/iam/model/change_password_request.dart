@@ -99,22 +99,23 @@ class ChangePasswordRequestAwsQuerySerializer
     final result = ChangePasswordRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OldPassword':
           result.oldPassword = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NewPassword':
           result.newPassword = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -134,16 +135,17 @@ class ChangePasswordRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ChangePasswordRequest(:oldPassword, :newPassword) = payload;
     result
       ..add(const _i1.XmlElementName('OldPassword'))
       ..add(serializers.serialize(
-        payload.oldPassword,
+        oldPassword,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('NewPassword'))
       ..add(serializers.serialize(
-        payload.newPassword,
+        newPassword,
         specifiedType: const FullType(String),
       ));
     return result;

@@ -135,55 +135,40 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryStatus),
-            ) as _i2.DeliveryStatus);
-          }
-          break;
+          result.lastStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryStatus),
+          ) as _i2.DeliveryStatus);
         case 'lastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastAttemptTime':
-          if (value != null) {
-            result.lastAttemptTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastAttemptTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'lastSuccessfulTime':
-          if (value != null) {
-            result.lastSuccessfulTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastSuccessfulTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'nextDeliveryTime':
-          if (value != null) {
-            result.nextDeliveryTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.nextDeliveryTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -198,51 +183,59 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
   }) {
     final payload = (object as ConfigExportDeliveryInfo);
     final result = <Object?>[];
-    if (payload.lastStatus != null) {
+    final ConfigExportDeliveryInfo(
+      :lastStatus,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :lastAttemptTime,
+      :lastSuccessfulTime,
+      :nextDeliveryTime
+    ) = payload;
+    if (lastStatus != null) {
       result
         ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastStatus!,
+          lastStatus,
           specifiedType: const FullType(_i2.DeliveryStatus),
         ));
     }
-    if (payload.lastErrorCode != null) {
+    if (lastErrorCode != null) {
       result
         ..add('lastErrorCode')
         ..add(serializers.serialize(
-          payload.lastErrorCode!,
+          lastErrorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastErrorMessage != null) {
+    if (lastErrorMessage != null) {
       result
         ..add('lastErrorMessage')
         ..add(serializers.serialize(
-          payload.lastErrorMessage!,
+          lastErrorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastAttemptTime != null) {
+    if (lastAttemptTime != null) {
       result
         ..add('lastAttemptTime')
         ..add(serializers.serialize(
-          payload.lastAttemptTime!,
+          lastAttemptTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastSuccessfulTime != null) {
+    if (lastSuccessfulTime != null) {
       result
         ..add('lastSuccessfulTime')
         ..add(serializers.serialize(
-          payload.lastSuccessfulTime!,
+          lastSuccessfulTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.nextDeliveryTime != null) {
+    if (nextDeliveryTime != null) {
       result
         ..add('nextDeliveryTime')
         ..add(serializers.serialize(
-          payload.nextDeliveryTime!,
+          nextDeliveryTime,
           specifiedType: const FullType(DateTime),
         ));
     }

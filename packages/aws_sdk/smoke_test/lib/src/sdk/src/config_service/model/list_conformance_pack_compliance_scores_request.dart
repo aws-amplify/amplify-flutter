@@ -143,48 +143,36 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Filters':
-          if (value != null) {
-            result.filters.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.ConformancePackComplianceScoresFilters),
-            ) as _i3.ConformancePackComplianceScoresFilters));
-          }
-          break;
+          result.filters.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ConformancePackComplianceScoresFilters),
+          ) as _i3.ConformancePackComplianceScoresFilters));
         case 'SortOrder':
-          if (value != null) {
-            result.sortOrder = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SortOrder),
-            ) as _i4.SortOrder);
-          }
-          break;
+          result.sortOrder = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SortOrder),
+          ) as _i4.SortOrder);
         case 'SortBy':
-          if (value != null) {
-            result.sortBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.SortBy),
-            ) as _i5.SortBy);
-          }
-          break;
+          result.sortBy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.SortBy),
+          ) as _i5.SortBy);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -199,44 +187,51 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as ListConformancePackComplianceScoresRequest);
     final result = <Object?>[];
-    if (payload.filters != null) {
+    final ListConformancePackComplianceScoresRequest(
+      :filters,
+      :sortOrder,
+      :sortBy,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (filters != null) {
       result
         ..add('Filters')
         ..add(serializers.serialize(
-          payload.filters!,
+          filters,
           specifiedType:
               const FullType(_i3.ConformancePackComplianceScoresFilters),
         ));
     }
-    if (payload.sortOrder != null) {
+    if (sortOrder != null) {
       result
         ..add('SortOrder')
         ..add(serializers.serialize(
-          payload.sortOrder!,
+          sortOrder,
           specifiedType: const FullType(_i4.SortOrder),
         ));
     }
-    if (payload.sortBy != null) {
+    if (sortBy != null) {
       result
         ..add('SortBy')
         ..add(serializers.serialize(
-          payload.sortBy!,
+          sortBy,
           specifiedType: const FullType(_i5.SortBy),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

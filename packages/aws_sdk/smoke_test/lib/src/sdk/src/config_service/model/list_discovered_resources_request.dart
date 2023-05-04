@@ -146,56 +146,43 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ResourceType),
           ) as _i3.ResourceType);
-          break;
         case 'resourceIds':
-          if (value != null) {
-            result.resourceIds.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.resourceIds.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'includeDeletedResources':
-          if (value != null) {
-            result.includeDeletedResources = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.includeDeletedResources = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -216,46 +203,53 @@ class ListDiscoveredResourcesRequestAwsJson11Serializer
         specifiedType: const FullType(_i3.ResourceType),
       ),
     ];
-    if (payload.resourceIds != null) {
+    final ListDiscoveredResourcesRequest(
+      :resourceIds,
+      :resourceName,
+      :limit,
+      :includeDeletedResources,
+      :nextToken
+    ) = payload;
+    if (resourceIds != null) {
       result
         ..add('resourceIds')
         ..add(serializers.serialize(
-          payload.resourceIds!,
+          resourceIds,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.resourceName != null) {
+    if (resourceName != null) {
       result
         ..add('resourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.includeDeletedResources != null) {
+    if (includeDeletedResources != null) {
       result
         ..add('includeDeletedResources')
         ..add(serializers.serialize(
-          payload.includeDeletedResources!,
+          includeDeletedResources,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('nextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

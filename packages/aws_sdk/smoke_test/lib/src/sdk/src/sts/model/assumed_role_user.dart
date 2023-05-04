@@ -87,22 +87,23 @@ class AssumedRoleUserAwsQuerySerializer
     final result = AssumedRoleUserBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AssumedRoleId':
           result.assumedRoleId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -122,16 +123,17 @@ class AssumedRoleUserAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final AssumedRoleUser(:assumedRoleId, :arn) = payload;
     result
       ..add(const _i2.XmlElementName('AssumedRoleId'))
       ..add(serializers.serialize(
-        payload.assumedRoleId,
+        assumedRoleId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     return result;

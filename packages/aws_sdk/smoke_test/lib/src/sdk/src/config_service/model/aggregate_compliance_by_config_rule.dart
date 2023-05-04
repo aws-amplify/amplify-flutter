@@ -124,39 +124,30 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Compliance':
-          if (value != null) {
-            result.compliance.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Compliance),
-            ) as _i2.Compliance));
-          }
-          break;
+          result.compliance.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Compliance),
+          ) as _i2.Compliance));
         case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -171,35 +162,41 @@ class AggregateComplianceByConfigRuleAwsJson11Serializer
   }) {
     final payload = (object as AggregateComplianceByConfigRule);
     final result = <Object?>[];
-    if (payload.configRuleName != null) {
+    final AggregateComplianceByConfigRule(
+      :configRuleName,
+      :compliance,
+      :accountId,
+      :awsRegion
+    ) = payload;
+    if (configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.compliance != null) {
+    if (compliance != null) {
       result
         ..add('Compliance')
         ..add(serializers.serialize(
-          payload.compliance!,
+          compliance,
           specifiedType: const FullType(_i2.Compliance),
         ));
     }
-    if (payload.accountId != null) {
+    if (accountId != null) {
       result
         ..add('AccountId')
         ..add(serializers.serialize(
-          payload.accountId!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsRegion != null) {
+    if (awsRegion != null) {
       result
         ..add('AwsRegion')
         ..add(serializers.serialize(
-          payload.awsRegion!,
+          awsRegion,
           specifiedType: const FullType(String),
         ));
     }

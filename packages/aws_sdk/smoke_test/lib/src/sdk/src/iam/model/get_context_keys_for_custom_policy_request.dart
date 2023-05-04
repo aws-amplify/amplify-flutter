@@ -95,10 +95,13 @@ class GetContextKeysForCustomPolicyRequestAwsQuerySerializer extends _i1
     final result = GetContextKeysForCustomPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyInputList':
           result.policyInputList.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -110,7 +113,6 @@ class GetContextKeysForCustomPolicyRequestAwsQuerySerializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -130,13 +132,14 @@ class GetContextKeysForCustomPolicyRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetContextKeysForCustomPolicyRequest(:policyInputList) = payload;
     result
       ..add(const _i1.XmlElementName('PolicyInputList'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.policyInputList,
+        policyInputList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

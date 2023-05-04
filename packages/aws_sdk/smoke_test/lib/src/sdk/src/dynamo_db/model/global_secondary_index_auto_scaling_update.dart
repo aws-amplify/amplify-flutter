@@ -99,24 +99,21 @@ class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ProvisionedWriteCapacityAutoScalingUpdate':
-          if (value != null) {
-            result.provisionedWriteCapacityAutoScalingUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
-            ) as _i2.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.provisionedWriteCapacityAutoScalingUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
+          ) as _i2.AutoScalingSettingsUpdate));
       }
     }
 
@@ -131,19 +128,23 @@ class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
   }) {
     final payload = (object as GlobalSecondaryIndexAutoScalingUpdate);
     final result = <Object?>[];
-    if (payload.indexName != null) {
+    final GlobalSecondaryIndexAutoScalingUpdate(
+      :indexName,
+      :provisionedWriteCapacityAutoScalingUpdate
+    ) = payload;
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedWriteCapacityAutoScalingUpdate != null) {
+    if (provisionedWriteCapacityAutoScalingUpdate != null) {
       result
         ..add('ProvisionedWriteCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingUpdate!,
+          provisionedWriteCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
         ));
     }

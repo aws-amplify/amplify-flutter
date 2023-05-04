@@ -93,23 +93,20 @@ class BatchStatementErrorAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BatchStatementErrorCodeEnum),
-            ) as _i2.BatchStatementErrorCodeEnum);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BatchStatementErrorCodeEnum),
+          ) as _i2.BatchStatementErrorCodeEnum);
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -124,19 +121,20 @@ class BatchStatementErrorAwsJson10Serializer
   }) {
     final payload = (object as BatchStatementError);
     final result = <Object?>[];
-    if (payload.code != null) {
+    final BatchStatementError(:code, :message) = payload;
+    if (code != null) {
       result
         ..add('Code')
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(_i2.BatchStatementErrorCodeEnum),
         ));
     }
-    if (payload.message != null) {
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

@@ -112,31 +112,25 @@ class ListGlobalTablesInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExclusiveStartGlobalTableName':
-          if (value != null) {
-            result.exclusiveStartGlobalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartGlobalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -151,27 +145,32 @@ class ListGlobalTablesInputAwsJson10Serializer
   }) {
     final payload = (object as ListGlobalTablesInput);
     final result = <Object?>[];
-    if (payload.exclusiveStartGlobalTableName != null) {
+    final ListGlobalTablesInput(
+      :exclusiveStartGlobalTableName,
+      :limit,
+      :regionName
+    ) = payload;
+    if (exclusiveStartGlobalTableName != null) {
       result
         ..add('ExclusiveStartGlobalTableName')
         ..add(serializers.serialize(
-          payload.exclusiveStartGlobalTableName!,
+          exclusiveStartGlobalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.regionName != null) {
+    if (regionName != null) {
       result
         ..add('RegionName')
         ..add(serializers.serialize(
-          payload.regionName!,
+          regionName,
           specifiedType: const FullType(String),
         ));
     }

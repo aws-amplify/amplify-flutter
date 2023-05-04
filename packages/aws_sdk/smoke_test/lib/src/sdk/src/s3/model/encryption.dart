@@ -99,32 +99,28 @@ class EncryptionRestXmlSerializer
     final result = EncryptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EncryptionType':
           result.encryptionType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ServerSideEncryption),
           ) as _i2.ServerSideEncryption);
-          break;
         case 'KMSContext':
-          if (value != null) {
-            result.kmsContext = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsContext = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KMSKeyId':
-          if (value != null) {
-            result.kmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,25 +140,26 @@ class EncryptionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Encryption(:encryptionType, :kmsContext, :kmsKeyId) = payload;
     result
       ..add(const _i3.XmlElementName('EncryptionType'))
       ..add(serializers.serialize(
-        payload.encryptionType,
+        encryptionType,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
-    if (payload.kmsContext != null) {
+    if (kmsContext != null) {
       result
         ..add(const _i3.XmlElementName('KMSContext'))
         ..add(serializers.serialize(
-          payload.kmsContext!,
+          kmsContext,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.kmsKeyId != null) {
+    if (kmsKeyId != null) {
       result
         ..add(const _i3.XmlElementName('KMSKeyId'))
         ..add(serializers.serialize(
-          payload.kmsKeyId!,
+          kmsKeyId,
           specifiedType: const FullType(String),
         ));
     }

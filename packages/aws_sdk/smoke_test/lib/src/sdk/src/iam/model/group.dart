@@ -139,40 +139,38 @@ class GroupAwsQuerySerializer extends _i2.StructuredSmithySerializer<Group> {
     final result = GroupBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'GroupName':
           result.groupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'GroupId':
           result.groupId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -192,34 +190,35 @@ class GroupAwsQuerySerializer extends _i2.StructuredSmithySerializer<Group> {
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final Group(:path, :groupName, :groupId, :arn, :createDate) = payload;
     result
       ..add(const _i2.XmlElementName('Path'))
       ..add(serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('GroupName'))
       ..add(serializers.serialize(
-        payload.groupName,
+        groupName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('GroupId'))
       ..add(serializers.serialize(
-        payload.groupId,
+        groupId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
-        payload.createDate,
+        createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     return result;

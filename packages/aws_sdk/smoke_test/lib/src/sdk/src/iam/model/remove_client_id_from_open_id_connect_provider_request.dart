@@ -103,22 +103,23 @@ class RemoveClientIdFromOpenIdConnectProviderRequestAwsQuerySerializer
     final result = RemoveClientIdFromOpenIdConnectProviderRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OpenIDConnectProviderArn':
           result.openIdConnectProviderArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ClientID':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -138,16 +139,20 @@ class RemoveClientIdFromOpenIdConnectProviderRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final RemoveClientIdFromOpenIdConnectProviderRequest(
+      :openIdConnectProviderArn,
+      :clientId
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('OpenIDConnectProviderArn'))
       ..add(serializers.serialize(
-        payload.openIdConnectProviderArn,
+        openIdConnectProviderArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('ClientID'))
       ..add(serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ));
     return result;

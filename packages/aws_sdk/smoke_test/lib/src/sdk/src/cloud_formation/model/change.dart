@@ -99,34 +99,28 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
     final result = ChangeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChangeType),
-            ) as _i2.ChangeType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChangeType),
+          ) as _i2.ChangeType);
         case 'HookInvocationCount':
-          if (value != null) {
-            result.hookInvocationCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.hookInvocationCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ResourceChange':
-          if (value != null) {
-            result.resourceChange.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ResourceChange),
-            ) as _i3.ResourceChange));
-          }
-          break;
+          result.resourceChange.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ResourceChange),
+          ) as _i3.ResourceChange));
       }
     }
 
@@ -146,27 +140,28 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final Change(:type, :hookInvocationCount, :resourceChange) = payload;
+    if (type != null) {
       result
         ..add(const _i4.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.ChangeType),
         ));
     }
-    if (payload.hookInvocationCount != null) {
+    if (hookInvocationCount != null) {
       result
         ..add(const _i4.XmlElementName('HookInvocationCount'))
         ..add(serializers.serialize(
-          payload.hookInvocationCount!,
+          hookInvocationCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.resourceChange != null) {
+    if (resourceChange != null) {
       result
         ..add(const _i4.XmlElementName('ResourceChange'))
         ..add(serializers.serialize(
-          payload.resourceChange!,
+          resourceChange,
           specifiedType: const FullType(_i3.ResourceChange),
         ));
     }

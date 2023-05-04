@@ -111,34 +111,28 @@ class GetFederationTokenResponseAwsQuerySerializer
     final result = GetFederationTokenResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Credentials':
-          if (value != null) {
-            result.credentials.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Credentials),
-            ) as _i2.Credentials));
-          }
-          break;
+          result.credentials.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Credentials),
+          ) as _i2.Credentials));
         case 'FederatedUser':
-          if (value != null) {
-            result.federatedUser.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.FederatedUser),
-            ) as _i3.FederatedUser));
-          }
-          break;
+          result.federatedUser.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.FederatedUser),
+          ) as _i3.FederatedUser));
         case 'PackedPolicySize':
-          if (value != null) {
-            result.packedPolicySize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.packedPolicySize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -158,27 +152,32 @@ class GetFederationTokenResponseAwsQuerySerializer
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.credentials != null) {
+    final GetFederationTokenResponse(
+      :credentials,
+      :federatedUser,
+      :packedPolicySize
+    ) = payload;
+    if (credentials != null) {
       result
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
-          payload.credentials!,
+          credentials,
           specifiedType: const FullType(_i2.Credentials),
         ));
     }
-    if (payload.federatedUser != null) {
+    if (federatedUser != null) {
       result
         ..add(const _i4.XmlElementName('FederatedUser'))
         ..add(serializers.serialize(
-          payload.federatedUser!,
+          federatedUser,
           specifiedType: const FullType(_i3.FederatedUser),
         ));
     }
-    if (payload.packedPolicySize != null) {
+    if (packedPolicySize != null) {
       result
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
-          payload.packedPolicySize!,
+          packedPolicySize,
           specifiedType: const FullType.nullable(int),
         ));
     }

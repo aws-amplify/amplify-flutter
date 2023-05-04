@@ -158,66 +158,48 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
     final result = AssumeRoleWithWebIdentityResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Credentials':
-          if (value != null) {
-            result.credentials.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Credentials),
-            ) as _i2.Credentials));
-          }
-          break;
+          result.credentials.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Credentials),
+          ) as _i2.Credentials));
         case 'SubjectFromWebIdentityToken':
-          if (value != null) {
-            result.subjectFromWebIdentityToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.subjectFromWebIdentityToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AssumedRoleUser':
-          if (value != null) {
-            result.assumedRoleUser.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AssumedRoleUser),
-            ) as _i3.AssumedRoleUser));
-          }
-          break;
+          result.assumedRoleUser.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AssumedRoleUser),
+          ) as _i3.AssumedRoleUser));
         case 'PackedPolicySize':
-          if (value != null) {
-            result.packedPolicySize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.packedPolicySize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Provider':
-          if (value != null) {
-            result.provider = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.provider = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Audience':
-          if (value != null) {
-            result.audience = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.audience = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceIdentity':
-          if (value != null) {
-            result.sourceIdentity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceIdentity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -237,59 +219,68 @@ class AssumeRoleWithWebIdentityResponseAwsQuerySerializer
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.credentials != null) {
+    final AssumeRoleWithWebIdentityResponse(
+      :credentials,
+      :subjectFromWebIdentityToken,
+      :assumedRoleUser,
+      :packedPolicySize,
+      :provider,
+      :audience,
+      :sourceIdentity
+    ) = payload;
+    if (credentials != null) {
       result
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
-          payload.credentials!,
+          credentials,
           specifiedType: const FullType(_i2.Credentials),
         ));
     }
-    if (payload.subjectFromWebIdentityToken != null) {
+    if (subjectFromWebIdentityToken != null) {
       result
         ..add(const _i4.XmlElementName('SubjectFromWebIdentityToken'))
         ..add(serializers.serialize(
-          payload.subjectFromWebIdentityToken!,
+          subjectFromWebIdentityToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.assumedRoleUser != null) {
+    if (assumedRoleUser != null) {
       result
         ..add(const _i4.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
-          payload.assumedRoleUser!,
+          assumedRoleUser,
           specifiedType: const FullType(_i3.AssumedRoleUser),
         ));
     }
-    if (payload.packedPolicySize != null) {
+    if (packedPolicySize != null) {
       result
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
-          payload.packedPolicySize!,
+          packedPolicySize,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.provider != null) {
+    if (provider != null) {
       result
         ..add(const _i4.XmlElementName('Provider'))
         ..add(serializers.serialize(
-          payload.provider!,
+          provider,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.audience != null) {
+    if (audience != null) {
       result
         ..add(const _i4.XmlElementName('Audience'))
         ..add(serializers.serialize(
-          payload.audience!,
+          audience,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceIdentity != null) {
+    if (sourceIdentity != null) {
       result
         ..add(const _i4.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
-          payload.sourceIdentity!,
+          sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }

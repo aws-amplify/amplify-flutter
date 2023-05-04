@@ -80,15 +80,15 @@ class PutStoredQueryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'QueryArn':
-          if (value != null) {
-            result.queryArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.queryArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -103,11 +103,12 @@ class PutStoredQueryResponseAwsJson11Serializer
   }) {
     final payload = (object as PutStoredQueryResponse);
     final result = <Object?>[];
-    if (payload.queryArn != null) {
+    final PutStoredQueryResponse(:queryArn) = payload;
+    if (queryArn != null) {
       result
         ..add('QueryArn')
         ..add(serializers.serialize(
-          payload.queryArn!,
+          queryArn,
           specifiedType: const FullType(String),
         ));
     }

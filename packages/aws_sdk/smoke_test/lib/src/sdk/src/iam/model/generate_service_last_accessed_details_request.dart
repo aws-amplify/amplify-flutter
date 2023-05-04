@@ -102,25 +102,24 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
     final result = GenerateServiceLastAccessedDetailsRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Granularity':
-          if (value != null) {
-            result.granularity = (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.AccessAdvisorUsageGranularityType),
-            ) as _i3.AccessAdvisorUsageGranularityType);
-          }
-          break;
+          result.granularity = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.AccessAdvisorUsageGranularityType),
+          ) as _i3.AccessAdvisorUsageGranularityType);
       }
     }
 
@@ -140,17 +139,19 @@ class GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GenerateServiceLastAccessedDetailsRequest(:arn, :granularity) =
+        payload;
     result
       ..add(const _i1.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
-    if (payload.granularity != null) {
+    if (granularity != null) {
       result
         ..add(const _i1.XmlElementName('Granularity'))
         ..add(serializers.serialize(
-          payload.granularity!,
+          granularity,
           specifiedType:
               const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
         ));

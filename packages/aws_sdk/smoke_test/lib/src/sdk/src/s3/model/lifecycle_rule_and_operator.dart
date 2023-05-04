@@ -113,42 +113,33 @@ class LifecycleRuleAndOperatorRestXmlSerializer
     final result = LifecycleRuleAndOperatorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectSizeGreaterThan':
-          if (value != null) {
-            result.objectSizeGreaterThan = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.objectSizeGreaterThan = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'ObjectSizeLessThan':
-          if (value != null) {
-            result.objectSizeLessThan = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.objectSizeLessThan = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tag':
-          if (value != null) {
-            result.tags.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Tag),
-            ) as _i2.Tag));
-          }
-          break;
+          result.tags.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ) as _i2.Tag));
       }
     }
 
@@ -168,35 +159,41 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.objectSizeGreaterThan != null) {
+    final LifecycleRuleAndOperator(
+      :objectSizeGreaterThan,
+      :objectSizeLessThan,
+      :prefix,
+      :tags
+    ) = payload;
+    if (objectSizeGreaterThan != null) {
       result
         ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
         ..add(serializers.serialize(
-          payload.objectSizeGreaterThan!,
+          objectSizeGreaterThan,
           specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
-    if (payload.objectSizeLessThan != null) {
+    if (objectSizeLessThan != null) {
       result
         ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
         ..add(serializers.serialize(
-          payload.objectSizeLessThan!,
+          objectSizeLessThan,
           specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i5.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
           .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tags!,
+        tags,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i2.Tag)],

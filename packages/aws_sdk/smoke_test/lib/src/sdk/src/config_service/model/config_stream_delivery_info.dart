@@ -117,39 +117,30 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryStatus),
-            ) as _i2.DeliveryStatus);
-          }
-          break;
+          result.lastStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryStatus),
+          ) as _i2.DeliveryStatus);
         case 'lastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastStatusChangeTime':
-          if (value != null) {
-            result.lastStatusChangeTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastStatusChangeTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -164,35 +155,41 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
   }) {
     final payload = (object as ConfigStreamDeliveryInfo);
     final result = <Object?>[];
-    if (payload.lastStatus != null) {
+    final ConfigStreamDeliveryInfo(
+      :lastStatus,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :lastStatusChangeTime
+    ) = payload;
+    if (lastStatus != null) {
       result
         ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastStatus!,
+          lastStatus,
           specifiedType: const FullType(_i2.DeliveryStatus),
         ));
     }
-    if (payload.lastErrorCode != null) {
+    if (lastErrorCode != null) {
       result
         ..add('lastErrorCode')
         ..add(serializers.serialize(
-          payload.lastErrorCode!,
+          lastErrorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastErrorMessage != null) {
+    if (lastErrorMessage != null) {
       result
         ..add('lastErrorMessage')
         ..add(serializers.serialize(
-          payload.lastErrorMessage!,
+          lastErrorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastStatusChangeTime != null) {
+    if (lastStatusChangeTime != null) {
       result
         ..add('lastStatusChangeTime')
         ..add(serializers.serialize(
-          payload.lastStatusChangeTime!,
+          lastStatusChangeTime,
           specifiedType: const FullType(DateTime),
         ));
     }

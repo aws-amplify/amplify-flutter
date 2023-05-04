@@ -136,44 +136,37 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalSecondaryIndexUpdates':
-          if (value != null) {
-            result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.GlobalSecondaryIndexAutoScalingUpdate)],
-              ),
-            ) as _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>));
-          }
-          break;
+          result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.GlobalSecondaryIndexAutoScalingUpdate)],
+            ),
+          ) as _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProvisionedWriteCapacityAutoScalingUpdate':
-          if (value != null) {
-            result.provisionedWriteCapacityAutoScalingUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AutoScalingSettingsUpdate),
-            ) as _i4.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.provisionedWriteCapacityAutoScalingUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AutoScalingSettingsUpdate),
+          ) as _i4.AutoScalingSettingsUpdate));
         case 'ReplicaUpdates':
-          if (value != null) {
-            result.replicaUpdates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.ReplicaAutoScalingUpdate)],
-              ),
-            ) as _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>));
-          }
-          break;
+          result.replicaUpdates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.ReplicaAutoScalingUpdate)],
+            ),
+          ) as _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>));
       }
     }
 
@@ -194,30 +187,35 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.globalSecondaryIndexUpdates != null) {
+    final UpdateTableReplicaAutoScalingInput(
+      :globalSecondaryIndexUpdates,
+      :provisionedWriteCapacityAutoScalingUpdate,
+      :replicaUpdates
+    ) = payload;
+    if (globalSecondaryIndexUpdates != null) {
       result
         ..add('GlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexUpdates!,
+          globalSecondaryIndexUpdates,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.GlobalSecondaryIndexAutoScalingUpdate)],
           ),
         ));
     }
-    if (payload.provisionedWriteCapacityAutoScalingUpdate != null) {
+    if (provisionedWriteCapacityAutoScalingUpdate != null) {
       result
         ..add('ProvisionedWriteCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingUpdate!,
+          provisionedWriteCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i4.AutoScalingSettingsUpdate),
         ));
     }
-    if (payload.replicaUpdates != null) {
+    if (replicaUpdates != null) {
       result
         ..add('ReplicaUpdates')
         ..add(serializers.serialize(
-          payload.replicaUpdates!,
+          replicaUpdates,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i5.ReplicaAutoScalingUpdate)],

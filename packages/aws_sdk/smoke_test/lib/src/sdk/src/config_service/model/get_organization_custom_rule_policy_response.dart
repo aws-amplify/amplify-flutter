@@ -84,15 +84,15 @@ class GetOrganizationCustomRulePolicyResponseAwsJson11Serializer extends _i2
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyText':
-          if (value != null) {
-            result.policyText = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyText = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -107,11 +107,12 @@ class GetOrganizationCustomRulePolicyResponseAwsJson11Serializer extends _i2
   }) {
     final payload = (object as GetOrganizationCustomRulePolicyResponse);
     final result = <Object?>[];
-    if (payload.policyText != null) {
+    final GetOrganizationCustomRulePolicyResponse(:policyText) = payload;
+    if (policyText != null) {
       result
         ..add('PolicyText')
         ..add(serializers.serialize(
-          payload.policyText!,
+          policyText,
           specifiedType: const FullType(String),
         ));
     }

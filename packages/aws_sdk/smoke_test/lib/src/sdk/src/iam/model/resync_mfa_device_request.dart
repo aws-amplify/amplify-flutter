@@ -125,34 +125,33 @@ class ResyncMfaDeviceRequestAwsQuerySerializer
     final result = ResyncMfaDeviceRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SerialNumber':
           result.serialNumber = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AuthenticationCode1':
           result.authenticationCode1 = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AuthenticationCode2':
           result.authenticationCode2 = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -172,28 +171,34 @@ class ResyncMfaDeviceRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ResyncMfaDeviceRequest(
+      :userName,
+      :serialNumber,
+      :authenticationCode1,
+      :authenticationCode2
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
-        payload.serialNumber,
+        serialNumber,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('AuthenticationCode1'))
       ..add(serializers.serialize(
-        payload.authenticationCode1,
+        authenticationCode1,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('AuthenticationCode2'))
       ..add(serializers.serialize(
-        payload.authenticationCode2,
+        authenticationCode2,
         specifiedType: const FullType(String),
       ));
     return result;

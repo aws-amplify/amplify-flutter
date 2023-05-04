@@ -117,42 +117,33 @@ class DescribePublisherOutputAwsQuerySerializer
     final result = DescribePublisherOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherStatus':
-          if (value != null) {
-            result.publisherStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.PublisherStatus),
-            ) as _i2.PublisherStatus);
-          }
-          break;
+          result.publisherStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.PublisherStatus),
+          ) as _i2.PublisherStatus);
         case 'IdentityProvider':
-          if (value != null) {
-            result.identityProvider = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IdentityProvider),
-            ) as _i3.IdentityProvider);
-          }
-          break;
+          result.identityProvider = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IdentityProvider),
+          ) as _i3.IdentityProvider);
         case 'PublisherProfile':
-          if (value != null) {
-            result.publisherProfile = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherProfile = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -172,35 +163,41 @@ class DescribePublisherOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.publisherId != null) {
+    final DescribePublisherOutput(
+      :publisherId,
+      :publisherStatus,
+      :identityProvider,
+      :publisherProfile
+    ) = payload;
+    if (publisherId != null) {
       result
         ..add(const _i4.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherStatus != null) {
+    if (publisherStatus != null) {
       result
         ..add(const _i4.XmlElementName('PublisherStatus'))
         ..add(serializers.serialize(
-          payload.publisherStatus!,
+          publisherStatus,
           specifiedType: const FullType.nullable(_i2.PublisherStatus),
         ));
     }
-    if (payload.identityProvider != null) {
+    if (identityProvider != null) {
       result
         ..add(const _i4.XmlElementName('IdentityProvider'))
         ..add(serializers.serialize(
-          payload.identityProvider!,
+          identityProvider,
           specifiedType: const FullType.nullable(_i3.IdentityProvider),
         ));
     }
-    if (payload.publisherProfile != null) {
+    if (publisherProfile != null) {
       result
         ..add(const _i4.XmlElementName('PublisherProfile'))
         ..add(serializers.serialize(
-          payload.publisherProfile!,
+          publisherProfile,
           specifiedType: const FullType(String),
         ));
     }

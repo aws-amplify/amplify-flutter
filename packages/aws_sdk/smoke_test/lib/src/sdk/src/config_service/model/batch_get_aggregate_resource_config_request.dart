@@ -106,13 +106,15 @@ class BatchGetAggregateResourceConfigRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceIdentifiers':
           result.resourceIdentifiers.replace((serializers.deserialize(
             value,
@@ -121,7 +123,6 @@ class BatchGetAggregateResourceConfigRequestAwsJson11Serializer extends _i1
               [FullType(_i3.AggregateResourceIdentifier)],
             ),
           ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
-          break;
       }
     }
 

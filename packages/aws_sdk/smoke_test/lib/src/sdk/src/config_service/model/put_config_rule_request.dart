@@ -104,24 +104,23 @@ class PutConfigRuleRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRule':
           result.configRule.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.ConfigRule),
           ) as _i3.ConfigRule));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -142,11 +141,12 @@ class PutConfigRuleRequestAwsJson11Serializer
         specifiedType: const FullType(_i3.ConfigRule),
       ),
     ];
-    if (payload.tags != null) {
+    final PutConfigRuleRequest(:tags) = payload;
+    if (tags != null) {
       result
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.Tag)],

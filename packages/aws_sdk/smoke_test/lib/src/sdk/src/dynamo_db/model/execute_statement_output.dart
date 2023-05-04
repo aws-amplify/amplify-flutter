@@ -124,56 +124,47 @@ class ExecuteStatementOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Items':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [
-                  FullType(
-                    _i4.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.AttributeValue),
-                    ],
-                  )
-                ],
-              ),
-            ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [
+                FullType(
+                  _i4.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.AttributeValue),
+                  ],
+                )
+              ],
+            ),
+          ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ConsumedCapacity),
-            ) as _i3.ConsumedCapacity));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ConsumedCapacity),
+          ) as _i3.ConsumedCapacity));
         case 'LastEvaluatedKey':
-          if (value != null) {
-            result.lastEvaluatedKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.lastEvaluatedKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
       }
     }
 
@@ -188,11 +179,17 @@ class ExecuteStatementOutputAwsJson10Serializer
   }) {
     final payload = (object as ExecuteStatementOutput);
     final result = <Object?>[];
-    if (payload.items != null) {
+    final ExecuteStatementOutput(
+      :items,
+      :nextToken,
+      :consumedCapacity,
+      :lastEvaluatedKey
+    ) = payload;
+    if (items != null) {
       result
         ..add('Items')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i4.BuiltList,
             [
@@ -207,27 +204,27 @@ class ExecuteStatementOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }
-    if (payload.lastEvaluatedKey != null) {
+    if (lastEvaluatedKey != null) {
       result
         ..add('LastEvaluatedKey')
         ..add(serializers.serialize(
-          payload.lastEvaluatedKey!,
+          lastEvaluatedKey,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [

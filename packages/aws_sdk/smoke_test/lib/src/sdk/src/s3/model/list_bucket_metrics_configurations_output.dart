@@ -122,42 +122,33 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
     final result = ListBucketMetricsConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.continuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'MetricsConfiguration':
-          if (value != null) {
-            result.metricsConfigurationList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MetricsConfiguration),
-            ) as _i2.MetricsConfiguration));
-          }
-          break;
+          result.metricsConfigurationList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MetricsConfiguration),
+          ) as _i2.MetricsConfiguration));
         case 'NextContinuationToken':
-          if (value != null) {
-            result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextContinuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -177,39 +168,45 @@ class ListBucketMetricsConfigurationsOutputRestXmlSerializer extends _i4
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.continuationToken != null) {
+    final ListBucketMetricsConfigurationsOutput(
+      :continuationToken,
+      :isTruncated,
+      :metricsConfigurationList,
+      :nextContinuationToken
+    ) = payload;
+    if (continuationToken != null) {
       result
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
-          payload.continuationToken!,
+          continuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.metricsConfigurationList != null) {
+    if (metricsConfigurationList != null) {
       result.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'MetricsConfiguration')
               .serialize(
         serializers,
-        payload.metricsConfigurationList!,
+        metricsConfigurationList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.MetricsConfiguration)],
         ),
       ));
     }
-    if (payload.nextContinuationToken != null) {
+    if (nextContinuationToken != null) {
       result
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
-          payload.nextContinuationToken!,
+          nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }

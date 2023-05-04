@@ -99,26 +99,23 @@ class PolicyUserAwsQuerySerializer
     final result = PolicyUserBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UserId':
-          if (value != null) {
-            result.userId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,19 +135,20 @@ class PolicyUserAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final PolicyUser(:userName, :userId) = payload;
+    if (userName != null) {
       result
         ..add(const _i2.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userId != null) {
+    if (userId != null) {
       result
         ..add(const _i2.XmlElementName('UserId'))
         ..add(serializers.serialize(
-          payload.userId!,
+          userId,
           specifiedType: const FullType(String),
         ));
     }

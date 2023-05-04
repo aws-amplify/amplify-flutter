@@ -101,26 +101,23 @@ class AttachedPolicyAwsQuerySerializer
     final result = AttachedPolicyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyArn':
-          if (value != null) {
-            result.policyArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,19 +137,20 @@ class AttachedPolicyAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.policyName != null) {
+    final AttachedPolicy(:policyName, :policyArn) = payload;
+    if (policyName != null) {
       result
         ..add(const _i2.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyArn != null) {
+    if (policyArn != null) {
       result
         ..add(const _i2.XmlElementName('PolicyArn'))
         ..add(serializers.serialize(
-          payload.policyArn!,
+          policyArn,
           specifiedType: const FullType(String),
         ));
     }

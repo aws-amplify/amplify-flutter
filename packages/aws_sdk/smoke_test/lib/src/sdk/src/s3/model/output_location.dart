@@ -72,18 +72,18 @@ class OutputLocationRestXmlSerializer
     final result = OutputLocationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'S3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Location),
-            ) as _i2.S3Location));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Location),
+          ) as _i2.S3Location));
       }
     }
 
@@ -103,11 +103,12 @@ class OutputLocationRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.s3 != null) {
+    final OutputLocation(:s3) = payload;
+    if (s3 != null) {
       result
         ..add(const _i3.XmlElementName('S3'))
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Location),
         ));
     }

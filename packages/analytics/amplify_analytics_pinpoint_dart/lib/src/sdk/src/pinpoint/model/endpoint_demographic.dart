@@ -151,71 +151,50 @@ class EndpointDemographicRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AppVersion':
-          if (value != null) {
-            result.appVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.appVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Locale':
-          if (value != null) {
-            result.locale = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.locale = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Make':
-          if (value != null) {
-            result.make = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.make = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Model':
-          if (value != null) {
-            result.model = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.model = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ModelVersion':
-          if (value != null) {
-            result.modelVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.modelVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Platform':
-          if (value != null) {
-            result.platform = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.platform = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PlatformVersion':
-          if (value != null) {
-            result.platformVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.platformVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Timezone':
-          if (value != null) {
-            result.timezone = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.timezone = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -230,67 +209,77 @@ class EndpointDemographicRestJson1Serializer
   }) {
     final payload = (object as EndpointDemographic);
     final result = <Object?>[];
-    if (payload.appVersion != null) {
+    final EndpointDemographic(
+      :appVersion,
+      :locale,
+      :make,
+      :model,
+      :modelVersion,
+      :platform,
+      :platformVersion,
+      :timezone
+    ) = payload;
+    if (appVersion != null) {
       result
         ..add('AppVersion')
         ..add(serializers.serialize(
-          payload.appVersion!,
+          appVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.locale != null) {
+    if (locale != null) {
       result
         ..add('Locale')
         ..add(serializers.serialize(
-          payload.locale!,
+          locale,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.make != null) {
+    if (make != null) {
       result
         ..add('Make')
         ..add(serializers.serialize(
-          payload.make!,
+          make,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.model != null) {
+    if (model != null) {
       result
         ..add('Model')
         ..add(serializers.serialize(
-          payload.model!,
+          model,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.modelVersion != null) {
+    if (modelVersion != null) {
       result
         ..add('ModelVersion')
         ..add(serializers.serialize(
-          payload.modelVersion!,
+          modelVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.platform != null) {
+    if (platform != null) {
       result
         ..add('Platform')
         ..add(serializers.serialize(
-          payload.platform!,
+          platform,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.platformVersion != null) {
+    if (platformVersion != null) {
       result
         ..add('PlatformVersion')
         ..add(serializers.serialize(
-          payload.platformVersion!,
+          platformVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.timezone != null) {
+    if (timezone != null) {
       result
         ..add('Timezone')
         ..add(serializers.serialize(
-          payload.timezone!,
+          timezone,
           specifiedType: const FullType(String),
         ));
     }

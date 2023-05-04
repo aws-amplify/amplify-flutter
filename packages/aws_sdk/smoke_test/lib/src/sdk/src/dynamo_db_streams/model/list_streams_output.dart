@@ -104,26 +104,23 @@ class ListStreamsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Streams':
-          if (value != null) {
-            result.streams.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Stream)],
-              ),
-            ) as _i3.BuiltList<_i2.Stream>));
-          }
-          break;
+          result.streams.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Stream)],
+            ),
+          ) as _i3.BuiltList<_i2.Stream>));
         case 'LastEvaluatedStreamArn':
-          if (value != null) {
-            result.lastEvaluatedStreamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedStreamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,22 +135,23 @@ class ListStreamsOutputAwsJson10Serializer
   }) {
     final payload = (object as ListStreamsOutput);
     final result = <Object?>[];
-    if (payload.streams != null) {
+    final ListStreamsOutput(:streams, :lastEvaluatedStreamArn) = payload;
+    if (streams != null) {
       result
         ..add('Streams')
         ..add(serializers.serialize(
-          payload.streams!,
+          streams,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Stream)],
           ),
         ));
     }
-    if (payload.lastEvaluatedStreamArn != null) {
+    if (lastEvaluatedStreamArn != null) {
       result
         ..add('LastEvaluatedStreamArn')
         ..add(serializers.serialize(
-          payload.lastEvaluatedStreamArn!,
+          lastEvaluatedStreamArn,
           specifiedType: const FullType(String),
         ));
     }

@@ -101,62 +101,54 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
     final result = _i3.InventoryConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.InventoryDestination),
           ) as _i4.InventoryDestination));
-          break;
         case 'IsEnabled':
           result.isEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.InventoryFilter),
-            ) as _i5.InventoryFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.InventoryFilter),
+          ) as _i5.InventoryFilter));
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'IncludedObjectVersions':
           result.includedObjectVersions = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i6.InventoryIncludedObjectVersions),
           ) as _i6.InventoryIncludedObjectVersions);
-          break;
         case 'OptionalFields':
-          if (value != null) {
-            result.optionalFields.replace(
-                (const _i2.XmlBuiltListSerializer(memberName: 'Field')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i8.InventoryOptionalField)],
-              ),
-            ) as _i7.BuiltList<_i8.InventoryOptionalField>));
-          }
-          break;
+          result.optionalFields.replace(
+              (const _i2.XmlBuiltListSerializer(memberName: 'Field')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i8.InventoryOptionalField)],
+            ),
+          ) as _i7.BuiltList<_i8.InventoryOptionalField>));
         case 'Schedule':
           result.schedule.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i9.InventorySchedule),
           ) as _i9.InventorySchedule));
-          break;
       }
     }
 
@@ -181,45 +173,54 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
+    final _i3.InventoryConfiguration(
+      :destination,
+      :isEnabled,
+      :filter,
+      :id,
+      :includedObjectVersions,
+      :optionalFields,
+      :schedule
+    ) = payload;
     result
       ..add(const _i2.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
+        destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
     result
       ..add(const _i2.XmlElementName('IsEnabled'))
       ..add(serializers.serialize(
-        payload.isEnabled,
+        isEnabled,
         specifiedType: const FullType.nullable(bool),
       ));
-    if (payload.filter != null) {
+    if (filter != null) {
       result
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i5.InventoryFilter),
         ));
     }
     result
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('IncludedObjectVersions'))
       ..add(serializers.serialize(
-        payload.includedObjectVersions,
+        includedObjectVersions,
         specifiedType:
             const FullType.nullable(_i6.InventoryIncludedObjectVersions),
       ));
-    if (payload.optionalFields != null) {
+    if (optionalFields != null) {
       result
         ..add(const _i2.XmlElementName('OptionalFields'))
         ..add(const _i2.XmlBuiltListSerializer(memberName: 'Field').serialize(
           serializers,
-          payload.optionalFields!,
+          optionalFields,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i8.InventoryOptionalField)],
@@ -229,7 +230,7 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
     result
       ..add(const _i2.XmlElementName('Schedule'))
       ..add(serializers.serialize(
-        payload.schedule,
+        schedule,
         specifiedType: const FullType(_i9.InventorySchedule),
       ));
     return result;

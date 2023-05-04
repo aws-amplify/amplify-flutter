@@ -158,15 +158,15 @@ class TooManyRequestsExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -183,11 +183,12 @@ class TooManyRequestsExceptionRestJson1Serializer
         ? object.getPayload()
         : (object as TooManyRequestsExceptionPayload);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final TooManyRequestsExceptionPayload(:message) = payload;
+    if (message != null) {
       result
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

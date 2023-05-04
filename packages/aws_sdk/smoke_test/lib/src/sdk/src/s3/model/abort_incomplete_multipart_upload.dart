@@ -78,18 +78,18 @@ class AbortIncompleteMultipartUploadRestXmlSerializer
     final result = AbortIncompleteMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DaysAfterInitiation':
-          if (value != null) {
-            result.daysAfterInitiation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.daysAfterInitiation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -109,11 +109,12 @@ class AbortIncompleteMultipartUploadRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.daysAfterInitiation != null) {
+    final AbortIncompleteMultipartUpload(:daysAfterInitiation) = payload;
+    if (daysAfterInitiation != null) {
       result
         ..add(const _i2.XmlElementName('DaysAfterInitiation'))
         ..add(serializers.serialize(
-          payload.daysAfterInitiation!,
+          daysAfterInitiation,
           specifiedType: const FullType.nullable(int),
         ));
     }

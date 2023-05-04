@@ -198,83 +198,58 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i2.KeySchemaElement)],
-              ),
-            ) as _i7.BuiltList<_i2.KeySchemaElement>));
-          }
-          break;
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i2.KeySchemaElement)],
+            ),
+          ) as _i7.BuiltList<_i2.KeySchemaElement>));
         case 'Projection':
-          if (value != null) {
-            result.projection.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Projection),
-            ) as _i3.Projection));
-          }
-          break;
+          result.projection.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Projection),
+          ) as _i3.Projection));
         case 'IndexStatus':
-          if (value != null) {
-            result.indexStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.IndexStatus),
-            ) as _i4.IndexStatus);
-          }
-          break;
+          result.indexStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.IndexStatus),
+          ) as _i4.IndexStatus);
         case 'Backfilling':
-          if (value != null) {
-            result.backfilling = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.backfilling = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i5.ProvisionedThroughputDescription),
-            ) as _i5.ProvisionedThroughputDescription));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
+          ) as _i5.ProvisionedThroughputDescription));
         case 'IndexSizeBytes':
-          if (value != null) {
-            result.indexSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.indexSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
         case 'ItemCount':
-          if (value != null) {
-            result.itemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.itemCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
         case 'IndexArn':
-          if (value != null) {
-            result.indexArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -289,78 +264,89 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
   }) {
     final payload = (object as GlobalSecondaryIndexDescription);
     final result = <Object?>[];
-    if (payload.indexName != null) {
+    final GlobalSecondaryIndexDescription(
+      :indexName,
+      :keySchema,
+      :projection,
+      :indexStatus,
+      :backfilling,
+      :provisionedThroughput,
+      :indexSizeBytes,
+      :itemCount,
+      :indexArn
+    ) = payload;
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keySchema != null) {
+    if (keySchema != null) {
       result
         ..add('KeySchema')
         ..add(serializers.serialize(
-          payload.keySchema!,
+          keySchema,
           specifiedType: const FullType(
             _i7.BuiltList,
             [FullType(_i2.KeySchemaElement)],
           ),
         ));
     }
-    if (payload.projection != null) {
+    if (projection != null) {
       result
         ..add('Projection')
         ..add(serializers.serialize(
-          payload.projection!,
+          projection,
           specifiedType: const FullType(_i3.Projection),
         ));
     }
-    if (payload.indexStatus != null) {
+    if (indexStatus != null) {
       result
         ..add('IndexStatus')
         ..add(serializers.serialize(
-          payload.indexStatus!,
+          indexStatus,
           specifiedType: const FullType(_i4.IndexStatus),
         ));
     }
-    if (payload.backfilling != null) {
+    if (backfilling != null) {
       result
         ..add('Backfilling')
         ..add(serializers.serialize(
-          payload.backfilling!,
+          backfilling,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
         ));
     }
-    if (payload.indexSizeBytes != null) {
+    if (indexSizeBytes != null) {
       result
         ..add('IndexSizeBytes')
         ..add(serializers.serialize(
-          payload.indexSizeBytes!,
+          indexSizeBytes,
           specifiedType: const FullType(_i6.Int64),
         ));
     }
-    if (payload.itemCount != null) {
+    if (itemCount != null) {
       result
         ..add('ItemCount')
         ..add(serializers.serialize(
-          payload.itemCount!,
+          itemCount,
           specifiedType: const FullType(_i6.Int64),
         ));
     }
-    if (payload.indexArn != null) {
+    if (indexArn != null) {
       result
         ..add('IndexArn')
         ..add(serializers.serialize(
-          payload.indexArn!,
+          indexArn,
           specifiedType: const FullType(String),
         ));
     }

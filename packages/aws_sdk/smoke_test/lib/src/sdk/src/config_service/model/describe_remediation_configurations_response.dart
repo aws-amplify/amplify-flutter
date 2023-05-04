@@ -91,18 +91,18 @@ class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RemediationConfigurations':
-          if (value != null) {
-            result.remediationConfigurations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RemediationConfiguration)],
-              ),
-            ) as _i3.BuiltList<_i2.RemediationConfiguration>));
-          }
-          break;
+          result.remediationConfigurations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RemediationConfiguration)],
+            ),
+          ) as _i3.BuiltList<_i2.RemediationConfiguration>));
       }
     }
 
@@ -117,11 +117,14 @@ class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeRemediationConfigurationsResponse);
     final result = <Object?>[];
-    if (payload.remediationConfigurations != null) {
+    final DescribeRemediationConfigurationsResponse(
+      :remediationConfigurations
+    ) = payload;
+    if (remediationConfigurations != null) {
       result
         ..add('RemediationConfigurations')
         ..add(serializers.serialize(
-          payload.remediationConfigurations!,
+          remediationConfigurations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RemediationConfiguration)],

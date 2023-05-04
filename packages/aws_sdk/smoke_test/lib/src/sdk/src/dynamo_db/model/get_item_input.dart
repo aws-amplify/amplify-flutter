@@ -197,13 +197,15 @@ class GetItemInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Key':
           result.key.replace((serializers.deserialize(
             value,
@@ -215,56 +217,40 @@ class GetItemInputAwsJson10Serializer
               ],
             ),
           ) as _i5.BuiltMap<String, _i3.AttributeValue>));
-          break;
         case 'AttributesToGet':
-          if (value != null) {
-            result.attributesToGet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.attributesToGet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
         case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.projectionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -296,46 +282,53 @@ class GetItemInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.attributesToGet != null) {
+    final GetItemInput(
+      :attributesToGet,
+      :consistentRead,
+      :returnConsumedCapacity,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = payload;
+    if (attributesToGet != null) {
       result
         ..add('AttributesToGet')
         ..add(serializers.serialize(
-          payload.attributesToGet!,
+          attributesToGet,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.consistentRead != null) {
+    if (consistentRead != null) {
       result
         ..add('ConsistentRead')
         ..add(serializers.serialize(
-          payload.consistentRead!,
+          consistentRead,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.returnConsumedCapacity != null) {
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    if (payload.projectionExpression != null) {
+    if (projectionExpression != null) {
       result
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
-          payload.projectionExpression!,
+          projectionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [

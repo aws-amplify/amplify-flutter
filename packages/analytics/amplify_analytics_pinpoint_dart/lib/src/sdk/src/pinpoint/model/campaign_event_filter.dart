@@ -95,19 +95,20 @@ class CampaignEventFilterRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Dimensions':
           result.dimensions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.EventDimensions),
           ) as _i2.EventDimensions));
-          break;
         case 'FilterType':
           result.filterType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.FilterType),
           ) as _i3.FilterType);
-          break;
       }
     }
 

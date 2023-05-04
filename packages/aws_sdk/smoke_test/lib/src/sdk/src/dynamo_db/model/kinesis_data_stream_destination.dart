@@ -107,31 +107,25 @@ class KinesisDataStreamDestinationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DestinationStatus':
-          if (value != null) {
-            result.destinationStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DestinationStatus),
-            ) as _i2.DestinationStatus);
-          }
-          break;
+          result.destinationStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DestinationStatus),
+          ) as _i2.DestinationStatus);
         case 'DestinationStatusDescription':
-          if (value != null) {
-            result.destinationStatusDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.destinationStatusDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -146,27 +140,32 @@ class KinesisDataStreamDestinationAwsJson10Serializer
   }) {
     final payload = (object as KinesisDataStreamDestination);
     final result = <Object?>[];
-    if (payload.streamArn != null) {
+    final KinesisDataStreamDestination(
+      :streamArn,
+      :destinationStatus,
+      :destinationStatusDescription
+    ) = payload;
+    if (streamArn != null) {
       result
         ..add('StreamArn')
         ..add(serializers.serialize(
-          payload.streamArn!,
+          streamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.destinationStatus != null) {
+    if (destinationStatus != null) {
       result
         ..add('DestinationStatus')
         ..add(serializers.serialize(
-          payload.destinationStatus!,
+          destinationStatus,
           specifiedType: const FullType(_i2.DestinationStatus),
         ));
     }
-    if (payload.destinationStatusDescription != null) {
+    if (destinationStatusDescription != null) {
       result
         ..add('DestinationStatusDescription')
         ..add(serializers.serialize(
-          payload.destinationStatusDescription!,
+          destinationStatusDescription,
           specifiedType: const FullType(String),
         ));
     }

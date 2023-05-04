@@ -90,16 +90,18 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
     final result = SetSecurityTokenServicePreferencesRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'GlobalEndpointTokenVersion':
           result.globalEndpointTokenVersion = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.GlobalEndpointTokenVersion),
           ) as _i3.GlobalEndpointTokenVersion);
-          break;
       }
     }
 
@@ -119,10 +121,13 @@ class SetSecurityTokenServicePreferencesRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final SetSecurityTokenServicePreferencesRequest(
+      :globalEndpointTokenVersion
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('GlobalEndpointTokenVersion'))
       ..add(serializers.serialize(
-        payload.globalEndpointTokenVersion,
+        globalEndpointTokenVersion,
         specifiedType: const FullType.nullable(_i3.GlobalEndpointTokenVersion),
       ));
     return result;

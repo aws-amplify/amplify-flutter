@@ -126,47 +126,35 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MinimumUnits':
-          if (value != null) {
-            result.minimumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.minimumUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'MaximumUnits':
-          if (value != null) {
-            result.maximumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.maximumUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'AutoScalingDisabled':
-          if (value != null) {
-            result.autoScalingDisabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.autoScalingDisabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AutoScalingRoleArn':
-          if (value != null) {
-            result.autoScalingRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.autoScalingRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ScalingPolicyUpdate':
-          if (value != null) {
-            result.scalingPolicyUpdate.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
-            ) as _i3.AutoScalingPolicyUpdate));
-          }
-          break;
+          result.scalingPolicyUpdate.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
+          ) as _i3.AutoScalingPolicyUpdate));
       }
     }
 
@@ -181,43 +169,50 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
   }) {
     final payload = (object as AutoScalingSettingsUpdate);
     final result = <Object?>[];
-    if (payload.minimumUnits != null) {
+    final AutoScalingSettingsUpdate(
+      :minimumUnits,
+      :maximumUnits,
+      :autoScalingDisabled,
+      :autoScalingRoleArn,
+      :scalingPolicyUpdate
+    ) = payload;
+    if (minimumUnits != null) {
       result
         ..add('MinimumUnits')
         ..add(serializers.serialize(
-          payload.minimumUnits!,
+          minimumUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.maximumUnits != null) {
+    if (maximumUnits != null) {
       result
         ..add('MaximumUnits')
         ..add(serializers.serialize(
-          payload.maximumUnits!,
+          maximumUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.autoScalingDisabled != null) {
+    if (autoScalingDisabled != null) {
       result
         ..add('AutoScalingDisabled')
         ..add(serializers.serialize(
-          payload.autoScalingDisabled!,
+          autoScalingDisabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.autoScalingRoleArn != null) {
+    if (autoScalingRoleArn != null) {
       result
         ..add('AutoScalingRoleArn')
         ..add(serializers.serialize(
-          payload.autoScalingRoleArn!,
+          autoScalingRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.scalingPolicyUpdate != null) {
+    if (scalingPolicyUpdate != null) {
       result
         ..add('ScalingPolicyUpdate')
         ..add(serializers.serialize(
-          payload.scalingPolicyUpdate!,
+          scalingPolicyUpdate,
           specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
         ));
     }

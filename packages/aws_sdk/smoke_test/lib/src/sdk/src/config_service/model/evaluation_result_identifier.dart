@@ -95,23 +95,20 @@ class EvaluationResultIdentifierAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EvaluationResultQualifier':
-          if (value != null) {
-            result.evaluationResultQualifier.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EvaluationResultQualifier),
-            ) as _i2.EvaluationResultQualifier));
-          }
-          break;
+          result.evaluationResultQualifier.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EvaluationResultQualifier),
+          ) as _i2.EvaluationResultQualifier));
         case 'OrderingTimestamp':
-          if (value != null) {
-            result.orderingTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.orderingTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -126,19 +123,23 @@ class EvaluationResultIdentifierAwsJson11Serializer
   }) {
     final payload = (object as EvaluationResultIdentifier);
     final result = <Object?>[];
-    if (payload.evaluationResultQualifier != null) {
+    final EvaluationResultIdentifier(
+      :evaluationResultQualifier,
+      :orderingTimestamp
+    ) = payload;
+    if (evaluationResultQualifier != null) {
       result
         ..add('EvaluationResultQualifier')
         ..add(serializers.serialize(
-          payload.evaluationResultQualifier!,
+          evaluationResultQualifier,
           specifiedType: const FullType(_i2.EvaluationResultQualifier),
         ));
     }
-    if (payload.orderingTimestamp != null) {
+    if (orderingTimestamp != null) {
       result
         ..add('OrderingTimestamp')
         ..add(serializers.serialize(
-          payload.orderingTimestamp!,
+          orderingTimestamp,
           specifiedType: const FullType(DateTime),
         ));
     }

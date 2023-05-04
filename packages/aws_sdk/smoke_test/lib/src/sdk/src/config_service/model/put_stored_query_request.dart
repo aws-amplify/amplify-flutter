@@ -106,24 +106,23 @@ class PutStoredQueryRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StoredQuery':
           result.storedQuery.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.StoredQuery),
           ) as _i3.StoredQuery));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -144,11 +143,12 @@ class PutStoredQueryRequestAwsJson11Serializer
         specifiedType: const FullType(_i3.StoredQuery),
       ),
     ];
-    if (payload.tags != null) {
+    final PutStoredQueryRequest(:tags) = payload;
+    if (tags != null) {
       result
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.Tag)],

@@ -102,23 +102,20 @@ class ComplianceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceType),
-            ) as _i2.ComplianceType);
-          }
-          break;
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceType),
+          ) as _i2.ComplianceType);
         case 'ComplianceContributorCount':
-          if (value != null) {
-            result.complianceContributorCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplianceContributorCount),
-            ) as _i3.ComplianceContributorCount));
-          }
-          break;
+          result.complianceContributorCount.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplianceContributorCount),
+          ) as _i3.ComplianceContributorCount));
       }
     }
 
@@ -133,19 +130,20 @@ class ComplianceAwsJson11Serializer
   }) {
     final payload = (object as Compliance);
     final result = <Object?>[];
-    if (payload.complianceType != null) {
+    final Compliance(:complianceType, :complianceContributorCount) = payload;
+    if (complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
-          payload.complianceType!,
+          complianceType,
           specifiedType: const FullType(_i2.ComplianceType),
         ));
     }
-    if (payload.complianceContributorCount != null) {
+    if (complianceContributorCount != null) {
       result
         ..add('ComplianceContributorCount')
         ..add(serializers.serialize(
-          payload.complianceContributorCount!,
+          complianceContributorCount,
           specifiedType: const FullType(_i3.ComplianceContributorCount),
         ));
     }

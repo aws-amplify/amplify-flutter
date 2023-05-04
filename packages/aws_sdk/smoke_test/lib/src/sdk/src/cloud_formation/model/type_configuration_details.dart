@@ -152,66 +152,48 @@ class TypeConfigurationDetailsAwsQuerySerializer
     final result = TypeConfigurationDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Alias':
-          if (value != null) {
-            result.alias = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.alias = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Configuration':
-          if (value != null) {
-            result.configuration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configuration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdated':
-          if (value != null) {
-            result.lastUpdated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TypeArn':
-          if (value != null) {
-            result.typeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsDefaultConfiguration':
-          if (value != null) {
-            result.isDefaultConfiguration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isDefaultConfiguration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -231,59 +213,68 @@ class TypeConfigurationDetailsAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.arn != null) {
+    final TypeConfigurationDetails(
+      :arn,
+      :alias,
+      :configuration,
+      :lastUpdated,
+      :typeArn,
+      :typeName,
+      :isDefaultConfiguration
+    ) = payload;
+    if (arn != null) {
       result
         ..add(const _i2.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.alias != null) {
+    if (alias != null) {
       result
         ..add(const _i2.XmlElementName('Alias'))
         ..add(serializers.serialize(
-          payload.alias!,
+          alias,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configuration != null) {
+    if (configuration != null) {
       result
         ..add(const _i2.XmlElementName('Configuration'))
         ..add(serializers.serialize(
-          payload.configuration!,
+          configuration,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdated != null) {
+    if (lastUpdated != null) {
       result
         ..add(const _i2.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
-          payload.lastUpdated!,
+          lastUpdated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.typeArn != null) {
+    if (typeArn != null) {
       result
         ..add(const _i2.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
-          payload.typeArn!,
+          typeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isDefaultConfiguration != null) {
+    if (isDefaultConfiguration != null) {
       result
         ..add(const _i2.XmlElementName('IsDefaultConfiguration'))
         ..add(serializers.serialize(
-          payload.isDefaultConfiguration!,
+          isDefaultConfiguration,
           specifiedType: const FullType.nullable(bool),
         ));
     }

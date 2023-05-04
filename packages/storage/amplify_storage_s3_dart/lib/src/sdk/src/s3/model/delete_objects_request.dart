@@ -199,24 +199,23 @@ class DeleteObjectsRequestRestXmlSerializer
     final result = _i2.DeleteBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Object':
           result.objects.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i6.ObjectIdentifier),
           ) as _i6.ObjectIdentifier));
-          break;
         case 'Quiet':
-          if (value != null) {
-            result.quiet = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.quiet = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -238,20 +237,21 @@ class DeleteObjectsRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final _i2.Delete(:objects, :quiet) = payload;
     result.addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
-      payload.objects,
+      objects,
       specifiedType: const FullType.nullable(
         _i7.BuiltList,
         [FullType(_i6.ObjectIdentifier)],
       ),
     ));
-    if (payload.quiet != null) {
+    if (quiet != null) {
       result
         ..add(const _i1.XmlElementName('Quiet'))
         ..add(serializers.serialize(
-          payload.quiet!,
+          quiet,
           specifiedType: const FullType.nullable(bool),
         ));
     }

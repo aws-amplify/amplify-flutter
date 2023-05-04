@@ -69,16 +69,18 @@ class SsekmsRestXmlSerializer extends _i2.StructuredSmithySerializer<Ssekms> {
     final result = SsekmsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'KeyId':
           result.keyId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -98,10 +100,11 @@ class SsekmsRestXmlSerializer extends _i2.StructuredSmithySerializer<Ssekms> {
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Ssekms(:keyId) = payload;
     result
       ..add(const _i2.XmlElementName('KeyId'))
       ..add(serializers.serialize(
-        payload.keyId,
+        keyId,
         specifiedType: const FullType(String),
       ));
     return result;

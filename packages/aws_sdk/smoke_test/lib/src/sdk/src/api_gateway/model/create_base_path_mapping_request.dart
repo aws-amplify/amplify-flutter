@@ -203,29 +203,25 @@ class CreateBasePathMappingRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'basePath':
-          if (value != null) {
-            result.basePath = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'restApiId':
-          result.restApiId = (serializers.deserialize(
-            value!,
+          result.basePath = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'restApiId':
+          result.restApiId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stage':
-          if (value != null) {
-            result.stage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -248,19 +244,20 @@ class CreateBasePathMappingRequestRestJson1Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.basePath != null) {
+    final CreateBasePathMappingRequestPayload(:basePath, :stage) = payload;
+    if (basePath != null) {
       result
         ..add('basePath')
         ..add(serializers.serialize(
-          payload.basePath!,
+          basePath,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stage != null) {
+    if (stage != null) {
       result
         ..add('stage')
         ..add(serializers.serialize(
-          payload.stage!,
+          stage,
           specifiedType: const FullType(String),
         ));
     }

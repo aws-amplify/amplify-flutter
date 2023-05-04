@@ -117,16 +117,18 @@ class GetGroupResponseAwsQuerySerializer
     final result = GetGroupResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Group':
           result.group.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.Group),
           ) as _i2.Group));
-          break;
         case 'Users':
           result.users.replace((const _i5.XmlBuiltListSerializer(
                   indexer: _i5.XmlIndexer.awsQueryList)
@@ -138,23 +140,16 @@ class GetGroupResponseAwsQuerySerializer
               [FullType(_i3.User)],
             ),
           ) as _i4.BuiltList<_i3.User>));
-          break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -174,10 +169,11 @@ class GetGroupResponseAwsQuerySerializer
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetGroupResponse(:group, :users, :isTruncated, :marker) = payload;
     result
       ..add(const _i5.XmlElementName('Group'))
       ..add(serializers.serialize(
-        payload.group,
+        group,
         specifiedType: const FullType(_i2.Group),
       ));
     result
@@ -186,25 +182,25 @@ class GetGroupResponseAwsQuerySerializer
           const _i5.XmlBuiltListSerializer(indexer: _i5.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.users,
+        users,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i3.User)],
         ),
       ));
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i5.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i5.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

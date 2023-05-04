@@ -150,15 +150,15 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'deliveryFrequency':
-          if (value != null) {
-            result.deliveryFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-            ) as _i2.MaximumExecutionFrequency);
-          }
-          break;
+          result.deliveryFrequency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MaximumExecutionFrequency),
+          ) as _i2.MaximumExecutionFrequency);
       }
     }
 
@@ -173,11 +173,12 @@ class ConfigSnapshotDeliveryPropertiesAwsJson11Serializer
   }) {
     final payload = (object as ConfigSnapshotDeliveryProperties);
     final result = <Object?>[];
-    if (payload.deliveryFrequency != null) {
+    final ConfigSnapshotDeliveryProperties(:deliveryFrequency) = payload;
+    if (deliveryFrequency != null) {
       result
         ..add('deliveryFrequency')
         ..add(serializers.serialize(
-          payload.deliveryFrequency!,
+          deliveryFrequency,
           specifiedType: const FullType(_i2.MaximumExecutionFrequency),
         ));
     }

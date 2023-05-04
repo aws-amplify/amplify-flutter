@@ -200,74 +200,53 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
     final result = StackSetDriftDetectionDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DriftStatus':
-          if (value != null) {
-            result.driftStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetDriftStatus),
-            ) as _i2.StackSetDriftStatus);
-          }
-          break;
+          result.driftStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetDriftStatus),
+          ) as _i2.StackSetDriftStatus);
         case 'DriftDetectionStatus':
-          if (value != null) {
-            result.driftDetectionStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackSetDriftDetectionStatus),
-            ) as _i3.StackSetDriftDetectionStatus);
-          }
-          break;
+          result.driftDetectionStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackSetDriftDetectionStatus),
+          ) as _i3.StackSetDriftDetectionStatus);
         case 'LastDriftCheckTimestamp':
-          if (value != null) {
-            result.lastDriftCheckTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDriftCheckTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TotalStackInstancesCount':
-          if (value != null) {
-            result.totalStackInstancesCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.totalStackInstancesCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'DriftedStackInstancesCount':
-          if (value != null) {
-            result.driftedStackInstancesCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.driftedStackInstancesCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'InSyncStackInstancesCount':
-          if (value != null) {
-            result.inSyncStackInstancesCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.inSyncStackInstancesCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'InProgressStackInstancesCount':
-          if (value != null) {
-            result.inProgressStackInstancesCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.inProgressStackInstancesCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'FailedStackInstancesCount':
-          if (value != null) {
-            result.failedStackInstancesCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.failedStackInstancesCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -287,68 +266,78 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.driftStatus != null) {
+    final StackSetDriftDetectionDetails(
+      :driftStatus,
+      :driftDetectionStatus,
+      :lastDriftCheckTimestamp,
+      :totalStackInstancesCount,
+      :driftedStackInstancesCount,
+      :inSyncStackInstancesCount,
+      :inProgressStackInstancesCount,
+      :failedStackInstancesCount
+    ) = payload;
+    if (driftStatus != null) {
       result
         ..add(const _i4.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
-          payload.driftStatus!,
+          driftStatus,
           specifiedType: const FullType.nullable(_i2.StackSetDriftStatus),
         ));
     }
-    if (payload.driftDetectionStatus != null) {
+    if (driftDetectionStatus != null) {
       result
         ..add(const _i4.XmlElementName('DriftDetectionStatus'))
         ..add(serializers.serialize(
-          payload.driftDetectionStatus!,
+          driftDetectionStatus,
           specifiedType:
               const FullType.nullable(_i3.StackSetDriftDetectionStatus),
         ));
     }
-    if (payload.lastDriftCheckTimestamp != null) {
+    if (lastDriftCheckTimestamp != null) {
       result
         ..add(const _i4.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
-          payload.lastDriftCheckTimestamp!,
+          lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.totalStackInstancesCount != null) {
+    if (totalStackInstancesCount != null) {
       result
         ..add(const _i4.XmlElementName('TotalStackInstancesCount'))
         ..add(serializers.serialize(
-          payload.totalStackInstancesCount!,
+          totalStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.driftedStackInstancesCount != null) {
+    if (driftedStackInstancesCount != null) {
       result
         ..add(const _i4.XmlElementName('DriftedStackInstancesCount'))
         ..add(serializers.serialize(
-          payload.driftedStackInstancesCount!,
+          driftedStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.inSyncStackInstancesCount != null) {
+    if (inSyncStackInstancesCount != null) {
       result
         ..add(const _i4.XmlElementName('InSyncStackInstancesCount'))
         ..add(serializers.serialize(
-          payload.inSyncStackInstancesCount!,
+          inSyncStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.inProgressStackInstancesCount != null) {
+    if (inProgressStackInstancesCount != null) {
       result
         ..add(const _i4.XmlElementName('InProgressStackInstancesCount'))
         ..add(serializers.serialize(
-          payload.inProgressStackInstancesCount!,
+          inProgressStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.failedStackInstancesCount != null) {
+    if (failedStackInstancesCount != null) {
       result
         ..add(const _i4.XmlElementName('FailedStackInstancesCount'))
         ..add(serializers.serialize(
-          payload.failedStackInstancesCount!,
+          failedStackInstancesCount,
           specifiedType: const FullType.nullable(int),
         ));
     }

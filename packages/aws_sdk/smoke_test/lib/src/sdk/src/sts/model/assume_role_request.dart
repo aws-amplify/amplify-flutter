@@ -234,112 +234,86 @@ class AssumeRoleRequestAwsQuerySerializer
     final result = AssumeRoleRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RoleArn':
           result.roleArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleSessionName':
           result.roleSessionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyArns':
-          if (value != null) {
-            result.policyArns.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.PolicyDescriptorType)],
-              ),
-            ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
-          }
-          break;
+          result.policyArns.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.PolicyDescriptorType)],
+            ),
+          ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
         case 'Policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DurationSeconds':
-          if (value != null) {
-            result.durationSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.durationSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
         case 'TransitiveTagKeys':
-          if (value != null) {
-            result.transitiveTagKeys.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.transitiveTagKeys.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'ExternalId':
-          if (value != null) {
-            result.externalId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.externalId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SerialNumber':
-          if (value != null) {
-            result.serialNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.serialNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TokenCode':
-          if (value != null) {
-            result.tokenCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tokenCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceIdentity':
-          if (value != null) {
-            result.sourceIdentity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceIdentity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -359,105 +333,118 @@ class AssumeRoleRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final AssumeRoleRequest(
+      :roleArn,
+      :roleSessionName,
+      :policyArns,
+      :policy,
+      :durationSeconds,
+      :tags,
+      :transitiveTagKeys,
+      :externalId,
+      :serialNumber,
+      :tokenCode,
+      :sourceIdentity
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('RoleArn'))
       ..add(serializers.serialize(
-        payload.roleArn,
+        roleArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('RoleSessionName'))
       ..add(serializers.serialize(
-        payload.roleSessionName,
+        roleSessionName,
         specifiedType: const FullType(String),
       ));
-    if (payload.policyArns != null) {
+    if (policyArns != null) {
       result
         ..add(const _i1.XmlElementName('PolicyArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyArns!,
+          policyArns,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.PolicyDescriptorType)],
           ),
         ));
     }
-    if (payload.policy != null) {
+    if (policy != null) {
       result
         ..add(const _i1.XmlElementName('Policy'))
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.durationSeconds != null) {
+    if (durationSeconds != null) {
       result
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
-          payload.durationSeconds!,
+          durationSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.Tag)],
           ),
         ));
     }
-    if (payload.transitiveTagKeys != null) {
+    if (transitiveTagKeys != null) {
       result
         ..add(const _i1.XmlElementName('TransitiveTagKeys'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.transitiveTagKeys!,
+          transitiveTagKeys,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.externalId != null) {
+    if (externalId != null) {
       result
         ..add(const _i1.XmlElementName('ExternalId'))
         ..add(serializers.serialize(
-          payload.externalId!,
+          externalId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.serialNumber != null) {
+    if (serialNumber != null) {
       result
         ..add(const _i1.XmlElementName('SerialNumber'))
         ..add(serializers.serialize(
-          payload.serialNumber!,
+          serialNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tokenCode != null) {
+    if (tokenCode != null) {
       result
         ..add(const _i1.XmlElementName('TokenCode'))
         ..add(serializers.serialize(
-          payload.tokenCode!,
+          tokenCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceIdentity != null) {
+    if (sourceIdentity != null) {
       result
         ..add(const _i1.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
-          payload.sourceIdentity!,
+          sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }

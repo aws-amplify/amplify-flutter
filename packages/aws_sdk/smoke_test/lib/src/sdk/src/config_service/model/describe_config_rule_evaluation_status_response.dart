@@ -106,26 +106,23 @@ class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRulesEvaluationStatus':
-          if (value != null) {
-            result.configRulesEvaluationStatus.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConfigRuleEvaluationStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>));
-          }
-          break;
+          result.configRulesEvaluationStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConfigRuleEvaluationStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,22 +137,26 @@ class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeConfigRuleEvaluationStatusResponse);
     final result = <Object?>[];
-    if (payload.configRulesEvaluationStatus != null) {
+    final DescribeConfigRuleEvaluationStatusResponse(
+      :configRulesEvaluationStatus,
+      :nextToken
+    ) = payload;
+    if (configRulesEvaluationStatus != null) {
       result
         ..add('ConfigRulesEvaluationStatus')
         ..add(serializers.serialize(
-          payload.configRulesEvaluationStatus!,
+          configRulesEvaluationStatus,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConfigRuleEvaluationStatus)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

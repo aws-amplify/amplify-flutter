@@ -75,18 +75,18 @@ class PublishTypeOutputAwsQuerySerializer
     final result = PublishTypeOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PublicTypeArn':
-          if (value != null) {
-            result.publicTypeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publicTypeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -106,11 +106,12 @@ class PublishTypeOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.publicTypeArn != null) {
+    final PublishTypeOutput(:publicTypeArn) = payload;
+    if (publicTypeArn != null) {
       result
         ..add(const _i2.XmlElementName('PublicTypeArn'))
         ..add(serializers.serialize(
-          payload.publicTypeArn!,
+          publicTypeArn,
           specifiedType: const FullType(String),
         ));
     }

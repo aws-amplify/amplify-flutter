@@ -106,31 +106,25 @@ class ConformancePackComplianceScoreAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Score':
-          if (value != null) {
-            result.score = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.score = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConformancePackName':
-          if (value != null) {
-            result.conformancePackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conformancePackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdatedTime':
-          if (value != null) {
-            result.lastUpdatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -145,27 +139,32 @@ class ConformancePackComplianceScoreAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackComplianceScore);
     final result = <Object?>[];
-    if (payload.score != null) {
+    final ConformancePackComplianceScore(
+      :score,
+      :conformancePackName,
+      :lastUpdatedTime
+    ) = payload;
+    if (score != null) {
       result
         ..add('Score')
         ..add(serializers.serialize(
-          payload.score!,
+          score,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.conformancePackName != null) {
+    if (conformancePackName != null) {
       result
         ..add('ConformancePackName')
         ..add(serializers.serialize(
-          payload.conformancePackName!,
+          conformancePackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdatedTime != null) {
+    if (lastUpdatedTime != null) {
       result
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
-          payload.lastUpdatedTime!,
+          lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }

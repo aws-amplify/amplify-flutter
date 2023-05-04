@@ -144,53 +144,47 @@ class BatchGetItemOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Responses':
-          if (value != null) {
-            result.responses.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i5.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.AttributeValue),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i5.BuiltListMultimap<String,
-                _i5.BuiltMap<String, _i2.AttributeValue>>));
-          }
-          break;
+          result.responses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(
+                  _i5.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.AttributeValue),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i5.BuiltListMultimap<String,
+              _i5.BuiltMap<String, _i2.AttributeValue>>));
         case 'UnprocessedKeys':
-          if (value != null) {
-            result.unprocessedKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.KeysAndAttributes),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i3.KeysAndAttributes>));
-          }
-          break;
+          result.unprocessedKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.KeysAndAttributes),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i3.KeysAndAttributes>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.ConsumedCapacity)],
-              ),
-            ) as _i5.BuiltList<_i4.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.ConsumedCapacity)],
+            ),
+          ) as _i5.BuiltList<_i4.ConsumedCapacity>));
       }
     }
 
@@ -205,11 +199,13 @@ class BatchGetItemOutputAwsJson10Serializer
   }) {
     final payload = (object as BatchGetItemOutput);
     final result = <Object?>[];
-    if (payload.responses != null) {
+    final BatchGetItemOutput(:responses, :unprocessedKeys, :consumedCapacity) =
+        payload;
+    if (responses != null) {
       result
         ..add('Responses')
         ..add(serializers.serialize(
-          payload.responses!,
+          responses,
           specifiedType: const FullType(
             _i5.BuiltListMultimap,
             [
@@ -225,11 +221,11 @@ class BatchGetItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.unprocessedKeys != null) {
+    if (unprocessedKeys != null) {
       result
         ..add('UnprocessedKeys')
         ..add(serializers.serialize(
-          payload.unprocessedKeys!,
+          unprocessedKeys,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -239,11 +235,11 @@ class BatchGetItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.ConsumedCapacity)],

@@ -194,116 +194,86 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyRequired':
-          if (value != null) {
-            result.apiKeyRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.apiKeyRequired = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'authorizationScopes':
-          if (value != null) {
-            result.authorizationScopes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.authorizationScopes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'authorizationType':
-          if (value != null) {
-            result.authorizationType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizationType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'authorizerId':
-          if (value != null) {
-            result.authorizerId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizerId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'httpMethod':
-          if (value != null) {
-            result.httpMethod = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.httpMethod = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'methodIntegration':
-          if (value != null) {
-            result.methodIntegration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Integration),
-            ) as _i3.Integration));
-          }
-          break;
+          result.methodIntegration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Integration),
+          ) as _i3.Integration));
         case 'methodResponses':
-          if (value != null) {
-            result.methodResponses.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.MethodResponse),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.MethodResponse>));
-          }
-          break;
+          result.methodResponses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.MethodResponse),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.MethodResponse>));
         case 'operationName':
-          if (value != null) {
-            result.operationName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'requestModels':
-          if (value != null) {
-            result.requestModels.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.requestModels.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'requestParameters':
-          if (value != null) {
-            result.requestParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(bool),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, bool>));
-          }
-          break;
+          result.requestParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(bool),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, bool>));
         case 'requestValidatorId':
-          if (value != null) {
-            result.requestValidatorId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requestValidatorId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -318,62 +288,75 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
   }) {
     final payload = (object as Method);
     final result = <Object?>[];
-    if (payload.apiKeyRequired != null) {
+    final Method(
+      :apiKeyRequired,
+      :authorizationScopes,
+      :authorizationType,
+      :authorizerId,
+      :httpMethod,
+      :methodIntegration,
+      :methodResponses,
+      :operationName,
+      :requestModels,
+      :requestParameters,
+      :requestValidatorId
+    ) = payload;
+    if (apiKeyRequired != null) {
       result
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
-          payload.apiKeyRequired!,
+          apiKeyRequired,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.authorizationScopes != null) {
+    if (authorizationScopes != null) {
       result
         ..add('authorizationScopes')
         ..add(serializers.serialize(
-          payload.authorizationScopes!,
+          authorizationScopes,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.authorizationType != null) {
+    if (authorizationType != null) {
       result
         ..add('authorizationType')
         ..add(serializers.serialize(
-          payload.authorizationType!,
+          authorizationType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizerId != null) {
+    if (authorizerId != null) {
       result
         ..add('authorizerId')
         ..add(serializers.serialize(
-          payload.authorizerId!,
+          authorizerId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.httpMethod != null) {
+    if (httpMethod != null) {
       result
         ..add('httpMethod')
         ..add(serializers.serialize(
-          payload.httpMethod!,
+          httpMethod,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.methodIntegration != null) {
+    if (methodIntegration != null) {
       result
         ..add('methodIntegration')
         ..add(serializers.serialize(
-          payload.methodIntegration!,
+          methodIntegration,
           specifiedType: const FullType(_i3.Integration),
         ));
     }
-    if (payload.methodResponses != null) {
+    if (methodResponses != null) {
       result
         ..add('methodResponses')
         ..add(serializers.serialize(
-          payload.methodResponses!,
+          methodResponses,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -383,19 +366,19 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
           ),
         ));
     }
-    if (payload.operationName != null) {
+    if (operationName != null) {
       result
         ..add('operationName')
         ..add(serializers.serialize(
-          payload.operationName!,
+          operationName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requestModels != null) {
+    if (requestModels != null) {
       result
         ..add('requestModels')
         ..add(serializers.serialize(
-          payload.requestModels!,
+          requestModels,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -405,11 +388,11 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
           ),
         ));
     }
-    if (payload.requestParameters != null) {
+    if (requestParameters != null) {
       result
         ..add('requestParameters')
         ..add(serializers.serialize(
-          payload.requestParameters!,
+          requestParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -419,11 +402,11 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
           ),
         ));
     }
-    if (payload.requestValidatorId != null) {
+    if (requestValidatorId != null) {
       result
         ..add('requestValidatorId')
         ..add(serializers.serialize(
-          payload.requestValidatorId!,
+          requestValidatorId,
           specifiedType: const FullType(String),
         ));
     }

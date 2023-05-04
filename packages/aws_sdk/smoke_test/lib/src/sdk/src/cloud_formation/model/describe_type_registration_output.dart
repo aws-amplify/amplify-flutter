@@ -123,42 +123,33 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
     final result = DescribeTypeRegistrationOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ProgressStatus':
-          if (value != null) {
-            result.progressStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RegistrationStatus),
-            ) as _i2.RegistrationStatus);
-          }
-          break;
+          result.progressStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RegistrationStatus),
+          ) as _i2.RegistrationStatus);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeArn':
-          if (value != null) {
-            result.typeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeVersionArn':
-          if (value != null) {
-            result.typeVersionArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeVersionArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -178,35 +169,41 @@ class DescribeTypeRegistrationOutputAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.progressStatus != null) {
+    final DescribeTypeRegistrationOutput(
+      :progressStatus,
+      :description,
+      :typeArn,
+      :typeVersionArn
+    ) = payload;
+    if (progressStatus != null) {
       result
         ..add(const _i3.XmlElementName('ProgressStatus'))
         ..add(serializers.serialize(
-          payload.progressStatus!,
+          progressStatus,
           specifiedType: const FullType.nullable(_i2.RegistrationStatus),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeArn != null) {
+    if (typeArn != null) {
       result
         ..add(const _i3.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
-          payload.typeArn!,
+          typeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeVersionArn != null) {
+    if (typeVersionArn != null) {
       result
         ..add(const _i3.XmlElementName('TypeVersionArn'))
         ..add(serializers.serialize(
-          payload.typeVersionArn!,
+          typeVersionArn,
           specifiedType: const FullType(String),
         ));
     }

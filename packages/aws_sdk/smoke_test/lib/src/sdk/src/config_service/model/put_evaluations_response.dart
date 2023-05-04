@@ -86,18 +86,18 @@ class PutEvaluationsResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailedEvaluations':
-          if (value != null) {
-            result.failedEvaluations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Evaluation)],
-              ),
-            ) as _i3.BuiltList<_i2.Evaluation>));
-          }
-          break;
+          result.failedEvaluations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Evaluation)],
+            ),
+          ) as _i3.BuiltList<_i2.Evaluation>));
       }
     }
 
@@ -112,11 +112,12 @@ class PutEvaluationsResponseAwsJson11Serializer
   }) {
     final payload = (object as PutEvaluationsResponse);
     final result = <Object?>[];
-    if (payload.failedEvaluations != null) {
+    final PutEvaluationsResponse(:failedEvaluations) = payload;
+    if (failedEvaluations != null) {
       result
         ..add('FailedEvaluations')
         ..add(serializers.serialize(
-          payload.failedEvaluations!,
+          failedEvaluations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Evaluation)],

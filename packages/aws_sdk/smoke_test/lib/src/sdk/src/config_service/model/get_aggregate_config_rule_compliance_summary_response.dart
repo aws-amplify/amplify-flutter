@@ -116,34 +116,28 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AggregateComplianceCounts':
-          if (value != null) {
-            result.aggregateComplianceCounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateComplianceCount)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateComplianceCount>));
-          }
-          break;
+          result.aggregateComplianceCounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateComplianceCount)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateComplianceCount>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -158,30 +152,35 @@ class GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer
   }) {
     final payload = (object as GetAggregateConfigRuleComplianceSummaryResponse);
     final result = <Object?>[];
-    if (payload.groupByKey != null) {
+    final GetAggregateConfigRuleComplianceSummaryResponse(
+      :groupByKey,
+      :aggregateComplianceCounts,
+      :nextToken
+    ) = payload;
+    if (groupByKey != null) {
       result
         ..add('GroupByKey')
         ..add(serializers.serialize(
-          payload.groupByKey!,
+          groupByKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.aggregateComplianceCounts != null) {
+    if (aggregateComplianceCounts != null) {
       result
         ..add('AggregateComplianceCounts')
         ..add(serializers.serialize(
-          payload.aggregateComplianceCounts!,
+          aggregateComplianceCounts,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceCount)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

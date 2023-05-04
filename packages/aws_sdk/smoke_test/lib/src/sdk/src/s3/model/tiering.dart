@@ -90,22 +90,23 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
     final result = TieringBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessTier':
           result.accessTier = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.IntelligentTieringAccessTier),
           ) as _i2.IntelligentTieringAccessTier);
-          break;
         case 'Days':
           result.days = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
       }
     }
 
@@ -125,17 +126,18 @@ class TieringRestXmlSerializer extends _i3.StructuredSmithySerializer<Tiering> {
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Tiering(:accessTier, :days) = payload;
     result
       ..add(const _i3.XmlElementName('AccessTier'))
       ..add(serializers.serialize(
-        payload.accessTier,
+        accessTier,
         specifiedType:
             const FullType.nullable(_i2.IntelligentTieringAccessTier),
       ));
     result
       ..add(const _i3.XmlElementName('Days'))
       ..add(serializers.serialize(
-        payload.days,
+        days,
         specifiedType: const FullType.nullable(int),
       ));
     return result;

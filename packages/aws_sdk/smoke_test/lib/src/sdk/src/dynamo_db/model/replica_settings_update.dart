@@ -137,51 +137,40 @@ class ReplicaSettingsUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
           result.regionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ReplicaProvisionedReadCapacityUnits':
-          if (value != null) {
-            result.replicaProvisionedReadCapacityUnits =
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.replicaProvisionedReadCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate':
-          if (value != null) {
-            result.replicaProvisionedReadCapacityAutoScalingSettingsUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-            ) as _i3.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.replicaProvisionedReadCapacityAutoScalingSettingsUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          ) as _i3.AutoScalingSettingsUpdate));
         case 'ReplicaGlobalSecondaryIndexSettingsUpdate':
-          if (value != null) {
-            result.replicaGlobalSecondaryIndexSettingsUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.ReplicaGlobalSecondaryIndexSettingsUpdate)],
-              ),
-            ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>));
-          }
-          break;
+          result.replicaGlobalSecondaryIndexSettingsUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.ReplicaGlobalSecondaryIndexSettingsUpdate)],
+            ),
+          ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>));
         case 'ReplicaTableClass':
-          if (value != null) {
-            result.replicaTableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.TableClass),
-            ) as _i5.TableClass);
-          }
-          break;
+          result.replicaTableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.TableClass),
+          ) as _i5.TableClass);
       }
     }
 
@@ -202,39 +191,44 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.replicaProvisionedReadCapacityUnits != null) {
+    final ReplicaSettingsUpdate(
+      :replicaProvisionedReadCapacityUnits,
+      :replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
+      :replicaGlobalSecondaryIndexSettingsUpdate,
+      :replicaTableClass
+    ) = payload;
+    if (replicaProvisionedReadCapacityUnits != null) {
       result
         ..add('ReplicaProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.replicaProvisionedReadCapacityUnits!,
+          replicaProvisionedReadCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.replicaProvisionedReadCapacityAutoScalingSettingsUpdate !=
-        null) {
+    if (replicaProvisionedReadCapacityAutoScalingSettingsUpdate != null) {
       result
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
-          payload.replicaProvisionedReadCapacityAutoScalingSettingsUpdate!,
+          replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }
-    if (payload.replicaGlobalSecondaryIndexSettingsUpdate != null) {
+    if (replicaGlobalSecondaryIndexSettingsUpdate != null) {
       result
         ..add('ReplicaGlobalSecondaryIndexSettingsUpdate')
         ..add(serializers.serialize(
-          payload.replicaGlobalSecondaryIndexSettingsUpdate!,
+          replicaGlobalSecondaryIndexSettingsUpdate,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i4.ReplicaGlobalSecondaryIndexSettingsUpdate)],
           ),
         ));
     }
-    if (payload.replicaTableClass != null) {
+    if (replicaTableClass != null) {
       result
         ..add('ReplicaTableClass')
         ..add(serializers.serialize(
-          payload.replicaTableClass!,
+          replicaTableClass,
           specifiedType: const FullType(_i5.TableClass),
         ));
     }

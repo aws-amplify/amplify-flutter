@@ -333,34 +333,28 @@ class CreateMultipartUploadOutputRestXmlSerializer
     final result = CreateMultipartUploadOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Bucket':
-          if (value != null) {
-            result.bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UploadId':
-          if (value != null) {
-            result.uploadId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uploadId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -382,27 +376,29 @@ class CreateMultipartUploadOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bucket != null) {
+    final CreateMultipartUploadOutputPayload(:bucket, :key, :uploadId) =
+        payload;
+    if (bucket != null) {
       result
         ..add(const _i2.XmlElementName('Bucket'))
         ..add(serializers.serialize(
-          payload.bucket!,
+          bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.uploadId != null) {
+    if (uploadId != null) {
       result
         ..add(const _i2.XmlElementName('UploadId'))
         ..add(serializers.serialize(
-          payload.uploadId!,
+          uploadId,
           specifiedType: const FullType(String),
         ));
     }

@@ -102,26 +102,23 @@ class ListTablesOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableNames':
-          if (value != null) {
-            result.tableNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.tableNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'LastEvaluatedTableName':
-          if (value != null) {
-            result.lastEvaluatedTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -136,22 +133,23 @@ class ListTablesOutputAwsJson10Serializer
   }) {
     final payload = (object as ListTablesOutput);
     final result = <Object?>[];
-    if (payload.tableNames != null) {
+    final ListTablesOutput(:tableNames, :lastEvaluatedTableName) = payload;
+    if (tableNames != null) {
       result
         ..add('TableNames')
         ..add(serializers.serialize(
-          payload.tableNames!,
+          tableNames,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.lastEvaluatedTableName != null) {
+    if (lastEvaluatedTableName != null) {
       result
         ..add('LastEvaluatedTableName')
         ..add(serializers.serialize(
-          payload.lastEvaluatedTableName!,
+          lastEvaluatedTableName,
           specifiedType: const FullType(String),
         ));
     }

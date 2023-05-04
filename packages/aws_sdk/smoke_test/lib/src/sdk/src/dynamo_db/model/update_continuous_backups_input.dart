@@ -105,20 +105,21 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PointInTimeRecoverySpecification':
           result.pointInTimeRecoverySpecification
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
           ) as _i3.PointInTimeRecoverySpecification));
-          break;
       }
     }
 

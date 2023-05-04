@@ -80,18 +80,18 @@ class CreateUserResponseAwsQuerySerializer
     final result = CreateUserResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'User':
-          if (value != null) {
-            result.user.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.User),
-            ) as _i2.User));
-          }
-          break;
+          result.user.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.User),
+          ) as _i2.User));
       }
     }
 
@@ -111,11 +111,12 @@ class CreateUserResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.user != null) {
+    final CreateUserResponse(:user) = payload;
+    if (user != null) {
       result
         ..add(const _i3.XmlElementName('User'))
         ..add(serializers.serialize(
-          payload.user!,
+          user,
           specifiedType: const FullType(_i2.User),
         ));
     }

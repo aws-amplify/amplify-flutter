@@ -98,29 +98,26 @@ class ApiKeyIdsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ids':
-          if (value != null) {
-            result.ids.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.ids.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.warnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -135,22 +132,23 @@ class ApiKeyIdsRestJson1Serializer
   }) {
     final payload = (object as ApiKeyIds);
     final result = <Object?>[];
-    if (payload.ids != null) {
+    final ApiKeyIds(:ids, :warnings) = payload;
+    if (ids != null) {
       result
         ..add('ids')
         ..add(serializers.serialize(
-          payload.ids!,
+          ids,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.warnings != null) {
+    if (warnings != null) {
       result
         ..add('warnings')
         ..add(serializers.serialize(
-          payload.warnings!,
+          warnings,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],

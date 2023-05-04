@@ -90,26 +90,23 @@ class InventoryEncryptionRestXmlSerializer
     final result = InventoryEncryptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SSE-KMS':
-          if (value != null) {
-            result.ssekms.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Ssekms),
-            ) as _i3.Ssekms));
-          }
-          break;
+          result.ssekms.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Ssekms),
+          ) as _i3.Ssekms));
         case 'SSE-S3':
-          if (value != null) {
-            result.sses3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Sses3),
-            ) as _i2.Sses3));
-          }
-          break;
+          result.sses3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Sses3),
+          ) as _i2.Sses3));
       }
     }
 
@@ -129,19 +126,20 @@ class InventoryEncryptionRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.ssekms != null) {
+    final InventoryEncryption(:ssekms, :sses3) = payload;
+    if (ssekms != null) {
       result
         ..add(const _i4.XmlElementName('SSE-KMS'))
         ..add(serializers.serialize(
-          payload.ssekms!,
+          ssekms,
           specifiedType: const FullType(_i3.Ssekms),
         ));
     }
-    if (payload.sses3 != null) {
+    if (sses3 != null) {
       result
         ..add(const _i4.XmlElementName('SSE-S3'))
         ..add(serializers.serialize(
-          payload.sses3!,
+          sses3,
           specifiedType: const FullType(_i2.Sses3),
         ));
     }

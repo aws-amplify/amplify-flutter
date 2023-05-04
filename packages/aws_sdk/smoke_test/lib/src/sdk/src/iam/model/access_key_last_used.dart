@@ -124,28 +124,28 @@ class AccessKeyLastUsedAwsQuerySerializer
     final result = AccessKeyLastUsedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LastUsedDate':
           result.lastUsedDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ServiceName':
           result.serviceName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Region':
           result.region = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -165,22 +165,23 @@ class AccessKeyLastUsedAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final AccessKeyLastUsed(:lastUsedDate, :serviceName, :region) = payload;
     result
       ..add(const _i2.XmlElementName('LastUsedDate'))
       ..add(serializers.serialize(
-        payload.lastUsedDate,
+        lastUsedDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
       ..add(const _i2.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
-        payload.serviceName,
+        serviceName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Region'))
       ..add(serializers.serialize(
-        payload.region,
+        region,
         specifiedType: const FullType(String),
       ));
     return result;

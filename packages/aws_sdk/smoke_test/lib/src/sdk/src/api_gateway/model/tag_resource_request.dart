@@ -156,6 +156,9 @@ class TagResourceRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'tags':
           result.tags.replace((serializers.deserialize(
@@ -168,7 +171,6 @@ class TagResourceRequestRestJson1Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, String>));
-          break;
       }
     }
 

@@ -87,22 +87,23 @@ class FederatedUserAwsQuerySerializer
     final result = FederatedUserBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'FederatedUserId':
           result.federatedUserId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -122,16 +123,17 @@ class FederatedUserAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final FederatedUser(:federatedUserId, :arn) = payload;
     result
       ..add(const _i2.XmlElementName('FederatedUserId'))
       ..add(serializers.serialize(
-        payload.federatedUserId,
+        federatedUserId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     return result;

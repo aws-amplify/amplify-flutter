@@ -100,22 +100,23 @@ class PutRolePermissionsBoundaryRequestAwsQuerySerializer
     final result = PutRolePermissionsBoundaryRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RoleName':
           result.roleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PermissionsBoundary':
           result.permissionsBoundary = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -135,16 +136,18 @@ class PutRolePermissionsBoundaryRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final PutRolePermissionsBoundaryRequest(:roleName, :permissionsBoundary) =
+        payload;
     result
       ..add(const _i1.XmlElementName('RoleName'))
       ..add(serializers.serialize(
-        payload.roleName,
+        roleName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('PermissionsBoundary'))
       ..add(serializers.serialize(
-        payload.permissionsBoundary,
+        permissionsBoundary,
         specifiedType: const FullType(String),
       ));
     return result;

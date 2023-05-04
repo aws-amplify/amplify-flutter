@@ -74,15 +74,15 @@ class FieldInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -97,11 +97,12 @@ class FieldInfoAwsJson11Serializer
   }) {
     final payload = (object as FieldInfo);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final FieldInfo(:name) = payload;
+    if (name != null) {
       result
         ..add('Name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }

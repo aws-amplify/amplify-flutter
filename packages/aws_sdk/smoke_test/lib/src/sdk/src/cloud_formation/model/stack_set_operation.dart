@@ -227,115 +227,78 @@ class StackSetOperationAwsQuerySerializer
     final result = StackSetOperationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OperationId':
-          if (value != null) {
-            result.operationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackSetId':
-          if (value != null) {
-            result.stackSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetOperationAction),
-            ) as _i2.StackSetOperationAction);
-          }
-          break;
+          result.action = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetOperationAction),
+          ) as _i2.StackSetOperationAction);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackSetOperationStatus),
-            ) as _i3.StackSetOperationStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackSetOperationStatus),
+          ) as _i3.StackSetOperationStatus);
         case 'OperationPreferences':
-          if (value != null) {
-            result.operationPreferences.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.StackSetOperationPreferences),
-            ) as _i4.StackSetOperationPreferences));
-          }
-          break;
+          result.operationPreferences.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.StackSetOperationPreferences),
+          ) as _i4.StackSetOperationPreferences));
         case 'RetainStacks':
-          if (value != null) {
-            result.retainStacks = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.retainStacks = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AdministrationRoleARN':
-          if (value != null) {
-            result.administrationRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.administrationRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExecutionRoleName':
-          if (value != null) {
-            result.executionRoleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.executionRoleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationTimestamp':
-          if (value != null) {
-            result.creationTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'EndTimestamp':
-          if (value != null) {
-            result.endTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.endTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'DeploymentTargets':
-          if (value != null) {
-            result.deploymentTargets.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.DeploymentTargets),
-            ) as _i5.DeploymentTargets));
-          }
-          break;
+          result.deploymentTargets.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.DeploymentTargets),
+          ) as _i5.DeploymentTargets));
         case 'StackSetDriftDetectionDetails':
-          if (value != null) {
-            result.stackSetDriftDetectionDetails
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
-            ) as _i6.StackSetDriftDetectionDetails));
-          }
-          break;
+          result.stackSetDriftDetectionDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
+          ) as _i6.StackSetDriftDetectionDetails));
         case 'StatusReason':
-          if (value != null) {
-            result.statusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -355,107 +318,122 @@ class StackSetOperationAwsQuerySerializer
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.operationId != null) {
+    final StackSetOperation(
+      :operationId,
+      :stackSetId,
+      :action,
+      :status,
+      :operationPreferences,
+      :retainStacks,
+      :administrationRoleArn,
+      :executionRoleName,
+      :creationTimestamp,
+      :endTimestamp,
+      :deploymentTargets,
+      :stackSetDriftDetectionDetails,
+      :statusReason
+    ) = payload;
+    if (operationId != null) {
       result
         ..add(const _i7.XmlElementName('OperationId'))
         ..add(serializers.serialize(
-          payload.operationId!,
+          operationId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackSetId != null) {
+    if (stackSetId != null) {
       result
         ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
-          payload.stackSetId!,
+          stackSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.action != null) {
+    if (action != null) {
       result
         ..add(const _i7.XmlElementName('Action'))
         ..add(serializers.serialize(
-          payload.action!,
+          action,
           specifiedType: const FullType.nullable(_i2.StackSetOperationAction),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.StackSetOperationStatus),
         ));
     }
-    if (payload.operationPreferences != null) {
+    if (operationPreferences != null) {
       result
         ..add(const _i7.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
-          payload.operationPreferences!,
+          operationPreferences,
           specifiedType: const FullType(_i4.StackSetOperationPreferences),
         ));
     }
-    if (payload.retainStacks != null) {
+    if (retainStacks != null) {
       result
         ..add(const _i7.XmlElementName('RetainStacks'))
         ..add(serializers.serialize(
-          payload.retainStacks!,
+          retainStacks,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.administrationRoleArn != null) {
+    if (administrationRoleArn != null) {
       result
         ..add(const _i7.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
-          payload.administrationRoleArn!,
+          administrationRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.executionRoleName != null) {
+    if (executionRoleName != null) {
       result
         ..add(const _i7.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
-          payload.executionRoleName!,
+          executionRoleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationTimestamp != null) {
+    if (creationTimestamp != null) {
       result
         ..add(const _i7.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
-          payload.creationTimestamp!,
+          creationTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.endTimestamp != null) {
+    if (endTimestamp != null) {
       result
         ..add(const _i7.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
-          payload.endTimestamp!,
+          endTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.deploymentTargets != null) {
+    if (deploymentTargets != null) {
       result
         ..add(const _i7.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
-          payload.deploymentTargets!,
+          deploymentTargets,
           specifiedType: const FullType(_i5.DeploymentTargets),
         ));
     }
-    if (payload.stackSetDriftDetectionDetails != null) {
+    if (stackSetDriftDetectionDetails != null) {
       result
         ..add(const _i7.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
-          payload.stackSetDriftDetectionDetails!,
+          stackSetDriftDetectionDetails,
           specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
         ));
     }
-    if (payload.statusReason != null) {
+    if (statusReason != null) {
       result
         ..add(const _i7.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
-          payload.statusReason!,
+          statusReason,
           specifiedType: const FullType(String),
         ));
     }

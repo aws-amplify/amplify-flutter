@@ -175,90 +175,62 @@ class MethodSettingRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'cacheDataEncrypted':
-          if (value != null) {
-            result.cacheDataEncrypted = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.cacheDataEncrypted = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'cacheTtlInSeconds':
-          if (value != null) {
-            result.cacheTtlInSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.cacheTtlInSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'cachingEnabled':
-          if (value != null) {
-            result.cachingEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.cachingEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'dataTraceEnabled':
-          if (value != null) {
-            result.dataTraceEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.dataTraceEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'loggingLevel':
-          if (value != null) {
-            result.loggingLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.loggingLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'metricsEnabled':
-          if (value != null) {
-            result.metricsEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.metricsEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'requireAuthorizationForCacheControl':
-          if (value != null) {
-            result.requireAuthorizationForCacheControl =
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.requireAuthorizationForCacheControl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'throttlingBurstLimit':
-          if (value != null) {
-            result.throttlingBurstLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.throttlingBurstLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'throttlingRateLimit':
-          if (value != null) {
-            result.throttlingRateLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.throttlingRateLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'unauthorizedCacheControlHeaderStrategy':
-          if (value != null) {
-            result.unauthorizedCacheControlHeaderStrategy =
-                (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
-            ) as _i2.UnauthorizedCacheControlHeaderStrategy);
-          }
-          break;
+          result.unauthorizedCacheControlHeaderStrategy =
+              (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
+          ) as _i2.UnauthorizedCacheControlHeaderStrategy);
       }
     }
 
@@ -273,83 +245,95 @@ class MethodSettingRestJson1Serializer
   }) {
     final payload = (object as MethodSetting);
     final result = <Object?>[];
-    if (payload.cacheDataEncrypted != null) {
+    final MethodSetting(
+      :cacheDataEncrypted,
+      :cacheTtlInSeconds,
+      :cachingEnabled,
+      :dataTraceEnabled,
+      :loggingLevel,
+      :metricsEnabled,
+      :requireAuthorizationForCacheControl,
+      :throttlingBurstLimit,
+      :throttlingRateLimit,
+      :unauthorizedCacheControlHeaderStrategy
+    ) = payload;
+    if (cacheDataEncrypted != null) {
       result
         ..add('cacheDataEncrypted')
         ..add(serializers.serialize(
-          payload.cacheDataEncrypted!,
+          cacheDataEncrypted,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.cacheTtlInSeconds != null) {
+    if (cacheTtlInSeconds != null) {
       result
         ..add('cacheTtlInSeconds')
         ..add(serializers.serialize(
-          payload.cacheTtlInSeconds!,
+          cacheTtlInSeconds,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.cachingEnabled != null) {
+    if (cachingEnabled != null) {
       result
         ..add('cachingEnabled')
         ..add(serializers.serialize(
-          payload.cachingEnabled!,
+          cachingEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.dataTraceEnabled != null) {
+    if (dataTraceEnabled != null) {
       result
         ..add('dataTraceEnabled')
         ..add(serializers.serialize(
-          payload.dataTraceEnabled!,
+          dataTraceEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.loggingLevel != null) {
+    if (loggingLevel != null) {
       result
         ..add('loggingLevel')
         ..add(serializers.serialize(
-          payload.loggingLevel!,
+          loggingLevel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.metricsEnabled != null) {
+    if (metricsEnabled != null) {
       result
         ..add('metricsEnabled')
         ..add(serializers.serialize(
-          payload.metricsEnabled!,
+          metricsEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.requireAuthorizationForCacheControl != null) {
+    if (requireAuthorizationForCacheControl != null) {
       result
         ..add('requireAuthorizationForCacheControl')
         ..add(serializers.serialize(
-          payload.requireAuthorizationForCacheControl!,
+          requireAuthorizationForCacheControl,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.throttlingBurstLimit != null) {
+    if (throttlingBurstLimit != null) {
       result
         ..add('throttlingBurstLimit')
         ..add(serializers.serialize(
-          payload.throttlingBurstLimit!,
+          throttlingBurstLimit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.throttlingRateLimit != null) {
+    if (throttlingRateLimit != null) {
       result
         ..add('throttlingRateLimit')
         ..add(serializers.serialize(
-          payload.throttlingRateLimit!,
+          throttlingRateLimit,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.unauthorizedCacheControlHeaderStrategy != null) {
+    if (unauthorizedCacheControlHeaderStrategy != null) {
       result
         ..add('unauthorizedCacheControlHeaderStrategy')
         ..add(serializers.serialize(
-          payload.unauthorizedCacheControlHeaderStrategy!,
+          unauthorizedCacheControlHeaderStrategy,
           specifiedType:
               const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
         ));

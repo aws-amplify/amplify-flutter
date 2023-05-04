@@ -368,50 +368,43 @@ class SelectObjectContentRequestRestXmlSerializer
     final result = SelectObjectContentRequestPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Expression':
           result.expression = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ExpressionType':
           result.expressionType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ExpressionType),
           ) as _i3.ExpressionType);
-          break;
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.InputSerialization),
           ) as _i5.InputSerialization));
-          break;
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i6.OutputSerialization),
           ) as _i6.OutputSerialization));
-          break;
         case 'RequestProgress':
-          if (value != null) {
-            result.requestProgress.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.RequestProgress),
-            ) as _i4.RequestProgress));
-          }
-          break;
+          result.requestProgress.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.RequestProgress),
+          ) as _i4.RequestProgress));
         case 'ScanRange':
-          if (value != null) {
-            result.scanRange.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.ScanRange),
-            ) as _i7.ScanRange));
-          }
-          break;
+          result.scanRange.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.ScanRange),
+          ) as _i7.ScanRange));
       }
     }
 
@@ -433,43 +426,51 @@ class SelectObjectContentRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final SelectObjectContentRequestPayload(
+      :expression,
+      :expressionType,
+      :inputSerialization,
+      :outputSerialization,
+      :requestProgress,
+      :scanRange
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('Expression'))
       ..add(serializers.serialize(
-        payload.expression,
+        expression,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
-        payload.expressionType,
+        expressionType,
         specifiedType: const FullType.nullable(_i3.ExpressionType),
       ));
     result
       ..add(const _i1.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
-        payload.inputSerialization,
+        inputSerialization,
         specifiedType: const FullType(_i5.InputSerialization),
       ));
     result
       ..add(const _i1.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
-        payload.outputSerialization,
+        outputSerialization,
         specifiedType: const FullType(_i6.OutputSerialization),
       ));
-    if (payload.requestProgress != null) {
+    if (requestProgress != null) {
       result
         ..add(const _i1.XmlElementName('RequestProgress'))
         ..add(serializers.serialize(
-          payload.requestProgress!,
+          requestProgress,
           specifiedType: const FullType(_i4.RequestProgress),
         ));
     }
-    if (payload.scanRange != null) {
+    if (scanRange != null) {
       result
         ..add(const _i1.XmlElementName('ScanRange'))
         ..add(serializers.serialize(
-          payload.scanRange!,
+          scanRange,
           specifiedType: const FullType(_i7.ScanRange),
         ));
     }

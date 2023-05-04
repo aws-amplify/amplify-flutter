@@ -91,13 +91,15 @@ class PutDeliveryChannelRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DeliveryChannel':
           result.deliveryChannel.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.DeliveryChannel),
           ) as _i3.DeliveryChannel));
-          break;
       }
     }
 

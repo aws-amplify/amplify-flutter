@@ -101,26 +101,23 @@ class RegisterPublisherInputAwsQuerySerializer
     final result = RegisterPublisherInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AcceptTermsAndConditions':
-          if (value != null) {
-            result.acceptTermsAndConditions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.acceptTermsAndConditions = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ConnectionArn':
-          if (value != null) {
-            result.connectionArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.connectionArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -140,19 +137,21 @@ class RegisterPublisherInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.acceptTermsAndConditions != null) {
+    final RegisterPublisherInput(:acceptTermsAndConditions, :connectionArn) =
+        payload;
+    if (acceptTermsAndConditions != null) {
       result
         ..add(const _i1.XmlElementName('AcceptTermsAndConditions'))
         ..add(serializers.serialize(
-          payload.acceptTermsAndConditions!,
+          acceptTermsAndConditions,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.connectionArn != null) {
+    if (connectionArn != null) {
       result
         ..add(const _i1.XmlElementName('ConnectionArn'))
         ..add(serializers.serialize(
-          payload.connectionArn!,
+          connectionArn,
           specifiedType: const FullType(String),
         ));
     }

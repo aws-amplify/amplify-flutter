@@ -138,61 +138,46 @@ class ClientCertificateRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'clientCertificateId':
-          if (value != null) {
-            result.clientCertificateId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientCertificateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'expirationDate':
-          if (value != null) {
-            result.expirationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.expirationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'pemEncodedCertificate':
-          if (value != null) {
-            result.pemEncodedCertificate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pemEncodedCertificate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -207,51 +192,59 @@ class ClientCertificateRestJson1Serializer
   }) {
     final payload = (object as ClientCertificate);
     final result = <Object?>[];
-    if (payload.clientCertificateId != null) {
+    final ClientCertificate(
+      :clientCertificateId,
+      :createdDate,
+      :description,
+      :expirationDate,
+      :pemEncodedCertificate,
+      :tags
+    ) = payload;
+    if (clientCertificateId != null) {
       result
         ..add('clientCertificateId')
         ..add(serializers.serialize(
-          payload.clientCertificateId!,
+          clientCertificateId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createdDate != null) {
+    if (createdDate != null) {
       result
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expirationDate != null) {
+    if (expirationDate != null) {
       result
         ..add('expirationDate')
         ..add(serializers.serialize(
-          payload.expirationDate!,
+          expirationDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.pemEncodedCertificate != null) {
+    if (pemEncodedCertificate != null) {
       result
         ..add('pemEncodedCertificate')
         ..add(serializers.serialize(
-          payload.pemEncodedCertificate!,
+          pemEncodedCertificate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [

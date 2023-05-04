@@ -133,42 +133,33 @@ class NotificationConfigurationRestXmlSerializer
     final result = NotificationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EventBridgeConfiguration':
-          if (value != null) {
-            result.eventBridgeConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.EventBridgeConfiguration),
-            ) as _i5.EventBridgeConfiguration));
-          }
-          break;
+          result.eventBridgeConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.EventBridgeConfiguration),
+          ) as _i5.EventBridgeConfiguration));
         case 'CloudFunctionConfiguration':
-          if (value != null) {
-            result.lambdaFunctionConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.LambdaFunctionConfiguration),
-            ) as _i4.LambdaFunctionConfiguration));
-          }
-          break;
+          result.lambdaFunctionConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.LambdaFunctionConfiguration),
+          ) as _i4.LambdaFunctionConfiguration));
         case 'QueueConfiguration':
-          if (value != null) {
-            result.queueConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.QueueConfiguration),
-            ) as _i3.QueueConfiguration));
-          }
-          break;
+          result.queueConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.QueueConfiguration),
+          ) as _i3.QueueConfiguration));
         case 'TopicConfiguration':
-          if (value != null) {
-            result.topicConfigurations.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TopicConfiguration),
-            ) as _i2.TopicConfiguration));
-          }
-          break;
+          result.topicConfigurations.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TopicConfiguration),
+          ) as _i2.TopicConfiguration));
       }
     }
 
@@ -188,44 +179,50 @@ class NotificationConfigurationRestXmlSerializer
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eventBridgeConfiguration != null) {
+    final NotificationConfiguration(
+      :eventBridgeConfiguration,
+      :lambdaFunctionConfigurations,
+      :queueConfigurations,
+      :topicConfigurations
+    ) = payload;
+    if (eventBridgeConfiguration != null) {
       result
         ..add(const _i7.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
-          payload.eventBridgeConfiguration!,
+          eventBridgeConfiguration,
           specifiedType: const FullType(_i5.EventBridgeConfiguration),
         ));
     }
-    if (payload.lambdaFunctionConfigurations != null) {
+    if (lambdaFunctionConfigurations != null) {
       result.addAll(const _i7.XmlBuiltListSerializer(
               memberName: 'CloudFunctionConfiguration')
           .serialize(
         serializers,
-        payload.lambdaFunctionConfigurations!,
+        lambdaFunctionConfigurations,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i4.LambdaFunctionConfiguration)],
         ),
       ));
     }
-    if (payload.queueConfigurations != null) {
+    if (queueConfigurations != null) {
       result.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'QueueConfiguration')
               .serialize(
         serializers,
-        payload.queueConfigurations!,
+        queueConfigurations,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i3.QueueConfiguration)],
         ),
       ));
     }
-    if (payload.topicConfigurations != null) {
+    if (topicConfigurations != null) {
       result.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'TopicConfiguration')
               .serialize(
         serializers,
-        payload.topicConfigurations!,
+        topicConfigurations,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i2.TopicConfiguration)],

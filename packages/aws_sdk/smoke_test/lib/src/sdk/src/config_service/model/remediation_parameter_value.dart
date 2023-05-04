@@ -97,23 +97,20 @@ class RemediationParameterValueAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceValue':
-          if (value != null) {
-            result.resourceValue.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceValue),
-            ) as _i2.ResourceValue));
-          }
-          break;
+          result.resourceValue.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceValue),
+          ) as _i2.ResourceValue));
         case 'StaticValue':
-          if (value != null) {
-            result.staticValue.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StaticValue),
-            ) as _i3.StaticValue));
-          }
-          break;
+          result.staticValue.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StaticValue),
+          ) as _i3.StaticValue));
       }
     }
 
@@ -128,19 +125,20 @@ class RemediationParameterValueAwsJson11Serializer
   }) {
     final payload = (object as RemediationParameterValue);
     final result = <Object?>[];
-    if (payload.resourceValue != null) {
+    final RemediationParameterValue(:resourceValue, :staticValue) = payload;
+    if (resourceValue != null) {
       result
         ..add('ResourceValue')
         ..add(serializers.serialize(
-          payload.resourceValue!,
+          resourceValue,
           specifiedType: const FullType(_i2.ResourceValue),
         ));
     }
-    if (payload.staticValue != null) {
+    if (staticValue != null) {
       result
         ..add('StaticValue')
         ..add(serializers.serialize(
-          payload.staticValue!,
+          staticValue,
           specifiedType: const FullType(_i3.StaticValue),
         ));
     }

@@ -110,32 +110,28 @@ class UpdateGroupRequestAwsQuerySerializer
     final result = UpdateGroupRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'GroupName':
           result.groupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NewPath':
-          if (value != null) {
-            result.newPath = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newPath = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NewGroupName':
-          if (value != null) {
-            result.newGroupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newGroupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -155,25 +151,26 @@ class UpdateGroupRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateGroupRequest(:groupName, :newPath, :newGroupName) = payload;
     result
       ..add(const _i1.XmlElementName('GroupName'))
       ..add(serializers.serialize(
-        payload.groupName,
+        groupName,
         specifiedType: const FullType(String),
       ));
-    if (payload.newPath != null) {
+    if (newPath != null) {
       result
         ..add(const _i1.XmlElementName('NewPath'))
         ..add(serializers.serialize(
-          payload.newPath!,
+          newPath,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.newGroupName != null) {
+    if (newGroupName != null) {
       result
         ..add(const _i1.XmlElementName('NewGroupName'))
         ..add(serializers.serialize(
-          payload.newGroupName!,
+          newGroupName,
           specifiedType: const FullType(String),
         ));
     }

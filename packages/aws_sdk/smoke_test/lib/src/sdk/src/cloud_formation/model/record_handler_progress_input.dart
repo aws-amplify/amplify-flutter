@@ -152,62 +152,48 @@ class RecordHandlerProgressInputAwsQuerySerializer
     final result = RecordHandlerProgressInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'BearerToken':
           result.bearerToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OperationStatus':
           result.operationStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.OperationStatus),
           ) as _i3.OperationStatus);
-          break;
         case 'CurrentOperationStatus':
-          if (value != null) {
-            result.currentOperationStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.OperationStatus),
-            ) as _i3.OperationStatus);
-          }
-          break;
+          result.currentOperationStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.OperationStatus),
+          ) as _i3.OperationStatus);
         case 'StatusMessage':
-          if (value != null) {
-            result.statusMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ErrorCode':
-          if (value != null) {
-            result.errorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.HandlerErrorCode),
-            ) as _i4.HandlerErrorCode);
-          }
-          break;
+          result.errorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.HandlerErrorCode),
+          ) as _i4.HandlerErrorCode);
         case 'ResourceModel':
-          if (value != null) {
-            result.resourceModel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceModel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -227,55 +213,64 @@ class RecordHandlerProgressInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final RecordHandlerProgressInput(
+      :bearerToken,
+      :operationStatus,
+      :currentOperationStatus,
+      :statusMessage,
+      :errorCode,
+      :resourceModel,
+      :clientRequestToken
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('BearerToken'))
       ..add(serializers.serialize(
-        payload.bearerToken,
+        bearerToken,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('OperationStatus'))
       ..add(serializers.serialize(
-        payload.operationStatus,
+        operationStatus,
         specifiedType: const FullType.nullable(_i3.OperationStatus),
       ));
-    if (payload.currentOperationStatus != null) {
+    if (currentOperationStatus != null) {
       result
         ..add(const _i1.XmlElementName('CurrentOperationStatus'))
         ..add(serializers.serialize(
-          payload.currentOperationStatus!,
+          currentOperationStatus,
           specifiedType: const FullType.nullable(_i3.OperationStatus),
         ));
     }
-    if (payload.statusMessage != null) {
+    if (statusMessage != null) {
       result
         ..add(const _i1.XmlElementName('StatusMessage'))
         ..add(serializers.serialize(
-          payload.statusMessage!,
+          statusMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorCode != null) {
+    if (errorCode != null) {
       result
         ..add(const _i1.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
-          payload.errorCode!,
+          errorCode,
           specifiedType: const FullType.nullable(_i4.HandlerErrorCode),
         ));
     }
-    if (payload.resourceModel != null) {
+    if (resourceModel != null) {
       result
         ..add(const _i1.XmlElementName('ResourceModel'))
         ..add(serializers.serialize(
-          payload.resourceModel!,
+          resourceModel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }

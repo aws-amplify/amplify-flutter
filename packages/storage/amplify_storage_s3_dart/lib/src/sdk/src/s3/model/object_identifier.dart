@@ -89,24 +89,23 @@ class ObjectIdentifierRestXmlSerializer
     final result = ObjectIdentifierBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Key':
           result.key = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -126,17 +125,18 @@ class ObjectIdentifierRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final ObjectIdentifier(:key, :versionId) = payload;
     result
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(String),
       ));
-    if (payload.versionId != null) {
+    if (versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }

@@ -129,38 +129,33 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceId':
           result.resourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ComplianceTypes':
-          if (value != null) {
-            result.complianceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ComplianceType)],
-              ),
-            ) as _i4.BuiltList<_i3.ComplianceType>));
-          }
-          break;
+          result.complianceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ComplianceType)],
+            ),
+          ) as _i4.BuiltList<_i3.ComplianceType>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -186,22 +181,24 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.complianceTypes != null) {
+    final GetComplianceDetailsByResourceRequest(:complianceTypes, :nextToken) =
+        payload;
+    if (complianceTypes != null) {
       result
         ..add('ComplianceTypes')
         ..add(serializers.serialize(
-          payload.complianceTypes!,
+          complianceTypes,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ComplianceType)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

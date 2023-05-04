@@ -116,32 +116,28 @@ class UpdateServerCertificateRequestAwsQuerySerializer
     final result = UpdateServerCertificateRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServerCertificateName':
           result.serverCertificateName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NewPath':
-          if (value != null) {
-            result.newPath = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newPath = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NewServerCertificateName':
-          if (value != null) {
-            result.newServerCertificateName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newServerCertificateName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -161,25 +157,30 @@ class UpdateServerCertificateRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateServerCertificateRequest(
+      :serverCertificateName,
+      :newPath,
+      :newServerCertificateName
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
-        payload.serverCertificateName,
+        serverCertificateName,
         specifiedType: const FullType(String),
       ));
-    if (payload.newPath != null) {
+    if (newPath != null) {
       result
         ..add(const _i1.XmlElementName('NewPath'))
         ..add(serializers.serialize(
-          payload.newPath!,
+          newPath,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.newServerCertificateName != null) {
+    if (newServerCertificateName != null) {
       result
         ..add(const _i1.XmlElementName('NewServerCertificateName'))
         ..add(serializers.serialize(
-          payload.newServerCertificateName!,
+          newServerCertificateName,
           specifiedType: const FullType(String),
         ));
     }

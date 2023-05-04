@@ -105,34 +105,28 @@ class IntelligentTieringFilterRestXmlSerializer
     final result = IntelligentTieringFilterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'And':
-          if (value != null) {
-            result.and.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IntelligentTieringAndOperator),
-            ) as _i3.IntelligentTieringAndOperator));
-          }
-          break;
+          result.and.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IntelligentTieringAndOperator),
+          ) as _i3.IntelligentTieringAndOperator));
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tag':
-          if (value != null) {
-            result.tag.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Tag),
-            ) as _i2.Tag));
-          }
-          break;
+          result.tag.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Tag),
+          ) as _i2.Tag));
       }
     }
 
@@ -152,27 +146,28 @@ class IntelligentTieringFilterRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.and != null) {
+    final IntelligentTieringFilter(:and, :prefix, :tag) = payload;
+    if (and != null) {
       result
         ..add(const _i4.XmlElementName('And'))
         ..add(serializers.serialize(
-          payload.and!,
+          and,
           specifiedType: const FullType(_i3.IntelligentTieringAndOperator),
         ));
     }
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tag != null) {
+    if (tag != null) {
       result
         ..add(const _i4.XmlElementName('Tag'))
         ..add(serializers.serialize(
-          payload.tag!,
+          tag,
           specifiedType: const FullType(_i2.Tag),
         ));
     }

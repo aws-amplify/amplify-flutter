@@ -104,27 +104,24 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
     final result = AttachedPermissionsBoundaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PermissionsBoundaryType':
-          if (value != null) {
-            result.permissionsBoundaryType = (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.PermissionsBoundaryAttachmentType),
-            ) as _i2.PermissionsBoundaryAttachmentType);
-          }
-          break;
+          result.permissionsBoundaryType = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.PermissionsBoundaryAttachmentType),
+          ) as _i2.PermissionsBoundaryAttachmentType);
         case 'PermissionsBoundaryArn':
-          if (value != null) {
-            result.permissionsBoundaryArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.permissionsBoundaryArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,20 +141,24 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.permissionsBoundaryType != null) {
+    final AttachedPermissionsBoundary(
+      :permissionsBoundaryType,
+      :permissionsBoundaryArn
+    ) = payload;
+    if (permissionsBoundaryType != null) {
       result
         ..add(const _i3.XmlElementName('PermissionsBoundaryType'))
         ..add(serializers.serialize(
-          payload.permissionsBoundaryType!,
+          permissionsBoundaryType,
           specifiedType:
               const FullType.nullable(_i2.PermissionsBoundaryAttachmentType),
         ));
     }
-    if (payload.permissionsBoundaryArn != null) {
+    if (permissionsBoundaryArn != null) {
       result
         ..add(const _i3.XmlElementName('PermissionsBoundaryArn'))
         ..add(serializers.serialize(
-          payload.permissionsBoundaryArn!,
+          permissionsBoundaryArn,
           specifiedType: const FullType(String),
         ));
     }

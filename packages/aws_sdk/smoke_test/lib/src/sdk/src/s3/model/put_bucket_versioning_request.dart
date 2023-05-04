@@ -180,26 +180,23 @@ class PutBucketVersioningRequestRestXmlSerializer
     final result = _i2.VersioningConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MfaDelete':
-          if (value != null) {
-            result.mfaDelete = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.MfaDelete),
-            ) as _i5.MfaDelete);
-          }
-          break;
+          result.mfaDelete = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.MfaDelete),
+          ) as _i5.MfaDelete);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.BucketVersioningStatus),
-            ) as _i6.BucketVersioningStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.BucketVersioningStatus),
+          ) as _i6.BucketVersioningStatus);
       }
     }
 
@@ -221,19 +218,20 @@ class PutBucketVersioningRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.mfaDelete != null) {
+    final _i2.VersioningConfiguration(:mfaDelete, :status) = payload;
+    if (mfaDelete != null) {
       result
         ..add(const _i1.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
-          payload.mfaDelete!,
+          mfaDelete,
           specifiedType: const FullType.nullable(_i5.MfaDelete),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i6.BucketVersioningStatus),
         ));
     }

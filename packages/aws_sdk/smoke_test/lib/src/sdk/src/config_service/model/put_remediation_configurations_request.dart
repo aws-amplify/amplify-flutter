@@ -92,6 +92,9 @@ class PutRemediationConfigurationsRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RemediationConfigurations':
           result.remediationConfigurations.replace((serializers.deserialize(
@@ -101,7 +104,6 @@ class PutRemediationConfigurationsRequestAwsJson11Serializer extends _i1
               [FullType(_i3.RemediationConfiguration)],
             ),
           ) as _i4.BuiltList<_i3.RemediationConfiguration>));
-          break;
       }
     }
 

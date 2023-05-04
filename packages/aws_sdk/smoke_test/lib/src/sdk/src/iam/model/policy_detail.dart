@@ -93,26 +93,23 @@ class PolicyDetailAwsQuerySerializer
     final result = PolicyDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyDocument':
-          if (value != null) {
-            result.policyDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -132,19 +129,20 @@ class PolicyDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.policyName != null) {
+    final PolicyDetail(:policyName, :policyDocument) = payload;
+    if (policyName != null) {
       result
         ..add(const _i2.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyDocument != null) {
+    if (policyDocument != null) {
       result
         ..add(const _i2.XmlElementName('PolicyDocument'))
         ..add(serializers.serialize(
-          payload.policyDocument!,
+          policyDocument,
           specifiedType: const FullType(String),
         ));
     }

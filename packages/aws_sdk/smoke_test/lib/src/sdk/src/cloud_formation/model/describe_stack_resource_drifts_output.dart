@@ -102,10 +102,13 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
     final result = DescribeStackResourceDriftsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackResourceDrifts':
           result.stackResourceDrifts.replace((const _i4.XmlBuiltListSerializer(
                   indexer: _i4.XmlIndexer.awsQueryList)
@@ -117,15 +120,11 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
               [FullType(_i2.StackResourceDrift)],
             ),
           ) as _i3.BuiltList<_i2.StackResourceDrift>));
-          break;
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -145,23 +144,25 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DescribeStackResourceDriftsOutput(:stackResourceDrifts, :nextToken) =
+        payload;
     result
       ..add(const _i4.XmlElementName('StackResourceDrifts'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.stackResourceDrifts,
+        stackResourceDrifts,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.StackResourceDrift)],
         ),
       ));
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

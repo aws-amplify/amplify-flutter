@@ -78,21 +78,21 @@ class EventsResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Results':
-          if (value != null) {
-            result.results.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.ItemResponse),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.ItemResponse>));
-          }
-          break;
+          result.results.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.ItemResponse),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.ItemResponse>));
       }
     }
 
@@ -107,11 +107,12 @@ class EventsResponseRestJson1Serializer
   }) {
     final payload = (object as EventsResponse);
     final result = <Object?>[];
-    if (payload.results != null) {
+    final EventsResponse(:results) = payload;
+    if (results != null) {
       result
         ..add('Results')
         ..add(serializers.serialize(
-          payload.results!,
+          results,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

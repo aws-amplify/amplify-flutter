@@ -195,75 +195,55 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableArn':
           result.tableArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ExportTime':
-          if (value != null) {
-            result.exportTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.exportTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3Bucket':
           result.s3Bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'S3BucketOwner':
-          if (value != null) {
-            result.s3BucketOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3BucketOwner = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3Prefix':
-          if (value != null) {
-            result.s3Prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3Prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3SseAlgorithm':
-          if (value != null) {
-            result.s3SseAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.S3SseAlgorithm),
-            ) as _i3.S3SseAlgorithm);
-          }
-          break;
+          result.s3SseAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.S3SseAlgorithm),
+          ) as _i3.S3SseAlgorithm);
         case 'S3SseKmsKeyId':
-          if (value != null) {
-            result.s3SseKmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3SseKmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExportFormat':
-          if (value != null) {
-            result.exportFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ExportFormat),
-            ) as _i4.ExportFormat);
-          }
-          break;
+          result.exportFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ExportFormat),
+          ) as _i4.ExportFormat);
       }
     }
 
@@ -289,59 +269,68 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.exportTime != null) {
+    final ExportTableToPointInTimeInput(
+      :exportTime,
+      :clientToken,
+      :s3BucketOwner,
+      :s3Prefix,
+      :s3SseAlgorithm,
+      :s3SseKmsKeyId,
+      :exportFormat
+    ) = payload;
+    if (exportTime != null) {
       result
         ..add('ExportTime')
         ..add(serializers.serialize(
-          payload.exportTime!,
+          exportTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.clientToken != null) {
+    if (clientToken != null) {
       result
         ..add('ClientToken')
         ..add(serializers.serialize(
-          payload.clientToken!,
+          clientToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3BucketOwner != null) {
+    if (s3BucketOwner != null) {
       result
         ..add('S3BucketOwner')
         ..add(serializers.serialize(
-          payload.s3BucketOwner!,
+          s3BucketOwner,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3Prefix != null) {
+    if (s3Prefix != null) {
       result
         ..add('S3Prefix')
         ..add(serializers.serialize(
-          payload.s3Prefix!,
+          s3Prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3SseAlgorithm != null) {
+    if (s3SseAlgorithm != null) {
       result
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
-          payload.s3SseAlgorithm!,
+          s3SseAlgorithm,
           specifiedType: const FullType(_i3.S3SseAlgorithm),
         ));
     }
-    if (payload.s3SseKmsKeyId != null) {
+    if (s3SseKmsKeyId != null) {
       result
         ..add('S3SseKmsKeyId')
         ..add(serializers.serialize(
-          payload.s3SseKmsKeyId!,
+          s3SseKmsKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exportFormat != null) {
+    if (exportFormat != null) {
       result
         ..add('ExportFormat')
         ..add(serializers.serialize(
-          payload.exportFormat!,
+          exportFormat,
           specifiedType: const FullType(_i4.ExportFormat),
         ));
     }

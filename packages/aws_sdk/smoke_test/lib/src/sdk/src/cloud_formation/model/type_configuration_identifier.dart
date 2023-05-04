@@ -124,50 +124,38 @@ class TypeConfigurationIdentifierAwsQuerySerializer
     final result = TypeConfigurationIdentifierBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeArn':
-          if (value != null) {
-            result.typeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeConfigurationAlias':
-          if (value != null) {
-            result.typeConfigurationAlias = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeConfigurationAlias = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeConfigurationArn':
-          if (value != null) {
-            result.typeConfigurationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeConfigurationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ThirdPartyType),
-            ) as _i2.ThirdPartyType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ThirdPartyType),
+          ) as _i2.ThirdPartyType);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -187,43 +175,50 @@ class TypeConfigurationIdentifierAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.typeArn != null) {
+    final TypeConfigurationIdentifier(
+      :typeArn,
+      :typeConfigurationAlias,
+      :typeConfigurationArn,
+      :type,
+      :typeName
+    ) = payload;
+    if (typeArn != null) {
       result
         ..add(const _i3.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
-          payload.typeArn!,
+          typeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeConfigurationAlias != null) {
+    if (typeConfigurationAlias != null) {
       result
         ..add(const _i3.XmlElementName('TypeConfigurationAlias'))
         ..add(serializers.serialize(
-          payload.typeConfigurationAlias!,
+          typeConfigurationAlias,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeConfigurationArn != null) {
+    if (typeConfigurationArn != null) {
       result
         ..add(const _i3.XmlElementName('TypeConfigurationArn'))
         ..add(serializers.serialize(
-          payload.typeConfigurationArn!,
+          typeConfigurationArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.ThirdPartyType),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i3.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }

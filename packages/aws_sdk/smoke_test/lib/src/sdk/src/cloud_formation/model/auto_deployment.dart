@@ -87,26 +87,23 @@ class AutoDeploymentAwsQuerySerializer
     final result = AutoDeploymentBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.enabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RetainStacksOnAccountRemoval':
-          if (value != null) {
-            result.retainStacksOnAccountRemoval = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.retainStacksOnAccountRemoval = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -126,19 +123,20 @@ class AutoDeploymentAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.enabled != null) {
+    final AutoDeployment(:enabled, :retainStacksOnAccountRemoval) = payload;
+    if (enabled != null) {
       result
         ..add(const _i2.XmlElementName('Enabled'))
         ..add(serializers.serialize(
-          payload.enabled!,
+          enabled,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.retainStacksOnAccountRemoval != null) {
+    if (retainStacksOnAccountRemoval != null) {
       result
         ..add(const _i2.XmlElementName('RetainStacksOnAccountRemoval'))
         ..add(serializers.serialize(
-          payload.retainStacksOnAccountRemoval!,
+          retainStacksOnAccountRemoval,
           specifiedType: const FullType.nullable(bool),
         ));
     }

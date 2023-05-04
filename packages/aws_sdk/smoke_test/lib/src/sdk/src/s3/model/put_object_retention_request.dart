@@ -228,27 +228,23 @@ class PutObjectRetentionRequestRestXmlSerializer
     final result = _i2.ObjectLockRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ObjectLockRetentionMode),
-            ) as _i6.ObjectLockRetentionMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ObjectLockRetentionMode),
+          ) as _i6.ObjectLockRetentionMode);
         case 'RetainUntilDate':
-          if (value != null) {
-            result.retainUntilDate =
-                _i1.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.retainUntilDate = _i1.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -273,20 +269,21 @@ class PutObjectRetentionRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.mode != null) {
+    final _i2.ObjectLockRetention(:mode, :retainUntilDate) = payload;
+    if (mode != null) {
       result
         ..add(const _i1.XmlElementName('Mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i6.ObjectLockRetentionMode),
         ));
     }
-    if (payload.retainUntilDate != null) {
+    if (retainUntilDate != null) {
       result
         ..add(const _i1.XmlElementName('RetainUntilDate'))
         ..add(_i1.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.retainUntilDate!,
+          retainUntilDate,
         ));
     }
     return result;

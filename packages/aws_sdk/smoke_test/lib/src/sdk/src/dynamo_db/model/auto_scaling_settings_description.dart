@@ -131,50 +131,38 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'MinimumUnits':
-          if (value != null) {
-            result.minimumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.minimumUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'MaximumUnits':
-          if (value != null) {
-            result.maximumUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.maximumUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'AutoScalingDisabled':
-          if (value != null) {
-            result.autoScalingDisabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.autoScalingDisabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AutoScalingRoleArn':
-          if (value != null) {
-            result.autoScalingRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.autoScalingRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ScalingPolicies':
-          if (value != null) {
-            result.scalingPolicies.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AutoScalingPolicyDescription)],
-              ),
-            ) as _i4.BuiltList<_i3.AutoScalingPolicyDescription>));
-          }
-          break;
+          result.scalingPolicies.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AutoScalingPolicyDescription)],
+            ),
+          ) as _i4.BuiltList<_i3.AutoScalingPolicyDescription>));
       }
     }
 
@@ -189,43 +177,50 @@ class AutoScalingSettingsDescriptionAwsJson10Serializer
   }) {
     final payload = (object as AutoScalingSettingsDescription);
     final result = <Object?>[];
-    if (payload.minimumUnits != null) {
+    final AutoScalingSettingsDescription(
+      :minimumUnits,
+      :maximumUnits,
+      :autoScalingDisabled,
+      :autoScalingRoleArn,
+      :scalingPolicies
+    ) = payload;
+    if (minimumUnits != null) {
       result
         ..add('MinimumUnits')
         ..add(serializers.serialize(
-          payload.minimumUnits!,
+          minimumUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.maximumUnits != null) {
+    if (maximumUnits != null) {
       result
         ..add('MaximumUnits')
         ..add(serializers.serialize(
-          payload.maximumUnits!,
+          maximumUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.autoScalingDisabled != null) {
+    if (autoScalingDisabled != null) {
       result
         ..add('AutoScalingDisabled')
         ..add(serializers.serialize(
-          payload.autoScalingDisabled!,
+          autoScalingDisabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.autoScalingRoleArn != null) {
+    if (autoScalingRoleArn != null) {
       result
         ..add('AutoScalingRoleArn')
         ..add(serializers.serialize(
-          payload.autoScalingRoleArn!,
+          autoScalingRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.scalingPolicies != null) {
+    if (scalingPolicies != null) {
       result
         ..add('ScalingPolicies')
         ..add(serializers.serialize(
-          payload.scalingPolicies!,
+          scalingPolicies,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.AutoScalingPolicyDescription)],

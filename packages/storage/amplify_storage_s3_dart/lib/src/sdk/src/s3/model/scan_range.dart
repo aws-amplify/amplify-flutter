@@ -88,26 +88,23 @@ class ScanRangeRestXmlSerializer
     final result = ScanRangeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'End':
-          if (value != null) {
-            result.end = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.end = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'Start':
-          if (value != null) {
-            result.start = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.start = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -127,19 +124,20 @@ class ScanRangeRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.end != null) {
+    final ScanRange(:end, :start) = payload;
+    if (end != null) {
       result
         ..add(const _i3.XmlElementName('End'))
         ..add(serializers.serialize(
-          payload.end!,
+          end,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.start != null) {
+    if (start != null) {
       result
         ..add(const _i3.XmlElementName('Start'))
         ..add(serializers.serialize(
-          payload.start!,
+          start,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }

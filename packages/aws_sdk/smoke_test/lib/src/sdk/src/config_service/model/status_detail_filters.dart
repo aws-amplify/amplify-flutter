@@ -113,23 +113,20 @@ class StatusDetailFiltersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MemberAccountRuleStatus':
-          if (value != null) {
-            result.memberAccountRuleStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MemberAccountRuleStatus),
-            ) as _i2.MemberAccountRuleStatus);
-          }
-          break;
+          result.memberAccountRuleStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MemberAccountRuleStatus),
+          ) as _i2.MemberAccountRuleStatus);
       }
     }
 
@@ -144,19 +141,20 @@ class StatusDetailFiltersAwsJson11Serializer
   }) {
     final payload = (object as StatusDetailFilters);
     final result = <Object?>[];
-    if (payload.accountId != null) {
+    final StatusDetailFilters(:accountId, :memberAccountRuleStatus) = payload;
+    if (accountId != null) {
       result
         ..add('AccountId')
         ..add(serializers.serialize(
-          payload.accountId!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.memberAccountRuleStatus != null) {
+    if (memberAccountRuleStatus != null) {
       result
         ..add('MemberAccountRuleStatus')
         ..add(serializers.serialize(
-          payload.memberAccountRuleStatus!,
+          memberAccountRuleStatus,
           specifiedType: const FullType(_i2.MemberAccountRuleStatus),
         ));
     }

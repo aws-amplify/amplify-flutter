@@ -168,54 +168,43 @@ class RegisterTypeInputAwsQuerySerializer
     final result = RegisterTypeInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RegistryType),
-            ) as _i3.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RegistryType),
+          ) as _i3.RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SchemaHandlerPackage':
           result.schemaHandlerPackage = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LoggingConfig':
-          if (value != null) {
-            result.loggingConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.LoggingConfig),
-            ) as _i4.LoggingConfig));
-          }
-          break;
+          result.loggingConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.LoggingConfig),
+          ) as _i4.LoggingConfig));
         case 'ExecutionRoleArn':
-          if (value != null) {
-            result.executionRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.executionRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -235,47 +224,55 @@ class RegisterTypeInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final RegisterTypeInput(
+      :type,
+      :typeName,
+      :schemaHandlerPackage,
+      :loggingConfig,
+      :executionRoleArn,
+      :clientRequestToken
+    ) = payload;
+    if (type != null) {
       result
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i3.RegistryType),
         ));
     }
     result
       ..add(const _i1.XmlElementName('TypeName'))
       ..add(serializers.serialize(
-        payload.typeName,
+        typeName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('SchemaHandlerPackage'))
       ..add(serializers.serialize(
-        payload.schemaHandlerPackage,
+        schemaHandlerPackage,
         specifiedType: const FullType(String),
       ));
-    if (payload.loggingConfig != null) {
+    if (loggingConfig != null) {
       result
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
-          payload.loggingConfig!,
+          loggingConfig,
           specifiedType: const FullType(_i4.LoggingConfig),
         ));
     }
-    if (payload.executionRoleArn != null) {
+    if (executionRoleArn != null) {
       result
         ..add(const _i1.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
-          payload.executionRoleArn!,
+          executionRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }

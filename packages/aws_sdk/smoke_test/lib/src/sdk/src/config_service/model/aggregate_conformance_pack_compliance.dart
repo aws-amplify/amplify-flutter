@@ -124,39 +124,30 @@ class AggregateConformancePackComplianceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
         case 'CompliantRuleCount':
-          if (value != null) {
-            result.compliantRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.compliantRuleCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NonCompliantRuleCount':
-          if (value != null) {
-            result.nonCompliantRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.nonCompliantRuleCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TotalRuleCount':
-          if (value != null) {
-            result.totalRuleCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.totalRuleCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -171,35 +162,41 @@ class AggregateConformancePackComplianceAwsJson11Serializer
   }) {
     final payload = (object as AggregateConformancePackCompliance);
     final result = <Object?>[];
-    if (payload.complianceType != null) {
+    final AggregateConformancePackCompliance(
+      :complianceType,
+      :compliantRuleCount,
+      :nonCompliantRuleCount,
+      :totalRuleCount
+    ) = payload;
+    if (complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
-          payload.complianceType!,
+          complianceType,
           specifiedType: const FullType(_i2.ConformancePackComplianceType),
         ));
     }
-    if (payload.compliantRuleCount != null) {
+    if (compliantRuleCount != null) {
       result
         ..add('CompliantRuleCount')
         ..add(serializers.serialize(
-          payload.compliantRuleCount!,
+          compliantRuleCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nonCompliantRuleCount != null) {
+    if (nonCompliantRuleCount != null) {
       result
         ..add('NonCompliantRuleCount')
         ..add(serializers.serialize(
-          payload.nonCompliantRuleCount!,
+          nonCompliantRuleCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.totalRuleCount != null) {
+    if (totalRuleCount != null) {
       result
         ..add('TotalRuleCount')
         ..add(serializers.serialize(
-          payload.totalRuleCount!,
+          totalRuleCount,
           specifiedType: const FullType(int),
         ));
     }

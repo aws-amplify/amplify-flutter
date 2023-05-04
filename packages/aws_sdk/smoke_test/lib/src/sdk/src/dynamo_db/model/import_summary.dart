@@ -156,71 +156,50 @@ class ImportSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ImportArn':
-          if (value != null) {
-            result.importArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.importArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ImportStatus':
-          if (value != null) {
-            result.importStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ImportStatus),
-            ) as _i2.ImportStatus);
-          }
-          break;
+          result.importStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ImportStatus),
+          ) as _i2.ImportStatus);
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3BucketSource':
-          if (value != null) {
-            result.s3BucketSource.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.S3BucketSource),
-            ) as _i3.S3BucketSource));
-          }
-          break;
+          result.s3BucketSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.S3BucketSource),
+          ) as _i3.S3BucketSource));
         case 'CloudWatchLogGroupArn':
-          if (value != null) {
-            result.cloudWatchLogGroupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cloudWatchLogGroupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InputFormat':
-          if (value != null) {
-            result.inputFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.InputFormat),
-            ) as _i4.InputFormat);
-          }
-          break;
+          result.inputFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.InputFormat),
+          ) as _i4.InputFormat);
         case 'StartTime':
-          if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.startTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'EndTime':
-          if (value != null) {
-            result.endTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.endTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -235,67 +214,77 @@ class ImportSummaryAwsJson10Serializer
   }) {
     final payload = (object as ImportSummary);
     final result = <Object?>[];
-    if (payload.importArn != null) {
+    final ImportSummary(
+      :importArn,
+      :importStatus,
+      :tableArn,
+      :s3BucketSource,
+      :cloudWatchLogGroupArn,
+      :inputFormat,
+      :startTime,
+      :endTime
+    ) = payload;
+    if (importArn != null) {
       result
         ..add('ImportArn')
         ..add(serializers.serialize(
-          payload.importArn!,
+          importArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.importStatus != null) {
+    if (importStatus != null) {
       result
         ..add('ImportStatus')
         ..add(serializers.serialize(
-          payload.importStatus!,
+          importStatus,
           specifiedType: const FullType(_i2.ImportStatus),
         ));
     }
-    if (payload.tableArn != null) {
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3BucketSource != null) {
+    if (s3BucketSource != null) {
       result
         ..add('S3BucketSource')
         ..add(serializers.serialize(
-          payload.s3BucketSource!,
+          s3BucketSource,
           specifiedType: const FullType(_i3.S3BucketSource),
         ));
     }
-    if (payload.cloudWatchLogGroupArn != null) {
+    if (cloudWatchLogGroupArn != null) {
       result
         ..add('CloudWatchLogGroupArn')
         ..add(serializers.serialize(
-          payload.cloudWatchLogGroupArn!,
+          cloudWatchLogGroupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputFormat != null) {
+    if (inputFormat != null) {
       result
         ..add('InputFormat')
         ..add(serializers.serialize(
-          payload.inputFormat!,
+          inputFormat,
           specifiedType: const FullType(_i4.InputFormat),
         ));
     }
-    if (payload.startTime != null) {
+    if (startTime != null) {
       result
         ..add('StartTime')
         ..add(serializers.serialize(
-          payload.startTime!,
+          startTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.endTime != null) {
+    if (endTime != null) {
       result
         ..add('EndTime')
         ..add(serializers.serialize(
-          payload.endTime!,
+          endTime,
           specifiedType: const FullType(DateTime),
         ));
     }

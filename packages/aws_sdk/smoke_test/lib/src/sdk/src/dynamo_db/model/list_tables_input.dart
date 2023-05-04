@@ -99,23 +99,20 @@ class ListTablesInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExclusiveStartTableName':
-          if (value != null) {
-            result.exclusiveStartTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -130,19 +127,20 @@ class ListTablesInputAwsJson10Serializer
   }) {
     final payload = (object as ListTablesInput);
     final result = <Object?>[];
-    if (payload.exclusiveStartTableName != null) {
+    final ListTablesInput(:exclusiveStartTableName, :limit) = payload;
+    if (exclusiveStartTableName != null) {
       result
         ..add('ExclusiveStartTableName')
         ..add(serializers.serialize(
-          payload.exclusiveStartTableName!,
+          exclusiveStartTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }

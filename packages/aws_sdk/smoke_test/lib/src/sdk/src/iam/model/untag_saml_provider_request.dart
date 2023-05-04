@@ -101,16 +101,18 @@ class UntagSamlProviderRequestAwsQuerySerializer
     final result = UntagSamlProviderRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SAMLProviderArn':
           result.samlProviderArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TagKeys':
           result.tagKeys.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -122,7 +124,6 @@ class UntagSamlProviderRequestAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -142,10 +143,11 @@ class UntagSamlProviderRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UntagSamlProviderRequest(:samlProviderArn, :tagKeys) = payload;
     result
       ..add(const _i1.XmlElementName('SAMLProviderArn'))
       ..add(serializers.serialize(
-        payload.samlProviderArn,
+        samlProviderArn,
         specifiedType: const FullType(String),
       ));
     result
@@ -154,7 +156,7 @@ class UntagSamlProviderRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.tagKeys,
+        tagKeys,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

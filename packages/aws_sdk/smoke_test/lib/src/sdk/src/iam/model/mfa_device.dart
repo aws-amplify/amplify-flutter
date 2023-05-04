@@ -103,28 +103,28 @@ class MfaDeviceAwsQuerySerializer
     final result = MfaDeviceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SerialNumber':
           result.serialNumber = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'EnableDate':
           result.enableDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -144,22 +144,23 @@ class MfaDeviceAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final MfaDevice(:userName, :serialNumber, :enableDate) = payload;
     result
       ..add(const _i2.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
-        payload.serialNumber,
+        serialNumber,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('EnableDate'))
       ..add(serializers.serialize(
-        payload.enableDate,
+        enableDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     return result;

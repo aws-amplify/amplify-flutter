@@ -77,6 +77,9 @@ class EventsRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BatchItem':
           result.batchItem.replace((serializers.deserialize(
@@ -89,7 +92,6 @@ class EventsRequestRestJson1Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, _i2.EventsBatch>));
-          break;
       }
     }
 

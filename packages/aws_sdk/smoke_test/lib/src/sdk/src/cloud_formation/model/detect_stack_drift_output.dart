@@ -80,16 +80,18 @@ class DetectStackDriftOutputAwsQuerySerializer
     final result = DetectStackDriftOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackDriftDetectionId':
           result.stackDriftDetectionId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -109,10 +111,11 @@ class DetectStackDriftOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DetectStackDriftOutput(:stackDriftDetectionId) = payload;
     result
       ..add(const _i2.XmlElementName('StackDriftDetectionId'))
       ..add(serializers.serialize(
-        payload.stackDriftDetectionId,
+        stackDriftDetectionId,
         specifiedType: const FullType(String),
       ));
     return result;

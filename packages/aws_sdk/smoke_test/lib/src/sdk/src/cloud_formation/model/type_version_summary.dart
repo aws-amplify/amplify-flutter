@@ -154,74 +154,53 @@ class TypeVersionSummaryAwsQuerySerializer
     final result = TypeVersionSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RegistryType),
-            ) as _i2.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RegistryType),
+          ) as _i2.RegistryType);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsDefaultVersion':
-          if (value != null) {
-            result.isDefaultVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isDefaultVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TimeCreated':
-          if (value != null) {
-            result.timeCreated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.timeCreated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublicVersionNumber':
-          if (value != null) {
-            result.publicVersionNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publicVersionNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -241,67 +220,77 @@ class TypeVersionSummaryAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final TypeVersionSummary(
+      :type,
+      :typeName,
+      :versionId,
+      :isDefaultVersion,
+      :arn,
+      :timeCreated,
+      :description,
+      :publicVersionNumber
+    ) = payload;
+    if (type != null) {
       result
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.RegistryType),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i3.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionId != null) {
+    if (versionId != null) {
       result
         ..add(const _i3.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isDefaultVersion != null) {
+    if (isDefaultVersion != null) {
       result
         ..add(const _i3.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
-          payload.isDefaultVersion!,
+          isDefaultVersion,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.timeCreated != null) {
+    if (timeCreated != null) {
       result
         ..add(const _i3.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
-          payload.timeCreated!,
+          timeCreated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publicVersionNumber != null) {
+    if (publicVersionNumber != null) {
       result
         ..add(const _i3.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
-          payload.publicVersionNumber!,
+          publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }

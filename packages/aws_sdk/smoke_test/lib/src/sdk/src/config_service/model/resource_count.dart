@@ -93,23 +93,20 @@ class ResourceCountAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
         case 'count':
-          if (value != null) {
-            result.count = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.count = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
       }
     }
 
@@ -124,19 +121,20 @@ class ResourceCountAwsJson11Serializer
   }) {
     final payload = (object as ResourceCount);
     final result = <Object?>[];
-    if (payload.resourceType != null) {
+    final ResourceCount(:resourceType, :count) = payload;
+    if (resourceType != null) {
       result
         ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i2.ResourceType),
         ));
     }
-    if (payload.count != null) {
+    if (count != null) {
       result
         ..add('count')
         ..add(serializers.serialize(
-          payload.count!,
+          count,
           specifiedType: const FullType(_i3.Int64),
         ));
     }

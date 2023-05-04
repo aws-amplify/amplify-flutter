@@ -115,30 +115,28 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
     final result = UpdateSigningCertificateRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'CertificateId':
-          result.certificateId = (serializers.deserialize(
-            value!,
+          result.userName = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'CertificateId':
+          result.certificateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.StatusType),
           ) as _i3.StatusType);
-          break;
       }
     }
 
@@ -158,24 +156,26 @@ class UpdateSigningCertificateRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final UpdateSigningCertificateRequest(:userName, :certificateId, :status) =
+        payload;
+    if (userName != null) {
       result
         ..add(const _i1.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i1.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
-        payload.certificateId,
+        certificateId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i3.StatusType),
       ));
     return result;

@@ -179,22 +179,23 @@ class PutBucketReplicationRequestRestXmlSerializer
     final result = _i2.ReplicationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Role':
           result.role = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.ReplicationRule),
           ) as _i5.ReplicationRule));
-          break;
       }
     }
 
@@ -216,16 +217,17 @@ class PutBucketReplicationRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final _i2.ReplicationConfiguration(:role, :rules) = payload;
     result
       ..add(const _i1.XmlElementName('Role'))
       ..add(serializers.serialize(
-        payload.role,
+        role,
         specifiedType: const FullType(String),
       ));
     result
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i6.BuiltList,
         [FullType(_i5.ReplicationRule)],

@@ -116,13 +116,15 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackRuleComplianceList':
           result.conformancePackRuleComplianceList
               .replace((serializers.deserialize(
@@ -132,15 +134,11 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
               [FullType(_i2.ConformancePackRuleCompliance)],
             ),
           ) as _i3.BuiltList<_i2.ConformancePackRuleCompliance>));
-          break;
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -169,11 +167,12 @@ class DescribeConformancePackComplianceResponseAwsJson11Serializer extends _i4
         ),
       ),
     ];
-    if (payload.nextToken != null) {
+    final DescribeConformancePackComplianceResponse(:nextToken) = payload;
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

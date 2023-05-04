@@ -107,34 +107,33 @@ class CredentialsAwsQuerySerializer
     final result = CredentialsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessKeyId':
           result.accessKeyId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SecretAccessKey':
           result.secretAccessKey = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SessionToken':
           result.sessionToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Expiration':
           result.expiration = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -154,28 +153,34 @@ class CredentialsAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final Credentials(
+      :accessKeyId,
+      :secretAccessKey,
+      :sessionToken,
+      :expiration
+    ) = payload;
     result
       ..add(const _i2.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
-        payload.accessKeyId,
+        accessKeyId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('SecretAccessKey'))
       ..add(serializers.serialize(
-        payload.secretAccessKey,
+        secretAccessKey,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('SessionToken'))
       ..add(serializers.serialize(
-        payload.sessionToken,
+        sessionToken,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Expiration'))
       ..add(serializers.serialize(
-        payload.expiration,
+        expiration,
         specifiedType: const FullType.nullable(DateTime),
       ));
     return result;

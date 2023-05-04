@@ -80,18 +80,18 @@ class ImportStacksToStackSetOutputAwsQuerySerializer
     final result = ImportStacksToStackSetOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OperationId':
-          if (value != null) {
-            result.operationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -111,11 +111,12 @@ class ImportStacksToStackSetOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.operationId != null) {
+    final ImportStacksToStackSetOutput(:operationId) = payload;
+    if (operationId != null) {
       result
         ..add(const _i2.XmlElementName('OperationId'))
         ..add(serializers.serialize(
-          payload.operationId!,
+          operationId,
           specifiedType: const FullType(String),
         ));
     }

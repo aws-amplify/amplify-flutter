@@ -111,39 +111,30 @@ class PatchOperationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'from':
-          if (value != null) {
-            result.from = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.from = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'op':
-          if (value != null) {
-            result.op = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Op),
-            ) as _i2.Op);
-          }
-          break;
+          result.op = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Op),
+          ) as _i2.Op);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -158,35 +149,36 @@ class PatchOperationRestJson1Serializer
   }) {
     final payload = (object as PatchOperation);
     final result = <Object?>[];
-    if (payload.from != null) {
+    final PatchOperation(:from, :op, :path, :value) = payload;
+    if (from != null) {
       result
         ..add('from')
         ..add(serializers.serialize(
-          payload.from!,
+          from,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.op != null) {
+    if (op != null) {
       result
         ..add('op')
         ..add(serializers.serialize(
-          payload.op!,
+          op,
           specifiedType: const FullType(_i2.Op),
         ));
     }
-    if (payload.path != null) {
+    if (path != null) {
       result
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.value != null) {
+    if (value != null) {
       result
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }

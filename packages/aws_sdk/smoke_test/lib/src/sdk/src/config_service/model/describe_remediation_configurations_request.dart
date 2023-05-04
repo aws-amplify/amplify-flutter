@@ -90,6 +90,9 @@ class DescribeRemediationConfigurationsRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleNames':
           result.configRuleNames.replace((serializers.deserialize(
@@ -99,7 +102,6 @@ class DescribeRemediationConfigurationsRequestAwsJson11Serializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 

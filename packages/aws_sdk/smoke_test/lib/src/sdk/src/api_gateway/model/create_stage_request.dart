@@ -354,95 +354,72 @@ class CreateStageRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'cacheClusterEnabled':
-          if (value != null) {
-            result.cacheClusterEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.cacheClusterEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'cacheClusterSize':
-          if (value != null) {
-            result.cacheClusterSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CacheClusterSize),
-            ) as _i3.CacheClusterSize);
-          }
-          break;
+          result.cacheClusterSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CacheClusterSize),
+          ) as _i3.CacheClusterSize);
         case 'canarySettings':
-          if (value != null) {
-            result.canarySettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CanarySettings),
-            ) as _i4.CanarySettings));
-          }
-          break;
+          result.canarySettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CanarySettings),
+          ) as _i4.CanarySettings));
         case 'deploymentId':
           result.deploymentId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'documentationVersion':
-          if (value != null) {
-            result.documentationVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.documentationVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageName':
           result.stageName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
         case 'tracingEnabled':
-          if (value != null) {
-            result.tracingEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.tracingEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'variables':
-          if (value != null) {
-            result.variables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.variables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -470,51 +447,61 @@ class CreateStageRequestRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.cacheClusterEnabled != null) {
+    final CreateStageRequestPayload(
+      :cacheClusterEnabled,
+      :cacheClusterSize,
+      :canarySettings,
+      :description,
+      :documentationVersion,
+      :tags,
+      :tracingEnabled,
+      :variables
+    ) = payload;
+    if (cacheClusterEnabled != null) {
       result
         ..add('cacheClusterEnabled')
         ..add(serializers.serialize(
-          payload.cacheClusterEnabled!,
+          cacheClusterEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.cacheClusterSize != null) {
+    if (cacheClusterSize != null) {
       result
         ..add('cacheClusterSize')
         ..add(serializers.serialize(
-          payload.cacheClusterSize!,
+          cacheClusterSize,
           specifiedType: const FullType(_i3.CacheClusterSize),
         ));
     }
-    if (payload.canarySettings != null) {
+    if (canarySettings != null) {
       result
         ..add('canarySettings')
         ..add(serializers.serialize(
-          payload.canarySettings!,
+          canarySettings,
           specifiedType: const FullType(_i4.CanarySettings),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.documentationVersion != null) {
+    if (documentationVersion != null) {
       result
         ..add('documentationVersion')
         ..add(serializers.serialize(
-          payload.documentationVersion!,
+          documentationVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -524,19 +511,19 @@ class CreateStageRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.tracingEnabled != null) {
+    if (tracingEnabled != null) {
       result
         ..add('tracingEnabled')
         ..add(serializers.serialize(
-          payload.tracingEnabled!,
+          tracingEnabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.variables != null) {
+    if (variables != null) {
       result
         ..add('variables')
         ..add(serializers.serialize(
-          payload.variables!,
+          variables,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [

@@ -71,10 +71,13 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
     final result = TaggingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TagSet':
           result.tagSet.replace(
               (const _i4.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
@@ -85,7 +88,6 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
               [FullType(_i2.Tag)],
             ),
           ) as _i3.BuiltList<_i2.Tag>));
-          break;
       }
     }
 
@@ -105,11 +107,12 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Tagging(:tagSet) = payload;
     result
       ..add(const _i4.XmlElementName('TagSet'))
       ..add(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tagSet,
+        tagSet,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.Tag)],

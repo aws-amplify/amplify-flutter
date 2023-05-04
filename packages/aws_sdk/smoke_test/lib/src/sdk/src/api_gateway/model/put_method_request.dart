@@ -341,84 +341,65 @@ class PutMethodRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyRequired':
-          if (value != null) {
-            result.apiKeyRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.apiKeyRequired = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'authorizationScopes':
-          if (value != null) {
-            result.authorizationScopes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.authorizationScopes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'authorizationType':
           result.authorizationType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'authorizerId':
-          if (value != null) {
-            result.authorizerId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizerId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'operationName':
-          if (value != null) {
-            result.operationName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'requestModels':
-          if (value != null) {
-            result.requestModels.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.requestModels.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'requestParameters':
-          if (value != null) {
-            result.requestParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(bool),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, bool>));
-          }
-          break;
+          result.requestParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(bool),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, bool>));
         case 'requestValidatorId':
-          if (value != null) {
-            result.requestValidatorId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requestValidatorId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -441,46 +422,55 @@ class PutMethodRequestRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.apiKeyRequired != null) {
+    final PutMethodRequestPayload(
+      :apiKeyRequired,
+      :authorizationScopes,
+      :authorizerId,
+      :operationName,
+      :requestModels,
+      :requestParameters,
+      :requestValidatorId
+    ) = payload;
+    if (apiKeyRequired != null) {
       result
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
-          payload.apiKeyRequired!,
+          apiKeyRequired,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.authorizationScopes != null) {
+    if (authorizationScopes != null) {
       result
         ..add('authorizationScopes')
         ..add(serializers.serialize(
-          payload.authorizationScopes!,
+          authorizationScopes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.authorizerId != null) {
+    if (authorizerId != null) {
       result
         ..add('authorizerId')
         ..add(serializers.serialize(
-          payload.authorizerId!,
+          authorizerId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.operationName != null) {
+    if (operationName != null) {
       result
         ..add('operationName')
         ..add(serializers.serialize(
-          payload.operationName!,
+          operationName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requestModels != null) {
+    if (requestModels != null) {
       result
         ..add('requestModels')
         ..add(serializers.serialize(
-          payload.requestModels!,
+          requestModels,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -490,11 +480,11 @@ class PutMethodRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.requestParameters != null) {
+    if (requestParameters != null) {
       result
         ..add('requestParameters')
         ..add(serializers.serialize(
-          payload.requestParameters!,
+          requestParameters,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -504,11 +494,11 @@ class PutMethodRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.requestValidatorId != null) {
+    if (requestValidatorId != null) {
       result
         ..add('requestValidatorId')
         ..add(serializers.serialize(
-          payload.requestValidatorId!,
+          requestValidatorId,
           specifiedType: const FullType(String),
         ));
     }

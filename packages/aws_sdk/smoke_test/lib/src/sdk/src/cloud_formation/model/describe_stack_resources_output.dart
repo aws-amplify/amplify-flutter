@@ -89,24 +89,24 @@ class DescribeStackResourcesOutputAwsQuerySerializer
     final result = DescribeStackResourcesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackResources':
-          if (value != null) {
-            result.stackResources.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.StackResource)],
-              ),
-            ) as _i3.BuiltList<_i2.StackResource>));
-          }
-          break;
+          result.stackResources.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.StackResource)],
+            ),
+          ) as _i3.BuiltList<_i2.StackResource>));
       }
     }
 
@@ -126,14 +126,15 @@ class DescribeStackResourcesOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackResources != null) {
+    final DescribeStackResourcesOutput(:stackResources) = payload;
+    if (stackResources != null) {
       result
         ..add(const _i4.XmlElementName('StackResources'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.stackResources!,
+          stackResources,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.StackResource)],

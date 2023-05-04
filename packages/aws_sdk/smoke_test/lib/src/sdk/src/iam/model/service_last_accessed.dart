@@ -161,69 +161,55 @@ class ServiceLastAccessedAwsQuerySerializer
     final result = ServiceLastAccessedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServiceName':
           result.serviceName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LastAuthenticated':
-          if (value != null) {
-            result.lastAuthenticated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastAuthenticated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ServiceNamespace':
           result.serviceNamespace = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LastAuthenticatedEntity':
-          if (value != null) {
-            result.lastAuthenticatedEntity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastAuthenticatedEntity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastAuthenticatedRegion':
-          if (value != null) {
-            result.lastAuthenticatedRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastAuthenticatedRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TotalAuthenticatedEntities':
-          if (value != null) {
-            result.totalAuthenticatedEntities = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.totalAuthenticatedEntities = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TrackedActionsLastAccessed':
-          if (value != null) {
-            result.trackedActionsLastAccessed.replace(
-                (const _i4.XmlBuiltListSerializer(
-                        indexer: _i4.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.TrackedActionLastAccessed)],
-              ),
-            ) as _i3.BuiltList<_i2.TrackedActionLastAccessed>));
-          }
-          break;
+          result.trackedActionsLastAccessed.replace(
+              (const _i4.XmlBuiltListSerializer(
+                      indexer: _i4.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.TrackedActionLastAccessed)],
+            ),
+          ) as _i3.BuiltList<_i2.TrackedActionLastAccessed>));
       }
     }
 
@@ -243,58 +229,67 @@ class ServiceLastAccessedAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ServiceLastAccessed(
+      :serviceName,
+      :lastAuthenticated,
+      :serviceNamespace,
+      :lastAuthenticatedEntity,
+      :lastAuthenticatedRegion,
+      :totalAuthenticatedEntities,
+      :trackedActionsLastAccessed
+    ) = payload;
     result
       ..add(const _i4.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
-        payload.serviceName,
+        serviceName,
         specifiedType: const FullType(String),
       ));
-    if (payload.lastAuthenticated != null) {
+    if (lastAuthenticated != null) {
       result
         ..add(const _i4.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
-          payload.lastAuthenticated!,
+          lastAuthenticated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
     result
       ..add(const _i4.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
-        payload.serviceNamespace,
+        serviceNamespace,
         specifiedType: const FullType(String),
       ));
-    if (payload.lastAuthenticatedEntity != null) {
+    if (lastAuthenticatedEntity != null) {
       result
         ..add(const _i4.XmlElementName('LastAuthenticatedEntity'))
         ..add(serializers.serialize(
-          payload.lastAuthenticatedEntity!,
+          lastAuthenticatedEntity,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastAuthenticatedRegion != null) {
+    if (lastAuthenticatedRegion != null) {
       result
         ..add(const _i4.XmlElementName('LastAuthenticatedRegion'))
         ..add(serializers.serialize(
-          payload.lastAuthenticatedRegion!,
+          lastAuthenticatedRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.totalAuthenticatedEntities != null) {
+    if (totalAuthenticatedEntities != null) {
       result
         ..add(const _i4.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
-          payload.totalAuthenticatedEntities!,
+          totalAuthenticatedEntities,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.trackedActionsLastAccessed != null) {
+    if (trackedActionsLastAccessed != null) {
       result
         ..add(const _i4.XmlElementName('TrackedActionsLastAccessed'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.trackedActionsLastAccessed!,
+          trackedActionsLastAccessed,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.TrackedActionLastAccessed)],

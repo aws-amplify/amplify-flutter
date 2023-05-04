@@ -179,82 +179,58 @@ class StackSetSummaryAwsQuerySerializer
     final result = StackSetSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
-          if (value != null) {
-            result.stackSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackSetId':
-          if (value != null) {
-            result.stackSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetStatus),
-            ) as _i2.StackSetStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetStatus),
+          ) as _i2.StackSetStatus);
         case 'AutoDeployment':
-          if (value != null) {
-            result.autoDeployment.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoDeployment),
-            ) as _i3.AutoDeployment));
-          }
-          break;
+          result.autoDeployment.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoDeployment),
+          ) as _i3.AutoDeployment));
         case 'PermissionModel':
-          if (value != null) {
-            result.permissionModel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.PermissionModels),
-            ) as _i4.PermissionModels);
-          }
-          break;
+          result.permissionModel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.PermissionModels),
+          ) as _i4.PermissionModels);
         case 'DriftStatus':
-          if (value != null) {
-            result.driftStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.StackDriftStatus),
-            ) as _i5.StackDriftStatus);
-          }
-          break;
+          result.driftStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.StackDriftStatus),
+          ) as _i5.StackDriftStatus);
         case 'LastDriftCheckTimestamp':
-          if (value != null) {
-            result.lastDriftCheckTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDriftCheckTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ManagedExecution':
-          if (value != null) {
-            result.managedExecution.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ManagedExecution),
-            ) as _i6.ManagedExecution));
-          }
-          break;
+          result.managedExecution.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ManagedExecution),
+          ) as _i6.ManagedExecution));
       }
     }
 
@@ -274,75 +250,86 @@ class StackSetSummaryAwsQuerySerializer
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackSetName != null) {
+    final StackSetSummary(
+      :stackSetName,
+      :stackSetId,
+      :description,
+      :status,
+      :autoDeployment,
+      :permissionModel,
+      :driftStatus,
+      :lastDriftCheckTimestamp,
+      :managedExecution
+    ) = payload;
+    if (stackSetName != null) {
       result
         ..add(const _i7.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
-          payload.stackSetName!,
+          stackSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackSetId != null) {
+    if (stackSetId != null) {
       result
         ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
-          payload.stackSetId!,
+          stackSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i7.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i2.StackSetStatus),
         ));
     }
-    if (payload.autoDeployment != null) {
+    if (autoDeployment != null) {
       result
         ..add(const _i7.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
-          payload.autoDeployment!,
+          autoDeployment,
           specifiedType: const FullType(_i3.AutoDeployment),
         ));
     }
-    if (payload.permissionModel != null) {
+    if (permissionModel != null) {
       result
         ..add(const _i7.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
-          payload.permissionModel!,
+          permissionModel,
           specifiedType: const FullType.nullable(_i4.PermissionModels),
         ));
     }
-    if (payload.driftStatus != null) {
+    if (driftStatus != null) {
       result
         ..add(const _i7.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
-          payload.driftStatus!,
+          driftStatus,
           specifiedType: const FullType.nullable(_i5.StackDriftStatus),
         ));
     }
-    if (payload.lastDriftCheckTimestamp != null) {
+    if (lastDriftCheckTimestamp != null) {
       result
         ..add(const _i7.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
-          payload.lastDriftCheckTimestamp!,
+          lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.managedExecution != null) {
+    if (managedExecution != null) {
       result
         ..add(const _i7.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
-          payload.managedExecution!,
+          managedExecution,
           specifiedType: const FullType(_i6.ManagedExecution),
         ));
     }

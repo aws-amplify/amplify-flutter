@@ -153,58 +153,43 @@ class ChangeSetHookAwsQuerySerializer
     final result = ChangeSetHookBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'InvocationPoint':
-          if (value != null) {
-            result.invocationPoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.HookInvocationPoint),
-            ) as _i2.HookInvocationPoint);
-          }
-          break;
+          result.invocationPoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.HookInvocationPoint),
+          ) as _i2.HookInvocationPoint);
         case 'FailureMode':
-          if (value != null) {
-            result.failureMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.HookFailureMode),
-            ) as _i3.HookFailureMode);
-          }
-          break;
+          result.failureMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.HookFailureMode),
+          ) as _i3.HookFailureMode);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeVersionId':
-          if (value != null) {
-            result.typeVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeConfigurationVersionId':
-          if (value != null) {
-            result.typeConfigurationVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeConfigurationVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TargetDetails':
-          if (value != null) {
-            result.targetDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
-            ) as _i4.ChangeSetHookTargetDetails));
-          }
-          break;
+          result.targetDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
+          ) as _i4.ChangeSetHookTargetDetails));
       }
     }
 
@@ -224,51 +209,59 @@ class ChangeSetHookAwsQuerySerializer
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.invocationPoint != null) {
+    final ChangeSetHook(
+      :invocationPoint,
+      :failureMode,
+      :typeName,
+      :typeVersionId,
+      :typeConfigurationVersionId,
+      :targetDetails
+    ) = payload;
+    if (invocationPoint != null) {
       result
         ..add(const _i5.XmlElementName('InvocationPoint'))
         ..add(serializers.serialize(
-          payload.invocationPoint!,
+          invocationPoint,
           specifiedType: const FullType.nullable(_i2.HookInvocationPoint),
         ));
     }
-    if (payload.failureMode != null) {
+    if (failureMode != null) {
       result
         ..add(const _i5.XmlElementName('FailureMode'))
         ..add(serializers.serialize(
-          payload.failureMode!,
+          failureMode,
           specifiedType: const FullType.nullable(_i3.HookFailureMode),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i5.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeVersionId != null) {
+    if (typeVersionId != null) {
       result
         ..add(const _i5.XmlElementName('TypeVersionId'))
         ..add(serializers.serialize(
-          payload.typeVersionId!,
+          typeVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeConfigurationVersionId != null) {
+    if (typeConfigurationVersionId != null) {
       result
         ..add(const _i5.XmlElementName('TypeConfigurationVersionId'))
         ..add(serializers.serialize(
-          payload.typeConfigurationVersionId!,
+          typeConfigurationVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.targetDetails != null) {
+    if (targetDetails != null) {
       result
         ..add(const _i5.XmlElementName('TargetDetails'))
         ..add(serializers.serialize(
-          payload.targetDetails!,
+          targetDetails,
           specifiedType: const FullType(_i4.ChangeSetHookTargetDetails),
         ));
     }

@@ -92,26 +92,23 @@ class PositionAwsQuerySerializer
     final result = PositionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Line':
-          if (value != null) {
-            result.line = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.line = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Column':
-          if (value != null) {
-            result.column = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.column = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -131,19 +128,20 @@ class PositionAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.line != null) {
+    final Position(:line, :column) = payload;
+    if (line != null) {
       result
         ..add(const _i2.XmlElementName('Line'))
         ..add(serializers.serialize(
-          payload.line!,
+          line,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.column != null) {
+    if (column != null) {
       result
         ..add(const _i2.XmlElementName('Column'))
         ..add(serializers.serialize(
-          payload.column!,
+          column,
           specifiedType: const FullType.nullable(int),
         ));
     }

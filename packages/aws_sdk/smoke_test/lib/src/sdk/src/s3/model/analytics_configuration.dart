@@ -102,30 +102,28 @@ class AnalyticsConfigurationRestXmlSerializer
     final result = AnalyticsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AnalyticsFilter),
-            ) as _i2.AnalyticsFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AnalyticsFilter),
+          ) as _i2.AnalyticsFilter);
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StorageClassAnalysis':
           result.storageClassAnalysis.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.StorageClassAnalysis),
           ) as _i3.StorageClassAnalysis));
-          break;
       }
     }
 
@@ -145,24 +143,25 @@ class AnalyticsConfigurationRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.filter != null) {
+    final AnalyticsConfiguration(:filter, :id, :storageClassAnalysis) = payload;
+    if (filter != null) {
       result
         ..add(const _i4.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i2.AnalyticsFilter),
         ));
     }
     result
       ..add(const _i4.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i4.XmlElementName('StorageClassAnalysis'))
       ..add(serializers.serialize(
-        payload.storageClassAnalysis,
+        storageClassAnalysis,
         specifiedType: const FullType(_i3.StorageClassAnalysis),
       ));
     return result;

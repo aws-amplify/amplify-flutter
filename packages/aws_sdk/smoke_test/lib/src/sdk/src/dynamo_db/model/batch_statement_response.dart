@@ -107,37 +107,31 @@ class BatchStatementResponseAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Error':
-          if (value != null) {
-            result.error.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BatchStatementError),
-            ) as _i2.BatchStatementError));
-          }
-          break;
+          result.error.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BatchStatementError),
+          ) as _i2.BatchStatementError));
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i3.AttributeValue>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.AttributeValue>));
       }
     }
 
@@ -152,27 +146,28 @@ class BatchStatementResponseAwsJson10Serializer
   }) {
     final payload = (object as BatchStatementResponse);
     final result = <Object?>[];
-    if (payload.error != null) {
+    final BatchStatementResponse(:error, :tableName, :item) = payload;
+    if (error != null) {
       result
         ..add('Error')
         ..add(serializers.serialize(
-          payload.error!,
+          error,
           specifiedType: const FullType(_i2.BatchStatementError),
         ));
     }
-    if (payload.tableName != null) {
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.item != null) {
+    if (item != null) {
       result
         ..add('Item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [

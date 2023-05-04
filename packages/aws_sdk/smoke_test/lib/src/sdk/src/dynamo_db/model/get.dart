@@ -113,6 +113,9 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Key':
           result.key.replace((serializers.deserialize(
@@ -125,35 +128,27 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
               ],
             ),
           ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.projectionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -185,19 +180,20 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.projectionExpression != null) {
+    final Get(:projectionExpression, :expressionAttributeNames) = payload;
+    if (projectionExpression != null) {
       result
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
-          payload.projectionExpression!,
+          projectionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

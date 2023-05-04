@@ -126,6 +126,9 @@ class ExecuteTransactionInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TransactStatements':
           result.transactStatements.replace((serializers.deserialize(
@@ -135,23 +138,16 @@ class ExecuteTransactionInputAwsJson10Serializer
               [FullType(_i3.ParameterizedStatement)],
             ),
           ) as _i5.BuiltList<_i3.ParameterizedStatement>));
-          break;
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
       }
     }
 
@@ -175,19 +171,23 @@ class ExecuteTransactionInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.clientRequestToken != null) {
+    final ExecuteTransactionInput(
+      :clientRequestToken,
+      :returnConsumedCapacity
+    ) = payload;
+    if (clientRequestToken != null) {
       result
         ..add('ClientRequestToken')
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.returnConsumedCapacity != null) {
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }

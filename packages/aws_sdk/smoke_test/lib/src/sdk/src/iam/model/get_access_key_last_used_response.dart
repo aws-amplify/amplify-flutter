@@ -101,26 +101,23 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
     final result = GetAccessKeyLastUsedResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AccessKeyLastUsed':
-          if (value != null) {
-            result.accessKeyLastUsed.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AccessKeyLastUsed),
-            ) as _i2.AccessKeyLastUsed));
-          }
-          break;
+          result.accessKeyLastUsed.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AccessKeyLastUsed),
+          ) as _i2.AccessKeyLastUsed));
       }
     }
 
@@ -140,19 +137,20 @@ class GetAccessKeyLastUsedResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final GetAccessKeyLastUsedResponse(:userName, :accessKeyLastUsed) = payload;
+    if (userName != null) {
       result
         ..add(const _i3.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.accessKeyLastUsed != null) {
+    if (accessKeyLastUsed != null) {
       result
         ..add(const _i3.XmlElementName('AccessKeyLastUsed'))
         ..add(serializers.serialize(
-          payload.accessKeyLastUsed!,
+          accessKeyLastUsed,
           specifiedType: const FullType(_i2.AccessKeyLastUsed),
         ));
     }

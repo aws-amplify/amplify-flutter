@@ -105,34 +105,28 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
     final result = ChangeSetHookResourceTargetDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LogicalResourceId':
-          if (value != null) {
-            result.logicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.logicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceAction':
-          if (value != null) {
-            result.resourceAction = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChangeAction),
-            ) as _i2.ChangeAction);
-          }
-          break;
+          result.resourceAction = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChangeAction),
+          ) as _i2.ChangeAction);
       }
     }
 
@@ -152,27 +146,32 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.logicalResourceId != null) {
+    final ChangeSetHookResourceTargetDetails(
+      :logicalResourceId,
+      :resourceType,
+      :resourceAction
+    ) = payload;
+    if (logicalResourceId != null) {
       result
         ..add(const _i3.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
-          payload.logicalResourceId!,
+          logicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (resourceType != null) {
       result
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceAction != null) {
+    if (resourceAction != null) {
       result
         ..add(const _i3.XmlElementName('ResourceAction'))
         ..add(serializers.serialize(
-          payload.resourceAction!,
+          resourceAction,
           specifiedType: const FullType.nullable(_i2.ChangeAction),
         ));
     }

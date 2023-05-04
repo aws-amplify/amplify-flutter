@@ -150,58 +150,43 @@ class ListTypeRegistrationsInputAwsQuerySerializer
     final result = ListTypeRegistrationsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RegistryType),
-            ) as _i3.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RegistryType),
+          ) as _i3.RegistryType);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeArn':
-          if (value != null) {
-            result.typeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RegistrationStatusFilter':
-          if (value != null) {
-            result.registrationStatusFilter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.RegistrationStatus),
-            ) as _i4.RegistrationStatus);
-          }
-          break;
+          result.registrationStatusFilter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.RegistrationStatus),
+          ) as _i4.RegistrationStatus);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -221,51 +206,59 @@ class ListTypeRegistrationsInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final ListTypeRegistrationsInput(
+      :type,
+      :typeName,
+      :typeArn,
+      :registrationStatusFilter,
+      :maxResults,
+      :nextToken
+    ) = payload;
+    if (type != null) {
       result
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i3.RegistryType),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeArn != null) {
+    if (typeArn != null) {
       result
         ..add(const _i1.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
-          payload.typeArn!,
+          typeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.registrationStatusFilter != null) {
+    if (registrationStatusFilter != null) {
       result
         ..add(const _i1.XmlElementName('RegistrationStatusFilter'))
         ..add(serializers.serialize(
-          payload.registrationStatusFilter!,
+          registrationStatusFilter,
           specifiedType: const FullType.nullable(_i4.RegistrationStatus),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

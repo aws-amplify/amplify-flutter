@@ -101,22 +101,23 @@ class GetPolicyVersionRequestAwsQuerySerializer
     final result = GetPolicyVersionRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyArn':
           result.policyArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'VersionId':
           result.versionId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -136,16 +137,17 @@ class GetPolicyVersionRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetPolicyVersionRequest(:policyArn, :versionId) = payload;
     result
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
-        payload.policyArn,
+        policyArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('VersionId'))
       ..add(serializers.serialize(
-        payload.versionId,
+        versionId,
         specifiedType: const FullType(String),
       ));
     return result;

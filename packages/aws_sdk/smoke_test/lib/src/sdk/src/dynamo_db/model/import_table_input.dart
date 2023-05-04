@@ -161,49 +161,40 @@ class ImportTableInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3BucketSource':
           result.s3BucketSource.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.S3BucketSource),
           ) as _i3.S3BucketSource));
-          break;
         case 'InputFormat':
           result.inputFormat = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.InputFormat),
           ) as _i4.InputFormat);
-          break;
         case 'InputFormatOptions':
-          if (value != null) {
-            result.inputFormatOptions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.InputFormatOptions),
-            ) as _i5.InputFormatOptions));
-          }
-          break;
+          result.inputFormatOptions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.InputFormatOptions),
+          ) as _i5.InputFormatOptions));
         case 'InputCompressionType':
-          if (value != null) {
-            result.inputCompressionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.InputCompressionType),
-            ) as _i6.InputCompressionType);
-          }
-          break;
+          result.inputCompressionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.InputCompressionType),
+          ) as _i6.InputCompressionType);
         case 'TableCreationParameters':
           result.tableCreationParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i7.TableCreationParameters),
           ) as _i7.TableCreationParameters));
-          break;
       }
     }
 
@@ -234,27 +225,32 @@ class ImportTableInputAwsJson10Serializer
         specifiedType: const FullType(_i7.TableCreationParameters),
       ),
     ];
-    if (payload.clientToken != null) {
+    final ImportTableInput(
+      :clientToken,
+      :inputFormatOptions,
+      :inputCompressionType
+    ) = payload;
+    if (clientToken != null) {
       result
         ..add('ClientToken')
         ..add(serializers.serialize(
-          payload.clientToken!,
+          clientToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputFormatOptions != null) {
+    if (inputFormatOptions != null) {
       result
         ..add('InputFormatOptions')
         ..add(serializers.serialize(
-          payload.inputFormatOptions!,
+          inputFormatOptions,
           specifiedType: const FullType(_i5.InputFormatOptions),
         ));
     }
-    if (payload.inputCompressionType != null) {
+    if (inputCompressionType != null) {
       result
         ..add('InputCompressionType')
         ..add(serializers.serialize(
-          payload.inputCompressionType!,
+          inputCompressionType,
           specifiedType: const FullType(_i6.InputCompressionType),
         ));
     }

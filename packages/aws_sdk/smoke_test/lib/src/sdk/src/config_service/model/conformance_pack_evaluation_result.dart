@@ -130,39 +130,35 @@ class ConformancePackEvaluationResultAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ConformancePackComplianceType),
           ) as _i2.ConformancePackComplianceType);
-          break;
         case 'EvaluationResultIdentifier':
           result.evaluationResultIdentifier.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.EvaluationResultIdentifier),
           ) as _i3.EvaluationResultIdentifier));
-          break;
         case 'ConfigRuleInvokedTime':
           result.configRuleInvokedTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ResultRecordedTime':
           result.resultRecordedTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.annotation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -198,11 +194,12 @@ class ConformancePackEvaluationResultAwsJson11Serializer
         specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.annotation != null) {
+    final ConformancePackEvaluationResult(:annotation) = payload;
+    if (annotation != null) {
       result
         ..add('Annotation')
         ..add(serializers.serialize(
-          payload.annotation!,
+          annotation,
           specifiedType: const FullType(String),
         ));
     }

@@ -165,63 +165,50 @@ class InAppMessageCampaignRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CampaignId':
-          if (value != null) {
-            result.campaignId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.campaignId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DailyCap':
           result.dailyCap = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'InAppMessage':
-          if (value != null) {
-            result.inAppMessage.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.InAppMessage),
-            ) as _i2.InAppMessage));
-          }
-          break;
+          result.inAppMessage.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.InAppMessage),
+          ) as _i2.InAppMessage));
         case 'Priority':
           result.priority = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'Schedule':
-          if (value != null) {
-            result.schedule.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.InAppCampaignSchedule),
-            ) as _i3.InAppCampaignSchedule));
-          }
-          break;
+          result.schedule.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.InAppCampaignSchedule),
+          ) as _i3.InAppCampaignSchedule));
         case 'SessionCap':
           result.sessionCap = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'TotalCap':
           result.totalCap = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'TreatmentId':
-          if (value != null) {
-            result.treatmentId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.treatmentId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -257,35 +244,41 @@ class InAppMessageCampaignRestJson1Serializer
         specifiedType: const FullType(int),
       ),
     ];
-    if (payload.campaignId != null) {
+    final InAppMessageCampaign(
+      :campaignId,
+      :inAppMessage,
+      :schedule,
+      :treatmentId
+    ) = payload;
+    if (campaignId != null) {
       result
         ..add('CampaignId')
         ..add(serializers.serialize(
-          payload.campaignId!,
+          campaignId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inAppMessage != null) {
+    if (inAppMessage != null) {
       result
         ..add('InAppMessage')
         ..add(serializers.serialize(
-          payload.inAppMessage!,
+          inAppMessage,
           specifiedType: const FullType(_i2.InAppMessage),
         ));
     }
-    if (payload.schedule != null) {
+    if (schedule != null) {
       result
         ..add('Schedule')
         ..add(serializers.serialize(
-          payload.schedule!,
+          schedule,
           specifiedType: const FullType(_i3.InAppCampaignSchedule),
         ));
     }
-    if (payload.treatmentId != null) {
+    if (treatmentId != null) {
       result
         ..add('TreatmentId')
         ..add(serializers.serialize(
-          payload.treatmentId!,
+          treatmentId,
           specifiedType: const FullType(String),
         ));
     }

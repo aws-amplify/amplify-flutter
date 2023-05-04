@@ -114,32 +114,28 @@ class CreateServiceLinkedRoleRequestAwsQuerySerializer
     final result = CreateServiceLinkedRoleRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AWSServiceName':
           result.awsServiceName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CustomSuffix':
-          if (value != null) {
-            result.customSuffix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.customSuffix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -159,25 +155,30 @@ class CreateServiceLinkedRoleRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateServiceLinkedRoleRequest(
+      :awsServiceName,
+      :description,
+      :customSuffix
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('AWSServiceName'))
       ..add(serializers.serialize(
-        payload.awsServiceName,
+        awsServiceName,
         specifiedType: const FullType(String),
       ));
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.customSuffix != null) {
+    if (customSuffix != null) {
       result
         ..add(const _i1.XmlElementName('CustomSuffix'))
         ..add(serializers.serialize(
-          payload.customSuffix!,
+          customSuffix,
           specifiedType: const FullType(String),
         ));
     }

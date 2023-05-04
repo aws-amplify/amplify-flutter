@@ -9,29 +9,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/analytics_and_operator.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
-/// The discrete values of [AnalyticsFilter].
-enum AnalyticsFilterType<T extends AnalyticsFilter> {
-  /// The type for [AnalyticsFilterPrefix].
-  prefix<AnalyticsFilterPrefix>(r'Prefix'),
-
-  /// The type for [AnalyticsFilterTag].
-  tag<AnalyticsFilterTag>(r'Tag'),
-
-  /// The type for [AnalyticsFilterAnd].
-  and<AnalyticsFilterAnd>(r'And'),
-
-  /// The type for an unknown value.
-  sdkUnknown<AnalyticsFilterSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [AnalyticsFilter].
-  const AnalyticsFilterType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// The filter used to describe a set of objects for analyses. A filter must have exactly one prefix, one tag, or one conjunction (AnalyticsAndOperator). If no filter is provided, all objects will be considered in any analysis.
-abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
+sealed class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
   const AnalyticsFilter._();
 
   const factory AnalyticsFilter.prefix(String prefix) = AnalyticsFilterPrefix;
@@ -58,34 +36,8 @@ abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
 
   /// A conjunction (logical AND) of predicates, which is used in evaluating an analytics filter. The operator must have at least two predicates.
   _i3.AnalyticsAndOperator? get and => null;
-  AnalyticsFilterType get type;
   @override
   Object get value => (prefix ?? tag ?? and)!;
-  @override
-  T? when<T>({
-    T Function(String)? prefix,
-    T Function(_i2.Tag)? tag,
-    T Function(_i3.AnalyticsAndOperator)? and,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is AnalyticsFilterPrefix) {
-      return prefix?.call((this as AnalyticsFilterPrefix).prefix);
-    }
-    if (this is AnalyticsFilterTag) {
-      return tag?.call((this as AnalyticsFilterTag).tag);
-    }
-    if (this is AnalyticsFilterAnd) {
-      return and?.call((this as AnalyticsFilterAnd).and);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'AnalyticsFilter');
@@ -111,43 +63,37 @@ abstract class AnalyticsFilter extends _i1.SmithyUnion<AnalyticsFilter> {
   }
 }
 
-class AnalyticsFilterPrefix extends AnalyticsFilter {
+final class AnalyticsFilterPrefix extends AnalyticsFilter {
   const AnalyticsFilterPrefix(this.prefix) : super._();
 
   @override
   final String prefix;
 
   @override
-  AnalyticsFilterType get type => AnalyticsFilterType.prefix;
-  @override
   String get name => 'Prefix';
 }
 
-class AnalyticsFilterTag extends AnalyticsFilter {
+final class AnalyticsFilterTag extends AnalyticsFilter {
   const AnalyticsFilterTag(this.tag) : super._();
 
   @override
   final _i2.Tag tag;
 
   @override
-  AnalyticsFilterType get type => AnalyticsFilterType.tag;
-  @override
   String get name => 'Tag';
 }
 
-class AnalyticsFilterAnd extends AnalyticsFilter {
+final class AnalyticsFilterAnd extends AnalyticsFilter {
   const AnalyticsFilterAnd(this.and) : super._();
 
   @override
   final _i3.AnalyticsAndOperator and;
 
   @override
-  AnalyticsFilterType get type => AnalyticsFilterType.and;
-  @override
   String get name => 'And';
 }
 
-class AnalyticsFilterSdkUnknown extends AnalyticsFilter {
+final class AnalyticsFilterSdkUnknown extends AnalyticsFilter {
   const AnalyticsFilterSdkUnknown(
     this.name,
     this.value,
@@ -158,9 +104,6 @@ class AnalyticsFilterSdkUnknown extends AnalyticsFilter {
 
   @override
   final Object value;
-
-  @override
-  AnalyticsFilterType get type => AnalyticsFilterType.sdkUnknown;
 }
 
 class AnalyticsFilterRestXmlSerializer
@@ -187,11 +130,7 @@ class AnalyticsFilterRestXmlSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Prefix':
         return AnalyticsFilterPrefix((serializers.deserialize(
@@ -224,25 +163,21 @@ class AnalyticsFilterRestXmlSerializer
     (object as AnalyticsFilter);
     return [
       object.name,
-      object.when<Object?>(
-        prefix: (String prefix) => serializers.serialize(
-          prefix,
+      switch (object) {
+        AnalyticsFilterPrefix(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        tag: (_i2.Tag tag) => serializers.serialize(
-          tag,
+        AnalyticsFilterTag(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.Tag),
         ),
-        and: (_i3.AnalyticsAndOperator and) => serializers.serialize(
-          and,
+        AnalyticsFilterAnd(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.AnalyticsAndOperator),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        AnalyticsFilterSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

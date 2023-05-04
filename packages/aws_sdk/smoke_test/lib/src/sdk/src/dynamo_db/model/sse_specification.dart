@@ -103,31 +103,25 @@ class SseSpecificationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.enabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'SSEType':
-          if (value != null) {
-            result.sseType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SseType),
-            ) as _i2.SseType);
-          }
-          break;
+          result.sseType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SseType),
+          ) as _i2.SseType);
         case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,27 +136,28 @@ class SseSpecificationAwsJson10Serializer
   }) {
     final payload = (object as SseSpecification);
     final result = <Object?>[];
-    if (payload.enabled != null) {
+    final SseSpecification(:enabled, :sseType, :kmsMasterKeyId) = payload;
+    if (enabled != null) {
       result
         ..add('Enabled')
         ..add(serializers.serialize(
-          payload.enabled!,
+          enabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.sseType != null) {
+    if (sseType != null) {
       result
         ..add('SSEType')
         ..add(serializers.serialize(
-          payload.sseType!,
+          sseType,
           specifiedType: const FullType(_i2.SseType),
         ));
     }
-    if (payload.kmsMasterKeyId != null) {
+    if (kmsMasterKeyId != null) {
       result
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }

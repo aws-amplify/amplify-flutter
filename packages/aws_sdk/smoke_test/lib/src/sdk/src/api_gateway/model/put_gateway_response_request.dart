@@ -231,43 +231,37 @@ class PutGatewayResponseRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -284,11 +278,16 @@ class PutGatewayResponseRequestRestJson1Serializer
         ? object.getPayload()
         : (object as PutGatewayResponseRequestPayload);
     final result = <Object?>[];
-    if (payload.responseParameters != null) {
+    final PutGatewayResponseRequestPayload(
+      :responseParameters,
+      :responseTemplates,
+      :statusCode
+    ) = payload;
+    if (responseParameters != null) {
       result
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -298,11 +297,11 @@ class PutGatewayResponseRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
+    if (responseTemplates != null) {
       result
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -312,11 +311,11 @@ class PutGatewayResponseRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.statusCode != null) {
+    if (statusCode != null) {
       result
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }

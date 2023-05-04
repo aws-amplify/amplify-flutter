@@ -73,18 +73,18 @@ class RecordsEventRestXmlSerializer
     final result = RecordsEventBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Payload':
-          if (value != null) {
-            result.payload = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.payload = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
       }
     }
 
@@ -104,11 +104,12 @@ class RecordsEventRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.payload != null) {
+    final RecordsEvent(:payload) = payload;
+    if (payload != null) {
       result
         ..add(const _i3.XmlElementName('Payload'))
         ..add(serializers.serialize(
-          payload.payload!,
+          payload,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }

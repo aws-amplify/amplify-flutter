@@ -129,13 +129,15 @@ class GlobalSecondaryIndexAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -144,21 +146,16 @@ class GlobalSecondaryIndexAwsJson10Serializer
               [FullType(_i2.KeySchemaElement)],
             ),
           ) as _i5.BuiltList<_i2.KeySchemaElement>));
-          break;
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.Projection),
           ) as _i3.Projection));
-          break;
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ProvisionedThroughput),
-            ) as _i4.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisionedThroughput),
+          ) as _i4.ProvisionedThroughput));
       }
     }
 
@@ -192,11 +189,12 @@ class GlobalSecondaryIndexAwsJson10Serializer
         specifiedType: const FullType(_i3.Projection),
       ),
     ];
-    if (payload.provisionedThroughput != null) {
+    final GlobalSecondaryIndex(:provisionedThroughput) = payload;
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i4.ProvisionedThroughput),
         ));
     }

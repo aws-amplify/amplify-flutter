@@ -113,10 +113,13 @@ class ListSigningCertificatesResponseAwsQuerySerializer
     final result = ListSigningCertificatesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Certificates':
           result.certificates.replace((const _i4.XmlBuiltListSerializer(
                   indexer: _i4.XmlIndexer.awsQueryList)
@@ -128,23 +131,16 @@ class ListSigningCertificatesResponseAwsQuerySerializer
               [FullType(_i2.SigningCertificate)],
             ),
           ) as _i3.BuiltList<_i2.SigningCertificate>));
-          break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -164,31 +160,36 @@ class ListSigningCertificatesResponseAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ListSigningCertificatesResponse(
+      :certificates,
+      :isTruncated,
+      :marker
+    ) = payload;
     result
       ..add(const _i4.XmlElementName('Certificates'))
       ..add(
           const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.certificates,
+        certificates,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.SigningCertificate)],
         ),
       ));
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

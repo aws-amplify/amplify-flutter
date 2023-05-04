@@ -157,58 +157,43 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ContributorInsightsRuleList':
-          if (value != null) {
-            result.contributorInsightsRuleList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.contributorInsightsRuleList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'ContributorInsightsStatus':
-          if (value != null) {
-            result.contributorInsightsStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContributorInsightsStatus),
-            ) as _i2.ContributorInsightsStatus);
-          }
-          break;
+          result.contributorInsightsStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          ) as _i2.ContributorInsightsStatus);
         case 'LastUpdateDateTime':
-          if (value != null) {
-            result.lastUpdateDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'FailureException':
-          if (value != null) {
-            result.failureException.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.FailureException),
-            ) as _i3.FailureException));
-          }
-          break;
+          result.failureException.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.FailureException),
+          ) as _i3.FailureException));
       }
     }
 
@@ -223,54 +208,62 @@ class DescribeContributorInsightsOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeContributorInsightsOutput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final DescribeContributorInsightsOutput(
+      :tableName,
+      :indexName,
+      :contributorInsightsRuleList,
+      :contributorInsightsStatus,
+      :lastUpdateDateTime,
+      :failureException
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.indexName != null) {
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.contributorInsightsRuleList != null) {
+    if (contributorInsightsRuleList != null) {
       result
         ..add('ContributorInsightsRuleList')
         ..add(serializers.serialize(
-          payload.contributorInsightsRuleList!,
+          contributorInsightsRuleList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.contributorInsightsStatus != null) {
+    if (contributorInsightsStatus != null) {
       result
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
-          payload.contributorInsightsStatus!,
+          contributorInsightsStatus,
           specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }
-    if (payload.lastUpdateDateTime != null) {
+    if (lastUpdateDateTime != null) {
       result
         ..add('LastUpdateDateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateDateTime!,
+          lastUpdateDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.failureException != null) {
+    if (failureException != null) {
       result
         ..add('FailureException')
         ..add(serializers.serialize(
-          payload.failureException!,
+          failureException,
           specifiedType: const FullType(_i3.FailureException),
         ));
     }

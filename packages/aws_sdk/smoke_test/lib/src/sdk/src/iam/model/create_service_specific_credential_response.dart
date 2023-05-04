@@ -87,18 +87,18 @@ class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
     final result = CreateServiceSpecificCredentialResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServiceSpecificCredential':
-          if (value != null) {
-            result.serviceSpecificCredential.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ServiceSpecificCredential),
-            ) as _i2.ServiceSpecificCredential));
-          }
-          break;
+          result.serviceSpecificCredential.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ServiceSpecificCredential),
+          ) as _i2.ServiceSpecificCredential));
       }
     }
 
@@ -118,11 +118,13 @@ class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.serviceSpecificCredential != null) {
+    final CreateServiceSpecificCredentialResponse(:serviceSpecificCredential) =
+        payload;
+    if (serviceSpecificCredential != null) {
       result
         ..add(const _i3.XmlElementName('ServiceSpecificCredential'))
         ..add(serializers.serialize(
-          payload.serviceSpecificCredential!,
+          serviceSpecificCredential,
           specifiedType: const FullType(_i2.ServiceSpecificCredential),
         ));
     }

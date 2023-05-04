@@ -101,32 +101,29 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
     final result = DeletionTaskFailureReasonTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Reason':
-          if (value != null) {
-            result.reason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.reason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RoleUsageList':
-          if (value != null) {
-            result.roleUsageList.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RoleUsageType)],
-              ),
-            ) as _i3.BuiltList<_i2.RoleUsageType>));
-          }
-          break;
+          result.roleUsageList.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RoleUsageType)],
+            ),
+          ) as _i3.BuiltList<_i2.RoleUsageType>));
       }
     }
 
@@ -146,22 +143,23 @@ class DeletionTaskFailureReasonTypeAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.reason != null) {
+    final DeletionTaskFailureReasonType(:reason, :roleUsageList) = payload;
+    if (reason != null) {
       result
         ..add(const _i4.XmlElementName('Reason'))
         ..add(serializers.serialize(
-          payload.reason!,
+          reason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.roleUsageList != null) {
+    if (roleUsageList != null) {
       result
         ..add(const _i4.XmlElementName('RoleUsageList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.roleUsageList!,
+          roleUsageList,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.RoleUsageType)],

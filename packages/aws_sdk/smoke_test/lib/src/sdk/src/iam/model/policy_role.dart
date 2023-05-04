@@ -99,26 +99,23 @@ class PolicyRoleAwsQuerySerializer
     final result = PolicyRoleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RoleName':
-          if (value != null) {
-            result.roleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RoleId':
-          if (value != null) {
-            result.roleId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,19 +135,20 @@ class PolicyRoleAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.roleName != null) {
+    final PolicyRole(:roleName, :roleId) = payload;
+    if (roleName != null) {
       result
         ..add(const _i2.XmlElementName('RoleName'))
         ..add(serializers.serialize(
-          payload.roleName!,
+          roleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.roleId != null) {
+    if (roleId != null) {
       result
         ..add(const _i2.XmlElementName('RoleId'))
         ..add(serializers.serialize(
-          payload.roleId!,
+          roleId,
           specifiedType: const FullType(String),
         ));
     }

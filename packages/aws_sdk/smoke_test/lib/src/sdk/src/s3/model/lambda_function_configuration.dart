@@ -114,39 +114,33 @@ class LambdaFunctionConfigurationRestXmlSerializer
     final result = LambdaFunctionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Event':
           result.events.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.Event),
           ) as _i2.Event));
-          break;
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.NotificationConfigurationFilter),
-            ) as _i3.NotificationConfigurationFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.NotificationConfigurationFilter),
+          ) as _i3.NotificationConfigurationFilter));
         case 'Id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'CloudFunction':
-          result.lambdaFunctionArn = (serializers.deserialize(
-            value!,
+          result.id = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'CloudFunction':
+          result.lambdaFunctionArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -166,35 +160,41 @@ class LambdaFunctionConfigurationRestXmlSerializer
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final LambdaFunctionConfiguration(
+      :events,
+      :filter,
+      :id,
+      :lambdaFunctionArn
+    ) = payload;
     result
         .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
-      payload.events,
+      events,
       specifiedType: const FullType.nullable(
         _i4.BuiltList,
         [FullType(_i2.Event)],
       ),
     ));
-    if (payload.filter != null) {
+    if (filter != null) {
       result
         ..add(const _i5.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i3.NotificationConfigurationFilter),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i5.XmlElementName('Id'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i5.XmlElementName('CloudFunction'))
       ..add(serializers.serialize(
-        payload.lambdaFunctionArn,
+        lambdaFunctionArn,
         specifiedType: const FullType(String),
       ));
     return result;

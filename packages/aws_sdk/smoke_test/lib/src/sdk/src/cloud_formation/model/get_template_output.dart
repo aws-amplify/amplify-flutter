@@ -100,32 +100,29 @@ class GetTemplateOutputAwsQuerySerializer
     final result = GetTemplateOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StagesAvailable':
-          if (value != null) {
-            result.stagesAvailable.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.TemplateStage)],
-              ),
-            ) as _i3.BuiltList<_i2.TemplateStage>));
-          }
-          break;
+          result.stagesAvailable.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.TemplateStage)],
+            ),
+          ) as _i3.BuiltList<_i2.TemplateStage>));
       }
     }
 
@@ -145,22 +142,23 @@ class GetTemplateOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.templateBody != null) {
+    final GetTemplateOutput(:templateBody, :stagesAvailable) = payload;
+    if (templateBody != null) {
       result
         ..add(const _i4.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
-          payload.templateBody!,
+          templateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stagesAvailable != null) {
+    if (stagesAvailable != null) {
       result
         ..add(const _i4.XmlElementName('StagesAvailable'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.stagesAvailable!,
+          stagesAvailable,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.TemplateStage)],

@@ -172,26 +172,23 @@ class DeleteObjectsOutputRestXmlSerializer
     final result = DeleteObjectsOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Deleted':
-          if (value != null) {
-            result.deleted.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeletedObject),
-            ) as _i3.DeletedObject));
-          }
-          break;
+          result.deleted.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeletedObject),
+          ) as _i3.DeletedObject));
         case 'Error':
-          if (value != null) {
-            result.errors.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Error),
-            ) as _i5.Error));
-          }
-          break;
+          result.errors.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Error),
+          ) as _i5.Error));
       }
     }
 
@@ -213,22 +210,23 @@ class DeleteObjectsOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.deleted != null) {
+    final DeleteObjectsOutputPayload(:deleted, :errors) = payload;
+    if (deleted != null) {
       result.addAll(
           const _i2.XmlBuiltListSerializer(memberName: 'Deleted').serialize(
         serializers,
-        payload.deleted!,
+        deleted,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i3.DeletedObject)],
         ),
       ));
     }
-    if (payload.errors != null) {
+    if (errors != null) {
       result.addAll(
           const _i2.XmlBuiltListSerializer(memberName: 'Error').serialize(
         serializers,
-        payload.errors!,
+        errors,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i5.Error)],

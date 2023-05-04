@@ -83,16 +83,18 @@ class GetAccessKeyInfoRequestAwsQuerySerializer
     final result = GetAccessKeyInfoRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessKeyId':
           result.accessKeyId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -112,10 +114,11 @@ class GetAccessKeyInfoRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final GetAccessKeyInfoRequest(:accessKeyId) = payload;
     result
       ..add(const _i1.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
-        payload.accessKeyId,
+        accessKeyId,
         specifiedType: const FullType(String),
       ));
     return result;

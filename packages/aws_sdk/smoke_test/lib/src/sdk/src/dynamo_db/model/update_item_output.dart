@@ -124,37 +124,31 @@ class UpdateItemOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Attributes':
-          if (value != null) {
-            result.attributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.attributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ConsumedCapacity),
-            ) as _i3.ConsumedCapacity));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ConsumedCapacity),
+          ) as _i3.ConsumedCapacity));
         case 'ItemCollectionMetrics':
-          if (value != null) {
-            result.itemCollectionMetrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ItemCollectionMetrics),
-            ) as _i4.ItemCollectionMetrics));
-          }
-          break;
+          result.itemCollectionMetrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ItemCollectionMetrics),
+          ) as _i4.ItemCollectionMetrics));
       }
     }
 
@@ -169,11 +163,16 @@ class UpdateItemOutputAwsJson10Serializer
   }) {
     final payload = (object as UpdateItemOutput);
     final result = <Object?>[];
-    if (payload.attributes != null) {
+    final UpdateItemOutput(
+      :attributes,
+      :consumedCapacity,
+      :itemCollectionMetrics
+    ) = payload;
+    if (attributes != null) {
       result
         ..add('Attributes')
         ..add(serializers.serialize(
-          payload.attributes!,
+          attributes,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -183,19 +182,19 @@ class UpdateItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }
-    if (payload.itemCollectionMetrics != null) {
+    if (itemCollectionMetrics != null) {
       result
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.itemCollectionMetrics!,
+          itemCollectionMetrics,
           specifiedType: const FullType(_i4.ItemCollectionMetrics),
         ));
     }

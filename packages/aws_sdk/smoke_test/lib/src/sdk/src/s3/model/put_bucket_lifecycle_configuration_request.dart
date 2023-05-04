@@ -155,16 +155,18 @@ class PutBucketLifecycleConfigurationRequestRestXmlSerializer
     final result = _i2.BucketLifecycleConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.LifecycleRule),
           ) as _i5.LifecycleRule));
-          break;
       }
     }
 
@@ -189,10 +191,11 @@ class PutBucketLifecycleConfigurationRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
+    final _i2.BucketLifecycleConfiguration(:rules) = payload;
     result
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i6.BuiltList,
         [FullType(_i5.LifecycleRule)],

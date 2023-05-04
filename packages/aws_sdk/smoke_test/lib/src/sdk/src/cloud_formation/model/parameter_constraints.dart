@@ -76,24 +76,24 @@ class ParameterConstraintsAwsQuerySerializer
     final result = ParameterConstraintsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowedValues':
-          if (value != null) {
-            result.allowedValues.replace((const _i3.XmlBuiltListSerializer(
-                    indexer: _i3.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.allowedValues.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -113,14 +113,15 @@ class ParameterConstraintsAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.allowedValues != null) {
+    final ParameterConstraints(:allowedValues) = payload;
+    if (allowedValues != null) {
       result
         ..add(const _i3.XmlElementName('AllowedValues'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.allowedValues!,
+          allowedValues,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],

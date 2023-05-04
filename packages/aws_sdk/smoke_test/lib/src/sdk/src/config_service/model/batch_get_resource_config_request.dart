@@ -91,6 +91,9 @@ class BatchGetResourceConfigRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceKeys':
           result.resourceKeys.replace((serializers.deserialize(
@@ -100,7 +103,6 @@ class BatchGetResourceConfigRequestAwsJson11Serializer
               [FullType(_i3.ResourceKey)],
             ),
           ) as _i4.BuiltList<_i3.ResourceKey>));
-          break;
       }
     }
 

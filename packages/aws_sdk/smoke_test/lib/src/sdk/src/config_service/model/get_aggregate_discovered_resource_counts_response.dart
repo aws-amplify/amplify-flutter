@@ -130,40 +130,33 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TotalDiscoveredResources':
           result.totalDiscoveredResources = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Int64),
           ) as _i2.Int64);
-          break;
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'GroupedResourceCounts':
-          if (value != null) {
-            result.groupedResourceCounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.GroupedResourceCount)],
-              ),
-            ) as _i4.BuiltList<_i3.GroupedResourceCount>));
-          }
-          break;
+          result.groupedResourceCounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.GroupedResourceCount)],
+            ),
+          ) as _i4.BuiltList<_i3.GroupedResourceCount>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -184,30 +177,35 @@ class GetAggregateDiscoveredResourceCountsResponseAwsJson11Serializer
         specifiedType: const FullType(_i2.Int64),
       ),
     ];
-    if (payload.groupByKey != null) {
+    final GetAggregateDiscoveredResourceCountsResponse(
+      :groupByKey,
+      :groupedResourceCounts,
+      :nextToken
+    ) = payload;
+    if (groupByKey != null) {
       result
         ..add('GroupByKey')
         ..add(serializers.serialize(
-          payload.groupByKey!,
+          groupByKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.groupedResourceCounts != null) {
+    if (groupedResourceCounts != null) {
       result
         ..add('GroupedResourceCounts')
         ..add(serializers.serialize(
-          payload.groupedResourceCounts!,
+          groupedResourceCounts,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.GroupedResourceCount)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

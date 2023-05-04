@@ -160,63 +160,45 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'eventID':
-          if (value != null) {
-            result.eventId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eventId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'eventName':
-          if (value != null) {
-            result.eventName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.OperationType),
-            ) as _i2.OperationType);
-          }
-          break;
+          result.eventName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.OperationType),
+          ) as _i2.OperationType);
         case 'eventVersion':
-          if (value != null) {
-            result.eventVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eventVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'eventSource':
-          if (value != null) {
-            result.eventSource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eventSource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'awsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'dynamodb':
-          if (value != null) {
-            result.dynamodb.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StreamRecord),
-            ) as _i3.StreamRecord));
-          }
-          break;
+          result.dynamodb.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StreamRecord),
+          ) as _i3.StreamRecord));
         case 'userIdentity':
-          if (value != null) {
-            result.userIdentity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Identity),
-            ) as _i4.Identity));
-          }
-          break;
+          result.userIdentity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Identity),
+          ) as _i4.Identity));
       }
     }
 
@@ -231,59 +213,68 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
   }) {
     final payload = (object as Record);
     final result = <Object?>[];
-    if (payload.eventId != null) {
+    final Record(
+      :eventId,
+      :eventName,
+      :eventVersion,
+      :eventSource,
+      :awsRegion,
+      :dynamodb,
+      :userIdentity
+    ) = payload;
+    if (eventId != null) {
       result
         ..add('eventID')
         ..add(serializers.serialize(
-          payload.eventId!,
+          eventId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventName != null) {
+    if (eventName != null) {
       result
         ..add('eventName')
         ..add(serializers.serialize(
-          payload.eventName!,
+          eventName,
           specifiedType: const FullType(_i2.OperationType),
         ));
     }
-    if (payload.eventVersion != null) {
+    if (eventVersion != null) {
       result
         ..add('eventVersion')
         ..add(serializers.serialize(
-          payload.eventVersion!,
+          eventVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventSource != null) {
+    if (eventSource != null) {
       result
         ..add('eventSource')
         ..add(serializers.serialize(
-          payload.eventSource!,
+          eventSource,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsRegion != null) {
+    if (awsRegion != null) {
       result
         ..add('awsRegion')
         ..add(serializers.serialize(
-          payload.awsRegion!,
+          awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.dynamodb != null) {
+    if (dynamodb != null) {
       result
         ..add('dynamodb')
         ..add(serializers.serialize(
-          payload.dynamodb!,
+          dynamodb,
           specifiedType: const FullType(_i3.StreamRecord),
         ));
     }
-    if (payload.userIdentity != null) {
+    if (userIdentity != null) {
       result
         ..add('userIdentity')
         ..add(serializers.serialize(
-          payload.userIdentity!,
+          userIdentity,
           specifiedType: const FullType(_i4.Identity),
         ));
     }

@@ -102,34 +102,28 @@ class NoncurrentVersionTransitionRestXmlSerializer
     final result = NoncurrentVersionTransitionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'NewerNoncurrentVersions':
-          if (value != null) {
-            result.newerNoncurrentVersions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.newerNoncurrentVersions = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NoncurrentDays':
-          if (value != null) {
-            result.noncurrentDays = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.noncurrentDays = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TransitionStorageClass),
-            ) as _i2.TransitionStorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TransitionStorageClass),
+          ) as _i2.TransitionStorageClass);
       }
     }
 
@@ -149,27 +143,32 @@ class NoncurrentVersionTransitionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.newerNoncurrentVersions != null) {
+    final NoncurrentVersionTransition(
+      :newerNoncurrentVersions,
+      :noncurrentDays,
+      :storageClass
+    ) = payload;
+    if (newerNoncurrentVersions != null) {
       result
         ..add(const _i3.XmlElementName('NewerNoncurrentVersions'))
         ..add(serializers.serialize(
-          payload.newerNoncurrentVersions!,
+          newerNoncurrentVersions,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.noncurrentDays != null) {
+    if (noncurrentDays != null) {
       result
         ..add(const _i3.XmlElementName('NoncurrentDays'))
         ..add(serializers.serialize(
-          payload.noncurrentDays!,
+          noncurrentDays,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i3.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i2.TransitionStorageClass),
         ));
     }

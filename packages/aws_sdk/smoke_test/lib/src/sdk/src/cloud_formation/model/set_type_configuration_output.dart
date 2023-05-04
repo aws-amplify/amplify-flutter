@@ -80,18 +80,18 @@ class SetTypeConfigurationOutputAwsQuerySerializer
     final result = SetTypeConfigurationOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ConfigurationArn':
-          if (value != null) {
-            result.configurationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configurationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -111,11 +111,12 @@ class SetTypeConfigurationOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.configurationArn != null) {
+    final SetTypeConfigurationOutput(:configurationArn) = payload;
+    if (configurationArn != null) {
       result
         ..add(const _i2.XmlElementName('ConfigurationArn'))
         ..add(serializers.serialize(
-          payload.configurationArn!,
+          configurationArn,
           specifiedType: const FullType(String),
         ));
     }

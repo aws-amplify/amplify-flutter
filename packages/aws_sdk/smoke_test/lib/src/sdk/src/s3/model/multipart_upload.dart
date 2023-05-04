@@ -141,66 +141,48 @@ class MultipartUploadRestXmlSerializer
     final result = MultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChecksumAlgorithm':
-          if (value != null) {
-            result.checksumAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ChecksumAlgorithm),
-            ) as _i5.ChecksumAlgorithm);
-          }
-          break;
+          result.checksumAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ChecksumAlgorithm),
+          ) as _i5.ChecksumAlgorithm);
         case 'Initiated':
-          if (value != null) {
-            result.initiated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.initiated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Initiator':
-          if (value != null) {
-            result.initiator.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Initiator),
-            ) as _i4.Initiator));
-          }
-          break;
+          result.initiator.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Initiator),
+          ) as _i4.Initiator));
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Owner),
+          ) as _i3.Owner));
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StorageClass),
-            ) as _i2.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StorageClass),
+          ) as _i2.StorageClass);
         case 'UploadId':
-          if (value != null) {
-            result.uploadId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uploadId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -220,59 +202,68 @@ class MultipartUploadRestXmlSerializer
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksumAlgorithm != null) {
+    final MultipartUpload(
+      :checksumAlgorithm,
+      :initiated,
+      :initiator,
+      :key,
+      :owner,
+      :storageClass,
+      :uploadId
+    ) = payload;
+    if (checksumAlgorithm != null) {
       result
         ..add(const _i6.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
-          payload.checksumAlgorithm!,
+          checksumAlgorithm,
           specifiedType: const FullType.nullable(_i5.ChecksumAlgorithm),
         ));
     }
-    if (payload.initiated != null) {
+    if (initiated != null) {
       result
         ..add(const _i6.XmlElementName('Initiated'))
         ..add(serializers.serialize(
-          payload.initiated!,
+          initiated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.initiator != null) {
+    if (initiator != null) {
       result
         ..add(const _i6.XmlElementName('Initiator'))
         ..add(serializers.serialize(
-          payload.initiator!,
+          initiator,
           specifiedType: const FullType(_i4.Initiator),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i6.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.owner != null) {
+    if (owner != null) {
       result
         ..add(const _i6.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i6.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i2.StorageClass),
         ));
     }
-    if (payload.uploadId != null) {
+    if (uploadId != null) {
       result
         ..add(const _i6.XmlElementName('UploadId'))
         ..add(serializers.serialize(
-          payload.uploadId!,
+          uploadId,
           specifiedType: const FullType(String),
         ));
     }

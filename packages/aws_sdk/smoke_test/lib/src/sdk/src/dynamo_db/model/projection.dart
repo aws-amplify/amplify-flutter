@@ -102,26 +102,23 @@ class ProjectionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ProjectionType':
-          if (value != null) {
-            result.projectionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ProjectionType),
-            ) as _i2.ProjectionType);
-          }
-          break;
+          result.projectionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProjectionType),
+          ) as _i2.ProjectionType);
         case 'NonKeyAttributes':
-          if (value != null) {
-            result.nonKeyAttributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.nonKeyAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -136,19 +133,20 @@ class ProjectionAwsJson10Serializer
   }) {
     final payload = (object as Projection);
     final result = <Object?>[];
-    if (payload.projectionType != null) {
+    final Projection(:projectionType, :nonKeyAttributes) = payload;
+    if (projectionType != null) {
       result
         ..add('ProjectionType')
         ..add(serializers.serialize(
-          payload.projectionType!,
+          projectionType,
           specifiedType: const FullType(_i2.ProjectionType),
         ));
     }
-    if (payload.nonKeyAttributes != null) {
+    if (nonKeyAttributes != null) {
       result
         ..add('NonKeyAttributes')
         ..add(serializers.serialize(
-          payload.nonKeyAttributes!,
+          nonKeyAttributes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

@@ -89,23 +89,20 @@ class IdentityAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PrincipalId':
-          if (value != null) {
-            result.principalId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.principalId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -120,19 +117,20 @@ class IdentityAwsJson10Serializer
   }) {
     final payload = (object as Identity);
     final result = <Object?>[];
-    if (payload.principalId != null) {
+    final Identity(:principalId, :type) = payload;
+    if (principalId != null) {
       result
         ..add('PrincipalId')
         ..add(serializers.serialize(
-          payload.principalId!,
+          principalId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add('Type')
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType(String),
         ));
     }

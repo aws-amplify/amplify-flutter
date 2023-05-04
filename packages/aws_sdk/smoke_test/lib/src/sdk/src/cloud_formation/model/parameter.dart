@@ -107,42 +107,33 @@ class ParameterAwsQuerySerializer
     final result = ParameterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ParameterKey':
-          if (value != null) {
-            result.parameterKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parameterKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ParameterValue':
-          if (value != null) {
-            result.parameterValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parameterValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UsePreviousValue':
-          if (value != null) {
-            result.usePreviousValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.usePreviousValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ResolvedValue':
-          if (value != null) {
-            result.resolvedValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resolvedValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -162,35 +153,41 @@ class ParameterAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.parameterKey != null) {
+    final Parameter(
+      :parameterKey,
+      :parameterValue,
+      :usePreviousValue,
+      :resolvedValue
+    ) = payload;
+    if (parameterKey != null) {
       result
         ..add(const _i2.XmlElementName('ParameterKey'))
         ..add(serializers.serialize(
-          payload.parameterKey!,
+          parameterKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameterValue != null) {
+    if (parameterValue != null) {
       result
         ..add(const _i2.XmlElementName('ParameterValue'))
         ..add(serializers.serialize(
-          payload.parameterValue!,
+          parameterValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.usePreviousValue != null) {
+    if (usePreviousValue != null) {
       result
         ..add(const _i2.XmlElementName('UsePreviousValue'))
         ..add(serializers.serialize(
-          payload.usePreviousValue!,
+          usePreviousValue,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.resolvedValue != null) {
+    if (resolvedValue != null) {
       result
         ..add(const _i2.XmlElementName('ResolvedValue'))
         ..add(serializers.serialize(
-          payload.resolvedValue!,
+          resolvedValue,
           specifiedType: const FullType(String),
         ));
     }

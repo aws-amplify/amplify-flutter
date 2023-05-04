@@ -164,16 +164,18 @@ class PutBucketCorsRequestRestXmlSerializer
     final result = _i2.CorsConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CORSRule':
           result.corsRules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i5.CorsRule),
           ) as _i5.CorsRule));
-          break;
       }
     }
 
@@ -195,10 +197,11 @@ class PutBucketCorsRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final _i2.CorsConfiguration(:corsRules) = payload;
     result.addAll(
         const _i1.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
       serializers,
-      payload.corsRules,
+      corsRules,
       specifiedType: const FullType.nullable(
         _i6.BuiltList,
         [FullType(_i5.CorsRule)],

@@ -113,24 +113,23 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
     final result = ListPoliciesGrantingServiceAccessRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Arn':
-          result.arn = (serializers.deserialize(
-            value!,
+          result.marker = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Arn':
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ServiceNamespaces':
           result.serviceNamespaces.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -142,7 +141,6 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -162,18 +160,23 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.marker != null) {
+    final ListPoliciesGrantingServiceAccessRequest(
+      :marker,
+      :arn,
+      :serviceNamespaces
+    ) = payload;
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i1.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
@@ -182,7 +185,7 @@ class ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer extends _i1
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.serviceNamespaces,
+        serviceNamespaces,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

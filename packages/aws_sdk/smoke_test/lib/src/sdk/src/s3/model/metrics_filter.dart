@@ -9,32 +9,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/metrics_and_operator.dart'
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
-/// The discrete values of [MetricsFilter].
-enum MetricsFilterType<T extends MetricsFilter> {
-  /// The type for [MetricsFilterPrefix].
-  prefix<MetricsFilterPrefix>(r'Prefix'),
-
-  /// The type for [MetricsFilterTag].
-  tag<MetricsFilterTag>(r'Tag'),
-
-  /// The type for [MetricsFilterAccessPointArn].
-  accessPointArn<MetricsFilterAccessPointArn>(r'AccessPointArn'),
-
-  /// The type for [MetricsFilterAnd].
-  and<MetricsFilterAnd>(r'And'),
-
-  /// The type for an unknown value.
-  sdkUnknown<MetricsFilterSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [MetricsFilter].
-  const MetricsFilterType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// Specifies a metrics configuration filter. The metrics configuration only includes objects that meet the filter's criteria. A filter must be a prefix, an object tag, an access point ARN, or a conjunction (MetricsAndOperator). For more information, see [PutBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketMetricsConfiguration.html).
-abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
+sealed class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   const MetricsFilter._();
 
   const factory MetricsFilter.prefix(String prefix) = MetricsFilterPrefix;
@@ -67,39 +42,8 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
 
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
   _i3.MetricsAndOperator? get and => null;
-  MetricsFilterType get type;
   @override
   Object get value => (prefix ?? tag ?? accessPointArn ?? and)!;
-  @override
-  T? when<T>({
-    T Function(String)? prefix,
-    T Function(_i2.Tag)? tag,
-    T Function(String)? accessPointArn,
-    T Function(_i3.MetricsAndOperator)? and,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is MetricsFilterPrefix) {
-      return prefix?.call((this as MetricsFilterPrefix).prefix);
-    }
-    if (this is MetricsFilterTag) {
-      return tag?.call((this as MetricsFilterTag).tag);
-    }
-    if (this is MetricsFilterAccessPointArn) {
-      return accessPointArn
-          ?.call((this as MetricsFilterAccessPointArn).accessPointArn);
-    }
-    if (this is MetricsFilterAnd) {
-      return and?.call((this as MetricsFilterAnd).and);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'MetricsFilter');
@@ -131,55 +75,47 @@ abstract class MetricsFilter extends _i1.SmithyUnion<MetricsFilter> {
   }
 }
 
-class MetricsFilterPrefix extends MetricsFilter {
+final class MetricsFilterPrefix extends MetricsFilter {
   const MetricsFilterPrefix(this.prefix) : super._();
 
   @override
   final String prefix;
 
   @override
-  MetricsFilterType get type => MetricsFilterType.prefix;
-  @override
   String get name => 'Prefix';
 }
 
-class MetricsFilterTag extends MetricsFilter {
+final class MetricsFilterTag extends MetricsFilter {
   const MetricsFilterTag(this.tag) : super._();
 
   @override
   final _i2.Tag tag;
 
   @override
-  MetricsFilterType get type => MetricsFilterType.tag;
-  @override
   String get name => 'Tag';
 }
 
-class MetricsFilterAccessPointArn extends MetricsFilter {
+final class MetricsFilterAccessPointArn extends MetricsFilter {
   const MetricsFilterAccessPointArn(this.accessPointArn) : super._();
 
   @override
   final String accessPointArn;
 
   @override
-  MetricsFilterType get type => MetricsFilterType.accessPointArn;
-  @override
   String get name => 'AccessPointArn';
 }
 
-class MetricsFilterAnd extends MetricsFilter {
+final class MetricsFilterAnd extends MetricsFilter {
   const MetricsFilterAnd(this.and) : super._();
 
   @override
   final _i3.MetricsAndOperator and;
 
   @override
-  MetricsFilterType get type => MetricsFilterType.and;
-  @override
   String get name => 'And';
 }
 
-class MetricsFilterSdkUnknown extends MetricsFilter {
+final class MetricsFilterSdkUnknown extends MetricsFilter {
   const MetricsFilterSdkUnknown(
     this.name,
     this.value,
@@ -190,9 +126,6 @@ class MetricsFilterSdkUnknown extends MetricsFilter {
 
   @override
   final Object value;
-
-  @override
-  MetricsFilterType get type => MetricsFilterType.sdkUnknown;
 }
 
 class MetricsFilterRestXmlSerializer
@@ -220,11 +153,7 @@ class MetricsFilterRestXmlSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Prefix':
         return MetricsFilterPrefix((serializers.deserialize(
@@ -262,29 +191,25 @@ class MetricsFilterRestXmlSerializer
     (object as MetricsFilter);
     return [
       object.name,
-      object.when<Object?>(
-        prefix: (String prefix) => serializers.serialize(
-          prefix,
+      switch (object) {
+        MetricsFilterPrefix(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        tag: (_i2.Tag tag) => serializers.serialize(
-          tag,
+        MetricsFilterTag(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.Tag),
         ),
-        accessPointArn: (String accessPointArn) => serializers.serialize(
-          accessPointArn,
+        MetricsFilterAccessPointArn(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        and: (_i3.MetricsAndOperator and) => serializers.serialize(
-          and,
+        MetricsFilterAnd(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.MetricsAndOperator),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        MetricsFilterSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

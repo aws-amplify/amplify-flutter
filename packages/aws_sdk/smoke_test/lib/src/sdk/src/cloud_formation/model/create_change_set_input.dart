@@ -321,178 +321,134 @@ class CreateChangeSetInputAwsQuerySerializer
     final result = CreateChangeSetInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TemplateURL':
-          if (value != null) {
-            result.templateUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UsePreviousTemplate':
-          if (value != null) {
-            result.usePreviousTemplate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.usePreviousTemplate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(_i3.Parameter)],
-              ),
-            ) as _i9.BuiltList<_i3.Parameter>));
-          }
-          break;
+          result.parameters.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(_i3.Parameter)],
+            ),
+          ) as _i9.BuiltList<_i3.Parameter>));
         case 'Capabilities':
-          if (value != null) {
-            result.capabilities.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(_i4.Capability)],
-              ),
-            ) as _i9.BuiltList<_i4.Capability>));
-          }
-          break;
+          result.capabilities.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(_i4.Capability)],
+            ),
+          ) as _i9.BuiltList<_i4.Capability>));
         case 'ResourceTypes':
-          if (value != null) {
-            result.resourceTypes.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i9.BuiltList<String>));
-          }
-          break;
+          result.resourceTypes.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i9.BuiltList<String>));
         case 'RoleARN':
-          if (value != null) {
-            result.roleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RollbackConfiguration':
-          if (value != null) {
-            result.rollbackConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.RollbackConfiguration),
-            ) as _i5.RollbackConfiguration));
-          }
-          break;
+          result.rollbackConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.RollbackConfiguration),
+          ) as _i5.RollbackConfiguration));
         case 'NotificationARNs':
-          if (value != null) {
-            result.notificationArNs.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i9.BuiltList<String>));
-          }
-          break;
+          result.notificationArNs.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i9.BuiltList<String>));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(_i6.Tag)],
-              ),
-            ) as _i9.BuiltList<_i6.Tag>));
-          }
-          break;
+          result.tags.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(_i6.Tag)],
+            ),
+          ) as _i9.BuiltList<_i6.Tag>));
         case 'ChangeSetName':
           result.changeSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChangeSetType':
-          if (value != null) {
-            result.changeSetType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.ChangeSetType),
-            ) as _i7.ChangeSetType);
-          }
-          break;
+          result.changeSetType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.ChangeSetType),
+          ) as _i7.ChangeSetType);
         case 'ResourcesToImport':
-          if (value != null) {
-            result.resourcesToImport.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(_i8.ResourceToImport)],
-              ),
-            ) as _i9.BuiltList<_i8.ResourceToImport>));
-          }
-          break;
+          result.resourcesToImport.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(_i8.ResourceToImport)],
+            ),
+          ) as _i9.BuiltList<_i8.ResourceToImport>));
         case 'IncludeNestedStacks':
-          if (value != null) {
-            result.includeNestedStacks = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.includeNestedStacks = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -512,116 +468,135 @@ class CreateChangeSetInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final CreateChangeSetInput(
+      :stackName,
+      :templateBody,
+      :templateUrl,
+      :usePreviousTemplate,
+      :parameters,
+      :capabilities,
+      :resourceTypes,
+      :roleArn,
+      :rollbackConfiguration,
+      :notificationArNs,
+      :tags,
+      :changeSetName,
+      :clientToken,
+      :description,
+      :changeSetType,
+      :resourcesToImport,
+      :includeNestedStacks
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.templateBody != null) {
+    if (templateBody != null) {
       result
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
-          payload.templateBody!,
+          templateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.templateUrl != null) {
+    if (templateUrl != null) {
       result
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
-          payload.templateUrl!,
+          templateUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.usePreviousTemplate != null) {
+    if (usePreviousTemplate != null) {
       result
         ..add(const _i1.XmlElementName('UsePreviousTemplate'))
         ..add(serializers.serialize(
-          payload.usePreviousTemplate!,
+          usePreviousTemplate,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.parameters != null) {
+    if (parameters != null) {
       result
         ..add(const _i1.XmlElementName('Parameters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(_i3.Parameter)],
           ),
         ));
     }
-    if (payload.capabilities != null) {
+    if (capabilities != null) {
       result
         ..add(const _i1.XmlElementName('Capabilities'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.capabilities!,
+          capabilities,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(_i4.Capability)],
           ),
         ));
     }
-    if (payload.resourceTypes != null) {
+    if (resourceTypes != null) {
       result
         ..add(const _i1.XmlElementName('ResourceTypes'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourceTypes!,
+          resourceTypes,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.roleArn != null) {
+    if (roleArn != null) {
       result
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
-          payload.roleArn!,
+          roleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.rollbackConfiguration != null) {
+    if (rollbackConfiguration != null) {
       result
         ..add(const _i1.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
-          payload.rollbackConfiguration!,
+          rollbackConfiguration,
           specifiedType: const FullType(_i5.RollbackConfiguration),
         ));
     }
-    if (payload.notificationArNs != null) {
+    if (notificationArNs != null) {
       result
         ..add(const _i1.XmlElementName('NotificationARNs'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.notificationArNs!,
+          notificationArNs,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(_i6.Tag)],
@@ -631,52 +606,52 @@ class CreateChangeSetInputAwsQuerySerializer
     result
       ..add(const _i1.XmlElementName('ChangeSetName'))
       ..add(serializers.serialize(
-        payload.changeSetName,
+        changeSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.clientToken != null) {
+    if (clientToken != null) {
       result
         ..add(const _i1.XmlElementName('ClientToken'))
         ..add(serializers.serialize(
-          payload.clientToken!,
+          clientToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.changeSetType != null) {
+    if (changeSetType != null) {
       result
         ..add(const _i1.XmlElementName('ChangeSetType'))
         ..add(serializers.serialize(
-          payload.changeSetType!,
+          changeSetType,
           specifiedType: const FullType.nullable(_i7.ChangeSetType),
         ));
     }
-    if (payload.resourcesToImport != null) {
+    if (resourcesToImport != null) {
       result
         ..add(const _i1.XmlElementName('ResourcesToImport'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourcesToImport!,
+          resourcesToImport,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(_i8.ResourceToImport)],
           ),
         ));
     }
-    if (payload.includeNestedStacks != null) {
+    if (includeNestedStacks != null) {
       result
         ..add(const _i1.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
-          payload.includeNestedStacks!,
+          includeNestedStacks,
           specifiedType: const FullType.nullable(bool),
         ));
     }

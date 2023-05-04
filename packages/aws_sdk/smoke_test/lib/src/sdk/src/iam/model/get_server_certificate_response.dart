@@ -87,16 +87,18 @@ class GetServerCertificateResponseAwsQuerySerializer
     final result = GetServerCertificateResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServerCertificate':
           result.serverCertificate.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.ServerCertificate),
           ) as _i2.ServerCertificate));
-          break;
       }
     }
 
@@ -116,10 +118,11 @@ class GetServerCertificateResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetServerCertificateResponse(:serverCertificate) = payload;
     result
       ..add(const _i3.XmlElementName('ServerCertificate'))
       ..add(serializers.serialize(
-        payload.serverCertificate,
+        serverCertificate,
         specifiedType: const FullType(_i2.ServerCertificate),
       ));
     return result;

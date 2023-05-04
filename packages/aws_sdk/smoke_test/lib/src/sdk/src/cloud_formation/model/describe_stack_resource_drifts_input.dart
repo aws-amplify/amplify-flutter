@@ -134,47 +134,40 @@ class DescribeStackResourceDriftsInputAwsQuerySerializer
     final result = DescribeStackResourceDriftsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackResourceDriftStatusFilters':
-          if (value != null) {
-            result.stackResourceDriftStatusFilters.replace(
-                (const _i1.XmlBuiltListSerializer(
-                        indexer: _i1.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.StackResourceDriftStatus)],
-              ),
-            ) as _i4.BuiltList<_i3.StackResourceDriftStatus>));
-          }
-          break;
+          result.stackResourceDriftStatusFilters.replace(
+              (const _i1.XmlBuiltListSerializer(
+                      indexer: _i1.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.StackResourceDriftStatus)],
+            ),
+          ) as _i4.BuiltList<_i3.StackResourceDriftStatus>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -194,39 +187,45 @@ class DescribeStackResourceDriftsInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DescribeStackResourceDriftsInput(
+      :stackName,
+      :stackResourceDriftStatusFilters,
+      :nextToken,
+      :maxResults
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.stackResourceDriftStatusFilters != null) {
+    if (stackResourceDriftStatusFilters != null) {
       result
         ..add(const _i1.XmlElementName('StackResourceDriftStatusFilters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.stackResourceDriftStatusFilters!,
+          stackResourceDriftStatusFilters,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.StackResourceDriftStatus)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType.nullable(int),
         ));
     }

@@ -189,83 +189,58 @@ class ReplicaDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicaStatus':
-          if (value != null) {
-            result.replicaStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ReplicaStatus),
-            ) as _i2.ReplicaStatus);
-          }
-          break;
+          result.replicaStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ReplicaStatus),
+          ) as _i2.ReplicaStatus);
         case 'ReplicaStatusDescription':
-          if (value != null) {
-            result.replicaStatusDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaStatusDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicaStatusPercentProgress':
-          if (value != null) {
-            result.replicaStatusPercentProgress = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaStatusPercentProgress = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
-            ) as _i3.ProvisionedThroughputOverride));
-          }
-          break;
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
+          ) as _i3.ProvisionedThroughputOverride));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
-              ),
-            ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
+            ),
+          ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>));
         case 'ReplicaInaccessibleDateTime':
-          if (value != null) {
-            result.replicaInaccessibleDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.replicaInaccessibleDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ReplicaTableClassSummary':
-          if (value != null) {
-            result.replicaTableClassSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.TableClassSummary),
-            ) as _i5.TableClassSummary));
-          }
-          break;
+          result.replicaTableClassSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.TableClassSummary),
+          ) as _i5.TableClassSummary));
       }
     }
 
@@ -280,78 +255,89 @@ class ReplicaDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ReplicaDescription);
     final result = <Object?>[];
-    if (payload.regionName != null) {
+    final ReplicaDescription(
+      :regionName,
+      :replicaStatus,
+      :replicaStatusDescription,
+      :replicaStatusPercentProgress,
+      :kmsMasterKeyId,
+      :provisionedThroughputOverride,
+      :globalSecondaryIndexes,
+      :replicaInaccessibleDateTime,
+      :replicaTableClassSummary
+    ) = payload;
+    if (regionName != null) {
       result
         ..add('RegionName')
         ..add(serializers.serialize(
-          payload.regionName!,
+          regionName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replicaStatus != null) {
+    if (replicaStatus != null) {
       result
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
-          payload.replicaStatus!,
+          replicaStatus,
           specifiedType: const FullType(_i2.ReplicaStatus),
         ));
     }
-    if (payload.replicaStatusDescription != null) {
+    if (replicaStatusDescription != null) {
       result
         ..add('ReplicaStatusDescription')
         ..add(serializers.serialize(
-          payload.replicaStatusDescription!,
+          replicaStatusDescription,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replicaStatusPercentProgress != null) {
+    if (replicaStatusPercentProgress != null) {
       result
         ..add('ReplicaStatusPercentProgress')
         ..add(serializers.serialize(
-          payload.replicaStatusPercentProgress!,
+          replicaStatusPercentProgress,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.kmsMasterKeyId != null) {
+    if (kmsMasterKeyId != null) {
       result
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
+    if (provisionedThroughputOverride != null) {
       result
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
           ),
         ));
     }
-    if (payload.replicaInaccessibleDateTime != null) {
+    if (replicaInaccessibleDateTime != null) {
       result
         ..add('ReplicaInaccessibleDateTime')
         ..add(serializers.serialize(
-          payload.replicaInaccessibleDateTime!,
+          replicaInaccessibleDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.replicaTableClassSummary != null) {
+    if (replicaTableClassSummary != null) {
       result
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
-          payload.replicaTableClassSummary!,
+          replicaTableClassSummary,
           specifiedType: const FullType(_i5.TableClassSummary),
         ));
     }

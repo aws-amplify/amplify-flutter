@@ -125,39 +125,35 @@ class AggregateResourceIdentifierAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SourceAccountId':
           result.sourceAccountId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SourceRegion':
           result.sourceRegion = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceId':
           result.resourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ResourceType),
           ) as _i2.ResourceType);
-          break;
         case 'ResourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -193,11 +189,12 @@ class AggregateResourceIdentifierAwsJson11Serializer
         specifiedType: const FullType(_i2.ResourceType),
       ),
     ];
-    if (payload.resourceName != null) {
+    final AggregateResourceIdentifier(:resourceName) = payload;
+    if (resourceName != null) {
       result
         ..add('ResourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }

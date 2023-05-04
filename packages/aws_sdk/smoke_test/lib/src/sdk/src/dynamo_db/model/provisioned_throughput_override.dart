@@ -81,15 +81,15 @@ class ProvisionedThroughputOverrideAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ReadCapacityUnits':
-          if (value != null) {
-            result.readCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.readCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -104,11 +104,12 @@ class ProvisionedThroughputOverrideAwsJson10Serializer
   }) {
     final payload = (object as ProvisionedThroughputOverride);
     final result = <Object?>[];
-    if (payload.readCapacityUnits != null) {
+    final ProvisionedThroughputOverride(:readCapacityUnits) = payload;
+    if (readCapacityUnits != null) {
       result
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.readCapacityUnits!,
+          readCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }

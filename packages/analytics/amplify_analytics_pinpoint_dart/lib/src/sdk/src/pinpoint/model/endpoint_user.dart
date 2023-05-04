@@ -94,29 +94,26 @@ class EndpointUserRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'UserAttributes':
-          if (value != null) {
-            result.userAttributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.userAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltListMultimap<String, String>));
         case 'UserId':
-          if (value != null) {
-            result.userId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,11 +128,12 @@ class EndpointUserRestJson1Serializer
   }) {
     final payload = (object as EndpointUser);
     final result = <Object?>[];
-    if (payload.userAttributes != null) {
+    final EndpointUser(:userAttributes, :userId) = payload;
+    if (userAttributes != null) {
       result
         ..add('UserAttributes')
         ..add(serializers.serialize(
-          payload.userAttributes!,
+          userAttributes,
           specifiedType: const FullType(
             _i2.BuiltListMultimap,
             [
@@ -145,11 +143,11 @@ class EndpointUserRestJson1Serializer
           ),
         ));
     }
-    if (payload.userId != null) {
+    if (userId != null) {
       result
         ..add('UserId')
         ..add(serializers.serialize(
-          payload.userId!,
+          userId,
           specifiedType: const FullType(String),
         ));
     }

@@ -105,32 +105,28 @@ class UpdateRoleRequestAwsQuerySerializer
     final result = UpdateRoleRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RoleName':
           result.roleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxSessionDuration':
-          if (value != null) {
-            result.maxSessionDuration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxSessionDuration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -150,25 +146,27 @@ class UpdateRoleRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateRoleRequest(:roleName, :description, :maxSessionDuration) =
+        payload;
     result
       ..add(const _i1.XmlElementName('RoleName'))
       ..add(serializers.serialize(
-        payload.roleName,
+        roleName,
         specifiedType: const FullType(String),
       ));
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxSessionDuration != null) {
+    if (maxSessionDuration != null) {
       result
         ..add(const _i1.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
-          payload.maxSessionDuration!,
+          maxSessionDuration,
           specifiedType: const FullType.nullable(int),
         ));
     }

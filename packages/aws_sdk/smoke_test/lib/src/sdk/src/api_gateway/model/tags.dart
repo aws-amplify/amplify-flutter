@@ -80,21 +80,21 @@ class TagsRestJson1Serializer extends _i3.StructuredSmithySerializer<Tags> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i2.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -109,11 +109,12 @@ class TagsRestJson1Serializer extends _i3.StructuredSmithySerializer<Tags> {
   }) {
     final payload = (object as Tags);
     final result = <Object?>[];
-    if (payload.tags != null) {
+    final Tags(:tags) = payload;
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i2.BuiltMap,
             [

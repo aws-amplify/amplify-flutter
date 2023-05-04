@@ -104,24 +104,23 @@ class StackResourceDriftInformationAwsQuerySerializer
     final result = StackResourceDriftInformationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackResourceDriftStatus':
           result.stackResourceDriftStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.StackResourceDriftStatus),
           ) as _i2.StackResourceDriftStatus);
-          break;
         case 'LastCheckTimestamp':
-          if (value != null) {
-            result.lastCheckTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastCheckTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -141,17 +140,21 @@ class StackResourceDriftInformationAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final StackResourceDriftInformation(
+      :stackResourceDriftStatus,
+      :lastCheckTimestamp
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
-        payload.stackResourceDriftStatus,
+        stackResourceDriftStatus,
         specifiedType: const FullType.nullable(_i2.StackResourceDriftStatus),
       ));
-    if (payload.lastCheckTimestamp != null) {
+    if (lastCheckTimestamp != null) {
       result
         ..add(const _i3.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
-          payload.lastCheckTimestamp!,
+          lastCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

@@ -85,16 +85,18 @@ class DecodeAuthorizationMessageRequestAwsQuerySerializer
     final result = DecodeAuthorizationMessageRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EncodedMessage':
           result.encodedMessage = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -114,10 +116,11 @@ class DecodeAuthorizationMessageRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final DecodeAuthorizationMessageRequest(:encodedMessage) = payload;
     result
       ..add(const _i1.XmlElementName('EncodedMessage'))
       ..add(serializers.serialize(
-        payload.encodedMessage,
+        encodedMessage,
         specifiedType: const FullType(String),
       ));
     return result;

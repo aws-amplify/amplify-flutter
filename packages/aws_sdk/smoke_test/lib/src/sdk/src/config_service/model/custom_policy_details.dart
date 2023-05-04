@@ -101,27 +101,25 @@ class CustomPolicyDetailsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyRuntime':
           result.policyRuntime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyText':
           result.policyText = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'EnableDebugLogDelivery':
-          if (value != null) {
-            result.enableDebugLogDelivery = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.enableDebugLogDelivery = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -147,11 +145,12 @@ class CustomPolicyDetailsAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.enableDebugLogDelivery != null) {
+    final CustomPolicyDetails(:enableDebugLogDelivery) = payload;
+    if (enableDebugLogDelivery != null) {
       result
         ..add('EnableDebugLogDelivery')
         ..add(serializers.serialize(
-          payload.enableDebugLogDelivery!,
+          enableDebugLogDelivery,
           specifiedType: const FullType(bool),
         ));
     }

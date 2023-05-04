@@ -10,38 +10,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule_and_operator.dart
     as _i4;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
-/// The discrete values of [LifecycleRuleFilter].
-enum LifecycleRuleFilterType<T extends LifecycleRuleFilter> {
-  /// The type for [LifecycleRuleFilterPrefix].
-  prefix<LifecycleRuleFilterPrefix>(r'Prefix'),
-
-  /// The type for [LifecycleRuleFilterTag].
-  tag<LifecycleRuleFilterTag>(r'Tag'),
-
-  /// The type for [LifecycleRuleFilterObjectSizeGreaterThan].
-  objectSizeGreaterThan<LifecycleRuleFilterObjectSizeGreaterThan>(
-      r'ObjectSizeGreaterThan'),
-
-  /// The type for [LifecycleRuleFilterObjectSizeLessThan].
-  objectSizeLessThan<LifecycleRuleFilterObjectSizeLessThan>(
-      r'ObjectSizeLessThan'),
-
-  /// The type for [LifecycleRuleFilterAnd].
-  and<LifecycleRuleFilterAnd>(r'And'),
-
-  /// The type for an unknown value.
-  sdkUnknown<LifecycleRuleFilterSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [LifecycleRuleFilter].
-  const LifecycleRuleFilterType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// The `Filter` is used to identify objects that a Lifecycle Rule applies to. A `Filter` must have exactly one of `Prefix`, `Tag`, or `And` specified.
-abstract class LifecycleRuleFilter
-    extends _i1.SmithyUnion<LifecycleRuleFilter> {
+sealed class LifecycleRuleFilter extends _i1.SmithyUnion<LifecycleRuleFilter> {
   const LifecycleRuleFilter._();
 
   const factory LifecycleRuleFilter.prefix(String prefix) =
@@ -84,46 +53,9 @@ abstract class LifecycleRuleFilter
 
   /// This is used in a Lifecycle Rule Filter to apply a logical AND to two or more predicates. The Lifecycle Rule will apply to any object matching all of the predicates configured inside the And operator.
   _i4.LifecycleRuleAndOperator? get and => null;
-  LifecycleRuleFilterType get type;
   @override
   Object get value =>
       (prefix ?? tag ?? objectSizeGreaterThan ?? objectSizeLessThan ?? and)!;
-  @override
-  T? when<T>({
-    T Function(String)? prefix,
-    T Function(_i2.Tag)? tag,
-    T Function(_i3.Int64)? objectSizeGreaterThan,
-    T Function(_i3.Int64)? objectSizeLessThan,
-    T Function(_i4.LifecycleRuleAndOperator)? and,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is LifecycleRuleFilterPrefix) {
-      return prefix?.call((this as LifecycleRuleFilterPrefix).prefix);
-    }
-    if (this is LifecycleRuleFilterTag) {
-      return tag?.call((this as LifecycleRuleFilterTag).tag);
-    }
-    if (this is LifecycleRuleFilterObjectSizeGreaterThan) {
-      return objectSizeGreaterThan?.call(
-          (this as LifecycleRuleFilterObjectSizeGreaterThan)
-              .objectSizeGreaterThan);
-    }
-    if (this is LifecycleRuleFilterObjectSizeLessThan) {
-      return objectSizeLessThan?.call(
-          (this as LifecycleRuleFilterObjectSizeLessThan).objectSizeLessThan);
-    }
-    if (this is LifecycleRuleFilterAnd) {
-      return and?.call((this as LifecycleRuleFilterAnd).and);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'LifecycleRuleFilter');
@@ -161,31 +93,28 @@ abstract class LifecycleRuleFilter
   }
 }
 
-class LifecycleRuleFilterPrefix extends LifecycleRuleFilter {
+final class LifecycleRuleFilterPrefix extends LifecycleRuleFilter {
   const LifecycleRuleFilterPrefix(this.prefix) : super._();
 
   @override
   final String prefix;
 
   @override
-  LifecycleRuleFilterType get type => LifecycleRuleFilterType.prefix;
-  @override
   String get name => 'Prefix';
 }
 
-class LifecycleRuleFilterTag extends LifecycleRuleFilter {
+final class LifecycleRuleFilterTag extends LifecycleRuleFilter {
   const LifecycleRuleFilterTag(this.tag) : super._();
 
   @override
   final _i2.Tag tag;
 
   @override
-  LifecycleRuleFilterType get type => LifecycleRuleFilterType.tag;
-  @override
   String get name => 'Tag';
 }
 
-class LifecycleRuleFilterObjectSizeGreaterThan extends LifecycleRuleFilter {
+final class LifecycleRuleFilterObjectSizeGreaterThan
+    extends LifecycleRuleFilter {
   const LifecycleRuleFilterObjectSizeGreaterThan(this.objectSizeGreaterThan)
       : super._();
 
@@ -193,13 +122,10 @@ class LifecycleRuleFilterObjectSizeGreaterThan extends LifecycleRuleFilter {
   final _i3.Int64 objectSizeGreaterThan;
 
   @override
-  LifecycleRuleFilterType get type =>
-      LifecycleRuleFilterType.objectSizeGreaterThan;
-  @override
   String get name => 'ObjectSizeGreaterThan';
 }
 
-class LifecycleRuleFilterObjectSizeLessThan extends LifecycleRuleFilter {
+final class LifecycleRuleFilterObjectSizeLessThan extends LifecycleRuleFilter {
   const LifecycleRuleFilterObjectSizeLessThan(this.objectSizeLessThan)
       : super._();
 
@@ -207,25 +133,20 @@ class LifecycleRuleFilterObjectSizeLessThan extends LifecycleRuleFilter {
   final _i3.Int64 objectSizeLessThan;
 
   @override
-  LifecycleRuleFilterType get type =>
-      LifecycleRuleFilterType.objectSizeLessThan;
-  @override
   String get name => 'ObjectSizeLessThan';
 }
 
-class LifecycleRuleFilterAnd extends LifecycleRuleFilter {
+final class LifecycleRuleFilterAnd extends LifecycleRuleFilter {
   const LifecycleRuleFilterAnd(this.and) : super._();
 
   @override
   final _i4.LifecycleRuleAndOperator and;
 
   @override
-  LifecycleRuleFilterType get type => LifecycleRuleFilterType.and;
-  @override
   String get name => 'And';
 }
 
-class LifecycleRuleFilterSdkUnknown extends LifecycleRuleFilter {
+final class LifecycleRuleFilterSdkUnknown extends LifecycleRuleFilter {
   const LifecycleRuleFilterSdkUnknown(
     this.name,
     this.value,
@@ -236,9 +157,6 @@ class LifecycleRuleFilterSdkUnknown extends LifecycleRuleFilter {
 
   @override
   final Object value;
-
-  @override
-  LifecycleRuleFilterType get type => LifecycleRuleFilterType.sdkUnknown;
 }
 
 class LifecycleRuleFilterRestXmlSerializer
@@ -267,11 +185,7 @@ class LifecycleRuleFilterRestXmlSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Prefix':
         return LifecycleRuleFilterPrefix((serializers.deserialize(
@@ -315,35 +229,31 @@ class LifecycleRuleFilterRestXmlSerializer
     (object as LifecycleRuleFilter);
     return [
       object.name,
-      object.when<Object?>(
-        prefix: (String prefix) => serializers.serialize(
-          prefix,
+      switch (object) {
+        LifecycleRuleFilterPrefix(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        tag: (_i2.Tag tag) => serializers.serialize(
-          tag,
+        LifecycleRuleFilterTag(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.Tag),
         ),
-        objectSizeGreaterThan: (_i3.Int64 objectSizeGreaterThan) =>
-            serializers.serialize(
-          objectSizeGreaterThan,
+        LifecycleRuleFilterObjectSizeGreaterThan(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.Int64),
         ),
-        objectSizeLessThan: (_i3.Int64 objectSizeLessThan) =>
-            serializers.serialize(
-          objectSizeLessThan,
+        LifecycleRuleFilterObjectSizeLessThan(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.Int64),
         ),
-        and: (_i4.LifecycleRuleAndOperator and) => serializers.serialize(
-          and,
+        LifecycleRuleFilterAnd(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i4.LifecycleRuleAndOperator),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        LifecycleRuleFilterSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

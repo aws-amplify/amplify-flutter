@@ -76,15 +76,15 @@ class TlsConfigRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'insecureSkipVerification':
-          if (value != null) {
-            result.insecureSkipVerification = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.insecureSkipVerification = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -99,11 +99,12 @@ class TlsConfigRestJson1Serializer
   }) {
     final payload = (object as TlsConfig);
     final result = <Object?>[];
-    if (payload.insecureSkipVerification != null) {
+    final TlsConfig(:insecureSkipVerification) = payload;
+    if (insecureSkipVerification != null) {
       result
         ..add('insecureSkipVerification')
         ..add(serializers.serialize(
-          payload.insecureSkipVerification!,
+          insecureSkipVerification,
           specifiedType: const FullType(bool),
         ));
     }

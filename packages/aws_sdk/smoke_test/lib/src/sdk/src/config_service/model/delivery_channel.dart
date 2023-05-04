@@ -136,57 +136,41 @@ class DeliveryChannelAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3BucketName':
-          if (value != null) {
-            result.s3BucketName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3BucketName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3KeyPrefix':
-          if (value != null) {
-            result.s3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3KmsKeyArn':
-          if (value != null) {
-            result.s3KmsKeyArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3KmsKeyArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'snsTopicARN':
-          if (value != null) {
-            result.snsTopicArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.snsTopicArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'configSnapshotDeliveryProperties':
-          if (value != null) {
-            result.configSnapshotDeliveryProperties
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.ConfigSnapshotDeliveryProperties),
-            ) as _i2.ConfigSnapshotDeliveryProperties));
-          }
-          break;
+          result.configSnapshotDeliveryProperties
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
+          ) as _i2.ConfigSnapshotDeliveryProperties));
       }
     }
 
@@ -201,51 +185,59 @@ class DeliveryChannelAwsJson11Serializer
   }) {
     final payload = (object as DeliveryChannel);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final DeliveryChannel(
+      :name,
+      :s3BucketName,
+      :s3KeyPrefix,
+      :s3KmsKeyArn,
+      :snsTopicArn,
+      :configSnapshotDeliveryProperties
+    ) = payload;
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3BucketName != null) {
+    if (s3BucketName != null) {
       result
         ..add('s3BucketName')
         ..add(serializers.serialize(
-          payload.s3BucketName!,
+          s3BucketName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3KeyPrefix != null) {
+    if (s3KeyPrefix != null) {
       result
         ..add('s3KeyPrefix')
         ..add(serializers.serialize(
-          payload.s3KeyPrefix!,
+          s3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3KmsKeyArn != null) {
+    if (s3KmsKeyArn != null) {
       result
         ..add('s3KmsKeyArn')
         ..add(serializers.serialize(
-          payload.s3KmsKeyArn!,
+          s3KmsKeyArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.snsTopicArn != null) {
+    if (snsTopicArn != null) {
       result
         ..add('snsTopicARN')
         ..add(serializers.serialize(
-          payload.snsTopicArn!,
+          snsTopicArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configSnapshotDeliveryProperties != null) {
+    if (configSnapshotDeliveryProperties != null) {
       result
         ..add('configSnapshotDeliveryProperties')
         ..add(serializers.serialize(
-          payload.configSnapshotDeliveryProperties!,
+          configSnapshotDeliveryProperties,
           specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
         ));
     }

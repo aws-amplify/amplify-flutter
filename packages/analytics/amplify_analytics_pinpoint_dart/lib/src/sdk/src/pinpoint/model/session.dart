@@ -112,33 +112,30 @@ class SessionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Duration':
           result.duration = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StartTimestamp':
           result.startTimestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StopTimestamp':
-          if (value != null) {
-            result.stopTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stopTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -169,11 +166,12 @@ class SessionRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.stopTimestamp != null) {
+    final Session(:stopTimestamp) = payload;
+    if (stopTimestamp != null) {
       result
         ..add('StopTimestamp')
         ..add(serializers.serialize(
-          payload.stopTimestamp!,
+          stopTimestamp,
           specifiedType: const FullType(String),
         ));
     }

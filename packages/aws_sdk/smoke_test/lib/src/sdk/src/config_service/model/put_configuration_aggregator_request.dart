@@ -131,44 +131,36 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AccountAggregationSources':
-          if (value != null) {
-            result.accountAggregationSources.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.AccountAggregationSource)],
-              ),
-            ) as _i6.BuiltList<_i3.AccountAggregationSource>));
-          }
-          break;
+          result.accountAggregationSources.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.AccountAggregationSource)],
+            ),
+          ) as _i6.BuiltList<_i3.AccountAggregationSource>));
         case 'OrganizationAggregationSource':
-          if (value != null) {
-            result.organizationAggregationSource
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.OrganizationAggregationSource),
-            ) as _i4.OrganizationAggregationSource));
-          }
-          break;
+          result.organizationAggregationSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.OrganizationAggregationSource),
+          ) as _i4.OrganizationAggregationSource));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.Tag)],
-              ),
-            ) as _i6.BuiltList<_i5.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.Tag)],
+            ),
+          ) as _i6.BuiltList<_i5.Tag>));
       }
     }
 
@@ -189,30 +181,35 @@ class PutConfigurationAggregatorRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.accountAggregationSources != null) {
+    final PutConfigurationAggregatorRequest(
+      :accountAggregationSources,
+      :organizationAggregationSource,
+      :tags
+    ) = payload;
+    if (accountAggregationSources != null) {
       result
         ..add('AccountAggregationSources')
         ..add(serializers.serialize(
-          payload.accountAggregationSources!,
+          accountAggregationSources,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.AccountAggregationSource)],
           ),
         ));
     }
-    if (payload.organizationAggregationSource != null) {
+    if (organizationAggregationSource != null) {
       result
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
-          payload.organizationAggregationSource!,
+          organizationAggregationSource,
           specifiedType: const FullType(_i4.OrganizationAggregationSource),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i5.Tag)],

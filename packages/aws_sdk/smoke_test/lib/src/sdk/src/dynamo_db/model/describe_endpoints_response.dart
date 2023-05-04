@@ -83,6 +83,9 @@ class DescribeEndpointsResponseAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Endpoints':
           result.endpoints.replace((serializers.deserialize(
@@ -92,7 +95,6 @@ class DescribeEndpointsResponseAwsJson10Serializer
               [FullType(_i2.Endpoint)],
             ),
           ) as _i3.BuiltList<_i2.Endpoint>));
-          break;
       }
     }
 

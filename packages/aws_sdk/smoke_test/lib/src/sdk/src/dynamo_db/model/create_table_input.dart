@@ -290,6 +290,9 @@ class CreateTableInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeDefinitions':
           result.attributeDefinitions.replace((serializers.deserialize(
@@ -299,13 +302,11 @@ class CreateTableInputAwsJson10Serializer
               [FullType(_i3.AttributeDefinition)],
             ),
           ) as _i13.BuiltList<_i3.AttributeDefinition>));
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -314,80 +315,55 @@ class CreateTableInputAwsJson10Serializer
               [FullType(_i4.KeySchemaElement)],
             ),
           ) as _i13.BuiltList<_i4.KeySchemaElement>));
-          break;
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i5.LocalSecondaryIndex)],
-              ),
-            ) as _i13.BuiltList<_i5.LocalSecondaryIndex>));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i5.LocalSecondaryIndex)],
+            ),
+          ) as _i13.BuiltList<_i5.LocalSecondaryIndex>));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i6.GlobalSecondaryIndex)],
-              ),
-            ) as _i13.BuiltList<_i6.GlobalSecondaryIndex>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i6.GlobalSecondaryIndex)],
+            ),
+          ) as _i13.BuiltList<_i6.GlobalSecondaryIndex>));
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.BillingMode),
-            ) as _i7.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.BillingMode),
+          ) as _i7.BillingMode);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.ProvisionedThroughput),
-            ) as _i8.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.ProvisionedThroughput),
+          ) as _i8.ProvisionedThroughput));
         case 'StreamSpecification':
-          if (value != null) {
-            result.streamSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.StreamSpecification),
-            ) as _i9.StreamSpecification));
-          }
-          break;
+          result.streamSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.StreamSpecification),
+          ) as _i9.StreamSpecification));
         case 'SSESpecification':
-          if (value != null) {
-            result.sseSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.SseSpecification),
-            ) as _i10.SseSpecification));
-          }
-          break;
+          result.sseSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.SseSpecification),
+          ) as _i10.SseSpecification));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i13.BuiltList,
-                [FullType(_i11.Tag)],
-              ),
-            ) as _i13.BuiltList<_i11.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i13.BuiltList,
+              [FullType(_i11.Tag)],
+            ),
+          ) as _i13.BuiltList<_i11.Tag>));
         case 'TableClass':
-          if (value != null) {
-            result.tableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i12.TableClass),
-            ) as _i12.TableClass);
-          }
-          break;
+          result.tableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i12.TableClass),
+          ) as _i12.TableClass);
       }
     }
 
@@ -424,76 +400,86 @@ class CreateTableInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.localSecondaryIndexes != null) {
+    final CreateTableInput(
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes,
+      :billingMode,
+      :provisionedThroughput,
+      :streamSpecification,
+      :sseSpecification,
+      :tags,
+      :tableClass
+    ) = payload;
+    if (localSecondaryIndexes != null) {
       result
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i13.BuiltList,
             [FullType(_i5.LocalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i13.BuiltList,
             [FullType(_i6.GlobalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.billingMode != null) {
+    if (billingMode != null) {
       result
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i7.BillingMode),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i8.ProvisionedThroughput),
         ));
     }
-    if (payload.streamSpecification != null) {
+    if (streamSpecification != null) {
       result
         ..add('StreamSpecification')
         ..add(serializers.serialize(
-          payload.streamSpecification!,
+          streamSpecification,
           specifiedType: const FullType(_i9.StreamSpecification),
         ));
     }
-    if (payload.sseSpecification != null) {
+    if (sseSpecification != null) {
       result
         ..add('SSESpecification')
         ..add(serializers.serialize(
-          payload.sseSpecification!,
+          sseSpecification,
           specifiedType: const FullType(_i10.SseSpecification),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i13.BuiltList,
             [FullType(_i11.Tag)],
           ),
         ));
     }
-    if (payload.tableClass != null) {
+    if (tableClass != null) {
       result
         ..add('TableClass')
         ..add(serializers.serialize(
-          payload.tableClass!,
+          tableClass,
           specifiedType: const FullType(_i12.TableClass),
         ));
     }

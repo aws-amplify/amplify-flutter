@@ -112,42 +112,33 @@ class InputSerializationRestXmlSerializer
     final result = InputSerializationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CompressionType':
-          if (value != null) {
-            result.compressionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CompressionType),
-            ) as _i3.CompressionType);
-          }
-          break;
+          result.compressionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CompressionType),
+          ) as _i3.CompressionType);
         case 'CSV':
-          if (value != null) {
-            result.csv.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CsvInput),
-            ) as _i2.CsvInput));
-          }
-          break;
+          result.csv.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CsvInput),
+          ) as _i2.CsvInput));
         case 'JSON':
-          if (value != null) {
-            result.json.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.JsonInput),
-            ) as _i4.JsonInput));
-          }
-          break;
+          result.json.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.JsonInput),
+          ) as _i4.JsonInput));
         case 'Parquet':
-          if (value != null) {
-            result.parquet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ParquetInput),
-            ) as _i5.ParquetInput));
-          }
-          break;
+          result.parquet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ParquetInput),
+          ) as _i5.ParquetInput));
       }
     }
 
@@ -167,35 +158,36 @@ class InputSerializationRestXmlSerializer
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.compressionType != null) {
+    final InputSerialization(:compressionType, :csv, :json, :parquet) = payload;
+    if (compressionType != null) {
       result
         ..add(const _i6.XmlElementName('CompressionType'))
         ..add(serializers.serialize(
-          payload.compressionType!,
+          compressionType,
           specifiedType: const FullType.nullable(_i3.CompressionType),
         ));
     }
-    if (payload.csv != null) {
+    if (csv != null) {
       result
         ..add(const _i6.XmlElementName('CSV'))
         ..add(serializers.serialize(
-          payload.csv!,
+          csv,
           specifiedType: const FullType(_i2.CsvInput),
         ));
     }
-    if (payload.json != null) {
+    if (json != null) {
       result
         ..add(const _i6.XmlElementName('JSON'))
         ..add(serializers.serialize(
-          payload.json!,
+          json,
           specifiedType: const FullType(_i4.JsonInput),
         ));
     }
-    if (payload.parquet != null) {
+    if (parquet != null) {
       result
         ..add(const _i6.XmlElementName('Parquet'))
         ..add(serializers.serialize(
-          payload.parquet!,
+          parquet,
           specifiedType: const FullType(_i5.ParquetInput),
         ));
     }

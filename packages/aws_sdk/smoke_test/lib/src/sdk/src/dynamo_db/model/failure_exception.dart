@@ -90,23 +90,20 @@ class FailureExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExceptionName':
-          if (value != null) {
-            result.exceptionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exceptionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExceptionDescription':
-          if (value != null) {
-            result.exceptionDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exceptionDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,19 +118,20 @@ class FailureExceptionAwsJson10Serializer
   }) {
     final payload = (object as FailureException);
     final result = <Object?>[];
-    if (payload.exceptionName != null) {
+    final FailureException(:exceptionName, :exceptionDescription) = payload;
+    if (exceptionName != null) {
       result
         ..add('ExceptionName')
         ..add(serializers.serialize(
-          payload.exceptionName!,
+          exceptionName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exceptionDescription != null) {
+    if (exceptionDescription != null) {
       result
         ..add('ExceptionDescription')
         ..add(serializers.serialize(
-          payload.exceptionDescription!,
+          exceptionDescription,
           specifiedType: const FullType(String),
         ));
     }

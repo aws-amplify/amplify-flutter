@@ -87,15 +87,15 @@ class DeliverConfigSnapshotResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'configSnapshotId':
-          if (value != null) {
-            result.configSnapshotId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configSnapshotId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -110,11 +110,12 @@ class DeliverConfigSnapshotResponseAwsJson11Serializer
   }) {
     final payload = (object as DeliverConfigSnapshotResponse);
     final result = <Object?>[];
-    if (payload.configSnapshotId != null) {
+    final DeliverConfigSnapshotResponse(:configSnapshotId) = payload;
+    if (configSnapshotId != null) {
       result
         ..add('configSnapshotId')
         ..add(serializers.serialize(
-          payload.configSnapshotId!,
+          configSnapshotId,
           specifiedType: const FullType(String),
         ));
     }

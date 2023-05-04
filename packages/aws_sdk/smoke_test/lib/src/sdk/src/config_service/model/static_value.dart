@@ -75,6 +75,9 @@ class StaticValueAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Values':
           result.values.replace((serializers.deserialize(
@@ -84,7 +87,6 @@ class StaticValueAwsJson11Serializer
               [FullType(String)],
             ),
           ) as _i2.BuiltList<String>));
-          break;
       }
     }
 

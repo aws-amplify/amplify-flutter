@@ -102,31 +102,25 @@ class ComplianceSummaryAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CompliantResourceCount':
-          if (value != null) {
-            result.compliantResourceCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceContributorCount),
-            ) as _i2.ComplianceContributorCount));
-          }
-          break;
+          result.compliantResourceCount.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceContributorCount),
+          ) as _i2.ComplianceContributorCount));
         case 'NonCompliantResourceCount':
-          if (value != null) {
-            result.nonCompliantResourceCount.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceContributorCount),
-            ) as _i2.ComplianceContributorCount));
-          }
-          break;
+          result.nonCompliantResourceCount.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceContributorCount),
+          ) as _i2.ComplianceContributorCount));
         case 'ComplianceSummaryTimestamp':
-          if (value != null) {
-            result.complianceSummaryTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.complianceSummaryTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -141,27 +135,32 @@ class ComplianceSummaryAwsJson11Serializer
   }) {
     final payload = (object as ComplianceSummary);
     final result = <Object?>[];
-    if (payload.compliantResourceCount != null) {
+    final ComplianceSummary(
+      :compliantResourceCount,
+      :nonCompliantResourceCount,
+      :complianceSummaryTimestamp
+    ) = payload;
+    if (compliantResourceCount != null) {
       result
         ..add('CompliantResourceCount')
         ..add(serializers.serialize(
-          payload.compliantResourceCount!,
+          compliantResourceCount,
           specifiedType: const FullType(_i2.ComplianceContributorCount),
         ));
     }
-    if (payload.nonCompliantResourceCount != null) {
+    if (nonCompliantResourceCount != null) {
       result
         ..add('NonCompliantResourceCount')
         ..add(serializers.serialize(
-          payload.nonCompliantResourceCount!,
+          nonCompliantResourceCount,
           specifiedType: const FullType(_i2.ComplianceContributorCount),
         ));
     }
-    if (payload.complianceSummaryTimestamp != null) {
+    if (complianceSummaryTimestamp != null) {
       result
         ..add('ComplianceSummaryTimestamp')
         ..add(serializers.serialize(
-          payload.complianceSummaryTimestamp!,
+          complianceSummaryTimestamp,
           specifiedType: const FullType(DateTime),
         ));
     }

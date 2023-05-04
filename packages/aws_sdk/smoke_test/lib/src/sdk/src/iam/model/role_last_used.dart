@@ -95,26 +95,23 @@ class RoleLastUsedAwsQuerySerializer
     final result = RoleLastUsedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LastUsedDate':
-          if (value != null) {
-            result.lastUsedDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUsedDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,19 +131,20 @@ class RoleLastUsedAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.lastUsedDate != null) {
+    final RoleLastUsed(:lastUsedDate, :region) = payload;
+    if (lastUsedDate != null) {
       result
         ..add(const _i2.XmlElementName('LastUsedDate'))
         ..add(serializers.serialize(
-          payload.lastUsedDate!,
+          lastUsedDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }

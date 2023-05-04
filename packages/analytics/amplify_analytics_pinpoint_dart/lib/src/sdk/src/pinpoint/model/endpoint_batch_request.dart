@@ -79,6 +79,9 @@ class EndpointBatchRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Item':
           result.item.replace((serializers.deserialize(
@@ -88,7 +91,6 @@ class EndpointBatchRequestRestJson1Serializer
               [FullType(_i2.EndpointBatchItem)],
             ),
           ) as _i3.BuiltList<_i2.EndpointBatchItem>));
-          break;
       }
     }
 

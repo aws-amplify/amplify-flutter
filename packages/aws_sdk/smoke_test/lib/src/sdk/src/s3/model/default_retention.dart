@@ -111,34 +111,28 @@ class DefaultRetentionRestXmlSerializer
     final result = DefaultRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectLockRetentionMode),
-            ) as _i2.ObjectLockRetentionMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectLockRetentionMode),
+          ) as _i2.ObjectLockRetentionMode);
         case 'Years':
-          if (value != null) {
-            result.years = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.years = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -158,27 +152,28 @@ class DefaultRetentionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.days != null) {
+    final DefaultRetention(:days, :mode, :years) = payload;
+    if (days != null) {
       result
         ..add(const _i3.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.mode != null) {
+    if (mode != null) {
       result
         ..add(const _i3.XmlElementName('Mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
         ));
     }
-    if (payload.years != null) {
+    if (years != null) {
       result
         ..add(const _i3.XmlElementName('Years'))
         ..add(serializers.serialize(
-          payload.years!,
+          years,
           specifiedType: const FullType.nullable(int),
         ));
     }

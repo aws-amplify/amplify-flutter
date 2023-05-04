@@ -132,59 +132,47 @@ class GatewayResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'defaultResponse':
-          if (value != null) {
-            result.defaultResponse = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.defaultResponse = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'responseType':
-          if (value != null) {
-            result.responseType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.GatewayResponseType),
-            ) as _i2.GatewayResponseType);
-          }
-          break;
+          result.responseType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.GatewayResponseType),
+          ) as _i2.GatewayResponseType);
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -199,19 +187,26 @@ class GatewayResponseRestJson1Serializer
   }) {
     final payload = (object as GatewayResponse);
     final result = <Object?>[];
-    if (payload.defaultResponse != null) {
+    final GatewayResponse(
+      :defaultResponse,
+      :responseParameters,
+      :responseTemplates,
+      :responseType,
+      :statusCode
+    ) = payload;
+    if (defaultResponse != null) {
       result
         ..add('defaultResponse')
         ..add(serializers.serialize(
-          payload.defaultResponse!,
+          defaultResponse,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.responseParameters != null) {
+    if (responseParameters != null) {
       result
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -221,11 +216,11 @@ class GatewayResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
+    if (responseTemplates != null) {
       result
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -235,19 +230,19 @@ class GatewayResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseType != null) {
+    if (responseType != null) {
       result
         ..add('responseType')
         ..add(serializers.serialize(
-          payload.responseType!,
+          responseType,
           specifiedType: const FullType(_i2.GatewayResponseType),
         ));
     }
-    if (payload.statusCode != null) {
+    if (statusCode != null) {
       result
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }

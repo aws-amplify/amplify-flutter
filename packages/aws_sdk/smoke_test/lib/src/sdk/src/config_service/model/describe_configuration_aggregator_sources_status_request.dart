@@ -134,40 +134,33 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UpdateStatus':
-          if (value != null) {
-            result.updateStatus.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AggregatedSourceStatusType)],
-              ),
-            ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
-          }
-          break;
+          result.updateStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AggregatedSourceStatusType)],
+            ),
+          ) as _i4.BuiltList<_i3.AggregatedSourceStatusType>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -189,30 +182,35 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.updateStatus != null) {
+    final DescribeConfigurationAggregatorSourcesStatusRequest(
+      :updateStatus,
+      :nextToken,
+      :limit
+    ) = payload;
+    if (updateStatus != null) {
       result
         ..add('UpdateStatus')
         ..add(serializers.serialize(
-          payload.updateStatus!,
+          updateStatus,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.AggregatedSourceStatusType)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }

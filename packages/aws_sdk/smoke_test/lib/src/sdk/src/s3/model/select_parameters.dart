@@ -112,34 +112,33 @@ class SelectParametersRestXmlSerializer
     final result = SelectParametersBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Expression':
           result.expression = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ExpressionType':
           result.expressionType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ExpressionType),
           ) as _i3.ExpressionType);
-          break;
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.InputSerialization),
           ) as _i2.InputSerialization));
-          break;
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.OutputSerialization),
           ) as _i4.OutputSerialization));
-          break;
       }
     }
 
@@ -159,28 +158,34 @@ class SelectParametersRestXmlSerializer
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final SelectParameters(
+      :expression,
+      :expressionType,
+      :inputSerialization,
+      :outputSerialization
+    ) = payload;
     result
       ..add(const _i5.XmlElementName('Expression'))
       ..add(serializers.serialize(
-        payload.expression,
+        expression,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
-        payload.expressionType,
+        expressionType,
         specifiedType: const FullType.nullable(_i3.ExpressionType),
       ));
     result
       ..add(const _i5.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
-        payload.inputSerialization,
+        inputSerialization,
         specifiedType: const FullType(_i2.InputSerialization),
       ));
     result
       ..add(const _i5.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
-        payload.outputSerialization,
+        outputSerialization,
         specifiedType: const FullType(_i4.OutputSerialization),
       ));
     return result;

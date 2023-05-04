@@ -102,26 +102,23 @@ class ListStoredQueriesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StoredQueryMetadata':
-          if (value != null) {
-            result.storedQueryMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.StoredQueryMetadata)],
-              ),
-            ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
-          }
-          break;
+          result.storedQueryMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.StoredQueryMetadata)],
+            ),
+          ) as _i3.BuiltList<_i2.StoredQueryMetadata>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -136,22 +133,23 @@ class ListStoredQueriesResponseAwsJson11Serializer
   }) {
     final payload = (object as ListStoredQueriesResponse);
     final result = <Object?>[];
-    if (payload.storedQueryMetadata != null) {
+    final ListStoredQueriesResponse(:storedQueryMetadata, :nextToken) = payload;
+    if (storedQueryMetadata != null) {
       result
         ..add('StoredQueryMetadata')
         ..add(serializers.serialize(
-          payload.storedQueryMetadata!,
+          storedQueryMetadata,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.StoredQueryMetadata)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

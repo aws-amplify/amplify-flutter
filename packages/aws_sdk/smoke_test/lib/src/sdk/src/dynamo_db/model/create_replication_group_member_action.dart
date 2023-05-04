@@ -134,49 +134,38 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
           result.regionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KMSMasterKeyId':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
-            ) as _i2.ProvisionedThroughputOverride));
-          }
-          break;
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          ) as _i2.ProvisionedThroughputOverride));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.ReplicaGlobalSecondaryIndex)],
-              ),
-            ) as _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.ReplicaGlobalSecondaryIndex)],
+            ),
+          ) as _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>));
         case 'TableClassOverride':
-          if (value != null) {
-            result.tableClassOverride = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TableClass),
-            ) as _i4.TableClass);
-          }
-          break;
+          result.tableClassOverride = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TableClass),
+          ) as _i4.TableClass);
       }
     }
 
@@ -197,38 +186,44 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.kmsMasterKeyId != null) {
+    final CreateReplicationGroupMemberAction(
+      :kmsMasterKeyId,
+      :provisionedThroughputOverride,
+      :globalSecondaryIndexes,
+      :tableClassOverride
+    ) = payload;
+    if (kmsMasterKeyId != null) {
       result
         ..add('KMSMasterKeyId')
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
+    if (provisionedThroughputOverride != null) {
       result
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.ReplicaGlobalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.tableClassOverride != null) {
+    if (tableClassOverride != null) {
       result
         ..add('TableClassOverride')
         ..add(serializers.serialize(
-          payload.tableClassOverride!,
+          tableClassOverride,
           specifiedType: const FullType(_i4.TableClass),
         ));
     }

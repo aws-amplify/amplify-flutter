@@ -114,6 +114,9 @@ class BatchExecuteStatementInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Statements':
           result.statements.replace((serializers.deserialize(
@@ -123,15 +126,11 @@ class BatchExecuteStatementInputAwsJson10Serializer
               [FullType(_i3.BatchStatementRequest)],
             ),
           ) as _i5.BuiltList<_i3.BatchStatementRequest>));
-          break;
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
       }
     }
 
@@ -155,11 +154,12 @@ class BatchExecuteStatementInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.returnConsumedCapacity != null) {
+    final BatchExecuteStatementInput(:returnConsumedCapacity) = payload;
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }

@@ -82,15 +82,15 @@ class GetStoredQueryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StoredQuery':
-          if (value != null) {
-            result.storedQuery.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StoredQuery),
-            ) as _i2.StoredQuery));
-          }
-          break;
+          result.storedQuery.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StoredQuery),
+          ) as _i2.StoredQuery));
       }
     }
 
@@ -105,11 +105,12 @@ class GetStoredQueryResponseAwsJson11Serializer
   }) {
     final payload = (object as GetStoredQueryResponse);
     final result = <Object?>[];
-    if (payload.storedQuery != null) {
+    final GetStoredQueryResponse(:storedQuery) = payload;
+    if (storedQuery != null) {
       result
         ..add('StoredQuery')
         ..add(serializers.serialize(
-          payload.storedQuery!,
+          storedQuery,
           specifiedType: const FullType(_i2.StoredQuery),
         ));
     }

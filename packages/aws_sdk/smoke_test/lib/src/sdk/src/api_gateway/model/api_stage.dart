@@ -102,37 +102,31 @@ class ApiStageRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiId':
-          if (value != null) {
-            result.apiId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.apiId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stage':
-          if (value != null) {
-            result.stage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'throttle':
-          if (value != null) {
-            result.throttle.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.ThrottleSettings),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.ThrottleSettings>));
-          }
-          break;
+          result.throttle.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.ThrottleSettings),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.ThrottleSettings>));
       }
     }
 
@@ -147,27 +141,28 @@ class ApiStageRestJson1Serializer
   }) {
     final payload = (object as ApiStage);
     final result = <Object?>[];
-    if (payload.apiId != null) {
+    final ApiStage(:apiId, :stage, :throttle) = payload;
+    if (apiId != null) {
       result
         ..add('apiId')
         ..add(serializers.serialize(
-          payload.apiId!,
+          apiId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stage != null) {
+    if (stage != null) {
       result
         ..add('stage')
         ..add(serializers.serialize(
-          payload.stage!,
+          stage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.throttle != null) {
+    if (throttle != null) {
       result
         ..add('throttle')
         ..add(serializers.serialize(
-          payload.throttle!,
+          throttle,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

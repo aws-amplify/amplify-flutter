@@ -212,38 +212,34 @@ class CreateStackInstancesInputAwsQuerySerializer
     final result = CreateStackInstancesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
           result.stackSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Accounts':
-          if (value != null) {
-            result.accounts.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i7.BuiltList<String>));
-          }
-          break;
+          result.accounts.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i7.BuiltList<String>));
         case 'DeploymentTargets':
-          if (value != null) {
-            result.deploymentTargets.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeploymentTargets),
-            ) as _i3.DeploymentTargets));
-          }
-          break;
+          result.deploymentTargets.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeploymentTargets),
+          ) as _i3.DeploymentTargets));
         case 'Regions':
           result.regions.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -255,45 +251,32 @@ class CreateStackInstancesInputAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i7.BuiltList<String>));
-          break;
         case 'ParameterOverrides':
-          if (value != null) {
-            result.parameterOverrides.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i4.Parameter)],
-              ),
-            ) as _i7.BuiltList<_i4.Parameter>));
-          }
-          break;
+          result.parameterOverrides.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i4.Parameter)],
+            ),
+          ) as _i7.BuiltList<_i4.Parameter>));
         case 'OperationPreferences':
-          if (value != null) {
-            result.operationPreferences.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.StackSetOperationPreferences),
-            ) as _i5.StackSetOperationPreferences));
-          }
-          break;
+          result.operationPreferences.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.StackSetOperationPreferences),
+          ) as _i5.StackSetOperationPreferences));
         case 'OperationId':
-          if (value != null) {
-            result.operationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.CallAs),
-            ) as _i6.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.CallAs),
+          ) as _i6.CallAs);
       }
     }
 
@@ -313,31 +296,41 @@ class CreateStackInstancesInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final CreateStackInstancesInput(
+      :stackSetName,
+      :accounts,
+      :deploymentTargets,
+      :regions,
+      :parameterOverrides,
+      :operationPreferences,
+      :operationId,
+      :callAs
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
-        payload.stackSetName,
+        stackSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.accounts != null) {
+    if (accounts != null) {
       result
         ..add(const _i1.XmlElementName('Accounts'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.accounts!,
+          accounts,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.deploymentTargets != null) {
+    if (deploymentTargets != null) {
       result
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
-          payload.deploymentTargets!,
+          deploymentTargets,
           specifiedType: const FullType(_i3.DeploymentTargets),
         ));
     }
@@ -347,47 +340,47 @@ class CreateStackInstancesInputAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.regions,
+        regions,
         specifiedType: const FullType.nullable(
           _i7.BuiltList,
           [FullType(String)],
         ),
       ));
-    if (payload.parameterOverrides != null) {
+    if (parameterOverrides != null) {
       result
         ..add(const _i1.XmlElementName('ParameterOverrides'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.parameterOverrides!,
+          parameterOverrides,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i4.Parameter)],
           ),
         ));
     }
-    if (payload.operationPreferences != null) {
+    if (operationPreferences != null) {
       result
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
-          payload.operationPreferences!,
+          operationPreferences,
           specifiedType: const FullType(_i5.StackSetOperationPreferences),
         ));
     }
-    if (payload.operationId != null) {
+    if (operationId != null) {
       result
         ..add(const _i1.XmlElementName('OperationId'))
         ..add(serializers.serialize(
-          payload.operationId!,
+          operationId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i6.CallAs),
         ));
     }

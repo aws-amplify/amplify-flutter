@@ -77,18 +77,18 @@ class CreateStackSetOutputAwsQuerySerializer
     final result = CreateStackSetOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetId':
-          if (value != null) {
-            result.stackSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -108,11 +108,12 @@ class CreateStackSetOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackSetId != null) {
+    final CreateStackSetOutput(:stackSetId) = payload;
+    if (stackSetId != null) {
       result
         ..add(const _i2.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
-          payload.stackSetId!,
+          stackSetId,
           specifiedType: const FullType(String),
         ));
     }

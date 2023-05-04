@@ -220,116 +220,81 @@ class CreateDomainNameRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'certificateArn':
-          if (value != null) {
-            result.certificateArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'certificateBody':
-          if (value != null) {
-            result.certificateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'certificateChain':
-          if (value != null) {
-            result.certificateChain = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'certificateName':
-          if (value != null) {
-            result.certificateName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'certificatePrivateKey':
-          if (value != null) {
-            result.certificatePrivateKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'domainName':
-          result.domainName = (serializers.deserialize(
-            value!,
+          result.certificateArn = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'certificateBody':
+          result.certificateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'certificateChain':
+          result.certificateChain = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'certificateName':
+          result.certificateName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'certificatePrivateKey':
+          result.certificatePrivateKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'domainName':
+          result.domainName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'endpointConfiguration':
-          if (value != null) {
-            result.endpointConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EndpointConfiguration),
-            ) as _i3.EndpointConfiguration));
-          }
-          break;
+          result.endpointConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EndpointConfiguration),
+          ) as _i3.EndpointConfiguration));
         case 'mutualTlsAuthentication':
-          if (value != null) {
-            result.mutualTlsAuthentication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.MutualTlsAuthenticationInput),
-            ) as _i5.MutualTlsAuthenticationInput));
-          }
-          break;
+          result.mutualTlsAuthentication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.MutualTlsAuthenticationInput),
+          ) as _i5.MutualTlsAuthenticationInput));
         case 'ownershipVerificationCertificateArn':
-          if (value != null) {
-            result.ownershipVerificationCertificateArn =
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.ownershipVerificationCertificateArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalCertificateArn':
-          if (value != null) {
-            result.regionalCertificateArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalCertificateArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalCertificateName':
-          if (value != null) {
-            result.regionalCertificateName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalCertificateName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'securityPolicy':
-          if (value != null) {
-            result.securityPolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SecurityPolicy),
-            ) as _i4.SecurityPolicy);
-          }
-          break;
+          result.securityPolicy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SecurityPolicy),
+          ) as _i4.SecurityPolicy);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
       }
     }
 
@@ -350,99 +315,113 @@ class CreateDomainNameRequestRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.certificateArn != null) {
+    final CreateDomainNameRequest(
+      :certificateArn,
+      :certificateBody,
+      :certificateChain,
+      :certificateName,
+      :certificatePrivateKey,
+      :endpointConfiguration,
+      :mutualTlsAuthentication,
+      :ownershipVerificationCertificateArn,
+      :regionalCertificateArn,
+      :regionalCertificateName,
+      :securityPolicy,
+      :tags
+    ) = payload;
+    if (certificateArn != null) {
       result
         ..add('certificateArn')
         ..add(serializers.serialize(
-          payload.certificateArn!,
+          certificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificateBody != null) {
+    if (certificateBody != null) {
       result
         ..add('certificateBody')
         ..add(serializers.serialize(
-          payload.certificateBody!,
+          certificateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificateChain != null) {
+    if (certificateChain != null) {
       result
         ..add('certificateChain')
         ..add(serializers.serialize(
-          payload.certificateChain!,
+          certificateChain,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificateName != null) {
+    if (certificateName != null) {
       result
         ..add('certificateName')
         ..add(serializers.serialize(
-          payload.certificateName!,
+          certificateName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificatePrivateKey != null) {
+    if (certificatePrivateKey != null) {
       result
         ..add('certificatePrivateKey')
         ..add(serializers.serialize(
-          payload.certificatePrivateKey!,
+          certificatePrivateKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.endpointConfiguration != null) {
+    if (endpointConfiguration != null) {
       result
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
-          payload.endpointConfiguration!,
+          endpointConfiguration,
           specifiedType: const FullType(_i3.EndpointConfiguration),
         ));
     }
-    if (payload.mutualTlsAuthentication != null) {
+    if (mutualTlsAuthentication != null) {
       result
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
-          payload.mutualTlsAuthentication!,
+          mutualTlsAuthentication,
           specifiedType: const FullType(_i5.MutualTlsAuthenticationInput),
         ));
     }
-    if (payload.ownershipVerificationCertificateArn != null) {
+    if (ownershipVerificationCertificateArn != null) {
       result
         ..add('ownershipVerificationCertificateArn')
         ..add(serializers.serialize(
-          payload.ownershipVerificationCertificateArn!,
+          ownershipVerificationCertificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalCertificateArn != null) {
+    if (regionalCertificateArn != null) {
       result
         ..add('regionalCertificateArn')
         ..add(serializers.serialize(
-          payload.regionalCertificateArn!,
+          regionalCertificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalCertificateName != null) {
+    if (regionalCertificateName != null) {
       result
         ..add('regionalCertificateName')
         ..add(serializers.serialize(
-          payload.regionalCertificateName!,
+          regionalCertificateName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.securityPolicy != null) {
+    if (securityPolicy != null) {
       result
         ..add('securityPolicy')
         ..add(serializers.serialize(
-          payload.securityPolicy!,
+          securityPolicy,
           specifiedType: const FullType(_i4.SecurityPolicy),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [

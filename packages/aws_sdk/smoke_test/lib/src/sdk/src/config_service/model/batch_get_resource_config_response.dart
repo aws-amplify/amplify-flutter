@@ -109,29 +109,26 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'baseConfigurationItems':
-          if (value != null) {
-            result.baseConfigurationItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.BaseConfigurationItem)],
-              ),
-            ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
-          }
-          break;
+          result.baseConfigurationItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.BaseConfigurationItem)],
+            ),
+          ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
         case 'unprocessedResourceKeys':
-          if (value != null) {
-            result.unprocessedResourceKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ResourceKey)],
-              ),
-            ) as _i4.BuiltList<_i3.ResourceKey>));
-          }
-          break;
+          result.unprocessedResourceKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ResourceKey)],
+            ),
+          ) as _i4.BuiltList<_i3.ResourceKey>));
       }
     }
 
@@ -146,22 +143,26 @@ class BatchGetResourceConfigResponseAwsJson11Serializer
   }) {
     final payload = (object as BatchGetResourceConfigResponse);
     final result = <Object?>[];
-    if (payload.baseConfigurationItems != null) {
+    final BatchGetResourceConfigResponse(
+      :baseConfigurationItems,
+      :unprocessedResourceKeys
+    ) = payload;
+    if (baseConfigurationItems != null) {
       result
         ..add('baseConfigurationItems')
         ..add(serializers.serialize(
-          payload.baseConfigurationItems!,
+          baseConfigurationItems,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.BaseConfigurationItem)],
           ),
         ));
     }
-    if (payload.unprocessedResourceKeys != null) {
+    if (unprocessedResourceKeys != null) {
       result
         ..add('unprocessedResourceKeys')
         ..add(serializers.serialize(
-          payload.unprocessedResourceKeys!,
+          unprocessedResourceKeys,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ResourceKey)],

@@ -100,26 +100,23 @@ class DeploymentsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'item':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Deployment)],
-              ),
-            ) as _i3.BuiltList<_i2.Deployment>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Deployment)],
+            ),
+          ) as _i3.BuiltList<_i2.Deployment>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,22 +131,23 @@ class DeploymentsRestJson1Serializer
   }) {
     final payload = (object as Deployments);
     final result = <Object?>[];
-    if (payload.items != null) {
+    final Deployments(:items, :position) = payload;
+    if (items != null) {
       result
         ..add('item')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Deployment)],
           ),
         ));
     }
-    if (payload.position != null) {
+    if (position != null) {
       result
         ..add('position')
         ..add(serializers.serialize(
-          payload.position!,
+          position,
           specifiedType: const FullType(String),
         ));
     }

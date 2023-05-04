@@ -79,16 +79,18 @@ class GetPolicyRequestAwsQuerySerializer
     final result = GetPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyArn':
           result.policyArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -108,10 +110,11 @@ class GetPolicyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetPolicyRequest(:policyArn) = payload;
     result
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
-        payload.policyArn,
+        policyArn,
         specifiedType: const FullType(String),
       ));
     return result;

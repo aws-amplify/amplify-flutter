@@ -127,47 +127,35 @@ class ProvisionedThroughputDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'LastIncreaseDateTime':
-          if (value != null) {
-            result.lastIncreaseDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastIncreaseDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastDecreaseDateTime':
-          if (value != null) {
-            result.lastDecreaseDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDecreaseDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'NumberOfDecreasesToday':
-          if (value != null) {
-            result.numberOfDecreasesToday = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.numberOfDecreasesToday = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ReadCapacityUnits':
-          if (value != null) {
-            result.readCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.readCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'WriteCapacityUnits':
-          if (value != null) {
-            result.writeCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.writeCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -182,43 +170,50 @@ class ProvisionedThroughputDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ProvisionedThroughputDescription);
     final result = <Object?>[];
-    if (payload.lastIncreaseDateTime != null) {
+    final ProvisionedThroughputDescription(
+      :lastIncreaseDateTime,
+      :lastDecreaseDateTime,
+      :numberOfDecreasesToday,
+      :readCapacityUnits,
+      :writeCapacityUnits
+    ) = payload;
+    if (lastIncreaseDateTime != null) {
       result
         ..add('LastIncreaseDateTime')
         ..add(serializers.serialize(
-          payload.lastIncreaseDateTime!,
+          lastIncreaseDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastDecreaseDateTime != null) {
+    if (lastDecreaseDateTime != null) {
       result
         ..add('LastDecreaseDateTime')
         ..add(serializers.serialize(
-          payload.lastDecreaseDateTime!,
+          lastDecreaseDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.numberOfDecreasesToday != null) {
+    if (numberOfDecreasesToday != null) {
       result
         ..add('NumberOfDecreasesToday')
         ..add(serializers.serialize(
-          payload.numberOfDecreasesToday!,
+          numberOfDecreasesToday,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.readCapacityUnits != null) {
+    if (readCapacityUnits != null) {
       result
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.readCapacityUnits!,
+          readCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.writeCapacityUnits != null) {
+    if (writeCapacityUnits != null) {
       result
         ..add('WriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.writeCapacityUnits!,
+          writeCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }

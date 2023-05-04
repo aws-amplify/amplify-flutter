@@ -88,15 +88,15 @@ class PutRetentionConfigurationResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RetentionConfiguration':
-          if (value != null) {
-            result.retentionConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RetentionConfiguration),
-            ) as _i2.RetentionConfiguration));
-          }
-          break;
+          result.retentionConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RetentionConfiguration),
+          ) as _i2.RetentionConfiguration));
       }
     }
 
@@ -111,11 +111,12 @@ class PutRetentionConfigurationResponseAwsJson11Serializer
   }) {
     final payload = (object as PutRetentionConfigurationResponse);
     final result = <Object?>[];
-    if (payload.retentionConfiguration != null) {
+    final PutRetentionConfigurationResponse(:retentionConfiguration) = payload;
+    if (retentionConfiguration != null) {
       result
         ..add('RetentionConfiguration')
         ..add(serializers.serialize(
-          payload.retentionConfiguration!,
+          retentionConfiguration,
           specifiedType: const FullType(_i2.RetentionConfiguration),
         ));
     }

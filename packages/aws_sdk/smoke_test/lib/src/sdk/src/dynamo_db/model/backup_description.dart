@@ -106,31 +106,25 @@ class BackupDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupDetails':
-          if (value != null) {
-            result.backupDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BackupDetails),
-            ) as _i2.BackupDetails));
-          }
-          break;
+          result.backupDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BackupDetails),
+          ) as _i2.BackupDetails));
         case 'SourceTableDetails':
-          if (value != null) {
-            result.sourceTableDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SourceTableDetails),
-            ) as _i3.SourceTableDetails));
-          }
-          break;
+          result.sourceTableDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.SourceTableDetails),
+          ) as _i3.SourceTableDetails));
         case 'SourceTableFeatureDetails':
-          if (value != null) {
-            result.sourceTableFeatureDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SourceTableFeatureDetails),
-            ) as _i4.SourceTableFeatureDetails));
-          }
-          break;
+          result.sourceTableFeatureDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SourceTableFeatureDetails),
+          ) as _i4.SourceTableFeatureDetails));
       }
     }
 
@@ -145,27 +139,32 @@ class BackupDescriptionAwsJson10Serializer
   }) {
     final payload = (object as BackupDescription);
     final result = <Object?>[];
-    if (payload.backupDetails != null) {
+    final BackupDescription(
+      :backupDetails,
+      :sourceTableDetails,
+      :sourceTableFeatureDetails
+    ) = payload;
+    if (backupDetails != null) {
       result
         ..add('BackupDetails')
         ..add(serializers.serialize(
-          payload.backupDetails!,
+          backupDetails,
           specifiedType: const FullType(_i2.BackupDetails),
         ));
     }
-    if (payload.sourceTableDetails != null) {
+    if (sourceTableDetails != null) {
       result
         ..add('SourceTableDetails')
         ..add(serializers.serialize(
-          payload.sourceTableDetails!,
+          sourceTableDetails,
           specifiedType: const FullType(_i3.SourceTableDetails),
         ));
     }
-    if (payload.sourceTableFeatureDetails != null) {
+    if (sourceTableFeatureDetails != null) {
       result
         ..add('SourceTableFeatureDetails')
         ..add(serializers.serialize(
-          payload.sourceTableFeatureDetails!,
+          sourceTableFeatureDetails,
           specifiedType: const FullType(_i4.SourceTableFeatureDetails),
         ));
     }

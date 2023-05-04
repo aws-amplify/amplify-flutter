@@ -115,32 +115,28 @@ class PutEvaluationsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Evaluations':
-          if (value != null) {
-            result.evaluations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Evaluation)],
-              ),
-            ) as _i4.BuiltList<_i3.Evaluation>));
-          }
-          break;
+          result.evaluations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Evaluation)],
+            ),
+          ) as _i4.BuiltList<_i3.Evaluation>));
         case 'ResultToken':
           result.resultToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TestMode':
-          if (value != null) {
-            result.testMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.testMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -161,22 +157,23 @@ class PutEvaluationsRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.evaluations != null) {
+    final PutEvaluationsRequest(:evaluations, :testMode) = payload;
+    if (evaluations != null) {
       result
         ..add('Evaluations')
         ..add(serializers.serialize(
-          payload.evaluations!,
+          evaluations,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.Evaluation)],
           ),
         ));
     }
-    if (payload.testMode != null) {
+    if (testMode != null) {
       result
         ..add('TestMode')
         ..add(serializers.serialize(
-          payload.testMode!,
+          testMode,
           specifiedType: const FullType(bool),
         ));
     }

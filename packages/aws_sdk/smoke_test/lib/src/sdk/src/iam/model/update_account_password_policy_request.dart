@@ -192,82 +192,58 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
     final result = UpdateAccountPasswordPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MinimumPasswordLength':
-          if (value != null) {
-            result.minimumPasswordLength = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minimumPasswordLength = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'RequireSymbols':
-          if (value != null) {
-            result.requireSymbols = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.requireSymbols = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RequireNumbers':
-          if (value != null) {
-            result.requireNumbers = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.requireNumbers = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RequireUppercaseCharacters':
-          if (value != null) {
-            result.requireUppercaseCharacters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.requireUppercaseCharacters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RequireLowercaseCharacters':
-          if (value != null) {
-            result.requireLowercaseCharacters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.requireLowercaseCharacters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AllowUsersToChangePassword':
-          if (value != null) {
-            result.allowUsersToChangePassword = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allowUsersToChangePassword = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'MaxPasswordAge':
-          if (value != null) {
-            result.maxPasswordAge = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxPasswordAge = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'PasswordReusePrevention':
-          if (value != null) {
-            result.passwordReusePrevention = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.passwordReusePrevention = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'HardExpiry':
-          if (value != null) {
-            result.hardExpiry = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.hardExpiry = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -287,75 +263,86 @@ class UpdateAccountPasswordPolicyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.minimumPasswordLength != null) {
+    final UpdateAccountPasswordPolicyRequest(
+      :minimumPasswordLength,
+      :requireSymbols,
+      :requireNumbers,
+      :requireUppercaseCharacters,
+      :requireLowercaseCharacters,
+      :allowUsersToChangePassword,
+      :maxPasswordAge,
+      :passwordReusePrevention,
+      :hardExpiry
+    ) = payload;
+    if (minimumPasswordLength != null) {
       result
         ..add(const _i1.XmlElementName('MinimumPasswordLength'))
         ..add(serializers.serialize(
-          payload.minimumPasswordLength!,
+          minimumPasswordLength,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.requireSymbols != null) {
+    if (requireSymbols != null) {
       result
         ..add(const _i1.XmlElementName('RequireSymbols'))
         ..add(serializers.serialize(
-          payload.requireSymbols!,
+          requireSymbols,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.requireNumbers != null) {
+    if (requireNumbers != null) {
       result
         ..add(const _i1.XmlElementName('RequireNumbers'))
         ..add(serializers.serialize(
-          payload.requireNumbers!,
+          requireNumbers,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.requireUppercaseCharacters != null) {
+    if (requireUppercaseCharacters != null) {
       result
         ..add(const _i1.XmlElementName('RequireUppercaseCharacters'))
         ..add(serializers.serialize(
-          payload.requireUppercaseCharacters!,
+          requireUppercaseCharacters,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.requireLowercaseCharacters != null) {
+    if (requireLowercaseCharacters != null) {
       result
         ..add(const _i1.XmlElementName('RequireLowercaseCharacters'))
         ..add(serializers.serialize(
-          payload.requireLowercaseCharacters!,
+          requireLowercaseCharacters,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.allowUsersToChangePassword != null) {
+    if (allowUsersToChangePassword != null) {
       result
         ..add(const _i1.XmlElementName('AllowUsersToChangePassword'))
         ..add(serializers.serialize(
-          payload.allowUsersToChangePassword!,
+          allowUsersToChangePassword,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.maxPasswordAge != null) {
+    if (maxPasswordAge != null) {
       result
         ..add(const _i1.XmlElementName('MaxPasswordAge'))
         ..add(serializers.serialize(
-          payload.maxPasswordAge!,
+          maxPasswordAge,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.passwordReusePrevention != null) {
+    if (passwordReusePrevention != null) {
       result
         ..add(const _i1.XmlElementName('PasswordReusePrevention'))
         ..add(serializers.serialize(
-          payload.passwordReusePrevention!,
+          passwordReusePrevention,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.hardExpiry != null) {
+    if (hardExpiry != null) {
       result
         ..add(const _i1.XmlElementName('HardExpiry'))
         ..add(serializers.serialize(
-          payload.hardExpiry!,
+          hardExpiry,
           specifiedType: const FullType.nullable(bool),
         ));
     }

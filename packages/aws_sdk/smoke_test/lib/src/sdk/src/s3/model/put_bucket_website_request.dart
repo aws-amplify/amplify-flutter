@@ -170,48 +170,39 @@ class PutBucketWebsiteRequestRestXmlSerializer
     final result = _i2.WebsiteConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ErrorDocument':
-          if (value != null) {
-            result.errorDocument.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ErrorDocument),
-            ) as _i5.ErrorDocument));
-          }
-          break;
+          result.errorDocument.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ErrorDocument),
+          ) as _i5.ErrorDocument));
         case 'IndexDocument':
-          if (value != null) {
-            result.indexDocument.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.IndexDocument),
-            ) as _i6.IndexDocument));
-          }
-          break;
+          result.indexDocument.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.IndexDocument),
+          ) as _i6.IndexDocument));
         case 'RedirectAllRequestsTo':
-          if (value != null) {
-            result.redirectAllRequestsTo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.RedirectAllRequestsTo),
-            ) as _i7.RedirectAllRequestsTo));
-          }
-          break;
+          result.redirectAllRequestsTo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.RedirectAllRequestsTo),
+          ) as _i7.RedirectAllRequestsTo));
         case 'RoutingRules':
-          if (value != null) {
-            result.routingRules.replace(
-                (const _i1.XmlBuiltListSerializer(memberName: 'RoutingRule')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i9.RoutingRule)],
-              ),
-            ) as _i8.BuiltList<_i9.RoutingRule>));
-          }
-          break;
+          result.routingRules.replace(
+              (const _i1.XmlBuiltListSerializer(memberName: 'RoutingRule')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i9.RoutingRule)],
+            ),
+          ) as _i8.BuiltList<_i9.RoutingRule>));
       }
     }
 
@@ -233,37 +224,43 @@ class PutBucketWebsiteRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.errorDocument != null) {
+    final _i2.WebsiteConfiguration(
+      :errorDocument,
+      :indexDocument,
+      :redirectAllRequestsTo,
+      :routingRules
+    ) = payload;
+    if (errorDocument != null) {
       result
         ..add(const _i1.XmlElementName('ErrorDocument'))
         ..add(serializers.serialize(
-          payload.errorDocument!,
+          errorDocument,
           specifiedType: const FullType(_i5.ErrorDocument),
         ));
     }
-    if (payload.indexDocument != null) {
+    if (indexDocument != null) {
       result
         ..add(const _i1.XmlElementName('IndexDocument'))
         ..add(serializers.serialize(
-          payload.indexDocument!,
+          indexDocument,
           specifiedType: const FullType(_i6.IndexDocument),
         ));
     }
-    if (payload.redirectAllRequestsTo != null) {
+    if (redirectAllRequestsTo != null) {
       result
         ..add(const _i1.XmlElementName('RedirectAllRequestsTo'))
         ..add(serializers.serialize(
-          payload.redirectAllRequestsTo!,
+          redirectAllRequestsTo,
           specifiedType: const FullType(_i7.RedirectAllRequestsTo),
         ));
     }
-    if (payload.routingRules != null) {
+    if (routingRules != null) {
       result
         ..add(const _i1.XmlElementName('RoutingRules'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'RoutingRule')
             .serialize(
           serializers,
-          payload.routingRules!,
+          routingRules,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i9.RoutingRule)],

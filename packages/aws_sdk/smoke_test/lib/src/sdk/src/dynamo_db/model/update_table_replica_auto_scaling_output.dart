@@ -88,15 +88,15 @@ class UpdateTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableAutoScalingDescription':
-          if (value != null) {
-            result.tableAutoScalingDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableAutoScalingDescription),
-            ) as _i2.TableAutoScalingDescription));
-          }
-          break;
+          result.tableAutoScalingDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableAutoScalingDescription),
+          ) as _i2.TableAutoScalingDescription));
       }
     }
 
@@ -111,11 +111,13 @@ class UpdateTableReplicaAutoScalingOutputAwsJson10Serializer extends _i3
   }) {
     final payload = (object as UpdateTableReplicaAutoScalingOutput);
     final result = <Object?>[];
-    if (payload.tableAutoScalingDescription != null) {
+    final UpdateTableReplicaAutoScalingOutput(:tableAutoScalingDescription) =
+        payload;
+    if (tableAutoScalingDescription != null) {
       result
         ..add('TableAutoScalingDescription')
         ..add(serializers.serialize(
-          payload.tableAutoScalingDescription!,
+          tableAutoScalingDescription,
           specifiedType: const FullType(_i2.TableAutoScalingDescription),
         ));
     }

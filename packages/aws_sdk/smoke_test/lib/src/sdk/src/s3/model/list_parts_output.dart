@@ -406,106 +406,73 @@ class ListPartsOutputRestXmlSerializer
     final result = ListPartsOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Bucket':
-          if (value != null) {
-            result.bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumAlgorithm':
-          if (value != null) {
-            result.checksumAlgorithm = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.ChecksumAlgorithm),
-            ) as _i8.ChecksumAlgorithm);
-          }
-          break;
+          result.checksumAlgorithm = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.ChecksumAlgorithm),
+          ) as _i8.ChecksumAlgorithm);
         case 'Initiator':
-          if (value != null) {
-            result.initiator.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Initiator),
-            ) as _i4.Initiator));
-          }
-          break;
+          result.initiator.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Initiator),
+          ) as _i4.Initiator));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxParts':
-          if (value != null) {
-            result.maxParts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxParts = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextPartNumberMarker':
-          if (value != null) {
-            result.nextPartNumberMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextPartNumberMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Owner),
-            ) as _i5.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Owner),
+          ) as _i5.Owner));
         case 'PartNumberMarker':
-          if (value != null) {
-            result.partNumberMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.partNumberMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Part':
-          if (value != null) {
-            result.parts.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Part),
-            ) as _i3.Part));
-          }
-          break;
+          result.parts.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Part),
+          ) as _i3.Part));
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StorageClass),
-            ) as _i6.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StorageClass),
+          ) as _i6.StorageClass);
         case 'UploadId':
-          if (value != null) {
-            result.uploadId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uploadId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -527,102 +494,116 @@ class ListPartsOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bucket != null) {
+    final ListPartsOutputPayload(
+      :bucket,
+      :checksumAlgorithm,
+      :initiator,
+      :isTruncated,
+      :key,
+      :maxParts,
+      :nextPartNumberMarker,
+      :owner,
+      :partNumberMarker,
+      :parts,
+      :storageClass,
+      :uploadId
+    ) = payload;
+    if (bucket != null) {
       result
         ..add(const _i2.XmlElementName('Bucket'))
         ..add(serializers.serialize(
-          payload.bucket!,
+          bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumAlgorithm != null) {
+    if (checksumAlgorithm != null) {
       result
         ..add(const _i2.XmlElementName('ChecksumAlgorithm'))
         ..add(serializers.serialize(
-          payload.checksumAlgorithm!,
+          checksumAlgorithm,
           specifiedType: const FullType.nullable(_i8.ChecksumAlgorithm),
         ));
     }
-    if (payload.initiator != null) {
+    if (initiator != null) {
       result
         ..add(const _i2.XmlElementName('Initiator'))
         ..add(serializers.serialize(
-          payload.initiator!,
+          initiator,
           specifiedType: const FullType(_i4.Initiator),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i2.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxParts != null) {
+    if (maxParts != null) {
       result
         ..add(const _i2.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
-          payload.maxParts!,
+          maxParts,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.nextPartNumberMarker != null) {
+    if (nextPartNumberMarker != null) {
       result
         ..add(const _i2.XmlElementName('NextPartNumberMarker'))
         ..add(serializers.serialize(
-          payload.nextPartNumberMarker!,
+          nextPartNumberMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.owner != null) {
+    if (owner != null) {
       result
         ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i5.Owner),
         ));
     }
-    if (payload.partNumberMarker != null) {
+    if (partNumberMarker != null) {
       result
         ..add(const _i2.XmlElementName('PartNumberMarker'))
         ..add(serializers.serialize(
-          payload.partNumberMarker!,
+          partNumberMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parts != null) {
+    if (parts != null) {
       result.addAll(
           const _i2.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
-        payload.parts!,
+        parts,
         specifiedType: const FullType.nullable(
           _i9.BuiltList,
           [FullType(_i3.Part)],
         ),
       ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i6.StorageClass),
         ));
     }
-    if (payload.uploadId != null) {
+    if (uploadId != null) {
       result
         ..add(const _i2.XmlElementName('UploadId'))
         ..add(serializers.serialize(
-          payload.uploadId!,
+          uploadId,
           specifiedType: const FullType(String),
         ));
     }

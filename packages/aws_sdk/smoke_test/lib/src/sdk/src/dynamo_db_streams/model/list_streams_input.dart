@@ -109,31 +109,25 @@ class ListStreamsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ExclusiveStartStreamArn':
-          if (value != null) {
-            result.exclusiveStartStreamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartStreamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -148,27 +142,29 @@ class ListStreamsInputAwsJson10Serializer
   }) {
     final payload = (object as ListStreamsInput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final ListStreamsInput(:tableName, :limit, :exclusiveStartStreamArn) =
+        payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.exclusiveStartStreamArn != null) {
+    if (exclusiveStartStreamArn != null) {
       result
         ..add('ExclusiveStartStreamArn')
         ..add(serializers.serialize(
-          payload.exclusiveStartStreamArn!,
+          exclusiveStartStreamArn,
           specifiedType: const FullType(String),
         ));
     }

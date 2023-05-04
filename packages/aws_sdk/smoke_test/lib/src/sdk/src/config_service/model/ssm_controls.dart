@@ -90,23 +90,20 @@ class SsmControlsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConcurrentExecutionRatePercentage':
-          if (value != null) {
-            result.concurrentExecutionRatePercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.concurrentExecutionRatePercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ErrorPercentage':
-          if (value != null) {
-            result.errorPercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.errorPercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -121,19 +118,21 @@ class SsmControlsAwsJson11Serializer
   }) {
     final payload = (object as SsmControls);
     final result = <Object?>[];
-    if (payload.concurrentExecutionRatePercentage != null) {
+    final SsmControls(:concurrentExecutionRatePercentage, :errorPercentage) =
+        payload;
+    if (concurrentExecutionRatePercentage != null) {
       result
         ..add('ConcurrentExecutionRatePercentage')
         ..add(serializers.serialize(
-          payload.concurrentExecutionRatePercentage!,
+          concurrentExecutionRatePercentage,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.errorPercentage != null) {
+    if (errorPercentage != null) {
       result
         ..add('ErrorPercentage')
         ..add(serializers.serialize(
-          payload.errorPercentage!,
+          errorPercentage,
           specifiedType: const FullType(int),
         ));
     }

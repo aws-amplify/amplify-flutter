@@ -126,30 +126,28 @@ class CreatePolicyVersionRequestAwsQuerySerializer
     final result = CreatePolicyVersionRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyArn':
           result.policyArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyDocument':
           result.policyDocument = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SetAsDefault':
-          if (value != null) {
-            result.setAsDefault = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.setAsDefault = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -169,23 +167,28 @@ class CreatePolicyVersionRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreatePolicyVersionRequest(
+      :policyArn,
+      :policyDocument,
+      :setAsDefault
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
-        payload.policyArn,
+        policyArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('PolicyDocument'))
       ..add(serializers.serialize(
-        payload.policyDocument,
+        policyDocument,
         specifiedType: const FullType(String),
       ));
-    if (payload.setAsDefault != null) {
+    if (setAsDefault != null) {
       result
         ..add(const _i1.XmlElementName('SetAsDefault'))
         ..add(serializers.serialize(
-          payload.setAsDefault!,
+          setAsDefault,
           specifiedType: const FullType.nullable(bool),
         ));
     }

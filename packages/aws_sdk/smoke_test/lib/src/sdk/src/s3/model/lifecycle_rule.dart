@@ -178,81 +178,59 @@ class LifecycleRuleRestXmlSerializer
     final result = LifecycleRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AbortIncompleteMultipartUpload':
-          if (value != null) {
-            result.abortIncompleteMultipartUpload
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.AbortIncompleteMultipartUpload),
-            ) as _i8.AbortIncompleteMultipartUpload));
-          }
-          break;
+          result.abortIncompleteMultipartUpload
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.AbortIncompleteMultipartUpload),
+          ) as _i8.AbortIncompleteMultipartUpload));
         case 'Expiration':
-          if (value != null) {
-            result.expiration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.LifecycleExpiration),
-            ) as _i2.LifecycleExpiration));
-          }
-          break;
+          result.expiration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.LifecycleExpiration),
+          ) as _i2.LifecycleExpiration));
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.LifecycleRuleFilter),
-            ) as _i3.LifecycleRuleFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.LifecycleRuleFilter),
+          ) as _i3.LifecycleRuleFilter);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NoncurrentVersionExpiration':
-          if (value != null) {
-            result.noncurrentVersionExpiration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.NoncurrentVersionExpiration),
-            ) as _i7.NoncurrentVersionExpiration));
-          }
-          break;
+          result.noncurrentVersionExpiration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.NoncurrentVersionExpiration),
+          ) as _i7.NoncurrentVersionExpiration));
         case 'NoncurrentVersionTransition':
-          if (value != null) {
-            result.noncurrentVersionTransitions.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.NoncurrentVersionTransition),
-            ) as _i6.NoncurrentVersionTransition));
-          }
-          break;
+          result.noncurrentVersionTransitions.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.NoncurrentVersionTransition),
+          ) as _i6.NoncurrentVersionTransition));
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.ExpirationStatus),
           ) as _i4.ExpirationStatus);
-          break;
         case 'Transition':
-          if (value != null) {
-            result.transitions.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Transition),
-            ) as _i5.Transition));
-          }
-          break;
+          result.transitions.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Transition),
+          ) as _i5.Transition));
       }
     }
 
@@ -272,77 +250,88 @@ class LifecycleRuleRestXmlSerializer
         _i10.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.abortIncompleteMultipartUpload != null) {
+    final LifecycleRule(
+      :abortIncompleteMultipartUpload,
+      :expiration,
+      :filter,
+      :id,
+      :noncurrentVersionExpiration,
+      :noncurrentVersionTransitions,
+      :prefix,
+      :status,
+      :transitions
+    ) = payload;
+    if (abortIncompleteMultipartUpload != null) {
       result
         ..add(const _i10.XmlElementName('AbortIncompleteMultipartUpload'))
         ..add(serializers.serialize(
-          payload.abortIncompleteMultipartUpload!,
+          abortIncompleteMultipartUpload,
           specifiedType: const FullType(_i8.AbortIncompleteMultipartUpload),
         ));
     }
-    if (payload.expiration != null) {
+    if (expiration != null) {
       result
         ..add(const _i10.XmlElementName('Expiration'))
         ..add(serializers.serialize(
-          payload.expiration!,
+          expiration,
           specifiedType: const FullType(_i2.LifecycleExpiration),
         ));
     }
-    if (payload.filter != null) {
+    if (filter != null) {
       result
         ..add(const _i10.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i3.LifecycleRuleFilter),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i10.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.noncurrentVersionExpiration != null) {
+    if (noncurrentVersionExpiration != null) {
       result
         ..add(const _i10.XmlElementName('NoncurrentVersionExpiration'))
         ..add(serializers.serialize(
-          payload.noncurrentVersionExpiration!,
+          noncurrentVersionExpiration,
           specifiedType: const FullType(_i7.NoncurrentVersionExpiration),
         ));
     }
-    if (payload.noncurrentVersionTransitions != null) {
+    if (noncurrentVersionTransitions != null) {
       result.addAll(const _i10.XmlBuiltListSerializer(
               memberName: 'NoncurrentVersionTransition')
           .serialize(
         serializers,
-        payload.noncurrentVersionTransitions!,
+        noncurrentVersionTransitions,
         specifiedType: const FullType.nullable(
           _i9.BuiltList,
           [FullType(_i6.NoncurrentVersionTransition)],
         ),
       ));
     }
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i10.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i10.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i4.ExpirationStatus),
       ));
-    if (payload.transitions != null) {
+    if (transitions != null) {
       result.addAll(
           const _i10.XmlBuiltListSerializer(memberName: 'Transition').serialize(
         serializers,
-        payload.transitions!,
+        transitions,
         specifiedType: const FullType.nullable(
           _i9.BuiltList,
           [FullType(_i5.Transition)],

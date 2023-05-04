@@ -76,15 +76,15 @@ class InputFormatOptionsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Csv':
-          if (value != null) {
-            result.csv.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CsvOptions),
-            ) as _i2.CsvOptions));
-          }
-          break;
+          result.csv.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CsvOptions),
+          ) as _i2.CsvOptions));
       }
     }
 
@@ -99,11 +99,12 @@ class InputFormatOptionsAwsJson10Serializer
   }) {
     final payload = (object as InputFormatOptions);
     final result = <Object?>[];
-    if (payload.csv != null) {
+    final InputFormatOptions(:csv) = payload;
+    if (csv != null) {
       result
         ..add('Csv')
         ..add(serializers.serialize(
-          payload.csv!,
+          csv,
           specifiedType: const FullType(_i2.CsvOptions),
         ));
     }

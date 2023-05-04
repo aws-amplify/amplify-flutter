@@ -104,26 +104,23 @@ class UpdateGlobalTableSettingsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalTableName':
-          if (value != null) {
-            result.globalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.globalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicaSettings':
-          if (value != null) {
-            result.replicaSettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ReplicaSettingsDescription)],
-              ),
-            ) as _i3.BuiltList<_i2.ReplicaSettingsDescription>));
-          }
-          break;
+          result.replicaSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ReplicaSettingsDescription)],
+            ),
+          ) as _i3.BuiltList<_i2.ReplicaSettingsDescription>));
       }
     }
 
@@ -138,19 +135,21 @@ class UpdateGlobalTableSettingsOutputAwsJson10Serializer
   }) {
     final payload = (object as UpdateGlobalTableSettingsOutput);
     final result = <Object?>[];
-    if (payload.globalTableName != null) {
+    final UpdateGlobalTableSettingsOutput(:globalTableName, :replicaSettings) =
+        payload;
+    if (globalTableName != null) {
       result
         ..add('GlobalTableName')
         ..add(serializers.serialize(
-          payload.globalTableName!,
+          globalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replicaSettings != null) {
+    if (replicaSettings != null) {
       result
         ..add('ReplicaSettings')
         ..add(serializers.serialize(
-          payload.replicaSettings!,
+          replicaSettings,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ReplicaSettingsDescription)],

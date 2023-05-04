@@ -101,22 +101,23 @@ class GetGroupPolicyRequestAwsQuerySerializer
     final result = GetGroupPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'GroupName':
           result.groupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyName':
           result.policyName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -136,16 +137,17 @@ class GetGroupPolicyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetGroupPolicyRequest(:groupName, :policyName) = payload;
     result
       ..add(const _i1.XmlElementName('GroupName'))
       ..add(serializers.serialize(
-        payload.groupName,
+        groupName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('PolicyName'))
       ..add(serializers.serialize(
-        payload.policyName,
+        policyName,
         specifiedType: const FullType(String),
       ));
     return result;

@@ -109,32 +109,28 @@ class UpdateUserRequestAwsQuerySerializer
     final result = UpdateUserRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NewPath':
-          if (value != null) {
-            result.newPath = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newPath = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NewUserName':
-          if (value != null) {
-            result.newUserName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.newUserName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,25 +150,26 @@ class UpdateUserRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateUserRequest(:userName, :newPath, :newUserName) = payload;
     result
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
-    if (payload.newPath != null) {
+    if (newPath != null) {
       result
         ..add(const _i1.XmlElementName('NewPath'))
         ..add(serializers.serialize(
-          payload.newPath!,
+          newPath,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.newUserName != null) {
+    if (newUserName != null) {
       result
         ..add(const _i1.XmlElementName('NewUserName'))
         ..add(serializers.serialize(
-          payload.newUserName!,
+          newUserName,
           specifiedType: const FullType(String),
         ));
     }

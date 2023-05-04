@@ -151,16 +151,18 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
     final result = _i2.OwnershipControlsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.OwnershipControlsRule),
           ) as _i4.OwnershipControlsRule));
-          break;
       }
     }
 
@@ -182,10 +184,11 @@ class PutBucketOwnershipControlsRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final _i2.OwnershipControls(:rules) = payload;
     result
         .addAll(const _i1.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.OwnershipControlsRule)],

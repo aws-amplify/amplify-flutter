@@ -125,47 +125,35 @@ class RemediationExecutionStepAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'State':
-          if (value != null) {
-            result.state = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RemediationExecutionStepState),
-            ) as _i2.RemediationExecutionStepState);
-          }
-          break;
+          result.state = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RemediationExecutionStepState),
+          ) as _i2.RemediationExecutionStepState);
         case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StartTime':
-          if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.startTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'StopTime':
-          if (value != null) {
-            result.stopTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.stopTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -180,43 +168,50 @@ class RemediationExecutionStepAwsJson11Serializer
   }) {
     final payload = (object as RemediationExecutionStep);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final RemediationExecutionStep(
+      :name,
+      :state,
+      :errorMessage,
+      :startTime,
+      :stopTime
+    ) = payload;
+    if (name != null) {
       result
         ..add('Name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.state != null) {
+    if (state != null) {
       result
         ..add('State')
         ..add(serializers.serialize(
-          payload.state!,
+          state,
           specifiedType: const FullType(_i2.RemediationExecutionStepState),
         ));
     }
-    if (payload.errorMessage != null) {
+    if (errorMessage != null) {
       result
         ..add('ErrorMessage')
         ..add(serializers.serialize(
-          payload.errorMessage!,
+          errorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.startTime != null) {
+    if (startTime != null) {
       result
         ..add('StartTime')
         ..add(serializers.serialize(
-          payload.startTime!,
+          startTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.stopTime != null) {
+    if (stopTime != null) {
       result
         ..add('StopTime')
         ..add(serializers.serialize(
-          payload.stopTime!,
+          stopTime,
           specifiedType: const FullType(DateTime),
         ));
     }

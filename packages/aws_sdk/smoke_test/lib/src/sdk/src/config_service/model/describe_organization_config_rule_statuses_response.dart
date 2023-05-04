@@ -107,27 +107,24 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleStatuses':
-          if (value != null) {
-            result.organizationConfigRuleStatuses
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.OrganizationConfigRuleStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.OrganizationConfigRuleStatus>));
-          }
-          break;
+          result.organizationConfigRuleStatuses
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.OrganizationConfigRuleStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.OrganizationConfigRuleStatus>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,22 +139,26 @@ class DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer
   }) {
     final payload = (object as DescribeOrganizationConfigRuleStatusesResponse);
     final result = <Object?>[];
-    if (payload.organizationConfigRuleStatuses != null) {
+    final DescribeOrganizationConfigRuleStatusesResponse(
+      :organizationConfigRuleStatuses,
+      :nextToken
+    ) = payload;
+    if (organizationConfigRuleStatuses != null) {
       result
         ..add('OrganizationConfigRuleStatuses')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleStatuses!,
+          organizationConfigRuleStatuses,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.OrganizationConfigRuleStatus)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

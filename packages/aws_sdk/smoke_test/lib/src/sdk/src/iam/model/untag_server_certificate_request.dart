@@ -102,16 +102,18 @@ class UntagServerCertificateRequestAwsQuerySerializer
     final result = UntagServerCertificateRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServerCertificateName':
           result.serverCertificateName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TagKeys':
           result.tagKeys.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -123,7 +125,6 @@ class UntagServerCertificateRequestAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -143,10 +144,12 @@ class UntagServerCertificateRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UntagServerCertificateRequest(:serverCertificateName, :tagKeys) =
+        payload;
     result
       ..add(const _i1.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
-        payload.serverCertificateName,
+        serverCertificateName,
         specifiedType: const FullType(String),
       ));
     result
@@ -155,7 +158,7 @@ class UntagServerCertificateRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.tagKeys,
+        tagKeys,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

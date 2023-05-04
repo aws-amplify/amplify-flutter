@@ -144,53 +144,42 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleName':
           result.organizationConfigRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationManagedRuleMetadata':
-          if (value != null) {
-            result.organizationManagedRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.OrganizationManagedRuleMetadata),
-            ) as _i3.OrganizationManagedRuleMetadata));
-          }
-          break;
+          result.organizationManagedRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.OrganizationManagedRuleMetadata),
+          ) as _i3.OrganizationManagedRuleMetadata));
         case 'OrganizationCustomRuleMetadata':
-          if (value != null) {
-            result.organizationCustomRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.OrganizationCustomRuleMetadata),
-            ) as _i4.OrganizationCustomRuleMetadata));
-          }
-          break;
+          result.organizationCustomRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.OrganizationCustomRuleMetadata),
+          ) as _i4.OrganizationCustomRuleMetadata));
         case 'ExcludedAccounts':
-          if (value != null) {
-            result.excludedAccounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.excludedAccounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'OrganizationCustomPolicyRuleMetadata':
-          if (value != null) {
-            result.organizationCustomPolicyRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
-            ) as _i5.OrganizationCustomPolicyRuleMetadata));
-          }
-          break;
+          result.organizationCustomPolicyRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
+          ) as _i5.OrganizationCustomPolicyRuleMetadata));
       }
     }
 
@@ -211,38 +200,44 @@ class PutOrganizationConfigRuleRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.organizationManagedRuleMetadata != null) {
+    final PutOrganizationConfigRuleRequest(
+      :organizationManagedRuleMetadata,
+      :organizationCustomRuleMetadata,
+      :excludedAccounts,
+      :organizationCustomPolicyRuleMetadata
+    ) = payload;
+    if (organizationManagedRuleMetadata != null) {
       result
         ..add('OrganizationManagedRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationManagedRuleMetadata!,
+          organizationManagedRuleMetadata,
           specifiedType: const FullType(_i3.OrganizationManagedRuleMetadata),
         ));
     }
-    if (payload.organizationCustomRuleMetadata != null) {
+    if (organizationCustomRuleMetadata != null) {
       result
         ..add('OrganizationCustomRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationCustomRuleMetadata!,
+          organizationCustomRuleMetadata,
           specifiedType: const FullType(_i4.OrganizationCustomRuleMetadata),
         ));
     }
-    if (payload.excludedAccounts != null) {
+    if (excludedAccounts != null) {
       result
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
-          payload.excludedAccounts!,
+          excludedAccounts,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.organizationCustomPolicyRuleMetadata != null) {
+    if (organizationCustomPolicyRuleMetadata != null) {
       result
         ..add('OrganizationCustomPolicyRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationCustomPolicyRuleMetadata!,
+          organizationCustomPolicyRuleMetadata,
           specifiedType:
               const FullType(_i5.OrganizationCustomPolicyRuleMetadata),
         ));

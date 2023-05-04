@@ -110,27 +110,24 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConformancePackStatuses':
-          if (value != null) {
-            result.organizationConformancePackStatuses
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.OrganizationConformancePackStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.OrganizationConformancePackStatus>));
-          }
-          break;
+          result.organizationConformancePackStatuses
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.OrganizationConformancePackStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.OrganizationConformancePackStatus>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -146,22 +143,26 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
     final payload =
         (object as DescribeOrganizationConformancePackStatusesResponse);
     final result = <Object?>[];
-    if (payload.organizationConformancePackStatuses != null) {
+    final DescribeOrganizationConformancePackStatusesResponse(
+      :organizationConformancePackStatuses,
+      :nextToken
+    ) = payload;
+    if (organizationConformancePackStatuses != null) {
       result
         ..add('OrganizationConformancePackStatuses')
         ..add(serializers.serialize(
-          payload.organizationConformancePackStatuses!,
+          organizationConformancePackStatuses,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.OrganizationConformancePackStatus)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

@@ -86,16 +86,18 @@ class DescribeTypeRegistrationInputAwsQuerySerializer
     final result = DescribeTypeRegistrationInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RegistrationToken':
           result.registrationToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -115,10 +117,11 @@ class DescribeTypeRegistrationInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DescribeTypeRegistrationInput(:registrationToken) = payload;
     result
       ..add(const _i1.XmlElementName('RegistrationToken'))
       ..add(serializers.serialize(
-        payload.registrationToken,
+        registrationToken,
         specifiedType: const FullType(String),
       ));
     return result;

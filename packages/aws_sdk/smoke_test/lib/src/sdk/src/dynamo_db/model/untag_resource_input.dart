@@ -98,13 +98,15 @@ class UntagResourceInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceArn':
           result.resourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TagKeys':
           result.tagKeys.replace((serializers.deserialize(
             value,
@@ -113,7 +115,6 @@ class UntagResourceInputAwsJson10Serializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 

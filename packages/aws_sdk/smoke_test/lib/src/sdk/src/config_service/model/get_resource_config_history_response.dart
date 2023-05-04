@@ -107,26 +107,23 @@ class GetResourceConfigHistoryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'configurationItems':
-          if (value != null) {
-            result.configurationItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConfigurationItem)],
-              ),
-            ) as _i3.BuiltList<_i2.ConfigurationItem>));
-          }
-          break;
+          result.configurationItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConfigurationItem)],
+            ),
+          ) as _i3.BuiltList<_i2.ConfigurationItem>));
         case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -141,22 +138,24 @@ class GetResourceConfigHistoryResponseAwsJson11Serializer
   }) {
     final payload = (object as GetResourceConfigHistoryResponse);
     final result = <Object?>[];
-    if (payload.configurationItems != null) {
+    final GetResourceConfigHistoryResponse(:configurationItems, :nextToken) =
+        payload;
+    if (configurationItems != null) {
       result
         ..add('configurationItems')
         ..add(serializers.serialize(
-          payload.configurationItems!,
+          configurationItems,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConfigurationItem)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('nextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

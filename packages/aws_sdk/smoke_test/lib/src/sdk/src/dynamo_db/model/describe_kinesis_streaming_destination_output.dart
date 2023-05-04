@@ -106,27 +106,23 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KinesisDataStreamDestinations':
-          if (value != null) {
-            result.kinesisDataStreamDestinations
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.KinesisDataStreamDestination)],
-              ),
-            ) as _i3.BuiltList<_i2.KinesisDataStreamDestination>));
-          }
-          break;
+          result.kinesisDataStreamDestinations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.KinesisDataStreamDestination)],
+            ),
+          ) as _i3.BuiltList<_i2.KinesisDataStreamDestination>));
       }
     }
 
@@ -141,19 +137,23 @@ class DescribeKinesisStreamingDestinationOutputAwsJson10Serializer extends _i4
   }) {
     final payload = (object as DescribeKinesisStreamingDestinationOutput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final DescribeKinesisStreamingDestinationOutput(
+      :tableName,
+      :kinesisDataStreamDestinations
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.kinesisDataStreamDestinations != null) {
+    if (kinesisDataStreamDestinations != null) {
       result
         ..add('KinesisDataStreamDestinations')
         ..add(serializers.serialize(
-          payload.kinesisDataStreamDestinations!,
+          kinesisDataStreamDestinations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.KinesisDataStreamDestination)],

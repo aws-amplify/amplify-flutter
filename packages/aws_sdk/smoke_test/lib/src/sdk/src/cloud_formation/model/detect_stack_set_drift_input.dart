@@ -143,40 +143,33 @@ class DetectStackSetDriftInputAwsQuerySerializer
     final result = DetectStackSetDriftInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
           result.stackSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OperationPreferences':
-          if (value != null) {
-            result.operationPreferences.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackSetOperationPreferences),
-            ) as _i3.StackSetOperationPreferences));
-          }
-          break;
+          result.operationPreferences.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackSetOperationPreferences),
+          ) as _i3.StackSetOperationPreferences));
         case 'OperationId':
-          if (value != null) {
-            result.operationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CallAs),
-            ) as _i4.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CallAs),
+          ) as _i4.CallAs);
       }
     }
 
@@ -196,33 +189,39 @@ class DetectStackSetDriftInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DetectStackSetDriftInput(
+      :stackSetName,
+      :operationPreferences,
+      :operationId,
+      :callAs
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
-        payload.stackSetName,
+        stackSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.operationPreferences != null) {
+    if (operationPreferences != null) {
       result
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
-          payload.operationPreferences!,
+          operationPreferences,
           specifiedType: const FullType(_i3.StackSetOperationPreferences),
         ));
     }
-    if (payload.operationId != null) {
+    if (operationId != null) {
       result
         ..add(const _i1.XmlElementName('OperationId'))
         ..add(serializers.serialize(
-          payload.operationId!,
+          operationId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }

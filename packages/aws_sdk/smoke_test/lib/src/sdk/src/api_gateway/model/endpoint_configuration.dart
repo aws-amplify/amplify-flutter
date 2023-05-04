@@ -96,29 +96,26 @@ class EndpointConfigurationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'types':
-          if (value != null) {
-            result.types.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.EndpointType)],
-              ),
-            ) as _i3.BuiltList<_i2.EndpointType>));
-          }
-          break;
+          result.types.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.EndpointType)],
+            ),
+          ) as _i3.BuiltList<_i2.EndpointType>));
         case 'vpcEndpointIds':
-          if (value != null) {
-            result.vpcEndpointIds.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.vpcEndpointIds.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -133,22 +130,23 @@ class EndpointConfigurationRestJson1Serializer
   }) {
     final payload = (object as EndpointConfiguration);
     final result = <Object?>[];
-    if (payload.types != null) {
+    final EndpointConfiguration(:types, :vpcEndpointIds) = payload;
+    if (types != null) {
       result
         ..add('types')
         ..add(serializers.serialize(
-          payload.types!,
+          types,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.EndpointType)],
           ),
         ));
     }
-    if (payload.vpcEndpointIds != null) {
+    if (vpcEndpointIds != null) {
       result
         ..add('vpcEndpointIds')
         ..add(serializers.serialize(
-          payload.vpcEndpointIds!,
+          vpcEndpointIds,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

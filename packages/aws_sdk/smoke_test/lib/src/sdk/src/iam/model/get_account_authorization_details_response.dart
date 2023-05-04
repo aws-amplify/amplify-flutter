@@ -149,82 +149,67 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
     final result = GetAccountAuthorizationDetailsResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserDetailList':
-          if (value != null) {
-            result.userDetailList.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.UserDetail)],
-              ),
-            ) as _i6.BuiltList<_i2.UserDetail>));
-          }
-          break;
+          result.userDetailList.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i2.UserDetail)],
+            ),
+          ) as _i6.BuiltList<_i2.UserDetail>));
         case 'GroupDetailList':
-          if (value != null) {
-            result.groupDetailList.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.GroupDetail)],
-              ),
-            ) as _i6.BuiltList<_i3.GroupDetail>));
-          }
-          break;
+          result.groupDetailList.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.GroupDetail)],
+            ),
+          ) as _i6.BuiltList<_i3.GroupDetail>));
         case 'RoleDetailList':
-          if (value != null) {
-            result.roleDetailList.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.RoleDetail)],
-              ),
-            ) as _i6.BuiltList<_i4.RoleDetail>));
-          }
-          break;
+          result.roleDetailList.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.RoleDetail)],
+            ),
+          ) as _i6.BuiltList<_i4.RoleDetail>));
         case 'Policies':
-          if (value != null) {
-            result.policies.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.ManagedPolicyDetail)],
-              ),
-            ) as _i6.BuiltList<_i5.ManagedPolicyDetail>));
-          }
-          break;
+          result.policies.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.ManagedPolicyDetail)],
+            ),
+          ) as _i6.BuiltList<_i5.ManagedPolicyDetail>));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -244,75 +229,83 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userDetailList != null) {
+    final GetAccountAuthorizationDetailsResponse(
+      :userDetailList,
+      :groupDetailList,
+      :roleDetailList,
+      :policies,
+      :isTruncated,
+      :marker
+    ) = payload;
+    if (userDetailList != null) {
       result
         ..add(const _i7.XmlElementName('UserDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.userDetailList!,
+          userDetailList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i2.UserDetail)],
           ),
         ));
     }
-    if (payload.groupDetailList != null) {
+    if (groupDetailList != null) {
       result
         ..add(const _i7.XmlElementName('GroupDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.groupDetailList!,
+          groupDetailList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i3.GroupDetail)],
           ),
         ));
     }
-    if (payload.roleDetailList != null) {
+    if (roleDetailList != null) {
       result
         ..add(const _i7.XmlElementName('RoleDetailList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.roleDetailList!,
+          roleDetailList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i4.RoleDetail)],
           ),
         ));
     }
-    if (payload.policies != null) {
+    if (policies != null) {
       result
         ..add(const _i7.XmlElementName('Policies'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policies!,
+          policies,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i5.ManagedPolicyDetail)],
           ),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i7.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

@@ -166,31 +166,29 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     final result = GetServiceLastAccessedDetailsResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'JobStatus':
           result.jobStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.JobStatusType),
           ) as _i2.JobStatusType);
-          break;
         case 'JobType':
-          if (value != null) {
-            result.jobType = (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.AccessAdvisorUsageGranularityType),
-            ) as _i3.AccessAdvisorUsageGranularityType);
-          }
-          break;
+          result.jobType = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.AccessAdvisorUsageGranularityType),
+          ) as _i3.AccessAdvisorUsageGranularityType);
         case 'JobCreationDate':
           result.jobCreationDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ServicesLastAccessed':
           result.servicesLastAccessed.replace((const _i7.XmlBuiltListSerializer(
                   indexer: _i7.XmlIndexer.awsQueryList)
@@ -202,37 +200,26 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
               [FullType(_i4.ServiceLastAccessed)],
             ),
           ) as _i6.BuiltList<_i4.ServiceLastAccessed>));
-          break;
         case 'JobCompletionDate':
           result.jobCompletionDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Error':
-          if (value != null) {
-            result.error.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ErrorDetails),
-            ) as _i5.ErrorDetails));
-          }
-          break;
+          result.error.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ErrorDetails),
+          ) as _i5.ErrorDetails));
       }
     }
 
@@ -252,17 +239,27 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetServiceLastAccessedDetailsResponse(
+      :jobStatus,
+      :jobType,
+      :jobCreationDate,
+      :servicesLastAccessed,
+      :jobCompletionDate,
+      :isTruncated,
+      :marker,
+      :error
+    ) = payload;
     result
       ..add(const _i7.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
-        payload.jobStatus,
+        jobStatus,
         specifiedType: const FullType.nullable(_i2.JobStatusType),
       ));
-    if (payload.jobType != null) {
+    if (jobType != null) {
       result
         ..add(const _i7.XmlElementName('JobType'))
         ..add(serializers.serialize(
-          payload.jobType!,
+          jobType,
           specifiedType:
               const FullType.nullable(_i3.AccessAdvisorUsageGranularityType),
         ));
@@ -270,7 +267,7 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     result
       ..add(const _i7.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
-        payload.jobCreationDate,
+        jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
@@ -279,7 +276,7 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
           const _i7.XmlBuiltListSerializer(indexer: _i7.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.servicesLastAccessed,
+        servicesLastAccessed,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i4.ServiceLastAccessed)],
@@ -288,30 +285,30 @@ class GetServiceLastAccessedDetailsResponseAwsQuerySerializer extends _i7
     result
       ..add(const _i7.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
-        payload.jobCompletionDate,
+        jobCompletionDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i7.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.error != null) {
+    if (error != null) {
       result
         ..add(const _i7.XmlElementName('Error'))
         ..add(serializers.serialize(
-          payload.error!,
+          error,
           specifiedType: const FullType(_i5.ErrorDetails),
         ));
     }

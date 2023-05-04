@@ -81,18 +81,18 @@ class CreatePolicyResponseAwsQuerySerializer
     final result = CreatePolicyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Policy':
-          if (value != null) {
-            result.policy.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Policy),
-            ) as _i2.Policy));
-          }
-          break;
+          result.policy.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Policy),
+          ) as _i2.Policy));
       }
     }
 
@@ -112,11 +112,12 @@ class CreatePolicyResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.policy != null) {
+    final CreatePolicyResponse(:policy) = payload;
+    if (policy != null) {
       result
         ..add(const _i3.XmlElementName('Policy'))
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(_i2.Policy),
         ));
     }

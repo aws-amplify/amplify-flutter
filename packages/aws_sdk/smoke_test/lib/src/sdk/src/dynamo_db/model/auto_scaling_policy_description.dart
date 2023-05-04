@@ -100,26 +100,23 @@ class AutoScalingPolicyDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TargetTrackingScalingPolicyConfiguration':
-          if (value != null) {
-            result.targetTrackingScalingPolicyConfiguration.replace((serializers
-                .deserialize(
-              value,
-              specifiedType: const FullType(_i2
-                  .AutoScalingTargetTrackingScalingPolicyConfigurationDescription),
-            ) as _i2
-                .AutoScalingTargetTrackingScalingPolicyConfigurationDescription));
-          }
-          break;
+          result.targetTrackingScalingPolicyConfiguration.replace((serializers
+              .deserialize(
+            value,
+            specifiedType: const FullType(_i2
+                .AutoScalingTargetTrackingScalingPolicyConfigurationDescription),
+          ) as _i2
+              .AutoScalingTargetTrackingScalingPolicyConfigurationDescription));
       }
     }
 
@@ -134,19 +131,23 @@ class AutoScalingPolicyDescriptionAwsJson10Serializer
   }) {
     final payload = (object as AutoScalingPolicyDescription);
     final result = <Object?>[];
-    if (payload.policyName != null) {
+    final AutoScalingPolicyDescription(
+      :policyName,
+      :targetTrackingScalingPolicyConfiguration
+    ) = payload;
+    if (policyName != null) {
       result
         ..add('PolicyName')
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.targetTrackingScalingPolicyConfiguration != null) {
+    if (targetTrackingScalingPolicyConfiguration != null) {
       result
         ..add('TargetTrackingScalingPolicyConfiguration')
         ..add(serializers.serialize(
-          payload.targetTrackingScalingPolicyConfiguration!,
+          targetTrackingScalingPolicyConfiguration,
           specifiedType: const FullType(_i2
               .AutoScalingTargetTrackingScalingPolicyConfigurationDescription),
         ));

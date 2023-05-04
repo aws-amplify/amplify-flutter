@@ -95,23 +95,20 @@ class AggregateComplianceCountAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GroupName':
-          if (value != null) {
-            result.groupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceSummary),
-            ) as _i2.ComplianceSummary));
-          }
-          break;
+          result.complianceSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceSummary),
+          ) as _i2.ComplianceSummary));
       }
     }
 
@@ -126,19 +123,20 @@ class AggregateComplianceCountAwsJson11Serializer
   }) {
     final payload = (object as AggregateComplianceCount);
     final result = <Object?>[];
-    if (payload.groupName != null) {
+    final AggregateComplianceCount(:groupName, :complianceSummary) = payload;
+    if (groupName != null) {
       result
         ..add('GroupName')
         ..add(serializers.serialize(
-          payload.groupName!,
+          groupName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.complianceSummary != null) {
+    if (complianceSummary != null) {
       result
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
-          payload.complianceSummary!,
+          complianceSummary,
           specifiedType: const FullType(_i2.ComplianceSummary),
         ));
     }

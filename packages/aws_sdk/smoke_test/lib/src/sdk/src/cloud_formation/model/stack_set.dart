@@ -254,164 +254,118 @@ class StackSetAwsQuerySerializer
     final result = StackSetBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
-          if (value != null) {
-            result.stackSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackSetId':
-          if (value != null) {
-            result.stackSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetStatus),
-            ) as _i2.StackSetStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetStatus),
+          ) as _i2.StackSetStatus);
         case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((const _i11.XmlBuiltListSerializer(
-                    indexer: _i11.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(_i3.Parameter)],
-              ),
-            ) as _i10.BuiltList<_i3.Parameter>));
-          }
-          break;
+          result.parameters.replace((const _i11.XmlBuiltListSerializer(
+                  indexer: _i11.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(_i3.Parameter)],
+            ),
+          ) as _i10.BuiltList<_i3.Parameter>));
         case 'Capabilities':
-          if (value != null) {
-            result.capabilities.replace((const _i11.XmlBuiltListSerializer(
-                    indexer: _i11.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(_i4.Capability)],
-              ),
-            ) as _i10.BuiltList<_i4.Capability>));
-          }
-          break;
+          result.capabilities.replace((const _i11.XmlBuiltListSerializer(
+                  indexer: _i11.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(_i4.Capability)],
+            ),
+          ) as _i10.BuiltList<_i4.Capability>));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i11.XmlBuiltListSerializer(
-                    indexer: _i11.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(_i5.Tag)],
-              ),
-            ) as _i10.BuiltList<_i5.Tag>));
-          }
-          break;
+          result.tags.replace((const _i11.XmlBuiltListSerializer(
+                  indexer: _i11.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(_i5.Tag)],
+            ),
+          ) as _i10.BuiltList<_i5.Tag>));
         case 'StackSetARN':
-          if (value != null) {
-            result.stackSetArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AdministrationRoleARN':
-          if (value != null) {
-            result.administrationRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.administrationRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExecutionRoleName':
-          if (value != null) {
-            result.executionRoleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.executionRoleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackSetDriftDetectionDetails':
-          if (value != null) {
-            result.stackSetDriftDetectionDetails
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
-            ) as _i6.StackSetDriftDetectionDetails));
-          }
-          break;
+          result.stackSetDriftDetectionDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
+          ) as _i6.StackSetDriftDetectionDetails));
         case 'AutoDeployment':
-          if (value != null) {
-            result.autoDeployment.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.AutoDeployment),
-            ) as _i7.AutoDeployment));
-          }
-          break;
+          result.autoDeployment.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.AutoDeployment),
+          ) as _i7.AutoDeployment));
         case 'PermissionModel':
-          if (value != null) {
-            result.permissionModel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.PermissionModels),
-            ) as _i8.PermissionModels);
-          }
-          break;
+          result.permissionModel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.PermissionModels),
+          ) as _i8.PermissionModels);
         case 'OrganizationalUnitIds':
-          if (value != null) {
-            result.organizationalUnitIds.replace(
-                (const _i11.XmlBuiltListSerializer(
-                        indexer: _i11.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i10.BuiltList<String>));
-          }
-          break;
+          result.organizationalUnitIds.replace(
+              (const _i11.XmlBuiltListSerializer(
+                      indexer: _i11.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i10.BuiltList<String>));
         case 'ManagedExecution':
-          if (value != null) {
-            result.managedExecution.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.ManagedExecution),
-            ) as _i9.ManagedExecution));
-          }
-          break;
+          result.managedExecution.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.ManagedExecution),
+          ) as _i9.ManagedExecution));
       }
     }
 
@@ -432,155 +386,173 @@ class StackSetAwsQuerySerializer
             'http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackSetName != null) {
+    final StackSet(
+      :stackSetName,
+      :stackSetId,
+      :description,
+      :status,
+      :templateBody,
+      :parameters,
+      :capabilities,
+      :tags,
+      :stackSetArn,
+      :administrationRoleArn,
+      :executionRoleName,
+      :stackSetDriftDetectionDetails,
+      :autoDeployment,
+      :permissionModel,
+      :organizationalUnitIds,
+      :managedExecution
+    ) = payload;
+    if (stackSetName != null) {
       result
         ..add(const _i11.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
-          payload.stackSetName!,
+          stackSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackSetId != null) {
+    if (stackSetId != null) {
       result
         ..add(const _i11.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
-          payload.stackSetId!,
+          stackSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i11.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i11.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i2.StackSetStatus),
         ));
     }
-    if (payload.templateBody != null) {
+    if (templateBody != null) {
       result
         ..add(const _i11.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
-          payload.templateBody!,
+          templateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameters != null) {
+    if (parameters != null) {
       result
         ..add(const _i11.XmlElementName('Parameters'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType.nullable(
             _i10.BuiltList,
             [FullType(_i3.Parameter)],
           ),
         ));
     }
-    if (payload.capabilities != null) {
+    if (capabilities != null) {
       result
         ..add(const _i11.XmlElementName('Capabilities'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.capabilities!,
+          capabilities,
           specifiedType: const FullType.nullable(
             _i10.BuiltList,
             [FullType(_i4.Capability)],
           ),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i11.XmlElementName('Tags'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i10.BuiltList,
             [FullType(_i5.Tag)],
           ),
         ));
     }
-    if (payload.stackSetArn != null) {
+    if (stackSetArn != null) {
       result
         ..add(const _i11.XmlElementName('StackSetARN'))
         ..add(serializers.serialize(
-          payload.stackSetArn!,
+          stackSetArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.administrationRoleArn != null) {
+    if (administrationRoleArn != null) {
       result
         ..add(const _i11.XmlElementName('AdministrationRoleARN'))
         ..add(serializers.serialize(
-          payload.administrationRoleArn!,
+          administrationRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.executionRoleName != null) {
+    if (executionRoleName != null) {
       result
         ..add(const _i11.XmlElementName('ExecutionRoleName'))
         ..add(serializers.serialize(
-          payload.executionRoleName!,
+          executionRoleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackSetDriftDetectionDetails != null) {
+    if (stackSetDriftDetectionDetails != null) {
       result
         ..add(const _i11.XmlElementName('StackSetDriftDetectionDetails'))
         ..add(serializers.serialize(
-          payload.stackSetDriftDetectionDetails!,
+          stackSetDriftDetectionDetails,
           specifiedType: const FullType(_i6.StackSetDriftDetectionDetails),
         ));
     }
-    if (payload.autoDeployment != null) {
+    if (autoDeployment != null) {
       result
         ..add(const _i11.XmlElementName('AutoDeployment'))
         ..add(serializers.serialize(
-          payload.autoDeployment!,
+          autoDeployment,
           specifiedType: const FullType(_i7.AutoDeployment),
         ));
     }
-    if (payload.permissionModel != null) {
+    if (permissionModel != null) {
       result
         ..add(const _i11.XmlElementName('PermissionModel'))
         ..add(serializers.serialize(
-          payload.permissionModel!,
+          permissionModel,
           specifiedType: const FullType.nullable(_i8.PermissionModels),
         ));
     }
-    if (payload.organizationalUnitIds != null) {
+    if (organizationalUnitIds != null) {
       result
         ..add(const _i11.XmlElementName('OrganizationalUnitIds'))
         ..add(const _i11.XmlBuiltListSerializer(
                 indexer: _i11.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.organizationalUnitIds!,
+          organizationalUnitIds,
           specifiedType: const FullType.nullable(
             _i10.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.managedExecution != null) {
+    if (managedExecution != null) {
       result
         ..add(const _i11.XmlElementName('ManagedExecution'))
         ..add(serializers.serialize(
-          payload.managedExecution!,
+          managedExecution,
           specifiedType: const FullType(_i9.ManagedExecution),
         ));
     }

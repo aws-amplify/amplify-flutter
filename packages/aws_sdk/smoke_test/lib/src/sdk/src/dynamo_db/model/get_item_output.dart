@@ -102,29 +102,26 @@ class GetItemOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ConsumedCapacity),
-            ) as _i3.ConsumedCapacity));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ConsumedCapacity),
+          ) as _i3.ConsumedCapacity));
       }
     }
 
@@ -139,11 +136,12 @@ class GetItemOutputAwsJson10Serializer
   }) {
     final payload = (object as GetItemOutput);
     final result = <Object?>[];
-    if (payload.item != null) {
+    final GetItemOutput(:item, :consumedCapacity) = payload;
+    if (item != null) {
       result
         ..add('Item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -153,11 +151,11 @@ class GetItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }

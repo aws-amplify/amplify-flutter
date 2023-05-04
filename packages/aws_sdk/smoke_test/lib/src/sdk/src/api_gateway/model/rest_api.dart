@@ -212,123 +212,87 @@ class RestApiRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeySource':
-          if (value != null) {
-            result.apiKeySource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ApiKeySourceType),
-            ) as _i2.ApiKeySourceType);
-          }
-          break;
+          result.apiKeySource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ApiKeySourceType),
+          ) as _i2.ApiKeySourceType);
         case 'binaryMediaTypes':
-          if (value != null) {
-            result.binaryMediaTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.binaryMediaTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'disableExecuteApiEndpoint':
-          if (value != null) {
-            result.disableExecuteApiEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.disableExecuteApiEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'endpointConfiguration':
-          if (value != null) {
-            result.endpointConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EndpointConfiguration),
-            ) as _i3.EndpointConfiguration));
-          }
-          break;
+          result.endpointConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EndpointConfiguration),
+          ) as _i3.EndpointConfiguration));
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'minimumCompressionSize':
-          if (value != null) {
-            result.minimumCompressionSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minimumCompressionSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.version = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.warnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
       }
     }
 
@@ -343,94 +307,109 @@ class RestApiRestJson1Serializer
   }) {
     final payload = (object as RestApi);
     final result = <Object?>[];
-    if (payload.apiKeySource != null) {
+    final RestApi(
+      :apiKeySource,
+      :binaryMediaTypes,
+      :createdDate,
+      :description,
+      :disableExecuteApiEndpoint,
+      :endpointConfiguration,
+      :id,
+      :minimumCompressionSize,
+      :name,
+      :policy,
+      :tags,
+      :version,
+      :warnings
+    ) = payload;
+    if (apiKeySource != null) {
       result
         ..add('apiKeySource')
         ..add(serializers.serialize(
-          payload.apiKeySource!,
+          apiKeySource,
           specifiedType: const FullType(_i2.ApiKeySourceType),
         ));
     }
-    if (payload.binaryMediaTypes != null) {
+    if (binaryMediaTypes != null) {
       result
         ..add('binaryMediaTypes')
         ..add(serializers.serialize(
-          payload.binaryMediaTypes!,
+          binaryMediaTypes,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.createdDate != null) {
+    if (createdDate != null) {
       result
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.disableExecuteApiEndpoint != null) {
+    if (disableExecuteApiEndpoint != null) {
       result
         ..add('disableExecuteApiEndpoint')
         ..add(serializers.serialize(
-          payload.disableExecuteApiEndpoint!,
+          disableExecuteApiEndpoint,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.endpointConfiguration != null) {
+    if (endpointConfiguration != null) {
       result
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
-          payload.endpointConfiguration!,
+          endpointConfiguration,
           specifiedType: const FullType(_i3.EndpointConfiguration),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.minimumCompressionSize != null) {
+    if (minimumCompressionSize != null) {
       result
         ..add('minimumCompressionSize')
         ..add(serializers.serialize(
-          payload.minimumCompressionSize!,
+          minimumCompressionSize,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policy != null) {
+    if (policy != null) {
       result
         ..add('policy')
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -440,19 +419,19 @@ class RestApiRestJson1Serializer
           ),
         ));
     }
-    if (payload.version != null) {
+    if (version != null) {
       result
         ..add('version')
         ..add(serializers.serialize(
-          payload.version!,
+          version,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.warnings != null) {
+    if (warnings != null) {
       result
         ..add('warnings')
         ..add(serializers.serialize(
-          payload.warnings!,
+          warnings,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],

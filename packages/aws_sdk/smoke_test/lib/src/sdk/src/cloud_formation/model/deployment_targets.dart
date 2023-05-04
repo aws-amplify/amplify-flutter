@@ -130,55 +130,46 @@ class DeploymentTargetsAwsQuerySerializer
     final result = DeploymentTargetsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Accounts':
-          if (value != null) {
-            result.accounts.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.accounts.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'AccountsUrl':
-          if (value != null) {
-            result.accountsUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accountsUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OrganizationalUnitIds':
-          if (value != null) {
-            result.organizationalUnitIds.replace(
-                (const _i4.XmlBuiltListSerializer(
-                        indexer: _i4.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.organizationalUnitIds.replace(
+              (const _i4.XmlBuiltListSerializer(
+                      indexer: _i4.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'AccountFilterType':
-          if (value != null) {
-            result.accountFilterType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AccountFilterType),
-            ) as _i2.AccountFilterType);
-          }
-          break;
+          result.accountFilterType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AccountFilterType),
+          ) as _i2.AccountFilterType);
       }
     }
 
@@ -198,47 +189,53 @@ class DeploymentTargetsAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.accounts != null) {
+    final DeploymentTargets(
+      :accounts,
+      :accountsUrl,
+      :organizationalUnitIds,
+      :accountFilterType
+    ) = payload;
+    if (accounts != null) {
       result
         ..add(const _i4.XmlElementName('Accounts'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.accounts!,
+          accounts,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.accountsUrl != null) {
+    if (accountsUrl != null) {
       result
         ..add(const _i4.XmlElementName('AccountsUrl'))
         ..add(serializers.serialize(
-          payload.accountsUrl!,
+          accountsUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.organizationalUnitIds != null) {
+    if (organizationalUnitIds != null) {
       result
         ..add(const _i4.XmlElementName('OrganizationalUnitIds'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.organizationalUnitIds!,
+          organizationalUnitIds,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.accountFilterType != null) {
+    if (accountFilterType != null) {
       result
         ..add(const _i4.XmlElementName('AccountFilterType'))
         ..add(serializers.serialize(
-          payload.accountFilterType!,
+          accountFilterType,
           specifiedType: const FullType.nullable(_i2.AccountFilterType),
         ));
     }

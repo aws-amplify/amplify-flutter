@@ -251,32 +251,29 @@ class PutBucketAclRequestRestXmlSerializer
     final result = _i2.AccessControlPolicyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessControlList':
-          if (value != null) {
-            result.grants.replace(
-                (const _i1.XmlBuiltListSerializer(memberName: 'Grant')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i7.Grant)],
-              ),
-            ) as _i6.BuiltList<_i7.Grant>));
-          }
-          break;
+          result.grants.replace(
+              (const _i1.XmlBuiltListSerializer(memberName: 'Grant')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i7.Grant)],
+            ),
+          ) as _i6.BuiltList<_i7.Grant>));
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.Owner),
-            ) as _i8.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.Owner),
+          ) as _i8.Owner));
       }
     }
 
@@ -301,23 +298,24 @@ class PutBucketAclRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.grants != null) {
+    final _i2.AccessControlPolicy(:grants, :owner) = payload;
+    if (grants != null) {
       result
         ..add(const _i1.XmlElementName('AccessControlList'))
         ..add(const _i1.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
-          payload.grants!,
+          grants,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i7.Grant)],
           ),
         ));
     }
-    if (payload.owner != null) {
+    if (owner != null) {
       result
         ..add(const _i1.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i8.Owner),
         ));
     }

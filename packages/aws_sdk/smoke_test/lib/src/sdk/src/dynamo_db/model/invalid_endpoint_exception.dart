@@ -98,15 +98,15 @@ class InvalidEndpointExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,11 +121,12 @@ class InvalidEndpointExceptionAwsJson10Serializer
   }) {
     final payload = (object as InvalidEndpointException);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final InvalidEndpointException(:message) = payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

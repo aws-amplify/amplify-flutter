@@ -112,30 +112,28 @@ class CreateLoginProfileRequestAwsQuerySerializer
     final result = CreateLoginProfileRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Password':
           result.password = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PasswordResetRequired':
-          if (value != null) {
-            result.passwordResetRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.passwordResetRequired = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -155,23 +153,28 @@ class CreateLoginProfileRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateLoginProfileRequest(
+      :userName,
+      :password,
+      :passwordResetRequired
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('Password'))
       ..add(serializers.serialize(
-        payload.password,
+        password,
         specifiedType: const FullType(String),
       ));
-    if (payload.passwordResetRequired != null) {
+    if (passwordResetRequired != null) {
       result
         ..add(const _i1.XmlElementName('PasswordResetRequired'))
         ..add(serializers.serialize(
-          payload.passwordResetRequired!,
+          passwordResetRequired,
           specifiedType: const FullType.nullable(bool),
         ));
     }

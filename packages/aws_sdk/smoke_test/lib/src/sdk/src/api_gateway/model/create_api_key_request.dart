@@ -164,80 +164,59 @@ class CreateApiKeyRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'customerId':
-          if (value != null) {
-            result.customerId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.customerId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.enabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'generateDistinctId':
-          if (value != null) {
-            result.generateDistinctId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.generateDistinctId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageKeys':
-          if (value != null) {
-            result.stageKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.StageKey)],
-              ),
-            ) as _i4.BuiltList<_i3.StageKey>));
-          }
-          break;
+          result.stageKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.StageKey)],
+            ),
+          ) as _i4.BuiltList<_i3.StageKey>));
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -252,62 +231,72 @@ class CreateApiKeyRequestRestJson1Serializer
   }) {
     final payload = (object as CreateApiKeyRequest);
     final result = <Object?>[];
-    if (payload.customerId != null) {
+    final CreateApiKeyRequest(
+      :customerId,
+      :description,
+      :enabled,
+      :generateDistinctId,
+      :name,
+      :stageKeys,
+      :tags,
+      :value
+    ) = payload;
+    if (customerId != null) {
       result
         ..add('customerId')
         ..add(serializers.serialize(
-          payload.customerId!,
+          customerId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.enabled != null) {
+    if (enabled != null) {
       result
         ..add('enabled')
         ..add(serializers.serialize(
-          payload.enabled!,
+          enabled,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.generateDistinctId != null) {
+    if (generateDistinctId != null) {
       result
         ..add('generateDistinctId')
         ..add(serializers.serialize(
-          payload.generateDistinctId!,
+          generateDistinctId,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stageKeys != null) {
+    if (stageKeys != null) {
       result
         ..add('stageKeys')
         ..add(serializers.serialize(
-          payload.stageKeys!,
+          stageKeys,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.StageKey)],
           ),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -317,11 +306,11 @@ class CreateApiKeyRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.value != null) {
+    if (value != null) {
       result
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }

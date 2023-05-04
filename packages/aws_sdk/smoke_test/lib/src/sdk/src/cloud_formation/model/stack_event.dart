@@ -243,130 +243,93 @@ class StackEventAwsQuerySerializer
     final result = StackEventBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackId':
           result.stackId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'EventId':
           result.eventId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogicalResourceId':
-          if (value != null) {
-            result.logicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.logicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PhysicalResourceId':
-          if (value != null) {
-            result.physicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.physicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ResourceStatus':
-          if (value != null) {
-            result.resourceStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceStatus),
-            ) as _i2.ResourceStatus);
-          }
-          break;
+          result.resourceStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceStatus),
+          ) as _i2.ResourceStatus);
         case 'ResourceStatusReason':
-          if (value != null) {
-            result.resourceStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceProperties':
-          if (value != null) {
-            result.resourceProperties = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceProperties = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HookType':
-          if (value != null) {
-            result.hookType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hookType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HookStatus':
-          if (value != null) {
-            result.hookStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.HookStatus),
-            ) as _i3.HookStatus);
-          }
-          break;
+          result.hookStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.HookStatus),
+          ) as _i3.HookStatus);
         case 'HookStatusReason':
-          if (value != null) {
-            result.hookStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hookStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HookInvocationPoint':
-          if (value != null) {
-            result.hookInvocationPoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.HookInvocationPoint),
-            ) as _i4.HookInvocationPoint);
-          }
-          break;
+          result.hookInvocationPoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.HookInvocationPoint),
+          ) as _i4.HookInvocationPoint);
         case 'HookFailureMode':
-          if (value != null) {
-            result.hookFailureMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.HookFailureMode),
-            ) as _i5.HookFailureMode);
-          }
-          break;
+          result.hookFailureMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.HookFailureMode),
+          ) as _i5.HookFailureMode);
       }
     }
 
@@ -386,123 +349,141 @@ class StackEventAwsQuerySerializer
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final StackEvent(
+      :stackId,
+      :eventId,
+      :stackName,
+      :logicalResourceId,
+      :physicalResourceId,
+      :resourceType,
+      :timestamp,
+      :resourceStatus,
+      :resourceStatusReason,
+      :resourceProperties,
+      :clientRequestToken,
+      :hookType,
+      :hookStatus,
+      :hookStatusReason,
+      :hookInvocationPoint,
+      :hookFailureMode
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('StackId'))
       ..add(serializers.serialize(
-        payload.stackId,
+        stackId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('EventId'))
       ..add(serializers.serialize(
-        payload.eventId,
+        eventId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.logicalResourceId != null) {
+    if (logicalResourceId != null) {
       result
         ..add(const _i6.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
-          payload.logicalResourceId!,
+          logicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.physicalResourceId != null) {
+    if (physicalResourceId != null) {
       result
         ..add(const _i6.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
-          payload.physicalResourceId!,
+          physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (resourceType != null) {
       result
         ..add(const _i6.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i6.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
-        payload.timestamp,
+        timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.resourceStatus != null) {
+    if (resourceStatus != null) {
       result
         ..add(const _i6.XmlElementName('ResourceStatus'))
         ..add(serializers.serialize(
-          payload.resourceStatus!,
+          resourceStatus,
           specifiedType: const FullType.nullable(_i2.ResourceStatus),
         ));
     }
-    if (payload.resourceStatusReason != null) {
+    if (resourceStatusReason != null) {
       result
         ..add(const _i6.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
-          payload.resourceStatusReason!,
+          resourceStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceProperties != null) {
+    if (resourceProperties != null) {
       result
         ..add(const _i6.XmlElementName('ResourceProperties'))
         ..add(serializers.serialize(
-          payload.resourceProperties!,
+          resourceProperties,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add(const _i6.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.hookType != null) {
+    if (hookType != null) {
       result
         ..add(const _i6.XmlElementName('HookType'))
         ..add(serializers.serialize(
-          payload.hookType!,
+          hookType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.hookStatus != null) {
+    if (hookStatus != null) {
       result
         ..add(const _i6.XmlElementName('HookStatus'))
         ..add(serializers.serialize(
-          payload.hookStatus!,
+          hookStatus,
           specifiedType: const FullType.nullable(_i3.HookStatus),
         ));
     }
-    if (payload.hookStatusReason != null) {
+    if (hookStatusReason != null) {
       result
         ..add(const _i6.XmlElementName('HookStatusReason'))
         ..add(serializers.serialize(
-          payload.hookStatusReason!,
+          hookStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.hookInvocationPoint != null) {
+    if (hookInvocationPoint != null) {
       result
         ..add(const _i6.XmlElementName('HookInvocationPoint'))
         ..add(serializers.serialize(
-          payload.hookInvocationPoint!,
+          hookInvocationPoint,
           specifiedType: const FullType.nullable(_i4.HookInvocationPoint),
         ));
     }
-    if (payload.hookFailureMode != null) {
+    if (hookFailureMode != null) {
       result
         ..add(const _i6.XmlElementName('HookFailureMode'))
         ..add(serializers.serialize(
-          payload.hookFailureMode!,
+          hookFailureMode,
           specifiedType: const FullType.nullable(_i5.HookFailureMode),
         ));
     }

@@ -93,23 +93,20 @@ class WriteRequestAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PutRequest':
-          if (value != null) {
-            result.putRequest.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.PutRequest),
-            ) as _i2.PutRequest));
-          }
-          break;
+          result.putRequest.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.PutRequest),
+          ) as _i2.PutRequest));
         case 'DeleteRequest':
-          if (value != null) {
-            result.deleteRequest.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeleteRequest),
-            ) as _i3.DeleteRequest));
-          }
-          break;
+          result.deleteRequest.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeleteRequest),
+          ) as _i3.DeleteRequest));
       }
     }
 
@@ -124,19 +121,20 @@ class WriteRequestAwsJson10Serializer
   }) {
     final payload = (object as WriteRequest);
     final result = <Object?>[];
-    if (payload.putRequest != null) {
+    final WriteRequest(:putRequest, :deleteRequest) = payload;
+    if (putRequest != null) {
       result
         ..add('PutRequest')
         ..add(serializers.serialize(
-          payload.putRequest!,
+          putRequest,
           specifiedType: const FullType(_i2.PutRequest),
         ));
     }
-    if (payload.deleteRequest != null) {
+    if (deleteRequest != null) {
       result
         ..add('DeleteRequest')
         ..add(serializers.serialize(
-          payload.deleteRequest!,
+          deleteRequest,
           specifiedType: const FullType(_i3.DeleteRequest),
         ));
     }

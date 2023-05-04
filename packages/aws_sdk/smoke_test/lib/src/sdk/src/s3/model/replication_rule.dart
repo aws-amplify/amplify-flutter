@@ -178,78 +178,58 @@ class ReplicationRuleRestXmlSerializer
     final result = ReplicationRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DeleteMarkerReplication':
-          if (value != null) {
-            result.deleteMarkerReplication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.DeleteMarkerReplication),
-            ) as _i7.DeleteMarkerReplication));
-          }
-          break;
+          result.deleteMarkerReplication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.DeleteMarkerReplication),
+          ) as _i7.DeleteMarkerReplication));
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i6.Destination),
           ) as _i6.Destination));
-          break;
         case 'ExistingObjectReplication':
-          if (value != null) {
-            result.existingObjectReplication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ExistingObjectReplication),
-            ) as _i5.ExistingObjectReplication));
-          }
-          break;
+          result.existingObjectReplication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ExistingObjectReplication),
+          ) as _i5.ExistingObjectReplication));
         case 'Filter':
-          if (value != null) {
-            result.filter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ReplicationRuleFilter),
-            ) as _i2.ReplicationRuleFilter);
-          }
-          break;
+          result.filter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ReplicationRuleFilter),
+          ) as _i2.ReplicationRuleFilter);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Priority':
-          if (value != null) {
-            result.priority = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.priority = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'SourceSelectionCriteria':
-          if (value != null) {
-            result.sourceSelectionCriteria.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SourceSelectionCriteria),
-            ) as _i4.SourceSelectionCriteria));
-          }
-          break;
+          result.sourceSelectionCriteria.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SourceSelectionCriteria),
+          ) as _i4.SourceSelectionCriteria));
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ReplicationRuleStatus),
           ) as _i3.ReplicationRuleStatus);
-          break;
       }
     }
 
@@ -269,72 +249,83 @@ class ReplicationRuleRestXmlSerializer
         _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.deleteMarkerReplication != null) {
+    final ReplicationRule(
+      :deleteMarkerReplication,
+      :destination,
+      :existingObjectReplication,
+      :filter,
+      :id,
+      :prefix,
+      :priority,
+      :sourceSelectionCriteria,
+      :status
+    ) = payload;
+    if (deleteMarkerReplication != null) {
       result
         ..add(const _i8.XmlElementName('DeleteMarkerReplication'))
         ..add(serializers.serialize(
-          payload.deleteMarkerReplication!,
+          deleteMarkerReplication,
           specifiedType: const FullType(_i7.DeleteMarkerReplication),
         ));
     }
     result
       ..add(const _i8.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
+        destination,
         specifiedType: const FullType(_i6.Destination),
       ));
-    if (payload.existingObjectReplication != null) {
+    if (existingObjectReplication != null) {
       result
         ..add(const _i8.XmlElementName('ExistingObjectReplication'))
         ..add(serializers.serialize(
-          payload.existingObjectReplication!,
+          existingObjectReplication,
           specifiedType: const FullType(_i5.ExistingObjectReplication),
         ));
     }
-    if (payload.filter != null) {
+    if (filter != null) {
       result
         ..add(const _i8.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i2.ReplicationRuleFilter),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i8.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i8.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.priority != null) {
+    if (priority != null) {
       result
         ..add(const _i8.XmlElementName('Priority'))
         ..add(serializers.serialize(
-          payload.priority!,
+          priority,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.sourceSelectionCriteria != null) {
+    if (sourceSelectionCriteria != null) {
       result
         ..add(const _i8.XmlElementName('SourceSelectionCriteria'))
         ..add(serializers.serialize(
-          payload.sourceSelectionCriteria!,
+          sourceSelectionCriteria,
           specifiedType: const FullType(_i4.SourceSelectionCriteria),
         ));
     }
     result
       ..add(const _i8.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i3.ReplicationRuleStatus),
       ));
     return result;

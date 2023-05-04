@@ -123,34 +123,28 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'totalDiscoveredResources':
-          if (value != null) {
-            result.totalDiscoveredResources = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.totalDiscoveredResources = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'resourceCounts':
-          if (value != null) {
-            result.resourceCounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ResourceCount)],
-              ),
-            ) as _i4.BuiltList<_i3.ResourceCount>));
-          }
-          break;
+          result.resourceCounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ResourceCount)],
+            ),
+          ) as _i4.BuiltList<_i3.ResourceCount>));
         case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -165,30 +159,35 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
   }) {
     final payload = (object as GetDiscoveredResourceCountsResponse);
     final result = <Object?>[];
-    if (payload.totalDiscoveredResources != null) {
+    final GetDiscoveredResourceCountsResponse(
+      :totalDiscoveredResources,
+      :resourceCounts,
+      :nextToken
+    ) = payload;
+    if (totalDiscoveredResources != null) {
       result
         ..add('totalDiscoveredResources')
         ..add(serializers.serialize(
-          payload.totalDiscoveredResources!,
+          totalDiscoveredResources,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.resourceCounts != null) {
+    if (resourceCounts != null) {
       result
         ..add('resourceCounts')
         ..add(serializers.serialize(
-          payload.resourceCounts!,
+          resourceCounts,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ResourceCount)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('nextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

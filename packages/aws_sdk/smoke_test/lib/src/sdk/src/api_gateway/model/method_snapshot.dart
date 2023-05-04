@@ -90,23 +90,20 @@ class MethodSnapshotRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyRequired':
-          if (value != null) {
-            result.apiKeyRequired = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.apiKeyRequired = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'authorizationType':
-          if (value != null) {
-            result.authorizationType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizationType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,19 +118,20 @@ class MethodSnapshotRestJson1Serializer
   }) {
     final payload = (object as MethodSnapshot);
     final result = <Object?>[];
-    if (payload.apiKeyRequired != null) {
+    final MethodSnapshot(:apiKeyRequired, :authorizationType) = payload;
+    if (apiKeyRequired != null) {
       result
         ..add('apiKeyRequired')
         ..add(serializers.serialize(
-          payload.apiKeyRequired!,
+          apiKeyRequired,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.authorizationType != null) {
+    if (authorizationType != null) {
       result
         ..add('authorizationType')
         ..add(serializers.serialize(
-          payload.authorizationType!,
+          authorizationType,
           specifiedType: const FullType(String),
         ));
     }

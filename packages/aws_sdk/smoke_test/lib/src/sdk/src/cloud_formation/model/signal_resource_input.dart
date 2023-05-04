@@ -121,34 +121,33 @@ class SignalResourceInputAwsQuerySerializer
     final result = SignalResourceInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogicalResourceId':
           result.logicalResourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UniqueId':
           result.uniqueId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ResourceSignalStatus),
           ) as _i3.ResourceSignalStatus);
-          break;
       }
     }
 
@@ -168,28 +167,34 @@ class SignalResourceInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final SignalResourceInput(
+      :stackName,
+      :logicalResourceId,
+      :uniqueId,
+      :status
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
-        payload.logicalResourceId,
+        logicalResourceId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('UniqueId'))
       ..add(serializers.serialize(
-        payload.uniqueId,
+        uniqueId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i3.ResourceSignalStatus),
       ));
     return result;

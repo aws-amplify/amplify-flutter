@@ -76,15 +76,15 @@ class ExecutionControlsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SsmControls':
-          if (value != null) {
-            result.ssmControls.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SsmControls),
-            ) as _i2.SsmControls));
-          }
-          break;
+          result.ssmControls.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SsmControls),
+          ) as _i2.SsmControls));
       }
     }
 
@@ -99,11 +99,12 @@ class ExecutionControlsAwsJson11Serializer
   }) {
     final payload = (object as ExecutionControls);
     final result = <Object?>[];
-    if (payload.ssmControls != null) {
+    final ExecutionControls(:ssmControls) = payload;
+    if (ssmControls != null) {
       result
         ..add('SsmControls')
         ..add(serializers.serialize(
-          payload.ssmControls!,
+          ssmControls,
           specifiedType: const FullType(_i2.SsmControls),
         ));
     }

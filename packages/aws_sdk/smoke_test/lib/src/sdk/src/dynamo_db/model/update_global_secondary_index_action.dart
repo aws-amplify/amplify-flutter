@@ -100,19 +100,20 @@ class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.ProvisionedThroughput),
           ) as _i2.ProvisionedThroughput));
-          break;
       }
     }
 

@@ -105,6 +105,9 @@ class TransactGetItemsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TransactItems':
           result.transactItems.replace((serializers.deserialize(
@@ -114,15 +117,11 @@ class TransactGetItemsInputAwsJson10Serializer
               [FullType(_i3.TransactGetItem)],
             ),
           ) as _i5.BuiltList<_i3.TransactGetItem>));
-          break;
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
       }
     }
 
@@ -146,11 +145,12 @@ class TransactGetItemsInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.returnConsumedCapacity != null) {
+    final TransactGetItemsInput(:returnConsumedCapacity) = payload;
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }

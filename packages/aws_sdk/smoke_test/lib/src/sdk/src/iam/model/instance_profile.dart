@@ -170,40 +170,38 @@ class InstanceProfileAwsQuerySerializer
     final result = InstanceProfileBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'InstanceProfileName':
           result.instanceProfileName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'InstanceProfileId':
           result.instanceProfileId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'Roles':
           result.roles.replace((const _i5.XmlBuiltListSerializer(
                   indexer: _i5.XmlIndexer.awsQueryList)
@@ -215,21 +213,17 @@ class InstanceProfileAwsQuerySerializer
               [FullType(_i2.Role)],
             ),
           ) as _i4.BuiltList<_i2.Role>));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i5.XmlBuiltListSerializer(
-                    indexer: _i5.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i5.XmlBuiltListSerializer(
+                  indexer: _i5.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -249,34 +243,43 @@ class InstanceProfileAwsQuerySerializer
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final InstanceProfile(
+      :path,
+      :instanceProfileName,
+      :instanceProfileId,
+      :arn,
+      :createDate,
+      :roles,
+      :tags
+    ) = payload;
     result
       ..add(const _i5.XmlElementName('Path'))
       ..add(serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('InstanceProfileName'))
       ..add(serializers.serialize(
-        payload.instanceProfileName,
+        instanceProfileName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('InstanceProfileId'))
       ..add(serializers.serialize(
-        payload.instanceProfileId,
+        instanceProfileId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
-        payload.createDate,
+        createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
@@ -285,20 +288,20 @@ class InstanceProfileAwsQuerySerializer
           const _i5.XmlBuiltListSerializer(indexer: _i5.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.roles,
+        roles,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i2.Role)],
         ),
       ));
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i5.XmlElementName('Tags'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

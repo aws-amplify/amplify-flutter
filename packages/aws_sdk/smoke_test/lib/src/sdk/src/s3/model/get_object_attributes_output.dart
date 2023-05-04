@@ -283,50 +283,38 @@ class GetObjectAttributesOutputRestXmlSerializer
     final result = GetObjectAttributesOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Checksum':
-          if (value != null) {
-            result.checksum.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Checksum),
-            ) as _i4.Checksum));
-          }
-          break;
+          result.checksum.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Checksum),
+          ) as _i4.Checksum));
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ObjectParts':
-          if (value != null) {
-            result.objectParts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.GetObjectAttributesParts),
-            ) as _i5.GetObjectAttributesParts));
-          }
-          break;
+          result.objectParts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.GetObjectAttributesParts),
+          ) as _i5.GetObjectAttributesParts));
         case 'ObjectSize':
-          if (value != null) {
-            result.objectSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.Int64),
-            ) as _i7.Int64);
-          }
-          break;
+          result.objectSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.Int64),
+          ) as _i7.Int64);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.StorageClass),
-            ) as _i6.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.StorageClass),
+          ) as _i6.StorageClass);
       }
     }
 
@@ -348,43 +336,50 @@ class GetObjectAttributesOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksum != null) {
+    final GetObjectAttributesOutputPayload(
+      :checksum,
+      :eTag,
+      :objectParts,
+      :objectSize,
+      :storageClass
+    ) = payload;
+    if (checksum != null) {
       result
         ..add(const _i2.XmlElementName('Checksum'))
         ..add(serializers.serialize(
-          payload.checksum!,
+          checksum,
           specifiedType: const FullType(_i4.Checksum),
         ));
     }
-    if (payload.eTag != null) {
+    if (eTag != null) {
       result
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.objectParts != null) {
+    if (objectParts != null) {
       result
         ..add(const _i2.XmlElementName('ObjectParts'))
         ..add(serializers.serialize(
-          payload.objectParts!,
+          objectParts,
           specifiedType: const FullType(_i5.GetObjectAttributesParts),
         ));
     }
-    if (payload.objectSize != null) {
+    if (objectSize != null) {
       result
         ..add(const _i2.XmlElementName('ObjectSize'))
         ..add(serializers.serialize(
-          payload.objectSize!,
+          objectSize,
           specifiedType: const FullType.nullable(_i7.Int64),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i6.StorageClass),
         ));
     }

@@ -155,28 +155,28 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
     final result = GetServiceLastAccessedDetailsWithEntitiesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'JobStatus':
           result.jobStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.JobStatusType),
           ) as _i2.JobStatusType);
-          break;
         case 'JobCreationDate':
           result.jobCreationDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'JobCompletionDate':
           result.jobCompletionDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'EntityDetailsList':
           result.entityDetailsList.replace((const _i6.XmlBuiltListSerializer(
                   indexer: _i6.XmlIndexer.awsQueryList)
@@ -188,31 +188,21 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
               [FullType(_i3.EntityDetails)],
             ),
           ) as _i5.BuiltList<_i3.EntityDetails>));
-          break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Error':
-          if (value != null) {
-            result.error.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ErrorDetails),
-            ) as _i4.ErrorDetails));
-          }
-          break;
+          result.error.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ErrorDetails),
+          ) as _i4.ErrorDetails));
       }
     }
 
@@ -233,22 +223,31 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetServiceLastAccessedDetailsWithEntitiesResponse(
+      :jobStatus,
+      :jobCreationDate,
+      :jobCompletionDate,
+      :entityDetailsList,
+      :isTruncated,
+      :marker,
+      :error
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
-        payload.jobStatus,
+        jobStatus,
         specifiedType: const FullType.nullable(_i2.JobStatusType),
       ));
     result
       ..add(const _i6.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
-        payload.jobCreationDate,
+        jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
       ..add(const _i6.XmlElementName('JobCompletionDate'))
       ..add(serializers.serialize(
-        payload.jobCompletionDate,
+        jobCompletionDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
@@ -257,33 +256,33 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
           const _i6.XmlBuiltListSerializer(indexer: _i6.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.entityDetailsList,
+        entityDetailsList,
         specifiedType: const FullType.nullable(
           _i5.BuiltList,
           [FullType(_i3.EntityDetails)],
         ),
       ));
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.error != null) {
+    if (error != null) {
       result
         ..add(const _i6.XmlElementName('Error'))
         ..add(serializers.serialize(
-          payload.error!,
+          error,
           specifiedType: const FullType(_i4.ErrorDetails),
         ));
     }

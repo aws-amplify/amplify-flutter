@@ -99,26 +99,23 @@ class ListGlobalTablesOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalTables':
-          if (value != null) {
-            result.globalTables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.GlobalTable)],
-              ),
-            ) as _i3.BuiltList<_i2.GlobalTable>));
-          }
-          break;
+          result.globalTables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.GlobalTable)],
+            ),
+          ) as _i3.BuiltList<_i2.GlobalTable>));
         case 'LastEvaluatedGlobalTableName':
-          if (value != null) {
-            result.lastEvaluatedGlobalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedGlobalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -133,22 +130,24 @@ class ListGlobalTablesOutputAwsJson10Serializer
   }) {
     final payload = (object as ListGlobalTablesOutput);
     final result = <Object?>[];
-    if (payload.globalTables != null) {
+    final ListGlobalTablesOutput(:globalTables, :lastEvaluatedGlobalTableName) =
+        payload;
+    if (globalTables != null) {
       result
         ..add('GlobalTables')
         ..add(serializers.serialize(
-          payload.globalTables!,
+          globalTables,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.GlobalTable)],
           ),
         ));
     }
-    if (payload.lastEvaluatedGlobalTableName != null) {
+    if (lastEvaluatedGlobalTableName != null) {
       result
         ..add('LastEvaluatedGlobalTableName')
         ..add(serializers.serialize(
-          payload.lastEvaluatedGlobalTableName!,
+          lastEvaluatedGlobalTableName,
           specifiedType: const FullType(String),
         ));
     }

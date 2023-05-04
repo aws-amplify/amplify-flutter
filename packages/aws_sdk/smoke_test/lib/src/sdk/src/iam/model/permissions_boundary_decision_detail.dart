@@ -79,18 +79,18 @@ class PermissionsBoundaryDecisionDetailAwsQuerySerializer
     final result = PermissionsBoundaryDecisionDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowedByPermissionsBoundary':
-          if (value != null) {
-            result.allowedByPermissionsBoundary = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allowedByPermissionsBoundary = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -110,11 +110,13 @@ class PermissionsBoundaryDecisionDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.allowedByPermissionsBoundary != null) {
+    final PermissionsBoundaryDecisionDetail(:allowedByPermissionsBoundary) =
+        payload;
+    if (allowedByPermissionsBoundary != null) {
       result
         ..add(const _i2.XmlElementName('AllowedByPermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.allowedByPermissionsBoundary!,
+          allowedByPermissionsBoundary,
           specifiedType: const FullType.nullable(bool),
         ));
     }

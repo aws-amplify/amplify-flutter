@@ -84,16 +84,18 @@ class CreateAccountAliasRequestAwsQuerySerializer
     final result = CreateAccountAliasRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccountAlias':
           result.accountAlias = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -113,10 +115,11 @@ class CreateAccountAliasRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateAccountAliasRequest(:accountAlias) = payload;
     result
       ..add(const _i1.XmlElementName('AccountAlias'))
       ..add(serializers.serialize(
-        payload.accountAlias,
+        accountAlias,
         specifiedType: const FullType(String),
       ));
     return result;

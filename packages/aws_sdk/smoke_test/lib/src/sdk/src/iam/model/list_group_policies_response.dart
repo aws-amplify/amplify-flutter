@@ -110,10 +110,13 @@ class ListGroupPoliciesResponseAwsQuerySerializer
     final result = ListGroupPoliciesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyNames':
           result.policyNames.replace((const _i3.XmlBuiltListSerializer(
                   indexer: _i3.XmlIndexer.awsQueryList)
@@ -125,23 +128,16 @@ class ListGroupPoliciesResponseAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i2.BuiltList<String>));
-          break;
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -161,31 +157,33 @@ class ListGroupPoliciesResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ListGroupPoliciesResponse(:policyNames, :isTruncated, :marker) =
+        payload;
     result
       ..add(const _i3.XmlElementName('PolicyNames'))
       ..add(
           const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.policyNames,
+        policyNames,
         specifiedType: const FullType.nullable(
           _i2.BuiltList,
           [FullType(String)],
         ),
       ));
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

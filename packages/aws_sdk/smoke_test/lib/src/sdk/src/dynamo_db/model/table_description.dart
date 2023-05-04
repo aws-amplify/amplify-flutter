@@ -431,199 +431,135 @@ class TableDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeDefinitions':
-          if (value != null) {
-            result.attributeDefinitions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i16.BuiltList,
-                [FullType(_i2.AttributeDefinition)],
-              ),
-            ) as _i16.BuiltList<_i2.AttributeDefinition>));
-          }
-          break;
+          result.attributeDefinitions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i16.BuiltList,
+              [FullType(_i2.AttributeDefinition)],
+            ),
+          ) as _i16.BuiltList<_i2.AttributeDefinition>));
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i16.BuiltList,
-                [FullType(_i3.KeySchemaElement)],
-              ),
-            ) as _i16.BuiltList<_i3.KeySchemaElement>));
-          }
-          break;
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i16.BuiltList,
+              [FullType(_i3.KeySchemaElement)],
+            ),
+          ) as _i16.BuiltList<_i3.KeySchemaElement>));
         case 'TableStatus':
-          if (value != null) {
-            result.tableStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TableStatus),
-            ) as _i4.TableStatus);
-          }
-          break;
+          result.tableStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TableStatus),
+          ) as _i4.TableStatus);
         case 'CreationDateTime':
-          if (value != null) {
-            result.creationDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i5.ProvisionedThroughputDescription),
-            ) as _i5.ProvisionedThroughputDescription));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
+          ) as _i5.ProvisionedThroughputDescription));
         case 'TableSizeBytes':
-          if (value != null) {
-            result.tableSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.tableSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
         case 'ItemCount':
-          if (value != null) {
-            result.itemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.itemCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableId':
-          if (value != null) {
-            result.tableId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BillingModeSummary':
-          if (value != null) {
-            result.billingModeSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.BillingModeSummary),
-            ) as _i7.BillingModeSummary));
-          }
-          break;
+          result.billingModeSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.BillingModeSummary),
+          ) as _i7.BillingModeSummary));
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i16.BuiltList,
-                [FullType(_i8.LocalSecondaryIndexDescription)],
-              ),
-            ) as _i16.BuiltList<_i8.LocalSecondaryIndexDescription>));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i16.BuiltList,
+              [FullType(_i8.LocalSecondaryIndexDescription)],
+            ),
+          ) as _i16.BuiltList<_i8.LocalSecondaryIndexDescription>));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i16.BuiltList,
-                [FullType(_i9.GlobalSecondaryIndexDescription)],
-              ),
-            ) as _i16.BuiltList<_i9.GlobalSecondaryIndexDescription>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i16.BuiltList,
+              [FullType(_i9.GlobalSecondaryIndexDescription)],
+            ),
+          ) as _i16.BuiltList<_i9.GlobalSecondaryIndexDescription>));
         case 'StreamSpecification':
-          if (value != null) {
-            result.streamSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.StreamSpecification),
-            ) as _i10.StreamSpecification));
-          }
-          break;
+          result.streamSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.StreamSpecification),
+          ) as _i10.StreamSpecification));
         case 'LatestStreamLabel':
-          if (value != null) {
-            result.latestStreamLabel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.latestStreamLabel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LatestStreamArn':
-          if (value != null) {
-            result.latestStreamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.latestStreamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'GlobalTableVersion':
-          if (value != null) {
-            result.globalTableVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.globalTableVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Replicas':
-          if (value != null) {
-            result.replicas.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i16.BuiltList,
-                [FullType(_i11.ReplicaDescription)],
-              ),
-            ) as _i16.BuiltList<_i11.ReplicaDescription>));
-          }
-          break;
+          result.replicas.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i16.BuiltList,
+              [FullType(_i11.ReplicaDescription)],
+            ),
+          ) as _i16.BuiltList<_i11.ReplicaDescription>));
         case 'RestoreSummary':
-          if (value != null) {
-            result.restoreSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i12.RestoreSummary),
-            ) as _i12.RestoreSummary));
-          }
-          break;
+          result.restoreSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i12.RestoreSummary),
+          ) as _i12.RestoreSummary));
         case 'SSEDescription':
-          if (value != null) {
-            result.sseDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i13.SseDescription),
-            ) as _i13.SseDescription));
-          }
-          break;
+          result.sseDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i13.SseDescription),
+          ) as _i13.SseDescription));
         case 'ArchivalSummary':
-          if (value != null) {
-            result.archivalSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i14.ArchivalSummary),
-            ) as _i14.ArchivalSummary));
-          }
-          break;
+          result.archivalSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i14.ArchivalSummary),
+          ) as _i14.ArchivalSummary));
         case 'TableClassSummary':
-          if (value != null) {
-            result.tableClassSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i15.TableClassSummary),
-            ) as _i15.TableClassSummary));
-          }
-          break;
+          result.tableClassSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i15.TableClassSummary),
+          ) as _i15.TableClassSummary));
       }
     }
 
@@ -638,194 +574,218 @@ class TableDescriptionAwsJson10Serializer
   }) {
     final payload = (object as TableDescription);
     final result = <Object?>[];
-    if (payload.attributeDefinitions != null) {
+    final TableDescription(
+      :attributeDefinitions,
+      :tableName,
+      :keySchema,
+      :tableStatus,
+      :creationDateTime,
+      :provisionedThroughput,
+      :tableSizeBytes,
+      :itemCount,
+      :tableArn,
+      :tableId,
+      :billingModeSummary,
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes,
+      :streamSpecification,
+      :latestStreamLabel,
+      :latestStreamArn,
+      :globalTableVersion,
+      :replicas,
+      :restoreSummary,
+      :sseDescription,
+      :archivalSummary,
+      :tableClassSummary
+    ) = payload;
+    if (attributeDefinitions != null) {
       result
         ..add('AttributeDefinitions')
         ..add(serializers.serialize(
-          payload.attributeDefinitions!,
+          attributeDefinitions,
           specifiedType: const FullType(
             _i16.BuiltList,
             [FullType(_i2.AttributeDefinition)],
           ),
         ));
     }
-    if (payload.tableName != null) {
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keySchema != null) {
+    if (keySchema != null) {
       result
         ..add('KeySchema')
         ..add(serializers.serialize(
-          payload.keySchema!,
+          keySchema,
           specifiedType: const FullType(
             _i16.BuiltList,
             [FullType(_i3.KeySchemaElement)],
           ),
         ));
     }
-    if (payload.tableStatus != null) {
+    if (tableStatus != null) {
       result
         ..add('TableStatus')
         ..add(serializers.serialize(
-          payload.tableStatus!,
+          tableStatus,
           specifiedType: const FullType(_i4.TableStatus),
         ));
     }
-    if (payload.creationDateTime != null) {
+    if (creationDateTime != null) {
       result
         ..add('CreationDateTime')
         ..add(serializers.serialize(
-          payload.creationDateTime!,
+          creationDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
         ));
     }
-    if (payload.tableSizeBytes != null) {
+    if (tableSizeBytes != null) {
       result
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
-          payload.tableSizeBytes!,
+          tableSizeBytes,
           specifiedType: const FullType(_i6.Int64),
         ));
     }
-    if (payload.itemCount != null) {
+    if (itemCount != null) {
       result
         ..add('ItemCount')
         ..add(serializers.serialize(
-          payload.itemCount!,
+          itemCount,
           specifiedType: const FullType(_i6.Int64),
         ));
     }
-    if (payload.tableArn != null) {
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableId != null) {
+    if (tableId != null) {
       result
         ..add('TableId')
         ..add(serializers.serialize(
-          payload.tableId!,
+          tableId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.billingModeSummary != null) {
+    if (billingModeSummary != null) {
       result
         ..add('BillingModeSummary')
         ..add(serializers.serialize(
-          payload.billingModeSummary!,
+          billingModeSummary,
           specifiedType: const FullType(_i7.BillingModeSummary),
         ));
     }
-    if (payload.localSecondaryIndexes != null) {
+    if (localSecondaryIndexes != null) {
       result
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i16.BuiltList,
             [FullType(_i8.LocalSecondaryIndexDescription)],
           ),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i16.BuiltList,
             [FullType(_i9.GlobalSecondaryIndexDescription)],
           ),
         ));
     }
-    if (payload.streamSpecification != null) {
+    if (streamSpecification != null) {
       result
         ..add('StreamSpecification')
         ..add(serializers.serialize(
-          payload.streamSpecification!,
+          streamSpecification,
           specifiedType: const FullType(_i10.StreamSpecification),
         ));
     }
-    if (payload.latestStreamLabel != null) {
+    if (latestStreamLabel != null) {
       result
         ..add('LatestStreamLabel')
         ..add(serializers.serialize(
-          payload.latestStreamLabel!,
+          latestStreamLabel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.latestStreamArn != null) {
+    if (latestStreamArn != null) {
       result
         ..add('LatestStreamArn')
         ..add(serializers.serialize(
-          payload.latestStreamArn!,
+          latestStreamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.globalTableVersion != null) {
+    if (globalTableVersion != null) {
       result
         ..add('GlobalTableVersion')
         ..add(serializers.serialize(
-          payload.globalTableVersion!,
+          globalTableVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replicas != null) {
+    if (replicas != null) {
       result
         ..add('Replicas')
         ..add(serializers.serialize(
-          payload.replicas!,
+          replicas,
           specifiedType: const FullType(
             _i16.BuiltList,
             [FullType(_i11.ReplicaDescription)],
           ),
         ));
     }
-    if (payload.restoreSummary != null) {
+    if (restoreSummary != null) {
       result
         ..add('RestoreSummary')
         ..add(serializers.serialize(
-          payload.restoreSummary!,
+          restoreSummary,
           specifiedType: const FullType(_i12.RestoreSummary),
         ));
     }
-    if (payload.sseDescription != null) {
+    if (sseDescription != null) {
       result
         ..add('SSEDescription')
         ..add(serializers.serialize(
-          payload.sseDescription!,
+          sseDescription,
           specifiedType: const FullType(_i13.SseDescription),
         ));
     }
-    if (payload.archivalSummary != null) {
+    if (archivalSummary != null) {
       result
         ..add('ArchivalSummary')
         ..add(serializers.serialize(
-          payload.archivalSummary!,
+          archivalSummary,
           specifiedType: const FullType(_i14.ArchivalSummary),
         ));
     }
-    if (payload.tableClassSummary != null) {
+    if (tableClassSummary != null) {
       result
         ..add('TableClassSummary')
         ..add(serializers.serialize(
-          payload.tableClassSummary!,
+          tableClassSummary,
           specifiedType: const FullType(_i15.TableClassSummary),
         ));
     }

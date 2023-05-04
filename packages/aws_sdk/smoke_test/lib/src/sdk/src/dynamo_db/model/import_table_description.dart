@@ -275,159 +275,105 @@ class ImportTableDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ImportArn':
-          if (value != null) {
-            result.importArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.importArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ImportStatus':
-          if (value != null) {
-            result.importStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ImportStatus),
-            ) as _i2.ImportStatus);
-          }
-          break;
+          result.importStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ImportStatus),
+          ) as _i2.ImportStatus);
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableId':
-          if (value != null) {
-            result.tableId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ClientToken':
-          if (value != null) {
-            result.clientToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3BucketSource':
-          if (value != null) {
-            result.s3BucketSource.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.S3BucketSource),
-            ) as _i3.S3BucketSource));
-          }
-          break;
+          result.s3BucketSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.S3BucketSource),
+          ) as _i3.S3BucketSource));
         case 'ErrorCount':
-          if (value != null) {
-            result.errorCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.errorCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'CloudWatchLogGroupArn':
-          if (value != null) {
-            result.cloudWatchLogGroupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cloudWatchLogGroupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InputFormat':
-          if (value != null) {
-            result.inputFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.InputFormat),
-            ) as _i5.InputFormat);
-          }
-          break;
+          result.inputFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.InputFormat),
+          ) as _i5.InputFormat);
         case 'InputFormatOptions':
-          if (value != null) {
-            result.inputFormatOptions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.InputFormatOptions),
-            ) as _i6.InputFormatOptions));
-          }
-          break;
+          result.inputFormatOptions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.InputFormatOptions),
+          ) as _i6.InputFormatOptions));
         case 'InputCompressionType':
-          if (value != null) {
-            result.inputCompressionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.InputCompressionType),
-            ) as _i7.InputCompressionType);
-          }
-          break;
+          result.inputCompressionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.InputCompressionType),
+          ) as _i7.InputCompressionType);
         case 'TableCreationParameters':
-          if (value != null) {
-            result.tableCreationParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.TableCreationParameters),
-            ) as _i8.TableCreationParameters));
-          }
-          break;
+          result.tableCreationParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.TableCreationParameters),
+          ) as _i8.TableCreationParameters));
         case 'StartTime':
-          if (value != null) {
-            result.startTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.startTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'EndTime':
-          if (value != null) {
-            result.endTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.endTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ProcessedSizeBytes':
-          if (value != null) {
-            result.processedSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.processedSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'ProcessedItemCount':
-          if (value != null) {
-            result.processedItemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.processedItemCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'ImportedItemCount':
-          if (value != null) {
-            result.importedItemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.importedItemCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'FailureCode':
-          if (value != null) {
-            result.failureCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -442,155 +388,176 @@ class ImportTableDescriptionAwsJson10Serializer
   }) {
     final payload = (object as ImportTableDescription);
     final result = <Object?>[];
-    if (payload.importArn != null) {
+    final ImportTableDescription(
+      :importArn,
+      :importStatus,
+      :tableArn,
+      :tableId,
+      :clientToken,
+      :s3BucketSource,
+      :errorCount,
+      :cloudWatchLogGroupArn,
+      :inputFormat,
+      :inputFormatOptions,
+      :inputCompressionType,
+      :tableCreationParameters,
+      :startTime,
+      :endTime,
+      :processedSizeBytes,
+      :processedItemCount,
+      :importedItemCount,
+      :failureCode,
+      :failureMessage
+    ) = payload;
+    if (importArn != null) {
       result
         ..add('ImportArn')
         ..add(serializers.serialize(
-          payload.importArn!,
+          importArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.importStatus != null) {
+    if (importStatus != null) {
       result
         ..add('ImportStatus')
         ..add(serializers.serialize(
-          payload.importStatus!,
+          importStatus,
           specifiedType: const FullType(_i2.ImportStatus),
         ));
     }
-    if (payload.tableArn != null) {
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableId != null) {
+    if (tableId != null) {
       result
         ..add('TableId')
         ..add(serializers.serialize(
-          payload.tableId!,
+          tableId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientToken != null) {
+    if (clientToken != null) {
       result
         ..add('ClientToken')
         ..add(serializers.serialize(
-          payload.clientToken!,
+          clientToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3BucketSource != null) {
+    if (s3BucketSource != null) {
       result
         ..add('S3BucketSource')
         ..add(serializers.serialize(
-          payload.s3BucketSource!,
+          s3BucketSource,
           specifiedType: const FullType(_i3.S3BucketSource),
         ));
     }
-    if (payload.errorCount != null) {
+    if (errorCount != null) {
       result
         ..add('ErrorCount')
         ..add(serializers.serialize(
-          payload.errorCount!,
+          errorCount,
           specifiedType: const FullType(_i4.Int64),
         ));
     }
-    if (payload.cloudWatchLogGroupArn != null) {
+    if (cloudWatchLogGroupArn != null) {
       result
         ..add('CloudWatchLogGroupArn')
         ..add(serializers.serialize(
-          payload.cloudWatchLogGroupArn!,
+          cloudWatchLogGroupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputFormat != null) {
+    if (inputFormat != null) {
       result
         ..add('InputFormat')
         ..add(serializers.serialize(
-          payload.inputFormat!,
+          inputFormat,
           specifiedType: const FullType(_i5.InputFormat),
         ));
     }
-    if (payload.inputFormatOptions != null) {
+    if (inputFormatOptions != null) {
       result
         ..add('InputFormatOptions')
         ..add(serializers.serialize(
-          payload.inputFormatOptions!,
+          inputFormatOptions,
           specifiedType: const FullType(_i6.InputFormatOptions),
         ));
     }
-    if (payload.inputCompressionType != null) {
+    if (inputCompressionType != null) {
       result
         ..add('InputCompressionType')
         ..add(serializers.serialize(
-          payload.inputCompressionType!,
+          inputCompressionType,
           specifiedType: const FullType(_i7.InputCompressionType),
         ));
     }
-    if (payload.tableCreationParameters != null) {
+    if (tableCreationParameters != null) {
       result
         ..add('TableCreationParameters')
         ..add(serializers.serialize(
-          payload.tableCreationParameters!,
+          tableCreationParameters,
           specifiedType: const FullType(_i8.TableCreationParameters),
         ));
     }
-    if (payload.startTime != null) {
+    if (startTime != null) {
       result
         ..add('StartTime')
         ..add(serializers.serialize(
-          payload.startTime!,
+          startTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.endTime != null) {
+    if (endTime != null) {
       result
         ..add('EndTime')
         ..add(serializers.serialize(
-          payload.endTime!,
+          endTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.processedSizeBytes != null) {
+    if (processedSizeBytes != null) {
       result
         ..add('ProcessedSizeBytes')
         ..add(serializers.serialize(
-          payload.processedSizeBytes!,
+          processedSizeBytes,
           specifiedType: const FullType(_i4.Int64),
         ));
     }
-    if (payload.processedItemCount != null) {
+    if (processedItemCount != null) {
       result
         ..add('ProcessedItemCount')
         ..add(serializers.serialize(
-          payload.processedItemCount!,
+          processedItemCount,
           specifiedType: const FullType(_i4.Int64),
         ));
     }
-    if (payload.importedItemCount != null) {
+    if (importedItemCount != null) {
       result
         ..add('ImportedItemCount')
         ..add(serializers.serialize(
-          payload.importedItemCount!,
+          importedItemCount,
           specifiedType: const FullType(_i4.Int64),
         ));
     }
-    if (payload.failureCode != null) {
+    if (failureCode != null) {
       result
         ..add('FailureCode')
         ..add(serializers.serialize(
-          payload.failureCode!,
+          failureCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.failureMessage != null) {
+    if (failureMessage != null) {
       result
         ..add('FailureMessage')
         ..add(serializers.serialize(
-          payload.failureMessage!,
+          failureMessage,
           specifiedType: const FullType(String),
         ));
     }

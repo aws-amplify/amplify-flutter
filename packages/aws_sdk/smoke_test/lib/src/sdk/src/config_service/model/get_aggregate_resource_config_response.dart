@@ -88,15 +88,15 @@ class GetAggregateResourceConfigResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationItem':
-          if (value != null) {
-            result.configurationItem.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigurationItem),
-            ) as _i2.ConfigurationItem));
-          }
-          break;
+          result.configurationItem.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigurationItem),
+          ) as _i2.ConfigurationItem));
       }
     }
 
@@ -111,11 +111,12 @@ class GetAggregateResourceConfigResponseAwsJson11Serializer
   }) {
     final payload = (object as GetAggregateResourceConfigResponse);
     final result = <Object?>[];
-    if (payload.configurationItem != null) {
+    final GetAggregateResourceConfigResponse(:configurationItem) = payload;
+    if (configurationItem != null) {
       result
         ..add('ConfigurationItem')
         ..add(serializers.serialize(
-          payload.configurationItem!,
+          configurationItem,
           specifiedType: const FullType(_i2.ConfigurationItem),
         ));
     }

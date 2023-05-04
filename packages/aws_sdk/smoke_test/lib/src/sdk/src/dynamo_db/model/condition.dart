@@ -191,24 +191,23 @@ class ConditionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeValueList':
-          if (value != null) {
-            result.attributeValueList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.AttributeValue)],
-              ),
-            ) as _i4.BuiltList<_i2.AttributeValue>));
-          }
-          break;
+          result.attributeValueList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.AttributeValue)],
+            ),
+          ) as _i4.BuiltList<_i2.AttributeValue>));
         case 'ComparisonOperator':
           result.comparisonOperator = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ComparisonOperator),
           ) as _i3.ComparisonOperator);
-          break;
       }
     }
 
@@ -229,11 +228,12 @@ class ConditionAwsJson10Serializer
         specifiedType: const FullType(_i3.ComparisonOperator),
       ),
     ];
-    if (payload.attributeValueList != null) {
+    final Condition(:attributeValueList) = payload;
+    if (attributeValueList != null) {
       result
         ..add('AttributeValueList')
         ..add(serializers.serialize(
-          payload.attributeValueList!,
+          attributeValueList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.AttributeValue)],

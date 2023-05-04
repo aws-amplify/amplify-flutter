@@ -78,18 +78,18 @@ class NotificationConfigurationFilterRestXmlSerializer
     final result = NotificationConfigurationFilterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'S3Key':
-          if (value != null) {
-            result.key.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3KeyFilter),
-            ) as _i2.S3KeyFilter));
-          }
-          break;
+          result.key.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3KeyFilter),
+          ) as _i2.S3KeyFilter));
       }
     }
 
@@ -109,11 +109,12 @@ class NotificationConfigurationFilterRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.key != null) {
+    final NotificationConfigurationFilter(:key) = payload;
+    if (key != null) {
       result
         ..add(const _i3.XmlElementName('S3Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(_i2.S3KeyFilter),
         ));
     }

@@ -109,32 +109,28 @@ class SetStackPolicyInputAwsQuerySerializer
     final result = SetStackPolicyInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackPolicyBody':
-          if (value != null) {
-            result.stackPolicyBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackPolicyBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackPolicyURL':
-          if (value != null) {
-            result.stackPolicyUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackPolicyUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,25 +150,27 @@ class SetStackPolicyInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final SetStackPolicyInput(:stackName, :stackPolicyBody, :stackPolicyUrl) =
+        payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.stackPolicyBody != null) {
+    if (stackPolicyBody != null) {
       result
         ..add(const _i1.XmlElementName('StackPolicyBody'))
         ..add(serializers.serialize(
-          payload.stackPolicyBody!,
+          stackPolicyBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackPolicyUrl != null) {
+    if (stackPolicyUrl != null) {
       result
         ..add(const _i1.XmlElementName('StackPolicyURL'))
         ..add(serializers.serialize(
-          payload.stackPolicyUrl!,
+          stackPolicyUrl,
           specifiedType: const FullType(String),
         ));
     }

@@ -298,79 +298,64 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'additionalContext':
-          if (value != null) {
-            result.additionalContext.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.additionalContext.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'body':
-          if (value != null) {
-            result.body = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.body = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'headers':
-          if (value != null) {
-            result.headers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.headers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'multiValueHeaders':
-          if (value != null) {
-            result.multiValueHeaders.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.multiValueHeaders.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, String>));
         case 'pathWithQueryString':
-          if (value != null) {
-            result.pathWithQueryString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathWithQueryString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageVariables':
-          if (value != null) {
-            result.stageVariables.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.stageVariables.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -387,11 +372,19 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
         ? object.getPayload()
         : (object as TestInvokeAuthorizerRequestPayload);
     final result = <Object?>[];
-    if (payload.additionalContext != null) {
+    final TestInvokeAuthorizerRequestPayload(
+      :additionalContext,
+      :body,
+      :headers,
+      :multiValueHeaders,
+      :pathWithQueryString,
+      :stageVariables
+    ) = payload;
+    if (additionalContext != null) {
       result
         ..add('additionalContext')
         ..add(serializers.serialize(
-          payload.additionalContext!,
+          additionalContext,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -401,19 +394,19 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.body != null) {
+    if (body != null) {
       result
         ..add('body')
         ..add(serializers.serialize(
-          payload.body!,
+          body,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.headers != null) {
+    if (headers != null) {
       result
         ..add('headers')
         ..add(serializers.serialize(
-          payload.headers!,
+          headers,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -423,11 +416,11 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.multiValueHeaders != null) {
+    if (multiValueHeaders != null) {
       result
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
-          payload.multiValueHeaders!,
+          multiValueHeaders,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -437,19 +430,19 @@ class TestInvokeAuthorizerRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.pathWithQueryString != null) {
+    if (pathWithQueryString != null) {
       result
         ..add('pathWithQueryString')
         ..add(serializers.serialize(
-          payload.pathWithQueryString!,
+          pathWithQueryString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stageVariables != null) {
+    if (stageVariables != null) {
       result
         ..add('stageVariables')
         ..add(serializers.serialize(
-          payload.stageVariables!,
+          stageVariables,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

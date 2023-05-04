@@ -84,15 +84,15 @@ class DescribeTableOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Table':
-          if (value != null) {
-            result.table.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableDescription),
-            ) as _i2.TableDescription));
-          }
-          break;
+          result.table.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableDescription),
+          ) as _i2.TableDescription));
       }
     }
 
@@ -107,11 +107,12 @@ class DescribeTableOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeTableOutput);
     final result = <Object?>[];
-    if (payload.table != null) {
+    final DescribeTableOutput(:table) = payload;
+    if (table != null) {
       result
         ..add('Table')
         ..add(serializers.serialize(
-          payload.table!,
+          table,
           specifiedType: const FullType(_i2.TableDescription),
         ));
     }

@@ -80,18 +80,18 @@ class GetStackPolicyOutputAwsQuerySerializer
     final result = GetStackPolicyOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackPolicyBody':
-          if (value != null) {
-            result.stackPolicyBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackPolicyBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -111,11 +111,12 @@ class GetStackPolicyOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackPolicyBody != null) {
+    final GetStackPolicyOutput(:stackPolicyBody) = payload;
+    if (stackPolicyBody != null) {
       result
         ..add(const _i2.XmlElementName('StackPolicyBody'))
         ..add(serializers.serialize(
-          payload.stackPolicyBody!,
+          stackPolicyBody,
           specifiedType: const FullType(String),
         ));
     }

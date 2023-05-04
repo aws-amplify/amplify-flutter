@@ -95,21 +95,20 @@ class OverrideButtonConfigurationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ButtonAction':
           result.buttonAction = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ButtonAction),
           ) as _i2.ButtonAction);
-          break;
         case 'Link':
-          if (value != null) {
-            result.link = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.link = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -130,11 +129,12 @@ class OverrideButtonConfigurationRestJson1Serializer
         specifiedType: const FullType(_i2.ButtonAction),
       ),
     ];
-    if (payload.link != null) {
+    final OverrideButtonConfiguration(:link) = payload;
+    if (link != null) {
       result
         ..add('Link')
         ..add(serializers.serialize(
-          payload.link!,
+          link,
           specifiedType: const FullType(String),
         ));
     }

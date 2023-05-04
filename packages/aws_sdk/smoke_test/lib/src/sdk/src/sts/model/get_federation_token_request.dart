@@ -164,60 +164,50 @@ class GetFederationTokenRequestAwsQuerySerializer
     final result = GetFederationTokenRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Name':
           result.name = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyArns':
-          if (value != null) {
-            result.policyArns.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.PolicyDescriptorType)],
-              ),
-            ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
-          }
-          break;
+          result.policyArns.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.PolicyDescriptorType)],
+            ),
+          ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
         case 'DurationSeconds':
-          if (value != null) {
-            result.durationSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.durationSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -237,50 +227,57 @@ class GetFederationTokenRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final GetFederationTokenRequest(
+      :name,
+      :policy,
+      :policyArns,
+      :durationSeconds,
+      :tags
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('Name'))
       ..add(serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ));
-    if (payload.policy != null) {
+    if (policy != null) {
       result
         ..add(const _i1.XmlElementName('Policy'))
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyArns != null) {
+    if (policyArns != null) {
       result
         ..add(const _i1.XmlElementName('PolicyArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyArns!,
+          policyArns,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.PolicyDescriptorType)],
           ),
         ));
     }
-    if (payload.durationSeconds != null) {
+    if (durationSeconds != null) {
       result
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
-          payload.durationSeconds!,
+          durationSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.Tag)],

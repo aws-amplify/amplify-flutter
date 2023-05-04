@@ -135,59 +135,47 @@ class IntegrationResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentHandling':
-          if (value != null) {
-            result.contentHandling = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContentHandlingStrategy),
-            ) as _i2.ContentHandlingStrategy);
-          }
-          break;
+          result.contentHandling = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContentHandlingStrategy),
+          ) as _i2.ContentHandlingStrategy);
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'selectionPattern':
-          if (value != null) {
-            result.selectionPattern = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.selectionPattern = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -202,19 +190,26 @@ class IntegrationResponseRestJson1Serializer
   }) {
     final payload = (object as IntegrationResponse);
     final result = <Object?>[];
-    if (payload.contentHandling != null) {
+    final IntegrationResponse(
+      :contentHandling,
+      :responseParameters,
+      :responseTemplates,
+      :selectionPattern,
+      :statusCode
+    ) = payload;
+    if (contentHandling != null) {
       result
         ..add('contentHandling')
         ..add(serializers.serialize(
-          payload.contentHandling!,
+          contentHandling,
           specifiedType: const FullType(_i2.ContentHandlingStrategy),
         ));
     }
-    if (payload.responseParameters != null) {
+    if (responseParameters != null) {
       result
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -224,11 +219,11 @@ class IntegrationResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
+    if (responseTemplates != null) {
       result
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -238,19 +233,19 @@ class IntegrationResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.selectionPattern != null) {
+    if (selectionPattern != null) {
       result
         ..add('selectionPattern')
         ..add(serializers.serialize(
-          payload.selectionPattern!,
+          selectionPattern,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.statusCode != null) {
+    if (statusCode != null) {
       result
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }

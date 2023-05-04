@@ -104,24 +104,23 @@ class DeleteSigningCertificateRequestAwsQuerySerializer
     final result = DeleteSigningCertificateRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'CertificateId':
-          result.certificateId = (serializers.deserialize(
-            value!,
+          result.userName = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'CertificateId':
+          result.certificateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -141,18 +140,19 @@ class DeleteSigningCertificateRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final DeleteSigningCertificateRequest(:userName, :certificateId) = payload;
+    if (userName != null) {
       result
         ..add(const _i1.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i1.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
-        payload.certificateId,
+        certificateId,
         specifiedType: const FullType(String),
       ));
     return result;

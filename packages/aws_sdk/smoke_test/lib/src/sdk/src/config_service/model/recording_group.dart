@@ -162,34 +162,28 @@ class RecordingGroupAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'allSupported':
-          if (value != null) {
-            result.allSupported = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allSupported = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'includeGlobalResourceTypes':
-          if (value != null) {
-            result.includeGlobalResourceTypes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.includeGlobalResourceTypes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'resourceTypes':
-          if (value != null) {
-            result.resourceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ResourceType)],
-              ),
-            ) as _i3.BuiltList<_i2.ResourceType>));
-          }
-          break;
+          result.resourceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ResourceType)],
+            ),
+          ) as _i3.BuiltList<_i2.ResourceType>));
       }
     }
 
@@ -204,27 +198,32 @@ class RecordingGroupAwsJson11Serializer
   }) {
     final payload = (object as RecordingGroup);
     final result = <Object?>[];
-    if (payload.allSupported != null) {
+    final RecordingGroup(
+      :allSupported,
+      :includeGlobalResourceTypes,
+      :resourceTypes
+    ) = payload;
+    if (allSupported != null) {
       result
         ..add('allSupported')
         ..add(serializers.serialize(
-          payload.allSupported!,
+          allSupported,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.includeGlobalResourceTypes != null) {
+    if (includeGlobalResourceTypes != null) {
       result
         ..add('includeGlobalResourceTypes')
         ..add(serializers.serialize(
-          payload.includeGlobalResourceTypes!,
+          includeGlobalResourceTypes,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.resourceTypes != null) {
+    if (resourceTypes != null) {
       result
         ..add('resourceTypes')
         ..add(serializers.serialize(
-          payload.resourceTypes!,
+          resourceTypes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ResourceType)],

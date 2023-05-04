@@ -93,15 +93,15 @@ class SetDimensionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DimensionType':
-          if (value != null) {
-            result.dimensionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DimensionType),
-            ) as _i2.DimensionType);
-          }
-          break;
+          result.dimensionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DimensionType),
+          ) as _i2.DimensionType);
         case 'Values':
           result.values.replace((serializers.deserialize(
             value,
@@ -110,7 +110,6 @@ class SetDimensionRestJson1Serializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -134,11 +133,12 @@ class SetDimensionRestJson1Serializer
         ),
       ),
     ];
-    if (payload.dimensionType != null) {
+    final SetDimension(:dimensionType) = payload;
+    if (dimensionType != null) {
       result
         ..add('DimensionType')
         ..add(serializers.serialize(
-          payload.dimensionType!,
+          dimensionType,
           specifiedType: const FullType(_i2.DimensionType),
         ));
     }

@@ -185,66 +185,48 @@ class ListTypesInputAwsQuerySerializer
     final result = ListTypesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Visibility':
-          if (value != null) {
-            result.visibility = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Visibility),
-            ) as _i3.Visibility);
-          }
-          break;
+          result.visibility = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Visibility),
+          ) as _i3.Visibility);
         case 'ProvisioningType':
-          if (value != null) {
-            result.provisioningType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ProvisioningType),
-            ) as _i4.ProvisioningType);
-          }
-          break;
+          result.provisioningType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisioningType),
+          ) as _i4.ProvisioningType);
         case 'DeprecatedStatus':
-          if (value != null) {
-            result.deprecatedStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.DeprecatedStatus),
-            ) as _i5.DeprecatedStatus);
-          }
-          break;
+          result.deprecatedStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.DeprecatedStatus),
+          ) as _i5.DeprecatedStatus);
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.RegistryType),
-            ) as _i6.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.RegistryType),
+          ) as _i6.RegistryType);
         case 'Filters':
-          if (value != null) {
-            result.filters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.TypeFilters),
-            ) as _i7.TypeFilters));
-          }
-          break;
+          result.filters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.TypeFilters),
+          ) as _i7.TypeFilters));
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -264,59 +246,68 @@ class ListTypesInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.visibility != null) {
+    final ListTypesInput(
+      :visibility,
+      :provisioningType,
+      :deprecatedStatus,
+      :type,
+      :filters,
+      :maxResults,
+      :nextToken
+    ) = payload;
+    if (visibility != null) {
       result
         ..add(const _i1.XmlElementName('Visibility'))
         ..add(serializers.serialize(
-          payload.visibility!,
+          visibility,
           specifiedType: const FullType.nullable(_i3.Visibility),
         ));
     }
-    if (payload.provisioningType != null) {
+    if (provisioningType != null) {
       result
         ..add(const _i1.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
-          payload.provisioningType!,
+          provisioningType,
           specifiedType: const FullType.nullable(_i4.ProvisioningType),
         ));
     }
-    if (payload.deprecatedStatus != null) {
+    if (deprecatedStatus != null) {
       result
         ..add(const _i1.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
-          payload.deprecatedStatus!,
+          deprecatedStatus,
           specifiedType: const FullType.nullable(_i5.DeprecatedStatus),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i6.RegistryType),
         ));
     }
-    if (payload.filters != null) {
+    if (filters != null) {
       result
         ..add(const _i1.XmlElementName('Filters'))
         ..add(serializers.serialize(
-          payload.filters!,
+          filters,
           specifiedType: const FullType(_i7.TypeFilters),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

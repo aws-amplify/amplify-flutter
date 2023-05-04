@@ -153,67 +153,52 @@ class OrganizationConfigRuleAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleName':
           result.organizationConfigRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationConfigRuleArn':
           result.organizationConfigRuleArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationManagedRuleMetadata':
-          if (value != null) {
-            result.organizationManagedRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.OrganizationManagedRuleMetadata),
-            ) as _i2.OrganizationManagedRuleMetadata));
-          }
-          break;
+          result.organizationManagedRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.OrganizationManagedRuleMetadata),
+          ) as _i2.OrganizationManagedRuleMetadata));
         case 'OrganizationCustomRuleMetadata':
-          if (value != null) {
-            result.organizationCustomRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.OrganizationCustomRuleMetadata),
-            ) as _i3.OrganizationCustomRuleMetadata));
-          }
-          break;
+          result.organizationCustomRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.OrganizationCustomRuleMetadata),
+          ) as _i3.OrganizationCustomRuleMetadata));
         case 'ExcludedAccounts':
-          if (value != null) {
-            result.excludedAccounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.excludedAccounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'LastUpdateTime':
-          if (value != null) {
-            result.lastUpdateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'OrganizationCustomPolicyRuleMetadata':
-          if (value != null) {
-            result.organizationCustomPolicyRuleMetadata
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                  _i4.OrganizationCustomPolicyRuleMetadataNoPolicy),
-            ) as _i4.OrganizationCustomPolicyRuleMetadataNoPolicy));
-          }
-          break;
+          result.organizationCustomPolicyRuleMetadata
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                _i4.OrganizationCustomPolicyRuleMetadataNoPolicy),
+          ) as _i4.OrganizationCustomPolicyRuleMetadataNoPolicy));
       }
     }
 
@@ -239,46 +224,53 @@ class OrganizationConfigRuleAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.organizationManagedRuleMetadata != null) {
+    final OrganizationConfigRule(
+      :organizationManagedRuleMetadata,
+      :organizationCustomRuleMetadata,
+      :excludedAccounts,
+      :lastUpdateTime,
+      :organizationCustomPolicyRuleMetadata
+    ) = payload;
+    if (organizationManagedRuleMetadata != null) {
       result
         ..add('OrganizationManagedRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationManagedRuleMetadata!,
+          organizationManagedRuleMetadata,
           specifiedType: const FullType(_i2.OrganizationManagedRuleMetadata),
         ));
     }
-    if (payload.organizationCustomRuleMetadata != null) {
+    if (organizationCustomRuleMetadata != null) {
       result
         ..add('OrganizationCustomRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationCustomRuleMetadata!,
+          organizationCustomRuleMetadata,
           specifiedType: const FullType(_i3.OrganizationCustomRuleMetadata),
         ));
     }
-    if (payload.excludedAccounts != null) {
+    if (excludedAccounts != null) {
       result
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
-          payload.excludedAccounts!,
+          excludedAccounts,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.lastUpdateTime != null) {
+    if (lastUpdateTime != null) {
       result
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateTime!,
+          lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.organizationCustomPolicyRuleMetadata != null) {
+    if (organizationCustomPolicyRuleMetadata != null) {
       result
         ..add('OrganizationCustomPolicyRuleMetadata')
         ..add(serializers.serialize(
-          payload.organizationCustomPolicyRuleMetadata!,
+          organizationCustomPolicyRuleMetadata,
           specifiedType:
               const FullType(_i4.OrganizationCustomPolicyRuleMetadataNoPolicy),
         ));

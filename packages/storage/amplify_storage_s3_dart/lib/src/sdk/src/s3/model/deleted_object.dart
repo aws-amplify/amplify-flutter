@@ -107,42 +107,33 @@ class DeletedObjectRestXmlSerializer
     final result = DeletedObjectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DeleteMarker':
-          if (value != null) {
-            result.deleteMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.deleteMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'DeleteMarkerVersionId':
-          if (value != null) {
-            result.deleteMarkerVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deleteMarkerVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -162,35 +153,41 @@ class DeletedObjectRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.deleteMarker != null) {
+    final DeletedObject(
+      :deleteMarker,
+      :deleteMarkerVersionId,
+      :key,
+      :versionId
+    ) = payload;
+    if (deleteMarker != null) {
       result
         ..add(const _i2.XmlElementName('DeleteMarker'))
         ..add(serializers.serialize(
-          payload.deleteMarker!,
+          deleteMarker,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.deleteMarkerVersionId != null) {
+    if (deleteMarkerVersionId != null) {
       result
         ..add(const _i2.XmlElementName('DeleteMarkerVersionId'))
         ..add(serializers.serialize(
-          payload.deleteMarkerVersionId!,
+          deleteMarkerVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionId != null) {
+    if (versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }

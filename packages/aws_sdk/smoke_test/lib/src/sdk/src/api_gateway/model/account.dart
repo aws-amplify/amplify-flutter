@@ -119,42 +119,33 @@ class AccountRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiKeyVersion':
-          if (value != null) {
-            result.apiKeyVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.apiKeyVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'cloudwatchRoleArn':
-          if (value != null) {
-            result.cloudwatchRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cloudwatchRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'features':
-          if (value != null) {
-            result.features.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.features.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'throttleSettings':
-          if (value != null) {
-            result.throttleSettings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ThrottleSettings),
-            ) as _i2.ThrottleSettings));
-          }
-          break;
+          result.throttleSettings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ThrottleSettings),
+          ) as _i2.ThrottleSettings));
       }
     }
 
@@ -169,38 +160,44 @@ class AccountRestJson1Serializer
   }) {
     final payload = (object as Account);
     final result = <Object?>[];
-    if (payload.apiKeyVersion != null) {
+    final Account(
+      :apiKeyVersion,
+      :cloudwatchRoleArn,
+      :features,
+      :throttleSettings
+    ) = payload;
+    if (apiKeyVersion != null) {
       result
         ..add('apiKeyVersion')
         ..add(serializers.serialize(
-          payload.apiKeyVersion!,
+          apiKeyVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.cloudwatchRoleArn != null) {
+    if (cloudwatchRoleArn != null) {
       result
         ..add('cloudwatchRoleArn')
         ..add(serializers.serialize(
-          payload.cloudwatchRoleArn!,
+          cloudwatchRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.features != null) {
+    if (features != null) {
       result
         ..add('features')
         ..add(serializers.serialize(
-          payload.features!,
+          features,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.throttleSettings != null) {
+    if (throttleSettings != null) {
       result
         ..add('throttleSettings')
         ..add(serializers.serialize(
-          payload.throttleSettings!,
+          throttleSettings,
           specifiedType: const FullType(_i2.ThrottleSettings),
         ));
     }

@@ -136,50 +136,38 @@ class GlobalTableDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ReplicationGroup':
-          if (value != null) {
-            result.replicationGroup.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ReplicaDescription)],
-              ),
-            ) as _i4.BuiltList<_i2.ReplicaDescription>));
-          }
-          break;
+          result.replicationGroup.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ReplicaDescription)],
+            ),
+          ) as _i4.BuiltList<_i2.ReplicaDescription>));
         case 'GlobalTableArn':
-          if (value != null) {
-            result.globalTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.globalTableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationDateTime':
-          if (value != null) {
-            result.creationDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'GlobalTableStatus':
-          if (value != null) {
-            result.globalTableStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.GlobalTableStatus),
-            ) as _i3.GlobalTableStatus);
-          }
-          break;
+          result.globalTableStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.GlobalTableStatus),
+          ) as _i3.GlobalTableStatus);
         case 'GlobalTableName':
-          if (value != null) {
-            result.globalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.globalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -194,46 +182,53 @@ class GlobalTableDescriptionAwsJson10Serializer
   }) {
     final payload = (object as GlobalTableDescription);
     final result = <Object?>[];
-    if (payload.replicationGroup != null) {
+    final GlobalTableDescription(
+      :replicationGroup,
+      :globalTableArn,
+      :creationDateTime,
+      :globalTableStatus,
+      :globalTableName
+    ) = payload;
+    if (replicationGroup != null) {
       result
         ..add('ReplicationGroup')
         ..add(serializers.serialize(
-          payload.replicationGroup!,
+          replicationGroup,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ReplicaDescription)],
           ),
         ));
     }
-    if (payload.globalTableArn != null) {
+    if (globalTableArn != null) {
       result
         ..add('GlobalTableArn')
         ..add(serializers.serialize(
-          payload.globalTableArn!,
+          globalTableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationDateTime != null) {
+    if (creationDateTime != null) {
       result
         ..add('CreationDateTime')
         ..add(serializers.serialize(
-          payload.creationDateTime!,
+          creationDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.globalTableStatus != null) {
+    if (globalTableStatus != null) {
       result
         ..add('GlobalTableStatus')
         ..add(serializers.serialize(
-          payload.globalTableStatus!,
+          globalTableStatus,
           specifiedType: const FullType(_i3.GlobalTableStatus),
         ));
     }
-    if (payload.globalTableName != null) {
+    if (globalTableName != null) {
       result
         ..add('GlobalTableName')
         ..add(serializers.serialize(
-          payload.globalTableName!,
+          globalTableName,
           specifiedType: const FullType(String),
         ));
     }

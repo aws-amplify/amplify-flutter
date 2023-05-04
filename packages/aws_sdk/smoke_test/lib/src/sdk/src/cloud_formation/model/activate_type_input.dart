@@ -198,90 +198,63 @@ class ActivateTypeInputAwsQuerySerializer
     final result = ActivateTypeInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ThirdPartyType),
-            ) as _i3.ThirdPartyType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ThirdPartyType),
+          ) as _i3.ThirdPartyType);
         case 'PublicTypeArn':
-          if (value != null) {
-            result.publicTypeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publicTypeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeNameAlias':
-          if (value != null) {
-            result.typeNameAlias = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeNameAlias = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AutoUpdate':
-          if (value != null) {
-            result.autoUpdate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.autoUpdate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'LoggingConfig':
-          if (value != null) {
-            result.loggingConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.LoggingConfig),
-            ) as _i4.LoggingConfig));
-          }
-          break;
+          result.loggingConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.LoggingConfig),
+          ) as _i4.LoggingConfig));
         case 'ExecutionRoleArn':
-          if (value != null) {
-            result.executionRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.executionRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionBump':
-          if (value != null) {
-            result.versionBump = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.VersionBump),
-            ) as _i5.VersionBump);
-          }
-          break;
+          result.versionBump = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.VersionBump),
+          ) as _i5.VersionBump);
         case 'MajorVersion':
-          if (value != null) {
-            result.majorVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Int64),
-            ) as _i6.Int64);
-          }
-          break;
+          result.majorVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Int64),
+          ) as _i6.Int64);
       }
     }
 
@@ -301,83 +274,95 @@ class ActivateTypeInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final ActivateTypeInput(
+      :type,
+      :publicTypeArn,
+      :publisherId,
+      :typeName,
+      :typeNameAlias,
+      :autoUpdate,
+      :loggingConfig,
+      :executionRoleArn,
+      :versionBump,
+      :majorVersion
+    ) = payload;
+    if (type != null) {
       result
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i3.ThirdPartyType),
         ));
     }
-    if (payload.publicTypeArn != null) {
+    if (publicTypeArn != null) {
       result
         ..add(const _i1.XmlElementName('PublicTypeArn'))
         ..add(serializers.serialize(
-          payload.publicTypeArn!,
+          publicTypeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherId != null) {
+    if (publisherId != null) {
       result
         ..add(const _i1.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i1.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeNameAlias != null) {
+    if (typeNameAlias != null) {
       result
         ..add(const _i1.XmlElementName('TypeNameAlias'))
         ..add(serializers.serialize(
-          payload.typeNameAlias!,
+          typeNameAlias,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.autoUpdate != null) {
+    if (autoUpdate != null) {
       result
         ..add(const _i1.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
-          payload.autoUpdate!,
+          autoUpdate,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.loggingConfig != null) {
+    if (loggingConfig != null) {
       result
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
-          payload.loggingConfig!,
+          loggingConfig,
           specifiedType: const FullType(_i4.LoggingConfig),
         ));
     }
-    if (payload.executionRoleArn != null) {
+    if (executionRoleArn != null) {
       result
         ..add(const _i1.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
-          payload.executionRoleArn!,
+          executionRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionBump != null) {
+    if (versionBump != null) {
       result
         ..add(const _i1.XmlElementName('VersionBump'))
         ..add(serializers.serialize(
-          payload.versionBump!,
+          versionBump,
           specifiedType: const FullType.nullable(_i5.VersionBump),
         ));
     }
-    if (payload.majorVersion != null) {
+    if (majorVersion != null) {
       result
         ..add(const _i1.XmlElementName('MajorVersion'))
         ..add(serializers.serialize(
-          payload.majorVersion!,
+          majorVersion,
           specifiedType: const FullType.nullable(_i6.Int64),
         ));
     }

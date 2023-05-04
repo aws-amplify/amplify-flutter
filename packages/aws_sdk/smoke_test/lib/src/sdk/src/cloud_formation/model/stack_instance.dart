@@ -205,105 +205,74 @@ class StackInstanceAwsQuerySerializer
     final result = StackInstanceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetId':
-          if (value != null) {
-            result.stackSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Account':
-          if (value != null) {
-            result.account = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.account = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackId':
-          if (value != null) {
-            result.stackId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ParameterOverrides':
-          if (value != null) {
-            result.parameterOverrides.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.Parameter)],
-              ),
-            ) as _i6.BuiltList<_i2.Parameter>));
-          }
-          break;
+          result.parameterOverrides.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i2.Parameter)],
+            ),
+          ) as _i6.BuiltList<_i2.Parameter>));
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackInstanceStatus),
-            ) as _i3.StackInstanceStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackInstanceStatus),
+          ) as _i3.StackInstanceStatus);
         case 'StackInstanceStatus':
-          if (value != null) {
-            result.stackInstanceStatus.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.StackInstanceComprehensiveStatus),
-            ) as _i4.StackInstanceComprehensiveStatus));
-          }
-          break;
+          result.stackInstanceStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.StackInstanceComprehensiveStatus),
+          ) as _i4.StackInstanceComprehensiveStatus));
         case 'StatusReason':
-          if (value != null) {
-            result.statusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OrganizationalUnitId':
-          if (value != null) {
-            result.organizationalUnitId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationalUnitId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DriftStatus':
-          if (value != null) {
-            result.driftStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.StackDriftStatus),
-            ) as _i5.StackDriftStatus);
-          }
-          break;
+          result.driftStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.StackDriftStatus),
+          ) as _i5.StackDriftStatus);
         case 'LastDriftCheckTimestamp':
-          if (value != null) {
-            result.lastDriftCheckTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDriftCheckTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -323,97 +292,110 @@ class StackInstanceAwsQuerySerializer
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackSetId != null) {
+    final StackInstance(
+      :stackSetId,
+      :region,
+      :account,
+      :stackId,
+      :parameterOverrides,
+      :status,
+      :stackInstanceStatus,
+      :statusReason,
+      :organizationalUnitId,
+      :driftStatus,
+      :lastDriftCheckTimestamp
+    ) = payload;
+    if (stackSetId != null) {
       result
         ..add(const _i7.XmlElementName('StackSetId'))
         ..add(serializers.serialize(
-          payload.stackSetId!,
+          stackSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add(const _i7.XmlElementName('Region'))
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.account != null) {
+    if (account != null) {
       result
         ..add(const _i7.XmlElementName('Account'))
         ..add(serializers.serialize(
-          payload.account!,
+          account,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackId != null) {
+    if (stackId != null) {
       result
         ..add(const _i7.XmlElementName('StackId'))
         ..add(serializers.serialize(
-          payload.stackId!,
+          stackId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameterOverrides != null) {
+    if (parameterOverrides != null) {
       result
         ..add(const _i7.XmlElementName('ParameterOverrides'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.parameterOverrides!,
+          parameterOverrides,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i2.Parameter)],
           ),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i7.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.StackInstanceStatus),
         ));
     }
-    if (payload.stackInstanceStatus != null) {
+    if (stackInstanceStatus != null) {
       result
         ..add(const _i7.XmlElementName('StackInstanceStatus'))
         ..add(serializers.serialize(
-          payload.stackInstanceStatus!,
+          stackInstanceStatus,
           specifiedType: const FullType(_i4.StackInstanceComprehensiveStatus),
         ));
     }
-    if (payload.statusReason != null) {
+    if (statusReason != null) {
       result
         ..add(const _i7.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
-          payload.statusReason!,
+          statusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.organizationalUnitId != null) {
+    if (organizationalUnitId != null) {
       result
         ..add(const _i7.XmlElementName('OrganizationalUnitId'))
         ..add(serializers.serialize(
-          payload.organizationalUnitId!,
+          organizationalUnitId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.driftStatus != null) {
+    if (driftStatus != null) {
       result
         ..add(const _i7.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
-          payload.driftStatus!,
+          driftStatus,
           specifiedType: const FullType.nullable(_i5.StackDriftStatus),
         ));
     }
-    if (payload.lastDriftCheckTimestamp != null) {
+    if (lastDriftCheckTimestamp != null) {
       result
         ..add(const _i7.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
-          payload.lastDriftCheckTimestamp!,
+          lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

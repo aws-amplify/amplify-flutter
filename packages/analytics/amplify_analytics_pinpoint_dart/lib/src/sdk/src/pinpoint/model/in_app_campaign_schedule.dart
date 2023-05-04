@@ -106,31 +106,25 @@ class InAppCampaignScheduleRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EndDate':
-          if (value != null) {
-            result.endDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EventFilter':
-          if (value != null) {
-            result.eventFilter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CampaignEventFilter),
-            ) as _i2.CampaignEventFilter));
-          }
-          break;
+          result.eventFilter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CampaignEventFilter),
+          ) as _i2.CampaignEventFilter));
         case 'QuietTime':
-          if (value != null) {
-            result.quietTime.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.QuietTime),
-            ) as _i3.QuietTime));
-          }
-          break;
+          result.quietTime.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.QuietTime),
+          ) as _i3.QuietTime));
       }
     }
 
@@ -145,27 +139,28 @@ class InAppCampaignScheduleRestJson1Serializer
   }) {
     final payload = (object as InAppCampaignSchedule);
     final result = <Object?>[];
-    if (payload.endDate != null) {
+    final InAppCampaignSchedule(:endDate, :eventFilter, :quietTime) = payload;
+    if (endDate != null) {
       result
         ..add('EndDate')
         ..add(serializers.serialize(
-          payload.endDate!,
+          endDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.eventFilter != null) {
+    if (eventFilter != null) {
       result
         ..add('EventFilter')
         ..add(serializers.serialize(
-          payload.eventFilter!,
+          eventFilter,
           specifiedType: const FullType(_i2.CampaignEventFilter),
         ));
     }
-    if (payload.quietTime != null) {
+    if (quietTime != null) {
       result
         ..add('QuietTime')
         ..add(serializers.serialize(
-          payload.quietTime!,
+          quietTime,
           specifiedType: const FullType(_i3.QuietTime),
         ));
     }

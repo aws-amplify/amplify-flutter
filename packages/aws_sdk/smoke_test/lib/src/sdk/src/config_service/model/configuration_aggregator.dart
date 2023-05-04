@@ -149,67 +149,48 @@ class ConfigurationAggregatorAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
-          if (value != null) {
-            result.configurationAggregatorName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configurationAggregatorName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConfigurationAggregatorArn':
-          if (value != null) {
-            result.configurationAggregatorArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configurationAggregatorArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AccountAggregationSources':
-          if (value != null) {
-            result.accountAggregationSources.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.AccountAggregationSource)],
-              ),
-            ) as _i4.BuiltList<_i2.AccountAggregationSource>));
-          }
-          break;
+          result.accountAggregationSources.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.AccountAggregationSource)],
+            ),
+          ) as _i4.BuiltList<_i2.AccountAggregationSource>));
         case 'OrganizationAggregationSource':
-          if (value != null) {
-            result.organizationAggregationSource
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.OrganizationAggregationSource),
-            ) as _i3.OrganizationAggregationSource));
-          }
-          break;
+          result.organizationAggregationSource.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.OrganizationAggregationSource),
+          ) as _i3.OrganizationAggregationSource));
         case 'CreationTime':
-          if (value != null) {
-            result.creationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastUpdatedTime':
-          if (value != null) {
-            result.lastUpdatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'CreatedBy':
-          if (value != null) {
-            result.createdBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.createdBy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -224,62 +205,71 @@ class ConfigurationAggregatorAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationAggregator);
     final result = <Object?>[];
-    if (payload.configurationAggregatorName != null) {
+    final ConfigurationAggregator(
+      :configurationAggregatorName,
+      :configurationAggregatorArn,
+      :accountAggregationSources,
+      :organizationAggregationSource,
+      :creationTime,
+      :lastUpdatedTime,
+      :createdBy
+    ) = payload;
+    if (configurationAggregatorName != null) {
       result
         ..add('ConfigurationAggregatorName')
         ..add(serializers.serialize(
-          payload.configurationAggregatorName!,
+          configurationAggregatorName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configurationAggregatorArn != null) {
+    if (configurationAggregatorArn != null) {
       result
         ..add('ConfigurationAggregatorArn')
         ..add(serializers.serialize(
-          payload.configurationAggregatorArn!,
+          configurationAggregatorArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.accountAggregationSources != null) {
+    if (accountAggregationSources != null) {
       result
         ..add('AccountAggregationSources')
         ..add(serializers.serialize(
-          payload.accountAggregationSources!,
+          accountAggregationSources,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.AccountAggregationSource)],
           ),
         ));
     }
-    if (payload.organizationAggregationSource != null) {
+    if (organizationAggregationSource != null) {
       result
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
-          payload.organizationAggregationSource!,
+          organizationAggregationSource,
           specifiedType: const FullType(_i3.OrganizationAggregationSource),
         ));
     }
-    if (payload.creationTime != null) {
+    if (creationTime != null) {
       result
         ..add('CreationTime')
         ..add(serializers.serialize(
-          payload.creationTime!,
+          creationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastUpdatedTime != null) {
+    if (lastUpdatedTime != null) {
       result
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
-          payload.lastUpdatedTime!,
+          lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.createdBy != null) {
+    if (createdBy != null) {
       result
         ..add('CreatedBy')
         ..add(serializers.serialize(
-          payload.createdBy!,
+          createdBy,
           specifiedType: const FullType(String),
         ));
     }

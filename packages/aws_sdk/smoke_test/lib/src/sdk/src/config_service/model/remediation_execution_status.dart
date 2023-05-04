@@ -130,50 +130,38 @@ class RemediationExecutionStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceKey':
-          if (value != null) {
-            result.resourceKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceKey),
-            ) as _i2.ResourceKey));
-          }
-          break;
+          result.resourceKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceKey),
+          ) as _i2.ResourceKey));
         case 'State':
-          if (value != null) {
-            result.state = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RemediationExecutionState),
-            ) as _i3.RemediationExecutionState);
-          }
-          break;
+          result.state = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RemediationExecutionState),
+          ) as _i3.RemediationExecutionState);
         case 'StepDetails':
-          if (value != null) {
-            result.stepDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.RemediationExecutionStep)],
-              ),
-            ) as _i5.BuiltList<_i4.RemediationExecutionStep>));
-          }
-          break;
+          result.stepDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.RemediationExecutionStep)],
+            ),
+          ) as _i5.BuiltList<_i4.RemediationExecutionStep>));
         case 'InvocationTime':
-          if (value != null) {
-            result.invocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.invocationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastUpdatedTime':
-          if (value != null) {
-            result.lastUpdatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -188,46 +176,53 @@ class RemediationExecutionStatusAwsJson11Serializer
   }) {
     final payload = (object as RemediationExecutionStatus);
     final result = <Object?>[];
-    if (payload.resourceKey != null) {
+    final RemediationExecutionStatus(
+      :resourceKey,
+      :state,
+      :stepDetails,
+      :invocationTime,
+      :lastUpdatedTime
+    ) = payload;
+    if (resourceKey != null) {
       result
         ..add('ResourceKey')
         ..add(serializers.serialize(
-          payload.resourceKey!,
+          resourceKey,
           specifiedType: const FullType(_i2.ResourceKey),
         ));
     }
-    if (payload.state != null) {
+    if (state != null) {
       result
         ..add('State')
         ..add(serializers.serialize(
-          payload.state!,
+          state,
           specifiedType: const FullType(_i3.RemediationExecutionState),
         ));
     }
-    if (payload.stepDetails != null) {
+    if (stepDetails != null) {
       result
         ..add('StepDetails')
         ..add(serializers.serialize(
-          payload.stepDetails!,
+          stepDetails,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.RemediationExecutionStep)],
           ),
         ));
     }
-    if (payload.invocationTime != null) {
+    if (invocationTime != null) {
       result
         ..add('InvocationTime')
         ..add(serializers.serialize(
-          payload.invocationTime!,
+          invocationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastUpdatedTime != null) {
+    if (lastUpdatedTime != null) {
       result
         ..add('LastUpdatedTime')
         ..add(serializers.serialize(
-          payload.lastUpdatedTime!,
+          lastUpdatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }

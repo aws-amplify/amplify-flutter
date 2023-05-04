@@ -105,34 +105,28 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
     final result = BatchDescribeTypeConfigurationsErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ErrorCode':
-          if (value != null) {
-            result.errorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.errorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeConfigurationIdentifier':
-          if (value != null) {
-            result.typeConfigurationIdentifier.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TypeConfigurationIdentifier),
-            ) as _i2.TypeConfigurationIdentifier));
-          }
-          break;
+          result.typeConfigurationIdentifier.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TypeConfigurationIdentifier),
+          ) as _i2.TypeConfigurationIdentifier));
       }
     }
 
@@ -152,27 +146,32 @@ class BatchDescribeTypeConfigurationsErrorAwsQuerySerializer extends _i3
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.errorCode != null) {
+    final BatchDescribeTypeConfigurationsError(
+      :errorCode,
+      :errorMessage,
+      :typeConfigurationIdentifier
+    ) = payload;
+    if (errorCode != null) {
       result
         ..add(const _i3.XmlElementName('ErrorCode'))
         ..add(serializers.serialize(
-          payload.errorCode!,
+          errorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorMessage != null) {
+    if (errorMessage != null) {
       result
         ..add(const _i3.XmlElementName('ErrorMessage'))
         ..add(serializers.serialize(
-          payload.errorMessage!,
+          errorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeConfigurationIdentifier != null) {
+    if (typeConfigurationIdentifier != null) {
       result
         ..add(const _i3.XmlElementName('TypeConfigurationIdentifier'))
         ..add(serializers.serialize(
-          payload.typeConfigurationIdentifier!,
+          typeConfigurationIdentifier,
           specifiedType: const FullType(_i2.TypeConfigurationIdentifier),
         ));
     }

@@ -88,24 +88,23 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
     final result = MetricsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EventThreshold':
-          if (value != null) {
-            result.eventThreshold.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ReplicationTimeValue),
-            ) as _i3.ReplicationTimeValue));
-          }
-          break;
+          result.eventThreshold.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ReplicationTimeValue),
+          ) as _i3.ReplicationTimeValue));
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.MetricsStatus),
           ) as _i2.MetricsStatus);
-          break;
       }
     }
 
@@ -125,18 +124,19 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.eventThreshold != null) {
+    final Metrics(:eventThreshold, :status) = payload;
+    if (eventThreshold != null) {
       result
         ..add(const _i4.XmlElementName('EventThreshold'))
         ..add(serializers.serialize(
-          payload.eventThreshold!,
+          eventThreshold,
           specifiedType: const FullType(_i3.ReplicationTimeValue),
         ));
     }
     result
       ..add(const _i4.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.MetricsStatus),
       ));
     return result;

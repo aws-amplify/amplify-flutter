@@ -96,23 +96,20 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CompliantConformancePackCount':
-          if (value != null) {
-            result.compliantConformancePackCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.compliantConformancePackCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NonCompliantConformancePackCount':
-          if (value != null) {
-            result.nonCompliantConformancePackCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.nonCompliantConformancePackCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -127,19 +124,23 @@ class AggregateConformancePackComplianceCountAwsJson11Serializer extends _i2
   }) {
     final payload = (object as AggregateConformancePackComplianceCount);
     final result = <Object?>[];
-    if (payload.compliantConformancePackCount != null) {
+    final AggregateConformancePackComplianceCount(
+      :compliantConformancePackCount,
+      :nonCompliantConformancePackCount
+    ) = payload;
+    if (compliantConformancePackCount != null) {
       result
         ..add('CompliantConformancePackCount')
         ..add(serializers.serialize(
-          payload.compliantConformancePackCount!,
+          compliantConformancePackCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nonCompliantConformancePackCount != null) {
+    if (nonCompliantConformancePackCount != null) {
       result
         ..add('NonCompliantConformancePackCount')
         ..add(serializers.serialize(
-          payload.nonCompliantConformancePackCount!,
+          nonCompliantConformancePackCount,
           specifiedType: const FullType(int),
         ));
     }

@@ -106,27 +106,23 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RemediationExecutionStatuses':
-          if (value != null) {
-            result.remediationExecutionStatuses
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RemediationExecutionStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.RemediationExecutionStatus>));
-          }
-          break;
+          result.remediationExecutionStatuses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RemediationExecutionStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.RemediationExecutionStatus>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -141,22 +137,26 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeRemediationExecutionStatusResponse);
     final result = <Object?>[];
-    if (payload.remediationExecutionStatuses != null) {
+    final DescribeRemediationExecutionStatusResponse(
+      :remediationExecutionStatuses,
+      :nextToken
+    ) = payload;
+    if (remediationExecutionStatuses != null) {
       result
         ..add('RemediationExecutionStatuses')
         ..add(serializers.serialize(
-          payload.remediationExecutionStatuses!,
+          remediationExecutionStatuses,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.RemediationExecutionStatus)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

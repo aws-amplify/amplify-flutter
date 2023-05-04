@@ -101,24 +101,23 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
     final result = GetServiceLinkedRoleDeletionStatusResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.DeletionTaskStatusType),
           ) as _i2.DeletionTaskStatusType);
-          break;
         case 'Reason':
-          if (value != null) {
-            result.reason.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
-            ) as _i3.DeletionTaskFailureReasonType));
-          }
-          break;
+          result.reason.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
+          ) as _i3.DeletionTaskFailureReasonType));
       }
     }
 
@@ -138,17 +137,19 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetServiceLinkedRoleDeletionStatusResponse(:status, :reason) =
+        payload;
     result
       ..add(const _i4.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.DeletionTaskStatusType),
       ));
-    if (payload.reason != null) {
+    if (reason != null) {
       result
         ..add(const _i4.XmlElementName('Reason'))
         ..add(serializers.serialize(
-          payload.reason!,
+          reason,
           specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
         ));
     }

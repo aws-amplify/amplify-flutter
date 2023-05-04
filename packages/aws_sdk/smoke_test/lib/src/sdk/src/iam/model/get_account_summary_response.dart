@@ -85,27 +85,27 @@ class GetAccountSummaryResponseAwsQuerySerializer
     final result = GetAccountSummaryResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SummaryMap':
-          if (value != null) {
-            result.summaryMap.replace(const _i4.XmlBuiltMapSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(_i2.SummaryKeyType),
-                  FullType(int),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.summaryMap.replace(const _i4.XmlBuiltMapSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(_i2.SummaryKeyType),
+                FullType(int),
+              ],
+            ),
+          ));
       }
     }
 
@@ -125,14 +125,15 @@ class GetAccountSummaryResponseAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.summaryMap != null) {
+    final GetAccountSummaryResponse(:summaryMap) = payload;
+    if (summaryMap != null) {
       result
         ..add(const _i4.XmlElementName('SummaryMap'))
         ..add(
             const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.summaryMap!,
+          summaryMap,
           specifiedType: const FullType.nullable(
             _i3.BuiltMap,
             [

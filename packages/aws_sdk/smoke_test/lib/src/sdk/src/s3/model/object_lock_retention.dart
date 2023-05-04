@@ -90,27 +90,23 @@ class ObjectLockRetentionRestXmlSerializer
     final result = ObjectLockRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectLockRetentionMode),
-            ) as _i2.ObjectLockRetentionMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectLockRetentionMode),
+          ) as _i2.ObjectLockRetentionMode);
         case 'RetainUntilDate':
-          if (value != null) {
-            result.retainUntilDate =
-                _i3.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.retainUntilDate = _i3.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -130,20 +126,21 @@ class ObjectLockRetentionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.mode != null) {
+    final ObjectLockRetention(:mode, :retainUntilDate) = payload;
+    if (mode != null) {
       result
         ..add(const _i3.XmlElementName('Mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
         ));
     }
-    if (payload.retainUntilDate != null) {
+    if (retainUntilDate != null) {
       result
         ..add(const _i3.XmlElementName('RetainUntilDate'))
         ..add(_i3.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.retainUntilDate!,
+          retainUntilDate,
         ));
     }
     return result;

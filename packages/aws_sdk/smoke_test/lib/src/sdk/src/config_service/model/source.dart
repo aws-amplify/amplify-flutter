@@ -125,40 +125,33 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Owner':
           result.owner = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Owner),
           ) as _i2.Owner);
-          break;
         case 'SourceIdentifier':
-          if (value != null) {
-            result.sourceIdentifier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceIdentifier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceDetails':
-          if (value != null) {
-            result.sourceDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.SourceDetail)],
-              ),
-            ) as _i5.BuiltList<_i3.SourceDetail>));
-          }
-          break;
+          result.sourceDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.SourceDetail)],
+            ),
+          ) as _i5.BuiltList<_i3.SourceDetail>));
         case 'CustomPolicyDetails':
-          if (value != null) {
-            result.customPolicyDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CustomPolicyDetails),
-            ) as _i4.CustomPolicyDetails));
-          }
-          break;
+          result.customPolicyDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CustomPolicyDetails),
+          ) as _i4.CustomPolicyDetails));
       }
     }
 
@@ -179,30 +172,32 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
         specifiedType: const FullType(_i2.Owner),
       ),
     ];
-    if (payload.sourceIdentifier != null) {
+    final Source(:sourceIdentifier, :sourceDetails, :customPolicyDetails) =
+        payload;
+    if (sourceIdentifier != null) {
       result
         ..add('SourceIdentifier')
         ..add(serializers.serialize(
-          payload.sourceIdentifier!,
+          sourceIdentifier,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceDetails != null) {
+    if (sourceDetails != null) {
       result
         ..add('SourceDetails')
         ..add(serializers.serialize(
-          payload.sourceDetails!,
+          sourceDetails,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.SourceDetail)],
           ),
         ));
     }
-    if (payload.customPolicyDetails != null) {
+    if (customPolicyDetails != null) {
       result
         ..add('CustomPolicyDetails')
         ..add(serializers.serialize(
-          payload.customPolicyDetails!,
+          customPolicyDetails,
           specifiedType: const FullType(_i4.CustomPolicyDetails),
         ));
     }

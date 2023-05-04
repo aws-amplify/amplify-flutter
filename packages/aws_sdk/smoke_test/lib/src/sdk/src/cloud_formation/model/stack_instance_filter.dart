@@ -90,26 +90,23 @@ class StackInstanceFilterAwsQuerySerializer
     final result = StackInstanceFilterBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackInstanceFilterName),
-            ) as _i2.StackInstanceFilterName);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackInstanceFilterName),
+          ) as _i2.StackInstanceFilterName);
         case 'Values':
-          if (value != null) {
-            result.values = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.values = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -129,19 +126,20 @@ class StackInstanceFilterAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.name != null) {
+    final StackInstanceFilter(:name, :values) = payload;
+    if (name != null) {
       result
         ..add(const _i3.XmlElementName('Name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType.nullable(_i2.StackInstanceFilterName),
         ));
     }
-    if (payload.values != null) {
+    if (values != null) {
       result
         ..add(const _i3.XmlElementName('Values'))
         ..add(serializers.serialize(
-          payload.values!,
+          values,
           specifiedType: const FullType(String),
         ));
     }

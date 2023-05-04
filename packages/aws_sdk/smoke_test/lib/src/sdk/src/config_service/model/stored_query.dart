@@ -120,45 +120,35 @@ class StoredQueryAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'QueryId':
-          if (value != null) {
-            result.queryId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryArn':
-          if (value != null) {
-            result.queryArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'QueryName':
-          result.queryName = (serializers.deserialize(
-            value!,
+          result.queryId = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'QueryArn':
+          result.queryArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'QueryName':
+          result.queryName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Expression':
-          if (value != null) {
-            result.expression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.expression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -179,35 +169,36 @@ class StoredQueryAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.queryId != null) {
+    final StoredQuery(:queryId, :queryArn, :description, :expression) = payload;
+    if (queryId != null) {
       result
         ..add('QueryId')
         ..add(serializers.serialize(
-          payload.queryId!,
+          queryId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.queryArn != null) {
+    if (queryArn != null) {
       result
         ..add('QueryArn')
         ..add(serializers.serialize(
-          payload.queryArn!,
+          queryArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('Description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expression != null) {
+    if (expression != null) {
       result
         ..add('Expression')
         ..add(serializers.serialize(
-          payload.expression!,
+          expression,
           specifiedType: const FullType(String),
         ));
     }

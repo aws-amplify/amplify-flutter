@@ -87,22 +87,23 @@ class LoggingConfigAwsQuerySerializer
     final result = LoggingConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LogRoleArn':
           result.logRoleArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogGroupName':
           result.logGroupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -122,16 +123,17 @@ class LoggingConfigAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final LoggingConfig(:logRoleArn, :logGroupName) = payload;
     result
       ..add(const _i2.XmlElementName('LogRoleArn'))
       ..add(serializers.serialize(
-        payload.logRoleArn,
+        logRoleArn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('LogGroupName'))
       ..add(serializers.serialize(
-        payload.logGroupName,
+        logGroupName,
         specifiedType: const FullType(String),
       ));
     return result;

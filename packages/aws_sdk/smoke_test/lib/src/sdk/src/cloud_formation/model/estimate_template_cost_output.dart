@@ -81,18 +81,18 @@ class EstimateTemplateCostOutputAwsQuerySerializer
     final result = EstimateTemplateCostOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Url':
-          if (value != null) {
-            result.url = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.url = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -112,11 +112,12 @@ class EstimateTemplateCostOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.url != null) {
+    final EstimateTemplateCostOutput(:url) = payload;
+    if (url != null) {
       result
         ..add(const _i2.XmlElementName('Url'))
         ..add(serializers.serialize(
-          payload.url!,
+          url,
           specifiedType: const FullType(String),
         ));
     }

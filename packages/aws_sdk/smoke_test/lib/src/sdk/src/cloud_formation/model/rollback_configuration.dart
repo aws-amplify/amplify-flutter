@@ -116,32 +116,29 @@ class RollbackConfigurationAwsQuerySerializer
     final result = RollbackConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RollbackTriggers':
-          if (value != null) {
-            result.rollbackTriggers.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.RollbackTrigger)],
-              ),
-            ) as _i3.BuiltList<_i2.RollbackTrigger>));
-          }
-          break;
+          result.rollbackTriggers.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.RollbackTrigger)],
+            ),
+          ) as _i3.BuiltList<_i2.RollbackTrigger>));
         case 'MonitoringTimeInMinutes':
-          if (value != null) {
-            result.monitoringTimeInMinutes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.monitoringTimeInMinutes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -161,25 +158,27 @@ class RollbackConfigurationAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.rollbackTriggers != null) {
+    final RollbackConfiguration(:rollbackTriggers, :monitoringTimeInMinutes) =
+        payload;
+    if (rollbackTriggers != null) {
       result
         ..add(const _i4.XmlElementName('RollbackTriggers'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.rollbackTriggers!,
+          rollbackTriggers,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.RollbackTrigger)],
           ),
         ));
     }
-    if (payload.monitoringTimeInMinutes != null) {
+    if (monitoringTimeInMinutes != null) {
       result
         ..add(const _i4.XmlElementName('MonitoringTimeInMinutes'))
         ..add(serializers.serialize(
-          payload.monitoringTimeInMinutes!,
+          monitoringTimeInMinutes,
           specifiedType: const FullType.nullable(int),
         ));
     }

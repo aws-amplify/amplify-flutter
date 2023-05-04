@@ -90,18 +90,18 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
     final result = StackInstanceComprehensiveStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DetailedStatus':
-          if (value != null) {
-            result.detailedStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackInstanceDetailedStatus),
-            ) as _i2.StackInstanceDetailedStatus);
-          }
-          break;
+          result.detailedStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackInstanceDetailedStatus),
+          ) as _i2.StackInstanceDetailedStatus);
       }
     }
 
@@ -121,11 +121,12 @@ class StackInstanceComprehensiveStatusAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.detailedStatus != null) {
+    final StackInstanceComprehensiveStatus(:detailedStatus) = payload;
+    if (detailedStatus != null) {
       result
         ..add(const _i3.XmlElementName('DetailedStatus'))
         ..add(serializers.serialize(
-          payload.detailedStatus!,
+          detailedStatus,
           specifiedType:
               const FullType.nullable(_i2.StackInstanceDetailedStatus),
         ));

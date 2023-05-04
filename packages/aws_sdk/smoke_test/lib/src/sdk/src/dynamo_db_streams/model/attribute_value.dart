@@ -9,54 +9,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [AttributeValue].
-enum AttributeValueType<T extends AttributeValue> {
-  /// The type for [AttributeValueS].
-  s<AttributeValueS>(r'S'),
-
-  /// The type for [AttributeValueN].
-  n<AttributeValueN>(r'N'),
-
-  /// The type for [AttributeValueB].
-  b<AttributeValueB>(r'B'),
-
-  /// The type for [AttributeValueSs].
-  ss<AttributeValueSs>(r'SS'),
-
-  /// The type for [AttributeValueNs].
-  ns<AttributeValueNs>(r'NS'),
-
-  /// The type for [AttributeValueBs].
-  bs<AttributeValueBs>(r'BS'),
-
-  /// The type for [AttributeValueM].
-  m<AttributeValueM>(r'M'),
-
-  /// The type for [AttributeValueL].
-  l<AttributeValueL>(r'L'),
-
-  /// The type for [AttributeValueNull].
-  null$<AttributeValueNull>(r'NULL'),
-
-  /// The type for [AttributeValueBool].
-  bool$<AttributeValueBool>(r'BOOL'),
-
-  /// The type for an unknown value.
-  sdkUnknown<AttributeValueSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [AttributeValue].
-  const AttributeValueType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// Represents the data for an attribute.
-///
-/// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
-///
-/// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
-abstract class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
+sealed class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
   const AttributeValue._();
 
   const factory AttributeValue.s(String s) = AttributeValueS;
@@ -141,63 +94,9 @@ abstract class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
   ///
   /// `"BOOL": true`
   bool? get bool$ => null;
-  AttributeValueType get type;
   @override
   Object get value =>
       (s ?? n ?? b ?? ss ?? ns ?? bs ?? m ?? l ?? null$ ?? bool$)!;
-  @override
-  T? when<T>({
-    T Function(String)? s,
-    T Function(String)? n,
-    T Function(_i2.Uint8List)? b,
-    T Function(_i3.BuiltList<String>)? ss,
-    T Function(_i3.BuiltList<String>)? ns,
-    T Function(_i3.BuiltList<_i2.Uint8List>)? bs,
-    T Function(_i3.BuiltMap<String, AttributeValue>)? m,
-    T Function(_i3.BuiltList<AttributeValue>)? l,
-    T Function(bool)? null$,
-    T Function(bool)? bool$,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is AttributeValueS) {
-      return s?.call((this as AttributeValueS).s);
-    }
-    if (this is AttributeValueN) {
-      return n?.call((this as AttributeValueN).n);
-    }
-    if (this is AttributeValueB) {
-      return b?.call((this as AttributeValueB).b);
-    }
-    if (this is AttributeValueSs) {
-      return ss?.call((this as AttributeValueSs).ss);
-    }
-    if (this is AttributeValueNs) {
-      return ns?.call((this as AttributeValueNs).ns);
-    }
-    if (this is AttributeValueBs) {
-      return bs?.call((this as AttributeValueBs).bs);
-    }
-    if (this is AttributeValueM) {
-      return m?.call((this as AttributeValueM).m);
-    }
-    if (this is AttributeValueL) {
-      return l?.call((this as AttributeValueL).l);
-    }
-    if (this is AttributeValueNull) {
-      return null$?.call((this as AttributeValueNull).null$);
-    }
-    if (this is AttributeValueBool) {
-      return bool$?.call((this as AttributeValueBool).bool$);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'AttributeValue');
@@ -265,43 +164,37 @@ abstract class AttributeValue extends _i1.SmithyUnion<AttributeValue> {
   }
 }
 
-class AttributeValueS extends AttributeValue {
+final class AttributeValueS extends AttributeValue {
   const AttributeValueS(this.s) : super._();
 
   @override
   final String s;
 
   @override
-  AttributeValueType get type => AttributeValueType.s;
-  @override
   String get name => 'S';
 }
 
-class AttributeValueN extends AttributeValue {
+final class AttributeValueN extends AttributeValue {
   const AttributeValueN(this.n) : super._();
 
   @override
   final String n;
 
   @override
-  AttributeValueType get type => AttributeValueType.n;
-  @override
   String get name => 'N';
 }
 
-class AttributeValueB extends AttributeValue {
+final class AttributeValueB extends AttributeValue {
   const AttributeValueB(this.b) : super._();
 
   @override
   final _i2.Uint8List b;
 
   @override
-  AttributeValueType get type => AttributeValueType.b;
-  @override
   String get name => 'B';
 }
 
-class AttributeValueSs extends AttributeValue {
+final class AttributeValueSs extends AttributeValue {
   AttributeValueSs(List<String> ss) : this._(_i3.BuiltList(ss));
 
   const AttributeValueSs._(this.ss) : super._();
@@ -310,12 +203,10 @@ class AttributeValueSs extends AttributeValue {
   final _i3.BuiltList<String> ss;
 
   @override
-  AttributeValueType get type => AttributeValueType.ss;
-  @override
   String get name => 'SS';
 }
 
-class AttributeValueNs extends AttributeValue {
+final class AttributeValueNs extends AttributeValue {
   AttributeValueNs(List<String> ns) : this._(_i3.BuiltList(ns));
 
   const AttributeValueNs._(this.ns) : super._();
@@ -324,12 +215,10 @@ class AttributeValueNs extends AttributeValue {
   final _i3.BuiltList<String> ns;
 
   @override
-  AttributeValueType get type => AttributeValueType.ns;
-  @override
   String get name => 'NS';
 }
 
-class AttributeValueBs extends AttributeValue {
+final class AttributeValueBs extends AttributeValue {
   AttributeValueBs(List<_i2.Uint8List> bs) : this._(_i3.BuiltList(bs));
 
   const AttributeValueBs._(this.bs) : super._();
@@ -338,12 +227,10 @@ class AttributeValueBs extends AttributeValue {
   final _i3.BuiltList<_i2.Uint8List> bs;
 
   @override
-  AttributeValueType get type => AttributeValueType.bs;
-  @override
   String get name => 'BS';
 }
 
-class AttributeValueM extends AttributeValue {
+final class AttributeValueM extends AttributeValue {
   AttributeValueM(Map<String, AttributeValue> m) : this._(_i3.BuiltMap(m));
 
   const AttributeValueM._(this.m) : super._();
@@ -352,12 +239,10 @@ class AttributeValueM extends AttributeValue {
   final _i3.BuiltMap<String, AttributeValue> m;
 
   @override
-  AttributeValueType get type => AttributeValueType.m;
-  @override
   String get name => 'M';
 }
 
-class AttributeValueL extends AttributeValue {
+final class AttributeValueL extends AttributeValue {
   AttributeValueL(List<AttributeValue> l) : this._(_i3.BuiltList(l));
 
   const AttributeValueL._(this.l) : super._();
@@ -366,36 +251,30 @@ class AttributeValueL extends AttributeValue {
   final _i3.BuiltList<AttributeValue> l;
 
   @override
-  AttributeValueType get type => AttributeValueType.l;
-  @override
   String get name => 'L';
 }
 
-class AttributeValueNull extends AttributeValue {
+final class AttributeValueNull extends AttributeValue {
   const AttributeValueNull(this.null$) : super._();
 
   @override
   final bool null$;
 
   @override
-  AttributeValueType get type => AttributeValueType.null$;
-  @override
   String get name => 'NULL';
 }
 
-class AttributeValueBool extends AttributeValue {
+final class AttributeValueBool extends AttributeValue {
   const AttributeValueBool(this.bool$) : super._();
 
   @override
   final bool bool$;
 
   @override
-  AttributeValueType get type => AttributeValueType.bool$;
-  @override
   String get name => 'BOOL';
 }
 
-class AttributeValueSdkUnknown extends AttributeValue {
+final class AttributeValueSdkUnknown extends AttributeValue {
   const AttributeValueSdkUnknown(
     this.name,
     this.value,
@@ -406,9 +285,6 @@ class AttributeValueSdkUnknown extends AttributeValue {
 
   @override
   final Object value;
-
-  @override
-  AttributeValueType get type => AttributeValueType.sdkUnknown;
 }
 
 class AttributeValueAwsJson10Serializer
@@ -442,11 +318,7 @@ class AttributeValueAwsJson10Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'S':
         return AttributeValueS((serializers.deserialize(
@@ -532,42 +404,42 @@ class AttributeValueAwsJson10Serializer
     (object as AttributeValue);
     return [
       object.name,
-      object.when<Object?>(
-        s: (String s) => serializers.serialize(
-          s,
+      switch (object) {
+        AttributeValueS(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        n: (String n) => serializers.serialize(
-          n,
+        AttributeValueN(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        b: (_i2.Uint8List b) => serializers.serialize(
-          b,
+        AttributeValueB(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.Uint8List),
         ),
-        ss: (_i3.BuiltList<String> ss) => serializers.serialize(
-          ss,
+        AttributeValueSs(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ),
-        ns: (_i3.BuiltList<String> ns) => serializers.serialize(
-          ns,
+        AttributeValueNs(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ),
-        bs: (_i3.BuiltList<_i2.Uint8List> bs) => serializers.serialize(
-          bs,
+        AttributeValueBs(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Uint8List)],
           ),
         ),
-        m: (_i3.BuiltMap<String, AttributeValue> m) => serializers.serialize(
-          m,
+        AttributeValueM(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -576,27 +448,23 @@ class AttributeValueAwsJson10Serializer
             ],
           ),
         ),
-        l: (_i3.BuiltList<AttributeValue> l) => serializers.serialize(
-          l,
+        AttributeValueL(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(AttributeValue)],
           ),
         ),
-        null$: (bool null$) => serializers.serialize(
-          null$,
+        AttributeValueNull(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(bool),
         ),
-        bool$: (bool bool$) => serializers.serialize(
-          bool$,
+        AttributeValueBool(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(bool),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        AttributeValueSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

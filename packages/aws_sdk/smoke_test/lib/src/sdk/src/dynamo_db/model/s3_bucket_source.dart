@@ -100,29 +100,25 @@ class S3BucketSourceAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'S3BucketOwner':
-          if (value != null) {
-            result.s3BucketOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'S3Bucket':
-          result.s3Bucket = (serializers.deserialize(
-            value!,
+          result.s3BucketOwner = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'S3Bucket':
+          result.s3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'S3KeyPrefix':
-          if (value != null) {
-            result.s3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.s3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,19 +139,20 @@ class S3BucketSourceAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.s3BucketOwner != null) {
+    final S3BucketSource(:s3BucketOwner, :s3KeyPrefix) = payload;
+    if (s3BucketOwner != null) {
       result
         ..add('S3BucketOwner')
         ..add(serializers.serialize(
-          payload.s3BucketOwner!,
+          s3BucketOwner,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3KeyPrefix != null) {
+    if (s3KeyPrefix != null) {
       result
         ..add('S3KeyPrefix')
         ..add(serializers.serialize(
-          payload.s3KeyPrefix!,
+          s3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }

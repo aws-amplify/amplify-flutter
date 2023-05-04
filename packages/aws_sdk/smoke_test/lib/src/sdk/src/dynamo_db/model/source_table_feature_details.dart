@@ -138,53 +138,41 @@ class SourceTableFeatureDetailsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i2.LocalSecondaryIndexInfo)],
-              ),
-            ) as _i7.BuiltList<_i2.LocalSecondaryIndexInfo>));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i2.LocalSecondaryIndexInfo)],
+            ),
+          ) as _i7.BuiltList<_i2.LocalSecondaryIndexInfo>));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i3.GlobalSecondaryIndexInfo)],
-              ),
-            ) as _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i3.GlobalSecondaryIndexInfo)],
+            ),
+          ) as _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>));
         case 'StreamDescription':
-          if (value != null) {
-            result.streamDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.StreamSpecification),
-            ) as _i4.StreamSpecification));
-          }
-          break;
+          result.streamDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.StreamSpecification),
+          ) as _i4.StreamSpecification));
         case 'TimeToLiveDescription':
-          if (value != null) {
-            result.timeToLiveDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.TimeToLiveDescription),
-            ) as _i5.TimeToLiveDescription));
-          }
-          break;
+          result.timeToLiveDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.TimeToLiveDescription),
+          ) as _i5.TimeToLiveDescription));
         case 'SSEDescription':
-          if (value != null) {
-            result.sseDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.SseDescription),
-            ) as _i6.SseDescription));
-          }
-          break;
+          result.sseDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.SseDescription),
+          ) as _i6.SseDescription));
       }
     }
 
@@ -199,49 +187,56 @@ class SourceTableFeatureDetailsAwsJson10Serializer
   }) {
     final payload = (object as SourceTableFeatureDetails);
     final result = <Object?>[];
-    if (payload.localSecondaryIndexes != null) {
+    final SourceTableFeatureDetails(
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes,
+      :streamDescription,
+      :timeToLiveDescription,
+      :sseDescription
+    ) = payload;
+    if (localSecondaryIndexes != null) {
       result
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i7.BuiltList,
             [FullType(_i2.LocalSecondaryIndexInfo)],
           ),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i7.BuiltList,
             [FullType(_i3.GlobalSecondaryIndexInfo)],
           ),
         ));
     }
-    if (payload.streamDescription != null) {
+    if (streamDescription != null) {
       result
         ..add('StreamDescription')
         ..add(serializers.serialize(
-          payload.streamDescription!,
+          streamDescription,
           specifiedType: const FullType(_i4.StreamSpecification),
         ));
     }
-    if (payload.timeToLiveDescription != null) {
+    if (timeToLiveDescription != null) {
       result
         ..add('TimeToLiveDescription')
         ..add(serializers.serialize(
-          payload.timeToLiveDescription!,
+          timeToLiveDescription,
           specifiedType: const FullType(_i5.TimeToLiveDescription),
         ));
     }
-    if (payload.sseDescription != null) {
+    if (sseDescription != null) {
       result
         ..add('SSEDescription')
         ..add(serializers.serialize(
-          payload.sseDescription!,
+          sseDescription,
           specifiedType: const FullType(_i6.SseDescription),
         ));
     }

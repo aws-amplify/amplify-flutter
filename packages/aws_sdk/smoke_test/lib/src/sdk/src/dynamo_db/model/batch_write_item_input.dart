@@ -137,6 +137,9 @@ class BatchWriteItemInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RequestItems':
           result.requestItems.replace((serializers.deserialize(
@@ -149,23 +152,16 @@ class BatchWriteItemInputAwsJson10Serializer
               ],
             ),
           ) as _i6.BuiltListMultimap<String, _i3.WriteRequest>));
-          break;
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
-          if (value != null) {
-            result.returnItemCollectionMetrics = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
-            ) as _i5.ReturnItemCollectionMetrics);
-          }
-          break;
+          result.returnItemCollectionMetrics = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+          ) as _i5.ReturnItemCollectionMetrics);
       }
     }
 
@@ -192,19 +188,23 @@ class BatchWriteItemInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.returnConsumedCapacity != null) {
+    final BatchWriteItemInput(
+      :returnConsumedCapacity,
+      :returnItemCollectionMetrics
+    ) = payload;
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    if (payload.returnItemCollectionMetrics != null) {
+    if (returnItemCollectionMetrics != null) {
       result
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.returnItemCollectionMetrics!,
+          returnItemCollectionMetrics,
           specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
         ));
     }
