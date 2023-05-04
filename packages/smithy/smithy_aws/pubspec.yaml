@@ -12,7 +12,7 @@ dependencies:
   aws_common: ">=0.4.2+4 <0.5.0"
   aws_signature_v4: ">=0.3.1+6 <0.4.0"
   built_collection: ^5.0.0
-  built_value: ">=8.4.0 <8.5.0"
+  built_value: ">=8.5.0 <8.6.0"
   collection: ^1.15.0
   convert: ^3.0.0
   crclib: ^3.0.0
@@ -27,7 +27,7 @@ dependencies:
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
   build_runner: ^2.4.0
-  built_value_generator: 8.4.4
+  built_value_generator: 8.5.0
   file: ^6.1.2
   glob: ^2.0.2
   json_serializable: 6.6.1
