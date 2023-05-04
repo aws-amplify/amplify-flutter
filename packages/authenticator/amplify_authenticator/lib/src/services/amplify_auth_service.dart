@@ -316,13 +316,15 @@ class AmplifyAuthService
   Future<AmplifyConfig> waitForConfiguration() async {
     final timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       logger.warn(
-        'Amplify is taking longer to configure than expected.'
+        'Amplify is taking longer than expected to configure.'
         ' Have you called `Amplify.configure()`?',
       );
     });
-    final config = await Amplify.asyncConfig;
-    timer.cancel();
-    return config;
+    try {
+      return await Amplify.asyncConfig;
+    } finally {
+      timer.cancel();
+    }
   }
 
   @override
