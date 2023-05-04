@@ -77,21 +77,21 @@ class ItemResponseAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
       }
     }
 
@@ -106,11 +106,12 @@ class ItemResponseAwsJson10Serializer
   }) {
     final payload = (object as ItemResponse);
     final result = <Object?>[];
-    if (payload.item != null) {
+    final ItemResponse(:item) = payload;
+    if (item != null) {
       result
         ..add('Item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

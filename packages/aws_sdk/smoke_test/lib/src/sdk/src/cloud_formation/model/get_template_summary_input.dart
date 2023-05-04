@@ -148,50 +148,38 @@ class GetTemplateSummaryInputAwsQuerySerializer
     final result = GetTemplateSummaryInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TemplateURL':
-          if (value != null) {
-            result.templateUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackSetName':
-          if (value != null) {
-            result.stackSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CallAs),
-            ) as _i3.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CallAs),
+          ) as _i3.CallAs);
       }
     }
 
@@ -211,43 +199,50 @@ class GetTemplateSummaryInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.templateBody != null) {
+    final GetTemplateSummaryInput(
+      :templateBody,
+      :templateUrl,
+      :stackName,
+      :stackSetName,
+      :callAs
+    ) = payload;
+    if (templateBody != null) {
       result
         ..add(const _i1.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
-          payload.templateBody!,
+          templateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.templateUrl != null) {
+    if (templateUrl != null) {
       result
         ..add(const _i1.XmlElementName('TemplateURL'))
         ..add(serializers.serialize(
-          payload.templateUrl!,
+          templateUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackName != null) {
+    if (stackName != null) {
       result
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackSetName != null) {
+    if (stackSetName != null) {
       result
         ..add(const _i1.XmlElementName('StackSetName'))
         ..add(serializers.serialize(
-          payload.stackSetName!,
+          stackSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i3.CallAs),
         ));
     }

@@ -197,85 +197,61 @@ class StreamDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StreamLabel':
-          if (value != null) {
-            result.streamLabel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamLabel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StreamStatus':
-          if (value != null) {
-            result.streamStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamStatus),
-            ) as _i2.StreamStatus);
-          }
-          break;
+          result.streamStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StreamStatus),
+          ) as _i2.StreamStatus);
         case 'StreamViewType':
-          if (value != null) {
-            result.streamViewType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StreamViewType),
-            ) as _i3.StreamViewType);
-          }
-          break;
+          result.streamViewType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StreamViewType),
+          ) as _i3.StreamViewType);
         case 'CreationRequestDateTime':
-          if (value != null) {
-            result.creationRequestDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationRequestDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i4.KeySchemaElement)],
-              ),
-            ) as _i6.BuiltList<_i4.KeySchemaElement>));
-          }
-          break;
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i4.KeySchemaElement)],
+            ),
+          ) as _i6.BuiltList<_i4.KeySchemaElement>));
         case 'Shards':
-          if (value != null) {
-            result.shards.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.Shard)],
-              ),
-            ) as _i6.BuiltList<_i5.Shard>));
-          }
-          break;
+          result.shards.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.Shard)],
+            ),
+          ) as _i6.BuiltList<_i5.Shard>));
         case 'LastEvaluatedShardId':
-          if (value != null) {
-            result.lastEvaluatedShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedShardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -290,81 +266,92 @@ class StreamDescriptionAwsJson10Serializer
   }) {
     final payload = (object as StreamDescription);
     final result = <Object?>[];
-    if (payload.streamArn != null) {
+    final StreamDescription(
+      :streamArn,
+      :streamLabel,
+      :streamStatus,
+      :streamViewType,
+      :creationRequestDateTime,
+      :tableName,
+      :keySchema,
+      :shards,
+      :lastEvaluatedShardId
+    ) = payload;
+    if (streamArn != null) {
       result
         ..add('StreamArn')
         ..add(serializers.serialize(
-          payload.streamArn!,
+          streamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamLabel != null) {
+    if (streamLabel != null) {
       result
         ..add('StreamLabel')
         ..add(serializers.serialize(
-          payload.streamLabel!,
+          streamLabel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamStatus != null) {
+    if (streamStatus != null) {
       result
         ..add('StreamStatus')
         ..add(serializers.serialize(
-          payload.streamStatus!,
+          streamStatus,
           specifiedType: const FullType(_i2.StreamStatus),
         ));
     }
-    if (payload.streamViewType != null) {
+    if (streamViewType != null) {
       result
         ..add('StreamViewType')
         ..add(serializers.serialize(
-          payload.streamViewType!,
+          streamViewType,
           specifiedType: const FullType(_i3.StreamViewType),
         ));
     }
-    if (payload.creationRequestDateTime != null) {
+    if (creationRequestDateTime != null) {
       result
         ..add('CreationRequestDateTime')
         ..add(serializers.serialize(
-          payload.creationRequestDateTime!,
+          creationRequestDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.tableName != null) {
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keySchema != null) {
+    if (keySchema != null) {
       result
         ..add('KeySchema')
         ..add(serializers.serialize(
-          payload.keySchema!,
+          keySchema,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i4.KeySchemaElement)],
           ),
         ));
     }
-    if (payload.shards != null) {
+    if (shards != null) {
       result
         ..add('Shards')
         ..add(serializers.serialize(
-          payload.shards!,
+          shards,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i5.Shard)],
           ),
         ));
     }
-    if (payload.lastEvaluatedShardId != null) {
+    if (lastEvaluatedShardId != null) {
       result
         ..add('LastEvaluatedShardId')
         ..add(serializers.serialize(
-          payload.lastEvaluatedShardId!,
+          lastEvaluatedShardId,
           specifiedType: const FullType(String),
         ));
     }

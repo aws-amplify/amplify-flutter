@@ -136,56 +136,44 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'endDate':
-          if (value != null) {
-            result.endDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'values':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i3.BuiltList,
-                    [FullType(_i2.Int64)],
-                  ),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, _i3.BuiltList<_i2.Int64>>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(
+                  _i3.BuiltList,
+                  [FullType(_i2.Int64)],
+                ),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, _i3.BuiltList<_i2.Int64>>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'startDate':
-          if (value != null) {
-            result.startDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.startDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'usagePlanId':
-          if (value != null) {
-            result.usagePlanId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.usagePlanId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -200,19 +188,21 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
   }) {
     final payload = (object as Usage);
     final result = <Object?>[];
-    if (payload.endDate != null) {
+    final Usage(:endDate, :items, :position, :startDate, :usagePlanId) =
+        payload;
+    if (endDate != null) {
       result
         ..add('endDate')
         ..add(serializers.serialize(
-          payload.endDate!,
+          endDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.items != null) {
+    if (items != null) {
       result
         ..add('values')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -225,27 +215,27 @@ class UsageRestJson1Serializer extends _i4.StructuredSmithySerializer<Usage> {
           ),
         ));
     }
-    if (payload.position != null) {
+    if (position != null) {
       result
         ..add('position')
         ..add(serializers.serialize(
-          payload.position!,
+          position,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.startDate != null) {
+    if (startDate != null) {
       result
         ..add('startDate')
         ..add(serializers.serialize(
-          payload.startDate!,
+          startDate,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.usagePlanId != null) {
+    if (usagePlanId != null) {
       result
         ..add('usagePlanId')
         ..add(serializers.serialize(
-          payload.usagePlanId!,
+          usagePlanId,
           specifiedType: const FullType(String),
         ));
     }

@@ -83,16 +83,18 @@ class GetInstanceProfileResponseAwsQuerySerializer
     final result = GetInstanceProfileResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'InstanceProfile':
           result.instanceProfile.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.InstanceProfile),
           ) as _i2.InstanceProfile));
-          break;
       }
     }
 
@@ -112,10 +114,11 @@ class GetInstanceProfileResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetInstanceProfileResponse(:instanceProfile) = payload;
     result
       ..add(const _i3.XmlElementName('InstanceProfile'))
       ..add(serializers.serialize(
-        payload.instanceProfile,
+        instanceProfile,
         specifiedType: const FullType(_i2.InstanceProfile),
       ));
     return result;

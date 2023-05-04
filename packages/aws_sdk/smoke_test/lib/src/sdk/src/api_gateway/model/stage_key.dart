@@ -89,23 +89,20 @@ class StageKeyRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'restApiId':
-          if (value != null) {
-            result.restApiId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.restApiId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'stageName':
-          if (value != null) {
-            result.stageName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stageName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -120,19 +117,20 @@ class StageKeyRestJson1Serializer
   }) {
     final payload = (object as StageKey);
     final result = <Object?>[];
-    if (payload.restApiId != null) {
+    final StageKey(:restApiId, :stageName) = payload;
+    if (restApiId != null) {
       result
         ..add('restApiId')
         ..add(serializers.serialize(
-          payload.restApiId!,
+          restApiId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stageName != null) {
+    if (stageName != null) {
       result
         ..add('stageName')
         ..add(serializers.serialize(
-          payload.stageName!,
+          stageName,
           specifiedType: const FullType(String),
         ));
     }

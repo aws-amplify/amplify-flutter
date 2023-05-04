@@ -167,59 +167,50 @@ class ConformancePackStatusDetailAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackId':
           result.conformancePackId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackArn':
           result.conformancePackArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackState':
           result.conformancePackState = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ConformancePackState),
           ) as _i2.ConformancePackState);
-          break;
         case 'StackArn':
           result.stackArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackStatusReason':
-          if (value != null) {
-            result.conformancePackStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conformancePackStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdateRequestedTime':
           result.lastUpdateRequestedTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'LastUpdateCompletedTime':
-          if (value != null) {
-            result.lastUpdateCompletedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateCompletedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -265,19 +256,23 @@ class ConformancePackStatusDetailAwsJson11Serializer
         specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.conformancePackStatusReason != null) {
+    final ConformancePackStatusDetail(
+      :conformancePackStatusReason,
+      :lastUpdateCompletedTime
+    ) = payload;
+    if (conformancePackStatusReason != null) {
       result
         ..add('ConformancePackStatusReason')
         ..add(serializers.serialize(
-          payload.conformancePackStatusReason!,
+          conformancePackStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdateCompletedTime != null) {
+    if (lastUpdateCompletedTime != null) {
       result
         ..add('LastUpdateCompletedTime')
         ..add(serializers.serialize(
-          payload.lastUpdateCompletedTime!,
+          lastUpdateCompletedTime,
           specifiedType: const FullType(DateTime),
         ));
     }

@@ -108,27 +108,24 @@ class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateComplianceByConfigRules':
-          if (value != null) {
-            result.aggregateComplianceByConfigRules
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateComplianceByConfigRule)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateComplianceByConfigRule>));
-          }
-          break;
+          result.aggregateComplianceByConfigRules
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateComplianceByConfigRule)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateComplianceByConfigRule>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,22 +141,26 @@ class DescribeAggregateComplianceByConfigRulesResponseAwsJson11Serializer
     final payload =
         (object as DescribeAggregateComplianceByConfigRulesResponse);
     final result = <Object?>[];
-    if (payload.aggregateComplianceByConfigRules != null) {
+    final DescribeAggregateComplianceByConfigRulesResponse(
+      :aggregateComplianceByConfigRules,
+      :nextToken
+    ) = payload;
+    if (aggregateComplianceByConfigRules != null) {
       result
         ..add('AggregateComplianceByConfigRules')
         ..add(serializers.serialize(
-          payload.aggregateComplianceByConfigRules!,
+          aggregateComplianceByConfigRules,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceByConfigRule)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

@@ -167,65 +167,49 @@ class PutConformancePackRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TemplateS3Uri':
-          if (value != null) {
-            result.templateS3Uri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateS3Uri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TemplateBody':
-          if (value != null) {
-            result.templateBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.templateBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeliveryS3Bucket':
-          if (value != null) {
-            result.deliveryS3Bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeliveryS3KeyPrefix':
-          if (value != null) {
-            result.deliveryS3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConformancePackInputParameters':
-          if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.ConformancePackInputParameter)],
-              ),
-            ) as _i5.BuiltList<_i3.ConformancePackInputParameter>));
-          }
-          break;
+          result.conformancePackInputParameters
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.ConformancePackInputParameter)],
+            ),
+          ) as _i5.BuiltList<_i3.ConformancePackInputParameter>));
         case 'TemplateSSMDocumentDetails':
-          if (value != null) {
-            result.templateSsmDocumentDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
-            ) as _i4.TemplateSsmDocumentDetails));
-          }
-          break;
+          result.templateSsmDocumentDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
+          ) as _i4.TemplateSsmDocumentDetails));
       }
     }
 
@@ -246,54 +230,62 @@ class PutConformancePackRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.templateS3Uri != null) {
+    final PutConformancePackRequest(
+      :templateS3Uri,
+      :templateBody,
+      :deliveryS3Bucket,
+      :deliveryS3KeyPrefix,
+      :conformancePackInputParameters,
+      :templateSsmDocumentDetails
+    ) = payload;
+    if (templateS3Uri != null) {
       result
         ..add('TemplateS3Uri')
         ..add(serializers.serialize(
-          payload.templateS3Uri!,
+          templateS3Uri,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.templateBody != null) {
+    if (templateBody != null) {
       result
         ..add('TemplateBody')
         ..add(serializers.serialize(
-          payload.templateBody!,
+          templateBody,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deliveryS3Bucket != null) {
+    if (deliveryS3Bucket != null) {
       result
         ..add('DeliveryS3Bucket')
         ..add(serializers.serialize(
-          payload.deliveryS3Bucket!,
+          deliveryS3Bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deliveryS3KeyPrefix != null) {
+    if (deliveryS3KeyPrefix != null) {
       result
         ..add('DeliveryS3KeyPrefix')
         ..add(serializers.serialize(
-          payload.deliveryS3KeyPrefix!,
+          deliveryS3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.conformancePackInputParameters != null) {
+    if (conformancePackInputParameters != null) {
       result
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
+          conformancePackInputParameters,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i3.ConformancePackInputParameter)],
           ),
         ));
     }
-    if (payload.templateSsmDocumentDetails != null) {
+    if (templateSsmDocumentDetails != null) {
       result
         ..add('TemplateSSMDocumentDetails')
         ..add(serializers.serialize(
-          payload.templateSsmDocumentDetails!,
+          templateSsmDocumentDetails,
           specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
         ));
     }

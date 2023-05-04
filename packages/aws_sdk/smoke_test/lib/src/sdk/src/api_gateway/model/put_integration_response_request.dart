@@ -285,51 +285,42 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentHandling':
-          if (value != null) {
-            result.contentHandling = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ContentHandlingStrategy),
-            ) as _i3.ContentHandlingStrategy);
-          }
-          break;
+          result.contentHandling = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ContentHandlingStrategy),
+          ) as _i3.ContentHandlingStrategy);
         case 'responseParameters':
-          if (value != null) {
-            result.responseParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'responseTemplates':
-          if (value != null) {
-            result.responseTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.responseTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'selectionPattern':
-          if (value != null) {
-            result.selectionPattern = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.selectionPattern = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -346,19 +337,25 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
         ? object.getPayload()
         : (object as PutIntegrationResponseRequestPayload);
     final result = <Object?>[];
-    if (payload.contentHandling != null) {
+    final PutIntegrationResponseRequestPayload(
+      :contentHandling,
+      :responseParameters,
+      :responseTemplates,
+      :selectionPattern
+    ) = payload;
+    if (contentHandling != null) {
       result
         ..add('contentHandling')
         ..add(serializers.serialize(
-          payload.contentHandling!,
+          contentHandling,
           specifiedType: const FullType(_i3.ContentHandlingStrategy),
         ));
     }
-    if (payload.responseParameters != null) {
+    if (responseParameters != null) {
       result
         ..add('responseParameters')
         ..add(serializers.serialize(
-          payload.responseParameters!,
+          responseParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -368,11 +365,11 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
           ),
         ));
     }
-    if (payload.responseTemplates != null) {
+    if (responseTemplates != null) {
       result
         ..add('responseTemplates')
         ..add(serializers.serialize(
-          payload.responseTemplates!,
+          responseTemplates,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -382,11 +379,11 @@ class PutIntegrationResponseRequestRestJson1Serializer extends _i1
           ),
         ));
     }
-    if (payload.selectionPattern != null) {
+    if (selectionPattern != null) {
       result
         ..add('selectionPattern')
         ..add(serializers.serialize(
-          payload.selectionPattern!,
+          selectionPattern,
           specifiedType: const FullType(String),
         ));
     }

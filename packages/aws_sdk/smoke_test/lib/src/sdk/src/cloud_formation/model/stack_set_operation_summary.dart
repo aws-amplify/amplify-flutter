@@ -146,58 +146,43 @@ class StackSetOperationSummaryAwsQuerySerializer
     final result = StackSetOperationSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OperationId':
-          if (value != null) {
-            result.operationId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.operationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetOperationAction),
-            ) as _i2.StackSetOperationAction);
-          }
-          break;
+          result.action = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetOperationAction),
+          ) as _i2.StackSetOperationAction);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackSetOperationStatus),
-            ) as _i3.StackSetOperationStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackSetOperationStatus),
+          ) as _i3.StackSetOperationStatus);
         case 'CreationTimestamp':
-          if (value != null) {
-            result.creationTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'EndTimestamp':
-          if (value != null) {
-            result.endTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.endTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'StatusReason':
-          if (value != null) {
-            result.statusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -217,51 +202,59 @@ class StackSetOperationSummaryAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.operationId != null) {
+    final StackSetOperationSummary(
+      :operationId,
+      :action,
+      :status,
+      :creationTimestamp,
+      :endTimestamp,
+      :statusReason
+    ) = payload;
+    if (operationId != null) {
       result
         ..add(const _i4.XmlElementName('OperationId'))
         ..add(serializers.serialize(
-          payload.operationId!,
+          operationId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.action != null) {
+    if (action != null) {
       result
         ..add(const _i4.XmlElementName('Action'))
         ..add(serializers.serialize(
-          payload.action!,
+          action,
           specifiedType: const FullType.nullable(_i2.StackSetOperationAction),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.StackSetOperationStatus),
         ));
     }
-    if (payload.creationTimestamp != null) {
+    if (creationTimestamp != null) {
       result
         ..add(const _i4.XmlElementName('CreationTimestamp'))
         ..add(serializers.serialize(
-          payload.creationTimestamp!,
+          creationTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.endTimestamp != null) {
+    if (endTimestamp != null) {
       result
         ..add(const _i4.XmlElementName('EndTimestamp'))
         ..add(serializers.serialize(
-          payload.endTimestamp!,
+          endTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.statusReason != null) {
+    if (statusReason != null) {
       result
         ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
-          payload.statusReason!,
+          statusReason,
           specifiedType: const FullType(String),
         ));
     }

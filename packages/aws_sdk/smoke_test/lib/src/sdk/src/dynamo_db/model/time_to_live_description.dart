@@ -94,23 +94,20 @@ class TimeToLiveDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TimeToLiveStatus':
-          if (value != null) {
-            result.timeToLiveStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TimeToLiveStatus),
-            ) as _i2.TimeToLiveStatus);
-          }
-          break;
+          result.timeToLiveStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TimeToLiveStatus),
+          ) as _i2.TimeToLiveStatus);
         case 'AttributeName':
-          if (value != null) {
-            result.attributeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attributeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -125,19 +122,20 @@ class TimeToLiveDescriptionAwsJson10Serializer
   }) {
     final payload = (object as TimeToLiveDescription);
     final result = <Object?>[];
-    if (payload.timeToLiveStatus != null) {
+    final TimeToLiveDescription(:timeToLiveStatus, :attributeName) = payload;
+    if (timeToLiveStatus != null) {
       result
         ..add('TimeToLiveStatus')
         ..add(serializers.serialize(
-          payload.timeToLiveStatus!,
+          timeToLiveStatus,
           specifiedType: const FullType(_i2.TimeToLiveStatus),
         ));
     }
-    if (payload.attributeName != null) {
+    if (attributeName != null) {
       result
         ..add('AttributeName')
         ..add(serializers.serialize(
-          payload.attributeName!,
+          attributeName,
           specifiedType: const FullType(String),
         ));
     }

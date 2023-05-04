@@ -112,29 +112,25 @@ class DescribeStreamInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
           result.streamArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ExclusiveStartShardId':
-          if (value != null) {
-            result.exclusiveStartShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartShardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -155,19 +151,20 @@ class DescribeStreamInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.limit != null) {
+    final DescribeStreamInput(:limit, :exclusiveStartShardId) = payload;
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.exclusiveStartShardId != null) {
+    if (exclusiveStartShardId != null) {
       result
         ..add('ExclusiveStartShardId')
         ..add(serializers.serialize(
-          payload.exclusiveStartShardId!,
+          exclusiveStartShardId,
           specifiedType: const FullType(String),
         ));
     }

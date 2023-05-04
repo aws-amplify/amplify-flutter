@@ -85,16 +85,18 @@ class DetectStackResourceDriftOutputAwsQuerySerializer
     final result = DetectStackResourceDriftOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackResourceDrift':
           result.stackResourceDrift.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.StackResourceDrift),
           ) as _i2.StackResourceDrift));
-          break;
       }
     }
 
@@ -114,10 +116,11 @@ class DetectStackResourceDriftOutputAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DetectStackResourceDriftOutput(:stackResourceDrift) = payload;
     result
       ..add(const _i3.XmlElementName('StackResourceDrift'))
       ..add(serializers.serialize(
-        payload.stackResourceDrift,
+        stackResourceDrift,
         specifiedType: const FullType(_i2.StackResourceDrift),
       ));
     return result;

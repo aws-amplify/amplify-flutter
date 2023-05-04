@@ -98,33 +98,29 @@ class ListTypeVersionsOutputAwsQuerySerializer
     final result = ListTypeVersionsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeVersionSummaries':
-          if (value != null) {
-            result.typeVersionSummaries.replace(
-                (const _i4.XmlBuiltListSerializer(
-                        indexer: _i4.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.TypeVersionSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.TypeVersionSummary>));
-          }
-          break;
+          result.typeVersionSummaries.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.TypeVersionSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.TypeVersionSummary>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,25 +140,26 @@ class ListTypeVersionsOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.typeVersionSummaries != null) {
+    final ListTypeVersionsOutput(:typeVersionSummaries, :nextToken) = payload;
+    if (typeVersionSummaries != null) {
       result
         ..add(const _i4.XmlElementName('TypeVersionSummaries'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.typeVersionSummaries!,
+          typeVersionSummaries,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.TypeVersionSummary)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

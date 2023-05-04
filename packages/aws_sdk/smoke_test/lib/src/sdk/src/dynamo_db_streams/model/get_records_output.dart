@@ -100,26 +100,23 @@ class GetRecordsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Records':
-          if (value != null) {
-            result.records.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Record)],
-              ),
-            ) as _i3.BuiltList<_i2.Record>));
-          }
-          break;
+          result.records.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Record)],
+            ),
+          ) as _i3.BuiltList<_i2.Record>));
         case 'NextShardIterator':
-          if (value != null) {
-            result.nextShardIterator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextShardIterator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,22 +131,23 @@ class GetRecordsOutputAwsJson10Serializer
   }) {
     final payload = (object as GetRecordsOutput);
     final result = <Object?>[];
-    if (payload.records != null) {
+    final GetRecordsOutput(:records, :nextShardIterator) = payload;
+    if (records != null) {
       result
         ..add('Records')
         ..add(serializers.serialize(
-          payload.records!,
+          records,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Record)],
           ),
         ));
     }
-    if (payload.nextShardIterator != null) {
+    if (nextShardIterator != null) {
       result
         ..add('NextShardIterator')
         ..add(serializers.serialize(
-          payload.nextShardIterator!,
+          nextShardIterator,
           specifiedType: const FullType(String),
         ));
     }

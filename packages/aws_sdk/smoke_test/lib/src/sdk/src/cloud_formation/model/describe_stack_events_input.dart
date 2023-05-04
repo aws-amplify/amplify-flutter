@@ -108,26 +108,23 @@ class DescribeStackEventsInputAwsQuerySerializer
     final result = DescribeStackEventsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -147,19 +144,20 @@ class DescribeStackEventsInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackName != null) {
+    final DescribeStackEventsInput(:stackName, :nextToken) = payload;
+    if (stackName != null) {
       result
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

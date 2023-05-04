@@ -284,18 +284,18 @@ class CompleteMultipartUploadRequestRestXmlSerializer
     final result = _i2.CompletedMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Part':
-          if (value != null) {
-            result.parts.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.CompletedPart),
-            ) as _i5.CompletedPart));
-          }
-          break;
+          result.parts.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.CompletedPart),
+          ) as _i5.CompletedPart));
       }
     }
 
@@ -320,11 +320,12 @@ class CompleteMultipartUploadRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.parts != null) {
+    final _i2.CompletedMultipartUpload(:parts) = payload;
+    if (parts != null) {
       result.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
-        payload.parts!,
+        parts,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i5.CompletedPart)],

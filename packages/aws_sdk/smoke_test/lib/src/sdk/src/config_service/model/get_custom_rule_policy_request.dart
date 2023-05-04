@@ -85,15 +85,15 @@ class GetCustomRulePolicyRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -108,11 +108,12 @@ class GetCustomRulePolicyRequestAwsJson11Serializer
   }) {
     final payload = (object as GetCustomRulePolicyRequest);
     final result = <Object?>[];
-    if (payload.configRuleName != null) {
+    final GetCustomRulePolicyRequest(:configRuleName) = payload;
+    if (configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }

@@ -111,42 +111,33 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceResourceTypes':
-          if (value != null) {
-            result.complianceResourceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.complianceResourceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'TagKey':
-          if (value != null) {
-            result.tagKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TagValue':
-          if (value != null) {
-            result.tagValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplianceResourceId':
-          if (value != null) {
-            result.complianceResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.complianceResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -161,38 +152,44 @@ class ScopeAwsJson11Serializer extends _i3.StructuredSmithySerializer<Scope> {
   }) {
     final payload = (object as Scope);
     final result = <Object?>[];
-    if (payload.complianceResourceTypes != null) {
+    final Scope(
+      :complianceResourceTypes,
+      :tagKey,
+      :tagValue,
+      :complianceResourceId
+    ) = payload;
+    if (complianceResourceTypes != null) {
       result
         ..add('ComplianceResourceTypes')
         ..add(serializers.serialize(
-          payload.complianceResourceTypes!,
+          complianceResourceTypes,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.tagKey != null) {
+    if (tagKey != null) {
       result
         ..add('TagKey')
         ..add(serializers.serialize(
-          payload.tagKey!,
+          tagKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tagValue != null) {
+    if (tagValue != null) {
       result
         ..add('TagValue')
         ..add(serializers.serialize(
-          payload.tagValue!,
+          tagValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.complianceResourceId != null) {
+    if (complianceResourceId != null) {
       result
         ..add('ComplianceResourceId')
         ..add(serializers.serialize(
-          payload.complianceResourceId!,
+          complianceResourceId,
           specifiedType: const FullType(String),
         ));
     }

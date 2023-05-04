@@ -93,22 +93,23 @@ class ErrorDetailsAwsQuerySerializer
     final result = ErrorDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Message':
           result.message = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Code':
           result.code = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -128,16 +129,17 @@ class ErrorDetailsAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ErrorDetails(:message, :code) = payload;
     result
       ..add(const _i2.XmlElementName('Message'))
       ..add(serializers.serialize(
-        payload.message,
+        message,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Code'))
       ..add(serializers.serialize(
-        payload.code,
+        code,
         specifiedType: const FullType(String),
       ));
     return result;

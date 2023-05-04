@@ -81,16 +81,18 @@ class CreateAccessKeyResponseAwsQuerySerializer
     final result = CreateAccessKeyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessKey':
           result.accessKey.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.AccessKey),
           ) as _i2.AccessKey));
-          break;
       }
     }
 
@@ -110,10 +112,11 @@ class CreateAccessKeyResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateAccessKeyResponse(:accessKey) = payload;
     result
       ..add(const _i3.XmlElementName('AccessKey'))
       ..add(serializers.serialize(
-        payload.accessKey,
+        accessKey,
         specifiedType: const FullType(_i2.AccessKey),
       ));
     return result;

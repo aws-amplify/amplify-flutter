@@ -122,41 +122,35 @@ class RemediationExceptionAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceId':
           result.resourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpirationTime':
-          if (value != null) {
-            result.expirationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.expirationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -187,19 +181,20 @@ class RemediationExceptionAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.message != null) {
+    final RemediationException(:message, :expirationTime) = payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expirationTime != null) {
+    if (expirationTime != null) {
       result
         ..add('ExpirationTime')
         ..add(serializers.serialize(
-          payload.expirationTime!,
+          expirationTime,
           specifiedType: const FullType(DateTime),
         ));
     }

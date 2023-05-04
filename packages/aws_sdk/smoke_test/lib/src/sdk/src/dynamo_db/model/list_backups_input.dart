@@ -146,55 +146,40 @@ class ListBackupsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TimeRangeLowerBound':
-          if (value != null) {
-            result.timeRangeLowerBound = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.timeRangeLowerBound = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TimeRangeUpperBound':
-          if (value != null) {
-            result.timeRangeUpperBound = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.timeRangeUpperBound = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ExclusiveStartBackupArn':
-          if (value != null) {
-            result.exclusiveStartBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exclusiveStartBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BackupType':
-          if (value != null) {
-            result.backupType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BackupTypeFilter),
-            ) as _i3.BackupTypeFilter);
-          }
-          break;
+          result.backupType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BackupTypeFilter),
+          ) as _i3.BackupTypeFilter);
       }
     }
 
@@ -209,51 +194,59 @@ class ListBackupsInputAwsJson10Serializer
   }) {
     final payload = (object as ListBackupsInput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final ListBackupsInput(
+      :tableName,
+      :limit,
+      :timeRangeLowerBound,
+      :timeRangeUpperBound,
+      :exclusiveStartBackupArn,
+      :backupType
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.timeRangeLowerBound != null) {
+    if (timeRangeLowerBound != null) {
       result
         ..add('TimeRangeLowerBound')
         ..add(serializers.serialize(
-          payload.timeRangeLowerBound!,
+          timeRangeLowerBound,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.timeRangeUpperBound != null) {
+    if (timeRangeUpperBound != null) {
       result
         ..add('TimeRangeUpperBound')
         ..add(serializers.serialize(
-          payload.timeRangeUpperBound!,
+          timeRangeUpperBound,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.exclusiveStartBackupArn != null) {
+    if (exclusiveStartBackupArn != null) {
       result
         ..add('ExclusiveStartBackupArn')
         ..add(serializers.serialize(
-          payload.exclusiveStartBackupArn!,
+          exclusiveStartBackupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.backupType != null) {
+    if (backupType != null) {
       result
         ..add('BackupType')
         ..add(serializers.serialize(
-          payload.backupType!,
+          backupType,
           specifiedType: const FullType(_i3.BackupTypeFilter),
         ));
     }

@@ -98,34 +98,28 @@ class LifecycleExpirationRestXmlSerializer
     final result = LifecycleExpirationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Date':
-          if (value != null) {
-            result.date = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.date = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ExpiredObjectDeleteMarker':
-          if (value != null) {
-            result.expiredObjectDeleteMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.expiredObjectDeleteMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -145,27 +139,29 @@ class LifecycleExpirationRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.date != null) {
+    final LifecycleExpiration(:date, :days, :expiredObjectDeleteMarker) =
+        payload;
+    if (date != null) {
       result
         ..add(const _i2.XmlElementName('Date'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.date!,
+          date,
         ));
     }
-    if (payload.days != null) {
+    if (days != null) {
       result
         ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.expiredObjectDeleteMarker != null) {
+    if (expiredObjectDeleteMarker != null) {
       result
         ..add(const _i2.XmlElementName('ExpiredObjectDeleteMarker'))
         ..add(serializers.serialize(
-          payload.expiredObjectDeleteMarker!,
+          expiredObjectDeleteMarker,
           specifiedType: const FullType.nullable(bool),
         ));
     }

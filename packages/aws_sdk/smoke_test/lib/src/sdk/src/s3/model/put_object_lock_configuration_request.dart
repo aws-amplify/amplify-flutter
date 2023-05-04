@@ -200,26 +200,23 @@ class PutObjectLockConfigurationRequestRestXmlSerializer
     final result = _i2.ObjectLockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectLockEnabled':
-          if (value != null) {
-            result.objectLockEnabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ObjectLockEnabled),
-            ) as _i6.ObjectLockEnabled);
-          }
-          break;
+          result.objectLockEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ObjectLockEnabled),
+          ) as _i6.ObjectLockEnabled);
         case 'Rule':
-          if (value != null) {
-            result.rule.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.ObjectLockRule),
-            ) as _i7.ObjectLockRule));
-          }
-          break;
+          result.rule.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.ObjectLockRule),
+          ) as _i7.ObjectLockRule));
       }
     }
 
@@ -244,19 +241,20 @@ class PutObjectLockConfigurationRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.objectLockEnabled != null) {
+    final _i2.ObjectLockConfiguration(:objectLockEnabled, :rule) = payload;
+    if (objectLockEnabled != null) {
       result
         ..add(const _i1.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
-          payload.objectLockEnabled!,
+          objectLockEnabled,
           specifiedType: const FullType.nullable(_i6.ObjectLockEnabled),
         ));
     }
-    if (payload.rule != null) {
+    if (rule != null) {
       result
         ..add(const _i1.XmlElementName('Rule'))
         ..add(serializers.serialize(
-          payload.rule!,
+          rule,
           specifiedType: const FullType(_i7.ObjectLockRule),
         ));
     }

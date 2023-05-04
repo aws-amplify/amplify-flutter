@@ -75,16 +75,18 @@ class AccessControlTranslationRestXmlSerializer
     final result = AccessControlTranslationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Owner':
           result.owner = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.OwnerOverride),
           ) as _i2.OwnerOverride);
-          break;
       }
     }
 
@@ -104,10 +106,11 @@ class AccessControlTranslationRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final AccessControlTranslation(:owner) = payload;
     result
       ..add(const _i3.XmlElementName('Owner'))
       ..add(serializers.serialize(
-        payload.owner,
+        owner,
         specifiedType: const FullType.nullable(_i2.OwnerOverride),
       ));
     return result;

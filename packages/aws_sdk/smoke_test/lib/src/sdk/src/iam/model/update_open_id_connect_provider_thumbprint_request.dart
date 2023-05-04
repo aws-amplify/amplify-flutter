@@ -103,16 +103,18 @@ class UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer extends _i1
     final result = UpdateOpenIdConnectProviderThumbprintRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OpenIDConnectProviderArn':
           result.openIdConnectProviderArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ThumbprintList':
           result.thumbprintList.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -124,7 +126,6 @@ class UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer extends _i1
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -144,10 +145,14 @@ class UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateOpenIdConnectProviderThumbprintRequest(
+      :openIdConnectProviderArn,
+      :thumbprintList
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('OpenIDConnectProviderArn'))
       ..add(serializers.serialize(
-        payload.openIdConnectProviderArn,
+        openIdConnectProviderArn,
         specifiedType: const FullType(String),
       ));
     result
@@ -156,7 +161,7 @@ class UpdateOpenIdConnectProviderThumbprintRequestAwsQuerySerializer extends _i1
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.thumbprintList,
+        thumbprintList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

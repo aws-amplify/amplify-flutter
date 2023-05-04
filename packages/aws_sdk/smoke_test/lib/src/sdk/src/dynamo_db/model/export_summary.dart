@@ -92,23 +92,20 @@ class ExportSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExportArn':
-          if (value != null) {
-            result.exportArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exportArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExportStatus':
-          if (value != null) {
-            result.exportStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ExportStatus),
-            ) as _i2.ExportStatus);
-          }
-          break;
+          result.exportStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ExportStatus),
+          ) as _i2.ExportStatus);
       }
     }
 
@@ -123,19 +120,20 @@ class ExportSummaryAwsJson10Serializer
   }) {
     final payload = (object as ExportSummary);
     final result = <Object?>[];
-    if (payload.exportArn != null) {
+    final ExportSummary(:exportArn, :exportStatus) = payload;
+    if (exportArn != null) {
       result
         ..add('ExportArn')
         ..add(serializers.serialize(
-          payload.exportArn!,
+          exportArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exportStatus != null) {
+    if (exportStatus != null) {
       result
         ..add('ExportStatus')
         ..add(serializers.serialize(
-          payload.exportStatus!,
+          exportStatus,
           specifiedType: const FullType(_i2.ExportStatus),
         ));
     }

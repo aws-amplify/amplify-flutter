@@ -104,32 +104,29 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
     final result = ListPoliciesGrantingServiceAccessEntryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServiceNamespace':
-          if (value != null) {
-            result.serviceNamespace = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.serviceNamespace = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Policies':
-          if (value != null) {
-            result.policies.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.PolicyGrantingServiceAccess)],
-              ),
-            ) as _i3.BuiltList<_i2.PolicyGrantingServiceAccess>));
-          }
-          break;
+          result.policies.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.PolicyGrantingServiceAccess)],
+            ),
+          ) as _i3.BuiltList<_i2.PolicyGrantingServiceAccess>));
       }
     }
 
@@ -149,22 +146,24 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.serviceNamespace != null) {
+    final ListPoliciesGrantingServiceAccessEntry(:serviceNamespace, :policies) =
+        payload;
+    if (serviceNamespace != null) {
       result
         ..add(const _i4.XmlElementName('ServiceNamespace'))
         ..add(serializers.serialize(
-          payload.serviceNamespace!,
+          serviceNamespace,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policies != null) {
+    if (policies != null) {
       result
         ..add(const _i4.XmlElementName('Policies'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policies!,
+          policies,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.PolicyGrantingServiceAccess)],

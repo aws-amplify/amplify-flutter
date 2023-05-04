@@ -106,31 +106,25 @@ class ListImportsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PageSize':
-          if (value != null) {
-            result.pageSize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.pageSize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -145,27 +139,28 @@ class ListImportsInputAwsJson10Serializer
   }) {
     final payload = (object as ListImportsInput);
     final result = <Object?>[];
-    if (payload.tableArn != null) {
+    final ListImportsInput(:tableArn, :pageSize, :nextToken) = payload;
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.pageSize != null) {
+    if (pageSize != null) {
       result
         ..add('PageSize')
         ..add(serializers.serialize(
-          payload.pageSize!,
+          pageSize,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

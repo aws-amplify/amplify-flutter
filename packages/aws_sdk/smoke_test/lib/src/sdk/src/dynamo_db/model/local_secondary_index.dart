@@ -114,13 +114,15 @@ class LocalSecondaryIndexAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -129,13 +131,11 @@ class LocalSecondaryIndexAwsJson10Serializer
               [FullType(_i2.KeySchemaElement)],
             ),
           ) as _i4.BuiltList<_i2.KeySchemaElement>));
-          break;
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.Projection),
           ) as _i3.Projection));
-          break;
       }
     }
 

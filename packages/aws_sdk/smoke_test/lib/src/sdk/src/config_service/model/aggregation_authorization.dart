@@ -113,39 +113,30 @@ class AggregationAuthorizationAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregationAuthorizationArn':
-          if (value != null) {
-            result.aggregationAuthorizationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.aggregationAuthorizationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AuthorizedAccountId':
-          if (value != null) {
-            result.authorizedAccountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizedAccountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AuthorizedAwsRegion':
-          if (value != null) {
-            result.authorizedAwsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.authorizedAwsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationTime':
-          if (value != null) {
-            result.creationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -160,35 +151,41 @@ class AggregationAuthorizationAwsJson11Serializer
   }) {
     final payload = (object as AggregationAuthorization);
     final result = <Object?>[];
-    if (payload.aggregationAuthorizationArn != null) {
+    final AggregationAuthorization(
+      :aggregationAuthorizationArn,
+      :authorizedAccountId,
+      :authorizedAwsRegion,
+      :creationTime
+    ) = payload;
+    if (aggregationAuthorizationArn != null) {
       result
         ..add('AggregationAuthorizationArn')
         ..add(serializers.serialize(
-          payload.aggregationAuthorizationArn!,
+          aggregationAuthorizationArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizedAccountId != null) {
+    if (authorizedAccountId != null) {
       result
         ..add('AuthorizedAccountId')
         ..add(serializers.serialize(
-          payload.authorizedAccountId!,
+          authorizedAccountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizedAwsRegion != null) {
+    if (authorizedAwsRegion != null) {
       result
         ..add('AuthorizedAwsRegion')
         ..add(serializers.serialize(
-          payload.authorizedAwsRegion!,
+          authorizedAwsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationTime != null) {
+    if (creationTime != null) {
       result
         ..add('CreationTime')
         ..add(serializers.serialize(
-          payload.creationTime!,
+          creationTime,
           specifiedType: const FullType(DateTime),
         ));
     }

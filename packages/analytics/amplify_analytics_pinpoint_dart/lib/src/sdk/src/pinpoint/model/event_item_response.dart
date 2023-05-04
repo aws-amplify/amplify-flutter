@@ -93,21 +93,20 @@ class EventItemResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StatusCode':
           result.statusCode = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
       }
     }
 
@@ -128,11 +127,12 @@ class EventItemResponseRestJson1Serializer
         specifiedType: const FullType(int),
       ),
     ];
-    if (payload.message != null) {
+    final EventItemResponse(:message) = payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

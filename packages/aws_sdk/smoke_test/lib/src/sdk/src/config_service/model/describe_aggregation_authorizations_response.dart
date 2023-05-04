@@ -105,26 +105,23 @@ class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregationAuthorizations':
-          if (value != null) {
-            result.aggregationAuthorizations.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregationAuthorization)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregationAuthorization>));
-          }
-          break;
+          result.aggregationAuthorizations.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregationAuthorization)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregationAuthorization>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,22 +136,26 @@ class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeAggregationAuthorizationsResponse);
     final result = <Object?>[];
-    if (payload.aggregationAuthorizations != null) {
+    final DescribeAggregationAuthorizationsResponse(
+      :aggregationAuthorizations,
+      :nextToken
+    ) = payload;
+    if (aggregationAuthorizations != null) {
       result
         ..add('AggregationAuthorizations')
         ..add(serializers.serialize(
-          payload.aggregationAuthorizations!,
+          aggregationAuthorizations,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregationAuthorization)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

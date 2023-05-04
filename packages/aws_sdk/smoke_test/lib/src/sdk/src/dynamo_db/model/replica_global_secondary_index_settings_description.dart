@@ -156,55 +156,42 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'IndexStatus':
-          if (value != null) {
-            result.indexStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.IndexStatus),
-            ) as _i2.IndexStatus);
-          }
-          break;
+          result.indexStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.IndexStatus),
+          ) as _i2.IndexStatus);
         case 'ProvisionedReadCapacityUnits':
-          if (value != null) {
-            result.provisionedReadCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.provisionedReadCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'ProvisionedReadCapacityAutoScalingSettings':
-          if (value != null) {
-            result.provisionedReadCapacityAutoScalingSettings
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
-            ) as _i4.AutoScalingSettingsDescription));
-          }
-          break;
+          result.provisionedReadCapacityAutoScalingSettings
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
+          ) as _i4.AutoScalingSettingsDescription));
         case 'ProvisionedWriteCapacityUnits':
-          if (value != null) {
-            result.provisionedWriteCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.provisionedWriteCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'ProvisionedWriteCapacityAutoScalingSettings':
-          if (value != null) {
-            result.provisionedWriteCapacityAutoScalingSettings
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
-            ) as _i4.AutoScalingSettingsDescription));
-          }
-          break;
+          result.provisionedWriteCapacityAutoScalingSettings
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
+          ) as _i4.AutoScalingSettingsDescription));
       }
     }
 
@@ -225,43 +212,50 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.indexStatus != null) {
+    final ReplicaGlobalSecondaryIndexSettingsDescription(
+      :indexStatus,
+      :provisionedReadCapacityUnits,
+      :provisionedReadCapacityAutoScalingSettings,
+      :provisionedWriteCapacityUnits,
+      :provisionedWriteCapacityAutoScalingSettings
+    ) = payload;
+    if (indexStatus != null) {
       result
         ..add('IndexStatus')
         ..add(serializers.serialize(
-          payload.indexStatus!,
+          indexStatus,
           specifiedType: const FullType(_i2.IndexStatus),
         ));
     }
-    if (payload.provisionedReadCapacityUnits != null) {
+    if (provisionedReadCapacityUnits != null) {
       result
         ..add('ProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.provisionedReadCapacityUnits!,
+          provisionedReadCapacityUnits,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.provisionedReadCapacityAutoScalingSettings != null) {
+    if (provisionedReadCapacityAutoScalingSettings != null) {
       result
         ..add('ProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
-          payload.provisionedReadCapacityAutoScalingSettings!,
+          provisionedReadCapacityAutoScalingSettings,
           specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
         ));
     }
-    if (payload.provisionedWriteCapacityUnits != null) {
+    if (provisionedWriteCapacityUnits != null) {
       result
         ..add('ProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityUnits!,
+          provisionedWriteCapacityUnits,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.provisionedWriteCapacityAutoScalingSettings != null) {
+    if (provisionedWriteCapacityAutoScalingSettings != null) {
       result
         ..add('ProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingSettings!,
+          provisionedWriteCapacityAutoScalingSettings,
           specifiedType: const FullType(_i4.AutoScalingSettingsDescription),
         ));
     }

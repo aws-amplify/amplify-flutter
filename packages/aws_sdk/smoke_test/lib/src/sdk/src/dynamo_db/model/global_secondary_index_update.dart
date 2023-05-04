@@ -137,34 +137,25 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Update':
-          if (value != null) {
-            result.update_.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.UpdateGlobalSecondaryIndexAction),
-            ) as _i2.UpdateGlobalSecondaryIndexAction));
-          }
-          break;
+          result.update_.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.UpdateGlobalSecondaryIndexAction),
+          ) as _i2.UpdateGlobalSecondaryIndexAction));
         case 'Create':
-          if (value != null) {
-            result.create.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.CreateGlobalSecondaryIndexAction),
-            ) as _i3.CreateGlobalSecondaryIndexAction));
-          }
-          break;
+          result.create.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CreateGlobalSecondaryIndexAction),
+          ) as _i3.CreateGlobalSecondaryIndexAction));
         case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.DeleteGlobalSecondaryIndexAction),
-            ) as _i4.DeleteGlobalSecondaryIndexAction));
-          }
-          break;
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.DeleteGlobalSecondaryIndexAction),
+          ) as _i4.DeleteGlobalSecondaryIndexAction));
       }
     }
 
@@ -179,27 +170,28 @@ class GlobalSecondaryIndexUpdateAwsJson10Serializer
   }) {
     final payload = (object as GlobalSecondaryIndexUpdate);
     final result = <Object?>[];
-    if (payload.update_ != null) {
+    final GlobalSecondaryIndexUpdate(:update_, :create, :delete) = payload;
+    if (update_ != null) {
       result
         ..add('Update')
         ..add(serializers.serialize(
-          payload.update_!,
+          update_,
           specifiedType: const FullType(_i2.UpdateGlobalSecondaryIndexAction),
         ));
     }
-    if (payload.create != null) {
+    if (create != null) {
       result
         ..add('Create')
         ..add(serializers.serialize(
-          payload.create!,
+          create,
           specifiedType: const FullType(_i3.CreateGlobalSecondaryIndexAction),
         ));
     }
-    if (payload.delete != null) {
+    if (delete != null) {
       result
         ..add('Delete')
         ..add(serializers.serialize(
-          payload.delete!,
+          delete,
           specifiedType: const FullType(_i4.DeleteGlobalSecondaryIndexAction),
         ));
     }

@@ -100,18 +100,18 @@ class InvalidIdentityTokenExceptionAwsQuerySerializer
     final result = InvalidIdentityTokenExceptionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -131,11 +131,12 @@ class InvalidIdentityTokenExceptionAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.message != null) {
+    final InvalidIdentityTokenException(:message) = payload;
+    if (message != null) {
       result
         ..add(const _i2.XmlElementName('message'))
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

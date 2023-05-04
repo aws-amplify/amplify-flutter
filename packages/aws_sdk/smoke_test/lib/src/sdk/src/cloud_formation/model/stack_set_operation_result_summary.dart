@@ -149,58 +149,43 @@ class StackSetOperationResultSummaryAwsQuerySerializer
     final result = StackSetOperationResultSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Account':
-          if (value != null) {
-            result.account = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.account = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackSetOperationResultStatus),
-            ) as _i2.StackSetOperationResultStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackSetOperationResultStatus),
+          ) as _i2.StackSetOperationResultStatus);
         case 'StatusReason':
-          if (value != null) {
-            result.statusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AccountGateResult':
-          if (value != null) {
-            result.accountGateResult.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AccountGateResult),
-            ) as _i3.AccountGateResult));
-          }
-          break;
+          result.accountGateResult.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AccountGateResult),
+          ) as _i3.AccountGateResult));
         case 'OrganizationalUnitId':
-          if (value != null) {
-            result.organizationalUnitId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationalUnitId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -220,52 +205,60 @@ class StackSetOperationResultSummaryAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.account != null) {
+    final StackSetOperationResultSummary(
+      :account,
+      :region,
+      :status,
+      :statusReason,
+      :accountGateResult,
+      :organizationalUnitId
+    ) = payload;
+    if (account != null) {
       result
         ..add(const _i4.XmlElementName('Account'))
         ..add(serializers.serialize(
-          payload.account!,
+          account,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add(const _i4.XmlElementName('Region'))
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType:
               const FullType.nullable(_i2.StackSetOperationResultStatus),
         ));
     }
-    if (payload.statusReason != null) {
+    if (statusReason != null) {
       result
         ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
-          payload.statusReason!,
+          statusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.accountGateResult != null) {
+    if (accountGateResult != null) {
       result
         ..add(const _i4.XmlElementName('AccountGateResult'))
         ..add(serializers.serialize(
-          payload.accountGateResult!,
+          accountGateResult,
           specifiedType: const FullType(_i3.AccountGateResult),
         ));
     }
-    if (payload.organizationalUnitId != null) {
+    if (organizationalUnitId != null) {
       result
         ..add(const _i4.XmlElementName('OrganizationalUnitId'))
         ..add(serializers.serialize(
-          payload.organizationalUnitId!,
+          organizationalUnitId,
           specifiedType: const FullType(String),
         ));
     }

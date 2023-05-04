@@ -101,23 +101,20 @@ class ListStoredQueriesRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -132,19 +129,20 @@ class ListStoredQueriesRequestAwsJson11Serializer
   }) {
     final payload = (object as ListStoredQueriesRequest);
     final result = <Object?>[];
-    if (payload.nextToken != null) {
+    final ListStoredQueriesRequest(:nextToken, :maxResults) = payload;
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add('MaxResults')
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType(int),
         ));
     }

@@ -81,16 +81,18 @@ class ReplicaModificationsRestXmlSerializer
     final result = ReplicaModificationsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ReplicaModificationsStatus),
           ) as _i2.ReplicaModificationsStatus);
-          break;
       }
     }
 
@@ -110,10 +112,11 @@ class ReplicaModificationsRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final ReplicaModifications(:status) = payload;
     result
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.ReplicaModificationsStatus),
       ));
     return result;

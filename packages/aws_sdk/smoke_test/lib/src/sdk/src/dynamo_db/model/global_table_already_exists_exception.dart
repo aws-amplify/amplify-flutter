@@ -105,15 +105,15 @@ class GlobalTableAlreadyExistsExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,11 +128,12 @@ class GlobalTableAlreadyExistsExceptionAwsJson10Serializer
   }) {
     final payload = (object as GlobalTableAlreadyExistsException);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final GlobalTableAlreadyExistsException(:message) = payload;
+    if (message != null) {
       result
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

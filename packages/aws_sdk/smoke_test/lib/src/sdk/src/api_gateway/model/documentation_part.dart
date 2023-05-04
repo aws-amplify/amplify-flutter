@@ -109,31 +109,25 @@ class DocumentationPartRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'location':
-          if (value != null) {
-            result.location.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DocumentationPartLocation),
-            ) as _i2.DocumentationPartLocation));
-          }
-          break;
+          result.location.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DocumentationPartLocation),
+          ) as _i2.DocumentationPartLocation));
         case 'properties':
-          if (value != null) {
-            result.properties = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.properties = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -148,27 +142,28 @@ class DocumentationPartRestJson1Serializer
   }) {
     final payload = (object as DocumentationPart);
     final result = <Object?>[];
-    if (payload.id != null) {
+    final DocumentationPart(:id, :location, :properties) = payload;
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.location != null) {
+    if (location != null) {
       result
         ..add('location')
         ..add(serializers.serialize(
-          payload.location!,
+          location,
           specifiedType: const FullType(_i2.DocumentationPartLocation),
         ));
     }
-    if (payload.properties != null) {
+    if (properties != null) {
       result
         ..add('properties')
         ..add(serializers.serialize(
-          payload.properties!,
+          properties,
           specifiedType: const FullType(String),
         ));
     }

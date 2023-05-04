@@ -112,31 +112,25 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ContributorInsightsStatus':
-          if (value != null) {
-            result.contributorInsightsStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContributorInsightsStatus),
-            ) as _i2.ContributorInsightsStatus);
-          }
-          break;
+          result.contributorInsightsStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          ) as _i2.ContributorInsightsStatus);
       }
     }
 
@@ -151,27 +145,32 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
   }) {
     final payload = (object as UpdateContributorInsightsOutput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final UpdateContributorInsightsOutput(
+      :tableName,
+      :indexName,
+      :contributorInsightsStatus
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.indexName != null) {
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.contributorInsightsStatus != null) {
+    if (contributorInsightsStatus != null) {
       result
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
-          payload.contributorInsightsStatus!,
+          contributorInsightsStatus,
           specifiedType: const FullType(_i2.ContributorInsightsStatus),
         ));
     }

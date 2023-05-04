@@ -160,59 +160,45 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ResourceType),
           ) as _i3.ResourceType);
-          break;
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'laterTime':
-          if (value != null) {
-            result.laterTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.laterTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'earlierTime':
-          if (value != null) {
-            result.earlierTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.earlierTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'chronologicalOrder':
-          if (value != null) {
-            result.chronologicalOrder = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ChronologicalOrder),
-            ) as _i4.ChronologicalOrder);
-          }
-          break;
+          result.chronologicalOrder = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ChronologicalOrder),
+          ) as _i4.ChronologicalOrder);
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -238,43 +224,50 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.laterTime != null) {
+    final GetResourceConfigHistoryRequest(
+      :laterTime,
+      :earlierTime,
+      :chronologicalOrder,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (laterTime != null) {
       result
         ..add('laterTime')
         ..add(serializers.serialize(
-          payload.laterTime!,
+          laterTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.earlierTime != null) {
+    if (earlierTime != null) {
       result
         ..add('earlierTime')
         ..add(serializers.serialize(
-          payload.earlierTime!,
+          earlierTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.chronologicalOrder != null) {
+    if (chronologicalOrder != null) {
       result
         ..add('chronologicalOrder')
         ..add(serializers.serialize(
-          payload.chronologicalOrder!,
+          chronologicalOrder,
           specifiedType: const FullType(_i4.ChronologicalOrder),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('nextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

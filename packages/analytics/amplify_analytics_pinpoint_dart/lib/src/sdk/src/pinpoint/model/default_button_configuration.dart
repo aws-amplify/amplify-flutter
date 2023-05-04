@@ -138,49 +138,40 @@ class DefaultButtonConfigurationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackgroundColor':
-          if (value != null) {
-            result.backgroundColor = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'BorderRadius':
-          result.borderRadius = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(int),
-          ) as int);
-          break;
-        case 'ButtonAction':
-          result.buttonAction = (serializers.deserialize(
-            value!,
-            specifiedType: const FullType(_i2.ButtonAction),
-          ) as _i2.ButtonAction);
-          break;
-        case 'Link':
-          if (value != null) {
-            result.link = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Text':
-          result.text = (serializers.deserialize(
-            value!,
+          result.backgroundColor = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'BorderRadius':
+          result.borderRadius = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'ButtonAction':
+          result.buttonAction = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ButtonAction),
+          ) as _i2.ButtonAction);
+        case 'Link':
+          result.link = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'Text':
+          result.text = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TextColor':
-          if (value != null) {
-            result.textColor = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.textColor = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -211,27 +202,29 @@ class DefaultButtonConfigurationRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.backgroundColor != null) {
+    final DefaultButtonConfiguration(:backgroundColor, :link, :textColor) =
+        payload;
+    if (backgroundColor != null) {
       result
         ..add('BackgroundColor')
         ..add(serializers.serialize(
-          payload.backgroundColor!,
+          backgroundColor,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.link != null) {
+    if (link != null) {
       result
         ..add('Link')
         ..add(serializers.serialize(
-          payload.link!,
+          link,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.textColor != null) {
+    if (textColor != null) {
       result
         ..add('TextColor')
         ..add(serializers.serialize(
-          payload.textColor!,
+          textColor,
           specifiedType: const FullType(String),
         ));
     }

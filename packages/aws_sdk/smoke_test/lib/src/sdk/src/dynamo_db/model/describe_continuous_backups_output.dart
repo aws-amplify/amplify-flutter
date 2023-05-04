@@ -88,16 +88,15 @@ class DescribeContinuousBackupsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ContinuousBackupsDescription':
-          if (value != null) {
-            result.continuousBackupsDescription
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContinuousBackupsDescription),
-            ) as _i2.ContinuousBackupsDescription));
-          }
-          break;
+          result.continuousBackupsDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContinuousBackupsDescription),
+          ) as _i2.ContinuousBackupsDescription));
       }
     }
 
@@ -112,11 +111,13 @@ class DescribeContinuousBackupsOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeContinuousBackupsOutput);
     final result = <Object?>[];
-    if (payload.continuousBackupsDescription != null) {
+    final DescribeContinuousBackupsOutput(:continuousBackupsDescription) =
+        payload;
+    if (continuousBackupsDescription != null) {
       result
         ..add('ContinuousBackupsDescription')
         ..add(serializers.serialize(
-          payload.continuousBackupsDescription!,
+          continuousBackupsDescription,
           specifiedType: const FullType(_i2.ContinuousBackupsDescription),
         ));
     }

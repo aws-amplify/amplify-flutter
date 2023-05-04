@@ -105,42 +105,33 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
     final result = OutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'OutputKey':
-          if (value != null) {
-            result.outputKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.outputKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OutputValue':
-          if (value != null) {
-            result.outputValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.outputValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExportName':
-          if (value != null) {
-            result.exportName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.exportName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -160,35 +151,36 @@ class OutputAwsQuerySerializer extends _i2.StructuredSmithySerializer<Output> {
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.outputKey != null) {
+    final Output(:outputKey, :outputValue, :description, :exportName) = payload;
+    if (outputKey != null) {
       result
         ..add(const _i2.XmlElementName('OutputKey'))
         ..add(serializers.serialize(
-          payload.outputKey!,
+          outputKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.outputValue != null) {
+    if (outputValue != null) {
       result
         ..add(const _i2.XmlElementName('OutputValue'))
         ..add(serializers.serialize(
-          payload.outputValue!,
+          outputValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.exportName != null) {
+    if (exportName != null) {
       result
         ..add(const _i2.XmlElementName('ExportName'))
         ..add(serializers.serialize(
-          payload.exportName!,
+          exportName,
           specifiedType: const FullType(String),
         ));
     }

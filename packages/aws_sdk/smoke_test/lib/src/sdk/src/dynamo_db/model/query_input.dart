@@ -392,174 +392,128 @@ class QueryInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Select':
-          if (value != null) {
-            result.select = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Select),
-            ) as _i3.Select);
-          }
-          break;
+          result.select = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Select),
+          ) as _i3.Select);
         case 'AttributesToGet':
-          if (value != null) {
-            result.attributesToGet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i8.BuiltList<String>));
-          }
-          break;
+          result.attributesToGet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i8.BuiltList<String>));
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'KeyConditions':
-          if (value != null) {
-            result.keyConditions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i4.Condition),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i4.Condition>));
-          }
-          break;
+          result.keyConditions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i4.Condition),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, _i4.Condition>));
         case 'QueryFilter':
-          if (value != null) {
-            result.queryFilter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i4.Condition),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i4.Condition>));
-          }
-          break;
+          result.queryFilter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i4.Condition),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, _i4.Condition>));
         case 'ConditionalOperator':
-          if (value != null) {
-            result.conditionalOperator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ConditionalOperator),
-            ) as _i5.ConditionalOperator);
-          }
-          break;
+          result.conditionalOperator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ConditionalOperator),
+          ) as _i5.ConditionalOperator);
         case 'ScanIndexForward':
-          if (value != null) {
-            result.scanIndexForward = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.scanIndexForward = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ExclusiveStartKey':
-          if (value != null) {
-            result.exclusiveStartKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.AttributeValue),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i6.AttributeValue>));
-          }
-          break;
+          result.exclusiveStartKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i6.AttributeValue),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, _i6.AttributeValue>));
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.ReturnConsumedCapacity),
-            ) as _i7.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.ReturnConsumedCapacity),
+          ) as _i7.ReturnConsumedCapacity);
         case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.projectionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FilterExpression':
-          if (value != null) {
-            result.filterExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.filterExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeyConditionExpression':
-          if (value != null) {
-            result.keyConditionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.keyConditionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
-          if (value != null) {
-            result.expressionAttributeValues.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.AttributeValue),
-                ],
-              ),
-            ) as _i8.BuiltMap<String, _i6.AttributeValue>));
-          }
-          break;
+          result.expressionAttributeValues.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i6.AttributeValue),
+              ],
+            ),
+          ) as _i8.BuiltMap<String, _i6.AttributeValue>));
       }
     }
 
@@ -580,54 +534,72 @@ class QueryInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.indexName != null) {
+    final QueryInput(
+      :indexName,
+      :select,
+      :attributesToGet,
+      :limit,
+      :consistentRead,
+      :keyConditions,
+      :queryFilter,
+      :conditionalOperator,
+      :scanIndexForward,
+      :exclusiveStartKey,
+      :returnConsumedCapacity,
+      :projectionExpression,
+      :filterExpression,
+      :keyConditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues
+    ) = payload;
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.select != null) {
+    if (select != null) {
       result
         ..add('Select')
         ..add(serializers.serialize(
-          payload.select!,
+          select,
           specifiedType: const FullType(_i3.Select),
         ));
     }
-    if (payload.attributesToGet != null) {
+    if (attributesToGet != null) {
       result
         ..add('AttributesToGet')
         ..add(serializers.serialize(
-          payload.attributesToGet!,
+          attributesToGet,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.consistentRead != null) {
+    if (consistentRead != null) {
       result
         ..add('ConsistentRead')
         ..add(serializers.serialize(
-          payload.consistentRead!,
+          consistentRead,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.keyConditions != null) {
+    if (keyConditions != null) {
       result
         ..add('KeyConditions')
         ..add(serializers.serialize(
-          payload.keyConditions!,
+          keyConditions,
           specifiedType: const FullType(
             _i8.BuiltMap,
             [
@@ -637,11 +609,11 @@ class QueryInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.queryFilter != null) {
+    if (queryFilter != null) {
       result
         ..add('QueryFilter')
         ..add(serializers.serialize(
-          payload.queryFilter!,
+          queryFilter,
           specifiedType: const FullType(
             _i8.BuiltMap,
             [
@@ -651,27 +623,27 @@ class QueryInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.conditionalOperator != null) {
+    if (conditionalOperator != null) {
       result
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
-          payload.conditionalOperator!,
+          conditionalOperator,
           specifiedType: const FullType(_i5.ConditionalOperator),
         ));
     }
-    if (payload.scanIndexForward != null) {
+    if (scanIndexForward != null) {
       result
         ..add('ScanIndexForward')
         ..add(serializers.serialize(
-          payload.scanIndexForward!,
+          scanIndexForward,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.exclusiveStartKey != null) {
+    if (exclusiveStartKey != null) {
       result
         ..add('ExclusiveStartKey')
         ..add(serializers.serialize(
-          payload.exclusiveStartKey!,
+          exclusiveStartKey,
           specifiedType: const FullType(
             _i8.BuiltMap,
             [
@@ -681,43 +653,43 @@ class QueryInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.returnConsumedCapacity != null) {
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i7.ReturnConsumedCapacity),
         ));
     }
-    if (payload.projectionExpression != null) {
+    if (projectionExpression != null) {
       result
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
-          payload.projectionExpression!,
+          projectionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.filterExpression != null) {
+    if (filterExpression != null) {
       result
         ..add('FilterExpression')
         ..add(serializers.serialize(
-          payload.filterExpression!,
+          filterExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keyConditionExpression != null) {
+    if (keyConditionExpression != null) {
       result
         ..add('KeyConditionExpression')
         ..add(serializers.serialize(
-          payload.keyConditionExpression!,
+          keyConditionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i8.BuiltMap,
             [
@@ -727,11 +699,11 @@ class QueryInputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.expressionAttributeValues != null) {
+    if (expressionAttributeValues != null) {
       result
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
-          payload.expressionAttributeValues!,
+          expressionAttributeValues,
           specifiedType: const FullType(
             _i8.BuiltMap,
             [

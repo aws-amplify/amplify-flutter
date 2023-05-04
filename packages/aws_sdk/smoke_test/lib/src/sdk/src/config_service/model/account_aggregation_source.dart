@@ -104,6 +104,9 @@ class AccountAggregationSourceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccountIds':
           result.accountIds.replace((serializers.deserialize(
@@ -113,26 +116,19 @@ class AccountAggregationSourceAwsJson11Serializer
               [FullType(String)],
             ),
           ) as _i2.BuiltList<String>));
-          break;
         case 'AllAwsRegions':
-          if (value != null) {
-            result.allAwsRegions = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allAwsRegions = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AwsRegions':
-          if (value != null) {
-            result.awsRegions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.awsRegions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -156,19 +152,20 @@ class AccountAggregationSourceAwsJson11Serializer
         ),
       ),
     ];
-    if (payload.allAwsRegions != null) {
+    final AccountAggregationSource(:allAwsRegions, :awsRegions) = payload;
+    if (allAwsRegions != null) {
       result
         ..add('AllAwsRegions')
         ..add(serializers.serialize(
-          payload.allAwsRegions!,
+          allAwsRegions,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.awsRegions != null) {
+    if (awsRegions != null) {
       result
         ..add('AwsRegions')
         ..add(serializers.serialize(
-          payload.awsRegions!,
+          awsRegions,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],

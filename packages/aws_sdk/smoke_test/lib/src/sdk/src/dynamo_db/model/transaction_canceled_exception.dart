@@ -449,26 +449,23 @@ class TransactionCanceledExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CancellationReasons':
-          if (value != null) {
-            result.cancellationReasons.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.CancellationReason)],
-              ),
-            ) as _i4.BuiltList<_i3.CancellationReason>));
-          }
-          break;
+          result.cancellationReasons.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.CancellationReason)],
+            ),
+          ) as _i4.BuiltList<_i3.CancellationReason>));
       }
     }
 
@@ -483,19 +480,21 @@ class TransactionCanceledExceptionAwsJson10Serializer
   }) {
     final payload = (object as TransactionCanceledException);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final TransactionCanceledException(:message, :cancellationReasons) =
+        payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.cancellationReasons != null) {
+    if (cancellationReasons != null) {
       result
         ..add('CancellationReasons')
         ..add(serializers.serialize(
-          payload.cancellationReasons!,
+          cancellationReasons,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.CancellationReason)],

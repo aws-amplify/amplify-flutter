@@ -78,18 +78,18 @@ class RegisterTypeOutputAwsQuerySerializer
     final result = RegisterTypeOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RegistrationToken':
-          if (value != null) {
-            result.registrationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.registrationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -109,11 +109,12 @@ class RegisterTypeOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.registrationToken != null) {
+    final RegisterTypeOutput(:registrationToken) = payload;
+    if (registrationToken != null) {
       result
         ..add(const _i2.XmlElementName('RegistrationToken'))
         ..add(serializers.serialize(
-          payload.registrationToken!,
+          registrationToken,
           specifiedType: const FullType(String),
         ));
     }

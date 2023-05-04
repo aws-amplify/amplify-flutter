@@ -102,24 +102,23 @@ class GenerateOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
     final result = GenerateOrganizationsAccessReportRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EntityPath':
           result.entityPath = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationsPolicyId':
-          if (value != null) {
-            result.organizationsPolicyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationsPolicyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,17 +138,21 @@ class GenerateOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GenerateOrganizationsAccessReportRequest(
+      :entityPath,
+      :organizationsPolicyId
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('EntityPath'))
       ..add(serializers.serialize(
-        payload.entityPath,
+        entityPath,
         specifiedType: const FullType(String),
       ));
-    if (payload.organizationsPolicyId != null) {
+    if (organizationsPolicyId != null) {
       result
         ..add(const _i1.XmlElementName('OrganizationsPolicyId'))
         ..add(serializers.serialize(
-          payload.organizationsPolicyId!,
+          organizationsPolicyId,
           specifiedType: const FullType(String),
         ));
     }

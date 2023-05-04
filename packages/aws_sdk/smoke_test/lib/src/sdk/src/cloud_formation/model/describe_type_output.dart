@@ -430,233 +430,155 @@ class DescribeTypeOutputAwsQuerySerializer
     final result = DescribeTypeOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RegistryType),
-            ) as _i2.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RegistryType),
+          ) as _i2.RegistryType);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DefaultVersionId':
-          if (value != null) {
-            result.defaultVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsDefaultVersion':
-          if (value != null) {
-            result.isDefaultVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isDefaultVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'TypeTestsStatus':
-          if (value != null) {
-            result.typeTestsStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.TypeTestsStatus),
-            ) as _i3.TypeTestsStatus);
-          }
-          break;
+          result.typeTestsStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.TypeTestsStatus),
+          ) as _i3.TypeTestsStatus);
         case 'TypeTestsStatusDescription':
-          if (value != null) {
-            result.typeTestsStatusDescription = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeTestsStatusDescription = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Schema':
-          if (value != null) {
-            result.schema = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.schema = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ProvisioningType':
-          if (value != null) {
-            result.provisioningType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ProvisioningType),
-            ) as _i4.ProvisioningType);
-          }
-          break;
+          result.provisioningType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisioningType),
+          ) as _i4.ProvisioningType);
         case 'DeprecatedStatus':
-          if (value != null) {
-            result.deprecatedStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.DeprecatedStatus),
-            ) as _i5.DeprecatedStatus);
-          }
-          break;
+          result.deprecatedStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.DeprecatedStatus),
+          ) as _i5.DeprecatedStatus);
         case 'LoggingConfig':
-          if (value != null) {
-            result.loggingConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.LoggingConfig),
-            ) as _i6.LoggingConfig));
-          }
-          break;
+          result.loggingConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.LoggingConfig),
+          ) as _i6.LoggingConfig));
         case 'RequiredActivatedTypes':
-          if (value != null) {
-            result.requiredActivatedTypes.replace(
-                (const _i10.XmlBuiltListSerializer(
-                        indexer: _i10.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i9.BuiltList,
-                [FullType(_i7.RequiredActivatedType)],
-              ),
-            ) as _i9.BuiltList<_i7.RequiredActivatedType>));
-          }
-          break;
+          result.requiredActivatedTypes.replace(
+              (const _i10.XmlBuiltListSerializer(
+                      indexer: _i10.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i9.BuiltList,
+              [FullType(_i7.RequiredActivatedType)],
+            ),
+          ) as _i9.BuiltList<_i7.RequiredActivatedType>));
         case 'ExecutionRoleArn':
-          if (value != null) {
-            result.executionRoleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.executionRoleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Visibility':
-          if (value != null) {
-            result.visibility = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.Visibility),
-            ) as _i8.Visibility);
-          }
-          break;
+          result.visibility = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.Visibility),
+          ) as _i8.Visibility);
         case 'SourceUrl':
-          if (value != null) {
-            result.sourceUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DocumentationUrl':
-          if (value != null) {
-            result.documentationUrl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.documentationUrl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdated':
-          if (value != null) {
-            result.lastUpdated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TimeCreated':
-          if (value != null) {
-            result.timeCreated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.timeCreated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ConfigurationSchema':
-          if (value != null) {
-            result.configurationSchema = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configurationSchema = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OriginalTypeName':
-          if (value != null) {
-            result.originalTypeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.originalTypeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OriginalTypeArn':
-          if (value != null) {
-            result.originalTypeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.originalTypeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublicVersionNumber':
-          if (value != null) {
-            result.publicVersionNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publicVersionNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LatestPublicVersion':
-          if (value != null) {
-            result.latestPublicVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.latestPublicVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsActivated':
-          if (value != null) {
-            result.isActivated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isActivated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'AutoUpdate':
-          if (value != null) {
-            result.autoUpdate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.autoUpdate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -677,225 +599,254 @@ class DescribeTypeOutputAwsQuerySerializer
             'http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.arn != null) {
+    final DescribeTypeOutput(
+      :arn,
+      :type,
+      :typeName,
+      :defaultVersionId,
+      :isDefaultVersion,
+      :typeTestsStatus,
+      :typeTestsStatusDescription,
+      :description,
+      :schema,
+      :provisioningType,
+      :deprecatedStatus,
+      :loggingConfig,
+      :requiredActivatedTypes,
+      :executionRoleArn,
+      :visibility,
+      :sourceUrl,
+      :documentationUrl,
+      :lastUpdated,
+      :timeCreated,
+      :configurationSchema,
+      :publisherId,
+      :originalTypeName,
+      :originalTypeArn,
+      :publicVersionNumber,
+      :latestPublicVersion,
+      :isActivated,
+      :autoUpdate
+    ) = payload;
+    if (arn != null) {
       result
         ..add(const _i10.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add(const _i10.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.RegistryType),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i10.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.defaultVersionId != null) {
+    if (defaultVersionId != null) {
       result
         ..add(const _i10.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
-          payload.defaultVersionId!,
+          defaultVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isDefaultVersion != null) {
+    if (isDefaultVersion != null) {
       result
         ..add(const _i10.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
-          payload.isDefaultVersion!,
+          isDefaultVersion,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.typeTestsStatus != null) {
+    if (typeTestsStatus != null) {
       result
         ..add(const _i10.XmlElementName('TypeTestsStatus'))
         ..add(serializers.serialize(
-          payload.typeTestsStatus!,
+          typeTestsStatus,
           specifiedType: const FullType.nullable(_i3.TypeTestsStatus),
         ));
     }
-    if (payload.typeTestsStatusDescription != null) {
+    if (typeTestsStatusDescription != null) {
       result
         ..add(const _i10.XmlElementName('TypeTestsStatusDescription'))
         ..add(serializers.serialize(
-          payload.typeTestsStatusDescription!,
+          typeTestsStatusDescription,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i10.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.schema != null) {
+    if (schema != null) {
       result
         ..add(const _i10.XmlElementName('Schema'))
         ..add(serializers.serialize(
-          payload.schema!,
+          schema,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.provisioningType != null) {
+    if (provisioningType != null) {
       result
         ..add(const _i10.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
-          payload.provisioningType!,
+          provisioningType,
           specifiedType: const FullType.nullable(_i4.ProvisioningType),
         ));
     }
-    if (payload.deprecatedStatus != null) {
+    if (deprecatedStatus != null) {
       result
         ..add(const _i10.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
-          payload.deprecatedStatus!,
+          deprecatedStatus,
           specifiedType: const FullType.nullable(_i5.DeprecatedStatus),
         ));
     }
-    if (payload.loggingConfig != null) {
+    if (loggingConfig != null) {
       result
         ..add(const _i10.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
-          payload.loggingConfig!,
+          loggingConfig,
           specifiedType: const FullType(_i6.LoggingConfig),
         ));
     }
-    if (payload.requiredActivatedTypes != null) {
+    if (requiredActivatedTypes != null) {
       result
         ..add(const _i10.XmlElementName('RequiredActivatedTypes'))
         ..add(const _i10.XmlBuiltListSerializer(
                 indexer: _i10.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.requiredActivatedTypes!,
+          requiredActivatedTypes,
           specifiedType: const FullType.nullable(
             _i9.BuiltList,
             [FullType(_i7.RequiredActivatedType)],
           ),
         ));
     }
-    if (payload.executionRoleArn != null) {
+    if (executionRoleArn != null) {
       result
         ..add(const _i10.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
-          payload.executionRoleArn!,
+          executionRoleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.visibility != null) {
+    if (visibility != null) {
       result
         ..add(const _i10.XmlElementName('Visibility'))
         ..add(serializers.serialize(
-          payload.visibility!,
+          visibility,
           specifiedType: const FullType.nullable(_i8.Visibility),
         ));
     }
-    if (payload.sourceUrl != null) {
+    if (sourceUrl != null) {
       result
         ..add(const _i10.XmlElementName('SourceUrl'))
         ..add(serializers.serialize(
-          payload.sourceUrl!,
+          sourceUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.documentationUrl != null) {
+    if (documentationUrl != null) {
       result
         ..add(const _i10.XmlElementName('DocumentationUrl'))
         ..add(serializers.serialize(
-          payload.documentationUrl!,
+          documentationUrl,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdated != null) {
+    if (lastUpdated != null) {
       result
         ..add(const _i10.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
-          payload.lastUpdated!,
+          lastUpdated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.timeCreated != null) {
+    if (timeCreated != null) {
       result
         ..add(const _i10.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
-          payload.timeCreated!,
+          timeCreated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.configurationSchema != null) {
+    if (configurationSchema != null) {
       result
         ..add(const _i10.XmlElementName('ConfigurationSchema'))
         ..add(serializers.serialize(
-          payload.configurationSchema!,
+          configurationSchema,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherId != null) {
+    if (publisherId != null) {
       result
         ..add(const _i10.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.originalTypeName != null) {
+    if (originalTypeName != null) {
       result
         ..add(const _i10.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
-          payload.originalTypeName!,
+          originalTypeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.originalTypeArn != null) {
+    if (originalTypeArn != null) {
       result
         ..add(const _i10.XmlElementName('OriginalTypeArn'))
         ..add(serializers.serialize(
-          payload.originalTypeArn!,
+          originalTypeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publicVersionNumber != null) {
+    if (publicVersionNumber != null) {
       result
         ..add(const _i10.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
-          payload.publicVersionNumber!,
+          publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.latestPublicVersion != null) {
+    if (latestPublicVersion != null) {
       result
         ..add(const _i10.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
-          payload.latestPublicVersion!,
+          latestPublicVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isActivated != null) {
+    if (isActivated != null) {
       result
         ..add(const _i10.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
-          payload.isActivated!,
+          isActivated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.autoUpdate != null) {
+    if (autoUpdate != null) {
       result
         ..add(const _i10.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
-          payload.autoUpdate!,
+          autoUpdate,
           specifiedType: const FullType.nullable(bool),
         ));
     }

@@ -118,39 +118,30 @@ class SseDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SseStatus),
-            ) as _i2.SseStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SseStatus),
+          ) as _i2.SseStatus);
         case 'SSEType':
-          if (value != null) {
-            result.sseType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SseType),
-            ) as _i3.SseType);
-          }
-          break;
+          result.sseType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.SseType),
+          ) as _i3.SseType);
         case 'KMSMasterKeyArn':
-          if (value != null) {
-            result.kmsMasterKeyArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InaccessibleEncryptionDateTime':
-          if (value != null) {
-            result.inaccessibleEncryptionDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.inaccessibleEncryptionDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -165,35 +156,41 @@ class SseDescriptionAwsJson10Serializer
   }) {
     final payload = (object as SseDescription);
     final result = <Object?>[];
-    if (payload.status != null) {
+    final SseDescription(
+      :status,
+      :sseType,
+      :kmsMasterKeyArn,
+      :inaccessibleEncryptionDateTime
+    ) = payload;
+    if (status != null) {
       result
         ..add('Status')
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType(_i2.SseStatus),
         ));
     }
-    if (payload.sseType != null) {
+    if (sseType != null) {
       result
         ..add('SSEType')
         ..add(serializers.serialize(
-          payload.sseType!,
+          sseType,
           specifiedType: const FullType(_i3.SseType),
         ));
     }
-    if (payload.kmsMasterKeyArn != null) {
+    if (kmsMasterKeyArn != null) {
       result
         ..add('KMSMasterKeyArn')
         ..add(serializers.serialize(
-          payload.kmsMasterKeyArn!,
+          kmsMasterKeyArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inaccessibleEncryptionDateTime != null) {
+    if (inaccessibleEncryptionDateTime != null) {
       result
         ..add('InaccessibleEncryptionDateTime')
         ..add(serializers.serialize(
-          payload.inaccessibleEncryptionDateTime!,
+          inaccessibleEncryptionDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

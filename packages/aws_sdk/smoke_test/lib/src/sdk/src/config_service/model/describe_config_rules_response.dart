@@ -100,26 +100,23 @@ class DescribeConfigRulesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRules':
-          if (value != null) {
-            result.configRules.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConfigRule)],
-              ),
-            ) as _i3.BuiltList<_i2.ConfigRule>));
-          }
-          break;
+          result.configRules.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConfigRule)],
+            ),
+          ) as _i3.BuiltList<_i2.ConfigRule>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -134,22 +131,23 @@ class DescribeConfigRulesResponseAwsJson11Serializer
   }) {
     final payload = (object as DescribeConfigRulesResponse);
     final result = <Object?>[];
-    if (payload.configRules != null) {
+    final DescribeConfigRulesResponse(:configRules, :nextToken) = payload;
+    if (configRules != null) {
       result
         ..add('ConfigRules')
         ..add(serializers.serialize(
-          payload.configRules!,
+          configRules,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConfigRule)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

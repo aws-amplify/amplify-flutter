@@ -116,34 +116,33 @@ class PropertyDifferenceAwsQuerySerializer
     final result = PropertyDifferenceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PropertyPath':
           result.propertyPath = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ExpectedValue':
           result.expectedValue = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ActualValue':
           result.actualValue = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DifferenceType':
           result.differenceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.DifferenceType),
           ) as _i2.DifferenceType);
-          break;
       }
     }
 
@@ -163,28 +162,34 @@ class PropertyDifferenceAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final PropertyDifference(
+      :propertyPath,
+      :expectedValue,
+      :actualValue,
+      :differenceType
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('PropertyPath'))
       ..add(serializers.serialize(
-        payload.propertyPath,
+        propertyPath,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('ExpectedValue'))
       ..add(serializers.serialize(
-        payload.expectedValue,
+        expectedValue,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('ActualValue'))
       ..add(serializers.serialize(
-        payload.actualValue,
+        actualValue,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('DifferenceType'))
       ..add(serializers.serialize(
-        payload.differenceType,
+        differenceType,
         specifiedType: const FullType.nullable(_i2.DifferenceType),
       ));
     return result;

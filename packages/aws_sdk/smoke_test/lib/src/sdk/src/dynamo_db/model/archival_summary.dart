@@ -102,31 +102,25 @@ class ArchivalSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ArchivalDateTime':
-          if (value != null) {
-            result.archivalDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.archivalDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ArchivalReason':
-          if (value != null) {
-            result.archivalReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.archivalReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ArchivalBackupArn':
-          if (value != null) {
-            result.archivalBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.archivalBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -141,27 +135,32 @@ class ArchivalSummaryAwsJson10Serializer
   }) {
     final payload = (object as ArchivalSummary);
     final result = <Object?>[];
-    if (payload.archivalDateTime != null) {
+    final ArchivalSummary(
+      :archivalDateTime,
+      :archivalReason,
+      :archivalBackupArn
+    ) = payload;
+    if (archivalDateTime != null) {
       result
         ..add('ArchivalDateTime')
         ..add(serializers.serialize(
-          payload.archivalDateTime!,
+          archivalDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.archivalReason != null) {
+    if (archivalReason != null) {
       result
         ..add('ArchivalReason')
         ..add(serializers.serialize(
-          payload.archivalReason!,
+          archivalReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.archivalBackupArn != null) {
+    if (archivalBackupArn != null) {
       result
         ..add('ArchivalBackupArn')
         ..add(serializers.serialize(
-          payload.archivalBackupArn!,
+          archivalBackupArn,
           specifiedType: const FullType(String),
         ));
     }

@@ -71,18 +71,18 @@ class JsonOutputRestXmlSerializer
     final result = JsonOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RecordDelimiter':
-          if (value != null) {
-            result.recordDelimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.recordDelimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -102,11 +102,12 @@ class JsonOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.recordDelimiter != null) {
+    final JsonOutput(:recordDelimiter) = payload;
+    if (recordDelimiter != null) {
       result
         ..add(const _i2.XmlElementName('RecordDelimiter'))
         ..add(serializers.serialize(
-          payload.recordDelimiter!,
+          recordDelimiter,
           specifiedType: const FullType(String),
         ));
     }

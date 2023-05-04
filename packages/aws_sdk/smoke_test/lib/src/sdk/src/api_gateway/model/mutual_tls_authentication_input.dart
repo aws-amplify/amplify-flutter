@@ -95,23 +95,20 @@ class MutualTlsAuthenticationInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'truststoreUri':
-          if (value != null) {
-            result.truststoreUri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.truststoreUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'truststoreVersion':
-          if (value != null) {
-            result.truststoreVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.truststoreVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -126,19 +123,21 @@ class MutualTlsAuthenticationInputRestJson1Serializer
   }) {
     final payload = (object as MutualTlsAuthenticationInput);
     final result = <Object?>[];
-    if (payload.truststoreUri != null) {
+    final MutualTlsAuthenticationInput(:truststoreUri, :truststoreVersion) =
+        payload;
+    if (truststoreUri != null) {
       result
         ..add('truststoreUri')
         ..add(serializers.serialize(
-          payload.truststoreUri!,
+          truststoreUri,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.truststoreVersion != null) {
+    if (truststoreVersion != null) {
       result
         ..add('truststoreVersion')
         ..add(serializers.serialize(
-          payload.truststoreVersion!,
+          truststoreVersion,
           specifiedType: const FullType(String),
         ));
     }

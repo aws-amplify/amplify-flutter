@@ -483,132 +483,95 @@ class PutIntegrationRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'cacheKeyParameters':
-          if (value != null) {
-            result.cacheKeyParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i7.BuiltList<String>));
-          }
-          break;
+          result.cacheKeyParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i7.BuiltList<String>));
         case 'cacheNamespace':
-          if (value != null) {
-            result.cacheNamespace = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.cacheNamespace = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'connectionId':
-          if (value != null) {
-            result.connectionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.connectionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'connectionType':
-          if (value != null) {
-            result.connectionType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ConnectionType),
-            ) as _i4.ConnectionType);
-          }
-          break;
+          result.connectionType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ConnectionType),
+          ) as _i4.ConnectionType);
         case 'contentHandling':
-          if (value != null) {
-            result.contentHandling = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ContentHandlingStrategy),
-            ) as _i5.ContentHandlingStrategy);
-          }
-          break;
+          result.contentHandling = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ContentHandlingStrategy),
+          ) as _i5.ContentHandlingStrategy);
         case 'credentials':
-          if (value != null) {
-            result.credentials = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.credentials = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'httpMethod':
-          if (value != null) {
-            result.integrationHttpMethod = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.integrationHttpMethod = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'passthroughBehavior':
-          if (value != null) {
-            result.passthroughBehavior = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.passthroughBehavior = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'requestParameters':
-          if (value != null) {
-            result.requestParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String>));
-          }
-          break;
+          result.requestParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String>));
         case 'requestTemplates':
-          if (value != null) {
-            result.requestTemplates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i7.BuiltMap<String, String>));
-          }
-          break;
+          result.requestTemplates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i7.BuiltMap<String, String>));
         case 'timeoutInMillis':
-          if (value != null) {
-            result.timeoutInMillis = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.timeoutInMillis = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'tlsConfig':
-          if (value != null) {
-            result.tlsConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.TlsConfig),
-            ) as _i6.TlsConfig));
-          }
-          break;
+          result.tlsConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.TlsConfig),
+          ) as _i6.TlsConfig));
         case 'type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.IntegrationType),
           ) as _i3.IntegrationType);
-          break;
         case 'uri':
-          if (value != null) {
-            result.uri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -631,78 +594,93 @@ class PutIntegrationRequestRestJson1Serializer
         specifiedType: const FullType(_i3.IntegrationType),
       ),
     ];
-    if (payload.cacheKeyParameters != null) {
+    final PutIntegrationRequestPayload(
+      :cacheKeyParameters,
+      :cacheNamespace,
+      :connectionId,
+      :connectionType,
+      :contentHandling,
+      :credentials,
+      :integrationHttpMethod,
+      :passthroughBehavior,
+      :requestParameters,
+      :requestTemplates,
+      :timeoutInMillis,
+      :tlsConfig,
+      :uri
+    ) = payload;
+    if (cacheKeyParameters != null) {
       result
         ..add('cacheKeyParameters')
         ..add(serializers.serialize(
-          payload.cacheKeyParameters!,
+          cacheKeyParameters,
           specifiedType: const FullType(
             _i7.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.cacheNamespace != null) {
+    if (cacheNamespace != null) {
       result
         ..add('cacheNamespace')
         ..add(serializers.serialize(
-          payload.cacheNamespace!,
+          cacheNamespace,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.connectionId != null) {
+    if (connectionId != null) {
       result
         ..add('connectionId')
         ..add(serializers.serialize(
-          payload.connectionId!,
+          connectionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.connectionType != null) {
+    if (connectionType != null) {
       result
         ..add('connectionType')
         ..add(serializers.serialize(
-          payload.connectionType!,
+          connectionType,
           specifiedType: const FullType(_i4.ConnectionType),
         ));
     }
-    if (payload.contentHandling != null) {
+    if (contentHandling != null) {
       result
         ..add('contentHandling')
         ..add(serializers.serialize(
-          payload.contentHandling!,
+          contentHandling,
           specifiedType: const FullType(_i5.ContentHandlingStrategy),
         ));
     }
-    if (payload.credentials != null) {
+    if (credentials != null) {
       result
         ..add('credentials')
         ..add(serializers.serialize(
-          payload.credentials!,
+          credentials,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.integrationHttpMethod != null) {
+    if (integrationHttpMethod != null) {
       result
         ..add('httpMethod')
         ..add(serializers.serialize(
-          payload.integrationHttpMethod!,
+          integrationHttpMethod,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.passthroughBehavior != null) {
+    if (passthroughBehavior != null) {
       result
         ..add('passthroughBehavior')
         ..add(serializers.serialize(
-          payload.passthroughBehavior!,
+          passthroughBehavior,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requestParameters != null) {
+    if (requestParameters != null) {
       result
         ..add('requestParameters')
         ..add(serializers.serialize(
-          payload.requestParameters!,
+          requestParameters,
           specifiedType: const FullType(
             _i7.BuiltMap,
             [
@@ -712,11 +690,11 @@ class PutIntegrationRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.requestTemplates != null) {
+    if (requestTemplates != null) {
       result
         ..add('requestTemplates')
         ..add(serializers.serialize(
-          payload.requestTemplates!,
+          requestTemplates,
           specifiedType: const FullType(
             _i7.BuiltMap,
             [
@@ -726,27 +704,27 @@ class PutIntegrationRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.timeoutInMillis != null) {
+    if (timeoutInMillis != null) {
       result
         ..add('timeoutInMillis')
         ..add(serializers.serialize(
-          payload.timeoutInMillis!,
+          timeoutInMillis,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.tlsConfig != null) {
+    if (tlsConfig != null) {
       result
         ..add('tlsConfig')
         ..add(serializers.serialize(
-          payload.tlsConfig!,
+          tlsConfig,
           specifiedType: const FullType(_i6.TlsConfig),
         ));
     }
-    if (payload.uri != null) {
+    if (uri != null) {
       result
         ..add('uri')
         ..add(serializers.serialize(
-          payload.uri!,
+          uri,
           specifiedType: const FullType(String),
         ));
     }

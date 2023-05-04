@@ -165,64 +165,49 @@ class StackSetOperationPreferencesAwsQuerySerializer
     final result = StackSetOperationPreferencesBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'RegionConcurrencyType':
-          if (value != null) {
-            result.regionConcurrencyType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RegionConcurrencyType),
-            ) as _i2.RegionConcurrencyType);
-          }
-          break;
+          result.regionConcurrencyType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RegionConcurrencyType),
+          ) as _i2.RegionConcurrencyType);
         case 'RegionOrder':
-          if (value != null) {
-            result.regionOrder.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.regionOrder.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'FailureToleranceCount':
-          if (value != null) {
-            result.failureToleranceCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.failureToleranceCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'FailureTolerancePercentage':
-          if (value != null) {
-            result.failureTolerancePercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.failureTolerancePercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'MaxConcurrentCount':
-          if (value != null) {
-            result.maxConcurrentCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxConcurrentCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'MaxConcurrentPercentage':
-          if (value != null) {
-            result.maxConcurrentPercentage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxConcurrentPercentage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -242,57 +227,65 @@ class StackSetOperationPreferencesAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.regionConcurrencyType != null) {
+    final StackSetOperationPreferences(
+      :regionConcurrencyType,
+      :regionOrder,
+      :failureToleranceCount,
+      :failureTolerancePercentage,
+      :maxConcurrentCount,
+      :maxConcurrentPercentage
+    ) = payload;
+    if (regionConcurrencyType != null) {
       result
         ..add(const _i4.XmlElementName('RegionConcurrencyType'))
         ..add(serializers.serialize(
-          payload.regionConcurrencyType!,
+          regionConcurrencyType,
           specifiedType: const FullType.nullable(_i2.RegionConcurrencyType),
         ));
     }
-    if (payload.regionOrder != null) {
+    if (regionOrder != null) {
       result
         ..add(const _i4.XmlElementName('RegionOrder'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.regionOrder!,
+          regionOrder,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.failureToleranceCount != null) {
+    if (failureToleranceCount != null) {
       result
         ..add(const _i4.XmlElementName('FailureToleranceCount'))
         ..add(serializers.serialize(
-          payload.failureToleranceCount!,
+          failureToleranceCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.failureTolerancePercentage != null) {
+    if (failureTolerancePercentage != null) {
       result
         ..add(const _i4.XmlElementName('FailureTolerancePercentage'))
         ..add(serializers.serialize(
-          payload.failureTolerancePercentage!,
+          failureTolerancePercentage,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.maxConcurrentCount != null) {
+    if (maxConcurrentCount != null) {
       result
         ..add(const _i4.XmlElementName('MaxConcurrentCount'))
         ..add(serializers.serialize(
-          payload.maxConcurrentCount!,
+          maxConcurrentCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.maxConcurrentPercentage != null) {
+    if (maxConcurrentPercentage != null) {
       result
         ..add(const _i4.XmlElementName('MaxConcurrentPercentage'))
         ..add(serializers.serialize(
-          payload.maxConcurrentPercentage!,
+          maxConcurrentPercentage,
           specifiedType: const FullType.nullable(int),
         ));
     }

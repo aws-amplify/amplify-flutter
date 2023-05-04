@@ -125,37 +125,30 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionAwsJson10Ser
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DisableScaleIn':
-          if (value != null) {
-            result.disableScaleIn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.disableScaleIn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ScaleInCooldown':
-          if (value != null) {
-            result.scaleInCooldown = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.scaleInCooldown = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ScaleOutCooldown':
-          if (value != null) {
-            result.scaleOutCooldown = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.scaleOutCooldown = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'TargetValue':
           result.targetValue = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
       }
     }
 
@@ -177,27 +170,32 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionAwsJson10Ser
         specifiedType: const FullType(double),
       ),
     ];
-    if (payload.disableScaleIn != null) {
+    final AutoScalingTargetTrackingScalingPolicyConfigurationDescription(
+      :disableScaleIn,
+      :scaleInCooldown,
+      :scaleOutCooldown
+    ) = payload;
+    if (disableScaleIn != null) {
       result
         ..add('DisableScaleIn')
         ..add(serializers.serialize(
-          payload.disableScaleIn!,
+          disableScaleIn,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.scaleInCooldown != null) {
+    if (scaleInCooldown != null) {
       result
         ..add('ScaleInCooldown')
         ..add(serializers.serialize(
-          payload.scaleInCooldown!,
+          scaleInCooldown,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.scaleOutCooldown != null) {
+    if (scaleOutCooldown != null) {
       result
         ..add('ScaleOutCooldown')
         ..add(serializers.serialize(
-          payload.scaleOutCooldown!,
+          scaleOutCooldown,
           specifiedType: const FullType(int),
         ));
     }

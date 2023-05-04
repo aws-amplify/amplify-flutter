@@ -83,18 +83,18 @@ class InAppMessagesResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'InAppMessageCampaigns':
-          if (value != null) {
-            result.inAppMessageCampaigns.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.InAppMessageCampaign)],
-              ),
-            ) as _i3.BuiltList<_i2.InAppMessageCampaign>));
-          }
-          break;
+          result.inAppMessageCampaigns.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.InAppMessageCampaign)],
+            ),
+          ) as _i3.BuiltList<_i2.InAppMessageCampaign>));
       }
     }
 
@@ -109,11 +109,12 @@ class InAppMessagesResponseRestJson1Serializer
   }) {
     final payload = (object as InAppMessagesResponse);
     final result = <Object?>[];
-    if (payload.inAppMessageCampaigns != null) {
+    final InAppMessagesResponse(:inAppMessageCampaigns) = payload;
+    if (inAppMessageCampaigns != null) {
       result
         ..add('InAppMessageCampaigns')
         ..add(serializers.serialize(
-          payload.inAppMessageCampaigns!,
+          inAppMessageCampaigns,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.InAppMessageCampaign)],

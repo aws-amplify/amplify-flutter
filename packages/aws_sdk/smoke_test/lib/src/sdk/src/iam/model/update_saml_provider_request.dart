@@ -100,22 +100,23 @@ class UpdateSamlProviderRequestAwsQuerySerializer
     final result = UpdateSamlProviderRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SAMLMetadataDocument':
           result.samlMetadataDocument = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SAMLProviderArn':
           result.samlProviderArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -135,16 +136,18 @@ class UpdateSamlProviderRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UpdateSamlProviderRequest(:samlMetadataDocument, :samlProviderArn) =
+        payload;
     result
       ..add(const _i1.XmlElementName('SAMLMetadataDocument'))
       ..add(serializers.serialize(
-        payload.samlMetadataDocument,
+        samlMetadataDocument,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i1.XmlElementName('SAMLProviderArn'))
       ..add(serializers.serialize(
-        payload.samlProviderArn,
+        samlProviderArn,
         specifiedType: const FullType(String),
       ));
     return result;

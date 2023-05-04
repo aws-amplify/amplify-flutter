@@ -150,58 +150,43 @@ class ListPoliciesRequestAwsQuerySerializer
     final result = ListPoliciesRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Scope':
-          if (value != null) {
-            result.scope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PolicyScopeType),
-            ) as _i3.PolicyScopeType);
-          }
-          break;
+          result.scope = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PolicyScopeType),
+          ) as _i3.PolicyScopeType);
         case 'OnlyAttached':
-          if (value != null) {
-            result.onlyAttached = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.onlyAttached = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'PathPrefix':
-          if (value != null) {
-            result.pathPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyUsageFilter':
-          if (value != null) {
-            result.policyUsageFilter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.PolicyUsageType),
-            ) as _i4.PolicyUsageType);
-          }
-          break;
+          result.policyUsageFilter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.PolicyUsageType),
+          ) as _i4.PolicyUsageType);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxItems':
-          if (value != null) {
-            result.maxItems = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxItems = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -221,51 +206,59 @@ class ListPoliciesRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.scope != null) {
+    final ListPoliciesRequest(
+      :scope,
+      :onlyAttached,
+      :pathPrefix,
+      :policyUsageFilter,
+      :marker,
+      :maxItems
+    ) = payload;
+    if (scope != null) {
       result
         ..add(const _i1.XmlElementName('Scope'))
         ..add(serializers.serialize(
-          payload.scope!,
+          scope,
           specifiedType: const FullType.nullable(_i3.PolicyScopeType),
         ));
     }
-    if (payload.onlyAttached != null) {
+    if (onlyAttached != null) {
       result
         ..add(const _i1.XmlElementName('OnlyAttached'))
         ..add(serializers.serialize(
-          payload.onlyAttached!,
+          onlyAttached,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.pathPrefix != null) {
+    if (pathPrefix != null) {
       result
         ..add(const _i1.XmlElementName('PathPrefix'))
         ..add(serializers.serialize(
-          payload.pathPrefix!,
+          pathPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyUsageFilter != null) {
+    if (policyUsageFilter != null) {
       result
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
-          payload.policyUsageFilter!,
+          policyUsageFilter,
           specifiedType: const FullType.nullable(_i4.PolicyUsageType),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxItems != null) {
+    if (maxItems != null) {
       result
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
-          payload.maxItems!,
+          maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }

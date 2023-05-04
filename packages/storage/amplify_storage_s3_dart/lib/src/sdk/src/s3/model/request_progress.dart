@@ -71,18 +71,18 @@ class RequestProgressRestXmlSerializer
     final result = RequestProgressBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Enabled':
-          if (value != null) {
-            result.enabled = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.enabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -102,11 +102,12 @@ class RequestProgressRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.enabled != null) {
+    final RequestProgress(:enabled) = payload;
+    if (enabled != null) {
       result
         ..add(const _i2.XmlElementName('Enabled'))
         ..add(serializers.serialize(
-          payload.enabled!,
+          enabled,
           specifiedType: const FullType.nullable(bool),
         ));
     }

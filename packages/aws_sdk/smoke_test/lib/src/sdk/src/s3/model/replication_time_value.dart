@@ -74,18 +74,18 @@ class ReplicationTimeValueRestXmlSerializer
     final result = ReplicationTimeValueBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Minutes':
-          if (value != null) {
-            result.minutes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minutes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -105,11 +105,12 @@ class ReplicationTimeValueRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.minutes != null) {
+    final ReplicationTimeValue(:minutes) = payload;
+    if (minutes != null) {
       result
         ..add(const _i2.XmlElementName('Minutes'))
         ..add(serializers.serialize(
-          payload.minutes!,
+          minutes,
           specifiedType: const FullType.nullable(int),
         ));
     }

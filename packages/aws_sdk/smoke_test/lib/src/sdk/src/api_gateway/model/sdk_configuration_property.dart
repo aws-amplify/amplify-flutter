@@ -123,47 +123,35 @@ class SdkConfigurationPropertyRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'defaultValue':
-          if (value != null) {
-            result.defaultValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'friendlyName':
-          if (value != null) {
-            result.friendlyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.friendlyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'required':
-          if (value != null) {
-            result.required = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.required = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -178,43 +166,50 @@ class SdkConfigurationPropertyRestJson1Serializer
   }) {
     final payload = (object as SdkConfigurationProperty);
     final result = <Object?>[];
-    if (payload.defaultValue != null) {
+    final SdkConfigurationProperty(
+      :defaultValue,
+      :description,
+      :friendlyName,
+      :name,
+      :required
+    ) = payload;
+    if (defaultValue != null) {
       result
         ..add('defaultValue')
         ..add(serializers.serialize(
-          payload.defaultValue!,
+          defaultValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.friendlyName != null) {
+    if (friendlyName != null) {
       result
         ..add('friendlyName')
         ..add(serializers.serialize(
-          payload.friendlyName!,
+          friendlyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.required != null) {
+    if (required != null) {
       result
         ..add('required')
         ..add(serializers.serialize(
-          payload.required!,
+          required,
           specifiedType: const FullType(bool),
         ));
     }

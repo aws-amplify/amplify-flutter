@@ -811,42 +811,33 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
     final result = ErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Key':
-          if (value != null) {
-            result.key = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.key = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -866,35 +857,36 @@ class ErrorRestXmlSerializer extends _i2.StructuredSmithySerializer<Error> {
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.code != null) {
+    final Error(:code, :key, :message, :versionId) = payload;
+    if (code != null) {
       result
         ..add(const _i2.XmlElementName('Code'))
         ..add(serializers.serialize(
-          payload.code!,
+          code,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.key != null) {
+    if (key != null) {
       result
         ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
-          payload.key!,
+          key,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.message != null) {
+    if (message != null) {
       result
         ..add(const _i2.XmlElementName('Message'))
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionId != null) {
+    if (versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }

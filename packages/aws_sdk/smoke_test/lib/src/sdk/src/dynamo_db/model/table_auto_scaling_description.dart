@@ -116,34 +116,28 @@ class TableAutoScalingDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableStatus':
-          if (value != null) {
-            result.tableStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableStatus),
-            ) as _i2.TableStatus);
-          }
-          break;
+          result.tableStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableStatus),
+          ) as _i2.TableStatus);
         case 'Replicas':
-          if (value != null) {
-            result.replicas.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ReplicaAutoScalingDescription)],
-              ),
-            ) as _i4.BuiltList<_i3.ReplicaAutoScalingDescription>));
-          }
-          break;
+          result.replicas.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ReplicaAutoScalingDescription)],
+            ),
+          ) as _i4.BuiltList<_i3.ReplicaAutoScalingDescription>));
       }
     }
 
@@ -158,27 +152,29 @@ class TableAutoScalingDescriptionAwsJson10Serializer
   }) {
     final payload = (object as TableAutoScalingDescription);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final TableAutoScalingDescription(:tableName, :tableStatus, :replicas) =
+        payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableStatus != null) {
+    if (tableStatus != null) {
       result
         ..add('TableStatus')
         ..add(serializers.serialize(
-          payload.tableStatus!,
+          tableStatus,
           specifiedType: const FullType(_i2.TableStatus),
         ));
     }
-    if (payload.replicas != null) {
+    if (replicas != null) {
       result
         ..add('Replicas')
         ..add(serializers.serialize(
-          payload.replicas!,
+          replicas,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ReplicaAutoScalingDescription)],

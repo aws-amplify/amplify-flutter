@@ -83,16 +83,18 @@ class GetUserResponseAwsQuerySerializer
     final result = GetUserResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'User':
           result.user.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.User),
           ) as _i2.User));
-          break;
       }
     }
 
@@ -112,10 +114,11 @@ class GetUserResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetUserResponse(:user) = payload;
     result
       ..add(const _i3.XmlElementName('User'))
       ..add(serializers.serialize(
-        payload.user,
+        user,
         specifiedType: const FullType(_i2.User),
       ));
     return result;

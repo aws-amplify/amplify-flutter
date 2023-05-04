@@ -119,34 +119,28 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceTypes':
-          if (value != null) {
-            result.resourceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.resourceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'nextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -161,30 +155,35 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
   }) {
     final payload = (object as GetDiscoveredResourceCountsRequest);
     final result = <Object?>[];
-    if (payload.resourceTypes != null) {
+    final GetDiscoveredResourceCountsRequest(
+      :resourceTypes,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (resourceTypes != null) {
       result
         ..add('resourceTypes')
         ..add(serializers.serialize(
-          payload.resourceTypes!,
+          resourceTypes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('nextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

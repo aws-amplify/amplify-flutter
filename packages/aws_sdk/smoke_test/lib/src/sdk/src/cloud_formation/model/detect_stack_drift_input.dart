@@ -99,30 +99,29 @@ class DetectStackDriftInputAwsQuerySerializer
     final result = DetectStackDriftInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogicalResourceIds':
-          if (value != null) {
-            result.logicalResourceIds.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.logicalResourceIds.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -142,20 +141,21 @@ class DetectStackDriftInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DetectStackDriftInput(:stackName, :logicalResourceIds) = payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.logicalResourceIds != null) {
+    if (logicalResourceIds != null) {
       result
         ..add(const _i1.XmlElementName('LogicalResourceIds'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.logicalResourceIds!,
+          logicalResourceIds,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],

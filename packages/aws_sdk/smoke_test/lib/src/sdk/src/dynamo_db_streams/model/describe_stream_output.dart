@@ -85,15 +85,15 @@ class DescribeStreamOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamDescription':
-          if (value != null) {
-            result.streamDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamDescription),
-            ) as _i2.StreamDescription));
-          }
-          break;
+          result.streamDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StreamDescription),
+          ) as _i2.StreamDescription));
       }
     }
 
@@ -108,11 +108,12 @@ class DescribeStreamOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeStreamOutput);
     final result = <Object?>[];
-    if (payload.streamDescription != null) {
+    final DescribeStreamOutput(:streamDescription) = payload;
+    if (streamDescription != null) {
       result
         ..add('StreamDescription')
         ..add(serializers.serialize(
-          payload.streamDescription!,
+          streamDescription,
           specifiedType: const FullType(_i2.StreamDescription),
         ));
     }

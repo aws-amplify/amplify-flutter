@@ -94,18 +94,18 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DeliveryChannelsStatus':
-          if (value != null) {
-            result.deliveryChannelsStatus.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.DeliveryChannelStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.DeliveryChannelStatus>));
-          }
-          break;
+          result.deliveryChannelsStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.DeliveryChannelStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.DeliveryChannelStatus>));
       }
     }
 
@@ -120,11 +120,13 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeDeliveryChannelStatusResponse);
     final result = <Object?>[];
-    if (payload.deliveryChannelsStatus != null) {
+    final DescribeDeliveryChannelStatusResponse(:deliveryChannelsStatus) =
+        payload;
+    if (deliveryChannelsStatus != null) {
       result
         ..add('DeliveryChannelsStatus')
         ..add(serializers.serialize(
-          payload.deliveryChannelsStatus!,
+          deliveryChannelsStatus,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.DeliveryChannelStatus)],

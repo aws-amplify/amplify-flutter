@@ -180,113 +180,89 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     final result = GetTemplateSummaryOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.ParameterDeclaration)],
-              ),
-            ) as _i5.BuiltList<_i2.ParameterDeclaration>));
-          }
-          break;
+          result.parameters.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.ParameterDeclaration)],
+            ),
+          ) as _i5.BuiltList<_i2.ParameterDeclaration>));
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Capabilities':
-          if (value != null) {
-            result.capabilities.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.Capability)],
-              ),
-            ) as _i5.BuiltList<_i3.Capability>));
-          }
-          break;
+          result.capabilities.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.Capability)],
+            ),
+          ) as _i5.BuiltList<_i3.Capability>));
         case 'CapabilitiesReason':
-          if (value != null) {
-            result.capabilitiesReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.capabilitiesReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceTypes':
-          if (value != null) {
-            result.resourceTypes.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.resourceTypes.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'Version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.version = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Metadata':
-          if (value != null) {
-            result.metadata = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.metadata = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeclaredTransforms':
-          if (value != null) {
-            result.declaredTransforms.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.declaredTransforms.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'ResourceIdentifierSummaries':
-          if (value != null) {
-            result.resourceIdentifierSummaries.replace(
-                (const _i6.XmlBuiltListSerializer(
-                        indexer: _i6.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.ResourceIdentifierSummary)],
-              ),
-            ) as _i5.BuiltList<_i4.ResourceIdentifierSummary>));
-          }
-          break;
+          result.resourceIdentifierSummaries.replace(
+              (const _i6.XmlBuiltListSerializer(
+                      indexer: _i6.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.ResourceIdentifierSummary)],
+            ),
+          ) as _i5.BuiltList<_i4.ResourceIdentifierSummary>));
       }
     }
 
@@ -306,102 +282,113 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.parameters != null) {
+    final GetTemplateSummaryOutput(
+      :parameters,
+      :description,
+      :capabilities,
+      :capabilitiesReason,
+      :resourceTypes,
+      :version,
+      :metadata,
+      :declaredTransforms,
+      :resourceIdentifierSummaries
+    ) = payload;
+    if (parameters != null) {
       result
         ..add(const _i6.XmlElementName('Parameters'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i2.ParameterDeclaration)],
           ),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i6.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.capabilities != null) {
+    if (capabilities != null) {
       result
         ..add(const _i6.XmlElementName('Capabilities'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.capabilities!,
+          capabilities,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.Capability)],
           ),
         ));
     }
-    if (payload.capabilitiesReason != null) {
+    if (capabilitiesReason != null) {
       result
         ..add(const _i6.XmlElementName('CapabilitiesReason'))
         ..add(serializers.serialize(
-          payload.capabilitiesReason!,
+          capabilitiesReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceTypes != null) {
+    if (resourceTypes != null) {
       result
         ..add(const _i6.XmlElementName('ResourceTypes'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourceTypes!,
+          resourceTypes,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.version != null) {
+    if (version != null) {
       result
         ..add(const _i6.XmlElementName('Version'))
         ..add(serializers.serialize(
-          payload.version!,
+          version,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.metadata != null) {
+    if (metadata != null) {
       result
         ..add(const _i6.XmlElementName('Metadata'))
         ..add(serializers.serialize(
-          payload.metadata!,
+          metadata,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.declaredTransforms != null) {
+    if (declaredTransforms != null) {
       result
         ..add(const _i6.XmlElementName('DeclaredTransforms'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.declaredTransforms!,
+          declaredTransforms,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.resourceIdentifierSummaries != null) {
+    if (resourceIdentifierSummaries != null) {
       result
         ..add(const _i6.XmlElementName('ResourceIdentifierSummaries'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourceIdentifierSummaries!,
+          resourceIdentifierSummaries,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.ResourceIdentifierSummary)],

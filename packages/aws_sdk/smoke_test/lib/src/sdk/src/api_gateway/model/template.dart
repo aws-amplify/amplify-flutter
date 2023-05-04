@@ -80,15 +80,15 @@ class TemplateRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -103,11 +103,12 @@ class TemplateRestJson1Serializer
   }) {
     final payload = (object as Template);
     final result = <Object?>[];
-    if (payload.value != null) {
+    final Template(:value) = payload;
+    if (value != null) {
       result
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }

@@ -207,103 +207,76 @@ class RemediationConfigurationAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TargetType':
           result.targetType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.RemediationTargetType),
           ) as _i2.RemediationTargetType);
-          break;
         case 'TargetId':
           result.targetId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TargetVersion':
-          if (value != null) {
-            result.targetVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.targetVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.RemediationParameterValue),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i3.RemediationParameterValue>));
-          }
-          break;
+          result.parameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.RemediationParameterValue),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i3.RemediationParameterValue>));
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Automatic':
-          if (value != null) {
-            result.automatic = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.automatic = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ExecutionControls':
-          if (value != null) {
-            result.executionControls.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ExecutionControls),
-            ) as _i4.ExecutionControls));
-          }
-          break;
+          result.executionControls.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ExecutionControls),
+          ) as _i4.ExecutionControls));
         case 'MaximumAutomaticAttempts':
-          if (value != null) {
-            result.maximumAutomaticAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maximumAutomaticAttempts = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'RetryAttemptSeconds':
-          if (value != null) {
-            result.retryAttemptSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Int64),
-            ) as _i5.Int64);
-          }
-          break;
+          result.retryAttemptSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Int64),
+          ) as _i5.Int64);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreatedByService':
-          if (value != null) {
-            result.createdByService = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.createdByService = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -334,19 +307,30 @@ class RemediationConfigurationAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.targetVersion != null) {
+    final RemediationConfiguration(
+      :targetVersion,
+      :parameters,
+      :resourceType,
+      :automatic,
+      :executionControls,
+      :maximumAutomaticAttempts,
+      :retryAttemptSeconds,
+      :arn,
+      :createdByService
+    ) = payload;
+    if (targetVersion != null) {
       result
         ..add('TargetVersion')
         ..add(serializers.serialize(
-          payload.targetVersion!,
+          targetVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameters != null) {
+    if (parameters != null) {
       result
         ..add('Parameters')
         ..add(serializers.serialize(
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -356,59 +340,59 @@ class RemediationConfigurationAwsJson11Serializer
           ),
         ));
     }
-    if (payload.resourceType != null) {
+    if (resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.automatic != null) {
+    if (automatic != null) {
       result
         ..add('Automatic')
         ..add(serializers.serialize(
-          payload.automatic!,
+          automatic,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.executionControls != null) {
+    if (executionControls != null) {
       result
         ..add('ExecutionControls')
         ..add(serializers.serialize(
-          payload.executionControls!,
+          executionControls,
           specifiedType: const FullType(_i4.ExecutionControls),
         ));
     }
-    if (payload.maximumAutomaticAttempts != null) {
+    if (maximumAutomaticAttempts != null) {
       result
         ..add('MaximumAutomaticAttempts')
         ..add(serializers.serialize(
-          payload.maximumAutomaticAttempts!,
+          maximumAutomaticAttempts,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.retryAttemptSeconds != null) {
+    if (retryAttemptSeconds != null) {
       result
         ..add('RetryAttemptSeconds')
         ..add(serializers.serialize(
-          payload.retryAttemptSeconds!,
+          retryAttemptSeconds,
           specifiedType: const FullType(_i5.Int64),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add('Arn')
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createdByService != null) {
+    if (createdByService != null) {
       result
         ..add('CreatedByService')
         ..add(serializers.serialize(
-          payload.createdByService!,
+          createdByService,
           specifiedType: const FullType(String),
         ));
     }

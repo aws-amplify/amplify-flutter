@@ -126,40 +126,33 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceKeys':
-          if (value != null) {
-            result.resourceKeys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ResourceKey)],
-              ),
-            ) as _i4.BuiltList<_i3.ResourceKey>));
-          }
-          break;
+          result.resourceKeys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ResourceKey)],
+            ),
+          ) as _i4.BuiltList<_i3.ResourceKey>));
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -180,30 +173,35 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.resourceKeys != null) {
+    final DescribeRemediationExecutionStatusRequest(
+      :resourceKeys,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (resourceKeys != null) {
       result
         ..add('ResourceKeys')
         ..add(serializers.serialize(
-          payload.resourceKeys!,
+          resourceKeys,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ResourceKey)],
           ),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

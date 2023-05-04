@@ -82,15 +82,15 @@ class PutConformancePackResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackArn':
-          if (value != null) {
-            result.conformancePackArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conformancePackArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -105,11 +105,12 @@ class PutConformancePackResponseAwsJson11Serializer
   }) {
     final payload = (object as PutConformancePackResponse);
     final result = <Object?>[];
-    if (payload.conformancePackArn != null) {
+    final PutConformancePackResponse(:conformancePackArn) = payload;
+    if (conformancePackArn != null) {
       result
         ..add('ConformancePackArn')
         ..add(serializers.serialize(
-          payload.conformancePackArn!,
+          conformancePackArn,
           specifiedType: const FullType(String),
         ));
     }

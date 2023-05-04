@@ -110,32 +110,28 @@ class DescribeChangeSetInputAwsQuerySerializer
     final result = DescribeChangeSetInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChangeSetName':
           result.changeSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -155,25 +151,27 @@ class DescribeChangeSetInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DescribeChangeSetInput(:changeSetName, :stackName, :nextToken) =
+        payload;
     result
       ..add(const _i1.XmlElementName('ChangeSetName'))
       ..add(serializers.serialize(
-        payload.changeSetName,
+        changeSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.stackName != null) {
+    if (stackName != null) {
       result
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

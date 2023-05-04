@@ -73,16 +73,18 @@ class InventoryScheduleRestXmlSerializer
     final result = InventoryScheduleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Frequency':
           result.frequency = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.InventoryFrequency),
           ) as _i2.InventoryFrequency);
-          break;
       }
     }
 
@@ -102,10 +104,11 @@ class InventoryScheduleRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final InventorySchedule(:frequency) = payload;
     result
       ..add(const _i3.XmlElementName('Frequency'))
       ..add(serializers.serialize(
-        payload.frequency,
+        frequency,
         specifiedType: const FullType.nullable(_i2.InventoryFrequency),
       ));
     return result;

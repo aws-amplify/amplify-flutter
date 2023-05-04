@@ -100,31 +100,25 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ShardId':
-          if (value != null) {
-            result.shardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.shardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SequenceNumberRange':
-          if (value != null) {
-            result.sequenceNumberRange.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SequenceNumberRange),
-            ) as _i2.SequenceNumberRange));
-          }
-          break;
+          result.sequenceNumberRange.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SequenceNumberRange),
+          ) as _i2.SequenceNumberRange));
         case 'ParentShardId':
-          if (value != null) {
-            result.parentShardId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parentShardId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,27 +133,28 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
   }) {
     final payload = (object as Shard);
     final result = <Object?>[];
-    if (payload.shardId != null) {
+    final Shard(:shardId, :sequenceNumberRange, :parentShardId) = payload;
+    if (shardId != null) {
       result
         ..add('ShardId')
         ..add(serializers.serialize(
-          payload.shardId!,
+          shardId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sequenceNumberRange != null) {
+    if (sequenceNumberRange != null) {
       result
         ..add('SequenceNumberRange')
         ..add(serializers.serialize(
-          payload.sequenceNumberRange!,
+          sequenceNumberRange,
           specifiedType: const FullType(_i2.SequenceNumberRange),
         ));
     }
-    if (payload.parentShardId != null) {
+    if (parentShardId != null) {
       result
         ..add('ParentShardId')
         ..add(serializers.serialize(
-          payload.parentShardId!,
+          parentShardId,
           specifiedType: const FullType(String),
         ));
     }

@@ -144,23 +144,20 @@ class AttributeValueUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AttributeValue),
-            ) as _i2.AttributeValue);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AttributeValue),
+          ) as _i2.AttributeValue);
         case 'Action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AttributeAction),
-            ) as _i3.AttributeAction);
-          }
-          break;
+          result.action = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AttributeAction),
+          ) as _i3.AttributeAction);
       }
     }
 
@@ -175,19 +172,20 @@ class AttributeValueUpdateAwsJson10Serializer
   }) {
     final payload = (object as AttributeValueUpdate);
     final result = <Object?>[];
-    if (payload.value != null) {
+    final AttributeValueUpdate(:value, :action) = payload;
+    if (value != null) {
       result
         ..add('Value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(_i2.AttributeValue),
         ));
     }
-    if (payload.action != null) {
+    if (action != null) {
       result
         ..add('Action')
         ..add(serializers.serialize(
-          payload.action!,
+          action,
           specifiedType: const FullType(_i3.AttributeAction),
         ));
     }

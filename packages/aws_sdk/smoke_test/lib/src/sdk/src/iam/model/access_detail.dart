@@ -141,54 +141,43 @@ class AccessDetailAwsQuerySerializer
     final result = AccessDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServiceName':
           result.serviceName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ServiceNamespace':
           result.serviceNamespace = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EntityPath':
-          if (value != null) {
-            result.entityPath = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.entityPath = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastAuthenticatedTime':
-          if (value != null) {
-            result.lastAuthenticatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastAuthenticatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'TotalAuthenticatedEntities':
-          if (value != null) {
-            result.totalAuthenticatedEntities = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.totalAuthenticatedEntities = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -208,47 +197,55 @@ class AccessDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final AccessDetail(
+      :serviceName,
+      :serviceNamespace,
+      :region,
+      :entityPath,
+      :lastAuthenticatedTime,
+      :totalAuthenticatedEntities
+    ) = payload;
     result
       ..add(const _i2.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
-        payload.serviceName,
+        serviceName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
-        payload.serviceNamespace,
+        serviceNamespace,
         specifiedType: const FullType(String),
       ));
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add(const _i2.XmlElementName('Region'))
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.entityPath != null) {
+    if (entityPath != null) {
       result
         ..add(const _i2.XmlElementName('EntityPath'))
         ..add(serializers.serialize(
-          payload.entityPath!,
+          entityPath,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastAuthenticatedTime != null) {
+    if (lastAuthenticatedTime != null) {
       result
         ..add(const _i2.XmlElementName('LastAuthenticatedTime'))
         ..add(serializers.serialize(
-          payload.lastAuthenticatedTime!,
+          lastAuthenticatedTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.totalAuthenticatedEntities != null) {
+    if (totalAuthenticatedEntities != null) {
       result
         ..add(const _i2.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
-          payload.totalAuthenticatedEntities!,
+          totalAuthenticatedEntities,
           specifiedType: const FullType.nullable(int),
         ));
     }

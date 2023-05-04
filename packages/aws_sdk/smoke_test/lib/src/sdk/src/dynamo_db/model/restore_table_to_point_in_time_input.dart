@@ -198,93 +198,66 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SourceTableArn':
-          if (value != null) {
-            result.sourceTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'SourceTableName':
-          if (value != null) {
-            result.sourceTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'TargetTableName':
-          result.targetTableName = (serializers.deserialize(
-            value!,
+          result.sourceTableArn = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'SourceTableName':
+          result.sourceTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'TargetTableName':
+          result.targetTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UseLatestRestorableTime':
-          if (value != null) {
-            result.useLatestRestorableTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useLatestRestorableTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RestoreDateTime':
-          if (value != null) {
-            result.restoreDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.restoreDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'BillingModeOverride':
-          if (value != null) {
-            result.billingModeOverride = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BillingMode),
-            ) as _i3.BillingMode);
-          }
-          break;
+          result.billingModeOverride = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BillingMode),
+          ) as _i3.BillingMode);
         case 'GlobalSecondaryIndexOverride':
-          if (value != null) {
-            result.globalSecondaryIndexOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i4.GlobalSecondaryIndex)],
-              ),
-            ) as _i8.BuiltList<_i4.GlobalSecondaryIndex>));
-          }
-          break;
+          result.globalSecondaryIndexOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i4.GlobalSecondaryIndex)],
+            ),
+          ) as _i8.BuiltList<_i4.GlobalSecondaryIndex>));
         case 'LocalSecondaryIndexOverride':
-          if (value != null) {
-            result.localSecondaryIndexOverride.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i5.LocalSecondaryIndex)],
-              ),
-            ) as _i8.BuiltList<_i5.LocalSecondaryIndex>));
-          }
-          break;
+          result.localSecondaryIndexOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i5.LocalSecondaryIndex)],
+            ),
+          ) as _i8.BuiltList<_i5.LocalSecondaryIndex>));
         case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ProvisionedThroughput),
-            ) as _i6.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ProvisionedThroughput),
+          ) as _i6.ProvisionedThroughput));
         case 'SSESpecificationOverride':
-          if (value != null) {
-            result.sseSpecificationOverride.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.SseSpecification),
-            ) as _i7.SseSpecification));
-          }
-          break;
+          result.sseSpecificationOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.SseSpecification),
+          ) as _i7.SseSpecification));
       }
     }
 
@@ -305,81 +278,92 @@ class RestoreTableToPointInTimeInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.sourceTableArn != null) {
+    final RestoreTableToPointInTimeInput(
+      :sourceTableArn,
+      :sourceTableName,
+      :useLatestRestorableTime,
+      :restoreDateTime,
+      :billingModeOverride,
+      :globalSecondaryIndexOverride,
+      :localSecondaryIndexOverride,
+      :provisionedThroughputOverride,
+      :sseSpecificationOverride
+    ) = payload;
+    if (sourceTableArn != null) {
       result
         ..add('SourceTableArn')
         ..add(serializers.serialize(
-          payload.sourceTableArn!,
+          sourceTableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceTableName != null) {
+    if (sourceTableName != null) {
       result
         ..add('SourceTableName')
         ..add(serializers.serialize(
-          payload.sourceTableName!,
+          sourceTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.useLatestRestorableTime != null) {
+    if (useLatestRestorableTime != null) {
       result
         ..add('UseLatestRestorableTime')
         ..add(serializers.serialize(
-          payload.useLatestRestorableTime!,
+          useLatestRestorableTime,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.restoreDateTime != null) {
+    if (restoreDateTime != null) {
       result
         ..add('RestoreDateTime')
         ..add(serializers.serialize(
-          payload.restoreDateTime!,
+          restoreDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.billingModeOverride != null) {
+    if (billingModeOverride != null) {
       result
         ..add('BillingModeOverride')
         ..add(serializers.serialize(
-          payload.billingModeOverride!,
+          billingModeOverride,
           specifiedType: const FullType(_i3.BillingMode),
         ));
     }
-    if (payload.globalSecondaryIndexOverride != null) {
+    if (globalSecondaryIndexOverride != null) {
       result
         ..add('GlobalSecondaryIndexOverride')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexOverride!,
+          globalSecondaryIndexOverride,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i4.GlobalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.localSecondaryIndexOverride != null) {
+    if (localSecondaryIndexOverride != null) {
       result
         ..add('LocalSecondaryIndexOverride')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexOverride!,
+          localSecondaryIndexOverride,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i5.LocalSecondaryIndex)],
           ),
         ));
     }
-    if (payload.provisionedThroughputOverride != null) {
+    if (provisionedThroughputOverride != null) {
       result
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i6.ProvisionedThroughput),
         ));
     }
-    if (payload.sseSpecificationOverride != null) {
+    if (sseSpecificationOverride != null) {
       result
         ..add('SSESpecificationOverride')
         ..add(serializers.serialize(
-          payload.sseSpecificationOverride!,
+          sseSpecificationOverride,
           specifiedType: const FullType(_i7.SseSpecification),
         ));
     }

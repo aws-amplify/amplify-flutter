@@ -149,66 +149,48 @@ class CsvInputRestXmlSerializer
     final result = CsvInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowQuotedRecordDelimiter':
-          if (value != null) {
-            result.allowQuotedRecordDelimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allowQuotedRecordDelimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Comments':
-          if (value != null) {
-            result.comments = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.comments = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FieldDelimiter':
-          if (value != null) {
-            result.fieldDelimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.fieldDelimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FileHeaderInfo':
-          if (value != null) {
-            result.fileHeaderInfo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.FileHeaderInfo),
-            ) as _i2.FileHeaderInfo);
-          }
-          break;
+          result.fileHeaderInfo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.FileHeaderInfo),
+          ) as _i2.FileHeaderInfo);
         case 'QuoteCharacter':
-          if (value != null) {
-            result.quoteCharacter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.quoteCharacter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'QuoteEscapeCharacter':
-          if (value != null) {
-            result.quoteEscapeCharacter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.quoteEscapeCharacter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RecordDelimiter':
-          if (value != null) {
-            result.recordDelimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.recordDelimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -228,59 +210,68 @@ class CsvInputRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.allowQuotedRecordDelimiter != null) {
+    final CsvInput(
+      :allowQuotedRecordDelimiter,
+      :comments,
+      :fieldDelimiter,
+      :fileHeaderInfo,
+      :quoteCharacter,
+      :quoteEscapeCharacter,
+      :recordDelimiter
+    ) = payload;
+    if (allowQuotedRecordDelimiter != null) {
       result
         ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
         ..add(serializers.serialize(
-          payload.allowQuotedRecordDelimiter!,
+          allowQuotedRecordDelimiter,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.comments != null) {
+    if (comments != null) {
       result
         ..add(const _i3.XmlElementName('Comments'))
         ..add(serializers.serialize(
-          payload.comments!,
+          comments,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.fieldDelimiter != null) {
+    if (fieldDelimiter != null) {
       result
         ..add(const _i3.XmlElementName('FieldDelimiter'))
         ..add(serializers.serialize(
-          payload.fieldDelimiter!,
+          fieldDelimiter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.fileHeaderInfo != null) {
+    if (fileHeaderInfo != null) {
       result
         ..add(const _i3.XmlElementName('FileHeaderInfo'))
         ..add(serializers.serialize(
-          payload.fileHeaderInfo!,
+          fileHeaderInfo,
           specifiedType: const FullType.nullable(_i2.FileHeaderInfo),
         ));
     }
-    if (payload.quoteCharacter != null) {
+    if (quoteCharacter != null) {
       result
         ..add(const _i3.XmlElementName('QuoteCharacter'))
         ..add(serializers.serialize(
-          payload.quoteCharacter!,
+          quoteCharacter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.quoteEscapeCharacter != null) {
+    if (quoteEscapeCharacter != null) {
       result
         ..add(const _i3.XmlElementName('QuoteEscapeCharacter'))
         ..add(serializers.serialize(
-          payload.quoteEscapeCharacter!,
+          quoteEscapeCharacter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.recordDelimiter != null) {
+    if (recordDelimiter != null) {
       result
         ..add(const _i3.XmlElementName('RecordDelimiter'))
         ..add(serializers.serialize(
-          payload.recordDelimiter!,
+          recordDelimiter,
           specifiedType: const FullType(String),
         ));
     }

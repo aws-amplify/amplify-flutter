@@ -73,18 +73,18 @@ class EncryptionConfigurationRestXmlSerializer
     final result = EncryptionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ReplicaKmsKeyID':
-          if (value != null) {
-            result.replicaKmsKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replicaKmsKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -104,11 +104,12 @@ class EncryptionConfigurationRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.replicaKmsKeyId != null) {
+    final EncryptionConfiguration(:replicaKmsKeyId) = payload;
+    if (replicaKmsKeyId != null) {
       result
         ..add(const _i2.XmlElementName('ReplicaKmsKeyID'))
         ..add(serializers.serialize(
-          payload.replicaKmsKeyId!,
+          replicaKmsKeyId,
           specifiedType: const FullType(String),
         ));
     }

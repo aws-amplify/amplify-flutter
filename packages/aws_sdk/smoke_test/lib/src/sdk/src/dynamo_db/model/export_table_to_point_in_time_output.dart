@@ -88,15 +88,15 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ExportDescription':
-          if (value != null) {
-            result.exportDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ExportDescription),
-            ) as _i2.ExportDescription));
-          }
-          break;
+          result.exportDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ExportDescription),
+          ) as _i2.ExportDescription));
       }
     }
 
@@ -111,11 +111,12 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
   }) {
     final payload = (object as ExportTableToPointInTimeOutput);
     final result = <Object?>[];
-    if (payload.exportDescription != null) {
+    final ExportTableToPointInTimeOutput(:exportDescription) = payload;
+    if (exportDescription != null) {
       result
         ..add('ExportDescription')
         ..add(serializers.serialize(
-          payload.exportDescription!,
+          exportDescription,
           specifiedType: const FullType(_i2.ExportDescription),
         ));
     }

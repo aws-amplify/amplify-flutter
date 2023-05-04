@@ -217,35 +217,30 @@ class CreateModelRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contentType':
           result.contentType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
           result.name = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'schema':
-          if (value != null) {
-            result.schema = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.schema = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -273,19 +268,20 @@ class CreateModelRequestRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.description != null) {
+    final CreateModelRequestPayload(:description, :schema) = payload;
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.schema != null) {
+    if (schema != null) {
       result
         ..add('schema')
         ..add(serializers.serialize(
-          payload.schema!,
+          schema,
           specifiedType: const FullType(String),
         ));
     }

@@ -138,47 +138,37 @@ class GetAggregateConfigRuleComplianceSummaryRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregatorName':
           result.configurationAggregatorName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Filters':
-          if (value != null) {
-            result.filters.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.ConfigRuleComplianceSummaryFilters),
-            ) as _i3.ConfigRuleComplianceSummaryFilters));
-          }
-          break;
+          result.filters.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ConfigRuleComplianceSummaryFilters),
+          ) as _i3.ConfigRuleComplianceSummaryFilters));
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.ConfigRuleComplianceSummaryGroupKey),
-            ) as _i4.ConfigRuleComplianceSummaryGroupKey);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i4.ConfigRuleComplianceSummaryGroupKey),
+          ) as _i4.ConfigRuleComplianceSummaryGroupKey);
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -199,36 +189,42 @@ class GetAggregateConfigRuleComplianceSummaryRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.filters != null) {
+    final GetAggregateConfigRuleComplianceSummaryRequest(
+      :filters,
+      :groupByKey,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (filters != null) {
       result
         ..add('Filters')
         ..add(serializers.serialize(
-          payload.filters!,
+          filters,
           specifiedType: const FullType(_i3.ConfigRuleComplianceSummaryFilters),
         ));
     }
-    if (payload.groupByKey != null) {
+    if (groupByKey != null) {
       result
         ..add('GroupByKey')
         ..add(serializers.serialize(
-          payload.groupByKey!,
+          groupByKey,
           specifiedType:
               const FullType(_i4.ConfigRuleComplianceSummaryGroupKey),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

@@ -136,30 +136,29 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
     final result = CreateOpenIdConnectProviderRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Url':
           result.url = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ClientIDList':
-          if (value != null) {
-            result.clientIdList.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.clientIdList.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'ThumbprintList':
           result.thumbprintList.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -171,21 +170,17 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i4.BuiltList<String>));
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -205,20 +200,26 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateOpenIdConnectProviderRequest(
+      :url,
+      :clientIdList,
+      :thumbprintList,
+      :tags
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('Url'))
       ..add(serializers.serialize(
-        payload.url,
+        url,
         specifiedType: const FullType(String),
       ));
-    if (payload.clientIdList != null) {
+    if (clientIdList != null) {
       result
         ..add(const _i1.XmlElementName('ClientIDList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.clientIdList!,
+          clientIdList,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(String)],
@@ -231,20 +232,20 @@ class CreateOpenIdConnectProviderRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.thumbprintList,
+        thumbprintList,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(String)],
         ),
       ));
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

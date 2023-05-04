@@ -133,33 +133,30 @@ class GetShardIteratorInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
           result.streamArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ShardId':
           result.shardId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ShardIteratorType':
           result.shardIteratorType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.ShardIteratorType),
           ) as _i3.ShardIteratorType);
-          break;
         case 'SequenceNumber':
-          if (value != null) {
-            result.sequenceNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sequenceNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -190,11 +187,12 @@ class GetShardIteratorInputAwsJson10Serializer
         specifiedType: const FullType(_i3.ShardIteratorType),
       ),
     ];
-    if (payload.sequenceNumber != null) {
+    final GetShardIteratorInput(:sequenceNumber) = payload;
+    if (sequenceNumber != null) {
       result
         ..add('SequenceNumber')
         ..add(serializers.serialize(
-          payload.sequenceNumber!,
+          sequenceNumber,
           specifiedType: const FullType(String),
         ));
     }

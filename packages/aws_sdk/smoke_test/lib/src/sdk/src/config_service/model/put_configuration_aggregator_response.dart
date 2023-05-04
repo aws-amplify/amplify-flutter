@@ -88,15 +88,15 @@ class PutConfigurationAggregatorResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationAggregator':
-          if (value != null) {
-            result.configurationAggregator.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigurationAggregator),
-            ) as _i2.ConfigurationAggregator));
-          }
-          break;
+          result.configurationAggregator.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigurationAggregator),
+          ) as _i2.ConfigurationAggregator));
       }
     }
 
@@ -111,11 +111,13 @@ class PutConfigurationAggregatorResponseAwsJson11Serializer
   }) {
     final payload = (object as PutConfigurationAggregatorResponse);
     final result = <Object?>[];
-    if (payload.configurationAggregator != null) {
+    final PutConfigurationAggregatorResponse(:configurationAggregator) =
+        payload;
+    if (configurationAggregator != null) {
       result
         ..add('ConfigurationAggregator')
         ..add(serializers.serialize(
-          payload.configurationAggregator!,
+          configurationAggregator,
           specifiedType: const FullType(_i2.ConfigurationAggregator),
         ));
     }

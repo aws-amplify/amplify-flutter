@@ -82,18 +82,18 @@ class CreateServiceLinkedRoleResponseAwsQuerySerializer
     final result = CreateServiceLinkedRoleResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Role':
-          if (value != null) {
-            result.role.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Role),
-            ) as _i2.Role));
-          }
-          break;
+          result.role.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Role),
+          ) as _i2.Role));
       }
     }
 
@@ -113,11 +113,12 @@ class CreateServiceLinkedRoleResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.role != null) {
+    final CreateServiceLinkedRoleResponse(:role) = payload;
+    if (role != null) {
       result
         ..add(const _i3.XmlElementName('Role'))
         ..add(serializers.serialize(
-          payload.role!,
+          role,
           specifiedType: const FullType(_i2.Role),
         ));
     }

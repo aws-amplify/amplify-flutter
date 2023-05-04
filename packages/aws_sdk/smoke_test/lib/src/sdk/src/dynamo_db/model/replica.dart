@@ -73,15 +73,15 @@ class ReplicaAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
-          if (value != null) {
-            result.regionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -96,11 +96,12 @@ class ReplicaAwsJson10Serializer
   }) {
     final payload = (object as Replica);
     final result = <Object?>[];
-    if (payload.regionName != null) {
+    final Replica(:regionName) = payload;
+    if (regionName != null) {
       result
         ..add('RegionName')
         ..add(serializers.serialize(
-          payload.regionName!,
+          regionName,
           specifiedType: const FullType(String),
         ));
     }

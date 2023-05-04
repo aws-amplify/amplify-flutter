@@ -329,78 +329,58 @@ class CreateAuthorizerRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'authType':
-          if (value != null) {
-            result.authType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'authorizerCredentials':
-          if (value != null) {
-            result.authorizerCredentials = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'authorizerResultTtlInSeconds':
-          if (value != null) {
-            result.authorizerResultTtlInSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
-        case 'authorizerUri':
-          if (value != null) {
-            result.authorizerUri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'identitySource':
-          if (value != null) {
-            result.identitySource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'identityValidationExpression':
-          if (value != null) {
-            result.identityValidationExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'name':
-          result.name = (serializers.deserialize(
-            value!,
+          result.authType = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'authorizerCredentials':
+          result.authorizerCredentials = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'authorizerResultTtlInSeconds':
+          result.authorizerResultTtlInSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
+        case 'authorizerUri':
+          result.authorizerUri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'identitySource':
+          result.identitySource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'identityValidationExpression':
+          result.identityValidationExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
+        case 'name':
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'providerARNs':
-          if (value != null) {
-            result.providerArNs.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.providerArNs.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.AuthorizerType),
           ) as _i3.AuthorizerType);
-          break;
       }
     }
 
@@ -428,59 +408,68 @@ class CreateAuthorizerRequestRestJson1Serializer
         specifiedType: const FullType(_i3.AuthorizerType),
       ),
     ];
-    if (payload.authType != null) {
+    final CreateAuthorizerRequestPayload(
+      :authType,
+      :authorizerCredentials,
+      :authorizerResultTtlInSeconds,
+      :authorizerUri,
+      :identitySource,
+      :identityValidationExpression,
+      :providerArNs
+    ) = payload;
+    if (authType != null) {
       result
         ..add('authType')
         ..add(serializers.serialize(
-          payload.authType!,
+          authType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizerCredentials != null) {
+    if (authorizerCredentials != null) {
       result
         ..add('authorizerCredentials')
         ..add(serializers.serialize(
-          payload.authorizerCredentials!,
+          authorizerCredentials,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.authorizerResultTtlInSeconds != null) {
+    if (authorizerResultTtlInSeconds != null) {
       result
         ..add('authorizerResultTtlInSeconds')
         ..add(serializers.serialize(
-          payload.authorizerResultTtlInSeconds!,
+          authorizerResultTtlInSeconds,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.authorizerUri != null) {
+    if (authorizerUri != null) {
       result
         ..add('authorizerUri')
         ..add(serializers.serialize(
-          payload.authorizerUri!,
+          authorizerUri,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.identitySource != null) {
+    if (identitySource != null) {
       result
         ..add('identitySource')
         ..add(serializers.serialize(
-          payload.identitySource!,
+          identitySource,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.identityValidationExpression != null) {
+    if (identityValidationExpression != null) {
       result
         ..add('identityValidationExpression')
         ..add(serializers.serialize(
-          payload.identityValidationExpression!,
+          identityValidationExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.providerArNs != null) {
+    if (providerArNs != null) {
       result
         ..add('providerARNs')
         ..add(serializers.serialize(
-          payload.providerArNs!,
+          providerArNs,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],

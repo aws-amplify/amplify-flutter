@@ -105,26 +105,23 @@ class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceByResources':
-          if (value != null) {
-            result.complianceByResources.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ComplianceByResource)],
-              ),
-            ) as _i3.BuiltList<_i2.ComplianceByResource>));
-          }
-          break;
+          result.complianceByResources.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ComplianceByResource)],
+            ),
+          ) as _i3.BuiltList<_i2.ComplianceByResource>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,22 +136,26 @@ class DescribeComplianceByResourceResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeComplianceByResourceResponse);
     final result = <Object?>[];
-    if (payload.complianceByResources != null) {
+    final DescribeComplianceByResourceResponse(
+      :complianceByResources,
+      :nextToken
+    ) = payload;
+    if (complianceByResources != null) {
       result
         ..add('ComplianceByResources')
         ..add(serializers.serialize(
-          payload.complianceByResources!,
+          complianceByResources,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ComplianceByResource)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

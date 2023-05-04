@@ -155,71 +155,50 @@ class ConfigurationRecorderStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastStartTime':
-          if (value != null) {
-            result.lastStartTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastStartTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'lastStopTime':
-          if (value != null) {
-            result.lastStopTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastStopTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'recording':
-          if (value != null) {
-            result.recording = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.recording = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'lastStatus':
-          if (value != null) {
-            result.lastStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RecorderStatus),
-            ) as _i2.RecorderStatus);
-          }
-          break;
+          result.lastStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RecorderStatus),
+          ) as _i2.RecorderStatus);
         case 'lastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'lastStatusChangeTime':
-          if (value != null) {
-            result.lastStatusChangeTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastStatusChangeTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -234,67 +213,77 @@ class ConfigurationRecorderStatusAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationRecorderStatus);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final ConfigurationRecorderStatus(
+      :name,
+      :lastStartTime,
+      :lastStopTime,
+      :recording,
+      :lastStatus,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :lastStatusChangeTime
+    ) = payload;
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastStartTime != null) {
+    if (lastStartTime != null) {
       result
         ..add('lastStartTime')
         ..add(serializers.serialize(
-          payload.lastStartTime!,
+          lastStartTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastStopTime != null) {
+    if (lastStopTime != null) {
       result
         ..add('lastStopTime')
         ..add(serializers.serialize(
-          payload.lastStopTime!,
+          lastStopTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.recording != null) {
+    if (recording != null) {
       result
         ..add('recording')
         ..add(serializers.serialize(
-          payload.recording!,
+          recording,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.lastStatus != null) {
+    if (lastStatus != null) {
       result
         ..add('lastStatus')
         ..add(serializers.serialize(
-          payload.lastStatus!,
+          lastStatus,
           specifiedType: const FullType(_i2.RecorderStatus),
         ));
     }
-    if (payload.lastErrorCode != null) {
+    if (lastErrorCode != null) {
       result
         ..add('lastErrorCode')
         ..add(serializers.serialize(
-          payload.lastErrorCode!,
+          lastErrorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastErrorMessage != null) {
+    if (lastErrorMessage != null) {
       result
         ..add('lastErrorMessage')
         ..add(serializers.serialize(
-          payload.lastErrorMessage!,
+          lastErrorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastStatusChangeTime != null) {
+    if (lastStatusChangeTime != null) {
       result
         ..add('lastStatusChangeTime')
         ..add(serializers.serialize(
-          payload.lastStatusChangeTime!,
+          lastStatusChangeTime,
           specifiedType: const FullType(DateTime),
         ));
     }

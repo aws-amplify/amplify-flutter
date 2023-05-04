@@ -180,87 +180,60 @@ class BackupSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableId':
-          if (value != null) {
-            result.tableId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BackupArn':
-          if (value != null) {
-            result.backupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.backupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BackupName':
-          if (value != null) {
-            result.backupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.backupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'BackupCreationDateTime':
-          if (value != null) {
-            result.backupCreationDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.backupCreationDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'BackupExpiryDateTime':
-          if (value != null) {
-            result.backupExpiryDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.backupExpiryDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'BackupStatus':
-          if (value != null) {
-            result.backupStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BackupStatus),
-            ) as _i2.BackupStatus);
-          }
-          break;
+          result.backupStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BackupStatus),
+          ) as _i2.BackupStatus);
         case 'BackupType':
-          if (value != null) {
-            result.backupType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BackupType),
-            ) as _i3.BackupType);
-          }
-          break;
+          result.backupType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BackupType),
+          ) as _i3.BackupType);
         case 'BackupSizeBytes':
-          if (value != null) {
-            result.backupSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Int64),
-            ) as _i4.Int64);
-          }
-          break;
+          result.backupSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
       }
     }
 
@@ -275,83 +248,95 @@ class BackupSummaryAwsJson10Serializer
   }) {
     final payload = (object as BackupSummary);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final BackupSummary(
+      :tableName,
+      :tableId,
+      :tableArn,
+      :backupArn,
+      :backupName,
+      :backupCreationDateTime,
+      :backupExpiryDateTime,
+      :backupStatus,
+      :backupType,
+      :backupSizeBytes
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableId != null) {
+    if (tableId != null) {
       result
         ..add('TableId')
         ..add(serializers.serialize(
-          payload.tableId!,
+          tableId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableArn != null) {
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.backupArn != null) {
+    if (backupArn != null) {
       result
         ..add('BackupArn')
         ..add(serializers.serialize(
-          payload.backupArn!,
+          backupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.backupName != null) {
+    if (backupName != null) {
       result
         ..add('BackupName')
         ..add(serializers.serialize(
-          payload.backupName!,
+          backupName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.backupCreationDateTime != null) {
+    if (backupCreationDateTime != null) {
       result
         ..add('BackupCreationDateTime')
         ..add(serializers.serialize(
-          payload.backupCreationDateTime!,
+          backupCreationDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.backupExpiryDateTime != null) {
+    if (backupExpiryDateTime != null) {
       result
         ..add('BackupExpiryDateTime')
         ..add(serializers.serialize(
-          payload.backupExpiryDateTime!,
+          backupExpiryDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.backupStatus != null) {
+    if (backupStatus != null) {
       result
         ..add('BackupStatus')
         ..add(serializers.serialize(
-          payload.backupStatus!,
+          backupStatus,
           specifiedType: const FullType(_i2.BackupStatus),
         ));
     }
-    if (payload.backupType != null) {
+    if (backupType != null) {
       result
         ..add('BackupType')
         ..add(serializers.serialize(
-          payload.backupType!,
+          backupType,
           specifiedType: const FullType(_i3.BackupType),
         ));
     }
-    if (payload.backupSizeBytes != null) {
+    if (backupSizeBytes != null) {
       result
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
-          payload.backupSizeBytes!,
+          backupSizeBytes,
           specifiedType: const FullType(_i4.Int64),
         ));
     }

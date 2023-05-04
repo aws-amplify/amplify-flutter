@@ -106,27 +106,23 @@ class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackStatusDetails':
-          if (value != null) {
-            result.conformancePackStatusDetails
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConformancePackStatusDetail)],
-              ),
-            ) as _i3.BuiltList<_i2.ConformancePackStatusDetail>));
-          }
-          break;
+          result.conformancePackStatusDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConformancePackStatusDetail)],
+            ),
+          ) as _i3.BuiltList<_i2.ConformancePackStatusDetail>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -141,22 +137,26 @@ class DescribeConformancePackStatusResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeConformancePackStatusResponse);
     final result = <Object?>[];
-    if (payload.conformancePackStatusDetails != null) {
+    final DescribeConformancePackStatusResponse(
+      :conformancePackStatusDetails,
+      :nextToken
+    ) = payload;
+    if (conformancePackStatusDetails != null) {
       result
         ..add('ConformancePackStatusDetails')
         ..add(serializers.serialize(
-          payload.conformancePackStatusDetails!,
+          conformancePackStatusDetails,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConformancePackStatusDetail)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

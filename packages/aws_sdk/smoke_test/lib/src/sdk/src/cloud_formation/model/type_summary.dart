@@ -224,114 +224,78 @@ class TypeSummaryAwsQuerySerializer
     final result = TypeSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RegistryType),
-            ) as _i2.RegistryType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RegistryType),
+          ) as _i2.RegistryType);
         case 'TypeName':
-          if (value != null) {
-            result.typeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DefaultVersionId':
-          if (value != null) {
-            result.defaultVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeArn':
-          if (value != null) {
-            result.typeArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdated':
-          if (value != null) {
-            result.lastUpdated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OriginalTypeName':
-          if (value != null) {
-            result.originalTypeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.originalTypeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublicVersionNumber':
-          if (value != null) {
-            result.publicVersionNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publicVersionNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LatestPublicVersion':
-          if (value != null) {
-            result.latestPublicVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.latestPublicVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherIdentity':
-          if (value != null) {
-            result.publisherIdentity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.IdentityProvider),
-            ) as _i3.IdentityProvider);
-          }
-          break;
+          result.publisherIdentity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.IdentityProvider),
+          ) as _i3.IdentityProvider);
         case 'PublisherName':
-          if (value != null) {
-            result.publisherName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsActivated':
-          if (value != null) {
-            result.isActivated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isActivated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -351,107 +315,122 @@ class TypeSummaryAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.type != null) {
+    final TypeSummary(
+      :type,
+      :typeName,
+      :defaultVersionId,
+      :typeArn,
+      :lastUpdated,
+      :description,
+      :publisherId,
+      :originalTypeName,
+      :publicVersionNumber,
+      :latestPublicVersion,
+      :publisherIdentity,
+      :publisherName,
+      :isActivated
+    ) = payload;
+    if (type != null) {
       result
         ..add(const _i4.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.RegistryType),
         ));
     }
-    if (payload.typeName != null) {
+    if (typeName != null) {
       result
         ..add(const _i4.XmlElementName('TypeName'))
         ..add(serializers.serialize(
-          payload.typeName!,
+          typeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.defaultVersionId != null) {
+    if (defaultVersionId != null) {
       result
         ..add(const _i4.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
-          payload.defaultVersionId!,
+          defaultVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeArn != null) {
+    if (typeArn != null) {
       result
         ..add(const _i4.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
-          payload.typeArn!,
+          typeArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdated != null) {
+    if (lastUpdated != null) {
       result
         ..add(const _i4.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
-          payload.lastUpdated!,
+          lastUpdated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherId != null) {
+    if (publisherId != null) {
       result
         ..add(const _i4.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.originalTypeName != null) {
+    if (originalTypeName != null) {
       result
         ..add(const _i4.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
-          payload.originalTypeName!,
+          originalTypeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publicVersionNumber != null) {
+    if (publicVersionNumber != null) {
       result
         ..add(const _i4.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
-          payload.publicVersionNumber!,
+          publicVersionNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.latestPublicVersion != null) {
+    if (latestPublicVersion != null) {
       result
         ..add(const _i4.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
-          payload.latestPublicVersion!,
+          latestPublicVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherIdentity != null) {
+    if (publisherIdentity != null) {
       result
         ..add(const _i4.XmlElementName('PublisherIdentity'))
         ..add(serializers.serialize(
-          payload.publisherIdentity!,
+          publisherIdentity,
           specifiedType: const FullType.nullable(_i3.IdentityProvider),
         ));
     }
-    if (payload.publisherName != null) {
+    if (publisherName != null) {
       result
         ..add(const _i4.XmlElementName('PublisherName'))
         ..add(serializers.serialize(
-          payload.publisherName!,
+          publisherName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isActivated != null) {
+    if (isActivated != null) {
       result
         ..add(const _i4.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
-          payload.isActivated!,
+          isActivated,
           specifiedType: const FullType.nullable(bool),
         ));
     }

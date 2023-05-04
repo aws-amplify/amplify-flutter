@@ -73,16 +73,18 @@ class GlacierJobParametersRestXmlSerializer
     final result = GlacierJobParametersBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Tier':
           result.tier = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Tier),
           ) as _i2.Tier);
-          break;
       }
     }
 
@@ -102,10 +104,11 @@ class GlacierJobParametersRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final GlacierJobParameters(:tier) = payload;
     result
       ..add(const _i3.XmlElementName('Tier'))
       ..add(serializers.serialize(
-        payload.tier,
+        tier,
         specifiedType: const FullType.nullable(_i2.Tier),
       ));
     return result;

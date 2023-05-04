@@ -173,35 +173,30 @@ class SourceTableDetailsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TableId':
           result.tableId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TableArn':
-          if (value != null) {
-            result.tableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableSizeBytes':
-          if (value != null) {
-            result.tableSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.tableSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -210,35 +205,26 @@ class SourceTableDetailsAwsJson10Serializer
               [FullType(_i3.KeySchemaElement)],
             ),
           ) as _i6.BuiltList<_i3.KeySchemaElement>));
-          break;
         case 'TableCreationDateTime':
           result.tableCreationDateTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.ProvisionedThroughput),
           ) as _i4.ProvisionedThroughput));
-          break;
         case 'ItemCount':
-          if (value != null) {
-            result.itemCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.itemCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.BillingMode),
-            ) as _i5.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.BillingMode),
+          ) as _i5.BillingMode);
       }
     }
 
@@ -282,35 +268,41 @@ class SourceTableDetailsAwsJson10Serializer
         specifiedType: const FullType(_i4.ProvisionedThroughput),
       ),
     ];
-    if (payload.tableArn != null) {
+    final SourceTableDetails(
+      :tableArn,
+      :tableSizeBytes,
+      :itemCount,
+      :billingMode
+    ) = payload;
+    if (tableArn != null) {
       result
         ..add('TableArn')
         ..add(serializers.serialize(
-          payload.tableArn!,
+          tableArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableSizeBytes != null) {
+    if (tableSizeBytes != null) {
       result
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
-          payload.tableSizeBytes!,
+          tableSizeBytes,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.itemCount != null) {
+    if (itemCount != null) {
       result
         ..add('ItemCount')
         ..add(serializers.serialize(
-          payload.itemCount!,
+          itemCount,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.billingMode != null) {
+    if (billingMode != null) {
       result
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i5.BillingMode),
         ));
     }

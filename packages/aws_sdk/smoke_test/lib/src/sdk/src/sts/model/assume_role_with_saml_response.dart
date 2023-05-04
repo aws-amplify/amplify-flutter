@@ -190,82 +190,58 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
     final result = AssumeRoleWithSamlResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Credentials':
-          if (value != null) {
-            result.credentials.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Credentials),
-            ) as _i2.Credentials));
-          }
-          break;
+          result.credentials.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Credentials),
+          ) as _i2.Credentials));
         case 'AssumedRoleUser':
-          if (value != null) {
-            result.assumedRoleUser.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AssumedRoleUser),
-            ) as _i3.AssumedRoleUser));
-          }
-          break;
+          result.assumedRoleUser.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AssumedRoleUser),
+          ) as _i3.AssumedRoleUser));
         case 'PackedPolicySize':
-          if (value != null) {
-            result.packedPolicySize = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.packedPolicySize = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Subject':
-          if (value != null) {
-            result.subject = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.subject = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SubjectType':
-          if (value != null) {
-            result.subjectType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.subjectType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Issuer':
-          if (value != null) {
-            result.issuer = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.issuer = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Audience':
-          if (value != null) {
-            result.audience = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.audience = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NameQualifier':
-          if (value != null) {
-            result.nameQualifier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nameQualifier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceIdentity':
-          if (value != null) {
-            result.sourceIdentity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceIdentity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -285,75 +261,86 @@ class AssumeRoleWithSamlResponseAwsQuerySerializer
         _i4.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.credentials != null) {
+    final AssumeRoleWithSamlResponse(
+      :credentials,
+      :assumedRoleUser,
+      :packedPolicySize,
+      :subject,
+      :subjectType,
+      :issuer,
+      :audience,
+      :nameQualifier,
+      :sourceIdentity
+    ) = payload;
+    if (credentials != null) {
       result
         ..add(const _i4.XmlElementName('Credentials'))
         ..add(serializers.serialize(
-          payload.credentials!,
+          credentials,
           specifiedType: const FullType(_i2.Credentials),
         ));
     }
-    if (payload.assumedRoleUser != null) {
+    if (assumedRoleUser != null) {
       result
         ..add(const _i4.XmlElementName('AssumedRoleUser'))
         ..add(serializers.serialize(
-          payload.assumedRoleUser!,
+          assumedRoleUser,
           specifiedType: const FullType(_i3.AssumedRoleUser),
         ));
     }
-    if (payload.packedPolicySize != null) {
+    if (packedPolicySize != null) {
       result
         ..add(const _i4.XmlElementName('PackedPolicySize'))
         ..add(serializers.serialize(
-          payload.packedPolicySize!,
+          packedPolicySize,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.subject != null) {
+    if (subject != null) {
       result
         ..add(const _i4.XmlElementName('Subject'))
         ..add(serializers.serialize(
-          payload.subject!,
+          subject,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.subjectType != null) {
+    if (subjectType != null) {
       result
         ..add(const _i4.XmlElementName('SubjectType'))
         ..add(serializers.serialize(
-          payload.subjectType!,
+          subjectType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.issuer != null) {
+    if (issuer != null) {
       result
         ..add(const _i4.XmlElementName('Issuer'))
         ..add(serializers.serialize(
-          payload.issuer!,
+          issuer,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.audience != null) {
+    if (audience != null) {
       result
         ..add(const _i4.XmlElementName('Audience'))
         ..add(serializers.serialize(
-          payload.audience!,
+          audience,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nameQualifier != null) {
+    if (nameQualifier != null) {
       result
         ..add(const _i4.XmlElementName('NameQualifier'))
         ..add(serializers.serialize(
-          payload.nameQualifier!,
+          nameQualifier,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceIdentity != null) {
+    if (sourceIdentity != null) {
       result
         ..add(const _i4.XmlElementName('SourceIdentity'))
         ..add(serializers.serialize(
-          payload.sourceIdentity!,
+          sourceIdentity,
           specifiedType: const FullType(String),
         ));
     }

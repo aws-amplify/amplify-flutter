@@ -104,31 +104,25 @@ class ComplianceByResourceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Compliance':
-          if (value != null) {
-            result.compliance.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Compliance),
-            ) as _i2.Compliance));
-          }
-          break;
+          result.compliance.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Compliance),
+          ) as _i2.Compliance));
       }
     }
 
@@ -143,27 +137,29 @@ class ComplianceByResourceAwsJson11Serializer
   }) {
     final payload = (object as ComplianceByResource);
     final result = <Object?>[];
-    if (payload.resourceType != null) {
+    final ComplianceByResource(:resourceType, :resourceId, :compliance) =
+        payload;
+    if (resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceId != null) {
+    if (resourceId != null) {
       result
         ..add('ResourceId')
         ..add(serializers.serialize(
-          payload.resourceId!,
+          resourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.compliance != null) {
+    if (compliance != null) {
       result
         ..add('Compliance')
         ..add(serializers.serialize(
-          payload.compliance!,
+          compliance,
           specifiedType: const FullType(_i2.Compliance),
         ));
     }

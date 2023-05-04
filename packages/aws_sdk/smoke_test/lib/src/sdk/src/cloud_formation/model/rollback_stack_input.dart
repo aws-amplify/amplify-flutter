@@ -104,32 +104,28 @@ class RollbackStackInputAwsQuerySerializer
     final result = RollbackStackInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleARN':
-          if (value != null) {
-            result.roleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -149,25 +145,27 @@ class RollbackStackInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final RollbackStackInput(:stackName, :roleArn, :clientRequestToken) =
+        payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.roleArn != null) {
+    if (roleArn != null) {
       result
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
-          payload.roleArn!,
+          roleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }

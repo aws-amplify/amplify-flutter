@@ -256,150 +256,101 @@ class DomainNameRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'certificateArn':
-          if (value != null) {
-            result.certificateArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.certificateArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'certificateName':
-          if (value != null) {
-            result.certificateName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.certificateName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'certificateUploadDate':
-          if (value != null) {
-            result.certificateUploadDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.certificateUploadDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'distributionDomainName':
-          if (value != null) {
-            result.distributionDomainName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.distributionDomainName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'distributionHostedZoneId':
-          if (value != null) {
-            result.distributionHostedZoneId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.distributionHostedZoneId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'domainName':
-          if (value != null) {
-            result.domainName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.domainName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'domainNameStatus':
-          if (value != null) {
-            result.domainNameStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DomainNameStatus),
-            ) as _i3.DomainNameStatus);
-          }
-          break;
+          result.domainNameStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DomainNameStatus),
+          ) as _i3.DomainNameStatus);
         case 'domainNameStatusMessage':
-          if (value != null) {
-            result.domainNameStatusMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.domainNameStatusMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'endpointConfiguration':
-          if (value != null) {
-            result.endpointConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EndpointConfiguration),
-            ) as _i2.EndpointConfiguration));
-          }
-          break;
+          result.endpointConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EndpointConfiguration),
+          ) as _i2.EndpointConfiguration));
         case 'mutualTlsAuthentication':
-          if (value != null) {
-            result.mutualTlsAuthentication.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.MutualTlsAuthentication),
-            ) as _i5.MutualTlsAuthentication));
-          }
-          break;
+          result.mutualTlsAuthentication.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.MutualTlsAuthentication),
+          ) as _i5.MutualTlsAuthentication));
         case 'ownershipVerificationCertificateArn':
-          if (value != null) {
-            result.ownershipVerificationCertificateArn =
-                (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.ownershipVerificationCertificateArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalCertificateArn':
-          if (value != null) {
-            result.regionalCertificateArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalCertificateArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalCertificateName':
-          if (value != null) {
-            result.regionalCertificateName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalCertificateName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalDomainName':
-          if (value != null) {
-            result.regionalDomainName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalDomainName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'regionalHostedZoneId':
-          if (value != null) {
-            result.regionalHostedZoneId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.regionalHostedZoneId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'securityPolicy':
-          if (value != null) {
-            result.securityPolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.SecurityPolicy),
-            ) as _i4.SecurityPolicy);
-          }
-          break;
+          result.securityPolicy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.SecurityPolicy),
+          ) as _i4.SecurityPolicy);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
       }
     }
 
@@ -414,139 +365,158 @@ class DomainNameRestJson1Serializer
   }) {
     final payload = (object as DomainName);
     final result = <Object?>[];
-    if (payload.certificateArn != null) {
+    final DomainName(
+      :certificateArn,
+      :certificateName,
+      :certificateUploadDate,
+      :distributionDomainName,
+      :distributionHostedZoneId,
+      :domainName,
+      :domainNameStatus,
+      :domainNameStatusMessage,
+      :endpointConfiguration,
+      :mutualTlsAuthentication,
+      :ownershipVerificationCertificateArn,
+      :regionalCertificateArn,
+      :regionalCertificateName,
+      :regionalDomainName,
+      :regionalHostedZoneId,
+      :securityPolicy,
+      :tags
+    ) = payload;
+    if (certificateArn != null) {
       result
         ..add('certificateArn')
         ..add(serializers.serialize(
-          payload.certificateArn!,
+          certificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificateName != null) {
+    if (certificateName != null) {
       result
         ..add('certificateName')
         ..add(serializers.serialize(
-          payload.certificateName!,
+          certificateName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.certificateUploadDate != null) {
+    if (certificateUploadDate != null) {
       result
         ..add('certificateUploadDate')
         ..add(serializers.serialize(
-          payload.certificateUploadDate!,
+          certificateUploadDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.distributionDomainName != null) {
+    if (distributionDomainName != null) {
       result
         ..add('distributionDomainName')
         ..add(serializers.serialize(
-          payload.distributionDomainName!,
+          distributionDomainName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.distributionHostedZoneId != null) {
+    if (distributionHostedZoneId != null) {
       result
         ..add('distributionHostedZoneId')
         ..add(serializers.serialize(
-          payload.distributionHostedZoneId!,
+          distributionHostedZoneId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.domainName != null) {
+    if (domainName != null) {
       result
         ..add('domainName')
         ..add(serializers.serialize(
-          payload.domainName!,
+          domainName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.domainNameStatus != null) {
+    if (domainNameStatus != null) {
       result
         ..add('domainNameStatus')
         ..add(serializers.serialize(
-          payload.domainNameStatus!,
+          domainNameStatus,
           specifiedType: const FullType(_i3.DomainNameStatus),
         ));
     }
-    if (payload.domainNameStatusMessage != null) {
+    if (domainNameStatusMessage != null) {
       result
         ..add('domainNameStatusMessage')
         ..add(serializers.serialize(
-          payload.domainNameStatusMessage!,
+          domainNameStatusMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.endpointConfiguration != null) {
+    if (endpointConfiguration != null) {
       result
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
-          payload.endpointConfiguration!,
+          endpointConfiguration,
           specifiedType: const FullType(_i2.EndpointConfiguration),
         ));
     }
-    if (payload.mutualTlsAuthentication != null) {
+    if (mutualTlsAuthentication != null) {
       result
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
-          payload.mutualTlsAuthentication!,
+          mutualTlsAuthentication,
           specifiedType: const FullType(_i5.MutualTlsAuthentication),
         ));
     }
-    if (payload.ownershipVerificationCertificateArn != null) {
+    if (ownershipVerificationCertificateArn != null) {
       result
         ..add('ownershipVerificationCertificateArn')
         ..add(serializers.serialize(
-          payload.ownershipVerificationCertificateArn!,
+          ownershipVerificationCertificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalCertificateArn != null) {
+    if (regionalCertificateArn != null) {
       result
         ..add('regionalCertificateArn')
         ..add(serializers.serialize(
-          payload.regionalCertificateArn!,
+          regionalCertificateArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalCertificateName != null) {
+    if (regionalCertificateName != null) {
       result
         ..add('regionalCertificateName')
         ..add(serializers.serialize(
-          payload.regionalCertificateName!,
+          regionalCertificateName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalDomainName != null) {
+    if (regionalDomainName != null) {
       result
         ..add('regionalDomainName')
         ..add(serializers.serialize(
-          payload.regionalDomainName!,
+          regionalDomainName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.regionalHostedZoneId != null) {
+    if (regionalHostedZoneId != null) {
       result
         ..add('regionalHostedZoneId')
         ..add(serializers.serialize(
-          payload.regionalHostedZoneId!,
+          regionalHostedZoneId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.securityPolicy != null) {
+    if (securityPolicy != null) {
       result
         ..add('securityPolicy')
         ..add(serializers.serialize(
-          payload.securityPolicy!,
+          securityPolicy,
           specifiedType: const FullType(_i4.SecurityPolicy),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [

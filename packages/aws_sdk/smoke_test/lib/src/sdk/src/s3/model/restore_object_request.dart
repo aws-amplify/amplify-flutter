@@ -203,66 +203,48 @@ class RestoreObjectRequestRestXmlSerializer
     final result = _i2.RestoreRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'GlacierJobParameters':
-          if (value != null) {
-            result.glacierJobParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.GlacierJobParameters),
-            ) as _i6.GlacierJobParameters));
-          }
-          break;
+          result.glacierJobParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.GlacierJobParameters),
+          ) as _i6.GlacierJobParameters));
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.RestoreRequestType),
-            ) as _i7.RestoreRequestType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.RestoreRequestType),
+          ) as _i7.RestoreRequestType);
         case 'Tier':
-          if (value != null) {
-            result.tier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.Tier),
-            ) as _i8.Tier);
-          }
-          break;
+          result.tier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.Tier),
+          ) as _i8.Tier);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SelectParameters':
-          if (value != null) {
-            result.selectParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.SelectParameters),
-            ) as _i9.SelectParameters));
-          }
-          break;
+          result.selectParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.SelectParameters),
+          ) as _i9.SelectParameters));
         case 'OutputLocation':
-          if (value != null) {
-            result.outputLocation.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.OutputLocation),
-            ) as _i10.OutputLocation));
-          }
-          break;
+          result.outputLocation.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.OutputLocation),
+          ) as _i10.OutputLocation));
       }
     }
 
@@ -287,59 +269,68 @@ class RestoreObjectRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.days != null) {
+    final _i2.RestoreRequest(
+      :days,
+      :glacierJobParameters,
+      :type,
+      :tier,
+      :description,
+      :selectParameters,
+      :outputLocation
+    ) = payload;
+    if (days != null) {
       result
         ..add(const _i1.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.glacierJobParameters != null) {
+    if (glacierJobParameters != null) {
       result
         ..add(const _i1.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
-          payload.glacierJobParameters!,
+          glacierJobParameters,
           specifiedType: const FullType(_i6.GlacierJobParameters),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i7.RestoreRequestType),
         ));
     }
-    if (payload.tier != null) {
+    if (tier != null) {
       result
         ..add(const _i1.XmlElementName('Tier'))
         ..add(serializers.serialize(
-          payload.tier!,
+          tier,
           specifiedType: const FullType.nullable(_i8.Tier),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i1.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.selectParameters != null) {
+    if (selectParameters != null) {
       result
         ..add(const _i1.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
-          payload.selectParameters!,
+          selectParameters,
           specifiedType: const FullType(_i9.SelectParameters),
         ));
     }
-    if (payload.outputLocation != null) {
+    if (outputLocation != null) {
       result
         ..add(const _i1.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
-          payload.outputLocation!,
+          outputLocation,
           specifiedType: const FullType(_i10.OutputLocation),
         ));
     }

@@ -104,21 +104,20 @@ class StreamSpecificationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamEnabled':
           result.streamEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'StreamViewType':
-          if (value != null) {
-            result.streamViewType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StreamViewType),
-            ) as _i2.StreamViewType);
-          }
-          break;
+          result.streamViewType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StreamViewType),
+          ) as _i2.StreamViewType);
       }
     }
 
@@ -139,11 +138,12 @@ class StreamSpecificationAwsJson10Serializer
         specifiedType: const FullType(bool),
       ),
     ];
-    if (payload.streamViewType != null) {
+    final StreamSpecification(:streamViewType) = payload;
+    if (streamViewType != null) {
       result
         ..add('StreamViewType')
         ..add(serializers.serialize(
-          payload.streamViewType!,
+          streamViewType,
           specifiedType: const FullType(_i2.StreamViewType),
         ));
     }

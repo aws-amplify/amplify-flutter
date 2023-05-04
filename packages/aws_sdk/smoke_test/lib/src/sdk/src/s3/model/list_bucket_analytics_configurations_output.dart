@@ -122,42 +122,33 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
     final result = ListBucketAnalyticsConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AnalyticsConfiguration':
-          if (value != null) {
-            result.analyticsConfigurationList.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AnalyticsConfiguration),
-            ) as _i2.AnalyticsConfiguration));
-          }
-          break;
+          result.analyticsConfigurationList.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AnalyticsConfiguration),
+          ) as _i2.AnalyticsConfiguration));
         case 'ContinuationToken':
-          if (value != null) {
-            result.continuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.continuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'NextContinuationToken':
-          if (value != null) {
-            result.nextContinuationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextContinuationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -177,39 +168,45 @@ class ListBucketAnalyticsConfigurationsOutputRestXmlSerializer extends _i4
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.analyticsConfigurationList != null) {
+    final ListBucketAnalyticsConfigurationsOutput(
+      :analyticsConfigurationList,
+      :continuationToken,
+      :isTruncated,
+      :nextContinuationToken
+    ) = payload;
+    if (analyticsConfigurationList != null) {
       result.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'AnalyticsConfiguration')
               .serialize(
         serializers,
-        payload.analyticsConfigurationList!,
+        analyticsConfigurationList,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.AnalyticsConfiguration)],
         ),
       ));
     }
-    if (payload.continuationToken != null) {
+    if (continuationToken != null) {
       result
         ..add(const _i4.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
-          payload.continuationToken!,
+          continuationToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.nextContinuationToken != null) {
+    if (nextContinuationToken != null) {
       result
         ..add(const _i4.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
-          payload.nextContinuationToken!,
+          nextContinuationToken,
           specifiedType: const FullType(String),
         ));
     }

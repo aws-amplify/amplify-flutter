@@ -78,18 +78,18 @@ class GetAccessKeyInfoResponseAwsQuerySerializer
     final result = GetAccessKeyInfoResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Account':
-          if (value != null) {
-            result.account = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.account = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -109,11 +109,12 @@ class GetAccessKeyInfoResponseAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.account != null) {
+    final GetAccessKeyInfoResponse(:account) = payload;
+    if (account != null) {
       result
         ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
-          payload.account!,
+          account,
           specifiedType: const FullType(String),
         ));
     }

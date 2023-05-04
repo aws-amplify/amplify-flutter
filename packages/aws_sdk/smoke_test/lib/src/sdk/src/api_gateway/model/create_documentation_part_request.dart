@@ -186,19 +186,20 @@ class CreateDocumentationPartRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'location':
           result.location.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.DocumentationPartLocation),
           ) as _i3.DocumentationPartLocation));
-          break;
         case 'properties':
           result.properties = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 

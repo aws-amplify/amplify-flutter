@@ -112,31 +112,25 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DestinationStatus':
-          if (value != null) {
-            result.destinationStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DestinationStatus),
-            ) as _i2.DestinationStatus);
-          }
-          break;
+          result.destinationStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DestinationStatus),
+          ) as _i2.DestinationStatus);
       }
     }
 
@@ -151,27 +145,32 @@ class KinesisStreamingDestinationOutputAwsJson10Serializer
   }) {
     final payload = (object as KinesisStreamingDestinationOutput);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final KinesisStreamingDestinationOutput(
+      :tableName,
+      :streamArn,
+      :destinationStatus
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamArn != null) {
+    if (streamArn != null) {
       result
         ..add('StreamArn')
         ..add(serializers.serialize(
-          payload.streamArn!,
+          streamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.destinationStatus != null) {
+    if (destinationStatus != null) {
       result
         ..add('DestinationStatus')
         ..add(serializers.serialize(
-          payload.destinationStatus!,
+          destinationStatus,
           specifiedType: const FullType(_i2.DestinationStatus),
         ));
     }

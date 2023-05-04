@@ -98,26 +98,23 @@ class ListImportsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ImportSummaryList':
-          if (value != null) {
-            result.importSummaryList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ImportSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.ImportSummary>));
-          }
-          break;
+          result.importSummaryList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ImportSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.ImportSummary>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -132,22 +129,23 @@ class ListImportsOutputAwsJson10Serializer
   }) {
     final payload = (object as ListImportsOutput);
     final result = <Object?>[];
-    if (payload.importSummaryList != null) {
+    final ListImportsOutput(:importSummaryList, :nextToken) = payload;
+    if (importSummaryList != null) {
       result
         ..add('ImportSummaryList')
         ..add(serializers.serialize(
-          payload.importSummaryList!,
+          importSummaryList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ImportSummary)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

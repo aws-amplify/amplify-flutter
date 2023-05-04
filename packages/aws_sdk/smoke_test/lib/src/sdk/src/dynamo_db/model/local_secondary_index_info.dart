@@ -115,34 +115,28 @@ class LocalSecondaryIndexInfoAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.KeySchemaElement)],
-              ),
-            ) as _i4.BuiltList<_i2.KeySchemaElement>));
-          }
-          break;
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.KeySchemaElement)],
+            ),
+          ) as _i4.BuiltList<_i2.KeySchemaElement>));
         case 'Projection':
-          if (value != null) {
-            result.projection.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Projection),
-            ) as _i3.Projection));
-          }
-          break;
+          result.projection.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Projection),
+          ) as _i3.Projection));
       }
     }
 
@@ -157,30 +151,32 @@ class LocalSecondaryIndexInfoAwsJson10Serializer
   }) {
     final payload = (object as LocalSecondaryIndexInfo);
     final result = <Object?>[];
-    if (payload.indexName != null) {
+    final LocalSecondaryIndexInfo(:indexName, :keySchema, :projection) =
+        payload;
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keySchema != null) {
+    if (keySchema != null) {
       result
         ..add('KeySchema')
         ..add(serializers.serialize(
-          payload.keySchema!,
+          keySchema,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.KeySchemaElement)],
           ),
         ));
     }
-    if (payload.projection != null) {
+    if (projection != null) {
       result
         ..add('Projection')
         ..add(serializers.serialize(
-          payload.projection!,
+          projection,
           specifiedType: const FullType(_i3.Projection),
         ));
     }

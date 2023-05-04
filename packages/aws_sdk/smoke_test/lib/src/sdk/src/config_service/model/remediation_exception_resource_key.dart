@@ -96,23 +96,20 @@ class RemediationExceptionResourceKeyAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -127,19 +124,20 @@ class RemediationExceptionResourceKeyAwsJson11Serializer
   }) {
     final payload = (object as RemediationExceptionResourceKey);
     final result = <Object?>[];
-    if (payload.resourceType != null) {
+    final RemediationExceptionResourceKey(:resourceType, :resourceId) = payload;
+    if (resourceType != null) {
       result
         ..add('ResourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceId != null) {
+    if (resourceId != null) {
       result
         ..add('ResourceId')
         ..add(serializers.serialize(
-          payload.resourceId!,
+          resourceId,
           specifiedType: const FullType(String),
         ));
     }

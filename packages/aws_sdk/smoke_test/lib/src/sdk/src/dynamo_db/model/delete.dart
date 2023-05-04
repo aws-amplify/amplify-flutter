@@ -139,6 +139,9 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Key':
           result.key.replace((serializers.deserialize(
@@ -151,59 +154,44 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
               ],
             ),
           ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          break;
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConditionExpression':
-          if (value != null) {
-            result.conditionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.conditionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
-          if (value != null) {
-            result.expressionAttributeValues.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.expressionAttributeValues.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
         case 'ReturnValuesOnConditionCheckFailure':
-          if (value != null) {
-            result.returnValuesOnConditionCheckFailure =
-                (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.ReturnValuesOnConditionCheckFailure),
-            ) as _i3.ReturnValuesOnConditionCheckFailure);
-          }
-          break;
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ReturnValuesOnConditionCheckFailure),
+          ) as _i3.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -235,19 +223,25 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.conditionExpression != null) {
+    final Delete(
+      :conditionExpression,
+      :expressionAttributeNames,
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
+    ) = payload;
+    if (conditionExpression != null) {
       result
         ..add('ConditionExpression')
         ..add(serializers.serialize(
-          payload.conditionExpression!,
+          conditionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -257,11 +251,11 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
           ),
         ));
     }
-    if (payload.expressionAttributeValues != null) {
+    if (expressionAttributeValues != null) {
       result
         ..add('ExpressionAttributeValues')
         ..add(serializers.serialize(
-          payload.expressionAttributeValues!,
+          expressionAttributeValues,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -271,11 +265,11 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
           ),
         ));
     }
-    if (payload.returnValuesOnConditionCheckFailure != null) {
+    if (returnValuesOnConditionCheckFailure != null) {
       result
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
-          payload.returnValuesOnConditionCheckFailure!,
+          returnValuesOnConditionCheckFailure,
           specifiedType:
               const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));

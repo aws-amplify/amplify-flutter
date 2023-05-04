@@ -85,15 +85,15 @@ class DescribeGlobalTableOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalTableDescription':
-          if (value != null) {
-            result.globalTableDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.GlobalTableDescription),
-            ) as _i2.GlobalTableDescription));
-          }
-          break;
+          result.globalTableDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.GlobalTableDescription),
+          ) as _i2.GlobalTableDescription));
       }
     }
 
@@ -108,11 +108,12 @@ class DescribeGlobalTableOutputAwsJson10Serializer
   }) {
     final payload = (object as DescribeGlobalTableOutput);
     final result = <Object?>[];
-    if (payload.globalTableDescription != null) {
+    final DescribeGlobalTableOutput(:globalTableDescription) = payload;
+    if (globalTableDescription != null) {
       result
         ..add('GlobalTableDescription')
         ..add(serializers.serialize(
-          payload.globalTableDescription!,
+          globalTableDescription,
           specifiedType: const FullType(_i2.GlobalTableDescription),
         ));
     }

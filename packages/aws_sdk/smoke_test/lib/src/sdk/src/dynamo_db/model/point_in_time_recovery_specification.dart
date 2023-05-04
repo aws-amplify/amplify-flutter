@@ -84,13 +84,15 @@ class PointInTimeRecoverySpecificationAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PointInTimeRecoveryEnabled':
           result.pointInTimeRecoveryEnabled = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
       }
     }
 

@@ -107,40 +107,34 @@ class ContextEntryAwsQuerySerializer
     final result = ContextEntryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContextKeyName':
-          if (value != null) {
-            result.contextKeyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.contextKeyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ContextKeyValues':
-          if (value != null) {
-            result.contextKeyValues.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.contextKeyValues.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'ContextKeyType':
-          if (value != null) {
-            result.contextKeyType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ContextKeyTypeEnum),
-            ) as _i2.ContextKeyTypeEnum);
-          }
-          break;
+          result.contextKeyType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ContextKeyTypeEnum),
+          ) as _i2.ContextKeyTypeEnum);
       }
     }
 
@@ -160,33 +154,35 @@ class ContextEntryAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.contextKeyName != null) {
+    final ContextEntry(:contextKeyName, :contextKeyValues, :contextKeyType) =
+        payload;
+    if (contextKeyName != null) {
       result
         ..add(const _i4.XmlElementName('ContextKeyName'))
         ..add(serializers.serialize(
-          payload.contextKeyName!,
+          contextKeyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.contextKeyValues != null) {
+    if (contextKeyValues != null) {
       result
         ..add(const _i4.XmlElementName('ContextKeyValues'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.contextKeyValues!,
+          contextKeyValues,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.contextKeyType != null) {
+    if (contextKeyType != null) {
       result
         ..add(const _i4.XmlElementName('ContextKeyType'))
         ..add(serializers.serialize(
-          payload.contextKeyType!,
+          contextKeyType,
           specifiedType: const FullType.nullable(_i2.ContextKeyTypeEnum),
         ));
     }

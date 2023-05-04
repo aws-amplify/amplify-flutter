@@ -86,16 +86,18 @@ class GetAccountPasswordPolicyResponseAwsQuerySerializer
     final result = GetAccountPasswordPolicyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PasswordPolicy':
           result.passwordPolicy.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.PasswordPolicy),
           ) as _i2.PasswordPolicy));
-          break;
       }
     }
 
@@ -115,10 +117,11 @@ class GetAccountPasswordPolicyResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetAccountPasswordPolicyResponse(:passwordPolicy) = payload;
     result
       ..add(const _i3.XmlElementName('PasswordPolicy'))
       ..add(serializers.serialize(
-        payload.passwordPolicy,
+        passwordPolicy,
         specifiedType: const FullType(_i2.PasswordPolicy),
       ));
     return result;

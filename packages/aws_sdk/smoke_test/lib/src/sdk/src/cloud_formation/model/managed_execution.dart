@@ -77,18 +77,18 @@ class ManagedExecutionAwsQuerySerializer
     final result = ManagedExecutionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Active':
-          if (value != null) {
-            result.active = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.active = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -108,11 +108,12 @@ class ManagedExecutionAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.active != null) {
+    final ManagedExecution(:active) = payload;
+    if (active != null) {
       result
         ..add(const _i2.XmlElementName('Active'))
         ..add(serializers.serialize(
-          payload.active!,
+          active,
           specifiedType: const FullType.nullable(bool),
         ));
     }

@@ -98,32 +98,29 @@ class ListStacksOutputAwsQuerySerializer
     final result = ListStacksOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSummaries':
-          if (value != null) {
-            result.stackSummaries.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.StackSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.StackSummary>));
-          }
-          break;
+          result.stackSummaries.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.StackSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.StackSummary>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -143,25 +140,26 @@ class ListStacksOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackSummaries != null) {
+    final ListStacksOutput(:stackSummaries, :nextToken) = payload;
+    if (stackSummaries != null) {
       result
         ..add(const _i4.XmlElementName('StackSummaries'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.stackSummaries!,
+          stackSummaries,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.StackSummary)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

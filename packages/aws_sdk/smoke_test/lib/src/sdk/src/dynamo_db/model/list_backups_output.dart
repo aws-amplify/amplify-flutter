@@ -102,26 +102,23 @@ class ListBackupsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupSummaries':
-          if (value != null) {
-            result.backupSummaries.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.BackupSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.BackupSummary>));
-          }
-          break;
+          result.backupSummaries.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.BackupSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.BackupSummary>));
         case 'LastEvaluatedBackupArn':
-          if (value != null) {
-            result.lastEvaluatedBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastEvaluatedBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -136,22 +133,24 @@ class ListBackupsOutputAwsJson10Serializer
   }) {
     final payload = (object as ListBackupsOutput);
     final result = <Object?>[];
-    if (payload.backupSummaries != null) {
+    final ListBackupsOutput(:backupSummaries, :lastEvaluatedBackupArn) =
+        payload;
+    if (backupSummaries != null) {
       result
         ..add('BackupSummaries')
         ..add(serializers.serialize(
-          payload.backupSummaries!,
+          backupSummaries,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.BackupSummary)],
           ),
         ));
     }
-    if (payload.lastEvaluatedBackupArn != null) {
+    if (lastEvaluatedBackupArn != null) {
       result
         ..add('LastEvaluatedBackupArn')
         ..add(serializers.serialize(
-          payload.lastEvaluatedBackupArn!,
+          lastEvaluatedBackupArn,
           specifiedType: const FullType(String),
         ));
     }

@@ -149,62 +149,49 @@ class CreateUsagePlanRequestRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiStages':
-          if (value != null) {
-            result.apiStages.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.ApiStage)],
-              ),
-            ) as _i6.BuiltList<_i3.ApiStage>));
-          }
-          break;
+          result.apiStages.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.ApiStage)],
+            ),
+          ) as _i6.BuiltList<_i3.ApiStage>));
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'name':
-          result.name = (serializers.deserialize(
-            value!,
+          result.description = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'name':
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'quota':
-          if (value != null) {
-            result.quota.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.QuotaSettings),
-            ) as _i5.QuotaSettings));
-          }
-          break;
+          result.quota.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.QuotaSettings),
+          ) as _i5.QuotaSettings));
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'throttle':
-          if (value != null) {
-            result.throttle.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ThrottleSettings),
-            ) as _i4.ThrottleSettings));
-          }
-          break;
+          result.throttle.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ThrottleSettings),
+          ) as _i4.ThrottleSettings));
       }
     }
 
@@ -225,38 +212,45 @@ class CreateUsagePlanRequestRestJson1Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.apiStages != null) {
+    final CreateUsagePlanRequest(
+      :apiStages,
+      :description,
+      :quota,
+      :tags,
+      :throttle
+    ) = payload;
+    if (apiStages != null) {
       result
         ..add('apiStages')
         ..add(serializers.serialize(
-          payload.apiStages!,
+          apiStages,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.ApiStage)],
           ),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.quota != null) {
+    if (quota != null) {
       result
         ..add('quota')
         ..add(serializers.serialize(
-          payload.quota!,
+          quota,
           specifiedType: const FullType(_i5.QuotaSettings),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -266,11 +260,11 @@ class CreateUsagePlanRequestRestJson1Serializer
           ),
         ));
     }
-    if (payload.throttle != null) {
+    if (throttle != null) {
       result
         ..add('throttle')
         ..add(serializers.serialize(
-          payload.throttle!,
+          throttle,
           specifiedType: const FullType(_i4.ThrottleSettings),
         ));
     }

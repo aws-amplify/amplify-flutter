@@ -94,16 +94,18 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
     final result = _i3.ServerSideEncryptionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.ServerSideEncryptionRule),
           ) as _i4.ServerSideEncryptionRule));
-          break;
       }
     }
 
@@ -128,10 +130,11 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
     if (payload == null) {
       return result;
     }
+    final _i3.ServerSideEncryptionConfiguration(:rules) = payload;
     result
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.ServerSideEncryptionRule)],

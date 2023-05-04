@@ -108,26 +108,23 @@ class DescribeRetentionConfigurationsRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RetentionConfigurationNames':
-          if (value != null) {
-            result.retentionConfigurationNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.retentionConfigurationNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,22 +139,26 @@ class DescribeRetentionConfigurationsRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as DescribeRetentionConfigurationsRequest);
     final result = <Object?>[];
-    if (payload.retentionConfigurationNames != null) {
+    final DescribeRetentionConfigurationsRequest(
+      :retentionConfigurationNames,
+      :nextToken
+    ) = payload;
+    if (retentionConfigurationNames != null) {
       result
         ..add('RetentionConfigurationNames')
         ..add(serializers.serialize(
-          payload.retentionConfigurationNames!,
+          retentionConfigurationNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

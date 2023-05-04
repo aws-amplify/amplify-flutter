@@ -105,24 +105,23 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
     final result = ServerSideEncryptionByDefaultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'KMSMasterKeyID':
-          if (value != null) {
-            result.kmsMasterKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.kmsMasterKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SSEAlgorithm':
           result.sseAlgorithm = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ServerSideEncryption),
           ) as _i2.ServerSideEncryption);
-          break;
       }
     }
 
@@ -142,18 +141,20 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.kmsMasterKeyId != null) {
+    final ServerSideEncryptionByDefault(:kmsMasterKeyId, :sseAlgorithm) =
+        payload;
+    if (kmsMasterKeyId != null) {
       result
         ..add(const _i3.XmlElementName('KMSMasterKeyID'))
         ..add(serializers.serialize(
-          payload.kmsMasterKeyId!,
+          kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i3.XmlElementName('SSEAlgorithm'))
       ..add(serializers.serialize(
-        payload.sseAlgorithm,
+        sseAlgorithm,
         specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
       ));
     return result;

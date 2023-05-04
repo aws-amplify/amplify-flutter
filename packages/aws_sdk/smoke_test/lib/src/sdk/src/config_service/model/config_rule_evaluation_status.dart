@@ -233,127 +233,85 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConfigRuleArn':
-          if (value != null) {
-            result.configRuleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConfigRuleId':
-          if (value != null) {
-            result.configRuleId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastSuccessfulInvocationTime':
-          if (value != null) {
-            result.lastSuccessfulInvocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastSuccessfulInvocationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastFailedInvocationTime':
-          if (value != null) {
-            result.lastFailedInvocationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastFailedInvocationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastSuccessfulEvaluationTime':
-          if (value != null) {
-            result.lastSuccessfulEvaluationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastSuccessfulEvaluationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastFailedEvaluationTime':
-          if (value != null) {
-            result.lastFailedEvaluationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastFailedEvaluationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'FirstActivatedTime':
-          if (value != null) {
-            result.firstActivatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.firstActivatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastDeactivatedTime':
-          if (value != null) {
-            result.lastDeactivatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDeactivatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FirstEvaluationStarted':
-          if (value != null) {
-            result.firstEvaluationStarted = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.firstEvaluationStarted = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'LastDebugLogDeliveryStatus':
-          if (value != null) {
-            result.lastDebugLogDeliveryStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastDebugLogDeliveryStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastDebugLogDeliveryStatusReason':
-          if (value != null) {
-            result.lastDebugLogDeliveryStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastDebugLogDeliveryStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastDebugLogDeliveryTime':
-          if (value != null) {
-            result.lastDebugLogDeliveryTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastDebugLogDeliveryTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -368,123 +326,140 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
   }) {
     final payload = (object as ConfigRuleEvaluationStatus);
     final result = <Object?>[];
-    if (payload.configRuleName != null) {
+    final ConfigRuleEvaluationStatus(
+      :configRuleName,
+      :configRuleArn,
+      :configRuleId,
+      :lastSuccessfulInvocationTime,
+      :lastFailedInvocationTime,
+      :lastSuccessfulEvaluationTime,
+      :lastFailedEvaluationTime,
+      :firstActivatedTime,
+      :lastDeactivatedTime,
+      :lastErrorCode,
+      :lastErrorMessage,
+      :firstEvaluationStarted,
+      :lastDebugLogDeliveryStatus,
+      :lastDebugLogDeliveryStatusReason,
+      :lastDebugLogDeliveryTime
+    ) = payload;
+    if (configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleArn != null) {
+    if (configRuleArn != null) {
       result
         ..add('ConfigRuleArn')
         ..add(serializers.serialize(
-          payload.configRuleArn!,
+          configRuleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleId != null) {
+    if (configRuleId != null) {
       result
         ..add('ConfigRuleId')
         ..add(serializers.serialize(
-          payload.configRuleId!,
+          configRuleId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastSuccessfulInvocationTime != null) {
+    if (lastSuccessfulInvocationTime != null) {
       result
         ..add('LastSuccessfulInvocationTime')
         ..add(serializers.serialize(
-          payload.lastSuccessfulInvocationTime!,
+          lastSuccessfulInvocationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastFailedInvocationTime != null) {
+    if (lastFailedInvocationTime != null) {
       result
         ..add('LastFailedInvocationTime')
         ..add(serializers.serialize(
-          payload.lastFailedInvocationTime!,
+          lastFailedInvocationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastSuccessfulEvaluationTime != null) {
+    if (lastSuccessfulEvaluationTime != null) {
       result
         ..add('LastSuccessfulEvaluationTime')
         ..add(serializers.serialize(
-          payload.lastSuccessfulEvaluationTime!,
+          lastSuccessfulEvaluationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastFailedEvaluationTime != null) {
+    if (lastFailedEvaluationTime != null) {
       result
         ..add('LastFailedEvaluationTime')
         ..add(serializers.serialize(
-          payload.lastFailedEvaluationTime!,
+          lastFailedEvaluationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.firstActivatedTime != null) {
+    if (firstActivatedTime != null) {
       result
         ..add('FirstActivatedTime')
         ..add(serializers.serialize(
-          payload.firstActivatedTime!,
+          firstActivatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastDeactivatedTime != null) {
+    if (lastDeactivatedTime != null) {
       result
         ..add('LastDeactivatedTime')
         ..add(serializers.serialize(
-          payload.lastDeactivatedTime!,
+          lastDeactivatedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastErrorCode != null) {
+    if (lastErrorCode != null) {
       result
         ..add('LastErrorCode')
         ..add(serializers.serialize(
-          payload.lastErrorCode!,
+          lastErrorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastErrorMessage != null) {
+    if (lastErrorMessage != null) {
       result
         ..add('LastErrorMessage')
         ..add(serializers.serialize(
-          payload.lastErrorMessage!,
+          lastErrorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.firstEvaluationStarted != null) {
+    if (firstEvaluationStarted != null) {
       result
         ..add('FirstEvaluationStarted')
         ..add(serializers.serialize(
-          payload.firstEvaluationStarted!,
+          firstEvaluationStarted,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.lastDebugLogDeliveryStatus != null) {
+    if (lastDebugLogDeliveryStatus != null) {
       result
         ..add('LastDebugLogDeliveryStatus')
         ..add(serializers.serialize(
-          payload.lastDebugLogDeliveryStatus!,
+          lastDebugLogDeliveryStatus,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastDebugLogDeliveryStatusReason != null) {
+    if (lastDebugLogDeliveryStatusReason != null) {
       result
         ..add('LastDebugLogDeliveryStatusReason')
         ..add(serializers.serialize(
-          payload.lastDebugLogDeliveryStatusReason!,
+          lastDebugLogDeliveryStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastDebugLogDeliveryTime != null) {
+    if (lastDebugLogDeliveryTime != null) {
       result
         ..add('LastDebugLogDeliveryTime')
         ..add(serializers.serialize(
-          payload.lastDebugLogDeliveryTime!,
+          lastDebugLogDeliveryTime,
           specifiedType: const FullType(DateTime),
         ));
     }

@@ -115,39 +115,30 @@ class TransactWriteItemAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConditionCheck':
-          if (value != null) {
-            result.conditionCheck.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConditionCheck),
-            ) as _i2.ConditionCheck));
-          }
-          break;
+          result.conditionCheck.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConditionCheck),
+          ) as _i2.ConditionCheck));
         case 'Put':
-          if (value != null) {
-            result.put.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Put),
-            ) as _i3.Put));
-          }
-          break;
+          result.put.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Put),
+          ) as _i3.Put));
         case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Delete),
-            ) as _i4.Delete));
-          }
-          break;
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Delete),
+          ) as _i4.Delete));
         case 'Update':
-          if (value != null) {
-            result.update_.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Update),
-            ) as _i5.Update));
-          }
-          break;
+          result.update_.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Update),
+          ) as _i5.Update));
       }
     }
 
@@ -162,35 +153,36 @@ class TransactWriteItemAwsJson10Serializer
   }) {
     final payload = (object as TransactWriteItem);
     final result = <Object?>[];
-    if (payload.conditionCheck != null) {
+    final TransactWriteItem(:conditionCheck, :put, :delete, :update_) = payload;
+    if (conditionCheck != null) {
       result
         ..add('ConditionCheck')
         ..add(serializers.serialize(
-          payload.conditionCheck!,
+          conditionCheck,
           specifiedType: const FullType(_i2.ConditionCheck),
         ));
     }
-    if (payload.put != null) {
+    if (put != null) {
       result
         ..add('Put')
         ..add(serializers.serialize(
-          payload.put!,
+          put,
           specifiedType: const FullType(_i3.Put),
         ));
     }
-    if (payload.delete != null) {
+    if (delete != null) {
       result
         ..add('Delete')
         ..add(serializers.serialize(
-          payload.delete!,
+          delete,
           specifiedType: const FullType(_i4.Delete),
         ));
     }
-    if (payload.update_ != null) {
+    if (update_ != null) {
       result
         ..add('Update')
         ..add(serializers.serialize(
-          payload.update_!,
+          update_,
           specifiedType: const FullType(_i5.Update),
         ));
     }

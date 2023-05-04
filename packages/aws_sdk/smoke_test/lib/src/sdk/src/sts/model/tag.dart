@@ -89,22 +89,23 @@ class TagAwsQuerySerializer extends _i2.StructuredSmithySerializer<Tag> {
     final result = TagBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Key':
           result.key = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Value':
           result.value = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -124,16 +125,17 @@ class TagAwsQuerySerializer extends _i2.StructuredSmithySerializer<Tag> {
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
+    final Tag(:key, :value) = payload;
     result
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Value'))
       ..add(serializers.serialize(
-        payload.value,
+        value,
         specifiedType: const FullType(String),
       ));
     return result;

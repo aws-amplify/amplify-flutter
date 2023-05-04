@@ -130,52 +130,42 @@ class DeploymentRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'apiSummary':
-          if (value != null) {
-            result.apiSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i3.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.MethodSnapshot),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i3
-                .BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>));
-          }
-          break;
+          result.apiSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i3.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.MethodSnapshot),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>));
         case 'createdDate':
-          if (value != null) {
-            result.createdDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createdDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -190,11 +180,12 @@ class DeploymentRestJson1Serializer
   }) {
     final payload = (object as Deployment);
     final result = <Object?>[];
-    if (payload.apiSummary != null) {
+    final Deployment(:apiSummary, :createdDate, :description, :id) = payload;
+    if (apiSummary != null) {
       result
         ..add('apiSummary')
         ..add(serializers.serialize(
-          payload.apiSummary!,
+          apiSummary,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -210,27 +201,27 @@ class DeploymentRestJson1Serializer
           ),
         ));
     }
-    if (payload.createdDate != null) {
+    if (createdDate != null) {
       result
         ..add('createdDate')
         ..add(serializers.serialize(
-          payload.createdDate!,
+          createdDate,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }

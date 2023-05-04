@@ -112,30 +112,26 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProvisionedReadCapacityUnits':
-          if (value != null) {
-            result.provisionedReadCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.provisionedReadCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ProvisionedReadCapacityAutoScalingSettingsUpdate':
-          if (value != null) {
-            result.provisionedReadCapacityAutoScalingSettingsUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-            ) as _i3.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.provisionedReadCapacityAutoScalingSettingsUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          ) as _i3.AutoScalingSettingsUpdate));
       }
     }
 
@@ -156,19 +152,23 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.provisionedReadCapacityUnits != null) {
+    final ReplicaGlobalSecondaryIndexSettingsUpdate(
+      :provisionedReadCapacityUnits,
+      :provisionedReadCapacityAutoScalingSettingsUpdate
+    ) = payload;
+    if (provisionedReadCapacityUnits != null) {
       result
         ..add('ProvisionedReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.provisionedReadCapacityUnits!,
+          provisionedReadCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.provisionedReadCapacityAutoScalingSettingsUpdate != null) {
+    if (provisionedReadCapacityAutoScalingSettingsUpdate != null) {
       result
         ..add('ProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
-          payload.provisionedReadCapacityAutoScalingSettingsUpdate!,
+          provisionedReadCapacityAutoScalingSettingsUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }

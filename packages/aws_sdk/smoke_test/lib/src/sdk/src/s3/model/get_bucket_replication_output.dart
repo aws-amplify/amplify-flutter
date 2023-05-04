@@ -91,22 +91,23 @@ class GetBucketReplicationOutputRestXmlSerializer
     final result = _i3.ReplicationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Role':
           result.role = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.ReplicationRule),
           ) as _i4.ReplicationRule));
-          break;
       }
     }
 
@@ -131,16 +132,17 @@ class GetBucketReplicationOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
+    final _i3.ReplicationConfiguration(:role, :rules) = payload;
     result
       ..add(const _i2.XmlElementName('Role'))
       ..add(serializers.serialize(
-        payload.role,
+        role,
         specifiedType: const FullType(String),
       ));
     result
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
-      payload.rules,
+      rules,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.ReplicationRule)],

@@ -105,40 +105,34 @@ class InAppMessageRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Content':
-          if (value != null) {
-            result.content.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.InAppMessageContent)],
-              ),
-            ) as _i4.BuiltList<_i2.InAppMessageContent>));
-          }
-          break;
+          result.content.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.InAppMessageContent)],
+            ),
+          ) as _i4.BuiltList<_i2.InAppMessageContent>));
         case 'CustomConfig':
-          if (value != null) {
-            result.customConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.customConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'Layout':
-          if (value != null) {
-            result.layout = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Layout),
-            ) as _i3.Layout);
-          }
-          break;
+          result.layout = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Layout),
+          ) as _i3.Layout);
       }
     }
 
@@ -153,22 +147,23 @@ class InAppMessageRestJson1Serializer
   }) {
     final payload = (object as InAppMessage);
     final result = <Object?>[];
-    if (payload.content != null) {
+    final InAppMessage(:content, :customConfig, :layout) = payload;
+    if (content != null) {
       result
         ..add('Content')
         ..add(serializers.serialize(
-          payload.content!,
+          content,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.InAppMessageContent)],
           ),
         ));
     }
-    if (payload.customConfig != null) {
+    if (customConfig != null) {
       result
         ..add('CustomConfig')
         ..add(serializers.serialize(
-          payload.customConfig!,
+          customConfig,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -178,11 +173,11 @@ class InAppMessageRestJson1Serializer
           ),
         ));
     }
-    if (payload.layout != null) {
+    if (layout != null) {
       result
         ..add('Layout')
         ..add(serializers.serialize(
-          payload.layout!,
+          layout,
           specifiedType: const FullType(_i3.Layout),
         ));
     }

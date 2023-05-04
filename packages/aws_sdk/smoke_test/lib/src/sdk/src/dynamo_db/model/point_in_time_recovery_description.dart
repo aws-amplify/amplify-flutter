@@ -112,31 +112,25 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PointInTimeRecoveryStatus':
-          if (value != null) {
-            result.pointInTimeRecoveryStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
-            ) as _i2.PointInTimeRecoveryStatus);
-          }
-          break;
+          result.pointInTimeRecoveryStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
+          ) as _i2.PointInTimeRecoveryStatus);
         case 'EarliestRestorableDateTime':
-          if (value != null) {
-            result.earliestRestorableDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.earliestRestorableDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LatestRestorableDateTime':
-          if (value != null) {
-            result.latestRestorableDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.latestRestorableDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -151,27 +145,32 @@ class PointInTimeRecoveryDescriptionAwsJson10Serializer
   }) {
     final payload = (object as PointInTimeRecoveryDescription);
     final result = <Object?>[];
-    if (payload.pointInTimeRecoveryStatus != null) {
+    final PointInTimeRecoveryDescription(
+      :pointInTimeRecoveryStatus,
+      :earliestRestorableDateTime,
+      :latestRestorableDateTime
+    ) = payload;
+    if (pointInTimeRecoveryStatus != null) {
       result
         ..add('PointInTimeRecoveryStatus')
         ..add(serializers.serialize(
-          payload.pointInTimeRecoveryStatus!,
+          pointInTimeRecoveryStatus,
           specifiedType: const FullType(_i2.PointInTimeRecoveryStatus),
         ));
     }
-    if (payload.earliestRestorableDateTime != null) {
+    if (earliestRestorableDateTime != null) {
       result
         ..add('EarliestRestorableDateTime')
         ..add(serializers.serialize(
-          payload.earliestRestorableDateTime!,
+          earliestRestorableDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.latestRestorableDateTime != null) {
+    if (latestRestorableDateTime != null) {
       result
         ..add('LatestRestorableDateTime')
         ..add(serializers.serialize(
-          payload.latestRestorableDateTime!,
+          latestRestorableDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

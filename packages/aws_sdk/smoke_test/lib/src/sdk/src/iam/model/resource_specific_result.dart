@@ -147,78 +147,66 @@ class ResourceSpecificResultAwsQuerySerializer
     final result = ResourceSpecificResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EvalResourceName':
           result.evalResourceName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'EvalResourceDecision':
           result.evalResourceDecision = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.PolicyEvaluationDecisionType),
           ) as _i2.PolicyEvaluationDecisionType);
-          break;
         case 'MatchedStatements':
-          if (value != null) {
-            result.matchedStatements.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.Statement)],
-              ),
-            ) as _i5.BuiltList<_i3.Statement>));
-          }
-          break;
+          result.matchedStatements.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.Statement)],
+            ),
+          ) as _i5.BuiltList<_i3.Statement>));
         case 'MissingContextValues':
-          if (value != null) {
-            result.missingContextValues.replace(
-                (const _i6.XmlBuiltListSerializer(
-                        indexer: _i6.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i5.BuiltList<String>));
-          }
-          break;
+          result.missingContextValues.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i5.BuiltList<String>));
         case 'EvalDecisionDetails':
-          if (value != null) {
-            result.evalDecisionDetails.replace(const _i6.XmlBuiltMapSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.PolicyEvaluationDecisionType),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.evalDecisionDetails.replace(const _i6.XmlBuiltMapSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.PolicyEvaluationDecisionType),
+              ],
+            ),
+          ));
         case 'PermissionsBoundaryDecisionDetail':
-          if (value != null) {
-            result.permissionsBoundaryDecisionDetail
-                .replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.PermissionsBoundaryDecisionDetail),
-            ) as _i4.PermissionsBoundaryDecisionDetail));
-          }
-          break;
+          result.permissionsBoundaryDecisionDetail
+              .replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i4.PermissionsBoundaryDecisionDetail),
+          ) as _i4.PermissionsBoundaryDecisionDetail));
       }
     }
 
@@ -238,55 +226,63 @@ class ResourceSpecificResultAwsQuerySerializer
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ResourceSpecificResult(
+      :evalResourceName,
+      :evalResourceDecision,
+      :matchedStatements,
+      :missingContextValues,
+      :evalDecisionDetails,
+      :permissionsBoundaryDecisionDetail
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('EvalResourceName'))
       ..add(serializers.serialize(
-        payload.evalResourceName,
+        evalResourceName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('EvalResourceDecision'))
       ..add(serializers.serialize(
-        payload.evalResourceDecision,
+        evalResourceDecision,
         specifiedType:
             const FullType.nullable(_i2.PolicyEvaluationDecisionType),
       ));
-    if (payload.matchedStatements != null) {
+    if (matchedStatements != null) {
       result
         ..add(const _i6.XmlElementName('MatchedStatements'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.matchedStatements!,
+          matchedStatements,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.Statement)],
           ),
         ));
     }
-    if (payload.missingContextValues != null) {
+    if (missingContextValues != null) {
       result
         ..add(const _i6.XmlElementName('MissingContextValues'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.missingContextValues!,
+          missingContextValues,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.evalDecisionDetails != null) {
+    if (evalDecisionDetails != null) {
       result
         ..add(const _i6.XmlElementName('EvalDecisionDetails'))
         ..add(
             const _i6.XmlBuiltMapSerializer(indexer: _i6.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.evalDecisionDetails!,
+          evalDecisionDetails,
           specifiedType: const FullType.nullable(
             _i5.BuiltMap,
             [
@@ -296,11 +292,11 @@ class ResourceSpecificResultAwsQuerySerializer
           ),
         ));
     }
-    if (payload.permissionsBoundaryDecisionDetail != null) {
+    if (permissionsBoundaryDecisionDetail != null) {
       result
         ..add(const _i6.XmlElementName('PermissionsBoundaryDecisionDetail'))
         ..add(serializers.serialize(
-          payload.permissionsBoundaryDecisionDetail!,
+          permissionsBoundaryDecisionDetail,
           specifiedType: const FullType(_i4.PermissionsBoundaryDecisionDetail),
         ));
     }

@@ -93,22 +93,23 @@ class PhysicalResourceIdContextKeyValuePairAwsQuerySerializer extends _i2
     final result = PhysicalResourceIdContextKeyValuePairBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Key':
           result.key = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Value':
           result.value = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -128,16 +129,17 @@ class PhysicalResourceIdContextKeyValuePairAwsQuerySerializer extends _i2
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final PhysicalResourceIdContextKeyValuePair(:key, :value) = payload;
     result
       ..add(const _i2.XmlElementName('Key'))
       ..add(serializers.serialize(
-        payload.key,
+        key,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Value'))
       ..add(serializers.serialize(
-        payload.value,
+        value,
         specifiedType: const FullType(String),
       ));
     return result;

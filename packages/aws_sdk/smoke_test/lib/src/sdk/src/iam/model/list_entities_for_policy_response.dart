@@ -133,68 +133,56 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
     final result = ListEntitiesForPolicyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyGroups':
-          if (value != null) {
-            result.policyGroups.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.PolicyGroup)],
-              ),
-            ) as _i5.BuiltList<_i2.PolicyGroup>));
-          }
-          break;
+          result.policyGroups.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.PolicyGroup)],
+            ),
+          ) as _i5.BuiltList<_i2.PolicyGroup>));
         case 'PolicyUsers':
-          if (value != null) {
-            result.policyUsers.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.PolicyUser)],
-              ),
-            ) as _i5.BuiltList<_i3.PolicyUser>));
-          }
-          break;
+          result.policyUsers.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.PolicyUser)],
+            ),
+          ) as _i5.BuiltList<_i3.PolicyUser>));
         case 'PolicyRoles':
-          if (value != null) {
-            result.policyRoles.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.PolicyRole)],
-              ),
-            ) as _i5.BuiltList<_i4.PolicyRole>));
-          }
-          break;
+          result.policyRoles.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.PolicyRole)],
+            ),
+          ) as _i5.BuiltList<_i4.PolicyRole>));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -214,61 +202,68 @@ class ListEntitiesForPolicyResponseAwsQuerySerializer
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.policyGroups != null) {
+    final ListEntitiesForPolicyResponse(
+      :policyGroups,
+      :policyUsers,
+      :policyRoles,
+      :isTruncated,
+      :marker
+    ) = payload;
+    if (policyGroups != null) {
       result
         ..add(const _i6.XmlElementName('PolicyGroups'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyGroups!,
+          policyGroups,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i2.PolicyGroup)],
           ),
         ));
     }
-    if (payload.policyUsers != null) {
+    if (policyUsers != null) {
       result
         ..add(const _i6.XmlElementName('PolicyUsers'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyUsers!,
+          policyUsers,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.PolicyUser)],
           ),
         ));
     }
-    if (payload.policyRoles != null) {
+    if (policyRoles != null) {
       result
         ..add(const _i6.XmlElementName('PolicyRoles'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyRoles!,
+          policyRoles,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.PolicyRole)],
           ),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

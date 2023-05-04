@@ -129,54 +129,43 @@ class CorsRuleRestXmlSerializer
     final result = CorsRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowedHeader':
-          if (value != null) {
-            result.allowedHeaders.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.allowedHeaders.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'AllowedMethod':
           result.allowedMethods.add((serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String));
-          break;
         case 'AllowedOrigin':
           result.allowedOrigins.add((serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String));
-          break;
         case 'ExposeHeader':
-          if (value != null) {
-            result.exposeHeaders.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String));
-          }
-          break;
+          result.exposeHeaders.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String));
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxAgeSeconds':
-          if (value != null) {
-            result.maxAgeSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxAgeSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -196,12 +185,20 @@ class CorsRuleRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.allowedHeaders != null) {
+    final CorsRule(
+      :allowedHeaders,
+      :allowedMethods,
+      :allowedOrigins,
+      :exposeHeaders,
+      :id,
+      :maxAgeSeconds
+    ) = payload;
+    if (allowedHeaders != null) {
       result.addAll(
           const _i3.XmlBuiltListSerializer(memberName: 'AllowedHeader')
               .serialize(
         serializers,
-        payload.allowedHeaders!,
+        allowedHeaders,
         specifiedType: const FullType.nullable(
           _i2.BuiltList,
           [FullType(String)],
@@ -211,7 +208,7 @@ class CorsRuleRestXmlSerializer
     result.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedMethod').serialize(
       serializers,
-      payload.allowedMethods,
+      allowedMethods,
       specifiedType: const FullType.nullable(
         _i2.BuiltList,
         [FullType(String)],
@@ -220,36 +217,36 @@ class CorsRuleRestXmlSerializer
     result.addAll(
         const _i3.XmlBuiltListSerializer(memberName: 'AllowedOrigin').serialize(
       serializers,
-      payload.allowedOrigins,
+      allowedOrigins,
       specifiedType: const FullType.nullable(
         _i2.BuiltList,
         [FullType(String)],
       ),
     ));
-    if (payload.exposeHeaders != null) {
+    if (exposeHeaders != null) {
       result.addAll(const _i3.XmlBuiltListSerializer(memberName: 'ExposeHeader')
           .serialize(
         serializers,
-        payload.exposeHeaders!,
+        exposeHeaders,
         specifiedType: const FullType.nullable(
           _i2.BuiltList,
           [FullType(String)],
         ),
       ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxAgeSeconds != null) {
+    if (maxAgeSeconds != null) {
       result
         ..add(const _i3.XmlElementName('MaxAgeSeconds'))
         ..add(serializers.serialize(
-          payload.maxAgeSeconds!,
+          maxAgeSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }

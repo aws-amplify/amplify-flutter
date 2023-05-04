@@ -102,13 +102,15 @@ class CreateGlobalTableInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalTableName':
           result.globalTableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ReplicationGroup':
           result.replicationGroup.replace((serializers.deserialize(
             value,
@@ -117,7 +119,6 @@ class CreateGlobalTableInputAwsJson10Serializer
               [FullType(_i3.Replica)],
             ),
           ) as _i4.BuiltList<_i3.Replica>));
-          break;
       }
     }
 

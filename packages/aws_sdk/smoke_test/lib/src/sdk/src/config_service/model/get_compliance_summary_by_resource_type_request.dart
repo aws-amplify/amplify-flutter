@@ -93,18 +93,18 @@ class GetComplianceSummaryByResourceTypeRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceTypes':
-          if (value != null) {
-            result.resourceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.resourceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -119,11 +119,12 @@ class GetComplianceSummaryByResourceTypeRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as GetComplianceSummaryByResourceTypeRequest);
     final result = <Object?>[];
-    if (payload.resourceTypes != null) {
+    final GetComplianceSummaryByResourceTypeRequest(:resourceTypes) = payload;
+    if (resourceTypes != null) {
       result
         ..add('ResourceTypes')
         ..add(serializers.serialize(
-          payload.resourceTypes!,
+          resourceTypes,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

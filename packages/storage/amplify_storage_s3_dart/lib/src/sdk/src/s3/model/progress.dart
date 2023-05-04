@@ -97,34 +97,28 @@ class ProgressRestXmlSerializer
     final result = ProgressBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'BytesProcessed':
-          if (value != null) {
-            result.bytesProcessed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesProcessed = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BytesReturned':
-          if (value != null) {
-            result.bytesReturned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesReturned = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BytesScanned':
-          if (value != null) {
-            result.bytesScanned = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.bytesScanned = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -144,27 +138,28 @@ class ProgressRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.bytesProcessed != null) {
+    final Progress(:bytesProcessed, :bytesReturned, :bytesScanned) = payload;
+    if (bytesProcessed != null) {
       result
         ..add(const _i3.XmlElementName('BytesProcessed'))
         ..add(serializers.serialize(
-          payload.bytesProcessed!,
+          bytesProcessed,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.bytesReturned != null) {
+    if (bytesReturned != null) {
       result
         ..add(const _i3.XmlElementName('BytesReturned'))
         ..add(serializers.serialize(
-          payload.bytesReturned!,
+          bytesReturned,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
-    if (payload.bytesScanned != null) {
+    if (bytesScanned != null) {
       result
         ..add(const _i3.XmlElementName('BytesScanned'))
         ..add(serializers.serialize(
-          payload.bytesScanned!,
+          bytesScanned,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }

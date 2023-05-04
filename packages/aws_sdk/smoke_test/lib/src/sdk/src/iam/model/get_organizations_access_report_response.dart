@@ -176,84 +176,64 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     final result = GetOrganizationsAccessReportResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'JobStatus':
           result.jobStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.JobStatusType),
           ) as _i2.JobStatusType);
-          break;
         case 'JobCreationDate':
           result.jobCreationDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'JobCompletionDate':
-          if (value != null) {
-            result.jobCompletionDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.jobCompletionDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'NumberOfServicesAccessible':
-          if (value != null) {
-            result.numberOfServicesAccessible = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.numberOfServicesAccessible = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NumberOfServicesNotAccessed':
-          if (value != null) {
-            result.numberOfServicesNotAccessed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.numberOfServicesNotAccessed = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'AccessDetails':
-          if (value != null) {
-            result.accessDetails.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.AccessDetail)],
-              ),
-            ) as _i5.BuiltList<_i3.AccessDetail>));
-          }
-          break;
+          result.accessDetails.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.AccessDetail)],
+            ),
+          ) as _i5.BuiltList<_i3.AccessDetail>));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ErrorDetails':
-          if (value != null) {
-            result.errorDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ErrorDetails),
-            ) as _i4.ErrorDetails));
-          }
-          break;
+          result.errorDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ErrorDetails),
+          ) as _i4.ErrorDetails));
       }
     }
 
@@ -273,77 +253,88 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetOrganizationsAccessReportResponse(
+      :jobStatus,
+      :jobCreationDate,
+      :jobCompletionDate,
+      :numberOfServicesAccessible,
+      :numberOfServicesNotAccessed,
+      :accessDetails,
+      :isTruncated,
+      :marker,
+      :errorDetails
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
-        payload.jobStatus,
+        jobStatus,
         specifiedType: const FullType.nullable(_i2.JobStatusType),
       ));
     result
       ..add(const _i6.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
-        payload.jobCreationDate,
+        jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.jobCompletionDate != null) {
+    if (jobCompletionDate != null) {
       result
         ..add(const _i6.XmlElementName('JobCompletionDate'))
         ..add(serializers.serialize(
-          payload.jobCompletionDate!,
+          jobCompletionDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.numberOfServicesAccessible != null) {
+    if (numberOfServicesAccessible != null) {
       result
         ..add(const _i6.XmlElementName('NumberOfServicesAccessible'))
         ..add(serializers.serialize(
-          payload.numberOfServicesAccessible!,
+          numberOfServicesAccessible,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.numberOfServicesNotAccessed != null) {
+    if (numberOfServicesNotAccessed != null) {
       result
         ..add(const _i6.XmlElementName('NumberOfServicesNotAccessed'))
         ..add(serializers.serialize(
-          payload.numberOfServicesNotAccessed!,
+          numberOfServicesNotAccessed,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.accessDetails != null) {
+    if (accessDetails != null) {
       result
         ..add(const _i6.XmlElementName('AccessDetails'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.accessDetails!,
+          accessDetails,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.AccessDetail)],
           ),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i6.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i6.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorDetails != null) {
+    if (errorDetails != null) {
       result
         ..add(const _i6.XmlElementName('ErrorDetails'))
         ..add(serializers.serialize(
-          payload.errorDetails!,
+          errorDetails,
           specifiedType: const FullType(_i4.ErrorDetails),
         ));
     }

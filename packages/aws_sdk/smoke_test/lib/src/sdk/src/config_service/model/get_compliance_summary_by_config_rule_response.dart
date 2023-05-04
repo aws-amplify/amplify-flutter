@@ -88,15 +88,15 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ComplianceSummary),
-            ) as _i2.ComplianceSummary));
-          }
-          break;
+          result.complianceSummary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ComplianceSummary),
+          ) as _i2.ComplianceSummary));
       }
     }
 
@@ -111,11 +111,13 @@ class GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer extends _i3
   }) {
     final payload = (object as GetComplianceSummaryByConfigRuleResponse);
     final result = <Object?>[];
-    if (payload.complianceSummary != null) {
+    final GetComplianceSummaryByConfigRuleResponse(:complianceSummary) =
+        payload;
+    if (complianceSummary != null) {
       result
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
-          payload.complianceSummary!,
+          complianceSummary,
           specifiedType: const FullType(_i2.ComplianceSummary),
         ));
     }

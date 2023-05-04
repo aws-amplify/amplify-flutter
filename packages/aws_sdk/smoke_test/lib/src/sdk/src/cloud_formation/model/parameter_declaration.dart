@@ -131,58 +131,43 @@ class ParameterDeclarationAwsQuerySerializer
     final result = ParameterDeclarationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ParameterKey':
-          if (value != null) {
-            result.parameterKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parameterKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DefaultValue':
-          if (value != null) {
-            result.defaultValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ParameterType':
-          if (value != null) {
-            result.parameterType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parameterType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NoEcho':
-          if (value != null) {
-            result.noEcho = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.noEcho = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ParameterConstraints':
-          if (value != null) {
-            result.parameterConstraints.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ParameterConstraints),
-            ) as _i2.ParameterConstraints));
-          }
-          break;
+          result.parameterConstraints.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ParameterConstraints),
+          ) as _i2.ParameterConstraints));
       }
     }
 
@@ -202,51 +187,59 @@ class ParameterDeclarationAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.parameterKey != null) {
+    final ParameterDeclaration(
+      :parameterKey,
+      :defaultValue,
+      :parameterType,
+      :noEcho,
+      :description,
+      :parameterConstraints
+    ) = payload;
+    if (parameterKey != null) {
       result
         ..add(const _i3.XmlElementName('ParameterKey'))
         ..add(serializers.serialize(
-          payload.parameterKey!,
+          parameterKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.defaultValue != null) {
+    if (defaultValue != null) {
       result
         ..add(const _i3.XmlElementName('DefaultValue'))
         ..add(serializers.serialize(
-          payload.defaultValue!,
+          defaultValue,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameterType != null) {
+    if (parameterType != null) {
       result
         ..add(const _i3.XmlElementName('ParameterType'))
         ..add(serializers.serialize(
-          payload.parameterType!,
+          parameterType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.noEcho != null) {
+    if (noEcho != null) {
       result
         ..add(const _i3.XmlElementName('NoEcho'))
         ..add(serializers.serialize(
-          payload.noEcho!,
+          noEcho,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parameterConstraints != null) {
+    if (parameterConstraints != null) {
       result
         ..add(const _i3.XmlElementName('ParameterConstraints'))
         ..add(serializers.serialize(
-          payload.parameterConstraints!,
+          parameterConstraints,
           specifiedType: const FullType(_i2.ParameterConstraints),
         ));
     }

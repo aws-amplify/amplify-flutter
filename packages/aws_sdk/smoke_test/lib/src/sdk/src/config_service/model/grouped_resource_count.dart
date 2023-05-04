@@ -96,19 +96,20 @@ class GroupedResourceCountAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GroupName':
           result.groupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceCount':
           result.resourceCount = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Int64),
           ) as _i2.Int64);
-          break;
       }
     }
 

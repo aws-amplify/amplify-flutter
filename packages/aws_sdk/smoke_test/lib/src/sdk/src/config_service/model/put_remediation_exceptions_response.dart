@@ -90,18 +90,18 @@ class PutRemediationExceptionsResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailedBatches':
-          if (value != null) {
-            result.failedBatches.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.FailedRemediationExceptionBatch)],
-              ),
-            ) as _i3.BuiltList<_i2.FailedRemediationExceptionBatch>));
-          }
-          break;
+          result.failedBatches.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.FailedRemediationExceptionBatch)],
+            ),
+          ) as _i3.BuiltList<_i2.FailedRemediationExceptionBatch>));
       }
     }
 
@@ -116,11 +116,12 @@ class PutRemediationExceptionsResponseAwsJson11Serializer
   }) {
     final payload = (object as PutRemediationExceptionsResponse);
     final result = <Object?>[];
-    if (payload.failedBatches != null) {
+    final PutRemediationExceptionsResponse(:failedBatches) = payload;
+    if (failedBatches != null) {
       result
         ..add('FailedBatches')
         ..add(serializers.serialize(
-          payload.failedBatches!,
+          failedBatches,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.FailedRemediationExceptionBatch)],

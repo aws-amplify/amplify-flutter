@@ -186,115 +186,88 @@ class UserDetailAwsQuerySerializer
     final result = UserDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UserId':
-          if (value != null) {
-            result.userId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'UserPolicyList':
-          if (value != null) {
-            result.userPolicyList.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.PolicyDetail)],
-              ),
-            ) as _i6.BuiltList<_i2.PolicyDetail>));
-          }
-          break;
+          result.userPolicyList.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i2.PolicyDetail)],
+            ),
+          ) as _i6.BuiltList<_i2.PolicyDetail>));
         case 'GroupList':
-          if (value != null) {
-            result.groupList.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i6.BuiltList<String>));
-          }
-          break;
+          result.groupList.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i6.BuiltList<String>));
         case 'AttachedManagedPolicies':
-          if (value != null) {
-            result.attachedManagedPolicies.replace(
-                (const _i7.XmlBuiltListSerializer(
-                        indexer: _i7.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.AttachedPolicy)],
-              ),
-            ) as _i6.BuiltList<_i3.AttachedPolicy>));
-          }
-          break;
+          result.attachedManagedPolicies.replace(
+              (const _i7.XmlBuiltListSerializer(
+                      indexer: _i7.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.AttachedPolicy)],
+            ),
+          ) as _i6.BuiltList<_i3.AttachedPolicy>));
         case 'PermissionsBoundary':
-          if (value != null) {
-            result.permissionsBoundary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AttachedPermissionsBoundary),
-            ) as _i4.AttachedPermissionsBoundary));
-          }
-          break;
+          result.permissionsBoundary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AttachedPermissionsBoundary),
+          ) as _i4.AttachedPermissionsBoundary));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i7.XmlBuiltListSerializer(
-                    indexer: _i7.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i5.Tag)],
-              ),
-            ) as _i6.BuiltList<_i5.Tag>));
-          }
-          break;
+          result.tags.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.Tag)],
+            ),
+          ) as _i6.BuiltList<_i5.Tag>));
       }
     }
 
@@ -314,104 +287,116 @@ class UserDetailAwsQuerySerializer
         _i7.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.path != null) {
+    final UserDetail(
+      :path,
+      :userName,
+      :userId,
+      :arn,
+      :createDate,
+      :userPolicyList,
+      :groupList,
+      :attachedManagedPolicies,
+      :permissionsBoundary,
+      :tags
+    ) = payload;
+    if (path != null) {
       result
         ..add(const _i7.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userName != null) {
+    if (userName != null) {
       result
         ..add(const _i7.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userId != null) {
+    if (userId != null) {
       result
         ..add(const _i7.XmlElementName('UserId'))
         ..add(serializers.serialize(
-          payload.userId!,
+          userId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i7.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i7.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.userPolicyList != null) {
+    if (userPolicyList != null) {
       result
         ..add(const _i7.XmlElementName('UserPolicyList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.userPolicyList!,
+          userPolicyList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i2.PolicyDetail)],
           ),
         ));
     }
-    if (payload.groupList != null) {
+    if (groupList != null) {
       result
         ..add(const _i7.XmlElementName('GroupList'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.groupList!,
+          groupList,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.attachedManagedPolicies != null) {
+    if (attachedManagedPolicies != null) {
       result
         ..add(const _i7.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.attachedManagedPolicies!,
+          attachedManagedPolicies,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i3.AttachedPolicy)],
           ),
         ));
     }
-    if (payload.permissionsBoundary != null) {
+    if (permissionsBoundary != null) {
       result
         ..add(const _i7.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.permissionsBoundary!,
+          permissionsBoundary,
           specifiedType: const FullType(_i4.AttachedPermissionsBoundary),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i7.XmlElementName('Tags'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i5.Tag)],

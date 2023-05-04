@@ -83,6 +83,9 @@ class ConformancePackComplianceScoresFiltersAwsJson11Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackNames':
           result.conformancePackNames.replace((serializers.deserialize(
@@ -92,7 +95,6 @@ class ConformancePackComplianceScoresFiltersAwsJson11Serializer extends _i3
               [FullType(String)],
             ),
           ) as _i2.BuiltList<String>));
-          break;
       }
     }
 

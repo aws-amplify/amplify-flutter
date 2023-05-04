@@ -165,18 +165,18 @@ class PutBucketLoggingRequestRestXmlSerializer
     final result = _i2.BucketLoggingStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LoggingEnabled':
-          if (value != null) {
-            result.loggingEnabled.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.LoggingEnabled),
-            ) as _i5.LoggingEnabled));
-          }
-          break;
+          result.loggingEnabled.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.LoggingEnabled),
+          ) as _i5.LoggingEnabled));
       }
     }
 
@@ -198,11 +198,12 @@ class PutBucketLoggingRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.loggingEnabled != null) {
+    final _i2.BucketLoggingStatus(:loggingEnabled) = payload;
+    if (loggingEnabled != null) {
       result
         ..add(const _i1.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
-          payload.loggingEnabled!,
+          loggingEnabled,
           specifiedType: const FullType(_i5.LoggingEnabled),
         ));
     }

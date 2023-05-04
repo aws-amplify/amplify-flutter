@@ -95,22 +95,20 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProvisionedThroughputOverride':
-          if (value != null) {
-            result.provisionedThroughputOverride
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
-            ) as _i2.ProvisionedThroughputOverride));
-          }
-          break;
+          result.provisionedThroughputOverride.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          ) as _i2.ProvisionedThroughputOverride));
       }
     }
 
@@ -131,11 +129,12 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.provisionedThroughputOverride != null) {
+    final ReplicaGlobalSecondaryIndex(:provisionedThroughputOverride) = payload;
+    if (provisionedThroughputOverride != null) {
       result
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
-          payload.provisionedThroughputOverride!,
+          provisionedThroughputOverride,
           specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
         ));
     }

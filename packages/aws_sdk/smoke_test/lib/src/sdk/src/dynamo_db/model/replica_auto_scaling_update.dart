@@ -116,35 +116,31 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RegionName':
           result.regionName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ReplicaGlobalSecondaryIndexUpdates':
-          if (value != null) {
-            result.replicaGlobalSecondaryIndexUpdates.replace((serializers
-                .deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
-              ),
-            ) as _i4
-                .BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>));
-          }
-          break;
+          result.replicaGlobalSecondaryIndexUpdates.replace((serializers
+              .deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
+            ),
+          ) as _i4
+              .BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate>));
         case 'ReplicaProvisionedReadCapacityAutoScalingUpdate':
-          if (value != null) {
-            result.replicaProvisionedReadCapacityAutoScalingUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-            ) as _i3.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.replicaProvisionedReadCapacityAutoScalingUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          ) as _i3.AutoScalingSettingsUpdate));
       }
     }
 
@@ -165,22 +161,26 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.replicaGlobalSecondaryIndexUpdates != null) {
+    final ReplicaAutoScalingUpdate(
+      :replicaGlobalSecondaryIndexUpdates,
+      :replicaProvisionedReadCapacityAutoScalingUpdate
+    ) = payload;
+    if (replicaGlobalSecondaryIndexUpdates != null) {
       result
         ..add('ReplicaGlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
-          payload.replicaGlobalSecondaryIndexUpdates!,
+          replicaGlobalSecondaryIndexUpdates,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingUpdate)],
           ),
         ));
     }
-    if (payload.replicaProvisionedReadCapacityAutoScalingUpdate != null) {
+    if (replicaProvisionedReadCapacityAutoScalingUpdate != null) {
       result
         ..add('ReplicaProvisionedReadCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
-          payload.replicaProvisionedReadCapacityAutoScalingUpdate!,
+          replicaProvisionedReadCapacityAutoScalingUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }

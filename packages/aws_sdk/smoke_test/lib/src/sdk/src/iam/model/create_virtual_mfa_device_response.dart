@@ -88,16 +88,18 @@ class CreateVirtualMfaDeviceResponseAwsQuerySerializer
     final result = CreateVirtualMfaDeviceResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'VirtualMFADevice':
           result.virtualMfaDevice.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.VirtualMfaDevice),
           ) as _i2.VirtualMfaDevice));
-          break;
       }
     }
 
@@ -117,10 +119,11 @@ class CreateVirtualMfaDeviceResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateVirtualMfaDeviceResponse(:virtualMfaDevice) = payload;
     result
       ..add(const _i3.XmlElementName('VirtualMFADevice'))
       ..add(serializers.serialize(
-        payload.virtualMfaDevice,
+        virtualMfaDevice,
         specifiedType: const FullType(_i2.VirtualMfaDevice),
       ));
     return result;

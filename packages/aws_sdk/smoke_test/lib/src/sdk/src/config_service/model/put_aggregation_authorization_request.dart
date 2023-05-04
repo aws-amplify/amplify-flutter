@@ -115,30 +115,28 @@ class PutAggregationAuthorizationRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AuthorizedAccountId':
           result.authorizedAccountId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AuthorizedAwsRegion':
           result.authorizedAwsRegion = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -164,11 +162,12 @@ class PutAggregationAuthorizationRequestAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.tags != null) {
+    final PutAggregationAuthorizationRequest(:tags) = payload;
+    if (tags != null) {
       result
         ..add('Tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

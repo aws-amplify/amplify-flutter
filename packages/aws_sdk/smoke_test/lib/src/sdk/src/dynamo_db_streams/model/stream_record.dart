@@ -154,81 +154,63 @@ class StreamRecordAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ApproximateCreationDateTime':
-          if (value != null) {
-            result.approximateCreationDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.approximateCreationDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Keys':
-          if (value != null) {
-            result.keys.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.keys.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
         case 'NewImage':
-          if (value != null) {
-            result.newImage.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.newImage.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
         case 'OldImage':
-          if (value != null) {
-            result.oldImage.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.oldImage.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
         case 'SequenceNumber':
-          if (value != null) {
-            result.sequenceNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sequenceNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SizeBytes':
-          if (value != null) {
-            result.sizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.sizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'StreamViewType':
-          if (value != null) {
-            result.streamViewType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.StreamViewType),
-            ) as _i4.StreamViewType);
-          }
-          break;
+          result.streamViewType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.StreamViewType),
+          ) as _i4.StreamViewType);
       }
     }
 
@@ -243,19 +225,28 @@ class StreamRecordAwsJson10Serializer
   }) {
     final payload = (object as StreamRecord);
     final result = <Object?>[];
-    if (payload.approximateCreationDateTime != null) {
+    final StreamRecord(
+      :approximateCreationDateTime,
+      :keys,
+      :newImage,
+      :oldImage,
+      :sequenceNumber,
+      :sizeBytes,
+      :streamViewType
+    ) = payload;
+    if (approximateCreationDateTime != null) {
       result
         ..add('ApproximateCreationDateTime')
         ..add(serializers.serialize(
-          payload.approximateCreationDateTime!,
+          approximateCreationDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.keys != null) {
+    if (keys != null) {
       result
         ..add('Keys')
         ..add(serializers.serialize(
-          payload.keys!,
+          keys,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -265,11 +256,11 @@ class StreamRecordAwsJson10Serializer
           ),
         ));
     }
-    if (payload.newImage != null) {
+    if (newImage != null) {
       result
         ..add('NewImage')
         ..add(serializers.serialize(
-          payload.newImage!,
+          newImage,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -279,11 +270,11 @@ class StreamRecordAwsJson10Serializer
           ),
         ));
     }
-    if (payload.oldImage != null) {
+    if (oldImage != null) {
       result
         ..add('OldImage')
         ..add(serializers.serialize(
-          payload.oldImage!,
+          oldImage,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -293,27 +284,27 @@ class StreamRecordAwsJson10Serializer
           ),
         ));
     }
-    if (payload.sequenceNumber != null) {
+    if (sequenceNumber != null) {
       result
         ..add('SequenceNumber')
         ..add(serializers.serialize(
-          payload.sequenceNumber!,
+          sequenceNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sizeBytes != null) {
+    if (sizeBytes != null) {
       result
         ..add('SizeBytes')
         ..add(serializers.serialize(
-          payload.sizeBytes!,
+          sizeBytes,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.streamViewType != null) {
+    if (streamViewType != null) {
       result
         ..add('StreamViewType')
         ..add(serializers.serialize(
-          payload.streamViewType!,
+          streamViewType,
           specifiedType: const FullType(_i4.StreamViewType),
         ));
     }

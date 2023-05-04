@@ -99,22 +99,21 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ContinuousBackupsStatus':
           result.continuousBackupsStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ContinuousBackupsStatus),
           ) as _i2.ContinuousBackupsStatus);
-          break;
         case 'PointInTimeRecoveryDescription':
-          if (value != null) {
-            result.pointInTimeRecoveryDescription
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
-            ) as _i3.PointInTimeRecoveryDescription));
-          }
-          break;
+          result.pointInTimeRecoveryDescription
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
+          ) as _i3.PointInTimeRecoveryDescription));
       }
     }
 
@@ -135,11 +134,13 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
         specifiedType: const FullType(_i2.ContinuousBackupsStatus),
       ),
     ];
-    if (payload.pointInTimeRecoveryDescription != null) {
+    final ContinuousBackupsDescription(:pointInTimeRecoveryDescription) =
+        payload;
+    if (pointInTimeRecoveryDescription != null) {
       result
         ..add('PointInTimeRecoveryDescription')
         ..add(serializers.serialize(
-          payload.pointInTimeRecoveryDescription!,
+          pointInTimeRecoveryDescription,
           specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
         ));
     }

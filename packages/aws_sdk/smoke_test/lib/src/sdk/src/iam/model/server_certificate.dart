@@ -117,44 +117,39 @@ class ServerCertificateAwsQuerySerializer
     final result = ServerCertificateBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ServerCertificateMetadata':
           result.serverCertificateMetadata.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.ServerCertificateMetadata),
           ) as _i2.ServerCertificateMetadata));
-          break;
         case 'CertificateBody':
           result.certificateBody = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CertificateChain':
-          if (value != null) {
-            result.certificateChain = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.certificateChain = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i5.XmlBuiltListSerializer(
-                    indexer: _i5.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i5.XmlBuiltListSerializer(
+                  indexer: _i5.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -174,34 +169,40 @@ class ServerCertificateAwsQuerySerializer
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ServerCertificate(
+      :serverCertificateMetadata,
+      :certificateBody,
+      :certificateChain,
+      :tags
+    ) = payload;
     result
       ..add(const _i5.XmlElementName('ServerCertificateMetadata'))
       ..add(serializers.serialize(
-        payload.serverCertificateMetadata,
+        serverCertificateMetadata,
         specifiedType: const FullType(_i2.ServerCertificateMetadata),
       ));
     result
       ..add(const _i5.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
-        payload.certificateBody,
+        certificateBody,
         specifiedType: const FullType(String),
       ));
-    if (payload.certificateChain != null) {
+    if (certificateChain != null) {
       result
         ..add(const _i5.XmlElementName('CertificateChain'))
         ..add(serializers.serialize(
-          payload.certificateChain!,
+          certificateChain,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i5.XmlElementName('Tags'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

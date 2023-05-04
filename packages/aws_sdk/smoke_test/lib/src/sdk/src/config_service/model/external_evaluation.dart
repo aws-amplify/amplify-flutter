@@ -123,39 +123,35 @@ class ExternalEvaluationAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceResourceType':
           result.complianceResourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ComplianceResourceId':
           result.complianceResourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ComplianceType),
           ) as _i2.ComplianceType);
-          break;
         case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.annotation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OrderingTimestamp':
           result.orderingTimestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -191,11 +187,12 @@ class ExternalEvaluationAwsJson11Serializer
         specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.annotation != null) {
+    final ExternalEvaluation(:annotation) = payload;
+    if (annotation != null) {
       result
         ..add('Annotation')
         ..add(serializers.serialize(
-          payload.annotation!,
+          annotation,
           specifiedType: const FullType(String),
         ));
     }

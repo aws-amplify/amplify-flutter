@@ -152,63 +152,45 @@ class AggregatedSourceStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SourceId':
-          if (value != null) {
-            result.sourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceType':
-          if (value != null) {
-            result.sourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AggregatedSourceType),
-            ) as _i2.AggregatedSourceType);
-          }
-          break;
+          result.sourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AggregatedSourceType),
+          ) as _i2.AggregatedSourceType);
         case 'AwsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdateStatus':
-          if (value != null) {
-            result.lastUpdateStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AggregatedSourceStatusType),
-            ) as _i3.AggregatedSourceStatusType);
-          }
-          break;
+          result.lastUpdateStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AggregatedSourceStatusType),
+          ) as _i3.AggregatedSourceStatusType);
         case 'LastUpdateTime':
-          if (value != null) {
-            result.lastUpdateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastErrorCode':
-          if (value != null) {
-            result.lastErrorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastErrorMessage':
-          if (value != null) {
-            result.lastErrorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastErrorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -223,59 +205,68 @@ class AggregatedSourceStatusAwsJson11Serializer
   }) {
     final payload = (object as AggregatedSourceStatus);
     final result = <Object?>[];
-    if (payload.sourceId != null) {
+    final AggregatedSourceStatus(
+      :sourceId,
+      :sourceType,
+      :awsRegion,
+      :lastUpdateStatus,
+      :lastUpdateTime,
+      :lastErrorCode,
+      :lastErrorMessage
+    ) = payload;
+    if (sourceId != null) {
       result
         ..add('SourceId')
         ..add(serializers.serialize(
-          payload.sourceId!,
+          sourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceType != null) {
+    if (sourceType != null) {
       result
         ..add('SourceType')
         ..add(serializers.serialize(
-          payload.sourceType!,
+          sourceType,
           specifiedType: const FullType(_i2.AggregatedSourceType),
         ));
     }
-    if (payload.awsRegion != null) {
+    if (awsRegion != null) {
       result
         ..add('AwsRegion')
         ..add(serializers.serialize(
-          payload.awsRegion!,
+          awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdateStatus != null) {
+    if (lastUpdateStatus != null) {
       result
         ..add('LastUpdateStatus')
         ..add(serializers.serialize(
-          payload.lastUpdateStatus!,
+          lastUpdateStatus,
           specifiedType: const FullType(_i3.AggregatedSourceStatusType),
         ));
     }
-    if (payload.lastUpdateTime != null) {
+    if (lastUpdateTime != null) {
       result
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateTime!,
+          lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.lastErrorCode != null) {
+    if (lastErrorCode != null) {
       result
         ..add('LastErrorCode')
         ..add(serializers.serialize(
-          payload.lastErrorCode!,
+          lastErrorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastErrorMessage != null) {
+    if (lastErrorMessage != null) {
       result
         ..add('LastErrorMessage')
         ..add(serializers.serialize(
-          payload.lastErrorMessage!,
+          lastErrorMessage,
           specifiedType: const FullType(String),
         ));
     }

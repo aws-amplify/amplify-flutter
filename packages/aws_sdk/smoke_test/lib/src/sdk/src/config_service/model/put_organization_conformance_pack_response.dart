@@ -86,15 +86,15 @@ class PutOrganizationConformancePackResponseAwsJson11Serializer extends _i2
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConformancePackArn':
-          if (value != null) {
-            result.organizationConformancePackArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationConformancePackArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -109,11 +109,14 @@ class PutOrganizationConformancePackResponseAwsJson11Serializer extends _i2
   }) {
     final payload = (object as PutOrganizationConformancePackResponse);
     final result = <Object?>[];
-    if (payload.organizationConformancePackArn != null) {
+    final PutOrganizationConformancePackResponse(
+      :organizationConformancePackArn
+    ) = payload;
+    if (organizationConformancePackArn != null) {
       result
         ..add('OrganizationConformancePackArn')
         ..add(serializers.serialize(
-          payload.organizationConformancePackArn!,
+          organizationConformancePackArn,
           specifiedType: const FullType(String),
         ));
     }

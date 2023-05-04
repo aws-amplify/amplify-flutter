@@ -93,26 +93,23 @@ class GlobalTableAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'GlobalTableName':
-          if (value != null) {
-            result.globalTableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.globalTableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplicationGroup':
-          if (value != null) {
-            result.replicationGroup.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Replica)],
-              ),
-            ) as _i3.BuiltList<_i2.Replica>));
-          }
-          break;
+          result.replicationGroup.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Replica)],
+            ),
+          ) as _i3.BuiltList<_i2.Replica>));
       }
     }
 
@@ -127,19 +124,20 @@ class GlobalTableAwsJson10Serializer
   }) {
     final payload = (object as GlobalTable);
     final result = <Object?>[];
-    if (payload.globalTableName != null) {
+    final GlobalTable(:globalTableName, :replicationGroup) = payload;
+    if (globalTableName != null) {
       result
         ..add('GlobalTableName')
         ..add(serializers.serialize(
-          payload.globalTableName!,
+          globalTableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replicationGroup != null) {
+    if (replicationGroup != null) {
       result
         ..add('ReplicationGroup')
         ..add(serializers.serialize(
-          payload.replicationGroup!,
+          replicationGroup,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Replica)],

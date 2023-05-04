@@ -105,15 +105,15 @@ class TransactionInProgressExceptionAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,11 +128,12 @@ class TransactionInProgressExceptionAwsJson10Serializer
   }) {
     final payload = (object as TransactionInProgressException);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final TransactionInProgressException(:message) = payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }

@@ -91,23 +91,20 @@ class SequenceNumberRangeAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StartingSequenceNumber':
-          if (value != null) {
-            result.startingSequenceNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.startingSequenceNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EndingSequenceNumber':
-          if (value != null) {
-            result.endingSequenceNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.endingSequenceNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -122,19 +119,21 @@ class SequenceNumberRangeAwsJson10Serializer
   }) {
     final payload = (object as SequenceNumberRange);
     final result = <Object?>[];
-    if (payload.startingSequenceNumber != null) {
+    final SequenceNumberRange(:startingSequenceNumber, :endingSequenceNumber) =
+        payload;
+    if (startingSequenceNumber != null) {
       result
         ..add('StartingSequenceNumber')
         ..add(serializers.serialize(
-          payload.startingSequenceNumber!,
+          startingSequenceNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.endingSequenceNumber != null) {
+    if (endingSequenceNumber != null) {
       result
         ..add('EndingSequenceNumber')
         ..add(serializers.serialize(
-          payload.endingSequenceNumber!,
+          endingSequenceNumber,
           specifiedType: const FullType(String),
         ));
     }

@@ -95,18 +95,18 @@ class DescribeConfigurationRecordersRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationRecorderNames':
-          if (value != null) {
-            result.configurationRecorderNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.configurationRecorderNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -121,11 +121,13 @@ class DescribeConfigurationRecordersRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as DescribeConfigurationRecordersRequest);
     final result = <Object?>[];
-    if (payload.configurationRecorderNames != null) {
+    final DescribeConfigurationRecordersRequest(:configurationRecorderNames) =
+        payload;
+    if (configurationRecorderNames != null) {
       result
         ..add('ConfigurationRecorderNames')
         ..add(serializers.serialize(
-          payload.configurationRecorderNames!,
+          configurationRecorderNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

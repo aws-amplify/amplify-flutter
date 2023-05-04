@@ -135,34 +135,28 @@ class ReplicationGroupUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Create':
-          if (value != null) {
-            result.create.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.CreateReplicationGroupMemberAction),
-            ) as _i2.CreateReplicationGroupMemberAction));
-          }
-          break;
+          result.create.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.CreateReplicationGroupMemberAction),
+          ) as _i2.CreateReplicationGroupMemberAction));
         case 'Update':
-          if (value != null) {
-            result.update_.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.UpdateReplicationGroupMemberAction),
-            ) as _i3.UpdateReplicationGroupMemberAction));
-          }
-          break;
+          result.update_.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.UpdateReplicationGroupMemberAction),
+          ) as _i3.UpdateReplicationGroupMemberAction));
         case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i4.DeleteReplicationGroupMemberAction),
-            ) as _i4.DeleteReplicationGroupMemberAction));
-          }
-          break;
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i4.DeleteReplicationGroupMemberAction),
+          ) as _i4.DeleteReplicationGroupMemberAction));
       }
     }
 
@@ -177,27 +171,28 @@ class ReplicationGroupUpdateAwsJson10Serializer
   }) {
     final payload = (object as ReplicationGroupUpdate);
     final result = <Object?>[];
-    if (payload.create != null) {
+    final ReplicationGroupUpdate(:create, :update_, :delete) = payload;
+    if (create != null) {
       result
         ..add('Create')
         ..add(serializers.serialize(
-          payload.create!,
+          create,
           specifiedType: const FullType(_i2.CreateReplicationGroupMemberAction),
         ));
     }
-    if (payload.update_ != null) {
+    if (update_ != null) {
       result
         ..add('Update')
         ..add(serializers.serialize(
-          payload.update_!,
+          update_,
           specifiedType: const FullType(_i3.UpdateReplicationGroupMemberAction),
         ));
     }
-    if (payload.delete != null) {
+    if (delete != null) {
       result
         ..add('Delete')
         ..add(serializers.serialize(
-          payload.delete!,
+          delete,
           specifiedType: const FullType(_i4.DeleteReplicationGroupMemberAction),
         ));
     }

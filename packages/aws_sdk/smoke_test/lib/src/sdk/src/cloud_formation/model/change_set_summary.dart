@@ -191,106 +191,73 @@ class ChangeSetSummaryAwsQuerySerializer
     final result = ChangeSetSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackId':
-          if (value != null) {
-            result.stackId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChangeSetId':
-          if (value != null) {
-            result.changeSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChangeSetName':
-          if (value != null) {
-            result.changeSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExecutionStatus':
-          if (value != null) {
-            result.executionStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ExecutionStatus),
-            ) as _i2.ExecutionStatus);
-          }
-          break;
+          result.executionStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ExecutionStatus),
+          ) as _i2.ExecutionStatus);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ChangeSetStatus),
-            ) as _i3.ChangeSetStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ChangeSetStatus),
+          ) as _i3.ChangeSetStatus);
         case 'StatusReason':
-          if (value != null) {
-            result.statusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreationTime':
-          if (value != null) {
-            result.creationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IncludeNestedStacks':
-          if (value != null) {
-            result.includeNestedStacks = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.includeNestedStacks = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ParentChangeSetId':
-          if (value != null) {
-            result.parentChangeSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parentChangeSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RootChangeSetId':
-          if (value != null) {
-            result.rootChangeSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.rootChangeSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -310,99 +277,113 @@ class ChangeSetSummaryAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackId != null) {
+    final ChangeSetSummary(
+      :stackId,
+      :stackName,
+      :changeSetId,
+      :changeSetName,
+      :executionStatus,
+      :status,
+      :statusReason,
+      :creationTime,
+      :description,
+      :includeNestedStacks,
+      :parentChangeSetId,
+      :rootChangeSetId
+    ) = payload;
+    if (stackId != null) {
       result
         ..add(const _i4.XmlElementName('StackId'))
         ..add(serializers.serialize(
-          payload.stackId!,
+          stackId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackName != null) {
+    if (stackName != null) {
       result
         ..add(const _i4.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.changeSetId != null) {
+    if (changeSetId != null) {
       result
         ..add(const _i4.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
-          payload.changeSetId!,
+          changeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.changeSetName != null) {
+    if (changeSetName != null) {
       result
         ..add(const _i4.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
-          payload.changeSetName!,
+          changeSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.executionStatus != null) {
+    if (executionStatus != null) {
       result
         ..add(const _i4.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
-          payload.executionStatus!,
+          executionStatus,
           specifiedType: const FullType.nullable(_i2.ExecutionStatus),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i4.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.ChangeSetStatus),
         ));
     }
-    if (payload.statusReason != null) {
+    if (statusReason != null) {
       result
         ..add(const _i4.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
-          payload.statusReason!,
+          statusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.creationTime != null) {
+    if (creationTime != null) {
       result
         ..add(const _i4.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
-          payload.creationTime!,
+          creationTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.includeNestedStacks != null) {
+    if (includeNestedStacks != null) {
       result
         ..add(const _i4.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
-          payload.includeNestedStacks!,
+          includeNestedStacks,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.parentChangeSetId != null) {
+    if (parentChangeSetId != null) {
       result
         ..add(const _i4.XmlElementName('ParentChangeSetId'))
         ..add(serializers.serialize(
-          payload.parentChangeSetId!,
+          parentChangeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.rootChangeSetId != null) {
+    if (rootChangeSetId != null) {
       result
         ..add(const _i4.XmlElementName('RootChangeSetId'))
         ..add(serializers.serialize(
-          payload.rootChangeSetId!,
+          rootChangeSetId,
           specifiedType: const FullType(String),
         ));
     }

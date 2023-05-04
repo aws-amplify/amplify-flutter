@@ -96,26 +96,23 @@ class TargetGrantRestXmlSerializer
     final result = TargetGrantBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Grantee':
-          if (value != null) {
-            result.grantee.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Grantee),
-            ) as _i2.Grantee));
-          }
-          break;
+          result.grantee.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Grantee),
+          ) as _i2.Grantee));
         case 'Permission':
-          if (value != null) {
-            result.permission = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.BucketLogsPermission),
-            ) as _i3.BucketLogsPermission);
-          }
-          break;
+          result.permission = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.BucketLogsPermission),
+          ) as _i3.BucketLogsPermission);
       }
     }
 
@@ -135,7 +132,8 @@ class TargetGrantRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.grantee != null) {
+    final TargetGrant(:grantee, :permission) = payload;
+    if (grantee != null) {
       result
         ..add(const _i4.XmlElementName(
           'Grantee',
@@ -145,15 +143,15 @@ class TargetGrantRestXmlSerializer
           ),
         ))
         ..add(serializers.serialize(
-          payload.grantee!,
+          grantee,
           specifiedType: const FullType(_i2.Grantee),
         ));
     }
-    if (payload.permission != null) {
+    if (permission != null) {
       result
         ..add(const _i4.XmlElementName('Permission'))
         ..add(serializers.serialize(
-          payload.permission!,
+          permission,
           specifiedType: const FullType.nullable(_i3.BucketLogsPermission),
         ));
     }

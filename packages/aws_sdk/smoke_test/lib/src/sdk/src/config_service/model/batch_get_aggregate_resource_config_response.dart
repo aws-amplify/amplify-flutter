@@ -110,30 +110,27 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BaseConfigurationItems':
-          if (value != null) {
-            result.baseConfigurationItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.BaseConfigurationItem)],
-              ),
-            ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
-          }
-          break;
+          result.baseConfigurationItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.BaseConfigurationItem)],
+            ),
+          ) as _i4.BuiltList<_i2.BaseConfigurationItem>));
         case 'UnprocessedResourceIdentifiers':
-          if (value != null) {
-            result.unprocessedResourceIdentifiers
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AggregateResourceIdentifier)],
-              ),
-            ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
-          }
-          break;
+          result.unprocessedResourceIdentifiers
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AggregateResourceIdentifier)],
+            ),
+          ) as _i4.BuiltList<_i3.AggregateResourceIdentifier>));
       }
     }
 
@@ -148,22 +145,26 @@ class BatchGetAggregateResourceConfigResponseAwsJson11Serializer extends _i5
   }) {
     final payload = (object as BatchGetAggregateResourceConfigResponse);
     final result = <Object?>[];
-    if (payload.baseConfigurationItems != null) {
+    final BatchGetAggregateResourceConfigResponse(
+      :baseConfigurationItems,
+      :unprocessedResourceIdentifiers
+    ) = payload;
+    if (baseConfigurationItems != null) {
       result
         ..add('BaseConfigurationItems')
         ..add(serializers.serialize(
-          payload.baseConfigurationItems!,
+          baseConfigurationItems,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.BaseConfigurationItem)],
           ),
         ));
     }
-    if (payload.unprocessedResourceIdentifiers != null) {
+    if (unprocessedResourceIdentifiers != null) {
       result
         ..add('UnprocessedResourceIdentifiers')
         ..add(serializers.serialize(
-          payload.unprocessedResourceIdentifiers!,
+          unprocessedResourceIdentifiers,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.AggregateResourceIdentifier)],

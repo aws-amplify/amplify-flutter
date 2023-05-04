@@ -107,34 +107,28 @@ class GetCallerIdentityResponseAwsQuerySerializer
     final result = GetCallerIdentityResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserId':
-          if (value != null) {
-            result.userId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Account':
-          if (value != null) {
-            result.account = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.account = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,27 +148,28 @@ class GetCallerIdentityResponseAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.userId != null) {
+    final GetCallerIdentityResponse(:userId, :account, :arn) = payload;
+    if (userId != null) {
       result
         ..add(const _i2.XmlElementName('UserId'))
         ..add(serializers.serialize(
-          payload.userId!,
+          userId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.account != null) {
+    if (account != null) {
       result
         ..add(const _i2.XmlElementName('Account'))
         ..add(serializers.serialize(
-          payload.account!,
+          account,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i2.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }

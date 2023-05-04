@@ -136,50 +136,43 @@ class ServerCertificateMetadataAwsQuerySerializer
     final result = ServerCertificateMetadataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ServerCertificateName':
           result.serverCertificateName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ServerCertificateId':
           result.serverCertificateId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UploadDate':
-          if (value != null) {
-            result.uploadDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.uploadDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Expiration':
-          if (value != null) {
-            result.expiration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.expiration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -199,43 +192,51 @@ class ServerCertificateMetadataAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final ServerCertificateMetadata(
+      :path,
+      :serverCertificateName,
+      :serverCertificateId,
+      :arn,
+      :uploadDate,
+      :expiration
+    ) = payload;
     result
       ..add(const _i2.XmlElementName('Path'))
       ..add(serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('ServerCertificateName'))
       ..add(serializers.serialize(
-        payload.serverCertificateName,
+        serverCertificateName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('ServerCertificateId'))
       ..add(serializers.serialize(
-        payload.serverCertificateId,
+        serverCertificateId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
-    if (payload.uploadDate != null) {
+    if (uploadDate != null) {
       result
         ..add(const _i2.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
-          payload.uploadDate!,
+          uploadDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.expiration != null) {
+    if (expiration != null) {
       result
         ..add(const _i2.XmlElementName('Expiration'))
         ..add(serializers.serialize(
-          payload.expiration!,
+          expiration,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

@@ -128,42 +128,33 @@ class GlobalSecondaryIndexInfoAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
-          if (value != null) {
-            result.indexName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.indexName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeySchema':
-          if (value != null) {
-            result.keySchema.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.KeySchemaElement)],
-              ),
-            ) as _i5.BuiltList<_i2.KeySchemaElement>));
-          }
-          break;
+          result.keySchema.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.KeySchemaElement)],
+            ),
+          ) as _i5.BuiltList<_i2.KeySchemaElement>));
         case 'Projection':
-          if (value != null) {
-            result.projection.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Projection),
-            ) as _i3.Projection));
-          }
-          break;
+          result.projection.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Projection),
+          ) as _i3.Projection));
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ProvisionedThroughput),
-            ) as _i4.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ProvisionedThroughput),
+          ) as _i4.ProvisionedThroughput));
       }
     }
 
@@ -178,38 +169,44 @@ class GlobalSecondaryIndexInfoAwsJson10Serializer
   }) {
     final payload = (object as GlobalSecondaryIndexInfo);
     final result = <Object?>[];
-    if (payload.indexName != null) {
+    final GlobalSecondaryIndexInfo(
+      :indexName,
+      :keySchema,
+      :projection,
+      :provisionedThroughput
+    ) = payload;
+    if (indexName != null) {
       result
         ..add('IndexName')
         ..add(serializers.serialize(
-          payload.indexName!,
+          indexName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keySchema != null) {
+    if (keySchema != null) {
       result
         ..add('KeySchema')
         ..add(serializers.serialize(
-          payload.keySchema!,
+          keySchema,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i2.KeySchemaElement)],
           ),
         ));
     }
-    if (payload.projection != null) {
+    if (projection != null) {
       result
         ..add('Projection')
         ..add(serializers.serialize(
-          payload.projection!,
+          projection,
           specifiedType: const FullType(_i3.Projection),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i4.ProvisionedThroughput),
         ));
     }

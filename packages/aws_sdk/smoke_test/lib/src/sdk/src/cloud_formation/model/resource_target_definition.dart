@@ -104,34 +104,28 @@ class ResourceTargetDefinitionAwsQuerySerializer
     final result = ResourceTargetDefinitionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Attribute':
-          if (value != null) {
-            result.attribute = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceAttribute),
-            ) as _i2.ResourceAttribute);
-          }
-          break;
+          result.attribute = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceAttribute),
+          ) as _i2.ResourceAttribute);
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RequiresRecreation':
-          if (value != null) {
-            result.requiresRecreation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RequiresRecreation),
-            ) as _i3.RequiresRecreation);
-          }
-          break;
+          result.requiresRecreation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RequiresRecreation),
+          ) as _i3.RequiresRecreation);
       }
     }
 
@@ -151,27 +145,29 @@ class ResourceTargetDefinitionAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.attribute != null) {
+    final ResourceTargetDefinition(:attribute, :name, :requiresRecreation) =
+        payload;
+    if (attribute != null) {
       result
         ..add(const _i4.XmlElementName('Attribute'))
         ..add(serializers.serialize(
-          payload.attribute!,
+          attribute,
           specifiedType: const FullType.nullable(_i2.ResourceAttribute),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add(const _i4.XmlElementName('Name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requiresRecreation != null) {
+    if (requiresRecreation != null) {
       result
         ..add(const _i4.XmlElementName('RequiresRecreation'))
         ..add(serializers.serialize(
-          payload.requiresRecreation!,
+          requiresRecreation,
           specifiedType: const FullType.nullable(_i3.RequiresRecreation),
         ));
     }

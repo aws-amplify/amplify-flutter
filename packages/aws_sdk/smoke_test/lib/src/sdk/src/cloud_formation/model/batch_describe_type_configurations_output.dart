@@ -118,53 +118,47 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
     final result = BatchDescribeTypeConfigurationsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Errors':
-          if (value != null) {
-            result.errors.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i2.BatchDescribeTypeConfigurationsError)],
-              ),
-            ) as _i5.BuiltList<_i2.BatchDescribeTypeConfigurationsError>));
-          }
-          break;
+          result.errors.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i2.BatchDescribeTypeConfigurationsError)],
+            ),
+          ) as _i5.BuiltList<_i2.BatchDescribeTypeConfigurationsError>));
         case 'UnprocessedTypeConfigurations':
-          if (value != null) {
-            result.unprocessedTypeConfigurations.replace(
-                (const _i6.XmlBuiltListSerializer(
-                        indexer: _i6.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.TypeConfigurationIdentifier)],
-              ),
-            ) as _i5.BuiltList<_i3.TypeConfigurationIdentifier>));
-          }
-          break;
+          result.unprocessedTypeConfigurations.replace(
+              (const _i6.XmlBuiltListSerializer(
+                      indexer: _i6.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.TypeConfigurationIdentifier)],
+            ),
+          ) as _i5.BuiltList<_i3.TypeConfigurationIdentifier>));
         case 'TypeConfigurations':
-          if (value != null) {
-            result.typeConfigurations.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.TypeConfigurationDetails)],
-              ),
-            ) as _i5.BuiltList<_i4.TypeConfigurationDetails>));
-          }
-          break;
+          result.typeConfigurations.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.TypeConfigurationDetails)],
+            ),
+          ) as _i5.BuiltList<_i4.TypeConfigurationDetails>));
       }
     }
 
@@ -184,42 +178,47 @@ class BatchDescribeTypeConfigurationsOutputAwsQuerySerializer extends _i6
         _i6.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.errors != null) {
+    final BatchDescribeTypeConfigurationsOutput(
+      :errors,
+      :unprocessedTypeConfigurations,
+      :typeConfigurations
+    ) = payload;
+    if (errors != null) {
       result
         ..add(const _i6.XmlElementName('Errors'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.errors!,
+          errors,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i2.BatchDescribeTypeConfigurationsError)],
           ),
         ));
     }
-    if (payload.unprocessedTypeConfigurations != null) {
+    if (unprocessedTypeConfigurations != null) {
       result
         ..add(const _i6.XmlElementName('UnprocessedTypeConfigurations'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.unprocessedTypeConfigurations!,
+          unprocessedTypeConfigurations,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.TypeConfigurationIdentifier)],
           ),
         ));
     }
-    if (payload.typeConfigurations != null) {
+    if (typeConfigurations != null) {
       result
         ..add(const _i6.XmlElementName('TypeConfigurations'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.typeConfigurations!,
+          typeConfigurations,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.TypeConfigurationDetails)],

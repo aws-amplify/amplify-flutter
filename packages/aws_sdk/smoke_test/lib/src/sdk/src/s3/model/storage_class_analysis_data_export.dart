@@ -97,23 +97,24 @@ class StorageClassAnalysisDataExportRestXmlSerializer
     final result = StorageClassAnalysisDataExportBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Destination':
           result.destination.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.AnalyticsExportDestination),
           ) as _i3.AnalyticsExportDestination));
-          break;
         case 'OutputSchemaVersion':
           result.outputSchemaVersion = (serializers.deserialize(
-            value!,
+            value,
             specifiedType:
                 const FullType(_i2.StorageClassAnalysisSchemaVersion),
           ) as _i2.StorageClassAnalysisSchemaVersion);
-          break;
       }
     }
 
@@ -133,16 +134,18 @@ class StorageClassAnalysisDataExportRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final StorageClassAnalysisDataExport(:destination, :outputSchemaVersion) =
+        payload;
     result
       ..add(const _i4.XmlElementName('Destination'))
       ..add(serializers.serialize(
-        payload.destination,
+        destination,
         specifiedType: const FullType(_i3.AnalyticsExportDestination),
       ));
     result
       ..add(const _i4.XmlElementName('OutputSchemaVersion'))
       ..add(serializers.serialize(
-        payload.outputSchemaVersion,
+        outputSchemaVersion,
         specifiedType:
             const FullType.nullable(_i2.StorageClassAnalysisSchemaVersion),
       ));

@@ -86,15 +86,15 @@ class PutOrganizationConfigRuleResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleArn':
-          if (value != null) {
-            result.organizationConfigRuleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.organizationConfigRuleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -109,11 +109,13 @@ class PutOrganizationConfigRuleResponseAwsJson11Serializer
   }) {
     final payload = (object as PutOrganizationConfigRuleResponse);
     final result = <Object?>[];
-    if (payload.organizationConfigRuleArn != null) {
+    final PutOrganizationConfigRuleResponse(:organizationConfigRuleArn) =
+        payload;
+    if (organizationConfigRuleArn != null) {
       result
         ..add('OrganizationConfigRuleArn')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleArn!,
+          organizationConfigRuleArn,
           specifiedType: const FullType(String),
         ));
     }

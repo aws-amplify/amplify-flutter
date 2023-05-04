@@ -151,72 +151,54 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     final result = DescribeChangeSetHooksOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChangeSetId':
-          if (value != null) {
-            result.changeSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChangeSetName':
-          if (value != null) {
-            result.changeSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Hooks':
-          if (value != null) {
-            result.hooks.replace((const _i5.XmlBuiltListSerializer(
-                    indexer: _i5.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ChangeSetHook)],
-              ),
-            ) as _i4.BuiltList<_i2.ChangeSetHook>));
-          }
-          break;
+          result.hooks.replace((const _i5.XmlBuiltListSerializer(
+                  indexer: _i5.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ChangeSetHook)],
+            ),
+          ) as _i4.BuiltList<_i2.ChangeSetHook>));
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ChangeSetHooksStatus),
-            ) as _i3.ChangeSetHooksStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ChangeSetHooksStatus),
+          ) as _i3.ChangeSetHooksStatus);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackId':
-          if (value != null) {
-            result.stackId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -236,65 +218,74 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.changeSetId != null) {
+    final DescribeChangeSetHooksOutput(
+      :changeSetId,
+      :changeSetName,
+      :hooks,
+      :status,
+      :nextToken,
+      :stackId,
+      :stackName
+    ) = payload;
+    if (changeSetId != null) {
       result
         ..add(const _i5.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
-          payload.changeSetId!,
+          changeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.changeSetName != null) {
+    if (changeSetName != null) {
       result
         ..add(const _i5.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
-          payload.changeSetName!,
+          changeSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.hooks != null) {
+    if (hooks != null) {
       result
         ..add(const _i5.XmlElementName('Hooks'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.hooks!,
+          hooks,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i2.ChangeSetHook)],
           ),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i5.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.ChangeSetHooksStatus),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i5.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackId != null) {
+    if (stackId != null) {
       result
         ..add(const _i5.XmlElementName('StackId'))
         ..add(serializers.serialize(
-          payload.stackId!,
+          stackId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackName != null) {
+    if (stackName != null) {
       result
         ..add(const _i5.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }

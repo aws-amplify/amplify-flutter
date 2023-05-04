@@ -94,27 +94,24 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
     final result = ChangeSetHookTargetDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TargetType':
-          if (value != null) {
-            result.targetType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.HookTargetType),
-            ) as _i2.HookTargetType);
-          }
-          break;
+          result.targetType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.HookTargetType),
+          ) as _i2.HookTargetType);
         case 'ResourceTargetDetails':
-          if (value != null) {
-            result.resourceTargetDetails.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.ChangeSetHookResourceTargetDetails),
-            ) as _i3.ChangeSetHookResourceTargetDetails));
-          }
-          break;
+          result.resourceTargetDetails.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ChangeSetHookResourceTargetDetails),
+          ) as _i3.ChangeSetHookResourceTargetDetails));
       }
     }
 
@@ -134,19 +131,21 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.targetType != null) {
+    final ChangeSetHookTargetDetails(:targetType, :resourceTargetDetails) =
+        payload;
+    if (targetType != null) {
       result
         ..add(const _i4.XmlElementName('TargetType'))
         ..add(serializers.serialize(
-          payload.targetType!,
+          targetType,
           specifiedType: const FullType.nullable(_i2.HookTargetType),
         ));
     }
-    if (payload.resourceTargetDetails != null) {
+    if (resourceTargetDetails != null) {
       result
         ..add(const _i4.XmlElementName('ResourceTargetDetails'))
         ..add(serializers.serialize(
-          payload.resourceTargetDetails!,
+          resourceTargetDetails,
           specifiedType: const FullType(_i3.ChangeSetHookResourceTargetDetails),
         ));
     }

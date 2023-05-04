@@ -89,22 +89,23 @@ class RollbackTriggerAwsQuerySerializer
     final result = RollbackTriggerBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -124,16 +125,17 @@ class RollbackTriggerAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final RollbackTrigger(:arn, :type) = payload;
     result
       ..add(const _i2.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i2.XmlElementName('Type'))
       ..add(serializers.serialize(
-        payload.type,
+        type,
         specifiedType: const FullType(String),
       ));
     return result;

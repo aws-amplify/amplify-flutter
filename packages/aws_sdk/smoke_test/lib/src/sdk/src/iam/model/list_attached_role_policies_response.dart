@@ -113,40 +113,34 @@ class ListAttachedRolePoliciesResponseAwsQuerySerializer
     final result = ListAttachedRolePoliciesResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AttachedPolicies':
-          if (value != null) {
-            result.attachedPolicies.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AttachedPolicy)],
-              ),
-            ) as _i3.BuiltList<_i2.AttachedPolicy>));
-          }
-          break;
+          result.attachedPolicies.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AttachedPolicy)],
+            ),
+          ) as _i3.BuiltList<_i2.AttachedPolicy>));
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -166,33 +160,38 @@ class ListAttachedRolePoliciesResponseAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.attachedPolicies != null) {
+    final ListAttachedRolePoliciesResponse(
+      :attachedPolicies,
+      :isTruncated,
+      :marker
+    ) = payload;
+    if (attachedPolicies != null) {
       result
         ..add(const _i4.XmlElementName('AttachedPolicies'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.attachedPolicies!,
+          attachedPolicies,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.AttachedPolicy)],
           ),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i4.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i4.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

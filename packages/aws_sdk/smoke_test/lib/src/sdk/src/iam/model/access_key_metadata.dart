@@ -114,42 +114,33 @@ class AccessKeyMetadataAwsQuerySerializer
     final result = AccessKeyMetadataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.userName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AccessKeyId':
-          if (value != null) {
-            result.accessKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accessKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StatusType),
-            ) as _i2.StatusType);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StatusType),
+          ) as _i2.StatusType);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -169,35 +160,37 @@ class AccessKeyMetadataAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final AccessKeyMetadata(:userName, :accessKeyId, :status, :createDate) =
+        payload;
+    if (userName != null) {
       result
         ..add(const _i3.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.accessKeyId != null) {
+    if (accessKeyId != null) {
       result
         ..add(const _i3.XmlElementName('AccessKeyId'))
         ..add(serializers.serialize(
-          payload.accessKeyId!,
+          accessKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i2.StatusType),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

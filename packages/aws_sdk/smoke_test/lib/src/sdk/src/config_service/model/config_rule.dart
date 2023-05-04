@@ -211,85 +211,60 @@ class ConfigRuleAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConfigRuleArn':
-          if (value != null) {
-            result.configRuleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConfigRuleId':
-          if (value != null) {
-            result.configRuleId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Scope':
-          if (value != null) {
-            result.scope.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Scope),
-            ) as _i2.Scope));
-          }
-          break;
+          result.scope.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Scope),
+          ) as _i2.Scope));
         case 'Source':
           result.source.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.Source),
           ) as _i3.Source));
-          break;
         case 'InputParameters':
-          if (value != null) {
-            result.inputParameters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.inputParameters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaximumExecutionFrequency':
-          if (value != null) {
-            result.maximumExecutionFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.MaximumExecutionFrequency),
-            ) as _i4.MaximumExecutionFrequency);
-          }
-          break;
+          result.maximumExecutionFrequency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.MaximumExecutionFrequency),
+          ) as _i4.MaximumExecutionFrequency);
         case 'ConfigRuleState':
-          if (value != null) {
-            result.configRuleState = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ConfigRuleState),
-            ) as _i5.ConfigRuleState);
-          }
-          break;
+          result.configRuleState = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ConfigRuleState),
+          ) as _i5.ConfigRuleState);
         case 'CreatedBy':
-          if (value != null) {
-            result.createdBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.createdBy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -310,75 +285,86 @@ class ConfigRuleAwsJson11Serializer
         specifiedType: const FullType(_i3.Source),
       ),
     ];
-    if (payload.configRuleName != null) {
+    final ConfigRule(
+      :configRuleName,
+      :configRuleArn,
+      :configRuleId,
+      :description,
+      :scope,
+      :inputParameters,
+      :maximumExecutionFrequency,
+      :configRuleState,
+      :createdBy
+    ) = payload;
+    if (configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleArn != null) {
+    if (configRuleArn != null) {
       result
         ..add('ConfigRuleArn')
         ..add(serializers.serialize(
-          payload.configRuleArn!,
+          configRuleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configRuleId != null) {
+    if (configRuleId != null) {
       result
         ..add('ConfigRuleId')
         ..add(serializers.serialize(
-          payload.configRuleId!,
+          configRuleId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('Description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.scope != null) {
+    if (scope != null) {
       result
         ..add('Scope')
         ..add(serializers.serialize(
-          payload.scope!,
+          scope,
           specifiedType: const FullType(_i2.Scope),
         ));
     }
-    if (payload.inputParameters != null) {
+    if (inputParameters != null) {
       result
         ..add('InputParameters')
         ..add(serializers.serialize(
-          payload.inputParameters!,
+          inputParameters,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maximumExecutionFrequency != null) {
+    if (maximumExecutionFrequency != null) {
       result
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
-          payload.maximumExecutionFrequency!,
+          maximumExecutionFrequency,
           specifiedType: const FullType(_i4.MaximumExecutionFrequency),
         ));
     }
-    if (payload.configRuleState != null) {
+    if (configRuleState != null) {
       result
         ..add('ConfigRuleState')
         ..add(serializers.serialize(
-          payload.configRuleState!,
+          configRuleState,
           specifiedType: const FullType(_i5.ConfigRuleState),
         ));
     }
-    if (payload.createdBy != null) {
+    if (createdBy != null) {
       result
         ..add('CreatedBy')
         ..add(serializers.serialize(
-          payload.createdBy!,
+          createdBy,
           specifiedType: const FullType(String),
         ));
     }

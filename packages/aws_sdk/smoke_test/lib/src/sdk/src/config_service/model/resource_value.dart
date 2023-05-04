@@ -76,13 +76,15 @@ class ResourceValueAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Value':
           result.value = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ResourceValueType),
           ) as _i2.ResourceValueType);
-          break;
       }
     }
 

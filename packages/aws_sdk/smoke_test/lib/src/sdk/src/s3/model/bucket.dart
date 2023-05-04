@@ -85,26 +85,23 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
     final result = BucketBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CreationDate':
-          if (value != null) {
-            result.creationDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.creationDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -124,19 +121,20 @@ class BucketRestXmlSerializer extends _i2.StructuredSmithySerializer<Bucket> {
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.creationDate != null) {
+    final Bucket(:creationDate, :name) = payload;
+    if (creationDate != null) {
       result
         ..add(const _i2.XmlElementName('CreationDate'))
         ..add(serializers.serialize(
-          payload.creationDate!,
+          creationDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }

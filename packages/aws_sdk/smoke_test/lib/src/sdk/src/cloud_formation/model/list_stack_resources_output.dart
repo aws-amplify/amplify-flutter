@@ -102,33 +102,30 @@ class ListStackResourcesOutputAwsQuerySerializer
     final result = ListStackResourcesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackResourceSummaries':
-          if (value != null) {
-            result.stackResourceSummaries.replace(
-                (const _i4.XmlBuiltListSerializer(
-                        indexer: _i4.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.StackResourceSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.StackResourceSummary>));
-          }
-          break;
+          result.stackResourceSummaries.replace(
+              (const _i4.XmlBuiltListSerializer(
+                      indexer: _i4.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.StackResourceSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.StackResourceSummary>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -148,25 +145,27 @@ class ListStackResourcesOutputAwsQuerySerializer
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackResourceSummaries != null) {
+    final ListStackResourcesOutput(:stackResourceSummaries, :nextToken) =
+        payload;
+    if (stackResourceSummaries != null) {
       result
         ..add(const _i4.XmlElementName('StackResourceSummaries'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.stackResourceSummaries!,
+          stackResourceSummaries,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.StackResourceSummary)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i4.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

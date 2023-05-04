@@ -106,24 +106,23 @@ class DeleteStackSetInputAwsQuerySerializer
     final result = DeleteStackSetInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
           result.stackSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.CallAs),
-            ) as _i3.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.CallAs),
+          ) as _i3.CallAs);
       }
     }
 
@@ -143,17 +142,18 @@ class DeleteStackSetInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DeleteStackSetInput(:stackSetName, :callAs) = payload;
     result
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
-        payload.stackSetName,
+        stackSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i3.CallAs),
         ));
     }

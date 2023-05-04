@@ -145,64 +145,52 @@ class ScanOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Items':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [
-                  FullType(
-                    _i4.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(_i2.AttributeValue),
-                    ],
-                  )
-                ],
-              ),
-            ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [
+                FullType(
+                  _i4.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(_i2.AttributeValue),
+                  ],
+                )
+              ],
+            ),
+          ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
         case 'Count':
-          if (value != null) {
-            result.count = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.count = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ScannedCount':
-          if (value != null) {
-            result.scannedCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.scannedCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'LastEvaluatedKey':
-          if (value != null) {
-            result.lastEvaluatedKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.AttributeValue),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i2.AttributeValue>));
-          }
-          break;
+          result.lastEvaluatedKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.AttributeValue),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ConsumedCapacity),
-            ) as _i3.ConsumedCapacity));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ConsumedCapacity),
+          ) as _i3.ConsumedCapacity));
       }
     }
 
@@ -217,11 +205,18 @@ class ScanOutputAwsJson10Serializer
   }) {
     final payload = (object as ScanOutput);
     final result = <Object?>[];
-    if (payload.items != null) {
+    final ScanOutput(
+      :items,
+      :count,
+      :scannedCount,
+      :lastEvaluatedKey,
+      :consumedCapacity
+    ) = payload;
+    if (items != null) {
       result
         ..add('Items')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i4.BuiltList,
             [
@@ -236,27 +231,27 @@ class ScanOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.count != null) {
+    if (count != null) {
       result
         ..add('Count')
         ..add(serializers.serialize(
-          payload.count!,
+          count,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.scannedCount != null) {
+    if (scannedCount != null) {
       result
         ..add('ScannedCount')
         ..add(serializers.serialize(
-          payload.scannedCount!,
+          scannedCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.lastEvaluatedKey != null) {
+    if (lastEvaluatedKey != null) {
       result
         ..add('LastEvaluatedKey')
         ..add(serializers.serialize(
-          payload.lastEvaluatedKey!,
+          lastEvaluatedKey,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -266,11 +261,11 @@ class ScanOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(_i3.ConsumedCapacity),
         ));
     }

@@ -149,72 +149,54 @@ class VpcLinkRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.VpcLinkStatus),
-            ) as _i2.VpcLinkStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.VpcLinkStatus),
+          ) as _i2.VpcLinkStatus);
         case 'statusMessage':
-          if (value != null) {
-            result.statusMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'tags':
-          if (value != null) {
-            result.tags.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.tags.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'targetArns':
-          if (value != null) {
-            result.targetArns.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.targetArns.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -229,51 +211,60 @@ class VpcLinkRestJson1Serializer
   }) {
     final payload = (object as VpcLink);
     final result = <Object?>[];
-    if (payload.description != null) {
+    final VpcLink(
+      :description,
+      :id,
+      :name,
+      :status,
+      :statusMessage,
+      :tags,
+      :targetArns
+    ) = payload;
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add('status')
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType(_i2.VpcLinkStatus),
         ));
     }
-    if (payload.statusMessage != null) {
+    if (statusMessage != null) {
       result
         ..add('statusMessage')
         ..add(serializers.serialize(
-          payload.statusMessage!,
+          statusMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add('tags')
         ..add(serializers.serialize(
-          payload.tags!,
+          tags,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -283,11 +274,11 @@ class VpcLinkRestJson1Serializer
           ),
         ));
     }
-    if (payload.targetArns != null) {
+    if (targetArns != null) {
       result
         ..add('targetArns')
         ..add(serializers.serialize(
-          payload.targetArns!,
+          targetArns,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

@@ -123,46 +123,39 @@ class CreateUserRequestAwsQuerySerializer
     final result = CreateUserRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'UserName':
-          result.userName = (serializers.deserialize(
-            value!,
+          result.path = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'UserName':
+          result.userName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PermissionsBoundary':
-          if (value != null) {
-            result.permissionsBoundary = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.permissionsBoundary = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -182,36 +175,38 @@ class CreateUserRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.path != null) {
+    final CreateUserRequest(:path, :userName, :permissionsBoundary, :tags) =
+        payload;
+    if (path != null) {
       result
         ..add(const _i1.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
-    if (payload.permissionsBoundary != null) {
+    if (permissionsBoundary != null) {
       result
         ..add(const _i1.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.permissionsBoundary!,
+          permissionsBoundary,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i1.XmlElementName('Tags'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

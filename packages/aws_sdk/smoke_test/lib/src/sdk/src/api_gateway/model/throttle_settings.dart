@@ -90,23 +90,20 @@ class ThrottleSettingsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'burstLimit':
-          if (value != null) {
-            result.burstLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.burstLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'rateLimit':
-          if (value != null) {
-            result.rateLimit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.rateLimit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -121,19 +118,20 @@ class ThrottleSettingsRestJson1Serializer
   }) {
     final payload = (object as ThrottleSettings);
     final result = <Object?>[];
-    if (payload.burstLimit != null) {
+    final ThrottleSettings(:burstLimit, :rateLimit) = payload;
+    if (burstLimit != null) {
       result
         ..add('burstLimit')
         ..add(serializers.serialize(
-          payload.burstLimit!,
+          burstLimit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.rateLimit != null) {
+    if (rateLimit != null) {
       result
         ..add('rateLimit')
         ..add(serializers.serialize(
-          payload.rateLimit!,
+          rateLimit,
           specifiedType: const FullType(double),
         ));
     }

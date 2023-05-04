@@ -90,18 +90,18 @@ class GetObjectLegalHoldOutputRestXmlSerializer
     final result = _i3.ObjectLockLegalHoldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ObjectLockLegalHoldStatus),
-            ) as _i4.ObjectLockLegalHoldStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ObjectLockLegalHoldStatus),
+          ) as _i4.ObjectLockLegalHoldStatus);
       }
     }
 
@@ -126,11 +126,12 @@ class GetObjectLegalHoldOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.status != null) {
+    final _i3.ObjectLockLegalHold(:status) = payload;
+    if (status != null) {
       result
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i4.ObjectLockLegalHoldStatus),
         ));
     }

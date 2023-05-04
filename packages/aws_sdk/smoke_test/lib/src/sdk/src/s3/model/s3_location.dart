@@ -155,82 +155,65 @@ class S3LocationRestXmlSerializer
     final result = S3LocationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessControlList':
-          if (value != null) {
-            result.accessControlList.replace(
-                (const _i9.XmlBuiltListSerializer(memberName: 'Grant')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i4.Grant)],
-              ),
-            ) as _i8.BuiltList<_i4.Grant>));
-          }
-          break;
+          result.accessControlList.replace(
+              (const _i9.XmlBuiltListSerializer(memberName: 'Grant')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i4.Grant)],
+            ),
+          ) as _i8.BuiltList<_i4.Grant>));
         case 'BucketName':
           result.bucketName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CannedACL':
-          if (value != null) {
-            result.cannedAcl = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ObjectCannedAcl),
-            ) as _i3.ObjectCannedAcl);
-          }
-          break;
+          result.cannedAcl = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ObjectCannedAcl),
+          ) as _i3.ObjectCannedAcl);
         case 'Encryption':
-          if (value != null) {
-            result.encryption.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Encryption),
-            ) as _i2.Encryption));
-          }
-          break;
+          result.encryption.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Encryption),
+          ) as _i2.Encryption));
         case 'Prefix':
           result.prefix = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.StorageClass),
-            ) as _i7.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.StorageClass),
+          ) as _i7.StorageClass);
         case 'Tagging':
-          if (value != null) {
-            result.tagging.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.Tagging),
-            ) as _i5.Tagging));
-          }
-          break;
+          result.tagging.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.Tagging),
+          ) as _i5.Tagging));
         case 'UserMetadata':
-          if (value != null) {
-            result.userMetadata.replace(
-                (const _i9.XmlBuiltListSerializer(memberName: 'MetadataEntry')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i6.MetadataEntry)],
-              ),
-            ) as _i8.BuiltList<_i6.MetadataEntry>));
-          }
-          break;
+          result.userMetadata.replace(
+              (const _i9.XmlBuiltListSerializer(memberName: 'MetadataEntry')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i6.MetadataEntry)],
+            ),
+          ) as _i8.BuiltList<_i6.MetadataEntry>));
       }
     }
 
@@ -250,12 +233,22 @@ class S3LocationRestXmlSerializer
         _i9.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.accessControlList != null) {
+    final S3Location(
+      :accessControlList,
+      :bucketName,
+      :cannedAcl,
+      :encryption,
+      :prefix,
+      :storageClass,
+      :tagging,
+      :userMetadata
+    ) = payload;
+    if (accessControlList != null) {
       result
         ..add(const _i9.XmlElementName('AccessControlList'))
         ..add(const _i9.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
-          payload.accessControlList!,
+          accessControlList,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i4.Grant)],
@@ -265,54 +258,54 @@ class S3LocationRestXmlSerializer
     result
       ..add(const _i9.XmlElementName('BucketName'))
       ..add(serializers.serialize(
-        payload.bucketName,
+        bucketName,
         specifiedType: const FullType(String),
       ));
-    if (payload.cannedAcl != null) {
+    if (cannedAcl != null) {
       result
         ..add(const _i9.XmlElementName('CannedACL'))
         ..add(serializers.serialize(
-          payload.cannedAcl!,
+          cannedAcl,
           specifiedType: const FullType.nullable(_i3.ObjectCannedAcl),
         ));
     }
-    if (payload.encryption != null) {
+    if (encryption != null) {
       result
         ..add(const _i9.XmlElementName('Encryption'))
         ..add(serializers.serialize(
-          payload.encryption!,
+          encryption,
           specifiedType: const FullType(_i2.Encryption),
         ));
     }
     result
       ..add(const _i9.XmlElementName('Prefix'))
       ..add(serializers.serialize(
-        payload.prefix,
+        prefix,
         specifiedType: const FullType(String),
       ));
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i9.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i7.StorageClass),
         ));
     }
-    if (payload.tagging != null) {
+    if (tagging != null) {
       result
         ..add(const _i9.XmlElementName('Tagging'))
         ..add(serializers.serialize(
-          payload.tagging!,
+          tagging,
           specifiedType: const FullType(_i5.Tagging),
         ));
     }
-    if (payload.userMetadata != null) {
+    if (userMetadata != null) {
       result
         ..add(const _i9.XmlElementName('UserMetadata'))
         ..add(const _i9.XmlBuiltListSerializer(memberName: 'MetadataEntry')
             .serialize(
           serializers,
-          payload.userMetadata!,
+          userMetadata,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i6.MetadataEntry)],

@@ -116,34 +116,28 @@ class DescribeOrganizationConfigRulesRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConfigRuleNames':
-          if (value != null) {
-            result.organizationConfigRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.organizationConfigRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -158,30 +152,35 @@ class DescribeOrganizationConfigRulesRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as DescribeOrganizationConfigRulesRequest);
     final result = <Object?>[];
-    if (payload.organizationConfigRuleNames != null) {
+    final DescribeOrganizationConfigRulesRequest(
+      :organizationConfigRuleNames,
+      :limit,
+      :nextToken
+    ) = payload;
+    if (organizationConfigRuleNames != null) {
       result
         ..add('OrganizationConfigRuleNames')
         ..add(serializers.serialize(
-          payload.organizationConfigRuleNames!,
+          organizationConfigRuleNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.limit != null) {
+    if (limit != null) {
       result
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

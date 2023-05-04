@@ -88,24 +88,23 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
     final result = DeleteBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Object':
           result.objects.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.ObjectIdentifier),
           ) as _i2.ObjectIdentifier));
-          break;
         case 'Quiet':
-          if (value != null) {
-            result.quiet = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.quiet = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -125,20 +124,21 @@ class DeleteRestXmlSerializer extends _i4.StructuredSmithySerializer<Delete> {
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Delete(:objects, :quiet) = payload;
     result.addAll(
         const _i4.XmlBuiltListSerializer(memberName: 'Object').serialize(
       serializers,
-      payload.objects,
+      objects,
       specifiedType: const FullType.nullable(
         _i3.BuiltList,
         [FullType(_i2.ObjectIdentifier)],
       ),
     ));
-    if (payload.quiet != null) {
+    if (quiet != null) {
       result
         ..add(const _i4.XmlElementName('Quiet'))
         ..add(serializers.serialize(
-          payload.quiet!,
+          quiet,
           specifiedType: const FullType.nullable(bool),
         ));
     }

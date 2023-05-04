@@ -112,30 +112,29 @@ class GetContextKeysForPrincipalPolicyRequestAwsQuerySerializer extends _i1
     final result = GetContextKeysForPrincipalPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicySourceArn':
           result.policySourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyInputList':
-          if (value != null) {
-            result.policyInputList.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.policyInputList.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -155,20 +154,24 @@ class GetContextKeysForPrincipalPolicyRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetContextKeysForPrincipalPolicyRequest(
+      :policySourceArn,
+      :policyInputList
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('PolicySourceArn'))
       ..add(serializers.serialize(
-        payload.policySourceArn,
+        policySourceArn,
         specifiedType: const FullType(String),
       ));
-    if (payload.policyInputList != null) {
+    if (policyInputList != null) {
       result
         ..add(const _i1.XmlElementName('PolicyInputList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyInputList!,
+          policyInputList,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],

@@ -89,24 +89,23 @@ class RoutingRuleRestXmlSerializer
     final result = RoutingRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Condition':
-          if (value != null) {
-            result.condition.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Condition),
-            ) as _i2.Condition));
-          }
-          break;
+          result.condition.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Condition),
+          ) as _i2.Condition));
         case 'Redirect':
           result.redirect.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.Redirect),
           ) as _i3.Redirect));
-          break;
       }
     }
 
@@ -126,18 +125,19 @@ class RoutingRuleRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.condition != null) {
+    final RoutingRule(:condition, :redirect) = payload;
+    if (condition != null) {
       result
         ..add(const _i4.XmlElementName('Condition'))
         ..add(serializers.serialize(
-          payload.condition!,
+          condition,
           specifiedType: const FullType(_i2.Condition),
         ));
     }
     result
       ..add(const _i4.XmlElementName('Redirect'))
       ..add(serializers.serialize(
-        payload.redirect,
+        redirect,
         specifiedType: const FullType(_i3.Redirect),
       ));
     return result;

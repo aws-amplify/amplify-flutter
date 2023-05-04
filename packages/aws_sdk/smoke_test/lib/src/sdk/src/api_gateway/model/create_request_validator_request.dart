@@ -203,31 +203,25 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'validateRequestBody':
-          if (value != null) {
-            result.validateRequestBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.validateRequestBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'validateRequestParameters':
-          if (value != null) {
-            result.validateRequestParameters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.validateRequestParameters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -244,27 +238,32 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
         ? object.getPayload()
         : (object as CreateRequestValidatorRequestPayload);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final CreateRequestValidatorRequestPayload(
+      :name,
+      :validateRequestBody,
+      :validateRequestParameters
+    ) = payload;
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.validateRequestBody != null) {
+    if (validateRequestBody != null) {
       result
         ..add('validateRequestBody')
         ..add(serializers.serialize(
-          payload.validateRequestBody!,
+          validateRequestBody,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.validateRequestParameters != null) {
+    if (validateRequestParameters != null) {
       result
         ..add('validateRequestParameters')
         ..add(serializers.serialize(
-          payload.validateRequestParameters!,
+          validateRequestParameters,
           specifiedType: const FullType(bool),
         ));
     }

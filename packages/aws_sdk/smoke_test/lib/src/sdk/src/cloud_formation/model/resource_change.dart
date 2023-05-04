@@ -170,94 +170,70 @@ class ResourceChangeAwsQuerySerializer
     final result = ResourceChangeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChangeAction),
-            ) as _i2.ChangeAction);
-          }
-          break;
+          result.action = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChangeAction),
+          ) as _i2.ChangeAction);
         case 'LogicalResourceId':
-          if (value != null) {
-            result.logicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.logicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PhysicalResourceId':
-          if (value != null) {
-            result.physicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.physicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Replacement':
-          if (value != null) {
-            result.replacement = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Replacement),
-            ) as _i3.Replacement);
-          }
-          break;
+          result.replacement = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Replacement),
+          ) as _i3.Replacement);
         case 'Scope':
-          if (value != null) {
-            result.scope.replace((const _i8.XmlBuiltListSerializer(
-                    indexer: _i8.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i4.ResourceAttribute)],
-              ),
-            ) as _i7.BuiltList<_i4.ResourceAttribute>));
-          }
-          break;
+          result.scope.replace((const _i8.XmlBuiltListSerializer(
+                  indexer: _i8.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i4.ResourceAttribute)],
+            ),
+          ) as _i7.BuiltList<_i4.ResourceAttribute>));
         case 'Details':
-          if (value != null) {
-            result.details.replace((const _i8.XmlBuiltListSerializer(
-                    indexer: _i8.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(_i5.ResourceChangeDetail)],
-              ),
-            ) as _i7.BuiltList<_i5.ResourceChangeDetail>));
-          }
-          break;
+          result.details.replace((const _i8.XmlBuiltListSerializer(
+                  indexer: _i8.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(_i5.ResourceChangeDetail)],
+            ),
+          ) as _i7.BuiltList<_i5.ResourceChangeDetail>));
         case 'ChangeSetId':
-          if (value != null) {
-            result.changeSetId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ModuleInfo':
-          if (value != null) {
-            result.moduleInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.ModuleInfo),
-            ) as _i6.ModuleInfo));
-          }
-          break;
+          result.moduleInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.ModuleInfo),
+          ) as _i6.ModuleInfo));
       }
     }
 
@@ -277,87 +253,98 @@ class ResourceChangeAwsQuerySerializer
         _i8.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.action != null) {
+    final ResourceChange(
+      :action,
+      :logicalResourceId,
+      :physicalResourceId,
+      :resourceType,
+      :replacement,
+      :scope,
+      :details,
+      :changeSetId,
+      :moduleInfo
+    ) = payload;
+    if (action != null) {
       result
         ..add(const _i8.XmlElementName('Action'))
         ..add(serializers.serialize(
-          payload.action!,
+          action,
           specifiedType: const FullType.nullable(_i2.ChangeAction),
         ));
     }
-    if (payload.logicalResourceId != null) {
+    if (logicalResourceId != null) {
       result
         ..add(const _i8.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
-          payload.logicalResourceId!,
+          logicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.physicalResourceId != null) {
+    if (physicalResourceId != null) {
       result
         ..add(const _i8.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
-          payload.physicalResourceId!,
+          physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (resourceType != null) {
       result
         ..add(const _i8.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replacement != null) {
+    if (replacement != null) {
       result
         ..add(const _i8.XmlElementName('Replacement'))
         ..add(serializers.serialize(
-          payload.replacement!,
+          replacement,
           specifiedType: const FullType.nullable(_i3.Replacement),
         ));
     }
-    if (payload.scope != null) {
+    if (scope != null) {
       result
         ..add(const _i8.XmlElementName('Scope'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.scope!,
+          scope,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i4.ResourceAttribute)],
           ),
         ));
     }
-    if (payload.details != null) {
+    if (details != null) {
       result
         ..add(const _i8.XmlElementName('Details'))
         ..add(const _i8.XmlBuiltListSerializer(
                 indexer: _i8.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.details!,
+          details,
           specifiedType: const FullType.nullable(
             _i7.BuiltList,
             [FullType(_i5.ResourceChangeDetail)],
           ),
         ));
     }
-    if (payload.changeSetId != null) {
+    if (changeSetId != null) {
       result
         ..add(const _i8.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
-          payload.changeSetId!,
+          changeSetId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.moduleInfo != null) {
+    if (moduleInfo != null) {
       result
         ..add(const _i8.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
-          payload.moduleInfo!,
+          moduleInfo,
           specifiedType: const FullType(_i6.ModuleInfo),
         ));
     }

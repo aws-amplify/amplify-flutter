@@ -162,6 +162,9 @@ class KeysAndAttributesAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Keys':
           result.keys.replace((serializers.deserialize(
@@ -179,48 +182,35 @@ class KeysAndAttributesAwsJson10Serializer
               ],
             ),
           ) as _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>>));
-          break;
         case 'AttributesToGet':
-          if (value != null) {
-            result.attributesToGet.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.attributesToGet.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'ConsistentRead':
-          if (value != null) {
-            result.consistentRead = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.consistentRead = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'ProjectionExpression':
-          if (value != null) {
-            result.projectionExpression = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.projectionExpression = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ExpressionAttributeNames':
-          if (value != null) {
-            result.expressionAttributeNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.expressionAttributeNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -252,38 +242,44 @@ class KeysAndAttributesAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.attributesToGet != null) {
+    final KeysAndAttributes(
+      :attributesToGet,
+      :consistentRead,
+      :projectionExpression,
+      :expressionAttributeNames
+    ) = payload;
+    if (attributesToGet != null) {
       result
         ..add('AttributesToGet')
         ..add(serializers.serialize(
-          payload.attributesToGet!,
+          attributesToGet,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.consistentRead != null) {
+    if (consistentRead != null) {
       result
         ..add('ConsistentRead')
         ..add(serializers.serialize(
-          payload.consistentRead!,
+          consistentRead,
           specifiedType: const FullType(bool),
         ));
     }
-    if (payload.projectionExpression != null) {
+    if (projectionExpression != null) {
       result
         ..add('ProjectionExpression')
         ..add(serializers.serialize(
-          payload.projectionExpression!,
+          projectionExpression,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.expressionAttributeNames != null) {
+    if (expressionAttributeNames != null) {
       result
         ..add('ExpressionAttributeNames')
         ..add(serializers.serialize(
-          payload.expressionAttributeNames!,
+          expressionAttributeNames,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

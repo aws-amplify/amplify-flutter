@@ -97,16 +97,18 @@ class TagPolicyRequestAwsQuerySerializer
     final result = TagPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyArn':
           result.policyArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Tags':
           result.tags.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -118,7 +120,6 @@ class TagPolicyRequestAwsQuerySerializer
               [FullType(_i3.Tag)],
             ),
           ) as _i4.BuiltList<_i3.Tag>));
-          break;
       }
     }
 
@@ -138,10 +139,11 @@ class TagPolicyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final TagPolicyRequest(:policyArn, :tags) = payload;
     result
       ..add(const _i1.XmlElementName('PolicyArn'))
       ..add(serializers.serialize(
-        payload.policyArn,
+        policyArn,
         specifiedType: const FullType(String),
       ));
     result
@@ -150,7 +152,7 @@ class TagPolicyRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.tags,
+        tags,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i3.Tag)],

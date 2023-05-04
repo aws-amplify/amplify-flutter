@@ -151,46 +151,40 @@ class BatchWriteItemOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'UnprocessedItems':
-          if (value != null) {
-            result.unprocessedItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(_i2.WriteRequest),
-                ],
-              ),
-            ) as _i5.BuiltListMultimap<String, _i2.WriteRequest>));
-          }
-          break;
+          result.unprocessedItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(_i2.WriteRequest),
+              ],
+            ),
+          ) as _i5.BuiltListMultimap<String, _i2.WriteRequest>));
         case 'ItemCollectionMetrics':
-          if (value != null) {
-            result.itemCollectionMetrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(_i3.ItemCollectionMetrics),
-                ],
-              ),
-            ) as _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
-          }
-          break;
+          result.itemCollectionMetrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(_i3.ItemCollectionMetrics),
+              ],
+            ),
+          ) as _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.ConsumedCapacity)],
-              ),
-            ) as _i5.BuiltList<_i4.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.ConsumedCapacity)],
+            ),
+          ) as _i5.BuiltList<_i4.ConsumedCapacity>));
       }
     }
 
@@ -205,11 +199,16 @@ class BatchWriteItemOutputAwsJson10Serializer
   }) {
     final payload = (object as BatchWriteItemOutput);
     final result = <Object?>[];
-    if (payload.unprocessedItems != null) {
+    final BatchWriteItemOutput(
+      :unprocessedItems,
+      :itemCollectionMetrics,
+      :consumedCapacity
+    ) = payload;
+    if (unprocessedItems != null) {
       result
         ..add('UnprocessedItems')
         ..add(serializers.serialize(
-          payload.unprocessedItems!,
+          unprocessedItems,
           specifiedType: const FullType(
             _i5.BuiltListMultimap,
             [
@@ -219,11 +218,11 @@ class BatchWriteItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.itemCollectionMetrics != null) {
+    if (itemCollectionMetrics != null) {
       result
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.itemCollectionMetrics!,
+          itemCollectionMetrics,
           specifiedType: const FullType(
             _i5.BuiltListMultimap,
             [
@@ -233,11 +232,11 @@ class BatchWriteItemOutputAwsJson10Serializer
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i5.BuiltList,
             [FullType(_i4.ConsumedCapacity)],

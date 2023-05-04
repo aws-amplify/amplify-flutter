@@ -138,48 +138,38 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
     final result = GranteeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DisplayName':
-          if (value != null) {
-            result.displayName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.displayName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EmailAddress':
-          if (value != null) {
-            result.emailAddress = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.emailAddress = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'xsi:type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.S3Type),
           ) as _i2.S3Type);
-          break;
         case 'URI':
-          if (value != null) {
-            result.uri = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.uri = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -199,42 +189,43 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final Grantee(:displayName, :emailAddress, :id, :type, :uri) = payload;
     result.add(_i4.XmlAttribute(
       _i4.XmlName('xsi:type'),
       (serializers.serialize(
-        payload.type,
+        type,
         specifiedType: const FullType.nullable(_i2.S3Type),
       ) as String),
     ));
-    if (payload.displayName != null) {
+    if (displayName != null) {
       result
         ..add(const _i3.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
-          payload.displayName!,
+          displayName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.emailAddress != null) {
+    if (emailAddress != null) {
       result
         ..add(const _i3.XmlElementName('EmailAddress'))
         ..add(serializers.serialize(
-          payload.emailAddress!,
+          emailAddress,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i3.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.uri != null) {
+    if (uri != null) {
       result
         ..add(const _i3.XmlElementName('URI'))
         ..add(serializers.serialize(
-          payload.uri!,
+          uri,
           specifiedType: const FullType(String),
         ));
     }

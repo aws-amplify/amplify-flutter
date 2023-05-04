@@ -9,29 +9,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/replication_rule_and_operator.da
     as _i3;
 import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
 
-/// The discrete values of [ReplicationRuleFilter].
-enum ReplicationRuleFilterType<T extends ReplicationRuleFilter> {
-  /// The type for [ReplicationRuleFilterPrefix].
-  prefix<ReplicationRuleFilterPrefix>(r'Prefix'),
-
-  /// The type for [ReplicationRuleFilterTag].
-  tag<ReplicationRuleFilterTag>(r'Tag'),
-
-  /// The type for [ReplicationRuleFilterAnd].
-  and<ReplicationRuleFilterAnd>(r'And'),
-
-  /// The type for an unknown value.
-  sdkUnknown<ReplicationRuleFilterSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [ReplicationRuleFilter].
-  const ReplicationRuleFilterType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// A filter that identifies the subset of objects to which the replication rule applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And` child element.
-abstract class ReplicationRuleFilter
+sealed class ReplicationRuleFilter
     extends _i1.SmithyUnion<ReplicationRuleFilter> {
   const ReplicationRuleFilter._();
 
@@ -69,34 +47,8 @@ abstract class ReplicationRuleFilter
   ///
   /// *   If you specify a filter based on multiple tags, wrap the `Tag` elements in an `And` tag.
   _i3.ReplicationRuleAndOperator? get and => null;
-  ReplicationRuleFilterType get type;
   @override
   Object get value => (prefix ?? tag ?? and)!;
-  @override
-  T? when<T>({
-    T Function(String)? prefix,
-    T Function(_i2.Tag)? tag,
-    T Function(_i3.ReplicationRuleAndOperator)? and,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is ReplicationRuleFilterPrefix) {
-      return prefix?.call((this as ReplicationRuleFilterPrefix).prefix);
-    }
-    if (this is ReplicationRuleFilterTag) {
-      return tag?.call((this as ReplicationRuleFilterTag).tag);
-    }
-    if (this is ReplicationRuleFilterAnd) {
-      return and?.call((this as ReplicationRuleFilterAnd).and);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'ReplicationRuleFilter');
@@ -122,43 +74,37 @@ abstract class ReplicationRuleFilter
   }
 }
 
-class ReplicationRuleFilterPrefix extends ReplicationRuleFilter {
+final class ReplicationRuleFilterPrefix extends ReplicationRuleFilter {
   const ReplicationRuleFilterPrefix(this.prefix) : super._();
 
   @override
   final String prefix;
 
   @override
-  ReplicationRuleFilterType get type => ReplicationRuleFilterType.prefix;
-  @override
   String get name => 'Prefix';
 }
 
-class ReplicationRuleFilterTag extends ReplicationRuleFilter {
+final class ReplicationRuleFilterTag extends ReplicationRuleFilter {
   const ReplicationRuleFilterTag(this.tag) : super._();
 
   @override
   final _i2.Tag tag;
 
   @override
-  ReplicationRuleFilterType get type => ReplicationRuleFilterType.tag;
-  @override
   String get name => 'Tag';
 }
 
-class ReplicationRuleFilterAnd extends ReplicationRuleFilter {
+final class ReplicationRuleFilterAnd extends ReplicationRuleFilter {
   const ReplicationRuleFilterAnd(this.and) : super._();
 
   @override
   final _i3.ReplicationRuleAndOperator and;
 
   @override
-  ReplicationRuleFilterType get type => ReplicationRuleFilterType.and;
-  @override
   String get name => 'And';
 }
 
-class ReplicationRuleFilterSdkUnknown extends ReplicationRuleFilter {
+final class ReplicationRuleFilterSdkUnknown extends ReplicationRuleFilter {
   const ReplicationRuleFilterSdkUnknown(
     this.name,
     this.value,
@@ -169,9 +115,6 @@ class ReplicationRuleFilterSdkUnknown extends ReplicationRuleFilter {
 
   @override
   final Object value;
-
-  @override
-  ReplicationRuleFilterType get type => ReplicationRuleFilterType.sdkUnknown;
 }
 
 class ReplicationRuleFilterRestXmlSerializer
@@ -199,11 +142,7 @@ class ReplicationRuleFilterRestXmlSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Prefix':
         return ReplicationRuleFilterPrefix((serializers.deserialize(
@@ -236,25 +175,21 @@ class ReplicationRuleFilterRestXmlSerializer
     (object as ReplicationRuleFilter);
     return [
       object.name,
-      object.when<Object?>(
-        prefix: (String prefix) => serializers.serialize(
-          prefix,
+      switch (object) {
+        ReplicationRuleFilterPrefix(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        tag: (_i2.Tag tag) => serializers.serialize(
-          tag,
+        ReplicationRuleFilterTag(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.Tag),
         ),
-        and: (_i3.ReplicationRuleAndOperator and) => serializers.serialize(
-          and,
+        ReplicationRuleFilterAnd(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.ReplicationRuleAndOperator),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        ReplicationRuleFilterSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

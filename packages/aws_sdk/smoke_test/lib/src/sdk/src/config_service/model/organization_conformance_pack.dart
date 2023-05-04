@@ -154,64 +154,52 @@ class OrganizationConformancePackAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConformancePackName':
           result.organizationConformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'OrganizationConformancePackArn':
           result.organizationConformancePackArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DeliveryS3Bucket':
-          if (value != null) {
-            result.deliveryS3Bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeliveryS3KeyPrefix':
-          if (value != null) {
-            result.deliveryS3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConformancePackInputParameters':
-          if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConformancePackInputParameter)],
-              ),
-            ) as _i3.BuiltList<_i2.ConformancePackInputParameter>));
-          }
-          break;
+          result.conformancePackInputParameters
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConformancePackInputParameter)],
+            ),
+          ) as _i3.BuiltList<_i2.ConformancePackInputParameter>));
         case 'ExcludedAccounts':
-          if (value != null) {
-            result.excludedAccounts.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.excludedAccounts.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'LastUpdateTime':
           result.lastUpdateTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -242,38 +230,44 @@ class OrganizationConformancePackAwsJson11Serializer
         specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.deliveryS3Bucket != null) {
+    final OrganizationConformancePack(
+      :deliveryS3Bucket,
+      :deliveryS3KeyPrefix,
+      :conformancePackInputParameters,
+      :excludedAccounts
+    ) = payload;
+    if (deliveryS3Bucket != null) {
       result
         ..add('DeliveryS3Bucket')
         ..add(serializers.serialize(
-          payload.deliveryS3Bucket!,
+          deliveryS3Bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deliveryS3KeyPrefix != null) {
+    if (deliveryS3KeyPrefix != null) {
       result
         ..add('DeliveryS3KeyPrefix')
         ..add(serializers.serialize(
-          payload.deliveryS3KeyPrefix!,
+          deliveryS3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.conformancePackInputParameters != null) {
+    if (conformancePackInputParameters != null) {
       result
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
+          conformancePackInputParameters,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConformancePackInputParameter)],
           ),
         ));
     }
-    if (payload.excludedAccounts != null) {
+    if (excludedAccounts != null) {
       result
         ..add('ExcludedAccounts')
         ..add(serializers.serialize(
-          payload.excludedAccounts!,
+          excludedAccounts,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

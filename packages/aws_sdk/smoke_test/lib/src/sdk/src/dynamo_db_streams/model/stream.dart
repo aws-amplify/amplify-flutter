@@ -106,31 +106,25 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'StreamArn':
-          if (value != null) {
-            result.streamArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StreamLabel':
-          if (value != null) {
-            result.streamLabel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.streamLabel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -145,27 +139,28 @@ class StreamAwsJson10Serializer extends _i2.StructuredSmithySerializer<Stream> {
   }) {
     final payload = (object as Stream);
     final result = <Object?>[];
-    if (payload.streamArn != null) {
+    final Stream(:streamArn, :tableName, :streamLabel) = payload;
+    if (streamArn != null) {
       result
         ..add('StreamArn')
         ..add(serializers.serialize(
-          payload.streamArn!,
+          streamArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tableName != null) {
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.streamLabel != null) {
+    if (streamLabel != null) {
       result
         ..add('StreamLabel')
         ..add(serializers.serialize(
-          payload.streamLabel!,
+          streamLabel,
           specifiedType: const FullType(String),
         ));
     }

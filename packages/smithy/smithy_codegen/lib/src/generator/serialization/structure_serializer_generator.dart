@@ -164,6 +164,9 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
         final key = iterator.current as ${allocate(DartTypes.core.string)};
         iterator.moveNext();
         final value = iterator.current;
+        if (value == null) {
+          continue;
+        }
         switch (key) {
       ''',
       );
@@ -251,7 +254,6 @@ class StructureSerializerGenerator extends SerializerGenerator<StructureShape>
       yield Block.of([
         const Code('case '),
         literalString(wireName).code,
-        Code.scope((ref) => 'when ${ref(value)} != null'),
         const Code(':'),
         if (hasNestedBuilder)
           refer('result')

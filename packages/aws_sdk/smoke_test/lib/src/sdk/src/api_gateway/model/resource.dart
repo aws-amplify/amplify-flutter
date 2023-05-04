@@ -129,53 +129,41 @@ class ResourceRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'parentId':
-          if (value != null) {
-            result.parentId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.parentId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'pathPart':
-          if (value != null) {
-            result.pathPart = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathPart = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceMethods':
-          if (value != null) {
-            result.resourceMethods.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.Method),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.Method>));
-          }
-          break;
+          result.resourceMethods.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.Method),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.Method>));
       }
     }
 
@@ -190,43 +178,45 @@ class ResourceRestJson1Serializer
   }) {
     final payload = (object as Resource);
     final result = <Object?>[];
-    if (payload.id != null) {
+    final Resource(:id, :parentId, :path, :pathPart, :resourceMethods) =
+        payload;
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.parentId != null) {
+    if (parentId != null) {
       result
         ..add('parentId')
         ..add(serializers.serialize(
-          payload.parentId!,
+          parentId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.path != null) {
+    if (path != null) {
       result
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.pathPart != null) {
+    if (pathPart != null) {
       result
         ..add('pathPart')
         ..add(serializers.serialize(
-          payload.pathPart!,
+          pathPart,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceMethods != null) {
+    if (resourceMethods != null) {
       result
         ..add('resourceMethods')
         ..add(serializers.serialize(
-          payload.resourceMethods!,
+          resourceMethods,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

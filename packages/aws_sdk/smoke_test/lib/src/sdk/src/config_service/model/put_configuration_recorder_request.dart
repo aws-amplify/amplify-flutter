@@ -94,13 +94,15 @@ class PutConfigurationRecorderRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationRecorder':
           result.configurationRecorder.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i3.ConfigurationRecorder),
           ) as _i3.ConfigurationRecorder));
-          break;
       }
     }
 

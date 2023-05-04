@@ -120,49 +120,40 @@ class RequiredActivatedTypeAwsQuerySerializer
     final result = RequiredActivatedTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeNameAlias':
-          if (value != null) {
-            result.typeNameAlias = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeNameAlias = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OriginalTypeName':
-          if (value != null) {
-            result.originalTypeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.originalTypeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SupportedMajorVersions':
-          if (value != null) {
-            result.supportedMajorVersions.replace(
-                (const _i3.XmlBuiltListSerializer(
-                        indexer: _i3.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(int)],
-              ),
-            ) as _i2.BuiltList<int>));
-          }
-          break;
+          result.supportedMajorVersions.replace(
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(int)],
+            ),
+          ) as _i2.BuiltList<int>));
       }
     }
 
@@ -182,38 +173,44 @@ class RequiredActivatedTypeAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.typeNameAlias != null) {
+    final RequiredActivatedType(
+      :typeNameAlias,
+      :originalTypeName,
+      :publisherId,
+      :supportedMajorVersions
+    ) = payload;
+    if (typeNameAlias != null) {
       result
         ..add(const _i3.XmlElementName('TypeNameAlias'))
         ..add(serializers.serialize(
-          payload.typeNameAlias!,
+          typeNameAlias,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.originalTypeName != null) {
+    if (originalTypeName != null) {
       result
         ..add(const _i3.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
-          payload.originalTypeName!,
+          originalTypeName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.publisherId != null) {
+    if (publisherId != null) {
       result
         ..add(const _i3.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.supportedMajorVersions != null) {
+    if (supportedMajorVersions != null) {
       result
         ..add(const _i3.XmlElementName('SupportedMajorVersions'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.supportedMajorVersions!,
+          supportedMajorVersions,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(int)],

@@ -135,46 +135,39 @@ class ContinueUpdateRollbackInputAwsQuerySerializer
     final result = ContinueUpdateRollbackInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
           result.stackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleARN':
-          if (value != null) {
-            result.roleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourcesToSkip':
-          if (value != null) {
-            result.resourcesToSkip.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.resourcesToSkip.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -194,39 +187,45 @@ class ContinueUpdateRollbackInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final ContinueUpdateRollbackInput(
+      :stackName,
+      :roleArn,
+      :resourcesToSkip,
+      :clientRequestToken
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackName'))
       ..add(serializers.serialize(
-        payload.stackName,
+        stackName,
         specifiedType: const FullType(String),
       ));
-    if (payload.roleArn != null) {
+    if (roleArn != null) {
       result
         ..add(const _i1.XmlElementName('RoleARN'))
         ..add(serializers.serialize(
-          payload.roleArn!,
+          roleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourcesToSkip != null) {
+    if (resourcesToSkip != null) {
       result
         ..add(const _i1.XmlElementName('ResourcesToSkip'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourcesToSkip!,
+          resourcesToSkip,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add(const _i1.XmlElementName('ClientRequestToken'))
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }

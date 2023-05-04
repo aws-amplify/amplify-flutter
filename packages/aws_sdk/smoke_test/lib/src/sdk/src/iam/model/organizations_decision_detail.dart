@@ -75,18 +75,18 @@ class OrganizationsDecisionDetailAwsQuerySerializer
     final result = OrganizationsDecisionDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AllowedByOrganizations':
-          if (value != null) {
-            result.allowedByOrganizations = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.allowedByOrganizations = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -106,11 +106,12 @@ class OrganizationsDecisionDetailAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.allowedByOrganizations != null) {
+    final OrganizationsDecisionDetail(:allowedByOrganizations) = payload;
+    if (allowedByOrganizations != null) {
       result
         ..add(const _i2.XmlElementName('AllowedByOrganizations'))
         ..add(serializers.serialize(
-          payload.allowedByOrganizations!,
+          allowedByOrganizations,
           specifiedType: const FullType.nullable(bool),
         ));
     }

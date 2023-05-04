@@ -107,26 +107,23 @@ class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateEvaluationResults':
-          if (value != null) {
-            result.aggregateEvaluationResults.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateEvaluationResult)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateEvaluationResult>));
-          }
-          break;
+          result.aggregateEvaluationResults.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateEvaluationResult)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateEvaluationResult>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,22 +139,26 @@ class GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer
     final payload =
         (object as GetAggregateComplianceDetailsByConfigRuleResponse);
     final result = <Object?>[];
-    if (payload.aggregateEvaluationResults != null) {
+    final GetAggregateComplianceDetailsByConfigRuleResponse(
+      :aggregateEvaluationResults,
+      :nextToken
+    ) = payload;
+    if (aggregateEvaluationResults != null) {
       result
         ..add('AggregateEvaluationResults')
         ..add(serializers.serialize(
-          payload.aggregateEvaluationResults!,
+          aggregateEvaluationResults,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateEvaluationResult)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

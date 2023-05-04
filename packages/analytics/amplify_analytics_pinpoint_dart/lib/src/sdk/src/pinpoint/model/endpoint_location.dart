@@ -135,51 +135,40 @@ class EndpointLocationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'City':
-          if (value != null) {
-            result.city = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.city = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Country':
-          if (value != null) {
-            result.country = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.country = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Latitude':
           result.latitude = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'Longitude':
           result.longitude = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'PostalCode':
-          if (value != null) {
-            result.postalCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.postalCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -205,35 +194,36 @@ class EndpointLocationRestJson1Serializer
         specifiedType: const FullType(double),
       ),
     ];
-    if (payload.city != null) {
+    final EndpointLocation(:city, :country, :postalCode, :region) = payload;
+    if (city != null) {
       result
         ..add('City')
         ..add(serializers.serialize(
-          payload.city!,
+          city,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.country != null) {
+    if (country != null) {
       result
         ..add('Country')
         ..add(serializers.serialize(
-          payload.country!,
+          country,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.postalCode != null) {
+    if (postalCode != null) {
       result
         ..add('PostalCode')
         ..add(serializers.serialize(
-          payload.postalCode!,
+          postalCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add('Region')
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }

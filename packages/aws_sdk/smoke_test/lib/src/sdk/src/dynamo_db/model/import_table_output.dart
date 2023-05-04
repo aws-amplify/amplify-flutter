@@ -82,13 +82,15 @@ class ImportTableOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ImportTableDescription':
           result.importTableDescription.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.ImportTableDescription),
           ) as _i2.ImportTableDescription));
-          break;
       }
     }
 

@@ -146,75 +146,57 @@ class ConsumedCapacityAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
-          if (value != null) {
-            result.tableName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tableName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CapacityUnits':
-          if (value != null) {
-            result.capacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.capacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'ReadCapacityUnits':
-          if (value != null) {
-            result.readCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.readCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'WriteCapacityUnits':
-          if (value != null) {
-            result.writeCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.writeCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'Table':
-          if (value != null) {
-            result.table.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Capacity),
-            ) as _i2.Capacity));
-          }
-          break;
+          result.table.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Capacity),
+          ) as _i2.Capacity));
         case 'LocalSecondaryIndexes':
-          if (value != null) {
-            result.localSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.Capacity),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.Capacity>));
-          }
-          break;
+          result.localSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.Capacity),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.Capacity>));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.Capacity),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, _i2.Capacity>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.Capacity),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, _i2.Capacity>));
       }
     }
 
@@ -229,51 +211,60 @@ class ConsumedCapacityAwsJson10Serializer
   }) {
     final payload = (object as ConsumedCapacity);
     final result = <Object?>[];
-    if (payload.tableName != null) {
+    final ConsumedCapacity(
+      :tableName,
+      :capacityUnits,
+      :readCapacityUnits,
+      :writeCapacityUnits,
+      :table,
+      :localSecondaryIndexes,
+      :globalSecondaryIndexes
+    ) = payload;
+    if (tableName != null) {
       result
         ..add('TableName')
         ..add(serializers.serialize(
-          payload.tableName!,
+          tableName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.capacityUnits != null) {
+    if (capacityUnits != null) {
       result
         ..add('CapacityUnits')
         ..add(serializers.serialize(
-          payload.capacityUnits!,
+          capacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.readCapacityUnits != null) {
+    if (readCapacityUnits != null) {
       result
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.readCapacityUnits!,
+          readCapacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.writeCapacityUnits != null) {
+    if (writeCapacityUnits != null) {
       result
         ..add('WriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.writeCapacityUnits!,
+          writeCapacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.table != null) {
+    if (table != null) {
       result
         ..add('Table')
         ..add(serializers.serialize(
-          payload.table!,
+          table,
           specifiedType: const FullType(_i2.Capacity),
         ));
     }
-    if (payload.localSecondaryIndexes != null) {
+    if (localSecondaryIndexes != null) {
       result
         ..add('LocalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.localSecondaryIndexes!,
+          localSecondaryIndexes,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -283,11 +274,11 @@ class ConsumedCapacityAwsJson10Serializer
           ),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

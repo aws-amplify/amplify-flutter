@@ -123,40 +123,33 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
     final result = GetOrganizationsAccessReportRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'JobId':
           result.jobId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'MaxItems':
-          if (value != null) {
-            result.maxItems = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxItems = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SortKey':
-          if (value != null) {
-            result.sortKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.SortKeyType),
-            ) as _i3.SortKeyType);
-          }
-          break;
+          result.sortKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.SortKeyType),
+          ) as _i3.SortKeyType);
       }
     }
 
@@ -176,33 +169,39 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final GetOrganizationsAccessReportRequest(
+      :jobId,
+      :maxItems,
+      :marker,
+      :sortKey
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('JobId'))
       ..add(serializers.serialize(
-        payload.jobId,
+        jobId,
         specifiedType: const FullType(String),
       ));
-    if (payload.maxItems != null) {
+    if (maxItems != null) {
       result
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
-          payload.maxItems!,
+          maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sortKey != null) {
+    if (sortKey != null) {
       result
         ..add(const _i1.XmlElementName('SortKey'))
         ..add(serializers.serialize(
-          payload.sortKey!,
+          sortKey,
           specifiedType: const FullType.nullable(_i3.SortKeyType),
         ));
     }

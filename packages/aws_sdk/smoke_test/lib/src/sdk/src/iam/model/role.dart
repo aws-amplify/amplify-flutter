@@ -182,94 +182,74 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
     final result = RoleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleName':
           result.roleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'RoleId':
           result.roleId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'AssumeRolePolicyDocument':
-          if (value != null) {
-            result.assumeRolePolicyDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.assumeRolePolicyDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxSessionDuration':
-          if (value != null) {
-            result.maxSessionDuration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxSessionDuration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'PermissionsBoundary':
-          if (value != null) {
-            result.permissionsBoundary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
-            ) as _i2.AttachedPermissionsBoundary));
-          }
-          break;
+          result.permissionsBoundary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
+          ) as _i2.AttachedPermissionsBoundary));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i5.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i5.BuiltList<_i3.Tag>));
         case 'RoleLastUsed':
-          if (value != null) {
-            result.roleLastUsed.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.RoleLastUsed),
-            ) as _i4.RoleLastUsed));
-          }
-          break;
+          result.roleLastUsed.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.RoleLastUsed),
+          ) as _i4.RoleLastUsed));
       }
     }
 
@@ -289,87 +269,100 @@ class RoleAwsQuerySerializer extends _i6.StructuredSmithySerializer<Role> {
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final Role(
+      :path,
+      :roleName,
+      :roleId,
+      :arn,
+      :createDate,
+      :assumeRolePolicyDocument,
+      :description,
+      :maxSessionDuration,
+      :permissionsBoundary,
+      :tags,
+      :roleLastUsed
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('Path'))
       ..add(serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('RoleName'))
       ..add(serializers.serialize(
-        payload.roleName,
+        roleName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('RoleId'))
       ..add(serializers.serialize(
-        payload.roleId,
+        roleId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
-        payload.createDate,
+        createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.assumeRolePolicyDocument != null) {
+    if (assumeRolePolicyDocument != null) {
       result
         ..add(const _i6.XmlElementName('AssumeRolePolicyDocument'))
         ..add(serializers.serialize(
-          payload.assumeRolePolicyDocument!,
+          assumeRolePolicyDocument,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i6.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxSessionDuration != null) {
+    if (maxSessionDuration != null) {
       result
         ..add(const _i6.XmlElementName('MaxSessionDuration'))
         ..add(serializers.serialize(
-          payload.maxSessionDuration!,
+          maxSessionDuration,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.permissionsBoundary != null) {
+    if (permissionsBoundary != null) {
       result
         ..add(const _i6.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.permissionsBoundary!,
+          permissionsBoundary,
           specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i6.XmlElementName('Tags'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.Tag)],
           ),
         ));
     }
-    if (payload.roleLastUsed != null) {
+    if (roleLastUsed != null) {
       result
         ..add(const _i6.XmlElementName('RoleLastUsed'))
         ..add(serializers.serialize(
-          payload.roleLastUsed!,
+          roleLastUsed,
           specifiedType: const FullType(_i4.RoleLastUsed),
         ));
     }

@@ -108,19 +108,20 @@ class ProvisionedThroughputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ReadCapacityUnits':
           result.readCapacityUnits = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Int64),
           ) as _i2.Int64);
-          break;
         case 'WriteCapacityUnits':
           result.writeCapacityUnits = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Int64),
           ) as _i2.Int64);
-          break;
       }
     }
 

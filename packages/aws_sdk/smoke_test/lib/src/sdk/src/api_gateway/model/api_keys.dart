@@ -108,37 +108,31 @@ class ApiKeysRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'item':
-          if (value != null) {
-            result.items.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ApiKey)],
-              ),
-            ) as _i3.BuiltList<_i2.ApiKey>));
-          }
-          break;
+          result.items.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ApiKey)],
+            ),
+          ) as _i3.BuiltList<_i2.ApiKey>));
         case 'position':
-          if (value != null) {
-            result.position = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.position = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'warnings':
-          if (value != null) {
-            result.warnings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.warnings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -153,30 +147,31 @@ class ApiKeysRestJson1Serializer
   }) {
     final payload = (object as ApiKeys);
     final result = <Object?>[];
-    if (payload.items != null) {
+    final ApiKeys(:items, :position, :warnings) = payload;
+    if (items != null) {
       result
         ..add('item')
         ..add(serializers.serialize(
-          payload.items!,
+          items,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ApiKey)],
           ),
         ));
     }
-    if (payload.position != null) {
+    if (position != null) {
       result
         ..add('position')
         ..add(serializers.serialize(
-          payload.position!,
+          position,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.warnings != null) {
+    if (warnings != null) {
       result
         ..add('warnings')
         ..add(serializers.serialize(
-          payload.warnings!,
+          warnings,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

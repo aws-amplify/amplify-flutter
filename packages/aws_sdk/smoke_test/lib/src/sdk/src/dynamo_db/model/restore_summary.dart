@@ -113,35 +113,30 @@ class RestoreSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SourceBackupArn':
-          if (value != null) {
-            result.sourceBackupArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceBackupArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourceTableArn':
-          if (value != null) {
-            result.sourceTableArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourceTableArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RestoreDateTime':
           result.restoreDateTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'RestoreInProgress':
           result.restoreInProgress = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
       }
     }
 
@@ -167,19 +162,20 @@ class RestoreSummaryAwsJson10Serializer
         specifiedType: const FullType(bool),
       ),
     ];
-    if (payload.sourceBackupArn != null) {
+    final RestoreSummary(:sourceBackupArn, :sourceTableArn) = payload;
+    if (sourceBackupArn != null) {
       result
         ..add('SourceBackupArn')
         ..add(serializers.serialize(
-          payload.sourceBackupArn!,
+          sourceBackupArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourceTableArn != null) {
+    if (sourceTableArn != null) {
       result
         ..add('SourceTableArn')
         ..add(serializers.serialize(
-          payload.sourceTableArn!,
+          sourceTableArn,
           specifiedType: const FullType(String),
         ));
     }

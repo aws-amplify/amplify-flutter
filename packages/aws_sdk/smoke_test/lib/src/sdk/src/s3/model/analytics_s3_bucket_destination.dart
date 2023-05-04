@@ -116,38 +116,33 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
     final result = AnalyticsS3BucketDestinationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BucketAccountId':
-          if (value != null) {
-            result.bucketAccountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bucketAccountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Format':
           result.format = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.AnalyticsS3ExportFileFormat),
           ) as _i2.AnalyticsS3ExportFileFormat);
-          break;
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -167,31 +162,37 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final AnalyticsS3BucketDestination(
+      :bucket,
+      :bucketAccountId,
+      :format,
+      :prefix
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('Bucket'))
       ..add(serializers.serialize(
-        payload.bucket,
+        bucket,
         specifiedType: const FullType(String),
       ));
-    if (payload.bucketAccountId != null) {
+    if (bucketAccountId != null) {
       result
         ..add(const _i3.XmlElementName('BucketAccountId'))
         ..add(serializers.serialize(
-          payload.bucketAccountId!,
+          bucketAccountId,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i3.XmlElementName('Format'))
       ..add(serializers.serialize(
-        payload.format,
+        format,
         specifiedType: const FullType.nullable(_i2.AnalyticsS3ExportFileFormat),
       ));
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i3.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }

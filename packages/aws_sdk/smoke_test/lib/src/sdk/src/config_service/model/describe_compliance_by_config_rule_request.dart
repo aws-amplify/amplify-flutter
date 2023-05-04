@@ -120,37 +120,31 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleNames':
-          if (value != null) {
-            result.configRuleNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.configRuleNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'ComplianceTypes':
-          if (value != null) {
-            result.complianceTypes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ComplianceType)],
-              ),
-            ) as _i4.BuiltList<_i3.ComplianceType>));
-          }
-          break;
+          result.complianceTypes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ComplianceType)],
+            ),
+          ) as _i4.BuiltList<_i3.ComplianceType>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -165,33 +159,38 @@ class DescribeComplianceByConfigRuleRequestAwsJson11Serializer extends _i1
   }) {
     final payload = (object as DescribeComplianceByConfigRuleRequest);
     final result = <Object?>[];
-    if (payload.configRuleNames != null) {
+    final DescribeComplianceByConfigRuleRequest(
+      :configRuleNames,
+      :complianceTypes,
+      :nextToken
+    ) = payload;
+    if (configRuleNames != null) {
       result
         ..add('ConfigRuleNames')
         ..add(serializers.serialize(
-          payload.configRuleNames!,
+          configRuleNames,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.complianceTypes != null) {
+    if (complianceTypes != null) {
       result
         ..add('ComplianceTypes')
         ..add(serializers.serialize(
-          payload.complianceTypes!,
+          complianceTypes,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ComplianceType)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

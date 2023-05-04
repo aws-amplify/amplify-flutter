@@ -146,66 +146,48 @@ class RestoreRequestRestXmlSerializer
     final result = RestoreRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'GlacierJobParameters':
-          if (value != null) {
-            result.glacierJobParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.GlacierJobParameters),
-            ) as _i2.GlacierJobParameters));
-          }
-          break;
+          result.glacierJobParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.GlacierJobParameters),
+          ) as _i2.GlacierJobParameters));
         case 'OutputLocation':
-          if (value != null) {
-            result.outputLocation.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.OutputLocation),
-            ) as _i6.OutputLocation));
-          }
-          break;
+          result.outputLocation.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.OutputLocation),
+          ) as _i6.OutputLocation));
         case 'SelectParameters':
-          if (value != null) {
-            result.selectParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.SelectParameters),
-            ) as _i5.SelectParameters));
-          }
-          break;
+          result.selectParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.SelectParameters),
+          ) as _i5.SelectParameters));
         case 'Tier':
-          if (value != null) {
-            result.tier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.Tier),
-            ) as _i4.Tier);
-          }
-          break;
+          result.tier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.Tier),
+          ) as _i4.Tier);
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RestoreRequestType),
-            ) as _i3.RestoreRequestType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RestoreRequestType),
+          ) as _i3.RestoreRequestType);
       }
     }
 
@@ -225,59 +207,68 @@ class RestoreRequestRestXmlSerializer
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.days != null) {
+    final RestoreRequest(
+      :days,
+      :description,
+      :glacierJobParameters,
+      :outputLocation,
+      :selectParameters,
+      :tier,
+      :type
+    ) = payload;
+    if (days != null) {
       result
         ..add(const _i7.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i7.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.glacierJobParameters != null) {
+    if (glacierJobParameters != null) {
       result
         ..add(const _i7.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
-          payload.glacierJobParameters!,
+          glacierJobParameters,
           specifiedType: const FullType(_i2.GlacierJobParameters),
         ));
     }
-    if (payload.outputLocation != null) {
+    if (outputLocation != null) {
       result
         ..add(const _i7.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
-          payload.outputLocation!,
+          outputLocation,
           specifiedType: const FullType(_i6.OutputLocation),
         ));
     }
-    if (payload.selectParameters != null) {
+    if (selectParameters != null) {
       result
         ..add(const _i7.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
-          payload.selectParameters!,
+          selectParameters,
           specifiedType: const FullType(_i5.SelectParameters),
         ));
     }
-    if (payload.tier != null) {
+    if (tier != null) {
       result
         ..add(const _i7.XmlElementName('Tier'))
         ..add(serializers.serialize(
-          payload.tier!,
+          tier,
           specifiedType: const FullType.nullable(_i4.Tier),
         ));
     }
-    if (payload.type != null) {
+    if (type != null) {
       result
         ..add(const _i7.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i3.RestoreRequestType),
         ));
     }

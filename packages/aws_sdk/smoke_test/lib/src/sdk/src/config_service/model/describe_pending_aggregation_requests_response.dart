@@ -105,26 +105,23 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PendingAggregationRequests':
-          if (value != null) {
-            result.pendingAggregationRequests.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.PendingAggregationRequest)],
-              ),
-            ) as _i3.BuiltList<_i2.PendingAggregationRequest>));
-          }
-          break;
+          result.pendingAggregationRequests.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.PendingAggregationRequest)],
+            ),
+          ) as _i3.BuiltList<_i2.PendingAggregationRequest>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,22 +136,26 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribePendingAggregationRequestsResponse);
     final result = <Object?>[];
-    if (payload.pendingAggregationRequests != null) {
+    final DescribePendingAggregationRequestsResponse(
+      :pendingAggregationRequests,
+      :nextToken
+    ) = payload;
+    if (pendingAggregationRequests != null) {
       result
         ..add('PendingAggregationRequests')
         ..add(serializers.serialize(
-          payload.pendingAggregationRequests!,
+          pendingAggregationRequests,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.PendingAggregationRequest)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

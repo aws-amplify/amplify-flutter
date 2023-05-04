@@ -155,75 +155,57 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'authorization':
-          if (value != null) {
-            result.authorization.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.authorization.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, String>));
         case 'claims':
-          if (value != null) {
-            result.claims.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.claims.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'clientStatus':
-          if (value != null) {
-            result.clientStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.clientStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'latency':
-          if (value != null) {
-            result.latency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.latency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'log':
-          if (value != null) {
-            result.log = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.log = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'policy':
-          if (value != null) {
-            result.policy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'principalId':
-          if (value != null) {
-            result.principalId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.principalId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -238,11 +220,20 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
   }) {
     final payload = (object as TestInvokeAuthorizerResponse);
     final result = <Object?>[];
-    if (payload.authorization != null) {
+    final TestInvokeAuthorizerResponse(
+      :authorization,
+      :claims,
+      :clientStatus,
+      :latency,
+      :log,
+      :policy,
+      :principalId
+    ) = payload;
+    if (authorization != null) {
       result
         ..add('authorization')
         ..add(serializers.serialize(
-          payload.authorization!,
+          authorization,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -252,11 +243,11 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.claims != null) {
+    if (claims != null) {
       result
         ..add('claims')
         ..add(serializers.serialize(
-          payload.claims!,
+          claims,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -266,43 +257,43 @@ class TestInvokeAuthorizerResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.clientStatus != null) {
+    if (clientStatus != null) {
       result
         ..add('clientStatus')
         ..add(serializers.serialize(
-          payload.clientStatus!,
+          clientStatus,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.latency != null) {
+    if (latency != null) {
       result
         ..add('latency')
         ..add(serializers.serialize(
-          payload.latency!,
+          latency,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.log != null) {
+    if (log != null) {
       result
         ..add('log')
         ..add(serializers.serialize(
-          payload.log!,
+          log,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policy != null) {
+    if (policy != null) {
       result
         ..add('policy')
         ..add(serializers.serialize(
-          payload.policy!,
+          policy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.principalId != null) {
+    if (principalId != null) {
       result
         ..add('principalId')
         ..add(serializers.serialize(
-          payload.principalId!,
+          principalId,
           specifiedType: const FullType(String),
         ));
     }

@@ -150,53 +150,45 @@ class BackupDetailsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupArn':
           result.backupArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BackupName':
           result.backupName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BackupSizeBytes':
-          if (value != null) {
-            result.backupSizeBytes = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.backupSizeBytes = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'BackupStatus':
           result.backupStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.BackupStatus),
           ) as _i3.BackupStatus);
-          break;
         case 'BackupType':
           result.backupType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.BackupType),
           ) as _i4.BackupType);
-          break;
         case 'BackupCreationDateTime':
           result.backupCreationDateTime = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'BackupExpiryDateTime':
-          if (value != null) {
-            result.backupExpiryDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.backupExpiryDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -237,19 +229,20 @@ class BackupDetailsAwsJson10Serializer
         specifiedType: const FullType(DateTime),
       ),
     ];
-    if (payload.backupSizeBytes != null) {
+    final BackupDetails(:backupSizeBytes, :backupExpiryDateTime) = payload;
+    if (backupSizeBytes != null) {
       result
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
-          payload.backupSizeBytes!,
+          backupSizeBytes,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.backupExpiryDateTime != null) {
+    if (backupExpiryDateTime != null) {
       result
         ..add('BackupExpiryDateTime')
         ..add(serializers.serialize(
-          payload.backupExpiryDateTime!,
+          backupExpiryDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

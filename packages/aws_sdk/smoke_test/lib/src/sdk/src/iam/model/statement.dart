@@ -116,42 +116,33 @@ class StatementAwsQuerySerializer
     final result = StatementBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SourcePolicyId':
-          if (value != null) {
-            result.sourcePolicyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sourcePolicyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'SourcePolicyType':
-          if (value != null) {
-            result.sourcePolicyType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.PolicySourceType),
-            ) as _i2.PolicySourceType);
-          }
-          break;
+          result.sourcePolicyType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.PolicySourceType),
+          ) as _i2.PolicySourceType);
         case 'StartPosition':
-          if (value != null) {
-            result.startPosition.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Position),
-            ) as _i3.Position));
-          }
-          break;
+          result.startPosition.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Position),
+          ) as _i3.Position));
         case 'EndPosition':
-          if (value != null) {
-            result.endPosition.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Position),
-            ) as _i3.Position));
-          }
-          break;
+          result.endPosition.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Position),
+          ) as _i3.Position));
       }
     }
 
@@ -171,35 +162,41 @@ class StatementAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.sourcePolicyId != null) {
+    final Statement(
+      :sourcePolicyId,
+      :sourcePolicyType,
+      :startPosition,
+      :endPosition
+    ) = payload;
+    if (sourcePolicyId != null) {
       result
         ..add(const _i4.XmlElementName('SourcePolicyId'))
         ..add(serializers.serialize(
-          payload.sourcePolicyId!,
+          sourcePolicyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.sourcePolicyType != null) {
+    if (sourcePolicyType != null) {
       result
         ..add(const _i4.XmlElementName('SourcePolicyType'))
         ..add(serializers.serialize(
-          payload.sourcePolicyType!,
+          sourcePolicyType,
           specifiedType: const FullType.nullable(_i2.PolicySourceType),
         ));
     }
-    if (payload.startPosition != null) {
+    if (startPosition != null) {
       result
         ..add(const _i4.XmlElementName('StartPosition'))
         ..add(serializers.serialize(
-          payload.startPosition!,
+          startPosition,
           specifiedType: const FullType(_i3.Position),
         ));
     }
-    if (payload.endPosition != null) {
+    if (endPosition != null) {
       result
         ..add(const _i4.XmlElementName('EndPosition'))
         ..add(serializers.serialize(
-          payload.endPosition!,
+          endPosition,
           specifiedType: const FullType(_i3.Position),
         ));
     }

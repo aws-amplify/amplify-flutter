@@ -184,70 +184,59 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
     final result = UserBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
           result.path = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UserId':
           result.userId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'PasswordLastUsed':
-          if (value != null) {
-            result.passwordLastUsed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.passwordLastUsed = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'PermissionsBoundary':
-          if (value != null) {
-            result.permissionsBoundary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
-            ) as _i2.AttachedPermissionsBoundary));
-          }
-          break;
+          result.permissionsBoundary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
+          ) as _i2.AttachedPermissionsBoundary));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i5.XmlBuiltListSerializer(
-                    indexer: _i5.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.Tag)],
-              ),
-            ) as _i4.BuiltList<_i3.Tag>));
-          }
-          break;
+          result.tags.replace((const _i5.XmlBuiltListSerializer(
+                  indexer: _i5.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.Tag)],
+            ),
+          ) as _i4.BuiltList<_i3.Tag>));
       }
     }
 
@@ -267,60 +256,70 @@ class UserAwsQuerySerializer extends _i5.StructuredSmithySerializer<User> {
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final User(
+      :path,
+      :userName,
+      :userId,
+      :arn,
+      :createDate,
+      :passwordLastUsed,
+      :permissionsBoundary,
+      :tags
+    ) = payload;
     result
       ..add(const _i5.XmlElementName('Path'))
       ..add(serializers.serialize(
-        payload.path,
+        path,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('UserId'))
       ..add(serializers.serialize(
-        payload.userId,
+        userId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('CreateDate'))
       ..add(serializers.serialize(
-        payload.createDate,
+        createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.passwordLastUsed != null) {
+    if (passwordLastUsed != null) {
       result
         ..add(const _i5.XmlElementName('PasswordLastUsed'))
         ..add(serializers.serialize(
-          payload.passwordLastUsed!,
+          passwordLastUsed,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.permissionsBoundary != null) {
+    if (permissionsBoundary != null) {
       result
         ..add(const _i5.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.permissionsBoundary!,
+          permissionsBoundary,
           specifiedType: const FullType(_i2.AttachedPermissionsBoundary),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i5.XmlElementName('Tags'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.Tag)],

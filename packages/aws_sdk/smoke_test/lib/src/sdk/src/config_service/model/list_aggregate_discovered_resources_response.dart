@@ -105,26 +105,23 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ResourceIdentifiers':
-          if (value != null) {
-            result.resourceIdentifiers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateResourceIdentifier)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateResourceIdentifier>));
-          }
-          break;
+          result.resourceIdentifiers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateResourceIdentifier)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateResourceIdentifier>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -139,22 +136,26 @@ class ListAggregateDiscoveredResourcesResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as ListAggregateDiscoveredResourcesResponse);
     final result = <Object?>[];
-    if (payload.resourceIdentifiers != null) {
+    final ListAggregateDiscoveredResourcesResponse(
+      :resourceIdentifiers,
+      :nextToken
+    ) = payload;
+    if (resourceIdentifiers != null) {
       result
         ..add('ResourceIdentifiers')
         ..add(serializers.serialize(
-          payload.resourceIdentifiers!,
+          resourceIdentifiers,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateResourceIdentifier)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

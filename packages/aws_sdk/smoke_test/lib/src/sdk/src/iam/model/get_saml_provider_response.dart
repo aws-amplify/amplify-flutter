@@ -118,48 +118,39 @@ class GetSamlProviderResponseAwsQuerySerializer
     final result = GetSamlProviderResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SAMLMetadataDocument':
-          if (value != null) {
-            result.samlMetadataDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.samlMetadataDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ValidUntil':
-          if (value != null) {
-            result.validUntil = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.validUntil = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Tag)],
-              ),
-            ) as _i3.BuiltList<_i2.Tag>));
-          }
-          break;
+          result.tags.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Tag)],
+            ),
+          ) as _i3.BuiltList<_i2.Tag>));
       }
     }
 
@@ -179,38 +170,44 @@ class GetSamlProviderResponseAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.samlMetadataDocument != null) {
+    final GetSamlProviderResponse(
+      :samlMetadataDocument,
+      :createDate,
+      :validUntil,
+      :tags
+    ) = payload;
+    if (samlMetadataDocument != null) {
       result
         ..add(const _i4.XmlElementName('SAMLMetadataDocument'))
         ..add(serializers.serialize(
-          payload.samlMetadataDocument!,
+          samlMetadataDocument,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i4.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.validUntil != null) {
+    if (validUntil != null) {
       result
         ..add(const _i4.XmlElementName('ValidUntil'))
         ..add(serializers.serialize(
-          payload.validUntil!,
+          validUntil,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i4.XmlElementName('Tags'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.Tag)],

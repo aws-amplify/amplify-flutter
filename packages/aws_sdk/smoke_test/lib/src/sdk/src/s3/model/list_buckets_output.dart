@@ -94,32 +94,29 @@ class ListBucketsOutputRestXmlSerializer
     final result = ListBucketsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Buckets':
-          if (value != null) {
-            result.buckets.replace(
-                (const _i5.XmlBuiltListSerializer(memberName: 'Bucket')
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.Bucket)],
-              ),
-            ) as _i4.BuiltList<_i2.Bucket>));
-          }
-          break;
+          result.buckets.replace(
+              (const _i5.XmlBuiltListSerializer(memberName: 'Bucket')
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.Bucket)],
+            ),
+          ) as _i4.BuiltList<_i2.Bucket>));
         case 'Owner':
-          if (value != null) {
-            result.owner.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Owner),
-            ) as _i3.Owner));
-          }
-          break;
+          result.owner.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Owner),
+          ) as _i3.Owner));
       }
     }
 
@@ -139,23 +136,24 @@ class ListBucketsOutputRestXmlSerializer
         _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.buckets != null) {
+    final ListBucketsOutput(:buckets, :owner) = payload;
+    if (buckets != null) {
       result
         ..add(const _i5.XmlElementName('Buckets'))
         ..add(const _i5.XmlBuiltListSerializer(memberName: 'Bucket').serialize(
           serializers,
-          payload.buckets!,
+          buckets,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i2.Bucket)],
           ),
         ));
     }
-    if (payload.owner != null) {
+    if (owner != null) {
       result
         ..add(const _i5.XmlElementName('Owner'))
         ..add(serializers.serialize(
-          payload.owner!,
+          owner,
           specifiedType: const FullType(_i3.Owner),
         ));
     }

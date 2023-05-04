@@ -99,31 +99,25 @@ class CapacityAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ReadCapacityUnits':
-          if (value != null) {
-            result.readCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.readCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'WriteCapacityUnits':
-          if (value != null) {
-            result.writeCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.writeCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'CapacityUnits':
-          if (value != null) {
-            result.capacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.capacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -138,27 +132,29 @@ class CapacityAwsJson10Serializer
   }) {
     final payload = (object as Capacity);
     final result = <Object?>[];
-    if (payload.readCapacityUnits != null) {
+    final Capacity(:readCapacityUnits, :writeCapacityUnits, :capacityUnits) =
+        payload;
+    if (readCapacityUnits != null) {
       result
         ..add('ReadCapacityUnits')
         ..add(serializers.serialize(
-          payload.readCapacityUnits!,
+          readCapacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.writeCapacityUnits != null) {
+    if (writeCapacityUnits != null) {
       result
         ..add('WriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.writeCapacityUnits!,
+          writeCapacityUnits,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.capacityUnits != null) {
+    if (capacityUnits != null) {
       result
         ..add('CapacityUnits')
         ..add(serializers.serialize(
-          payload.capacityUnits!,
+          capacityUnits,
           specifiedType: const FullType(double),
         ));
     }

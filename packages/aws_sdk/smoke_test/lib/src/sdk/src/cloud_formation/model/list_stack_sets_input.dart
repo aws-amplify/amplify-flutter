@@ -126,42 +126,33 @@ class ListStackSetsInputAwsQuerySerializer
     final result = ListStackSetsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StackSetStatus),
-            ) as _i3.StackSetStatus);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StackSetStatus),
+          ) as _i3.StackSetStatus);
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CallAs),
-            ) as _i4.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CallAs),
+          ) as _i4.CallAs);
       }
     }
 
@@ -181,35 +172,37 @@ class ListStackSetsInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.nextToken != null) {
+    final ListStackSetsInput(:nextToken, :maxResults, :status, :callAs) =
+        payload;
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType.nullable(_i3.StackSetStatus),
         ));
     }
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }

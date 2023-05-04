@@ -95,18 +95,18 @@ class DescribeDeliveryChannelsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DeliveryChannelNames':
-          if (value != null) {
-            result.deliveryChannelNames.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.deliveryChannelNames.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -121,11 +121,12 @@ class DescribeDeliveryChannelsRequestAwsJson11Serializer
   }) {
     final payload = (object as DescribeDeliveryChannelsRequest);
     final result = <Object?>[];
-    if (payload.deliveryChannelNames != null) {
+    final DescribeDeliveryChannelsRequest(:deliveryChannelNames) = payload;
+    if (deliveryChannelNames != null) {
       result
         ..add('DeliveryChannelNames')
         ..add(serializers.serialize(
-          payload.deliveryChannelNames!,
+          deliveryChannelNames,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

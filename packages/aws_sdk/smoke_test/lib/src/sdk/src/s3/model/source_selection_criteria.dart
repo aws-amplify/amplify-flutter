@@ -95,26 +95,23 @@ class SourceSelectionCriteriaRestXmlSerializer
     final result = SourceSelectionCriteriaBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ReplicaModifications':
-          if (value != null) {
-            result.replicaModifications.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ReplicaModifications),
-            ) as _i3.ReplicaModifications));
-          }
-          break;
+          result.replicaModifications.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ReplicaModifications),
+          ) as _i3.ReplicaModifications));
         case 'SseKmsEncryptedObjects':
-          if (value != null) {
-            result.sseKmsEncryptedObjects.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
-            ) as _i2.SseKmsEncryptedObjects));
-          }
-          break;
+          result.sseKmsEncryptedObjects.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
+          ) as _i2.SseKmsEncryptedObjects));
       }
     }
 
@@ -134,19 +131,23 @@ class SourceSelectionCriteriaRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.replicaModifications != null) {
+    final SourceSelectionCriteria(
+      :replicaModifications,
+      :sseKmsEncryptedObjects
+    ) = payload;
+    if (replicaModifications != null) {
       result
         ..add(const _i4.XmlElementName('ReplicaModifications'))
         ..add(serializers.serialize(
-          payload.replicaModifications!,
+          replicaModifications,
           specifiedType: const FullType(_i3.ReplicaModifications),
         ));
     }
-    if (payload.sseKmsEncryptedObjects != null) {
+    if (sseKmsEncryptedObjects != null) {
       result
         ..add(const _i4.XmlElementName('SseKmsEncryptedObjects'))
         ..add(serializers.serialize(
-          payload.sseKmsEncryptedObjects!,
+          sseKmsEncryptedObjects,
           specifiedType: const FullType(_i2.SseKmsEncryptedObjects),
         ));
     }

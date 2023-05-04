@@ -84,15 +84,15 @@ class UpdateTimeToLiveOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TimeToLiveSpecification':
-          if (value != null) {
-            result.timeToLiveSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TimeToLiveSpecification),
-            ) as _i2.TimeToLiveSpecification));
-          }
-          break;
+          result.timeToLiveSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TimeToLiveSpecification),
+          ) as _i2.TimeToLiveSpecification));
       }
     }
 
@@ -107,11 +107,12 @@ class UpdateTimeToLiveOutputAwsJson10Serializer
   }) {
     final payload = (object as UpdateTimeToLiveOutput);
     final result = <Object?>[];
-    if (payload.timeToLiveSpecification != null) {
+    final UpdateTimeToLiveOutput(:timeToLiveSpecification) = payload;
+    if (timeToLiveSpecification != null) {
       result
         ..add('TimeToLiveSpecification')
         ..add(serializers.serialize(
-          payload.timeToLiveSpecification!,
+          timeToLiveSpecification,
           specifiedType: const FullType(_i2.TimeToLiveSpecification),
         ));
     }

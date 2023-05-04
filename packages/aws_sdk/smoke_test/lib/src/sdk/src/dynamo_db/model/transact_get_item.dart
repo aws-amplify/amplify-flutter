@@ -75,13 +75,15 @@ class TransactGetItemAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Get':
           result.get.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.Get),
           ) as _i2.Get));
-          break;
       }
     }
 

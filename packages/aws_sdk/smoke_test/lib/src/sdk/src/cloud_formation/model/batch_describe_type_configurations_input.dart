@@ -92,10 +92,13 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
     final result = BatchDescribeTypeConfigurationsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeConfigurationIdentifiers':
           result.typeConfigurationIdentifiers.replace(
               (const _i1.XmlBuiltListSerializer(
@@ -108,7 +111,6 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
               [FullType(_i3.TypeConfigurationIdentifier)],
             ),
           ) as _i4.BuiltList<_i3.TypeConfigurationIdentifier>));
-          break;
       }
     }
 
@@ -128,13 +130,15 @@ class BatchDescribeTypeConfigurationsInputAwsQuerySerializer extends _i1
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final BatchDescribeTypeConfigurationsInput(:typeConfigurationIdentifiers) =
+        payload;
     result
       ..add(const _i1.XmlElementName('TypeConfigurationIdentifiers'))
       ..add(
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.typeConfigurationIdentifiers,
+        typeConfigurationIdentifiers,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i3.TypeConfigurationIdentifier)],

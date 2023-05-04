@@ -151,79 +151,61 @@ class GroupDetailAwsQuerySerializer
     final result = GroupDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'GroupName':
-          if (value != null) {
-            result.groupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'GroupId':
-          if (value != null) {
-            result.groupId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'GroupPolicyList':
-          if (value != null) {
-            result.groupPolicyList.replace((const _i5.XmlBuiltListSerializer(
-                    indexer: _i5.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.PolicyDetail)],
-              ),
-            ) as _i4.BuiltList<_i2.PolicyDetail>));
-          }
-          break;
+          result.groupPolicyList.replace((const _i5.XmlBuiltListSerializer(
+                  indexer: _i5.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.PolicyDetail)],
+            ),
+          ) as _i4.BuiltList<_i2.PolicyDetail>));
         case 'AttachedManagedPolicies':
-          if (value != null) {
-            result.attachedManagedPolicies.replace(
-                (const _i5.XmlBuiltListSerializer(
-                        indexer: _i5.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.AttachedPolicy)],
-              ),
-            ) as _i4.BuiltList<_i3.AttachedPolicy>));
-          }
-          break;
+          result.attachedManagedPolicies.replace(
+              (const _i5.XmlBuiltListSerializer(
+                      indexer: _i5.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.AttachedPolicy)],
+            ),
+          ) as _i4.BuiltList<_i3.AttachedPolicy>));
       }
     }
 
@@ -243,68 +225,77 @@ class GroupDetailAwsQuerySerializer
         _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.path != null) {
+    final GroupDetail(
+      :path,
+      :groupName,
+      :groupId,
+      :arn,
+      :createDate,
+      :groupPolicyList,
+      :attachedManagedPolicies
+    ) = payload;
+    if (path != null) {
       result
         ..add(const _i5.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.groupName != null) {
+    if (groupName != null) {
       result
         ..add(const _i5.XmlElementName('GroupName'))
         ..add(serializers.serialize(
-          payload.groupName!,
+          groupName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.groupId != null) {
+    if (groupId != null) {
       result
         ..add(const _i5.XmlElementName('GroupId'))
         ..add(serializers.serialize(
-          payload.groupId!,
+          groupId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i5.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i5.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.groupPolicyList != null) {
+    if (groupPolicyList != null) {
       result
         ..add(const _i5.XmlElementName('GroupPolicyList'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.groupPolicyList!,
+          groupPolicyList,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i2.PolicyDetail)],
           ),
         ));
     }
-    if (payload.attachedManagedPolicies != null) {
+    if (attachedManagedPolicies != null) {
       result
         ..add(const _i5.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i5.XmlBuiltListSerializer(
                 indexer: _i5.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.attachedManagedPolicies!,
+          attachedManagedPolicies,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.AttachedPolicy)],

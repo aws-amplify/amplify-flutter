@@ -125,42 +125,33 @@ class PolicyVersionAwsQuerySerializer
     final result = PolicyVersionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Document':
-          if (value != null) {
-            result.document = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.document = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionId':
-          if (value != null) {
-            result.versionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'IsDefaultVersion':
-          if (value != null) {
-            result.isDefaultVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isDefaultVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -180,35 +171,37 @@ class PolicyVersionAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.document != null) {
+    final PolicyVersion(:document, :versionId, :isDefaultVersion, :createDate) =
+        payload;
+    if (document != null) {
       result
         ..add(const _i2.XmlElementName('Document'))
         ..add(serializers.serialize(
-          payload.document!,
+          document,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionId != null) {
+    if (versionId != null) {
       result
         ..add(const _i2.XmlElementName('VersionId'))
         ..add(serializers.serialize(
-          payload.versionId!,
+          versionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.isDefaultVersion != null) {
+    if (isDefaultVersion != null) {
       result
         ..add(const _i2.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
-          payload.isDefaultVersion!,
+          isDefaultVersion,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

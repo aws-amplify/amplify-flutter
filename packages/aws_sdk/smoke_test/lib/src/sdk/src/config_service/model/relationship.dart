@@ -112,39 +112,30 @@ class RelationshipAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceType),
-            ) as _i2.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceType),
+          ) as _i2.ResourceType);
         case 'resourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'relationshipName':
-          if (value != null) {
-            result.relationshipName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.relationshipName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -159,35 +150,41 @@ class RelationshipAwsJson11Serializer
   }) {
     final payload = (object as Relationship);
     final result = <Object?>[];
-    if (payload.resourceType != null) {
+    final Relationship(
+      :resourceType,
+      :resourceId,
+      :resourceName,
+      :relationshipName
+    ) = payload;
+    if (resourceType != null) {
       result
         ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i2.ResourceType),
         ));
     }
-    if (payload.resourceId != null) {
+    if (resourceId != null) {
       result
         ..add('resourceId')
         ..add(serializers.serialize(
-          payload.resourceId!,
+          resourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceName != null) {
+    if (resourceName != null) {
       result
         ..add('resourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.relationshipName != null) {
+    if (relationshipName != null) {
       result
         ..add('relationshipName')
         ..add(serializers.serialize(
-          payload.relationshipName!,
+          relationshipName,
           specifiedType: const FullType(String),
         ));
     }

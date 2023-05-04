@@ -106,31 +106,25 @@ class ConfigurationRecorderAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'roleARN':
-          if (value != null) {
-            result.roleArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'recordingGroup':
-          if (value != null) {
-            result.recordingGroup.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RecordingGroup),
-            ) as _i2.RecordingGroup));
-          }
-          break;
+          result.recordingGroup.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RecordingGroup),
+          ) as _i2.RecordingGroup));
       }
     }
 
@@ -145,27 +139,28 @@ class ConfigurationRecorderAwsJson11Serializer
   }) {
     final payload = (object as ConfigurationRecorder);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final ConfigurationRecorder(:name, :roleArn, :recordingGroup) = payload;
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.roleArn != null) {
+    if (roleArn != null) {
       result
         ..add('roleARN')
         ..add(serializers.serialize(
-          payload.roleArn!,
+          roleArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.recordingGroup != null) {
+    if (recordingGroup != null) {
       result
         ..add('recordingGroup')
         ..add(serializers.serialize(
-          payload.recordingGroup!,
+          recordingGroup,
           specifiedType: const FullType(_i2.RecordingGroup),
         ));
     }

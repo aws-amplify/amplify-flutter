@@ -91,26 +91,23 @@ class CsvOptionsAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Delimiter':
-          if (value != null) {
-            result.delimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.delimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HeaderList':
-          if (value != null) {
-            result.headerList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.headerList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -125,19 +122,20 @@ class CsvOptionsAwsJson10Serializer
   }) {
     final payload = (object as CsvOptions);
     final result = <Object?>[];
-    if (payload.delimiter != null) {
+    final CsvOptions(:delimiter, :headerList) = payload;
+    if (delimiter != null) {
       result
         ..add('Delimiter')
         ..add(serializers.serialize(
-          payload.delimiter!,
+          delimiter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.headerList != null) {
+    if (headerList != null) {
       result
         ..add('HeaderList')
         ..add(serializers.serialize(
-          payload.headerList!,
+          headerList,
           specifiedType: const FullType(
             _i2.BuiltList,
             [FullType(String)],

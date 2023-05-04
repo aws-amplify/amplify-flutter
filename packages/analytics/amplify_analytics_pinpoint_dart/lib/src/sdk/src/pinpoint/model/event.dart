@@ -171,95 +171,72 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AppPackageName':
-          if (value != null) {
-            result.appPackageName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.appPackageName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AppTitle':
-          if (value != null) {
-            result.appTitle = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.appTitle = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AppVersionCode':
-          if (value != null) {
-            result.appVersionCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.appVersionCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Attributes':
-          if (value != null) {
-            result.attributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.attributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'ClientSdkVersion':
-          if (value != null) {
-            result.clientSdkVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientSdkVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EventType':
           result.eventType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Metrics':
-          if (value != null) {
-            result.metrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(double),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, double>));
-          }
-          break;
+          result.metrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(double),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, double>));
         case 'SdkName':
-          if (value != null) {
-            result.sdkName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.sdkName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Session':
-          if (value != null) {
-            result.session.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Session),
-            ) as _i2.Session));
-          }
-          break;
+          result.session.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Session),
+          ) as _i2.Session));
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -285,35 +262,45 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.appPackageName != null) {
+    final Event(
+      :appPackageName,
+      :appTitle,
+      :appVersionCode,
+      :attributes,
+      :clientSdkVersion,
+      :metrics,
+      :sdkName,
+      :session
+    ) = payload;
+    if (appPackageName != null) {
       result
         ..add('AppPackageName')
         ..add(serializers.serialize(
-          payload.appPackageName!,
+          appPackageName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.appTitle != null) {
+    if (appTitle != null) {
       result
         ..add('AppTitle')
         ..add(serializers.serialize(
-          payload.appTitle!,
+          appTitle,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.appVersionCode != null) {
+    if (appVersionCode != null) {
       result
         ..add('AppVersionCode')
         ..add(serializers.serialize(
-          payload.appVersionCode!,
+          appVersionCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.attributes != null) {
+    if (attributes != null) {
       result
         ..add('Attributes')
         ..add(serializers.serialize(
-          payload.attributes!,
+          attributes,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -323,19 +310,19 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
           ),
         ));
     }
-    if (payload.clientSdkVersion != null) {
+    if (clientSdkVersion != null) {
       result
         ..add('ClientSdkVersion')
         ..add(serializers.serialize(
-          payload.clientSdkVersion!,
+          clientSdkVersion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.metrics != null) {
+    if (metrics != null) {
       result
         ..add('Metrics')
         ..add(serializers.serialize(
-          payload.metrics!,
+          metrics,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -345,19 +332,19 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
           ),
         ));
     }
-    if (payload.sdkName != null) {
+    if (sdkName != null) {
       result
         ..add('SdkName')
         ..add(serializers.serialize(
-          payload.sdkName!,
+          sdkName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.session != null) {
+    if (session != null) {
       result
         ..add('Session')
         ..add(serializers.serialize(
-          payload.session!,
+          session,
           specifiedType: const FullType(_i2.Session),
         ));
     }

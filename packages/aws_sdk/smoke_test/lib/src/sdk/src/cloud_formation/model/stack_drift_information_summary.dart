@@ -102,24 +102,23 @@ class StackDriftInformationSummaryAwsQuerySerializer
     final result = StackDriftInformationSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackDriftStatus':
           result.stackDriftStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.StackDriftStatus),
           ) as _i2.StackDriftStatus);
-          break;
         case 'LastCheckTimestamp':
-          if (value != null) {
-            result.lastCheckTimestamp = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastCheckTimestamp = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -139,17 +138,19 @@ class StackDriftInformationSummaryAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final StackDriftInformationSummary(:stackDriftStatus, :lastCheckTimestamp) =
+        payload;
     result
       ..add(const _i3.XmlElementName('StackDriftStatus'))
       ..add(serializers.serialize(
-        payload.stackDriftStatus,
+        stackDriftStatus,
         specifiedType: const FullType.nullable(_i2.StackDriftStatus),
       ));
-    if (payload.lastCheckTimestamp != null) {
+    if (lastCheckTimestamp != null) {
       result
         ..add(const _i3.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
-          payload.lastCheckTimestamp!,
+          lastCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

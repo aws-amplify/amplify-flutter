@@ -112,27 +112,24 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateComplianceByConformancePacks':
-          if (value != null) {
-            result.aggregateComplianceByConformancePacks
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateComplianceByConformancePack)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateComplianceByConformancePack>));
-          }
-          break;
+          result.aggregateComplianceByConformancePacks
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateComplianceByConformancePack)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateComplianceByConformancePack>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -148,22 +145,26 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
     final payload =
         (object as DescribeAggregateComplianceByConformancePacksResponse);
     final result = <Object?>[];
-    if (payload.aggregateComplianceByConformancePacks != null) {
+    final DescribeAggregateComplianceByConformancePacksResponse(
+      :aggregateComplianceByConformancePacks,
+      :nextToken
+    ) = payload;
+    if (aggregateComplianceByConformancePacks != null) {
       result
         ..add('AggregateComplianceByConformancePacks')
         ..add(serializers.serialize(
-          payload.aggregateComplianceByConformancePacks!,
+          aggregateComplianceByConformancePacks,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateComplianceByConformancePack)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

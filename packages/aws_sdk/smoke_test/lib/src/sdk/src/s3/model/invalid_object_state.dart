@@ -116,26 +116,23 @@ class InvalidObjectStateRestXmlSerializer
     final result = InvalidObjectStateBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessTier':
-          if (value != null) {
-            result.accessTier = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.IntelligentTieringAccessTier),
-            ) as _i4.IntelligentTieringAccessTier);
-          }
-          break;
+          result.accessTier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.IntelligentTieringAccessTier),
+          ) as _i4.IntelligentTieringAccessTier);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.StorageClass),
-            ) as _i3.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.StorageClass),
+          ) as _i3.StorageClass);
       }
     }
 
@@ -155,20 +152,21 @@ class InvalidObjectStateRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.accessTier != null) {
+    final InvalidObjectState(:accessTier, :storageClass) = payload;
+    if (accessTier != null) {
       result
         ..add(const _i2.XmlElementName('AccessTier'))
         ..add(serializers.serialize(
-          payload.accessTier!,
+          accessTier,
           specifiedType:
               const FullType.nullable(_i4.IntelligentTieringAccessTier),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i3.StorageClass),
         ));
     }

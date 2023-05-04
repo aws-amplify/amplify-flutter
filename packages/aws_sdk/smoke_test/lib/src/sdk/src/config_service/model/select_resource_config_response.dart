@@ -112,34 +112,28 @@ class SelectResourceConfigResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Results':
-          if (value != null) {
-            result.results.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.results.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'QueryInfo':
-          if (value != null) {
-            result.queryInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.QueryInfo),
-            ) as _i2.QueryInfo));
-          }
-          break;
+          result.queryInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.QueryInfo),
+          ) as _i2.QueryInfo));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -154,30 +148,32 @@ class SelectResourceConfigResponseAwsJson11Serializer
   }) {
     final payload = (object as SelectResourceConfigResponse);
     final result = <Object?>[];
-    if (payload.results != null) {
+    final SelectResourceConfigResponse(:results, :queryInfo, :nextToken) =
+        payload;
+    if (results != null) {
       result
         ..add('Results')
         ..add(serializers.serialize(
-          payload.results!,
+          results,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.queryInfo != null) {
+    if (queryInfo != null) {
       result
         ..add('QueryInfo')
         ..add(serializers.serialize(
-          payload.queryInfo!,
+          queryInfo,
           specifiedType: const FullType(_i2.QueryInfo),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

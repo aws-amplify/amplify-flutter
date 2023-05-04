@@ -130,42 +130,38 @@ class AccessKeyAwsQuerySerializer
     final result = AccessKeyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AccessKeyId':
           result.accessKeyId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.StatusType),
           ) as _i2.StatusType);
-          break;
         case 'SecretAccessKey':
           result.secretAccessKey = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -185,35 +181,42 @@ class AccessKeyAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final AccessKey(
+      :userName,
+      :accessKeyId,
+      :status,
+      :secretAccessKey,
+      :createDate
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
-        payload.accessKeyId,
+        accessKeyId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
     result
       ..add(const _i3.XmlElementName('SecretAccessKey'))
       ..add(serializers.serialize(
-        payload.secretAccessKey,
+        secretAccessKey,
         specifiedType: const FullType(String),
       ));
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

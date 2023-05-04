@@ -117,34 +117,28 @@ class GetTemplateInputAwsQuerySerializer
     final result = GetTemplateInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChangeSetName':
-          if (value != null) {
-            result.changeSetName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.changeSetName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TemplateStage':
-          if (value != null) {
-            result.templateStage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.TemplateStage),
-            ) as _i3.TemplateStage);
-          }
-          break;
+          result.templateStage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.TemplateStage),
+          ) as _i3.TemplateStage);
       }
     }
 
@@ -164,27 +158,29 @@ class GetTemplateInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackName != null) {
+    final GetTemplateInput(:stackName, :changeSetName, :templateStage) =
+        payload;
+    if (stackName != null) {
       result
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.changeSetName != null) {
+    if (changeSetName != null) {
       result
         ..add(const _i1.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
-          payload.changeSetName!,
+          changeSetName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.templateStage != null) {
+    if (templateStage != null) {
       result
         ..add(const _i1.XmlElementName('TemplateStage'))
         ..add(serializers.serialize(
-          payload.templateStage!,
+          templateStage,
           specifiedType: const FullType.nullable(_i3.TemplateStage),
         ));
     }

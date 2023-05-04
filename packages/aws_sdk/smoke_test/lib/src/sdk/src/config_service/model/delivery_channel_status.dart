@@ -122,39 +122,30 @@ class DeliveryChannelStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'configSnapshotDeliveryInfo':
-          if (value != null) {
-            result.configSnapshotDeliveryInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
-            ) as _i2.ConfigExportDeliveryInfo));
-          }
-          break;
+          result.configSnapshotDeliveryInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+          ) as _i2.ConfigExportDeliveryInfo));
         case 'configHistoryDeliveryInfo':
-          if (value != null) {
-            result.configHistoryDeliveryInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
-            ) as _i2.ConfigExportDeliveryInfo));
-          }
-          break;
+          result.configHistoryDeliveryInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+          ) as _i2.ConfigExportDeliveryInfo));
         case 'configStreamDeliveryInfo':
-          if (value != null) {
-            result.configStreamDeliveryInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
-            ) as _i3.ConfigStreamDeliveryInfo));
-          }
-          break;
+          result.configStreamDeliveryInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
+          ) as _i3.ConfigStreamDeliveryInfo));
       }
     }
 
@@ -169,35 +160,41 @@ class DeliveryChannelStatusAwsJson11Serializer
   }) {
     final payload = (object as DeliveryChannelStatus);
     final result = <Object?>[];
-    if (payload.name != null) {
+    final DeliveryChannelStatus(
+      :name,
+      :configSnapshotDeliveryInfo,
+      :configHistoryDeliveryInfo,
+      :configStreamDeliveryInfo
+    ) = payload;
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configSnapshotDeliveryInfo != null) {
+    if (configSnapshotDeliveryInfo != null) {
       result
         ..add('configSnapshotDeliveryInfo')
         ..add(serializers.serialize(
-          payload.configSnapshotDeliveryInfo!,
+          configSnapshotDeliveryInfo,
           specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
         ));
     }
-    if (payload.configHistoryDeliveryInfo != null) {
+    if (configHistoryDeliveryInfo != null) {
       result
         ..add('configHistoryDeliveryInfo')
         ..add(serializers.serialize(
-          payload.configHistoryDeliveryInfo!,
+          configHistoryDeliveryInfo,
           specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
         ));
     }
-    if (payload.configStreamDeliveryInfo != null) {
+    if (configStreamDeliveryInfo != null) {
       result
         ..add('configStreamDeliveryInfo')
         ..add(serializers.serialize(
-          payload.configStreamDeliveryInfo!,
+          configStreamDeliveryInfo,
           specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
         ));
     }

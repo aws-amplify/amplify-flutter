@@ -152,6 +152,9 @@ class TransactWriteItemsInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TransactItems':
           result.transactItems.replace((serializers.deserialize(
@@ -161,31 +164,21 @@ class TransactWriteItemsInputAwsJson10Serializer
               [FullType(_i3.TransactWriteItem)],
             ),
           ) as _i6.BuiltList<_i3.TransactWriteItem>));
-          break;
         case 'ReturnConsumedCapacity':
-          if (value != null) {
-            result.returnConsumedCapacity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-            ) as _i4.ReturnConsumedCapacity);
-          }
-          break;
+          result.returnConsumedCapacity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          ) as _i4.ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
-          if (value != null) {
-            result.returnItemCollectionMetrics = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
-            ) as _i5.ReturnItemCollectionMetrics);
-          }
-          break;
+          result.returnItemCollectionMetrics = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+          ) as _i5.ReturnItemCollectionMetrics);
         case 'ClientRequestToken':
-          if (value != null) {
-            result.clientRequestToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientRequestToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -209,27 +202,32 @@ class TransactWriteItemsInputAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.returnConsumedCapacity != null) {
+    final TransactWriteItemsInput(
+      :returnConsumedCapacity,
+      :returnItemCollectionMetrics,
+      :clientRequestToken
+    ) = payload;
+    if (returnConsumedCapacity != null) {
       result
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
-          payload.returnConsumedCapacity!,
+          returnConsumedCapacity,
           specifiedType: const FullType(_i4.ReturnConsumedCapacity),
         ));
     }
-    if (payload.returnItemCollectionMetrics != null) {
+    if (returnItemCollectionMetrics != null) {
       result
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.returnItemCollectionMetrics!,
+          returnItemCollectionMetrics,
           specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
         ));
     }
-    if (payload.clientRequestToken != null) {
+    if (clientRequestToken != null) {
       result
         ..add('ClientRequestToken')
         ..add(serializers.serialize(
-          payload.clientRequestToken!,
+          clientRequestToken,
           specifiedType: const FullType(String),
         ));
     }

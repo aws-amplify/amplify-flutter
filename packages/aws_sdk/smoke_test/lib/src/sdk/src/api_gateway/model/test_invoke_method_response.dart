@@ -144,67 +144,52 @@ class TestInvokeMethodResponseRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'body':
-          if (value != null) {
-            result.body = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.body = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'headers':
-          if (value != null) {
-            result.headers.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.headers.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
         case 'latency':
-          if (value != null) {
-            result.latency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.latency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'log':
-          if (value != null) {
-            result.log = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.log = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'multiValueHeaders':
-          if (value != null) {
-            result.multiValueHeaders.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.multiValueHeaders.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltListMultimap<String, String>));
         case 'status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -219,19 +204,27 @@ class TestInvokeMethodResponseRestJson1Serializer
   }) {
     final payload = (object as TestInvokeMethodResponse);
     final result = <Object?>[];
-    if (payload.body != null) {
+    final TestInvokeMethodResponse(
+      :body,
+      :headers,
+      :latency,
+      :log,
+      :multiValueHeaders,
+      :status
+    ) = payload;
+    if (body != null) {
       result
         ..add('body')
         ..add(serializers.serialize(
-          payload.body!,
+          body,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.headers != null) {
+    if (headers != null) {
       result
         ..add('headers')
         ..add(serializers.serialize(
-          payload.headers!,
+          headers,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -241,27 +234,27 @@ class TestInvokeMethodResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.latency != null) {
+    if (latency != null) {
       result
         ..add('latency')
         ..add(serializers.serialize(
-          payload.latency!,
+          latency,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.log != null) {
+    if (log != null) {
       result
         ..add('log')
         ..add(serializers.serialize(
-          payload.log!,
+          log,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.multiValueHeaders != null) {
+    if (multiValueHeaders != null) {
       result
         ..add('multiValueHeaders')
         ..add(serializers.serialize(
-          payload.multiValueHeaders!,
+          multiValueHeaders,
           specifiedType: const FullType(
             _i3.BuiltListMultimap,
             [
@@ -271,11 +264,11 @@ class TestInvokeMethodResponseRestJson1Serializer
           ),
         ));
     }
-    if (payload.status != null) {
+    if (status != null) {
       result
         ..add('status')
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType(int),
         ));
     }

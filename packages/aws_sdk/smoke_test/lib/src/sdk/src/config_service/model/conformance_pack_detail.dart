@@ -174,77 +174,59 @@ class ConformancePackDetailAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackArn':
           result.conformancePackArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackId':
           result.conformancePackId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DeliveryS3Bucket':
-          if (value != null) {
-            result.deliveryS3Bucket = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3Bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeliveryS3KeyPrefix':
-          if (value != null) {
-            result.deliveryS3KeyPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deliveryS3KeyPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ConformancePackInputParameters':
-          if (value != null) {
-            result.conformancePackInputParameters
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ConformancePackInputParameter)],
-              ),
-            ) as _i4.BuiltList<_i2.ConformancePackInputParameter>));
-          }
-          break;
+          result.conformancePackInputParameters
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ConformancePackInputParameter)],
+            ),
+          ) as _i4.BuiltList<_i2.ConformancePackInputParameter>));
         case 'LastUpdateRequestedTime':
-          if (value != null) {
-            result.lastUpdateRequestedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateRequestedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'CreatedBy':
-          if (value != null) {
-            result.createdBy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.createdBy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TemplateSSMDocumentDetails':
-          if (value != null) {
-            result.templateSsmDocumentDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.TemplateSsmDocumentDetails),
-            ) as _i3.TemplateSsmDocumentDetails));
-          }
-          break;
+          result.templateSsmDocumentDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.TemplateSsmDocumentDetails),
+          ) as _i3.TemplateSsmDocumentDetails));
       }
     }
 
@@ -275,54 +257,62 @@ class ConformancePackDetailAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.deliveryS3Bucket != null) {
+    final ConformancePackDetail(
+      :deliveryS3Bucket,
+      :deliveryS3KeyPrefix,
+      :conformancePackInputParameters,
+      :lastUpdateRequestedTime,
+      :createdBy,
+      :templateSsmDocumentDetails
+    ) = payload;
+    if (deliveryS3Bucket != null) {
       result
         ..add('DeliveryS3Bucket')
         ..add(serializers.serialize(
-          payload.deliveryS3Bucket!,
+          deliveryS3Bucket,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deliveryS3KeyPrefix != null) {
+    if (deliveryS3KeyPrefix != null) {
       result
         ..add('DeliveryS3KeyPrefix')
         ..add(serializers.serialize(
-          payload.deliveryS3KeyPrefix!,
+          deliveryS3KeyPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.conformancePackInputParameters != null) {
+    if (conformancePackInputParameters != null) {
       result
         ..add('ConformancePackInputParameters')
         ..add(serializers.serialize(
-          payload.conformancePackInputParameters!,
+          conformancePackInputParameters,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ConformancePackInputParameter)],
           ),
         ));
     }
-    if (payload.lastUpdateRequestedTime != null) {
+    if (lastUpdateRequestedTime != null) {
       result
         ..add('LastUpdateRequestedTime')
         ..add(serializers.serialize(
-          payload.lastUpdateRequestedTime!,
+          lastUpdateRequestedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.createdBy != null) {
+    if (createdBy != null) {
       result
         ..add('CreatedBy')
         ..add(serializers.serialize(
-          payload.createdBy!,
+          createdBy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.templateSsmDocumentDetails != null) {
+    if (templateSsmDocumentDetails != null) {
       result
         ..add('TemplateSSMDocumentDetails')
         ..add(serializers.serialize(
-          payload.templateSsmDocumentDetails!,
+          templateSsmDocumentDetails,
           specifiedType: const FullType(_i3.TemplateSsmDocumentDetails),
         ));
     }

@@ -93,23 +93,20 @@ class PendingAggregationRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'RequesterAccountId':
-          if (value != null) {
-            result.requesterAccountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requesterAccountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RequesterAwsRegion':
-          if (value != null) {
-            result.requesterAwsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requesterAwsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -124,19 +121,21 @@ class PendingAggregationRequestAwsJson11Serializer
   }) {
     final payload = (object as PendingAggregationRequest);
     final result = <Object?>[];
-    if (payload.requesterAccountId != null) {
+    final PendingAggregationRequest(:requesterAccountId, :requesterAwsRegion) =
+        payload;
+    if (requesterAccountId != null) {
       result
         ..add('RequesterAccountId')
         ..add(serializers.serialize(
-          payload.requesterAccountId!,
+          requesterAccountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requesterAwsRegion != null) {
+    if (requesterAwsRegion != null) {
       result
         ..add('RequesterAwsRegion')
         ..add(serializers.serialize(
-          payload.requesterAwsRegion!,
+          requesterAwsRegion,
           specifiedType: const FullType(String),
         ));
     }

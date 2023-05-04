@@ -118,33 +118,29 @@ class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConformancePackName':
           result.conformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ConformancePackRuleEvaluationResults':
-          if (value != null) {
-            result.conformancePackRuleEvaluationResults
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConformancePackEvaluationResult)],
-              ),
-            ) as _i3.BuiltList<_i2.ConformancePackEvaluationResult>));
-          }
-          break;
+          result.conformancePackRuleEvaluationResults
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConformancePackEvaluationResult)],
+            ),
+          ) as _i3.BuiltList<_i2.ConformancePackEvaluationResult>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -165,22 +161,26 @@ class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.conformancePackRuleEvaluationResults != null) {
+    final GetConformancePackComplianceDetailsResponse(
+      :conformancePackRuleEvaluationResults,
+      :nextToken
+    ) = payload;
+    if (conformancePackRuleEvaluationResults != null) {
       result
         ..add('ConformancePackRuleEvaluationResults')
         ..add(serializers.serialize(
-          payload.conformancePackRuleEvaluationResults!,
+          conformancePackRuleEvaluationResults,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConformancePackEvaluationResult)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

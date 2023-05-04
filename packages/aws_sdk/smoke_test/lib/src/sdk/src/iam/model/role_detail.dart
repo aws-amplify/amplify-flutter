@@ -210,132 +210,98 @@ class RoleDetailAwsQuerySerializer
     final result = RoleDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RoleName':
-          if (value != null) {
-            result.roleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RoleId':
-          if (value != null) {
-            result.roleId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.roleId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'AssumeRolePolicyDocument':
-          if (value != null) {
-            result.assumeRolePolicyDocument = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.assumeRolePolicyDocument = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InstanceProfileList':
-          if (value != null) {
-            result.instanceProfileList.replace(
-                (const _i9.XmlBuiltListSerializer(
-                        indexer: _i9.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i2.InstanceProfile)],
-              ),
-            ) as _i8.BuiltList<_i2.InstanceProfile>));
-          }
-          break;
+          result.instanceProfileList.replace((const _i9.XmlBuiltListSerializer(
+                  indexer: _i9.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i2.InstanceProfile)],
+            ),
+          ) as _i8.BuiltList<_i2.InstanceProfile>));
         case 'RolePolicyList':
-          if (value != null) {
-            result.rolePolicyList.replace((const _i9.XmlBuiltListSerializer(
-                    indexer: _i9.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i3.PolicyDetail)],
-              ),
-            ) as _i8.BuiltList<_i3.PolicyDetail>));
-          }
-          break;
+          result.rolePolicyList.replace((const _i9.XmlBuiltListSerializer(
+                  indexer: _i9.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i3.PolicyDetail)],
+            ),
+          ) as _i8.BuiltList<_i3.PolicyDetail>));
         case 'AttachedManagedPolicies':
-          if (value != null) {
-            result.attachedManagedPolicies.replace(
-                (const _i9.XmlBuiltListSerializer(
-                        indexer: _i9.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i4.AttachedPolicy)],
-              ),
-            ) as _i8.BuiltList<_i4.AttachedPolicy>));
-          }
-          break;
+          result.attachedManagedPolicies.replace(
+              (const _i9.XmlBuiltListSerializer(
+                      indexer: _i9.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i4.AttachedPolicy)],
+            ),
+          ) as _i8.BuiltList<_i4.AttachedPolicy>));
         case 'PermissionsBoundary':
-          if (value != null) {
-            result.permissionsBoundary.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.AttachedPermissionsBoundary),
-            ) as _i5.AttachedPermissionsBoundary));
-          }
-          break;
+          result.permissionsBoundary.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.AttachedPermissionsBoundary),
+          ) as _i5.AttachedPermissionsBoundary));
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i9.XmlBuiltListSerializer(
-                    indexer: _i9.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i6.Tag)],
-              ),
-            ) as _i8.BuiltList<_i6.Tag>));
-          }
-          break;
+          result.tags.replace((const _i9.XmlBuiltListSerializer(
+                  indexer: _i9.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i6.Tag)],
+            ),
+          ) as _i8.BuiltList<_i6.Tag>));
         case 'RoleLastUsed':
-          if (value != null) {
-            result.roleLastUsed.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.RoleLastUsed),
-            ) as _i7.RoleLastUsed));
-          }
-          break;
+          result.roleLastUsed.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.RoleLastUsed),
+          ) as _i7.RoleLastUsed));
       }
     }
 
@@ -355,123 +321,137 @@ class RoleDetailAwsQuerySerializer
         _i9.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.path != null) {
+    final RoleDetail(
+      :path,
+      :roleName,
+      :roleId,
+      :arn,
+      :createDate,
+      :assumeRolePolicyDocument,
+      :instanceProfileList,
+      :rolePolicyList,
+      :attachedManagedPolicies,
+      :permissionsBoundary,
+      :tags,
+      :roleLastUsed
+    ) = payload;
+    if (path != null) {
       result
         ..add(const _i9.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.roleName != null) {
+    if (roleName != null) {
       result
         ..add(const _i9.XmlElementName('RoleName'))
         ..add(serializers.serialize(
-          payload.roleName!,
+          roleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.roleId != null) {
+    if (roleId != null) {
       result
         ..add(const _i9.XmlElementName('RoleId'))
         ..add(serializers.serialize(
-          payload.roleId!,
+          roleId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i9.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i9.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.assumeRolePolicyDocument != null) {
+    if (assumeRolePolicyDocument != null) {
       result
         ..add(const _i9.XmlElementName('AssumeRolePolicyDocument'))
         ..add(serializers.serialize(
-          payload.assumeRolePolicyDocument!,
+          assumeRolePolicyDocument,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.instanceProfileList != null) {
+    if (instanceProfileList != null) {
       result
         ..add(const _i9.XmlElementName('InstanceProfileList'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.instanceProfileList!,
+          instanceProfileList,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i2.InstanceProfile)],
           ),
         ));
     }
-    if (payload.rolePolicyList != null) {
+    if (rolePolicyList != null) {
       result
         ..add(const _i9.XmlElementName('RolePolicyList'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.rolePolicyList!,
+          rolePolicyList,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i3.PolicyDetail)],
           ),
         ));
     }
-    if (payload.attachedManagedPolicies != null) {
+    if (attachedManagedPolicies != null) {
       result
         ..add(const _i9.XmlElementName('AttachedManagedPolicies'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.attachedManagedPolicies!,
+          attachedManagedPolicies,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i4.AttachedPolicy)],
           ),
         ));
     }
-    if (payload.permissionsBoundary != null) {
+    if (permissionsBoundary != null) {
       result
         ..add(const _i9.XmlElementName('PermissionsBoundary'))
         ..add(serializers.serialize(
-          payload.permissionsBoundary!,
+          permissionsBoundary,
           specifiedType: const FullType(_i5.AttachedPermissionsBoundary),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i9.XmlElementName('Tags'))
         ..add(const _i9.XmlBuiltListSerializer(
                 indexer: _i9.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i8.BuiltList,
             [FullType(_i6.Tag)],
           ),
         ));
     }
-    if (payload.roleLastUsed != null) {
+    if (roleLastUsed != null) {
       result
         ..add(const _i9.XmlElementName('RoleLastUsed'))
         ..add(serializers.serialize(
-          payload.roleLastUsed!,
+          roleLastUsed,
           specifiedType: const FullType(_i7.RoleLastUsed),
         ));
     }

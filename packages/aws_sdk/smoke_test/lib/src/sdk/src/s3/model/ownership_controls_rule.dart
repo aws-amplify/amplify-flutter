@@ -81,16 +81,18 @@ class OwnershipControlsRuleRestXmlSerializer
     final result = OwnershipControlsRuleBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ObjectOwnership':
           result.objectOwnership = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ObjectOwnership),
           ) as _i2.ObjectOwnership);
-          break;
       }
     }
 
@@ -110,10 +112,11 @@ class OwnershipControlsRuleRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final OwnershipControlsRule(:objectOwnership) = payload;
     result
       ..add(const _i3.XmlElementName('ObjectOwnership'))
       ..add(serializers.serialize(
-        payload.objectOwnership,
+        objectOwnership,
         specifiedType: const FullType.nullable(_i2.ObjectOwnership),
       ));
     return result;

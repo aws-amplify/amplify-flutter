@@ -112,23 +112,20 @@ class ReplicaUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Create':
-          if (value != null) {
-            result.create.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CreateReplicaAction),
-            ) as _i2.CreateReplicaAction));
-          }
-          break;
+          result.create.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CreateReplicaAction),
+          ) as _i2.CreateReplicaAction));
         case 'Delete':
-          if (value != null) {
-            result.delete.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeleteReplicaAction),
-            ) as _i3.DeleteReplicaAction));
-          }
-          break;
+          result.delete.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeleteReplicaAction),
+          ) as _i3.DeleteReplicaAction));
       }
     }
 
@@ -143,19 +140,20 @@ class ReplicaUpdateAwsJson10Serializer
   }) {
     final payload = (object as ReplicaUpdate);
     final result = <Object?>[];
-    if (payload.create != null) {
+    final ReplicaUpdate(:create, :delete) = payload;
+    if (create != null) {
       result
         ..add('Create')
         ..add(serializers.serialize(
-          payload.create!,
+          create,
           specifiedType: const FullType(_i2.CreateReplicaAction),
         ));
     }
-    if (payload.delete != null) {
+    if (delete != null) {
       result
         ..add('Delete')
         ..add(serializers.serialize(
-          payload.delete!,
+          delete,
           specifiedType: const FullType(_i3.DeleteReplicaAction),
         ));
     }

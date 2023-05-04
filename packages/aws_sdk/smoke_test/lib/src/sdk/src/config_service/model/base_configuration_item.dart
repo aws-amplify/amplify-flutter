@@ -232,125 +232,86 @@ class BaseConfigurationItemAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'version':
-          if (value != null) {
-            result.version = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.version = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'accountId':
-          if (value != null) {
-            result.accountId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.accountId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'configurationItemCaptureTime':
-          if (value != null) {
-            result.configurationItemCaptureTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.configurationItemCaptureTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'configurationItemStatus':
-          if (value != null) {
-            result.configurationItemStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConfigurationItemStatus),
-            ) as _i2.ConfigurationItemStatus);
-          }
-          break;
+          result.configurationItemStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConfigurationItemStatus),
+          ) as _i2.ConfigurationItemStatus);
         case 'configurationStateId':
-          if (value != null) {
-            result.configurationStateId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configurationStateId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ResourceType),
-            ) as _i3.ResourceType);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ResourceType),
+          ) as _i3.ResourceType);
         case 'resourceId':
-          if (value != null) {
-            result.resourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceName':
-          if (value != null) {
-            result.resourceName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'awsRegion':
-          if (value != null) {
-            result.awsRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'availabilityZone':
-          if (value != null) {
-            result.availabilityZone = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.availabilityZone = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'resourceCreationTime':
-          if (value != null) {
-            result.resourceCreationTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.resourceCreationTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'configuration':
-          if (value != null) {
-            result.configuration = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configuration = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'supplementaryConfiguration':
-          if (value != null) {
-            result.supplementaryConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.supplementaryConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
       }
     }
 
@@ -365,115 +326,131 @@ class BaseConfigurationItemAwsJson11Serializer
   }) {
     final payload = (object as BaseConfigurationItem);
     final result = <Object?>[];
-    if (payload.version != null) {
+    final BaseConfigurationItem(
+      :version,
+      :accountId,
+      :configurationItemCaptureTime,
+      :configurationItemStatus,
+      :configurationStateId,
+      :arn,
+      :resourceType,
+      :resourceId,
+      :resourceName,
+      :awsRegion,
+      :availabilityZone,
+      :resourceCreationTime,
+      :configuration,
+      :supplementaryConfiguration
+    ) = payload;
+    if (version != null) {
       result
         ..add('version')
         ..add(serializers.serialize(
-          payload.version!,
+          version,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.accountId != null) {
+    if (accountId != null) {
       result
         ..add('accountId')
         ..add(serializers.serialize(
-          payload.accountId!,
+          accountId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.configurationItemCaptureTime != null) {
+    if (configurationItemCaptureTime != null) {
       result
         ..add('configurationItemCaptureTime')
         ..add(serializers.serialize(
-          payload.configurationItemCaptureTime!,
+          configurationItemCaptureTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.configurationItemStatus != null) {
+    if (configurationItemStatus != null) {
       result
         ..add('configurationItemStatus')
         ..add(serializers.serialize(
-          payload.configurationItemStatus!,
+          configurationItemStatus,
           specifiedType: const FullType(_i2.ConfigurationItemStatus),
         ));
     }
-    if (payload.configurationStateId != null) {
+    if (configurationStateId != null) {
       result
         ..add('configurationStateId')
         ..add(serializers.serialize(
-          payload.configurationStateId!,
+          configurationStateId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add('arn')
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceType != null) {
+    if (resourceType != null) {
       result
         ..add('resourceType')
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(_i3.ResourceType),
         ));
     }
-    if (payload.resourceId != null) {
+    if (resourceId != null) {
       result
         ..add('resourceId')
         ..add(serializers.serialize(
-          payload.resourceId!,
+          resourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceName != null) {
+    if (resourceName != null) {
       result
         ..add('resourceName')
         ..add(serializers.serialize(
-          payload.resourceName!,
+          resourceName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsRegion != null) {
+    if (awsRegion != null) {
       result
         ..add('awsRegion')
         ..add(serializers.serialize(
-          payload.awsRegion!,
+          awsRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.availabilityZone != null) {
+    if (availabilityZone != null) {
       result
         ..add('availabilityZone')
         ..add(serializers.serialize(
-          payload.availabilityZone!,
+          availabilityZone,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceCreationTime != null) {
+    if (resourceCreationTime != null) {
       result
         ..add('resourceCreationTime')
         ..add(serializers.serialize(
-          payload.resourceCreationTime!,
+          resourceCreationTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.configuration != null) {
+    if (configuration != null) {
       result
         ..add('configuration')
         ..add(serializers.serialize(
-          payload.configuration!,
+          configuration,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.supplementaryConfiguration != null) {
+    if (supplementaryConfiguration != null) {
       result
         ..add('supplementaryConfiguration')
         ..add(serializers.serialize(
-          payload.supplementaryConfiguration!,
+          supplementaryConfiguration,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [

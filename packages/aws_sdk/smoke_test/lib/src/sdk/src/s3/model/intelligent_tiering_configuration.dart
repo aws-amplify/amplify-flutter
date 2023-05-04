@@ -125,36 +125,33 @@ class IntelligentTieringConfigurationRestXmlSerializer
     final result = IntelligentTieringConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.IntelligentTieringFilter),
-            ) as _i2.IntelligentTieringFilter));
-          }
-          break;
+          result.filter.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.IntelligentTieringFilter),
+          ) as _i2.IntelligentTieringFilter));
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.IntelligentTieringStatus),
           ) as _i3.IntelligentTieringStatus);
-          break;
         case 'Tiering':
           result.tierings.add((serializers.deserialize(
             value,
             specifiedType: const FullType(_i4.Tiering),
           ) as _i4.Tiering));
-          break;
       }
     }
 
@@ -174,30 +171,32 @@ class IntelligentTieringConfigurationRestXmlSerializer
         _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.filter != null) {
+    final IntelligentTieringConfiguration(:filter, :id, :status, :tierings) =
+        payload;
+    if (filter != null) {
       result
         ..add(const _i6.XmlElementName('Filter'))
         ..add(serializers.serialize(
-          payload.filter!,
+          filter,
           specifiedType: const FullType(_i2.IntelligentTieringFilter),
         ));
     }
     result
       ..add(const _i6.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i6.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i3.IntelligentTieringStatus),
       ));
     result.addAll(
         const _i6.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
-      payload.tierings,
+      tierings,
       specifiedType: const FullType.nullable(
         _i5.BuiltList,
         [FullType(_i4.Tiering)],

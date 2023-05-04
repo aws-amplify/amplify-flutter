@@ -86,15 +86,15 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableDescription':
-          if (value != null) {
-            result.tableDescription.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableDescription),
-            ) as _i2.TableDescription));
-          }
-          break;
+          result.tableDescription.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableDescription),
+          ) as _i2.TableDescription));
       }
     }
 
@@ -109,11 +109,12 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
   }) {
     final payload = (object as RestoreTableFromBackupOutput);
     final result = <Object?>[];
-    if (payload.tableDescription != null) {
+    final RestoreTableFromBackupOutput(:tableDescription) = payload;
+    if (tableDescription != null) {
       result
         ..add('TableDescription')
         ..add(serializers.serialize(
-          payload.tableDescription!,
+          tableDescription,
           specifiedType: const FullType(_i2.TableDescription),
         ));
     }

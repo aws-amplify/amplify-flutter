@@ -121,42 +121,33 @@ class SdkTypeRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'configurationProperties':
-          if (value != null) {
-            result.configurationProperties.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.SdkConfigurationProperty)],
-              ),
-            ) as _i3.BuiltList<_i2.SdkConfigurationProperty>));
-          }
-          break;
+          result.configurationProperties.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.SdkConfigurationProperty)],
+            ),
+          ) as _i3.BuiltList<_i2.SdkConfigurationProperty>));
         case 'description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'friendlyName':
-          if (value != null) {
-            result.friendlyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.friendlyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'id':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -171,38 +162,40 @@ class SdkTypeRestJson1Serializer
   }) {
     final payload = (object as SdkType);
     final result = <Object?>[];
-    if (payload.configurationProperties != null) {
+    final SdkType(:configurationProperties, :description, :friendlyName, :id) =
+        payload;
+    if (configurationProperties != null) {
       result
         ..add('configurationProperties')
         ..add(serializers.serialize(
-          payload.configurationProperties!,
+          configurationProperties,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.SdkConfigurationProperty)],
           ),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add('description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.friendlyName != null) {
+    if (friendlyName != null) {
       result
         ..add('friendlyName')
         ..add(serializers.serialize(
-          payload.friendlyName!,
+          friendlyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add('id')
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }

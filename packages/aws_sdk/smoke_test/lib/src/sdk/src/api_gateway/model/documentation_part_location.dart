@@ -125,45 +125,35 @@ class DocumentationPartLocationRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'method':
-          if (value != null) {
-            result.method = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.method = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'statusCode':
-          if (value != null) {
-            result.statusCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.statusCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.DocumentationPartType),
           ) as _i2.DocumentationPartType);
-          break;
       }
     }
 
@@ -184,35 +174,37 @@ class DocumentationPartLocationRestJson1Serializer
         specifiedType: const FullType(_i2.DocumentationPartType),
       ),
     ];
-    if (payload.method != null) {
+    final DocumentationPartLocation(:method, :name, :path, :statusCode) =
+        payload;
+    if (method != null) {
       result
         ..add('method')
         ..add(serializers.serialize(
-          payload.method!,
+          method,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add('name')
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.path != null) {
+    if (path != null) {
       result
         ..add('path')
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.statusCode != null) {
+    if (statusCode != null) {
       result
         ..add('statusCode')
         ..add(serializers.serialize(
-          payload.statusCode!,
+          statusCode,
           specifiedType: const FullType(String),
         ));
     }

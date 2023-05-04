@@ -81,18 +81,18 @@ class GetSshPublicKeyResponseAwsQuerySerializer
     final result = GetSshPublicKeyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SSHPublicKey':
-          if (value != null) {
-            result.sshPublicKey.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.SshPublicKey),
-            ) as _i2.SshPublicKey));
-          }
-          break;
+          result.sshPublicKey.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.SshPublicKey),
+          ) as _i2.SshPublicKey));
       }
     }
 
@@ -112,11 +112,12 @@ class GetSshPublicKeyResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.sshPublicKey != null) {
+    final GetSshPublicKeyResponse(:sshPublicKey) = payload;
+    if (sshPublicKey != null) {
       result
         ..add(const _i3.XmlElementName('SSHPublicKey'))
         ..add(serializers.serialize(
-          payload.sshPublicKey!,
+          sshPublicKey,
           specifiedType: const FullType(_i2.SshPublicKey),
         ));
     }

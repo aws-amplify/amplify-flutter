@@ -81,18 +81,18 @@ class GenerateOrganizationsAccessReportResponseAwsQuerySerializer extends _i2
     final result = GenerateOrganizationsAccessReportResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'JobId':
-          if (value != null) {
-            result.jobId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.jobId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -112,11 +112,12 @@ class GenerateOrganizationsAccessReportResponseAwsQuerySerializer extends _i2
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.jobId != null) {
+    final GenerateOrganizationsAccessReportResponse(:jobId) = payload;
+    if (jobId != null) {
       result
         ..add(const _i2.XmlElementName('JobId'))
         ..add(serializers.serialize(
-          payload.jobId!,
+          jobId,
           specifiedType: const FullType(String),
         ));
     }

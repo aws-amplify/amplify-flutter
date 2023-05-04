@@ -99,34 +99,28 @@ class TransitionRestXmlSerializer
     final result = TransitionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Date':
-          if (value != null) {
-            result.date = _i3.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.date = _i3.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'Days':
-          if (value != null) {
-            result.days = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.days = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TransitionStorageClass),
-            ) as _i2.TransitionStorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TransitionStorageClass),
+          ) as _i2.TransitionStorageClass);
       }
     }
 
@@ -146,27 +140,28 @@ class TransitionRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.date != null) {
+    final Transition(:date, :days, :storageClass) = payload;
+    if (date != null) {
       result
         ..add(const _i3.XmlElementName('Date'))
         ..add(_i3.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.date!,
+          date,
         ));
     }
-    if (payload.days != null) {
+    if (days != null) {
       result
         ..add(const _i3.XmlElementName('Days'))
         ..add(serializers.serialize(
-          payload.days!,
+          days,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i3.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i2.TransitionStorageClass),
         ));
     }

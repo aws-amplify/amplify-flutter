@@ -96,24 +96,23 @@ class EntityDetailsAwsQuerySerializer
     final result = EntityDetailsBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'EntityInfo':
           result.entityInfo.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.EntityInfo),
           ) as _i2.EntityInfo));
-          break;
         case 'LastAuthenticated':
-          if (value != null) {
-            result.lastAuthenticated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastAuthenticated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -133,17 +132,18 @@ class EntityDetailsAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final EntityDetails(:entityInfo, :lastAuthenticated) = payload;
     result
       ..add(const _i3.XmlElementName('EntityInfo'))
       ..add(serializers.serialize(
-        payload.entityInfo,
+        entityInfo,
         specifiedType: const FullType(_i2.EntityInfo),
       ));
-    if (payload.lastAuthenticated != null) {
+    if (lastAuthenticated != null) {
       result
         ..add(const _i3.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
-          payload.lastAuthenticated!,
+          lastAuthenticated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

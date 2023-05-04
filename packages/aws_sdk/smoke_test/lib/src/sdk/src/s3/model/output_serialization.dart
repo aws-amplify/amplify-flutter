@@ -90,26 +90,23 @@ class OutputSerializationRestXmlSerializer
     final result = OutputSerializationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CSV':
-          if (value != null) {
-            result.csv.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CsvOutput),
-            ) as _i2.CsvOutput));
-          }
-          break;
+          result.csv.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CsvOutput),
+          ) as _i2.CsvOutput));
         case 'JSON':
-          if (value != null) {
-            result.json.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.JsonOutput),
-            ) as _i3.JsonOutput));
-          }
-          break;
+          result.json.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.JsonOutput),
+          ) as _i3.JsonOutput));
       }
     }
 
@@ -129,19 +126,20 @@ class OutputSerializationRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.csv != null) {
+    final OutputSerialization(:csv, :json) = payload;
+    if (csv != null) {
       result
         ..add(const _i4.XmlElementName('CSV'))
         ..add(serializers.serialize(
-          payload.csv!,
+          csv,
           specifiedType: const FullType(_i2.CsvOutput),
         ));
     }
-    if (payload.json != null) {
+    if (json != null) {
       result
         ..add(const _i4.XmlElementName('JSON'))
         ..add(serializers.serialize(
-          payload.json!,
+          json,
           specifiedType: const FullType(_i3.JsonOutput),
         ));
     }

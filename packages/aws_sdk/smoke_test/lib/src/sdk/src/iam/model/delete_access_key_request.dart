@@ -101,24 +101,23 @@ class DeleteAccessKeyRequestAwsQuerySerializer
     final result = DeleteAccessKeyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
-          if (value != null) {
-            result.userName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'AccessKeyId':
-          result.accessKeyId = (serializers.deserialize(
-            value!,
+          result.userName = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'AccessKeyId':
+          result.accessKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,18 +137,19 @@ class DeleteAccessKeyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.userName != null) {
+    final DeleteAccessKeyRequest(:userName, :accessKeyId) = payload;
+    if (userName != null) {
       result
         ..add(const _i1.XmlElementName('UserName'))
         ..add(serializers.serialize(
-          payload.userName!,
+          userName,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i1.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
-        payload.accessKeyId,
+        accessKeyId,
         specifiedType: const FullType(String),
       ));
     return result;

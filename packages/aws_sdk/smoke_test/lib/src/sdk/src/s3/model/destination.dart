@@ -146,64 +146,48 @@ class DestinationRestXmlSerializer
     final result = DestinationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AccessControlTranslation':
-          if (value != null) {
-            result.accessControlTranslation.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AccessControlTranslation),
-            ) as _i3.AccessControlTranslation));
-          }
-          break;
+          result.accessControlTranslation.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AccessControlTranslation),
+          ) as _i3.AccessControlTranslation));
         case 'Account':
-          if (value != null) {
-            result.account = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'Bucket':
-          result.bucket = (serializers.deserialize(
-            value!,
+          result.account = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'Bucket':
+          result.bucket = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EncryptionConfiguration':
-          if (value != null) {
-            result.encryptionConfiguration.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.EncryptionConfiguration),
-            ) as _i4.EncryptionConfiguration));
-          }
-          break;
+          result.encryptionConfiguration.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.EncryptionConfiguration),
+          ) as _i4.EncryptionConfiguration));
         case 'Metrics':
-          if (value != null) {
-            result.metrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Metrics),
-            ) as _i6.Metrics));
-          }
-          break;
+          result.metrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Metrics),
+          ) as _i6.Metrics));
         case 'ReplicationTime':
-          if (value != null) {
-            result.replicationTime.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ReplicationTime),
-            ) as _i5.ReplicationTime));
-          }
-          break;
+          result.replicationTime.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ReplicationTime),
+          ) as _i5.ReplicationTime));
         case 'StorageClass':
-          if (value != null) {
-            result.storageClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StorageClass),
-            ) as _i2.StorageClass);
-          }
-          break;
+          result.storageClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StorageClass),
+          ) as _i2.StorageClass);
       }
     }
 
@@ -223,57 +207,66 @@ class DestinationRestXmlSerializer
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.accessControlTranslation != null) {
+    final Destination(
+      :accessControlTranslation,
+      :account,
+      :bucket,
+      :encryptionConfiguration,
+      :metrics,
+      :replicationTime,
+      :storageClass
+    ) = payload;
+    if (accessControlTranslation != null) {
       result
         ..add(const _i7.XmlElementName('AccessControlTranslation'))
         ..add(serializers.serialize(
-          payload.accessControlTranslation!,
+          accessControlTranslation,
           specifiedType: const FullType(_i3.AccessControlTranslation),
         ));
     }
-    if (payload.account != null) {
+    if (account != null) {
       result
         ..add(const _i7.XmlElementName('Account'))
         ..add(serializers.serialize(
-          payload.account!,
+          account,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i7.XmlElementName('Bucket'))
       ..add(serializers.serialize(
-        payload.bucket,
+        bucket,
         specifiedType: const FullType(String),
       ));
-    if (payload.encryptionConfiguration != null) {
+    if (encryptionConfiguration != null) {
       result
         ..add(const _i7.XmlElementName('EncryptionConfiguration'))
         ..add(serializers.serialize(
-          payload.encryptionConfiguration!,
+          encryptionConfiguration,
           specifiedType: const FullType(_i4.EncryptionConfiguration),
         ));
     }
-    if (payload.metrics != null) {
+    if (metrics != null) {
       result
         ..add(const _i7.XmlElementName('Metrics'))
         ..add(serializers.serialize(
-          payload.metrics!,
+          metrics,
           specifiedType: const FullType(_i6.Metrics),
         ));
     }
-    if (payload.replicationTime != null) {
+    if (replicationTime != null) {
       result
         ..add(const _i7.XmlElementName('ReplicationTime'))
         ..add(serializers.serialize(
-          payload.replicationTime!,
+          replicationTime,
           specifiedType: const FullType(_i5.ReplicationTime),
         ));
     }
-    if (payload.storageClass != null) {
+    if (storageClass != null) {
       result
         ..add(const _i7.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
-          payload.storageClass!,
+          storageClass,
           specifiedType: const FullType.nullable(_i2.StorageClass),
         ));
     }

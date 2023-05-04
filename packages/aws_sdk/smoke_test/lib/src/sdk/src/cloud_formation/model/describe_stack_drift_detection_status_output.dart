@@ -169,58 +169,48 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
     final result = DescribeStackDriftDetectionStatusOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackId':
           result.stackId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackDriftDetectionId':
           result.stackDriftDetectionId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'StackDriftStatus':
-          if (value != null) {
-            result.stackDriftStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.StackDriftStatus),
-            ) as _i2.StackDriftStatus);
-          }
-          break;
+          result.stackDriftStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.StackDriftStatus),
+          ) as _i2.StackDriftStatus);
         case 'DetectionStatus':
           result.detectionStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i3.StackDriftDetectionStatus),
           ) as _i3.StackDriftDetectionStatus);
-          break;
         case 'DetectionStatusReason':
-          if (value != null) {
-            result.detectionStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.detectionStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DriftedStackResourceCount':
-          if (value != null) {
-            result.driftedStackResourceCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.driftedStackResourceCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -240,52 +230,61 @@ class DescribeStackDriftDetectionStatusOutputAwsQuerySerializer extends _i4
         _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final DescribeStackDriftDetectionStatusOutput(
+      :stackId,
+      :stackDriftDetectionId,
+      :stackDriftStatus,
+      :detectionStatus,
+      :detectionStatusReason,
+      :driftedStackResourceCount,
+      :timestamp
+    ) = payload;
     result
       ..add(const _i4.XmlElementName('StackId'))
       ..add(serializers.serialize(
-        payload.stackId,
+        stackId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i4.XmlElementName('StackDriftDetectionId'))
       ..add(serializers.serialize(
-        payload.stackDriftDetectionId,
+        stackDriftDetectionId,
         specifiedType: const FullType(String),
       ));
-    if (payload.stackDriftStatus != null) {
+    if (stackDriftStatus != null) {
       result
         ..add(const _i4.XmlElementName('StackDriftStatus'))
         ..add(serializers.serialize(
-          payload.stackDriftStatus!,
+          stackDriftStatus,
           specifiedType: const FullType.nullable(_i2.StackDriftStatus),
         ));
     }
     result
       ..add(const _i4.XmlElementName('DetectionStatus'))
       ..add(serializers.serialize(
-        payload.detectionStatus,
+        detectionStatus,
         specifiedType: const FullType.nullable(_i3.StackDriftDetectionStatus),
       ));
-    if (payload.detectionStatusReason != null) {
+    if (detectionStatusReason != null) {
       result
         ..add(const _i4.XmlElementName('DetectionStatusReason'))
         ..add(serializers.serialize(
-          payload.detectionStatusReason!,
+          detectionStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.driftedStackResourceCount != null) {
+    if (driftedStackResourceCount != null) {
       result
         ..add(const _i4.XmlElementName('DriftedStackResourceCount'))
         ..add(serializers.serialize(
-          payload.driftedStackResourceCount!,
+          driftedStackResourceCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
     result
       ..add(const _i4.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
-        payload.timestamp,
+        timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     return result;

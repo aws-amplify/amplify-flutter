@@ -75,16 +75,18 @@ class RequestPaymentConfigurationRestXmlSerializer
     final result = RequestPaymentConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Payer':
           result.payer = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.Payer),
           ) as _i2.Payer);
-          break;
       }
     }
 
@@ -104,10 +106,11 @@ class RequestPaymentConfigurationRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final RequestPaymentConfiguration(:payer) = payload;
     result
       ..add(const _i3.XmlElementName('Payer'))
       ..add(serializers.serialize(
-        payload.payer,
+        payer,
         specifiedType: const FullType.nullable(_i2.Payer),
       ));
     return result;

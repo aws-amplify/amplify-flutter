@@ -90,23 +90,20 @@ class AccessLogSettingsRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'destinationArn':
-          if (value != null) {
-            result.destinationArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.destinationArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'format':
-          if (value != null) {
-            result.format = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.format = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,19 +118,20 @@ class AccessLogSettingsRestJson1Serializer
   }) {
     final payload = (object as AccessLogSettings);
     final result = <Object?>[];
-    if (payload.destinationArn != null) {
+    final AccessLogSettings(:destinationArn, :format) = payload;
+    if (destinationArn != null) {
       result
         ..add('destinationArn')
         ..add(serializers.serialize(
-          payload.destinationArn!,
+          destinationArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.format != null) {
+    if (format != null) {
       result
         ..add('format')
         ..add(serializers.serialize(
-          payload.format!,
+          format,
           specifiedType: const FullType(String),
         ));
     }

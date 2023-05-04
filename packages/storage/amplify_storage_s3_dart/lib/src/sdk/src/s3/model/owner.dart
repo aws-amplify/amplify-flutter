@@ -85,26 +85,23 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
     final result = OwnerBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DisplayName':
-          if (value != null) {
-            result.displayName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.displayName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ID':
-          if (value != null) {
-            result.id = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.id = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -124,19 +121,20 @@ class OwnerRestXmlSerializer extends _i2.StructuredSmithySerializer<Owner> {
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.displayName != null) {
+    final Owner(:displayName, :id) = payload;
+    if (displayName != null) {
       result
         ..add(const _i2.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
-          payload.displayName!,
+          displayName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.id != null) {
+    if (id != null) {
       result
         ..add(const _i2.XmlElementName('ID'))
         ..add(serializers.serialize(
-          payload.id!,
+          id,
           specifiedType: const FullType(String),
         ));
     }

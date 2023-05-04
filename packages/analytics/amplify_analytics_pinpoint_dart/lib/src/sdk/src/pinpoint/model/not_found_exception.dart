@@ -117,23 +117,20 @@ class NotFoundExceptionRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'RequestID':
-          if (value != null) {
-            result.requestId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.requestId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -148,19 +145,20 @@ class NotFoundExceptionRestJson1Serializer
   }) {
     final payload = (object as NotFoundException);
     final result = <Object?>[];
-    if (payload.message != null) {
+    final NotFoundException(:message, :requestId) = payload;
+    if (message != null) {
       result
         ..add('Message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.requestId != null) {
+    if (requestId != null) {
       result
         ..add('RequestID')
         ..add(serializers.serialize(
-          payload.requestId!,
+          requestId,
           specifiedType: const FullType(String),
         ));
     }

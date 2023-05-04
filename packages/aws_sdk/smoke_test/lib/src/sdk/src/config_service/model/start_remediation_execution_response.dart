@@ -103,26 +103,23 @@ class StartRemediationExecutionResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailureMessage':
-          if (value != null) {
-            result.failureMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.failureMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'FailedItems':
-          if (value != null) {
-            result.failedItems.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ResourceKey)],
-              ),
-            ) as _i3.BuiltList<_i2.ResourceKey>));
-          }
-          break;
+          result.failedItems.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ResourceKey)],
+            ),
+          ) as _i3.BuiltList<_i2.ResourceKey>));
       }
     }
 
@@ -137,19 +134,21 @@ class StartRemediationExecutionResponseAwsJson11Serializer
   }) {
     final payload = (object as StartRemediationExecutionResponse);
     final result = <Object?>[];
-    if (payload.failureMessage != null) {
+    final StartRemediationExecutionResponse(:failureMessage, :failedItems) =
+        payload;
+    if (failureMessage != null) {
       result
         ..add('FailureMessage')
         ..add(serializers.serialize(
-          payload.failureMessage!,
+          failureMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.failedItems != null) {
+    if (failedItems != null) {
       result
         ..add('FailedItems')
         ..add(serializers.serialize(
-          payload.failedItems!,
+          failedItems,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ResourceKey)],

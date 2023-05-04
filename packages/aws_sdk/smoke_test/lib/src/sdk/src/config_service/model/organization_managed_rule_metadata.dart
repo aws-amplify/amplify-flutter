@@ -162,72 +162,53 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
-        case 'RuleIdentifier':
-          result.ruleIdentifier = (serializers.deserialize(
-            value!,
+          result.description = (serializers.deserialize(
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
+        case 'RuleIdentifier':
+          result.ruleIdentifier = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'InputParameters':
-          if (value != null) {
-            result.inputParameters = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.inputParameters = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaximumExecutionFrequency':
-          if (value != null) {
-            result.maximumExecutionFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-            ) as _i2.MaximumExecutionFrequency);
-          }
-          break;
+          result.maximumExecutionFrequency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.MaximumExecutionFrequency),
+          ) as _i2.MaximumExecutionFrequency);
         case 'ResourceTypesScope':
-          if (value != null) {
-            result.resourceTypesScope.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.resourceTypesScope.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
         case 'ResourceIdScope':
-          if (value != null) {
-            result.resourceIdScope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceIdScope = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TagKeyScope':
-          if (value != null) {
-            result.tagKeyScope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagKeyScope = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TagValueScope':
-          if (value != null) {
-            result.tagValueScope = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tagValueScope = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -248,62 +229,71 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.description != null) {
+    final OrganizationManagedRuleMetadata(
+      :description,
+      :inputParameters,
+      :maximumExecutionFrequency,
+      :resourceTypesScope,
+      :resourceIdScope,
+      :tagKeyScope,
+      :tagValueScope
+    ) = payload;
+    if (description != null) {
       result
         ..add('Description')
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.inputParameters != null) {
+    if (inputParameters != null) {
       result
         ..add('InputParameters')
         ..add(serializers.serialize(
-          payload.inputParameters!,
+          inputParameters,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maximumExecutionFrequency != null) {
+    if (maximumExecutionFrequency != null) {
       result
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
-          payload.maximumExecutionFrequency!,
+          maximumExecutionFrequency,
           specifiedType: const FullType(_i2.MaximumExecutionFrequency),
         ));
     }
-    if (payload.resourceTypesScope != null) {
+    if (resourceTypesScope != null) {
       result
         ..add('ResourceTypesScope')
         ..add(serializers.serialize(
-          payload.resourceTypesScope!,
+          resourceTypesScope,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.resourceIdScope != null) {
+    if (resourceIdScope != null) {
       result
         ..add('ResourceIdScope')
         ..add(serializers.serialize(
-          payload.resourceIdScope!,
+          resourceIdScope,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tagKeyScope != null) {
+    if (tagKeyScope != null) {
       result
         ..add('TagKeyScope')
         ..add(serializers.serialize(
-          payload.tagKeyScope!,
+          tagKeyScope,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tagValueScope != null) {
+    if (tagValueScope != null) {
       result
         ..add('TagValueScope')
         ..add(serializers.serialize(
-          payload.tagValueScope!,
+          tagValueScope,
           specifiedType: const FullType(String),
         ));
     }

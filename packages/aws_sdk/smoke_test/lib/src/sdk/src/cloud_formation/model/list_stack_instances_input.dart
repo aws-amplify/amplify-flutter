@@ -160,70 +160,54 @@ class ListStackInstancesInputAwsQuerySerializer
     final result = ListStackInstancesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackSetName':
           result.stackSetName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxResults':
-          if (value != null) {
-            result.maxResults = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxResults = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Filters':
-          if (value != null) {
-            result.filters.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i3.StackInstanceFilter)],
-              ),
-            ) as _i5.BuiltList<_i3.StackInstanceFilter>));
-          }
-          break;
+          result.filters.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i3.StackInstanceFilter)],
+            ),
+          ) as _i5.BuiltList<_i3.StackInstanceFilter>));
         case 'StackInstanceAccount':
-          if (value != null) {
-            result.stackInstanceAccount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackInstanceAccount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StackInstanceRegion':
-          if (value != null) {
-            result.stackInstanceRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackInstanceRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CallAs':
-          if (value != null) {
-            result.callAs = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CallAs),
-            ) as _i4.CallAs);
-          }
-          break;
+          result.callAs = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CallAs),
+          ) as _i4.CallAs);
       }
     }
 
@@ -243,63 +227,72 @@ class ListStackInstancesInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final ListStackInstancesInput(
+      :stackSetName,
+      :nextToken,
+      :maxResults,
+      :filters,
+      :stackInstanceAccount,
+      :stackInstanceRegion,
+      :callAs
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('StackSetName'))
       ..add(serializers.serialize(
-        payload.stackSetName,
+        stackSetName,
         specifiedType: const FullType(String),
       ));
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxResults != null) {
+    if (maxResults != null) {
       result
         ..add(const _i1.XmlElementName('MaxResults'))
         ..add(serializers.serialize(
-          payload.maxResults!,
+          maxResults,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.filters != null) {
+    if (filters != null) {
       result
         ..add(const _i1.XmlElementName('Filters'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.filters!,
+          filters,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i3.StackInstanceFilter)],
           ),
         ));
     }
-    if (payload.stackInstanceAccount != null) {
+    if (stackInstanceAccount != null) {
       result
         ..add(const _i1.XmlElementName('StackInstanceAccount'))
         ..add(serializers.serialize(
-          payload.stackInstanceAccount!,
+          stackInstanceAccount,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.stackInstanceRegion != null) {
+    if (stackInstanceRegion != null) {
       result
         ..add(const _i1.XmlElementName('StackInstanceRegion'))
         ..add(serializers.serialize(
-          payload.stackInstanceRegion!,
+          stackInstanceRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.callAs != null) {
+    if (callAs != null) {
       result
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
-          payload.callAs!,
+          callAs,
           specifiedType: const FullType.nullable(_i4.CallAs),
         ));
     }

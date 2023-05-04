@@ -127,42 +127,38 @@ class EntityInfoAwsQuerySerializer
     final result = EntityInfoBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Arn':
           result.arn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Name':
           result.name = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Type':
           result.type = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.PolicyOwnerEntityType),
           ) as _i2.PolicyOwnerEntityType);
-          break;
         case 'Id':
           result.id = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -182,35 +178,36 @@ class EntityInfoAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final EntityInfo(:arn, :name, :type, :id, :path) = payload;
     result
       ..add(const _i3.XmlElementName('Arn'))
       ..add(serializers.serialize(
-        payload.arn,
+        arn,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('Name'))
       ..add(serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('Type'))
       ..add(serializers.serialize(
-        payload.type,
+        type,
         specifiedType: const FullType.nullable(_i2.PolicyOwnerEntityType),
       ));
     result
       ..add(const _i3.XmlElementName('Id'))
       ..add(serializers.serialize(
-        payload.id,
+        id,
         specifiedType: const FullType(String),
       ));
-    if (payload.path != null) {
+    if (path != null) {
       result
         ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }

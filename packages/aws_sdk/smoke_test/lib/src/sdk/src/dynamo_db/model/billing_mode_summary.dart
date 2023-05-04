@@ -97,23 +97,20 @@ class BillingModeSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BillingMode),
-            ) as _i2.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BillingMode),
+          ) as _i2.BillingMode);
         case 'LastUpdateToPayPerRequestDateTime':
-          if (value != null) {
-            result.lastUpdateToPayPerRequestDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateToPayPerRequestDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -128,19 +125,21 @@ class BillingModeSummaryAwsJson10Serializer
   }) {
     final payload = (object as BillingModeSummary);
     final result = <Object?>[];
-    if (payload.billingMode != null) {
+    final BillingModeSummary(:billingMode, :lastUpdateToPayPerRequestDateTime) =
+        payload;
+    if (billingMode != null) {
       result
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i2.BillingMode),
         ));
     }
-    if (payload.lastUpdateToPayPerRequestDateTime != null) {
+    if (lastUpdateToPayPerRequestDateTime != null) {
       result
         ..add('LastUpdateToPayPerRequestDateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateToPayPerRequestDateTime!,
+          lastUpdateToPayPerRequestDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

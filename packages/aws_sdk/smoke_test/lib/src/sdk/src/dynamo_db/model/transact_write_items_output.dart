@@ -106,32 +106,29 @@ class TransactWriteItemsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ConsumedCapacity)],
-              ),
-            ) as _i4.BuiltList<_i2.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ConsumedCapacity)],
+            ),
+          ) as _i4.BuiltList<_i2.ConsumedCapacity>));
         case 'ItemCollectionMetrics':
-          if (value != null) {
-            result.itemCollectionMetrics.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(_i3.ItemCollectionMetrics),
-                ],
-              ),
-            ) as _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
-          }
-          break;
+          result.itemCollectionMetrics.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(_i3.ItemCollectionMetrics),
+              ],
+            ),
+          ) as _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
       }
     }
 
@@ -146,22 +143,24 @@ class TransactWriteItemsOutputAwsJson10Serializer
   }) {
     final payload = (object as TransactWriteItemsOutput);
     final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
+    final TransactWriteItemsOutput(:consumedCapacity, :itemCollectionMetrics) =
+        payload;
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ConsumedCapacity)],
           ),
         ));
     }
-    if (payload.itemCollectionMetrics != null) {
+    if (itemCollectionMetrics != null) {
       result
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
-          payload.itemCollectionMetrics!,
+          itemCollectionMetrics,
           specifiedType: const FullType(
             _i4.BuiltListMultimap,
             [

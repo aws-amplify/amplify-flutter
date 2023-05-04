@@ -97,15 +97,15 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TargetTrackingScalingPolicyConfiguration':
           result.targetTrackingScalingPolicyConfiguration
               .replace((serializers.deserialize(
@@ -113,7 +113,6 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
             specifiedType: const FullType(
                 _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
           ) as _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate));
-          break;
       }
     }
 
@@ -135,11 +134,12 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
             _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
       ),
     ];
-    if (payload.policyName != null) {
+    final AutoScalingPolicyUpdate(:policyName) = payload;
+    if (policyName != null) {
       result
         ..add('PolicyName')
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }

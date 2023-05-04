@@ -73,18 +73,18 @@ class JsonInputRestXmlSerializer
     final result = JsonInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Type':
-          if (value != null) {
-            result.type = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.JsonType),
-            ) as _i2.JsonType);
-          }
-          break;
+          result.type = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.JsonType),
+          ) as _i2.JsonType);
       }
     }
 
@@ -104,11 +104,12 @@ class JsonInputRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.type != null) {
+    final JsonInput(:type) = payload;
+    if (type != null) {
       result
         ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
-          payload.type!,
+          type,
           specifiedType: const FullType.nullable(_i2.JsonType),
         ));
     }

@@ -89,26 +89,23 @@ class ConditionRestXmlSerializer
     final result = ConditionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'HttpErrorCodeReturnedEquals':
-          if (value != null) {
-            result.httpErrorCodeReturnedEquals = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.httpErrorCodeReturnedEquals = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'KeyPrefixEquals':
-          if (value != null) {
-            result.keyPrefixEquals = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.keyPrefixEquals = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -128,19 +125,20 @@ class ConditionRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.httpErrorCodeReturnedEquals != null) {
+    final Condition(:httpErrorCodeReturnedEquals, :keyPrefixEquals) = payload;
+    if (httpErrorCodeReturnedEquals != null) {
       result
         ..add(const _i2.XmlElementName('HttpErrorCodeReturnedEquals'))
         ..add(serializers.serialize(
-          payload.httpErrorCodeReturnedEquals!,
+          httpErrorCodeReturnedEquals,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.keyPrefixEquals != null) {
+    if (keyPrefixEquals != null) {
       result
         ..add(const _i2.XmlElementName('KeyPrefixEquals'))
         ..add(serializers.serialize(
-          payload.keyPrefixEquals!,
+          keyPrefixEquals,
           specifiedType: const FullType(String),
         ));
     }

@@ -159,13 +159,15 @@ class TableCreationParametersAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AttributeDefinitions':
           result.attributeDefinitions.replace((serializers.deserialize(
             value,
@@ -174,7 +176,6 @@ class TableCreationParametersAwsJson10Serializer
               [FullType(_i2.AttributeDefinition)],
             ),
           ) as _i8.BuiltList<_i2.AttributeDefinition>));
-          break;
         case 'KeySchema':
           result.keySchema.replace((serializers.deserialize(
             value,
@@ -183,42 +184,29 @@ class TableCreationParametersAwsJson10Serializer
               [FullType(_i3.KeySchemaElement)],
             ),
           ) as _i8.BuiltList<_i3.KeySchemaElement>));
-          break;
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.BillingMode),
-            ) as _i4.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.BillingMode),
+          ) as _i4.BillingMode);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ProvisionedThroughput),
-            ) as _i5.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ProvisionedThroughput),
+          ) as _i5.ProvisionedThroughput));
         case 'SSESpecification':
-          if (value != null) {
-            result.sseSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.SseSpecification),
-            ) as _i6.SseSpecification));
-          }
-          break;
+          result.sseSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.SseSpecification),
+          ) as _i6.SseSpecification));
         case 'GlobalSecondaryIndexes':
-          if (value != null) {
-            result.globalSecondaryIndexes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i8.BuiltList,
-                [FullType(_i7.GlobalSecondaryIndex)],
-              ),
-            ) as _i8.BuiltList<_i7.GlobalSecondaryIndex>));
-          }
-          break;
+          result.globalSecondaryIndexes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i8.BuiltList,
+              [FullType(_i7.GlobalSecondaryIndex)],
+            ),
+          ) as _i8.BuiltList<_i7.GlobalSecondaryIndex>));
       }
     }
 
@@ -255,35 +243,41 @@ class TableCreationParametersAwsJson10Serializer
         ),
       ),
     ];
-    if (payload.billingMode != null) {
+    final TableCreationParameters(
+      :billingMode,
+      :provisionedThroughput,
+      :sseSpecification,
+      :globalSecondaryIndexes
+    ) = payload;
+    if (billingMode != null) {
       result
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i4.BillingMode),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i5.ProvisionedThroughput),
         ));
     }
-    if (payload.sseSpecification != null) {
+    if (sseSpecification != null) {
       result
         ..add('SSESpecification')
         ..add(serializers.serialize(
-          payload.sseSpecification!,
+          sseSpecification,
           specifiedType: const FullType(_i6.SseSpecification),
         ));
     }
-    if (payload.globalSecondaryIndexes != null) {
+    if (globalSecondaryIndexes != null) {
       result
         ..add('GlobalSecondaryIndexes')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexes!,
+          globalSecondaryIndexes,
           specifiedType: const FullType(
             _i8.BuiltList,
             [FullType(_i7.GlobalSecondaryIndex)],

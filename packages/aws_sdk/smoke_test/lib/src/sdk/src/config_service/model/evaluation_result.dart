@@ -136,55 +136,40 @@ class EvaluationResultAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EvaluationResultIdentifier':
-          if (value != null) {
-            result.evaluationResultIdentifier.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EvaluationResultIdentifier),
-            ) as _i2.EvaluationResultIdentifier));
-          }
-          break;
+          result.evaluationResultIdentifier.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EvaluationResultIdentifier),
+          ) as _i2.EvaluationResultIdentifier));
         case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplianceType),
-            ) as _i3.ComplianceType);
-          }
-          break;
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplianceType),
+          ) as _i3.ComplianceType);
         case 'ResultRecordedTime':
-          if (value != null) {
-            result.resultRecordedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.resultRecordedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'ConfigRuleInvokedTime':
-          if (value != null) {
-            result.configRuleInvokedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.configRuleInvokedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Annotation':
-          if (value != null) {
-            result.annotation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.annotation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResultToken':
-          if (value != null) {
-            result.resultToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resultToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -199,51 +184,59 @@ class EvaluationResultAwsJson11Serializer
   }) {
     final payload = (object as EvaluationResult);
     final result = <Object?>[];
-    if (payload.evaluationResultIdentifier != null) {
+    final EvaluationResult(
+      :evaluationResultIdentifier,
+      :complianceType,
+      :resultRecordedTime,
+      :configRuleInvokedTime,
+      :annotation,
+      :resultToken
+    ) = payload;
+    if (evaluationResultIdentifier != null) {
       result
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
-          payload.evaluationResultIdentifier!,
+          evaluationResultIdentifier,
           specifiedType: const FullType(_i2.EvaluationResultIdentifier),
         ));
     }
-    if (payload.complianceType != null) {
+    if (complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
-          payload.complianceType!,
+          complianceType,
           specifiedType: const FullType(_i3.ComplianceType),
         ));
     }
-    if (payload.resultRecordedTime != null) {
+    if (resultRecordedTime != null) {
       result
         ..add('ResultRecordedTime')
         ..add(serializers.serialize(
-          payload.resultRecordedTime!,
+          resultRecordedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.configRuleInvokedTime != null) {
+    if (configRuleInvokedTime != null) {
       result
         ..add('ConfigRuleInvokedTime')
         ..add(serializers.serialize(
-          payload.configRuleInvokedTime!,
+          configRuleInvokedTime,
           specifiedType: const FullType(DateTime),
         ));
     }
-    if (payload.annotation != null) {
+    if (annotation != null) {
       result
         ..add('Annotation')
         ..add(serializers.serialize(
-          payload.annotation!,
+          annotation,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resultToken != null) {
+    if (resultToken != null) {
       result
         ..add('ResultToken')
         ..add(serializers.serialize(
-          payload.resultToken!,
+          resultToken,
           specifiedType: const FullType(String),
         ));
     }

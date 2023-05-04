@@ -101,21 +101,20 @@ class TemplateSsmDocumentDetailsAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DocumentName':
           result.documentName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DocumentVersion':
-          if (value != null) {
-            result.documentVersion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.documentVersion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -136,11 +135,12 @@ class TemplateSsmDocumentDetailsAwsJson11Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.documentVersion != null) {
+    final TemplateSsmDocumentDetails(:documentVersion) = payload;
+    if (documentVersion != null) {
       result
         ..add('DocumentVersion')
         ..add(serializers.serialize(
-          payload.documentVersion!,
+          documentVersion,
           specifiedType: const FullType(String),
         ));
     }

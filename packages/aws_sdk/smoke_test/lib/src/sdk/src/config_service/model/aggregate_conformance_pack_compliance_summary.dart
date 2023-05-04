@@ -98,24 +98,21 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ComplianceSummary':
-          if (value != null) {
-            result.complianceSummary.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.AggregateConformancePackComplianceCount),
-            ) as _i2.AggregateConformancePackComplianceCount));
-          }
-          break;
+          result.complianceSummary.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i2.AggregateConformancePackComplianceCount),
+          ) as _i2.AggregateConformancePackComplianceCount));
         case 'GroupName':
-          if (value != null) {
-            result.groupName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -130,20 +127,24 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
   }) {
     final payload = (object as AggregateConformancePackComplianceSummary);
     final result = <Object?>[];
-    if (payload.complianceSummary != null) {
+    final AggregateConformancePackComplianceSummary(
+      :complianceSummary,
+      :groupName
+    ) = payload;
+    if (complianceSummary != null) {
       result
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
-          payload.complianceSummary!,
+          complianceSummary,
           specifiedType:
               const FullType(_i2.AggregateConformancePackComplianceCount),
         ));
     }
-    if (payload.groupName != null) {
+    if (groupName != null) {
       result
         ..add('GroupName')
         ..add(serializers.serialize(
-          payload.groupName!,
+          groupName,
           specifiedType: const FullType(String),
         ));
     }

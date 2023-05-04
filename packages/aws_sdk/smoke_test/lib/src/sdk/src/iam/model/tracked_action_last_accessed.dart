@@ -122,42 +122,33 @@ class TrackedActionLastAccessedAwsQuerySerializer
     final result = TrackedActionLastAccessedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ActionName':
-          if (value != null) {
-            result.actionName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.actionName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastAccessedEntity':
-          if (value != null) {
-            result.lastAccessedEntity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastAccessedEntity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastAccessedTime':
-          if (value != null) {
-            result.lastAccessedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastAccessedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'LastAccessedRegion':
-          if (value != null) {
-            result.lastAccessedRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.lastAccessedRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -177,35 +168,41 @@ class TrackedActionLastAccessedAwsQuerySerializer
         _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.actionName != null) {
+    final TrackedActionLastAccessed(
+      :actionName,
+      :lastAccessedEntity,
+      :lastAccessedTime,
+      :lastAccessedRegion
+    ) = payload;
+    if (actionName != null) {
       result
         ..add(const _i2.XmlElementName('ActionName'))
         ..add(serializers.serialize(
-          payload.actionName!,
+          actionName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastAccessedEntity != null) {
+    if (lastAccessedEntity != null) {
       result
         ..add(const _i2.XmlElementName('LastAccessedEntity'))
         ..add(serializers.serialize(
-          payload.lastAccessedEntity!,
+          lastAccessedEntity,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastAccessedTime != null) {
+    if (lastAccessedTime != null) {
       result
         ..add(const _i2.XmlElementName('LastAccessedTime'))
         ..add(serializers.serialize(
-          payload.lastAccessedTime!,
+          lastAccessedTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.lastAccessedRegion != null) {
+    if (lastAccessedRegion != null) {
       result
         ..add(const _i2.XmlElementName('LastAccessedRegion'))
         ..add(serializers.serialize(
-          payload.lastAccessedRegion!,
+          lastAccessedRegion,
           specifiedType: const FullType(String),
         ));
     }

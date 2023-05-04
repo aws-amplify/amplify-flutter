@@ -90,18 +90,18 @@ class DeleteRemediationExceptionsResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'FailedBatches':
-          if (value != null) {
-            result.failedBatches.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.FailedDeleteRemediationExceptionsBatch)],
-              ),
-            ) as _i3.BuiltList<_i2.FailedDeleteRemediationExceptionsBatch>));
-          }
-          break;
+          result.failedBatches.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.FailedDeleteRemediationExceptionsBatch)],
+            ),
+          ) as _i3.BuiltList<_i2.FailedDeleteRemediationExceptionsBatch>));
       }
     }
 
@@ -116,11 +116,12 @@ class DeleteRemediationExceptionsResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DeleteRemediationExceptionsResponse);
     final result = <Object?>[];
-    if (payload.failedBatches != null) {
+    final DeleteRemediationExceptionsResponse(:failedBatches) = payload;
+    if (failedBatches != null) {
       result
         ..add('FailedBatches')
         ..add(serializers.serialize(
-          payload.failedBatches!,
+          failedBatches,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.FailedDeleteRemediationExceptionsBatch)],

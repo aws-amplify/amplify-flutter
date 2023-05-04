@@ -83,15 +83,15 @@ class GetShardIteratorOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ShardIterator':
-          if (value != null) {
-            result.shardIterator = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.shardIterator = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -106,11 +106,12 @@ class GetShardIteratorOutputAwsJson10Serializer
   }) {
     final payload = (object as GetShardIteratorOutput);
     final result = <Object?>[];
-    if (payload.shardIterator != null) {
+    final GetShardIteratorOutput(:shardIterator) = payload;
+    if (shardIterator != null) {
       result
         ..add('ShardIterator')
         ..add(serializers.serialize(
-          payload.shardIterator!,
+          shardIterator,
           specifiedType: const FullType(String),
         ));
     }

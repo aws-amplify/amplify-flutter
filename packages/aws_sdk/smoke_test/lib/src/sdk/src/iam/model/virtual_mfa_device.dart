@@ -132,62 +132,49 @@ class VirtualMfaDeviceAwsQuerySerializer
     final result = VirtualMfaDeviceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'SerialNumber':
           result.serialNumber = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Base32StringSeed':
-          if (value != null) {
-            result.base32StringSeed = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.base32StringSeed = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
         case 'QRCodePNG':
-          if (value != null) {
-            result.qrCodePng = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.qrCodePng = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
         case 'User':
-          if (value != null) {
-            result.user.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.User),
-            ) as _i3.User));
-          }
-          break;
+          result.user.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.User),
+          ) as _i3.User));
         case 'EnableDate':
-          if (value != null) {
-            result.enableDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.enableDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'Tags':
-          if (value != null) {
-            result.tags.replace((const _i6.XmlBuiltListSerializer(
-                    indexer: _i6.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltList,
-                [FullType(_i4.Tag)],
-              ),
-            ) as _i5.BuiltList<_i4.Tag>));
-          }
-          break;
+          result.tags.replace((const _i6.XmlBuiltListSerializer(
+                  indexer: _i6.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.Tag)],
+            ),
+          ) as _i5.BuiltList<_i4.Tag>));
       }
     }
 
@@ -207,52 +194,60 @@ class VirtualMfaDeviceAwsQuerySerializer
         _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final VirtualMfaDevice(
+      :serialNumber,
+      :base32StringSeed,
+      :qrCodePng,
+      :user,
+      :enableDate,
+      :tags
+    ) = payload;
     result
       ..add(const _i6.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
-        payload.serialNumber,
+        serialNumber,
         specifiedType: const FullType(String),
       ));
-    if (payload.base32StringSeed != null) {
+    if (base32StringSeed != null) {
       result
         ..add(const _i6.XmlElementName('Base32StringSeed'))
         ..add(serializers.serialize(
-          payload.base32StringSeed!,
+          base32StringSeed,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    if (payload.qrCodePng != null) {
+    if (qrCodePng != null) {
       result
         ..add(const _i6.XmlElementName('QRCodePNG'))
         ..add(serializers.serialize(
-          payload.qrCodePng!,
+          qrCodePng,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    if (payload.user != null) {
+    if (user != null) {
       result
         ..add(const _i6.XmlElementName('User'))
         ..add(serializers.serialize(
-          payload.user!,
+          user,
           specifiedType: const FullType(_i3.User),
         ));
     }
-    if (payload.enableDate != null) {
+    if (enableDate != null) {
       result
         ..add(const _i6.XmlElementName('EnableDate'))
         ..add(serializers.serialize(
-          payload.enableDate!,
+          enableDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.tags != null) {
+    if (tags != null) {
       result
         ..add(const _i6.XmlElementName('Tags'))
         ..add(const _i6.XmlBuiltListSerializer(
                 indexer: _i6.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.tags!,
+          tags,
           specifiedType: const FullType.nullable(
             _i5.BuiltList,
             [FullType(_i4.Tag)],

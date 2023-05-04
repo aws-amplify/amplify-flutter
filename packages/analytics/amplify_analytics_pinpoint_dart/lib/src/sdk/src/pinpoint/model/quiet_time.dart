@@ -90,23 +90,20 @@ class QuietTimeRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'End':
-          if (value != null) {
-            result.end = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.end = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Start':
-          if (value != null) {
-            result.start = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.start = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,19 +118,20 @@ class QuietTimeRestJson1Serializer
   }) {
     final payload = (object as QuietTime);
     final result = <Object?>[];
-    if (payload.end != null) {
+    final QuietTime(:end, :start) = payload;
+    if (end != null) {
       result
         ..add('End')
         ..add(serializers.serialize(
-          payload.end!,
+          end,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.start != null) {
+    if (start != null) {
       result
         ..add('Start')
         ..add(serializers.serialize(
-          payload.start!,
+          start,
           specifiedType: const FullType(String),
         ));
     }

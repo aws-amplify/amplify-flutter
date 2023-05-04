@@ -73,18 +73,18 @@ class PolicyDescriptorTypeAwsQuerySerializer
     final result = PolicyDescriptorTypeBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -104,11 +104,12 @@ class PolicyDescriptorTypeAwsQuerySerializer
         _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.arn != null) {
+    final PolicyDescriptorType(:arn) = payload;
+    if (arn != null) {
       result
         ..add(const _i2.XmlElementName('arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }

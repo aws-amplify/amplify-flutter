@@ -121,50 +121,38 @@ class RedirectRestXmlSerializer
     final result = RedirectBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'HostName':
-          if (value != null) {
-            result.hostName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hostName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'HttpRedirectCode':
-          if (value != null) {
-            result.httpRedirectCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.httpRedirectCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Protocol':
-          if (value != null) {
-            result.protocol = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Protocol),
-            ) as _i2.Protocol);
-          }
-          break;
+          result.protocol = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Protocol),
+          ) as _i2.Protocol);
         case 'ReplaceKeyPrefixWith':
-          if (value != null) {
-            result.replaceKeyPrefixWith = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replaceKeyPrefixWith = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ReplaceKeyWith':
-          if (value != null) {
-            result.replaceKeyWith = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.replaceKeyWith = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -184,43 +172,50 @@ class RedirectRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.hostName != null) {
+    final Redirect(
+      :hostName,
+      :httpRedirectCode,
+      :protocol,
+      :replaceKeyPrefixWith,
+      :replaceKeyWith
+    ) = payload;
+    if (hostName != null) {
       result
         ..add(const _i3.XmlElementName('HostName'))
         ..add(serializers.serialize(
-          payload.hostName!,
+          hostName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.httpRedirectCode != null) {
+    if (httpRedirectCode != null) {
       result
         ..add(const _i3.XmlElementName('HttpRedirectCode'))
         ..add(serializers.serialize(
-          payload.httpRedirectCode!,
+          httpRedirectCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.protocol != null) {
+    if (protocol != null) {
       result
         ..add(const _i3.XmlElementName('Protocol'))
         ..add(serializers.serialize(
-          payload.protocol!,
+          protocol,
           specifiedType: const FullType.nullable(_i2.Protocol),
         ));
     }
-    if (payload.replaceKeyPrefixWith != null) {
+    if (replaceKeyPrefixWith != null) {
       result
         ..add(const _i3.XmlElementName('ReplaceKeyPrefixWith'))
         ..add(serializers.serialize(
-          payload.replaceKeyPrefixWith!,
+          replaceKeyPrefixWith,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.replaceKeyWith != null) {
+    if (replaceKeyWith != null) {
       result
         ..add(const _i3.XmlElementName('ReplaceKeyWith'))
         ..add(serializers.serialize(
-          payload.replaceKeyWith!,
+          replaceKeyWith,
           specifiedType: const FullType(String),
         ));
     }

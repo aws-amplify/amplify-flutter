@@ -98,22 +98,23 @@ class ResourceToImportAwsQuerySerializer
     final result = ResourceToImportBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogicalResourceId':
           result.logicalResourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceIdentifier':
           result.resourceIdentifier.replace(const _i3.XmlBuiltMapSerializer(
                   indexer: _i3.XmlIndexer.awsQueryMap)
@@ -128,7 +129,6 @@ class ResourceToImportAwsQuerySerializer
               ],
             ),
           ));
-          break;
       }
     }
 
@@ -148,16 +148,21 @@ class ResourceToImportAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final ResourceToImport(
+      :resourceType,
+      :logicalResourceId,
+      :resourceIdentifier
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
-        payload.logicalResourceId,
+        logicalResourceId,
         specifiedType: const FullType(String),
       ));
     result
@@ -165,7 +170,7 @@ class ResourceToImportAwsQuerySerializer
       ..add(const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
           .serialize(
         serializers,
-        payload.resourceIdentifier,
+        resourceIdentifier,
         specifiedType: const FullType.nullable(
           _i2.BuiltMap,
           [

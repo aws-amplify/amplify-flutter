@@ -122,35 +122,29 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregateConformancePackComplianceSummaries':
-          if (value != null) {
-            result.aggregateConformancePackComplianceSummaries
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AggregateConformancePackComplianceSummary)],
-              ),
-            ) as _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>));
-          }
-          break;
+          result.aggregateConformancePackComplianceSummaries
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AggregateConformancePackComplianceSummary)],
+            ),
+          ) as _i3.BuiltList<_i2.AggregateConformancePackComplianceSummary>));
         case 'GroupByKey':
-          if (value != null) {
-            result.groupByKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.groupByKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -166,30 +160,35 @@ class GetAggregateConformancePackComplianceSummaryResponseAwsJson11Serializer
     final payload =
         (object as GetAggregateConformancePackComplianceSummaryResponse);
     final result = <Object?>[];
-    if (payload.aggregateConformancePackComplianceSummaries != null) {
+    final GetAggregateConformancePackComplianceSummaryResponse(
+      :aggregateConformancePackComplianceSummaries,
+      :groupByKey,
+      :nextToken
+    ) = payload;
+    if (aggregateConformancePackComplianceSummaries != null) {
       result
         ..add('AggregateConformancePackComplianceSummaries')
         ..add(serializers.serialize(
-          payload.aggregateConformancePackComplianceSummaries!,
+          aggregateConformancePackComplianceSummaries,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AggregateConformancePackComplianceSummary)],
           ),
         ));
     }
-    if (payload.groupByKey != null) {
+    if (groupByKey != null) {
       result
         ..add('GroupByKey')
         ..add(serializers.serialize(
-          payload.groupByKey!,
+          groupByKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

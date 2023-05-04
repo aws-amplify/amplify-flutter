@@ -91,23 +91,20 @@ class TableClassSummaryAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'TableClass':
-          if (value != null) {
-            result.tableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.TableClass),
-            ) as _i2.TableClass);
-          }
-          break;
+          result.tableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.TableClass),
+          ) as _i2.TableClass);
         case 'LastUpdateDateTime':
-          if (value != null) {
-            result.lastUpdateDateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateDateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -122,19 +119,20 @@ class TableClassSummaryAwsJson10Serializer
   }) {
     final payload = (object as TableClassSummary);
     final result = <Object?>[];
-    if (payload.tableClass != null) {
+    final TableClassSummary(:tableClass, :lastUpdateDateTime) = payload;
+    if (tableClass != null) {
       result
         ..add('TableClass')
         ..add(serializers.serialize(
-          payload.tableClass!,
+          tableClass,
           specifiedType: const FullType(_i2.TableClass),
         ));
     }
-    if (payload.lastUpdateDateTime != null) {
+    if (lastUpdateDateTime != null) {
       result
         ..add('LastUpdateDateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateDateTime!,
+          lastUpdateDateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

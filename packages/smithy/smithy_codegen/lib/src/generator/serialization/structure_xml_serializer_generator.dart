@@ -352,10 +352,13 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       (allocate) => '''
       final iterator = serialized.iterator;
       while (iterator.moveNext()) {
-        final key = iterator.current;
+        final key = iterator.current as ${allocate(DartTypes.core.string)};
         iterator.moveNext();
         final value = iterator.current;
-        switch (key as ${allocate(DartTypes.core.string)}) {
+        if (value == null) {
+          continue;
+        }
+        switch (key) {
       ''',
     );
     return Block.of([
@@ -420,7 +423,6 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       yield Block.of([
         const Code('case '),
         literalString(wireName).code,
-        Code.scope((ref) => 'when ${ref(value)} != null'),
         const Code(':'),
         if (hasNestedBuilder)
           refer('result')

@@ -116,40 +116,34 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
     final result = GetAccountAuthorizationDetailsRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Filter':
-          if (value != null) {
-            result.filter.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.EntityType)],
-              ),
-            ) as _i4.BuiltList<_i3.EntityType>));
-          }
-          break;
+          result.filter.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.EntityType)],
+            ),
+          ) as _i4.BuiltList<_i3.EntityType>));
         case 'MaxItems':
-          if (value != null) {
-            result.maxItems = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxItems = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -169,33 +163,35 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.filter != null) {
+    final GetAccountAuthorizationDetailsRequest(:filter, :maxItems, :marker) =
+        payload;
+    if (filter != null) {
       result
         ..add(const _i1.XmlElementName('Filter'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.filter!,
+          filter,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.EntityType)],
           ),
         ));
     }
-    if (payload.maxItems != null) {
+    if (maxItems != null) {
       result
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
-          payload.maxItems!,
+          maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

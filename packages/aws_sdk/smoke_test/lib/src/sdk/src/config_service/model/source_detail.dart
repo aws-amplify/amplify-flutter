@@ -121,31 +121,25 @@ class SourceDetailAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EventSource':
-          if (value != null) {
-            result.eventSource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EventSource),
-            ) as _i2.EventSource);
-          }
-          break;
+          result.eventSource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EventSource),
+          ) as _i2.EventSource);
         case 'MessageType':
-          if (value != null) {
-            result.messageType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.MessageType),
-            ) as _i3.MessageType);
-          }
-          break;
+          result.messageType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.MessageType),
+          ) as _i3.MessageType);
         case 'MaximumExecutionFrequency':
-          if (value != null) {
-            result.maximumExecutionFrequency = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.MaximumExecutionFrequency),
-            ) as _i4.MaximumExecutionFrequency);
-          }
-          break;
+          result.maximumExecutionFrequency = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.MaximumExecutionFrequency),
+          ) as _i4.MaximumExecutionFrequency);
       }
     }
 
@@ -160,27 +154,29 @@ class SourceDetailAwsJson11Serializer
   }) {
     final payload = (object as SourceDetail);
     final result = <Object?>[];
-    if (payload.eventSource != null) {
+    final SourceDetail(:eventSource, :messageType, :maximumExecutionFrequency) =
+        payload;
+    if (eventSource != null) {
       result
         ..add('EventSource')
         ..add(serializers.serialize(
-          payload.eventSource!,
+          eventSource,
           specifiedType: const FullType(_i2.EventSource),
         ));
     }
-    if (payload.messageType != null) {
+    if (messageType != null) {
       result
         ..add('MessageType')
         ..add(serializers.serialize(
-          payload.messageType!,
+          messageType,
           specifiedType: const FullType(_i3.MessageType),
         ));
     }
-    if (payload.maximumExecutionFrequency != null) {
+    if (maximumExecutionFrequency != null) {
       result
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
-          payload.maximumExecutionFrequency!,
+          maximumExecutionFrequency,
           specifiedType: const FullType(_i4.MaximumExecutionFrequency),
         ));
     }

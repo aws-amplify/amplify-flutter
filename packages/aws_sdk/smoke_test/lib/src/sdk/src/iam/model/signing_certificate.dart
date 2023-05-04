@@ -125,42 +125,38 @@ class SigningCertificateAwsQuerySerializer
     final result = SigningCertificateBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CertificateId':
           result.certificateId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'CertificateBody':
           result.certificateBody = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.StatusType),
           ) as _i2.StatusType);
-          break;
         case 'UploadDate':
-          if (value != null) {
-            result.uploadDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.uploadDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -180,35 +176,42 @@ class SigningCertificateAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final SigningCertificate(
+      :userName,
+      :certificateId,
+      :certificateBody,
+      :status,
+      :uploadDate
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
-        payload.certificateId,
+        certificateId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
-        payload.certificateBody,
+        certificateBody,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
-    if (payload.uploadDate != null) {
+    if (uploadDate != null) {
       result
         ..add(const _i3.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
-          payload.uploadDate!,
+          uploadDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

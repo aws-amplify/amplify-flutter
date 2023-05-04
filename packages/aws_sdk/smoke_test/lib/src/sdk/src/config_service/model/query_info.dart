@@ -79,18 +79,18 @@ class QueryInfoAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'SelectFields':
-          if (value != null) {
-            result.selectFields.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.FieldInfo)],
-              ),
-            ) as _i3.BuiltList<_i2.FieldInfo>));
-          }
-          break;
+          result.selectFields.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.FieldInfo)],
+            ),
+          ) as _i3.BuiltList<_i2.FieldInfo>));
       }
     }
 
@@ -105,11 +105,12 @@ class QueryInfoAwsJson11Serializer
   }) {
     final payload = (object as QueryInfo);
     final result = <Object?>[];
-    if (payload.selectFields != null) {
+    final QueryInfo(:selectFields) = payload;
+    if (selectFields != null) {
       result
         ..add('SelectFields')
         ..add(serializers.serialize(
-          payload.selectFields!,
+          selectFields,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.FieldInfo)],

@@ -95,24 +95,23 @@ class ParameterizedStatementAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Statement':
           result.statement = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Parameters':
-          if (value != null) {
-            result.parameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.AttributeValue)],
-              ),
-            ) as _i3.BuiltList<_i2.AttributeValue>));
-          }
-          break;
+          result.parameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.AttributeValue)],
+            ),
+          ) as _i3.BuiltList<_i2.AttributeValue>));
       }
     }
 
@@ -133,11 +132,12 @@ class ParameterizedStatementAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.parameters != null) {
+    final ParameterizedStatement(:parameters) = payload;
+    if (parameters != null) {
       result
         ..add('Parameters')
         ..add(serializers.serialize(
-          payload.parameters!,
+          parameters,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.AttributeValue)],

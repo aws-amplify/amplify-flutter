@@ -269,45 +269,41 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
     final result = SimulatePrincipalPolicyRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicySourceArn':
           result.policySourceArn = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyInputList':
-          if (value != null) {
-            result.policyInputList.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.policyInputList.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'PermissionsBoundaryPolicyInputList':
-          if (value != null) {
-            result.permissionsBoundaryPolicyInputList.replace(
-                (const _i1.XmlBuiltListSerializer(
-                        indexer: _i1.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.permissionsBoundaryPolicyInputList.replace(
+              (const _i1.XmlBuiltListSerializer(
+                      indexer: _i1.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'ActionNames':
           result.actionNames.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -319,83 +315,58 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i4.BuiltList<String>));
-          break;
         case 'ResourceArns':
-          if (value != null) {
-            result.resourceArns.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.resourceArns.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'ResourcePolicy':
-          if (value != null) {
-            result.resourcePolicy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourcePolicy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceOwner':
-          if (value != null) {
-            result.resourceOwner = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceOwner = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CallerArn':
-          if (value != null) {
-            result.callerArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.callerArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ContextEntries':
-          if (value != null) {
-            result.contextEntries.replace((const _i1.XmlBuiltListSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ContextEntry)],
-              ),
-            ) as _i4.BuiltList<_i3.ContextEntry>));
-          }
-          break;
+          result.contextEntries.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ContextEntry)],
+            ),
+          ) as _i4.BuiltList<_i3.ContextEntry>));
         case 'ResourceHandlingOption':
-          if (value != null) {
-            result.resourceHandlingOption = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceHandlingOption = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxItems':
-          if (value != null) {
-            result.maxItems = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxItems = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -415,34 +386,48 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final SimulatePrincipalPolicyRequest(
+      :policySourceArn,
+      :policyInputList,
+      :permissionsBoundaryPolicyInputList,
+      :actionNames,
+      :resourceArns,
+      :resourcePolicy,
+      :resourceOwner,
+      :callerArn,
+      :contextEntries,
+      :resourceHandlingOption,
+      :maxItems,
+      :marker
+    ) = payload;
     result
       ..add(const _i1.XmlElementName('PolicySourceArn'))
       ..add(serializers.serialize(
-        payload.policySourceArn,
+        policySourceArn,
         specifiedType: const FullType(String),
       ));
-    if (payload.policyInputList != null) {
+    if (policyInputList != null) {
       result
         ..add(const _i1.XmlElementName('PolicyInputList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyInputList!,
+          policyInputList,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.permissionsBoundaryPolicyInputList != null) {
+    if (permissionsBoundaryPolicyInputList != null) {
       result
         ..add(const _i1.XmlElementName('PermissionsBoundaryPolicyInputList'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.permissionsBoundaryPolicyInputList!,
+          permissionsBoundaryPolicyInputList,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(String)],
@@ -455,85 +440,85 @@ class SimulatePrincipalPolicyRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.actionNames,
+        actionNames,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(String)],
         ),
       ));
-    if (payload.resourceArns != null) {
+    if (resourceArns != null) {
       result
         ..add(const _i1.XmlElementName('ResourceArns'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourceArns!,
+          resourceArns,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.resourcePolicy != null) {
+    if (resourcePolicy != null) {
       result
         ..add(const _i1.XmlElementName('ResourcePolicy'))
         ..add(serializers.serialize(
-          payload.resourcePolicy!,
+          resourcePolicy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.resourceOwner != null) {
+    if (resourceOwner != null) {
       result
         ..add(const _i1.XmlElementName('ResourceOwner'))
         ..add(serializers.serialize(
-          payload.resourceOwner!,
+          resourceOwner,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.callerArn != null) {
+    if (callerArn != null) {
       result
         ..add(const _i1.XmlElementName('CallerArn'))
         ..add(serializers.serialize(
-          payload.callerArn!,
+          callerArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.contextEntries != null) {
+    if (contextEntries != null) {
       result
         ..add(const _i1.XmlElementName('ContextEntries'))
         ..add(const _i1.XmlBuiltListSerializer(
                 indexer: _i1.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.contextEntries!,
+          contextEntries,
           specifiedType: const FullType.nullable(
             _i4.BuiltList,
             [FullType(_i3.ContextEntry)],
           ),
         ));
     }
-    if (payload.resourceHandlingOption != null) {
+    if (resourceHandlingOption != null) {
       result
         ..add(const _i1.XmlElementName('ResourceHandlingOption'))
         ..add(serializers.serialize(
-          payload.resourceHandlingOption!,
+          resourceHandlingOption,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxItems != null) {
+    if (maxItems != null) {
       result
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
-          payload.maxItems!,
+          maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }

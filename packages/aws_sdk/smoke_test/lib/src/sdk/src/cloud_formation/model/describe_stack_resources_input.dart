@@ -128,34 +128,28 @@ class DescribeStackResourcesInputAwsQuerySerializer
     final result = DescribeStackResourcesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackName':
-          if (value != null) {
-            result.stackName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stackName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LogicalResourceId':
-          if (value != null) {
-            result.logicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.logicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PhysicalResourceId':
-          if (value != null) {
-            result.physicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.physicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -175,27 +169,32 @@ class DescribeStackResourcesInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.stackName != null) {
+    final DescribeStackResourcesInput(
+      :stackName,
+      :logicalResourceId,
+      :physicalResourceId
+    ) = payload;
+    if (stackName != null) {
       result
         ..add(const _i1.XmlElementName('StackName'))
         ..add(serializers.serialize(
-          payload.stackName!,
+          stackName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.logicalResourceId != null) {
+    if (logicalResourceId != null) {
       result
         ..add(const _i1.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
-          payload.logicalResourceId!,
+          logicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.physicalResourceId != null) {
+    if (physicalResourceId != null) {
       result
         ..add(const _i1.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
-          payload.physicalResourceId!,
+          physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }

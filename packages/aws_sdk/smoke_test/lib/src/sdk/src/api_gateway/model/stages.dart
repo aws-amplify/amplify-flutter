@@ -81,18 +81,18 @@ class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'item':
-          if (value != null) {
-            result.item.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.Stage)],
-              ),
-            ) as _i3.BuiltList<_i2.Stage>));
-          }
-          break;
+          result.item.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.Stage)],
+            ),
+          ) as _i3.BuiltList<_i2.Stage>));
       }
     }
 
@@ -107,11 +107,12 @@ class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
   }) {
     final payload = (object as Stages);
     final result = <Object?>[];
-    if (payload.item != null) {
+    final Stages(:item) = payload;
+    if (item != null) {
       result
         ..add('item')
         ..add(serializers.serialize(
-          payload.item!,
+          item,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.Stage)],

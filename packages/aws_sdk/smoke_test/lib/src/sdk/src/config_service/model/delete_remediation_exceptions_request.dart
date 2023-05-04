@@ -106,13 +106,15 @@ class DeleteRemediationExceptionsRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
           result.configRuleName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ResourceKeys':
           result.resourceKeys.replace((serializers.deserialize(
             value,
@@ -121,7 +123,6 @@ class DeleteRemediationExceptionsRequestAwsJson11Serializer
               [FullType(_i3.RemediationExceptionResourceKey)],
             ),
           ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
-          break;
       }
     }
 

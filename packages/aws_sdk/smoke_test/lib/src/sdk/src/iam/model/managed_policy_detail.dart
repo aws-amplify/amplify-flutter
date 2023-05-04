@@ -215,112 +215,79 @@ class ManagedPolicyDetailAwsQuerySerializer
     final result = ManagedPolicyDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyName':
-          if (value != null) {
-            result.policyName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PolicyId':
-          if (value != null) {
-            result.policyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Arn':
-          if (value != null) {
-            result.arn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.arn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Path':
-          if (value != null) {
-            result.path = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.path = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DefaultVersionId':
-          if (value != null) {
-            result.defaultVersionId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.defaultVersionId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AttachmentCount':
-          if (value != null) {
-            result.attachmentCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.attachmentCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'PermissionsBoundaryUsageCount':
-          if (value != null) {
-            result.permissionsBoundaryUsageCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.permissionsBoundaryUsageCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'IsAttachable':
-          if (value != null) {
-            result.isAttachable = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isAttachable = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Description':
-          if (value != null) {
-            result.description = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.description = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'CreateDate':
-          if (value != null) {
-            result.createDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.createDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'UpdateDate':
-          if (value != null) {
-            result.updateDate = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.updateDate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
         case 'PolicyVersionList':
-          if (value != null) {
-            result.policyVersionList.replace((const _i4.XmlBuiltListSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.PolicyVersion)],
-              ),
-            ) as _i3.BuiltList<_i2.PolicyVersion>));
-          }
-          break;
+          result.policyVersionList.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.PolicyVersion)],
+            ),
+          ) as _i3.BuiltList<_i2.PolicyVersion>));
       }
     }
 
@@ -340,102 +307,116 @@ class ManagedPolicyDetailAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.policyName != null) {
+    final ManagedPolicyDetail(
+      :policyName,
+      :policyId,
+      :arn,
+      :path,
+      :defaultVersionId,
+      :attachmentCount,
+      :permissionsBoundaryUsageCount,
+      :isAttachable,
+      :description,
+      :createDate,
+      :updateDate,
+      :policyVersionList
+    ) = payload;
+    if (policyName != null) {
       result
         ..add(const _i4.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
-          payload.policyName!,
+          policyName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.policyId != null) {
+    if (policyId != null) {
       result
         ..add(const _i4.XmlElementName('PolicyId'))
         ..add(serializers.serialize(
-          payload.policyId!,
+          policyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.arn != null) {
+    if (arn != null) {
       result
         ..add(const _i4.XmlElementName('Arn'))
         ..add(serializers.serialize(
-          payload.arn!,
+          arn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.path != null) {
+    if (path != null) {
       result
         ..add(const _i4.XmlElementName('Path'))
         ..add(serializers.serialize(
-          payload.path!,
+          path,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.defaultVersionId != null) {
+    if (defaultVersionId != null) {
       result
         ..add(const _i4.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
-          payload.defaultVersionId!,
+          defaultVersionId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.attachmentCount != null) {
+    if (attachmentCount != null) {
       result
         ..add(const _i4.XmlElementName('AttachmentCount'))
         ..add(serializers.serialize(
-          payload.attachmentCount!,
+          attachmentCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.permissionsBoundaryUsageCount != null) {
+    if (permissionsBoundaryUsageCount != null) {
       result
         ..add(const _i4.XmlElementName('PermissionsBoundaryUsageCount'))
         ..add(serializers.serialize(
-          payload.permissionsBoundaryUsageCount!,
+          permissionsBoundaryUsageCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.isAttachable != null) {
+    if (isAttachable != null) {
       result
         ..add(const _i4.XmlElementName('IsAttachable'))
         ..add(serializers.serialize(
-          payload.isAttachable!,
+          isAttachable,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.description != null) {
+    if (description != null) {
       result
         ..add(const _i4.XmlElementName('Description'))
         ..add(serializers.serialize(
-          payload.description!,
+          description,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.createDate != null) {
+    if (createDate != null) {
       result
         ..add(const _i4.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
-          payload.createDate!,
+          createDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.updateDate != null) {
+    if (updateDate != null) {
       result
         ..add(const _i4.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
-          payload.updateDate!,
+          updateDate,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
-    if (payload.policyVersionList != null) {
+    if (policyVersionList != null) {
       result
         ..add(const _i4.XmlElementName('PolicyVersionList'))
         ..add(const _i4.XmlBuiltListSerializer(
                 indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.policyVersionList!,
+          policyVersionList,
           specifiedType: const FullType.nullable(
             _i3.BuiltList,
             [FullType(_i2.PolicyVersion)],

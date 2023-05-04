@@ -81,15 +81,15 @@ class CreateBackupOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'BackupDetails':
-          if (value != null) {
-            result.backupDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.BackupDetails),
-            ) as _i2.BackupDetails));
-          }
-          break;
+          result.backupDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.BackupDetails),
+          ) as _i2.BackupDetails));
       }
     }
 
@@ -104,11 +104,12 @@ class CreateBackupOutputAwsJson10Serializer
   }) {
     final payload = (object as CreateBackupOutput);
     final result = <Object?>[];
-    if (payload.backupDetails != null) {
+    final CreateBackupOutput(:backupDetails) = payload;
+    if (backupDetails != null) {
       result
         ..add('BackupDetails')
         ..add(serializers.serialize(
-          payload.backupDetails!,
+          backupDetails,
           specifiedType: const FullType(_i2.BackupDetails),
         ));
     }

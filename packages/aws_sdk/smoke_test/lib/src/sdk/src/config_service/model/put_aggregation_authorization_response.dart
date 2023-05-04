@@ -88,15 +88,15 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AggregationAuthorization':
-          if (value != null) {
-            result.aggregationAuthorization.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.AggregationAuthorization),
-            ) as _i2.AggregationAuthorization));
-          }
-          break;
+          result.aggregationAuthorization.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.AggregationAuthorization),
+          ) as _i2.AggregationAuthorization));
       }
     }
 
@@ -111,11 +111,13 @@ class PutAggregationAuthorizationResponseAwsJson11Serializer extends _i3
   }) {
     final payload = (object as PutAggregationAuthorizationResponse);
     final result = <Object?>[];
-    if (payload.aggregationAuthorization != null) {
+    final PutAggregationAuthorizationResponse(:aggregationAuthorization) =
+        payload;
+    if (aggregationAuthorization != null) {
       result
         ..add('AggregationAuthorization')
         ..add(serializers.serialize(
-          payload.aggregationAuthorization!,
+          aggregationAuthorization,
           specifiedType: const FullType(_i2.AggregationAuthorization),
         ));
     }

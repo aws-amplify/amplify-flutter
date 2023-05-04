@@ -77,6 +77,9 @@ class DeleteRequestAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Key':
           result.key.replace((serializers.deserialize(
@@ -89,7 +92,6 @@ class DeleteRequestAwsJson10Serializer
               ],
             ),
           ) as _i3.BuiltMap<String, _i2.AttributeValue>));
-          break;
       }
     }
 

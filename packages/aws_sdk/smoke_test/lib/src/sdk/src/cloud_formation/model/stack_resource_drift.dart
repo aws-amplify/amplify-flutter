@@ -216,102 +216,81 @@ class StackResourceDriftAwsQuerySerializer
     final result = StackResourceDriftBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StackId':
           result.stackId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LogicalResourceId':
           result.logicalResourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PhysicalResourceId':
-          if (value != null) {
-            result.physicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.physicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PhysicalResourceIdContext':
-          if (value != null) {
-            result.physicalResourceIdContext.replace(
-                (const _i7.XmlBuiltListSerializer(
-                        indexer: _i7.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i2.PhysicalResourceIdContextKeyValuePair)],
-              ),
-            ) as _i6.BuiltList<_i2.PhysicalResourceIdContextKeyValuePair>));
-          }
-          break;
+          result.physicalResourceIdContext.replace(
+              (const _i7.XmlBuiltListSerializer(
+                      indexer: _i7.XmlIndexer.awsQueryList)
+                  .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i2.PhysicalResourceIdContextKeyValuePair)],
+            ),
+          ) as _i6.BuiltList<_i2.PhysicalResourceIdContextKeyValuePair>));
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ExpectedProperties':
-          if (value != null) {
-            result.expectedProperties = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.expectedProperties = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ActualProperties':
-          if (value != null) {
-            result.actualProperties = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.actualProperties = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PropertyDifferences':
-          if (value != null) {
-            result.propertyDifferences.replace(
-                (const _i7.XmlBuiltListSerializer(
-                        indexer: _i7.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.PropertyDifference)],
-              ),
-            ) as _i6.BuiltList<_i3.PropertyDifference>));
-          }
-          break;
+          result.propertyDifferences.replace((const _i7.XmlBuiltListSerializer(
+                  indexer: _i7.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.PropertyDifference)],
+            ),
+          ) as _i6.BuiltList<_i3.PropertyDifference>));
         case 'StackResourceDriftStatus':
           result.stackResourceDriftStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i4.StackResourceDriftStatus),
           ) as _i4.StackResourceDriftStatus);
-          break;
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ModuleInfo':
-          if (value != null) {
-            result.moduleInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ModuleInfo),
-            ) as _i5.ModuleInfo));
-          }
-          break;
+          result.moduleInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ModuleInfo),
+          ) as _i5.ModuleInfo));
       }
     }
 
@@ -331,34 +310,47 @@ class StackResourceDriftAwsQuerySerializer
         _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final StackResourceDrift(
+      :stackId,
+      :logicalResourceId,
+      :physicalResourceId,
+      :physicalResourceIdContext,
+      :resourceType,
+      :expectedProperties,
+      :actualProperties,
+      :propertyDifferences,
+      :stackResourceDriftStatus,
+      :timestamp,
+      :moduleInfo
+    ) = payload;
     result
       ..add(const _i7.XmlElementName('StackId'))
       ..add(serializers.serialize(
-        payload.stackId,
+        stackId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i7.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
-        payload.logicalResourceId,
+        logicalResourceId,
         specifiedType: const FullType(String),
       ));
-    if (payload.physicalResourceId != null) {
+    if (physicalResourceId != null) {
       result
         ..add(const _i7.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
-          payload.physicalResourceId!,
+          physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.physicalResourceIdContext != null) {
+    if (physicalResourceIdContext != null) {
       result
         ..add(const _i7.XmlElementName('PhysicalResourceIdContext'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.physicalResourceIdContext!,
+          physicalResourceIdContext,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i2.PhysicalResourceIdContextKeyValuePair)],
@@ -368,33 +360,33 @@ class StackResourceDriftAwsQuerySerializer
     result
       ..add(const _i7.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ));
-    if (payload.expectedProperties != null) {
+    if (expectedProperties != null) {
       result
         ..add(const _i7.XmlElementName('ExpectedProperties'))
         ..add(serializers.serialize(
-          payload.expectedProperties!,
+          expectedProperties,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.actualProperties != null) {
+    if (actualProperties != null) {
       result
         ..add(const _i7.XmlElementName('ActualProperties'))
         ..add(serializers.serialize(
-          payload.actualProperties!,
+          actualProperties,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.propertyDifferences != null) {
+    if (propertyDifferences != null) {
       result
         ..add(const _i7.XmlElementName('PropertyDifferences'))
         ..add(const _i7.XmlBuiltListSerializer(
                 indexer: _i7.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.propertyDifferences!,
+          propertyDifferences,
           specifiedType: const FullType.nullable(
             _i6.BuiltList,
             [FullType(_i3.PropertyDifference)],
@@ -404,20 +396,20 @@ class StackResourceDriftAwsQuerySerializer
     result
       ..add(const _i7.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
-        payload.stackResourceDriftStatus,
+        stackResourceDriftStatus,
         specifiedType: const FullType.nullable(_i4.StackResourceDriftStatus),
       ));
     result
       ..add(const _i7.XmlElementName('Timestamp'))
       ..add(serializers.serialize(
-        payload.timestamp,
+        timestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (payload.moduleInfo != null) {
+    if (moduleInfo != null) {
       result
         ..add(const _i7.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
-          payload.moduleInfo!,
+          moduleInfo,
           specifiedType: const FullType(_i5.ModuleInfo),
         ));
     }

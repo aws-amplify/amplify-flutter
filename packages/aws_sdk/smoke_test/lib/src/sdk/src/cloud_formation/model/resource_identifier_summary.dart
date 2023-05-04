@@ -104,47 +104,40 @@ class ResourceIdentifierSummaryAwsQuerySerializer
     final result = ResourceIdentifierSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ResourceType':
-          if (value != null) {
-            result.resourceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LogicalResourceIds':
-          if (value != null) {
-            result.logicalResourceIds.replace((const _i3.XmlBuiltListSerializer(
-                    indexer: _i3.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.logicalResourceIds.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
         case 'ResourceIdentifiers':
-          if (value != null) {
-            result.resourceIdentifiers.replace(
-                (const _i3.XmlBuiltListSerializer(
-                        indexer: _i3.XmlIndexer.awsQueryList)
-                    .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.resourceIdentifiers.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -164,36 +157,41 @@ class ResourceIdentifierSummaryAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.resourceType != null) {
+    final ResourceIdentifierSummary(
+      :resourceType,
+      :logicalResourceIds,
+      :resourceIdentifiers
+    ) = payload;
+    if (resourceType != null) {
       result
         ..add(const _i3.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
-          payload.resourceType!,
+          resourceType,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.logicalResourceIds != null) {
+    if (logicalResourceIds != null) {
       result
         ..add(const _i3.XmlElementName('LogicalResourceIds'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.logicalResourceIds!,
+          logicalResourceIds,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.resourceIdentifiers != null) {
+    if (resourceIdentifiers != null) {
       result
         ..add(const _i3.XmlElementName('ResourceIdentifiers'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.resourceIdentifiers!,
+          resourceIdentifiers,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],

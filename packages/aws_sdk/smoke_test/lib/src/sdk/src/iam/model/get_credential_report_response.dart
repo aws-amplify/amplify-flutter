@@ -111,34 +111,28 @@ class GetCredentialReportResponseAwsQuerySerializer
     final result = GetCredentialReportResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Content':
-          if (value != null) {
-            result.content = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.content = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
         case 'ReportFormat':
-          if (value != null) {
-            result.reportFormat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ReportFormatType),
-            ) as _i3.ReportFormatType);
-          }
-          break;
+          result.reportFormat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ReportFormatType),
+          ) as _i3.ReportFormatType);
         case 'GeneratedTime':
-          if (value != null) {
-            result.generatedTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.generatedTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -158,27 +152,29 @@ class GetCredentialReportResponseAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.content != null) {
+    final GetCredentialReportResponse(:content, :reportFormat, :generatedTime) =
+        payload;
+    if (content != null) {
       result
         ..add(const _i4.XmlElementName('Content'))
         ..add(serializers.serialize(
-          payload.content!,
+          content,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }
-    if (payload.reportFormat != null) {
+    if (reportFormat != null) {
       result
         ..add(const _i4.XmlElementName('ReportFormat'))
         ..add(serializers.serialize(
-          payload.reportFormat!,
+          reportFormat,
           specifiedType: const FullType.nullable(_i3.ReportFormatType),
         ));
     }
-    if (payload.generatedTime != null) {
+    if (generatedTime != null) {
       result
         ..add(const _i4.XmlElementName('GeneratedTime'))
         ..add(serializers.serialize(
-          payload.generatedTime!,
+          generatedTime,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }

@@ -87,16 +87,18 @@ class UploadSigningCertificateResponseAwsQuerySerializer
     final result = UploadSigningCertificateResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Certificate':
           result.certificate.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.SigningCertificate),
           ) as _i2.SigningCertificate));
-          break;
       }
     }
 
@@ -116,10 +118,11 @@ class UploadSigningCertificateResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UploadSigningCertificateResponse(:certificate) = payload;
     result
       ..add(const _i3.XmlElementName('Certificate'))
       ..add(serializers.serialize(
-        payload.certificate,
+        certificate,
         specifiedType: const FullType(_i2.SigningCertificate),
       ));
     return result;

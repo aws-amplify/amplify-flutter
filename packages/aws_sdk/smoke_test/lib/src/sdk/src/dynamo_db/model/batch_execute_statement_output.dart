@@ -103,29 +103,26 @@ class BatchExecuteStatementOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Responses':
-          if (value != null) {
-            result.responses.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.BatchStatementResponse)],
-              ),
-            ) as _i4.BuiltList<_i2.BatchStatementResponse>));
-          }
-          break;
+          result.responses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.BatchStatementResponse)],
+            ),
+          ) as _i4.BuiltList<_i2.BatchStatementResponse>));
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ConsumedCapacity)],
-              ),
-            ) as _i4.BuiltList<_i3.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ConsumedCapacity)],
+            ),
+          ) as _i4.BuiltList<_i3.ConsumedCapacity>));
       }
     }
 
@@ -140,22 +137,23 @@ class BatchExecuteStatementOutputAwsJson10Serializer
   }) {
     final payload = (object as BatchExecuteStatementOutput);
     final result = <Object?>[];
-    if (payload.responses != null) {
+    final BatchExecuteStatementOutput(:responses, :consumedCapacity) = payload;
+    if (responses != null) {
       result
         ..add('Responses')
         ..add(serializers.serialize(
-          payload.responses!,
+          responses,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.BatchStatementResponse)],
           ),
         ));
     }
-    if (payload.consumedCapacity != null) {
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ConsumedCapacity)],

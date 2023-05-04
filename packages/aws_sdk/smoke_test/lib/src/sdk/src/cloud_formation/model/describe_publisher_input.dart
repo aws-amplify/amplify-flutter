@@ -83,18 +83,18 @@ class DescribePublisherInputAwsQuerySerializer
     final result = DescribePublisherInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,11 +114,12 @@ class DescribePublisherInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.publisherId != null) {
+    final DescribePublisherInput(:publisherId) = payload;
+    if (publisherId != null) {
       result
         ..add(const _i1.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }

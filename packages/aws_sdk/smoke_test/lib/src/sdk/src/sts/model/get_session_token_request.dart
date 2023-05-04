@@ -111,34 +111,28 @@ class GetSessionTokenRequestAwsQuerySerializer
     final result = GetSessionTokenRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'DurationSeconds':
-          if (value != null) {
-            result.durationSeconds = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.durationSeconds = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'SerialNumber':
-          if (value != null) {
-            result.serialNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.serialNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TokenCode':
-          if (value != null) {
-            result.tokenCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.tokenCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -158,27 +152,29 @@ class GetSessionTokenRequestAwsQuerySerializer
         _i1.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
-    if (payload.durationSeconds != null) {
+    final GetSessionTokenRequest(:durationSeconds, :serialNumber, :tokenCode) =
+        payload;
+    if (durationSeconds != null) {
       result
         ..add(const _i1.XmlElementName('DurationSeconds'))
         ..add(serializers.serialize(
-          payload.durationSeconds!,
+          durationSeconds,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.serialNumber != null) {
+    if (serialNumber != null) {
       result
         ..add(const _i1.XmlElementName('SerialNumber'))
         ..add(serializers.serialize(
-          payload.serialNumber!,
+          serialNumber,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.tokenCode != null) {
+    if (tokenCode != null) {
       result
         ..add(const _i1.XmlElementName('TokenCode'))
         ..add(serializers.serialize(
-          payload.tokenCode!,
+          tokenCode,
           specifiedType: const FullType(String),
         ));
     }

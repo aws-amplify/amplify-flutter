@@ -113,34 +113,28 @@ class TypeFiltersAwsQuerySerializer
     final result = TypeFiltersBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Category':
-          if (value != null) {
-            result.category = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Category),
-            ) as _i2.Category);
-          }
-          break;
+          result.category = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Category),
+          ) as _i2.Category);
         case 'PublisherId':
-          if (value != null) {
-            result.publisherId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.publisherId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'TypeNamePrefix':
-          if (value != null) {
-            result.typeNamePrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeNamePrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -160,27 +154,28 @@ class TypeFiltersAwsQuerySerializer
         _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.category != null) {
+    final TypeFilters(:category, :publisherId, :typeNamePrefix) = payload;
+    if (category != null) {
       result
         ..add(const _i3.XmlElementName('Category'))
         ..add(serializers.serialize(
-          payload.category!,
+          category,
           specifiedType: const FullType.nullable(_i2.Category),
         ));
     }
-    if (payload.publisherId != null) {
+    if (publisherId != null) {
       result
         ..add(const _i3.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
-          payload.publisherId!,
+          publisherId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.typeNamePrefix != null) {
+    if (typeNamePrefix != null) {
       result
         ..add(const _i3.XmlElementName('TypeNamePrefix'))
         ..add(serializers.serialize(
-          payload.typeNamePrefix!,
+          typeNamePrefix,
           specifiedType: const FullType(String),
         ));
     }

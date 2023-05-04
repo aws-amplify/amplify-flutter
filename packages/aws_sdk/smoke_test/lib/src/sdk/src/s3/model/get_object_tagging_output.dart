@@ -141,10 +141,13 @@ class GetObjectTaggingOutputRestXmlSerializer
     final result = GetObjectTaggingOutputPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TagSet':
           result.tagSet.replace(
               (const _i2.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
@@ -155,7 +158,6 @@ class GetObjectTaggingOutputRestXmlSerializer
               [FullType(_i3.Tag)],
             ),
           ) as _i4.BuiltList<_i3.Tag>));
-          break;
       }
     }
 
@@ -177,11 +179,12 @@ class GetObjectTaggingOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final GetObjectTaggingOutputPayload(:tagSet) = payload;
     result
       ..add(const _i2.XmlElementName('TagSet'))
       ..add(const _i2.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
-        payload.tagSet,
+        tagSet,
         specifiedType: const FullType.nullable(
           _i4.BuiltList,
           [FullType(_i3.Tag)],

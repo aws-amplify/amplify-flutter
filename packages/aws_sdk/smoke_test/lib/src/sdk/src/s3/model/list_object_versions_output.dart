@@ -216,114 +216,78 @@ class ListObjectVersionsOutputRestXmlSerializer
     final result = ListObjectVersionsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'CommonPrefixes':
-          if (value != null) {
-            result.commonPrefixes.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.CommonPrefix),
-            ) as _i4.CommonPrefix));
-          }
-          break;
+          result.commonPrefixes.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.CommonPrefix),
+          ) as _i4.CommonPrefix));
         case 'DeleteMarker':
-          if (value != null) {
-            result.deleteMarkers.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeleteMarkerEntry),
-            ) as _i3.DeleteMarkerEntry));
-          }
-          break;
+          result.deleteMarkers.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeleteMarkerEntry),
+          ) as _i3.DeleteMarkerEntry));
         case 'Delimiter':
-          if (value != null) {
-            result.delimiter = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.delimiter = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EncodingType':
-          if (value != null) {
-            result.encodingType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.EncodingType),
-            ) as _i5.EncodingType);
-          }
-          break;
+          result.encodingType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.EncodingType),
+          ) as _i5.EncodingType);
         case 'IsTruncated':
-          if (value != null) {
-            result.isTruncated = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isTruncated = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'KeyMarker':
-          if (value != null) {
-            result.keyMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.keyMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxKeys':
-          if (value != null) {
-            result.maxKeys = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxKeys = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextKeyMarker':
-          if (value != null) {
-            result.nextKeyMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextKeyMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'NextVersionIdMarker':
-          if (value != null) {
-            result.nextVersionIdMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextVersionIdMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Prefix':
-          if (value != null) {
-            result.prefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.prefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'VersionIdMarker':
-          if (value != null) {
-            result.versionIdMarker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.versionIdMarker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Version':
-          if (value != null) {
-            result.versions.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ObjectVersion),
-            ) as _i2.ObjectVersion));
-          }
-          break;
+          result.versions.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ObjectVersion),
+          ) as _i2.ObjectVersion));
       }
     }
 
@@ -343,114 +307,129 @@ class ListObjectVersionsOutputRestXmlSerializer
         _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.commonPrefixes != null) {
+    final ListObjectVersionsOutput(
+      :commonPrefixes,
+      :deleteMarkers,
+      :delimiter,
+      :encodingType,
+      :isTruncated,
+      :keyMarker,
+      :maxKeys,
+      :name,
+      :nextKeyMarker,
+      :nextVersionIdMarker,
+      :prefix,
+      :versionIdMarker,
+      :versions
+    ) = payload;
+    if (commonPrefixes != null) {
       result.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'CommonPrefixes')
               .serialize(
         serializers,
-        payload.commonPrefixes!,
+        commonPrefixes,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i4.CommonPrefix)],
         ),
       ));
     }
-    if (payload.deleteMarkers != null) {
+    if (deleteMarkers != null) {
       result.addAll(const _i7.XmlBuiltListSerializer(memberName: 'DeleteMarker')
           .serialize(
         serializers,
-        payload.deleteMarkers!,
+        deleteMarkers,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i3.DeleteMarkerEntry)],
         ),
       ));
     }
-    if (payload.delimiter != null) {
+    if (delimiter != null) {
       result
         ..add(const _i7.XmlElementName('Delimiter'))
         ..add(serializers.serialize(
-          payload.delimiter!,
+          delimiter,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.encodingType != null) {
+    if (encodingType != null) {
       result
         ..add(const _i7.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
-          payload.encodingType!,
+          encodingType,
           specifiedType: const FullType.nullable(_i5.EncodingType),
         ));
     }
-    if (payload.isTruncated != null) {
+    if (isTruncated != null) {
       result
         ..add(const _i7.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
-          payload.isTruncated!,
+          isTruncated,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.keyMarker != null) {
+    if (keyMarker != null) {
       result
         ..add(const _i7.XmlElementName('KeyMarker'))
         ..add(serializers.serialize(
-          payload.keyMarker!,
+          keyMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxKeys != null) {
+    if (maxKeys != null) {
       result
         ..add(const _i7.XmlElementName('MaxKeys'))
         ..add(serializers.serialize(
-          payload.maxKeys!,
+          maxKeys,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.name != null) {
+    if (name != null) {
       result
         ..add(const _i7.XmlElementName('Name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextKeyMarker != null) {
+    if (nextKeyMarker != null) {
       result
         ..add(const _i7.XmlElementName('NextKeyMarker'))
         ..add(serializers.serialize(
-          payload.nextKeyMarker!,
+          nextKeyMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nextVersionIdMarker != null) {
+    if (nextVersionIdMarker != null) {
       result
         ..add(const _i7.XmlElementName('NextVersionIdMarker'))
         ..add(serializers.serialize(
-          payload.nextVersionIdMarker!,
+          nextVersionIdMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.prefix != null) {
+    if (prefix != null) {
       result
         ..add(const _i7.XmlElementName('Prefix'))
         ..add(serializers.serialize(
-          payload.prefix!,
+          prefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versionIdMarker != null) {
+    if (versionIdMarker != null) {
       result
         ..add(const _i7.XmlElementName('VersionIdMarker'))
         ..add(serializers.serialize(
-          payload.versionIdMarker!,
+          versionIdMarker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.versions != null) {
+    if (versions != null) {
       result.addAll(
           const _i7.XmlBuiltListSerializer(memberName: 'Version').serialize(
         serializers,
-        payload.versions!,
+        versions,
         specifiedType: const FullType.nullable(
           _i6.BuiltList,
           [FullType(_i2.ObjectVersion)],

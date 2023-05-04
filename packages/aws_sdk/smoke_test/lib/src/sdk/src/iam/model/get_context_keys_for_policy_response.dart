@@ -87,24 +87,24 @@ class GetContextKeysForPolicyResponseAwsQuerySerializer
     final result = GetContextKeysForPolicyResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ContextKeyNames':
-          if (value != null) {
-            result.contextKeyNames.replace((const _i3.XmlBuiltListSerializer(
-                    indexer: _i3.XmlIndexer.awsQueryList)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.contextKeyNames.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -124,14 +124,15 @@ class GetContextKeysForPolicyResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.contextKeyNames != null) {
+    final GetContextKeysForPolicyResponse(:contextKeyNames) = payload;
+    if (contextKeyNames != null) {
       result
         ..add(const _i3.XmlElementName('ContextKeyNames'))
         ..add(const _i3.XmlBuiltListSerializer(
                 indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
-          payload.contextKeyNames!,
+          contextKeyNames,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],

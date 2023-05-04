@@ -211,86 +211,64 @@ class UpdateTableInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AttributeDefinitions':
-          if (value != null) {
-            result.attributeDefinitions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i11.BuiltList,
-                [FullType(_i3.AttributeDefinition)],
-              ),
-            ) as _i11.BuiltList<_i3.AttributeDefinition>));
-          }
-          break;
+          result.attributeDefinitions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i11.BuiltList,
+              [FullType(_i3.AttributeDefinition)],
+            ),
+          ) as _i11.BuiltList<_i3.AttributeDefinition>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'BillingMode':
-          if (value != null) {
-            result.billingMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.BillingMode),
-            ) as _i4.BillingMode);
-          }
-          break;
+          result.billingMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.BillingMode),
+          ) as _i4.BillingMode);
         case 'ProvisionedThroughput':
-          if (value != null) {
-            result.provisionedThroughput.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.ProvisionedThroughput),
-            ) as _i5.ProvisionedThroughput));
-          }
-          break;
+          result.provisionedThroughput.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.ProvisionedThroughput),
+          ) as _i5.ProvisionedThroughput));
         case 'GlobalSecondaryIndexUpdates':
-          if (value != null) {
-            result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i11.BuiltList,
-                [FullType(_i6.GlobalSecondaryIndexUpdate)],
-              ),
-            ) as _i11.BuiltList<_i6.GlobalSecondaryIndexUpdate>));
-          }
-          break;
+          result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i11.BuiltList,
+              [FullType(_i6.GlobalSecondaryIndexUpdate)],
+            ),
+          ) as _i11.BuiltList<_i6.GlobalSecondaryIndexUpdate>));
         case 'StreamSpecification':
-          if (value != null) {
-            result.streamSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.StreamSpecification),
-            ) as _i7.StreamSpecification));
-          }
-          break;
+          result.streamSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.StreamSpecification),
+          ) as _i7.StreamSpecification));
         case 'SSESpecification':
-          if (value != null) {
-            result.sseSpecification.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.SseSpecification),
-            ) as _i8.SseSpecification));
-          }
-          break;
+          result.sseSpecification.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.SseSpecification),
+          ) as _i8.SseSpecification));
         case 'ReplicaUpdates':
-          if (value != null) {
-            result.replicaUpdates.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i11.BuiltList,
-                [FullType(_i9.ReplicationGroupUpdate)],
-              ),
-            ) as _i11.BuiltList<_i9.ReplicationGroupUpdate>));
-          }
-          break;
+          result.replicaUpdates.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i11.BuiltList,
+              [FullType(_i9.ReplicationGroupUpdate)],
+            ),
+          ) as _i11.BuiltList<_i9.ReplicationGroupUpdate>));
         case 'TableClass':
-          if (value != null) {
-            result.tableClass = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i10.TableClass),
-            ) as _i10.TableClass);
-          }
-          break;
+          result.tableClass = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i10.TableClass),
+          ) as _i10.TableClass);
       }
     }
 
@@ -311,76 +289,86 @@ class UpdateTableInputAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.attributeDefinitions != null) {
+    final UpdateTableInput(
+      :attributeDefinitions,
+      :billingMode,
+      :provisionedThroughput,
+      :globalSecondaryIndexUpdates,
+      :streamSpecification,
+      :sseSpecification,
+      :replicaUpdates,
+      :tableClass
+    ) = payload;
+    if (attributeDefinitions != null) {
       result
         ..add('AttributeDefinitions')
         ..add(serializers.serialize(
-          payload.attributeDefinitions!,
+          attributeDefinitions,
           specifiedType: const FullType(
             _i11.BuiltList,
             [FullType(_i3.AttributeDefinition)],
           ),
         ));
     }
-    if (payload.billingMode != null) {
+    if (billingMode != null) {
       result
         ..add('BillingMode')
         ..add(serializers.serialize(
-          payload.billingMode!,
+          billingMode,
           specifiedType: const FullType(_i4.BillingMode),
         ));
     }
-    if (payload.provisionedThroughput != null) {
+    if (provisionedThroughput != null) {
       result
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
-          payload.provisionedThroughput!,
+          provisionedThroughput,
           specifiedType: const FullType(_i5.ProvisionedThroughput),
         ));
     }
-    if (payload.globalSecondaryIndexUpdates != null) {
+    if (globalSecondaryIndexUpdates != null) {
       result
         ..add('GlobalSecondaryIndexUpdates')
         ..add(serializers.serialize(
-          payload.globalSecondaryIndexUpdates!,
+          globalSecondaryIndexUpdates,
           specifiedType: const FullType(
             _i11.BuiltList,
             [FullType(_i6.GlobalSecondaryIndexUpdate)],
           ),
         ));
     }
-    if (payload.streamSpecification != null) {
+    if (streamSpecification != null) {
       result
         ..add('StreamSpecification')
         ..add(serializers.serialize(
-          payload.streamSpecification!,
+          streamSpecification,
           specifiedType: const FullType(_i7.StreamSpecification),
         ));
     }
-    if (payload.sseSpecification != null) {
+    if (sseSpecification != null) {
       result
         ..add('SSESpecification')
         ..add(serializers.serialize(
-          payload.sseSpecification!,
+          sseSpecification,
           specifiedType: const FullType(_i8.SseSpecification),
         ));
     }
-    if (payload.replicaUpdates != null) {
+    if (replicaUpdates != null) {
       result
         ..add('ReplicaUpdates')
         ..add(serializers.serialize(
-          payload.replicaUpdates!,
+          replicaUpdates,
           specifiedType: const FullType(
             _i11.BuiltList,
             [FullType(_i9.ReplicationGroupUpdate)],
           ),
         ));
     }
-    if (payload.tableClass != null) {
+    if (tableClass != null) {
       result
         ..add('TableClass')
         ..add(serializers.serialize(
-          payload.tableClass!,
+          tableClass,
           specifiedType: const FullType(_i10.TableClass),
         ));
     }

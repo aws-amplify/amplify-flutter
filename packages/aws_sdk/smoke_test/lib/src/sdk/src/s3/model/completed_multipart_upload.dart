@@ -79,18 +79,18 @@ class CompletedMultipartUploadRestXmlSerializer
     final result = CompletedMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Part':
-          if (value != null) {
-            result.parts.add((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CompletedPart),
-            ) as _i2.CompletedPart));
-          }
-          break;
+          result.parts.add((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CompletedPart),
+          ) as _i2.CompletedPart));
       }
     }
 
@@ -110,11 +110,12 @@ class CompletedMultipartUploadRestXmlSerializer
         _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.parts != null) {
+    final CompletedMultipartUpload(:parts) = payload;
+    if (parts != null) {
       result.addAll(
           const _i4.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
-        payload.parts!,
+        parts,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(_i2.CompletedPart)],

@@ -86,18 +86,18 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
     final result = _i3.PolicyStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'IsPublic':
-          if (value != null) {
-            result.isPublic = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.isPublic = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -122,11 +122,12 @@ class GetBucketPolicyStatusOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.isPublic != null) {
+    final _i3.PolicyStatus(:isPublic) = payload;
+    if (isPublic != null) {
       result
         ..add(const _i2.XmlElementName('IsPublic'))
         ..add(serializers.serialize(
-          payload.isPublic!,
+          isPublic,
           specifiedType: const FullType.nullable(bool),
         ));
     }

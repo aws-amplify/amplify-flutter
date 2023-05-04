@@ -148,43 +148,35 @@ class OrganizationConformancePackStatusAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'OrganizationConformancePackName':
           result.organizationConformancePackName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.OrganizationResourceStatus),
           ) as _i2.OrganizationResourceStatus);
-          break;
         case 'ErrorCode':
-          if (value != null) {
-            result.errorCode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.errorCode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ErrorMessage':
-          if (value != null) {
-            result.errorMessage = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.errorMessage = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LastUpdateTime':
-          if (value != null) {
-            result.lastUpdateTime = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(DateTime),
-            ) as DateTime);
-          }
-          break;
+          result.lastUpdateTime = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime);
       }
     }
 
@@ -210,27 +202,32 @@ class OrganizationConformancePackStatusAwsJson11Serializer
         specifiedType: const FullType(_i2.OrganizationResourceStatus),
       ),
     ];
-    if (payload.errorCode != null) {
+    final OrganizationConformancePackStatus(
+      :errorCode,
+      :errorMessage,
+      :lastUpdateTime
+    ) = payload;
+    if (errorCode != null) {
       result
         ..add('ErrorCode')
         ..add(serializers.serialize(
-          payload.errorCode!,
+          errorCode,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.errorMessage != null) {
+    if (errorMessage != null) {
       result
         ..add('ErrorMessage')
         ..add(serializers.serialize(
-          payload.errorMessage!,
+          errorMessage,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.lastUpdateTime != null) {
+    if (lastUpdateTime != null) {
       result
         ..add('LastUpdateTime')
         ..add(serializers.serialize(
-          payload.lastUpdateTime!,
+          lastUpdateTime,
           specifiedType: const FullType(DateTime),
         ));
     }

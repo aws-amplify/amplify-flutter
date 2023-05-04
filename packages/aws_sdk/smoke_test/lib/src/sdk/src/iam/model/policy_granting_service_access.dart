@@ -135,46 +135,38 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
     final result = PolicyGrantingServiceAccessBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PolicyName':
           result.policyName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PolicyType':
           result.policyType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.PolicyType),
           ) as _i2.PolicyType);
-          break;
         case 'PolicyArn':
-          if (value != null) {
-            result.policyArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.policyArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EntityType':
-          if (value != null) {
-            result.entityType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PolicyOwnerEntityType),
-            ) as _i3.PolicyOwnerEntityType);
-          }
-          break;
+          result.entityType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PolicyOwnerEntityType),
+          ) as _i3.PolicyOwnerEntityType);
         case 'EntityName':
-          if (value != null) {
-            result.entityName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.entityName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -194,39 +186,46 @@ class PolicyGrantingServiceAccessAwsQuerySerializer
         _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final PolicyGrantingServiceAccess(
+      :policyName,
+      :policyType,
+      :policyArn,
+      :entityType,
+      :entityName
+    ) = payload;
     result
       ..add(const _i4.XmlElementName('PolicyName'))
       ..add(serializers.serialize(
-        payload.policyName,
+        policyName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i4.XmlElementName('PolicyType'))
       ..add(serializers.serialize(
-        payload.policyType,
+        policyType,
         specifiedType: const FullType.nullable(_i2.PolicyType),
       ));
-    if (payload.policyArn != null) {
+    if (policyArn != null) {
       result
         ..add(const _i4.XmlElementName('PolicyArn'))
         ..add(serializers.serialize(
-          payload.policyArn!,
+          policyArn,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.entityType != null) {
+    if (entityType != null) {
       result
         ..add(const _i4.XmlElementName('EntityType'))
         ..add(serializers.serialize(
-          payload.entityType!,
+          entityType,
           specifiedType: const FullType.nullable(_i3.PolicyOwnerEntityType),
         ));
     }
-    if (payload.entityName != null) {
+    if (entityName != null) {
       result
         ..add(const _i4.XmlElementName('EntityName'))
         ..add(serializers.serialize(
-          payload.entityName!,
+          entityName,
           specifiedType: const FullType(String),
         ));
     }

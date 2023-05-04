@@ -112,34 +112,28 @@ class ListInstanceProfilesRequestAwsQuerySerializer
     final result = ListInstanceProfilesRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'PathPrefix':
-          if (value != null) {
-            result.pathPrefix = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.pathPrefix = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Marker':
-          if (value != null) {
-            result.marker = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.marker = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'MaxItems':
-          if (value != null) {
-            result.maxItems = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxItems = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -159,27 +153,29 @@ class ListInstanceProfilesRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
-    if (payload.pathPrefix != null) {
+    final ListInstanceProfilesRequest(:pathPrefix, :marker, :maxItems) =
+        payload;
+    if (pathPrefix != null) {
       result
         ..add(const _i1.XmlElementName('PathPrefix'))
         ..add(serializers.serialize(
-          payload.pathPrefix!,
+          pathPrefix,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.marker != null) {
+    if (marker != null) {
       result
         ..add(const _i1.XmlElementName('Marker'))
         ..add(serializers.serialize(
-          payload.marker!,
+          marker,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.maxItems != null) {
+    if (maxItems != null) {
       result
         ..add(const _i1.XmlElementName('MaxItems'))
         ..add(serializers.serialize(
-          payload.maxItems!,
+          maxItems,
           specifiedType: const FullType.nullable(int),
         ));
     }

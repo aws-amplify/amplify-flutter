@@ -93,24 +93,23 @@ class ListImportsInputAwsQuerySerializer
     final result = ListImportsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ExportName':
           result.exportName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -130,17 +129,18 @@ class ListImportsInputAwsQuerySerializer
         _i1.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final ListImportsInput(:exportName, :nextToken) = payload;
     result
       ..add(const _i1.XmlElementName('ExportName'))
       ..add(serializers.serialize(
-        payload.exportName,
+        exportName,
         specifiedType: const FullType(String),
       ));
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add(const _i1.XmlElementName('NextToken'))
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

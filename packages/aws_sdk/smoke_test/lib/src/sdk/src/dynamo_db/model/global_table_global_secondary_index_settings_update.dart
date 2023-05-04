@@ -113,30 +113,26 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IndexName':
           result.indexName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProvisionedWriteCapacityUnits':
-          if (value != null) {
-            result.provisionedWriteCapacityUnits = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.provisionedWriteCapacityUnits = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ProvisionedWriteCapacityAutoScalingSettingsUpdate':
-          if (value != null) {
-            result.provisionedWriteCapacityAutoScalingSettingsUpdate
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-            ) as _i3.AutoScalingSettingsUpdate));
-          }
-          break;
+          result.provisionedWriteCapacityAutoScalingSettingsUpdate
+              .replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          ) as _i3.AutoScalingSettingsUpdate));
       }
     }
 
@@ -157,19 +153,23 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer
         specifiedType: const FullType(String),
       ),
     ];
-    if (payload.provisionedWriteCapacityUnits != null) {
+    final GlobalTableGlobalSecondaryIndexSettingsUpdate(
+      :provisionedWriteCapacityUnits,
+      :provisionedWriteCapacityAutoScalingSettingsUpdate
+    ) = payload;
+    if (provisionedWriteCapacityUnits != null) {
       result
         ..add('ProvisionedWriteCapacityUnits')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityUnits!,
+          provisionedWriteCapacityUnits,
           specifiedType: const FullType(_i2.Int64),
         ));
     }
-    if (payload.provisionedWriteCapacityAutoScalingSettingsUpdate != null) {
+    if (provisionedWriteCapacityAutoScalingSettingsUpdate != null) {
       result
         ..add('ProvisionedWriteCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
-          payload.provisionedWriteCapacityAutoScalingSettingsUpdate!,
+          provisionedWriteCapacityAutoScalingSettingsUpdate,
           specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
         ));
     }

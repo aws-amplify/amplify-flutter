@@ -104,29 +104,26 @@ class TransactGetItemsOutputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConsumedCapacity':
-          if (value != null) {
-            result.consumedCapacity.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i2.ConsumedCapacity)],
-              ),
-            ) as _i4.BuiltList<_i2.ConsumedCapacity>));
-          }
-          break;
+          result.consumedCapacity.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i2.ConsumedCapacity)],
+            ),
+          ) as _i4.BuiltList<_i2.ConsumedCapacity>));
         case 'Responses':
-          if (value != null) {
-            result.responses.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.ItemResponse)],
-              ),
-            ) as _i4.BuiltList<_i3.ItemResponse>));
-          }
-          break;
+          result.responses.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.ItemResponse)],
+            ),
+          ) as _i4.BuiltList<_i3.ItemResponse>));
       }
     }
 
@@ -141,22 +138,23 @@ class TransactGetItemsOutputAwsJson10Serializer
   }) {
     final payload = (object as TransactGetItemsOutput);
     final result = <Object?>[];
-    if (payload.consumedCapacity != null) {
+    final TransactGetItemsOutput(:consumedCapacity, :responses) = payload;
+    if (consumedCapacity != null) {
       result
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
-          payload.consumedCapacity!,
+          consumedCapacity,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i2.ConsumedCapacity)],
           ),
         ));
     }
-    if (payload.responses != null) {
+    if (responses != null) {
       result
         ..add('Responses')
         ..add(serializers.serialize(
-          payload.responses!,
+          responses,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.ItemResponse)],

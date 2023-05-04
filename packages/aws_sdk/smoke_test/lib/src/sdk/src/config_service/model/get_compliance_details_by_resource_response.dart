@@ -104,26 +104,23 @@ class GetComplianceDetailsByResourceResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'EvaluationResults':
-          if (value != null) {
-            result.evaluationResults.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.EvaluationResult)],
-              ),
-            ) as _i3.BuiltList<_i2.EvaluationResult>));
-          }
-          break;
+          result.evaluationResults.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.EvaluationResult)],
+            ),
+          ) as _i3.BuiltList<_i2.EvaluationResult>));
         case 'NextToken':
-          if (value != null) {
-            result.nextToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.nextToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -138,22 +135,26 @@ class GetComplianceDetailsByResourceResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as GetComplianceDetailsByResourceResponse);
     final result = <Object?>[];
-    if (payload.evaluationResults != null) {
+    final GetComplianceDetailsByResourceResponse(
+      :evaluationResults,
+      :nextToken
+    ) = payload;
+    if (evaluationResults != null) {
       result
         ..add('EvaluationResults')
         ..add(serializers.serialize(
-          payload.evaluationResults!,
+          evaluationResults,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.EvaluationResult)],
           ),
         ));
     }
-    if (payload.nextToken != null) {
+    if (nextToken != null) {
       result
         ..add('NextToken')
         ..add(serializers.serialize(
-          payload.nextToken!,
+          nextToken,
           specifiedType: const FullType(String),
         ));
     }

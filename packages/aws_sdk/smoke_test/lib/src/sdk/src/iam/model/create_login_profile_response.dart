@@ -82,16 +82,18 @@ class CreateLoginProfileResponseAwsQuerySerializer
     final result = CreateLoginProfileResponseBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LoginProfile':
           result.loginProfile.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.LoginProfile),
           ) as _i2.LoginProfile));
-          break;
       }
     }
 
@@ -111,10 +113,11 @@ class CreateLoginProfileResponseAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final CreateLoginProfileResponse(:loginProfile) = payload;
     result
       ..add(const _i3.XmlElementName('LoginProfile'))
       ..add(serializers.serialize(
-        payload.loginProfile,
+        loginProfile,
         specifiedType: const FullType(_i2.LoginProfile),
       ));
     return result;

@@ -110,34 +110,28 @@ class ConformancePackRuleComplianceAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigRuleName':
-          if (value != null) {
-            result.configRuleName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.configRuleName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplianceType':
-          if (value != null) {
-            result.complianceType = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ConformancePackComplianceType),
-            ) as _i2.ConformancePackComplianceType);
-          }
-          break;
+          result.complianceType = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          ) as _i2.ConformancePackComplianceType);
         case 'Controls':
-          if (value != null) {
-            result.controls.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.controls.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -152,27 +146,32 @@ class ConformancePackRuleComplianceAwsJson11Serializer
   }) {
     final payload = (object as ConformancePackRuleCompliance);
     final result = <Object?>[];
-    if (payload.configRuleName != null) {
+    final ConformancePackRuleCompliance(
+      :configRuleName,
+      :complianceType,
+      :controls
+    ) = payload;
+    if (configRuleName != null) {
       result
         ..add('ConfigRuleName')
         ..add(serializers.serialize(
-          payload.configRuleName!,
+          configRuleName,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.complianceType != null) {
+    if (complianceType != null) {
       result
         ..add('ComplianceType')
         ..add(serializers.serialize(
-          payload.complianceType!,
+          complianceType,
           specifiedType: const FullType(_i2.ConformancePackComplianceType),
         ));
     }
-    if (payload.controls != null) {
+    if (controls != null) {
       result
         ..add('Controls')
         ..add(serializers.serialize(
-          payload.controls!,
+          controls,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

@@ -116,34 +116,33 @@ class SshPublicKeyMetadataAwsQuerySerializer
     final result = SshPublicKeyMetadataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SSHPublicKeyId':
           result.sshPublicKeyId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Status':
           result.status = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.StatusType),
           ) as _i2.StatusType);
-          break;
         case 'UploadDate':
           result.uploadDate = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
       }
     }
 
@@ -163,28 +162,34 @@ class SshPublicKeyMetadataAwsQuerySerializer
         _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final SshPublicKeyMetadata(
+      :userName,
+      :sshPublicKeyId,
+      :status,
+      :uploadDate
+    ) = payload;
     result
       ..add(const _i3.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('SSHPublicKeyId'))
       ..add(serializers.serialize(
-        payload.sshPublicKeyId,
+        sshPublicKeyId,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i3.XmlElementName('Status'))
       ..add(serializers.serialize(
-        payload.status,
+        status,
         specifiedType: const FullType.nullable(_i2.StatusType),
       ));
     result
       ..add(const _i3.XmlElementName('UploadDate'))
       ..add(serializers.serialize(
-        payload.uploadDate,
+        uploadDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     return result;

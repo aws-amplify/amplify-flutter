@@ -131,42 +131,33 @@ class ResourceChangeDetailAwsQuerySerializer
     final result = ResourceChangeDetailBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Target':
-          if (value != null) {
-            result.target.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ResourceTargetDefinition),
-            ) as _i2.ResourceTargetDefinition));
-          }
-          break;
+          result.target.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ResourceTargetDefinition),
+          ) as _i2.ResourceTargetDefinition));
         case 'Evaluation':
-          if (value != null) {
-            result.evaluation = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.EvaluationType),
-            ) as _i3.EvaluationType);
-          }
-          break;
+          result.evaluation = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.EvaluationType),
+          ) as _i3.EvaluationType);
         case 'ChangeSource':
-          if (value != null) {
-            result.changeSource = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ChangeSource),
-            ) as _i4.ChangeSource);
-          }
-          break;
+          result.changeSource = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ChangeSource),
+          ) as _i4.ChangeSource);
         case 'CausingEntity':
-          if (value != null) {
-            result.causingEntity = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.causingEntity = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -186,35 +177,41 @@ class ResourceChangeDetailAwsQuerySerializer
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.target != null) {
+    final ResourceChangeDetail(
+      :target,
+      :evaluation,
+      :changeSource,
+      :causingEntity
+    ) = payload;
+    if (target != null) {
       result
         ..add(const _i5.XmlElementName('Target'))
         ..add(serializers.serialize(
-          payload.target!,
+          target,
           specifiedType: const FullType(_i2.ResourceTargetDefinition),
         ));
     }
-    if (payload.evaluation != null) {
+    if (evaluation != null) {
       result
         ..add(const _i5.XmlElementName('Evaluation'))
         ..add(serializers.serialize(
-          payload.evaluation!,
+          evaluation,
           specifiedType: const FullType.nullable(_i3.EvaluationType),
         ));
     }
-    if (payload.changeSource != null) {
+    if (changeSource != null) {
       result
         ..add(const _i5.XmlElementName('ChangeSource'))
         ..add(serializers.serialize(
-          payload.changeSource!,
+          changeSource,
           specifiedType: const FullType.nullable(_i4.ChangeSource),
         ));
     }
-    if (payload.causingEntity != null) {
+    if (causingEntity != null) {
       result
         ..add(const _i5.XmlElementName('CausingEntity'))
         ..add(serializers.serialize(
-          payload.causingEntity!,
+          causingEntity,
           specifiedType: const FullType(String),
         ));
     }

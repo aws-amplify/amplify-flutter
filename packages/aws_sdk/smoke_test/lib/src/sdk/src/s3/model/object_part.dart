@@ -128,58 +128,43 @@ class ObjectPartRestXmlSerializer
     final result = ObjectPartBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ChecksumCRC32':
-          if (value != null) {
-            result.checksumCrc32 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumCRC32C':
-          if (value != null) {
-            result.checksumCrc32C = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumCrc32C = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA1':
-          if (value != null) {
-            result.checksumSha1 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha1 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChecksumSHA256':
-          if (value != null) {
-            result.checksumSha256 = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.checksumSha256 = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'PartNumber':
-          if (value != null) {
-            result.partNumber = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.partNumber = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Size':
-          if (value != null) {
-            result.size = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Int64),
-            ) as _i2.Int64);
-          }
-          break;
+          result.size = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -199,51 +184,59 @@ class ObjectPartRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.checksumCrc32 != null) {
+    final ObjectPart(
+      :checksumCrc32,
+      :checksumCrc32C,
+      :checksumSha1,
+      :checksumSha256,
+      :partNumber,
+      :size
+    ) = payload;
+    if (checksumCrc32 != null) {
       result
         ..add(const _i3.XmlElementName('ChecksumCRC32'))
         ..add(serializers.serialize(
-          payload.checksumCrc32!,
+          checksumCrc32,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumCrc32C != null) {
+    if (checksumCrc32C != null) {
       result
         ..add(const _i3.XmlElementName('ChecksumCRC32C'))
         ..add(serializers.serialize(
-          payload.checksumCrc32C!,
+          checksumCrc32C,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha1 != null) {
+    if (checksumSha1 != null) {
       result
         ..add(const _i3.XmlElementName('ChecksumSHA1'))
         ..add(serializers.serialize(
-          payload.checksumSha1!,
+          checksumSha1,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.checksumSha256 != null) {
+    if (checksumSha256 != null) {
       result
         ..add(const _i3.XmlElementName('ChecksumSHA256'))
         ..add(serializers.serialize(
-          payload.checksumSha256!,
+          checksumSha256,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.partNumber != null) {
+    if (partNumber != null) {
       result
         ..add(const _i3.XmlElementName('PartNumber'))
         ..add(serializers.serialize(
-          payload.partNumber!,
+          partNumber,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.size != null) {
+    if (size != null) {
       result
         ..add(const _i3.XmlElementName('Size'))
         ..add(serializers.serialize(
-          payload.size!,
+          size,
           specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }

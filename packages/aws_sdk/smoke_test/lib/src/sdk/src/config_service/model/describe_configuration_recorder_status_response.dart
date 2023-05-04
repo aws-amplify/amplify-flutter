@@ -95,19 +95,18 @@ class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ConfigurationRecordersStatus':
-          if (value != null) {
-            result.configurationRecordersStatus
-                .replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.ConfigurationRecorderStatus)],
-              ),
-            ) as _i3.BuiltList<_i2.ConfigurationRecorderStatus>));
-          }
-          break;
+          result.configurationRecordersStatus.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.ConfigurationRecorderStatus)],
+            ),
+          ) as _i3.BuiltList<_i2.ConfigurationRecorderStatus>));
       }
     }
 
@@ -122,11 +121,14 @@ class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
   }) {
     final payload = (object as DescribeConfigurationRecorderStatusResponse);
     final result = <Object?>[];
-    if (payload.configurationRecordersStatus != null) {
+    final DescribeConfigurationRecorderStatusResponse(
+      :configurationRecordersStatus
+    ) = payload;
+    if (configurationRecordersStatus != null) {
       result
         ..add('ConfigurationRecordersStatus')
         ..add(serializers.serialize(
-          payload.configurationRecordersStatus!,
+          configurationRecordersStatus,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.ConfigurationRecorderStatus)],

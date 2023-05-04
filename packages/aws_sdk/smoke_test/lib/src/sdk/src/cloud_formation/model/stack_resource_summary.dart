@@ -155,67 +155,54 @@ class StackResourceSummaryAwsQuerySerializer
     final result = StackResourceSummaryBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LogicalResourceId':
           result.logicalResourceId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'PhysicalResourceId':
-          if (value != null) {
-            result.physicalResourceId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.physicalResourceId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'LastUpdatedTimestamp':
           result.lastUpdatedTimestamp = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
-          break;
         case 'ResourceStatus':
           result.resourceStatus = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i2.ResourceStatus),
           ) as _i2.ResourceStatus);
-          break;
         case 'ResourceStatusReason':
-          if (value != null) {
-            result.resourceStatusReason = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.resourceStatusReason = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DriftInformation':
-          if (value != null) {
-            result.driftInformation.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.StackResourceDriftInformationSummary),
-            ) as _i3.StackResourceDriftInformationSummary));
-          }
-          break;
+          result.driftInformation.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.StackResourceDriftInformationSummary),
+          ) as _i3.StackResourceDriftInformationSummary));
         case 'ModuleInfo':
-          if (value != null) {
-            result.moduleInfo.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ModuleInfo),
-            ) as _i4.ModuleInfo));
-          }
-          break;
+          result.moduleInfo.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ModuleInfo),
+          ) as _i4.ModuleInfo));
       }
     }
 
@@ -235,60 +222,70 @@ class StackResourceSummaryAwsQuerySerializer
         _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
+    final StackResourceSummary(
+      :logicalResourceId,
+      :physicalResourceId,
+      :resourceType,
+      :lastUpdatedTimestamp,
+      :resourceStatus,
+      :resourceStatusReason,
+      :driftInformation,
+      :moduleInfo
+    ) = payload;
     result
       ..add(const _i5.XmlElementName('LogicalResourceId'))
       ..add(serializers.serialize(
-        payload.logicalResourceId,
+        logicalResourceId,
         specifiedType: const FullType(String),
       ));
-    if (payload.physicalResourceId != null) {
+    if (physicalResourceId != null) {
       result
         ..add(const _i5.XmlElementName('PhysicalResourceId'))
         ..add(serializers.serialize(
-          payload.physicalResourceId!,
+          physicalResourceId,
           specifiedType: const FullType(String),
         ));
     }
     result
       ..add(const _i5.XmlElementName('ResourceType'))
       ..add(serializers.serialize(
-        payload.resourceType,
+        resourceType,
         specifiedType: const FullType(String),
       ));
     result
       ..add(const _i5.XmlElementName('LastUpdatedTimestamp'))
       ..add(serializers.serialize(
-        payload.lastUpdatedTimestamp,
+        lastUpdatedTimestamp,
         specifiedType: const FullType.nullable(DateTime),
       ));
     result
       ..add(const _i5.XmlElementName('ResourceStatus'))
       ..add(serializers.serialize(
-        payload.resourceStatus,
+        resourceStatus,
         specifiedType: const FullType.nullable(_i2.ResourceStatus),
       ));
-    if (payload.resourceStatusReason != null) {
+    if (resourceStatusReason != null) {
       result
         ..add(const _i5.XmlElementName('ResourceStatusReason'))
         ..add(serializers.serialize(
-          payload.resourceStatusReason!,
+          resourceStatusReason,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.driftInformation != null) {
+    if (driftInformation != null) {
       result
         ..add(const _i5.XmlElementName('DriftInformation'))
         ..add(serializers.serialize(
-          payload.driftInformation!,
+          driftInformation,
           specifiedType:
               const FullType(_i3.StackResourceDriftInformationSummary),
         ));
     }
-    if (payload.moduleInfo != null) {
+    if (moduleInfo != null) {
       result
         ..add(const _i5.XmlElementName('ModuleInfo'))
         ..add(serializers.serialize(
-          payload.moduleInfo!,
+          moduleInfo,
           specifiedType: const FullType(_i4.ModuleInfo),
         ));
     }

@@ -239,18 +239,18 @@ class CreateBucketRequestRestXmlSerializer
     final result = _i2.CreateBucketConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'LocationConstraint':
-          if (value != null) {
-            result.locationConstraint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.BucketLocationConstraint),
-            ) as _i6.BucketLocationConstraint);
-          }
-          break;
+          result.locationConstraint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.BucketLocationConstraint),
+          ) as _i6.BucketLocationConstraint);
       }
     }
 
@@ -275,11 +275,12 @@ class CreateBucketRequestRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.locationConstraint != null) {
+    final _i2.CreateBucketConfiguration(:locationConstraint) = payload;
+    if (locationConstraint != null) {
       result
         ..add(const _i1.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
-          payload.locationConstraint!,
+          locationConstraint,
           specifiedType: const FullType.nullable(_i6.BucketLocationConstraint),
         ));
     }

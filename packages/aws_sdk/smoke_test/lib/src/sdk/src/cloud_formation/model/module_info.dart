@@ -103,26 +103,23 @@ class ModuleInfoAwsQuerySerializer
     final result = ModuleInfoBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeHierarchy':
-          if (value != null) {
-            result.typeHierarchy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeHierarchy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'LogicalIdHierarchy':
-          if (value != null) {
-            result.logicalIdHierarchy = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.logicalIdHierarchy = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,19 +139,20 @@ class ModuleInfoAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.typeHierarchy != null) {
+    final ModuleInfo(:typeHierarchy, :logicalIdHierarchy) = payload;
+    if (typeHierarchy != null) {
       result
         ..add(const _i2.XmlElementName('TypeHierarchy'))
         ..add(serializers.serialize(
-          payload.typeHierarchy!,
+          typeHierarchy,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.logicalIdHierarchy != null) {
+    if (logicalIdHierarchy != null) {
       result
         ..add(const _i2.XmlElementName('LogicalIdHierarchy'))
         ..add(serializers.serialize(
-          payload.logicalIdHierarchy!,
+          logicalIdHierarchy,
           specifiedType: const FullType(String),
         ));
     }

@@ -96,16 +96,18 @@ class UntagUserRequestAwsQuerySerializer
     final result = UntagUserRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'UserName':
           result.userName = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'TagKeys':
           result.tagKeys.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -117,7 +119,6 @@ class UntagUserRequestAwsQuerySerializer
               [FullType(String)],
             ),
           ) as _i3.BuiltList<String>));
-          break;
       }
     }
 
@@ -137,10 +138,11 @@ class UntagUserRequestAwsQuerySerializer
         _i1.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
+    final UntagUserRequest(:userName, :tagKeys) = payload;
     result
       ..add(const _i1.XmlElementName('UserName'))
       ..add(serializers.serialize(
-        payload.userName,
+        userName,
         specifiedType: const FullType(String),
       ));
     result
@@ -149,7 +151,7 @@ class UntagUserRequestAwsQuerySerializer
           const _i1.XmlBuiltListSerializer(indexer: _i1.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
-        payload.tagKeys,
+        tagKeys,
         specifiedType: const FullType.nullable(
           _i3.BuiltList,
           [FullType(String)],

@@ -75,18 +75,18 @@ class TestTypeOutputAwsQuerySerializer
     final result = TestTypeOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TypeVersionArn':
-          if (value != null) {
-            result.typeVersionArn = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.typeVersionArn = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -106,11 +106,12 @@ class TestTypeOutputAwsQuerySerializer
         _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
-    if (payload.typeVersionArn != null) {
+    final TestTypeOutput(:typeVersionArn) = payload;
+    if (typeVersionArn != null) {
       result
         ..add(const _i2.XmlElementName('TypeVersionArn'))
         ..add(serializers.serialize(
-          payload.typeVersionArn!,
+          typeVersionArn,
           specifiedType: const FullType(String),
         ));
     }

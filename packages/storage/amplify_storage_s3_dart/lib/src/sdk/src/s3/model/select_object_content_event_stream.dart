@@ -16,36 +16,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [SelectObjectContentEventStream].
-enum SelectObjectContentEventStreamType<
-    T extends SelectObjectContentEventStream> {
-  /// The type for [SelectObjectContentEventStreamRecords].
-  records<SelectObjectContentEventStreamRecords>(r'Records'),
-
-  /// The type for [SelectObjectContentEventStreamStats].
-  stats<SelectObjectContentEventStreamStats>(r'Stats'),
-
-  /// The type for [SelectObjectContentEventStreamProgress].
-  progress<SelectObjectContentEventStreamProgress>(r'Progress'),
-
-  /// The type for [SelectObjectContentEventStreamCont].
-  cont<SelectObjectContentEventStreamCont>(r'Cont'),
-
-  /// The type for [SelectObjectContentEventStreamEnd].
-  end<SelectObjectContentEventStreamEnd>(r'End'),
-
-  /// The type for an unknown value.
-  sdkUnknown<SelectObjectContentEventStreamSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [SelectObjectContentEventStream].
-  const SelectObjectContentEventStreamType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-/// The container for selecting objects from a content event stream.
-abstract class SelectObjectContentEventStream
+sealed class SelectObjectContentEventStream
     extends _i1.SmithyUnion<SelectObjectContentEventStream> {
   const SelectObjectContentEventStream._();
 
@@ -86,45 +57,8 @@ abstract class SelectObjectContentEventStream
 
   /// The End Event.
   _i6.EndEvent? get end => null;
-  SelectObjectContentEventStreamType get type;
   @override
   Object get value => (records ?? stats ?? progress ?? cont ?? end)!;
-  @override
-  T? when<T>({
-    T Function(_i2.RecordsEvent)? records,
-    T Function(_i3.StatsEvent)? stats,
-    T Function(_i4.ProgressEvent)? progress,
-    T Function(_i5.ContinuationEvent)? cont,
-    T Function(_i6.EndEvent)? end,
-    T Function(
-      String,
-      Object,
-    )?
-        sdkUnknown,
-  }) {
-    if (this is SelectObjectContentEventStreamRecords) {
-      return records
-          ?.call((this as SelectObjectContentEventStreamRecords).records);
-    }
-    if (this is SelectObjectContentEventStreamStats) {
-      return stats?.call((this as SelectObjectContentEventStreamStats).stats);
-    }
-    if (this is SelectObjectContentEventStreamProgress) {
-      return progress
-          ?.call((this as SelectObjectContentEventStreamProgress).progress);
-    }
-    if (this is SelectObjectContentEventStreamCont) {
-      return cont?.call((this as SelectObjectContentEventStreamCont).cont);
-    }
-    if (this is SelectObjectContentEventStreamEnd) {
-      return end?.call((this as SelectObjectContentEventStreamEnd).end);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper =
@@ -163,7 +97,7 @@ abstract class SelectObjectContentEventStream
   }
 }
 
-class SelectObjectContentEventStreamRecords
+final class SelectObjectContentEventStreamRecords
     extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamRecords(this.records) : super._();
 
@@ -171,13 +105,10 @@ class SelectObjectContentEventStreamRecords
   final _i2.RecordsEvent records;
 
   @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.records;
-  @override
   String get name => 'Records';
 }
 
-class SelectObjectContentEventStreamStats
+final class SelectObjectContentEventStreamStats
     extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamStats(this.stats) : super._();
 
@@ -185,13 +116,10 @@ class SelectObjectContentEventStreamStats
   final _i3.StatsEvent stats;
 
   @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.stats;
-  @override
   String get name => 'Stats';
 }
 
-class SelectObjectContentEventStreamProgress
+final class SelectObjectContentEventStreamProgress
     extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamProgress(this.progress) : super._();
 
@@ -199,13 +127,10 @@ class SelectObjectContentEventStreamProgress
   final _i4.ProgressEvent progress;
 
   @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.progress;
-  @override
   String get name => 'Progress';
 }
 
-class SelectObjectContentEventStreamCont
+final class SelectObjectContentEventStreamCont
     extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamCont(this.cont) : super._();
 
@@ -213,26 +138,21 @@ class SelectObjectContentEventStreamCont
   final _i5.ContinuationEvent cont;
 
   @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.cont;
-  @override
   String get name => 'Cont';
 }
 
-class SelectObjectContentEventStreamEnd extends SelectObjectContentEventStream {
+final class SelectObjectContentEventStreamEnd
+    extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamEnd(this.end) : super._();
 
   @override
   final _i6.EndEvent end;
 
   @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.end;
-  @override
   String get name => 'End';
 }
 
-class SelectObjectContentEventStreamSdkUnknown
+final class SelectObjectContentEventStreamSdkUnknown
     extends SelectObjectContentEventStream {
   const SelectObjectContentEventStreamSdkUnknown(
     this.name,
@@ -244,10 +164,6 @@ class SelectObjectContentEventStreamSdkUnknown
 
   @override
   final Object value;
-
-  @override
-  SelectObjectContentEventStreamType get type =>
-      SelectObjectContentEventStreamType.sdkUnknown;
 }
 
 class SelectObjectContentEventStreamRestXmlSerializer
@@ -277,11 +193,7 @@ class SelectObjectContentEventStreamRestXmlSerializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Records':
         return SelectObjectContentEventStreamRecords((serializers.deserialize(
@@ -324,33 +236,34 @@ class SelectObjectContentEventStreamRestXmlSerializer
     (object as SelectObjectContentEventStream);
     return [
       object.name,
-      object.when<Object?>(
-        records: (_i2.RecordsEvent records) => serializers.serialize(
-          records,
+      switch (object) {
+        SelectObjectContentEventStreamRecords(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i2.RecordsEvent),
         ),
-        stats: (_i3.StatsEvent stats) => serializers.serialize(
-          stats,
+        SelectObjectContentEventStreamStats(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i3.StatsEvent),
         ),
-        progress: (_i4.ProgressEvent progress) => serializers.serialize(
-          progress,
+        SelectObjectContentEventStreamProgress(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i4.ProgressEvent),
         ),
-        cont: (_i5.ContinuationEvent cont) => serializers.serialize(
-          cont,
+        SelectObjectContentEventStreamCont(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i5.ContinuationEvent),
         ),
-        end: (_i6.EndEvent end) => serializers.serialize(
-          end,
+        SelectObjectContentEventStreamEnd(:final value) =>
+          serializers.serialize(
+          value,
           specifiedType: const FullType(_i6.EndEvent),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        SelectObjectContentEventStreamSdkUnknown(:final value) => value,
+      },
     ];
   }
 }

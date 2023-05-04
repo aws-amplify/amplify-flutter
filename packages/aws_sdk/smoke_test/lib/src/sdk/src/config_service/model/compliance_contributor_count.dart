@@ -93,23 +93,20 @@ class ComplianceContributorCountAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CappedCount':
-          if (value != null) {
-            result.cappedCount = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.cappedCount = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'CapExceeded':
-          if (value != null) {
-            result.capExceeded = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.capExceeded = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -124,19 +121,20 @@ class ComplianceContributorCountAwsJson11Serializer
   }) {
     final payload = (object as ComplianceContributorCount);
     final result = <Object?>[];
-    if (payload.cappedCount != null) {
+    final ComplianceContributorCount(:cappedCount, :capExceeded) = payload;
+    if (cappedCount != null) {
       result
         ..add('CappedCount')
         ..add(serializers.serialize(
-          payload.cappedCount!,
+          cappedCount,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.capExceeded != null) {
+    if (capExceeded != null) {
       result
         ..add('CapExceeded')
         ..add(serializers.serialize(
-          payload.capExceeded!,
+          capExceeded,
           specifiedType: const FullType(bool),
         ));
     }

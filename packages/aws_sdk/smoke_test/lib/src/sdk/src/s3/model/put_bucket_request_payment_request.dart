@@ -167,16 +167,18 @@ class PutBucketRequestPaymentRequestRestXmlSerializer
     final result = _i2.RequestPaymentConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Payer':
           result.payer = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i5.Payer),
           ) as _i5.Payer);
-          break;
       }
     }
 
@@ -198,10 +200,11 @@ class PutBucketRequestPaymentRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
+    final _i2.RequestPaymentConfiguration(:payer) = payload;
     result
       ..add(const _i1.XmlElementName('Payer'))
       ..add(serializers.serialize(
-        payload.payer,
+        payer,
         specifiedType: const FullType.nullable(_i5.Payer),
       ));
     return result;
