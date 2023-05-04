@@ -286,7 +286,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     if (response.statusCode == successCode) {
       // Close the response so that the underlying subscription created by
       // `split` is cancelled as well.
-      await response.close();
+      unawaited(response.close());
       if (output != null) {
         return output;
       }
@@ -322,7 +322,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     } finally {
       // Close the response so that the underlying subscription created by
       // `split` is cancelled as well.
-      await response.close();
+      unawaited(response.close());
     }
   }
 
