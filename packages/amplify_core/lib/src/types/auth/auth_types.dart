@@ -2,14 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /// Exceptions
-export '../exception/auth/auth_exception.dart';
-export '../exception/auth/invalid_state_exception.dart';
-export '../exception/auth/not_authorized_exception.dart';
-export '../exception/auth/service_exception.dart';
-export '../exception/auth/session_expired_exception.dart';
-export '../exception/auth/signed_out_exception.dart';
-export '../exception/auth/user_cancelled_exception.dart';
-export '../exception/auth/validation_exception.dart';
+export '../exception/amplify_exception.dart';
 
 /// Attributes
 export 'attribute/auth_next_update_attribute_step.dart';
