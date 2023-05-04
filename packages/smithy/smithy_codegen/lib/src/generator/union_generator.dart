@@ -8,7 +8,6 @@ import 'package:smithy_codegen/src/generator/generation_context.dart';
 import 'package:smithy_codegen/src/generator/generator.dart';
 import 'package:smithy_codegen/src/generator/serialization/union_serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
-import 'package:smithy_codegen/src/util/docs.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
@@ -31,23 +30,22 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
     context.generatedTypes[symbol] ??= {};
 
     builder.body.addAll([
-      _typeEnum,
+      // TODO(dnys1): Remove when `code_builder` supports class modifiers
+      const Code('sealed '),
       _unionClass,
-      ..._variantClasses,
+      ..._variantClasses.expand((cls) => [const Code('final '), cls]),
       ..._serializers,
     ]);
 
     return builder.build();
   }
 
-  String get _typeEnumName => '${className}Type';
-
   Class get _unionClass => Class(
         (c) => c
-          ..docs.addAll([
-            if (shape.hasDocs(context)) shape.formattedDocs(context),
-          ])
-          ..abstract = true
+          // TODO(dnys1): Add back when `code_builder` supports class modifiers
+          // ..docs.addAll([
+          //   if (shape.hasDocs(context)) shape.formattedDocs(context),
+          // ])
           ..name = className
           ..extend = DartTypes.smithy.smithyUnion(symbol)
           ..constructors.addAll([
@@ -56,9 +54,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ])
           ..methods.addAll([
             ..._variantGetters,
-            _typeGetter,
             _valueGetter,
-            _whenMethod,
             _toString,
           ])
           ..fields.addAll([
@@ -89,73 +85,6 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
       );
     }
   }
-
-  /// The synthetic `Type` enum used to disambiguate the union type with a
-  /// discrete, switchable, value.
-  Enum get _typeEnum => Enum((e) {
-        final docs = '/// The discrete values of [$className].';
-        e
-          ..name = _typeEnumName
-          ..docs.add(docs)
-          ..types.add(
-            TypeReference(
-              (t) => t
-                ..symbol = 'T'
-                ..bound = symbol,
-            ),
-          )
-          ..constructors.add(
-            Constructor(
-              (c) => c
-                ..constant = true
-                ..docs.add(docs)
-                ..requiredParameters.add(
-                  Parameter(
-                    (p) => p
-                      ..toThis = true
-                      ..name = 'value',
-                  ),
-                ),
-            ),
-          )
-          ..fields.add(
-            Field(
-              (f) => f
-                ..docs.add('/// The Smithy value.')
-                ..modifier = FieldModifier.final$
-                ..type = DartTypes.core.string
-                ..name = 'value',
-            ),
-          );
-        for (final member in members) {
-          e.values.add(
-            EnumValue(
-              (v) => v
-                ..docs.add('/// The type for [${variantClassName(member)}].')
-                ..name = variantName(member)
-                ..types.add(refer(variantClassName(member)))
-                ..arguments.add(literalString(member.memberName, raw: true)),
-            ),
-          );
-        }
-        e.values.add(
-          EnumValue(
-            (v) => v
-              ..docs.add(formatDocs('The type for an unknown value.'))
-              ..name = sdkUnknown
-              ..types.add(refer(variantClassName(unknownMember)))
-              ..arguments.add(literalString(sdkUnknown)),
-          ),
-        );
-      });
-
-  /// The injected `type` getter.
-  Method get _typeGetter => Method(
-        (m) => m
-          ..type = MethodType.getter
-          ..returns = refer(_typeEnumName)
-          ..name = 'type',
-      );
 
   /// The `value` override.
   Method get _valueGetter => Method(
@@ -224,69 +153,6 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
         ])
         ..redirect = refer(variantClassName(unknownMember)),
     );
-  }
-
-  /// The `when` method for switching over the union's value.
-  Method get _whenMethod {
-    return Method((m) {
-      m
-        ..annotations.add(DartTypes.core.override)
-        ..returns = refer('T?')
-        ..name = 'when'
-        ..types.add(refer('T'));
-
-      m.optionalParameters.addAll([
-        for (final member in members)
-          Parameter(
-            (p) => p
-              ..named = true
-              ..name = variantName(member)
-              ..type = FunctionType(
-                (t) => t
-                  ..isNullable = true
-                  ..requiredParameters.add(memberSymbols[member]!.unboxed)
-                  ..returnType = refer('T'),
-              ),
-          ),
-        Parameter(
-          (p) => p
-            ..named = true
-            ..name = sdkUnknown
-            ..type = FunctionType(
-              (t) => t
-                ..isNullable = true
-                ..requiredParameters.addAll([
-                  DartTypes.core.string, // name
-                  unknownMemberSymbol, // value
-                ])
-                ..returnType = refer('T'),
-            ),
-        ),
-      ]);
-
-      m.body = Block.of([
-        for (final member in members) ...[
-          const Code('if ('),
-          refer('this').isA(refer(variantClassName(member))).code,
-          const Code(') {'),
-          refer(variantName(member))
-              .nullSafeProperty('call')
-              .call([
-                refer('this').asA(refer(variantClassName(member))).property(
-                      isUnknownMember(member) ? 'value' : variantName(member),
-                    ),
-              ])
-              .returned
-              .statement,
-          const Code('}'),
-        ],
-        refer('sdkUnknown')
-            .nullSafeProperty('call')
-            .call([refer('name'), refer('value')])
-            .returned
-            .statement,
-      ]);
-    });
   }
 
   /// All the serializers for the union.
@@ -368,14 +234,6 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ),
         );
       }
-      final typeGetter = Method(
-        (m) => m
-          ..type = MethodType.getter
-          ..returns = refer(_typeEnumName)
-          ..name = 'type'
-          ..annotations.add(DartTypes.core.override)
-          ..body = refer(_typeEnumName).property(variantName).code,
-      );
       yield Class((c) {
         c
           ..name = variantClassName(member)
@@ -394,7 +252,6 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             ),
           )
           ..methods.addAll([
-            typeGetter,
             Method(
               (m) => m
                 ..annotations.add(DartTypes.core.override)
@@ -438,16 +295,6 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
         ..name = variantClassName(unknownMember)
         ..extend = symbol
         ..constructors.add(ctor)
-        ..methods.add(
-          Method(
-            (m) => m
-              ..type = MethodType.getter
-              ..returns = refer(_typeEnumName)
-              ..name = 'type'
-              ..annotations.add(DartTypes.core.override)
-              ..body = refer(_typeEnumName).property(sdkUnknown).code,
-          ),
-        )
         ..fields.addAll([
           Field(
             (f) => f

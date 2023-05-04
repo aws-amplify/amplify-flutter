@@ -6,25 +6,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
-/// The discrete values of [FooUnion].
-enum FooUnionType<T extends FooUnion> {
-  /// The type for [FooUnionString].
-  string<FooUnionString>(r'string'),
-
-  /// The type for [FooUnionInteger].
-  integer<FooUnionInteger>(r'integer'),
-
-  /// The type for an unknown value.
-  sdkUnknown<FooUnionSdkUnknown>('sdkUnknown');
-
-  /// The discrete values of [FooUnion].
-  const FooUnionType(this.value);
-
-  /// The Smithy value.
-  final String value;
-}
-
-abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
+sealed class FooUnion extends _i1.SmithyUnion<FooUnion> {
   const FooUnion._();
 
   const factory FooUnion.string(String string) = FooUnionString;
@@ -42,30 +24,8 @@ abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
 
   String? get string => null;
   int? get integer => null;
-  FooUnionType get type;
   @override
   Object get value => (string ?? integer)!;
-  @override
-  T? when<T>({
-    T Function(String)? string,
-    T Function(int)? integer,
-    T Function(
-      String,
-      Object,
-    )? sdkUnknown,
-  }) {
-    if (this is FooUnionString) {
-      return string?.call((this as FooUnionString).string);
-    }
-    if (this is FooUnionInteger) {
-      return integer?.call((this as FooUnionInteger).integer);
-    }
-    return sdkUnknown?.call(
-      name,
-      value,
-    );
-  }
-
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(r'FooUnion');
@@ -85,31 +45,27 @@ abstract class FooUnion extends _i1.SmithyUnion<FooUnion> {
   }
 }
 
-class FooUnionString extends FooUnion {
+final class FooUnionString extends FooUnion {
   const FooUnionString(this.string) : super._();
 
   @override
   final String string;
 
   @override
-  FooUnionType get type => FooUnionType.string;
-  @override
   String get name => 'string';
 }
 
-class FooUnionInteger extends FooUnion {
+final class FooUnionInteger extends FooUnion {
   const FooUnionInteger(this.integer) : super._();
 
   @override
   final int integer;
 
   @override
-  FooUnionType get type => FooUnionType.integer;
-  @override
   String get name => 'integer';
 }
 
-class FooUnionSdkUnknown extends FooUnion {
+final class FooUnionSdkUnknown extends FooUnion {
   const FooUnionSdkUnknown(
     this.name,
     this.value,
@@ -120,9 +76,6 @@ class FooUnionSdkUnknown extends FooUnion {
 
   @override
   final Object value;
-
-  @override
-  FooUnionType get type => FooUnionType.sdkUnknown;
 }
 
 class FooUnionRestJson1Serializer
@@ -148,11 +101,7 @@ class FooUnionRestJson1Serializer
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final iterator = serialized.iterator;
-    iterator.moveNext();
-    final key = iterator.current as String;
-    iterator.moveNext();
-    final value = iterator.current as Object;
+    final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'string':
         return FooUnionString((serializers.deserialize(
@@ -180,21 +129,17 @@ class FooUnionRestJson1Serializer
     (object as FooUnion);
     return [
       object.name,
-      object.when<Object?>(
-        string: (String string) => serializers.serialize(
-          string,
+      switch (object) {
+        FooUnionString(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(String),
         ),
-        integer: (int integer) => serializers.serialize(
-          integer,
+        FooUnionInteger(:final value) => serializers.serialize(
+          value,
           specifiedType: const FullType(int),
         ),
-        sdkUnknown: (
-          String _,
-          Object sdkUnknown,
-        ) =>
-            sdkUnknown,
-      )!,
+        FooUnionSdkUnknown(:final value) => value,
+      },
     ];
   }
 }
