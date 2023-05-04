@@ -24,9 +24,11 @@ void main() {
         fail('Should be cancelled');
       });
       final op = operation.run(const Unit(), client: client);
-      await shouldCancel.future.then((_) {
-        op.cancel();
-      });
+      unawaited(
+        shouldCancel.future.then((_) {
+          op.cancel();
+        }),
+      );
       expect(op.requestProgress, emitsThrough(emitsDone));
       expect(op.responseProgress, emitsDone);
       await expectLater(op.result, throwsA(isA<CancellationException>()));
