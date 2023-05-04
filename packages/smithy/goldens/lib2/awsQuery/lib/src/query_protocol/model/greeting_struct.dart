@@ -66,18 +66,18 @@ class GreetingStructAwsQuerySerializer
     final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -97,11 +97,12 @@ class GreetingStructAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.hi != null) {
+    final GreetingStruct(:hi) = payload;
+    if (hi != null) {
       result
         ..add(const _i2.XmlElementName('hi'))
         ..add(serializers.serialize(
-          payload.hi!,
+          hi,
           specifiedType: const FullType(String),
         ));
     }

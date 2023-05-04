@@ -81,21 +81,21 @@ class FlattenedXmlMapOutputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.FooEnum),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.FooEnum>));
-          }
-          break;
+          result.myMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.FooEnum),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.FooEnum>));
       }
     }
 

@@ -109,15 +109,15 @@ class XmlBlobsOutputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Uint8List),
-            ) as _i6.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Uint8List),
+          ) as _i6.Uint8List);
       }
     }
 

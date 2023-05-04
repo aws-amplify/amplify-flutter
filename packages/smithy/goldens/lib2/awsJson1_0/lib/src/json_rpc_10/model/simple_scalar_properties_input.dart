@@ -97,23 +97,20 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'floatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'doubleValue':
-          if (value != null) {
-            result.doubleValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.doubleValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
       }
     }
 
@@ -128,19 +125,20 @@ class SimpleScalarPropertiesInputAwsJson10Serializer
   }) {
     final payload = (object as SimpleScalarPropertiesInput);
     final result = <Object?>[];
-    if (payload.floatValue != null) {
+    final SimpleScalarPropertiesInput(:floatValue, :doubleValue) = payload;
+    if (floatValue != null) {
       result
         ..add('floatValue')
         ..add(serializers.serialize(
-          payload.floatValue!,
+          floatValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.doubleValue != null) {
+    if (doubleValue != null) {
       result
         ..add('doubleValue')
         ..add(serializers.serialize(
-          payload.doubleValue!,
+          doubleValue,
           specifiedType: const FullType(double),
         ));
     }

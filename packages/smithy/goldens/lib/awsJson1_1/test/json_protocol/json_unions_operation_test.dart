@@ -857,15 +857,15 @@ class UnionInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contents':
-          if (value != null) {
-            result.contents = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.MyUnion),
-            ) as _i7.MyUnion);
-          }
-          break;
+          result.contents = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.MyUnion),
+          ) as _i7.MyUnion);
       }
     }
 

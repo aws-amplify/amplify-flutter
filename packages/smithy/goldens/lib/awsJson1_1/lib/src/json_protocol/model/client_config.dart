@@ -133,63 +133,45 @@ class ClientConfigAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'aws_access_key_id':
-          if (value != null) {
-            result.awsAccessKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsAccessKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'aws_secret_access_key':
-          if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSecretAccessKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'aws_session_token':
-          if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSessionToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'region':
-          if (value != null) {
-            result.region = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.region = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 's3':
-          if (value != null) {
-            result.s3.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3Config),
-            ) as _i2.S3Config));
-          }
-          break;
+          result.s3.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3Config),
+          ) as _i2.S3Config));
         case 'retry_config':
-          if (value != null) {
-            result.retryConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.RetryConfig),
-            ) as _i3.RetryConfig));
-          }
-          break;
+          result.retryConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.RetryConfig),
+          ) as _i3.RetryConfig));
         case 'aws_profile':
-          if (value != null) {
-            result.awsProfile = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsProfile = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -204,59 +186,68 @@ class ClientConfigAwsJson11Serializer
   }) {
     final payload = (object as ClientConfig);
     final result = <Object?>[];
-    if (payload.awsAccessKeyId != null) {
+    final ClientConfig(
+      :awsAccessKeyId,
+      :awsSecretAccessKey,
+      :awsSessionToken,
+      :region,
+      :s3,
+      :retryConfig,
+      :awsProfile
+    ) = payload;
+    if (awsAccessKeyId != null) {
       result
         ..add('aws_access_key_id')
         ..add(serializers.serialize(
-          payload.awsAccessKeyId!,
+          awsAccessKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsSecretAccessKey != null) {
+    if (awsSecretAccessKey != null) {
       result
         ..add('aws_secret_access_key')
         ..add(serializers.serialize(
-          payload.awsSecretAccessKey!,
+          awsSecretAccessKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsSessionToken != null) {
+    if (awsSessionToken != null) {
       result
         ..add('aws_session_token')
         ..add(serializers.serialize(
-          payload.awsSessionToken!,
+          awsSessionToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.region != null) {
+    if (region != null) {
       result
         ..add('region')
         ..add(serializers.serialize(
-          payload.region!,
+          region,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.s3 != null) {
+    if (s3 != null) {
       result
         ..add('s3')
         ..add(serializers.serialize(
-          payload.s3!,
+          s3,
           specifiedType: const FullType(_i2.S3Config),
         ));
     }
-    if (payload.retryConfig != null) {
+    if (retryConfig != null) {
       result
         ..add('retry_config')
         ..add(serializers.serialize(
-          payload.retryConfig!,
+          retryConfig,
           specifiedType: const FullType(_i3.RetryConfig),
         ));
     }
-    if (payload.awsProfile != null) {
+    if (awsProfile != null) {
       result
         ..add('aws_profile')
         ..add(serializers.serialize(
-          payload.awsProfile!,
+          awsProfile,
           specifiedType: const FullType(String),
         ));
     }

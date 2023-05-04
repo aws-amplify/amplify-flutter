@@ -177,15 +177,15 @@ class MalformedIntegerInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'integerInBody':
-          if (value != null) {
-            result.integerInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -202,11 +202,12 @@ class MalformedIntegerInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedIntegerInputPayload);
     final result = <Object?>[];
-    if (payload.integerInBody != null) {
+    final MalformedIntegerInputPayload(:integerInBody) = payload;
+    if (integerInBody != null) {
       result
         ..add('integerInBody')
         ..add(serializers.serialize(
-          payload.integerInBody!,
+          integerInBody,
           specifiedType: const FullType(int),
         ));
     }

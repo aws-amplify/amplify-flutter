@@ -84,15 +84,15 @@ class PostPlayerActionInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'action':
-          if (value != null) {
-            result.action = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.PlayerAction),
-            ) as _i3.PlayerAction);
-          }
-          break;
+          result.action = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.PlayerAction),
+          ) as _i3.PlayerAction);
       }
     }
 
@@ -107,11 +107,12 @@ class PostPlayerActionInputRestJson1Serializer
   }) {
     final payload = (object as PostPlayerActionInput);
     final result = <Object?>[];
-    if (payload.action != null) {
+    final PostPlayerActionInput(:action) = payload;
+    if (action != null) {
       result
         ..add('action')
         ..add(serializers.serialize(
-          payload.action!,
+          action,
           specifiedType: const FullType(_i3.PlayerAction),
         ));
     }

@@ -80,21 +80,21 @@ class MalformedMapInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'bodyMap':
-          if (value != null) {
-            result.bodyMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, String>));
-          }
-          break;
+          result.bodyMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -109,11 +109,12 @@ class MalformedMapInputRestJson1Serializer
   }) {
     final payload = (object as MalformedMapInput);
     final result = <Object?>[];
-    if (payload.bodyMap != null) {
+    final MalformedMapInput(:bodyMap) = payload;
+    if (bodyMap != null) {
       result
         ..add('bodyMap')
         ..add(serializers.serialize(
-          payload.bodyMap!,
+          bodyMap,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

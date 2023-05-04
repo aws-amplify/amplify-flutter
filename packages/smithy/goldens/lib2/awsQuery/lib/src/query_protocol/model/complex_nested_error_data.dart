@@ -68,18 +68,18 @@ class ComplexNestedErrorDataAwsQuerySerializer
     final result = ComplexNestedErrorDataBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -99,11 +99,12 @@ class ComplexNestedErrorDataAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.foo != null) {
+    final ComplexNestedErrorData(:foo) = payload;
+    if (foo != null) {
       result
         ..add(const _i2.XmlElementName('Foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }

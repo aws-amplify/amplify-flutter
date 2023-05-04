@@ -90,55 +90,50 @@ class HttpRequestWithLabelsInputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'string':
           result.string = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'short':
           result.short = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'integer':
           result.integer = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(int),
           ) as int);
-          break;
         case 'long':
           result.long = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(_i6.Int64),
           ) as _i6.Int64);
-          break;
         case 'float':
           result.float = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'double':
           result.double_ = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'boolean':
           result.boolean = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'timestamp':
           result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
       }
     }
 

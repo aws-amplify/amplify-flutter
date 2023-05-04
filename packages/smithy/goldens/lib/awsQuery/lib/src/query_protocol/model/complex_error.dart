@@ -114,26 +114,23 @@ class ComplexErrorAwsQuerySerializer
     final result = ComplexErrorBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'TopLevel':
-          if (value != null) {
-            result.topLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.topLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplexNestedErrorData),
-            ) as _i3.ComplexNestedErrorData));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          ) as _i3.ComplexNestedErrorData));
       }
     }
 
@@ -153,19 +150,20 @@ class ComplexErrorAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.topLevel != null) {
+    final ComplexError(:topLevel, :nested) = payload;
+    if (topLevel != null) {
       result
         ..add(const _i2.XmlElementName('TopLevel'))
         ..add(serializers.serialize(
-          payload.topLevel!,
+          topLevel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.nested != null) {
+    if (nested != null) {
       result
         ..add(const _i2.XmlElementName('Nested'))
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.ComplexNestedErrorData),
         ));
     }

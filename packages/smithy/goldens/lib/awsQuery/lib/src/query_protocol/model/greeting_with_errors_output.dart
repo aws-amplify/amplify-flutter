@@ -76,18 +76,18 @@ class GreetingWithErrorsOutputAwsQuerySerializer
     final result = GreetingWithErrorsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -107,11 +107,12 @@ class GreetingWithErrorsOutputAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.greeting != null) {
+    final GreetingWithErrorsOutput(:greeting) = payload;
+    if (greeting != null) {
       result
         ..add(const _i2.XmlElementName('greeting'))
         ..add(serializers.serialize(
-          payload.greeting!,
+          greeting,
           specifiedType: const FullType(String),
         ));
     }

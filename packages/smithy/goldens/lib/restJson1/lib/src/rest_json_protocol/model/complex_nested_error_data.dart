@@ -71,15 +71,15 @@ class ComplexNestedErrorDataRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Fooooo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -94,11 +94,12 @@ class ComplexNestedErrorDataRestJson1Serializer
   }) {
     final payload = (object as ComplexNestedErrorData);
     final result = <Object?>[];
-    if (payload.foo != null) {
+    final ComplexNestedErrorData(:foo) = payload;
+    if (foo != null) {
       result
         ..add('Fooooo')
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }

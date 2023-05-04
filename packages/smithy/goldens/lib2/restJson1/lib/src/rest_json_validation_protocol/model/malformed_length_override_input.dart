@@ -133,64 +133,49 @@ class MalformedLengthOverrideInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
         case 'list':
-          if (value != null) {
-            result.list.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.list.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
         case 'map':
-          if (value != null) {
-            result.map.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.map.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltListMultimap<String, String>));
         case 'maxString':
-          if (value != null) {
-            result.maxString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.maxString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'minString':
-          if (value != null) {
-            result.minString = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.minString = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'string':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -205,30 +190,38 @@ class MalformedLengthOverrideInputRestJson1Serializer
   }) {
     final payload = (object as MalformedLengthOverrideInput);
     final result = <Object?>[];
-    if (payload.blob != null) {
+    final MalformedLengthOverrideInput(
+      :blob,
+      :list,
+      :map,
+      :maxString,
+      :minString,
+      :string
+    ) = payload;
+    if (blob != null) {
       result
         ..add('blob')
         ..add(serializers.serialize(
-          payload.blob!,
+          blob,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }
-    if (payload.list != null) {
+    if (list != null) {
       result
         ..add('list')
         ..add(serializers.serialize(
-          payload.list!,
+          list,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    if (payload.map != null) {
+    if (map != null) {
       result
         ..add('map')
         ..add(serializers.serialize(
-          payload.map!,
+          map,
           specifiedType: const FullType(
             _i4.BuiltListMultimap,
             [
@@ -238,27 +231,27 @@ class MalformedLengthOverrideInputRestJson1Serializer
           ),
         ));
     }
-    if (payload.maxString != null) {
+    if (maxString != null) {
       result
         ..add('maxString')
         ..add(serializers.serialize(
-          payload.maxString!,
+          maxString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.minString != null) {
+    if (minString != null) {
       result
         ..add('minString')
         ..add(serializers.serialize(
-          payload.minString!,
+          minString,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.string != null) {
+    if (string != null) {
       result
         ..add('string')
         ..add(serializers.serialize(
-          payload.string!,
+          string,
           specifiedType: const FullType(String),
         ));
     }

@@ -71,15 +71,15 @@ class ComplexNestedErrorDataAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -94,11 +94,12 @@ class ComplexNestedErrorDataAwsJson10Serializer
   }) {
     final payload = (object as ComplexNestedErrorData);
     final result = <Object?>[];
-    if (payload.foo != null) {
+    final ComplexNestedErrorData(:foo) = payload;
+    if (foo != null) {
       result
         ..add('Foo')
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }

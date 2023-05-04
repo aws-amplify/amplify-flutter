@@ -132,31 +132,28 @@ class StreamingTraitsWithMediaTypeInputOutputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.Stream,
-                [
-                  FullType(
-                    List,
-                    [FullType(int)],
-                  )
-                ],
-              ),
-            ) as _i6.Stream<List<int>>);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.Stream,
+              [
+                FullType(
+                  List,
+                  [FullType(int)],
+                )
+              ],
+            ),
+          ) as _i6.Stream<List<int>>);
       }
     }
 

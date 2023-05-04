@@ -88,34 +88,28 @@ class StructArgAwsQuerySerializer
     final result = StructArgBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'StringArg':
-          if (value != null) {
-            result.stringArg = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringArg = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'OtherArg':
-          if (value != null) {
-            result.otherArg = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.otherArg = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'RecursiveArg':
-          if (value != null) {
-            result.recursiveArg.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(StructArg),
-            ) as StructArg));
-          }
-          break;
+          result.recursiveArg.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(StructArg),
+          ) as StructArg));
       }
     }
 
@@ -135,27 +129,28 @@ class StructArgAwsQuerySerializer
         _i2.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.stringArg != null) {
+    final StructArg(:stringArg, :otherArg, :recursiveArg) = payload;
+    if (stringArg != null) {
       result
         ..add(const _i2.XmlElementName('StringArg'))
         ..add(serializers.serialize(
-          payload.stringArg!,
+          stringArg,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.otherArg != null) {
+    if (otherArg != null) {
       result
         ..add(const _i2.XmlElementName('OtherArg'))
         ..add(serializers.serialize(
-          payload.otherArg!,
+          otherArg,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.recursiveArg != null) {
+    if (recursiveArg != null) {
       result
         ..add(const _i2.XmlElementName('RecursiveArg'))
         ..add(serializers.serialize(
-          payload.recursiveArg!,
+          recursiveArg,
           specifiedType: const FullType(StructArg),
         ));
     }

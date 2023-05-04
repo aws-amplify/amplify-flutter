@@ -372,15 +372,15 @@ class XmlUnionsInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'unionValue':
-          if (value != null) {
-            result.unionValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.XmlUnionShape),
-            ) as _i6.XmlUnionShape);
-          }
-          break;
+          result.unionValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.XmlUnionShape),
+          ) as _i6.XmlUnionShape);
       }
     }
 

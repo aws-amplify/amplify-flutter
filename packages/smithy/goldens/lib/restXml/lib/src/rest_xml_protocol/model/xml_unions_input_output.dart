@@ -87,18 +87,18 @@ class XmlUnionsInputOutputRestXmlSerializer
     final result = XmlUnionsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'unionValue':
-          if (value != null) {
-            result.unionValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.XmlUnionShape),
-            ) as _i3.XmlUnionShape);
-          }
-          break;
+          result.unionValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.XmlUnionShape),
+          ) as _i3.XmlUnionShape);
       }
     }
 
@@ -113,11 +113,12 @@ class XmlUnionsInputOutputRestXmlSerializer
   }) {
     final payload = (object as XmlUnionsInputOutput);
     final result = <Object?>[const _i1.XmlElementName('XmlUnionsInputOutput')];
-    if (payload.unionValue != null) {
+    final XmlUnionsInputOutput(:unionValue) = payload;
+    if (unionValue != null) {
       result
         ..add(const _i1.XmlElementName('unionValue'))
         ..add(serializers.serialize(
-          payload.unionValue!,
+          unionValue,
           specifiedType: const FullType(_i3.XmlUnionShape),
         ));
     }

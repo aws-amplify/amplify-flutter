@@ -172,15 +172,15 @@ class MalformedShortInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'shortInBody':
-          if (value != null) {
-            result.shortInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.shortInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -197,11 +197,12 @@ class MalformedShortInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedShortInputPayload);
     final result = <Object?>[];
-    if (payload.shortInBody != null) {
+    final MalformedShortInputPayload(:shortInBody) = payload;
+    if (shortInBody != null) {
       result
         ..add('shortInBody')
         ..add(serializers.serialize(
-          payload.shortInBody!,
+          shortInBody,
           specifiedType: const FullType(int),
         ));
     }

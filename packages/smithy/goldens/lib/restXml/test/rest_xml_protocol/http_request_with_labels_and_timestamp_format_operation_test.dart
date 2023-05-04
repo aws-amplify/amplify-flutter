@@ -92,56 +92,52 @@ class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'memberEpochSeconds':
           result.memberEpochSeconds =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'memberHttpDate':
           result.memberHttpDate =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'memberDateTime':
           result.memberDateTime =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'defaultFormat':
           result.defaultFormat =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'targetEpochSeconds':
           result.targetEpochSeconds =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'targetHttpDate':
           result.targetHttpDate =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
         case 'targetDateTime':
           result.targetDateTime =
               _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
       }
     }
 

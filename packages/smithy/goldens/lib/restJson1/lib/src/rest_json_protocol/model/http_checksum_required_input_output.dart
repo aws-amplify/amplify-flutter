@@ -92,15 +92,15 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -115,11 +115,12 @@ class HttpChecksumRequiredInputOutputRestJson1Serializer
   }) {
     final payload = (object as HttpChecksumRequiredInputOutput);
     final result = <Object?>[];
-    if (payload.foo != null) {
+    final HttpChecksumRequiredInputOutput(:foo) = payload;
+    if (foo != null) {
       result
         ..add('foo')
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }

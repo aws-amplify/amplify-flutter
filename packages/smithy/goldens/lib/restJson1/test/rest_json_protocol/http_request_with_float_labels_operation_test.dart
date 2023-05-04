@@ -170,19 +170,20 @@ class HttpRequestWithFloatLabelsInputRestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'float':
           result.float = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
         case 'double':
           result.double_ = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(double),
           ) as double);
-          break;
       }
     }
 

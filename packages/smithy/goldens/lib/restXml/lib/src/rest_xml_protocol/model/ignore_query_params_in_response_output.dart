@@ -79,18 +79,18 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
     final result = IgnoreQueryParamsInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -107,11 +107,12 @@ class IgnoreQueryParamsInResponseOutputRestXmlSerializer
     final result = <Object?>[
       const _i2.XmlElementName('IgnoreQueryParamsInResponseOutput')
     ];
-    if (payload.baz != null) {
+    final IgnoreQueryParamsInResponseOutput(:baz) = payload;
+    if (baz != null) {
       result
         ..add(const _i2.XmlElementName('baz'))
         ..add(serializers.serialize(
-          payload.baz!,
+          baz,
           specifiedType: const FullType(String),
         ));
     }

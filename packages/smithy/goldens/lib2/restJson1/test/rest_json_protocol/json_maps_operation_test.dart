@@ -637,147 +637,120 @@ class JsonMapsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'denseStructMap':
-          if (value != null) {
-            result.denseStructMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i7.GreetingStruct),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
-          }
-          break;
+          result.denseStructMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i7.GreetingStruct),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
         case 'sparseStructMap':
-          if (value != null) {
-            result.sparseStructMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(_i7.GreetingStruct),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i7.GreetingStruct?>));
-          }
-          break;
+          result.sparseStructMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(_i7.GreetingStruct),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i7.GreetingStruct?>));
         case 'denseNumberMap':
-          if (value != null) {
-            result.denseNumberMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(int),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, int>));
-          }
-          break;
+          result.denseNumberMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(int),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, int>));
         case 'denseBooleanMap':
-          if (value != null) {
-            result.denseBooleanMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(bool),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, bool>));
-          }
-          break;
+          result.denseBooleanMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(bool),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, bool>));
         case 'denseStringMap':
-          if (value != null) {
-            result.denseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.denseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
         case 'sparseNumberMap':
-          if (value != null) {
-            result.sparseNumberMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(int),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, int?>));
-          }
-          break;
+          result.sparseNumberMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(int),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, int?>));
         case 'sparseBooleanMap':
-          if (value != null) {
-            result.sparseBooleanMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(bool),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, bool?>));
-          }
-          break;
+          result.sparseBooleanMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(bool),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, bool?>));
         case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String?>));
-          }
-          break;
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String?>));
         case 'denseSetMap':
-          if (value != null) {
-            result.denseSetMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSetMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltSetMultimap<String, String>));
-          }
-          break;
+          result.denseSetMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSetMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltSetMultimap<String, String>));
         case 'sparseSetMap':
-          if (value != null) {
-            result.sparseSetMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltSetMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltSetMultimap<String, String>));
-          }
-          break;
+          result.sparseSetMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltSetMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltSetMultimap<String, String>));
       }
     }
 
@@ -819,15 +792,15 @@ class GreetingStructRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'hi':
-          if (value != null) {
-            result.hi = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.hi = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

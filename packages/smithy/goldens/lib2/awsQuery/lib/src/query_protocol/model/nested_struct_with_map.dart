@@ -69,27 +69,27 @@ class NestedStructWithMapAwsQuerySerializer
     final result = NestedStructWithMapBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MapArg':
-          if (value != null) {
-            result.mapArg.replace(const _i3.XmlBuiltMapSerializer(
-                    indexer: _i3.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.mapArg.replace(const _i3.XmlBuiltMapSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ));
       }
     }
 
@@ -109,14 +109,15 @@ class NestedStructWithMapAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.mapArg != null) {
+    final NestedStructWithMap(:mapArg) = payload;
+    if (mapArg != null) {
       result
         ..add(const _i3.XmlElementName('MapArg'))
         ..add(
             const _i3.XmlBuiltMapSerializer(indexer: _i3.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.mapArg!,
+          mapArg,
           specifiedType: const FullType.nullable(
             _i2.BuiltMap,
             [

@@ -91,15 +91,15 @@ class UnionInputOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'contents':
-          if (value != null) {
-            result.contents = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.MyUnion),
-            ) as _i3.MyUnion);
-          }
-          break;
+          result.contents = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.MyUnion),
+          ) as _i3.MyUnion);
       }
     }
 
@@ -114,11 +114,12 @@ class UnionInputOutputAwsJson11Serializer
   }) {
     final payload = (object as UnionInputOutput);
     final result = <Object?>[];
-    if (payload.contents != null) {
+    final UnionInputOutput(:contents) = payload;
+    if (contents != null) {
       result
         ..add('contents')
         ..add(serializers.serialize(
-          payload.contents!,
+          contents,
           specifiedType: const FullType(_i3.MyUnion),
         ));
     }

@@ -76,27 +76,27 @@ class XmlMapsOutputAwsQuerySerializer
     final result = XmlMapsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'myMap':
-          if (value != null) {
-            result.myMap.replace(const _i4.XmlBuiltMapSerializer(
-                    indexer: _i4.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i2.GreetingStruct),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.myMap.replace(const _i4.XmlBuiltMapSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i2.GreetingStruct),
+              ],
+            ),
+          ));
       }
     }
 
@@ -116,14 +116,15 @@ class XmlMapsOutputAwsQuerySerializer
         _i4.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.myMap != null) {
+    final XmlMapsOutput(:myMap) = payload;
+    if (myMap != null) {
       result
         ..add(const _i4.XmlElementName('myMap'))
         ..add(
             const _i4.XmlBuiltMapSerializer(indexer: _i4.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.myMap!,
+          myMap,
           specifiedType: const FullType.nullable(
             _i3.BuiltMap,
             [

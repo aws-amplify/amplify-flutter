@@ -87,18 +87,18 @@ class XmlBlobsInputOutputRestXmlSerializer
     final result = XmlBlobsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -113,11 +113,12 @@ class XmlBlobsInputOutputRestXmlSerializer
   }) {
     final payload = (object as XmlBlobsInputOutput);
     final result = <Object?>[const _i1.XmlElementName('XmlBlobsInputOutput')];
-    if (payload.data != null) {
+    final XmlBlobsInputOutput(:data) = payload;
+    if (data != null) {
       result
         ..add(const _i1.XmlElementName('data'))
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType.nullable(_i3.Uint8List),
         ));
     }

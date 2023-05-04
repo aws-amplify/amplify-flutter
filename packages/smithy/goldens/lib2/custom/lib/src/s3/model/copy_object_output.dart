@@ -83,18 +83,18 @@ class CopyObjectOutputRestXmlSerializer
     final result = _i3.CopyObjectResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'ETag':
-          if (value != null) {
-            result.eTag = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.eTag = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -119,11 +119,12 @@ class CopyObjectOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.eTag != null) {
+    final _i3.CopyObjectResult(:eTag) = payload;
+    if (eTag != null) {
       result
         ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
-          payload.eTag!,
+          eTag,
           specifiedType: const FullType(String),
         ));
     }

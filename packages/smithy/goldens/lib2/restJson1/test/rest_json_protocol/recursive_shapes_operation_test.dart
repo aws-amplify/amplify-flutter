@@ -147,16 +147,16 @@ class RecursiveShapesInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i6.RecursiveShapesInputOutputNested1),
-            ) as _i6.RecursiveShapesInputOutputNested1));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i6.RecursiveShapesInputOutputNested1),
+          ) as _i6.RecursiveShapesInputOutputNested1));
       }
     }
 
@@ -199,24 +199,21 @@ class RecursiveShapesInputOutputNested1RestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i7.RecursiveShapesInputOutputNested2),
-            ) as _i7.RecursiveShapesInputOutputNested2));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i7.RecursiveShapesInputOutputNested2),
+          ) as _i7.RecursiveShapesInputOutputNested2));
       }
     }
 
@@ -259,24 +256,21 @@ class RecursiveShapesInputOutputNested2RestJson1Serializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'bar':
-          if (value != null) {
-            result.bar = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bar = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'recursiveMember':
-          if (value != null) {
-            result.recursiveMember.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i6.RecursiveShapesInputOutputNested1),
-            ) as _i6.RecursiveShapesInputOutputNested1));
-          }
-          break;
+          result.recursiveMember.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i6.RecursiveShapesInputOutputNested1),
+          ) as _i6.RecursiveShapesInputOutputNested1));
       }
     }
 

@@ -78,15 +78,15 @@ class PredictOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Prediction':
-          if (value != null) {
-            result.prediction.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Prediction),
-            ) as _i2.Prediction));
-          }
-          break;
+          result.prediction.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Prediction),
+          ) as _i2.Prediction));
       }
     }
 
@@ -101,11 +101,12 @@ class PredictOutputAwsJson11Serializer
   }) {
     final payload = (object as PredictOutput);
     final result = <Object?>[];
-    if (payload.prediction != null) {
+    final PredictOutput(:prediction) = payload;
+    if (prediction != null) {
       result
         ..add('Prediction')
         ..add(serializers.serialize(
-          payload.prediction!,
+          prediction,
           specifiedType: const FullType(_i2.Prediction),
         ));
     }

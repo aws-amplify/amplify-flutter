@@ -76,18 +76,18 @@ class XmlNamespacesOutputAwsQuerySerializer
     final result = XmlNamespacesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.XmlNamespaceNested),
-            ) as _i2.XmlNamespaceNested));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.XmlNamespaceNested),
+          ) as _i2.XmlNamespaceNested));
       }
     }
 
@@ -107,11 +107,12 @@ class XmlNamespacesOutputAwsQuerySerializer
         _i3.XmlNamespace('http://foo.com'),
       )
     ];
-    if (payload.nested != null) {
+    final XmlNamespacesOutput(:nested) = payload;
+    if (nested != null) {
       result
         ..add(const _i3.XmlElementName('nested'))
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i2.XmlNamespaceNested),
         ));
     }

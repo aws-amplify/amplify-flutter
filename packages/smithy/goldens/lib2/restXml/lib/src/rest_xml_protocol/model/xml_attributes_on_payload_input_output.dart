@@ -103,26 +103,23 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     final result = _i2.XmlAttributesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'test':
-          if (value != null) {
-            result.attr = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attr = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -144,20 +141,21 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.attr != null) {
+    final _i2.XmlAttributesInputOutput(:foo, :attr) = payload;
+    if (attr != null) {
       result.add(_i4.XmlAttribute(
         _i4.XmlName('test'),
         (serializers.serialize(
-          payload.attr!,
+          attr,
           specifiedType: const FullType(String),
         ) as String),
       ));
     }
-    if (payload.foo != null) {
+    if (foo != null) {
       result
         ..add(const _i1.XmlElementName('foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }

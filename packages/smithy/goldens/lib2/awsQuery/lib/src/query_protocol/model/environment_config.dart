@@ -118,58 +118,43 @@ class EnvironmentConfigAwsQuerySerializer
     final result = EnvironmentConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'AWS_ACCESS_KEY_ID':
-          if (value != null) {
-            result.awsAccessKeyId = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsAccessKeyId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AWS_SECRET_ACCESS_KEY':
-          if (value != null) {
-            result.awsSecretAccessKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSecretAccessKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AWS_DEFAULT_REGION':
-          if (value != null) {
-            result.awsDefaultRegion = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsDefaultRegion = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AWS_RETRY_MODE':
-          if (value != null) {
-            result.awsRetryMode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RetryMode),
-            ) as _i2.RetryMode);
-          }
-          break;
+          result.awsRetryMode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RetryMode),
+          ) as _i2.RetryMode);
         case 'AWS_SESSION_TOKEN':
-          if (value != null) {
-            result.awsSessionToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsSessionToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'AWS_PROFILE':
-          if (value != null) {
-            result.awsProfile = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.awsProfile = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -189,51 +174,59 @@ class EnvironmentConfigAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.awsAccessKeyId != null) {
+    final EnvironmentConfig(
+      :awsAccessKeyId,
+      :awsSecretAccessKey,
+      :awsDefaultRegion,
+      :awsRetryMode,
+      :awsSessionToken,
+      :awsProfile
+    ) = payload;
+    if (awsAccessKeyId != null) {
       result
         ..add(const _i3.XmlElementName('AWS_ACCESS_KEY_ID'))
         ..add(serializers.serialize(
-          payload.awsAccessKeyId!,
+          awsAccessKeyId,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsSecretAccessKey != null) {
+    if (awsSecretAccessKey != null) {
       result
         ..add(const _i3.XmlElementName('AWS_SECRET_ACCESS_KEY'))
         ..add(serializers.serialize(
-          payload.awsSecretAccessKey!,
+          awsSecretAccessKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsDefaultRegion != null) {
+    if (awsDefaultRegion != null) {
       result
         ..add(const _i3.XmlElementName('AWS_DEFAULT_REGION'))
         ..add(serializers.serialize(
-          payload.awsDefaultRegion!,
+          awsDefaultRegion,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsRetryMode != null) {
+    if (awsRetryMode != null) {
       result
         ..add(const _i3.XmlElementName('AWS_RETRY_MODE'))
         ..add(serializers.serialize(
-          payload.awsRetryMode!,
+          awsRetryMode,
           specifiedType: const FullType.nullable(_i2.RetryMode),
         ));
     }
-    if (payload.awsSessionToken != null) {
+    if (awsSessionToken != null) {
       result
         ..add(const _i3.XmlElementName('AWS_SESSION_TOKEN'))
         ..add(serializers.serialize(
-          payload.awsSessionToken!,
+          awsSessionToken,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.awsProfile != null) {
+    if (awsProfile != null) {
       result
         ..add(const _i3.XmlElementName('AWS_PROFILE'))
         ..add(serializers.serialize(
-          payload.awsProfile!,
+          awsProfile,
           specifiedType: const FullType(String),
         ));
     }

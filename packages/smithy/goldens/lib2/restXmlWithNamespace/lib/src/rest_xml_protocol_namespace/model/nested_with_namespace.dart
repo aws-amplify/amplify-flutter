@@ -68,18 +68,18 @@ class NestedWithNamespaceRestXmlSerializer
     final result = NestedWithNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'xsi:someName':
-          if (value != null) {
-            result.attrField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attrField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -99,11 +99,12 @@ class NestedWithNamespaceRestXmlSerializer
         _i2.XmlNamespace('https://example.com'),
       )
     ];
-    if (payload.attrField != null) {
+    final NestedWithNamespace(:attrField) = payload;
+    if (attrField != null) {
       result.add(_i3.XmlAttribute(
         _i3.XmlName('xsi:someName'),
         (serializers.serialize(
-          payload.attrField!,
+          attrField,
           specifiedType: const FullType(String),
         ) as String),
       ));

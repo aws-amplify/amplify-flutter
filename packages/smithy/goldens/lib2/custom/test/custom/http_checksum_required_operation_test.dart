@@ -87,15 +87,15 @@ class HttpChecksumRequiredInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'content':
-          if (value != null) {
-            result.content = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.Uint8List),
-            ) as _i6.Uint8List);
-          }
-          break;
+          result.content = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.Uint8List),
+          ) as _i6.Uint8List);
       }
     }
 

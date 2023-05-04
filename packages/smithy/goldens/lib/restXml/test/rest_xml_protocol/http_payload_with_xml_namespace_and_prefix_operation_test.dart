@@ -129,16 +129,15 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i6.PayloadWithXmlNamespaceAndPrefix),
-            ) as _i6.PayloadWithXmlNamespaceAndPrefix));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.PayloadWithXmlNamespaceAndPrefix),
+          ) as _i6.PayloadWithXmlNamespaceAndPrefix));
       }
     }
 
@@ -181,15 +180,15 @@ class PayloadWithXmlNamespaceAndPrefixRestXmlSerializer extends _i4
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

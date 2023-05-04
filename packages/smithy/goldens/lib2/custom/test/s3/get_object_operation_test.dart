@@ -133,27 +133,25 @@ class GetObjectRequestRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Key':
           result.key = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Range':
-          if (value != null) {
-            result.range = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.range = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -195,39 +193,33 @@ class GetObjectOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Body':
-          if (value != null) {
-            result.body = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i9.Stream,
-                [
-                  FullType(
-                    List,
-                    [FullType(int)],
-                  )
-                ],
-              ),
-            ) as _i9.Stream<List<int>>);
-          }
-          break;
+          result.body = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i9.Stream,
+              [
+                FullType(
+                  List,
+                  [FullType(int)],
+                )
+              ],
+            ),
+          ) as _i9.Stream<List<int>>);
         case 'ContentLength':
-          if (value != null) {
-            result.contentLength = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.contentLength = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ContentRange':
-          if (value != null) {
-            result.contentRange = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.contentRange = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

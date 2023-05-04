@@ -152,82 +152,58 @@ class SimpleInputParamsInputAwsQuerySerializer
     final result = SimpleInputParamsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'Foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Bar':
-          if (value != null) {
-            result.bar = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.bar = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Baz':
-          if (value != null) {
-            result.baz = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.baz = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Bam':
-          if (value != null) {
-            result.bam = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.bam = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'FloatValue':
-          if (value != null) {
-            result.floatValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.floatValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'Boo':
-          if (value != null) {
-            result.boo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.boo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'Qux':
-          if (value != null) {
-            result.qux = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.qux = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
         case 'FooEnum':
-          if (value != null) {
-            result.fooEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.FooEnum),
-            ) as _i4.FooEnum);
-          }
-          break;
+          result.fooEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.FooEnum),
+          ) as _i4.FooEnum);
         case 'IntegerEnum':
-          if (value != null) {
-            result.integerEnum = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerEnum = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -247,75 +223,86 @@ class SimpleInputParamsInputAwsQuerySerializer
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.foo != null) {
+    final SimpleInputParamsInput(
+      :foo,
+      :bar,
+      :baz,
+      :bam,
+      :floatValue,
+      :boo,
+      :qux,
+      :fooEnum,
+      :integerEnum
+    ) = payload;
+    if (foo != null) {
       result
         ..add(const _i1.XmlElementName('Foo'))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.bar != null) {
+    if (bar != null) {
       result
         ..add(const _i1.XmlElementName('Bar'))
         ..add(serializers.serialize(
-          payload.bar!,
+          bar,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.baz != null) {
+    if (baz != null) {
       result
         ..add(const _i1.XmlElementName('Baz'))
         ..add(serializers.serialize(
-          payload.baz!,
+          baz,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.bam != null) {
+    if (bam != null) {
       result
         ..add(const _i1.XmlElementName('Bam'))
         ..add(serializers.serialize(
-          payload.bam!,
+          bam,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.floatValue != null) {
+    if (floatValue != null) {
       result
         ..add(const _i1.XmlElementName('FloatValue'))
         ..add(serializers.serialize(
-          payload.floatValue!,
+          floatValue,
           specifiedType: const FullType.nullable(double),
         ));
     }
-    if (payload.boo != null) {
+    if (boo != null) {
       result
         ..add(const _i1.XmlElementName('Boo'))
         ..add(serializers.serialize(
-          payload.boo!,
+          boo,
           specifiedType: const FullType.nullable(double),
         ));
     }
-    if (payload.qux != null) {
+    if (qux != null) {
       result
         ..add(const _i1.XmlElementName('Qux'))
         ..add(serializers.serialize(
-          payload.qux!,
+          qux,
           specifiedType: const FullType.nullable(_i3.Uint8List),
         ));
     }
-    if (payload.fooEnum != null) {
+    if (fooEnum != null) {
       result
         ..add(const _i1.XmlElementName('FooEnum'))
         ..add(serializers.serialize(
-          payload.fooEnum!,
+          fooEnum,
           specifiedType: const FullType.nullable(_i4.FooEnum),
         ));
     }
-    if (payload.integerEnum != null) {
+    if (integerEnum != null) {
       result
         ..add(const _i1.XmlElementName('IntegerEnum'))
         ..add(serializers.serialize(
-          payload.integerEnum!,
+          integerEnum,
           specifiedType: const FullType.nullable(int),
         ));
     }

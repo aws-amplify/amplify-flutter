@@ -129,59 +129,47 @@ class ScopedConfigAwsJson10Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'environment':
-          if (value != null) {
-            result.environment.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.EnvironmentConfig),
-            ) as _i2.EnvironmentConfig));
-          }
-          break;
+          result.environment.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.EnvironmentConfig),
+          ) as _i2.EnvironmentConfig));
         case 'configFile':
-          if (value != null) {
-            result.configFile.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.FileConfigSettings),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
-          }
-          break;
+          result.configFile.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.FileConfigSettings),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
         case 'credentialsFile':
-          if (value != null) {
-            result.credentialsFile.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.FileConfigSettings),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
-          }
-          break;
+          result.credentialsFile.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.FileConfigSettings),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
         case 'client':
-          if (value != null) {
-            result.client.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.ClientConfig),
-            ) as _i4.ClientConfig));
-          }
-          break;
+          result.client.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.ClientConfig),
+          ) as _i4.ClientConfig));
         case 'operation':
-          if (value != null) {
-            result.operation.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.OperationConfig),
-            ) as _i5.OperationConfig));
-          }
-          break;
+          result.operation.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.OperationConfig),
+          ) as _i5.OperationConfig));
       }
     }
 
@@ -196,19 +184,26 @@ class ScopedConfigAwsJson10Serializer
   }) {
     final payload = (object as ScopedConfig);
     final result = <Object?>[];
-    if (payload.environment != null) {
+    final ScopedConfig(
+      :environment,
+      :configFile,
+      :credentialsFile,
+      :client,
+      :operation
+    ) = payload;
+    if (environment != null) {
       result
         ..add('environment')
         ..add(serializers.serialize(
-          payload.environment!,
+          environment,
           specifiedType: const FullType(_i2.EnvironmentConfig),
         ));
     }
-    if (payload.configFile != null) {
+    if (configFile != null) {
       result
         ..add('configFile')
         ..add(serializers.serialize(
-          payload.configFile!,
+          configFile,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -218,11 +213,11 @@ class ScopedConfigAwsJson10Serializer
           ),
         ));
     }
-    if (payload.credentialsFile != null) {
+    if (credentialsFile != null) {
       result
         ..add('credentialsFile')
         ..add(serializers.serialize(
-          payload.credentialsFile!,
+          credentialsFile,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -232,19 +227,19 @@ class ScopedConfigAwsJson10Serializer
           ),
         ));
     }
-    if (payload.client != null) {
+    if (client != null) {
       result
         ..add('client')
         ..add(serializers.serialize(
-          payload.client!,
+          client,
           specifiedType: const FullType(_i4.ClientConfig),
         ));
     }
-    if (payload.operation != null) {
+    if (operation != null) {
       result
         ..add('operation')
         ..add(serializers.serialize(
-          payload.operation!,
+          operation,
           specifiedType: const FullType(_i5.OperationConfig),
         ));
     }

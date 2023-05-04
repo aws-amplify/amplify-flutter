@@ -93,16 +93,16 @@ class RecursiveShapesInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i3.RecursiveShapesInputOutputNested1),
-            ) as _i3.RecursiveShapesInputOutputNested1));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.RecursiveShapesInputOutputNested1),
+          ) as _i3.RecursiveShapesInputOutputNested1));
       }
     }
 
@@ -117,11 +117,12 @@ class RecursiveShapesInputOutputRestJson1Serializer
   }) {
     final payload = (object as RecursiveShapesInputOutput);
     final result = <Object?>[];
-    if (payload.nested != null) {
+    final RecursiveShapesInputOutput(:nested) = payload;
+    if (nested != null) {
       result
         ..add('nested')
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.RecursiveShapesInputOutputNested1),
         ));
     }

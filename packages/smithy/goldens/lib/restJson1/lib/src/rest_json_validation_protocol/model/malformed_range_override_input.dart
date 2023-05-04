@@ -202,127 +202,85 @@ class MalformedRangeOverrideInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'byte':
-          if (value != null) {
-            result.byte = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byte = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'float':
-          if (value != null) {
-            result.float = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.float = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'integer':
-          if (value != null) {
-            result.integer = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integer = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'long':
-          if (value != null) {
-            result.long = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.long = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'maxByte':
-          if (value != null) {
-            result.maxByte = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxByte = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'maxFloat':
-          if (value != null) {
-            result.maxFloat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.maxFloat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'maxInteger':
-          if (value != null) {
-            result.maxInteger = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxInteger = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'maxLong':
-          if (value != null) {
-            result.maxLong = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.maxLong = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'maxShort':
-          if (value != null) {
-            result.maxShort = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxShort = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'minByte':
-          if (value != null) {
-            result.minByte = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minByte = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'minFloat':
-          if (value != null) {
-            result.minFloat = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.minFloat = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'minInteger':
-          if (value != null) {
-            result.minInteger = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minInteger = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'minLong':
-          if (value != null) {
-            result.minLong = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Int64),
-            ) as _i3.Int64);
-          }
-          break;
+          result.minLong = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
         case 'minShort':
-          if (value != null) {
-            result.minShort = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.minShort = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'short':
-          if (value != null) {
-            result.short = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.short = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -337,123 +295,140 @@ class MalformedRangeOverrideInputRestJson1Serializer
   }) {
     final payload = (object as MalformedRangeOverrideInput);
     final result = <Object?>[];
-    if (payload.byte != null) {
+    final MalformedRangeOverrideInput(
+      :byte,
+      :float,
+      :integer,
+      :long,
+      :maxByte,
+      :maxFloat,
+      :maxInteger,
+      :maxLong,
+      :maxShort,
+      :minByte,
+      :minFloat,
+      :minInteger,
+      :minLong,
+      :minShort,
+      :short
+    ) = payload;
+    if (byte != null) {
       result
         ..add('byte')
         ..add(serializers.serialize(
-          payload.byte!,
+          byte,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.float != null) {
+    if (float != null) {
       result
         ..add('float')
         ..add(serializers.serialize(
-          payload.float!,
+          float,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.integer != null) {
+    if (integer != null) {
       result
         ..add('integer')
         ..add(serializers.serialize(
-          payload.integer!,
+          integer,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.long != null) {
+    if (long != null) {
       result
         ..add('long')
         ..add(serializers.serialize(
-          payload.long!,
+          long,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.maxByte != null) {
+    if (maxByte != null) {
       result
         ..add('maxByte')
         ..add(serializers.serialize(
-          payload.maxByte!,
+          maxByte,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.maxFloat != null) {
+    if (maxFloat != null) {
       result
         ..add('maxFloat')
         ..add(serializers.serialize(
-          payload.maxFloat!,
+          maxFloat,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.maxInteger != null) {
+    if (maxInteger != null) {
       result
         ..add('maxInteger')
         ..add(serializers.serialize(
-          payload.maxInteger!,
+          maxInteger,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.maxLong != null) {
+    if (maxLong != null) {
       result
         ..add('maxLong')
         ..add(serializers.serialize(
-          payload.maxLong!,
+          maxLong,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.maxShort != null) {
+    if (maxShort != null) {
       result
         ..add('maxShort')
         ..add(serializers.serialize(
-          payload.maxShort!,
+          maxShort,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.minByte != null) {
+    if (minByte != null) {
       result
         ..add('minByte')
         ..add(serializers.serialize(
-          payload.minByte!,
+          minByte,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.minFloat != null) {
+    if (minFloat != null) {
       result
         ..add('minFloat')
         ..add(serializers.serialize(
-          payload.minFloat!,
+          minFloat,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.minInteger != null) {
+    if (minInteger != null) {
       result
         ..add('minInteger')
         ..add(serializers.serialize(
-          payload.minInteger!,
+          minInteger,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.minLong != null) {
+    if (minLong != null) {
       result
         ..add('minLong')
         ..add(serializers.serialize(
-          payload.minLong!,
+          minLong,
           specifiedType: const FullType(_i3.Int64),
         ));
     }
-    if (payload.minShort != null) {
+    if (minShort != null) {
       result
         ..add('minShort')
         ..add(serializers.serialize(
-          payload.minShort!,
+          minShort,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.short != null) {
+    if (short != null) {
       result
         ..add('short')
         ..add(serializers.serialize(
-          payload.short!,
+          short,
           specifiedType: const FullType(int),
         ));
     }

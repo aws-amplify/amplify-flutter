@@ -276,67 +276,49 @@ class XmlTimestampsOutputAwsQuerySerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'normal':
-          if (value != null) {
-            result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.normal = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'dateTime':
-          if (value != null) {
-            result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTime = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'dateTimeOnTarget':
-          if (value != null) {
-            result.dateTimeOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.dateTimeOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSeconds':
-          if (value != null) {
-            result.epochSeconds =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSeconds =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'epochSecondsOnTarget':
-          if (value != null) {
-            result.epochSecondsOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.epochSecondsOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDate':
-          if (value != null) {
-            result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDate = _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'httpDateOnTarget':
-          if (value != null) {
-            result.httpDateOnTarget =
-                _i4.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpDateOnTarget =
+              _i4.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 

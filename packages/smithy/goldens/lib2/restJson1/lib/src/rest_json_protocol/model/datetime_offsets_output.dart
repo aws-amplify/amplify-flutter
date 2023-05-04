@@ -78,15 +78,15 @@ class DatetimeOffsetsOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -101,12 +101,13 @@ class DatetimeOffsetsOutputRestJson1Serializer
   }) {
     final payload = (object as DatetimeOffsetsOutput);
     final result = <Object?>[];
-    if (payload.datetime != null) {
+    final DatetimeOffsetsOutput(:datetime) = payload;
+    if (datetime != null) {
       result
         ..add('datetime')
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
     return result;

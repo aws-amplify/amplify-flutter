@@ -179,147 +179,120 @@ class JsonMapsInputOutputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'denseBooleanMap':
-          if (value != null) {
-            result.denseBooleanMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(bool),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, bool>));
-          }
-          break;
+          result.denseBooleanMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(bool),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, bool>));
         case 'denseNumberMap':
-          if (value != null) {
-            result.denseNumberMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(int),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, int>));
-          }
-          break;
+          result.denseNumberMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(int),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, int>));
         case 'denseSetMap':
-          if (value != null) {
-            result.denseSetMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltSetMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltSetMultimap<String, String>));
-          }
-          break;
+          result.denseSetMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltSetMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltSetMultimap<String, String>));
         case 'denseStringMap':
-          if (value != null) {
-            result.denseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.denseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String>));
         case 'denseStructMap':
-          if (value != null) {
-            result.denseStructMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.GreetingStruct),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i3.GreetingStruct>));
-          }
-          break;
+          result.denseStructMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.GreetingStruct),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.GreetingStruct>));
         case 'sparseBooleanMap':
-          if (value != null) {
-            result.sparseBooleanMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(bool),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, bool?>));
-          }
-          break;
+          result.sparseBooleanMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(bool),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, bool?>));
         case 'sparseNumberMap':
-          if (value != null) {
-            result.sparseNumberMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(int),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, int?>));
-          }
-          break;
+          result.sparseNumberMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(int),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, int?>));
         case 'sparseSetMap':
-          if (value != null) {
-            result.sparseSetMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltSetMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltSetMultimap<String, String>));
-          }
-          break;
+          result.sparseSetMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltSetMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i4.BuiltSetMultimap<String, String>));
         case 'sparseStringMap':
-          if (value != null) {
-            result.sparseStringMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String?>));
-          }
-          break;
+          result.sparseStringMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String?>));
         case 'sparseStructMap':
-          if (value != null) {
-            result.sparseStructMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType.nullable(_i3.GreetingStruct),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, _i3.GreetingStruct?>));
-          }
-          break;
+          result.sparseStructMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(_i3.GreetingStruct),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, _i3.GreetingStruct?>));
       }
     }
 
@@ -334,11 +307,23 @@ class JsonMapsInputOutputRestJson1Serializer
   }) {
     final payload = (object as JsonMapsInputOutput);
     final result = <Object?>[];
-    if (payload.denseBooleanMap != null) {
+    final JsonMapsInputOutput(
+      :denseBooleanMap,
+      :denseNumberMap,
+      :denseSetMap,
+      :denseStringMap,
+      :denseStructMap,
+      :sparseBooleanMap,
+      :sparseNumberMap,
+      :sparseSetMap,
+      :sparseStringMap,
+      :sparseStructMap
+    ) = payload;
+    if (denseBooleanMap != null) {
       result
         ..add('denseBooleanMap')
         ..add(serializers.serialize(
-          payload.denseBooleanMap!,
+          denseBooleanMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -348,11 +333,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.denseNumberMap != null) {
+    if (denseNumberMap != null) {
       result
         ..add('denseNumberMap')
         ..add(serializers.serialize(
-          payload.denseNumberMap!,
+          denseNumberMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -362,11 +347,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.denseSetMap != null) {
+    if (denseSetMap != null) {
       result
         ..add('denseSetMap')
         ..add(serializers.serialize(
-          payload.denseSetMap!,
+          denseSetMap,
           specifiedType: const FullType(
             _i4.BuiltSetMultimap,
             [
@@ -376,11 +361,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.denseStringMap != null) {
+    if (denseStringMap != null) {
       result
         ..add('denseStringMap')
         ..add(serializers.serialize(
-          payload.denseStringMap!,
+          denseStringMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -390,11 +375,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.denseStructMap != null) {
+    if (denseStructMap != null) {
       result
         ..add('denseStructMap')
         ..add(serializers.serialize(
-          payload.denseStructMap!,
+          denseStructMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -404,11 +389,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseBooleanMap != null) {
+    if (sparseBooleanMap != null) {
       result
         ..add('sparseBooleanMap')
         ..add(serializers.serialize(
-          payload.sparseBooleanMap!,
+          sparseBooleanMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -418,11 +403,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseNumberMap != null) {
+    if (sparseNumberMap != null) {
       result
         ..add('sparseNumberMap')
         ..add(serializers.serialize(
-          payload.sparseNumberMap!,
+          sparseNumberMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -432,11 +417,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseSetMap != null) {
+    if (sparseSetMap != null) {
       result
         ..add('sparseSetMap')
         ..add(serializers.serialize(
-          payload.sparseSetMap!,
+          sparseSetMap,
           specifiedType: const FullType(
             _i4.BuiltSetMultimap,
             [
@@ -446,11 +431,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseStringMap != null) {
+    if (sparseStringMap != null) {
       result
         ..add('sparseStringMap')
         ..add(serializers.serialize(
-          payload.sparseStringMap!,
+          sparseStringMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
@@ -460,11 +445,11 @@ class JsonMapsInputOutputRestJson1Serializer
           ),
         ));
     }
-    if (payload.sparseStructMap != null) {
+    if (sparseStructMap != null) {
       result
         ..add('sparseStructMap')
         ..add(serializers.serialize(
-          payload.sparseStructMap!,
+          sparseStructMap,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [

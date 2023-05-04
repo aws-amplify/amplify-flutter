@@ -79,15 +79,15 @@ class GreetingWithErrorsOutputAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'greeting':
-          if (value != null) {
-            result.greeting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.greeting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -102,11 +102,12 @@ class GreetingWithErrorsOutputAwsJson11Serializer
   }) {
     final payload = (object as GreetingWithErrorsOutput);
     final result = <Object?>[];
-    if (payload.greeting != null) {
+    final GreetingWithErrorsOutput(:greeting) = payload;
+    if (greeting != null) {
       result
         ..add('greeting')
         ..add(serializers.serialize(
-          payload.greeting!,
+          greeting,
           specifiedType: const FullType(String),
         ));
     }

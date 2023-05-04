@@ -87,16 +87,18 @@ class HostLabelInputRestXmlSerializer
     final result = HostLabelInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'label':
           result.label = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -111,10 +113,11 @@ class HostLabelInputRestXmlSerializer
   }) {
     final payload = (object as HostLabelInput);
     final result = <Object?>[const _i1.XmlElementName('HostLabelInput')];
+    final HostLabelInput(:label) = payload;
     result
       ..add(const _i1.XmlElementName('label'))
       ..add(serializers.serialize(
-        payload.label,
+        label,
         specifiedType: const FullType(String),
       ));
     return result;

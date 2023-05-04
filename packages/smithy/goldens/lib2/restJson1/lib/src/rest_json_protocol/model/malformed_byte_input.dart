@@ -172,15 +172,15 @@ class MalformedByteInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'byteInBody':
-          if (value != null) {
-            result.byteInBody = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.byteInBody = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -197,11 +197,12 @@ class MalformedByteInputRestJson1Serializer
         ? object.getPayload()
         : (object as MalformedByteInputPayload);
     final result = <Object?>[];
-    if (payload.byteInBody != null) {
+    final MalformedByteInputPayload(:byteInBody) = payload;
+    if (byteInBody != null) {
       result
         ..add('byteInBody')
         ..add(serializers.serialize(
-          payload.byteInBody!,
+          byteInBody,
           specifiedType: const FullType(int),
         ));
     }

@@ -97,23 +97,20 @@ class MalformedRequestBodyInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'float':
-          if (value != null) {
-            result.float = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.float = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'int':
-          if (value != null) {
-            result.int_ = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.int_ = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
       }
     }
 
@@ -128,19 +125,20 @@ class MalformedRequestBodyInputRestJson1Serializer
   }) {
     final payload = (object as MalformedRequestBodyInput);
     final result = <Object?>[];
-    if (payload.float != null) {
+    final MalformedRequestBodyInput(:float, :int_) = payload;
+    if (float != null) {
       result
         ..add('float')
         ..add(serializers.serialize(
-          payload.float!,
+          float,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.int_ != null) {
+    if (int_ != null) {
       result
         ..add('int')
         ..add(serializers.serialize(
-          payload.int_!,
+          int_,
           specifiedType: const FullType(int),
         ));
     }

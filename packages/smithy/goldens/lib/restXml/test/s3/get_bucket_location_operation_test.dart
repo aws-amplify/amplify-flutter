@@ -88,13 +88,15 @@ class GetBucketLocationRequestRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Bucket':
           result.bucket = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -137,15 +139,15 @@ class GetBucketLocationOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'LocationConstraint':
-          if (value != null) {
-            result.locationConstraint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.BucketLocationConstraint),
-            ) as _i9.BucketLocationConstraint);
-          }
-          break;
+          result.locationConstraint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.BucketLocationConstraint),
+          ) as _i9.BucketLocationConstraint);
       }
     }
 

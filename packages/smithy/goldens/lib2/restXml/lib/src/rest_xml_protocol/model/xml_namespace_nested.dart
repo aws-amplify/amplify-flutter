@@ -82,32 +82,29 @@ class XmlNamespaceNestedRestXmlSerializer
     final result = XmlNamespaceNestedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'values':
-          if (value != null) {
-            result.values.replace((const _i3.XmlBuiltListSerializer(
-                    memberNamespace: _i3.XmlNamespace('http://bux.com'))
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i2.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i2.BuiltList<String>));
-          }
-          break;
+          result.values.replace((const _i3.XmlBuiltListSerializer(
+                  memberNamespace: _i3.XmlNamespace('http://bux.com'))
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i2.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -127,7 +124,8 @@ class XmlNamespaceNestedRestXmlSerializer
         _i3.XmlNamespace('http://foo.com'),
       )
     ];
-    if (payload.foo != null) {
+    final XmlNamespaceNested(:foo, :values) = payload;
+    if (foo != null) {
       result
         ..add(const _i3.XmlElementName(
           'foo',
@@ -137,11 +135,11 @@ class XmlNamespaceNestedRestXmlSerializer
           ),
         ))
         ..add(serializers.serialize(
-          payload.foo!,
+          foo,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.values != null) {
+    if (values != null) {
       result
         ..add(const _i3.XmlElementName(
           'values',
@@ -151,7 +149,7 @@ class XmlNamespaceNestedRestXmlSerializer
                 memberNamespace: _i3.XmlNamespace('http://bux.com'))
             .serialize(
           serializers,
-          payload.values!,
+          values,
           specifiedType: const FullType.nullable(
             _i2.BuiltList,
             [FullType(String)],

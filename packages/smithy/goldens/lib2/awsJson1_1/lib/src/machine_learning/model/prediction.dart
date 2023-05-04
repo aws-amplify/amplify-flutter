@@ -103,51 +103,42 @@ class PredictionAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'predictedLabel':
-          if (value != null) {
-            result.predictedLabel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.predictedLabel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'predictedValue':
-          if (value != null) {
-            result.predictedValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.predictedValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'predictedScores':
-          if (value != null) {
-            result.predictedScores.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(double),
-                ],
-              ),
-            ) as _i3.BuiltMap<String, double>));
-          }
-          break;
+          result.predictedScores.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(String),
+                FullType(double),
+              ],
+            ),
+          ) as _i3.BuiltMap<String, double>));
         case 'details':
-          if (value != null) {
-            result.details.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltMap,
-                [
-                  FullType(_i2.DetailsAttributes),
-                  FullType(String),
-                ],
-              ),
-            ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
-          }
-          break;
+          result.details.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltMap,
+              [
+                FullType(_i2.DetailsAttributes),
+                FullType(String),
+              ],
+            ),
+          ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
       }
     }
 
@@ -162,27 +153,33 @@ class PredictionAwsJson11Serializer
   }) {
     final payload = (object as Prediction);
     final result = <Object?>[];
-    if (payload.predictedLabel != null) {
+    final Prediction(
+      :predictedLabel,
+      :predictedValue,
+      :predictedScores,
+      :details
+    ) = payload;
+    if (predictedLabel != null) {
       result
         ..add('predictedLabel')
         ..add(serializers.serialize(
-          payload.predictedLabel!,
+          predictedLabel,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.predictedValue != null) {
+    if (predictedValue != null) {
       result
         ..add('predictedValue')
         ..add(serializers.serialize(
-          payload.predictedValue!,
+          predictedValue,
           specifiedType: const FullType(double),
         ));
     }
-    if (payload.predictedScores != null) {
+    if (predictedScores != null) {
       result
         ..add('predictedScores')
         ..add(serializers.serialize(
-          payload.predictedScores!,
+          predictedScores,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [
@@ -192,11 +189,11 @@ class PredictionAwsJson11Serializer
           ),
         ));
     }
-    if (payload.details != null) {
+    if (details != null) {
       result
         ..add('details')
         ..add(serializers.serialize(
-          payload.details!,
+          details,
           specifiedType: const FullType(
             _i3.BuiltMap,
             [

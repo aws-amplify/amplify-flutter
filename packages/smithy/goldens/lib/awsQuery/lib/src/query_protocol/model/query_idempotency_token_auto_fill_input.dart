@@ -94,18 +94,18 @@ class QueryIdempotencyTokenAutoFillInputAwsQuerySerializer
     final result = QueryIdempotencyTokenAutoFillInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'token':
-          if (value != null) {
-            result.token = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.token = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -125,11 +125,12 @@ class QueryIdempotencyTokenAutoFillInputAwsQuerySerializer
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.token != null) {
+    final QueryIdempotencyTokenAutoFillInput(:token) = payload;
+    if (token != null) {
       result
         ..add(const _i1.XmlElementName('token'))
         ..add(serializers.serialize(
-          payload.token!,
+          token,
           specifiedType: const FullType(String),
         ));
     }

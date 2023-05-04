@@ -81,18 +81,18 @@ class MalformedListInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'bodyList':
-          if (value != null) {
-            result.bodyList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i3.BuiltList<String>));
-          }
-          break;
+          result.bodyList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i3.BuiltList<String>));
       }
     }
 
@@ -107,11 +107,12 @@ class MalformedListInputRestJson1Serializer
   }) {
     final payload = (object as MalformedListInput);
     final result = <Object?>[];
-    if (payload.bodyList != null) {
+    final MalformedListInput(:bodyList) = payload;
+    if (bodyList != null) {
       result
         ..add('bodyList')
         ..add(serializers.serialize(
-          payload.bodyList!,
+          bodyList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(String)],

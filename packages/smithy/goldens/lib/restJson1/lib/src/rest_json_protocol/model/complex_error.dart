@@ -176,23 +176,20 @@ class ComplexErrorRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.ComplexNestedErrorData),
-            ) as _i3.ComplexNestedErrorData));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          ) as _i3.ComplexNestedErrorData));
         case 'TopLevel':
-          if (value != null) {
-            result.topLevel = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.topLevel = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -209,19 +206,20 @@ class ComplexErrorRestJson1Serializer
         ? object.getPayload()
         : (object as ComplexErrorPayload);
     final result = <Object?>[];
-    if (payload.nested != null) {
+    final ComplexErrorPayload(:nested, :topLevel) = payload;
+    if (nested != null) {
       result
         ..add('Nested')
         ..add(serializers.serialize(
-          payload.nested!,
+          nested,
           specifiedType: const FullType(_i3.ComplexNestedErrorData),
         ));
     }
-    if (payload.topLevel != null) {
+    if (topLevel != null) {
       result
         ..add('TopLevel')
         ..add(serializers.serialize(
-          payload.topLevel!,
+          topLevel,
           specifiedType: const FullType(String),
         ));
     }

@@ -2644,282 +2644,207 @@ class KitchenSinkAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i7.Uint8List),
-            ) as _i7.Uint8List);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i7.Uint8List),
+          ) as _i7.Uint8List);
         case 'Boolean':
-          if (value != null) {
-            result.boolean = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.boolean = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'Double':
-          if (value != null) {
-            result.double_ = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.double_ = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'EmptyStruct':
-          if (value != null) {
-            result.emptyStruct.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i8.EmptyStruct),
-            ) as _i8.EmptyStruct));
-          }
-          break;
+          result.emptyStruct.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i8.EmptyStruct),
+          ) as _i8.EmptyStruct));
         case 'Float':
-          if (value != null) {
-            result.float = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(double),
-            ) as double);
-          }
-          break;
+          result.float = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(double),
+          ) as double);
         case 'HttpdateTimestamp':
-          if (value != null) {
-            result.httpdateTimestamp =
-                _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpdateTimestamp =
+              _i5.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'Integer':
-          if (value != null) {
-            result.integer = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integer = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'Iso8601Timestamp':
-          if (value != null) {
-            result.iso8601Timestamp =
-                _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.iso8601Timestamp =
+              _i5.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'JsonValue':
-          if (value != null) {
-            result.jsonValue = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i9.JsonObject),
-            ) as _i9.JsonObject);
-          }
-          break;
+          result.jsonValue = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i9.JsonObject),
+          ) as _i9.JsonObject);
         case 'ListOfLists':
-          if (value != null) {
-            result.listOfLists.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [
-                  FullType(
-                    _i10.BuiltList,
-                    [FullType(String)],
-                  )
-                ],
-              ),
-            ) as _i10.BuiltList<_i10.BuiltList<String>>));
-          }
-          break;
+          result.listOfLists.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [
+                FullType(
+                  _i10.BuiltList,
+                  [FullType(String)],
+                )
+              ],
+            ),
+          ) as _i10.BuiltList<_i10.BuiltList<String>>));
         case 'ListOfMapsOfStrings':
-          if (value != null) {
-            result.listOfMapsOfStrings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [
-                  FullType(
-                    _i10.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  )
-                ],
-              ),
-            ) as _i10.BuiltList<_i10.BuiltMap<String, String>>));
-          }
-          break;
+          result.listOfMapsOfStrings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [
+                FullType(
+                  _i10.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                )
+              ],
+            ),
+          ) as _i10.BuiltList<_i10.BuiltMap<String, String>>));
         case 'ListOfStrings':
-          if (value != null) {
-            result.listOfStrings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i10.BuiltList<String>));
-          }
-          break;
+          result.listOfStrings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i10.BuiltList<String>));
         case 'ListOfStructs':
-          if (value != null) {
-            result.listOfStructs.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(_i11.SimpleStruct)],
-              ),
-            ) as _i10.BuiltList<_i11.SimpleStruct>));
-          }
-          break;
+          result.listOfStructs.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(_i11.SimpleStruct)],
+            ),
+          ) as _i10.BuiltList<_i11.SimpleStruct>));
         case 'Long':
-          if (value != null) {
-            result.long = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i12.Int64),
-            ) as _i12.Int64);
-          }
-          break;
+          result.long = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i12.Int64),
+          ) as _i12.Int64);
         case 'MapOfListsOfStrings':
-          if (value != null) {
-            result.mapOfListsOfStrings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i10.BuiltListMultimap<String, String>));
-          }
-          break;
+          result.mapOfListsOfStrings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i10.BuiltListMultimap<String, String>));
         case 'MapOfMaps':
-          if (value != null) {
-            result.mapOfMaps.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(
-                    _i10.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  ),
-                ],
-              ),
-            ) as _i10.BuiltMap<String, _i10.BuiltMap<String, String>>));
-          }
-          break;
+          result.mapOfMaps.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltMap,
+              [
+                FullType(String),
+                FullType(
+                  _i10.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              ],
+            ),
+          ) as _i10.BuiltMap<String, _i10.BuiltMap<String, String>>));
         case 'MapOfStrings':
-          if (value != null) {
-            result.mapOfStrings.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i10.BuiltMap<String, String>));
-          }
-          break;
+          result.mapOfStrings.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i10.BuiltMap<String, String>));
         case 'MapOfStructs':
-          if (value != null) {
-            result.mapOfStructs.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i11.SimpleStruct),
-                ],
-              ),
-            ) as _i10.BuiltMap<String, _i11.SimpleStruct>));
-          }
-          break;
+          result.mapOfStructs.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i11.SimpleStruct),
+              ],
+            ),
+          ) as _i10.BuiltMap<String, _i11.SimpleStruct>));
         case 'RecursiveList':
-          if (value != null) {
-            result.recursiveList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(_i6.KitchenSink)],
-              ),
-            ) as _i10.BuiltList<_i6.KitchenSink>));
-          }
-          break;
+          result.recursiveList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(_i6.KitchenSink)],
+            ),
+          ) as _i10.BuiltList<_i6.KitchenSink>));
         case 'RecursiveMap':
-          if (value != null) {
-            result.recursiveMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i6.KitchenSink),
-                ],
-              ),
-            ) as _i10.BuiltMap<String, _i6.KitchenSink>));
-          }
-          break;
+          result.recursiveMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i6.KitchenSink),
+              ],
+            ),
+          ) as _i10.BuiltMap<String, _i6.KitchenSink>));
         case 'RecursiveStruct':
-          if (value != null) {
-            result.recursiveStruct.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.KitchenSink),
-            ) as _i6.KitchenSink));
-          }
-          break;
+          result.recursiveStruct.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.KitchenSink),
+          ) as _i6.KitchenSink));
         case 'SimpleStruct':
-          if (value != null) {
-            result.simpleStruct.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i11.SimpleStruct),
-            ) as _i11.SimpleStruct));
-          }
-          break;
+          result.simpleStruct.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i11.SimpleStruct),
+          ) as _i11.SimpleStruct));
         case 'String':
-          if (value != null) {
-            result.string = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.string = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StructWithJsonName':
-          if (value != null) {
-            result.structWithJsonName.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i13.StructWithJsonName),
-            ) as _i13.StructWithJsonName));
-          }
-          break;
+          result.structWithJsonName.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i13.StructWithJsonName),
+          ) as _i13.StructWithJsonName));
         case 'Timestamp':
-          if (value != null) {
-            result.timestamp = _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.timestamp = _i5.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
         case 'UnixTimestamp':
-          if (value != null) {
-            result.unixTimestamp =
-                _i5.TimestampSerializer.epochSeconds.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.unixTimestamp =
+              _i5.TimestampSerializer.epochSeconds.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -2993,15 +2918,15 @@ class SimpleStructAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -3043,15 +2968,15 @@ class StructWithJsonNameAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -3093,72 +3018,54 @@ class ErrorWithMembersAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Code':
-          if (value != null) {
-            result.code = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.code = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ComplexData':
-          if (value != null) {
-            result.complexData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.KitchenSink),
-            ) as _i6.KitchenSink));
-          }
-          break;
+          result.complexData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.KitchenSink),
+          ) as _i6.KitchenSink));
         case 'IntegerField':
-          if (value != null) {
-            result.integerField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.integerField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'ListField':
-          if (value != null) {
-            result.listField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i10.BuiltList<String>));
-          }
-          break;
+          result.listField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i10.BuiltList<String>));
         case 'MapField':
-          if (value != null) {
-            result.mapField.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i10.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i10.BuiltMap<String, String>));
-          }
-          break;
+          result.mapField.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i10.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i10.BuiltMap<String, String>));
         case 'Message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'StringField':
-          if (value != null) {
-            result.stringField = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.stringField = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 

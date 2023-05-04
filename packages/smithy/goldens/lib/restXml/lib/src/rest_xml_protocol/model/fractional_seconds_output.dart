@@ -89,26 +89,23 @@ class FractionalSecondsOutputRestXmlSerializer
     final result = FractionalSecondsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'datetime':
-          if (value != null) {
-            result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.datetime = _i2.TimestampSerializer.dateTime.deserialize(
+            serializers,
+            value,
+          );
         case 'httpdate':
-          if (value != null) {
-            result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
-              serializers,
-              value,
-            );
-          }
-          break;
+          result.httpdate = _i2.TimestampSerializer.httpDate.deserialize(
+            serializers,
+            value,
+          );
       }
     }
 
@@ -125,20 +122,21 @@ class FractionalSecondsOutputRestXmlSerializer
     final result = <Object?>[
       const _i2.XmlElementName('FractionalSecondsOutput')
     ];
-    if (payload.datetime != null) {
+    final FractionalSecondsOutput(:datetime, :httpdate) = payload;
+    if (datetime != null) {
       result
         ..add(const _i2.XmlElementName('datetime'))
         ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
-          payload.datetime!,
+          datetime,
         ));
     }
-    if (payload.httpdate != null) {
+    if (httpdate != null) {
       result
         ..add(const _i2.XmlElementName('httpdate'))
         ..add(_i2.TimestampSerializer.httpDate.serialize(
           serializers,
-          payload.httpdate!,
+          httpdate,
         ));
     }
     return result;

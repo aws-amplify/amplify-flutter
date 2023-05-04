@@ -85,13 +85,15 @@ class MalformedTimestampBodyDateTimeInputRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'timestamp':
           result.timestamp = _i1.TimestampSerializer.dateTime.deserialize(
             serializers,
-            value!,
+            value,
           );
-          break;
       }
     }
 

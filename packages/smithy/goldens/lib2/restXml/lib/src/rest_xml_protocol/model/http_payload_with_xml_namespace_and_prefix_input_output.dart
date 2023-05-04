@@ -103,18 +103,18 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
     final result = _i2.PayloadWithXmlNamespaceAndPrefixBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'name':
-          if (value != null) {
-            result.name = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.name = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,11 +142,12 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
     if (payload == null) {
       return result;
     }
-    if (payload.name != null) {
+    final _i2.PayloadWithXmlNamespaceAndPrefix(:name) = payload;
+    if (name != null) {
       result
         ..add(const _i1.XmlElementName('name'))
         ..add(serializers.serialize(
-          payload.name!,
+          name,
           specifiedType: const FullType(String),
         ));
     }

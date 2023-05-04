@@ -146,150 +146,128 @@ class QueryMapsInputAwsQuerySerializer
     final result = QueryMapsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'MapArg':
-          if (value != null) {
-            result.mapArg.replace(const _i1.XmlBuiltMapSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.mapArg.replace(const _i1.XmlBuiltMapSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ));
         case 'Foo':
-          if (value != null) {
-            result.renamedMapArg.replace(const _i1.XmlBuiltMapSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.renamedMapArg.replace(const _i1.XmlBuiltMapSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ));
         case 'ComplexMapArg':
-          if (value != null) {
-            result.complexMapArg.replace(const _i1.XmlBuiltMapSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(_i3.GreetingStruct),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.complexMapArg.replace(const _i1.XmlBuiltMapSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(_i3.GreetingStruct),
+              ],
+            ),
+          ));
         case 'MapWithXmlMemberName':
-          if (value != null) {
-            result.mapWithXmlMemberName.replace(const _i1.XmlBuiltMapSerializer(
-              keyName: 'K',
-              valueName: 'V',
-              indexer: _i1.XmlIndexer.awsQueryMap,
-            ).deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.mapWithXmlMemberName.replace(const _i1.XmlBuiltMapSerializer(
+            keyName: 'K',
+            valueName: 'V',
+            indexer: _i1.XmlIndexer.awsQueryMap,
+          ).deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ));
         case 'FlattenedMap':
-          if (value != null) {
-            result.flattenedMap.addAll(const _i1.XmlBuiltMapSerializer(
-              flattenedKey: 'FlattenedMap',
-              indexer: _i1.XmlIndexer.awsQueryMap,
-            )
-                .deserialize(
-                  serializers,
-                  value is String ? const [] : (value as Iterable<Object?>),
-                  specifiedType: const FullType(
-                    _i5.BuiltMap,
-                    [
-                      FullType(String),
-                      FullType(String),
-                    ],
-                  ),
-                )
-                .toMap()
-                .cast());
-          }
-          break;
+          result.flattenedMap.addAll(const _i1.XmlBuiltMapSerializer(
+            flattenedKey: 'FlattenedMap',
+            indexer: _i1.XmlIndexer.awsQueryMap,
+          )
+              .deserialize(
+                serializers,
+                value is String ? const [] : (value as Iterable<Object?>),
+                specifiedType: const FullType(
+                  _i5.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              )
+              .toMap()
+              .cast());
         case 'Hi':
-          if (value != null) {
-            result.flattenedMapWithXmlName
-                .addAll(const _i1.XmlBuiltMapSerializer(
-              keyName: 'K',
-              valueName: 'V',
-              flattenedKey: 'Hi',
-              indexer: _i1.XmlIndexer.awsQueryMap,
-            )
-                    .deserialize(
-                      serializers,
-                      value is String ? const [] : (value as Iterable<Object?>),
-                      specifiedType: const FullType(
-                        _i5.BuiltMap,
-                        [
-                          FullType(String),
-                          FullType(String),
-                        ],
-                      ),
-                    )
-                    .toMap()
-                    .cast());
-          }
-          break;
+          result.flattenedMapWithXmlName.addAll(const _i1.XmlBuiltMapSerializer(
+            keyName: 'K',
+            valueName: 'V',
+            flattenedKey: 'Hi',
+            indexer: _i1.XmlIndexer.awsQueryMap,
+          )
+              .deserialize(
+                serializers,
+                value is String ? const [] : (value as Iterable<Object?>),
+                specifiedType: const FullType(
+                  _i5.BuiltMap,
+                  [
+                    FullType(String),
+                    FullType(String),
+                  ],
+                ),
+              )
+              .toMap()
+              .cast());
         case 'MapOfLists':
-          if (value != null) {
-            result.mapOfLists.replace(const _i1.XmlBuiltMultimapSerializer(
-                    indexer: _i1.XmlIndexer.awsQueryMap)
-                .deserialize(
-              serializers,
-              value is String ? const [] : (value as Iterable<Object?>),
-              specifiedType: const FullType(
-                _i5.BuiltListMultimap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ));
-          }
-          break;
+          result.mapOfLists.replace(const _i1.XmlBuiltMultimapSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryMap)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltListMultimap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ));
         case 'NestedStructWithMap':
-          if (value != null) {
-            result.nestedStructWithMap.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.NestedStructWithMap),
-            ) as _i4.NestedStructWithMap));
-          }
-          break;
+          result.nestedStructWithMap.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.NestedStructWithMap),
+          ) as _i4.NestedStructWithMap));
       }
     }
 
@@ -309,14 +287,24 @@ class QueryMapsInputAwsQuerySerializer
         _i1.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.mapArg != null) {
+    final QueryMapsInput(
+      :mapArg,
+      :renamedMapArg,
+      :complexMapArg,
+      :mapWithXmlMemberName,
+      :flattenedMap,
+      :flattenedMapWithXmlName,
+      :mapOfLists,
+      :nestedStructWithMap
+    ) = payload;
+    if (mapArg != null) {
       result
         ..add(const _i1.XmlElementName('MapArg'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.mapArg!,
+          mapArg,
           specifiedType: const FullType.nullable(
             _i5.BuiltMap,
             [
@@ -326,14 +314,14 @@ class QueryMapsInputAwsQuerySerializer
           ),
         ));
     }
-    if (payload.renamedMapArg != null) {
+    if (renamedMapArg != null) {
       result
         ..add(const _i1.XmlElementName('Foo'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.renamedMapArg!,
+          renamedMapArg,
           specifiedType: const FullType.nullable(
             _i5.BuiltMap,
             [
@@ -343,14 +331,14 @@ class QueryMapsInputAwsQuerySerializer
           ),
         ));
     }
-    if (payload.complexMapArg != null) {
+    if (complexMapArg != null) {
       result
         ..add(const _i1.XmlElementName('ComplexMapArg'))
         ..add(
             const _i1.XmlBuiltMapSerializer(indexer: _i1.XmlIndexer.awsQueryMap)
                 .serialize(
           serializers,
-          payload.complexMapArg!,
+          complexMapArg,
           specifiedType: const FullType.nullable(
             _i5.BuiltMap,
             [
@@ -360,7 +348,7 @@ class QueryMapsInputAwsQuerySerializer
           ),
         ));
     }
-    if (payload.mapWithXmlMemberName != null) {
+    if (mapWithXmlMemberName != null) {
       result
         ..add(const _i1.XmlElementName('MapWithXmlMemberName'))
         ..add(const _i1.XmlBuiltMapSerializer(
@@ -369,7 +357,7 @@ class QueryMapsInputAwsQuerySerializer
           indexer: _i1.XmlIndexer.awsQueryMap,
         ).serialize(
           serializers,
-          payload.mapWithXmlMemberName!,
+          mapWithXmlMemberName,
           specifiedType: const FullType.nullable(
             _i5.BuiltMap,
             [
@@ -379,13 +367,13 @@ class QueryMapsInputAwsQuerySerializer
           ),
         ));
     }
-    if (payload.flattenedMap != null) {
+    if (flattenedMap != null) {
       result.addAll(const _i1.XmlBuiltMapSerializer(
         flattenedKey: 'FlattenedMap',
         indexer: _i1.XmlIndexer.awsQueryMap,
       ).serialize(
         serializers,
-        payload.flattenedMap!,
+        flattenedMap,
         specifiedType: const FullType.nullable(
           _i5.BuiltMap,
           [
@@ -395,7 +383,7 @@ class QueryMapsInputAwsQuerySerializer
         ),
       ));
     }
-    if (payload.flattenedMapWithXmlName != null) {
+    if (flattenedMapWithXmlName != null) {
       result.addAll(const _i1.XmlBuiltMapSerializer(
         keyName: 'K',
         valueName: 'V',
@@ -403,7 +391,7 @@ class QueryMapsInputAwsQuerySerializer
         indexer: _i1.XmlIndexer.awsQueryMap,
       ).serialize(
         serializers,
-        payload.flattenedMapWithXmlName!,
+        flattenedMapWithXmlName,
         specifiedType: const FullType.nullable(
           _i5.BuiltMap,
           [
@@ -413,14 +401,14 @@ class QueryMapsInputAwsQuerySerializer
         ),
       ));
     }
-    if (payload.mapOfLists != null) {
+    if (mapOfLists != null) {
       result
         ..add(const _i1.XmlElementName('MapOfLists'))
         ..add(const _i1.XmlBuiltMultimapSerializer(
                 indexer: _i1.XmlIndexer.awsQueryMap)
             .serialize(
           serializers,
-          payload.mapOfLists!,
+          mapOfLists,
           specifiedType: const FullType.nullable(
             _i5.BuiltListMultimap,
             [
@@ -430,11 +418,11 @@ class QueryMapsInputAwsQuerySerializer
           ),
         ));
     }
-    if (payload.nestedStructWithMap != null) {
+    if (nestedStructWithMap != null) {
       result
         ..add(const _i1.XmlElementName('NestedStructWithMap'))
         ..add(serializers.serialize(
-          payload.nestedStructWithMap!,
+          nestedStructWithMap,
           specifiedType: const FullType(_i4.NestedStructWithMap),
         ));
     }

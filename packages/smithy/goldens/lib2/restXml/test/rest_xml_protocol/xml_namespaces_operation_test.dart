@@ -138,15 +138,15 @@ class XmlNamespacesInputOutputRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'nested':
-          if (value != null) {
-            result.nested.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i6.XmlNamespaceNested),
-            ) as _i6.XmlNamespaceNested));
-          }
-          break;
+          result.nested.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i6.XmlNamespaceNested),
+          ) as _i6.XmlNamespaceNested));
       }
     }
 
@@ -188,26 +188,23 @@ class XmlNamespaceNestedRestXmlSerializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'foo':
-          if (value != null) {
-            result.foo = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.foo = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'values':
-          if (value != null) {
-            result.values.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i7.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i7.BuiltList<String>));
-          }
-          break;
+          result.values.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i7.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i7.BuiltList<String>));
       }
     }
 

@@ -93,34 +93,28 @@ class S3ConfigRestXmlSerializer
     final result = S3ConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'addressing_style':
-          if (value != null) {
-            result.addressingStyle = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.S3AddressingStyle),
-            ) as _i2.S3AddressingStyle);
-          }
-          break;
+          result.addressingStyle = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.S3AddressingStyle),
+          ) as _i2.S3AddressingStyle);
         case 'use_accelerate_endpoint':
-          if (value != null) {
-            result.useAccelerateEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useAccelerateEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
         case 'use_dualstack_endpoint':
-          if (value != null) {
-            result.useDualstackEndpoint = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(bool),
-            ) as bool);
-          }
-          break;
+          result.useDualstackEndpoint = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -140,27 +134,32 @@ class S3ConfigRestXmlSerializer
         _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    if (payload.addressingStyle != null) {
+    final S3Config(
+      :addressingStyle,
+      :useAccelerateEndpoint,
+      :useDualstackEndpoint
+    ) = payload;
+    if (addressingStyle != null) {
       result
         ..add(const _i3.XmlElementName('addressing_style'))
         ..add(serializers.serialize(
-          payload.addressingStyle!,
+          addressingStyle,
           specifiedType: const FullType.nullable(_i2.S3AddressingStyle),
         ));
     }
-    if (payload.useAccelerateEndpoint != null) {
+    if (useAccelerateEndpoint != null) {
       result
         ..add(const _i3.XmlElementName('use_accelerate_endpoint'))
         ..add(serializers.serialize(
-          payload.useAccelerateEndpoint!,
+          useAccelerateEndpoint,
           specifiedType: const FullType.nullable(bool),
         ));
     }
-    if (payload.useDualstackEndpoint != null) {
+    if (useDualstackEndpoint != null) {
       result
         ..add(const _i3.XmlElementName('use_dualstack_endpoint'))
         ..add(serializers.serialize(
-          payload.useDualstackEndpoint!,
+          useDualstackEndpoint,
           specifiedType: const FullType.nullable(bool),
         ));
     }

@@ -86,26 +86,23 @@ class RetryConfigRestXmlSerializer
     final result = RetryConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'max_attempts':
-          if (value != null) {
-            result.maxAttempts = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.maxAttempts = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'mode':
-          if (value != null) {
-            result.mode = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.RetryMode),
-            ) as _i2.RetryMode);
-          }
-          break;
+          result.mode = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.RetryMode),
+          ) as _i2.RetryMode);
       }
     }
 
@@ -120,19 +117,20 @@ class RetryConfigRestXmlSerializer
   }) {
     final payload = (object as RetryConfig);
     final result = <Object?>[const _i3.XmlElementName('RetryConfig')];
-    if (payload.maxAttempts != null) {
+    final RetryConfig(:maxAttempts, :mode) = payload;
+    if (maxAttempts != null) {
       result
         ..add(const _i3.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
-          payload.maxAttempts!,
+          maxAttempts,
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (payload.mode != null) {
+    if (mode != null) {
       result
         ..add(const _i3.XmlElementName('mode'))
         ..add(serializers.serialize(
-          payload.mode!,
+          mode,
           specifiedType: const FullType.nullable(_i2.RetryMode),
         ));
     }

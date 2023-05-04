@@ -69,15 +69,15 @@ class SimpleStructAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -92,11 +92,12 @@ class SimpleStructAwsJson11Serializer
   }) {
     final payload = (object as SimpleStruct);
     final result = <Object?>[];
-    if (payload.value != null) {
+    final SimpleStruct(:value) = payload;
+    if (value != null) {
       result
         ..add('Value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }

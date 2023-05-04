@@ -81,15 +81,15 @@ class MalformedBlobInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'blob':
-          if (value != null) {
-            result.blob = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.Uint8List),
-            ) as _i3.Uint8List);
-          }
-          break;
+          result.blob = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.Uint8List),
+          ) as _i3.Uint8List);
       }
     }
 
@@ -104,11 +104,12 @@ class MalformedBlobInputRestJson1Serializer
   }) {
     final payload = (object as MalformedBlobInput);
     final result = <Object?>[];
-    if (payload.blob != null) {
+    final MalformedBlobInput(:blob) = payload;
+    if (blob != null) {
       result
         ..add('blob')
         ..add(serializers.serialize(
-          payload.blob!,
+          blob,
           specifiedType: const FullType(_i3.Uint8List),
         ));
     }

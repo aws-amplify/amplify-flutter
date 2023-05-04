@@ -75,18 +75,18 @@ class XmlBlobsOutputAwsQuerySerializer
     final result = XmlBlobsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current;
+      final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
-      switch (key as String) {
+      if (value == null) {
+        continue;
+      }
+      switch (key) {
         case 'data':
-          if (value != null) {
-            result.data = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.Uint8List),
-            ) as _i2.Uint8List);
-          }
-          break;
+          result.data = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.Uint8List),
+          ) as _i2.Uint8List);
       }
     }
 
@@ -106,11 +106,12 @@ class XmlBlobsOutputAwsQuerySerializer
         _i3.XmlNamespace('https://example.com/'),
       )
     ];
-    if (payload.data != null) {
+    final XmlBlobsOutput(:data) = payload;
+    if (data != null) {
       result
         ..add(const _i3.XmlElementName('data'))
         ..add(serializers.serialize(
-          payload.data!,
+          data,
           specifiedType: const FullType.nullable(_i2.Uint8List),
         ));
     }

@@ -160,15 +160,15 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'testConfig':
-          if (value != null) {
-            result.testConfig.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.TestConfig),
-            ) as _i3.TestConfig));
-          }
-          break;
+          result.testConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.TestConfig),
+          ) as _i3.TestConfig));
       }
     }
 
@@ -185,11 +185,12 @@ class TestBodyStructureInputOutputRestJson1Serializer extends _i1
         ? object.getPayload()
         : (object as TestBodyStructureInputOutputPayload);
     final result = <Object?>[];
-    if (payload.testConfig != null) {
+    final TestBodyStructureInputOutputPayload(:testConfig) = payload;
+    if (testConfig != null) {
       result
         ..add('testConfig')
         ..add(serializers.serialize(
-          payload.testConfig!,
+          testConfig,
           specifiedType: const FullType(_i3.TestConfig),
         ));
     }

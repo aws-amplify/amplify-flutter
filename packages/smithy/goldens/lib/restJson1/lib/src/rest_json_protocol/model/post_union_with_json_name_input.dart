@@ -85,15 +85,15 @@ class PostUnionWithJsonNameInputRestJson1Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.UnionWithJsonName),
-            ) as _i3.UnionWithJsonName);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.UnionWithJsonName),
+          ) as _i3.UnionWithJsonName);
       }
     }
 
@@ -108,11 +108,12 @@ class PostUnionWithJsonNameInputRestJson1Serializer
   }) {
     final payload = (object as PostUnionWithJsonNameInput);
     final result = <Object?>[];
-    if (payload.value != null) {
+    final PostUnionWithJsonNameInput(:value) = payload;
+    if (value != null) {
       result
         ..add('value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(_i3.UnionWithJsonName),
         ));
     }
