@@ -17,6 +17,8 @@ on:
       - 'packages/aws_common/**/*.yaml'
       - 'packages/aws_common/lib/**/*'
       - 'packages/aws_common/test/**/*'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

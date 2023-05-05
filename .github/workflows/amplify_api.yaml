@@ -19,6 +19,8 @@ on:
       - 'packages/amplify_core/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
       - 'packages/amplify/amplify_flutter/pubspec.yaml'
@@ -31,6 +33,8 @@ on:
       - 'packages/secure_storage/amplify_secure_storage_dart/lib/**/*.dart'
       - 'packages/worker_bee/worker_bee/pubspec.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*.dart'
+      - 'packages/worker_bee/worker_bee_builder/pubspec.yaml'
+      - 'packages/worker_bee/worker_bee_builder/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

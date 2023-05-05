@@ -87,7 +87,7 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         '$repoRelativePath/test/**/*',
       ];
       dfs(
-        repo.packageGraph,
+        repo.getPackageGraph(includeDevDependencies: true),
         root: package,
         (dependent) {
           if (dependent == package || !dependent.isDevelopmentPackage) {
@@ -97,6 +97,13 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
             dependent.path,
             from: rootDir.path,
           );
+          if (dependent.isLintsPackage) {
+            workflowPaths.addAll([
+              '$repoRelativePath/pubspec.yaml',
+              '$repoRelativePath/lib/**/*.yaml',
+            ]);
+            return;
+          }
           workflowPaths.addAll([
             '$repoRelativePath/pubspec.yaml',
             '$repoRelativePath/lib/**/*.dart',

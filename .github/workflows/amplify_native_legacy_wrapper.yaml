@@ -13,6 +13,8 @@ on:
       - 'packages/amplify_native_legacy_wrapper/**/*.yaml'
       - 'packages/amplify_native_legacy_wrapper/lib/**/*'
       - 'packages/amplify_native_legacy_wrapper/test/**/*'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

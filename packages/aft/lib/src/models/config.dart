@@ -209,6 +209,11 @@ class PackageInfo
     return p.basename(path) == 'example' || name == 'doc';
   }
 
+  /// Whether the package is a linting package only.
+  bool get isLintsPackage {
+    return name == 'amplify_lints';
+  }
+
   /// Whether the package is a test package.
   bool get isTestPackage {
     return p.basename(path).endsWith('_test') ||
