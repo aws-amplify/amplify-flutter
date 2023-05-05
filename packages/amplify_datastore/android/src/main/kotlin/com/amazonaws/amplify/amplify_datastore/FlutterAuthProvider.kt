@@ -3,9 +3,9 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import NativeApiPlugin
 import android.os.Looper
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionMessages
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeApiPlugin
 import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.aws.ApiAuthProviders
 import com.amplifyframework.api.aws.AuthorizationType
