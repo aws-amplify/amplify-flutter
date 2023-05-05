@@ -33,6 +33,6 @@ dev_dependencies:
       # TODO(dnys1): Remove when Dart is bumped to >=2.19
       ref: 0fe3c62c70c0e8c4f1a051a5dec3bbc4eb6c8e57
       path: packages/code_excerpt_updater
-  json_serializable: 6.6.1
+  json_serializable: ^6.6.1
   path: any
   test: ^1.17.0
