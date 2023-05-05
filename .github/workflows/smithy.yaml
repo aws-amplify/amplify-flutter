@@ -7,17 +7,17 @@ on:
       - stable
   pull_request:
     paths:
-      - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/smithy.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
       - 'packages/smithy/smithy/**/*.dart'
       - 'packages/smithy/smithy/**/*.yaml'
       - 'packages/smithy/smithy/lib/**/*'
       - 'packages/smithy/smithy/test/**/*'
-      - 'packages/aws_common/pubspec.yaml'
-      - 'packages/aws_common/lib/**/*.dart'
-      - 'packages/amplify_lints/pubspec.yaml'
-      - 'packages/amplify_lints/lib/**/*.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

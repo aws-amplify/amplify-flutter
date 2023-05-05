@@ -7,22 +7,22 @@ on:
       - stable
   pull_request:
     paths:
-      - '.github/workflows/flutter_vm.yaml'
       - '.github/workflows/amplify_db_common.yaml'
+      - '.github/workflows/flutter_vm.yaml'
+      - 'packages/amplify_core/lib/**/*.dart'
+      - 'packages/amplify_core/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
+      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
       - 'packages/common/amplify_db_common/**/*.dart'
       - 'packages/common/amplify_db_common/**/*.yaml'
       - 'packages/common/amplify_db_common/lib/**/*'
       - 'packages/common/amplify_db_common/test/**/*'
-      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
       - 'packages/common/amplify_db_common_dart/lib/**/*.dart'
-      - 'packages/amplify_core/pubspec.yaml'
-      - 'packages/amplify_core/lib/**/*.dart'
-      - 'packages/aws_common/pubspec.yaml'
-      - 'packages/aws_common/lib/**/*.dart'
-      - 'packages/amplify_lints/pubspec.yaml'
-      - 'packages/amplify_lints/lib/**/*.yaml'
-      - 'packages/aws_signature_v4/pubspec.yaml'
-      - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/common/amplify_db_common_dart/pubspec.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:

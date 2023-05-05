@@ -111,6 +111,8 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         },
       );
 
+      workflowPaths.sort();
+
       final workflowContents = StringBuffer(
         '''
 # Generated with aft. To update, run: `aft generate workflows`

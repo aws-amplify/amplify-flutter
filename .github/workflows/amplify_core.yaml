@@ -8,21 +8,21 @@ on:
   pull_request:
     paths:
       - '.github/composite_actions/setup_firefox/action.yaml'
-      - '.github/workflows/dart_vm.yaml'
-      - '.github/workflows/dart_native.yaml'
-      - '.github/workflows/dart_ddc.yaml'
-      - '.github/workflows/dart_dart2js.yaml'
       - '.github/workflows/amplify_core.yaml'
+      - '.github/workflows/dart_dart2js.yaml'
+      - '.github/workflows/dart_ddc.yaml'
+      - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - 'packages/amplify_core/**/*.dart'
       - 'packages/amplify_core/**/*.yaml'
       - 'packages/amplify_core/lib/**/*'
       - 'packages/amplify_core/test/**/*'
-      - 'packages/aws_common/pubspec.yaml'
-      - 'packages/aws_common/lib/**/*.dart'
-      - 'packages/amplify_lints/pubspec.yaml'
       - 'packages/amplify_lints/lib/**/*.yaml'
-      - 'packages/aws_signature_v4/pubspec.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
+      - 'packages/aws_signature_v4/pubspec.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
