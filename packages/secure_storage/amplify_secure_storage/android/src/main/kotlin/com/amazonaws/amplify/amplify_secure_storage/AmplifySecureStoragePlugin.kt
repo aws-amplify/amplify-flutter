@@ -3,12 +3,13 @@
 
 package com.amazonaws.amplify.amplify_secure_storage
 
+import AmplifySecureStoragePigeon
 import android.content.Context
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
 /** AmplifySecureStoragePlugin */
-class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageApi {
+class AmplifySecureStoragePlugin: FlutterPlugin, AmplifySecureStoragePigeon {
 
   private lateinit var context: Context
 
@@ -19,19 +20,20 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     context = binding.applicationContext
-    Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, this)
+    AmplifySecureStoragePigeon.setUp(binding.binaryMessenger, this)
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    Messages.AmplifySecureStorageApi.setup(binding.binaryMessenger, null)
+    AmplifySecureStoragePigeon.setUp(binding.binaryMessenger, null)
   }
 
-  override fun read(namespace: String, key: String, result: Messages.Result<String>) {
+  override fun read(namespace: String, key: String, callback: (Result<String?>) -> Unit) {
     try {
       val repository = getOrCreateRepository(namespace)
-      result.success(repository.get(key))
+      val value = repository.get(key)
+      callback(Result.success(value))
     } catch (e: Exception) {
-      result.error(e)
+      callback(Result.failure(e))
     }
   }
 
@@ -39,34 +41,34 @@ class AmplifySecureStoragePlugin: FlutterPlugin, Messages.AmplifySecureStorageAp
     namespace: String,
     key: String,
     value: String?,
-    result: Messages.Result<Void>
+    callback: (Result<Unit>) -> Unit
   ) {
     try {
       val repository = getOrCreateRepository(namespace)
       repository.put(key, value)
-      result.success(null)
+      callback(Result.success(Unit))
     } catch (e: Exception) {
-      result.error(e)
+      callback(Result.failure(e))
     }
   }
 
-  override fun delete(namespace: String, key: String, result: Messages.Result<Void>) {
+  override fun delete(namespace: String, key: String, callback: (Result<Unit>) -> Unit) {
     try {
       val repository = getOrCreateRepository(namespace)
       repository.remove(key)
-      result.success(null)
+      callback(Result.success(Unit))
     } catch (e: Exception) {
-      result.error(e)
+      callback(Result.failure(e))
     }
   }
 
-  override fun removeAll(namespace: String, result: Messages.Result<Void>) {
+  override fun removeAll(namespace: String, callback: (Result<Unit>) -> Unit) {
     try {
       val repository = getOrCreateRepository(namespace)
       repository.removeAll()
-      result.success(null)
+      callback(Result.success(Unit))
     } catch (e: Exception) {
-      result.error(e)
+      callback(Result.failure(e))
     }
   }
 

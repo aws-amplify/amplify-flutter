@@ -7,18 +7,17 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/messages.android.g.dart',
-    javaOut:
-        'android/src/main/java/com/amazonaws/amplify/amplify_secure_storage/Messages.java',
-    javaOptions: JavaOptions(
-      className: 'Messages',
-      package: 'com.amazonaws.amplify.amplify_secure_storage',
-    ),
+    dartOut: 'lib/src/pigeons/amplify_secure_storage_pigeon.g.dart',
+    kotlinOut:
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_secure_storage/pigeons/AmplifySecureStoragePigeon.kt',
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
+
+/// A pigeon for interacting with the native AmplifySecureStorage implementation
+/// on Android.
 @HostApi()
-abstract class AmplifySecureStorageApi {
+abstract class AmplifySecureStoragePigeon {
   @async
   @TaskQueue(type: TaskQueueType.serialBackgroundThread)
   String? read(String namespace, String key);

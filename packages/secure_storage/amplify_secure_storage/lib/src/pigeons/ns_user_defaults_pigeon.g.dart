@@ -11,11 +11,12 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 
-class NSUserDefaultsAPI {
-  /// Constructor for [NSUserDefaultsAPI].  The [binaryMessenger] named argument is
+/// A pigeon for interacting with the NSUserDefaults API on iOS and macOS.
+class NSUserDefaultsPigeon {
+  /// Constructor for [NSUserDefaultsPigeon].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  NSUserDefaultsAPI({BinaryMessenger? binaryMessenger})
+  NSUserDefaultsPigeon({BinaryMessenger? binaryMessenger})
       : _binaryMessenger = binaryMessenger;
   final BinaryMessenger? _binaryMessenger;
 
@@ -23,7 +24,7 @@ class NSUserDefaultsAPI {
 
   Future<void> setBool(String arg_key, bool arg_value) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.NSUserDefaultsAPI.setBool', codec,
+        'dev.flutter.pigeon.NSUserDefaultsPigeon.setBool', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_key, arg_value]) as List<Object?>?;
@@ -45,7 +46,7 @@ class NSUserDefaultsAPI {
 
   Future<bool> boolFor(String arg_key) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.NSUserDefaultsAPI.boolFor', codec,
+        'dev.flutter.pigeon.NSUserDefaultsPigeon.boolFor', codec,
         binaryMessenger: _binaryMessenger);
     final List<Object?>? replyList =
         await channel.send(<Object?>[arg_key]) as List<Object?>?;
