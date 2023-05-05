@@ -65,7 +65,9 @@ abstract class AuthService {
   Stream<AuthHubEvent> get hubEvents;
 }
 
-class AmplifyAuthService implements AuthService {
+class AmplifyAuthService
+    with AWSDebuggable, AmplifyLoggerMixin
+    implements AuthService {
   static final userAgent =
       'amplify-authenticator/${packageVersion.split('+').first}';
 
@@ -311,13 +313,26 @@ class AmplifyAuthService implements AuthService {
   }
 
   @override
-  Future<AmplifyConfig> waitForConfiguration() {
-    return Amplify.asyncConfig;
+  Future<AmplifyConfig> waitForConfiguration() async {
+    final timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      logger.warn(
+        'Amplify is taking longer than expected to configure.'
+        ' Have you called `Amplify.configure()`?',
+      );
+    });
+    try {
+      return await Amplify.asyncConfig;
+    } finally {
+      timer.cancel();
+    }
   }
 
   @override
   Stream<AuthHubEvent> get hubEvents =>
       Amplify.Hub.availableStreams[HubChannel.Auth]!.cast();
+
+  @override
+  String get runtimeTypeName => 'AmplifyAuthService';
 }
 
 class GetAttributeVerificationStatusResult {

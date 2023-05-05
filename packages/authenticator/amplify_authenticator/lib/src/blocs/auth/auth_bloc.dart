@@ -159,7 +159,7 @@ class StateMachineBloc
 
   Stream<AuthState> _authLoad() async* {
     yield const LoadingState();
-    await Amplify.asyncConfig;
+    await _authService.waitForConfiguration();
     yield* _isValidSession();
     // Emit empty event to resolve bug with broken event handling on web (possible DDC issue)
     // TODO(dnys1): investigate broken event handling
