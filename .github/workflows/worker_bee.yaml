@@ -9,14 +9,14 @@ on:
     paths:
       - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/worker_bee.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
       - 'packages/worker_bee/worker_bee/**/*.dart'
       - 'packages/worker_bee/worker_bee/**/*.yaml'
       - 'packages/worker_bee/worker_bee/lib/**/*'
       - 'packages/worker_bee/worker_bee/test/**/*'
-      - 'packages/aws_common/pubspec.yaml'
-      - 'packages/aws_common/lib/**/*.dart'
-      - 'packages/amplify_lints/pubspec.yaml'
-      - 'packages/amplify_lints/lib/**/*.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
