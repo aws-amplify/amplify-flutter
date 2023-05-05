@@ -3,8 +3,8 @@
 
 package com.amazonaws.amplify.amplify_secure_storage
 
-import AmplifySecureStoragePigeon
 import android.content.Context
+import com.amazonaws.amplify.amplify_secure_storage.pigeons.AmplifySecureStoragePigeon
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 

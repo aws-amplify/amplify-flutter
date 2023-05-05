@@ -8,6 +8,9 @@ import 'package:pigeon/pigeon.dart';
 @ConfigurePigeon(
   PigeonOptions(
     dartOut: 'lib/src/pigeons/amplify_secure_storage_pigeon.g.dart',
+    kotlinOptions: KotlinOptions(
+      package: 'com.amazonaws.amplify.amplify_secure_storage.pigeons',
+    ),
     kotlinOut:
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_secure_storage/pigeons/AmplifySecureStoragePigeon.kt',
     copyrightHeader: 'pigeons/copyright.txt',
