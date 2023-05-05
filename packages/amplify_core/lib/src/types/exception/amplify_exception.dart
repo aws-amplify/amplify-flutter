@@ -4,6 +4,11 @@
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
+part 'analytics/analytics_exception.dart';
+part 'analytics/invalid_event_exception.dart';
+part 'api/api_exception.dart';
+part 'api/http_status_exception.dart';
+part 'api/operation_exception.dart';
 part 'auth/auth_exception.dart';
 part 'auth/invalid_state_exception.dart';
 part 'auth/not_authorized_exception.dart';
@@ -13,6 +18,13 @@ part 'auth/signed_out_exception.dart';
 part 'auth/user_cancelled_exception.dart';
 part 'auth/validation_exception.dart';
 part 'network_exception.dart';
+part 'push/push_notification_exception.dart';
+part 'storage/access_denied_exception.dart';
+part 'storage/http_status_exception.dart';
+part 'storage/key_not_found_exception.dart';
+part 'storage/local_file_not_found_exception.dart';
+part 'storage/operation_canceled_exception.dart';
+part 'storage/storage_exception.dart';
 part 'unknown_exception.dart';
 
 /// {@template amplify_core.amplify_exception}
