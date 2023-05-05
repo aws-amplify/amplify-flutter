@@ -21,6 +21,8 @@ on:
       - 'packages/smithy/smithy/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
       - 'packages/smithy/smithy_aws/pubspec.yaml'
       - 'packages/smithy/smithy_aws/lib/**/*.dart'
       - 'packages/aws_signature_v4/pubspec.yaml'

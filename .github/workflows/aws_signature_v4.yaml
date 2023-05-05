@@ -19,6 +19,8 @@ on:
       - 'packages/aws_signature_v4/test/**/*'
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
