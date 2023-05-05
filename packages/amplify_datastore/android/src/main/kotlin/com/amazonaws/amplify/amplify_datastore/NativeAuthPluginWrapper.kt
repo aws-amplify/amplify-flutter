@@ -3,11 +3,11 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import NativeAuthPlugin
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import aws.smithy.kotlin.runtime.time.Instant
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthPlugin
 import com.amplifyframework.auth.AWSCredentials
 import com.amplifyframework.auth.AuthCodeDeliveryDetails
 import com.amplifyframework.auth.AuthDevice

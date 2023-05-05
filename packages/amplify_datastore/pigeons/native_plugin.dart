@@ -6,6 +6,9 @@
     copyrightHeader: '../../tool/license.txt',
     dartOut: 'lib/src/native_plugin.g.dart',
     swiftOut: 'ios/Classes/pigeons/NativePluginBindings.swift',
+    kotlinOptions: KotlinOptions(
+      package: 'com.amazonaws.amplify.amplify_datastore.pigeons',
+    ),
     kotlinOut:
         'android/src/main/kotlin/com/amazonaws/amplify/amplify_datastore/pigeons/NativePluginBindings.kt',
   ),

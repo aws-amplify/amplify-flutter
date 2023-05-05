@@ -3,13 +3,6 @@
 
 package com.amazonaws.amplify.amplify_datastore
 
-import FlutterError
-import NativeAmplifyBridge
-import NativeApiBridge
-import NativeApiPlugin
-import NativeAuthBridge
-import NativeAuthPlugin
-import NativeAuthUser
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +13,13 @@ import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.createSerializedUnrecognizedError
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.handleAddPluginException
 import com.amazonaws.amplify.amplify_datastore.exception.ExceptionUtil.Companion.postExceptionToFlutterChannel
+import com.amazonaws.amplify.amplify_datastore.pigeons.FlutterError
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAmplifyBridge
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeApiBridge
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeApiPlugin
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthBridge
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthPlugin
+import com.amazonaws.amplify.amplify_datastore.pigeons.NativeAuthUser
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterCustomTypeSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterModelSchema
 import com.amazonaws.amplify.amplify_datastore.types.model.FlutterSerializedModel
@@ -74,7 +74,8 @@ import kotlin.collections.HashMap
 typealias ResolutionStrategy = DataStoreConflictHandler.ResolutionStrategy
 
 /** AmplifyDataStorePlugin */
-class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBridge, NativeAuthBridge, NativeApiBridge {
+class AmplifyDataStorePlugin : FlutterPlugin, MethodCallHandler, NativeAmplifyBridge,
+    NativeAuthBridge, NativeApiBridge {
     private lateinit var channel: MethodChannel
     private lateinit var eventChannel: EventChannel
     private lateinit var observeCancelable: Cancelable
