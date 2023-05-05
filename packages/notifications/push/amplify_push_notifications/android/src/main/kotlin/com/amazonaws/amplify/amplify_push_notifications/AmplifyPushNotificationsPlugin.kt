@@ -185,6 +185,10 @@ class AmplifyPushNotificationsPlugin(
         return
     }
 
+    override fun requestInitialToken() {
+        refreshToken()
+    }
+
     override fun getPermissionStatus(result: PushNotificationsHostApiBindings.Result<PushNotificationsHostApiBindings.GetPermissionStatusResult>) {
         val resultBuilder = PushNotificationsHostApiBindings.GetPermissionStatusResult.Builder()
         val permission = PushNotificationPermission(applicationContext)
