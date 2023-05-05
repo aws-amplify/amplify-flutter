@@ -112,7 +112,10 @@ class AmplifyDataStore extends DataStorePluginInterface {
     }
 
     final apiPlugin = Amplify.API.plugins.firstOrNull;
-    if (apiPlugin != null) {
+    final gqlConfig = config.api?.awsPlugin?.all.values.firstWhereOrNull(
+      (config) => config.endpointType == EndpointType.graphQL,
+    );
+    if (apiPlugin != null && gqlConfig != null) {
       // ignore: invalid_use_of_protected_member
       final authProviders = apiPlugin.authProviders;
       final nativePlugin = _NativeAmplifyApi(authProviders);
