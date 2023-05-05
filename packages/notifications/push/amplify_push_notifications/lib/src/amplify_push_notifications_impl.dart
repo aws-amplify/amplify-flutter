@@ -339,7 +339,7 @@ abstract class AmplifyPushNotifications
     try {
       await _hostApi.requestInitialToken();
       deviceToken =
-          await _bufferedTokenStream.peek.timeout(const Duration(seconds: 2));
+          await _bufferedTokenStream.peek.timeout(const Duration(seconds: 5));
     } on PlatformException catch (error) {
       // the error mostly like is the App doesn't have corresponding
       // capability to request a push notification device token
