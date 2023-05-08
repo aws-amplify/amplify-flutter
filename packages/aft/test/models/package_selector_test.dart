@@ -124,6 +124,7 @@ void main() {
       expect(
         selector.allPaths(repoState),
         matchesPackagePaths([
+          'canaries',
           'packages/amplify/amplify_flutter/example',
           'packages/amplify_core/doc',
           'packages/amplify_datastore/example',
