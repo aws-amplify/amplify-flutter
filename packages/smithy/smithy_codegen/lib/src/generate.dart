@@ -7,9 +7,17 @@ import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/visitors/library_visitor.dart';
 import 'package:smithy_codegen/src/version.dart';
 
+const List<String> _ignoredRules = [
+  'avoid_unused_constructor_parameters',
+  'deprecated_member_use_from_same_package',
+  'non_constant_identifier_names',
+];
+
 /// Header which prefixes all generated files.
-const String header =
-    '// Generated with smithy-dart $packageVersion. DO NOT MODIFY.';
+final String header = '''
+// Generated with smithy-dart $packageVersion. DO NOT MODIFY.
+// ignore_for_file: ${_ignoredRules.join(',')}
+''';
 
 /// The default emitter for codegen operations.
 DartEmitter buildEmitter(Allocator allocator) => DartEmitter(

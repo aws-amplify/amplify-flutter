@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:built_value/serializer.dart';
 import 'package:shelf/shelf.dart';
@@ -30,11 +31,24 @@ abstract class HttpServerBase implements FullSerializer<Stream<List<int>>> {
 
   @override
   Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) =>
-      protocol.serialize(input, specifiedType: specifiedType);
+      Stream.fromFuture(
+        Future.value(
+          protocol.wireSerializer.serialize(
+            input,
+            specifiedType: specifiedType,
+          ),
+        ),
+      );
 
   @override
-  Object? deserialize(Stream<List<int>> input, {FullType? specifiedType}) =>
-      protocol.deserialize(input, specifiedType: specifiedType);
+  Future<Object?> deserialize(
+    Stream<List<int>> output, {
+    FullType? specifiedType,
+  }) async =>
+      protocol.wireSerializer.deserialize(
+        await collectBytes(output),
+        specifiedType: specifiedType,
+      );
 
   Future<Response> handleUncaughtError(Object error, StackTrace st);
 }

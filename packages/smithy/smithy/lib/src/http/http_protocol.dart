@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:aws_common/aws_common.dart';
@@ -12,7 +13,7 @@ import 'package:smithy/smithy.dart';
 /// A protocol for sending requests over HTTP.
 @optionalTypeArgs
 abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
-    implements Protocol<Input, Output, Stream<List<int>>> {
+    implements Protocol<Input, OutputPayload> {
   const HttpProtocol();
 
   /// The content type of the request payload, added to the `Content-Type`
@@ -21,7 +22,7 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
 
   /// Protocol headers
   Map<String, String> get headers => {
-        'Content-Type': contentType,
+        AWSHeaders.contentType: contentType,
       };
 
   Serializers get serializers;
@@ -45,45 +46,49 @@ abstract class HttpProtocol<InputPayload, Input, OutputPayload, Output>
     return AWSHttpClient()..supportedProtocols = SupportedProtocols.http1;
   }
 
-  @override
-  Stream<List<int>> serialize(Object? input, {FullType? specifiedType}) {
-    final Object? payload = input is HasPayload ? input.getPayload() : input;
+  /// Serializes [input] to an HTTP body.
+  Stream<List<int>> serialize(Input input) {
+    final payload = switch (input) {
+      InputPayload _ => input,
+      _ as HasPayload<InputPayload> => input.getPayload(),
+    };
     return switch (payload) {
+      null => const Stream.empty(),
       String _ => Stream.value(utf8.encode(payload)),
       List<int> _ => Stream.value(payload),
       Stream<List<int>> _ => payload,
       _ => Stream.fromFuture(
           Future.value(
             wireSerializer.serialize(
-              input,
-              specifiedType:
-                  specifiedType ?? FullType(Input, [FullType(InputPayload)]),
+              payload,
+              // Even though we're serializing the payload, specify the
+              // [Input] type since the semantics of serializing [Input]
+              // vs [InputPayload] vary. For example, some traits
+              // may only apply to the payload when serializing it as part
+              // of an [Input] struct vs. when directly serialized.
+              //
+              // We further pass the [InputPayloas] so that our built_value plugins
+              // have both types which is helpful when making determinations
+              // about how to, for example, process a List<Object?> which
+              // could represent either a Map or a List.
+              specifiedType: FullType(Input, [FullType(InputPayload)]),
             ),
           ),
         ),
     };
   }
 
-  @override
-  Future<Object?> deserialize(
-    Stream<List<int>> response, {
-    FullType? specifiedType,
-  }) async {
-    specifiedType ??= FullType(OutputPayload);
-    if (specifiedType.root == OutputPayload &&
-        OutputPayload == Stream<List<int>>) {
-      return response;
-    }
-
-    final body = await collectBytes(response);
-    if (specifiedType.root == OutputPayload) {
-      if (OutputPayload == List<int>) {
-        return body;
-      } else if (OutputPayload == String) {
-        return body.isEmpty ? '' : utf8.decode(body);
-      }
-    }
-    return await wireSerializer.deserialize(body, specifiedType: specifiedType);
+  /// Deserializes an HTTP [response] body to an [OutputPayload].
+  Future<OutputPayload> deserialize(Stream<List<int>> response) async {
+    return switch (OutputPayload) {
+      const (Stream<List<int>>) => response,
+      const (List<int>) || const (Uint8List) => await collectBytes(response),
+      const (String) => await utf8.decodeStream(response),
+      _ => await wireSerializer.deserialize(
+          await collectBytes(response),
+          specifiedType: FullType(OutputPayload),
+        ),
+    } as OutputPayload;
   }
 }
 
@@ -101,7 +106,7 @@ mixin HasLabel {
   String labelFor(String key);
 }
 
-abstract interface class HasPayload<Payload> {
+abstract interface class HasPayload<Payload extends Object?> {
   Payload? getPayload();
 }
 

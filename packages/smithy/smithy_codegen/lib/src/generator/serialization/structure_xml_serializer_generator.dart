@@ -178,27 +178,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
           .statement;
     }
     final builder = BlockBuilder();
-    final object = refer('object');
-    final payload = refer('payload');
-    final result = refer('result');
-
-    // Get the payload, since we handle serializing the input & payload types
-    // in the same serializer.
-    final withPayloadVar =
-        serializedMembers.isNotEmpty || !isStructuredSerializer;
-    final payloadSymbol = this.payloadSymbol;
-    if (withPayloadVar) {
-      builder.addExpression(
-        declareFinal('payload').assign(
-          symbol == payloadSymbol
-              ? object.asA(symbol)
-              : object.isA(symbol).conditional(
-                    object.property('getPayload').call([]),
-                    object.asA(payloadSymbol),
-                  ),
-        ),
-      );
-    }
+    final payloadVar = refer('object');
+    final resultVar = refer(r'result$');
 
     // Create a result object to store serialized members.
     final namespace = this.namespace;
@@ -206,7 +187,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         ? '${payloadWireName}Response'
         : payloadWireName;
     builder.addExpression(
-      declareFinal('result').assign(
+      declareFinal(resultVar.symbol!).assign(
         literalList(
           [
             DartTypes.smithy.xmlElementName.constInstance([
@@ -219,29 +200,18 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       ),
     );
 
-    // Check if payload is null at this point
-    if (withPayloadVar) {
-      if (payloadMember?.isNullable(context, shape) ?? false) {
-        builder.statements.add(
-          result.returned.wrapWithBlockIf(payload.equalTo(literalNull), true),
-        );
-      }
-    }
-
+    // Destructure `payload` so that members can be null-checked w/ promotion.
+    builder.statements.add(
+      destructure(payloadSymbol, serializedMembers, payloadVar),
+    );
     Expression ref(MemberShape member) =>
         refer(member.dartName(ShapeType.structure));
 
-    if (serializedMembers.isNotEmpty) {
-      // Destructure `payload` so that members can be null-checked w/ promotion.
-      builder.statements.add(
-        destructure(payloadSymbol, serializedMembers, payload),
-      );
-    }
     for (final member in attributeMembers) {
       final memberRef = ref(member);
       final isNullable = member.isNullable(context, shape);
       builder.statements.add(
-        result
+        resultVar
             .property('add')
             .call([
               DartTypes.xml.xmlAttribute.newInstance([
@@ -268,10 +238,10 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     if (serializableMembers.isEmpty && !isStructuredSerializer) {
       // serializing a primitive
       builder.addExpression(
-        result.property('add').call([
+        resultVar.property('add').call([
           serializerFor(
             payloadMember!,
-            payload,
+            payloadVar,
             memberSymbol: payloadSymbol.unboxed,
           ),
         ]),
@@ -284,7 +254,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       final isNullable = member.isNullable(context, shape);
       final serializer = serializerFor(member, memberRef);
       final memberNs = member.getTrait<XmlNamespaceTrait>();
-      Expression addRes = result;
+      Expression addRes = resultVar;
       if (!isFlattened) {
         addRes = addRes.cascade('add').call([
           DartTypes.smithy.xmlElementName.constInstance([
@@ -305,7 +275,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       );
     }
 
-    builder.addExpression(result.returned);
+    builder.addExpression(resultVar.returned);
 
     return builder.build();
   }

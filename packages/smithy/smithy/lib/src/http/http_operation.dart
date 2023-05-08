@@ -61,10 +61,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
   /// Builds the output from the [payload] and metadata from the HTTP
   /// [response].
   Output buildOutput(
-    // This is (kind of) a hack to allow `OutputPayload` to always be non-null
-    // even if the payload type is nullable. We need the non-null version to
-    // interop with built_value correctly.
-    covariant Object? payload,
+    OutputPayload payload,
     AWSBaseHttpResponse response,
   );
 
@@ -171,7 +168,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       ...request.queryParameters.asMap(),
       ...uri.queryParametersAll,
     };
-    final body = protocol.serialize(input, specifiedType: FullType(Input));
+    final body = protocol.serialize(input);
 
     final awsRequest = AWSStreamedHttpRequest.raw(
       method: AWSHttpMethod.fromString(request.method),
@@ -270,10 +267,7 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
     StackTrace? stackTrace;
     var successCode = this.successCode();
     try {
-      final payload = await protocol.deserialize(
-        response.split(),
-        specifiedType: FullType(OutputPayload),
-      );
+      final payload = await protocol.deserialize(response.split());
       output = switch (payload) {
         Output _ => payload,
         _ => buildOutput(payload, response),
@@ -300,8 +294,9 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
         smithyError =
             errorTypes.firstWhereOrNull((t) => t.shapeId.shape == resolvedType);
       }
-      smithyError ??= errorTypes
-          .singleWhereOrNull((t) => t.statusCode == response.statusCode);
+      smithyError ??= errorTypes.singleWhereOrNull(
+        (t) => t.statusCode == response.statusCode,
+      );
       if (smithyError == null) {
         throw SmithyHttpException(
           statusCode: response.statusCode,
@@ -311,8 +306,8 @@ abstract class HttpOperation<InputPayload, Input, OutputPayload, Output>
       }
       final errorType = smithyError.type;
       final builder = smithyError.builder;
-      final errorPayload = await protocol.deserialize(
-        response.body,
+      final errorPayload = await protocol.wireSerializer.deserialize(
+        await response.bodyBytes,
         specifiedType: FullType(errorType),
       );
       final smithyException =

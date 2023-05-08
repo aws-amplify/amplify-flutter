@@ -9,7 +9,7 @@ class XmlBoolSerializer extends PrimitiveSmithySerializer<bool> {
   const XmlBoolSerializer() : super('Bool');
 
   @override
-  Iterable<Type> get types => [bool];
+  Iterable<Type> get types => const [bool];
 
   @override
   bool deserialize(

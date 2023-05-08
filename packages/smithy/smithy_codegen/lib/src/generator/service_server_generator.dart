@@ -134,9 +134,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
     final payloadSymbol =
         operation.inputShape(context).httpPayload(context).symbol;
     final payload = refer(operation.protocolField)
+        .property('wireSerializer')
         .property('deserialize')
         .call([
-          awsRequest.property('split').call([]),
+          awsRequest.property('bodyBytes').awaited,
         ], {
           'specifiedType': payloadSymbol.fullType(),
         })
@@ -201,13 +202,16 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
 
     yield declareFinal('body')
         .assign(
-          refer(operation.protocolField).property('serialize').call([
+          refer(operation.protocolField)
+              .property('wireSerializer')
+              .property('serialize')
+              .call([
             refer('output')
           ], {
             'specifiedType': operation.outputSymbol(context).fullType([
               operation.outputShape(context).httpPayload(context).symbol,
             ]),
-          }),
+          }).awaited,
         )
         .statement;
     yield DartTypes.shelf.response
@@ -246,7 +250,10 @@ class ServiceServerGenerator extends LibraryGenerator<ServiceShape> {
       }
       yield declareFinal('body')
           .assign(
-            refer(operation.protocolField).property('serialize').call([
+            refer(operation.protocolField)
+                .property('wireSerializer')
+                .property('serialize')
+                .call([
               refer('e')
             ], {
               'specifiedType': errorSymbol.fullType([

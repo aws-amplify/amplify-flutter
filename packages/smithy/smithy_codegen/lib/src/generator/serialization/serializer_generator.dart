@@ -70,6 +70,7 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
     Iterable<MemberShape> members,
     Reference variable,
   ) {
+    if (members.isEmpty) return const Code('');
     return Code.scope(
       (ref) =>
           'final ${ref(symbol)}(${members.map((m) => ':${m.dartName(shape.getType())}').join(', ')}) '
@@ -129,7 +130,7 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
             ),
             Parameter(
               (p) => p
-                ..type = DartTypes.core.object.boxed
+                ..type = serializedSymbol
                 ..name = 'object',
             ),
           ])
@@ -235,5 +236,3 @@ abstract class SerializerGenerator<S extends NamedMembersShape>
     }).asA(memberSymbol);
   }
 }
-
-extension on Expression {}

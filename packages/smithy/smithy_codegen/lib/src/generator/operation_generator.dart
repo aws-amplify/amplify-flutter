@@ -254,8 +254,7 @@ class OperationGenerator extends LibraryGenerator<OperationShape>
           .code,
       const Code(') {'),
       _inputHttpHeader(
-        literalString(headers.trait.value)
-            .operatorAdd(refer('entry').property('key')),
+        literalString('${headers.trait.value}\${entry.key}'),
         valueTarget,
         refer('entry').property('value'),
         isNullable: valueTarget.isNullable(context, mapShape),
