@@ -20,7 +20,6 @@ platforms:
 
 dependencies:
   amplify_core: ">=1.0.0 <1.1.0"
-  amplify_datastore_plugin_interface: ">=1.0.0 <1.1.0"
   amplify_secure_storage: ">=0.3.0+3 <0.4.0"
   aws_common: ">=0.4.2+4 <0.5.0"
   collection: ^1.15.0
