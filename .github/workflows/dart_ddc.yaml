@@ -77,5 +77,5 @@ jobs:
 
       - name: Run Tests
         if: "always() && steps.bootstrap.conclusion == 'success'"
-        run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }} --exclude-tags=no-ddc
+        run: dart run build_runner test --delete-conflicting-outputs -- -p ${{ matrix.browser }}
         working-directory: ${{ inputs.working-directory }}
